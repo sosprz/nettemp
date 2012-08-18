@@ -19,6 +19,7 @@ REQUIREMENTS:
     rrdrool
     cron
     bash
+    lighttpd
     rw /dev/ttyUSBX, /dev/ttySX  or add to group "dialout"
 
 default passowrds:
