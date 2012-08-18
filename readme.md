@@ -1,4 +1,4 @@
-NETTEMP.PL
+www.nettemp.pl
 
 INSTALL:
 
