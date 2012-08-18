@@ -1,7 +1,10 @@
 www.nettemp.pl
 
 INFO:
-    automatic installator for rasbberry pi soon
+
+    install script for raspberry pi, download and run like root, script will install all requirements like php, www.
+    
+    https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
 
 
 INSTALL:
