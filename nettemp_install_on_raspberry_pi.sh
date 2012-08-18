@@ -5,14 +5,10 @@
 
 echo "update distro"
 apt-get update
+apt-get upgrade
 
 echo "install git-core"
 apt-get install git-core
-
-echo "update rpi"
-setupcon
-wget http://goo.gl/1BOfJ -O /usr/bin/rpi-update && chmod +x /usr/bin/rpi-update
-rpi-update
 
 echo "install packages"
 aptitude install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp

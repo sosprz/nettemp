@@ -29,7 +29,7 @@ REQUIREMENTS:
     cron
     bash
     lighttpd
-    rw /dev/ttyUSBX, /dev/ttySX  or add to group "dialout"
+    rw /dev/ttyUSBX, /dev/ttySX  or add user to group "dialout"
 
 
 
