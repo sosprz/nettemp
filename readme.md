@@ -1,13 +1,19 @@
 www.nettemp.pl
 
-INFO:
+AUTOMATIC INSTALL:
 
     install script for raspberry pi, download and run like root, script will install all requirements like php, www.
     
     https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
 
+USERS:
 
-INSTALL:
+    admin admin - access for all
+    temp temp - access only for sensors settings
+
+
+
+MANUAL INSTALL:
 
 add to crontab :
 
@@ -25,10 +31,6 @@ REQUIREMENTS:
     lighttpd
     rw /dev/ttyUSBX, /dev/ttySX  or add to group "dialout"
 
-default passowrds:
-
-    admin admin - access for all
-    temp temp - access only for sensors settings
 
 
 CHANGELOG:
