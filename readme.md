@@ -1,5 +1,9 @@
 www.nettemp.pl
 
+INFO:
+    automatic installator for rasbberry pi soon
+
+
 INSTALL:
 
 add to crontab :
