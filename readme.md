@@ -2,7 +2,8 @@ NETTEMP.PL
 
 INSTALL:
 add to crontab :
-*/10 * * * *    /var/www/nettemp/scripts/temp (read from sensors after 10 min - dont change this)
+*/10 * * * *    /var/www/nettemp/scripts/temp (read from sensors after 10 min - dont change this now)
+
 1 * * * *       /var/www/nettemp/scripts/mail (inform-alarm after 1 hour - You can change this) 
 
 REQUIREMENTS:
