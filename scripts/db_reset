@@ -1,0 +1,56 @@
+#!/bin/bash
+
+rm -rf ../dbf/nettemp.db
+rm -rf ../img/view1/*                                           
+rm -rf ../img/instant/*                                         
+rm -rf ../scripts/rrd/*
+
+sqlite3 ../dbf/nettemp.db  "CREATE TABLE sensors (
+  id INTEGER PRIMARY KEY,
+  name varchar(10) NOT NULL,
+  rom char(32) NOT NULL,
+  tmp float NOT NULL,
+  tmp_min float NOT NULL,
+  tmp_max float NOT NULL,
+  alarm char(3) NOT NULL
+  );"
+ 
+sqlite3 ../dbf/nettemp.db "CREATE TABLE recipient (
+  id INTEGER PRIMARY KEY,
+  name TEXT,
+  mail TEXT,
+  tel NUMERIC,
+  mail_alarm TEXT,
+  sms_alarm TEXT
+  );"
+ 
+sqlite3 ../dbf/nettemp.db "CREATE TABLE users (
+  id INTEGER PRIMARY KEY,
+  login UNIQUE, 
+  password TEXT, 
+  perms TEXT
+  );"
+
+sqlite3 ../dbf/nettemp.db "CREATE TABLE mail_settings (
+  id INTEGER PRIMARY KEY,
+  host UNIQUE,
+  port UNIQUE,
+  user UNIQUE,
+  password UNIQUE,
+  address UNIQUE
+  );" 
+
+sqlite3 ../dbf/nettemp.db "CREATE TABLE device (
+   id INTEGER PRIMARY KEY,
+   temp UNIQUE
+  );" 
+
+
+sqlite3 ../dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')"
+sqlite3 ../dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('temp', 'd969831eb8a99cff8c02e681f43289e5d3d69664', 'ops')"
+sqlite3 ../dbf/nettemp.db "INSERT INTO device (temp) VALUES ('no dev')"
+
+
+chmod 777 ../dbf/nettemp.db
+echo "database restarted"
+

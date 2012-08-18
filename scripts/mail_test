@@ -1,0 +1,23 @@
+#! /bin/bash 
+
+dir=/var/www/nettemp
+
+reci=$1
+
+date2=`date +%Y-%m-%d-%H:%M`
+get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }'`
+
+host=`sqlite3 $dir/dbf/nettemp.db "SELECT host FROM mail_settings"`
+port=`sqlite3 $dir/dbf/nettemp.db "SELECT port FROM mail_settings"`
+user=`sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
+password=`sqlite3 $dir/dbf/nettemp.db "SELECT password FROM mail_settings"`
+address=`sqlite3 $dir/dbf/nettemp.db "SELECT address FROM mail_settings"`
+
+echo -e "From: $address\nTo: $reci\nSubject: test from nettemp $date2\nThis is test mail form nettemp device"  |msmtp --host=$host --port=$port --auth=on --user=$user \
+--passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
+-f $address --tls=on --tls-starttls=on --tls-certcheck=off $reci
+
+
+
+
+
