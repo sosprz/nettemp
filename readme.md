@@ -1,33 +1,9 @@
-CHANGELOG:
-
-TO DO:
-
-dodac czy alarmowac w poszczeólne dni
-dodac do bazy pomieszczenia, miejsca
-dodanie ignorowania alarmu przez jakis czas
-poprawa wyszukiwania katalogu nettemp
-kiedy wykonal sie prawidlowy odczyt i alarm jak mina za dlugi czas
-dodanie kiedy nastapil ostatni odczyt
-wykresy po koleji hour day
-
-#reset bazy ze skryptu
-#dodanie obslugi seriala
-#dodanie wyswietlania jakie urzadzenie zostalo wykryte
-#poprawic css
-#tematy z bazy
-
-
 NETTEMP.PL
 
 INSTALL:
 add to crontab :
 */10 * * * *    /var/www/nettemp/scripts/temp (read from sensors after 10 min - dont change this)
 1 * * * *       /var/www/nettemp/scripts/mail (inform-alarm after 1 hour - You can change this) 
-
-add to file config_nettemp.php,  where You placed www dir for nettemp:
-example:
-/var/www/nettemp
-
 
 REQUIREMENTS:
 
@@ -42,5 +18,16 @@ default passowrds:
 admin admin - access for all
 temp temp - access only for sensors settings
 
+CHANGELOG:
+
+TO DO:
+
+dodac czy alarmowac w poszczeólne dni
+dodac do bazy pomieszczenia, miejsca
+dodanie ignorowania alarmu przez jakis czas
+poprawa wyszukiwania katalogu nettemp
+kiedy wykonal sie prawidlowy odczyt i alarm jak mina za dlugi czas
+dodanie kiedy nastapil ostatni odczyt
+wykresy po koleji hour day
 
 
