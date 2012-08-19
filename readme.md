@@ -34,17 +34,17 @@ REQUIREMENTS:
 
 
 CHANGELOG:
+    added events loging to www
 
 
 TO DO:
     
-    dodac logowanie zdazen 
+     
     dodac czy alarmowac w poszczeólne dni
     dodac do bazy pomieszczenia, miejsca
     dodanie ignorowania alarmu przez jakis czas
     poprawa wyszukiwania katalogu nettemp
     kiedy wykonal sie prawidlowy odczyt i alarm jak mina za dlugi czas
-    dodanie kiedy nastapil ostatni odczyt
     wykresy po koleji hour day
     
 
