@@ -2,8 +2,6 @@
 <?php
 echo "Table users<br>";
 echo "<table border=1>"; 
-//$db = new SQLite3('./dbf/nettemp.db');
-//$r = $db->query("select * from users ");
 $db1 = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db1->prepare("select * from users ");
 $sth->execute();
@@ -18,7 +16,7 @@ foreach ($result as $a)  {
   echo "<tr>"; 
         echo "<td>".$a['id']."</td>"; 
         echo "<td>".$a['login']."</td>"; 
- 		  echo "<td>".$a['password']."</td>"; 
+        echo "<td></td>"; 
         echo "<td>".$a['perms']."</td>"; 
   echo "</tr>"; }
 echo "</table>"; 
@@ -95,7 +93,7 @@ foreach ($result as $a)  {
         echo "<td>".$a['user']."</td>"; 
 		  echo "<td>".$a['host']."</td>";
 		    echo "<td>".$a['port']."</td>"; 
-		  echo "<td>".$a['password']."</td>";
+		    echo "<td></td>"; 
   echo "</tr>"; }
 echo "</table>"; 
 ?>

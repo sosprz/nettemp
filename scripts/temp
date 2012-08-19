@@ -6,7 +6,7 @@
 dir=/var/www/nettemp
 date=`date +%y%m%d-%H%M`
 
-echo "$date script temp - run" >> $dir/scripts/tmp/log.txt
+echo "$date script temp - read sensors" >> $dir/scripts/tmp/log.txt
 
 db=`ls $dir/db/`
 for name in $db
