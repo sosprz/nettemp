@@ -53,5 +53,5 @@ sqlite3 ../dbf/nettemp.db "INSERT INTO device (temp) VALUES ('no dev')"
 
 
 chmod 777 ../dbf/nettemp.db
-echo "database restarted"
+echo "database restarted" >> ../scripts/tmp/log.txt
 

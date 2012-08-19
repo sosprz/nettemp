@@ -5,6 +5,7 @@
 dir=/var/www/nettemp
 
 rm -rf $dir/scripts/tmp/.digitemprc
+echo "Deleted .digitemprc" >> $dir/scripts/tmp/log.txt
 
 # DS9097U na USB - meraprojekt new
 for i in 0 1 2 3 4 5 6 7 8
@@ -17,6 +18,7 @@ for i in 0 1 2 3 4 5 6 7 8
 	#echo "DS9097U" > $dir/scripts/tmp/device
 	#sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (temp) VALUES ('DS9097U')"
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET temp='DS9097U'"
+	echo "Discovered DS9097U" >> $dir/scripts/tmp/log.txt
 	else
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET temp='no dev'"
 	fi
@@ -29,6 +31,7 @@ if [ ! -e $dir/scripts/tmp/.digitemprc ]; then
     #echo "DS2490" > $dir/scripts/tmp/device
     #sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (temp) VALUES ('DS2490')"
     sqlite3 $dir/dbf/nettemp.db "UPDATE device SET temp='DS2490'"
+    echo "Discovered DS2490" >> $dir/scripts/tmp/log.txt
     else
     sqlite3 $dir/dbf/nettemp.db "UPDATE device SET temp='no dev'"
     fi
@@ -43,9 +46,8 @@ if [ ! -e $dir/scripts/tmp/.digitemprc ]; then
 	    fi
 	done
     if [ -e $dir/scripts/tmp/.digitemprc ]; then 
-	#echo "DS9097" > $dir/scripts/tmp/device
-	#sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (temp) VALUES ('DS9097')"
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET temp='DS9097'"
+	echo "Discovered DS9097" >> $dir/scripts/tmp/log.txt
 	else
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET temp='no dev'"
     fi

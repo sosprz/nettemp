@@ -36,6 +36,7 @@ function timedRefresh(timeoutPeriod) {
    	   <li><a href='alarms'><span>Alarms</span></a></li>
    		<li><a href='notification'><span>Notification</span></a></li>
    		<li><a href='mail'><span>Mail settings</span></a></li>
+   		<li><a href='log'><span>Log</span></a></li>
    		<li><a href='password'><span>Password</span></a></li>
    		<?php } ?>
  <?php if ($numRows1 == 1 && ( $perms == "adm" )) { ?>
@@ -60,6 +61,7 @@ case 'diened': include('include/diened.php'); break;
 case 'diag': include('include/diag.php'); break;
 case 'db_reset': include('include/admin_db_reset.php'); break;
 case 'password': include('include/login_change_pass.php'); break;
+case 'log': include('include/log.php'); break;
 case 'info': include('include/info.php'); break;
 }
 ?>
