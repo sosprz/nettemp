@@ -4,6 +4,9 @@
 #dir=`cat $dir0/config_nettemp.php |grep dir | cut -c 5-`
 
 dir=/var/www/nettemp
+date=`date +%y%m%d-%H%M`
+
+echo "$date script temp - run" >> $dir/scripts/tmp/log.txt
 
 db=`ls $dir/db/`
 for name in $db

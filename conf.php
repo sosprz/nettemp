@@ -1,3 +1,3 @@
 <?php
-$global_dir='/var/www/nettemp';
+$global_dir='/var/www/nettemp/site/nettemp';
 ?>

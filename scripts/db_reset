@@ -1,5 +1,7 @@
 #!/bin/bash
 
+date=`date +%y%m%d-%H%M`
+
 rm -rf ../dbf/nettemp.db
 rm -rf ../img/view1/*                                           
 rm -rf ../img/instant/*                                         
@@ -53,5 +55,5 @@ sqlite3 ../dbf/nettemp.db "INSERT INTO device (temp) VALUES ('no dev')"
 
 
 chmod 777 ../dbf/nettemp.db
-echo "database restarted" >> ../scripts/tmp/log.txt
+echo "$date database restarted" >> tmp/log.txt
 
