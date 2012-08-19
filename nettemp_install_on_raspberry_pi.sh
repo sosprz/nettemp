@@ -20,7 +20,7 @@ lighty-enable-mod fastcgi-php
 
 echo "changing lighthttpd conf"
 sed -i -e 's/#mod_rewrite/mod_rewrite/g'  /etc/lighttpd/lighttpd.conf
-sed -i -e 's/server.document-root        = \"/var/www\"/server.document-root        = \"/var/www/nettemp\"/g'  /etc/lighttpd/lighttpd.conf	
+sed -i -e 's/server.document-root        = \"\/var\/www\"/server.document-root        = \"\/var\/www\/nettemp\"/g'  /etc/lighttpd/lighttpd.conf	
 echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1\" )" >> /etc/lighttpd/lighttpd.conf
 
 
