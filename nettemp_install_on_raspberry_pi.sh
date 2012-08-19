@@ -8,10 +8,10 @@ apt-get update
 apt-get upgrade
 
 echo "install git-core"
-apt-get install git-core
+apt-get -y install git-core
 
 echo "install packages"
-aptitude install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp
+apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp
 
 
 echo "enable module: fastcgi-php"
