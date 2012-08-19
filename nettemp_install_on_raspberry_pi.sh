@@ -2,11 +2,11 @@
 # nettemp rpi installer
 # nettemp.pl
 # 
-
+# 2012.08.19
 
 echo "update distro"
 apt-get update
-apt-get upgrade
+apt-get -y upgrade
 
 echo "install git-core"
 apt-get -y install git-core
@@ -42,6 +42,7 @@ update-rc.d ntp enable
 service ntp start
 
 update-rc.d lighttpd enable
+service lighttpd stop
 service lighttpd start
 
 update-rc.d cron enable

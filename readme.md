@@ -37,7 +37,8 @@ CHANGELOG:
 
 
 TO DO:
-
+    
+    dodac logowanie zdazen 
     dodac czy alarmowac w poszczeólne dni
     dodac do bazy pomieszczenia, miejsca
     dodanie ignorowania alarmu przez jakis czas
