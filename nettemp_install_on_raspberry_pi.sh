@@ -1,3 +1,4 @@
+#/bin/bash 
 # nettemp rpi installer
 # nettemp.pl
 # 
