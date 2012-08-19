@@ -52,8 +52,10 @@ if [[ -s $plik ]]; then
 	for i in $nr; do
 		send_sms $i
 		sleep 5
+		echo "$date script sms - send sms to $i " >> $dir/scripts/tmp/log.txt
 	done
 	rm -rf $plik
+	
 fi
 
 

@@ -63,6 +63,7 @@ if [ $send_mail == on ]; then
 	        	  		cat $dir/$dirs/$kolejka |msmtp --host=$host --port=$port --auth=on --user=$user \
 	        	  		--passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
 	        	  		-f $address --tls=on --tls-starttls=on --tls-certcheck=off $get_mail                    
+	        	  		echo "$date script mail - send mail to $get_mail" >> $dir/scripts/tmp/log.txt
 						    rm $dir/$dirs/$kolejka
 			    else rm $dir/$dirs/$kolejka
 			fi

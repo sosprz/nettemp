@@ -16,7 +16,7 @@ address=`sqlite3 $dir/dbf/nettemp.db "SELECT address FROM mail_settings"`
 echo -e "From: $address\nTo: $reci\nSubject: test from nettemp $date2\nThis is test mail form nettemp device"  |msmtp --host=$host --port=$port --auth=on --user=$user \
 --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
 -f $address --tls=on --tls-starttls=on --tls-certcheck=off $reci
-
+echo "$date script mail_test - send test mail to $reci" >> $dir/scripts/tmp/log.txt
 
 
 
