@@ -27,9 +27,11 @@ echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1\" )"
 echo "downloading nettemp source"
 cd /var/www
 git clone https://github.com/sosprz/nettemp
+
+echo "permisions"
 chown -R root.www-data /var/www/nettemp
 chmod -R 775 /var/www/nettemp
-
+gpasswd -a www-data dialout
 
 echo "add cron"
 echo "*/10 * * * * /var/www/nettemp/scripts/temp" >> /var/spool/cron/crontabs/root

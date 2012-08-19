@@ -1,4 +1,5 @@
 <?php
+include('conf.php');
 session_start();
 	   include('include/login_check.php');
 		if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { 
@@ -113,8 +114,8 @@ if(!empty($usun_rom_nw) && ($_POST['usun_nw2'] == "usun_nw3")) {   // 2x post ab
 
 <?php	// skanowanie generowanie nowego .digitemprc
 	if ($_POST['scan'] == "Scan"){
-	 system("sh scripts/scan");	
-	 system("chmod 777 scripts/tmp/.digitemprc");
+	 exec("sh $global_dir/scripts/scan");	
+	 system("chmod 777 $global_dir/scripts/tmp/.digitemprc");
 	 header("location: " . $_SERVER['REQUEST_URI']);
 	 exit();
 	 } 
@@ -122,7 +123,7 @@ if(!empty($usun_rom_nw) && ($_POST['usun_nw2'] == "usun_nw3")) {   // 2x post ab
 	 
 	 
 <?php 	//wczytanie digitemrc
-	$file_digi = "scripts/tmp/.digitemprc";
+	$file_digi = "$global_dir/scripts/tmp/.digitemprc";
 	$file_digi2 = file($file_digi);
 	foreach($file_digi2 as $line_digi) {
 	if(strstr($line_digi,"ROM")) { 
