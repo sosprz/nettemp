@@ -1,8 +1,10 @@
 #! /bin/bash 
 
 #dir0=`find / -name config_nettemp.php 2> /dev/null | sed 's/..................$//' | cut -c 1-`
-#dir=`cat $dir0/config_nettemp.php |grep dir | cut -c 5-`
+#dir=`cat config_nettemp.php |grep dir | cut -c 5-`
+
 dir=/var/www/nettemp
+
 date=`date +%y%m%d-%H%M`
 
 rm -rf $dir/scripts/tmp/.digitemprc
