@@ -68,8 +68,10 @@ case 'info': include('include/info.php'); break;
 
 </div>
 
-	<div id="footer">www.nettemp.pl</div>
+	<div id="footer">www.nettemp.pl
 	</div>
+</div>
+
 </body>
 </html>
 
