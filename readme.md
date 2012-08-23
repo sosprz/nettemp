@@ -30,7 +30,7 @@ REQUIREMENTS:
     bash
     lighttpd
     digipemp
-    rw /dev/ttyUSBX, /dev/ttySX  or add user to group "dialout" gpassswd -a www-data dialout
+    rw /dev/ttyUSBX, /dev/ttySX  or add user to group "dialout", gpassswd -a www-data dialout
 
 CHANGELOG:
 
