@@ -2,16 +2,16 @@ www.nettemp.pl
 
 AUTOMATIC INSTALL:
 
-    install script for raspberry pi, download and run like root, script will install all requirements like php, www.
+    install script for raspberry pi:
+
+    download and run like root, script will install all requirements like php, www.
     
-    https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
+    wget https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
 
 USERS:
 
     admin admin - access for all
     temp temp - access only for sensors settings
-
-
 
 MANUAL INSTALL:
 
@@ -29,25 +29,18 @@ REQUIREMENTS:
     cron
     bash
     lighttpd
-    rw /dev/ttyUSBX, /dev/ttySX  or add user to group "dialout"
-
-
+    digipemp
+    rw /dev/ttyUSBX, /dev/ttySX  or add user to group "dialout" gpassswd -a www-data dialout
 
 CHANGELOG:
-    added events loging to www
 
+    added events loging to www
 
 TO DO:
     
-     
-    dodac czy alarmowac w poszczeólne dni
-    dodac do bazy pomieszczenia, miejsca
-    dodanie ignorowania alarmu przez jakis czas
-    poprawa wyszukiwania katalogu nettemp
-    kiedy wykonal sie prawidlowy odczyt i alarm jak mina za dlugi czas
-    wykresy po koleji hour day
-    
-
-
-
-
+    Integration with w1 kernel module instead digitemp
+    Calendar for alarms
+    Add map for sensors
+    Ignore alarm for some time
+    Check for good reading sensor
+    Graph sorting
