@@ -45,6 +45,6 @@ update-rc.d lighttpd enable
 service lighttpd stop
 service lighttpd start
 
-update-rc.d cron enable
+update-rc.d cron defaults
 service cron start
 
