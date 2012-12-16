@@ -2,6 +2,10 @@
 
 dir=/var/www/nettemp
 
+date=`date +%y%m%d-%H%M`
+echo "$date view generated" >> $dir/tmp/log.txt
+
+
 rm -rf $dir/img/view1/*.png
 col0="#0000ff"
 col1="#FF0000"
