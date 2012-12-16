@@ -1,0 +1,67 @@
+#!/bin/bash -x
+
+#dir0=`find / -name config_nettemp.php 2> /dev/null | sed 's/...................$//' | cut -c 1-`
+#dir=`cat $dir0/config_nettemp.php |grep dir | cut -c 5-`
+
+dir=/var/www/nettemp
+
+dev=/dev/ttyUSB1
+nr=`sqlite3 $dir/dbf/nettemp.db "SELECT tel FROM recipient WHERE sms_alarm='yes'" | awk '{ printf " "$1 }'`
+date=`date +%Y%m%d%H%M`
+
+
+check_alarm() {
+for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'"| sed 's/ /_/g'`; 
+    do
+	    name=`echo $line | awk 'BEGIN {FS="|"}{print $2}'`
+	    tmp=`echo $line | awk 'BEGIN {FS="|"}{print $4}'`
+	    tmp_min=`echo $line | awk 'BEGIN {FS="|"}{print $5}'`
+	    tmp_max=`echo $line | awk 'BEGIN {FS="|"}{print $6}'`
+	    plik=$dir/scripts/tmp/sms/temp-$date
+	    
+
+	if [ -n "$tmp_max" ]; then
+	    #cr_ge=`echo "$tmp >= $tmp_max" | bc` # OLD BC
+	    cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
+	    if [ $cr_ge == 1 ]; then  echo "high temperature $name $tmp C" >> $plik; fi
+	fi
+	if [ -n "$tmp_min" ]; then
+	    #cr_le=`echo "$tmp <= $tmp_min" | bc` #OLD BC
+	    cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
+	    if [ $cr_le == 1 ]; then  echo "low temperature $name $tmp C" >> $plik; fi
+	fi
+done 
+}
+
+send_sms()
+{
+echo -e "AT \015" > $dev
+echo -e "AT+CMGF=1 \015" > $dev
+echo -e  "AT+CMGS=\"$1\" \015" > $dev
+sleep 2
+echo -e -n "`cat $plik`" > $dev
+echo -e  "\032" > $dev
+}
+
+
+check_alarm
+
+if [[ -s $plik ]]; then
+
+	echo "pelny"
+	for i in $nr; do
+		send_sms $i
+		sleep 5
+		echo "$date script sms - send sms to $i " >> $dir/scripts/tmp/log.txt
+	done
+	rm -rf $plik
+	
+fi
+
+
+
+
+
+
+
+

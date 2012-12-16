@@ -32,11 +32,14 @@ echo "permisions"
 chown -R root.www-data /var/www/nettemp
 chmod -R 775 /var/www/nettemp
 gpasswd -a www-data dialout
+chmod +s /var/www/nettemp/modules/logoterma/relay
+
 
 echo "add cron"
-echo "*/10 * * * * /var/www/nettemp/scripts/temp" >> /var/spool/cron/crontabs/root
-echo "1 * * * * /var/www/nettemp/scripts/mail" >> /var/spool/cron/crontabs/root
-echo "1 * * * * /var/www/nettemp/scripts/sms" >> /var/spool/cron/crontabs/root
+echo "*/10 * * * * /var/www/nettemp/modules/sensors/read" >> /var/spool/cron/crontabs/root
+echo "1 * * * * /var/www/nettemp/modules/mail/mail" >> /var/spool/cron/crontabs/root
+echo "*/2 * * * * /var/www/nettemp/modules/view/view_gen" >> /var/spool/cron/crontabs/root
+echo "# 1 * * * * /var/www/nettemp/modules/sms/sms" >> /var/spool/cron/crontabs/root
 
 update-rc.d ntp enable
 service ntp start

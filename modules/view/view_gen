@@ -1,0 +1,52 @@
+#! /bin/bash 
+
+dir=/var/www/nettemp
+
+rm -rf $dir/img/view1/*.png
+col0="#0000ff"
+col1="#FF0000"
+col2="#008000"
+col3="#FFFF00"
+col4="#663300"
+col5="#FF3399"
+col6="#00FFFF"
+col7="#0000ff"
+
+for rrd_time0 in hour day week month year
+do
+    if [ -n "rrd_$rrd_time0" ]; then 
+    export rrd_$rrd_time0="`sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE $rrd_time0='on' "`"
+    fi
+done
+
+for time in hour day week month year
+do
+varinvar=rrd_$time
+if [ -n "${!varinvar}" ]; then 
+
+    i=1
+    array[0]="rrdtool graph $dir/img/view1/$time.png 
+    --imgformat PNG 
+    --title=\"$time\" 
+    --width 894 
+    --height 300 
+    --vertical-label=\"Degrees C\" 
+    -s -1$time "
+
+    for rrd in ${!varinvar}
+    do
+    name=`sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$rrd'"`
+    array[$i]="DEF:temp$i=$dir/db/$rrd.rrd:temp:AVERAGE 
+    LINE2:temp$i\$col$i:\"$name\" 
+    GPRINT:temp$i:LAST:\"cur\: %2.2lf\" 
+    GPRINT:temp$i:MIN:\"min\: %2.2lf\" 
+    GPRINT:temp$i:MAX:\"max\: %2.2lf\" 
+    GPRINT:temp$i:AVERAGE:\"ave\: %2.2lf \" 
+    COMMENT:\"\n\" "
+    let i=i+1
+    done
+    
+    eval ${array[@]} 
+fi
+unset array
+done

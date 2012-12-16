@@ -1,0 +1,81 @@
+#! /bin/bash -x 
+
+# for debug
+#create on/off
+create_mail=on
+#send on/off
+send_mail=on
+
+dir=/var/www/nettemp
+
+dirs=/tmp/messages
+date=`date +%Y%m%d%H%M`
+date2=`date +%Y%m%d-%H:%M`
+get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }'`
+
+host=`sqlite3 $dir/dbf/nettemp.db "SELECT host FROM mail_settings"`
+port=`sqlite3 $dir/dbf/nettemp.db "SELECT port FROM mail_settings"`
+user=`sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
+password=`sqlite3 $dir/dbf/nettemp.db "SELECT password FROM mail_settings"`
+address=`sqlite3 $dir/dbf/nettemp.db "SELECT address FROM mail_settings"`
+
+
+
+
+if [ $create_mail == on ]; then
+    for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'"| sed 's/ /_/g'`; 
+    do
+	    name=`echo $line | awk 'BEGIN {FS="|"}{print $2}'`
+	    tmp=`echo $line | awk 'BEGIN {FS="|"}{print $4}'`
+	    tmp_min=`echo $line | awk 'BEGIN {FS="|"}{print $5}'`
+	    tmp_max=`echo $line | awk 'BEGIN {FS="|"}{print $6}'`
+	    plik=$dir/$dirs/temp-$date
+	    touch $plik
+	if [ ! -s $plik  ]; then 
+	    echo "From: $address" > $plik
+	    echo "To: $get_mail" >> $plik
+	    echo "Subject: $get_mail_subject $date2" >> $plik
+	    fi
+
+	if [ -n "$tmp_max" ]; then
+	    #cr_ge=`echo "$tmp >= $tmp_max" | bc` #OLD BC
+	    cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
+	    if [ $cr_ge == 1 ]; then  echo "high temperature $name $tmp C" >> $plik; fi
+	fi
+	if [ -n "$tmp_min" ]; then
+	    #cr_le=`echo "$tmp <= $tmp_min" | bc` #OLD BC
+	    cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
+	    if [ $cr_le == 1 ]; then  echo "low temperature $name $tmp C" >> $plik; fi
+	fi
+    done 
+
+fi #on_off
+
+
+if [ $send_mail == on ]; then  
+    pliki_kolejka=`ls $dir/$dirs |wc -l`
+	    if [ $pliki_kolejka -gt 0  ] ; then
+		    dir_ls=`ls $dir/$dirs/`
+		for kolejka in $dir_ls  
+		    do
+	        	if [ `cat $dir/$dirs/$kolejka |wc -l` -gt 3 ] ; then 
+	        	    chmod 777 $dir/$dirs/$kolejka
+	        	  		cat $dir/$dirs/$kolejka |msmtp --host=$host --port=$port --auth=on --user=$user \
+	        	  		--passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
+					--from=default --tls=on --tls-starttls=on --tls-certcheck=on \
+					 --tls-trust-file=/etc/ssl/certs/ca-certificates.crt  \
+					 --timeout=10 --debug $get_mail
+
+	        	                 
+	        	  		echo "$date script mail - send mail to $get_mail" >> $dir/tmp/log.txt
+						    rm $dir/$dirs/$kolejka
+			    else rm $dir/$dirs/$kolejka
+			fi
+		    done
+		else 
+        echo "Brak pliku w $pliki_kolejka"
+	    fi
+fi #on_off
+
+
+

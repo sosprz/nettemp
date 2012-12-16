@@ -1,0 +1,14 @@
+121216-1038 database restarted
+121216-1050 script temp - read sensors
+121216-1100 script temp - read sensors
+121216-1106 script temp - read sensors
+121216-1110 script temp - read sensors
+121216-1120 script temp - read sensors
+121216-1130 script temp - read sensors
+121216-1140 script temp - read sensors
+121216-1150 script temp - read sensors
+121216-1200 script temp - read sensors
+121216-1210 script temp - read sensors
+121216-1220 script temp - read sensors
+121216-1230 script temp - read sensors
+121216-1240 script temp - read sensors

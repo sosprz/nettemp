@@ -28,6 +28,7 @@ function timedRefresh(timeoutPeriod) {
 <ul> 
 	<li><a href='status'><span>Status</span></a></li>
 	<li><a href='view'><span>View</span></a></li>
+	<li><a href='logoterma'><span>Logoterma</spam></a></li>
       <?php
 	session_start();
 	  include('include/login_check.php');
@@ -51,18 +52,19 @@ function timedRefresh(timeoutPeriod) {
 <?php  
 switch ($id)
 { 
-default: case '$id': include('include/status.php'); break;
-case 'alarms': include('include/alarms.php'); break;
-case 'notification': include('include/notification.php'); break;
-case 'mail': include('include/mail.php'); break;
-case 'sensors': include('include/sensors.php'); break;
-case 'view': include('include/view.php'); break;
+default: case '$id': include('modules/status/html/status.php'); break;
+case 'alarms': include('modules/alarms/html/alarms.php'); break;
+case 'notification': include('modules/notification/html/notification.php'); break;
+case 'mail': include('modules/mail/html/mail.php'); break;
+case 'sensors': include('modules/sensors/html/sensors.php'); break;
+case 'view': include('modules/view/html/view.php'); break;
 case 'diened': include('include/diened.php'); break;
-case 'diag': include('include/diag.php'); break;
+case 'diag': include('modules/diag/html/diag.php'); break;
 case 'db_reset': include('include/admin_db_reset.php'); break;
 case 'password': include('include/login_change_pass.php'); break;
-case 'log': include('include/log.php'); break;
+case 'log': include('modules/log/html/log.php'); break;
 case 'info': include('include/info.php'); break;
+case 'logoterma': include('modules/logoterma/html/logoterma.php'); break;
 }
 ?>
 
