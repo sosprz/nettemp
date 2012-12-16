@@ -16,6 +16,9 @@ col5="#FF3399"
 col6="#00FFFF"
 col7="#0000ff"
 
+#add more colors
+
+
 for rrd_time0 in hour day week month year
 do
     if [ -n "rrd_$rrd_time0" ]; then 

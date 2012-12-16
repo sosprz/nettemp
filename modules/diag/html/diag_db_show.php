@@ -81,7 +81,7 @@ $sth = $db1->prepare("select * from mail_settings ");
 $sth->execute();
 $result = $sth->fetchAll();
 echo "<tr>"; 
-echo "<td>address</td>"; 
+//echo "<td>address</td>"; 
 echo "<td>user</td>"; 
 echo "<td>host</td>"; 
 echo "<td>port</td>"; 
@@ -89,7 +89,7 @@ echo "<td>password</td>";
 echo "</tr>";
 foreach ($result as $a)  {
   echo "<tr>"; 
-        echo "<td>".$a['address']."</td>"; 
+//        echo "<td>".$a['address']."</td>"; 
         echo "<td>".$a['user']."</td>"; 
 		  echo "<td>".$a['host']."</td>";
 		    echo "<td>".$a['port']."</td>"; 
