@@ -1,9 +1,1 @@
-121216-1350 database restarted
-121216-1354 view generated
-121216-1358 script temp - read sensors
-121216-1400 view generated
-121216-1400 script temp - read sensors
-121216-1410 view generated
-121216-1410 script temp - read sensors
-121216-1420 view generated
-121216-1420 script temp - read sensors
+121216-1423 database restarted
