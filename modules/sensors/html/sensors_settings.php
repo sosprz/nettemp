@@ -46,10 +46,18 @@ foreach ($result as $a) {
 <input type="hidden" name="usun2" value="usun3" />
 <td><input type="image" src="media/ico/Close-2-icon.png" /></td>
 </form>
-</tr>
-<?php   }  
+<?php   }
+else { ?> 
+<td>Error - no rrd base</td>
+<form action="sensors" method="post"  >
+<input type="hidden" name="usun_czujniki" value="<?php echo $a["rom"]; ?>" />
+<input type="hidden" name="usun2" value="usun3" />
+<td><input type="image" src="media/ico/Close-2-icon.png" /></td>
+</form>
+<?php }
 
 ?>
+</tr>
 		
 
 <?php 

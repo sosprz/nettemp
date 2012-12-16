@@ -64,14 +64,6 @@ system ("chmod 777 img/instant/$rep_add_graf\_hour.png");
 ?>
 <?php // SQLite3 - sekcja dodawania do bazy && tworzenie baz rrd
 	if(!empty($id_rom_new)) {
-	//$db = new PDO('sqlite:dbf/nettemp.db');
-	//$db->exec("INSERT OR IGNORE INTO sensors (name, rom, tmp, tmp_min, tmp_max, alarm) 
-	//VALUES ('new_sensor', '$id_rom_new', '', '', '', 'off')") or die ($db->lastErrorMsg());
-	//tworzenie rrd
-	//$rep_add_db = str_replace(" ", "_", $id_rom_new);
-	//$cmd="cd db && /usr/bin/rrdtool create $rep_add_db.rrd -s 600 DS:temp:GAUGE:700:-50:50 RRA:AVERAGE:0.5:1:48384 RRA:MAX:0.5:1:48384 
-	//RRA:MIN:0.5:1:48384 RRA:LAST:0.5:1:48384";
-	//system($cmd); 	
 	system("$global_dir/modules/sensors/add_sensor $id_rom_new ");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	 
@@ -80,7 +72,6 @@ system ("chmod 777 img/instant/$rep_add_graf\_hour.png");
 	//z bazy
 	if(!empty($usun_czujniki) && ($_POST['usun2'] == "usun3")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	//$db->busyTimeout(100);
 	$db->exec("DELETE FROM sensors WHERE rom='$usun_czujniki'") or die ($db->lastErrorMsg()); 
 	//plik rrd
 	$rep_del_db = str_replace(" ", "_", $usun_czujniki);
