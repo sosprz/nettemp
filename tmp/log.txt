@@ -12,3 +12,4 @@
 121216-1220 script temp - read sensors
 121216-1230 script temp - read sensors
 121216-1240 script temp - read sensors
+121216-1250 script temp - read sensors
