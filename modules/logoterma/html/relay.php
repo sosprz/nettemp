@@ -1,14 +1,20 @@
-<span class="belka">&nbsp Logoterma status:<span class="okno">
+<span class="belka">&nbsp Status:<span class="okno">
 <?php 
 
 $dir="modules/logoterma/";
 
 if ($_POST['off'] == "Logoterma is ON" ) {
-exec("$dir/relay off");
+exec("$dir/logoterma run 0");
+header("location: " . $_SERVER['REQUEST_URI']);
+exit();
+
 }
 
 if ($_POST['on'] == "Logoterma is OFF" ) {
-exec("$dir/relay on");
+exec("$dir/logoterma run 3600");
+header("location: " . $_SERVER['REQUEST_URI']);
+exit();
+
 }
 
 
@@ -34,4 +40,4 @@ elseif ($relay == 'off') {
 
 
 ?>
-</span>
+</span></span>

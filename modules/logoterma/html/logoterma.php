@@ -1,5 +1,6 @@
 
 <div id="left">
-	 <?php include("modules/logoterma/html/relay.php"); ?>
-</div>	 
+	 <?php include("relay.php"); ?>
+	<?php include("manual.php"); ?>
+</div>
 

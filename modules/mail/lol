@@ -1,0 +1,5 @@
+
+
+	echo "From:" > $plik
+        echo "To: $get_mail" >> $plik
+        echo "Subject: $get_mail_subject $date2" >> $plik

@@ -2,11 +2,6 @@
 <table> 
 <?php
 session_start();
-system("scripts/rrd/rrd_day 1> /dev/null");
-system("scripts/rrd/rrd_hour 1> /dev/null");
-system("scripts/rrd/rrd_week 1> /dev/null");
-system("scripts/rrd/rrd_year 1> /dev/null");
-system("scripts/rrd/rrd_month 1> /dev/null");
 $arrayFiles=glob('img/view1/*');
 if($arrayFiles){
   foreach ($arrayFiles as $filename) { ?>

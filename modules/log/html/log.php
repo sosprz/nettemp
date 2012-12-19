@@ -1,12 +1,10 @@
 <?php	
 
-
-$dir="/var/www/nettemp";
 	if ($_POST['log_del'] == "Clear"){
-	 unlink("/var/www/nettemp/tmp/log.txt");	
+	exec("echo log cleared > tmp/log.txt");	
 	echo $dir; 
-	//header("location: " . $_SERVER['REQUEST_URI']);
-	 //exit();
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
 	 } 
 	 ?>	
 

@@ -7,6 +7,7 @@ create_mail=on
 send_mail=on
 
 dir=/var/www/nettemp
+mkdir -p $dir/tmp/messages
 
 dirs=/tmp/messages
 date=`date +%Y%m%d%H%M`

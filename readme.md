@@ -38,9 +38,13 @@ CHANGELOG:
 
 TO DO:
     
-    Integration with w1 kernel module instead digitemp
+    Turn on Logoterma when start time is set
+    Send mail when Logoterma is off
+    Fix rrd labels
+    
+    Integration wi`th w1 kernel module instead digitemp
     Calendar for alarms
-    Add map for sensors
+    Add map for seensors
     Ignore alarm for some time
     Check for good reading sensor
     Graph sorting

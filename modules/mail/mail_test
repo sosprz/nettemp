@@ -13,12 +13,12 @@ user=`sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
 password=`sqlite3 $dir/dbf/nettemp.db "SELECT password FROM mail_settings"`
 #address=`sqlite3 $dir/dbf/nettemp.db "SELECT address FROM mail_settings"`
 
-echo -e "From: $address\nTo: $reci\nSubject: test from nettemp $date2\nThis is test mail form nettemp device"  |msmtp  \
+echo -e "From: \nTo: $reci\nSubject: test from nettemp $date2\nThis is test mail form nettemp device"  |msmtp  \
 --host=$host --port=$port --auth=on --user=$user \
 --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
 --from=default --tls=on --tls-starttls=on --tls-certcheck=on --tls-trust-file=/etc/ssl/certs/ca-certificates.crt  \
  --timeout=10 --debug $reci
-echo "$date script mail_test - send test mail to $reci" >> $dir/scripts/tmp/log.txt
+echo "$date script mail_test - send test mail to $reci" >> $dir/tmp/log.txt
 
 
 
