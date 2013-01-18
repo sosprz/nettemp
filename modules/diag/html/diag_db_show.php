@@ -35,6 +35,12 @@ echo "<td>rom</td>";
 echo "<td>tmp</td>"; 
 echo "<td>tmp_min</td>"; 
 echo "<td>tmp_max</td>";
+echo "<td>hour</td>";
+echo "<td>day</td>";
+echo "<td>week</td>";
+echo "<td>month</td>";
+echo "<td>year</td>";
+echo "<td>logoterma</td>";
 echo "<td>alarm</td>";
 echo "</tr>";
 foreach ($result as $a)  {
@@ -45,6 +51,12 @@ foreach ($result as $a)  {
         echo "<td>".$a['tmp']."</td>";
 		  echo "<td>".$a['tmp_min']."</td>"; 
         echo "<td>".$a['tmp_max']."</td>"; 
+            echo "<td>".$a['hour']."</td>";
+                echo "<td>".$a['day']."</td>";
+                    echo "<td>".$a['week']."</td>";
+                        echo "<td>".$a['month']."</td>";
+                            echo "<td>".$a['year']."</td>";
+    echo "<td>".$a['logoterma']."</td>";
  		  echo "<td>".$a['alarm']."</td>"; 
   echo "</tr>"; }
 echo "</table>"; 
