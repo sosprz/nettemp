@@ -1,5 +1,7 @@
 <span class="belka">&nbsp Status:<span class="okno"> 
 <?php
+
+
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
@@ -14,5 +16,7 @@ if ($numRows == 0 ) { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop
 	elseif($a[tmp] <= $a[tmp_min] && !empty($a[tmp]) && !empty($a[tmp_min]) && $a[alarm] == on ) { ?> <img src="media/ico/temp2-icon.png" /><font color="#0095FF"> <?php echo $a[name];?> - <?php echo "$a[tmp] C,"; echo " min: $a[tmp_min] C" ?> <img src="media/ico/temp_low.png" ><br /></font> <?php	}
 	    else { ?> <img src="media/ico/temp2-icon.png" /><font  color="#108218"> <?php echo "$a[name] $a[tmp] C <br>";?></font> <?php }
     } //for
+ 
+ 
 ?>
 </span></span>
