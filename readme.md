@@ -33,7 +33,8 @@ REQUIREMENTS:
     rw /dev/ttyUSBX, /dev/ttySX  or add user to group "dialout", gpassswd -a www-data dialout
 
 CHANGELOG:
-
+    
+    20120118 - select sensor in view 
     added events loging to www
 
 TO DO:
