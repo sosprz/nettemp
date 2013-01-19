@@ -13,8 +13,6 @@ $katalogw[] = 'include';
 $katalogw[] = 'media';
 $katalogw[] = 'media/ico';
 $katalogw[] = 'media/png';
-$katalogw[] = 'scripts';
-$katalogw[] = 'scripts/rrd';
 
 foreach($katalogw as $katalogw) {
 if (!file_exists($katalogw)) { echo "<font color=\"#FF0000\">Dir $katalogw not exist</font><br />"; } 
@@ -23,7 +21,7 @@ elseif (!is_writable($katalogw)) { echo "<font color=\"#FF0000\">Dir $katalogw n
 
 
 // czy bazy sa do zapisu
-$filename1[] = "scripts/tmp/.digitemprc";
+$filename1[] = "tmp/.digitemprc";
 $filename1[] = "dbf/nettemp.db";
 
 foreach($filename1 as $filename1) {
@@ -39,13 +37,13 @@ if (!is_writable($filename4)) { echo "<font color=\"#FF0000\">File $filename4 no
 
 
 //skrypty
-$script[] = 'scripts/mail';
-$script[] = 'scripts/temp';
-$script[] = 'scripts/scan';
-foreach($script as $filename5) {
-if (!file_exists($filename5)) { echo "<font color=\"#FF0000\">File $filename5 not exist </font><br />"; } 
-elseif (!is_readable($filename5)) { echo "<font color=\"#FF0000\">File $filename5 not readable </font><br />"; }
-}
+#$script[] = 'scripts/mail';
+#$script[] = 'scripts/temp';
+#$script[] = 'scripts/scan';
+#foreach($script as $filename5) {
+#if (!file_exists($filename5)) { echo "<font color=\"#FF0000\">File $filename5 not exist </font><br />"; } 
+#elseif (!is_readable($filename5)) { echo "<font color=\"#FF0000\">File $filename5 not readable </font><br />"; }
+#}
 
 //mczy pliki html sa do odczytu
 $pliki_html[] = 'index.php';

@@ -4,10 +4,11 @@ dir=../..
 date=`date +%y%m%d-%H%M`
 
 rm -rf $dir/dbf/nettemp.db
-rm -rf $dir/db/*
-rm -rf $dir/img/view1/*                                           
-rm -rf $dir/img/instant/*                                         
-rm -rf $dir/tmp/*
+rm -rf $dir/db/*.rrd
+rm -rf $dir/img/view1/*.png                                           
+rm -rf $dir/img/instant/*.png                                         
+rm -rf $dir/tmp/log.txt
+rm -rf $dir/tmp/.digitemprc
 
 sqlite3 $dir/dbf/nettemp.db  "CREATE TABLE sensors (
   id INTEGER PRIMARY KEY,
@@ -68,30 +69,11 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE logoterma (
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('temp', 'd969831eb8a99cff8c02e681f43289e5d3d69664', 'ops')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO device (temp) VALUES ('no dev')"
-# my settings
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user ) VALUES ('smtp.gmail.com', '587', 'nettempnotifications@gmail.com' )"
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, logoterma ) VALUES('Taras','0x280x880x9D0xF70x020x000x000xB6','0','-10','30.0','on','on','on','on','on','on','on')"
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, logoterma ) VALUES('Korytarz','0x280xF80x790xF70x020x000x000xEB','0','20','25','on','on','on','on','on','on','on')"
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, logoterma ) VALUES('Sypialnia','0x280x040x5E0x250x030x000x000xE0','0','20.0','23.0','on','on','on','on','on','on','on')"
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, logoterma ) VALUES('Kuchnia','0x280x6C0x580x250x030x000x000x1E','0','20.0','25.0','on','on','on','on','on','on','on')"
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, logoterma ) VALUES('Maly pokoj','0x280xDE0x6E0x250x030x000x000x6F','0','20.0','23.0','on','on','on','on','on','on','on')"
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, logoterma ) VALUES('Salon','0x280x890x360x250x030x000x000x6F','0','20.0','23.0','on','on','on','on','on','on','on')"
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, logoterma ) VALUES('Szafka komp','0x280xCD0xFB0xFA0x010x000x000xDC','0','0','33.0','on','on','on','on','on','on','on')"
 
-rom=`sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors"`
-
-for ss in $rom
-do
-/usr/bin/rrdtool create $dir/db/$ss.rrd -s 600 DS:temp:GAUGE:700:-50:50 RRA:AVERAGE:0.5:1:48384 RRA:MAX:0.5:1:48384 RRA:MIN:0.5:1:48384 RRA:LAST:0.5:1:48384
-chmod 777 $dir/db/$ss.rrd
-done
 
 #logoterma
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO logoterma (mode) VALUES('manual')"
 
-# end my settings
-
-
-
 chmod 777 $dir/dbf/nettemp.db
-echo "$date database restarted" >> $dir/tmp/log.txt
+echo "Default settings restored" >> $dir/tmp/log.txt
+chmod 777 $dir/tmp/log.txt
