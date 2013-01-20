@@ -19,6 +19,7 @@ col7="#0000ff"
 #add more colors
 
 
+
 for rrd_time0 in hour day week month year
 do
     if [ -n "rrd_$rrd_time0" ]; then 
@@ -40,20 +41,27 @@ if [ -n "${!varinvar}" ]; then
     --vertical-label=\"Degrees C\" 
     -s -1$time "
 
+
     for rrd in ${!varinvar}
     do
-    name=`sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$rrd'"`
+    name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$rrd'")
     array[$i]="DEF:temp$i=$dir/db/$rrd.rrd:temp:AVERAGE 
-    LINE2:temp$i\$col$i:\"$name\" 
-    GPRINT:temp$i:LAST:\"cur\: %2.2lf\" 
-    GPRINT:temp$i:MIN:\"min\: %2.2lf\" 
-    GPRINT:temp$i:MAX:\"max\: %2.2lf\" 
-    GPRINT:temp$i:AVERAGE:\"ave\: %2.2lf \" 
-    COMMENT:\"\n\" "
+    LINE2:temp$i\$col$i:'$(echo $name | awk 'length<=3{print $0 "       ";next}1') \t '
+    GPRINT:temp$i:LAST:'cur\: %2.2lf'
+    GPRINT:temp$i:MIN:'min\: %2.2lf'
+    GPRINT:temp$i:MAX:'max\: %2.2lf'
+    GPRINT:temp$i:AVERAGE:'ave\: %2.2lf \n' "
     let i=i+1
     done
-    
+
+    #IFS for spaces
+	SAVEIFS=$IFS
+	IFS=$(echo -en "\n\b")    
+
     eval ${array[@]} 
+
+	IFS=$SAVEIFS
+
 fi
 unset array
 done

@@ -22,7 +22,7 @@ foreach ($result as $a) {
 <tr>
 <form action="sensors" method="post">	
 <td><img src="media/ico/TO-220-icon.png" /></td>
-<td><input type="text" name="name_new" size="20" value="<?php echo $a["name"]."\t" ; ?>" /></td>
+<td><input type="text" name="name_new" size="12" maxlength="10" value="<?php echo $a["name"]."\t" ; ?>" /></td>
 	  <input type="hidden" name="name_id" value="<?php echo $a["id"]."\t"; ?>" />
 	   <input type="hidden" name="id_name2" value="id_name3"/>
 <td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td>
