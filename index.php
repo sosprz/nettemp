@@ -10,12 +10,11 @@ function timedRefresh(timeoutPeriod) {
     setTimeout("location.reload(true);",timeoutPeriod);
     }
     //   -->
-    </script>
+</script>
+</head>
+<body onload="JavaScript:timedRefresh(60000);">
 
-    </head>
-    <body onload="JavaScript:timedRefresh(60000);">
-
-
+<?php ob_start(); ?>
 <div id="top">
 <div id="header">
 <table border="0" width="1024">
@@ -28,7 +27,7 @@ function timedRefresh(timeoutPeriod) {
 <ul> 
 	<li><a href='status'><span>Status</span></a></li>
 	<li><a href='view'><span>View</span></a></li>
-	<li><a href='logoterma'><span>Logoterma</spam></a></li>
+	<li><a href='relays'><span>Relays</spam></a></li>
       <?php
 	session_start();
 	  include('include/login_check.php');
@@ -64,7 +63,7 @@ case 'db_reset': include('include/admin_db_reset.php'); break;
 case 'password': include('include/login_change_pass.php'); break;
 case 'log': include('modules/log/html/log.php'); break;
 case 'info': include('include/info.php'); break;
-case 'logoterma': include('modules/logoterma/html/logoterma.php'); break;
+case 'relays': include('modules/relays/html/relays.php'); break;
 }
 ?>
 

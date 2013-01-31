@@ -41,6 +41,8 @@ echo "1 * * * * /var/www/nettemp/modules/mail/mail" >> /var/spool/cron/crontabs/
 echo "*/2 * * * * /var/www/nettemp/modules/view/view_gen" >> /var/spool/cron/crontabs/root
 echo "# 1 * * * * /var/www/nettemp/modules/sms/sms" >> /var/spool/cron/crontabs/root
 echo "*/5 * * * * /var/www/nettemp/modules/logoterma/logoterma" >> /var/spool/cron/crontabs/root
+chmod 600 /var/spool/cron/crontabs/root
+
 
 update-rc.d ntp enable
 service ntp start
@@ -52,5 +54,12 @@ service lighttpd start
 update-rc.d cron defaults
 service cron start
 
+echo "add wiringPI for gpio"
+git clone git://git.drogon.net/wiringPi
+cd wiringPi
+./build
+
 echo "restart RPI to make sure everything is ok"
+
+
 

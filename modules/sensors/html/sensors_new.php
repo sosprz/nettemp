@@ -35,6 +35,4 @@
     
      	?>
      	</table>
-     	<table>
-     	<tr><td><form action="sensors" method="post"><input type="submit" name="scan" value="Scan" /></form></td></tr>
-		</table></span></span>
+     	</span></span>

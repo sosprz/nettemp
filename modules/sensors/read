@@ -1,31 +1,9 @@
-#! /bin/bash -x
+#! /bin/bash 
 
 #dir0=`find / -name config_nettemp.php 2> /dev/null | sed 's/..................$//' | cut -c 1-`
 #dir=`cat $dir0/config_nettemp.php |grep dir | cut -c 5-`
 
 dir=/var/www/nettemp
-#date=`date +%y%m%d-%H%M`
-
-#echo "$date script temp - read sensors" >> $dir/tmp/log.txt
-
-#db=`ls $dir/db/`
-#for name in $db
-#do
-#name_1=`echo $name |awk 'sub("....$", "")' | sed 's/_/ /g' `
-#name_2=`cat $dir/tmp/.digitemprc |grep "$name_1" |awk 'BEGIN {FS=" "} {print $2}'`
-
-#device=`sqlite3 $dir/dbf/nettemp.db "SELECT temp FROM device"`
-
-#if [ $device = DS2490 ]; then 
-#wynik=`/usr/bin/digitemp_$device -c $dir/tmp/.digitemprc -t $name_2 -q -o%C |grep -v Found`
-#else 
-#wynik=`/usr/bin/digitemp_$device -c $dir/tmp/.digitemprc -t $name_2 -q -o%C`
-#fi
-
-#rrdtool update $dir/db/$name N:$wynik
-#sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
-#done
-
 device=`sqlite3 $dir/dbf/nettemp.db "SELECT temp FROM device"`
 if [ "$device" == "no dev" ]; then 
 echo "no device"
@@ -40,7 +18,7 @@ fi
 echo "$date script temp - read sensors" >> $dir/tmp/log.txt
 
 db=`ls $dir/db/`
-if [ -e $db ]; then 
+if [[ -z "$db" ]]; then 
 echo "no sensors added"
 exit
 fi
@@ -53,8 +31,10 @@ name_2=`cat $dir/tmp/.digitemprc |grep "$name_3" |awk 'BEGIN {FS=" "} {print $2}
 
 if [ "$device" = "DS2490" ]; then
 wynik=`/usr/bin/digitemp_$device -c $dir/tmp/.digitemprc -t $name_2 -q -o%C |grep -v Found`
+echo $wynik
 else 
 wynik=`/usr/bin/digitemp_$device -c $dir/tmp/.digitemprc -t $name_2 -q -o%C`
+echo $wynik
 fi
 
 rrdtool update $dir/db/$name N:$wynik

@@ -19,7 +19,7 @@ $name_new=trim($name_new2);
 
 
 ?>
-<?php include("include/delete_graph.php"); ?>
+<?php include("modules/view/html/view_del.php"); ?>
 
 
 
@@ -130,6 +130,7 @@ if(!empty($usun_rom_nw) && ($_POST['usun_nw2'] == "usun_nw3")) {   // 2x post ab
 <?php include("modules/sensors/html/sensors_new.php"); ?>
 <?php include("modules/sensors/html/sensors_preview.php"); ?>
 <?php include("modules/sensors/html/sensors_device.php"); ?>
+<?php include("modules/sensors/html/sensors_scan.php"); ?>
 
 	
 

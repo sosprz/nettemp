@@ -1,5 +1,5 @@
 <div id="left">
-<?php include("include/delete_graph.php"); ?>
+<?php include("modules/view/html/view_del.php"); ?>
 <?php
 		session_start(); 
 		include('include/login_check.php');

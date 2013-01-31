@@ -56,23 +56,19 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE device (
    temp UNIQUE
   );" 
 
-sqlite3 $dir/dbf/nettemp.db "CREATE TABLE logoterma (
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE relays (
   id INTEGER PRIMARY KEY,
-  mode TEXT,
-  manual_end_time TEXT,
-  manual_temp TEXT,
-  auto_temp TEXT
-  );" 
-
+  gpio UNIQUE,
+  name TEXT,
+  time_settings TEXT,
+  end_time TEXT
+    );" 
 
 
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('temp', 'd969831eb8a99cff8c02e681f43289e5d3d69664', 'ops')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO device (temp) VALUES ('no dev')"
 
-
-#logoterma
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO logoterma (mode) VALUES('manual')"
 
 chmod 777 $dir/dbf/nettemp.db
 echo "Default settings restored" >> $dir/tmp/log.txt

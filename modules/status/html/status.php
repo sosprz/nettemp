@@ -14,7 +14,10 @@ if ($_POST['read'] == "Read"){
 
 <?php 
 include('status_show.php');
-include('read.php');
+include('modules/sensors/html/sensors_read.php');
+include('modules/sensors/html/sensors_device.php');
+include('modules/sensors/html/sensors_scan.php'); 
+
 ?>
 </div>
 
