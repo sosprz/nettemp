@@ -32,7 +32,7 @@ echo "permisions"
 chown -R root.www-data /var/www/nettemp
 chmod -R 775 /var/www/nettemp
 gpasswd -a www-data dialout
-chmod +s /var/www/nettemp/modules/logoterma/relay
+#chmod +s /var/www/nettemp/modules/relays/gpio
 
 
 echo "add cron"
@@ -40,7 +40,7 @@ echo "*/10 * * * * /var/www/nettemp/modules/sensors/read" >> /var/spool/cron/cro
 echo "1 * * * * /var/www/nettemp/modules/mail/mail" >> /var/spool/cron/crontabs/root
 echo "*/2 * * * * /var/www/nettemp/modules/view/view_gen" >> /var/spool/cron/crontabs/root
 echo "# 1 * * * * /var/www/nettemp/modules/sms/sms" >> /var/spool/cron/crontabs/root
-echo "*/5 * * * * /var/www/nettemp/modules/logoterma/logoterma" >> /var/spool/cron/crontabs/root
+echo "*/5 * * * * /var/www/nettemp/modules/relays/gpio" >> /var/spool/cron/crontabs/root
 chmod 600 /var/spool/cron/crontabs/root
 
 
