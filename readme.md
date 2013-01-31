@@ -29,7 +29,8 @@ REQUIREMENTS:
 
 CHANGELOG:
     
-    20120118 - select sensor in view 
+    20130131 - added support for Relays (RPI 8 gpio)
+    20130118 - select sensor in view 
     added events loging to www
 
 TO DO:
