@@ -29,7 +29,7 @@ REQUIREMENTS:
 
 CHANGELOG:
     
-    20130514 - add support for read temp form GPIO	
+    20130514 - add support for read temp from GPIO	
     20130131 - added support for Relays (RPI 8 gpio)
     20130118 - select sensor in view 
     added events loging to www
