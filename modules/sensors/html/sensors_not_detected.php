@@ -1,9 +1,6 @@
 <span class="belka">&nbsp No sensors detected:<span class="okno"><table><tr>	
 			
 	 <?php 
-	//$db = new SQLite3('dbf/nettemp.db');
-	//$db->exec("SELECT rom FROM sensors");
-	//while ($a = $r->fetchArray()) {
 	$sth = $db1->prepare("SELECT rom FROM sensors");
 	$sth->execute();
 	$result = $sth->fetchAll();
@@ -13,9 +10,8 @@
 	$array20[]=$a["rom"];
 	}	 
 	
-	//print_r($file_expl_array2);
 	foreach($array20 as $rom_no){
-	   if (!in_array($rom_no, $digitemprc)){ ?>
+		   if (!in_array($rom_no, $digitemprc)){ ?>
 	   <table>	
 	   <tr>
 	   <?php $del_empty_array[]=$rom_no; ?>

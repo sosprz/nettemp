@@ -1,10 +1,16 @@
 #! /bin/bash 
 
 dir=/var/www/nettemp
-
 date=`date +%y%m%d-%H%M`
-echo "$date view generated" >> $dir/tmp/log.txt
 
+usb=`sqlite3 $dir/dbf/nettemp.db "SELECT usb FROM device"`
+onewire=`sqlite3 $dir/dbf/nettemp.db "SELECT onewire FROM device"`
+if [ "$usb" == "off" ] && [ "$onewire" == "off" ]; then 
+echo "no device"
+else
+
+
+echo "$date view generated" >> $dir/tmp/log.txt
 
 rm -rf $dir/img/view1/*.png
 col0="#0000ff"
@@ -65,3 +71,4 @@ if [ -n "${!varinvar}" ]; then
 fi
 unset array
 done
+fi

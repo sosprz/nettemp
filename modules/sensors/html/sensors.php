@@ -113,18 +113,33 @@ if(!empty($usun_rom_nw) && ($_POST['usun_nw2'] == "usun_nw3")) {   // 2x post ab
 	 ?>	 
 	 
 	 
-<?php 	//wczytanie digitemrc
+<?php 	//read  digitemrc file and 1-wire bus
 	$file_digi = "$global_dir/tmp/.digitemprc";
 	$file_digi2 = file($file_digi);
 	foreach($file_digi2 as $line_digi) {
-	if(strstr($line_digi,"ROM")) { 
-	$trim_line_digi=trim($line_digi);
-	list($rom, $nr, $id1, $id2, $id3, $id4, $id5, $id6, $id7, $id8 ) = explode(" ", $trim_line_digi);
-	$id0 = "$id1$id2$id3$id4$id5$id6$id7$id8";
-	$digitemprc[] = $id0; 
+		if(strstr($line_digi,"ROM")) { 
+			$trim_line_digi=trim($line_digi);
+			list($rom, $nr, $id1, $id2, $id3, $id4, $id5, $id6, $id7, $id8 ) = explode(" ", $trim_line_digi);
+			$id0 = "$id1$id2$id3$id4$id5$id6$id7$id8";
+			$digitemprc[] = $id0; 
 			}
 	}
+	$f_one_wire = "$global_dir/tmp/onewire";
+	$one_wire = file($f_one_wire);
+	foreach($one_wire as $line_one_wire) {
+		if (!empty($line_one_wire)) {
+		$line_one_wire2=trim($line_one_wire);
+		$digitemprc[] = $line_one_wire2; }
+ 	
+	}
+
+
+	
 ?>
+
+
+
+
 <?php include("modules/sensors/html/sensors_settings.php"); ?>
 <?php include("modules/sensors/html/sensors_not_detected.php"); ?>
 <?php include("modules/sensors/html/sensors_new.php"); ?>

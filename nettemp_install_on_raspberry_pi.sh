@@ -2,7 +2,7 @@
 # nettemp rpi installer
 # nettemp.pl
 # 
-# 2012.08.19
+# 2013.05.14
 
 echo "update distro"
 apt-get update
@@ -59,7 +59,23 @@ git clone git://git.drogon.net/wiringPi
 cd wiringPi
 ./build
 
+
+echo "add watchdog"
+echo "bcm2708_wdog" | sudo tee -a /etc/modules
+sudo apt-get install watchdog
+sudo update-rc.d watchdog defaults
+sed -i -e '10s/#max-load-1/max-load-1/' /etc/watchdog.conf 
+sed -i -e '23s/#watchdog-device/watchdog-device/' /etc/watchdog.conf 
+
+sudo /etc/init.d/watchdog start
+
+echo "add modules 1-wire"
+echo "w1_gpio" | sudo tee -a /etc/modules
+echo "w1_therm" | sudo tee -a /etc/modules
+
+
 echo "restart RPI to make sure everything is ok"
+
 
 
 

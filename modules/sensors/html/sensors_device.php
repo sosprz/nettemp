@@ -5,8 +5,11 @@ $db1 = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db1->prepare("select * from device");
 $sth->execute();
 $result = $sth->fetchAll();
-foreach ($result as $a) { 
- 	echo  $a["temp"] ;
+$separator = "\r\n";
+foreach ($result as $a) {  
+ 	 echo "USB: {$a['usb']}";
+	?>  <br /> <?php 
+	 echo "1-wire: {$a['onewire']}";
 }
 ?>
  

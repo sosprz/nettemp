@@ -4,8 +4,9 @@
 #dir=`cat $dir0/config_nettemp.php |grep dir | cut -c 5-`
 
 dir=/var/www/nettemp
-device=`sqlite3 $dir/dbf/nettemp.db "SELECT temp FROM device"`
-if [ "$device" == "no dev" ]; then 
+usb=`sqlite3 $dir/dbf/nettemp.db "SELECT usb FROM device"`
+onewire=`sqlite3 $dir/dbf/nettemp.db "SELECT onewire FROM device"`
+if [ "$usb" == "off" ] && [ "$onewire" == "off" ]; then 
 echo "no device"
 else
 date=`date +%y%m%d-%H%M`
@@ -23,23 +24,51 @@ echo "no sensors added"
 exit
 fi
 
+
 for name in $db
 do
+name_str=${#name}
+if [ $name_str -gt "19" ]; then 
+
 name_1=`echo $name |awk 'sub("....$", "")' | sed 's/_/ /g'`
 name_3=`echo $name_1 | sed ':a;$!{N;s/\n//;ba;};s/..../& /g'`
 name_2=`cat $dir/tmp/.digitemprc |grep "$name_3" |awk 'BEGIN {FS=" "} {print $2}'`
 
-if [ "$device" = "DS2490" ]; then
-wynik=`/usr/bin/digitemp_$device -c $dir/tmp/.digitemprc -t $name_2 -q -o%C |grep -v Found`
+
+if [ "$usb" = "DS2490" ]; then
+wynik=`/usr/bin/digitemp_$usb -c $dir/tmp/.digitemprc -t $name_2 -q -o%C |grep -v Found`
 echo $wynik
 else 
-wynik=`/usr/bin/digitemp_$device -c $dir/tmp/.digitemprc -t $name_2 -q -o%C`
+wynik=`/usr/bin/digitemp_$usb -c $dir/tmp/.digitemprc -t $name_2 -q -o%C`
 echo $wynik
 fi
 
 rrdtool update $dir/db/$name N:$wynik
 sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
+
+fi
+
+
+#1-wire
+if [ $name_str -lt "20" ]; then
+
+one_wire_name=`echo $name |awk 'sub("....$", "")'`
+name_1=`cat $dir/tmp/onewire |grep $one_wire_name`
+##if  [ -e /sys/bus/w1/devices/${sensor}/w1_slave ]; then
+    wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.2f\n", $11/1000 } ' /sys/bus/w1/devices/${name_1}/w1_slave;`
+    echo $wynik
+#fi
+rrdtool update $dir/db/$name N:$wynik
+sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
+fi
+
+
+
 done
+
+
+
+
 
 fi
 

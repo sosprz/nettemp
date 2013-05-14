@@ -1,4 +1,4 @@
-#! /bin/bash -x 
+#! /bin/bash  
 dir=../..
 
 date=`date +%y%m%d-%H%M`
@@ -9,6 +9,7 @@ rm -rf $dir/img/view1/*.png
 rm -rf $dir/img/instant/*.png                                         
 rm -rf $dir/tmp/log.txt
 rm -rf $dir/tmp/.digitemprc
+rm -rf $dir/tmp/onewire
 
 sqlite3 $dir/dbf/nettemp.db  "CREATE TABLE sensors (
   id INTEGER PRIMARY KEY,
@@ -44,16 +45,17 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE users (
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE mail_settings (
   id INTEGER PRIMARY KEY,
-  host UNIQUE,
-  port UNIQUE,
-  user UNIQUE,
-  password UNIQUE,
-  address UNIQUE
+  host TEXT,
+  port TEXT,
+  user TEXT,
+  password TEXT,
+  address TEXT
   );" 
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE device (
    id INTEGER PRIMARY KEY,
-   temp UNIQUE
+   usb UNIQUE,
+   onewire UNIQUE
   );" 
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE relays (
@@ -67,7 +69,9 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE relays (
 
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('temp', 'd969831eb8a99cff8c02e681f43289e5d3d69664', 'ops')"
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO device (temp) VALUES ('no dev')"
+sqlite3 $dir/dbf/nettemp.db "INSERT INTO device (usb, onewire) VALUES ('off','off')"
+sqlite3 $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user ) VALUES ('smtp.gmail.com', '587', 'yourmail@gmail.com' )"
+
 
 
 chmod 777 $dir/dbf/nettemp.db

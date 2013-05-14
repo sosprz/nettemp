@@ -1,4 +1,4 @@
-#! /bin/bash 
+#! /bin/bash -x 
 
 #dir0=`find / -name config_nettemp.php 2> /dev/null | sed 's/..................$//' | cut -c 1-`
 #dir=`cat config_nettemp.php |grep dir | cut -c 5-`
@@ -19,11 +19,11 @@ for i in 0 1 2 3 4 5 6 7 8
     done
 	if [ -e $dir/tmp/.digitemprc ]; then 
 	#echo "DS9097U" > $dir/tmp/device
-	#sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (temp) VALUES ('DS9097U')"
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET temp='DS9097U'"
+	#sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (dev1) VALUES ('DS9097U')"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097U'"
 	echo "$date script scan - Discovered DS9097U" >> $dir/tmp/log.txt
 	else
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET temp='no dev'"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off'"
 	fi
 
 
@@ -32,11 +32,11 @@ if [ ! -e $dir/tmp/.digitemprc ]; then
     /usr/bin/digitemp_DS2490 -i -c $dir/tmp/.digitemprc 
     if [ -e $dir/tmp/.digitemprc ]; then 
     #echo "DS2490" > $dir/tmp/device
-    #sqlite3 $dir/dbf/nettem .db "INSERT OR IGNORE INTO device (temp) VALUES ('DS2490')"
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET temp='DS2490'"
+    #sqlite3 $dir/dbf/nettem .db "INSERT OR IGNORE INTO device (dev1) VALUES ('DS2490')"
+    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS2490'"
     echo "$date script scan - Discovered DS2490" >> $dir/tmp/log.txt
     else
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET temp='no dev'"
+    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off'"
     fi
 fi
 
@@ -49,11 +49,39 @@ if [ ! -e $dir/tmp/.digitemprc ]; then
 	    fi
 	done
     if [ -e $dir/tmp/.digitemprc ]; then 
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET temp='DS9097'"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097'"
 	echo "$date script scan - Discovered DS9097" >> $dir/tmp/log.txt
 	else
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET temp='no dev'"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off'"
     fi
+fi
+
+# 1-wire
+
+if [ -e /sys/bus/w1/devices/w1_bus_master1/w1_master_slaves ]; then 
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET onewire='on'"
+	echo "$date script scan - Discovered 1-wire" >> $dir/tmp/log.txt
+
+# scan 1-wire
+	#modprobe wire
+	#modprobe w1_gpio
+	#modprobe w1_therm
+
+	rm $dir/tmp/onewire
+for sensor in `cat /sys/bus/w1/devices/w1_bus_master1/w1_master_slaves`; do 
+
+	
+    if  [ -e /sys/bus/w1/devices/${sensor}/w1_slave ]; then
+      wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.2f\n", $11/1000 } ' /sys/bus/w1/devices/${sensor}/w1_slave;`
+
+    	echo $sensor  >>  $dir/tmp/onewire
+    fi
+
+done
+
+
+else
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET onewire='off'"
 fi
 
 
