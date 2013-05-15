@@ -5,7 +5,11 @@ dir=../..
 
 
 # my settings
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user ) VALUES ('smtp.gmail.com', '587', 'nettempnotifications@gmail.com' )"
+
+sqlite3 $dir/dbf/nettemp.db "UPDATE mail_settings SET host='smtp.gmail.com' WHERE id='1'"
+sqlite3 $dir/dbf/nettemp.db "UPDATE mail_settings SET port='587' WHERE id='1'"
+sqlite3 $dir/dbf/nettemp.db "UPDATE mail_settings SET user='nettempnotifications@gmail.com' WHERE id='1'"
+
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, logoterma ) VALUES('Taras','0x280x880x9D0xF70x020x000x000xB6','0','-10','30.0','on','on','on','on','on','on','on')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, logoterma ) VALUES('Korytarz','0x280xF80x790xF70x020x000x000xEB','0','20','25','on','on','on','on','on','on','on')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, logoterma ) VALUES('Sypialnia','0x280x040x5E0x250x030x000x000xE0','0','20.0','23.0','on','on','on','on','on','on','on')"
