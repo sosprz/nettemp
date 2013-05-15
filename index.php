@@ -20,7 +20,7 @@ function timedRefresh(timeoutPeriod) {
 <table border="0" width="1024">
 <tr>
 <td><span class="logo"><img src="media/png/nettemp.pl.png" alt="" ></span></td>
-<td valign="top"><?php include("include/login.php"); ?></td>
+<td valign="top"><?php include("modules/login/login.php"); ?></td>
 </tr>
 </table></div>
 <div id="tabs22">
@@ -57,12 +57,11 @@ case 'notification': include('modules/notification/html/notification.php'); brea
 case 'mail': include('modules/mail/html/mail.php'); break;
 case 'sensors': include('modules/sensors/html/sensors.php'); break;
 case 'view': include('modules/view/html/view.php'); break;
-case 'diened': include('include/diened.php'); break;
+case 'diened': include('modules/login/diened.php'); break;
 case 'diag': include('modules/diag/html/diag.php'); break;
-case 'db_reset': include('include/admin_db_reset.php'); break;
-case 'password': include('include/login_change_pass.php'); break;
+case 'password': include('modules/login/login_change_pass.php'); break;
 case 'log': include('modules/log/html/log.php'); break;
-case 'info': include('include/info.php'); break;
+case 'info': include('modules/info/info.php'); break;
 case 'relays': include('modules/relays/html/relays.php'); break;
 }
 ?>
