@@ -137,7 +137,29 @@ if(!empty($usun_rom_nw) && ($_POST['usun_nw2'] == "usun_nw3")) {   // 2x post ab
 	
 ?>
 
+<?php
+$hour = $_POST["hour"];
+$day = $_POST["day"];
+$week = $_POST["week"];
+$month = $_POST["month"];
+$year = $_POST["year"];
+$ss = $_POST["ss"];
 
+// SQLite - graph view update 
+if ( $_POST['ss1'] == "ss2"){
+
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET hour='$hour' WHERE id='$ss'") ;
+    $db->exec("UPDATE sensors SET day='$day' WHERE id='$ss'") ;
+    $db->exec("UPDATE sensors SET week='$week' WHERE id='$ss'") ;
+    $db->exec("UPDATE sensors SET month='$month' WHERE id='$ss'") ;
+    $db->exec("UPDATE sensors SET year='$year' WHERE id='$ss'") ;
+    
+    exec("bash modules/view/view_gen");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+} 
+?>
 
 
 <?php include("modules/sensors/html/sensors_settings.php"); ?>

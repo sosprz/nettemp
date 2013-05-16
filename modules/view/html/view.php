@@ -6,6 +6,6 @@
 
 if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { include("include/view_create.php"); }; 
 ?>
-<?php include("modules/view/html/view_select_sensors.php"); ?>
+<?php //include("modules/view/html/view_select_sensors.php"); ?>
 <?php include("modules/view/html/view_graph.php"); ?>
 </DIV>

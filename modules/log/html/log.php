@@ -14,7 +14,12 @@
 <br />
 <pre>
 <?php
-include( 'tmp/log.txt');
+$file = file("tmp/log.txt");
+$file = array_reverse($file);
+foreach($file as $f){
+    echo $f;
+}
+
 ?>
 </pre>
 </span></span>
