@@ -8,15 +8,13 @@ $sth->execute();
 $result = $sth->fetchAll();
 echo "<tr>"; 
 echo "<td>id</td>"; 
-echo "<td>login</td>"; 
-echo "<td>password sha1</td>"; 
+echo "<td>login</td>";
 echo "<td>perms</td>"; 
 echo "</tr>";
 foreach ($result as $a)  {
   echo "<tr>"; 
         echo "<td>".$a['id']."</td>"; 
         echo "<td>".$a['login']."</td>"; 
-        echo "<td></td>"; 
         echo "<td>".$a['perms']."</td>"; 
   echo "</tr>"; }
 echo "</table>"; 
@@ -63,8 +61,6 @@ echo "</table>";
 
 echo "Tabele recipient<br>";
 echo "<table border=1>"; 
-//$db = new SQLite3('./dbf/nettemp.db');
-//$r = $db->query("select * from recipient ");
 $sth = $db1->prepare("select * from recipient ");
 $sth->execute();
 $result = $sth->fetchAll();
@@ -97,15 +93,12 @@ echo "<tr>";
 echo "<td>user</td>"; 
 echo "<td>host</td>"; 
 echo "<td>port</td>"; 
-echo "<td>password</td>"; 
 echo "</tr>";
 foreach ($result as $a)  {
   echo "<tr>"; 
-//        echo "<td>".$a['address']."</td>"; 
         echo "<td>".$a['user']."</td>"; 
 		  echo "<td>".$a['host']."</td>";
 		    echo "<td>".$a['port']."</td>"; 
-		    echo "<td></td>"; 
   echo "</tr>"; }
 echo "</table>"; 
 ?>

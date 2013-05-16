@@ -1,7 +1,8 @@
 <div id="left"><span class="belka">&nbsp info: <span class="okno">
 Contact:  </br >
-http://techfreak.pl/nettemp  </br >
-techfreak.pl@gmail.com
+www: <a href="http://techfreak.pl/nettemp">nettemp.pl</a>  </br >
+mail: techfreak.pl@gmail.com
+
 
 <br />
 <br />
