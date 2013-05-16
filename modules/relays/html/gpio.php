@@ -10,7 +10,7 @@ $gpio_post=$_POST['gpio'];
 $time=($times*60);
 $timec=($timecm*60);
 
-if ($_POST['off'] == "OFF") {
+if (($_POST['off'] == "OFF") && (is_numeric($gpio_post))) {
 exec("$dir/gpio off $gpio_post");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit(); 
