@@ -4,10 +4,12 @@ session_start();
 	   include('include/login_check.php');
 		if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { 
 
-$usun_czujniki = $_POST["usun_czujniki"]; //sql
-$name_new = $_POST["name_new"]; //sql
-$name_id = $_POST["name_id"]; //sql
-$usun_rom_nw = $_POST["usun_nw"]; //new 
+$usun_czujniki = $_POST["usun_czujniki"]; 
+$name_new = $_POST["name_new"];
+$color = $_POST["color"];
+
+$name_id = $_POST["name_id"];
+$usun_rom_nw = $_POST["usun_nw"];
 
 $id_rom_new2 = $_POST["id_rom_new"]; 
 $id_rom_new=trim($id_rom_new2);
@@ -29,9 +31,6 @@ if ($_POST['add_graf1'] == "add_graf2") {
 	// kasuje zawartosc przed wygenerowaniem nowego
    $mask = "img/instant/*.png";
    array_map( "unlink", glob( $mask ) );
-	//$db = new SQLite3('dbf/nettemp.db');
-	//$r = $db->query("select * from sensors WHERE rom='$add_graf'");
-	//while ($a = $r->fetchArray()) {
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$sth = $db1->prepare("select * from sensors WHERE rom='$add_graf'");
 	$sth->execute();
@@ -95,9 +94,10 @@ if(!empty($usun_rom_nw) && ($_POST['usun_nw2'] == "usun_nw3")) {   // 2x post ab
 	exit();	
 	} ?>      
 <?php	// SQLite - sekcja zmiany nazwy
-	if (!empty($name_new) && !empty($name_id) && ($_POST['id_name2'] == "id_name3")){
+	if (!empty($name_new) && !empty($name_id) && ($_POST['id_name2'] == "id_name3") ){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE sensors SET name='$name_new' WHERE id='$name_id'") or die ($db->lastErrorMsg());
+	$db->exec("UPDATE sensors SET color='$color' WHERE id='$name_id'") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	 } 
@@ -155,7 +155,7 @@ if ( $_POST['ss1'] == "ss2"){
     $db->exec("UPDATE sensors SET month='$month' WHERE id='$ss'") ;
     $db->exec("UPDATE sensors SET year='$year' WHERE id='$ss'") ;
     
-    exec("bash modules/view/view_gen");
+    //exec("bash modules/view/view_gen");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 } 

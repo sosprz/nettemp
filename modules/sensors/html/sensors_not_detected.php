@@ -1,4 +1,4 @@
-<span class="belka">&nbsp No sensors detected:<span class="okno"><table><tr>	
+<span class="belka">&nbsp No sensors detected<span class="okno"><table><tr>	
 			
 	 <?php 
 	$sth = $db1->prepare("SELECT rom FROM sensors");

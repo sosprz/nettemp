@@ -1,4 +1,4 @@
-#! /bin/bash 
+#! /bin/bash  -x
 
 dir=/var/www/nettemp
 date=`date +%y%m%d-%H%M`
@@ -13,17 +13,6 @@ else
 echo "$date view generated" >> $dir/tmp/log.txt
 
 rm -rf $dir/img/view1/*.png
-col0="#0000ff"
-col1="#FF0000"
-col2="#008000"
-col3="#FFFF00"
-col4="#663300"
-col5="#FF3399"
-col6="#00FFFF"
-col7="#0000ff"
-
-#add more colors
-
 
 
 for rrd_time0 in hour day week month year
@@ -51,8 +40,9 @@ if [ -n "${!varinvar}" ]; then
     for rrd in ${!varinvar}
     do
     name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$rrd'")
+    color=$(sqlite3 $dir/dbf/nettemp.db "SELECT color from sensors WHERE rom='$rrd'")
     array[$i]="DEF:temp$i=$dir/db/$rrd.rrd:temp:AVERAGE 
-    LINE2:temp$i\$col$i:'$(echo $name | awk 'length<=3{print $0 "       ";next}1') \t '
+    LINE2:temp$i$color:'$(echo $name | awk 'length<=3{print $0 "       ";next}1') \t '
     GPRINT:temp$i:LAST:'cur\: %2.2lf'
     GPRINT:temp$i:MIN:'min\: %2.2lf'
     GPRINT:temp$i:MAX:'max\: %2.2lf'

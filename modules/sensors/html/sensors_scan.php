@@ -13,7 +13,7 @@ include('conf.php');
 ?>
 
 
-<span class="belka">&nbsp Scan for new sensors:<span class="okno"> 
+<span class="belka">&nbsp Scan for new sensors<span class="okno"> 
 <form action="sensors" method="post"><input type="submit" name="scan" value="Scan" />
 
 </span></span>

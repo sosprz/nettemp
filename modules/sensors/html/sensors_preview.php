@@ -1,4 +1,4 @@
-<span class="belka">&nbsp Preview:<span class="okno">
+<span class="belka">&nbsp Preview<span class="okno">
 
 <?php
 $arrayFiles=glob('img/instant/*');

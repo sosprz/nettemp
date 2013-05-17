@@ -29,6 +29,7 @@ $result = $sth->fetchAll();
 echo "<tr>"; 
 echo "<td>id</td>"; 
 echo "<td>name</td>"; 
+echo "<td>color</td>"; 
 echo "<td>rom</td>"; 
 echo "<td>tmp</td>"; 
 echo "<td>tmp_min</td>"; 
@@ -45,7 +46,8 @@ foreach ($result as $a)  {
   echo "<tr>"; 
         echo "<td>".$a['id']."</td>"; 
         echo "<td>".$a['name']."</td>"; 
- 		  echo "<td>".$a['rom']."</td>"; 
+	echo "<td>".$a['color']."</td>"; 
+	echo "<td>".$a['rom']."</td>"; 
         echo "<td>".$a['tmp']."</td>";
 		  echo "<td>".$a['tmp_min']."</td>"; 
         echo "<td>".$a['tmp_max']."</td>"; 

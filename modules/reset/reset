@@ -24,7 +24,8 @@ sqlite3 $dir/dbf/nettemp.db  "CREATE TABLE sensors (
   week char(3) NOT NULL,
   month char(3) NOT NULL,
   year char(3) NOT NULL,
-  logoterma char(3) NOT NULL
+  logoterma char(3) NOT NULL,
+  color TEXT
   );"
  
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE recipient (

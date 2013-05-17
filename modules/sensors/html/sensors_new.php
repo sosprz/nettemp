@@ -1,8 +1,7 @@
-<span class="belka">&nbsp New sensors:<span class="okno">
+<span class="belka">&nbsp New sensors<span class="okno">
 	<table><tr>	
 	<?php	
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	//$db->exec("SELECT rom FROM sensors");
 	$sth = $db->prepare("SELECT rom FROM sensors");
 	$sth->execute();
 	$result = $sth->fetchAll();
