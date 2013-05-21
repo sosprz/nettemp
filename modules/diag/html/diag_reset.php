@@ -1,4 +1,4 @@
-<span class="belka">&nbsp Reset to default: <span class="okno">
+<span class="belka">&nbsp Reset to default<span class="okno">
 <?php
 
 

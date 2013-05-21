@@ -1,4 +1,4 @@
-<span class="belka">&nbsp Base diagnostic:<span class="okno">
+<span class="belka">&nbsp Base diagnostic<span class="okno">
 <?php
 echo "Table users<br>";
 echo "<table border=1>"; 

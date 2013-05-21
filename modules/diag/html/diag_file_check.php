@@ -1,4 +1,4 @@
-<span class="belka">&nbsp File diagnostic:<span class="okno">
+<span class="belka">&nbsp File diagnostic<span class="okno">
 
 
 <?php

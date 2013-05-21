@@ -1,4 +1,4 @@
-<span class="belka">&nbsp Graph:<span class="okno">
+<span class="belka">&nbsp Graph<span class="okno">
 <table> 
 <?php
 session_start();

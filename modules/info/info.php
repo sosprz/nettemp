@@ -1,4 +1,4 @@
-<div id="left"><span class="belka">&nbsp info: <span class="okno">
+<div id="left"><span class="belka">&nbsp info<span class="okno">
 Contact:  </br >
 www: <a href="http://techfreak.pl/nettemp">nettemp.pl</a>  </br >
 mail: techfreak.pl@gmail.com

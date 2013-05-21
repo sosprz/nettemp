@@ -15,12 +15,6 @@ $mail_test = $_POST["mail_test"];  //sql
 ?>
 
 <?php // SQLite 
-//	if  ($_POST['change_address1'] == "change_address2") {
-//	$db = new PDO('sqlite:dbf/nettemp.db');
-//	$db->exec("UPDATE mail_settings SET address='$address'") or die ($db->lastErrorMsg());
-//	header("location: " . $_SERVER['REQUEST_URI']);
-//	exit();
-//	}
 ?>
 <?php // SQLite 
 	if  ($_POST['change_user1'] == "change_user2") {

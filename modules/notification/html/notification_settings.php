@@ -1,4 +1,4 @@
-<span class="belka">&nbsp Add Notification:<span class="okno">
+<span class="belka">&nbsp Add Notification<span class="okno">
 <table>
 <tr><td></td><td><img src="media/ico/User-Preppy-Blue-icon.png" ></td><td><img src="media/ico/message-icon.png" ></td><td><img src="media/ico/phone-blue-glow-icon.png" ></td><td><img src="media/ico/message-icon.png" ></td><td><img src="media/ico/phone-blue-glow-icon.png" ></td></tr>
 <tr>	
@@ -16,13 +16,6 @@
 
 <?php
 
-//$db = new SQLite3('dbf/nettemp.db');
-//$rows = $db->query("SELECT COUNT(*) as count FROM recipient");
-//$row = $rows->fetchArray();
-//$numRows = $row['count'];
-////if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }
-//$r = $db->query("select * from recipient ");
-//while ($a = $r->fetchArray()) { 
 $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("select * from recipient ");
 $sth->execute();

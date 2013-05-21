@@ -1,5 +1,4 @@
-
-<span class="belka">&nbsp Mail settings:<span class="okno">
+<span class="belka">&nbsp Mail settings<span class="okno">
 
 
 <?php
@@ -59,7 +58,7 @@ foreach ($result as $a) {
 		?>
 	
 </span></span>
-<span class="belka">&nbsp Send test mail:<span class="okno">
+<span class="belka">&nbsp Send test mail<span class="okno">
 <table>
 <tr>	
 	<form action="mail" method="post">

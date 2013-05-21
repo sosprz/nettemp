@@ -13,7 +13,7 @@ exec("$dir/gpio del $gpioad");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit(); 
 } ?>
-<span class="belka">&nbsp Add / Del relays:<span class="okno">
+<span class="belka">&nbsp Add / Del relays<span class="okno">
 <?php
 $gpiolist = array(4,17,18,21,22,23,24,25);
 foreach ($gpiolist as $value1) {

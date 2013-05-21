@@ -1,4 +1,4 @@
-<span class="belka">&nbsp Status:<span class="okno"> 
+<span class="belka">&nbsp Status<span class="okno"> 
 <?php
 
 

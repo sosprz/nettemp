@@ -9,7 +9,7 @@
 	 ?>	
 
 
-<div id="left"><span class="belka">&nbsp Log: <span class="okno">
+<div id="left"><span class="belka">&nbsp Log <span class="okno">
 <form action="log" method="post"><input type="submit" name="log_del" value="Clear" /></form>
 <br />
 <pre>

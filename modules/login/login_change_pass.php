@@ -4,7 +4,7 @@ session_start();
 	   include('modules/login//login_check.php');
 		if ($numRows1 == 1 && ($perms == "adm" || $perms == "ops")) {?>
 
-<span class="belka">&nbsp Change password: <span class="okno">
+<span class="belka">&nbsp Change password <span class="okno">
 <?php
 $user_logged=$_SESSION["logged"];
 	$pass=sha1($_POST["pas1"]);

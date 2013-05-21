@@ -1,11 +1,6 @@
-<span class="belka">&nbsp Alarms settings:<span class="okno">
+<span class="belka">&nbsp Alarms settings<span class="okno">
 <table>
 <?php  
-	
-//$db = new SQLite3('dbf/nettemp.db');
-//$rows = $db->query("SELECT COUNT(*) as count FROM sensors WHERE alarm='on'");
-//$row = $rows->fetchArray();
-//$numRows = $row['count'];
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors WHERE alarm='on'");
 $row = $rows->fetchAll();
