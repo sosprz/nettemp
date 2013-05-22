@@ -30,7 +30,7 @@ function timedRefresh(timeoutPeriod) {
 	<li><a href='relays'><span>Relays</spam></a></li>
       <?php
 	session_start();
-	  include('include/login_check.php');
+	  include('modules/login/login_check.php');
 		if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { ?>
 		  <li><a href='sensors'><span>Sensors</span></a></li>
    	   <li><a href='alarms'><span>Alarms</span></a></li>
@@ -68,7 +68,7 @@ case 'relays': include('modules/relays/html/relays.php'); break;
 
 </div>
 
-	<div id="footer">www.nettemp.pl
+	<div id="footer">www.nettemp.pl v1
 	</div>
 </div>
 

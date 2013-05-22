@@ -64,9 +64,11 @@ if [ $name_str -lt "20" ]; then
 	fi
 	
     
-	if [[ -n "$wynik" ]]; then 
+	if [ -n $wynik ]; then 
 	    rrdtool update $dir/db/$name N:$wynik
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
+	else
+	    echo "$date script temp - error 2 reading sensor $name " >> $dir/tmp/log.txt    
 	fi
 fi
 

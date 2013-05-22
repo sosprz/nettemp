@@ -1,4 +1,4 @@
-www.nettemp.pl
+www.nettemp.pl 
 
 AUTOMATIC INSTALL:
 
@@ -32,17 +32,9 @@ CHANGELOG:
     20130514 - add support for read temp from GPIO	
     20130131 - added support for Relays (RPI 8 gpio)
     20130118 - select sensor in view 
-    added events loging to www
 
 TO DO:
     
-    Turn on Logoterma when start time is set
-    Send mail when Logoterma is off
-    Fix rrd labels
-    
-    Integration wi`th w1 kernel module instead digitemp
     Calendar for alarms
     Add map for seensors
     Ignore alarm for some time
-    Check for good reading sensor
-    Graph sorting
