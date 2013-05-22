@@ -1,4 +1,4 @@
-#! /bin/bash -x
+#! /bin/bash
 
 #dir0=`find / -name config_nettemp.php 2> /dev/null | sed 's/..................$//' | cut -c 1-`
 #dir=`cat $dir0/config_nettemp.php |grep dir | cut -c 5-`
@@ -48,28 +48,31 @@ sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'
 
 fi
 
+unset wynik 
 
 #1-wire
 if [ $name_str -lt "20" ]; then
 
-one_wire_name=`echo $name |awk 'sub("....$", "")'`
-name_1=`cat $dir/tmp/onewire |grep $one_wire_name`
-##if  [ -e /sys/bus/w1/devices/${sensor}/w1_slave ]; then
-    wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.1f\n", $11/1000 } ' /sys/bus/w1/devices/${name_1}/w1_slave;`
-    echo $wynik
-#fi
-rrdtool update $dir/db/$name N:$wynik
-sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
+    one_wire_name=`echo $name |awk 'sub("....$", "")'`	
+    name_1=`cat $dir/tmp/onewire |grep $one_wire_name`
+	if  [ -e /sys/bus/w1/devices/${name_1}/w1_slave ]; then
+	    wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.1f\n", $11/1000 } ' /sys/bus/w1/devices/${name_1}/w1_slave;`
+	    echo $wynik
+	else 
+	    echo "$date script temp - error reading sensor $name" >> $dir/tmp/log.txt    
+	
+	fi
+	
+    
+	if [[ -n "$wynik" ]]; then 
+	    rrdtool update $dir/db/$name N:$wynik
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
+	fi
 fi
 
 
 
 done
-
-
-
-
-
 fi
 
 

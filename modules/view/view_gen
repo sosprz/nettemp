@@ -1,4 +1,4 @@
-#! /bin/bash  -x
+#! /bin/bash
 
 dir=/var/www/nettemp
 date=`date +%y%m%d-%H%M`

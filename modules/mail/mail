@@ -7,9 +7,9 @@ create_mail=on
 send_mail=on
 
 dir=/var/www/nettemp
-mkdir -p $dir/tmp/messages
+mkdir -p $dir/tmp/mail
 
-dirs=/tmp/messages
+dirs=/tmp/mail
 date=`date +%Y%m%d%H%M`
 date2=`date +%Y%m%d-%H:%M`
 get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }'`
@@ -41,12 +41,12 @@ if [ $create_mail == on ]; then
 	if [ -n "$tmp_max" ]; then
 	    #cr_ge=`echo "$tmp >= $tmp_max" | bc` #OLD BC
 	    cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
-	    if [ $cr_ge == 1 ]; then  echo "high temperature $name $tmp C" >> $plik; fi
+	    if [ $cr_ge == 1 ]; then  echo "high temp $name $tmp C" >> $plik; fi
 	fi
 	if [ -n "$tmp_min" ]; then
 	    #cr_le=`echo "$tmp <= $tmp_min" | bc` #OLD BC
 	    cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
-	    if [ $cr_le == 1 ]; then  echo "low temperature $name $tmp C" >> $plik; fi
+	    if [ $cr_le == 1 ]; then  echo "low temp $name $tmp C" >> $plik; fi
 	fi
     done 
 

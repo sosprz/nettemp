@@ -1,4 +1,4 @@
-#! /bin/bash -x 
+#! /bin/bash
 
 #dir0=`find / -name config_nettemp.php 2> /dev/null | sed 's/..................$//' | cut -c 1-`
 #dir=`cat config_nettemp.php |grep dir | cut -c 5-`

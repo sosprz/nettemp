@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash 
 
 #dir0=`find / -name config_nettemp.php 2> /dev/null | sed 's/...................$//' | cut -c 1-`
 #dir=`cat $dir0/config_nettemp.php |grep dir | cut -c 5-`
@@ -8,6 +8,7 @@ dev=/dev/ttyUSB1
 dir=/var/www/nettemp
 nr=`sqlite3 $dir/dbf/nettemp.db "SELECT tel FROM recipient WHERE sms_alarm='yes'" | awk '{ printf " "$1 }'`
 date=`date +%Y%m%d%H%M`
+mkdir -p $dir/tmp/sms
 
 
 check_alarm() {
@@ -17,7 +18,7 @@ for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'
 	    tmp=`echo $line | awk 'BEGIN {FS="|"}{print $4}'`
 	    tmp_min=`echo $line | awk 'BEGIN {FS="|"}{print $5}'`
 	    tmp_max=`echo $line | awk 'BEGIN {FS="|"}{print $6}'`
-	    plik=$dir/tmp/messages/temp-$date
+	    plik=$dir/tmp/sms/temp-$date
 	    
 
 	if [ -n "$tmp_max" ]; then
@@ -48,7 +49,6 @@ check_alarm
 
 if [[ -s $plik ]]; then
 
-	echo "pelny"
 	for i in $nr; do
 		send_sms $i
 		sleep 5
