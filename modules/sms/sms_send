@@ -3,11 +3,14 @@
 #dir0=`find / -name config_nettemp.php 2> /dev/null | sed 's/...................$//' | cut -c 1-`
 #dir=`cat $dir0/config_nettemp.php |grep dir | cut -c 5-`
 
-dev=/dev/ttyUSB1
-
 dir=/var/www/nettemp
+date=`date +%y%m%d-%H%M`
+
 nr=`sqlite3 $dir/dbf/nettemp.db "SELECT tel FROM recipient WHERE sms_alarm='yes'" | awk '{ printf " "$1 }'`
-date=`date +%Y%m%d%H%M`
+dev=`sqlite3 $dir/dbf/nettemp.db "SELECT dev FROM sms_settings WHERE default_dev='on'"`
+
+if [ ! -z $nr ] && [ ! -z $dev ] ; then
+
 mkdir -p $dir/tmp/sms
 
 
@@ -34,13 +37,17 @@ done
 
 send_sms()
 {
+
     echo -e "AT \015" > $dev
+    sleep 5
     echo -e "AT+CMGF=1 \015" > $dev
-    sleep 2    
+    sleep 5
+    echo -e "AT+CSCA=\"+48790998250\"" > $dev
+    sleep 5    
     echo -e  "AT+CMGS=\"$1\" \015" > $dev
-    sleep 2
+    sleep 5
     echo -e -n "`cat $plik`" > $dev
-    sleep 2
+    sleep 5
     echo -e  "\032" > $dev
 }
 
@@ -57,8 +64,10 @@ if [[ -s $plik ]]; then
 	rm -rf $plik
 	
 fi
+else 
+echo "$date script sms - no device or tel number " >> $dir/tmp/log.txt
 
-
+fi
 
 
 

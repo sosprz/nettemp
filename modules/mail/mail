@@ -7,10 +7,13 @@ create_mail=on
 send_mail=on
 
 dir=/var/www/nettemp
-mkdir -p $dir/tmp/mail
+date=`date +%y%m%d-%H%M`
 
+mkdir -p $dir/tmp/mail
 dirs=/tmp/mail
-date=`date +%Y%m%d%H%M`
+
+
+
 date2=`date +%Y%m%d-%H:%M`
 get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }'`
 

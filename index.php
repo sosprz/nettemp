@@ -36,6 +36,7 @@ function timedRefresh(timeoutPeriod) {
    	   <li><a href='alarms'><span>Alarms</span></a></li>
    		<li><a href='notification'><span>Notification</span></a></li>
    		<li><a href='mail'><span>Mail settings</span></a></li>
+		<li><a href='sms'><span>SMS settings</span></a></li>
    		<li><a href='log'><span>Log</span></a></li>
    		<li><a href='password'><span>Password</span></a></li>
    		<?php } ?>
@@ -63,12 +64,13 @@ case 'password': include('modules/login/login_change_pass.php'); break;
 case 'log': include('modules/log/html/log.php'); break;
 case 'info': include('modules/info/info.php'); break;
 case 'relays': include('modules/relays/html/relays.php'); break;
+case 'sms': include('modules/sms/html/sms.php'); break;
 }
 ?>
 
 </div>
 
-	<div id="footer">www.nettemp.pl v1
+	<div id="footer">www.nettemp.pl v3
 	</div>
 </div>
 
