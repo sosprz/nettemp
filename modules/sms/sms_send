@@ -38,17 +38,17 @@ done
 send_sms()
 {
 
-    echo -e "AT \015" > $dev
+    echo -e -n "AT \015" > $dev
     sleep 5
-    echo -e "AT+CMGF=1 \015" > $dev
+    echo -e -n "AT+CMGF=1 \015" > $dev
     sleep 5
-    echo -e "AT+CSCA=\"$smsc\"" > $dev
+    echo -e -n "AT+CSCA=\"$smsc\"\015" > $dev
     sleep 5    
-    echo -e  "AT+CMGS=\"$1\" \015" > $dev
+    echo -e -n "AT+CMGS=\"$1\" \015" > $dev
     sleep 5
     echo -e -n "`cat $plik`" > $dev
     sleep 5
-    echo -e  "\032" > $dev
+    echo -e -n "\032" > $dev
 }
 
 

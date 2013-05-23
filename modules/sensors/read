@@ -59,12 +59,12 @@ if [ $name_str -lt "20" ]; then
 	    wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.1f\n", $11/1000 } ' /sys/bus/w1/devices/${name_1}/w1_slave;`
 	    echo $wynik
 	else 
-	    echo "$date script temp - error reading sensor $name" >> $dir/tmp/log.txt    
+	    echo "$date script temp - error 1 reading sensor $name" >> $dir/tmp/log.txt    
 	
 	fi
 	
     
-	if [ -n $wynik ]; then 
+	if [ -n "$wynik" ]; then 
 	    rrdtool update $dir/db/$name N:$wynik
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
 	else
