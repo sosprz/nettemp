@@ -8,7 +8,7 @@ date=`date +%y%m%d-%H%M`
 
 nr=`sqlite3 $dir/dbf/nettemp.db "SELECT tel FROM recipient WHERE sms_alarm='yes'" | awk '{ printf " "$1 }'`
 dev=`sqlite3 $dir/dbf/nettemp.db "SELECT dev FROM sms_settings WHERE default_dev='on'"`
-
+smsc=`sqlite3 $dir/dbf/nettemp.db "SELECT smsc FROM sms_settings WHERE default_dev='on'"`
 if [ ! -z $nr ] && [ ! -z $dev ] ; then
 
 mkdir -p $dir/tmp/sms
@@ -42,7 +42,7 @@ send_sms()
     sleep 5
     echo -e "AT+CMGF=1 \015" > $dev
     sleep 5
-    echo -e "AT+CSCA=\"+48790998250\"" > $dev
+    echo -e "AT+CSCA=\"$smsc\"" > $dev
     sleep 5    
     echo -e  "AT+CMGS=\"$1\" \015" > $dev
     sleep 5
