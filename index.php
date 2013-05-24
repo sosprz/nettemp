@@ -70,7 +70,7 @@ case 'sms': include('modules/sms/html/sms.php'); break;
 
 </div>
 
-	<div id="footer">www.nettemp.pl v3
+	<div id="footer">www.nettemp.pl v4
 	</div>
 </div>
 
