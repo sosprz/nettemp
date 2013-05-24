@@ -16,7 +16,7 @@ chmod 775 $dir/tmp/log.txt
 chown root.www-data $dir/tmp/log.txt 
 fi
 
-echo "$date script temp - read sensors" >> $dir/tmp/log.txt
+echo "$date read - read sensors" >> $dir/tmp/log.txt
 
 db=`ls $dir/db/`
 if [[ -z "$db" ]]; then 
@@ -59,7 +59,7 @@ if [ $name_str -lt "20" ]; then
 	    wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.1f\n", $11/1000 } ' /sys/bus/w1/devices/${name_1}/w1_slave;`
 	    echo $wynik
 	else 
-	    echo "$date read - error 1 reading sensor $name" >> $dir/tmp/log.txt    
+	    echo "$date read - reding sensor error (CRC) $name" >> $dir/tmp/log.txt    
 	
 	fi
 	
@@ -68,7 +68,7 @@ if [ $name_str -lt "20" ]; then
 	    rrdtool update $dir/db/$name N:$wynik
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
 	else
-	    echo "$date read - error 2 reading sensor $name " >> $dir/tmp/log.txt    
+	    echo "$date read - reading sensor error (CRC OK but no result) $name " >> $dir/tmp/log.txt    
 	fi
 fi
 
