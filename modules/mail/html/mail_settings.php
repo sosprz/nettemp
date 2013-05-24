@@ -1,12 +1,10 @@
 <span class="belka">&nbsp Mail settings<span class="okno">
-
-
 <?php
-$db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("select * from mail_settings ");
-$sth->execute();
-$result = $sth->fetchAll();
-foreach ($result as $a) {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $sth = $db->prepare("select * from mail_settings ");
+    $sth->execute();
+    $result = $sth->fetchAll();
+	foreach ($result as $a) {
 ?>
 
 <table>
@@ -53,9 +51,7 @@ foreach ($result as $a) {
 
 
 </table>
-<?php }
-		
-		?>
+<?php }	?>
 	
 </span></span>
 <span class="belka">&nbsp Send test mail<span class="okno">
@@ -71,3 +67,6 @@ foreach ($result as $a) {
 </table>
 </span></span>
 
+
+
+</span></span>

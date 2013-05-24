@@ -61,7 +61,6 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE sms_settings (
   default_dev TEXT
   );" 
 
-
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE device (
    id INTEGER PRIMARY KEY,
    usb UNIQUE,
@@ -76,10 +75,17 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE relays (
   end_time TEXT
     );" 
 
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE settings (
+   id INTEGER PRIMARY KEY,
+   mail TEXT,
+   sms TEXT
+  );"
+
 
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('temp', 'd969831eb8a99cff8c02e681f43289e5d3d69664', 'ops')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO device (usb, onewire) VALUES ('off','off')"
+sqlite3 $dir/dbf/nettemp.db "INSERT INTO settings (mail, sms) VALUES ('off','off')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user ) VALUES ('smtp.gmail.com', '587', 'yourmail@gmail.com' )"
 
 

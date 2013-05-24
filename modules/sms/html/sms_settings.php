@@ -30,11 +30,6 @@
     }
 ?>
 
-
-
-
-
-
 <span class="belka">&nbsp SMS settings<span class="okno">
 
 <?php
@@ -82,13 +77,6 @@ foreach ($result as $a) {
     </form>
 </tr>
 </table>
-<?php }
-	
-	?>
-
-
-
-
-
+<?php } 
+?>
 </span></span>
-

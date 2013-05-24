@@ -9,10 +9,14 @@ send_mail=on
 dir=/var/www/nettemp
 date=`date +%y%m%d-%H%M`
 
+
+onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM settings"`
+
 mkdir -p $dir/tmp/mail
 dirs=/tmp/mail
 
 
+if [ "$onoff" == "on" ]; then
 
 date2=`date +%Y%m%d-%H:%M`
 get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }'`
@@ -71,7 +75,7 @@ if [ $send_mail == on ]; then
 					 --timeout=10 --debug $get_mail
 
 	        	                 
-	        	  		echo "$date script mail - send mail to $get_mail" >> $dir/tmp/log.txt
+	        	  		echo "$date mail - send mail to $get_mail" >> $dir/tmp/log.txt
 						    rm $dir/$dirs/$kolejka
 			    else rm $dir/$dirs/$kolejka
 			fi
@@ -81,5 +85,7 @@ if [ $send_mail == on ]; then
 	    fi
 fi #on_off
 
+
+fi #onoff
 
 

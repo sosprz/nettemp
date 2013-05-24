@@ -15,8 +15,6 @@ $mail_test = $_POST["mail_test"];  //sql
 ?>
 
 <?php // SQLite 
-?>
-<?php // SQLite 
 	if  ($_POST['change_user1'] == "change_user2") {
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE mail_settings SET user='$user'") or die ($db->lastErrorMsg());
@@ -50,21 +48,51 @@ $mail_test = $_POST["mail_test"];  //sql
 ?>
 
 <?php
-
 if  ($_POST['mail_test1'] == "mail_test2") {
 	$cmd="modules/mail/mail_test $mail_test";
-	shell_exec($cmd);
+	shell_exec($cmd); 
+    }
+?>
 
+<?php
+    $ms = $_POST["ms"];
+    if ($_POST['ms1'] == "ms2" ){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE settings SET mail='$ms'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+?>
+<?php
+$db = new PDO('sqlite:dbf/nettemp.db');
+$sth = $db->prepare("select * from settings ");
+$sth->execute();
+$result = $sth->fetchAll();
+foreach ($result as $a) {
+$mail=$a["mail"];
 }
 ?>
 
-
 <div id="left">
-	 <?php include("modules/mail/html/mail_settings.php"); ?>
-</div>	 
+<table>
+<tr>	
+    <form action="mail" method="post">
+    <td>Mail module on/off:</td>
+    <td><input type="checkbox" name="ms" value="on" <?php echo $mail == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <input type="hidden" name="ms1" value="ms2" />
+    </form>
+</tr> 
+</table>
+
+
+<?php
+if ($mail == "on" ) {
+     include("mail_settings.php"); 
+ } ?>
+</div>
 
 <?php }
 else { 
-  	  header("Location: diened");
+     header("Location: diened");
     }; 
-	 ?>
+?>
