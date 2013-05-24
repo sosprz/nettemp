@@ -41,7 +41,7 @@ function timedRefresh(timeoutPeriod) {
    		<li><a href='password'><span>Password</span></a></li>
    		<?php } ?>
  <?php if ($numRows1 == 1 && ( $perms == "adm" )) { ?>
- <li><a href='diag'><span>Diagnostic</span></a></li> 
+ <li><a href='tools'><span>Tools</span></a></li> 
  <?php } ?>
  			
 			<li><a href='info'><span>Info</span></a></li>
@@ -60,6 +60,7 @@ case 'sensors': include('modules/sensors/html/sensors.php'); break;
 case 'view': include('modules/view/html/view.php'); break;
 case 'diened': include('modules/login/diened.php'); break;
 case 'diag': include('modules/diag/html/diag.php'); break;
+case 'tools': include('modules/tools/html/tools.php'); break;
 case 'password': include('modules/login/login_change_pass.php'); break;
 case 'log': include('modules/log/html/log.php'); break;
 case 'info': include('modules/info/info.php'); break;

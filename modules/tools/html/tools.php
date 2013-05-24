@@ -6,8 +6,7 @@ session_start();
 
 
 
-<?php include("diag_db_show.php"); ?>
-<?php include("diag_file_check.php"); ?>
+<?php include("tools_reset.php"); ?>
 
 
 

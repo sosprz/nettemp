@@ -1,6 +1,5 @@
 #! /bin/bash 
 
-#add sensor and create rrd base
 dir=/var/www/nettemp
 
 if [ -n "$1" ]; then

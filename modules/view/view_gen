@@ -10,7 +10,7 @@ echo "no device"
 else
 
 
-echo "$date view generated" >> $dir/tmp/log.txt
+echo "$date view_gen - view generated" >> $dir/tmp/log.txt
 
 rm -rf $dir/img/view1/*.png
 
