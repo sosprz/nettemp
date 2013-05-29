@@ -1,9 +1,8 @@
 <?php
 include('conf.php');
 
-  // skanowanie generowanie nowego .digitemprc
-        if ($_POST['scan'] == "Scan"){
-         exec("sh $global_dir/modules/sensors/scan");   
+         if ($_POST['scan'] == "Scan"){
+         exec("sh $global_dir/modules/sensors/temp_dev_scan");   
          system("chmod 777 $global_dir/scripts/tmp/.digitemprc");
          header("location: " . $_SERVER['REQUEST_URI']);
          exit();

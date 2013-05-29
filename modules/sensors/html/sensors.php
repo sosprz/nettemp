@@ -63,7 +63,7 @@ system ("chmod 777 img/instant/$rep_add_graf\_hour.png");
 ?>
 <?php // SQLite3 - sekcja dodawania do bazy && tworzenie baz rrd
 	if(!empty($id_rom_new)) {
-	system("$global_dir/modules/sensors/add_sensor $id_rom_new ");
+	system("$global_dir/modules/sensors/temp_add_sensor $id_rom_new ");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	 
 	} ?>
@@ -103,16 +103,6 @@ if(!empty($usun_rom_nw) && ($_POST['usun_nw2'] == "usun_nw3")) {   // 2x post ab
 	 } 
 	 ?> 
 
-<?php	// skanowanie generowanie nowego .digitemprc
-	if ($_POST['scan'] == "Scan"){
-	 exec("sh $global_dir/modules/sensors/scan");	
-	 system("chmod 777 $global_dir/scripts/tmp/.digitemprc");
-	 header("location: " . $_SERVER['REQUEST_URI']);
-	 exit();
-	 } 
-	 ?>	 
-	 
-	 
 <?php 	//read  digitemrc file and 1-wire bus
 	$file_digi = "$global_dir/tmp/.digitemprc";
 	$file_digi2 = file($file_digi);
@@ -154,8 +144,6 @@ if ( $_POST['ss1'] == "ss2"){
     $db->exec("UPDATE sensors SET week='$week' WHERE id='$ss'") ;
     $db->exec("UPDATE sensors SET month='$month' WHERE id='$ss'") ;
     $db->exec("UPDATE sensors SET year='$year' WHERE id='$ss'") ;
-    
-    //exec("bash modules/view/view_gen");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 } 

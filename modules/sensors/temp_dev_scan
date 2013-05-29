@@ -8,7 +8,7 @@ dir=/var/www/nettemp
 date=`date +%y%m%d-%H%M`
 
 rm -rf $dir/tmp/.digitemprc
-echo "$date script scan - Deleted .digitemprc" >> $dir/tmp/log.txt
+echo "$date temp_dev_scan - Deleted .digitemprc" >> $dir/tmp/log.txt
 
 # DS9097U na USB - meraprojekt new
 for i in 0 1 2 3 4 5 6 7 8
@@ -21,7 +21,7 @@ for i in 0 1 2 3 4 5 6 7 8
 	#echo "DS9097U" > $dir/tmp/device
 	#sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (dev1) VALUES ('DS9097U')"
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097U'"
-	echo "$date scan - Discovered DS9097U" >> $dir/tmp/log.txt
+	echo "$date temp_dev_scan - Discovered DS9097U" >> $dir/tmp/log.txt
 	else
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off'"
 	fi
@@ -34,7 +34,7 @@ if [ ! -e $dir/tmp/.digitemprc ]; then
     #echo "DS2490" > $dir/tmp/device
     #sqlite3 $dir/dbf/nettem .db "INSERT OR IGNORE INTO device (dev1) VALUES ('DS2490')"
     sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS2490'"
-    echo "$date scan - Discovered DS2490" >> $dir/tmp/log.txt
+    echo "$date temp_dev_scan - Discovered DS2490" >> $dir/tmp/log.txt
     else
     sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off'"
     fi
@@ -50,7 +50,7 @@ if [ ! -e $dir/tmp/.digitemprc ]; then
 	done
     if [ -e $dir/tmp/.digitemprc ]; then 
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097'"
-	echo "$date scan - Discovered DS9097" >> $dir/tmp/log.txt
+	echo "$date temp_dev_scan - Discovered DS9097" >> $dir/tmp/log.txt
 	else
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off'"
     fi
@@ -60,7 +60,7 @@ fi
 
 if [ -e /sys/bus/w1/devices/w1_bus_master1/w1_master_slaves ]; then 
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET onewire='on'"
-	echo "$date scan - Discovered 1-wire" >> $dir/tmp/log.txt
+	echo "$date temp_dev_scan - Discovered 1-wire temp sensors" >> $dir/tmp/log.txt
 
 # scan 1-wire
 	#modprobe wire
