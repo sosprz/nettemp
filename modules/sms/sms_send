@@ -63,13 +63,13 @@ if [[ -s $plik ]]; then
 	for i in $nr; do
 		send_sms $i
 		sleep 5
-		echo "$date script sms - send sms to $i " >> $dir/tmp/log.txt
+		echo "$date sms_send - send sms to $i " >> $dir/tmp/log.txt
 	done
 	rm -rf $plik
 	
 fi
 else 
-echo "$date script sms - no device or tel number " >> $dir/tmp/log.txt
+echo "$date sms_send - no device or tel number " >> $dir/tmp/log.txt
 
 fi
 

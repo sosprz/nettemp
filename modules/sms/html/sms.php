@@ -40,6 +40,7 @@ $sms=$a["sms"];
 if ($sms == "on" ) {
 ?>
 	<?php include("sms_settings.php"); ?>
+	<?php include("sms_test.php"); ?>
 	<?php include("sms_scan.php"); ?>
 <?php } ?>
 </div>	 

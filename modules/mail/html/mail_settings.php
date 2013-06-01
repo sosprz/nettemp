@@ -1,3 +1,45 @@
+<?php
+//$address = $_POST["address"];  //sql
+$user = $_POST["user"];  //sql
+$host = $_POST["host"];  //sql
+$port = $_POST["port"];  //sql
+$password = $_POST["password"];  //sql
+?>
+
+<?php // SQLite 
+    if  ($_POST['change_user1'] == "change_user2") {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE mail_settings SET user='$user'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+?>
+<?php // SQLite 
+    if  ($_POST['change_host1'] == "change_host2") {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE mail_settings SET host='$host'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+?>
+<?php // SQLite 
+    if  ($_POST['change_port1'] == "change_port2") {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE mail_settings SET port='$port'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+?>
+<?php // SQLite 
+    if  ($_POST['change_password1'] == "change_password2") {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE mail_settings SET password='$password'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+?>
+
+
 <span class="belka">&nbsp Mail settings<span class="okno">
 <?php
     $db = new PDO('sqlite:dbf/nettemp.db');
@@ -54,19 +96,4 @@
 <?php }	?>
 	
 </span></span>
-<span class="belka">&nbsp Send test mail<span class="okno">
-<table>
-<tr>	
-	<form action="mail" method="post">
-	<td>Send test mail:</td>
-	<td><input type="text" name="mail_test" size="25" value="" /></td>
-	<input type="hidden" name="mail_test1" value="mail_test2" />
-	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td>
-	</form>
-</tr>		
-</table>
-</span></span>
-
-
-
 </span></span>

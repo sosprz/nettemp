@@ -6,10 +6,10 @@ session_start();
 
 
 
-<?php include("tools_reset.php"); ?>
 
-
-
+<?php include("tools_change_pass.php"); ?> 
+<?php include("tools_reset.php"); ?> 
+<?php include("tools_log.php"); ?>
 
 <?php
  }

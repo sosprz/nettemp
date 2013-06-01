@@ -10,8 +10,9 @@
 
 
 <div id="left"><span class="belka">&nbsp Log <span class="okno">
-<form action="log" method="post"><input type="submit" name="log_del" value="Clear" /></form>
+<form action="tools" method="post"><input type="submit" name="log_del" value="Clear" /></form>
 <br />
+<div style="width:990px;height:300px;overflow:auto;padding:5px;">
 <pre>
 <?php
 $file = file("tmp/log.txt");
@@ -22,5 +23,6 @@ foreach($file as $f){
 
 ?>
 </pre>
+</div>
 </span></span>
 </div>

@@ -20,7 +20,7 @@ if ($_POST['login_change'] == "login_change1") {
 	}	else { echo "Password not match"; }
 	}
 	?>
-	<form action="password" method="post">
+	<form action="tools" method="post">
 	  <input type="hidden" name="login_change" value="login_change1">
 	  <table> 
      <tr><td>Password :</td><td><input type="password"  name="pas1" size="8"/></td></tr>
