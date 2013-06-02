@@ -28,7 +28,7 @@ function timedRefresh(timeoutPeriod) {
 <ul> 
 	<li><a href='status'><span>Status</span></a></li>
 	<li><a href='view'><span>View</span></a></li>
-	<li><a href='relays'><span>Relays</spam></a></li>
+
       <?php
 	session_start();
 	  include('modules/login/login_check.php');
@@ -37,10 +37,17 @@ function timedRefresh(timeoutPeriod) {
    		<li><a href='notification'><span>Notification</span></a></li>
    		<?php } ?>
  <?php if ($numRows1 == 1 && ( $perms == "adm" )) { ?>
- <li><a href='tools'><span>Tools</span></a></li> 
- <?php } ?>
 
+	<li><a href='relays'><span>Relays</spam></a></li>
+ <li><a href='tools'><span>Tools</span></a></li> 
 	<li><a href='info'><span>Info</span></a></li>
+ <?php } 
+else {?>
+	<li><a href='relays'><span>Relays</spam></a></li>
+	<li><a href='info'><span>Info</span></a></li>
+<?php
+} ?>
+
 </ul>
 </div>
 <div id="center">
