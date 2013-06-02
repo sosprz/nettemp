@@ -33,7 +33,7 @@ $del_alarm = $_POST["del_alarm"];  //sql
 
 
 
-<span class="belka">&nbsp Add alarm for sensors<span class="okno">
+<span class="belka">&nbsp Set the temperature range<span class="okno">
 <table>
 <?php  
 $db = new PDO('sqlite:dbf/nettemp.db');
@@ -70,7 +70,7 @@ if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-
 </table>
 </span></span>
 
-<span class="belka">&nbsp Not configured alarms:<span class="okno">
+<span class="belka">&nbsp Add a sensor to set the range<span class="okno">
 	<table border="0"><tr>	
 <?php	
 $db = new PDO('sqlite:dbf/nettemp.db');
