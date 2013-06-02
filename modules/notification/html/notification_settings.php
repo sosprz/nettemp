@@ -78,10 +78,9 @@ foreach ($result as $a) {
 	
 	<form action="notification" method="post"> 	
 	<input type="hidden" name="notif_update" value="<?php echo $a["id"]; ?>" />
-	<td><input type="checkbox" name="notif_update_mail" value="yes" <?php echo $a["mail_alarm"] == 'yes' ? 'checked="checked"' : ''; ?> /></td>
-	<td><input type="checkbox" name="notif_update_sms" value="yes" <?php echo $a["sms_alarm"] == 'yes' ? 'checked="checked"' : ''; ?> /></td>
+	<td><input type="checkbox" name="notif_update_mail" value="yes" <?php echo $a["mail_alarm"] == 'yes' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()"/></td>
+	<td><input type="checkbox" name="notif_update_sms" value="yes" <?php echo $a["sms_alarm"] == 'yes' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
 	<input type="hidden" name="notif_update1" value="notif_update2" />
-	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png" /></td>
 	</form>
 	
 	<form action="notification" method="post"> 	

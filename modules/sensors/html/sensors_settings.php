@@ -34,7 +34,7 @@ $result = $sth->fetchAll(); ?>
 <tr>
 <form action="sensors" method="post">
 <td><img src="media/ico/TO-220-icon.png" /></td>
-<td><input type="text" name="name_new" size="12" maxlength="10" value="<?php echo $a["name"]."\t"; ?>"  /></td>
+<td><input type="text" name="name_new" size="12" maxlength="10" value="<?php echo $a["name"]."\t"; ?>" /></td>
 <td><input type='color' name='color' value ="<?php echo $a["color"]; ?>" size="7" />
 <input type="hidden" name="name_id" value="<?php echo $a["id"]."\t"; ?>" />
 <input type="hidden" name="id_name2" value="id_name3"/>
@@ -71,13 +71,12 @@ else { ?>
     <form action="sensors" method="post"> 	
     <input type="hidden" name="ss" value="<?php echo $a["id"]; ?>" />
     <td><img src="media/ico/Chart-Graph-Ascending-icon.png" /></td>
-    <td><input type="checkbox" name="hour" value="on" <?php echo $a["hour"] == 'on' ? 'checked="checked"' : ''; ?>  /></td>
-    <td><input type="checkbox" name="day" value="on" <?php echo $a["day"] == 'on' ? 'checked="checked"' : ''; ?>  /></td>
-    <td><input type="checkbox" name="week" value="on" <?php echo $a["week"] == 'on' ? 'checked="checked"' : ''; ?>  /></td>
-    <td><input type="checkbox" name="month" value="on" <?php echo $a["month"] == 'on' ? 'checked="checked"' : ''; ?>  /></td>
-    <td><input type="checkbox" name="year" value="on" <?php echo $a["year"] == 'on' ? 'checked="checked"' : ''; ?>  /></td>
+    <td><input type="checkbox" name="hour" value="on" <?php echo $a["hour"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <td><input type="checkbox" name="day" value="on" <?php echo $a["day"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <td><input type="checkbox" name="week" value="on" <?php echo $a["week"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <td><input type="checkbox" name="month" value="on" <?php echo $a["month"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <td><input type="checkbox" name="year" value="on" <?php echo $a["year"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="ss1" value="ss2" />
-    <td><input type="image" src="media/ico/Actions-edit-redo-icon.png" /></td>
     </form>
 
 <form action="sensors" method="post"  >
