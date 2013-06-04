@@ -1,9 +1,10 @@
 #! /bin/bash 
 
 dir=/var/www/nettemp
+date=`date +%y%m%d-%H%M`
+
 
 reci=$1
-date=`date +%y%m%d-%H%M`
 date2=`date +%Y-%m-%d-%H:%M`
 get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }'`
 
@@ -18,7 +19,7 @@ echo -e "From: \nTo: $reci\nSubject: test from nettemp $date2\nThis is test mail
 --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
 --from=default --tls=on --tls-starttls=on --tls-certcheck=on --tls-trust-file=/etc/ssl/certs/ca-certificates.crt  \
  --timeout=10 --debug $reci
-echo "$date script mail_test - send test mail to $reci" >> $dir/tmp/log.txt
+echo "$date mail_test - send test mail to $reci" >> $dir/tmp/log.txt
 
 
 
