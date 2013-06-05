@@ -31,7 +31,7 @@ CHANGELOG:
     
     20130605 - little change in appearance
     20130522 - add support for SMS, autodiscover modem, many bug fix
-    20130514 - add support for read temp from GPIO	
+    20130514 - add support for read temp from GPIO
     20130131 - added support for Relays (RPI 8 gpio)
     20130118 - select sensor in view 
 
