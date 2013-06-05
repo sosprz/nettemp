@@ -50,7 +50,8 @@ if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-
 
 	<tr>
 	<form action="alarms" method="post"> 
-	<td><img src="media/ico/TO-220-icon.png" /><?php echo $a[name]; ?></td>
+	<td><img src="media/ico/TO-220-icon.png" /></td>
+	<td><?php echo $a[name]; ?></td>
 	<input type="hidden" name="tmp_id" value="<?php echo $a[id]; ?>" />
 	<td><img src="media/ico/temp2-icon.png" />min:</td>
 	<td><input type="text" name="tmp_min_new" size="4" value="<?php echo $a[tmp_min]; ?>" /></td>
@@ -68,10 +69,8 @@ if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-
 
 ?>
 </table>
-</span></span>
-
-<span class="belka">&nbsp Add a sensor to set the range<span class="okno">
-	<table border="0"><tr>	
+<hr>
+<table>
 <?php	
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors WHERE alarm='off'");
@@ -83,8 +82,9 @@ $sth = $db1->prepare("select * from sensors WHERE alarm='off'");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { ?>
+    <tr>
    <form action="alarms" method="post">
-   <td><img src="media/ico/TO-220-icon.png" />&nbsp</td>
+   <td><img src="media/ico/TO-220-icon.png" /></td>
 	<td><?php echo $a[name]; ?></td>
 	<input type="hidden" name="add_alarm" value="<?php echo $a[id]; ?>" />
 	<input type="hidden" name="add_alarm1" value="add_alarm2" />

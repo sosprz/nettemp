@@ -6,16 +6,13 @@ if  ($_POST['sms_test1'] == "sms_test2") {
     }
 ?>
 
-
-<span class="belka">&nbsp Send test sms<span class="okno">
 <table>
 <tr>	
     <form action="sms" method="post">
-    <td>Send test sms to:</td>
+    <td>Send test sms to</td>
     <td><input type="text" name="sms_test" size="25" value="ex. 111222333" /></td>
     <input type="hidden" name="sms_test1" value="sms_test2" />
     <td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td>
     </form>
 </tr>		
 </table>
-</span></span>

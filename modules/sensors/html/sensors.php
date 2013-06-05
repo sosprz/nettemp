@@ -151,11 +151,9 @@ if ( $_POST['ss1'] == "ss2"){
 
 
 <?php include("modules/sensors/html/sensors_settings.php"); ?>
-<?php include("modules/sensors/html/sensors_not_detected.php"); ?>
 <?php include("modules/sensors/html/sensors_new.php"); ?>
 <?php include("modules/sensors/html/sensors_preview.php"); ?>
 <?php include("modules/sensors/html/sensors_device.php"); ?>
-<?php include("modules/sensors/html/sensors_scan.php"); ?>
 
 	
 

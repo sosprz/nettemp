@@ -9,8 +9,10 @@ include('conf.php');
          
 
 ?>
-<span class="belka">&nbsp Search modem<span class="okno"> 
+<table><tr>
+<td>Search modem</td>
 <form action="sms" method="post">
-<input type="submit" name="scan" value="Scan" />
+<td><input type="submit" name="scan" value="Scan" /></td>
 </form>
-</span></span>
+</tr></table>
+

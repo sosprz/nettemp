@@ -30,7 +30,6 @@
     }
 ?>
 
-<span class="belka">&nbsp SMS settings<span class="okno">
 
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
@@ -39,16 +38,16 @@ $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) {
 ?>
-
+<hr>
 <table>
 <tr>	
     <form action="sms" method="post">
-    <td>Name:</td>
+    <td>Name</td>
     <td><?php echo $a["name"]; ?></td>
     
 </tr>
 <tr>	
-    <td>Device:</td><td><?php echo $a["dev"]; ?></td>
+    <td>Device</td><td><?php echo $a["dev"]; ?></td>
     <form action="sms" method="post"> 	
     <input type="hidden" name="dd" value="<?php echo $a["id"]; ?>" />
     <input type="hidden" type="submit" name="dd1" value="dd2" />
@@ -59,7 +58,7 @@ foreach ($result as $a) {
 
 <tr>	
     <form action="sms" method="post"> 	
-    <td>SMS Center number:</td>
+    <td>SMS Center number</td>
     <td><input type="text" name="smsc" size="25" value="<?php echo $a["smsc"]; ?>" /></td>
 <td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td></tr>
 <input type="hidden" name="smsc_id" value="<?php echo $a["id"]; ?>" />
@@ -67,7 +66,7 @@ foreach ($result as $a) {
 </form>
 
 <form action="sms" method="post"> 	
-<tr><td>Set default device:</td>
+<tr><td>Set default device</td>
 <td><input type="checkbox" name="name" value="on" <?php echo $a["default_dev"] == 'on' ? 'checked="checked"' : ''; ?>  /></td>
 <td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td></tr>
 <input type="hidden" name="sd" value="<?php echo $a["id"]; ?>" />
@@ -79,4 +78,3 @@ foreach ($result as $a) {
 </table>
 <?php } 
 ?>
-</span></span>
