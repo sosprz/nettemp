@@ -40,9 +40,9 @@ if [ $create_mail == on ]; then
 	    plik=$dir/$dirs/temp-$date
 	    touch $plik
 	if [ ! -s $plik  ]; then 
-	    echo "From: $address" > $plik
+	    echo "From: nettemp device" > $plik
 	    echo "To: $get_mail" >> $plik
-	    echo "Subject: $get_mail_subject $date2" >> $plik
+	    echo "Subject: Notification from nettemp" >> $plik
 	    fi
 
 	if [ -n "$tmp_max" ]; then
@@ -68,11 +68,13 @@ if [ $send_mail == on ]; then
 		    do
 	        	if [ `cat $dir/$dirs/$kolejka |wc -l` -gt 3 ] ; then 
 	        	    chmod 777 $dir/$dirs/$kolejka
-	        	  		cat $dir/$dirs/$kolejka |msmtp --host=$host --port=$port --auth=on --user=$user \
-	        	  		--passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
-					--from=default --tls=on --tls-starttls=on --tls-certcheck=on \
-					 --tls-trust-file=/etc/ssl/certs/ca-certificates.crt  \
-					 --timeout=10 --debug $get_mail
+	        	  		cat $dir/$dirs/$kolejka | msmtp --maildomain=default --read-envelope-from --host=$host --port=$port --auth=on --user=$user \
+					    --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
+					    --tls=on --tls-starttls=on --tls-certcheck=on --tls-trust-file=/etc/ssl/certs/ca-certificates.crt  \
+					    --timeout=10 -t $get_mail
+
+
+
 
 	        	                 
 	        	  		echo "$date mail - send mail to $get_mail" >> $dir/tmp/log.txt
