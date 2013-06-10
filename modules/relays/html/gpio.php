@@ -11,6 +11,7 @@ $time=($times*60);
 $timec=($timecm*60);
 $custom_time_on=$_POST['custom_time_on'];
 
+
 if (($_POST['off'] == "OFF")) {
 exec("$dir/gpio off $gpio_post");
 header("location: " . $_SERVER['REQUEST_URI']);
@@ -20,11 +21,22 @@ exit();
 if ($_POST['on'] == "ON")  {
 		$db = new PDO('sqlite:dbf/nettemp.db');
 	        $db->exec("UPDATE relays SET custom_time_on='$custom_time_on' WHERE gpio='$gpio_post'") ;
-		$db->exec("UPDATE relays SET custom_time='$timecm' WHERE gpio='$gpio_post'") ;
+		    
+		if (!empty($timecm) ) {	
+			
+			$db->exec("UPDATE relays SET custom_time='$timec' WHERE gpio='$gpio_post'") ;
+			    }
+		    
+    $sth = $db->prepare("SELECT * FROM relays WHERE gpio='$gpio_post'");
+        $sth->execute();
+	    $result = $sth->fetchAll();
+		    foreach ($result as $a) { 
+			    $cto=$a["custom_time_on"];	
+    }
 
-
-	exec("$dir/gpio on $gpio_post");
-	if (!empty($timec) ) { exec("$dir/gpio timeon $gpio_post $timec");}
+	exec("$dir/gpio on $gpio_post"); 
+		if ( $cto == 'on' ) { 
+			exec("$dir/gpio timeon $gpio_post");}
 	        
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
@@ -79,7 +91,7 @@ exec("$dir/gpio onoff $gpio", $out_arr);
 	<form action="relays" method="post">
 	<td><img type="image" src="media/ico/Clock-icon.png" /></td>
 	<td><input type="checkbox" name="custom_time_on" value="on" <?php echo $a["custom_time_on"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.elements['timecm'].disabled = !this.checked" /><td>
-	<td><input type="text" name="timecm" value="<?php echo $a['custom_time']; ?>" size="5" disabled="disabled" /></td><td>min</td> 
+	<td><input type="text" name="timecm" value="<?php echo $a['custom_time']/60; ?>" size="5" disabled="disabled" /></td><td>min</td> 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<td><input type="image" name="on" value="ON" src="media/ico/Button-Turn-On-icon.png"/></td>
 	</form>

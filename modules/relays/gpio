@@ -40,9 +40,8 @@
 
 
     timeon() {
-
-	offset=$2
 	gpio_from_line=$1
+	offset=`sqlite3 $dir/dbf/nettemp.db "SELECT custom_time FROM relays WHERE gpio='$gpio_from_line'"`
 	end_time=$(date -d "`date` +$offset second" +%s)
 	sqlite3 $dir/dbf/nettemp.db "UPDATE relays SET end_time='$end_time' WHERE gpio='$gpio_from_line'"
 	sqlite3 $dir/dbf/nettemp.db "UPDATE relays SET time_settings='1' WHERE gpio='$gpio_from_line'"
@@ -63,7 +62,6 @@
     
 
     on(){
-        
         gpio_from_line=$1
 	#sql
         sqlite3 $dir/dbf/nettemp.db "UPDATE relays SET time_settings='0' WHERE gpio='$gpio_from_line'"
