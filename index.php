@@ -20,7 +20,7 @@ function timedRefresh(timeoutPeriod) {
 <div id="header">
 <table border="0" width="1024">
 <tr>
-<td><span class="logo"><img src="media/png/nettemp.pl.png" alt="" ></span></td>
+<td><span class="logo"><a href="http://nettemp.pl" target="_blank"><img src="media/png/nettemp.pl.png" alt="Monitoring Temperatury"></a></span></td>
 <td valign="top"><?php include("modules/login/login.php"); ?></td>
 </tr>
 </table></div>
@@ -73,7 +73,7 @@ case 'alarms': include('modules/notification/html/notification.php'); break;
 
 </div>
 
-	<div id="footer">www.nettemp.pl v6
+	<div id="footer">www.nettemp.pl v7
 	</div>
 </div>
 
