@@ -5,8 +5,6 @@
     now_time_s=`date +%s`
 
 
-
-
     # czasowe wylaczenie z crona i status
     check() {
 	if [ -n "$1" ]; then
@@ -70,13 +68,13 @@
 	#sql
         sqlite3 $dir/dbf/nettemp.db "UPDATE relays SET time_settings='0' WHERE gpio='$gpio_from_line'"
 	#gpio 
-	/usr/local/bin/gpio -g mode $gpio_from_line  out
+	/usr/local/bin/gpio -g mode $gpio_from_line out
 	/usr/local/bin/gpio -g write $gpio_from_line 1
 	#log
 	echo "$date Gpio $gpio is ON" >> $dir/tmp/log.txt           
 	}
 
-onoff() {
+    onoff() {
 	if [ -n "$1" ];then
 	gpio_from_line=$1
 	onoff=$(/usr/local/bin/gpio -g read $gpio_from_line)
@@ -91,7 +89,7 @@ onoff() {
 	}
 
 
-add() {
+    add() {
 	if [ "$1" = "4" ] || [ "$1" = "17" ] || [ "$1" = "18" ] || [ "$1" = "21" ] || [ "$1" = "22" ] || [ "$1" = "23" ] || [ "$1" = "24" ] || [ "$1" = "25" ]; then
 	gpio_from_line=$1
 	#sql
@@ -99,7 +97,7 @@ add() {
 	fi
 	}
 
-del() {
+    del() {
 	if [ -n "$1" ]; then
 	gpio_from_line=$1
 	#sql

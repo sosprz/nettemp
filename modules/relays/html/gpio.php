@@ -9,17 +9,23 @@ $gpio_post=$_POST['gpio'];
 
 $time=($times*60);
 $timec=($timecm*60);
+$custom_time_on=$_POST['custom_time_on'];
 
-if (($_POST['off'] == "OFF") && (is_numeric($gpio_post))) {
+if (($_POST['off'] == "OFF")) {
 exec("$dir/gpio off $gpio_post");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit(); 
 }
 
 if ($_POST['on'] == "ON")  {
-exec("$dir/gpio on $gpio_post");
+		$db = new PDO('sqlite:dbf/nettemp.db');
+	        $db->exec("UPDATE relays SET custom_time_on='$custom_time_on' WHERE gpio='$gpio_post'") ;
+		$db->exec("UPDATE relays SET custom_time='$timecm' WHERE gpio='$gpio_post'") ;
+
+
+	exec("$dir/gpio on $gpio_post");
 	if (!empty($timec) ) { exec("$dir/gpio timeon $gpio_post $timec");}
-	elseif ($time != "all") { exec("$dir/gpio timeon $gpio_post $time"); }
+	        
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 
@@ -31,6 +37,9 @@ if ($_POST['name1'] == "name2"){
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 	 } 
+
+
+
 
 //main loop
 
@@ -49,34 +58,38 @@ exec("$dir/gpio onoff $gpio", $out_arr);
     unset($out_arr);    
 
     if ($out == 'on') { ?>
+	<table><tr>
 	<form action="relays" method="post">
-	<img type="image" src="media/ico/SMD-64-pin-icon_24.png" />
-	<?php echo $a['name']; ?>
+	<td>	<img type="image" src="media/ico/SMD-64-pin-icon_24.png" /></td>
+	<td><?php echo $a['name']; ?></td>
 	<input type="hidden" name="gpio" value="<?php echo "$gpio"; ?> "/>
-	<input type="image" name="off" value="OFF" src="media/ico/Button-Turn-Off-icon.png"/>
+	<td><input type="image" name="off" value="OFF" src="media/ico/Button-Turn-Off-icon.png"/></td>
 	</form>
-<?php
-	passthru("$dir/gpio check $gpio");
-	} 
-	elseif ($out == 'off') {
-?>
+	<td><?php passthru("$dir/gpio check $gpio");?> </td>
+	</tr></table>
+ <?php	} elseif ($out == 'off') { ?>
+	<table>
 	<form action="relays" method="post">
-	<img src="media/ico/SMD-64-pin-icon_24.png" />
-	<input type="text" name="name" value="<?php echo $a['name']; ?>" />
+	<td><img src="media/ico/SMD-64-pin-icon_24.png" /></td>
+	<td><input type="text" name="name" value="<?php echo $a['name']; ?>" size="10" /></td>
 	<input type="hidden" name="name1" value="name2"/>
 	<input type="hidden" name="name_id" value="<?php echo $a['id']; ?>" />
-	<input type="image" src="media/ico/Actions-edit-redo-icon.png" />
+	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png" /></td>
 	</form>
 	<form action="relays" method="post">
-	<img type="image" src="media/ico/Clock-icon.png" />
-	<input type="radio" name="time" value="all" />All time 
-	<input type="radio" name="time" value="60" checked="checked"/>1 hour (default)
-	<input type="radio" name="time" value="120" />2 hour
-	<input type="radio" name="time" value="180" />3 hour
-	<input type="text" name="timecm" value="" /> Custom min
+	<td><img type="image" src="media/ico/Clock-icon.png" /></td>
+	<td><input type="checkbox" name="custom_time_on" value="on" <?php echo $a["custom_time_on"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.elements['timecm'].disabled = !this.checked" /><td>
+	<td><input type="text" name="timecm" value="<?php echo $a['custom_time']; ?>" size="5" disabled="disabled" /></td><td>min</td> 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="image" name="on" value="ON" src="media/ico/Button-Turn-On-icon.png"/>
+	<td><input type="image" name="on" value="ON" src="media/ico/Button-Turn-On-icon.png"/></td>
 	</form>
+	</tr>
+	</table>
+
+
+
+
+
 <?php } ?>
 	</span></span>
 <?php } ?>
