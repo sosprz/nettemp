@@ -72,8 +72,15 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE relays (
   gpio UNIQUE,
   name TEXT,
   time_settings TEXT,
-  end_time TEXT
-    );" 
+  end_time TEXT,
+  custom_time TEXT,
+  custom_time_on TEXT,
+  gpio_temp_on TEXT,
+  gpio_temp_sensor TEXT,
+  gpio_temp_state TEXT,
+  gpio_temp_set TEXT
+    );"
+
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE settings (
    id INTEGER PRIMARY KEY,
