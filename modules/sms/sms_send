@@ -13,7 +13,9 @@ if [ "$onoff" == "on" ]; then
 nr=`sqlite3 $dir/dbf/nettemp.db "SELECT tel FROM recipient WHERE sms_alarm='yes'" | awk '{ printf " "$1 }'`
 dev=`sqlite3 $dir/dbf/nettemp.db "SELECT dev FROM sms_settings WHERE default_dev='on'"`
 smsc=`sqlite3 $dir/dbf/nettemp.db "SELECT smsc FROM sms_settings WHERE default_dev='on'"`
-if [ ! -z $nr ] && [ ! -z $dev ] ; then
+
+#if [ ! -z $nr ] && [ ! -z $dev ] ; then
+if [ ! -z $dev ] ; then
 
 mkdir -p $dir/tmp/sms
 
@@ -68,6 +70,8 @@ if [[ -s $plik ]]; then
 	rm -rf $plik
 	
 fi
+
+
 else 
 echo "$date sms_send - no device or tel number " >> $dir/tmp/log.txt
 

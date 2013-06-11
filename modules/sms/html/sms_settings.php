@@ -67,8 +67,7 @@ foreach ($result as $a) {
 
 <form action="sms" method="post"> 	
 <tr><td>Set default device</td>
-<td><input type="checkbox" name="name" value="on" <?php echo $a["default_dev"] == 'on' ? 'checked="checked"' : ''; ?>  /></td>
-<td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td></tr>
+<td><input type="checkbox" name="name" value="on" <?php echo $a["default_dev"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
 <input type="hidden" name="sd" value="<?php echo $a["id"]; ?>" />
 <input type="hidden" name="sd1" value="sd2" />
 
