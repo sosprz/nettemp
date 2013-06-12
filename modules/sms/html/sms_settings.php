@@ -4,7 +4,7 @@
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE sms_settings SET default_dev='off'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE sms_settings SET default_dev='on' WHERE id='$sd'") or die ($db->lastErrorMsg());
-    header("location: " . $_SERVER['REQUEST_URI']);
+  	 header("location: " . $_SERVER['REQUEST_URI']);
     exit();
      } 
 ?> 
@@ -38,41 +38,34 @@ $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) {
 ?>
-<hr>
+
+
+
+
+
+
+
 <table>
-<tr>	
-    <form action="sms" method="post">
-    <td>Name</td>
-    <td><?php echo $a["name"]; ?></td>
-    
-</tr>
-<tr>	
-    <td>Device</td><td><?php echo $a["dev"]; ?></td>
-    <form action="sms" method="post"> 	
-    <input type="hidden" name="dd" value="<?php echo $a["id"]; ?>" />
-    <input type="hidden" type="submit" name="dd1" value="dd2" />
-   <td><input type="image" src="media/ico/Close-2-icon.png"  /></td></tr>
-    </form>
 
-</tr>
-
-<tr>	
+<tr><td>
+<select>
+   <option>Device <?php echo $a["name"]; ?> <?php echo $a["dev"]; ?></option>
+</select>
+</td>
+<!--<tr>	
     <form action="sms" method="post"> 	
     <td>SMS Center number</td>
     <td><input type="text" name="smsc" size="25" value="<?php echo $a["smsc"]; ?>" /></td>
 <td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td></tr>
 <input type="hidden" name="smsc_id" value="<?php echo $a["id"]; ?>" />
 <input type="hidden" name="smsc1" value="smsc2" />
-</form>
+</form>-->
 
 <form action="sms" method="post"> 	
-<tr><td>Set default device</td>
-<td><input type="checkbox" name="name" value="on" <?php echo $a["default_dev"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+<td><input type="submit" name="name" value="Set default device" /> </td>
 <input type="hidden" name="sd" value="<?php echo $a["id"]; ?>" />
 <input type="hidden" name="sd1" value="sd2" />
-
-    
-    </form>
+</form>
 </tr>
 </table>
 <?php } 
