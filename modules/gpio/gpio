@@ -1,0 +1,115 @@
+#! /bin/bash 
+
+    dir=/var/www/nettemp
+    date=$(date +%y%m%d-%H%M)
+    now_time_s=`date +%s`
+
+check() {
+	#onoff
+	if [ -n "$1" ]; then
+	    gpio_list=$1
+   else
+	    gpio_list=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio WHERE time_settings='on'")
+	fi
+
+	for gpio in $gpio_list; do 
+		time_settings=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_settings FROM gpio WHERE gpio='$gpio'")
+		end_time_ff=$(sqlite3 $dir/dbf/nettemp.db "SELECT end_time FROM gpio WHERE gpio='$gpio'")
+			if [ -n "$end_time_ff" ] && [ "$end_time_ff" -ne "0" ]; then
+	    		#echo End time: $end_time_ff
+	    		#echo End date: $(date --date="1970-01-01 UTC +$end_time_ff sec" +"%a %b %d %H:%M:%S %Y")
+	    		#echo Logoterma status is $($dir/modules/logoterma/relay)
+				if [ $end_time_ff -lt $now_time_s ]; then # lt  mnijsze 
+		    		#echo Time end
+		    		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET end_time='0' WHERE gpio='$gpio'"
+		    		# logoterma off
+		    		off $gpio
+		    		echo "off"
+		    		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_settings='off' WHERE gpio='$gpio'"
+		    		echo "$date Gpio $gpio is OFF" >> $dir/tmp/log.txt	    	
+				else 
+		   		diff=$(( $end_time_ff - $now_time_s ))
+		    		echo "Elapsed time is $(($diff/60)) min, ($diff sec)" 
+				fi	
+
+  			fi
+	done
+	
+	#function
+	
+	
+	
+	}
+
+
+timeon() {
+		gpio_from_line=$1
+		offset=`sqlite3 $dir/dbf/nettemp.db "SELECT custom_time FROM gpio WHERE gpio='$gpio_from_line'"`
+		end_time=$(date -d "`date` +$offset second" +%s)
+		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET end_time='$end_time' WHERE gpio='$gpio_from_line'"
+		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_settings='on' WHERE gpio='$gpio_from_line'"
+		echo "$date Gpio $gpio time on" >> $dir/tmp/log.txt	    
+    }
+
+off() {        
+      gpio_from_line=$1
+	   sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_settings='off' WHERE gpio='$gpio_from_line'"
+      sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET end_time='0' WHERE gpio='$gpio_from_line'"
+		/usr/local/bin/gpio -g write $gpio_from_line 0
+	   echo "$date Gpio $gpio is OFF" >> $dir/tmp/log.txt           
+    }
+
+    
+
+on(){
+      gpio_from_line=$1
+	   sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_settings='off' WHERE gpio='$gpio_from_line'"
+		/usr/local/bin/gpio -g mode $gpio_from_line out
+	   /usr/local/bin/gpio -g write $gpio_from_line 1
+		echo "$date Gpio $gpio is ON" >> $dir/tmp/log.txt           
+	}
+
+    onoff() {
+if [ -n "$1" ];then
+	gpio_from_line=$1
+	onoff=$(/usr/local/bin/gpio -g read $gpio_from_line)
+		if [ "$onoff" = "1" ];then
+			echo "on"
+		else 
+			echo "off"
+   	fi
+else 
+		echo "no gpio"
+fi
+	}
+
+
+add() {
+if [ "$1" = "4" ] || [ "$1" = "17" ] || [ "$1" = "18" ] || [ "$1" = "21" ] || [ "$1" = "22" ] || [ "$1" = "23" ] || [ "$1" = "24" ] || [ "$1" = "25" ]; then
+	gpio_from_line=$1
+	sqlite3 $dir/dbf/nettemp.db "INSERT INTO gpio (gpio, name, end_time, time_settings ) VALUES ('$gpio_from_line','new', 0, '0')"
+fi
+	}
+
+del() {
+	if [ -n "$1" ]; then
+		gpio_from_line=$1
+		sqlite3 $dir/dbf/nettemp.db "DELETE FROM gpio WHERE gpio='$gpio_from_line'"
+		/usr/local/bin/gpio -g write $gpio_from_line 0
+	fi
+	}
+
+
+
+    case "$1" in
+    "on") on $2 ;;
+    "off") off $2 ;;
+    "timeon") timeon $2 $3 ;;
+    "onoff") onoff $2 ;;
+    "check") check $2 ;;
+    "add") add $2 ;;
+    "del") del $2 ;;
+    *) echo "empty ;(" ;;
+    esac
+
+

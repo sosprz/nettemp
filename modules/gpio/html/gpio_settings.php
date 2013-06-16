@@ -1,5 +1,5 @@
 <?php
-$dir="modules/relays/";
+$dir="modules/gpio/";
 
 $timecm=$_POST['timecm'];
 $times=$_POST['time'];
@@ -26,19 +26,19 @@ exit();
 
 if ($_POST['on'] == "ON")  {
 		$db = new PDO('sqlite:dbf/nettemp.db');
-	        $db->exec("UPDATE relays SET custom_time_on='$custom_time_on' WHERE gpio='$gpio_post'") ;
-		if (!empty($timecm) ) {	$db->exec("UPDATE relays SET custom_time='$timec' WHERE gpio='$gpio_post'") ;  }
-	        $sth = $db->prepare("SELECT * FROM relays WHERE gpio='$gpio_post'");
+	        $db->exec("UPDATE gpio SET custom_time_on='$custom_time_on' WHERE gpio='$gpio_post'") ;
+		if (!empty($timecm) ) {	$db->exec("UPDATE gpio SET custom_time='$timec' WHERE gpio='$gpio_post'") ;  }
+	        $sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$gpio_post'");
                 $sth->execute();
 	        $result = $sth->fetchAll();
 		    foreach ($result as $a) { $cto=$a["custom_time_on"]; }
 			exec("$dir/gpio on $gpio_post"); 
 			    if ( $cto == 'on' ) { exec("$dir/gpio timeon $gpio_post");}
 //temp
-$db->exec("UPDATE relays SET gpio_temp_sensor='$gpio_temp_sensor' WHERE gpio='$gpio_post'") ;
-$db->exec("UPDATE relays SET gpio_temp_on='$gpio_temp_on' WHERE gpio='$gpio_post'") ;
-$db->exec("UPDATE relays SET gpio_temp_set='$gpio_temp_set' WHERE gpio='$gpio_post'") ;
-$db->exec("UPDATE relays SET gpio_temp_state='$gpio_temp_state' WHERE gpio='$gpio_post'") ;
+$db->exec("UPDATE gpio SET gpio_temp_sensor='$gpio_temp_sensor' WHERE gpio='$gpio_post'") ;
+$db->exec("UPDATE gpio SET gpio_temp_on='$gpio_temp_on' WHERE gpio='$gpio_post'") ;
+$db->exec("UPDATE gpio SET gpio_temp_set='$gpio_temp_set' WHERE gpio='$gpio_post'") ;
+$db->exec("UPDATE gpio SET gpio_temp_state='$gpio_temp_state' WHERE gpio='$gpio_post'") ;
 
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
@@ -47,7 +47,7 @@ exit();
 
 if ($_POST['name1'] == "name2"){
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE relays SET name='$name' WHERE id='$name_id'") or die ($db->lastErrorMsg());
+	$db->exec("UPDATE gpio SET name='$name' WHERE id='$name_id'") or die ($db->lastErrorMsg());
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 	 } 
@@ -58,7 +58,7 @@ exit();
 //main loop
 
 $db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("select * from relays");
+$sth = $db->prepare("select * from gpio");
 $sth->execute();
 $result = $sth->fetchAll();
 
@@ -73,7 +73,7 @@ exec("$dir/gpio onoff $gpio", $out_arr);
 
     if ($out == 'on') { ?>
 	<table><tr>
-	<form action="relays" method="post">
+	<form action="gpio" method="post">
 	<td>	<img type="image" src="media/ico/SMD-64-pin-icon_24.png" /></td>
 	<td><?php echo $a['name']; ?></td>
 	<input type="hidden" name="gpio" value="<?php echo "$gpio"; ?> "/>
@@ -84,7 +84,7 @@ exec("$dir/gpio onoff $gpio", $out_arr);
 	</tr></table>
  <?php	} elseif ($out == 'off') { ?>
 	<table>
-	<form action="relays" method="post">
+	<form action="gpio" method="post">
 	<td><img type="image" src="media/ico/SMD-64-pin-icon_24.png" ></td>
 	<td><input type="text" name="name" value="<?php echo $a['name']; ?>" size="10"></td>
 	<input type="hidden" name="name1" value="name2">
@@ -92,7 +92,7 @@ exec("$dir/gpio onoff $gpio", $out_arr);
 	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png" alt="Submit" ></td>
 	</form>
 	<td>                           </td>
-	<form action="relays" method="post">
+	<form action="gpio" method="post">
 	<td><img  src="media/ico/Clock-icon.png" /></td>
 	<td><input type="checkbox" name="custom_time_on" value="on" <?php echo $a["custom_time_on"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.elements['timecm'].disabled = !this.checked" ><td>
 	<td><input type="text" name="timecm" value="<?php echo $a['custom_time']/60; ?>" size="5" disabled="disabled" ></td><td>min</td> 
@@ -103,7 +103,7 @@ exec("$dir/gpio onoff $gpio", $out_arr);
 
 
 	<td>                           </td>
-	<form action="relays" method="post">
+	<form action="gpio" method="post">
 	<td><img  src="media/ico/temp2-icon.png" /></td>
 	<td><input type="checkbox" name="gpio_temp_on" value="on" <?php echo $a["gpio_temp_on"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.elements['gpio_temp_sensor'].disabled = this.form.elements['gpio_temp_state'].disabled = this.form.elements['gpio_temp_set'].disabled =!this.checked" ><td>
 	<select name="gpio_temp_sensor" disabled="disabled">

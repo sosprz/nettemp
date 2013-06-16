@@ -38,7 +38,7 @@ function timedRefresh(timeoutPeriod) {
    		<?php } ?>
  <?php if ($numRows1 == 1 && ( $perms == "adm" )) { ?>
 
-	<li><a href='relays'><span>Relays</spam></a></li>
+	<li><a href='gpio'><span>Gpio</spam></a></li>
  <li><a href='tools'><span>Tools</span></a></li> 
 	<li><a href='info'><span>Info</span></a></li>
  <?php } 
@@ -64,7 +64,7 @@ case 'diened': include('modules/login/diened.php'); break;
 case 'diag': include('modules/diag/html/diag.php'); break;
 case 'tools': include('modules/tools/html/tools.php'); break;
 case 'info': include('modules/info/info.php'); break;
-case 'relays': include('modules/relays/html/relays.php'); break;
+case 'gpio': include('modules/gpio/html/gpio.php'); break;
 case 'sms': include('modules/notification/html/notification.php'); break;
 case 'mail': include('modules/notification/html/notification.php'); break;
 case 'alarms': include('modules/notification/html/notification.php'); break;

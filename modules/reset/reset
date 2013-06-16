@@ -69,7 +69,7 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE device (
    onewire UNIQUE
   );" 
 
-sqlite3 $dir/dbf/nettemp.db "CREATE TABLE relays (
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE gpio (
   id INTEGER PRIMARY KEY,
   gpio UNIQUE,
   name TEXT,
