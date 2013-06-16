@@ -1,4 +1,4 @@
-www.nettemp.pl v6
+www.nettemp.pl v8
 
 AUTOMATIC INSTALL:
 
