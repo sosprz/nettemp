@@ -40,7 +40,7 @@ echo "*/10 * * * * /var/www/nettemp/modules/sensors/temp_dev_read" >> /var/spool
 echo "1 * * * * /var/www/nettemp/modules/mail/mail_send" >> /var/spool/cron/crontabs/root
 echo "*/11 * * * * /var/www/nettemp/modules/view/view_gen" >> /var/spool/cron/crontabs/root
 echo "1 * * * * /var/www/nettemp/modules/sms/sms_send" >> /var/spool/cron/crontabs/root
-echo "*/5 * * * * /var/www/nettemp/modules/relays/gpio check" >> /var/spool/cron/crontabs/root
+echo "*/1 * * * * /var/www/nettemp/modules/relays/gpio check" >> /var/spool/cron/crontabs/root
 chmod 600 /var/spool/cron/crontabs/root
 
 

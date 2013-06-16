@@ -43,25 +43,29 @@ done
 
 send_sms()
 {
-echo "$date sms_test - send sms to $1 $(cat $plik | gammu -c tmp/gammurc  --sendsms TEXT $1 )" >> $dir/tmp/log.txt
+echo "$date sms_test - send sms to $1 $(cat $plik | gammu -c $dir/tmp/gammurc  --sendsms TEXT $1 )" >> $dir/tmp/log.txt
 }
 
 
 check_alarm
 
-if [[ -s $plik ]]; then
-
-	for i in $nr; do
-		send_sms $i
-		sleep 3
-	done
+    if [[ -s $plik ]]; then
+	if [[ -n $nr ]]; then
+		for i in $nr; do
+		    send_sms $i
+		    sleep 3
+		done
 	rm -rf $plik
-	
-fi
+	else
+	echo "$date sms_send - no number added" >> $dir/tmp/log.txt
+	fi
+    else 
+	echo "$date sms_send - no sms file " >> $dir/tmp/log.txt
+    fi
 
 
 else 
-echo "$date sms_send - no device or tel number " >> $dir/tmp/log.txt
+echo "$date sms_send - no device " >> $dir/tmp/log.txt
 
 fi
 
