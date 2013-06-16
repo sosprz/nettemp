@@ -6,6 +6,7 @@ date=`date +%y%m%d-%H%M`
 
 
 sqlite3 $dir/dbf/nettemp.db "DELETE FROM sms_settings"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sms_settings ( name ) VALUES ('select device ')"
 
 for i in `ls /dev/tty*`; do
     name=`udevadm info -q all --name=$i 2> /dev/null |grep -m1 ID_MODEL |cut -c 13-`
@@ -13,7 +14,7 @@ for i in `ls /dev/tty*`; do
 
 
 
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sms_settings ( name ) VALUES ('select device ')"
+
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sms_settings ( name, dev, smsc ) VALUES ('$name','$i','+48790998250')"
 echo "$date sms_scan - discovered device $name $i" >> $dir/tmp/log.txt
 
