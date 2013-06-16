@@ -73,7 +73,7 @@ case 'alarms': include('modules/notification/html/notification.php'); break;
 
 </div>
 
-	<div id="footer">www.nettemp.pl v7
+	<div id="footer">www.nettemp.pl v7.1
 	</div>
 </div>
 
