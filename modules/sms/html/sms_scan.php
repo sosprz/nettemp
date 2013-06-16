@@ -6,13 +6,13 @@ include('conf.php');
 		header("location: " . $_SERVER['REQUEST_URI']);
   		exit();
    } 
-   $dd = $_POST["dd"];
-	if (!empty($dd) && ($_POST['dd1'] == "dd2") ){
-   	$db = new PDO('sqlite:dbf/nettemp.db');
-   	$db->exec("DELETE FROM sms_settings WHERE id='$dd'") or die ($db->lastErrorMsg());
-   	header("location: " . $_SERVER['REQUEST_URI']);
-   	exit();
-   }
+//   $dd = $_POST["dd"];
+//	if (!empty($dd) && ($_POST['dd1'] == "dd2") ){
+//   	$db = new PDO('sqlite:dbf/nettemp.db');
+//   	$db->exec("DELETE FROM sms_settings WHERE id='$dd'") or die ($db->lastErrorMsg());
+//   	header("location: " . $_SERVER['REQUEST_URI']);
+//   	exit();
+//   }
       $sd = $_POST["sd"];
       if ($_POST['sd1'] == "sd2") {
    	$db = new PDO('sqlite:dbf/nettemp.db');
@@ -48,7 +48,7 @@ $sth = $db->prepare("select * from sms_settings ");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { ?>
-<option <?php echo $a['default_dev'] == 'on' ? 'selected="selected"' : ''; ?> value="<?php echo $a['id']; ?>"> Device <?php echo $a["name"]; ?> <?php echo $a["dev"]; ?> </option>
+<option <?php echo $a['default_dev'] == 'on' ? 'selected="selected"' : ''; ?> value="<?php echo $a['id']; ?>"><?php echo $a["name"]; ?> <?php echo $a["dev"]; ?> </option>
 <?php } ?>
 </select>
 <input type="hidden" name="sd1" value="sd2" />
