@@ -34,14 +34,27 @@ if ($_POST['on'] == "ON")  {
 		    foreach ($result as $a) { $cto=$a["custom_time_on"]; }
 			exec("$dir/gpio on $gpio_post"); 
 			    if ( $cto == 'on' ) { exec("$dir/gpio timeon $gpio_post");}
-//temp
+header("location: " . $_SERVER['REQUEST_URI']);
+exit();
+
+}
+
+
+if ($_POST['on_temp'] == "ON")  {
+		$db = new PDO('sqlite:dbf/nettemp.db');
+
 $db->exec("UPDATE gpio SET gpio_temp_sensor='$gpio_temp_sensor' WHERE gpio='$gpio_post'") ;
 $db->exec("UPDATE gpio SET gpio_temp_on='$gpio_temp_on' WHERE gpio='$gpio_post'") ;
 $db->exec("UPDATE gpio SET gpio_temp_set='$gpio_temp_set' WHERE gpio='$gpio_post'") ;
 $db->exec("UPDATE gpio SET gpio_temp_state='$gpio_temp_state' WHERE gpio='$gpio_post'") ;
 
-header("location: " . $_SERVER['REQUEST_URI']);
-exit();
+echo $gpio_temp_sensor;
+echo $gpio_temp_on;
+echo $gpio_temp_set;
+echo $gpio_temp_state;
+
+//header("location: " . $_SERVER['REQUEST_URI']);
+//exit();
 
 }
 
@@ -121,7 +134,7 @@ exec("$dir/gpio onoff $gpio", $out_arr);
 	<td><input type="text" name="gpio_temp_set" value="<?php echo $a['gpio_temp_set']; ?>" size="2" disabled="disabled" ></td>
 	<td>C</td> 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="hidden" name="on" value="ON" />
+	<input type="hidden" name="on_temp" value="ON" />
 	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
 	</form>
 	</tr>

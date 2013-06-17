@@ -34,8 +34,20 @@ check() {
 
   			fi
 	done
-	
-	#function
+
+
+    #temp on/off
+gpio_from_line=17
+gpio_temp_on=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio_temp_on FROM gpio WHERE gpio='$gpio_from_line'"`
+gpio_temp_sensor=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio_temp_sensor FROM gpio WHERE gpio='$gpio_from_line'"`
+gpio_temp_state=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio_temp_state FROM gpio WHERE gpio='$gpio_from_line'"`
+gpio_temp_set=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio_temp_set FROM gpio WHERE gpio='$gpio_from_line'"`
+echo $gpio_temp_on
+echo $gpio_temp_sensor
+echo $gpio_temp_state
+echo $gpio_temp_set
+
+
 	
 	
 	
@@ -69,7 +81,7 @@ on(){
 		echo "$date Gpio $gpio is ON" >> $dir/tmp/log.txt           
 	}
 
-    onoff() {
+onoff() {
 if [ -n "$1" ];then
 	gpio_from_line=$1
 	onoff=$(/usr/local/bin/gpio -g read $gpio_from_line)
@@ -87,7 +99,7 @@ fi
 add() {
 if [ "$1" = "4" ] || [ "$1" = "17" ] || [ "$1" = "18" ] || [ "$1" = "21" ] || [ "$1" = "22" ] || [ "$1" = "23" ] || [ "$1" = "24" ] || [ "$1" = "25" ]; then
 	gpio_from_line=$1
-	sqlite3 $dir/dbf/nettemp.db "INSERT INTO gpio (gpio, name, end_time, time_settings ) VALUES ('$gpio_from_line','new', 0, '0')"
+	sqlite3 $dir/dbf/nettemp.db "INSERT INTO gpio (gpio, name, end_time, time_settings ) VALUES ('$gpio_from_line','new', 0, 'off')"
 fi
 	}
 

@@ -43,7 +43,7 @@ function timedRefresh(timeoutPeriod) {
 	<li><a href='info'><span>Info</span></a></li>
  <?php } 
 else {?>
-	<li><a href='relays'><span>Relays</spam></a></li>
+	<li><a href='gpio'><span>Gpio</spam></a></li>
 	<li><a href='info'><span>Info</span></a></li>
 <?php
 } ?>
