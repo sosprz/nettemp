@@ -1,15 +1,13 @@
 <div id="left"><span class="belka">&nbsp info<span class="okno">
-Contact:  </br >
-www: <a href="http://nettemp.pl" target="_blank">www.nettemp.pl</a>  </br >
-mail: techfreak.pl@gmail.com
-
-
+</br >
+<center><a href="http://nettemp.pl" target="_blank">www.nettemp.pl</a></center>
+</br >
+<center>techfreak.pl@gmail.com</center>
 <br />
+<center>Donate for developing:</center>
 <br />
-Donate for developing:<br /><br />
-<?php
-include('paypal.php');
-?>
+<center><?php include('paypal.php'); ?></center>
+<br />
 
 </span></span>
 </div>
