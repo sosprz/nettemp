@@ -3,9 +3,9 @@ $mail_test=$_POST['mail_test'];
 if  ($_POST['mail_test1'] == "mail_test2") {
     $cmd="modules/mail/mail_test $mail_test";
     shell_exec($cmd); 
-    }
-$db = new PDO('sqlite:dbf/nettemp.db');
-$db->exec("UPDATE mail_settings SET test_mail='$mail_test'") or die ($db->lastErrorMsg());
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE mail_settings SET test_mail='$mail_test'") or die ($db->lastErrorMsg());
+}
 
 ?>
 
