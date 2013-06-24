@@ -8,7 +8,7 @@ if [ -n "$1" ]; then
     (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, logoterma) \
     VALUES ('new_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'off' )"
 
-    /usr/bin/rrdtool create $dir/db/$1.rrd -s 600 DS:temp:GAUGE:700:-50:50 RRA:AVERAGE:0.5:1:48384 RRA:MAX:0.5:1:48384 RRA:MIN:0.5:1:48384 RRA:LAST:0.5:1:48384
+    /usr/bin/rrdtool create $dir/db/$1.rrd -s 60 DS:temp:GAUGE:700:-150:150 RRA:AVERAGE:0.5:1:48384 RRA:MAX:0.5:1:48384 RRA:MIN:0.5:1:48384 RRA:LAST:0.5:1:48384
     chmod 777 $dir/db/$1.rrd
     
     echo "$1 added"
