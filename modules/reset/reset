@@ -51,7 +51,8 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE mail_settings (
   port TEXT,
   user TEXT,
   password TEXT,
-  address TEXT
+  address TEXT,
+  test_mail TEXT
   );" 
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE sms_settings (
