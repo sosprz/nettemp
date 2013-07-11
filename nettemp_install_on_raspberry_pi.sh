@@ -25,7 +25,7 @@ sudo echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1
 
 
 echo "downloading nettemp source"
-cd /var/www
+sudo cd /var/www
 sudo git clone https://github.com/sosprz/nettemp
 
 echo "permisions"
