@@ -2,14 +2,16 @@
 # nettemp rpi installer
 # nettemp.pl
 # 
-# 2013.07.12
+# 2013.07.21
 
 if [[ $UID -ne 0 ]]; then
     echo "$0 must be run as root"
     exit 1
 fi 
 
-echo "update distro"
+echo "Do You want update system?"
+read y
+echo $y
 # apt-get update
 # apt-get -y upgrade
 
@@ -35,16 +37,16 @@ echo "changing lighthttpd conf"
  fi
 
 
-echo "Which version you want to download"
-echo "Regular [r] Beta [b]"
+echo "Which version you want to download?"
+echo "Regular [r] or Beta [b]"
 read x 
 cd /var/www
-if [ x == ] then
+if [ "$x" = "r" ]; then
 git clone https://github.com/sosprz/nettemp
 fi
 
-if [ x == ] then
-git clone https://github.com/sosprz/nettemp
+if [ "$x" = "b" ]; then 
+git clone -b beta https://github.com/sosprz/nettemp
 fi
 
 
