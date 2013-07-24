@@ -38,7 +38,7 @@ echo -e "${GREEN}Changing lighthttpd conf${R}"
  then
  echo -e "${GREEN}Url rewrite exist${R}"
  else
- echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1\" )" >> /etc/lighttpd/lighttpd.conf 1> /dev/null
+ echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1\" )" |tee -a /etc/lighttpd/lighttpd.conf 
  fi
 
 
@@ -104,8 +104,8 @@ echo -e "${GREEN}Add watchdog${R}"
 echo -e "${GREEN}Add modules 1-wire${R}"
  if cat /etc/modules |grep w1_ 1> /dev/null
  then echo -e "${GREEN}1-wire modules exist in file${R}"
- else  echo "w1_gpio" | sudo tee -a /etc/modules
-       echo "w1_therm" | sudo tee -a /etc/modules
+ else  echo "w1_gpio" | tee -a /etc/modules
+       echo "w1_therm" | tee -a /etc/modules
  fi
 
 echo -e "${REDB}Restart RPI and make sure everything is ok${R}"
