@@ -33,6 +33,7 @@ foreach ($row as $result) {
     <input type="hidden" name="add" value="ADD" />
     <td><input type="image" src="media/ico/Add-icon.png"  /></td>
     </form>
+
 <?php } ?>
     <form action="gpio" method="post"> 
     <input type="hidden" name="gpioad" value="<?php echo $value1; ?>" >
