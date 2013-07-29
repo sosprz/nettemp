@@ -25,15 +25,45 @@ exit();
 }
 
 if ($_POST['on'] == "ON")  {
+echo "onON";
+
+	if (!empty($timecm)) {
+		$db = new PDO('sqlite:dbf/nettemp.db');
+	       		if (!empty($timecm)) {	
+				$db->exec("UPDATE gpio SET custom_time='$timec' WHERE gpio='$gpio_post'");
+				exec("$dir/gpio timeon $gpio_post");  
+				exec("$dir/gpio on $gpio_post");
+
+			}
+	       // $sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$gpio_post'");
+               // $sth->execute();
+	       // $result = $sth->fetchAll();
+		//    foreach ($result as $a) { $cto=$a["custom_time_on"]; }
+		//	exec("$dir/gpio on $gpio_post"); 
+		//	    if ( $cto == 'on' ) { exec("$dir/gpio timeon $gpio_post");}
+        }
+	else {	
+		exec("$dir/gpio on $gpio_post");
+		echo "wlaczam";
+	}
+		
+
+header("location: " . $_SERVER['REQUEST_URI']);
+exit();
+
+}
+
+if ($_POST['timeon'] == "timeON")  {
 		$db = new PDO('sqlite:dbf/nettemp.db');
 	        $db->exec("UPDATE gpio SET custom_time_on='$custom_time_on' WHERE gpio='$gpio_post'") ;
-		if (!empty($timecm) ) {	$db->exec("UPDATE gpio SET custom_time='$timec' WHERE gpio='$gpio_post'") ;  }
-	        $sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$gpio_post'");
-                $sth->execute();
-	        $result = $sth->fetchAll();
-		    foreach ($result as $a) { $cto=$a["custom_time_on"]; }
-			exec("$dir/gpio on $gpio_post"); 
-			    if ( $cto == 'on' ) { exec("$dir/gpio timeon $gpio_post");}
+header("location: " . $_SERVER['REQUEST_URI']);
+exit();
+
+}
+
+if ($_POST['tempon'] == "tempON")  {
+		$db = new PDO('sqlite:dbf/nettemp.db');
+	        $db->exec("UPDATE gpio SET gpio_temp_on='$gpio_temp_on' WHERE gpio='$gpio_post'") ;
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 
@@ -112,59 +142,73 @@ exec("$dir/gpio status $gpio", $out_arr);
 	</tr></table>
  <?php	} elseif ($out == 'off') { ?>
 	<table>
+	<tr>
 	<form action="gpio" method="post">
 	<td><img type="image" src="media/ico/SMD-64-pin-icon_24.png" ></td>
 	<td><input type="text" name="name" value="<?php echo $a['name']; ?>" size="10"></td>
 	<input type="hidden" name="name1" value="name2">
 	<input type="hidden" name="name_id" value="<?php echo $a['id']; ?>" >
-	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png" alt="Submit" ></td>
+	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png" alt="Submit" title="Reload" ></td>
 	</form>
 	<td>                           </td>
 	<form action="gpio" method="post">
-    	<td>rev hi/lo</td>
+    	<td><img type="image" src="media/ico/Letter-R-blue-icon.png" title="Reverse state HIGH to LOW" ></td>
     	<td><input type="checkbox" name="gpio_rev_hilo" value="on" <?php echo $a["gpio_rev_hilo"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     	<input type="hidden" name="gpio_rev_hilo1" value="gpio_rev_hilo2" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     	</form>
 
 	<form action="gpio" method="post">
-	<td><img  src="media/ico/Clock-icon.png" /></td>
-	<td><input type="checkbox" name="custom_time_on" value="on" <?php echo $a["custom_time_on"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.elements['timecm'].disabled = !this.checked" ><td>
-	<div id="timecm1" style="display: none">
-<td><input type="text" name="timecm" value="<?php echo $a['custom_time']/60; ?>" size="5" disabled="disabled" ></td><td>min</td> 
-</div>
+	<td><img  src="media/ico/Clock-icon.png" title="Set time"/></td>
+	<td><input type="checkbox" name="custom_time_on" value="on" <?php echo $a["custom_time_on"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /><td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="hidden" name="on" value="ON" />
-	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
-	</form>
-
-
-	<td>                           </td>
+	<input type="hidden" name="timeon" value="timeON" />        
+       </form>
 	<form action="gpio" method="post">
-	<td><img  src="media/ico/temp2-icon.png" /></td>
-	<td><input type="checkbox" name="gpio_temp_on" value="on" <?php echo $a["gpio_temp_on"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.elements['gpio_temp_sensor'].disabled = this.form.elements['gpio_temp_state'].disabled = this.form.elements['gpio_temp_set'].disabled = this.form.elements['gpio_temp_onoff'].disabled  =!this.checked" ><td>
-	<select name="gpio_temp_sensor" disabled="disabled">
+	<td><img  src="media/ico/temp2-icon.png" title="Set temp when sensor will turn on/off" /></td>
+	<td><input type="checkbox" name="gpio_temp_on" value="on" <?php echo $a["gpio_temp_on"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="tempon" value="tempON" />
+	</form>
+	
+	<form action="gpio" method="post">
+        
+<?php if  ($a['custom_time_on'] == 'on') { ?>
+	
+	<td><input type="text" name="timecm" value="<?php echo $a['custom_time']/60; ?>" size="5"  ></td><td>min</td> 
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	
+       <?php } ?>
+	
+<?php if  ($a['gpio_temp_on'] == 'on') { ?>
+       <td>
+	<select name="gpio_temp_sensor" >
 	<?php $sth = $db->prepare("SELECT * FROM sensors");
 	$sth->execute();
 	$result = $sth->fetchAll();
 	foreach ($result as $select) { ?>
 	<option <?php echo $a['gpio_temp_sensor'] == $select['name'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['name']; ?>"><?php echo $select['name']; ?></option>
 	<?php } ?>
-         </select>
-        <select name="gpio_temp_onoff" disabled="disabled" >
+        </select></td>
+	<td>
+        <select name="gpio_temp_onoff" >
         <option <?php echo $a['gpio_temp_onoff'] == 'on' ? 'selected="selected"' : ''; ?> value="on">On</option>   
         <option <?php echo $a['gpio_temp_onoff'] == 'off' ? 'selected="selected"' : ''; ?> value="off">Off</option>     
-        </select>
-        </select>
-	<select name="gpio_temp_state" disabled="disabled" >
+        </select></td>
+	<td><select name="gpio_temp_state" >
 	<option <?php echo $a['gpio_temp_state'] == 'gr' ? 'selected="selected"' : ''; ?> value="gr">greater</option>	
 	<option <?php echo $a['gpio_temp_state'] == 'lo' ? 'selected="selected"' : ''; ?> value="lo">lower</option>	
-	</select>
-	<td><input type="text" name="gpio_temp_set" value="<?php echo $a['gpio_temp_set']; ?>" size="2" disabled="disabled" ></td>
+	</select></td>
+	<td><input type="text" name="gpio_temp_set" value="<?php echo $a['gpio_temp_set']; ?>" size="2" ></td>
 	<td>C</td> 
+	
+	
+<?php } ?>
+	
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="hidden" name="on_temp" value="ON" />
-	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
+    	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
+	<input type="hidden" name="on" value="ON" />
+
 	</form>
 	</tr>
 	</table>
@@ -174,3 +218,4 @@ exec("$dir/gpio status $gpio", $out_arr);
 	</span></span>
 <?php } ?>
 
+ 
