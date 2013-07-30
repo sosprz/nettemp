@@ -30,8 +30,8 @@ echo "onON";
 	if (!empty($timecm)) {
 		$db = new PDO('sqlite:dbf/nettemp.db');
 	       		if (!empty($timecm)) {	
-				$db->exec("UPDATE gpio SET custom_time='$timec' WHERE gpio='$gpio_post'");
-				exec("$dir/gpio timeon $gpio_post");  
+				$db->exec("UPDATE gpio SET custom_time='$timec' WHERE gpio='$gpio_post'"); // wpisa do bazy do zapamietania
+				exec("$dir/gpio timeon $gpio_post $timec");  
 				exec("$dir/gpio on $gpio_post");
 
 			}
@@ -44,7 +44,7 @@ echo "onON";
         }
 	else {	
 		exec("$dir/gpio on $gpio_post");
-		echo "wlaczam";
+		
 	}
 		
 
@@ -70,7 +70,7 @@ exit();
 }
 
 
-if ($_POST['on_temp'] == "ON")  {
+if ($_POST['on_temp'] == "ON0000000")  {
 		$db = new PDO('sqlite:dbf/nettemp.db');
 
 $db->exec("UPDATE gpio SET gpio_temp_sensor='$gpio_temp_sensor' WHERE gpio='$gpio_post'") ;
@@ -138,7 +138,7 @@ exec("$dir/gpio status $gpio", $out_arr);
 	<input type="hidden" name="off" value="OFF" />
 	<td><input type="image"  src="media/ico/Button-Turn-Off-icon.png"/></td>
 	</form>
-	<td><?php passthru("$dir/gpio checktime $gpio");?> </td>
+	<td><?php passthru("$dir/gpio check $gpio");?> </td>
 	</tr></table>
  <?php	} elseif ($out == 'off') { ?>
 	<table>

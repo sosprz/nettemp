@@ -15,7 +15,7 @@ exit();
 } ?>
 <span class="belka">&nbsp Add / Del relays<span class="okno">
 <?php
-$gpiolist = array(4,17,18,21,22,23,24,25);
+$gpiolist = array(17,18,21,22,23,24,25);
 foreach ($gpiolist as $value1) {
 
 $db = new PDO('sqlite:dbf/nettemp.db');
