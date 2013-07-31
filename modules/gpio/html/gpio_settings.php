@@ -13,10 +13,10 @@ $custom_time_on=$_POST['custom_time_on'];
 
 
 $gpio_temp_on=$_POST['gpio_temp_on'];
-$gpio_temp_set=$_POST['gpio_temp_set'];
-$gpio_temp_state=$_POST['gpio_temp_state'];
 $gpio_temp_sensor=$_POST['gpio_temp_sensor'];
 $gpio_temp_onoff=$_POST['gpio_temp_onoff'];
+$gpio_temp_grlo=$_POST['gpio_temp_grlo'];
+$gpio_temp_temp=$_POST['gpio_temp_temp'];
 
 if (($_POST['off'] == "OFF")) {
 exec("$dir/gpio off $gpio_post");
@@ -32,7 +32,7 @@ echo "onON";
 	       		if (!empty($timecm)) {	
 				$db->exec("UPDATE gpio SET custom_time='$timec' WHERE gpio='$gpio_post'"); // wpisa do bazy do zapamietania
 				exec("$dir/gpio timeon $gpio_post $timec");  
-				exec("$dir/gpio on $gpio_post");
+				//exec("$dir/gpio on $gpio_post");
 
 			}
 	       // $sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$gpio_post'");
@@ -42,6 +42,10 @@ echo "onON";
 		//	exec("$dir/gpio on $gpio_post"); 
 		//	    if ( $cto == 'on' ) { exec("$dir/gpio timeon $gpio_post");}
         }
+	elseif (!empty($gpio_temp_sensor)) {
+				exec("$dir/gpio tempon $gpio_post $gpio_temp_sensor $gpio_temp_onoff $gpio_temp_grlo $gpio_temp_temp");  
+		
+	}
 	else {	
 		exec("$dir/gpio on $gpio_post");
 		
@@ -56,6 +60,7 @@ exit();
 if ($_POST['timeon'] == "timeON")  {
 		$db = new PDO('sqlite:dbf/nettemp.db');
 	        $db->exec("UPDATE gpio SET custom_time_on='$custom_time_on' WHERE gpio='$gpio_post'") ;
+		$db->exec("UPDATE gpio SET gpio_temp_on='off' WHERE gpio='$gpio_post'") ;
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 
@@ -64,34 +69,16 @@ exit();
 if ($_POST['tempon'] == "tempON")  {
 		$db = new PDO('sqlite:dbf/nettemp.db');
 	        $db->exec("UPDATE gpio SET gpio_temp_on='$gpio_temp_on' WHERE gpio='$gpio_post'") ;
+		$db->exec("UPDATE gpio SET custom_time_on='$off' WHERE gpio='$gpio_post'") ;
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 
 }
 
 
-if ($_POST['on_temp'] == "ON0000000")  {
-		$db = new PDO('sqlite:dbf/nettemp.db');
-
-$db->exec("UPDATE gpio SET gpio_temp_sensor='$gpio_temp_sensor' WHERE gpio='$gpio_post'") ;
-$db->exec("UPDATE gpio SET gpio_temp_on='$gpio_temp_on' WHERE gpio='$gpio_post'") ;
 
 
-$db->exec("UPDATE gpio SET gpio_temp_set='$gpio_temp_hilow' WHERE gpio='$gpio_post'") ;
-$db->exec("UPDATE gpio SET gpio_temp_set='$gpio_temp_set' WHERE gpio='$gpio_post'") ;
-$db->exec("UPDATE gpio SET gpio_temp_onoff='$gpio_temp_onoff' WHERE gpio='$gpio_post'") ;
-$db->exec("UPDATE gpio SET gpio_temp_state='$gpio_temp_state' WHERE gpio='$gpio_post'") ;
 
-echo $gpio_temp_sensor;
-echo $gpio_temp_on;
-echo $gpio_temp_set;
-echo $gpio_temp_state;
-echo $gpio_temp_onoff;
-
-//header("location: " . $_SERVER['REQUEST_URI']);
-//exit();
-
-}
 
 if ($_POST['name1'] == "name2"){
 	$db = new PDO('sqlite:dbf/nettemp.db');
@@ -195,11 +182,11 @@ exec("$dir/gpio status $gpio", $out_arr);
         <option <?php echo $a['gpio_temp_onoff'] == 'on' ? 'selected="selected"' : ''; ?> value="on">On</option>   
         <option <?php echo $a['gpio_temp_onoff'] == 'off' ? 'selected="selected"' : ''; ?> value="off">Off</option>     
         </select></td>
-	<td><select name="gpio_temp_state" >
-	<option <?php echo $a['gpio_temp_state'] == 'gr' ? 'selected="selected"' : ''; ?> value="gr">greater</option>	
-	<option <?php echo $a['gpio_temp_state'] == 'lo' ? 'selected="selected"' : ''; ?> value="lo">lower</option>	
+	<td><select name="gpio_temp_grlo" >
+	<option <?php echo $a['gpio_temp_grlo'] == 'gr' ? 'selected="selected"' : ''; ?> value="gr">greater</option>	
+	<option <?php echo $a['gpio_temp_grlo'] == 'lo' ? 'selected="selected"' : ''; ?> value="lo">lower</option>	
 	</select></td>
-	<td><input type="text" name="gpio_temp_set" value="<?php echo $a['gpio_temp_set']; ?>" size="2" ></td>
+	<td><input type="text" name="gpio_temp_temp" value="<?php echo $a['gpio_temp_temp']; ?>" size="2" ></td>
 	<td>C</td> 
 	
 	

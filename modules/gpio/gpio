@@ -43,26 +43,62 @@ check() {
 	done
 
 
+	#temp on/off
+
+	if [ -n "$1" ]; then
+	    gpio_list2=$1
+	else
+	    gpio_list2=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio WHERE gpio_temp_on='on'")
+	fi
+	
+	for gpio2 in $gpio_list2; do 
+
+	if [ "$temp_onoff" = "on" && "$temp_sensor" -lt "$temp_temp"  ]; then
+		on $gpio_from_line
+		elif [ "$temp_onoff" = "on" && "$temp_sensor" -lt "$temp_temp"  ]; then
+		off $gpio_from_line
+	fi
+
+	
+
+	done 
 
 
 
-#temp on/off
+
+
 gpio_from_line=17
 gpio_temp_on=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio_temp_on FROM gpio WHERE gpio='$gpio_from_line'"`
 gpio_temp_sensor=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio_temp_sensor FROM gpio WHERE gpio='$gpio_from_line'"`
 gpio_temp_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio_temp_onoff FROM gpio WHERE gpio='$gpio_from_line'"`
-gpio_temp_grlo=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio_temp_frlo FROM gpio WHERE gpio='$gpio_from_line'"`
+gpio_temp_grlo=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio_temp_grlo FROM gpio WHERE gpio='$gpio_from_line'"`
 gpio_temp_temp=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio_temp_temp FROM gpio WHERE gpio='$gpio_from_line'"`
-echo $gpio_temp_on
-echo $gpio_temp_sensor
-echo $gpio_temp_onoff
-echo $gpio_temp_sgrlo
-echo $gpio_temp_temp
+
+#echo $gpio_temp_on
+#echo $gpio_temp_sensor
+#echo $gpio_temp_onoff
+#echo $gpio_temp_grlo
+#echo $gpio_temp_temp
 
 
 
 }
 # end check
+
+tempon() {
+		gpio_from_line=$1
+		temp_sensor=$2
+		temp_onoff=$3
+		temp_grlo=$4
+		temp_temp=$5
+		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_temp_sensor='$temp_sensor' WHERE gpio='$gpio_from_line'"
+		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_temp_onoff='$temp_onoff' WHERE gpio='$gpio_from_line'"
+		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_temp_grlo='$temp_grlo' WHERE gpio='$gpio_from_line'"
+		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_temp_temp='$temp_temp' WHERE gpio='$gpio_from_line'"
+		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_temp_set_on='on' WHERE gpio='$gpio_from_line'" #turn on temp
+		
+		echo "$date Gpio $gpio temperature on" >> $dir/tmp/log.txt	    
+}
 
 timeon() {
 		gpio_from_line=$1
@@ -70,6 +106,7 @@ timeon() {
 		end_time=$(date -d "`date` +$offset second" +%s)
 		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET end_time='$end_time' WHERE gpio='$gpio_from_line'"
 		#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET custom_time_on='on' WHERE gpio='$gpio_from_line'" //php też wlacza
+		on $gpio_from_line
 		echo "$date Gpio $gpio time on" >> $dir/tmp/log.txt	    
     }
 
@@ -148,6 +185,7 @@ del() {
     "on") on $2 ;;
     "off") off $2 ;;
     "timeon") timeon $2 $3 ;;
+    "tempon") tempon $2 $3 $4 $5 $6 ;;
     "status") status $2 ;;
     "check") check $2 ;;
     "add") add $2 ;;
