@@ -63,23 +63,24 @@ elif [ "$temp_checkbox" = "on" ]; then
 	temp_temp=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_temp FROM gpio WHERE gpio='$gpio_list'"`
 	temp_sensor=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_sensor FROM gpio WHERE gpio='$gpio_list'"`
 	sensor_temp=`sqlite3 $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id='$temp_sensor'"`
+	sensor_name=`sqlite3 $dir/dbf/nettemp.db "SELECT name FROM sensors WHERE id='$temp_sensor'"`
 
 	gr=$(echo $sensor_temp $temp_temp | awk '{if ($1 > $2) print 1; else print 0 }') 
 	    if [ "$gr" = "1" ];then
 		if [ "$temp_onoff" = "on" ];then
 		    gpio_on $gpio_list
-		    echo "$temp_sensor $sensor_temp is greater than $temp_temp - gpio is ON"
+		    echo "$sensor_name $sensor_temp is greater than $temp_temp - gpio is ON"
 		else
 		    gpio_off $gpio_list
-		    echo "$temp_sensor $sensor_temp is greater than $temp_temp - gpio is OFF"
+		    echo "$sensor_name $sensor_temp is greater than $temp_temp - gpio is OFF"
 		fi
 	    else
 		if [ "$temp_onoff" = "on" ];then
 		    gpio_off $gpio_list
-		    echo "$temp_sensor $sensor_temp is lower than $temp_temp - gpio is OFF"
+		    echo "$sensor_name $sensor_temp is lower than $temp_temp - gpio is OFF"
 		else
 		    gpio_on $gpio_list
-		    echo "$temp_sensor $sensor_temp is lower than $temp_temp - gpio is ON"
+		    echo "$sensor_name $sensor_temp is lower than $temp_temp - gpio is ON"
 		fi
 	    fi
     fi
