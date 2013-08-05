@@ -1,50 +1,35 @@
 <?php
 $dir="modules/gpio/";
 
-$timecm=$_POST['timecm'];
-$times=$_POST['time'];
-$name=$_POST['name'];
-$name_id=$_POST['name_id'];
 $gpio_post=$_POST['gpio'];
+$time_offset=$_POST['time_offset'];
+$time_checkbox=$_POST['time_checkbox'];
+$temp_checkbox=$_POST['temp_checkbox'];
+$name=$_POST['name'];
 
+$temp_sensor=$_POST['temp_sensor'];
+$temp_onoff=$_POST['temp_onoff'];
+$temp_grlo=$_POST['temp_grlo'];
+$temp_temp=$_POST['temp_temp'];
+
+
+
+//old
+$times=$_POST['time'];
+$name_id=$_POST['name_id'];
 $time=($times*60);
 $timec=($timecm*60);
 $custom_time_on=$_POST['custom_time_on'];
 
 
-$gpio_temp_on=$_POST['gpio_temp_on'];
-$gpio_temp_sensor=$_POST['gpio_temp_sensor'];
-$gpio_temp_onoff=$_POST['gpio_temp_onoff'];
-$gpio_temp_grlo=$_POST['gpio_temp_grlo'];
-$gpio_temp_temp=$_POST['gpio_temp_temp'];
-
-if (($_POST['off'] == "OFF")) {
-exec("$dir/gpio off $gpio_post");
-header("location: " . $_SERVER['REQUEST_URI']);
-exit(); 
-}
 
 if ($_POST['on'] == "ON")  {
-echo "onON";
-
-	if (!empty($timecm)) {
-		$db = new PDO('sqlite:dbf/nettemp.db');
-	       		if (!empty($timecm)) {	
-				$db->exec("UPDATE gpio SET custom_time='$timec' WHERE gpio='$gpio_post'"); // wpisa do bazy do zapamietania
-				exec("$dir/gpio timeon $gpio_post $timec");  
-				//exec("$dir/gpio on $gpio_post");
-
-			}
-	       // $sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$gpio_post'");
-               // $sth->execute();
-	       // $result = $sth->fetchAll();
-		//    foreach ($result as $a) { $cto=$a["custom_time_on"]; }
-		//	exec("$dir/gpio on $gpio_post"); 
-		//	    if ( $cto == 'on' ) { exec("$dir/gpio timeon $gpio_post");}
+	echo "on";
+	if (!empty($time_offset)) {
+		exec("$dir/gpio on $gpio_post $time_offset");  
         }
-	elseif (!empty($gpio_temp_sensor)) {
-				exec("$dir/gpio tempon $gpio_post $gpio_temp_sensor $gpio_temp_onoff $gpio_temp_grlo $gpio_temp_temp");  
-		
+	elseif (!empty($temp_sensor)) {
+		exec("$dir/gpio on $gpio_post $temp_sensor $temp_onoff $temp_temp");  
 	}
 	else {	
 		exec("$dir/gpio on $gpio_post");
@@ -58,27 +43,22 @@ exit();
 }
 
 if ($_POST['timeon'] == "timeON")  {
-		$db = new PDO('sqlite:dbf/nettemp.db');
-	        $db->exec("UPDATE gpio SET custom_time_on='$custom_time_on' WHERE gpio='$gpio_post'") ;
-		$db->exec("UPDATE gpio SET gpio_temp_on='off' WHERE gpio='$gpio_post'") ;
-header("location: " . $_SERVER['REQUEST_URI']);
-exit();
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE gpio SET time_checkbox='$time_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
 
 }
 
 if ($_POST['tempon'] == "tempON")  {
-		$db = new PDO('sqlite:dbf/nettemp.db');
-	        $db->exec("UPDATE gpio SET gpio_temp_on='$gpio_temp_on' WHERE gpio='$gpio_post'") ;
-		$db->exec("UPDATE gpio SET custom_time_on='$off' WHERE gpio='$gpio_post'") ;
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE gpio SET temp_checkbox='$temp_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 
 }
-
-
-
-
-
 
 if ($_POST['name1'] == "name2"){
 	$db = new PDO('sqlite:dbf/nettemp.db');
@@ -87,9 +67,7 @@ header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 	 } 
 
-
-
-$gpio_rev_hilo = $_POST["gpio_rev_hilo"];
+    $gpio_rev_hilo = $_POST["gpio_rev_hilo"];
 if (($_POST['gpio_rev_hilo1'] == "gpio_rev_hilo2") ){
         $db = new PDO('sqlite:dbf/nettemp.db');
 	if (!empty($gpio_rev_hilo)) { $db->exec("UPDATE gpio SET gpio_rev_hilo='$gpio_rev_hilo' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg()); }
@@ -97,6 +75,12 @@ if (($_POST['gpio_rev_hilo1'] == "gpio_rev_hilo2") ){
     	header("location: " . $_SERVER['REQUEST_URI']);
     	exit();
     }
+
+if (($_POST['off'] == "OFF")) {
+    exec("$dir/gpio off $gpio_post");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit(); 
+}
 
 
 
@@ -147,48 +131,45 @@ exec("$dir/gpio status $gpio", $out_arr);
 
 	<form action="gpio" method="post">
 	<td><img  src="media/ico/Clock-icon.png" title="Set time"/></td>
-	<td><input type="checkbox" name="custom_time_on" value="on" <?php echo $a["custom_time_on"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /><td>
+	<td><input type="checkbox" name="time_checkbox" value="on" <?php echo $a["time_checkbox"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /><td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="timeon" value="timeON" />        
        </form>
 	<form action="gpio" method="post">
 	<td><img  src="media/ico/temp2-icon.png" title="Set temp when sensor will turn on/off" /></td>
-	<td><input type="checkbox" name="gpio_temp_on" value="on" <?php echo $a["gpio_temp_on"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+	<td><input type="checkbox" name="temp_checkbox" value="on" <?php echo $a["temp_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="tempon" value="tempON" />
 	</form>
 	
 	<form action="gpio" method="post">
         
-<?php if  ($a['custom_time_on'] == 'on') { ?>
+<?php if  ($a['time_checkbox'] == 'on') { ?>
 	
-	<td><input type="text" name="timecm" value="<?php echo $a['custom_time']/60; ?>" size="5"  ></td><td>min</td> 
+	<td><input type="text" name="time_offset" value="<?php echo $a['time_offset']/60; ?>" size="8"  ></td><td>min</td> 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	
        <?php } ?>
 	
-<?php if  ($a['gpio_temp_on'] == 'on') { ?>
+<?php if  ($a['temp_checkbox'] == 'on') { ?>
+	<td>if</td>
        <td>
-	<select name="gpio_temp_sensor" >
+	<select name="temp_sensor" >
 	<?php $sth = $db->prepare("SELECT * FROM sensors");
 	$sth->execute();
 	$result = $sth->fetchAll();
 	foreach ($result as $select) { ?>
-	<option <?php echo $a['gpio_temp_sensor'] == $select['name'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['name']; ?>"><?php echo $select['name']; ?></option>
+	<option <?php echo $a['temp_sensor'] == $select['name'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}C" ?></option>
 	<?php } ?>
         </select></td>
+		<td>&gt;</td>
+	<td><input type="text" name="temp_temp" value="<?php echo $a['temp_temp']; ?>" size="2" >C</td>
+	<td>then</td> 
 	<td>
-        <select name="gpio_temp_onoff" >
-        <option <?php echo $a['gpio_temp_onoff'] == 'on' ? 'selected="selected"' : ''; ?> value="on">On</option>   
-        <option <?php echo $a['gpio_temp_onoff'] == 'off' ? 'selected="selected"' : ''; ?> value="off">Off</option>     
+        <select name="temp_onoff" >
+        <option <?php echo $a['temp_onoff'] == 'on' ? 'selected="selected"' : ''; ?> value="on">On</option>   
+        <option <?php echo $a['temp_onoff'] == 'off' ? 'selected="selected"' : ''; ?> value="off">Off</option>     
         </select></td>
-	<td><select name="gpio_temp_grlo" >
-	<option <?php echo $a['gpio_temp_grlo'] == 'gr' ? 'selected="selected"' : ''; ?> value="gr">greater</option>	
-	<option <?php echo $a['gpio_temp_grlo'] == 'lo' ? 'selected="selected"' : ''; ?> value="lo">lower</option>	
-	</select></td>
-	<td><input type="text" name="gpio_temp_temp" value="<?php echo $a['gpio_temp_temp']; ?>" size="2" ></td>
-	<td>C</td> 
-	
 	
 <?php } ?>
 	
