@@ -17,9 +17,12 @@ $notif_del = $_POST["notif_del"];  //sql
 	if (!empty($notif_name)  && !empty($notif_mail) && !empty($notif_tel) && ($_POST['notif_add1'] == "notif_add2") ){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("INSERT OR IGNORE INTO recipient (name, mail, tel, mail_alarm, sms_alarm) VALUES ('$notif_name', '$notif_mail', '$notif_tel', '$notif_mail_alarm', '$notif_sms_alarm')") or die ($db->lastErrorMsg());
+	
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
-	}
+	}	
+	elseif ($_POST['notif_add1'] == "notif_add2") { echo " Please input name, mail and tel"; }
+	
 
 	?>
 	
