@@ -7,7 +7,7 @@ if($arrayFiles){
   foreach ($arrayFiles as $filename) { ?>
 <table> <tr><td>
 <?php	 
-include("include/login_check.php");
+include("modules/login/login_check.php");
 ?>
 <img src="<?php echo $filename; ?>" />
 </td></tr>
