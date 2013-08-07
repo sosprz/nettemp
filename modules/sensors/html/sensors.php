@@ -23,9 +23,6 @@ $name_new=trim($name_new2);
 ?>
 <?php include("modules/view/html/view_del.php"); ?>
 
-
-
-
 <?php //sekcja generowania grafu
 if ($_POST['add_graf1'] == "add_graf2") {
 	// kasuje zawartosc przed wygenerowaniem nowego

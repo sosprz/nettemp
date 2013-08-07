@@ -1,0 +1,22 @@
+#! /bin/bash
+
+dir=/var/www/nettemp
+rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors")
+
+
+	array[0]="rrdtool xport -s now-24h -e now --step 60 "
+	ar=1
+	for i in $rom; 
+    		do
+
+	name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
+	id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
+	array[$ar]="DEF:$id=$dir/db/$i.rrd:temp:AVERAGE XPORT:$id:\"$name\""
+	let ar=ar+1
+done
+
+    array[$ar]="> $dir/tmp/highcharts.xml"
+
+eval ${array[@]}
+unset array 
+
