@@ -64,8 +64,8 @@ echo -e "${GREEN} Add permisions${R}"
 echo -e "${GREEN}Add cron line${R}"
  echo "*/1 * * * * /var/www/nettemp/modules/sensors/temp_dev_read && /var/www/nettemp/modules/view/view_gen" > /var/spool/cron/crontabs/root
  echo "*/1 * * * * /var/www/nettemp/modules/gpio/gpio check" >> /var/spool/cron/crontabs/root
- echo "1 * * * * /var/www/nettemp/modules/sms/sms_send" >> /var/spool/cron/crontabs/root
- echo "1 * * * * /var/www/nettemp/modules/mail/mail_send" >> /var/spool/cron/crontabs/root
+ echo "*/5 * * * * /var/www/nettemp/modules/sms/sms_send" >> /var/spool/cron/crontabs/root
+ echo "*/5 * * * * /var/www/nettemp/modules/mail/mail_send" >> /var/spool/cron/crontabs/root
  chmod 600 /var/spool/cron/crontabs/root
 
 
