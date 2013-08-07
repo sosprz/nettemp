@@ -43,9 +43,16 @@ echo -e "${GREEN}Changing lighthttpd conf${R}"
 
 
 echo -e "${GREEN}Which version you want to download?${R}"
-echo -e "$GREEN Regular [r] or Beta [b]${R}"
+echo -e "${GREEN}Regular [r] or Beta [b]${R}"
 read x 
 cd /var/www
+
+if [ -d "nettemp" ]; then 
+mv nettemp nettempOLD
+echo -e "${GREEN}Your OLD nettemp is moved to nettempOLD, press any key to continue${R}"
+read devnull
+fi
+
 if [ "$x" = "r" ]; then
 git clone https://github.com/sosprz/nettemp
 fi
@@ -54,7 +61,7 @@ if [ "$x" = "b" ]; then
 git clone -b beta https://github.com/sosprz/nettemp
 fi
 
-echo -e "${GREEN} Add permisions${R}"
+echo -e "${GREEN}Add permisions${R}"
  chown -R root.www-data /var/www/nettemp
  chmod -R 775 /var/www/nettemp
  gpasswd -a www-data dialout
