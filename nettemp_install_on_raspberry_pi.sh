@@ -3,7 +3,7 @@
 # nettemp Raspberry PI installer
 # nettemp.pl
 # 
-# 2013.07.21
+# 2013.08.09
 
 R='\033[0m'
 RED='\033[00;31m'

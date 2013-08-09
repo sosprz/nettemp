@@ -1,4 +1,4 @@
-www.nettemp.pl v7.1
+www.nettemp.pl v7.2
 
 AUTOMATIC INSTALL:
 
@@ -7,24 +7,12 @@ AUTOMATIC INSTALL:
     download and run like root, script will install all requirements like php, www.
     
     wget https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
+    chmod 755 nettemp_install_on_raspberry_pi.sh
+    ./nettemp_install_on_raspberry_pi.sh
+    
+    In browser: http://your_ip
 
 USERS:
 
     admin admin - access for all
     temp temp - access only for sensors settings
-
-
-REQUIREMENTS:
-
-    php5
-    SQLite3
-    rrdrool
-    cron
-    bash
-    lighttpd
-    digipemp
-    gammu
-    rw /dev/ttyUSBX, /dev/ttySX  or add user to group "dialout", gpassswd -a www-data dialout
-    execute ad root: chmod +s /var/www/nettemp/modules/logoterma/relay
-	
-
