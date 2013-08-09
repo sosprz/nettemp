@@ -1,4 +1,4 @@
-www.nettemp.pl v6
+www.nettemp.pl v7.1
 
 AUTOMATIC INSTALL:
 
@@ -40,5 +40,3 @@ TO DO:
     Calendar for alarms
     Add map for seensors
     Ignore alarm for some time
-
-    test2

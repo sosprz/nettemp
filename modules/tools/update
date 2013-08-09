@@ -1,0 +1,15 @@
+#! /bin/bash
+
+remote=$(curl -s https://raw.github.com/sosprz/nettemp/master/readme.md | grep www.nettemp.pl | cut -c 17)
+local=$(cat /var/www/nettemp/readme.md | grep www.nettemp.pl | cut -c 17)
+
+if [ $remote -gt $local ]; then 
+    echo "New version is available - nettemp.pl $remote"
+    
+    cd /var/www/nettemp
+    git pull
+    chown -R root.www-data /var/www/nettemp
+    chmod -R 755 /var/www/nettemp
+else 
+    echo "Up to ddate"
+fi
