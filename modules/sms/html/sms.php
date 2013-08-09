@@ -40,12 +40,12 @@ $sms=$a["sms"];
 
 <?php
 if ($sms == "on" ) {
-?>
+?> <hr>
+	<?php include('sms_scan.php'); ?>
+	<hr>
 	<?php include("sms_settings.php"); ?>
 	<hr>
-	<?php include('sms_test.php'); ?>
-	<hr>
-	<?php include('sms_scan.php'); ?>
+	<?php include('sms_getallsms.php'); ?>
 
 <?php } ?>
 </span></span>

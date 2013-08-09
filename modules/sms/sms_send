@@ -13,7 +13,9 @@ if [ "$onoff" == "on" ]; then
 nr=`sqlite3 $dir/dbf/nettemp.db "SELECT tel FROM recipient WHERE sms_alarm='yes'" | awk '{ printf " "$1 }'`
 dev=`sqlite3 $dir/dbf/nettemp.db "SELECT dev FROM sms_settings WHERE default_dev='on'"`
 smsc=`sqlite3 $dir/dbf/nettemp.db "SELECT smsc FROM sms_settings WHERE default_dev='on'"`
-if [ ! -z $nr ] && [ ! -z $dev ] ; then
+
+#if [ ! -z $nr ] && [ ! -z $dev ] ; then
+if [ ! -z $dev ] ; then
 
 mkdir -p $dir/tmp/sms
 
@@ -41,35 +43,29 @@ done
 
 send_sms()
 {
-
-    echo -e -n "AT \015" > $dev
-    sleep 5
-    echo -e -n "AT+CMGF=1 \015" > $dev
-    sleep 5
-    echo -e -n "AT+CSCA=\"$smsc\"\015" > $dev
-    sleep 5    
-    echo -e -n "AT+CMGS=\"$1\" \015" > $dev
-    sleep 5
-    echo -e -n "`cat $plik`" > $dev
-    sleep 5
-    echo -e -n "\032" > $dev
+echo "$date sms_test - send sms to $1 $(cat $plik | gammu -c $dir/tmp/gammurc  --sendsms TEXT $1 )" >> $dir/tmp/log.txt
 }
 
 
 check_alarm
 
-if [[ -s $plik ]]; then
-
-	for i in $nr; do
-		send_sms $i
-		sleep 5
-		echo "$date sms_send - send sms to $i " >> $dir/tmp/log.txt
-	done
+    if [[ -s $plik ]]; then
+	if [[ -n $nr ]]; then
+		for i in $nr; do
+		    send_sms $i
+		    sleep 3
+		done
 	rm -rf $plik
-	
-fi
+	else
+	echo "$date sms_send - no number added" >> $dir/tmp/log.txt
+	fi
+    else 
+	echo "$date sms_send - no sms file " >> $dir/tmp/log.txt
+    fi
+
+
 else 
-echo "$date sms_send - no device or tel number " >> $dir/tmp/log.txt
+echo "$date sms_send - no device " >> $dir/tmp/log.txt
 
 fi
 
