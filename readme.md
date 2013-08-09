@@ -1,4 +1,4 @@
-www.nettemp.pl v7.2
+www.nettemp.pl v7.3
 
 AUTOMATIC INSTALL:
 
