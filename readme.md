@@ -26,5 +26,3 @@ REQUIREMENTS:
     gammu
     rw /dev/ttyUSBX, /dev/ttySX  or add user to group "dialout", gpassswd -a www-data dialout
     execute ad root: chmod +s /var/www/nettemp/modules/logoterma/relay
-	
-
