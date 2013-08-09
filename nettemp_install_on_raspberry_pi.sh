@@ -3,7 +3,7 @@
 # nettemp Raspberry PI installer
 # nettemp.pl
 # 
-# 2013.07.21
+# 2013.08.09
 
 R='\033[0m'
 RED='\033[00;31m'
@@ -38,14 +38,21 @@ echo -e "${GREEN}Changing lighthttpd conf${R}"
  then
  echo -e "${GREEN}Url rewrite exist${R}"
  else
- echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1\" )" |tee -a /etc/lighttpd/lighttpd.conf 
+ echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1\" )" >> /etc/lighttpd/lighttpd.conf 1> /dev/null
  fi
 
 
 echo -e "${GREEN}Which version you want to download?${R}"
-echo -e "$GREEN Regular [r] or Beta [b]${R}"
+echo -e "${GREEN}Regular [r] or Beta [b]${R}"
 read x 
 cd /var/www
+
+if [ -d "nettemp" ]; then 
+mv nettemp nettempOLD
+echo -e "${GREEN}Your OLD nettemp is moved to nettempOLD, press any key to continue${R}"
+read devnull
+fi
+
 if [ "$x" = "r" ]; then
 git clone https://github.com/sosprz/nettemp
 fi
@@ -54,7 +61,7 @@ if [ "$x" = "b" ]; then
 git clone -b beta https://github.com/sosprz/nettemp
 fi
 
-echo -e "${GREEN} Add permisions${R}"
+echo -e "${GREEN}Add permisions${R}"
  chown -R root.www-data /var/www/nettemp
  chmod -R 775 /var/www/nettemp
  gpasswd -a www-data dialout
@@ -62,10 +69,10 @@ echo -e "${GREEN} Add permisions${R}"
 
 
 echo -e "${GREEN}Add cron line${R}"
- echo "*/1 * * * * /var/www/nettemp/modules/sensors/temp_dev_read && /var/www/nettemp/modules/view/view_gen" > /var/spool/cron/crontabs/root
+ echo "*/1 * * * * /var/www/nettemp/modules/sensors/temp_dev_read && /var/www/nettemp/modules/view/view_gen && /var/www/nettemp/modules/highcharts/highcharts" > /var/spool/cron/crontabs/root
  echo "*/1 * * * * /var/www/nettemp/modules/gpio/gpio check" >> /var/spool/cron/crontabs/root
- echo "1 * * * * /var/www/nettemp/modules/sms/sms_send" >> /var/spool/cron/crontabs/root
- echo "1 * * * * /var/www/nettemp/modules/mail/mail_send" >> /var/spool/cron/crontabs/root
+ echo "*/5 * * * * /var/www/nettemp/modules/sms/sms_send" >> /var/spool/cron/crontabs/root
+ echo "*/5 * * * * /var/www/nettemp/modules/mail/mail_send" >> /var/spool/cron/crontabs/root
  chmod 600 /var/spool/cron/crontabs/root
 
 
@@ -104,8 +111,8 @@ echo -e "${GREEN}Add watchdog${R}"
 echo -e "${GREEN}Add modules 1-wire${R}"
  if cat /etc/modules |grep w1_ 1> /dev/null
  then echo -e "${GREEN}1-wire modules exist in file${R}"
- else  echo "w1_gpio" | tee -a /etc/modules
-       echo "w1_therm" | tee -a /etc/modules
+ else  echo "w1_gpio" | sudo tee -a /etc/modules
+       echo "w1_therm" | sudo tee -a /etc/modules
  fi
 
 echo -e "${REDB}Restart RPI and make sure everything is ok${R}"
