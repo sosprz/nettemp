@@ -1,4 +1,4 @@
-#/bin/bash -x
+#/bin/bash 
 
 # nettemp Raspberry PI installer
 # nettemp.pl
@@ -38,7 +38,7 @@ echo -e "${GREEN}Changing lighthttpd conf${R}"
  then
  echo -e "${GREEN}Url rewrite exist${R}"
  else
- echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1\" )" >> /etc/lighttpd/lighttpd.conf 1> /dev/null
+ echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1\" )" >> /etc/lighttpd/lighttpd.conf 
  fi
 
 
