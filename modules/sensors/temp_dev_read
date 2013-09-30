@@ -69,7 +69,7 @@ if [ $name_str -lt "20" ]; then
 	fi
 	
     	if  [ -n "$wynik" ]; then
-		if [ "$wynik" != "85" ]; then 
+		if [ "$wynik" != "85" ] && [ "$wynik" != "85.0" ]  ; then 
 	    		rrdtool update $dir/db/$name N:$wynik
 	    		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
 		else
