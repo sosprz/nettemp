@@ -1,7 +1,7 @@
 <?php
 $test_mail=$_POST['test_mail'];
 if  ($_POST['mail_test1'] == "mail_test2") {
-    $cmd="modules/mail/mail_test $test_mail";
+    $cmd="modules/mail/mail_test " . escapeshellarg($test_mail);
     shell_exec($cmd); 
     
 $db = new PDO('sqlite:dbf/nettemp.db');
