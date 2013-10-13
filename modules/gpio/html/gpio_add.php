@@ -1,15 +1,14 @@
-
 <?php 
 $gpioad=$_POST['gpioad'];
 
 if ($_POST['add'] == "ADD") {
-exec("$dir/gpio add $gpioad");
+exec("$dir/gpio add " . escapeshellarg($gpioad));
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 }
 
 if ($_POST['del'] == "DEL") {
-exec("$dir/gpio del $gpioad"); 
+exec("$dir/gpio del " . escapeshellarg($gpioad));
 header("location: " . $_SERVER['REQUEST_URI']);
 exit(); 
 } ?>
