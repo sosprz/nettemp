@@ -26,13 +26,13 @@ $custom_time_on=$_POST['custom_time_on'];
 if ($_POST['on'] == "ON")  {
 	echo "on";
 	if (!empty($time_offset)) {
-		exec("$dir/gpio on $gpio_post $time_offset");  
+		exec("$dir/gpio on " . escapeshellarg($gpio_post) . escapeshellarg($time_offset);
         }
 	elseif (!empty($temp_sensor)) {
-		exec("$dir/gpio on $gpio_post $temp_sensor $temp_onoff $temp_temp");  
+		exec("$dir/gpio on " . escapeshellarg($gpio_post) . escapeshellarg($temp_sensor) . escapeshellarg($temp_onoff) . escapeshellarg($temp_temp));
 	}
 	else {	
-		exec("$dir/gpio on $gpio_post");
+		exec("$dir/gpio on " . escapeshellarg($gpio_post));
 		
 	}
 		
@@ -77,7 +77,7 @@ if (($_POST['gpio_rev_hilo1'] == "gpio_rev_hilo2") ){
     }
 
 if (($_POST['off'] == "OFF")) {
-    exec("$dir/gpio off $gpio_post");
+    exec("$dir/gpio off " . escapeshellarg($gpio_post));
     header("location: " . $_SERVER['REQUEST_URI']);
     exit(); 
 }
@@ -96,7 +96,7 @@ foreach ( $result as $a) {
 <span class="belka">&nbsp Gpio <?php echo $a['gpio']; ?> <span class="okno">
 <?php $gpio=$a['gpio'];
 
-exec("$dir/gpio status $gpio", $out_arr);
+exec("$dir/gpio status " . escapeshellarg($gpio), $out_arr);
     $out=$out_arr[0];
     unset($out_arr);    
 
