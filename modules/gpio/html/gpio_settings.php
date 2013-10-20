@@ -26,7 +26,7 @@ $custom_time_on=$_POST['custom_time_on'];
 if ($_POST['on'] == "ON")  {
 	echo "on";
 	if (!empty($time_offset)) {
-		exec("$dir/gpio on " . escapeshellarg($gpio_post) . escapeshellarg($time_offset);
+		exec("$dir/gpio on " . escapeshellarg($gpio_post) . escapeshellarg($time_offset));
         }
 	elseif (!empty($temp_sensor)) {
 		exec("$dir/gpio on " . escapeshellarg($gpio_post) . escapeshellarg($temp_sensor) . escapeshellarg($temp_onoff) . escapeshellarg($temp_temp));
