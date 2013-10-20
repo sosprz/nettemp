@@ -57,28 +57,26 @@ unset wynik
 
 #1-wire
 if [ $name_str -lt "20" ]; then
-
-    one_wire_name=`echo $name |awk 'sub("....$", "")'`	
+    one_wire_name=`echo $name |awk 'sub("....$", "")'`
     name_1=`cat $dir/tmp/onewire |grep $one_wire_name`
+    if [ "$name_1" != "Raspberry_Pi" ]; then    
 	if  [ -e /sys/bus/w1/devices/${name_1}/w1_slave ]; then
 	    wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.1f\n", $11/1000 } ' /sys/bus/w1/devices/${name_1}/w1_slave;`
 	    echo $wynik
-	else 
-	    echo "$date temp_dev_read - reding sensor error (CRC) $name" >> $dir/tmp/log.txt    
-	
-	fi
-	
-    	if  [ -n "$wynik" ]; then
+	    if  [ -n "$wynik" ]; then
 		if [ "$wynik" != "85" ] && [ "$wynik" != "85.0" ]  ; then 
 	    		rrdtool update $dir/db/$name N:$wynik
 	    		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
 		else
 	    		echo "$date temp_dev_read - reading sensor error 85C (resistor, or calbe problem) $name " >> $dir/tmp/log.txt    
 		fi
-	else
+	    else
 		echo "$date temp_dev_read - reading sensor error (CRC OK but no result) $name " >> $dir/tmp/log.txt    
-		
+	    fi
+	else 
+	    echo "$date temp_dev_read - reding sensor error (CRC) $name" >> $dir/tmp/log.txt    
 	fi
+    fi
 fi
 
 
@@ -88,7 +86,7 @@ fi
 
 # RaspberryPi temp
 
-wynik=0
+wynik="0"
 
 if [ ! -e $dir/db/Raspberry_Pi.rrd ]; then
 
