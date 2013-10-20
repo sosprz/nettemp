@@ -1,4 +1,4 @@
-#! /bin/bash -x
+#! /bin/bash 
 
 #dir0=`find / -name config_nettemp.php 2> /dev/null | sed 's/..................$//' | cut -c 1-`
 #dir=`cat $dir0/config_nettemp.php |grep dir | cut -c 5-`
@@ -86,8 +86,26 @@ fi
 done
 fi
 
+# RaspberryPi temp
 
+if [ ! -e $dir/db/Raspberry_Pi.rrd ]; then
 
+  sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
+    (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year) \
+    VALUES ('RPi','#07FF00','Raspberry_Pi', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on' )"
+
+    /usr/bin/rrdtool create $dir/db/Raspberry_Pi.rrd -s 60 DS:temp:GAUGE:700:-150:150 RRA:AVERAGE:0.5:1:48384 RRA:MAX:0.5:1:48384 RRA:MIN:0.5:1:48384 RRA:LAST:0.5:1:48384
+    chmod 777 $dir/db/Raspberry_Pi.rrd
+    echo "create rrd"
+fi
+if [ ! $(cat $dir/tmp/onewire |grep Raspberry_Pi) ]; then
+    echo "Raspberry_Pi" >> $dir/tmp/onewire
+    echo "add pi to onewire"
+fi
+
+    wynik=$(/opt/vc/bin/vcgencmd measure_temp | cut -c 6-9)
+    rrdtool update $dir/db/Raspberry_Pi.rrd N:$wynik
+    echo $wynik
 
 
 
