@@ -44,7 +44,7 @@ else
 fi
 
 
-    if [ "$wynik" != "85" ]; then
+    if [ "$wynik" != "85" ] && [ "$wynik" != "85.0" ] ; then
 	    rrdtool update $dir/db/$name N:$wynik
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
     else 
@@ -88,6 +88,8 @@ fi
 
 # RaspberryPi temp
 
+wynik=0
+
 if [ ! -e $dir/db/Raspberry_Pi.rrd ]; then
 
   sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
@@ -103,9 +105,12 @@ if [ ! $(cat $dir/tmp/onewire |grep Raspberry_Pi) ]; then
     echo "add pi to onewire"
 fi
 
+if [ -n "$wynik" ]; then 
     wynik=$(/opt/vc/bin/vcgencmd measure_temp | cut -c 6-9)
     rrdtool update $dir/db/Raspberry_Pi.rrd N:$wynik
+    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='Raspberry_Pi'"
     echo $wynik
+fi
 
 
 
