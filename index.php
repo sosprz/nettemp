@@ -2,8 +2,16 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="media/style.css" type="text/css"/>
-<link href="media/menu.css" rel="stylesheet" type="text/css">
+<!--<link rel="stylesheet" href="media/style.css" type="text/css"/>
+<link href="media/menu.css" rel="stylesheet" type="text/css"> -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
+<link media="Screen" href="media/menu.css" type="text/css" rel="stylesheet" />
+<link media="Screen" href="media/style.css" type="text/css" rel="stylesheet" /> 
+<link media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" href="media/mobile.css" type="text/css" rel="stylesheet" />
+
+
+
 <script type="text/JavaScript">
 <!--
 function timedRefresh(timeoutPeriod) {
