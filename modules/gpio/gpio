@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash  
 
 dir=/var/www/nettemp
 date=$(date +%y%m%d-%H%M)
@@ -27,14 +27,23 @@ fi
 
 
 check() {
-gpio_list=$1
-    
-time_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_checkbox FROM gpio WHERE gpio='$gpio_list'")
-temp_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_checkbox FROM gpio WHERE gpio='$gpio_list'")
+gpio_list="$1"
+#sqlite3 $dir/dbf/nettemp.db ".timeout 5000" 
+
+if [ -z "$gpio_list" ]; then
+gpio_list="17 18 21 22 23 24 25"
+fi
+
+for gpio in $gpio_list; do 
+
+time_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_checkbox FROM gpio WHERE gpio='$gpio'")
+temp_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_checkbox FROM gpio WHERE gpio='$gpio'")
+
 if [ "$time_checkbox" = "on" ]; then
-    time_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_run FROM gpio WHERE gpio='$gpio_list'")
-    if [ -n "$gpio_list" ] && [ "$time_run" = "on" ]; then
-	for gpio in $gpio_list; do 
+
+    time_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_run FROM gpio WHERE gpio='$gpio'")
+    if [ -n "$gpio" ] && [ "$time_run" = "on" ]; then
+
 	    time_offset=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_offset FROM gpio WHERE gpio='$gpio'")
 	    time_start=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_start FROM gpio WHERE gpio='$gpio'")
 	    if [ "$time_start" -ne "0" ]; then
@@ -50,44 +59,45 @@ if [ "$time_checkbox" = "on" ]; then
 		fi
 	    else 
 		echo "error"
-	    fi
-	done
     fi
-#fi
 
-elif [ "$temp_checkbox" = "on" ]; then
-    temp_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio_list'")
+    fi
+
+fi
+
+if [ "$temp_checkbox" = "on" ]; then
+
+    temp_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio'")
     if [ -n "$gpio_list" ] && [ "$temp_run" = "on" ]; then
 	
-	temp_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_onoff FROM gpio WHERE gpio='$gpio_list'"`
-	temp_temp=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_temp FROM gpio WHERE gpio='$gpio_list'"`
-	temp_sensor=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_sensor FROM gpio WHERE gpio='$gpio_list'"`
+	temp_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_onoff FROM gpio WHERE gpio='$gpio'"`
+	temp_temp=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_temp FROM gpio WHERE gpio='$gpio'"`
+	temp_sensor=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_sensor FROM gpio WHERE gpio='$gpio'"`
 	sensor_temp=`sqlite3 $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id='$temp_sensor'"`
 	sensor_name=`sqlite3 $dir/dbf/nettemp.db "SELECT name FROM sensors WHERE id='$temp_sensor'"`
 
 	gr=$(echo $sensor_temp $temp_temp | awk '{if ($1 > $2) print 1; else print 0 }') 
 	    if [ "$gr" = "1" ];then
 		if [ "$temp_onoff" = "on" ];then
-		    gpio_on $gpio_list
+		    gpio_on $gpio
 		    echo "$sensor_name $sensor_temp is greater than $temp_temp - gpio is ON"
 		else
-		    gpio_off $gpio_list
+		    gpio_off $gpio
 		    echo "$sensor_name $sensor_temp is greater than $temp_temp - gpio is OFF"
 		fi
 	    else
 		if [ "$temp_onoff" = "on" ];then
-		    gpio_off $gpio_list
+		    gpio_off $gpio
 		    echo "$sensor_name $sensor_temp is lower than $temp_temp - gpio is OFF"
 		else
-		    gpio_on $gpio_list
+		    gpio_on $gpio
 		    echo "$sensor_name $sensor_temp is lower than $temp_temp - gpio is ON"
 		fi
 	    fi
     fi
-else 
-echo ""
+
 fi
-	
+done	
 }
 
 on(){
