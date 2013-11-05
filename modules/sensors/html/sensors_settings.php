@@ -20,8 +20,8 @@ $result = $sth->fetchAll(); ?>
 <td>DB</td>
 <td>Preview</td>
 <td></td>
-<td>Day</td>
 <td>Hour</td>
+<td>Day</td>
 <td>Week</td>
 <td>Month</td>
 <td>Year</td>
