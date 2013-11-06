@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash 
 
 dir=/var/www/nettemp
 date=`date +%y%m%d-%H%M`
@@ -34,19 +34,22 @@ if [ -n "${!varinvar}" ]; then
     --width 894 
     --height 300 
     --vertical-label=\"Degrees C\" 
-    -s -1$time "
+    -s -1$time 
+    COMMENT:'\t \l'
+    COMMENT:'\t              Current\t    Min\t    Max\t  Average\t \l'
+    COMMENT:'\t \l'"
 
 
     for rrd in ${!varinvar}
     do
     name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$rrd'")
     color=$(sqlite3 $dir/dbf/nettemp.db "SELECT color from sensors WHERE rom='$rrd'")
-    array[$i]="DEF:temp$i=$dir/db/$rrd.rrd:temp:AVERAGE 
-    LINE2:temp$i$color:'$(echo $name | awk 'length<=3{print $0 "       ";next}1') \t '
-    GPRINT:temp$i:LAST:'cur\: %2.2lf'
-    GPRINT:temp$i:MIN:'min\: %2.2lf'
-    GPRINT:temp$i:MAX:'max\: %2.2lf'
-    GPRINT:temp$i:AVERAGE:'ave\: %2.2lf \n' "
+    array[$i]="DEF:temp$i=$dir/db/$rrd.rrd:temp:AVERAGE
+    LINE2:temp$i$color:'$(echo $name |awk '{ if (length($0) >= 10) { print $0 " " }  else if (length($0) >= 7) { print $0 "      " } else if (length($0) >= 4) { print $0 "          " } else if (length($0) <= 3) { print $0 "            " }      }') \t ' 
+    GPRINT:temp$i:LAST:'%2.2lf \t '
+    GPRINT:temp$i:MIN:'%2.2lf \t '
+    GPRINT:temp$i:MAX:'%2.2lf \t '
+    GPRINT:temp$i:AVERAGE:'%2.2lf \t \n' "
     let i=i+1
     done
 
@@ -62,3 +65,4 @@ fi
 unset array
 done
 fi
+
