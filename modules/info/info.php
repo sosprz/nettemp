@@ -4,6 +4,16 @@
 </br >
 <center>techfreak.pl@gmail.com</center>
 <br />
+<center>Credits:<br />
+RRDtool<br />
+Adafriut<br />
+WiringPI<br />
+Highcharts<br />
+Digitemp<br />
+Gammu<br />
+</center>
+
+<br />
 <center>Donate for developing:</center>
 <br />
 <center><?php include('paypal.php'); ?></center>

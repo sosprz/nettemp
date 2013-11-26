@@ -1,4 +1,4 @@
-#! /bin/bash 
+#! /bin/bash
 
 #dir0=`find / -name config_nettemp.php 2> /dev/null | sed 's/..................$//' | cut -c 1-`
 #dir=`cat $dir0/config_nettemp.php |grep dir | cut -c 5-`
@@ -56,7 +56,7 @@ fi
 unset wynik 
 
 #1-wire
-if [ $name_str -lt "20" ]; then
+if [ $name_str -lt "20" ] && [ $name_str -gt "11" ]; then
     one_wire_name=`echo $name |awk 'sub("....$", "")'`
     name_1=`cat $dir/tmp/onewire |grep $one_wire_name`
     if [ "$name_1" != "Raspberry_Pi" ]; then    
@@ -85,23 +85,8 @@ done
 fi
 
 # RaspberryPi temp
-
+# add checking if base exist
 wynik="0"
-
-if [ ! -e $dir/db/Raspberry_Pi.rrd ]; then
-
-  sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
-    (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year) \
-    VALUES ('RPi','#07FF00','Raspberry_Pi', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on' )"
-
-    /usr/bin/rrdtool create $dir/db/Raspberry_Pi.rrd -s 60 DS:temp:GAUGE:700:-150:150 RRA:AVERAGE:0.5:1:48384 RRA:MAX:0.5:1:48384 RRA:MIN:0.5:1:48384 RRA:LAST:0.5:1:48384
-    chmod 777 $dir/db/Raspberry_Pi.rrd
-    echo "create rrd"
-fi
-if [ ! $(cat $dir/tmp/onewire |grep Raspberry_Pi) ]; then
-    echo "Raspberry_Pi" >> $dir/tmp/onewire
-    echo "add pi to onewire"
-fi
 
 if [ -n "$wynik" ]; then 
     wynik=$(/opt/vc/bin/vcgencmd measure_temp | cut -c 6-9)
@@ -110,7 +95,33 @@ if [ -n "$wynik" ]; then
     echo $wynik
 fi
 
+# DHT11 22 Adafruit
 
+gpio_list_0=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where humi_checkbox='on'"`
 
+type="11"
 
+for gpio_list in $gpio_list_0; do
+sleep 3
+# read and do status form 1 to 0
+dht=`$dir/modules/sensors/Adafruit_DHT $type $gpio_list |grep Temp`
+#/usr/local/bin/gpio -g mode $gpio_list output
+#/usr/local/bin/gpio -g write $gpio_list 0
+
+let var1_$gpio_list=`echo $dht | cut -c  8-10`
+let var2_$gpio_list=`echo $dht | cut -c 21-23`
+
+dht_temp=var1_$gpio_list
+dht_humi=var2_$gpio_list
+
+echo ${!dht_temp}
+echo ${!dht_humi}
+
+rrdtool update $dir/db/$gpio_list.rrd N:${!dht_temp}
+sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_temp}' WHERE rom='$gpio_list'"
+
+rrdtool update $dir/db/humi_$gpio_list.rrd N:${!dht_humi}
+sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_humi}' WHERE rom='humi_$gpio_list'"
+
+done
 

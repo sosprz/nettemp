@@ -1,11 +1,16 @@
-#! /bin/bash  
+#! /bin/bash -x
 
 dir=/var/www/nettemp
 date=$(date +%y%m%d-%H%M)
 
+
+
 status() {
-if [ -n "$1" ];then
-    gpio_from_line=$1
+
+gpio_from_line="$1"
+dht=`sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox FROM gpio where gpio='$gpio_from_line'"`
+if [ -n "$gpio_from_line" ] && [ "$dht" != "on" ];then
+    
     onoff=$(/usr/local/bin/gpio -g read $gpio_from_line)
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio_rev_hilo FROM gpio WHERE gpio='$gpio_from_line'")
     run_temp=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio_from_line'")
@@ -20,7 +25,9 @@ if [ -n "$1" ];then
 	elif [ "$onoff" = "1" ] && [ "$rev" = "on" ] || [ "$run_temp" = "off" ] || [ "$run_time" = "off" ] ; then
 	    echo "off";
 	fi
-else 
+elif [ -n "$gpio_from_line" ] && [ "$dht" = "on" ];then
+    echo "humi"
+else
     echo "no input"
 fi
 }
@@ -173,6 +180,7 @@ if [ "$1" = "4" ] || [ "$1" = "17" ] || [ "$1" = "18" ] || [ "$1" = "21" ] || [ 
     sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_mode='output' WHERE gpio='$gpio_from_line'"
     sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_from_line'" 
     sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_from_line'" 
+    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET humi_checkbox='off' WHERE gpio='$gpio_from_line'" 
 fi
 }
 

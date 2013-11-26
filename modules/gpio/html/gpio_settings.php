@@ -5,6 +5,8 @@ $gpio_post=$_POST['gpio'];
 $time_offset=$_POST['time_offset'];
 $time_checkbox=$_POST['time_checkbox'];
 $temp_checkbox=$_POST['temp_checkbox'];
+$humi_checkbox=$_POST['humi_checkbox'];
+
 $name=$_POST['name'];
 
 $temp_sensor=$_POST['temp_sensor'];
@@ -63,6 +65,26 @@ exit();
 
 }
 
+if ($_POST['humion'] == "humiON")  {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE gpio SET humi_checkbox='$humi_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    exec("$dir/gpio off $gpio_post");
+
+header("location: " . $_SERVER['REQUEST_URI']);
+exit();
+
+}
+
+
+
+
+
+
+
+
+
 if ($_POST['name1'] == "name2"){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE gpio SET name='$name' WHERE id='$name_id'") or die ($db->lastErrorMsg());
@@ -97,12 +119,13 @@ $result = $sth->fetchAll();
 foreach ( $result as $a) {
 ?>
 <span class="belka">&nbsp Gpio <?php echo $a['gpio']; ?> <span class="okno">
-<?php $gpio=$a['gpio'];
-
-exec("$dir/gpio status " . escapeshellarg($gpio), $out_arr);
+<?php 
+$gpio=$a['gpio'];
+exec("$dir/gpio status $gpio", $out_arr);
     $out=$out_arr[0];
+    //print_r ($out_arr);
     unset($out_arr);    
-
+    
     if ($out == 'on') { ?>
 	<table><tr>
 	<form action="gpio" method="post">
@@ -114,7 +137,7 @@ exec("$dir/gpio status " . escapeshellarg($gpio), $out_arr);
 	</form>
 	<td><?php passthru("$dir/gpio check $gpio");?> </td>
 	</tr></table>
- <?php	} elseif ($out == 'off') { ?>
+ <?php	} elseif ($out == 'off' || $out == 'humi') { ?>
 	<table>
 	<tr>
 	<form action="gpio" method="post">
@@ -124,6 +147,70 @@ exec("$dir/gpio status " . escapeshellarg($gpio), $out_arr);
 	<input type="hidden" name="name_id" value="<?php echo $a['id']; ?>" >
 	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png" alt="Submit" title="Reload" ></td>
 	</form>
+
+<?php if  ($a['humi_checkbox'] == 'on') 
+{ ?>
+	<form action="gpio" method="post">
+	<td><img  src="media/ico/rain-icon.png" title="Humidity on/off" /></td>
+	<td><input type="checkbox" name="humi_checkbox" value="on" <?php echo $a["humi_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="humion" value="humiON" />
+	</form>
+	Humidity ON (sensor DHT 11)
+
+<?php } elseif ($a['time_checkbox'] == 'on') { ?>
+	<form action="gpio" method="post">
+	<td><img  src="media/ico/Clock-icon.png" title="Set time"/></td>
+	<td><input type="checkbox" name="time_checkbox" value="on" <?php echo $a["time_checkbox"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /><td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="timeon" value="timeON" />        
+        </form>
+	<form action="gpio" method="post">
+	<td><input type="text" name="time_offset" value="<?php echo $a['time_offset']/60; ?>" size="8"  ></td><td>min</td> 
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
+	<input type="hidden" name="on" value="ON" />
+	</form>
+
+<?php } elseif  ($a['temp_checkbox'] == 'on') { ?>
+	<form action="gpio" method="post">
+	<td><img  src="media/ico/temp2-icon.png" title="Set temp when sensor will turn on/off" /></td>
+	<td><input type="checkbox" name="temp_checkbox" value="on" <?php echo $a["temp_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="tempon" value="tempON" />
+	</form>
+	<td>if</td>
+       <td>
+	<form action="gpio" method="post">
+	<select name="temp_sensor" >
+	<?php $sth = $db->prepare("SELECT * FROM sensors");
+	$sth->execute();
+	$result = $sth->fetchAll();
+	foreach ($result as $select) { ?>
+	<option <?php echo $a['temp_sensor'] == $select['name'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}C" ?></option>
+	<?php } ?>
+        </select></td>
+		<td>&gt;</td>
+	<td><input type="text" name="temp_temp" value="<?php echo $a['temp_temp']; ?>" size="2" >C</td>
+	<td>then</td> 
+	<td>
+        <select name="temp_onoff" >
+        <option <?php echo $a['temp_onoff'] == 'on' ? 'selected="selected"' : ''; ?> value="on">On</option>   
+        <option <?php echo $a['temp_onoff'] == 'off' ? 'selected="selected"' : ''; ?> value="off">Off</option>     
+        </select></td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
+	<input type="hidden" name="on" value="ON" />
+	</form>
+	
+	
+
+
+
+	
+<?php } else { ?>
 	<td>                           </td>
 	<form action="gpio" method="post">
     	<td><img type="image" src="media/ico/Letter-R-blue-icon.png" title="Reverse state HIGH to LOW" ></td>
@@ -144,43 +231,17 @@ exec("$dir/gpio status " . escapeshellarg($gpio), $out_arr);
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="tempon" value="tempON" />
 	</form>
-	
 	<form action="gpio" method="post">
-        
-<?php if  ($a['time_checkbox'] == 'on') { ?>
-	
-	<td><input type="text" name="time_offset" value="<?php echo $a['time_offset']/60; ?>" size="8"  ></td><td>min</td> 
+	<td><img  src="media/ico/rain-icon.png" title="Humidity on/off" /></td>
+	<td><input type="checkbox" name="humi_checkbox" value="on" <?php echo $a["humi_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	
-       <?php } ?>
-	
-<?php if  ($a['temp_checkbox'] == 'on') { ?>
-	<td>if</td>
-       <td>
-	<select name="temp_sensor" >
-	<?php $sth = $db->prepare("SELECT * FROM sensors");
-	$sth->execute();
-	$result = $sth->fetchAll();
-	foreach ($result as $select) { ?>
-	<option <?php echo $a['temp_sensor'] == $select['name'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}C" ?></option>
-	<?php } ?>
-        </select></td>
-		<td>&gt;</td>
-	<td><input type="text" name="temp_temp" value="<?php echo $a['temp_temp']; ?>" size="2" >C</td>
-	<td>then</td> 
-	<td>
-        <select name="temp_onoff" >
-        <option <?php echo $a['temp_onoff'] == 'on' ? 'selected="selected"' : ''; ?> value="on">On</option>   
-        <option <?php echo $a['temp_onoff'] == 'off' ? 'selected="selected"' : ''; ?> value="off">Off</option>     
-        </select></td>
-	
-<?php } ?>
-	
-	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
-	<input type="hidden" name="on" value="ON" />
-
+	<input type="hidden" name="humion" value="humiON" />
 	</form>
+
+<?php } ?>
+
+
+	
 	</tr>
 	</table>
 

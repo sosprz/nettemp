@@ -83,7 +83,8 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE gpio (
   temp_onoff TEXT,
   temp_temp REAL,
   gpio_rev_hilo TEXT,
-  gpio_mode TEXT
+  gpio_mode TEXT,
+  humi_checkbox TEXT
     );"
 
 

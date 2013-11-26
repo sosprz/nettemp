@@ -34,6 +34,11 @@ echo -e "${GREEN}Changing lighthttpd conf${R}"
  sed -i -e 's/#       "mod_rewrite",/       "mod_rewrite",/g'  /etc/lighttpd/lighttpd.conf
  sed -i -e 's/server.document-root        = \"\/var\/www\"/server.document-root        = \"\/var\/www\/nettemp\"/g'  /etc/lighttpd/lighttpd.conf	
 
+sed -i '/url.access-deny/d' /etc/lighttpd/lighttpd.conf
+sed -i '$a url.access-deny             = ( "~", ".inc", ".dbf", ".db", ".txt" )' /etc/lighttpd/lighttpd.conf
+
+
+
  if cat /etc/lighttpd/lighttpd.conf |grep url.rewrite-once 1> /dev/null
  then
  echo -e "${GREEN}Url rewrite exist${R}"
