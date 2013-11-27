@@ -35,7 +35,7 @@ echo -e "${GREEN}Changing lighthttpd conf${R}"
  sed -i -e 's/server.document-root        = \"\/var\/www\"/server.document-root        = \"\/var\/www\/nettemp\"/g'  /etc/lighttpd/lighttpd.conf	
 
 sed -i '/url.access-deny/d' /etc/lighttpd/lighttpd.conf
-sed -i '$a url.access-deny             = ( "~", ".inc", ".dbf", ".db", ".txt" )' /etc/lighttpd/lighttpd.conf
+sed -i '$a url.access-deny             = ( "~", ".inc", ".dbf", ".db", ".txt", ".rrd" )' /etc/lighttpd/lighttpd.conf
 
 
 
@@ -119,6 +119,10 @@ echo -e "${GREEN}Add modules 1-wire${R}"
  else  echo "w1_gpio" | sudo tee -a /etc/modules
        echo "w1_therm" | sudo tee -a /etc/modules
  fi
+
+echo -e "${GREEN}Add permis to read RPI sys temp${R}"
+chmod +s /opt/vc/bin/vcgencmd
+chmod +s /var/www/nettemp/modules/sensors/Adafruit_DHT
 
 echo -e "${REDB}Restart RPI and make sure everything is ok${R}"
 
