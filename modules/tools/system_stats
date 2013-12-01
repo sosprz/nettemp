@@ -1,0 +1,62 @@
+#! /bin/bash -x
+
+dir=/var/www/nettemp
+dir2=$dir/img/system_stats
+
+if [ ! -e $dir/db/cpu.rrd ]
+then { echo "tworze bazy";
+
+rrdtool create $dir/db/cpu.rrd -s 60 DS:cpu:GAUGE:100000:0:100000 \
+RRA:AVERAGE:0.5:1:48384 \
+RRA:MAX:0.5:1:48384 \
+RRA:MIN:0.5:1:48384 \
+RRA:LAST:0.5:1:48384
+
+rrdtool create $dir/db/memory.rrd -s 60 DS:mem:GAUGE:100000:0:100000 \
+RRA:AVERAGE:0.5:1:48384 \
+RRA:MAX:0.5:1:48384 \
+RRA:MIN:0.5:1:48384 \
+RRA:LAST:0.5:1:48384
+
+}
+else 
+{ 
+echo "bazy sa";
+}
+fi
+
+cpu=`mpstat |tail -1| awk '{print 100-$11}'`
+memory=`free | grep Mem | awk '{print $3/$2 * 100.0}'`
+
+echo $cpu
+echo $memory
+
+rrdtool update $dir/db/cpu.rrd N:$cpu
+rrdtool update $dir/db/memory.rrd N:$memory
+
+
+for i in hour day week month
+do 
+rrdtool graph $dir/img/system_stats/$i.png \
+--imgformat PNG \
+--title="$i" \
+--width 390 --height 150 \
+--vertical-label="RPi system `date +%H%M`" \
+-s -1$i \
+DEF:cpu=$dir/db/cpu.rrd:cpu:AVERAGE \
+DEF:mem=$dir/db/memory.rrd:mem:AVERAGE \
+LINE1:cpu#0000ff:"Used % CPU" \
+GPRINT:cpu:LAST:"last %2.2lf " \
+GPRINT:cpu:MIN:"min %2.2lf " \
+GPRINT:cpu:MAX:"max %2.2lf " \
+GPRINT:cpu:AVERAGE:"ave %2.2lf  \n" \
+LINE1:mem#FF0000:"Used % Memory" \
+GPRINT:mem:LAST:"last %2.2lf " \
+GPRINT:mem:MIN:"min %2.2lf " \
+GPRINT:mem:MAX:"max %2.2lf " \
+GPRINT:mem:AVERAGE:"ave %2.2lf  \n" 
+
+done
+
+
+

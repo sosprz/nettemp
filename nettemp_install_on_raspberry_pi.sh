@@ -25,7 +25,7 @@ if [ "$y" = "y" ]; then
 fi
 
 echo -e "${GREEN}Install packages${R}"
- apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core
+ apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat
 
 echo -e "${GREEN}Enable module: fastcgi-php${R}"
  lighty-enable-mod fastcgi-php
@@ -78,6 +78,8 @@ echo -e "${GREEN}Add cron line${R}"
  echo "*/1 * * * * /var/www/nettemp/modules/gpio/gpio check" >> /var/spool/cron/crontabs/root
  echo "*/5 * * * * /var/www/nettemp/modules/sms/sms_send" >> /var/spool/cron/crontabs/root
  echo "*/5 * * * * /var/www/nettemp/modules/mail/mail_send" >> /var/spool/cron/crontabs/root
+ sed -i '$a @reboot     echo "$(date +\\%y\\%m\\%d-\\%H\\%M) RPI rebooted" >> /var/www/nettemp/tmp/log.txt' /var/spool/cron/crontabs/root
+ sed -i '$a*/1 * * * * /var/www/nettemp/modules/tools/system_stats' /var/spool/cron/crontabs/root
  chmod 600 /var/spool/cron/crontabs/root
 
 
@@ -120,9 +122,10 @@ echo -e "${GREEN}Add modules 1-wire${R}"
        echo "w1_therm" | sudo tee -a /etc/modules
  fi
 
-echo -e "${GREEN}Add permis to read RPI sys temp${R}"
+echo -e "${GREEN}Add perms${R}"
 chmod +s /opt/vc/bin/vcgencmd
 chmod +s /var/www/nettemp/modules/sensors/Adafruit_DHT
+chmod +s /sbin/reboot
 
 echo -e "${REDB}Restart RPI and make sure everything is ok${R}"
 

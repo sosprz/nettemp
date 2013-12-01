@@ -3,7 +3,7 @@
 
 
 
-if ($_POST['update'] == "update") { 
+if ($_POST['update'] == "Update") { 
 putenv('PATH='. getenv('PATH') .':var/www/nettemp');
 passthru('git pull 2>&1');
 //header("location: " . $_SERVER['REQUEST_URI']);
@@ -11,8 +11,8 @@ passthru('git pull 2>&1');
 	}
 	?>
 	<form action="tools" method="post">
-	  <input type="hidden" name="update" value="update">
-     <input  type="submit" value="update"  />
+	  <input type="hidden" name="update" value="Update">
+     <input  type="submit" value="Update"  />
      </form>   
 
      </span></span>
