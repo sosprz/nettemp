@@ -60,8 +60,8 @@ if ($_POST['tempon'] == "tempON")  {
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE gpio SET temp_checkbox='$temp_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
-header("location: " . $_SERVER['REQUEST_URI']);
-exit();
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
 
 }
 
@@ -70,20 +70,12 @@ if ($_POST['humion'] == "humiON")  {
     $db->exec("UPDATE gpio SET humi_checkbox='$humi_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
-    exec("$dir/gpio off $gpio_post");
+    exec("$dir/gpio humi $gpio_post");
 
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 
 }
-
-
-
-
-
-
-
-
 
 if ($_POST['name1'] == "name2"){
 	$db = new PDO('sqlite:dbf/nettemp.db');
