@@ -154,8 +154,10 @@ off(){
 gpio_on(){
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio_rev_hilo FROM gpio WHERE gpio='$1'")
     if [ "$rev" = "on" ]; then 
+        /usr/local/bin/gpio -g mode $1 output
 	/usr/local/bin/gpio -g write $1 0
     else
+	/usr/local/bin/gpio -g mode $1 output
 	/usr/local/bin/gpio -g write $1 1
     fi
     echo "$date Gpio $1 is ON" >> $dir/tmp/log.txt
@@ -176,7 +178,6 @@ add() {
 if [ "$1" = "4" ] || [ "$1" = "17" ] || [ "$1" = "18" ] || [ "$1" = "21" ] || [ "$1" = "22" ] || [ "$1" = "23" ] || [ "$1" = "24" ] || [ "$1" = "25" ]; then
     gpio_from_line=$1
     sqlite3 $dir/dbf/nettemp.db "INSERT INTO gpio (gpio, name, time_start, time_offset, gpio_rev_hilo ) VALUES ('$gpio_from_line','new', 0, 0, 'off')"
-    /usr/local/bin/gpio -g mode $gpio_from_line output
     sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_mode='output' WHERE gpio='$gpio_from_line'"
     sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_from_line'" 
     sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_from_line'" 
