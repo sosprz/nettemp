@@ -1,4 +1,4 @@
-#! /bin/bash -x
+#! /bin/bash 
 
 dir=/var/www/nettemp
 date=$(date +%y%m%d-%H%M)
@@ -166,10 +166,13 @@ gpio_on(){
 
 gpio_off(){
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio_rev_hilo FROM gpio WHERE gpio='$1'")
+    gpio_from_line=$1
     if [ "$rev" = "on" ]; then 
-	/usr/local/bin/gpio -g write $1 1
+    /usr/local/bin/gpio -g write $gpio_from_line 1
+    /usr/local/bin/gpio -g mode $gpio_from_line input
     else
-	/usr/local/bin/gpio -g write $1 0
+    /usr/local/bin/gpio -g write $gpio_from_line 0
+    /usr/local/bin/gpio -g mode $gpio_from_line input
     fi
 }
 
@@ -178,7 +181,7 @@ add() {
 if [ "$1" = "4" ] || [ "$1" = "17" ] || [ "$1" = "18" ] || [ "$1" = "21" ] || [ "$1" = "22" ] || [ "$1" = "23" ] || [ "$1" = "24" ] || [ "$1" = "25" ]; then
     gpio_from_line=$1
     sqlite3 $dir/dbf/nettemp.db "INSERT INTO gpio (gpio, name, time_start, time_offset, gpio_rev_hilo ) VALUES ('$gpio_from_line','new', 0, 0, 'off')"
-    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_mode='output' WHERE gpio='$gpio_from_line'"
+#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_mode='output' WHERE gpio='$gpio_from_line'"
     sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_from_line'" 
     sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_from_line'" 
     sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET humi_checkbox='off' WHERE gpio='$gpio_from_line'" 
@@ -189,8 +192,7 @@ del() {
 if [ -n "$1" ]; then
     gpio_from_line=$1
     sqlite3 $dir/dbf/nettemp.db "DELETE FROM gpio WHERE gpio='$gpio_from_line'"
-    /usr/local/bin/gpio -g write $gpio_from_line 0
-    /usr/local/bin/gpio -g mode $gpio_from_line input
+    gpio_off $gpio_from_line
 fi
 }
 
