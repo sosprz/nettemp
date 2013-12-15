@@ -1,4 +1,4 @@
 #! /bin/bash
 
-git update-index --assume-unchanged dbf/nettemp.db
+#git update-index --assume-unchanged dbf/nettemp.db
 sudo update-alternatives --config editor

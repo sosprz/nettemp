@@ -72,6 +72,9 @@ echo -e "${GREEN}Add permisions${R}"
  gpasswd -a www-data dialout
  #chmod +s /var/www/nettemp/modules/relays/gpio
 
+echo -e "${GREEN}Create database${R}"
+/var/www/nettemp/modules/reset/reset
+
 
 echo -e "${GREEN}Add cron line${R}"
  echo "*/1 * * * * /var/www/nettemp/modules/sensors/temp_dev_read && /var/www/nettemp/modules/view/view_gen && /var/www/nettemp/modules/highcharts/highcharts" > /var/spool/cron/crontabs/root
@@ -128,7 +131,4 @@ chmod +s /var/www/nettemp/modules/sensors/Adafruit_DHT
 chmod +s /sbin/reboot
 
 echo -e "${REDB}Restart RPI and make sure everything is ok${R}"
-
-
-
 
