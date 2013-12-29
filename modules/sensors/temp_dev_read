@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash -x
 
 #dir0=`find / -name config_nettemp.php 2> /dev/null | sed 's/..................$//' | cut -c 1-`
 #dir=`cat $dir0/config_nettemp.php |grep dir | cut -c 5-`
@@ -98,30 +98,29 @@ fi
 # DHT11 22 Adafruit
 
 gpio_list_0=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where humi_checkbox='on'"`
-
 type="11"
 
-for gpio_list in $gpio_list_0; do
-sleep 3
-# read and do status form 1 to 0
-dht=`$dir/modules/sensors/Adafruit_DHT $type $gpio_list |grep Temp`
-#/usr/local/bin/gpio -g mode $gpio_list output
-#/usr/local/bin/gpio -g write $gpio_list 0
+if [ -n "$gpio_list_0" ]; then 
+    for gpio_list in $gpio_list_0; do
+    sleep 3
+    dht=`$dir/modules/sensors/Adafruit_DHT $type $gpio_list |grep Temp`
+	if [ -n "$dht" ]; then
+	    let var1_$gpio_list=`echo $dht | cut -c  8-10`
+	    let var2_$gpio_list=`echo $dht | cut -c 21-23`
+	    dht_temp=var1_$gpio_list
+	    dht_humi=var2_$gpio_list
+	    echo ${!dht_temp}
+	    echo ${!dht_humi}
+	    rrdtool update $dir/db/$gpio_list.rrd N:${!dht_temp}
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_temp}' WHERE rom='$gpio_list'"
+	    rrdtool update $dir/db/humi_$gpio_list.rrd N:${!dht_humi}
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_humi}' WHERE rom='humi_$gpio_list'"
+	else 
+	    echo "$date temp_dev_read - Error when reding Humi sensor from gpio $gpio_list" >> $dir/tmp/log.txt    
+	fi
+    done
 
-let var1_$gpio_list=`echo $dht | cut -c  8-10`
-let var2_$gpio_list=`echo $dht | cut -c 21-23`
-
-dht_temp=var1_$gpio_list
-dht_humi=var2_$gpio_list
-
-echo ${!dht_temp}
-echo ${!dht_humi}
-
-rrdtool update $dir/db/$gpio_list.rrd N:${!dht_temp}
-sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_temp}' WHERE rom='$gpio_list'"
-
-rrdtool update $dir/db/humi_$gpio_list.rrd N:${!dht_humi}
-sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_humi}' WHERE rom='humi_$gpio_list'"
-
-done
+else
+    echo "No humi sensor (DHT)"
+fi
 

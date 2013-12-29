@@ -197,10 +197,14 @@ fi
 
 humi() {
 if [ -n "$1" ]; then
-    gpio_from_line=$1
+    gpio_from_line=$2
+    echo $gpio_from_line
     /usr/local/bin/gpio -g write $gpio_from_line 0
     /usr/local/bin/gpio -g mode $gpio_from_line input
     sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_mode='input' WHERE gpio='$gpio_from_line'"
+    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_from_line'" 
+    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_from_line'" 
+    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET humi_checkbox='on' WHERE gpio='$gpio_from_line'" 
 fi
 
 }
@@ -232,7 +236,7 @@ case "$1" in
     "check") check $2 ;;
     "add") add $2 ;;
     "del") del $2 ;;
-    "humi") humi on $2 ;;
+    "humi") humi on $3 ;;
     "time") time on $2 ;;
     "rev") rev $2 ;;
     *) echo "no inputs
