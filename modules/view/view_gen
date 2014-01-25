@@ -3,6 +3,10 @@
 dir=/var/www/nettemp
 date=`date +%y%m%d-%H%M`
 
+rrd_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT rrd FROM settings"`
+
+if [ "$rrd_onoff" == "on" ]; then
+
 usb=`sqlite3 $dir/dbf/nettemp.db "SELECT usb FROM device"`
 onewire=`sqlite3 $dir/dbf/nettemp.db "SELECT onewire FROM device"`
 if [ "$usb" == "off" ] && [ "$onewire" == "off" ]; then 
@@ -64,5 +68,9 @@ if [ -n "${!varinvar}" ]; then
 fi
 unset array
 done
+fi
+
+else 
+echo "rrd off"
 fi
 

@@ -1,4 +1,4 @@
-www.nettemp.pl v7.3.1
+www.nettemp.pl v7.3.2
 
 AUTOMATIC INSTALL:
 
@@ -16,3 +16,10 @@ USERS:
 
     admin admin - access for all
     temp temp - access only for sensors settings
+
+Changelog:
+
+7.3.2
+Add icons for humi DHT11, DHT22 in status.
+Fix gpio, when can't add humi mode for gpio.
+Fix scripts responsible for reading sensors.

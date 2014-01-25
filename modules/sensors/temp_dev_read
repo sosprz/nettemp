@@ -102,10 +102,12 @@ fi
 ######################
 
 gpio_list_0=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where humi_checkbox='on'"`
-type="11"
+
+
 
 if [ -n "$gpio_list_0" ]; then 
     for gpio_list in $gpio_list_0; do
+type=`sqlite3 $dir/dbf/nettemp.db "SELECT humi_type FROM gpio where gpio='$gpio_list_0'"`
     sleep 3
     dht=`$dir/modules/sensors/Adafruit_DHT $type $gpio_list |grep Temp`
 	if [ -n "$dht" ]; then
@@ -115,10 +117,15 @@ if [ -n "$gpio_list_0" ]; then
 	    dht_humi=var2_$gpio_list
 	    echo ${!dht_temp}
 	    echo ${!dht_humi}
-	    rrdtool update $dir/db/$gpio_list.rrd N:${!dht_temp}
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_temp}' WHERE rom='$gpio_list'"
-	    rrdtool update $dir/db/humi_$gpio_list.rrd N:${!dht_humi}
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_humi}' WHERE rom='humi_$gpio_list'"
+	    gpio_name=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='humi'"`
+	    rrdtool update $dir/db/$(echo $gpio_name).rrd N:${!dht_humi}
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_humi}' WHERE rom='$(echo $gpio_name)'"
+
+	    gpio_name2=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='temp'"`
+	    rrdtool update $dir/db/$(echo $gpio_name2).rrd N:${!dht_temp}
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_temp}' WHERE rom='$(echo $gpio_name2)'"
+
+
 	else 
 	    echo "$date temp_dev_read - Error when reding Humi sensor from gpio $gpio_list" >> $dir/tmp/log.txt    
 	fi
@@ -127,4 +134,6 @@ if [ -n "$gpio_list_0" ]; then
 else
     echo "No humi sensor (DHT)"
 fi
+
+
 

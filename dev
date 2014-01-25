@@ -1,4 +1,6 @@
 #! /bin/bash
 
 #git update-index --assume-unchanged dbf/nettemp.db
+#sqlite3 ../../dbf/nettemp.db  "ALTER TABLE sensors ADD COLUMN type TEXT";
+#sqlite3 -header ../../dbf/nettemp.db  "SELECT * FROM sensors"
 sudo update-alternatives --config editor

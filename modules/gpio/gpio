@@ -8,14 +8,16 @@ date=$(date +%y%m%d-%H%M)
 status() {
 
 gpio_from_line="$1"
+mode=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio_mode FROM gpio WHERE gpio='$1'")
+
+
 dht=`sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox FROM gpio where gpio='$gpio_from_line'"`
 if [ -n "$gpio_from_line" ] && [ "$dht" != "on" ];then
-    
     onoff=$(/usr/local/bin/gpio -g read $gpio_from_line)
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio_rev_hilo FROM gpio WHERE gpio='$gpio_from_line'")
     run_temp=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio_from_line'")
     run_time=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_run FROM gpio WHERE gpio='$gpio_from_line'")
-    
+
 	if [ "$onoff" = "1" ] && [ "$rev" = "off" ] || [ "$run_temp" = "on" ] || [ "$run_time" = "on" ] ; then
 	    echo "on";
 	elif [ "$onoff" = "0" ] && [ "$rev" = "on" ] || [ "$run_temp" = "on" ] || [ "$run_time" = "on" ] ; then
@@ -30,6 +32,7 @@ elif [ -n "$gpio_from_line" ] && [ "$dht" = "on" ];then
 else
     echo "no input"
 fi
+
 }
 
 

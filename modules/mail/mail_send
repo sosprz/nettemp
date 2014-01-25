@@ -86,8 +86,8 @@ if [ $send_mail == on ]; then
         echo "Brak pliku w $pliki_kolejka"
 	    fi
 fi #on_off
-
-
+else 
+echo "mail off"
 fi #onoff
 
 

@@ -68,7 +68,8 @@ else
 echo "$date sms_send - no device " >> $dir/tmp/log.txt
 
 fi
-
+else 
+echo "sms off"
 fi #onoff
 
 

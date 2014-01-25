@@ -25,29 +25,21 @@ foreach ($result as $a) {
 $sms=$a["sms"];
 }
 ?>
-<span class="belka">&nbsp SMS settings<span class="okno">
-
-<table>
-<tr>	
-    <form action="sms" method="post">
-    <td>SMS module on/off</td>
-    <td><input type="checkbox" name="ss" value="on" <?php echo $sms == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
-    <input type="hidden" name="ss1" value="ss2" />
-    </form>
-</tr> 
-</table>
-
+<span class="belka">&nbsp SMS<span class="okno">
 
 <?php
 if ($sms == "on" ) {
-?> <hr>
+?> 
 	<?php include('sms_scan.php'); ?>
 	<hr>
 	<?php include("sms_settings.php"); ?>
 	<hr>
 	<?php include('sms_getallsms.php'); ?>
 
-<?php } ?>
+<?php } 
+    else { echo "OFF"; }
+
+?>
 </span></span>
 </div>	 
 

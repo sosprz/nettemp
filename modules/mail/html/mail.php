@@ -25,27 +25,16 @@ $mail=$a["mail"];
 ?>
 
 <div id="left">
-<span class="belka">&nbsp Mail settings<span class="okno">
-
-<table>
-<tr>	
-    <form action="mail" method="post">
-    <td>Mail module on/off</td>
-    <td><input type="checkbox" name="ms" value="on" <?php echo $mail == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
-    <input type="hidden" name="ms1" value="ms2" />
-    </form>
-</tr> 
-</table>
-
+<span class="belka">&nbsp Mail<span class="okno">
 
 <?php
     if ($mail == "on" ) { ?>
-<hr>
 	<?php include("mail_settings.php"); ?>
 <hr>
 	<?php include("mail_test.php"); ?>
 
 <?php	 } 
+    else { echo "OFF"; }
 ?>
 </span></span>
 </div>

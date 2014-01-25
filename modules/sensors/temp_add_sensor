@@ -1,33 +1,38 @@
-#! /bin/bash 
+#! /bin/bash -x
 
 dir=/var/www/nettemp
 
+
 if [ -n "$1" ]; then
 
-    humi_check=`sqlite3 ../../dbf/nettemp.db "SELECT humi_checkbox FROM gpio where gpio='$1'"`
-    if [ $humi_check = "on" ]; then 
-
-
-    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
-    (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year) \
-    VALUES ('humi_$RANDOM','#07FF00','humi_$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on' )"
-
-    /usr/bin/rrdtool create $dir/db/humi_$1.rrd -s 60 DS:temp:GAUGE:700:-150:150 RRA:AVERAGE:0.5:1:48384 RRA:MAX:0.5:1:48384 RRA:MIN:0.5:1:48384 RRA:LAST:0.5:1:48384
-    chmod 777 $dir/db/humi_$1.rrd
+    gpio_humi=`echo "$1" | cut -c 1-2`
     
-    echo "Humi $1 added"
-    fi
+    humi_check=$(sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox FROM gpio where gpio='$gpio_humi'")
+    echo $gpio_humi >> $dir/lol.txt
+    echo $humi_check >> $dir/lol.txt
 
+    if [ "$humi_check" = "on" ] && [ $(echo $1 |grep humi) ]; then 
 
     sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
-    (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year) \
-    VALUES ('new_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on' )"
+    (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
+    VALUES ('humi_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'humi', '$gpio_humi' )"
+
+    /usr/bin/rrdtool create $dir/db/$(echo $1).rrd -s 60 DS:temp:GAUGE:700:-150:150 RRA:AVERAGE:0.5:1:48384 RRA:MAX:0.5:1:48384 RRA:MIN:0.5:1:48384 RRA:LAST:0.5:1:48384
+    chmod 777 $dir/db/$(echo $1).rrd
+    echo "$date temp_add_sensor - Add Humi sensor on gpio $1" >> $dir/tmp/log.txt
+   else
+#    fi
+
+    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
+    (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
+    VALUES ('new_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'temp', '$1' )"
 
     /usr/bin/rrdtool create $dir/db/$1.rrd -s 60 DS:temp:GAUGE:700:-150:150 RRA:AVERAGE:0.5:1:48384 RRA:MAX:0.5:1:48384 RRA:MIN:0.5:1:48384 RRA:LAST:0.5:1:48384
     chmod 777 $dir/db/$1.rrd
-    
-    echo "Temp $1 added"
-    else
-    echo "no sensor added";
+    echo "$date temp_add_sensor - Add Temp sensor on gpio $1" >> $dir/tmp/log.txt
+
+    fi    
+    else    
+    echo "no input";
     fi 
 

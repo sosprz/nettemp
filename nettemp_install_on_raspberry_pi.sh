@@ -130,5 +130,9 @@ chmod +s /opt/vc/bin/vcgencmd
 chmod +s /var/www/nettemp/modules/sensors/Adafruit_DHT
 chmod +s /sbin/reboot
 
+
+echo -e "${GREEN}Add more security. If You use nettemp on external IP set additional passowrd${R}"
+/var/www/nettemp/nettemp_password
+
 echo -e "${REDB}Restart RPI and make sure everything is ok${R}"
 

@@ -1,6 +1,12 @@
 #! /bin/bash
 
 dir=/var/www/nettemp
+
+hc_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT highcharts FROM settings"`
+
+if [ "$hc_onoff" == "on" ]; then
+
+
 rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors")
 
 
@@ -19,4 +25,8 @@ done
 
 eval ${array[@]}
 unset array 
+
+else 
+echo "highcharts off"
+fi
 
