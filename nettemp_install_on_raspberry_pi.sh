@@ -132,7 +132,12 @@ chmod +s /sbin/reboot
 
 
 echo -e "${GREEN}Add more security. If You use nettemp on external IP set additional passowrd${R}"
+echo "(Y)es or (N)ot
+read pass
+if [ "$pass" = "Y" ]; then
 /var/www/nettemp/nettemp_password
+fi
+
 
 echo -e "${REDB}Restart RPI and make sure everything is ok${R}"
 
