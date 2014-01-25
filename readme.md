@@ -19,6 +19,15 @@ USERS:
 
 Changelog:
 
+7.4
+Fix DHT11,22 functions.
+Add settings.
+Turn on/off RRD or Highcharts in view. 
+Add nettemp_password in nettemp directory to create htaccess on whole site.
+Add gpio to status
+Change icons in status
+Other fix
+
 7.3.2
 Add icons for humi DHT11, DHT22 in status.
 Fix gpio, when can't add humi mode for gpio.
