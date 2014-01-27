@@ -183,6 +183,13 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 
 <?php } elseif ($a['time_checkbox'] == 'on') { ?>
 	<form action="gpio" method="post">
+    	<td><img type="image" src="media/ico/Letter-R-blue-icon.png" title="Reverse state HIGH to LOW" ></td>
+    	<td><input type="checkbox" name="gpio_rev_hilo" value="on" <?php echo $a["gpio_rev_hilo"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    	<input type="hidden" name="gpio_rev_hilo1" value="gpio_rev_hilo2" />
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    	</form>
+
+	<form action="gpio" method="post">
 	<td><img  src="media/ico/Clock-icon.png" title="Set time"/></td>
 	<td><input type="checkbox" name="time_checkbox" value="on" <?php echo $a["time_checkbox"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /><td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
@@ -198,6 +205,13 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 	</form>
 
 <?php } elseif  ($a['temp_checkbox'] == 'on') { ?>
+	<form action="gpio" method="post">
+    	<td><img type="image" src="media/ico/Letter-R-blue-icon.png" title="Reverse state HIGH to LOW" ></td>
+    	<td><input type="checkbox" name="gpio_rev_hilo" value="on" <?php echo $a["gpio_rev_hilo"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    	<input type="hidden" name="gpio_rev_hilo1" value="gpio_rev_hilo2" />
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    	</form>
+
 	<form action="gpio" method="post">
 	<td><img  src="media/ico/temp2-icon.png" title="Set temp when sensor will turn on/off" /></td>
 	<td><input type="checkbox" name="temp_checkbox" value="on" <?php echo $a["temp_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
@@ -227,21 +241,8 @@ exec("$dir/gpio2 status $gpio", $out_arr);
     	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
 	<input type="hidden" name="on" value="ON" />
 	</form>
-	
-	
-
-
-
-	
 <?php } else { ?>
 	<td>                           </td>
-	<form action="gpio" method="post">
-    	<td><img type="image" src="media/ico/Letter-R-blue-icon.png" title="Reverse state HIGH to LOW" ></td>
-    	<td><input type="checkbox" name="gpio_rev_hilo" value="on" <?php echo $a["gpio_rev_hilo"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
-    	<input type="hidden" name="gpio_rev_hilo1" value="gpio_rev_hilo2" />
-	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    	</form>
-
 	<form action="gpio" method="post">
 	<td><img  src="media/ico/Clock-icon.png" title="Set time"/></td>
 	<td><input type="checkbox" name="time_checkbox" value="on" <?php echo $a["time_checkbox"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /><td>

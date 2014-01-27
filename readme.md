@@ -1,4 +1,4 @@
-www.nettemp.pl v7.4
+www.nettemp.pl v7.4.1
 
 AUTOMATIC INSTALL:
 
@@ -18,6 +18,11 @@ USERS:
     temp temp - access only for sensors settings
 
 Changelog:
+
+7.4.1
+Removed switch hi/lo form first menu to two in gpio.
+Changed info: "Humidity enabled on gpio x" to "Humidity enabled"
+Add info about gpio 4. Gpio 4 is reserved for 1-wire.
 
 7.4
 Fix DHT11,22 functions.

@@ -57,7 +57,7 @@ temp_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_checkbox FROM gpio WHER
 humi_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox FROM gpio WHERE gpio='$gpio'")
 
 if [ "$humi_checkbox" = "on" ]; then
-echo "Humidity enabled on $gpio"
+echo "Humidity enabled"
 
 
 elif [ "$time_checkbox" = "on" ]; then

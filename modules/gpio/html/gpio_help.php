@@ -1,3 +1,3 @@
-<span class="belka">&nbsp Help<span class="okno">
-In this section You can add Relay function (ON/OFF) to You Gpio pin. After add, Gpio have OUTPUT mode.
+<span class="belka">&nbsp Info<span class="okno">
+Gpio 4 is reserved for 1-wire and have default input mode. You can connect DS81b20.
 </span></span>
