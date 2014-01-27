@@ -11,12 +11,10 @@ sqlite3 $dir/dbf/nettemp.db "UPDATE mail_settings SET port='587' WHERE id='1'"
 sqlite3 $dir/dbf/nettemp.db "UPDATE mail_settings SET user='nettempnotifications@gmail.com' WHERE id='1'"
 
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type ) VALUES('Taras','#09d61b','0x280x880x9D0xF70x020x000x000xB6','0','-10','30.0','on','on','on','on','on','on', 'temp')"
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type ) VALUES('Korytarz','#511111','0x280xF80x790xF70x020x000x000xEB','0','20','25','on','on','on','on','on','on', 'temp')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type ) VALUES('Sypialnia','#908484','0x280x040x5E0x250x030x000x000xE0','0','20.0','28.0','on','on','on','on','on','on', 'temp')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type ) VALUES('Kuchnia','#0003bd','0x280x6C0x580x250x030x000x000x1E','0','20.0','28.0','on','on','on','on','on','on', 'temp')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type ) VALUES('Maly pokoj','#e205c8','0x280xDE0x6E0x250x030x000x000x6F','0','20.0','28.0','on','on','on','on','on','on', 'temp')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type ) VALUES('Salon','#251fdd','0x280x890x360x250x030x000x000x6F','0','20.0','28.0','on','on','on','on','on','on', 'temp')"
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type ) VALUES('Szafka komp','#eb7809','0x280xCD0xFB0xFA0x010x000x000xDC','0','0','33.0','on','on','on','on','on','on', 'temp')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type ) VALUES('Rpi1','#eb7809','28-000002f779f8','0','0','33.0','on','on','on','on','on','on', 'temp')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO sensors (name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type ) VALUES('Rpi2','#eb7809','28-000001faf73d','0','0','33.0','on','on','on','on','on','on', 'temp')"
 

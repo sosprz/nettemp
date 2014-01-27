@@ -18,6 +18,9 @@ USERS:
     temp temp - access only for sensors settings
 
 Changelog:
+7.4.5
+check if result form digitemp is numeric
+
 7.4.4
 little changes in gpio
 added support for serial sensors (beta)

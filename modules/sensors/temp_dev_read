@@ -47,17 +47,16 @@ name_2=`cat $dir/tmp/.digitemprc |grep "$name_3" |awk 'BEGIN {FS=" "} {print $2}
 
 if [ "$usb" = "DS2490" ]; then
 	    wynik=`/usr/bin/digitemp_$usb -c $dir/tmp/.digitemprc -t $name_2 -q -o%.1C |grep -v Found`
-	    echo $wynik C
 else 
 	    wynik=`/usr/bin/digitemp_$usb -c $dir/tmp/.digitemprc -t $name_2 -q -o%.1C`
-	    echo $wynik C
 fi
-
-
-    if [ "$wynik" != "85" ] && [ "$wynik" != "85.0" ] ; then
+    if [ "$wynik" != "85" ] && [ "$wynik" != "85.0" ] && [[ "$wynik" = *[!0-9]* ]]; then
+	    echo $wynik C
 	    rrdtool update $dir/db/$name N:$wynik
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
     else 
+	    echo "error $wynik" 
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$name_1'"
 	    echo "$date temp_dev_read - reading sensor error 85C (resistor, or calbe problem) $name " >> $dir/tmp/log.txt    
     fi
 
@@ -145,8 +144,6 @@ if [ $name_str -lt "20" ] && [ $name_str -gt "11" ]; then
 fi
 done
 fi
-
-#&& [ "$serial" == "off" ]; then 
 
 ######################
 #
