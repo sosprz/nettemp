@@ -18,6 +18,8 @@ USERS:
     temp temp - access only for sensors settings
 
 Changelog:
+7.4.2
+fix read value from DHT22
 
 7.4.1
 Removed switch hi/lo form first menu to two in gpio.
