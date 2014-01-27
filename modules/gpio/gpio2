@@ -33,8 +33,8 @@ elif [ -n "$gpio_from_line" ] && [ "$temp_run" = "on" ]; then
     echo "on"
 elif [ -n "$gpio_from_line" ] && [ "$humi" = "on" ]; then
     echo "humi"
-elif [ -n "$gpio_from_line" ];then 
-    onoff $gpio_from_line
+#elif [ -n "$gpio_from_line" ];then 
+#    onoff $gpio_from_line
 else
     echo "off"
 fi

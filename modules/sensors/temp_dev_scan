@@ -11,17 +11,15 @@ rm -rf $dir/tmp/.digitemprc
 echo "$date temp_dev_scan - Deleted .digitemprc" >> $dir/tmp/log.txt
 
 # DS9097U na USB - meraprojekt new
-for i in 0 1 2 3 4 5 6 7 8
+for i in 0 1 2 3
     do
 	if [ `ls /dev/ttyUSB$i 2> /dev/null` ]; then 
 	/usr/bin/digitemp_DS9097U -i -c $dir/tmp/.digitemprc -s/dev/ttyUSB$i
 	fi
     done
 	if [ -e $dir/tmp/.digitemprc ]; then 
-	#echo "DS9097U" > $dir/tmp/device
-	#sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (dev1) VALUES ('DS9097U')"
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097U'"
-	echo "$date temp_dev_scan - Discovered DS9097U" >> $dir/tmp/log.txt
+	echo "$date temp_dev_scan - Discovered DS9097U on USB" >> $dir/tmp/log.txt
 	else
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off'"
 	fi
@@ -31,10 +29,8 @@ for i in 0 1 2 3 4 5 6 7 8
 if [ ! -e $dir/tmp/.digitemprc ]; then 
     /usr/bin/digitemp_DS2490 -i -c $dir/tmp/.digitemprc 
     if [ -e $dir/tmp/.digitemprc ]; then 
-    #echo "DS2490" > $dir/tmp/device
-    #sqlite3 $dir/dbf/nettem .db "INSERT OR IGNORE INTO device (dev1) VALUES ('DS2490')"
     sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS2490'"
-    echo "$date temp_dev_scan - Discovered DS2490" >> $dir/tmp/log.txt
+    echo "$date temp_dev_scan - Discovered DS2490 on USB" >> $dir/tmp/log.txt
     else
     sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off'"
     fi
@@ -42,7 +38,7 @@ fi
 
 # DS9097 na USB - serial na przejsciowce USB
 if [ ! -e $dir/tmp/.digitemprc ]; then 
-    for i in 0 1 2 3 4 5 6 7 8
+    for i in 0 1 2 3
 	do
 	    if [ `ls /dev/ttyUSB$i 2> /dev/null` ]; then 
 	    /usr/bin/digitemp_DS9097 -i -c $dir/tmp/.digitemprc -s/dev/ttyUSB$i
@@ -50,9 +46,25 @@ if [ ! -e $dir/tmp/.digitemprc ]; then
 	done
     if [ -e $dir/tmp/.digitemprc ]; then 
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097'"
-	echo "$date temp_dev_scan - Discovered DS9097" >> $dir/tmp/log.txt
+	echo "$date temp_dev_scan - Discovered DS9097 on USB" >> $dir/tmp/log.txt
 	else
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off'"
+    fi
+fi
+
+# DS9097 - serial 
+if [ ! -e $dir/tmp/.digitemprc ]; then 
+    for i in 0 1 2 3
+	do
+	    if [ `ls /dev/ttyS$i 2> /dev/null` ]; then 
+	    /usr/bin/digitemp_DS9097 -i -c $dir/tmp/.digitemprc -s/dev/ttyS$i
+	    fi
+	done
+    if [ -e $dir/tmp/.digitemprc ]; then 
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET serial='DS9097'"
+	echo "$date temp_dev_scan - Discovered DS9097 on serial port" >> $dir/tmp/log.txt
+	else
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET serial='off'"
     fi
 fi
 

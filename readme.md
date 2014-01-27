@@ -18,6 +18,9 @@ USERS:
     temp temp - access only for sensors settings
 
 Changelog:
+7.4.4
+little changes in gpio
+added support for serial sensors (beta)
 
 7.4.3
 fix gpio status

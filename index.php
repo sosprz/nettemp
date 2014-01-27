@@ -80,7 +80,7 @@ case 'settings': include('modules/settings/settings.php'); break;
 
 </div>
 
-	<div id="footer">www.nettemp.pl v7.4.3
+	<div id="footer">www.nettemp.pl v7.4.4
 	</div>
 </div>
 

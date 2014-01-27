@@ -10,7 +10,8 @@ foreach ($result as $a) { ?>
 	<table>  
  	 <tr><td>USB <td>is</td> </td> <td><?php echo $a['usb']; ?></td></tr>
 	 <tr><td>1-wire <td>is</td> </td><td><?php echo  $a['onewire']; ?></td></tr>
-</tr></table>
+	<tr><td>Serial <td>is</td> </td><td><?php echo  $a['serial']; ?></td></tr>
+	</table>
 <?php }
 ?>
 <hr>
