@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash -x
 
 dir=/var/www/nettemp
 date=$(date +%y%m%d-%H%M)
@@ -28,7 +28,7 @@ time_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_run FROM gpio WHERE gpio='$g
 temp_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio_from_line'")
 
 if [ -n "$gpio_from_line" ] && [ "$time_run" = "on" ] ;then
-    onoff
+    onoff $gpio_from_line
 elif [ -n "$gpio_from_line" ] && [ "$temp_run" = "on" ]; then
     echo "on"
 elif [ -n "$gpio_from_line" ] && [ "$humi" = "on" ]; then
