@@ -1,4 +1,4 @@
-www.nettemp.pl v7.4.1
+www.nettemp.pl
 
 AUTOMATIC INSTALL:
 
@@ -18,6 +18,10 @@ USERS:
     temp temp - access only for sensors settings
 
 Changelog:
+
+7.4.3
+fix gpio status
+
 7.4.2
 fix read value from DHT22
 
