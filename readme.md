@@ -20,6 +20,7 @@ USERS:
 Changelog:
 7.4.5
 check if result form digitemp is numeric
+add &deg;C  :)
 
 7.4.4
 little changes in gpio

@@ -54,9 +54,9 @@ if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-
 	<td><?php echo $a[name]; ?></td>
 	<input type="hidden" name="tmp_id" value="<?php echo $a[id]; ?>" />
 	<td><img src="media/ico/temp2-icon.png" />min:</td>
-	<td><input type="text" name="tmp_min_new" size="4" value="<?php echo $a[tmp_min]; ?>" /></td>
+	<td><input type="text" name="tmp_min_new" size="4" value="<?php echo $a[tmp_min]; ?>" />&deg;C</td>
 	<td><img src="media/ico/temp2-icon.png" />max:</td>
-	<td><input type="text" name="tmp_max_new" size="4" value="<?php echo $a[tmp_max]; ?>" /></td>
+	<td><input type="text" name="tmp_max_new" size="4" value="<?php echo $a[tmp_max]; ?>" />&deg;C</td>
 	<input type="hidden" name="ok" value="ok" />
 	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td>
 	</form>
