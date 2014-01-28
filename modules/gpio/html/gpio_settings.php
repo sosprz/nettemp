@@ -6,22 +6,23 @@ $time_offset=$_POST['time_offset'];
 $time_checkbox=$_POST['time_checkbox'];
 $temp_checkbox=$_POST['temp_checkbox'];
 $humi_checkbox=$_POST['humi_checkbox'];
-
 $name=$_POST['name'];
-
+$name_id=$_POST['name_id'];
 $temp_sensor=$_POST['temp_sensor'];
 $temp_onoff=$_POST['temp_onoff'];
 $temp_grlo=$_POST['temp_grlo'];
 $temp_temp=$_POST['temp_temp'];
 
+$day_checkbox=$_POST['day_checkbox'];
+$day_zone1s=$_POST['day_zone1s'];
+$day_zone1e=$_POST['day_zone1e'];
 
 
 //old
-$times=$_POST['time'];
-$name_id=$_POST['name_id'];
-$time=($times*60);
-$timec=($timecm*60);
-$custom_time_on=$_POST['custom_time_on'];
+//$times=$_POST['time'];
+//$time=($times*60);
+//$timec=($timecm*60);
+//$custom_time_on=$_POST['custom_time_on'];
 
 
 
@@ -34,6 +35,9 @@ if ($_POST['on'] == "ON")  {
 	elseif (!empty($temp_sensor)) {
 //		exec("$dir/gpio on " . escapeshellarg($gpio_post) . escapeshellarg($temp_sensor) . escapeshellarg($temp_onoff) . escapeshellarg($temp_temp)); //not work
 		exec("$dir/gpio2 on $gpio_post $temp_sensor $temp_onoff $temp_temp");
+	}
+	elseif (!empty($day_zone1s)) {
+		exec("$dir/gpio2 on $gpio_post $day_zone1s $day_zone1e");
 	}
 	else {	
 //		exec("$dir/gpio on " . escapeshellarg($gpio_post));
@@ -64,6 +68,17 @@ if ($_POST['tempon'] == "tempON")  {
     exit();
 
 }
+
+if ($_POST['dayon'] == "dayON")  {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE gpio SET day_checkbox='$day_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE gpio SET temp_checkbox='$temp_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+
+}
+
 
 if ($_POST['humion'] == "humiON")  {
     $db = new PDO('sqlite:dbf/nettemp.db');
@@ -204,6 +219,31 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 	<input type="hidden" name="on" value="ON" />
 	</form>
 
+<?php } elseif ($a['day_checkbox'] == 'on') { ?>
+	<form action="gpio" method="post">
+    	<td><img type="image" src="media/ico/Letter-R-blue-icon.png" title="Reverse state HIGH to LOW" ></td>
+    	<td><input type="checkbox" name="gpio_rev_hilo" value="on" <?php echo $a["gpio_rev_hilo"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    	<input type="hidden" name="gpio_rev_hilo1" value="gpio_rev_hilo2" />
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    	</form>
+
+	<form action="gpio" method="post">
+	<td><img  src="media/ico/day-icon.png" title="day plan"/></td>
+	<td><input type="checkbox" name="day_checkbox" value="on" <?php echo $a["day_checkbox"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /><td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="dayon" value="dayON" />        
+        </form>
+	<form action="gpio" method="post">
+	<td>Start time</td>
+	<td><input type="text" name="day_zone1s" value="<?php echo $a['day_zone1s']; ?>" size="8"  ></td><td></td> 
+	<td>End time</td>
+	<td><input type="text" name="day_zone1e" value="<?php echo $a['day_zone1e']; ?>" size="8"  ></td><td></td> 
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
+	<input type="hidden" name="on" value="ON" />
+	</form>
+
+
 <?php } elseif  ($a['temp_checkbox'] == 'on') { ?>
 	<form action="gpio" method="post">
     	<td><img type="image" src="media/ico/Letter-R-blue-icon.png" title="Reverse state HIGH to LOW" ></td>
@@ -261,6 +301,13 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="humion" value="humiON" />
 	</form>
+	<form action="gpio" method="post">
+	<td><img  src="media/ico/day-icon.png" title="Day plan" /></td>
+	<td><input type="checkbox" name="day_checkbox" value="on" <?php echo $a["day_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="dayon" value="dayON" />
+	</form>
+
 	<form action="gpio" method="post">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
