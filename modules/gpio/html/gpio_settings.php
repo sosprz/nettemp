@@ -16,7 +16,7 @@ $temp_temp=$_POST['temp_temp'];
 $day_checkbox=$_POST['day_checkbox'];
 $day_zone1s=$_POST['day_zone1s'];
 $day_zone1e=$_POST['day_zone1e'];
-
+$tempday_checkbox=$_POST['tempday_checkbox'];
 
 //old
 //$times=$_POST['time'];
@@ -28,7 +28,12 @@ $day_zone1e=$_POST['day_zone1e'];
 
 if ($_POST['on'] == "ON")  {
 	
-	if (!empty($time_offset)) {
+	if  (!empty($temp_sensor) && !empty($day_zone1s) && !empty($day_zone1e)) {
+		exec("$dir/gpio2 on $gpio_post $temp_sensor $temp_onoff $temp_temp $day_zone1s $day_zone1e");
+    echo $day_zone1s ;
+echo $day_zone1e; 
+	}
+	elseif (!empty($time_offset)) {
 //		exec("$dir/gpio on " . escapeshellarg($gpio_post) . escapeshellarg($time_offset)); //not working
     		exec("$dir/gpio2 on $gpio_post $time_offset");
         }
@@ -36,6 +41,7 @@ if ($_POST['on'] == "ON")  {
 //		exec("$dir/gpio on " . escapeshellarg($gpio_post) . escapeshellarg($temp_sensor) . escapeshellarg($temp_onoff) . escapeshellarg($temp_temp)); //not work
 		exec("$dir/gpio2 on $gpio_post $temp_sensor $temp_onoff $temp_temp");
 	}
+	    
 	elseif (!empty($day_zone1s)) {
 		exec("$dir/gpio2 on $gpio_post $day_zone1s $day_zone1e");
 	}
@@ -46,8 +52,8 @@ if ($_POST['on'] == "ON")  {
 	}
 		
 
-header("location: " . $_SERVER['REQUEST_URI']);
-exit();
+//header("location: " . $_SERVER['REQUEST_URI']);
+//exit();
 
 }
 
@@ -66,14 +72,20 @@ if ($_POST['tempon'] == "tempON")  {
     $db->exec("UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
-
 }
 
 if ($_POST['dayon'] == "dayON")  {
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE gpio SET day_checkbox='$day_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE gpio SET temp_checkbox='$temp_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+}
+
+if ($_POST['tempdayon'] == "tempdayON")  {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE gpio SET tempday_checkbox='$tempday_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 
@@ -251,7 +263,12 @@ exec("$dir/gpio2 status $gpio", $out_arr);
     	<input type="hidden" name="gpio_rev_hilo1" value="gpio_rev_hilo2" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     	</form>
-
+	<form action="gpio" method="post">
+	<td><img  src="media/ico/day-icon.png" title="Day plan" /></td>
+	<td><input type="checkbox" name="tempday_checkbox" value="on" <?php echo $a["tempday_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="tempdayon" value="tempdayON" />
+	</form>
 	<form action="gpio" method="post">
 	<td><img  src="media/ico/temp2-icon.png" title="Set temp when sensor will turn on/off" /></td>
 	<td><input type="checkbox" name="temp_checkbox" value="on" <?php echo $a["temp_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
@@ -277,6 +294,12 @@ exec("$dir/gpio2 status $gpio", $out_arr);
         <option <?php echo $a['temp_onoff'] == 'on' ? 'selected="selected"' : ''; ?> value="on">On</option>   
         <option <?php echo $a['temp_onoff'] == 'off' ? 'selected="selected"' : ''; ?> value="off">Off</option>     
         </select></td>
+	<?php if ($a['tempday_checkbox'] == 'on') { ?>
+	    <td>Start time</td>
+	    <td><input type="text" name="day_zone1s" value="<?php echo $a['day_zone1s']; ?>" size="8"  ></td><td></td> 
+	    <td>End time</td>
+	    <td><input type="text" name="day_zone1e" value="<?php echo $a['day_zone1e']; ?>" size="8"  ></td><td></td> 
+	<?php } ?>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
 	<input type="hidden" name="on" value="ON" />

@@ -18,6 +18,9 @@ USERS:
     temp temp - access only for sensors settings
 
 Changelog:
+7.4.6
+disable user temp
+
 7.4.5
 check if result form digitemp is numeric
 add &deg;C  :)
