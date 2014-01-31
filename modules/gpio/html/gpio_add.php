@@ -40,4 +40,5 @@ foreach ($row as $result) {
     <td><input type="image" src="media/ico/Close-2-icon.png"  /></td>
     </form>
 </tr></table>
-<?php } ?></span></span>
+<?php } ?>
+</span></span>

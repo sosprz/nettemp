@@ -30,8 +30,6 @@ if ($_POST['on'] == "ON")  {
 	
 	if  (!empty($temp_sensor) && !empty($day_zone1s) && !empty($day_zone1e)) {
 		exec("$dir/gpio2 on $gpio_post $temp_sensor $temp_onoff $temp_temp $day_zone1s $day_zone1e");
-    echo $day_zone1s ;
-echo $day_zone1e; 
 	}
 	elseif (!empty($time_offset)) {
 //		exec("$dir/gpio on " . escapeshellarg($gpio_post) . escapeshellarg($time_offset)); //not working
@@ -52,8 +50,8 @@ echo $day_zone1e;
 	}
 		
 
-//header("location: " . $_SERVER['REQUEST_URI']);
-//exit();
+header("location: " . $_SERVER['REQUEST_URI']);
+exit();
 
 }
 
@@ -283,11 +281,11 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 	$sth->execute();
 	$result = $sth->fetchAll();
 	foreach ($result as $select) { ?>
-	<option <?php echo $a['temp_sensor'] == $select['name'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}C" ?></option>
+	<option <?php echo $a['temp_sensor'] == $select['name'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}" ?>&deg;C</option>
 	<?php } ?>
         </select></td>
 		<td>&gt;</td>
-	<td><input type="text" name="temp_temp" value="<?php echo $a['temp_temp']; ?>" size="2" >C</td>
+	<td><input type="text" name="temp_temp" value="<?php echo $a['temp_temp']; ?>" size=3" >&deg;C</td>
 	<td>then</td> 
 	<td>
         <select name="temp_onoff" >
@@ -295,10 +293,10 @@ exec("$dir/gpio2 status $gpio", $out_arr);
         <option <?php echo $a['temp_onoff'] == 'off' ? 'selected="selected"' : ''; ?> value="off">Off</option>     
         </select></td>
 	<?php if ($a['tempday_checkbox'] == 'on') { ?>
-	    <td>Start time</td>
-	    <td><input type="text" name="day_zone1s" value="<?php echo $a['day_zone1s']; ?>" size="8"  ></td><td></td> 
-	    <td>End time</td>
-	    <td><input type="text" name="day_zone1e" value="<?php echo $a['day_zone1e']; ?>" size="8"  ></td><td></td> 
+	    <td>Time</td>
+	    <td><input type="text" name="day_zone1s" value="<?php echo $a['day_zone1s']; ?>" size="4"  ></td><td></td> 
+	    <td>to</td>
+	    <td><input type="text" name="day_zone1e" value="<?php echo $a['day_zone1e']; ?>" size="4"  ></td><td></td> 
 	<?php } ?>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
