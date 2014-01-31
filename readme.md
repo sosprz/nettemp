@@ -20,6 +20,7 @@ USERS:
 Changelog:
 7.4.6
 disable user temp
+add time range to gpio. Works with temp option.
 
 7.4.5
 check if result form digitemp is numeric
