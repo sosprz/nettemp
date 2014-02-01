@@ -18,6 +18,9 @@ USERS:
     temp temp - access only for sensors settings
 
 Changelog:
+7.4.7
+fix ico to hour plan
+
 7.4.6
 disable user temp
 add time range to gpio. Works with temp option.
