@@ -18,6 +18,10 @@ USERS:
     temp temp - access only for sensors settings
 
 Changelog:
+
+7.4.8
+fix install script, fix read value for DHT* sensors.
+
 7.4.7
 fix ico to hour plan
 

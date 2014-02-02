@@ -132,9 +132,10 @@ chmod +s /sbin/reboot
 
 
 echo -e "${GREEN}Add more security. If You use nettemp on external IP set additional passowrd${R}"
-echo "(Y)es or (N)ot
+echo "(Y)es or (N)ot"
 read pass
 if [ "$pass" = "Y" ]; then
+chmod 755 /var/www/nettemp/nettemp_password
 /var/www/nettemp/nettemp_password
 fi
 

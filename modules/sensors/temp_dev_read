@@ -169,29 +169,14 @@ if [ -n "$gpio_list_0" ]; then
     for gpio_list in $gpio_list_0; do
 	type=`sqlite3 $dir/dbf/nettemp.db "SELECT humi_type FROM gpio where gpio='$gpio_list_0'"`
 	sleep 3
-	#dht="Temp = 25 *C, Hum = 33 %"   #dht 11
-	#dht="Temp =  19.7 *C, Hum = 27.3 %" #dht 22
 	dht=`$dir/modules/sensors/Adafruit_DHT $type $gpio_list |grep Temp`
-	if [ -n "$dht" ] && [ "$type" = "11" ]; then
-    	    eval var1_$gpio_list=`echo $dht | cut -c  8-10`
-    	    eval var2_$gpio_list=`echo $dht | cut -c 21-23`
+	if [ -n "$dht" ]; then
+    	    eval var1_$gpio_list=`echo $dht | awk '{ print $3 }'`
+    	    eval var2_$gpio_list=`echo $dht | awk '{ print $7 }'`
     	    dht_temp=var1_$gpio_list
     	    dht_humi=var2_$gpio_list
     	    echo ${!dht_temp} C
     	    echo ${!dht_humi} %
-    	    gpio_name=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='humi'"`
-    	    rrdtool update $dir/db/$(echo $gpio_name).rrd N:${!dht_humi}
-    	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_humi}' WHERE rom='$(echo $gpio_name)'"
-    	    gpio_name2=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='temp'"`
-    	    rrdtool update $dir/db/$(echo $gpio_name2).rrd N:${!dht_temp}
-    	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_temp}' WHERE rom='$(echo $gpio_name2)'"
-	elif [ -n "$dht" ] && [ "$type" = "22" ]; then
-    	    eval var1_$gpio_list=`echo $dht | cut -c  8-12`
-    	    eval var2_$gpio_list=`echo $dht | cut -c 23-27`
-    	    dht_temp=var1_$gpio_list
-    	    dht_humi=var2_$gpio_list
-    	    echo ${!dht_temp}
-    	    echo ${!dht_humi}
     	    gpio_name=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='humi'"`
     	    rrdtool update $dir/db/$(echo $gpio_name).rrd N:${!dht_humi}
     	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_humi}' WHERE rom='$(echo $gpio_name)'"
