@@ -23,6 +23,7 @@ humi=`sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox FROM gpio where gpio='$g
 day_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio_from_line'")
 time_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_run FROM gpio WHERE gpio='$gpio_from_line'")
 temp_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio_from_line'")
+trigger_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_run FROM gpio WHERE gpio='$gpio_from_line'")
 
 if [ -n "$gpio_from_line" ] && [ "$time_run" = "on" ] ;then
     onoff $gpio_from_line
@@ -32,6 +33,8 @@ elif [ -n "$gpio_from_line" ] && [ "$day_run" = "on" ]; then
     echo "on"
 elif [ -n "$gpio_from_line" ] && [ "$humi" = "on" ]; then
     echo "humi"
+elif [ -n "$gpio_from_line" ] && [ "$trigger_run" = "on" ]; then
+    echo "on"
 #elif [ -n "$gpio_from_line" ];then 
 #    onoff $gpio_from_line
 else
@@ -56,6 +59,7 @@ temp_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_checkbox FROM gpio WHER
 humi_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox FROM gpio WHERE gpio='$gpio'")
 day_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_checkbox FROM gpio WHERE gpio='$gpio'")
 tempday_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT tempday_checkbox FROM gpio WHERE gpio='$gpio'")
+trigger_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_checkbox FROM gpio WHERE gpio='$gpio'")
 
 if [ "$humi_checkbox" = "on" ]; then
     echo "Humidity enabled"
@@ -171,6 +175,16 @@ elif [ "$tempday_checkbox" = "on" ]; then
 	    gpio_off $gpio
 	fi 
     fi
+elif [ "$trigger_checkbox" = "on" ]; then
+    trigger_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_run FROM gpio WHERE gpio='$gpio'")
+    if [ "$trigger_run" = "on" ]; then
+	trigger=`onoff $gpio`
+	if [ "$trigger" = "on" ]; then 
+	    echo Alarm
+	elif [ "$trigger" = "off" ]; then
+	    echo Waiting for trigger
+	fi
+    fi
 else
     onoff $gpio
 fi
@@ -232,11 +246,7 @@ on(){
 off(){        
     gpio_from_line=$1
     gpio_off $gpio_from_line
-    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_run='off', temp_run='off', day_run='off', time_start='off' WHERE gpio='$gpio_from_line'"
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET temp_run='off' WHERE gpio='$gpio_from_line'"
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_run='off' WHERE gpio='$gpio_from_line'"
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET tempday_run='off' WHERE gpio='$gpio_from_line'"
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_start='0' WHERE gpio='$gpio_from_line'" #turn off tempon
+    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_run='off', temp_run='off', day_run='off', time_start='off', trigger_run='off' WHERE gpio='$gpio_from_line'"
     echo "$date Gpio $gpio_from_line is OFF" >> $dir/tmp/log.txt
     }
 

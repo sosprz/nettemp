@@ -17,6 +17,7 @@ $day_checkbox=$_POST['day_checkbox'];
 $day_zone1s=$_POST['day_zone1s'];
 $day_zone1e=$_POST['day_zone1e'];
 $tempday_checkbox=$_POST['tempday_checkbox'];
+$trigger_checkbox=$_POST['trigger_checkbox'];
 
 //old
 //$times=$_POST['time'];
@@ -58,7 +59,7 @@ exit();
 if ($_POST['timeon'] == "timeON")  {
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE gpio SET time_checkbox='$time_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    //$db->exec("UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 
@@ -67,7 +68,7 @@ if ($_POST['timeon'] == "timeON")  {
 if ($_POST['tempon'] == "tempON")  {
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE gpio SET temp_checkbox='$temp_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    //$db->exec("UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
@@ -75,8 +76,8 @@ if ($_POST['tempon'] == "tempON")  {
 if ($_POST['dayon'] == "dayON")  {
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE gpio SET day_checkbox='$day_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    //$db->exec("UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    //$db->exec("UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
@@ -86,8 +87,23 @@ if ($_POST['tempdayon'] == "tempdayON")  {
     $db->exec("UPDATE gpio SET tempday_checkbox='$tempday_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
-
 }
+if ($_POST['xtriggeron'] == "xtriggerON")  {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE gpio SET trigger_checkbox='$trigger_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+}
+if ($_POST['triggeron'] == "triggerON")  {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE gpio SET trigger_run='on' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+}
+
+
+
+
 
 
 if ($_POST['humion'] == "humiON")  {
@@ -125,8 +141,6 @@ if (($_POST['dht11_onoff1'] == "dht11_onoff2") ){
     $db->exec("UPDATE gpio SET humi_type='$dht11_onoff' where gpio='$gpio_post' ") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
-echo $gpio_post;
-echo $dht11_onoff;
     }
 $dht22_onoff = $_POST["dht22_onoff"];
 if (($_POST['dht22_onoff1'] == "dht22_onoff2") ){
@@ -134,9 +148,6 @@ if (($_POST['dht22_onoff1'] == "dht22_onoff2") ){
     $db->exec("UPDATE gpio SET humi_type='$dht22_onoff' where gpio='$gpio_post' ") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
-echo $gpio_post;
-echo $dht11_onoff;
-
     }
 
 
@@ -302,6 +313,25 @@ exec("$dir/gpio2 status $gpio", $out_arr);
     	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
 	<input type="hidden" name="on" value="ON" />
 	</form>
+<?php } elseif ($a['trigger_checkbox'] == 'on') { ?>
+	<form action="gpio" method="post">
+    	<td><img type="image" src="media/ico/Letter-R-blue-icon.png" title="Reverse state HIGH to LOW" ></td>
+    	<td><input type="checkbox" name="gpio_rev_hilo" value="on" <?php echo $a["gpio_rev_hilo"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    	<input type="hidden" name="gpio_rev_hilo1" value="gpio_rev_hilo2" />
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>" />
+    	</form>
+	<form action="gpio" method="post">
+	<td><img  src="media/ico/alarm-icon.png" title="Alarm trigger" /></td>
+	<td><input type="checkbox" name="trigger_checkbox" value="on" <?php echo $a["trigger_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="xtriggeron" value="xtriggerON" />
+	</form>
+	<form action="gpio" method="post">
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
+	<input type="hidden" name="triggeron" value="triggerON" />
+	</form>
+
 <?php } else { ?>
 	<td>                           </td>
 	<form action="gpio" method="post">
@@ -327,6 +357,12 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 	<td><input type="checkbox" name="day_checkbox" value="on" <?php echo $a["day_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="dayon" value="dayON" />
+	</form>
+	<form action="gpio" method="post">
+	<td><img  src="media/ico/alarm-icon.png" title="Alarm trigger" /></td>
+	<td><input type="checkbox" name="trigger_checkbox" value="on" <?php echo $a["trigger_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="xtriggeron" value="xtriggerON" />
 	</form>
 
 	<form action="gpio" method="post">
