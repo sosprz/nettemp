@@ -180,7 +180,7 @@ elif [ "$trigger_checkbox" = "on" ]; then
     if [ "$trigger_run" = "on" ]; then
 	trigger=`onoff $gpio`
 	if [ "$trigger" = "on" ]; then 
-	    echo Alarm
+	    echo ALARM!!!
 	elif [ "$trigger" = "off" ]; then
 	    echo Waiting for trigger
 	fi
