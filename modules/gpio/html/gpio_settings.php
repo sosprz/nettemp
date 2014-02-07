@@ -1,7 +1,4 @@
 <?php
-// rev
-// optymalizacja przez sprawdzanie run
-// powiadomienia z bazy
 
 $dir="modules/gpio/";
 $gpio_post=$_POST['gpio'];
@@ -37,7 +34,7 @@ if ($_POST['off'] == "OFF") {
 
 if ($_POST['on'] == "ON")  {
 	exec("/usr/local/bin/gpio -g mode $gpio_post output");
-	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 	$db->exec("UPDATE gpio SET simple_run='on' WHERE gpio='$gpio_post'") or die("PDO exec error");
    $sth = $db->prepare("select * from gpio where gpio='$gpio_post'");
    $sth->execute();
@@ -63,10 +60,10 @@ $temp_onoff=$_POST['temp_onoff'];
 
 $temp_temp=$_POST['temp_temp'];
 if ($_POST['tempon'] == "tempON")  {
-	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE gpio SET temp_run='on',temp_sensor='$temp_sensor',temp_onoff='$temp_onoff',temp_temp='$temp_temp' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+	$db->exec("UPDATE gpio SET temp_run='on',temp_sensor='$temp_sensor',temp_onoff='$temp_onoff',temp_temp='$temp_temp' WHERE gpio='$gpio_post'") or die("exec error");
 	if (!empty($day_zone1s) && !empty($day_zone1e)) {
-		$db->exec("UPDATE gpio SET tempday_run='on',day_zone1s='$day_zone1s',day_zone1e='$day_zone1e' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+		$db->exec("UPDATE gpio SET tempday_run='on',day_zone1s='$day_zone1s',day_zone1e='$day_zone1e' WHERE gpio='$gpio_post'") or die("exec error");
 		}
 	$db = NULL;
 	header("location: " . $_SERVER['REQUEST_URI']);
@@ -74,8 +71,8 @@ if ($_POST['tempon'] == "tempON")  {
 	}
 
 if ($_POST['dayon'] == "dayON")  {
-	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE gpio SET day_run='on', day_zone1s='$day_zone1s',day_zone1e='$day_zone1e'  WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+	$db->exec("UPDATE gpio SET day_run='on', day_zone1s='$day_zone1s',day_zone1e='$day_zone1e'  WHERE gpio='$gpio_post'") or die("exec error");
 	$db = NULL;
 	header("location: " . $_SERVER['REQUEST_URI']);
    exit();	
@@ -84,8 +81,8 @@ $time_offset=$_POST['time_offset'];
 if ($_POST['timeon'] == "timeON")  {
 	$date = new DateTime();
 	$time_start=$date->getTimestamp();
-	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE gpio SET time_offset='$time_offset',time_run='on',time_start='$time_start' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+	$db->exec("UPDATE gpio SET time_offset='$time_offset',time_run='on',time_start='$time_start' WHERE gpio='$gpio_post'") or die("exec error");
 	$sth = $db1->prepare("select * from gpio where gpio='$gpio_post'");
    $sth->execute();
    $result = $sth->fetchAll();    
@@ -102,8 +99,8 @@ if ($_POST['timeon'] == "timeON")  {
    exit();
 }
 if ($_POST['triggeron'] == "triggerON")  {
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE gpio SET trigger_run='on' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET trigger_run='on' WHERE gpio='$gpio_post'") or die("exec error");
     $db = NULL;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -115,32 +112,32 @@ if ($_POST['triggeron'] == "triggerON")  {
 
 $time_checkbox=$_POST['time_checkbox'];
 if ($_POST['xtimeon'] == "xtimeON")  {
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE gpio SET time_checkbox='$time_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET time_checkbox='$time_checkbox' WHERE gpio='$gpio_post'") or die("exec error");
     $db = NULL;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
 $temp_checkbox=$_POST['temp_checkbox'];
 if ($_POST['xtempon'] == "xtempON")  {
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE gpio SET temp_checkbox='$temp_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET temp_checkbox='$temp_checkbox' WHERE gpio='$gpio_post'") or die("exec error");
     $db = NULL;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
 $day_checkbox=$_POST['day_checkbox'];
 if ($_POST['xdayon'] == "xdayON")  {
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE gpio SET day_checkbox='$day_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET day_checkbox='$day_checkbox' WHERE gpio='$gpio_post'") or die("exec error");
     $db = NULL;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
 $tempday_checkbox=$_POST['tempday_checkbox'];
 if ($_POST['xtempdayon'] == "xtempdayON")  {
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE gpio SET tempday_checkbox='$tempday_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET tempday_checkbox='$tempday_checkbox' WHERE gpio='$gpio_post'") or  die("exec error");
     $db = NULL;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -148,8 +145,8 @@ if ($_POST['xtempdayon'] == "xtempdayON")  {
 $trigger_checkbox=$_POST['trigger_checkbox'];
 if ($_POST['xtriggeron'] == "xtriggerON")  {
 	 exec("/usr/local/bin/gpio reset $gpio_post ");
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE gpio SET trigger_checkbox='$trigger_checkbox' WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET trigger_checkbox='$trigger_checkbox' WHERE gpio='$gpio_post'") or die("exec error");
     $db = NULL;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -157,16 +154,16 @@ if ($_POST['xtriggeron'] == "xtriggerON")  {
 $humi_checkbox=$_POST['humi_checkbox'];
 if ($_POST['xhumion'] == "xhumiON")  {
 	 exec("/usr/local/bin/gpio reset $gpio_post ");
-    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $sth = $db1->prepare("select * from gpio where gpio='$gpio_post'");
     $sth->execute();
     $result = $sth->fetchAll();    
     foreach ($result as $a) { 
     if ( $a["humi_checkbox"] == "on") { 
-    	$db->exec("UPDATE gpio SET humi_checkbox='off' where gpio='$gpio_post' ") or die ($db->lastErrorMsg()); 
+    	$db->exec("UPDATE gpio SET humi_checkbox='off' where gpio='$gpio_post' ") or die("exec error");
      	}
     	else { 
-    	$db->exec("UPDATE gpio SET humi_checkbox='on' where gpio='$gpio_post' ") or die ($db->lastErrorMsg()); 
+    	$db->exec("UPDATE gpio SET humi_checkbox='on' where gpio='$gpio_post' ") or die("exec error");
      	}
     }
     $db = NULL;
@@ -174,8 +171,8 @@ if ($_POST['xhumion'] == "xhumiON")  {
 	exit();
 }
 if ($_POST['name1'] == "name2"){
-	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE gpio SET name='$name' WHERE id='$id'") or die ($db->lastErrorMsg());
+	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+	$db->exec("UPDATE gpio SET name='$name' WHERE id='$id'") or die("exec error");
 	$db = NULL;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
@@ -183,17 +180,17 @@ if ($_POST['name1'] == "name2"){
 $gpio_rev_hilo = $_POST["gpio_rev_hilo"];
 if (($_POST['gpio_rev_hilo1'] == "gpio_rev_hilo2") ){
 	//exec("/usr/local/bin/gpio -g mode $gpio_post output");
-	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $sth = $db->prepare("select * from gpio where gpio='$gpio_post'");
     $sth->execute();
     $result = $sth->fetchAll();    
     foreach ($result as $a) { 
     	if ( $a["gpio_rev_hilo"] == "on") { 
-    	$db->exec("UPDATE gpio SET gpio_rev_hilo='off' where gpio='$gpio_post' ") or die ($db->lastErrorMsg()); 
+    	$db->exec("UPDATE gpio SET gpio_rev_hilo='off' where gpio='$gpio_post' ") or die("exec error");
     	//exec("/usr/local/bin/gpio -g write $gpio_post 0");	
     	}
     	else { 
-    	$db->exec("UPDATE gpio SET gpio_rev_hilo='on' where gpio='$gpio_post' ") or die ($db->lastErrorMsg()); 
+    	$db->exec("UPDATE gpio SET gpio_rev_hilo='on' where gpio='$gpio_post' ") or die("exec error");
     	//exec("/usr/local/bin/gpio -g write $gpio_post 1");	
     	}
    }
@@ -206,16 +203,16 @@ if (($_POST['gpio_rev_hilo1'] == "gpio_rev_hilo2") ){
 
 $dht11_onoff = $_POST["dht11_onoff"];
 if (($_POST['dht11_onoff1'] == "dht11_onoff2") ){
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE gpio SET humi_type='$dht11_onoff' where gpio='$gpio_post' ") or die ($db->lastErrorMsg());
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET humi_type='$dht11_onoff' where gpio='$gpio_post' ") or die("exec error");
 	 $db = NULL;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
 $dht22_onoff = $_POST["dht22_onoff"];
 if (($_POST['dht22_onoff1'] == "dht22_onoff2") ){
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE gpio SET humi_type='$dht22_onoff' where gpio='$gpio_post' ") or die ($db->lastErrorMsg());
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET humi_type='$dht22_onoff' where gpio='$gpio_post' ") or die("exec error");
     $db = NULL;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -223,7 +220,7 @@ if (($_POST['dht22_onoff1'] == "dht22_onoff2") ){
 
 //main loop
 
-$db = new PDO('sqlite:dbf/nettemp.db');
+$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 $sth = $db->prepare("select * from gpio");
 $sth->execute();
 $result = $sth->fetchAll();
