@@ -16,326 +16,188 @@ onoff() {
 	    echo "off"
 	fi
 }
-
 status() {
 gpio_from_line="$1"
 humi=`sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox FROM gpio where gpio='$gpio_from_line'"`
 day_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio_from_line'")
 time_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_run FROM gpio WHERE gpio='$gpio_from_line'")
 temp_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio_from_line'")
+trigger_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_run FROM gpio WHERE gpio='$gpio_from_line'")
+simple_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT simple_run FROM gpio WHERE gpio='$gpio_from_line'")
 
 if [ -n "$gpio_from_line" ] && [ "$time_run" = "on" ] ;then
-    onoff $gpio_from_line
+    echo "on"
 elif [ -n "$gpio_from_line" ] && [ "$temp_run" = "on" ]; then
     echo "on"
 elif [ -n "$gpio_from_line" ] && [ "$day_run" = "on" ]; then
     echo "on"
 elif [ -n "$gpio_from_line" ] && [ "$humi" = "on" ]; then
     echo "humi"
-#elif [ -n "$gpio_from_line" ];then 
-#    onoff $gpio_from_line
+elif [ -n "$gpio_from_line" ] && [ "$trigger_run" = "on" ]; then
+    echo "on"
+elif [ -n "$gpio_from_line" ] && [ "$simple_run" = "on" ];then 
+    echo "on"
 else
     echo "off"
 fi
 
 }
-
-
 check() {
 gpio_list="$1"
 #sqlite3 $dir/dbf/nettemp.db ".timeout 5000" 
 
 if [ -z "$gpio_list" ]; then
-gpio_list="17 18 21 22 23 24 25"
+	gpio_list="17 18 21 22 23 24 25"
 fi
 
 for gpio in $gpio_list; do 
-
-time_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_checkbox FROM gpio WHERE gpio='$gpio'")
-temp_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_checkbox FROM gpio WHERE gpio='$gpio'")
-humi_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox FROM gpio WHERE gpio='$gpio'")
-day_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_checkbox FROM gpio WHERE gpio='$gpio'")
-tempday_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT tempday_checkbox FROM gpio WHERE gpio='$gpio'")
-
+	time_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_checkbox FROM gpio WHERE gpio='$gpio'")
+	temp_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_checkbox FROM gpio WHERE gpio='$gpio'")
+	humi_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox FROM gpio WHERE gpio='$gpio'")
+	day_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_checkbox FROM gpio WHERE gpio='$gpio'")
+	tempday_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT tempday_checkbox FROM gpio WHERE gpio='$gpio'")
+	trigger_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_checkbox FROM gpio WHERE gpio='$gpio'")
 if [ "$humi_checkbox" = "on" ]; then
     echo "Humidity enabled"
 elif [ "$day_checkbox" = "on" ]; then
-    day_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio'")
-    if [ "$day_run" = "on" ]; then
-	day_zone1s=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone1s FROM gpio WHERE gpio='$gpio'")
-	day_zone1e=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone1e FROM gpio WHERE gpio='$gpio'")
-	day_zone1s_cut=`echo $day_zone1s | sed 's/://g'`
-	day_zone1e_cut=`echo $day_zone1e | sed 's/://g'`
-	date2=$(date +%H%M)
-	
-	if [[ "$date2" > "$day_zone1s_cut" && "$date2" < "$day_zone1e_cut" ]]; then
-		
-		echo "Time range $day_zone1s $day_zone1e. Actual time is `date +%H:%M`"
-		echo "- gpio is ON."
-		on $gpio
-	    else
-		
-		echo "Time range $day_zone1s $day_zone1e. Actual time is `date +%H:%M`"
-		echo "- gpio is OFF"
-		gpio_off $gpio
-	fi 
-    fi
+	day_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio'")
+   if [ "$day_run" = "on" ]; then
+		day_zone1s=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone1s FROM gpio WHERE gpio='$gpio'")
+		day_zone1e=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone1e FROM gpio WHERE gpio='$gpio'")
+		day_zone1s_cut=`echo $day_zone1s | sed 's/://g'`
+		day_zone1e_cut=`echo $day_zone1e | sed 's/://g'`
+		date2=$(date +%H%M)
+		if [[ "$date2" > "$day_zone1s_cut" && "$date2" < "$day_zone1e_cut" ]]; then
+			echo "Time range $day_zone1s $day_zone1e. Actual time is `date +%H:%M`"
+			echo "- gpio is ON."
+			gpio_on $gpio
+	   else
+			echo "Time range $day_zone1s $day_zone1e. Actual time is `date +%H:%M`"
+			echo "- gpio is OFF"
+			gpio_off $gpio
+		fi 
+	fi
 elif [ "$time_checkbox" = "on" ]; then
-    time_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_run FROM gpio WHERE gpio='$gpio'")
-    if [ -n "$gpio" ] && [ "$time_run" = "on" ]; then
-	    time_offset=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_offset FROM gpio WHERE gpio='$gpio'")
-	    time_start=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_start FROM gpio WHERE gpio='$gpio'")
-	    if [ "$time_start" != "off" ]; then
-		now_time_s=`date +%s`
-		endtime=$(( $time_offset + $time_start))
-		if [ $endtime -lt $now_time_s ]; then # lt  mnijsze 
-		    off $gpio
-		    echo "off"
-		    echo "$date Gpio $gpio is OFF" >> $dir/tmp/log.txt
-		else 
-		    diff=$(( $endtime - $now_time_s ))
-		    echo "Elapsed time is $(($diff/60)) min, ($diff sec)" 
-		fi
-	    else 
-		echo "error"
-	    fi
-    fi
+    	time_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_run FROM gpio WHERE gpio='$gpio'")
+    	if [ -n "$gpio" ] && [ "$time_run" = "on" ]; then
+	   	time_offset=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_offset FROM gpio WHERE gpio='$gpio'")
+	   	time_start=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_start FROM gpio WHERE gpio='$gpio'")
+	   	if [ "$time_start" != "off" ]; then
+				now_time_s=`date +%s`
+				endtime=$(( $time_offset*60 + $time_start))
+				if [ $endtime -lt $now_time_s ]; then # lt  mnijsze 
+		   		gpio_off $gpio
+		   		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_run='off', time_start='off' WHERE gpio='$gpio'"
+		   		echo "off"
+		   		echo "$date Gpio $gpio is OFF" >> $dir/tmp/log.txt
+				else 
+		   		diff=$(( $endtime - $now_time_s ))
+		   		echo "Elapsed time is $(($diff/60)) min, ($diff sec)" 
+				fi
+			else 
+				echo "error"
+			fi
+    	fi
 elif [ "$temp_checkbox" = "on" ] && [ "$tempday_checkbox" != "on" ]; then
-
-    temp_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio'")
-    if [ -n "$gpio_list" ] && [ "$temp_run" = "on" ]; then
-	
-	temp_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_onoff FROM gpio WHERE gpio='$gpio'"`
-	temp_temp=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_temp FROM gpio WHERE gpio='$gpio'"`
-	temp_sensor=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_sensor FROM gpio WHERE gpio='$gpio'"`
-	sensor_temp=`sqlite3 $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id='$temp_sensor'"`
-	sensor_name=`sqlite3 $dir/dbf/nettemp.db "SELECT name FROM sensors WHERE id='$temp_sensor'"`
-
-	gr=$(echo $sensor_temp $temp_temp | awk '{if ($1 > $2) print 1; else print 0 }') 
-	    if [ "$gr" = "1" ];then
-		if [ "$temp_onoff" = "on" ];then
-		    gpio_on $gpio
-		    echo "$sensor_name $sensor_temp&deg;C is greater than $temp_temp&deg;C - gpio is ON"
-		else
-		    gpio_off $gpio
-		    echo "$sensor_name $sensor_temp&deg;C is greater than $temp_temp&deg;C - gpio is OFF"
-		fi
-	    else
-		if [ "$temp_onoff" = "on" ];then
-		    gpio_off $gpio
-		    echo "$sensor_name $sensor_temp&deg;C is lower than $temp_temp&deg;C - gpio is OFF"
-		else
-		    gpio_on $gpio
-		    echo "$sensor_name $sensor_temp&deg;C is lower than $temp_temp&deg;C - gpio is ON"
-		fi
-	    fi
-    fi
-elif [ "$tempday_checkbox" = "on" ]; then
-    tempday_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT tempday_run FROM gpio WHERE gpio='$gpio'")
-    if [ "$tempday_run" = "on" ]; then
-	day_zone1s=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone1s FROM gpio WHERE gpio='$gpio'")
-	day_zone1e=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone1e FROM gpio WHERE gpio='$gpio'")
-	day_zone1s_cut=`echo $day_zone1s | sed 's/://g'`
-	day_zone1e_cut=`echo $day_zone1e | sed 's/://g'`
-	date2=$(date +%H%M)
-	
-	if [[ "$date2" > "$day_zone1s_cut" && "$date2" < "$day_zone1e_cut" ]]; then
-		
-		echo "Time range $day_zone1s $day_zone1e. Actual time is `date +%H:%M`"
+	temp_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio'")
+   if [ -n "$gpio_list" ] && [ "$temp_run" = "on" ]; then
 		temp_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_onoff FROM gpio WHERE gpio='$gpio'"`
 		temp_temp=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_temp FROM gpio WHERE gpio='$gpio'"`
 		temp_sensor=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_sensor FROM gpio WHERE gpio='$gpio'"`
 		sensor_temp=`sqlite3 $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id='$temp_sensor'"`
 		sensor_name=`sqlite3 $dir/dbf/nettemp.db "SELECT name FROM sensors WHERE id='$temp_sensor'"`
 		gr=$(echo $sensor_temp $temp_temp | awk '{if ($1 > $2) print 1; else print 0 }') 
-	    if [ "$gr" = "1" ];then
-		if [ "$temp_onoff" = "on" ];then
-		    gpio_on $gpio
-		    echo "$sensor_name $sensor_temp&deg;C is greater than $temp_temp&deg;C - gpio is ON"
-		else
-		    gpio_off $gpio
-		    echo "$sensor_name $sensor_temp&deg;C is greater than $temp_temp&deg;C - gpio is OFF"
-		fi
-	    else
-		if [ "$temp_onoff" = "on" ];then
-		    gpio_off $gpio
-		    echo "$sensor_name $sensor_temp&deg;C is lower than $temp_temp&deg;C - gpio is OFF"
-		else
-		    gpio_on $gpio
-		    echo "$sensor_name $sensor_temp&deg;C is lower than $temp_temp&deg;C - gpio is ON"
-		fi
-	    fi
-        else
-	    echo "Time range $day_zone1s $day_zone1e. Actual time is `date +%H:%M`"
-	    echo "- gpio is OFF"
-	    gpio_off $gpio
-	fi 
+		if [ "$gr" = "1" ];then
+			if [ "$temp_onoff" = "on" ];then
+		   	gpio_on $gpio
+		    	echo "$sensor_name $sensor_temp&deg;C is greater than $temp_temp&deg;C - gpio is ON"
+			else
+		   	gpio_off $gpio
+		    	echo "$sensor_name $sensor_temp&deg;C is greater than $temp_temp&deg;C - gpio is OFF"
+			fi
+	   else
+			if [ "$temp_onoff" = "on" ];then
+		   	gpio_off $gpio
+		   	echo "$sensor_name $sensor_temp&deg;C is lower than $temp_temp&deg;C - gpio is OFF"
+			else
+		   	gpio_on $gpio
+		    	echo "$sensor_name $sensor_temp&deg;C is lower than $temp_temp&deg;C - gpio is ON"
+			fi
+	   fi
+	fi
+elif [ "$tempday_checkbox" = "on" ]; then
+	tempday_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT tempday_run FROM gpio WHERE gpio='$gpio'")
+   if [ "$tempday_run" = "on" ]; then
+		day_zone1s=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone1s FROM gpio WHERE gpio='$gpio'")
+		day_zone1e=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone1e FROM gpio WHERE gpio='$gpio'")
+		day_zone1s_cut=`echo $day_zone1s | sed 's/://g'`
+		day_zone1e_cut=`echo $day_zone1e | sed 's/://g'`
+		date2=$(date +%H%M)
+		if [[ "$date2" > "$day_zone1s_cut" && "$date2" < "$day_zone1e_cut" ]]; then
+			echo "Time range $day_zone1s $day_zone1e. Actual time is `date +%H:%M`"
+			temp_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_onoff FROM gpio WHERE gpio='$gpio'"`
+			temp_temp=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_temp FROM gpio WHERE gpio='$gpio'"`
+			temp_sensor=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_sensor FROM gpio WHERE gpio='$gpio'"`
+			sensor_temp=`sqlite3 $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id='$temp_sensor'"`
+			sensor_name=`sqlite3 $dir/dbf/nettemp.db "SELECT name FROM sensors WHERE id='$temp_sensor'"`
+			gr=$(echo $sensor_temp $temp_temp | awk '{if ($1 > $2) print 1; else print 0 }') 
+	    	if [ "$gr" = "1" ];then
+				if [ "$temp_onoff" = "on" ];then
+		    		gpio_on $gpio
+		    		echo "$sensor_name $sensor_temp&deg;C is greater than $temp_temp&deg;C - gpio is ON"
+				else
+		    		gpio_off $gpio
+		    		echo "$sensor_name $sensor_temp&deg;C is greater than $temp_temp&deg;C - gpio is OFF"
+				fi
+	    	else
+				if [ "$temp_onoff" = "on" ];then
+		    		gpio_off $gpio
+		    		echo "$sensor_name $sensor_temp&deg;C is lower than $temp_temp&deg;C - gpio is OFF"
+				else
+		    		gpio_on $gpio
+		    		echo "$sensor_name $sensor_temp&deg;C is lower than $temp_temp&deg;C - gpio is ON"
+				fi
+	    	fi
+      else
+	   	echo "Time range $day_zone1s $day_zone1e. Actual time is `date +%H:%M`"
+	    	echo "- gpio is OFF"
+	    	gpio_off $gpio
+		fi 
+	fi
+elif [ "$trigger_checkbox" = "on" ]; then
+    trigger_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_run FROM gpio WHERE gpio='$gpio'")
+    if [ "$trigger_run" = "on" ]; then
+			trigger=`onoff $gpio`
+			if [ "$trigger" = "on" ]; then 
+	   		echo ALARM!!!
+			elif [ "$trigger" = "off" ]; then
+	   		echo Waiting for trigger
+			fi
     fi
 else
     onoff $gpio
 fi
 done
 }
-
-on(){
-    gpio_from_line=$1
-    time_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_checkbox FROM gpio WHERE gpio='$gpio_from_line'")
-    temp_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_checkbox FROM gpio WHERE gpio='$gpio_from_line'")
-    day_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_checkbox FROM gpio WHERE gpio='$gpio_from_line'")
-    tempday_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT tempday_checkbox FROM gpio WHERE gpio='$gpio_from_line'")
-    if [ "$time_checkbox" = "on" ] && [ -n "$gpio_from_line" ] && [ -n "$2" ]; then
-	time_start=`date +%s`
-	time_offset=$2
-	#end_time=$(date -d "`date` +$offset second" +%s)
-	time_offset2=$(($time_offset * 60))
-	echo $time_offset2
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_offset='$time_offset2',time_run='on',time_start='$time_start' WHERE gpio='$gpio_from_line'"
-	#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_offset='$time_offset2' WHERE gpio='$gpio_from_line'"
-	#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_run='on' WHERE gpio='$gpio_from_line'" 
-	#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_start='$time_start' WHERE gpio='$gpio_from_line'" 
-	gpio_on $gpio_from_line 
-	echo "$date Gpio $gpio_from_line - function time is on" >> $dir/tmp/log.txt
-    elif [ "$temp_checkbox" = "on" ] && [ -n "$gpio_from_line" ] && [ -n "$2" ] && [ -n "$3" ] && [ -n "$4" ];then
-	temp_sensor=$2
-	temp_onoff=$3
-	temp_temp=$4
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET temp_run='on',temp_sensor='$temp_sensor',temp_onoff='$temp_onoff',temp_temp='$temp_temp'  WHERE gpio='$gpio_from_line'" 
-	#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET temp_run='on' WHERE gpio='$gpio_from_line'" 
-	#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET temp_sensor='$temp_sensor' WHERE gpio='$gpio_from_line'"
-	#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET temp_onoff='$temp_onoff' WHERE gpio='$gpio_from_line'"
-	#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET temp_temp='$temp_temp' WHERE gpio='$gpio_from_line'"
-	    if  [ -n "$5" ] && [ -n "$6" ] && [ "$tempday_checkbox" = "on" ]; then 
-		day_zone1s=$5
-		day_zone1e=$6
-		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET tempday_run='on',day_zone1s='$day_zone1s',day_zone1e='$day_zone1e' WHERE gpio='$gpio_from_line'" 
-		#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET tempday_run='on' WHERE gpio='$gpio_from_line'" 
-		#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET day_zone1s='$day_zone1s' WHERE gpio='$gpio_from_line'"
-		#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET day_zone1e='$day_zone1e' WHERE gpio='$gpio_from_line'"
-	    fi
-	echo "$date Gpio $gpio_from_line - function temp is on" >> $dir/tmp/log.txt
-    elif [ "$day_checkbox" = "on" ] && [ -n "$gpio_from_line" ] && [ -n "$2" ] && [ -n "$3" ]; then
-	day_zone1s=$2
-	day_zone1e=$3
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET day_run='on', day_zone1s='$day_zone1s',day_zone1e='$day_zone1e'  WHERE gpio='$gpio_from_line'" 
-	#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET day_run='on' WHERE gpio='$gpio_from_line'" 
-	#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET day_zone1s='$day_zone1s' WHERE gpio='$gpio_from_line'"
-	#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET day_zone1e='$day_zone1e' WHERE gpio='$gpio_from_line'"
-	echo "$date Gpio $gpio_from_line - function Day plan is on" >> $dir/tmp/log.txt
-    else
-	echo "$date Gpio $gpio_from_line - ON" >> $dir/tmp/log.txt
-	gpio_on $gpio_from_line
-    fi
-
-    
-}
-
-off(){        
-    gpio_from_line=$1
-    gpio_off $gpio_from_line
-    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_run='off', temp_run='off', day_run='off', time_start='off' WHERE gpio='$gpio_from_line'"
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET temp_run='off' WHERE gpio='$gpio_from_line'"
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_run='off' WHERE gpio='$gpio_from_line'"
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET tempday_run='off' WHERE gpio='$gpio_from_line'"
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_start='0' WHERE gpio='$gpio_from_line'" #turn off tempon
-    echo "$date Gpio $gpio_from_line is OFF" >> $dir/tmp/log.txt
-    }
-
 gpio_on(){
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio_rev_hilo FROM gpio WHERE gpio='$1'")
     /usr/local/bin/gpio -g mode $1 output
     if [ "$rev" = "on" ]; then 
 	/usr/local/bin/gpio -g write $1 0
     else
-	/usr/local/bin/gpio -g write $1 1
+	 /usr/local/bin/gpio -g write $1 1
     fi
     echo "$date Gpio $1 is ON" >> $dir/tmp/log.txt
 }
-
-
 gpio_off(){
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio_rev_hilo FROM gpio WHERE gpio='$1'")
-    gpio_from_line=$1
     /usr/local/bin/gpio -g mode $1 output
     if [ "$rev" = "on" ]; then 
-    /usr/local/bin/gpio -g write $gpio_from_line 1
+    /usr/local/bin/gpio -g write $1 1
     else
-    /usr/local/bin/gpio -g write $gpio_from_line 0
-    #/usr/local/bin/gpio reset $gpio_from_line
-    #rev $gpio_from_line
+    /usr/local/bin/gpio -g write $1 0
     fi
-}
-
-
-add() {
-if [ "$1" = "4" ] || [ "$1" = "17" ] || [ "$1" = "18" ] || [ "$1" = "21" ] || [ "$1" = "22" ] || [ "$1" = "23" ] || [ "$1" = "24" ] || [ "$1" = "25" ]; then
-    gpio_from_line=$1
-    sqlite3 $dir/dbf/nettemp.db "INSERT INTO gpio (gpio, name, time_start, gpio_rev_hilo ) VALUES ('$gpio_from_line','new','off','off' )"
-    ##sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_mode='output' WHERE gpio='$gpio_from_line'"
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_from_line'" 
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_from_line'" 
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET humi_checkbox='off' WHERE gpio='$gpio_from_line'" 
-fi
-}
-
-del() {
-if [ -n "$1" ]; then
-    gpio_from_line=$1
-    sqlite3 $dir/dbf/nettemp.db "DELETE FROM gpio WHERE gpio='$gpio_from_line'"
-    /usr/local/bin/gpio reset $gpio_from_line
-fi
-}
-
-humi() {
-if [ -n "$1" ]; then
-    gpio_from_line=$1
-    /usr/local/bin/gpio -g write $gpio_from_line 0
-    /usr/local/bin/gpio -g mode $gpio_from_line input
-
-humi_onoff=$(sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox FROM gpio WHERE gpio='$1'")
-
-if [ "$humi_onoff" != "on" ]; then
-    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_mode='input' WHERE gpio='$gpio_from_line'"
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_from_line'" 
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_from_line'" 
-    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET humi_checkbox='on' WHERE gpio='$gpio_from_line'" 
-else
-    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_mode='default' WHERE gpio='$gpio_from_line'"
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET time_checkbox='off' WHERE gpio='$gpio_from_line'" 
-    #sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET temp_checkbox='off' WHERE gpio='$gpio_from_line'" 
-    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET humi_checkbox='off' WHERE gpio='$gpio_from_line'" 
-fi
-fi
-}
-
-rev() {
-    gpio_from_line=$1
-    usr/local/bin/gpio -g mode $1 output
-    hilo=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio_rev_hilo FROM gpio WHERE gpio='$gpio_from_line'")
-if [ -n "$1" ] && [ "on" = "$hilo" ]; then
-    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_rev_hilo='off' WHERE gpio='$gpio_from_line'"
-    /usr/local/bin/gpio -g write $gpio_from_line 0
-else
-    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET gpio_rev_hilo='on' WHERE gpio='$gpio_from_line'"
-    /usr/local/bin/gpio -g write $gpio_from_line 1
-fi
-}
-
-
-
-reboot(){
-    gpio_mode=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio WHERE gpio_mode='output'")
-    for gpio in $gpio_mode; do
-	/usr/local/bin/gpio -g mode $gpio output
-    done
-}
-
-show() {
-    id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id FROM sensors ")
-    for i in $id; do
-	name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM sensors WHERE id="$i" ")
-	w=$(sqlite3 $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id="$i" ")
-	printf "%s\n" "$name  $w"
-    done
+    echo "$date Gpio $1 is OFF" >> $dir/tmp/log.txt
 }
 
 case "$1" in
@@ -343,25 +205,6 @@ case "$1" in
     "off") off $2 ;;
     "status") status $2 ;;
     "check") check $2 ;;
-    "add") add $2 ;;
-    "del") del $2 ;;
-    "humi") humi $2 ;;
-    "time") time on $2 ;;
-    "rev") rev $2 ;;
-    "show") show ;;
-    *) echo "no inputs
-
-example:
-
-gpio on 17					gpio on
-gpio off 17					gpio off 
-gpio status					Check status for php
-gpio check					Check all function
-gpio add 17					Add gpio 17
-gpio del 17					Del gpio 17
-gpio humi 17					Humi on gpio
-gpio time on 17 60 (min)			Time on
-gpio temp on 17 if "sensor" "20" on|off		Temp on
-gpio rev 17					Reverse out. 1 to 0, 1 to 0
-" ;;
+     *) echo "no inputs"
+;;
 esac
