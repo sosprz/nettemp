@@ -94,7 +94,10 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE gpio (
   day_zone1s TEXT,
   day_zone1e TEXT,
   tempday_checkbox TEXT,
-  simple_run TEXT
+  simple_run TEXT,
+  trigger_checkbox TEXT,
+  trigger_run TEXT
+
     );"
 
 

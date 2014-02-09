@@ -122,6 +122,7 @@ $temp_checkbox=$_POST['temp_checkbox'];
 if ($_POST['xtempon'] == "xtempON")  {
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET temp_checkbox='$temp_checkbox' WHERE gpio='$gpio_post'") or die("exec error");
+    $db->exec("UPDATE gpio SET tempday_checkbox='off' WHERE gpio='$gpio_post'") or  die("exec error");
     $db = NULL;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
