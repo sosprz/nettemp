@@ -78,7 +78,6 @@ if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-
 
 ?>
 </table>
-<hr>
 <table>
 <?php	
 $db = new PDO('sqlite:dbf/nettemp.db');
