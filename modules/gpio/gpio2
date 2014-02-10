@@ -170,6 +170,11 @@ elif [ "$trigger_checkbox" = "on" ]; then
 			trigger=`onoff $gpio`
 			if [ "$trigger" = "on" ]; then 
 	   		echo ALARM!!!
+	   		trigger_notice=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
+	   		if [ "$trigger_notice" = "on" ]; then
+	   			name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio WHERE gpio='$gpio'")
+	   			$dir/modules/mail/mail_test sosprz@gmail.com ALARM "Alarm from $name GPIO$gpio"
+	   		fi
 			elif [ "$trigger" = "off" ]; then
 	   		echo Waiting for trigger
 			fi
