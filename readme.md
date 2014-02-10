@@ -19,6 +19,9 @@ USERS:
 
 Changelog:
 
+7.4.9
+add Alarms for gpio ex. if HIGH send ALARM
+
 7.4.8
 fix install script, fix read value for DHT* sensors.
 
