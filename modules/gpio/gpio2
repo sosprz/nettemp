@@ -42,13 +42,18 @@ else
 fi
 
 }
+
 check() {
 gpio_list="$1"
 #sqlite3 $dir/dbf/nettemp.db ".timeout 5000" 
 
 if [ -z "$gpio_list" ]; then
 	gpio_list="17 18 21 22 23 24 25"
+	true_check="on"
+	else
+	true_check="off"
 fi
+
 
 for gpio in $gpio_list; do 
 	time_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_checkbox FROM gpio WHERE gpio='$gpio'")
@@ -184,7 +189,9 @@ else
 fi
 done
 }
+
 gpio_on(){
+if [ "true_check" = "on" ]; then
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio_rev_hilo FROM gpio WHERE gpio='$1'")
     /usr/local/bin/gpio -g mode $1 output
     if [ "$rev" = "on" ]; then 
@@ -193,8 +200,10 @@ gpio_on(){
 	 /usr/local/bin/gpio -g write $1 1
     fi
     echo "$date Gpio $1 is ON" >> $dir/tmp/log.txt
+fi
 }
 gpio_off(){
+if [ "true_check" = "on" ]; then
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio_rev_hilo FROM gpio WHERE gpio='$1'")
     /usr/local/bin/gpio -g mode $1 output
     if [ "$rev" = "on" ]; then 
@@ -203,11 +212,10 @@ gpio_off(){
     /usr/local/bin/gpio -g write $1 0
     fi
     echo "$date Gpio $1 is OFF" >> $dir/tmp/log.txt
+fi
 }
 
 case "$1" in
-    "on") on $2 $3 $4 $5 $6 $7;;
-    "off") off $2 ;;
     "status") status $2 ;;
     "check") check $2 ;;
      *) echo "no inputs"
