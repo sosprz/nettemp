@@ -3,7 +3,7 @@
 $dir="modules/gpio/";
 
 
-$db = new PDO('sqlite:dbf/nettemp.db');
+$db = new PDO('sqlite:dbf/nettemp.db') or die ("cannot open database");
 $sth = $db->prepare("select * from gpio");
 $sth->execute();
 $result = $sth->fetchAll();

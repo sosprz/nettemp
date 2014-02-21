@@ -101,13 +101,12 @@ foreach ($result as $a) { ?>
     </form>
 <?php }  ?>
 </table></span></span>
-<hr>
 
 <span class="belka">&nbsp Set the trigger alarms<span class="okno">
 <table>
 <?php	
 $db = new PDO('sqlite:dbf/nettemp.db');
-$rows = $db->query("SELECT * FROM gpio ");
+$rows = $db->query("SELECT * from gpio WHERE trigger_checkbox='on'");
 $row = $rows->fetchAll();
 $numRows = count($row);
 if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }
