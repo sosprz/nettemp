@@ -62,6 +62,7 @@ for gpio in $gpio_list; do
 	day_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_checkbox FROM gpio WHERE gpio='$gpio'")
 	tempday_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT tempday_checkbox FROM gpio WHERE gpio='$gpio'")
 	trigger_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_checkbox FROM gpio WHERE gpio='$gpio'")
+	simple_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT simple_run FROM gpio WHERE gpio='$gpio'")
 if [ "$humi_checkbox" = "on" ]; then
     echo "Humidity enabled"
 elif [ "$day_checkbox" = "on" ]; then
@@ -184,6 +185,8 @@ elif [ "$trigger_checkbox" = "on" ]; then
 	   		echo Waiting for trigger
 			fi
     fi
+elif [ "$simple_run" = "on" ]; then
+    gpio_on $gpio
 else
     onoff $gpio
 fi
