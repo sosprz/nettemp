@@ -191,7 +191,7 @@ done
 }
 
 gpio_on(){
-if [ "true_check" = "on" ]; then
+if [ "$true_check" = "on" ]; then
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio_rev_hilo FROM gpio WHERE gpio='$1'")
     /usr/local/bin/gpio -g mode $1 output
     if [ "$rev" = "on" ]; then 
@@ -203,7 +203,7 @@ if [ "true_check" = "on" ]; then
 fi
 }
 gpio_off(){
-if [ "true_check" = "on" ]; then
+if [ "$true_check" = "on" ]; then
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio_rev_hilo FROM gpio WHERE gpio='$1'")
     /usr/local/bin/gpio -g mode $1 output
     if [ "$rev" = "on" ]; then 
