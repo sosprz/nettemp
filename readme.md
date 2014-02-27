@@ -20,7 +20,7 @@ USERS:
 Changelog:
 
 7.4.10
-fix: script check now only check from browser 
+fix: script "check" now only check from browser 
 fix: no any state on gpio after restart when not pickup any option
 
 7.4.9
