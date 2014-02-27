@@ -349,7 +349,7 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 		$sth->execute();
 		$result = $sth->fetchAll();
 		foreach ($result as $select) { ?>
-		<option <?php echo $a['temp_sensor'] == $select['name'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}" ?>&deg;C</option>
+		<option <?php echo $a['temp_sensor'] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}" ?>&deg;C</option>
 		<?php } ?>
         </select></td>
 		<td>

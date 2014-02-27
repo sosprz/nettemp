@@ -127,10 +127,10 @@ elif [ "$temp_checkbox" = "on" ] && [ "$tempday_checkbox" != "on" ]; then
 		else
 			if [ "$temp_onoff" = "on" ];then
 		   	    gpio_off $gpio
-		   	    echo "$sensor_name $sensor_temp&deg;C is less than $temp_temp&deg;C - gpio is OFFx"
+		   	    echo "$sensor_name $sensor_temp&deg;C is less than $temp_temp&deg;C - gpio is OFF"
 			else
 		   	    gpio_on $gpio
-		    	    echo "$sensor_name $sensor_temp&deg;C is less than $temp_temp&deg;C - gpio is ONx"
+		    	    echo "$sensor_name $sensor_temp&deg;C is less than $temp_temp&deg;C - gpio is ON"
 			fi
 		fi
 		
