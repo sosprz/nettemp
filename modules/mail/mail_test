@@ -14,8 +14,10 @@ user=`sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
 password=`sqlite3 $dir/dbf/nettemp.db "SELECT password FROM mail_settings"`
 #address=`sqlite3 $dir/dbf/nettemp.db "SELECT address FROM mail_settings"`
 
+subject=$2
+body=$3
 
-(echo "From: nettemp device"; echo "To: $reci"; echo "Subject: Test from your nettemp device"; echo -e "Test mail from Your nettemp device.") | msmtp \
+(echo "From: nettemp device"; echo "To: $reci"; echo "Subject: $subject"; echo -e "$body") | msmtp \
 --maildomain=nettemp.pl \
 --read-envelope-from \
 --host=$host --port=$port --auth=on --user=$user \

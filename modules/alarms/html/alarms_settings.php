@@ -1,5 +1,6 @@
 <?php
 $tmp_id = $_POST["tmp_id"]; 				//sql
+$gpio_post = $_POST["gpio"]; 
 $tmp_min_new = $_POST["tmp_min_new"];  //sql
 $tmp_max_new = $_POST["tmp_max_new"];  //sql
 $add_alarm = $_POST["add_alarm"];  //sql
@@ -21,7 +22,7 @@ $del_alarm = $_POST["del_alarm"];  //sql
     exit();
      } 
      ?> 
-<?php	// SQLite - zmiana alarmow
+<?php	
     if (!empty($tmp_id) && ($_POST['ok'] == "ok")){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE sensors SET tmp_min='$tmp_min_new' WHERE id='$tmp_id'") or die ($db->lastErrorMsg());
@@ -29,9 +30,17 @@ $del_alarm = $_POST["del_alarm"];  //sql
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
      } 
-     ?> 
-
-
+    
+$triggernotice_checkbox=$_POST['triggernotice_checkbox'];
+if ($_POST['xtriggernoticeon'] == "xtriggernoticeON")  {
+	 exec("/usr/local/bin/gpio reset $gpio_post ");
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET trigger_notice='$triggernotice_checkbox' WHERE gpio='$gpio_post'") or die("exec error");
+    $db = NULL;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+}
+?>
 
 <span class="belka">&nbsp Set the temperature range<span class="okno">
 <table>
@@ -69,7 +78,6 @@ if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-
 
 ?>
 </table>
-<hr>
 <table>
 <?php	
 $db = new PDO('sqlite:dbf/nettemp.db');
@@ -94,6 +102,31 @@ foreach ($result as $a) { ?>
 <?php }  ?>
 </table></span></span>
 
+<span class="belka">&nbsp Set the trigger alarms<span class="okno">
+<table>
+<?php	
+$db = new PDO('sqlite:dbf/nettemp.db');
+$rows = $db->query("SELECT * from gpio WHERE trigger_checkbox='on'");
+$row = $rows->fetchAll();
+$numRows = count($row);
+if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }
+
+$sth = $db1->prepare("select * from gpio WHERE trigger_checkbox='on'");
+$sth->execute();
+$result = $sth->fetchAll();
+foreach ($result as $a) { ?>
+    <tr>
+	<form action="alarms" method="post"> 
+	<td><img src="media/ico/TO-220-icon.png" /></td>
+	<td><?php echo $a[name]; ?></td>
+		<td><input type="checkbox" name="triggernotice_checkbox" value="on" <?php echo $a["trigger_notice"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+		<input type="hidden" name="xtriggernoticeon" value="xtriggernoticeON" />
+	</form>    
+    
+    
+<?php }  ?>
+</table></span></span>
 
 
 
