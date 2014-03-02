@@ -99,6 +99,7 @@ elif [ "$time_checkbox" = "on" ]; then
 				else 
 		   		diff=$(( $endtime - $now_time_s ))
 		   		echo "Elapsed time is $(($diff/60)) min, ($diff sec)" 
+				gpio_on $gpio  # for after reboot
 				fi
 			else 
 				echo "error"

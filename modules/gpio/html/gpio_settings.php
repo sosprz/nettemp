@@ -87,7 +87,7 @@ if ($_POST['timeon'] == "timeON")  {
    $sth->execute();
    $result = $sth->fetchAll();    
    foreach ($result as $a) { 
-     	if ( $a["gpio_rev_hilo"] == "on") { 
+     	if ( $a['gpio_rev_hilo'] == "on") { 
     		exec("/usr/local/bin/gpio -g write $gpio_post 0");	
     		}
     		else { 
