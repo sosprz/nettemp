@@ -56,12 +56,14 @@ if ($_POST['on'] == "ON")  {
   
 $temp_sensor=$_POST['temp_sensor'];
 $temp_onoff=$_POST['temp_onoff'];
+$temp_op=$_POST['temp_op'];
+
 //  $temp_grlo=$_POST['temp_grlo'];
 
 $temp_temp=$_POST['temp_temp'];
 if ($_POST['tempon'] == "tempON")  {
 	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-	$db->exec("UPDATE gpio SET temp_run='on',temp_sensor='$temp_sensor',temp_onoff='$temp_onoff',temp_temp='$temp_temp' WHERE gpio='$gpio_post'") or die("exec error");
+	$db->exec("UPDATE gpio SET temp_run='on',temp_op='$temp_op',temp_sensor='$temp_sensor',temp_onoff='$temp_onoff',temp_temp='$temp_temp' WHERE gpio='$gpio_post'") or die("exec error");
 	if (!empty($day_zone1s) && !empty($day_zone1e)) {
 		$db->exec("UPDATE gpio SET tempday_run='on',day_zone1s='$day_zone1s',day_zone1e='$day_zone1e' WHERE gpio='$gpio_post'") or die("exec error");
 		}
@@ -337,7 +339,9 @@ exec("$dir/gpio2 status $gpio", $out_arr);
     	<input type="hidden" name="gpio_rev_hilo1" value="gpio_rev_hilo2" />
 		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     	</form>
-		<td>if</td>
+	<td>
+	if
+	</td>
       <td>
 	<form action="gpio" method="post">
 		<select name="temp_sensor" >
@@ -345,10 +349,17 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 		$sth->execute();
 		$result = $sth->fetchAll();
 		foreach ($result as $select) { ?>
-		<option <?php echo $a['temp_sensor'] == $select['name'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}" ?>&deg;C</option>
+		<option <?php echo $a['temp_sensor'] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}" ?>&deg;C</option>
 		<?php } ?>
         </select></td>
-		<td>&gt;</td>
+		<td>
+	<select name="temp_op" >
+        <option <?php echo $a['temp_op'] == 'lt' ? 'selected="selected"' : ''; ?> value="lt">&lt;</option>   
+        <option <?php echo $a['temp_op'] == 'le' ? 'selected="selected"' : ''; ?> value="le">&lt;&#61;</option>     
+        <option <?php echo $a['temp_op'] == 'gt' ? 'selected="selected"' : ''; ?> value="gt">&gt;</option>   
+        <option <?php echo $a['temp_op'] == 'ge' ? 'selected="selected"' : ''; ?> value="ge">&gt;&#61;</option>   
+	</select>
+		</td>
 		<td><input type="text" name="temp_temp" value="<?php echo $a['temp_temp']; ?>" size=3" >&deg;C</td>
 		<td>then</td> 
 		<td>
