@@ -18,6 +18,7 @@ USERS:
     temp temp - access only for sensors settings
 
 Changelog:
+
 7.4.12
 db fix
 gpio fix
