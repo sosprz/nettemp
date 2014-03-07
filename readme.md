@@ -18,6 +18,11 @@ USERS:
     temp temp - access only for sensors settings
 
 Changelog:
+7.4.12
+db fix
+
+7.4.11
+fix: rrd create db 
 
 7.4.10
 fix: script "check" now only check from browser 
