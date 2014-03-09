@@ -11,7 +11,7 @@ session_start();
 <?php include("tools_reset.php"); ?> 
 <?php include("tools_reboot.php"); ?> 
 <?php include("tools_log.php"); ?>
-
+<?php include("tools_gpio_readall.php"); ?>
 <?php
  }
 else { 
