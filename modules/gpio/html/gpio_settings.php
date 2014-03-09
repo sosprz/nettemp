@@ -248,7 +248,11 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 	</tr></table>
  	<?php	} elseif ($out == 'off' || $out == 'temp' || $out == 'humi'  ) { ?>
 	<table>
-	<tr>
+	<tr>   
+	<?php if (($a['humi_checkbox'] == 'on') || ($a['day_checkbox'] == 'on') || ($a['temp_checkbox'] == 'on') || ($a['time_checkbox'] == 'on') || ($a['trigger_checkbox'] == 'on')) { ?>
+ 		<td><img type="image" src="media/ico/SMD-64-pin-icon_24.png" /></td>
+		<td><?php echo $a['name']; ?></td>
+		<?php  } else { ?>
 	<form action="gpio" method="post">
 		<td><img type="image" src="media/ico/SMD-64-pin-icon_24.png" ></td>
 		<td><input type="text" name="name" value="<?php echo $a['name']; ?>" size="10"></td>
@@ -256,12 +260,10 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 		<input type="hidden" name="id" value="<?php echo $a['id']; ?>" >
 		<td><input type="image" src="media/ico/Actions-edit-redo-icon.png" alt="Submit" title="Reload" ></td>
 	</form>
-
-<?php if  ($a['humi_checkbox'] == 'on') 
+<?php } if  ($a['humi_checkbox'] == 'on') 
 { ?>
 	<form action="gpio" method="post">
-		<td><img  src="media/ico/rain-icon.png" title="Humidity on/off" /></td>
-		<td><input type="checkbox" name="humi_checkbox" value="on" <?php echo $a["humi_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+		<td><input type="image" name="humi_checkbox" value="off" src="media/ico/back-icon.png" title="Back"   onclick="this.form.submit()" /><td>
 		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 		<input type="hidden" name="xhumion" value="xhumiON" />
 	</form>
@@ -280,8 +282,7 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 	</form>
 <?php } elseif ($a['time_checkbox'] == 'on') { ?>
 	<form action="gpio" method="post">
-		<td><img  src="media/ico/Clock-icon.png" title="Set time"/></td>
-		<td><input type="checkbox" name="time_checkbox" value="on" <?php echo $a["time_checkbox"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /><td>
+		<td><input type="image" name="time_checkbox" src="media/ico/back-icon.png" title="back" value="off"  onclick="this.form.submit()" /><td>
 		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 		<input type="hidden" name="xtimeon" value="xtimeON" />        
    </form>
@@ -299,8 +300,7 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 	</form>
 <?php } elseif ($a['day_checkbox'] == 'on') { ?>
 	<form action="gpio" method="post">
-		<td><img  src="media/ico/day-icon.png" title="day plan"/></td>
-		<td><input type="checkbox" name="day_checkbox" value="on" <?php echo $a["day_checkbox"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /><td>
+		<td><input type="image" name="day_checkbox" value="off" src="media/ico/back-icon.png" title="Back" onclick="this.form.submit()" /><td>
 		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 		<input type="hidden" name="xdayon" value="xdayON" />        
    </form>
@@ -322,8 +322,7 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 
 <?php } elseif  ($a['temp_checkbox'] == 'on') { ?>
 	<form action="gpio" method="post">
-		<td><img  src="media/ico/temp2-icon.png" title="Set temp when sensor will turn on/off" /></td>
-		<td><input type="checkbox" name="temp_checkbox" value="on" <?php echo $a["temp_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+		<td><input type="image" name="temp_checkbox" value="off" src="media/ico/back-icon.png" title="Back"  onclick="this.form.submit()" /><td>
 		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 		<input type="hidden" name="xtempon" value="xtempON" />
 	</form>
@@ -379,8 +378,7 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 	</form>
 <?php } elseif ($a['trigger_checkbox'] == 'on') { ?>
 	<form action="gpio" method="post">
-		<td><img  src="media/ico/alarm-icon.png" title="Alarm trigger" /></td>
-		<td><input type="checkbox" name="trigger_checkbox" value="on" <?php echo $a["trigger_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+		<td><input type="image" name="trigger_checkbox" value="off" src="media/ico/back-icon.png" title="Back"  onclick="this.form.submit()" /><td>
 		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 		<input type="hidden" name="xtriggeron" value="xtriggerON" />
 	</form>
@@ -399,44 +397,39 @@ exec("$dir/gpio2 status $gpio", $out_arr);
 <?php } else { ?>
 	<td>                           </td>
 	<form action="gpio" method="post">
-		<td><img  src="media/ico/Clock-icon.png" title="Set time"/></td>
-		<td><input type="checkbox" name="time_checkbox" value="on" <?php echo $a["time_checkbox"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /><td>
+		<td>Time</td>
+		<td><input type="image" src="media/ico/Clock-icon.png" title="Set time" name="time_checkbox" value="on" <?php echo $a["time_checkbox"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /><td>
 		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 		<input type="hidden" name="xtimeon" value="xtimeON" />        
    </form>
 	<form action="gpio" method="post">
-		<td><img  src="media/ico/temp2-icon.png" title="Set temp when sensor will turn on/off" /></td>
-		<td><input type="checkbox" name="temp_checkbox" value="on" <?php echo $a["temp_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+		<td>Temperature</td>
+		<td><input type="image" src="media/ico/temp2-icon.png" title="Set temp when sensor will turn on/off" name="temp_checkbox" value="on" <?php echo $a["temp_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
 		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 		<input type="hidden" name="xtempon" value="xtempON" />
 	</form>
 	<form action="gpio" method="post">
-		<td><img  src="media/ico/rain-icon.png" title="Humidity on/off" /></td>
-		<td><input type="checkbox" name="humi_checkbox" value="on" <?php echo $a["humi_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+		<td>Humidity</td>
+		<td><input type="image" src="media/ico/rain-icon.png" title="Humidity on/off" name="humi_checkbox" value="on" <?php echo $a["humi_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
 		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 		<input type="hidden" name="xhumion" value="xhumiON" />
 	</form>
 	<form action="gpio" method="post">
-		<td><img  src="media/ico/day-icon.png" title="Day plan" /></td>
-		<td><input type="checkbox" name="day_checkbox" value="on" <?php echo $a["day_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+		<td>24h</td>
+		<td><input type="image" title="Day plan" src="media/ico/day-icon.png" name="day_checkbox" value="on" <?php echo $a["day_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
 		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 		<input type="hidden" name="xdayon" value="xdayON" />
 	</form>
 	<form action="gpio" method="post">
-		<td><img  src="media/ico/alarm-icon.png" title="Alarm trigger" /></td>
-		<td><input type="checkbox" name="trigger_checkbox" value="on" <?php echo $a["trigger_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+		<td>Alarm</td>
+		<td><input type="image" src="media/ico/alarm-icon.png" title="Alarm trigger" name="trigger_checkbox" value="on" <?php echo $a["trigger_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
 		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 		<input type="hidden" name="xtriggeron" value="xtriggerON" />
 	</form>
 	<form action="gpio" method="post">
-    	<td><img type="image" src="media/ico/Letter-R-blue-icon.png" title="Reverse state HIGH to LOW" ></td>
-    	<td><input type="checkbox" name="gpio_rev_hilo" value="on" <?php echo $a["gpio_rev_hilo"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
-    	<input type="hidden" name="gpio_rev_hilo1" value="gpio_rev_hilo2" />
 		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-   </form>
-	<form action="gpio" method="post">
-		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
+		<td>Simple on/off</td>
+    		<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
 		<input type="hidden" name="on" value="ON" />
 	</form>
 <?php } ?>
