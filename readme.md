@@ -20,6 +20,7 @@ USERS:
 Changelog:
 7.4.13
 clicable icons in gpio menu
+optimize gpio check's
 
 7.4.12
 db fix
