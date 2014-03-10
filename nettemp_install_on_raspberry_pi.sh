@@ -16,11 +16,11 @@ if [[ $UID -ne 0 ]]; then
     echo -e "${GREEN} $0 must be run as root ${R}"
     exit 1
 fi 
-
+apt-get update
 echo -e "${GREEN}Do You want update system? (y or n)${R}"
 read y
 if [ "$y" = "y" ]; then
- apt-get update
+ 
  apt-get -y upgrade
 fi
 
@@ -78,7 +78,7 @@ echo -e "${GREEN}Create database${R}"
 
 echo -e "${GREEN}Add cron line${R}"
  echo "*/1 * * * * /var/www/nettemp/modules/sensors/temp_dev_read && /var/www/nettemp/modules/view/view_gen && /var/www/nettemp/modules/highcharts/highcharts" > /var/spool/cron/crontabs/root
- echo "*/1 * * * * /var/www/nettemp/modules/gpio/gpio check" >> /var/spool/cron/crontabs/root
+ echo "*/1 * * * * /var/www/nettemp/modules/gpio/gpio2 check" >> /var/spool/cron/crontabs/root
  echo "*/5 * * * * /var/www/nettemp/modules/sms/sms_send" >> /var/spool/cron/crontabs/root
  echo "*/5 * * * * /var/www/nettemp/modules/mail/mail_send" >> /var/spool/cron/crontabs/root
  sed -i '$a @reboot     echo "$(date +\\%y\\%m\\%d-\\%H\\%M) RPI rebooted" >> /var/www/nettemp/tmp/log.txt' /var/spool/cron/crontabs/root

@@ -48,7 +48,7 @@ gpio_list="$1"
 #sqlite3 $dir/dbf/nettemp.db ".timeout 5000" 
 
 if [ -z "$gpio_list" ]; then
-	gpio_list="17 18 21 22 23 24 25"
+	gpio_list=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio")
 	true_check="on"
 	else
 	true_check="off"
@@ -149,10 +149,10 @@ elif [ "$temp_checkbox" = "on" ] && [ "$tempday_checkbox" != "on" ]; then
 		else
 			if [ "$temp_onoff" = "on" ];then
 		   	    gpio_off $gpio
-		   	    echo "$sensor_name $sensor_temp&deg;C is less than or equal to $temp_temp&deg;C - gpio is OFFx"
+		   	    echo "$sensor_name $sensor_temp&deg;C is less than or equal to $temp_temp&deg;C - gpio is OFF"
 			else
 		   	    gpio_on $gpio
-		    	    echo "$sensor_name $sensor_temp&deg;C is less than or equal to $temp_temp&deg;C - gpio is ONx"
+		    	    echo "$sensor_name $sensor_temp&deg;C is less than or equal to $temp_temp&deg;C - gpio is ON"
 			fi
 		fi
 	    fi
@@ -169,10 +169,10 @@ elif [ "$temp_checkbox" = "on" ] && [ "$tempday_checkbox" != "on" ]; then
 		else
 			if [ "$temp_onoff" = "on" ];then
 		   	    gpio_off $gpio
-		   	    echo "$sensor_name $sensor_temp&deg;C is greather or equal to $temp_temp&deg;C - gpio is OFFx"
+		   	    echo "$sensor_name $sensor_temp&deg;C is greather or equal to $temp_temp&deg;C - gpio is OFF"
 			else
 		   	    gpio_on $gpio
-		    	    echo "$sensor_name $sensor_temp&deg;C is greather or equal to $temp_temp&deg;C - gpio is ONx"
+		    	    echo "$sensor_name $sensor_temp&deg;C is greather or equal to $temp_temp&deg;C - gpio is ON"
 			fi
 		fi
 	    fi

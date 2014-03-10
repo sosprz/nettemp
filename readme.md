@@ -18,6 +18,10 @@ USERS:
     temp temp - access only for sensors settings
 
 Changelog:
+7.4.13
+clicable icons in gpio menu
+optimize gpio check's
+fix cron gpio>gpio2
 
 7.4.12
 db fix
