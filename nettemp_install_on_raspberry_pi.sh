@@ -16,11 +16,11 @@ if [[ $UID -ne 0 ]]; then
     echo -e "${GREEN} $0 must be run as root ${R}"
     exit 1
 fi 
-
+apt-get update
 echo -e "${GREEN}Do You want update system? (y or n)${R}"
 read y
 if [ "$y" = "y" ]; then
- apt-get update
+ 
  apt-get -y upgrade
 fi
 
