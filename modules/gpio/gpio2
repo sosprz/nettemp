@@ -265,25 +265,30 @@ done
 gpio_on(){
 if [ "$true_check" = "on" ]; then
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio_rev_hilo FROM gpio WHERE gpio='$1'")
+    gs=$(/usr/local/bin/gpio -g read $1)
     /usr/local/bin/gpio -g mode $1 output
-    if [ "$rev" = "on" ]; then 
+    if [ "$rev" = "on" ] && [ "$gs" = "1" ]; then 
 	/usr/local/bin/gpio -g write $1 0
-    else
+	echo "$date Gpio $1 is ON" >> $dir/tmp/log.txt
+    elif [ "$rev" = "off" ] && [ "$gs" = "0" ]; then
 	 /usr/local/bin/gpio -g write $1 1
+	 echo "$date Gpio $1 is ON" >> $dir/tmp/log.txt
     fi
-    echo "$date Gpio $1 is ON" >> $dir/tmp/log.txt
-fi
+fi    
 }
 gpio_off(){
 if [ "$true_check" = "on" ]; then
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio_rev_hilo FROM gpio WHERE gpio='$1'")
+    gs=$(/usr/local/bin/gpio -g read $1)
     /usr/local/bin/gpio -g mode $1 output
-    if [ "$rev" = "on" ]; then 
-    /usr/local/bin/gpio -g write $1 1
-    else
-    /usr/local/bin/gpio -g write $1 0
+    if [ "$rev" = "on" ] && [ "$gs" = "0" ]; then 
+        /usr/local/bin/gpio -g write $1 1
+	echo "$date Gpio $1 is OFF" >> $dir/tmp/log.txt
+    elif [ "$rev" = "off" ] && [ "$gs" = "1" ]; then 
+	/usr/local/bin/gpio -g write $1 0
+	echo "$date Gpio $1 is OFF" >> $dir/tmp/log.txt
     fi
-    echo "$date Gpio $1 is OFF" >> $dir/tmp/log.txt
+    
 fi
 }
 
