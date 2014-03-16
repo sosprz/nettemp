@@ -22,6 +22,7 @@ Changelog:
 clicable icons in gpio menu
 optimize gpio check's
 fix cron gpio>gpio2
+gpio2 check onoff fix
 
 
 7.4.12
