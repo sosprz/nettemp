@@ -432,6 +432,12 @@ exec("$dir/gpio2 status $gpio", $out_arr);
     		<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
 		<input type="hidden" name="on" value="ON" />
 	</form>
+	<form action="gpio" method="post">
+		<td>Reverse <?php echo $a["gpio_rev_hilo"]; ?></td>
+    	<td><input type="image" src="media/ico/Letter-R-blue-icon.png" title="Reverse state HIGH to LOW" name="gpio_rev_hilo" value="on" <?php echo $a["gpio_rev_hilo"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    	<input type="hidden" name="gpio_rev_hilo1" value="gpio_rev_hilo2" />
+		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+   </form>
 <?php } ?>
 	</tr>
 	</table>
