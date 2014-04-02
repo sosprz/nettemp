@@ -24,7 +24,8 @@ optimize gpio check's
 fix cron gpio>gpio2
 gpio2 check onoff fix
 add revers to gpio main menu 
-
+fix firefox buttons
+add attachment to mail only form shell
 
 7.4.12
 db fix
