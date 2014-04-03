@@ -26,6 +26,7 @@ gpio2 check onoff fix
 add revers to gpio main menu 
 fix firefox buttons
 add attachment to mail only form shell
+add limits for DHT
 
 7.4.12
 db fix
