@@ -82,6 +82,7 @@ echo -e "${GREEN}Add cron line${R}"
  echo "*/5 * * * * /var/www/nettemp/modules/sms/sms_send" >> /var/spool/cron/crontabs/root
  echo "*/5 * * * * /var/www/nettemp/modules/mail/mail_send" >> /var/spool/cron/crontabs/root
  sed -i '$a @reboot     echo "$(date +\\%y\\%m\\%d-\\%H\\%M) RPI rebooted" >> /var/www/nettemp/tmp/log.txt' /var/spool/cron/crontabs/root
+ sed -i '$a @reboot  /var/www/nettemp/modules/tools/restart' /var/spool/cron/crontabs/root
  sed -i '$a*/1 * * * * /var/www/nettemp/modules/tools/system_stats' /var/spool/cron/crontabs/root
  chmod 600 /var/spool/cron/crontabs/root
 
