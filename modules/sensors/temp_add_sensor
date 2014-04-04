@@ -10,8 +10,9 @@ if [ -n "$1" ]; then
         sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
 	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
 	VALUES ('humi_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'humi', '$gpio_humi' )"
-	/usr/bin/rrdtool create $dir/db/$(echo $1).rrd --step 60 \
-DS:temp:GAUGE:240:U:U \
+	id=$(echo $1 |md5sum | cut -c 1-14 )
+/usr/bin/rrdtool create $dir/db/$(echo $1).rrd --step 60 \
+DS:temp$id:GAUGE:240:U:U \
 RRA:AVERAGE:0.5:1:43800 \
 RRA:AVERAGE:0.5:5:52560 \
 RRA:AVERAGE:0.5:10:52596 \
@@ -35,8 +36,9 @@ RRA:LAST:0.5:15:175320
         sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
 	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
 	VALUES ('new_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'temp', '$1' )"
+	id=$(echo $1 |md5sum | cut -c 1-14 )
         /usr/bin/rrdtool create $dir/db/$1.rrd --step 60 \
-DS:temp:GAUGE:240:U:U \
+DS:temp$id:GAUGE:240:U:U \
 RRA:AVERAGE:0.5:1:43800 \
 RRA:AVERAGE:0.5:5:52560 \
 RRA:AVERAGE:0.5:10:52596 \
