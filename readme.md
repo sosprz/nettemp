@@ -27,6 +27,8 @@ add revers to gpio main menu
 fix firefox buttons
 add attachment to mail only form shell
 add limits for DHT
+md5sum to fix rrd
+md5sum to highcharts
 
 7.4.12
 db fix
