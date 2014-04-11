@@ -17,7 +17,7 @@ rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors")
 
 	name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
 	id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-	array[$ar]="DEF:$id=$dir/db/$i.rrd:temp:AVERAGE XPORT:$id:\"$name\""
+	array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
 	let ar=ar+1
 done
 

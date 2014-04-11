@@ -18,12 +18,17 @@ USERS:
     temp temp - access only for sensors settings
 
 Changelog:
-7.4.13
+7.4.14
 clicable icons in gpio menu
 optimize gpio check's
 fix cron gpio>gpio2
 gpio2 check onoff fix
-
+add revers to gpio main menu 
+fix firefox buttons
+add attachment to mail only form shell
+add limits for DHT
+md5sum to fix rrd
+md5sum to highcharts
 
 7.4.12
 db fix

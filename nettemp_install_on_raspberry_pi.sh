@@ -25,7 +25,7 @@ if [ "$y" = "y" ]; then
 fi
 
 echo -e "${GREEN}Install packages${R}"
- apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat ca-certificates
+ apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat command-not-found uuencode
 
 echo -e "${GREEN}Enable module: fastcgi-php${R}"
  lighty-enable-mod fastcgi-php
@@ -82,6 +82,7 @@ echo -e "${GREEN}Add cron line${R}"
  echo "*/5 * * * * /var/www/nettemp/modules/sms/sms_send" >> /var/spool/cron/crontabs/root
  echo "*/5 * * * * /var/www/nettemp/modules/mail/mail_send" >> /var/spool/cron/crontabs/root
  sed -i '$a @reboot     echo "$(date +\\%y\\%m\\%d-\\%H\\%M) RPI rebooted" >> /var/www/nettemp/tmp/log.txt' /var/spool/cron/crontabs/root
+ sed -i '$a @reboot  /var/www/nettemp/modules/tools/restart' /var/spool/cron/crontabs/root
  sed -i '$a*/1 * * * * /var/www/nettemp/modules/tools/system_stats' /var/spool/cron/crontabs/root
  chmod 600 /var/spool/cron/crontabs/root
 

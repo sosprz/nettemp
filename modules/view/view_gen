@@ -48,12 +48,13 @@ if [ -n "${!varinvar}" ]; then
     do
     name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$rrd'")
     color=$(sqlite3 $dir/dbf/nettemp.db "SELECT color from sensors WHERE rom='$rrd'")
-    array[$i]="DEF:temp$i=$dir/db/$rrd.rrd:temp:AVERAGE
-    LINE2:temp$i$color:'$(echo $name |awk '{ if (length($0) >= 10) { print $0 " " }  else if (length($0) >= 7) { print $0 "      " } else if (length($0) >= 4) { print $0 "          " } else if (length($0) <= 3) { print $0 "            " }      }') \t ' 
-    GPRINT:temp$i:LAST:'%2.2lf \t '
-    GPRINT:temp$i:MIN:'%2.2lf \t '
-    GPRINT:temp$i:MAX:'%2.2lf \t '
-    GPRINT:temp$i:AVERAGE:'%2.2lf \t \n' "
+    id=$(echo $rrd |md5sum |cut -c 1-14)
+    array[$i]="DEF:temp$id=$dir/db/$rrd.rrd:temp$id:AVERAGE
+    LINE2:temp$id$color:'$(echo $name |awk '{ if (length($0) >= 10) { print $0 " " }  else if (length($0) >= 7) { print $0 "      " } else if (length($0) >= 4) { print $0 "          " } else if (length($0) <= 3) { print $0 "            " }      }') \t ' 
+    GPRINT:temp$id:LAST:'%2.2lf \t '
+    GPRINT:temp$id:MIN:'%2.2lf \t '
+    GPRINT:temp$id:MAX:'%2.2lf \t '
+    GPRINT:temp$id:AVERAGE:'%2.2lf \t \n' "
     let i=i+1
     done
 
