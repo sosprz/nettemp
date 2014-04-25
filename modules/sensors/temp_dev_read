@@ -173,21 +173,25 @@ if [ -n "$gpio_list_0" ]; then
 	if [ -n "$dht" ]; then
     	    eval var1_$gpio_list=`echo $dht | awk '{ print $3 }'`
     	    eval var2_$gpio_list=`echo $dht | awk '{ print $7 }'`
+	    #eval var1_$gpio_list="-36.6"
+    	    #eval var2_$gpio_list="99.3"
 	    dht_temp=var1_$gpio_list
     	    dht_humi=var2_$gpio_list
-	    echo ${!dht_temp} C
-    	    echo ${!dht_humi} %
-	    if [[ "${!dht_humi}" -lt "100"  &&  "${!dht_humi}" -gt "-1" ]] ; then 
+	    dht_humi_calc=$(echo ${!dht_humi} 100 -1 | awk '{if ($1 < $2 && $1 > $3) print 1; else print 0 }')
+	    if [ "$dht_humi_calc" == "1" ]; then 
     		gpio_name=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='humi'"`
     		rrdtool update $dir/db/$(echo $gpio_name).rrd N:${!dht_humi}
     		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_humi}' WHERE rom='$(echo $gpio_name)'"
+		echo ${!dht_humi} %
 	    else
 		echo "dht_humi not in range"
     	    fi
-	    if [[ "${!dht_temp}" -lt "125"  && "${!dht_temp}" -gt "-41" ]]; then 
+	    dht_temp_calc=$(echo ${!dht_humi} 125 -41 | awk '{if ($1 < $2 && $1 > "$3") print 1; else print 0 }')
+	    if [ "$dht_temp_calc" == "1" ]; then 
 		gpio_name2=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='temp'"`
     		rrdtool update $dir/db/$(echo $gpio_name2).rrd N:${!dht_temp}
     		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_temp}' WHERE rom='$(echo $gpio_name2)'"
+		echo ${!dht_temp} C
 	    else
 		echo "dht_temp not in range"
 	    fi
