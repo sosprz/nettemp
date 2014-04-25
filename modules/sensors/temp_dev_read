@@ -170,12 +170,11 @@ if [ -n "$gpio_list_0" ]; then
 	type=`sqlite3 $dir/dbf/nettemp.db "SELECT humi_type FROM gpio where gpio='$gpio_list'"`
 	sleep 3
 	dht=`$dir/modules/sensors/Adafruit_DHT $type $gpio_list |grep Temp`
-	#dht=66
 	if [ -n "$dht" ]; then
-    	    #eval var1_$gpio_list=`echo $dht | awk '{ print $3 }'`
-    	    #eval var2_$gpio_list=`echo $dht | awk '{ print $7 }'`
-	    eval var1_$gpio_list="-36.6"
-    	    eval var2_$gpio_list="99.3"
+    	    eval var1_$gpio_list=`echo $dht | awk '{ print $3 }'`
+    	    eval var2_$gpio_list=`echo $dht | awk '{ print $7 }'`
+	    #eval var1_$gpio_list="-36.6"
+    	    #eval var2_$gpio_list="99.3"
 	    dht_temp=var1_$gpio_list
     	    dht_humi=var2_$gpio_list
 	    dht_humi_calc=$(echo ${!dht_humi} 100 -1 | awk '{if ($1 < $2 && $1 > $3) print 1; else print 0 }')
