@@ -3,7 +3,7 @@
 #dir0=`find / -name config_nettemp.php 2> /dev/null | sed 's/..................$//' | cut -c 1-`
 #dir=`cat $dir0/config_nettemp.php |grep dir | cut -c 5-`
 
-dir='pwd'
+dir=`pwd`
 date=`date +%y%m%d-%H%M`
 
 if [ ! -e $dir/tmp/log.txt ]; then
@@ -178,7 +178,7 @@ unset wynik
 #
 ######################
 gpio_list_0=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where humi_checkbox='on'"`
-if [ -n "$gpio_list_0" B]; then 
+if [ -n "$gpio_list_0" ]; then 
     for gpio_list in $gpio_list_0; do
 	type=`sqlite3 $dir/dbf/nettemp.db "SELECT humi_type FROM gpio where gpio='$gpio_list'"`
 	sleep 3
