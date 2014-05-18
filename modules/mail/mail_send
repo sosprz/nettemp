@@ -6,7 +6,7 @@ create_mail=on
 #send on/off
 send_mail=on
 
-dir=`pwd`
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
 date=`date +%y%m%d-%H%M`
 
 

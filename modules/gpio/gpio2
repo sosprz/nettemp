@@ -1,6 +1,6 @@
 #! /bin/bash
 
-dir=`pwd`
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
 date=$(date +%y%m%d-%H%M)
 
 gpio_on(){

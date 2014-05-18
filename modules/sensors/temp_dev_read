@@ -1,9 +1,7 @@
 #! /bin/bash
 
-#dir0=`find / -name config_nettemp.php 2> /dev/null | sed 's/..................$//' | cut -c 1-`
-#dir=`cat $dir0/config_nettemp.php |grep dir | cut -c 5-`
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
 
-dir=`pwd`
 date=`date +%y%m%d-%H%M`
 
 if [ ! -e $dir/tmp/log.txt ]; then
@@ -52,7 +50,7 @@ else
 fi
     usb_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
     if [ "$usb_temp_calc" == "1" ]; then 
-	    echo $wynik C
+	    echo USB: $wynik C
 	    rrdtool update $dir/db/$name N:$wynik
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
     else 
@@ -90,7 +88,7 @@ name_2=`cat $dir/tmp/.digitemprc |grep "$name_3" |awk 'BEGIN {FS=" "} {print $2}
 
 if [ "$serial" = "DS9097" ]; then
 	    wynik=`/usr/bin/digitemp_$serial -c $dir/tmp/.digitemprc -t $name_2 -q -o%.1C`
-	    echo $wynik C
+	    echo Serial: $wynik C
 fi
     serial_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
     if [ "$serial_temp_calc" == "1" ]; then 
@@ -127,7 +125,7 @@ if [ $name_str -lt "20" ] && [ $name_str -gt "11" ]; then
     if [ "$name_1" != "Raspberry_Pi" ]; then    
 	if  [ -e /sys/bus/w1/devices/${name_1}/w1_slave ]; then
 	    wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.1f\n", $11/1000 } ' /sys/bus/w1/devices/${name_1}/w1_slave;`
-	    echo $wynik C
+	    echo 1-wire: $wynik C
 	    if  [ -n "$wynik" ]; then
 	    wire_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
 	    if [ "$wire_temp_calc" == "1" ]; then
@@ -155,21 +153,20 @@ unset wynik
 #######################
 
 
-if [ -n "$wynik" ]; then
+
     if [ -f /opt/vc/bin/vcgencmd ]; then
         wynik=$(/opt/vc/bin/vcgencmd measure_temp | cut -c 6-9)
 	    pi_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
 	if [ "$pi_temp_calc" == "1" ]; then
 		rrdtool update $dir/db/Raspberry_Pi.rrd N:$wynik
 		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='Raspberry_Pi'"
-		echo $wynik C
+		echo Raspberry Pi: $wynik C
 	else 
 	    echo "WARNING: Bad readings from sensor"
 	fi
     else
 	echo "INFO: No vcdencmd"
     fi
-fi
 unset wynik
 
 ######################
@@ -195,7 +192,7 @@ if [ -n "$gpio_list_0" ]; then
     		gpio_name=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='humi'"`
     		rrdtool update $dir/db/$(echo $gpio_name).rrd N:${!dht_humi}
     		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_humi}' WHERE rom='$(echo $gpio_name)'"
-		echo ${!dht_humi} %
+		echo DHT humi: ${!dht_humi} %
 	    else
 		echo "WARNING: DHT Humi readings not in range"
     	    fi
@@ -204,7 +201,7 @@ if [ -n "$gpio_list_0" ]; then
 		gpio_name2=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='temp'"`
     		rrdtool update $dir/db/$(echo $gpio_name2).rrd N:${!dht_temp}
     		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_temp}' WHERE rom='$(echo $gpio_name2)'"
-		echo ${!dht_temp} C
+		echo DHT temp: ${!dht_temp} C
 	    else
 		echo "WARNING: DHT Temp readings not in range"
 	    fi

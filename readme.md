@@ -18,6 +18,10 @@ USERS:
     temp temp - access only for sensors settings
 
 Changelog:
+7.4.16
+add more checks for readings
+get nettemp dir from conf.php
+
 7.4.15
 fix DHT22 readings
 

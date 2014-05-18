@@ -1,6 +1,6 @@
 #! /bin/bash
 
-dir=`pwd`
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
 date=`date +%y%m%d-%H%M`
 
 get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }'`
