@@ -1,6 +1,6 @@
 #! /bin/bash
 
-dir=/var/www/nettemp
+dir=`pwd`
 
 hc_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT highcharts FROM settings"`
 

@@ -1,6 +1,6 @@
 #! /bin/bash -x
 
-dir=/var/www/nettemp
+dir=`pwd`
 dir2=$dir/img/system_stats
 
 if [ ! -e $dir/db/cpu.rrd ]

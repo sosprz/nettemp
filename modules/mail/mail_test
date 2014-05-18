@@ -1,6 +1,6 @@
 #! /bin/bash -x
 
-dir=/var/www/nettemp
+dir=`pwd`
 date=`date +%y%m%d-%H%M`
 
 
