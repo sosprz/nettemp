@@ -140,6 +140,9 @@ chmod 755 /var/www/nettemp/nettemp_password
 /var/www/nettemp/nettemp_password
 fi
 
+echo -e "${GREEN} UPS status function${R}"
+/var/www/nettemp/modules/ups/install
+
 
 echo -e "${REDB}Restart RPI and make sure everything is ok${R}"
 
