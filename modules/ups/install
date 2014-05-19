@@ -1,16 +1,15 @@
 #! /bin/bash
 
-
-#/etc/init.d/apcupsd stop
-#killall apcupsd
-#apt-get purge -y apcupsd
-
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
+/etc/init.d/apcupsd stop
+killall apcupsd
+apt-get purge -y apcupsd
 apt-get install -y apcupsd
 sed -i 's|UPSCABLE smart|UPSCABLE usb|g' /etc/apcupsd/apcupsd.conf
 sed -i 's|UPSTYPE apcsmart|UPSTYPE usb|g' /etc/apcupsd/apcupsd.conf
 sed -i 's|DEVICE /dev/ttyS0|DEVICE|g' /etc/apcupsd/apcupsd.conf
 sed -i 's|ISCONFIGURED=no|ISCONFIGURED=yes|g' /etc/default/apcupsd
 /etc/init.d/apcupsd start
-
-echo "/var/www/nettemp/modules/ups/onbattery on" >> /etc/apcupsd/onbattery 
-echo "/var/www/nettemp/modules/ups/onbattery off" >> /etc/apcupsd/onbattery 
+sed -i '/exit 0/i /bin/bash $dir/modules/ups/onbattery on' /etc/apcupsd/onbattery 
+sed -i '/exit 0/i /bin/bash $dir/modules/ups/onbattery off' /etc/apcupsd/offbattery 
+sed -i '$a @reboot  /etc/init.d/apcupsd start' /var/spool/cron/crontabs/root
