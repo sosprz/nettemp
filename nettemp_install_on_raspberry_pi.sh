@@ -66,11 +66,6 @@ if [ "$x" = "b" ]; then
 git clone -b beta https://github.com/sosprz/nettemp
 fi
 
-echo -e "${GREEN}Add permisions${R}"
- chown -R root.www-data /var/www/nettemp
- chmod -R 775 /var/www/nettemp
- gpasswd -a www-data dialout
- #chmod +s /var/www/nettemp/modules/relays/gpio
 
 echo -e "${GREEN}Create database${R}"
 /var/www/nettemp/modules/reset/reset
@@ -142,6 +137,14 @@ fi
 
 echo -e "${GREEN} UPS status function${R}"
 /var/www/nettemp/modules/ups/install
+
+
+
+echo -e "${GREEN}Add permisions${R}"
+ chown -R root.www-data /var/www/nettemp
+ chmod -R 775 /var/www/nettemp
+ gpasswd -a www-data dialout
+ #chmod +s /var/www/nettemp/modules/relays/gpio
 
 
 echo -e "${REDB}Restart RPI and make sure everything is ok${R}"

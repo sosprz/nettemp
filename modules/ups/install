@@ -13,3 +13,7 @@ sed -i 's|ISCONFIGURED=no|ISCONFIGURED=yes|g' /etc/default/apcupsd
 sed -i '/exit 0/i /bin/bash $dir/modules/ups/onbattery on' /etc/apcupsd/onbattery 
 sed -i '/exit 0/i /bin/bash $dir/modules/ups/onbattery off' /etc/apcupsd/offbattery 
 sed -i '$a @reboot  /etc/init.d/apcupsd start' /var/spool/cron/crontabs/root
+
+chown -R root.www-data $dir/modules/ups
+chmod -R 775 $dir/modules/ups
+
