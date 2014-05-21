@@ -1,0 +1,3 @@
+#! /bin/bash
+
+apcaccess |grep -E "^MODEL|^BATTV|^STATUS|^LINEV|^TIMELEFT|^BCHARGE"

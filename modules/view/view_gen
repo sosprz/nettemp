@@ -1,6 +1,6 @@
 #! /bin/bash 
 
-dir=/var/www/nettemp
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
 date=`date +%y%m%d-%H%M`
 
 rrd_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT rrd FROM settings"`

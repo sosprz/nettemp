@@ -1,6 +1,6 @@
 #! /bin/bash -x
 
-dir=/var/www/nettemp
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
 date=`date +%y%m%d-%H%M`
 
 
@@ -17,8 +17,9 @@ password=`sqlite3 $dir/dbf/nettemp.db "SELECT password FROM mail_settings"`
 subject=$2
 body=$3
 
+
+
 (echo "From: nettemp device"; echo "To: $reci"; echo "Subject: $subject"; echo -e "$body"; uuencode $4 $4 ) | msmtp \
---maildomain=nettemp.pl \
 --read-envelope-from \
 --host=$host --port=$port --auth=on --user=$user \
 --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \

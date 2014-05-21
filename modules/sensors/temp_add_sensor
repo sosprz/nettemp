@@ -1,8 +1,8 @@
 #! /bin/bash
 
 #rrd from calc http://eccentric.cx/misc/rrdcalc.html
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
 
-dir=/var/www/nettemp
 if [ -n "$1" ]; then
     gpio_humi=`echo "$1" | cut -c 1-2`
     humi_check=$(sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox FROM gpio where gpio='$gpio_humi'")

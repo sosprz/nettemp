@@ -47,6 +47,7 @@ function timedRefresh(timeoutPeriod) {
  <?php if ($numRows1 == 1 && ( $perms == "adm" )) { ?>
 	<li><a href='gpio'><span>Gpio</spam></a></li>
 	<li><a href='settings'><span>Settings</spam></a></li>
+	<li><a href='ups'><span>UPS</span></a></li> 
 	<li><a href='tools'><span>Tools</span></a></li> 
 	<li><a href='info'><span>Info</span></a></li>
  <?php } 
@@ -75,12 +76,13 @@ case 'sms': include('modules/notification/html/notification.php'); break;
 case 'mail': include('modules/notification/html/notification.php'); break;
 case 'alarms': include('modules/notification/html/notification.php'); break;
 case 'settings': include('modules/settings/settings.php'); break;
+case 'ups': include('modules/ups/html/ups.php'); break;
 }
 ?>
 
 </div>
 
-	<div id="footer">www.nettemp.pl v7.4.15
+	<div id="footer">www.nettemp.pl v7.5
 	</div>
 </div>
 

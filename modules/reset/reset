@@ -1,7 +1,6 @@
 #! /bin/bash  
-#dir=../..
-dir=/var/www/nettemp
 
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
 date=`date +%y%m%d-%H%M`
 
 rm -rf $dir/dbf/nettemp.db
