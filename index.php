@@ -82,7 +82,7 @@ case 'ups': include('modules/ups/html/ups.php'); break;
 
 </div>
 
-	<div id="footer">www.nettemp.pl v7.4.16
+	<div id="footer">www.nettemp.pl v7.5
 	</div>
 </div>
 
