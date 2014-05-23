@@ -138,6 +138,9 @@ fi
 echo -e "${GREEN} UPS status function${R}"
 /var/www/nettemp/modules/ups/install
 
+echo -e "${GREEN} kWh function${R}"
+/var/www/nettemp/modules/kwh/install
+
 
 
 echo -e "${GREEN}Add permisions${R}"
