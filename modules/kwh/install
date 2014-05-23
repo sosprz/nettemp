@@ -1,0 +1,11 @@
+#! /bin/bash
+
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
+
+sqlite3 $dir/dbf/nettemp.db  "ALTER TABLE gpio ADD gpio_kwh type TEXT";
+sqlite3 $dir/dbf/nettemp.db  "ALTER TABLE gpio ADD gpio_kwh_divider type TEXT";
+
+sed -i '$a @reboot '$dir'/modules/kwh/reset' /var/spool/cron/crontabs/root
+
+chown -R root.www-data $dir/modules/kwh
+chmod -R 775 $dir/modules/kwh

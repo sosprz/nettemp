@@ -1,0 +1,6 @@
+#! /bin/bash
+
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
+
+kwh=$(cat $dir/db/kwh.all  | awk -F "," '{ sum+=$2} END {print sum}')
+echo "$kwh kWh"

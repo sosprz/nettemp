@@ -1,0 +1,33 @@
+#!/bin/bash
+
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
+mkdir -p $dir/tmp/kwh
+gpio=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio FROM gpio WHERE gpio_kwh='on'")
+divider=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio_kwh_divider FROM gpio WHERE $gpio")
+
+
+if [ -n "$gpio" ]; then
+
+while :
+do
+    i=$(cat $dir/tmp/kwh/kwh_count_$(date +%y%m%d))
+    status=$(gpio -g read $gpio)
+    
+    if [ "$status" == "1" ]; then
+        sleep 0.5 
+	i=$((i+1))
+	
+	echo $i > $dir/tmp/kwh/kwh_count_$(date +%y%m%d)
+    	echo "$[($(date +%s)+7200)*1000],$[$i/$divider]" > $dir/tmp/kwh/kwh_daily_$(date +%y%m%d)
+	cat $dir/tmp/kwh/kwh_daily* > $dir/db/kwh.all
+	echo $(echo '[' ; cat $dir/db/kwh.all |sed -e 's/^/[/'|sed -e 's/,$/,/'|sed -e 's/\([^,]\)$/\1\],/' |sed '$s/,$//' ; echo  ']') > $dir/db/data.json 
+    fi
+done
+else 
+    echo "no gpio"
+fi
+
+
+
+
+
