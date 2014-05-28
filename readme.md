@@ -18,6 +18,9 @@ USERS:
     temp temp - access only for sensors settings
 
 Changelog:
+7.5.1
+Add gpio high state counter. kWh counter.
+
 7.5
 Add UPS function, connect nettemp to Your UPS over USB (apcupsd)
 

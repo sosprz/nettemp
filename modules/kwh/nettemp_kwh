@@ -10,13 +10,17 @@ if [ -n "$gpio" ]; then
 
 while :
 do
+    sleep 1
+    if [ ! -e $dir/tmp/kwh/kwh_count_$(date +%y%m%d) ]; then
+	i=0
+	echo "count reset new day"
+    fi
+    
     i=$(cat $dir/tmp/kwh/kwh_count_$(date +%y%m%d))
     status=$(gpio -g read $gpio)
-    
     if [ "$status" == "1" ]; then
-        sleep 0.5 
-	i=$((i+1))
-	
+        i=$((i+1))
+	echo $i
 	echo $i > $dir/tmp/kwh/kwh_count_$(date +%y%m%d)
     	echo "$[($(date +%s)+7200)*1000],$[$i/$divider]" > $dir/tmp/kwh/kwh_daily_$(date +%y%m%d)
 	cat $dir/tmp/kwh/kwh_daily* > $dir/db/kwh.all
