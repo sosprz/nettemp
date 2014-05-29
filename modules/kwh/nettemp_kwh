@@ -10,7 +10,7 @@ if [ -n "$gpio" ]; then
 while :
 do
     sleep 0.1
-    #SLEEP=$(($RANDOM % 300))
+    #SLEEP=$(($RANDOM % 10))
     #sleep $SLEEP
     
     if [ ! -e $dir/tmp/kwh/kwh_count_$(date +%y%m%d) ]; then
@@ -21,11 +21,11 @@ do
     status=$(gpio -g read $gpio)
     if [ "$status" == "$hilo" ]; then
         i=$((i+1))
-	echo $i
+	echo $i imp
 	echo $i > $dir/tmp/kwh/kwh_count_$(date +%y%m%d)
 	time1=$(cat $dir/tmp/kwh/timestamp)
+	echo $(date +%s) > $dir/tmp/kwh/timestamp
 	time2=$(date +%s)
-	echo $time2 > $dir/tmp/kwh/timestamp
 	diff=$[$time2 - $time1]
 	if [ "$diff" == "0" ]; then 
 	diff="1"
@@ -33,7 +33,8 @@ do
 	wh=$[3600/$diff]
 	echo $wh Wh
 	echo $wh > $dir/tmp/kwh/wh
-	echo $(date +%s) > $dir/tmp/kwh/timestamp
+	unset time1
+	unset time2
     fi
 done
 else 
