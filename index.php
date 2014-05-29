@@ -84,7 +84,7 @@ case 'kwh': include('modules/kwh/html/status.php'); break;
 
 </div>
 
-	<div id="footer">www.nettemp.pl v7.5.1
+	<div id="footer">www.nettemp.pl v7.5.2
 	</div>
 </div>
 

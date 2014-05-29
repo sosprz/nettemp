@@ -1,30 +1,37 @@
 #!/bin/bash
 
 dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
-mkdir -p $dir/tmp/kwh
+mkdir -p $dir/tmp/kwh 1> /dev/null
 gpio=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio FROM gpio WHERE gpio_kwh='on'")
-divider=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio_kwh_divider FROM gpio WHERE $gpio")
-
+hilo="1"
 
 if [ -n "$gpio" ]; then
 
 while :
 do
-    sleep 1
+    sleep 0.1
+
     if [ ! -e $dir/tmp/kwh/kwh_count_$(date +%y%m%d) ]; then
 	i=0
-	echo "count reset new day"
     fi
     
-    i=$(cat $dir/tmp/kwh/kwh_count_$(date +%y%m%d))
+    i=$(cat $dir/tmp/kwh/kwh_count_$(date +%y%m%d) 2> /dev/null )
     status=$(gpio -g read $gpio)
-    if [ "$status" == "1" ]; then
+    if [ "$status" == "$hilo" ]; then
         i=$((i+1))
 	echo $i
 	echo $i > $dir/tmp/kwh/kwh_count_$(date +%y%m%d)
-    	echo "$[($(date +%s)+7200)*1000],$[$i/$divider]" > $dir/tmp/kwh/kwh_daily_$(date +%y%m%d)
-	cat $dir/tmp/kwh/kwh_daily* > $dir/db/kwh.all
-	echo $(echo '[' ; cat $dir/db/kwh.all |sed -e 's/^/[/'|sed -e 's/,$/,/'|sed -e 's/\([^,]\)$/\1\],/' |sed '$s/,$//' ; echo  ']') > $dir/db/data.json 
+	time1=$(cat $dir/tmp/kwh/timestamp)
+	time2=$(date +%s)
+	echo $time2 > $dir/tmp/kwh/timestamp
+	diff=$[$time2 - $time1]
+	if [ "$diff" == "0" ]; then 
+	diff="1"
+	fi
+	wh=$[3600/$diff]
+	echo $wh Wh
+	echo $wh > $dir/tmp/kwh/wh
+	echo $(date +%s) > $dir/tmp/kwh/timestamp
     fi
 done
 else 
