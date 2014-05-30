@@ -7,17 +7,16 @@ if [[ "`pidof -x $(basename $0) -o %PPID`" ]]; then echo "Already running" && ex
 mkdir -p $dir/tmp/kwh 1> /dev/null
 gpio=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio FROM gpio WHERE gpio_kwh='on'")
 divider=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio_kwh_divider FROM gpio WHERE $gpio")
-
-hilo="1"
+hilo=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio_kwh_hilo FROM gpio WHERE $gpio")
 
 
 if [ -n "$gpio" ]; then
 
 while :
 do
-    sleep 0.1
-    #SLEEP=$(($RANDOM % 10))
-    #sleep $SLEEP
+    #sleep 0.1
+    SLEEP=$(($RANDOM % 10))
+    sleep $SLEEP
     
     if [ ! -e $dir/tmp/kwh/kwh_count_$(date +%y%m%d) ]; then
 	i=0
