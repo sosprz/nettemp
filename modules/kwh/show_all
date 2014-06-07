@@ -2,7 +2,10 @@
 
 dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
 
-kwh=$(cat $dir/db/kwh.all  | awk -F "," '{ sum+=$2} END {print sum}')
+gpio=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio FROM gpio WHERE gpio_kwh='on'")
+divider=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio_kwh_divider FROM gpio WHERE $gpio")
+
+kwh=$(cat $dir/db/kwh.all  | awk -F "," '{ sum+=$2 / '$divider' } END {print sum }')
 wh=$(cat $dir/tmp/kwh/wh)
 echo "All consumption: $kwh kWh"
 echo "Current consumption: $wh Wh "
