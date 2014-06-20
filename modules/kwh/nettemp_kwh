@@ -28,18 +28,19 @@ do
         i=$((i+1))
 	echo $i imp
 	echo $i > $dir/tmp/kwh/kwh_count_$(date +%y%m%d)
-	time1=$(cat $dir/tmp/kwh/timestamp)
-	echo $(date +%s) > $dir/tmp/kwh/timestamp
-	time2=$(date +%s)
-	diff=$[$time2 - $time1]
-	if [ "$diff" == "0" ]; then 
-	diff="1"
-	fi
-	wh=$(echo "scale=3; ((1000/$divider*(3.6*1000))/$divider)/$diff" |bc -l | tr -d '.')
-	echo $wh Wh
-	echo $wh > $dir/tmp/kwh/wh
-	unset time1
-	unset time2
+
+#	time1=$(cat $dir/tmp/kwh/timestamp)
+#	echo $(date +%s) > $dir/tmp/kwh/timestamp
+#	time2=$(date +%s)
+#	diff=$[$time2 - $time1]
+#	if [ "$diff" == "0" ]; then 
+#	diff="1"
+#	fi
+#	wh=$(echo "scale=3; ((1000/$divider*(3.6*1000))/$divider)/$diff" |bc -l | tr -d '.')
+#	echo $wh Wh
+#	echo $wh > $dir/tmp/kwh/wh
+#	unset time1
+#	unset time2
     fi
 done
 else 
