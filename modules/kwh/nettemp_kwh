@@ -16,7 +16,7 @@ while :
 do
     sleep 0.1
     #SLEEP=$(($RANDOM % 10))
-    sleep $SLEEP
+    #sleep $SLEEP
     
     if [ ! -e $dir/tmp/kwh/kwh_count_$(date +%y%m%d) ]; then
 	i=0
