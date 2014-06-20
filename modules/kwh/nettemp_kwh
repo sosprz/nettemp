@@ -14,7 +14,7 @@ if [ -n "$gpio" ]; then
 
 while :
 do
-    sleep 0.1
+    
     #SLEEP=$(($RANDOM % 10))
     #sleep $SLEEP
     
@@ -41,6 +41,7 @@ do
 #	echo $wh > $dir/tmp/kwh/wh
 #	unset time1
 #	unset time2
+	sleep 0.5
     fi
 done
 else 
