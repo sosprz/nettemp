@@ -1,7 +1,6 @@
 <span class="belka">&nbsp Sensors status<span class="okno"> 
+
 <?php
-
-
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
