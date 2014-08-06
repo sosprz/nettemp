@@ -67,7 +67,7 @@ if [ $send_mail == on ]; then
 		    dir_ls=`ls $dir/$dirs/`
 		for kolejka in $dir_ls  
 		    do
-	        	if [ `cat $dir/$dirs/$kolejka |wc -l` -gt 3 ] ; then 
+	        	if [ `cat $dir/$dirs/$kolejka |wc -l` -gt 4 ] ; then 
 	        	    chmod 777 $dir/$dirs/$kolejka
 	        	  		cat $dir/$dirs/$kolejka | msmtp --maildomain=default --read-envelope-from --host=$host --port=$port --auth=on --user=$user \
 					    --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
