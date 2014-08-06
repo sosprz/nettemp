@@ -43,17 +43,18 @@ if [ $create_mail == on ]; then
 	    echo "From: nettemp device" > $plik
 	    echo "To: $get_mail" >> $plik
 	    echo "Subject: Notification from nettemp" >> $plik
+	    echo "" >> $plik
 	    fi
 
 	if [ -n "$tmp_max" ]; then
 	    #cr_ge=`echo "$tmp >= $tmp_max" | bc` #OLD BC
 	    cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
-	    if [ $cr_ge == 1 ]; then  echo "high temp $name $tmp C" >> $plik; fi
+	    if [ $cr_ge == 1 ]; then  echo "High temp $name $tmp C" >> $plik; fi
 	fi
 	if [ -n "$tmp_min" ]; then
 	    #cr_le=`echo "$tmp <= $tmp_min" | bc` #OLD BC
 	    cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
-	    if [ $cr_le == 1 ]; then  echo "low temp $name $tmp C" >> $plik; fi
+	    if [ $cr_le == 1 ]; then  echo "Low temp $name $tmp C" >> $plik; fi
 	fi
     done 
 
