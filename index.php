@@ -86,7 +86,7 @@ case 'kwh': include('modules/kwh/html/status.php'); break;
 
 </div>
 
-	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v7.5.2</td></tr></table></center>
+	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v7.6</td></tr></table></center>
 </div>
 </div>
 
