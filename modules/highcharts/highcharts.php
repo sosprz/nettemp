@@ -1,5 +1,3 @@
-<span class="belka">&nbsp Highcharts<span class="okno">
-
 <div id="content"></div>
 
     <script type="text/javascript" src="modules/highcharts/js/jquery.min.js"></script>
@@ -51,5 +49,3 @@
 
     </script>
 </script>
-</span>
-</span>

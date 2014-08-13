@@ -9,22 +9,55 @@ if [ "$hc_onoff" == "on" ]; then
 
 rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors")
 
-
 	array[0]="rrdtool xport -s now-24h -e now --step 60 "
 	ar=1
-	for i in $rom; 
-    		do
+	for i in $rom; do
+		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
+		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
+		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
+		let ar=ar+1
+	done
+        array[$ar]="> $dir/tmp/highcharts.xml"
+	eval ${array[@]}
+	unset array 
 
-	name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-	id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-	array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-	let ar=ar+1
-done
+	array[0]="rrdtool xport -s now-168h -e now --step 60 "
+	ar=1
+	for i in $rom; do
+		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
+		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
+		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
+		let ar=ar+1
+	done
+        array[$ar]="> $dir/tmp/highcharts_week.xml"
+	eval ${array[@]}
+	unset array 
 
-    array[$ar]="> $dir/tmp/highcharts.xml"
+	array[0]="rrdtool xport -s now-672h -e now --step 60 "
+	ar=1
+	for i in $rom; do
+		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
+		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
+		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
+		let ar=ar+1
+	done
+        array[$ar]="> $dir/tmp/highcharts_month.xml"
+	eval ${array[@]}
+	unset array 
 
-eval ${array[@]}
-unset array 
+array[0]="rrdtool xport -s now-8064h -e now --step 600 "
+	ar=1
+	for i in $rom; do
+		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
+		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
+		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
+		let ar=ar+1
+	done
+        array[$ar]="> $dir/tmp/highcharts_year.xml"
+	eval ${array[@]}
+	unset array 
+
+
 
 else 
 echo "highcharts off"

@@ -20,7 +20,7 @@ function timedRefresh(timeoutPeriod) {
     //   -->
 </script>
 </head>
-<body onload="JavaScript:timedRefresh(60000);">
+<!-- <body onload="JavaScript:timedRefresh(60000);"> -->
 
 <?php ob_start(); ?>
 
@@ -67,7 +67,7 @@ switch ($id)
 default: case '$id': include('modules/status/html/status.php'); break;
 case 'notification': include('modules/notification/html/notification.php'); break;
 case 'sensors': include('modules/sensors/html/sensors.php'); break;
-case 'view': include('modules/view/html/view.php'); break;
+case 'view': include('modules/highcharts/menu.php'); break;
 case 'diened': include('modules/login/diened.php'); break;
 case 'diag': include('modules/diag/html/diag.php'); break;
 case 'tools': include('modules/tools/html/tools.php'); break;
@@ -79,6 +79,8 @@ case 'alarms': include('modules/notification/html/notification.php'); break;
 case 'settings': include('modules/settings/settings.php'); break;
 case 'ups': include('modules/ups/html/ups.php'); break;
 case 'kwh': include('modules/kwh/html/status.php'); break;
+//case 'day': include('modules/highcharts/highcharts.php'); break;
+//case 'week': include('modules/highcharts/highcharts_week.php'); break;
 }
 ?>
 
