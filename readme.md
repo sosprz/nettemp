@@ -19,7 +19,7 @@ USERS:
     admin admin - access for all
 
 Changelog:
-7.5.3
+7.6
 Add to highcharts more views: week, month, year
 
 7.5.2
