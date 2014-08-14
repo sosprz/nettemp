@@ -19,6 +19,13 @@ USERS:
     admin admin - access for all
 
 Changelog:
+
+7.6.1
+Fix crash when add humi on Rpi B
+
+7.6 
+Add to highcharts more views: week, month, year
+
 7.5.3
 Add to highcharts more views: week, month, year
 
