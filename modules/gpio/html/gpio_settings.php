@@ -156,7 +156,7 @@ if ($_POST['xtriggeron'] == "xtriggerON")  {
 }
 $humi_checkbox=$_POST['humi_checkbox'];
 if ($_POST['xhumion'] == "xhumiON")  {
-	 exec("/usr/local/bin/gpio reset $gpio_post ");
+//	 exec("/usr/local/bin/gpio reset $gpio_post ");
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $sth = $db1->prepare("select * from gpio where gpio='$gpio_post'");
     $sth->execute();
