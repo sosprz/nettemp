@@ -1,0 +1,16 @@
+#! /bin/bash -x
+
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
+date=`date +%y%m%d-%H%M`
+name=$(sqlite3 $dir/dbf/snmp.db "SELECT name FROM snmp")
+    for snmp in $name; do 
+	community=$(sqlite3 $dir/dbf/snmp.db "SELECT community FROM snmp WHERE name='$snmp'")
+	host=$(sqlite3 $dir/dbf/snmp.db "SELECT host FROM snmp WHERE name='$snmp'")
+	oid=$(sqlite3 $dir/dbf/snmp.db "SELECT oid FROM snmp WHERE name='$snmp'")
+	divider=$(sqlite3 $dir/dbf/snmp.db "SELECT divider FROM snmp WHERE name='$snmp'")
+	walk=$(snmpwalk -v 2c -c $community $host $oid -O v)
+        wynik=`echo $walk | awk '{printf "%3.1f\n", $2/'$divider' }'`  
+	rrdtool update $dir/db/$name.rrd N:$wynik
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name'"
+	echo $wynik
+     done

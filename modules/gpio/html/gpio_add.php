@@ -13,7 +13,7 @@ if ($_POST['del'] == "DEL") {
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("DELETE FROM gpio WHERE gpio='$gpioad'") or die ($db->lastErrorMsg());
 	$db = NULL;
-	exec("/usr/local/bin/gpio reset $gpioad");
+	//exec("/usr/local/bin/gpio reset $gpioad");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit(); 
 } ?>

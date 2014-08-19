@@ -213,3 +213,11 @@ else
     echo "INFO: no DHT device"
 fi
 
+######################
+#
+# SNMP
+#
+######################
+
+$dir/modules/snmp/snmp_read
+

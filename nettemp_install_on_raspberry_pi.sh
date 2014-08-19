@@ -25,7 +25,7 @@ if [ "$y" = "y" ]; then
 fi
 
 echo -e "${GREEN}Install packages${R}"
- apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat command-not-found sharutils bc htop
+ apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat command-not-found sharutils bc htop snmp
 
 echo -e "${GREEN}Enable module: fastcgi-php${R}"
  lighty-enable-mod fastcgi-php
@@ -141,7 +141,8 @@ echo -e "${GREEN} UPS status function${R}"
 echo -e "${GREEN} kWh function${R}"
 /var/www/nettemp/modules/kwh/install
 
-
+echo -e "${GREEN} SNMP function${R}"
+/var/www/nettemp/modules/snmp/install
 
 echo -e "${GREEN}Add permisions${R}"
  chown -R root.www-data /var/www/nettemp

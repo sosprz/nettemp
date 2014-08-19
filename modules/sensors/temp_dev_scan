@@ -5,6 +5,9 @@ dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ 
 date=`date +%y%m%d-%H%M`
 
 rm -rf $dir/tmp/.digitemprc
+rm -rf $dir/tmp/onewire
+
+
 echo "$date temp_dev_scan - Deleted .digitemprc" >> $dir/tmp/log.txt
 
 # DS9097U na USB - meraprojekt new
@@ -76,7 +79,7 @@ if [ -e /sys/bus/w1/devices/w1_bus_master1/w1_master_slaves ]; then
 	#modprobe w1_gpio
 	#modprobe w1_therm
 
-	rm $dir/tmp/onewire
+	
 for sensor in `cat /sys/bus/w1/devices/w1_bus_master1/w1_master_slaves`; do 
 
 	
@@ -110,6 +113,13 @@ for dht_gpio in $dht; do
  dht2="_humi"
  echo "$dht1$dht2" >> $dir/tmp/onewire
 done
+
+# snmp
+snmp=`sqlite3 $dir/dbf/snmp.db "SELECT name FROM snmp"`
+for name in $snmp; do 
+ echo "$name" >> $dir/tmp/onewire
+done
+
 
 
 

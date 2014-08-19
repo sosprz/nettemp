@@ -46,9 +46,10 @@ function timedRefresh(timeoutPeriod) {
    		<?php } ?>
  <?php if ($numRows1 == 1 && ( $perms == "adm" )) { ?>
 	<li><a href='gpio'><span>Gpio</spam></a></li>
+	<li><a href='snmp'><span>SNMP</spam></a></li>
 	<li><a href='kwh'><span>kWh metter</spam></a></li>
 	<li><a href='ups'><span>UPS</span></a></li> 
-<li><a href='settings'><span>Settings</spam></a></li>
+	<li><a href='settings'><span>Settings</spam></a></li>
 	<li><a href='tools'><span>Tools</span></a></li> 
 	<li><a href='info'><span>Info</span></a></li>
  <?php } 
@@ -79,14 +80,13 @@ case 'alarms': include('modules/notification/html/notification.php'); break;
 case 'settings': include('modules/settings/settings.php'); break;
 case 'ups': include('modules/ups/html/ups.php'); break;
 case 'kwh': include('modules/kwh/html/status.php'); break;
-//case 'day': include('modules/highcharts/highcharts.php'); break;
-//case 'week': include('modules/highcharts/highcharts_week.php'); break;
+case 'snmp': include('modules/snmp/html/snmp.php'); break;
 }
 ?>
 
 </div>
 
-	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v7.6</td></tr></table></center>
+	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v7.6.2</td></tr></table></center>
 </div>
 </div>
 
