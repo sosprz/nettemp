@@ -8,7 +8,7 @@ foreach ($result as $a) {
 $rrd=$a["rrd"];
 $hc=$a["highcharts"];
 }
-if ($hc == "on" ) { include("modules/highcharts/highcharts.php"); }
+if ($hc == "on" ) { include("modules/highcharts/menu.php"); }
 if ($rrd == "on" ) { include("modules/view/html/view_graph.php"); }
 else { ?>
 <span class="belka">&nbsp Info<span class="okno">

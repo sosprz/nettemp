@@ -69,7 +69,8 @@ switch ($id)
 default: case '$id': include('modules/status/html/status.php'); break;
 case 'notification': include('modules/notification/html/notification.php'); break;
 case 'sensors': include('modules/sensors/html/sensors.php'); break;
-case 'view': include('modules/highcharts/menu.php'); break;
+//case 'view': include('modules/highcharts/menu.php'); break;
+case 'view': include('modules/view/html/view.php'); break;
 case 'view2': include('modules/highcharts/snmp_menu.php'); break;
 case 'diened': include('modules/login/diened.php'); break;
 case 'diag': include('modules/diag/html/diag.php'); break;
