@@ -7,7 +7,7 @@ hc_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT highcharts FROM settings"`
 if [ "$hc_onoff" == "on" ]; then
 
 
-rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors")
+rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='temp' OR type='humi'")
 
 	array[0]="rrdtool xport -s now-24h -e now --step 60 "
 	ar=1
@@ -59,7 +59,7 @@ array[0]="rrdtool xport -s now-8064h -e now --step 600 "
 
 ############## view2
 
-rom=$(sqlite3 $dir/dbf/snmp.db "SELECT name from snmp")
+rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='snmp'")
 
 	array[0]="rrdtool xport -s now-24h -e now --step 60 "
 	ar=1
