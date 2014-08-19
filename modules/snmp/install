@@ -1,0 +1,8 @@
+#! /bin/bash
+
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
+
+$dir/modules/reset/snmp
+
+chown -R root.www-data $dir/modules/kwh
+chmod -R 775 $dir/modules/kwh

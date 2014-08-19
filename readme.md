@@ -19,6 +19,8 @@ USERS:
     admin admin - access for all
 
 Changelog:
+7.6.2
+add SNMP client
 
 7.6.1
 Fix crash when add humi on Rpi B
