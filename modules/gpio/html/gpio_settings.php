@@ -167,7 +167,16 @@ if ($_POST['xhumion'] == "xhumiON")  {
      	}
     	else { 
     	$db->exec("UPDATE gpio SET humi_checkbox='on' where gpio='$gpio_post' ") or die("exec error");
-     	}
+	$file = 'tmp/onewire';
+	$current = file_get_contents($file);
+	$humi = "gpio_" . "$gpio_post" . "_humi";
+	$current .= "$humi\n";
+	file_put_contents($file, $current);
+	$current2 = file_get_contents($file);
+	$temp = "gpio_" . "$gpio_post" . "_temp";
+	$current2 .= "$temp\n";
+	file_put_contents($file, $current2);
+	}
     }
     $db = NULL;
 	header("location: " . $_SERVER['REQUEST_URI']);

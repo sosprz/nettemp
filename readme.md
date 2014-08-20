@@ -20,6 +20,12 @@ USERS:
 
 Changelog:
 
+7.6.3
+fix read temps
+fix dht
+remove snmp from view highcharts
+remove snmp form view rrd
+change session timeout to 5min
 
 7.6.2
 add SNMP client

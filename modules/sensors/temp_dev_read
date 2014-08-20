@@ -122,7 +122,7 @@ name_str=${#name}
 if [ $name_str -lt "20" ] && [ $name_str -gt "11" ]; then
     one_wire_name=`echo $name |awk 'sub("....$", "")'`
     name_1=`cat $dir/tmp/onewire |grep $one_wire_name`
-    if [ "$name_1" != "Raspberry_Pi" ]; then    
+    if [ "$name_1" != "Raspberry_Pi" ] && echo "$name_1" | grep -q -v snmp; then    
 	if  [ -e /sys/bus/w1/devices/${name_1}/w1_slave ]; then
 	    wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.1f\n", $11/1000 } ' /sys/bus/w1/devices/${name_1}/w1_slave;`
 	    echo 1-wire: $wynik C
@@ -207,6 +207,7 @@ if [ -n "$gpio_list_0" ]; then
 	    fi
 	else 
     	    echo "$date temp_dev_read - Error when reding Humi sensor from gpio $gpio_list" >> $dir/tmp/log.txt    
+	    echo DHT: Read error
 	fi
     done
 else

@@ -22,7 +22,7 @@ rm -rf $dir/img/view1/*.png
 for rrd_time0 in hour day week month year
 do
     if [ -n "rrd_$rrd_time0" ]; then 
-    export rrd_$rrd_time0="`sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE $rrd_time0='on' "`"
+    export rrd_$rrd_time0="`sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE $rrd_time0='on' AND type='humi' OR type='temp' "`"
     fi
 done
 
