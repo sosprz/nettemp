@@ -73,7 +73,7 @@ $result = $sth->fetchAll();
 foreach ($result as $a) { 
 ?>
 	<tr>
-	<td><img src="media/ico/User-Preppy-Blue-icon.png" ></td>
+	<td><img src="media/ico/snmp-icon.png" ></td>
 	<td><?php echo $a["name"];?></td>
 	<td><?php echo $a["community"];?></td>
 	<td><?php echo $a["host"]; ?></td>
