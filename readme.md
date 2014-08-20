@@ -18,6 +18,14 @@ USERS:
 
     admin admin - access for all
 
+![alt tag](https://raw.github.com/sosprz/nettemp/beta/2nettemp_view.jpg)
+![alt tag](https://raw.github.com/sosprz/nettemp/beta/1nettemp_status.jpg)
+![alt tag](https://raw.github.com/sosprz/nettemp/beta/3nettemp_snmp.jpg)
+![alt tag](https://raw.github.com/sosprz/nettemp/beta/4nettemp_sensors.jpg)
+![alt tag](https://raw.github.com/sosprz/nettemp/beta/5nettemp_tools.jpg)
+![alt tag](https://raw.github.com/sosprz/nettemp/beta/6nettemp_gpio.jpg)
+
+
 Changelog:
 
 7.6.3
