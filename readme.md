@@ -29,6 +29,7 @@ USERS:
 Changelog:
 
 7.6.3
+fix snmp in status
 fix read temps
 fix dht
 remove snmp from view highcharts
