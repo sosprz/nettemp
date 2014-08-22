@@ -2,7 +2,7 @@
 
 dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
 dir2=$dir/tmp/system_stats
-mkdir -p $dir2
+#mkdir -p $dir2
 
 if [ ! -e $dir/db/cpu.rrd ]
 then { echo "tworze bazy";
@@ -38,7 +38,7 @@ rrdtool update $dir/db/memory.rrd N:$memory
 
 for i in hour day week month
 do 
-rrdtool graph $dir2/$i.png \
+rrdtool graph $dir/tmp/system_stats/$i.png \
 --imgformat PNG \
 --title="$i" \
 --width 390 --height 150 \
