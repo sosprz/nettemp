@@ -14,11 +14,11 @@
 <?php  
 switch ($art)
 { 
-default: case '$art': include('modules/highcharts/snmp_highcharts.php'); break;
-case 'day': include('modules/highcharts/snmp_highcharts.php'); break;
-case 'week': include('modules/highcharts/snmp_highcharts_week.php'); break;
-case 'month': include('modules/highcharts/snmp_highcharts_month.php'); break;
-case 'year': include('modules/highcharts/snmp_highcharts_year.php'); 
+default: case '$art': include('modules/highcharts/html/snmp_highcharts.php'); break;
+case 'day': include('modules/highcharts/html/snmp_highcharts.php'); break;
+case 'week': include('modules/highcharts/html/snmp_highcharts_week.php'); break;
+case 'month': include('modules/highcharts/html/snmp_highcharts_month.php'); break;
+case 'year': include('modules/highcharts/html/snmp_highcharts_year.php'); 
 }
 ?>
 

@@ -27,6 +27,8 @@ USERS:
 
 
 Changelog:
+7.6.4
+clean in highcharts
 
 7.6.4
 Move humi results to separate graph.

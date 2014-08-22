@@ -14,11 +14,11 @@
 <?php  
 switch ($art)
 { 
-default: case '$art': include('modules/highcharts/humi_highcharts.php'); break;
-case 'day': include('modules/highcharts/humi_highcharts.php'); break;
-case 'week': include('modules/highcharts/humi_highcharts_week.php'); break;
-case 'month': include('modules/highcharts/humi_highcharts_month.php'); break;
-case 'year': include('modules/highcharts/humi_highcharts_year.php'); 
+default: case '$art': include('modules/highcharts/html/humi_highcharts.php'); break;
+case 'day': include('modules/highcharts/html/humi_highcharts.php'); break;
+case 'week': include('modules/highcharts/html/humi_highcharts_week.php'); break;
+case 'month': include('modules/highcharts/html/humi_highcharts_month.php'); break;
+case 'year': include('modules/highcharts/html/humi_highcharts_year.php'); 
 }
 ?>
 
