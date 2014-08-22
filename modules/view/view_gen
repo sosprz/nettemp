@@ -5,7 +5,7 @@ date=`date +%y%m%d-%H%M`
 
 mkdir -p $dir/tmp/humi_view
 mkdir -p $dir/tmp/snmp_view
-mkdir -p $dir/tmp/ds_view
+mkdir -p $dir/tmp/temp_view
 
 rrd_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT rrd FROM settings"`
 
@@ -38,7 +38,7 @@ varinvar=rrd_$time
 if [ -n "${!varinvar}" ]; then 
 
     i=1
-    array[0]="rrdtool graph $dir/tmp/ds_view/$time.png 
+    array[0]="rrdtool graph $dir/tmp/temp_view/$time.png 
     --imgformat PNG 
     --title=\"$time\" 
     --width 894 
@@ -97,7 +97,7 @@ if [ -n "${!varinvar}" ]; then
     --title=\"$time\" 
     --width 894 
     --height 300 
-    --vertical-label=\"Degrees C\" 
+    --vertical-label=\"H (%)\" 
     -s -1$time 
     COMMENT:'\t \l'
     COMMENT:'\t              Current\t    Min\t    Max\t  Average\t \l'

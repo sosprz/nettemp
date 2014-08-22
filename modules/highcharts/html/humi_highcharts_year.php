@@ -3,6 +3,7 @@
     <script type="text/javascript" src="modules/highcharts/js/jquery.min.js"></script>
     <script type="text/javascript" src="modules/highcharts/js/highcharts.js"></script>
     <script type="text/javascript" src="modules/highcharts/js/chart.min.js" charset="utf-8"></script>
+    <script src="modules/kwh/html/js/exporting.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
 
@@ -36,6 +37,7 @@
                 });
             });
             options.title.text = "Humidity of the last year"
+	    options.yAxis.title.text ="H (%)"
             $.each(series, function(index) {
               options.series.push(series[index]);
             });

@@ -27,7 +27,12 @@ USERS:
 
 
 Changelog:
-7.6.4
+
+7.6.6
+add (H %) to humi highcharts
+add print option to charts
+
+7.6.5
 clean in highcharts
 
 7.6.4
