@@ -3,16 +3,16 @@
 <?php
 include("modules/login/login_check.php");
 
-$arrayFiles=glob('img/view1/*');
+$arrayFiles=glob('tmp/snmp_view/*');
 if($arrayFiles){
 //sort($arrayFiles);
 //  foreach ($arrayFiles as $filename) { ?>
 <table> 
-<tr><td><img src="img/view1/hour.png" /></td></tr>
-<tr><td><img src="img/view1/day.png" /></td></tr>
-<tr><td><img src="img/view1/week.png" /></td></tr>
-<tr><td><img src="img/view1/month.png" /></td></tr>
-<tr><td><img src="img/view1/year.png" /></td></tr>
+<tr><td><img src="tmp/snmp_view/hour.png" /></td></tr>
+<tr><td><img src="tmp/snmp_view/day.png" /></td></tr>
+<tr><td><img src="tmp/snmp_view/week.png" /></td></tr>
+<tr><td><img src="tmp/snmp_view/month.png" /></td></tr>
+<tr><td><img src="tmp/snmp_view/year.png" /></td></tr>
 </table>
 
 <?php

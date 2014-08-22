@@ -1,10 +1,10 @@
 <span class="belka">&nbsp Highcharts<span class="okno">
 
 <table><tr>
-<td><a href="index.php?id=view2&highcharts=day" ><button>day</button></a></td>
-<td><a href="index.php?id=view2&highcharts=week" ><button>week</button></a></td>
-<td><a href="index.php?id=view2&highcharts=month" ><button>month</button></a></td>
-<td><a href="index.php?id=view2&highcharts=year" ><button>year</button></a></td>
+<td><a href="index.php?id=view&type=snmp_view&highcharts=day" ><button>day</button></a></td>
+<td><a href="index.php?id=view&type=snmp_view&highcharts=week" ><button>week</button></a></td>
+<td><a href="index.php?id=view&type=snmp_view&highcharts=month" ><button>month</button></a></td>
+<td><a href="index.php?id=view&type=snmp_view&highcharts=year" ><button>year</button></a></td>
 </tr>
 </table>
 

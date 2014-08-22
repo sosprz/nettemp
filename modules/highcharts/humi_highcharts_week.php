@@ -8,7 +8,7 @@
 
         $.ajax({
           type: "GET",
-          url: "tmp/highcharts_month.xml",
+          url: "tmp/humi_highcharts_week.xml",
           dataType: "xml",
           success: function(xml) {
             var series = []
@@ -35,7 +35,7 @@
                     };
                 });
             });
-            options.title.text = "Temperatures of the last month"
+            options.title.text = "Humidity of the last week"
             $.each(series, function(index) {
               options.series.push(series[index]);
             });

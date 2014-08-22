@@ -28,6 +28,11 @@ USERS:
 
 Changelog:
 
+7.6.4
+Move humi results to separate graph.
+Add RRD to SNMP view, HUMI view
+One view 
+
 7.6.3
 fix snmp in status
 fix read temps
