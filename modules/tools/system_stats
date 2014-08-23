@@ -1,4 +1,4 @@
-#! /bin/bash -x
+#! /bin/bash
 
 dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
 dir2=$dir/tmp/system_stats
@@ -26,8 +26,9 @@ echo "bazy sa";
 }
 fi
 
-cpu=`mpstat |tail -1| awk '{print 100-$11}'`
+cpu=$(mpstat | grep all | sed -s 's/.* all// ; s/ * / /g' | cut -d ' ' -f10 | awk '{print 100-$1}')
 memory=`free | grep Mem | awk '{print $3/$2 * 100.0}'`
+
 
 echo $cpu
 echo $memory
