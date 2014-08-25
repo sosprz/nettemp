@@ -151,8 +151,8 @@ echo -e "${GREEN}Add permisions${R}"
  chown -R root.www-data /var/www/nettemp
  chmod -R 775 /var/www/nettemp
  gpasswd -a www-data dialout
- #chmod +s /var/www/nettemp/modules/relays/gpio
-
+ sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chmod *' /etc/sudoers
+ sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chgrp *' /etc/sudoers
 
 echo -e "${REDB}Restart RPI and make sure everything is ok${R}"
 

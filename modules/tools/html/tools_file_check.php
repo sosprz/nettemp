@@ -42,6 +42,8 @@ if (!is_writable($tmp)) { echo "<font color=\"#FF0000\">File $tmp not writable <
 //elseif (!is_readable($filename6)) { echo "<font color=\"#FF0000\">File $filename6 not readable </font><br />"; }
 //}
 
+include('tools_perms.php');
+
 ?>
 </span></span>
 
