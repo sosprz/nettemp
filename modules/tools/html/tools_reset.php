@@ -6,7 +6,7 @@ header("location: " . $_SERVER['REQUEST_URI']);
 exit();	
 }
 ?>
-<form action="tools" method="post">
+<form action="index.php?id=tools&type=reset" method="post">
 <input type="hidden" name="admin_db_reset" value="admin_db_reset1">
 <input  type="submit" value="Reset"  />
 </form>

@@ -35,7 +35,7 @@ function timedRefresh(timeoutPeriod) {
 <div id="tabs22">
 <ul> 
 	<li><a href='status'><span>Status</span></a></li>
-	<li><a href='view'><span>All View</span></a></li>
+	<li><a href='view'><span>Charts</span></a></li>
 
       <?php
 	session_start();
@@ -50,6 +50,7 @@ function timedRefresh(timeoutPeriod) {
 	<li><a href='kwh'><span>kWh metter</spam></a></li>
 	<li><a href='ups'><span>UPS</span></a></li> 
 	<li><a href='settings'><span>Settings</spam></a></li>
+	<li><a href='vpn'><span>VPN</span></a></li> 
 	<li><a href='tools'><span>Tools</span></a></li> 
 	<li><a href='info'><span>Info</span></a></li>
  <?php } 
@@ -73,7 +74,7 @@ case 'humi_view': include('modules/view/html/humi_view.php'); break;
 case 'temp_view': include('modules/view/html/temp_view.php'); break;
 case 'snmp_view': include('modules/view/html/snmp_view.php'); break;
 case 'diened': include('modules/login/diened.php'); break;
-case 'diag': include('modules/diag/html/diag.php'); break;
+case 'diag': include('modules/tools/html/tools_file_check.php'); break;
 case 'tools': include('modules/tools/html/tools.php'); break;
 case 'info': include('modules/info/info.php'); break;
 case 'gpio': include('modules/gpio/html/gpio.php'); break;
@@ -84,12 +85,13 @@ case 'settings': include('modules/settings/settings.php'); break;
 case 'ups': include('modules/ups/html/ups.php'); break;
 case 'kwh': include('modules/kwh/html/status.php'); break;
 case 'snmp': include('modules/snmp/html/snmp.php'); break;
+case 'vpn': include('modules/vpn/html/vpn.php'); break;
 }
 ?>
 
 </div>
 
-	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v7.6.6</td></tr></table></center>
+	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v7.6.7</td></tr></table></center>
 </div>
 </div>
 

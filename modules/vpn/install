@@ -1,0 +1,113 @@
+#!/bin/bash 
+
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
+
+if [ "$1" == "enable" ]; then
+sudo update-rc.d openvpn enable
+sudo service openvpn start
+elif [ "$1" == "disable" ]; then
+sudo update-rc.d openvpn disable
+sudo service openvpn stop
+fi
+
+if [ "$1" == "install" ]; then
+
+#INSTALL
+if [ $USER != 'root' ] || [ $USER != 'www-data' ]; then
+    echo "Sorry, you need to run this as root"
+    exit
+fi
+
+apt-get install openvpn
+
+#CREATE CA
+cd /usr/share/doc/openvpn/examples/easy-rsa/2.0
+chmod +x /usr/share/doc/openvpn/examples/easy-rsa/2.0/vars
+. ./vars
+#cd .. 
+./clean-all 
+## ./build-ca
+export KEY_COUNTRY="PL"
+export KEY_PROVINCE="PL"
+export KEY_CITY="GD"
+export KEY_ORG="techfreak.pl"
+export KEY_EMAIL="admin@techfreak.pl"
+export KEY_CN=nettemp
+export KEY_NAME=nettemp
+export KEY_OU=IT
+
+export EASY_RSA="${EASY_RSA:-.}"
+"$EASY_RSA/pkitool" --initca $*
+export EASY_RSA="${EASY_RSA:-.}"
+"$EASY_RSA/pkitool" --server server
+./build-dh
+
+#COPY ca
+cd /usr/share/doc/openvpn/examples/easy-rsa/2.0/keys/
+cp ca.crt server.crt server.key dh1024.pem /etc/openvpn/
+
+#CREATE openvpn.conf
+cat <<EOT > /etc/openvpn/openvpn.conf
+port 1194
+proto udp
+dev tun
+ca ca.crt
+cert server.crt
+key server.key 
+dh dh1024.pem
+server 10.8.0.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
+push "route $(ifconfig eth0 |grep inet |awk -F":" '{print $2 $4}' | sed 's/Bcast/ /g' | awk -F '.' '{printf("%d.%d.%d.%d", $1, $2, $3, 0)} {print " "255"."$5"."$6"."$7}')"
+keepalive 10 120
+comp-lzo
+persist-key
+persist-tun
+status openvpn-status.log
+log-append /var/log/openvpn.log
+verb 3
+plugin /usr/lib/openvpn/openvpn-auth-pam.so login
+client-cert-not-required
+username-as-common-name
+EOT
+
+#ADD TO AUTOSTART AND START
+#update-rc.d openvpn enable
+#service openvpn start
+
+#FORWARD
+forward=$(cat /proc/sys/net/ipv4/ip_forward)
+if [ $forward == "0" ]; then
+echo "add IP forward"
+sed -i -e '$anet.ipv4.ip_forward=1\' /etc/sysctl.conf
+sysctl -p
+else 
+echo "Forward exist"
+fi
+#IPTABLES
+if iptables -L -t nat | grep '10.8.0.0/24' 1>/dev/null; then 
+echo "Nat exist"
+else
+echo "Add NAT"
+iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -j MASQUERADE
+iptables-save > /etc/network/iptables
+fi
+if cat /etc/network/interfaces | grep 'iptables' 1>/dev/null; then
+echo "IPtables restore exist"
+else
+echo "Add IPtables restore"
+sed -i '/iface eth0/a pre-up iptables-restore < /etc/network/iptables' /etc/network/interfaces
+fi
+
+#PERMS
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/chpasswd *, /usr/sbin/useradd *, /usr/sbin/service *, /usr/sbin/update-rc.d *' /etc/sudoers 
+
+#DB
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE vpn ( id INTEGER PRIMARY KEY, users UNIQUE );"
+
+fi # end install if
+
+
+
+
+
+

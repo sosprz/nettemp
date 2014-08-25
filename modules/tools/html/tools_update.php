@@ -10,7 +10,7 @@ passthru('git pull 2>&1');
 //	exit();	
 	}
 	?>
-	<form action="tools" method="post">
+	<form action="index.php?id=tools&type=update" method="post">
 	  <input type="hidden" name="update" value="Update">
      <input  type="submit" value="Update"  />
      </form>   

@@ -144,6 +144,9 @@ echo -e "${GREEN} kWh function${R}"
 echo -e "${GREEN} SNMP function${R}"
 /var/www/nettemp/modules/snmp/install
 
+echo -e "${GREEN} OpenVPN serwer${R}"
+/var/www/nettemp/modules/vpn/install install
+
 echo -e "${GREEN}Add permisions${R}"
  chown -R root.www-data /var/www/nettemp
  chmod -R 775 /var/www/nettemp

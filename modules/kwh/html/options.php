@@ -11,7 +11,7 @@ $kwh_divider = $_POST["kwh_divider"];  //sql
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE gpio SET gpio_kwh_divider='$kwh_divider' WHERE gpio_kwh='on'") or die ($db->lastErrorMsg());
 	$db = NULL;
-	$reset="/bin/bash -x $global_dir/modules/kwh/reset";
+	$reset="/bin/bash $global_dir/modules/kwh/reset";
 	shell_exec("$reset");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
@@ -24,7 +24,7 @@ $kwh_divider = $_POST["kwh_divider"];  //sql
 	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
         $db->exec("UPDATE gpio SET gpio_kwh_hilo='$kwh_hilo' WHERE gpio='$gpio'") or die("name exec error");
 	$db = NULL;
-	$reset="/bin/bash -x $global_dir/modules/kwh/reset";
+	$reset="/bin/bash  $global_dir/modules/kwh/reset";
 	shell_exec("$reset");
 		header("location: " . $_SERVER['REQUEST_URI']);
 	exit();

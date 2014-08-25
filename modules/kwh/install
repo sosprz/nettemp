@@ -11,5 +11,7 @@ apt-get -y install bc
 sed -i '$a @reboot '$dir'/modules/kwh/reset' /var/spool/cron/crontabs/root
 sed -i '$a */1 * * * * '$dir'/modules/kwh/highcharts' /var/spool/cron/crontabs/root
 
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/bin/whoami, /usr/bin/killall *, /usr/bin/nohup *' /etc/sudoers
+
 chown -R root.www-data $dir/modules/kwh
 chmod -R 775 $dir/modules/kwh
