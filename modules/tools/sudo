@@ -1,0 +1,6 @@
+#! /bin/bash 
+
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/bin/whoami, /usr/bin/killall *, /usr/bin/nohup *' /etc/sudoers
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/chpasswd *, /usr/sbin/useradd *, /usr/sbin/userdel *, /usr/sbin/service *, /usr/sbin/update-rc.d *' /etc/sudoers
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chmod *' /etc/sudoers
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chgrp *' /etc/sudoers
