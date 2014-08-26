@@ -1,7 +1,7 @@
 <span class="belka">&nbsp Reboot<span class="okno">
 <?php
 if ($_POST['reboot'] == "reboot1") { 
-system ("reboot");
+system ("sudo /sbin/reboot");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();	
 }

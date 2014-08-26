@@ -124,8 +124,6 @@ echo -e "${GREEN}Add modules 1-wire${R}"
 echo -e "${GREEN}Add perms${R}"
 chmod +s /opt/vc/bin/vcgencmd
 chmod +s /var/www/nettemp/modules/sensors/Adafruit_DHT
-chmod +s /sbin/reboot
-
 
 echo -e "${GREEN}Add more security. If You use nettemp on external IP set additional passowrd${R}"
 echo "(Y)es or (N)ot"
@@ -154,8 +152,7 @@ echo -e "${GREEN}Add permisions${R}"
  chown -R root.www-data /var/www/nettemp
  chmod -R 775 /var/www/nettemp
  gpasswd -a www-data dialout
- sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chmod *' /etc/sudoers
- sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chgrp *' /etc/sudoers
+ sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chmod *, /bin/chgrp *, /sbin/reboot' /etc/sudoers
 
 echo -e "${REDB}Restart RPI and make sure everything is ok${R}"
 

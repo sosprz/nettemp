@@ -27,6 +27,10 @@ USERS:
 
 
 Changelog:
+7.7
+Add OpenVPN serwer
+Add Firewall option
+some bug fixes
 
 7.6.6
 add (H %) to humi highcharts
