@@ -11,6 +11,8 @@ rrd_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT rrd FROM settings"`
 
 if [ "$rrd_onoff" == "on" ]; then
 
+#rm -rf $dir/tmp/*view/*.png
+
 # DS
 
 usb=`sqlite3 $dir/dbf/nettemp.db "SELECT usb FROM device"`
@@ -22,7 +24,7 @@ else
 
 echo "$date view_gen - view generated" >> $dir/tmp/log.txt
 
-rm -rf $dir/tmp/*view/*.png
+
 
 
 for rrd_time0 in hour day week month year

@@ -51,6 +51,7 @@ function timedRefresh(timeoutPeriod) {
 	<li><a href='ups'><span>UPS</span></a></li> 
 	<li><a href='settings'><span>Settings</spam></a></li>
 	<li><a href='vpn'><span>VPN</span></a></li> 
+	<li><a href='fw'><span>FW</span></a></li> 
 	<li><a href='tools'><span>Tools</span></a></li> 
 	<li><a href='info'><span>Info</span></a></li>
  <?php } 
@@ -86,6 +87,7 @@ case 'ups': include('modules/ups/html/ups.php'); break;
 case 'kwh': include('modules/kwh/html/status.php'); break;
 case 'snmp': include('modules/snmp/html/snmp.php'); break;
 case 'vpn': include('modules/vpn/html/vpn.php'); break;
+case 'fw': include('modules/fw/html/fw.php'); break;
 }
 ?>
 

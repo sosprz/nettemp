@@ -102,21 +102,31 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE gpio (
   trigger_notice TEXT
 
     );"
-
-
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE settings (
    id INTEGER PRIMARY KEY,
    mail TEXT,
    sms TEXT,
    highcharts TEXT,
-   rrd TEXT
+   rrd TEXT,
+   fw TEXT
   );"
+
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE fw (
+   id INTEGER PRIMARY KEY,
+   ssh TEXT,
+   icmp TEXT,
+   openvpn TEXT,
+   ext TEXT
+     );"
+
+
 
 
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')"
 #sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('temp', 'd969831eb8a99cff8c02e681f43289e5d3d69664', 'ops')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO device (usb, onewire, serial) VALUES ('off','off','off')"
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO settings (mail, sms, rrd, highcharts) VALUES ('off','off', 'on', 'on')"
+sqlite3 $dir/dbf/nettemp.db "INSERT INTO settings (mail, sms, rrd, highcharts, fw ) VALUES ('off','off', 'on', 'on', 'off' )"
+sqlite3 $dir/dbf/nettemp.db "INSERT INTO fw (ssh, icmp, ext, openvpn ) VALUES ('off','off', 'off', 'off' )"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user ) VALUES ('smtp.gmail.com', '587', 'yourmail@gmail.com' )"
 
 

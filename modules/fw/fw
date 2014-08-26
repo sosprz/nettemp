@@ -1,0 +1,49 @@
+#! /bin/bash
+
+onoff="$1"
+icmp="$2"
+ssh="$3"
+ext="$4"
+vpn="$5"
+
+if [ "$onoff" == "on" ] && [ -n "$2" ] && [ -n "$3" ] && [ -n "$4" ] && [ -n "$5" ];then
+    sudo iptables -F
+    sudo iptables -X
+    sudo iptables -t nat -X
+    sudo iptables -t nat -F
+    sudo iptables -P INPUT DROP
+    sudo iptables -P OUTPUT ACCEPT
+    sudo iptables -P FORWARD DROP	
+    sudo iptables -A INPUT -j ACCEPT -m state --state ESTABLISHED,RELATED
+    sudo iptables -A INPUT -s $(ifconfig eth0 |grep inet |awk -F":" '{print $2 $4}' | sed 's/Bcast/ /g' | awk -F '.' '{printf("%d.%d.%d.%d", $1, $2, $3, 0)} {print "/"255"."$5"."$6"."$7}') -j ACCEPT
+    if [ "$icmp" == "on" ];then
+	sudo iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+    fi
+    if [ "$ssh" == "on" ];then
+	sudo iptables -A INPUT -m limit --limit 1/second -p tcp --dport 22 -j ACCEPT
+    fi
+    if [ -n "$ext" ];then
+	sudo iptables -A INPUT -s $ext -p tcp --dport 80 -j ACCEPT
+    fi
+    if [ "$vpn" == "on" ]; then
+	sudo iptables -A INPUT -p udp --dport 1195 -j ACCEPT
+	sudo iptables -A INPUT -i tun0 -j ACCEPT
+	sudo iptables -A FORWARD -i tun0 -j ACCEPT
+	sudo iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -j MASQUERADE
+    fi
+    sudo iptables-save > /etc/network/iptables    
+fi
+
+if [ "$onoff" == "off" ]; then
+    sudo iptables -F
+    sudo iptables -X
+    sudo iptables -t nat -X
+    sudo iptables -t nat -F
+    sudo iptables -P INPUT ACCEPT
+    sudo iptables -P OUTPUT ACCEPT
+    sudo iptables -P FORWARD ACCEPT	
+    sudo iptables-save > /etc/network/iptables
+fi    
+
+
+

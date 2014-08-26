@@ -1,13 +1,47 @@
-* {
-margin:0px;
-padding:0px;
-font-size: 13px;
+ul
+{
+    font-size:100%;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    width:100%;
 }
-html,body {
-background-color:#Fff;
-font-style:normal;
-color: 000;
+
+li
+{
+    display:block;
+    margin:0;
+    padding:4px 5px 2px 9px;
+    position:relative;
 }
+
+p
+{
+    font-size:95%;
+    line-height:130%;
+    margin:0 0 -10px;
+}
+
+h2
+{
+    clear:left;
+    font-size:160%;
+    font-weight:400;
+    margin:0 0 3px;
+}
+
+
+body
+{
+    background:#BAD7D4;
+    font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    font-size:small;
+    margin:0px;
+    padding:0px;
+    background-color:#Fff;
+    color: 000;
+}
+
 #top {
 margin:10px auto;
 width:1024px;
