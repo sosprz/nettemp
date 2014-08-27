@@ -1,8 +1,5 @@
 <span class="belka">&nbsp Update<span class="okno">
 <?php
-
-
-
 if ($_POST['update'] == "Update") { 
 putenv('PATH='. getenv('PATH') .':var/www/nettemp');
 passthru('git pull 2>&1');
