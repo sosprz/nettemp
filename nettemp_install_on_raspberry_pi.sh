@@ -49,7 +49,6 @@ echo -e "${GREEN}Add htpassword function${R}"
 if cat /etc/lighttpd/lighttpd.conf |grep Password  1> /dev/null ; then
     echo "Password already set"
 else
-    sed -i 's/.*server.modules = (.*/&\n	"mod_auth",/' /etc/lighttpd/lighttpd.conf
     sed -i '$aauth.debug = 2' /etc/lighttpd/lighttpd.conf
     sed -i '$aauth.backend = "plain"' /etc/lighttpd/lighttpd.conf
     sed -i '$aauth.backend.plain.userfile = "/etc/lighttpd/.lighttpdpassword"' /etc/lighttpd/lighttpd.conf
@@ -60,9 +59,9 @@ else
     sed -i '$a"require" => "user=admin"' /etc/lighttpd/lighttpd.conf
     sed -i '$a)' /etc/lighttpd/lighttpd.conf
     sed -i '$a)' /etc/lighttpd/lighttpd.conf
-    
-    chgrp www-data /etc/lighttpd/lighttpd.conf
-    chmod 664 /etc/lighttpd/lighttpd.conf
+    sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/lighttpd-enable-mod *, /usr/sbin/lighttpd-disable-mod *' /etc/sudoers    
+    #chgrp www-data /etc/lighttpd/lighttpd.conf
+    #chmod 664 /etc/lighttpd/lighttpd.conf
     touch /etc/lighttpd/.lighttpdpassword
     chown www-data:www-data /etc/lighttpd/.lighttpdpassword
     echo "admin:admin" > /etc/lighttpd/.lighttpdpassword

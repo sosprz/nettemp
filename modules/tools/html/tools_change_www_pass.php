@@ -38,10 +38,7 @@ if ($_POST['chg'] == "chg2") {
 
 <?php
 if ($_POST['disable'] == "disable") { 
-$file = "/etc/lighttpd/lighttpd.conf";
-$text = file_get_contents($file); 
-$text = str_replace('"mod_auth",', '#	"mod_auth",', $text); //no need for a regex
-file_put_contents($file, $text);
+shell_exec ("sudo lighttpd-disable-mod auth");
 shell_exec ("sudo service lighttpd reload");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
@@ -49,10 +46,7 @@ exit();
 }
 
 if ($_POST['enable'] == "enable") { 
-$file = "/etc/lighttpd/lighttpd.conf";
-$text = file_get_contents($file); 
-$text = str_replace('#	"mod_auth",', '	"mod_auth",', $text); //no need for a regex
-file_put_contents($file, $text);
+shell_exec ("sudo lighttpd-enable-mod auth");
 shell_exec ("sudo service lighttpd reload");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
@@ -60,16 +54,29 @@ exit();
 }
 
 ?>
-<table><tr>
+<?php
+    if (!file_exists("/etc/lighttpd/conf-enabled/05-auth.conf")) {
+	echo "Status: disabled"; ?>
 <form action="index.php?id=tools&type=www_password" method="post">
 <input type="hidden" name="enable" value="enable">
-<td><input  type="submit" value="Enable"  /></td>
+<input  type="submit" value="Enable"  />
 </form>
+<?php 
+    }
+    else {
+	echo "Status: enabled"; ?>
 <form action="index.php?id=tools&type=www_password" method="post">
 <input type="hidden" name="disable" value="disable">
-<td><input  type="submit" value="Disable"  /></td>
+<input  type="submit" value="Disable"  />
 </form>
-</tr></table>
+<?php
+    }
+?>
+
+
+
+
+
 </span></span>
 
 

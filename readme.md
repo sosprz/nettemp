@@ -45,7 +45,7 @@ Changelog:
 
 7.7.1
 fix vpn and firewall bugs. Recommended reinstall nettemp:)
-add www password 
+add www password - mod_auth
 
 7.7
 Add OpenVPN serwer
