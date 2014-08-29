@@ -60,13 +60,12 @@ else
     sed -i '$a)' /etc/lighttpd/lighttpd.conf
     sed -i '$a)' /etc/lighttpd/lighttpd.conf
     sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/lighttpd-enable-mod *, /usr/sbin/lighttpd-disable-mod *' /etc/sudoers    
-    #chgrp www-data /etc/lighttpd/lighttpd.conf
-    #chmod 664 /etc/lighttpd/lighttpd.conf
     touch /etc/lighttpd/.lighttpdpassword
     chown www-data:www-data /etc/lighttpd/.lighttpdpassword
     echo "admin:admin" > /etc/lighttpd/.lighttpdpassword
     /etc/init.d/lighttpd restart
-    echo "User is admin, pass is admin. You must change it. Press any key to continue. "
+    lighttpd-enable-mod auth
+    echo "${REDB}WWW ACCESS: User is admin, pass is admin. You must change password. Press any key to continue.${R}"
     read lolol
 fi
 
@@ -150,14 +149,6 @@ echo -e "${GREEN}Add modules 1-wire${R}"
 echo -e "${GREEN}Add perms${R}"
 chmod +s /opt/vc/bin/vcgencmd
 chmod +s /var/www/nettemp/modules/sensors/Adafruit_DHT
-
-echo -e "${GREEN}Add more security. If You use nettemp on external IP set additional passowrd${R}"
-echo "(Y)es or (N)ot"
-read pass
-if [ "$pass" = "Y" ]; then
-chmod 755 /var/www/nettemp/nettemp_password
-/var/www/nettemp/nettemp_password
-fi
 
 echo -e "${GREEN} UPS status function${R}"
 /var/www/nettemp/modules/ups/install

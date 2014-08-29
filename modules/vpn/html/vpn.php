@@ -1,7 +1,7 @@
 <?php include('conf.php'); session_start(); include('modules/login/login_check.php'); if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { ?>
 <span class="belka">&nbsp OpenVPN status<span class="okno">
 <?php passthru('/etc/init.d/openvpn status'); ?>
-<br />
+
 <?php passthru('cat /etc/openvpn/openvpn.conf |grep port');
 
 if ($_POST['disable'] == "disable") { 
@@ -17,17 +17,21 @@ header("location: " . $_SERVER['REQUEST_URI']);
 
 }
 
-?>
-<table><tr>
-<form action="index.php?id=vpn" method="post">
-<input type="hidden" name="enable" value="enable">
-<td><input  type="submit" value="Enable"  /></td>
-</form>
+$status=exec('sudo service openvpn status', $retval);
+if (strpos($retval ,'not') !== false) { ?>
 <form action="index.php?id=vpn" method="post">
 <input type="hidden" name="disable" value="disable">
-<td><input  type="submit" value="Disable"  /></td>
+<input  type="submit" value="Disable"  />
 </form>
-</tr></table>
+<?php } 
+    else { ?>
+<form action="index.php?id=vpn" method="post">
+<input type="hidden" name="enable" value="enable">
+<input  type="submit" value="Enable"  />
+</form>
+<?php } ?>
+
+
 </span></span>
 
 <?php include("vpn_add.php"); ?>
