@@ -37,14 +37,41 @@ echo -e "${GREEN}Changing lighthttpd conf${R}"
 sed -i '/url.access-deny/d' /etc/lighttpd/lighttpd.conf
 sed -i '$a url.access-deny             = ( "~", ".inc", ".dbf", ".db", ".txt", ".rrd" )' /etc/lighttpd/lighttpd.conf
 
+if cat /etc/lighttpd/lighttpd.conf |grep url.rewrite-once 1> /dev/null
+    then
+    echo -e "${GREEN}Url rewrite exist${R}"
+    else
+    echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1\" )" >> /etc/lighttpd/lighttpd.conf 
+fi
+
+echo -e "${GREEN}Add htpassword function${R}"
+
+if cat /etc/lighttpd/lighttpd.conf |grep Password  1> /dev/null ; then
+    echo "Password already set"
+else
+    sed -i 's/.*server.modules = (.*/&\n	"mod_auth",/' /etc/lighttpd/lighttpd.conf
+    sed -i '$aauth.debug = 2' /etc/lighttpd/lighttpd.conf
+    sed -i '$aauth.backend = "plain"' /etc/lighttpd/lighttpd.conf
+    sed -i '$aauth.backend.plain.userfile = "/etc/lighttpd/.lighttpdpassword"' /etc/lighttpd/lighttpd.conf
+    sed -i '$aauth.require = ( "/" =>' /etc/lighttpd/lighttpd.conf
+    sed -i '$a(' /etc/lighttpd/lighttpd.conf
+    sed -i '$a"method" => "basic",' /etc/lighttpd/lighttpd.conf
+    sed -i '$a"realm" => "Password protected area",' /etc/lighttpd/lighttpd.conf
+    sed -i '$a"require" => "user=admin"' /etc/lighttpd/lighttpd.conf
+    sed -i '$a)' /etc/lighttpd/lighttpd.conf
+    sed -i '$a)' /etc/lighttpd/lighttpd.conf
+    
+    chgrp www-data /etc/lighttpd/lighttpd.conf
+    chmod 664 /etc/lighttpd/lighttpd.conf
+    touch /etc/lighttpd/.lighttpdpassword
+    chown www-data:www-data /etc/lighttpd/.lighttpdpassword
+    echo "admin:admin" > /etc/lighttpd/.lighttpdpassword
+    /etc/init.d/lighttpd restart
+    echo "User is admin, pass is admin. You must change it. Press any key to continue. "
+    read lolol
+fi
 
 
- if cat /etc/lighttpd/lighttpd.conf |grep url.rewrite-once 1> /dev/null
- then
- echo -e "${GREEN}Url rewrite exist${R}"
- else
- echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1\" )" >> /etc/lighttpd/lighttpd.conf 
- fi
 
 
 echo -e "${GREEN}Which version you want to download?${R}"

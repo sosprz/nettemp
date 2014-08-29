@@ -9,6 +9,7 @@
 <td><a href="index.php?id=tools&type=reboot" ><button>Reboot</button></a></td>
 <td><a href="index.php?id=tools&type=log" ><button>Logging</button></a></td>
 <td><a href="index.php?id=tools&type=gpio" ><button>Gpio</button></a></td>
+<td><a href="index.php?id=tools&type=www_password" ><button>WWW Password</button></a></td>
 </tr>
 </table>
 </span>
@@ -29,6 +30,7 @@ case 'reset': include('modules/tools/html/tools_reset.php'); break;
 case 'reboot': include('modules/tools/html/tools_reboot.php'); break;
 case 'log': include('modules/tools/html/tools_log.php'); break;
 case 'gpio': include('modules/tools/html/tools_gpio_readall.php'); break;
+case 'www_password': include('modules/tools/html/tools_change_www_pass.php'); break;
 }
 ?>
 
