@@ -1,8 +1,23 @@
 www.nettemp.pl
 
+Nettemp work's on any system based on debian. But only on Raspberry Pi gpio will work.
+
+FEATURES:
+
+Read temp sensors from DS18b20, humidity DHT11, DHT22, servers temperature over SNMP.
+View charts with temeratures and humidity.
+Send mail notofication when temperature is to high, You can set value.
+Set gpio on/off, gpio temperature on/off, gpio time on/off.
+You can connect APC UPS over USB and recieve notification form UPS.
+OpenVPN server. User + Pass + CRT.
+Firewall function.
+System stats.
+
+
+
 AUTOMATIC INSTALL:
 
-    install script for raspberry pi:
+    install script for raspberry pi, :
 
     download and run like root, script will install all requirements like php, www.
     
@@ -18,12 +33,12 @@ USERS:
 
     admin admin - access for all
 
-![alt tag](https://raw.github.com/sosprz/nettemp/beta/2nettemp_view.jpg)
-![alt tag](https://raw.github.com/sosprz/nettemp/beta/1nettemp_status.jpg)
-![alt tag](https://raw.github.com/sosprz/nettemp/beta/3nettemp_snmp.jpg)
-![alt tag](https://raw.github.com/sosprz/nettemp/beta/4nettemp_sensors.jpg)
-![alt tag](https://raw.github.com/sosprz/nettemp/beta/5nettemp_tools.jpg)
-![alt tag](https://raw.github.com/sosprz/nettemp/beta/6nettemp_gpio.jpg)
+![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/2nettemp_view.jpg)
+![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/1nettemp_status.jpg)
+![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/3nettemp_snmp.jpg)
+![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/4nettemp_sensors.jpg)
+![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/5nettemp_tools.jpg)
+![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/6nettemp_gpio.jpg)
 
 
 Changelog:
