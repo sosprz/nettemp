@@ -7,7 +7,7 @@ ext="$4"
 vpn="$5"
 
 tunnet="10.8.0.0/24"
-localnet=$(ifconfig eth0 |grep inet |awk -F":" '{print $2 $4}' | sed 's/Bcast/ /g' | awk -F '.' '{printf("%d.%d.%d.%d", $1, $2, $3, 0)} {print "/"255"."$5"."$6"."$7}')
+localnet=$(ifconfig eth0 |grep -m 1 inet |awk -F":" '{print $2 $4}' | sed 's/Bcast/ /g' | awk -F '.' '{printf("%d.%d.%d.%d", $1, $2, $3, 0)} {print "/"255"."$5"."$6"."$7}')
 
 
 if [ "$onoff" == "on" ] && [ -n "$2" ] && [ -n "$3" ] && [ -n "$4" ] && [ -n "$5" ];then
