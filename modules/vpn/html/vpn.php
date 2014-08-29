@@ -17,8 +17,8 @@ header("location: " . $_SERVER['REQUEST_URI']);
 
 }
 
-$status=exec('sudo service openvpn status', $retval);
-if (strpos($retval ,'not') !== false) { ?>
+exec('sudo service openvpn status', $output, $return); 
+if ( $return == 0 ) { ?>
 <form action="index.php?id=vpn" method="post">
 <input type="hidden" name="disable" value="disable">
 <input  type="submit" value="Disable"  />
