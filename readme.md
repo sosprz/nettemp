@@ -4,14 +4,14 @@ Nettemp work's on any system based on debian. But only on Raspberry Pi gpio will
 
 FEATURES:
 
-Read temp sensors from DS18b20, humidity DHT11, DHT22, servers temperature over SNMP.
-View charts with temeratures and humidity.
-Send mail notofication when temperature is to high, You can set value.
-Set gpio on/off, gpio temperature on/off, gpio time on/off.
-You can connect APC UPS over USB and recieve notification form UPS.
-OpenVPN server. User + Pass + CRT.
-Firewall function.
-System stats.
+Read temp sensors from DS18b20, humidity DHT11, DHT22, servers temperature over SNMP
+View charts with temeratures and humidity
+Send mail notofication when temperature is to high, You can set value
+Set gpio on/off, gpio temperature on/off, gpio time on/off
+You can connect APC UPS over USB and recieve notification form UPS
+OpenVPN server. User + Pass + CRT
+Firewall function
+System stats
 
 
 
@@ -42,6 +42,7 @@ USERS:
 
 
 Changelog:
+
 7.7.1
 fix vpn and firewall bugs. Recommended reinstall nettemp:)
 
@@ -81,7 +82,6 @@ Fix crash when add humi on Rpi B
 Add to highcharts more views: week, month, year
 
 7.5.3
->>>>>>> beta
 Add to highcharts more views: week, month, year
 
 7.5.2
