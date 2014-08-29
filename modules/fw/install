@@ -1,7 +1,7 @@
 #! /bin/bash 
 
 dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
-sqlite3 ../../dbf/nettemp.db  "ALTER TABLE settings ADD fw type TEXT";
+sqlite3 $dir/dbf/nettemp.db  "ALTER TABLE settings ADD fw type TEXT";
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO fw (ssh, icmp, ext, openvpn ) VALUES ('off','off', '0.0.0.0/0', 'off' )"
 sed -i '$a www-data ALL=(ALL) NOPASSWD: /sbin/iptables *, /sbin/iptables-save *' /etc/sudoers
 # IPTABLES FORWARD

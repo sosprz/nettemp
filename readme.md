@@ -27,6 +27,9 @@ USERS:
 
 
 Changelog:
+7.7.1
+fix vpn and firewall bugs. Recommended reinstall nettemp:)
+
 7.7
 Add OpenVPN serwer
 Add Firewall option
