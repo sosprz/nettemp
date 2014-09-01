@@ -99,9 +99,12 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE gpio (
   simple_run TEXT,
   trigger_checkbox TEXT,
   trigger_run TEXT,
-  trigger_notice TEXT
-
+  trigger_notice TEXT,
+  gpio_kwh TEXT,
+  gpio_kwh_divider TEXT,
+  gpio_kwh_hilo TEXT
     );"
+
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE settings (
    id INTEGER PRIMARY KEY,
    mail TEXT,
@@ -136,6 +139,11 @@ sqlite3 $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user ) VALUE
 
 
 
-chmod 777 $dir/dbf/nettemp.db
+chmod 775 $dir/dbf/nettemp.db
+chgrp www-data $dir/dbf/nettemp.db
 echo "$date Default settings restored" >> $dir/tmp/log.txt
-chmod 777 $dir/tmp/log.txt
+chmod 775 $dir/tmp/log.txt
+
+./snmp
+
+

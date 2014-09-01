@@ -16,6 +16,5 @@ sqlite3 $dir/dbf/$name.db  "CREATE TABLE snmp (
   divider TEXT
   );"
 
-chmod 777 $dir/dbf/snmp.db
-echo "$date Default settings restored for snmp" >> $dir/tmp/log.txt
-chmod 777 $dir/tmp/log.txt
+chmod 775 $dir/dbf/snmp.db
+chgrp www-data $dir/dbf/$name.db
