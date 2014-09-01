@@ -1,6 +1,5 @@
 <?php
-session_start();
-$inactive = 3600;
+$inactive = 180;
 if (isset($_SESSION["timeout"])) {
        $sessionTTL = time() - $_SESSION["timeout"];
     if ($sessionTTL > $inactive) {

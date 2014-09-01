@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
@@ -22,7 +23,6 @@ function timedRefresh(timeoutPeriod) {
 </head>
 <!-- <body onload="JavaScript:timedRefresh(60000);"> -->
 
-<?php ob_start(); ?>
 
 <div id="top">
 <div id="header">
@@ -37,9 +37,7 @@ function timedRefresh(timeoutPeriod) {
 	<li><a href='status'><span>Status</span></a></li>
 	<li><a href='view'><span>Charts</span></a></li>
 
-      <?php
-	session_start();
-	  include('modules/login/login_check.php');
+      <?php include('modules/login/login_check.php');
 		if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { ?>
 		  <li><a href='sensors'><span>Sensors</span></a></li>
    		<li><a href='notification'><span>Notification</span></a></li>
@@ -93,7 +91,7 @@ case 'fw': include('modules/fw/html/fw.php'); break;
 
 </div>
 
-	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v7.7.1</td></tr></table></center>
+	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v7.7.2</td></tr></table></center>
 </div>
 </div>
 

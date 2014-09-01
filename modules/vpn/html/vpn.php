@@ -1,4 +1,4 @@
-<?php include('conf.php'); session_start(); include('modules/login/login_check.php'); if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { ?>
+<?php include('conf.php'); include('modules/login/login_check.php'); if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { ?>
 <span class="belka">&nbsp OpenVPN status<span class="okno">
 <?php passthru('/etc/init.d/openvpn status'); ?>
 

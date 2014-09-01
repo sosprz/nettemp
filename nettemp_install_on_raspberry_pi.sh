@@ -84,11 +84,13 @@ read devnull
 fi
 
 if [ "$x" = "r" ]; then
-git clone https://github.com/sosprz/nettemp
+#git clone https://github.com/sosprz/nettemp
+git clone --recursive git://github.com/sosprz/nettemp
 fi
 
 if [ "$x" = "b" ]; then 
-git clone -b beta https://github.com/sosprz/nettemp
+#git clone -b beta https://github.com/sosprz/nettemp
+git clone -b beta --recursive git://github.com/sosprz/nettemp
 fi
 
 

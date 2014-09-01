@@ -1,6 +1,6 @@
 #! /bin/bash
 
-dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"'" '{ print $2 }')
 
 gpio=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio FROM gpio WHERE gpio_kwh='on'")
 divider=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio_kwh_divider FROM gpio WHERE $gpio")

@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"'" '{ print $2 }')
 
 if [ "$1" == "enable" ]; then
 sudo update-rc.d openvpn enable
