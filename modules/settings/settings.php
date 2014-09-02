@@ -13,7 +13,13 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
-
+    $gpio_onoff = $_POST["gpio_onoff"];
+    if (($_POST['gpio_onoff1'] == "gpio_onoff2") ){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE settings SET gpio='$gpio_onoff'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
     $hc_onoff = $_POST["hc_onoff"];
     if (($_POST['hc_onoff1'] == "hc_onoff2") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
@@ -49,7 +55,7 @@ $rrd=$a["rrd"];
 $hc=$a["highcharts"];
 $ss=$a["sms"];
 $ms=$a["mail"];
-
+$gpio=$a["gpio"];
 }
 ?>
 <span class="belka">&nbsp View settings<span class="okno">
@@ -100,10 +106,21 @@ $ms=$a["mail"];
 
 
 </span></span>
+
+<span class="belka">&nbsp Other settings<span class="okno">
+
+<table>
+<tr>	
+    <form action="settings" method="post">
+    <td>Gpio</td>
+    <td><input type="checkbox" name="gpio_onoff" value="on" <?php echo $gpio == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <input type="hidden" name="gpio_onoff1" value="gpio_onoff2" />
+    </form>
+</tr> 
+</table>
+</span></span>
+
+
 </div>	 
-
-
-
-
 <?php }
 	 ?>

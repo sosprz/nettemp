@@ -570,9 +570,17 @@ done
 }
 
 
+onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM settings"`
+if [ "$onoff" = "on" ];then
+
 case "$1" in
     "status") status $2 ;;
     "check") check $2 ;;
      *) echo "no inputs"
 ;;
 esac
+else
+    echo "GPIO OFF"
+fi
+
+

@@ -424,7 +424,13 @@ exec("$dir/gpio2 status $gpio", $out_arr);
     	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
 		<input type="hidden" name="triggeron" value="triggerON" />
 	</form>
-
+<?php } elseif ($a['gpio_kwh'] == 'on') { ?>
+	<form action="gpio" method="post">
+		<td>kWh <?php echo $a["gpio_kwh"]; ?></td>
+    	<td><input type="image" src="media/ico/Lamp-icon.png" title="kWh metter" name="gpio_kwh" value="on" <?php echo $a["gpio_kwh"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    	<input type="hidden" name="gpio_kwh1" value="gpio_kwh2" />
+		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+       </form>
 <?php } else { ?>
 	<td>                           </td>
 	<form action="gpio" method="post">

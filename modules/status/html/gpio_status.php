@@ -7,9 +7,7 @@ $db = new PDO('sqlite:dbf/nettemp.db') or die ("cannot open database");
 $sth = $db->prepare("select * from gpio");
 $sth->execute();
 $result = $sth->fetchAll();
-
 foreach ( $result as $a) {
-
 $gpio=$a['gpio'];
 ?>
     <table><tr>

@@ -36,6 +36,16 @@ function timedRefresh(timeoutPeriod) {
 <ul> 
 	<li><a href='status'><span>Status</span></a></li>
 	<li><a href='view'><span>Charts</span></a></li>
+	<?php $db = new PDO('sqlite:dbf/nettemp.db');
+	$sth = $db->prepare("select * from settings ");
+	$sth->execute();
+	$result = $sth->fetchAll();
+	foreach ($result as $a) {
+	$kwh=$a["kwh"];
+	$gpio=$a["gpio"];
+	}
+	?>
+
 
       <?php include('modules/login/login_check.php');
 		if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { ?>
@@ -43,9 +53,13 @@ function timedRefresh(timeoutPeriod) {
    		<li><a href='notification'><span>Notification</span></a></li>
    		<?php } ?>
  <?php if ($numRows1 == 1 && ( $perms == "adm" )) { ?>
+	<?php if ( $gpio == on ) { ?>
 	<li><a href='gpio'><span>Gpio</spam></a></li>
+	<?php } ?>
 	<li><a href='snmp'><span>SNMP</spam></a></li>
+	<?php if ( $kwh == on ) { ?>
 	<li><a href='kwh'><span>kWh metter</spam></a></li>
+	<?php } ?>
 	<li><a href='ups'><span>UPS</span></a></li> 
 	<li><a href='settings'><span>Settings</spam></a></li>
 	<li><a href='vpn'><span>VPN</span></a></li> 

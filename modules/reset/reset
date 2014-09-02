@@ -112,7 +112,9 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE settings (
    highcharts TEXT,
    rrd TEXT,
    fw TEXT,
-   vpn TEXT
+   vpn TEXT,
+   gpio TEXT,
+   kwh TEXT
   );"
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE fw (
