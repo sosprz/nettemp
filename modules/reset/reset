@@ -111,7 +111,8 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE settings (
    sms TEXT,
    highcharts TEXT,
    rrd TEXT,
-   fw TEXT
+   fw TEXT,
+   vpn TEXT
   );"
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE fw (

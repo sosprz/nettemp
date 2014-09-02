@@ -3,6 +3,7 @@
 if ($_POST['update'] == "Update") { 
 putenv('PATH='. getenv('PATH') .':var/www/nettemp');
 passthru('git pull 2>&1');
+exec('modules/reset/update_db');
 //header("location: " . $_SERVER['REQUEST_URI']);
 //	exit();	
 	}

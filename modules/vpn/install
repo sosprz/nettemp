@@ -2,16 +2,6 @@
 
 dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"'" '{ print $2 }')
 
-if [ "$1" == "enable" ]; then
-sudo update-rc.d openvpn enable
-sudo service openvpn start
-elif [ "$1" == "disable" ]; then
-sudo update-rc.d openvpn disable
-sudo service openvpn stop
-fi
-
-if [ "$1" == "install" ]; then
-
 #INSTALL
 if [ $USER != 'root' ]; then
     echo "Sorry, you need to run this as root"
@@ -104,7 +94,6 @@ sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/chpasswd *, /usr/sbin/useradd 
 #DB
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE vpn ( id INTEGER PRIMARY KEY, users UNIQUE );"
 
-fi # end install if
 
 
 

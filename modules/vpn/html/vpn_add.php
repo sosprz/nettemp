@@ -36,7 +36,6 @@ $user_id = $_POST["user_id"];
 ?>
 
 
-<span class="belka">&nbsp VPN users<span class="okno">
 <table>
 <tr><td></td><td>User</td><td>Password<td></tr>
     <tr><td></td>
@@ -69,4 +68,3 @@ foreach ($result as $a) {
 <?php } ?>
 
 </tr></table>
-</span></span>
