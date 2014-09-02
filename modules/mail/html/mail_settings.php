@@ -28,7 +28,7 @@ $password = $_POST["password"];  //sql
 ?>
 
 <table>
-<tr>	<form action="mail" method="post">
+<tr>	<form action="settings" method="post">
 	<td>Username</td>
 	<td><input type="text" name="user" size="25" value="<?php echo $a["user"]; ?>" /></td>
 </tr>

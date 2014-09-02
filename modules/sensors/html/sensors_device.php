@@ -1,4 +1,4 @@
-<span class="belka">&nbsp Temp Sensors Device<span class="okno">
+<span class="belka">&nbsp Sensors Device<span class="okno">
 <?php
 
 $db1 = new PDO('sqlite:dbf/nettemp.db');
@@ -18,7 +18,7 @@ foreach ($result as $a) { ?>
 <?php
 include('conf.php');
 
-         if ($_POST['scan'] == "Scan"){
+         if ($_POST['scan'] == "Scan for new sensors"){
          exec("sh $global_dir/modules/sensors/temp_dev_scan");   
          system("chmod 777 $global_dir/scripts/tmp/.digitemprc");
          header("location: " . $_SERVER['REQUEST_URI']);
@@ -28,11 +28,9 @@ include('conf.php');
 
 ?>
 
-<table>
-<td>Scan for new sensors</td>
-<td><form action="sensors" method="post"><input type="submit" name="scan" value="Scan" /></td>
-</table>
 
-
+<form action="settings" method="post">
+<input type="submit" name="scan" value="Scan for new sensors" />
+</form>
  
 </span></span>

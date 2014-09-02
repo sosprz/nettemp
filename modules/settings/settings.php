@@ -83,28 +83,23 @@ $gpio=$a["gpio"];
 </span></span>
 
 
-<span class="belka">&nbsp Notification settings<span class="okno">
+<span class="belka">&nbsp SMS settings<span class="okno">
 
-<table>
-<tr>	
     <form action="settings" method="post">
     <td>SMS</td>
     <td><input type="checkbox" name="ss_onoff" value="on" <?php echo $ss == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="ss_onoff1" value="ss_onoff2" />
     </form>
-</tr> 
-<tr>	
+<?php include('modules/sms/html/sms.php'); ?>
+</span></span>
+
+<span class="belka">&nbsp Mail settings<span class="okno">
     <form action="settings" method="post">
     <td>Mail</td>
     <td><input type="checkbox" name="ms_onoff" value="on" <?php echo $ms == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="ms_onoff1" value="ms_onoff2" />
     </form>
-</tr> 
-
-
-</table>
-
-
+<?php include('modules/mail/html/mail.php'); ?>
 </span></span>
 
 <span class="belka">&nbsp Other settings<span class="okno">
@@ -120,6 +115,7 @@ $gpio=$a["gpio"];
 </table>
 </span></span>
 
+<?php include('modules/sensors/html/sensors_device.php'); ?>
 
 </div>	 
 <?php }

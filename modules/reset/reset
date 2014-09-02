@@ -5,8 +5,6 @@ date=`date +%y%m%d-%H%M`
 
 rm -rf $dir/dbf/nettemp.db
 rm -rf $dir/db/*.rrd
-rm -rf $dir/img/view1/*.png                                           
-rm -rf $dir/img/instant/*.png                                         
 rm -rf $dir/tmp/log.txt
 rm -rf $dir/tmp/.digitemprc
 rm -rf $dir/tmp/onewire
@@ -130,9 +128,6 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE vpn (
     users UNIQUE 
     );"
 
-
-
-
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')"
 #sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('temp', 'd969831eb8a99cff8c02e681f43289e5d3d69664', 'ops')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO device (usb, onewire, serial) VALUES ('off','off','off')"
@@ -140,13 +135,23 @@ sqlite3 $dir/dbf/nettemp.db "INSERT INTO settings (mail, sms, rrd, highcharts, f
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO fw (ssh, icmp, ext, openvpn ) VALUES ('off','off', '0.0.0.0/0', 'off' )"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user ) VALUES ('smtp.gmail.com', '587', 'yourmail@gmail.com' )"
 
-
-
 chmod 775 $dir/dbf/nettemp.db
 chgrp www-data $dir/dbf/nettemp.db
 echo "$date Default settings restored" >> $dir/tmp/log.txt
-chmod 775 $dir/tmp/log.txt
 
-$dir/modules/reset/snmp
+# SNMP
+
+rm -rf $dir/dbf/snmp.db
+sqlite3 $dir/dbf/snmp.db  "CREATE TABLE snmp (
+  id INTEGER PRIMARY KEY,
+  name UNIQUE,
+  community TEXT,
+  host TEXT,
+  oid TEXT,
+  divider TEXT
+  );"
+
+chmod 775 $dir/dbf/snmp.db
+chgrp www-data $dir/dbf/snmp.db
 
 

@@ -31,7 +31,7 @@ $vpn=$a["vpn"];
 
 <table>
 
-<tr> <td><h2>OpenVPN on/off</h2></td>
+<tr> <td><h2>OpenVPN</h2></td>
     <form action="vpn" method="post">
     <td><input type="checkbox" name="vpn_onoff" value="on" <?php echo $vpn == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="onoff" value="onoff" />

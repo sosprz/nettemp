@@ -18,7 +18,6 @@ $result = $sth->fetchAll(); ?>
 <td></td>
 <td><center>Sensor id</center></td>
 <td>DB</td>
-<td>Preview</td>
 <td></td>
 <td>Hour</td>
 <td>Day</td>
@@ -51,11 +50,11 @@ $result = $sth->fetchAll(); ?>
    { ?>
 <td><img src="media/ico/Ok-icon.png" /></td>
 </form>
-<form  action="sensors" method="post">
+<!--<form  action="sensors" method="post">
 <input type="hidden" name="add_graf" value="<?php echo $a["rom"];  ?>" />
 <input type="hidden" name="add_graf1" value="add_graf2" />
 <td><center><input type="image" src="media/ico/graph-icon.png"  /></center></td>
-</form>
+</form> -->
 <?php   }
 else { ?> 
 <td>Error - no rrd base</td>

@@ -36,7 +36,7 @@ include('conf.php');
 ?>
 <table><tr>
 <td>Search modem</td>
-<form action="sms" method="post">
+<form action="settings" method="post">
 <td><input type="submit" name="scan" value="Scan" /></td>
 </form></tr></table>
 <table><tr><td>
