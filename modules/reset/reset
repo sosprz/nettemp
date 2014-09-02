@@ -147,6 +147,6 @@ chgrp www-data $dir/dbf/nettemp.db
 echo "$date Default settings restored" >> $dir/tmp/log.txt
 chmod 775 $dir/tmp/log.txt
 
-./snmp
+$dir/modules/reset/snmp
 
 
