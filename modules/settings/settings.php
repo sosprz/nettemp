@@ -58,6 +58,8 @@ $ms=$a["mail"];
 $gpio=$a["gpio"];
 }
 ?>
+<?php include('modules/sensors/html/sensors_device.php'); ?>
+
 <span class="belka">&nbsp View settings<span class="okno">
 
 <table>
@@ -115,7 +117,7 @@ $gpio=$a["gpio"];
 </table>
 </span></span>
 
-<?php include('modules/sensors/html/sensors_device.php'); ?>
+
 
 </div>	 
 <?php }
