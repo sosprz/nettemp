@@ -35,6 +35,12 @@ opkg install kmod-usb-serial kmod-usb-serial-ch341 kmod-usb-serial-ftdi kmod-usb
 opkg install kmod-w1-master-ds2490 kmod-w1-slave-therm
 
 echo "*/1 * * * * /www/nettemp/modules/sensors/temp_dev_read && /www/nettemp/modules/view/view_gen && /www/nettemp/modules/highcharts/highcharts" > /etc/crontabs/root
+#echo "*/1 * * * * /var/www/nettemp/modules/gpio/gpio2 check" >> /etc/crontabs/root
+#echo "*/5 * * * * /var/www/nettemp/modules/sms/sms_send" >> /etc/crontabs/root
+echo "*/5 * * * * /var/www/nettemp/modules/mail/mail_send" >> /etc/crontabs/root
+sed -i '$a @reboot     echo "$(date +\\%y\\%m\\%d-\\%H\\%M) RPI rebooted" >> /var/www/nettemp/tmp/log.txt' /etc/crontabs/root
+sed -i '$a @reboot  /var/www/nettemp/modules/tools/restart' /etc/crontabs/root
+sed -i '$a*/1 * * * * /var/www/nettemp/modules/tools/system_stats' /etc/crontabs/root
 
 chmod -R 777 /www/nettemp
 
