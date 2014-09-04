@@ -29,6 +29,8 @@ Debian, RaspberryPi:
 
 OpenWRT, beta version:
 	
+	opkg update
+	opkg install wget
 	wget --no-check-certificate https://raw.githubusercontent.com/sosprz/nettemp/beta/nettemp_install_on_openwrt.sh
 	chmod 755 nettemp_install_on_openwrt.sh
 	./nettemp_install_on_openwrt.sh
