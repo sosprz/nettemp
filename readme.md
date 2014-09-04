@@ -15,23 +15,27 @@ System stats
 
 
 
-AUTOMATIC INSTALL:
+Debian, RaspberryPi:
 
-    install script for raspberry pi, :
+	download and run like root, script will install all requirements like php, www.
+    
+    	sudo apt-get update
+    	sudo apt-get install ca-certificates
+   	wget https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
+    	chmod 755 nettemp_install_on_raspberry_pi.sh
+   	./nettemp_install_on_raspberry_pi.sh
+    
+    	In browser: http://your_ip
 
-    download and run like root, script will install all requirements like php, www.
-    
-    sudo apt-get update
-    sudo apt-get install ca-certificates
-    wget https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
-    chmod 755 nettemp_install_on_raspberry_pi.sh
-    ./nettemp_install_on_raspberry_pi.sh
-    
-    In browser: http://your_ip
+OpenWRT, beta version:
+	
+	wget --no-check-certificate https://raw.githubusercontent.com/sosprz/nettemp/beta/nettemp_install_on_openwrt.sh
+	chmod 755 nettemp_install_on_openwrt.sh
+	./nettemp_install_on_openwrt.sh
 
 USERS:
 
-    admin admin - access for all
+	admin admin - access for all
 
 ![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/2nettemp_view.jpg)
 ![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/1nettemp_status.jpg)
