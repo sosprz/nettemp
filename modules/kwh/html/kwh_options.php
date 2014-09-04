@@ -41,8 +41,10 @@ $result = $sth->fetchAll();
 
 foreach ($result as $a) { ?>
 
-<span class="belka">&nbsp kWh options<span class="okno">
-	<form action="kwh" method="post">
+<!--<span class="belka">&nbsp kWh options<span class="okno">-->
+    <table>
+    <tr>	
+    <form action="gpio" method="post">
 	<td>Divider</td>
 	<td><input type="text" name="kwh_divider" size="20" value="<?php echo $a["gpio_kwh_divider"]; ?>"  /></td>
 	<input type="hidden" name="kwh_divider1" value="kwh_divider2" />
@@ -59,15 +61,17 @@ $sth->execute();
 $result = $sth->fetchAll();
 foreach ( $result as $a) { ?>
 	
-	<form action="kwh" method="post">
-        <tr><td>Input state   </td><td><select name="kwh_hilo" onchange="this.form.submit()" >
+	<form action="gpio" method="post">
+        <tr>
+	<td>Input state   </td><td><select name="kwh_hilo" onchange="this.form.submit()" >
         <option <?php echo $a['gpio_kwh_hilo'] == '1' ? 'selected="selected"' : ''; ?> value="1" >1 (high)</option>
         <option <?php echo $a['gpio_kwh_hilo'] == '0' ? 'selected="selected"' : ''; ?> value="0" >0 (low)</option>     
         </td></tr></select>
-	    <input type="hidden" name="kwh_hilo1" value="kwh_hilo2" />
+	<input type="hidden" name="kwh_hilo1" value="kwh_hilo2" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	</form>
+	</table>
 <?php } ?>
 
 
-</span></span>
+<!-- </span></span> -->

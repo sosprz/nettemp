@@ -1,8 +1,8 @@
 <div id="left">
 <?php 
-include('sensor_status.php');
-include('gpio_status.php');
-//include('modules/sensors/html/sensors_read.php');
+include('modules/sensors/html/sensor_status.php');
+include('modules/gpio/html/gpio_status.php');
+include('modules/kwh/html/kwh_status.php');
 ?>
 </div>
 

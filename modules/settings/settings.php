@@ -3,8 +3,6 @@
 		if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { 
 		
 		?>
-<div id="left">
-
 <?php
     $rrd_onoff = $_POST["rrd_onoff"];
     if (($_POST['rrd_onoff1'] == "rrd_onoff2") ){
@@ -61,64 +59,56 @@ $gpio=$a["gpio"];
 <?php include('modules/sensors/html/sensors_device.php'); ?>
 
 <span class="belka">&nbsp View settings<span class="okno">
-
-<table>
-<tr>	
+    <table>
+    <tr>	
     <form action="settings" method="post">
     <td>RRD</td>
     <td><input type="checkbox" name="rrd_onoff" value="on" <?php echo $rrd == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="rrd_onoff1" value="rrd_onoff2" />
     </form>
-</tr> 
-<tr>	
+    </tr> 
+    <tr>	
     <form action="settings" method="post">
     <td>Highcharts</td>
     <td><input type="checkbox" name="hc_onoff" value="on" <?php echo $hc == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="hc_onoff1" value="hc_onoff2" />
     </form>
-</tr> 
-
-
-</table>
-
-
+    </tr> 
+    </table>
 </span></span>
 
-
 <span class="belka">&nbsp SMS settings<span class="okno">
-
+    <table>
+    <tr>
     <form action="settings" method="post">
     <td>SMS</td>
     <td><input type="checkbox" name="ss_onoff" value="on" <?php echo $ss == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="ss_onoff1" value="ss_onoff2" />
     </form>
+    </tr>
+    </table>
 <?php include('modules/sms/html/sms.php'); ?>
 </span></span>
 
 <span class="belka">&nbsp Mail settings<span class="okno">
+    <table>
     <form action="settings" method="post">
     <td>Mail</td>
     <td><input type="checkbox" name="ms_onoff" value="on" <?php echo $ms == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="ms_onoff1" value="ms_onoff2" />
     </form>
+    </table>
 <?php include('modules/mail/html/mail.php'); ?>
 </span></span>
 
 <span class="belka">&nbsp Other settings<span class="okno">
-
-<table>
-<tr>	
+    <table>
     <form action="settings" method="post">
     <td>Gpio</td>
     <td><input type="checkbox" name="gpio_onoff" value="on" <?php echo $gpio == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="gpio_onoff1" value="gpio_onoff2" />
     </form>
-</tr> 
-</table>
+    </table>
 </span></span>
 
-
-
-</div>	 
-<?php }
-	 ?>
+<?php } ?>

@@ -48,6 +48,8 @@ USERS:
 
 
 Changelog:
+7.8
+mv kwh to charts and gpio, gpio on/off, mv mail and sms to settings
 
 7.7.2
 fix login, dir

@@ -54,12 +54,9 @@ function timedRefresh(timeoutPeriod) {
    		<?php } ?>
  <?php if ($numRows1 == 1 && ( $perms == "adm" )) { ?>
 	<?php if ( $gpio == on ) { ?>
-	<li><a href='gpio'><span>Gpio</spam></a></li>
+	<li><a href='gpio'><span>GPIO</spam></a></li>
 	<?php } ?>
 	<li><a href='snmp'><span>SNMP</spam></a></li>
-	<?php if ( $kwh == on ) { ?>
-	<li><a href='kwh'><span>kWh metter</spam></a></li>
-	<?php } ?>
 	<li><a href='ups'><span>UPS</span></a></li> 
 	<li><a href='settings'><span>Settings</spam></a></li>
 	<li><a href='vpn'><span>VPN</span></a></li> 
@@ -96,7 +93,7 @@ case 'mail': include('modules/notification/html/notification.php'); break;
 case 'alarms': include('modules/notification/html/notification.php'); break;
 case 'settings': include('modules/settings/settings.php'); break;
 case 'ups': include('modules/ups/html/ups.php'); break;
-case 'kwh': include('modules/kwh/html/status.php'); break;
+case 'kwh': include('modules/kwh/html/kwh.php'); break;
 case 'snmp': include('modules/snmp/html/snmp.php'); break;
 case 'vpn': include('modules/vpn/html/vpn.php'); break;
 case 'fw': include('modules/fw/html/fw.php'); break;
