@@ -38,6 +38,8 @@ echo "*/1 * * * * /www/nettemp/modules/sensors/temp_dev_read && /www/nettemp/mod
 
 chmod -R 777 /www/nettemp
 
+#openwrt git bug https://dev.openwrt.org/ticket/11930
+ln -s $(which git) /usr/libexec/git-core/git
 
 
 
