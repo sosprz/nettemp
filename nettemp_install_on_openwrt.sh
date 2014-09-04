@@ -1,6 +1,6 @@
 #! /bin/ash
 
-# version 2
+# version 3
 
 opkg update
 opkg install lighttpd php5-cgi php5-mod-pdo-sqlite php5-mod-sqlite3 rrdtool sqlite3-cli msmtp digitemp digitemp-usb git mc sysstat  bc htop snmp-utils perl nano lighttpd-mod-auth lighttpd-mod-rewrite lighttpd-mod-fastcgi lighttpd-mod-cgi php5-mod-session bash openvpn iptables ca-certificates digitemp-usb usbutils
@@ -32,6 +32,7 @@ echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1\" )"
 /etc/init.d/lighttpd restart
 
 opkg install kmod-usb-serial kmod-usb-serial-ch341 kmod-usb-serial-ftdi kmod-usb-serial-pl2303
+opkg install kmod-w1-master-ds2490 kmod-w1-slave-therm
 
 echo "*/1 * * * * /www/nettemp/modules/sensors/temp_dev_read && /www/nettemp/modules/view/view_gen && /www/nettemp/modules/highcharts/highcharts" > /etc/crontabs/root
 
