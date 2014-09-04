@@ -73,11 +73,6 @@ if [ $send_mail == on ]; then
 					    --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
 					    --tls=on --tls-starttls=on --tls-certcheck=off \
 					    --timeout=10 -t $get_mail
-
-
-
-
-	        	                 
 	        	  		echo "$date mail - send mail to $get_mail" >> $dir/tmp/log.txt
 						    rm $dir/$dirs/$kolejka
 			    else rm $dir/$dirs/$kolejka
