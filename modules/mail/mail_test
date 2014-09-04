@@ -23,7 +23,7 @@ body=$3
 --read-envelope-from \
 --host=$host --port=$port --auth=on --user=$user \
 --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
---tls=on --tls-starttls=on --tls-certcheck=on --tls-trust-file=/etc/ssl/certs/ca-certificates.crt  \
+--tls=on --tls-starttls=on --tls-certcheck=off \
 --timeout=10 -t $reci
 
 
