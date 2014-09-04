@@ -26,7 +26,8 @@ echo "bazy sa";
 }
 fi
 
-cpu=$(mpstat | grep all | sed -s 's/.* all// ; s/ * / /g' | cut -d ' ' -f10 | awk '{print 100-$1}')
+#cpu=$(mpstat | grep all | sed -s 's/.* all// ; s/ * / /g' | cut -d ' ' -f10 | awk '{print 100-$1}')
+cpu=$(mpstat | grep all | sed 's/.* all// ; s/ * / /g' | cut -d ' ' -f10 | awk '{print 100-$1}')
 memory=`free | grep Mem | awk '{print $3/$2 * 100.0}'`
 
 

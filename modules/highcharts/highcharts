@@ -5,8 +5,7 @@ dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"'" '{ p
 hc_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT highcharts FROM settings"`
 
 if [ "$hc_onoff" == "on" ]; then
-
-
+echo "temp"
 rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='temp'")
 
 	array[0]="rrdtool xport -s now-24h -e now --step 60 "
@@ -58,7 +57,7 @@ array[0]="rrdtool xport -s now-8064h -e now --step 600 "
 	unset array 
 
 ############## snmp
-
+echo "snmp"
 rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='snmp'")
 
 	array[0]="rrdtool xport -s now-24h -e now --step 60 "
@@ -110,8 +109,7 @@ array[0]="rrdtool xport -s now-8064h -e now --step 600 "
 	unset array 
 
 ### humi
-
-
+echo "humi"
 rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='humi'")
 
 	array[0]="rrdtool xport -s now-24h -e now --step 60 "
