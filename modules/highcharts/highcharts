@@ -166,11 +166,10 @@ array[0]="rrdtool xport -s now-8064h -e now --step 600 "
 ###################
 
 for i in $(ls $dir/tmp/highcharts/*_highcharts*); do
-        if cat $i |head -2|grep step; then
-         cat $i |awk 'NR > 2' > $i
-        fi
+       if cat $i |head -2|grep step; then
+         sed -i '1d;2d' $i
+       fi
 done
-
 
 else 
 echo "highcharts off"
