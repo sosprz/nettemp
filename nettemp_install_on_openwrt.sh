@@ -1,13 +1,12 @@
 #! /bin/ash
 
-# version 4
+# version 5
 
 opkg update
 opkg install lighttpd php5-cgi php5-mod-pdo-sqlite php5-mod-sqlite3 rrdtool sqlite3-cli msmtp digitemp digitemp-usb git mc sysstat  bc htop snmp-utils perl nano lighttpd-mod-auth lighttpd-mod-rewrite lighttpd-mod-fastcgi lighttpd-mod-cgi php5-mod-session bash openvpn iptables digitemp-usb usbutils
 
 /etc/init.d/uhttpd stop
 /etc/init.d/uhttpd disable
-/etc/init.d/lighttpd start
 /etc/init.d/lighttpd enable
 
 cd /www/
@@ -28,7 +27,7 @@ sed -i '1i\server.modules = ( "mod_rewrite", "mod_cgi" )'  /etc/lighttpd/lighttp
 sed -i 's/index.html/index.php/g' /etc/lighttpd/lighttpd.conf 
 echo "cgi.assign = ( \".php\" => \"/usr/bin/php-cgi\" )" >> /etc/lighttpd/lighttpd.conf 
 echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1\" )" >> /etc/lighttpd/lighttpd.conf 
-
+sed -i 's/#server.groupname = "nobody"/server.groupname = "www-data"/g' /etc/lighttpd/lighttpd.conf 
 
 
 opkg install kmod-usb-serial kmod-usb-serial-ch341 kmod-usb-serial-ftdi kmod-usb-serial-pl2303
@@ -47,33 +46,9 @@ sed -i '$a*/1 * * * * /www/nettemp/modules/tools/system_stats' /etc/crontabs/roo
 #openwrt git bug https://dev.openwrt.org/ticket/11930
 ln -s $(which git) /usr/libexec/git-core/git
 
-opkg install shadow-useradd sudo 
-useradd www-data
+opkg install sudo 
 sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chmod *, /bin/chgrp *, /sbin/reboot' /etc/sudoers 
 chmod -R 775 /www/nettemp
-chown root.www-data /www/nettemp
+chown -R root.www-data /www/nettemp
 /etc/init.d/lighttpd restart
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
