@@ -18,12 +18,13 @@ System stats
 Debian, RaspberryPi:
 
 	download and run like root, script will install all requirements like php, www.
-    
-    	sudo apt-get update
-    	sudo apt-get install ca-certificates
-   	wget https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
-    	chmod 755 nettemp_install_on_raspberry_pi.sh
-   	./nettemp_install_on_raspberry_pi.sh
+	
+	sudo apt-get update
+	sudo apt-get install ca-certificates
+	wget https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
+	wget --no-check-certificate https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
+	chmod 755 nettemp_install_on_raspberry_pi.sh
+	./nettemp_install_on_raspberry_pi.sh
     
     	In browser: http://your_ip
 

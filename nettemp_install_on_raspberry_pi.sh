@@ -69,8 +69,8 @@ else
     read lolol
 fi
 
-
-
+#global dir
+echo  "<?php \$global_dir='/var/www/nettemp/';?>"  > /var/www/nettemp/conf.php
 
 echo -e "${GREEN}Which version you want to download?${R}"
 echo -e "${GREEN}Regular [r] or Beta [b]${R}"
