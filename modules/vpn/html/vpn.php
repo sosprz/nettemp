@@ -2,7 +2,7 @@
     $vpn_onoff = $_POST["vpn_onoff"];
     if (($_POST['onoff'] == "onoff") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET vpn='$vpn_onoff'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE settings SET vpn='$vpn_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
     if (!empty($vpn_onoff)) {
     shell_exec("sudo update-rc.d openvpn enable");
     shell_exec("sudo service openvpn start");

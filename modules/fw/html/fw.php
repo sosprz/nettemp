@@ -2,7 +2,7 @@
     $fw_onoff = $_POST["fw_onoff"];
     if (($_POST['onoff'] == "onoff") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET fw='$fw_onoff'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE settings SET fw='$fw_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
     if ($fw_onoff != "on") {
     shell_exec("/bin/bash modules/fw/fw off");
     }

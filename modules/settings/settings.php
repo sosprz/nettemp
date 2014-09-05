@@ -7,21 +7,21 @@
     $rrd_onoff = $_POST["rrd_onoff"];
     if (($_POST['rrd_onoff1'] == "rrd_onoff2") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET rrd='$rrd_onoff'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE settings SET rrd='$rrd_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
     $gpio_onoff = $_POST["gpio_onoff"];
     if (($_POST['gpio_onoff1'] == "gpio_onoff2") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET gpio='$gpio_onoff'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE settings SET gpio='$gpio_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
     $hc_onoff = $_POST["hc_onoff"];
     if (($_POST['hc_onoff1'] == "hc_onoff2") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET highcharts='$hc_onoff'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE settings SET highcharts='$hc_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -29,7 +29,7 @@
     $ss_onoff = $_POST["ss_onoff"];
     if (($_POST['ss_onoff1'] == "ss_onoff2") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET sms='$ss_onoff'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE settings SET sms='$ss_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -37,7 +37,7 @@
     $ms_onoff = $_POST["ms_onoff"];
     if (($_POST['ms_onoff1'] == "ms_onoff2") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET mail='$ms_onoff'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE settings SET mail='$ms_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -45,7 +45,7 @@
 ?>
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("select * from settings ");
+$sth = $db->prepare("select * from settings WHERE id='1'");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) {

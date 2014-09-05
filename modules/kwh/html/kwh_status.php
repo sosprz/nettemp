@@ -1,5 +1,5 @@
     <?php $db = new PDO('sqlite:dbf/nettemp.db');
-    $sth = $db->prepare("select * from settings ");
+    $sth = $db->prepare("select * from settings where id='1'");
     $sth->execute();
     $result = $sth->fetchAll();
     foreach ($result as $a) {
