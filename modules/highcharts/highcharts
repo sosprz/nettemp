@@ -161,6 +161,15 @@ array[0]="rrdtool xport -s now-8064h -e now --step 600 "
 	eval ${array[@]}
 	unset array 
 
+###################
+# OLD RRDtool bug #
+###################
+
+for i in $(ls $dir/tmp/highcharts/*_highcharts*); do
+        if cat $i |head -2|grep step; then
+         cat $i |awk 'NR > 2' > $i
+        fi
+done
 
 
 else 
