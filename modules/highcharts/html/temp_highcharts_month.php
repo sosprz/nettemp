@@ -9,7 +9,7 @@
 
         $.ajax({
           type: "GET",
-          url: "tmp/highcharts_month.xml",
+          url: "tmp/highcharts/temp_highcharts_month.xml",
           dataType: "xml",
           success: function(xml) {
             var series = []

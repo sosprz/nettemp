@@ -1,6 +1,7 @@
 #! /bin/bash
 
 dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"'" '{ print $2 }')
+mkdir -p $dir/tmp/highcharts
 
 hc_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT highcharts FROM settings"`
 
@@ -16,7 +17,7 @@ rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='temp'")
 		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
 		let ar=ar+1
 	done
-        array[$ar]="> $dir/tmp/highcharts.xml"
+        array[$ar]="> $dir/tmp/highcharts/temp_highcharts.xml"
 	eval ${array[@]}
 	unset array 
 
@@ -28,7 +29,7 @@ rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='temp'")
 		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
 		let ar=ar+1
 	done
-        array[$ar]="> $dir/tmp/highcharts_week.xml"
+        array[$ar]="> $dir/tmp/highcharts/temp_highcharts_week.xml"
 	eval ${array[@]}
 	unset array 
 
@@ -40,7 +41,7 @@ rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='temp'")
 		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
 		let ar=ar+1
 	done
-        array[$ar]="> $dir/tmp/highcharts_month.xml"
+        array[$ar]="> $dir/tmp/highcharts/temp_highcharts_month.xml"
 	eval ${array[@]}
 	unset array 
 
@@ -52,7 +53,7 @@ array[0]="rrdtool xport -s now-8064h -e now --step 600 "
 		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
 		let ar=ar+1
 	done
-        array[$ar]="> $dir/tmp/highcharts_year.xml"
+        array[$ar]="> $dir/tmp/highcharts/temp_highcharts_year.xml"
 	eval ${array[@]}
 	unset array 
 
@@ -68,7 +69,7 @@ rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='snmp'")
 		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
 		let ar=ar+1
 	done
-        array[$ar]="> $dir/tmp/snmp_highcharts.xml"
+        array[$ar]="> $dir/tmp/highcharts/snmp_highcharts.xml"
 	eval ${array[@]}
 	unset array 
 
@@ -80,7 +81,7 @@ rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='snmp'")
 		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
 		let ar=ar+1
 	done
-        array[$ar]="> $dir/tmp/snmp_highcharts_week.xml"
+        array[$ar]="> $dir/tmp/highcharts/snmp_highcharts_week.xml"
 	eval ${array[@]}
 	unset array 
 
@@ -92,7 +93,7 @@ rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='snmp'")
 		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
 		let ar=ar+1
 	done
-        array[$ar]="> $dir/tmp/snmp_highcharts_month.xml"
+        array[$ar]="> $dir/tmp/highcharts/snmp_highcharts_month.xml"
 	eval ${array[@]}
 	unset array 
 
@@ -104,7 +105,7 @@ array[0]="rrdtool xport -s now-8064h -e now --step 600 "
 		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
 		let ar=ar+1
 	done
-        array[$ar]="> $dir/tmp/snmp_highcharts_year.xml"
+        array[$ar]="> $dir/tmp/highcharts/snmp_highcharts_year.xml"
 	eval ${array[@]}
 	unset array 
 
@@ -120,7 +121,7 @@ rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='humi'")
 		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
 		let ar=ar+1
 	done
-        array[$ar]="> $dir/tmp/humi_highcharts.xml"
+        array[$ar]="> $dir/tmp/highcharts/humi_highcharts.xml"
 	eval ${array[@]}
 	unset array 
 
@@ -132,7 +133,7 @@ rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='humi'")
 		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
 		let ar=ar+1
 	done
-        array[$ar]="> $dir/tmp/humi_highcharts_week.xml"
+        array[$ar]="> $dir/tmp/highcharts/humi_highcharts_week.xml"
 	eval ${array[@]}
 	unset array 
 
@@ -144,7 +145,7 @@ rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='humi'")
 		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
 		let ar=ar+1
 	done
-        array[$ar]="> $dir/tmp/humi_highcharts_month.xml"
+        array[$ar]="> $dir/tmp/highcharts/humi_highcharts_month.xml"
 	eval ${array[@]}
 	unset array 
 
@@ -156,7 +157,7 @@ array[0]="rrdtool xport -s now-8064h -e now --step 600 "
 		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
 		let ar=ar+1
 	done
-        array[$ar]="> $dir/tmp/humi_highcharts_year.xml"
+        array[$ar]="> $dir/tmp/highcharts/humi_highcharts_year.xml"
 	eval ${array[@]}
 	unset array 
 

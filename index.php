@@ -102,7 +102,7 @@ case 'fw': include('modules/fw/html/fw.php'); break;
 
 </div>
 
-	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v7.7.2</td></tr></table></center>
+	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v7.7.3</td></tr></table></center>
 </div>
 </div>
 

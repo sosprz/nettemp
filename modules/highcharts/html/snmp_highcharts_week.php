@@ -9,7 +9,7 @@
 
         $.ajax({
           type: "GET",
-          url: "tmp/snmp_highcharts_week.xml",
+          url: "tmp/highcharts/snmp_highcharts_week.xml",
           dataType: "xml",
           success: function(xml) {
             var series = []
