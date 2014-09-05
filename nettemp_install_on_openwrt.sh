@@ -29,7 +29,7 @@ sed -i 's/index.html/index.php/g' /etc/lighttpd/lighttpd.conf
 echo "cgi.assign = ( \".php\" => \"/usr/bin/php-cgi\" )" >> /etc/lighttpd/lighttpd.conf 
 echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1\" )" >> /etc/lighttpd/lighttpd.conf 
 
-/etc/init.d/lighttpd restart
+
 
 opkg install kmod-usb-serial kmod-usb-serial-ch341 kmod-usb-serial-ftdi kmod-usb-serial-pl2303
 opkg install kmod-w1-master-ds2490 kmod-w1-slave-therm
@@ -42,12 +42,17 @@ sed -i '$a @reboot     echo "$(date +\\%y\\%m\\%d-\\%H\\%M) RPI rebooted" >> /ww
 sed -i '$a @reboot  /www/nettemp/modules/tools/restart' /etc/crontabs/root
 sed -i '$a*/1 * * * * /www/nettemp/modules/tools/system_stats' /etc/crontabs/root
 
-chmod -R 777 /www/nettemp
+
 
 #openwrt git bug https://dev.openwrt.org/ticket/11930
 ln -s $(which git) /usr/libexec/git-core/git
 
-
+opkg install shadow-useradd sudo 
+useradd www-data
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chmod *, /bin/chgrp *, /sbin/reboot' /etc/sudoers 
+chmod -R 775 /www/nettemp
+chown root.www-data /www/nettemp
+/etc/init.d/lighttpd restart
 
 
 
