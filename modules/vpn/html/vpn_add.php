@@ -39,7 +39,7 @@ $user_id = $_POST["user_id"];
 <table>
 <tr><td></td><td>User</td><td>Password<td></tr>
     <tr><td></td>
-	<form action="vpn" method="post">
+	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 	<td><input type="text" name="user_name" size="20" value="" /></td>
 	<td><input type="text" name="user_pass" size="20" value="" /></td>
 	<input type="hidden" name="add" value="add" />
@@ -59,7 +59,7 @@ foreach ($result as $a) {
 	<tr>
 	<td><img src="media/ico/User-Preppy-Blue-icon.png" ></td>
 	<td><?php echo $a["users"];?></td><td></td>
-	<form action="vpn" method="post"> 	
+	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"> 	
 	<input type="hidden" name="user_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="user_name" value="<?php echo $a["users"]; ?>" />
 	<input type="hidden" type="submit" name="del" value="del" />

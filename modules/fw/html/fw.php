@@ -27,7 +27,7 @@ $fw=$a["fw"];
 <table>
 
 <tr> <td><h2>Firewall</h2></td>
-    <form action="fw" method="post">
+    <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
     <td><input type="checkbox" name="fw_onoff" value="on" <?php echo $fw == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="onoff" value="onoff" />
     </form>

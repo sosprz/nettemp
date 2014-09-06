@@ -50,6 +50,11 @@ USERS:
 
 Changelog:
 7.8
+conf.php get to var before update
+I changed menu: In new tab Devices is GPIO, Sensors, SNMP, UPS. In Security is Firewall, VPN, authmod (www password)
+
+
+7.7.3
 mv kwh to charts and gpio, gpio on/off, mv mail and sms to settings
 
 7.7.2

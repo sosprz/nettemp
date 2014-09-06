@@ -36,7 +36,7 @@ $openvpn=$a["openvpn"];
 
 }
 ?>
-		<form method="post" action="fw">
+		<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method"post">
 		<ul>
 		<li><p>Web mgmt IP</p></li>
 		<li><input name="ext" type="text" maxlength="50" value="<?php echo $ext;?>"/>0.0.0.0/0 for all</li>

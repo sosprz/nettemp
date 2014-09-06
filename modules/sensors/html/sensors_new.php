@@ -13,7 +13,7 @@
 	<?php 
 	$trim_rom_new=trim($rom_new);
 	if (!in_array($trim_rom_new, $file_expl_array2)) { ?>
-   <form action="sensors" method="post">
+   <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
    <?php $new_empty_array[]=$trim_rom_new; ?>
    <td><img src="media/ico/TO-220-icon.png" />&nbsp </td>
 	<td><?php echo $trim_rom_new; ?></td>
@@ -48,7 +48,7 @@
        <table>	
        <tr>
        <?php $del_empty_array[]=$rom_no; ?>
-       <form action="sensors" method="post">
+       <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
        <td><img src="media/ico/TO-220-icon.png" />&nbsp</td>
         <td><?php echo $rom_no;?></td>
 	<input type="hidden" name="usun_nw" value="<?php echo "$rom_no"; ?>" />

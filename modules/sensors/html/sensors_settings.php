@@ -31,7 +31,7 @@ $result = $sth->fetchAll(); ?>
 	
 ?>
 <tr>
-<form action="sensors" method="post">
+<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <td><img src="media/ico/TO-220-icon.png" /></td>
 <td><input type="text" name="name_new" size="12" maxlength="10" value="<?php echo $a["name"]."\t"; ?>" /></td>
 <td><input type='color' name='color' value ="<?php echo $a["color"]; ?>" size="7" />
@@ -50,7 +50,7 @@ $result = $sth->fetchAll(); ?>
    { ?>
 <td><img src="media/ico/Ok-icon.png" /></td>
 </form>
-<!--<form  action="sensors" method="post">
+<!--<form  action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <input type="hidden" name="add_graf" value="<?php echo $a["rom"];  ?>" />
 <input type="hidden" name="add_graf1" value="add_graf2" />
 <td><center><input type="image" src="media/ico/graph-icon.png"  /></center></td>
@@ -58,7 +58,7 @@ $result = $sth->fetchAll(); ?>
 <?php   }
 else { ?> 
 <td>Error - no rrd base</td>
-<form action="sensors" method="post"  >
+<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 <input type="hidden" name="usun_czujniki" value="<?php echo $a["rom"]; ?>" />
 <input type="hidden" name="usun2" value="usun3" />
 <td><input type="image" src="media/ico/Close-2-icon.png" /></td>
@@ -67,7 +67,7 @@ else { ?>
 <?php }
 
 ?>
-    <form action="sensors" method="post"> 	
+    <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"> 	
     <input type="hidden" name="ss" value="<?php echo $a["id"]; ?>" />
     <td><img src="media/ico/Chart-Graph-Ascending-icon.png" /></td>
     <td><input type="checkbox" name="hour" value="on" <?php echo $a["hour"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
@@ -78,7 +78,7 @@ else { ?>
     <input type="hidden" name="ss1" value="ss2" />
     </form>
 
-<form action="sensors" method="post"  >
+<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 <input type="hidden" name="usun_czujniki" value="<?php echo $a["rom"]; ?>" />
 <input type="hidden" name="usun2" value="usun3" />
 <td><input type="image" src="media/ico/Close-2-icon.png" /></td>

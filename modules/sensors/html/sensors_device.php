@@ -29,7 +29,7 @@ include('conf.php');
 ?>
 
 
-<form action="settings" method="post">
+<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <input type="submit" name="scan" value="Scan for new sensors" />
 </form>
  

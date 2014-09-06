@@ -36,39 +36,18 @@ function timedRefresh(timeoutPeriod) {
 <ul> 
 	<li><a href='status'><span>Status</span></a></li>
 	<li><a href='view'><span>Charts</span></a></li>
-	<?php $db = new PDO('sqlite:dbf/nettemp.db');
-	$sth = $db->prepare("select * from settings ");
-	$sth->execute();
-	$result = $sth->fetchAll();
-	foreach ($result as $a) {
-	$kwh=$a["kwh"];
-	$gpio=$a["gpio"];
-	}
-	?>
-
-
-      <?php include('modules/login/login_check.php');
-		if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { ?>
-		  <li><a href='sensors'><span>Sensors</span></a></li>
-   		<li><a href='notification'><span>Notification</span></a></li>
-   		<?php } ?>
- <?php if ($numRows1 == 1 && ( $perms == "adm" )) { ?>
-	<?php if ( $gpio == on ) { ?>
-	<li><a href='gpio'><span>GPIO</spam></a></li>
-	<?php } ?>
-	<li><a href='snmp'><span>SNMP</spam></a></li>
-	<li><a href='ups'><span>UPS</span></a></li> 
-	<li><a href='settings'><span>Settings</spam></a></li>
-	<li><a href='vpn'><span>VPN</span></a></li> 
-	<li><a href='fw'><span>FW</span></a></li> 
-	<li><a href='tools'><span>Tools</span></a></li> 
-	<li><a href='info'><span>Info</span></a></li>
+	<?php if ($numRows1 == 1 && ( $perms == "adm" )) { ?>
+		<li><a href='devices'><span>Devices</span></a></li>
+		<li><a href='notification'><span>Notification</span></a></li>
+		<li><a href='security'><span>Security</span></a></li>
+		<li><a href='settings'><span>Settings</span></a></li>
+		<li><a href='tools'><span>Tools</span></a></li> 
+		<li><a href='info'><span>Info</span></a></li>
  <?php } 
 else {?>
-	<li><a href='info'><span>Info</span></a></li>
+		<li><a href='info'><span>Info</span></a></li>
 <?php
 } ?>
-
 </ul>
 </div>
 <div id="center">
@@ -97,12 +76,14 @@ case 'kwh': include('modules/kwh/html/kwh.php'); break;
 case 'snmp': include('modules/snmp/html/snmp.php'); break;
 case 'vpn': include('modules/vpn/html/vpn.php'); break;
 case 'fw': include('modules/fw/html/fw.php'); break;
+case 'security': include('modules/security/html/security.php'); break;
+case 'devices': include('modules/devices/html/devices.php'); break;
 }
 ?>
 
 </div>
 
-	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v7.7.3</td></tr></table></center>
+	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v8.0</td></tr></table></center>
 </div>
 </div>
 
