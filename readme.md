@@ -49,8 +49,11 @@ USERS:
 
 
 Changelog:
-7.8
+8.0
+to do:
 conf.php get to var before update
+In notification now php check inputs.
+
 I changed menu: In new tab Devices is GPIO, Sensors, SNMP, UPS. In Security is Firewall, VPN, authmod (www password)
 
 
