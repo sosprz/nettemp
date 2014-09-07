@@ -21,7 +21,7 @@ $notif_del = $_POST["notif_del"];  //sql
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}	
-	elseif ($_POST['notif_add1'] == "notif_add2") { echo " Please input name, mail and tel"; }
+	elseif ($_POST['notif_add1'] == "notif_add2") { echo "Please fill in all fields. Name, mail and tel."; }
 	
 
 	?>

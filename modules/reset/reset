@@ -4,7 +4,7 @@ dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"'" '{ p
 date=`date +%y%m%d-%H%M`
 
 rm -rf $dir/dbf/nettemp.db
-rm -rf $dir/db/*.rrd
+#rm -rf $dir/db/*.rrd #uncomment will delete all stored data
 rm -rf $dir/tmp/log.txt
 rm -rf $dir/tmp/.digitemprc
 rm -rf $dir/tmp/onewire

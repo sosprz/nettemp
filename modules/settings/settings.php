@@ -1,8 +1,4 @@
-<?php
-	   include('modules/login/login_check.php');
-		if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { 
-		
-		?>
+<?php include('modules/login/login_check.php'); if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { ?>
 <?php
     $rrd_onoff = $_POST["rrd_onoff"];
     if (($_POST['rrd_onoff1'] == "rrd_onoff2") ){
@@ -110,4 +106,5 @@ $gpio=$a["gpio"];
     </table>
 </span></span>
 
-<?php } ?>
+<?php } 
+else { header("Location: diened"); }; ?>
