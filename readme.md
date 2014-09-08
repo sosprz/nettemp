@@ -50,7 +50,7 @@ USERS:
 
 Changelog:
 8.0
-Remove default conf.php form repo. Now its generated from installation setup and frpm tools->updat
+Remove default conf.php form repo. Now its generated from installation setup and frpm tools->updat or tools->file check
 Changed menu: In new tab Devices is GPIO, Sensors, SNMP, UPS. In Security tab is Firewall, VPN, authmod (www password)
 Reset to defsult for now don't remove rrd bases.
 
