@@ -52,7 +52,8 @@ Changelog:
 8.0
 Remove default conf.php form repo. Now its generated from installation setup and frpm tools->updat or tools->file check
 Changed menu: In new tab Devices is GPIO, Sensors, SNMP, UPS. In Security tab is Firewall, VPN, authmod (www password)
-Reset to defsult for now don't remove rrd bases.
+Reset to default for now don't remove rrd bases.
+Reset erase all changes in nettemp code. git reset --hard HEAD
 
 7.7.3
 mv kwh to charts and gpio, gpio on/off, mv mail and sms to settings
