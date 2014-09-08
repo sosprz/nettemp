@@ -6,7 +6,7 @@ if ($_POST['update'] == "Update") {
 
 passthru("/usr/bin/git pull 2>&1");
 $dir=getcwd();
-exec("echo  '<?php \$global_dir=$dir;?>'  > conf.php");
+exec("echo  '<?php \$global_dir='\'$dir\'';?>'  > conf.php");
 exec('modules/reset/update_db');
 
 
