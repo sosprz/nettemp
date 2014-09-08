@@ -4,9 +4,9 @@ if ($_POST['update'] == "Update") {
 //putenv('PATH='. getenv('PATH') .':var/www/nettemp');
 
 
-copy('conf.php', 'conf.php.bak');
 passthru("/usr/bin/git pull 2>&1");
-copy('conf.php.bak', 'conf.php');
+$dir=getcwd();
+exec("echo  '<?php \$global_dir=$dir;?>'  > conf.php");
 exec('modules/reset/update_db');
 
 
