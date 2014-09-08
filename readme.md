@@ -50,9 +50,9 @@ USERS:
 
 Changelog:
 8.0
-save conf.php before update
+Remove default conf.php form repo. Now its generated from installation setup and frpm tools->updat
 Changed menu: In new tab Devices is GPIO, Sensors, SNMP, UPS. In Security tab is Firewall, VPN, authmod (www password)
-Reset for now don't remove rrd bases.
+Reset to defsult for now don't remove rrd bases.
 
 7.7.3
 mv kwh to charts and gpio, gpio on/off, mv mail and sms to settings
