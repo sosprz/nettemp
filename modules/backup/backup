@@ -12,7 +12,7 @@ git log |head -1 |awk '{print $2}' > $dir/tmp/backup/commit
 cd $dir/modules/backup
 tar -cvf nettemp-date.tar.gz $dir/tmp/backup $dir/db
 fi
-if [ $action = "r" ] $$ [ -n "$file" ];then
+if [ $action = "r" ] && [ -n "$file" ];then
 rm -rf $dir/dbf/
 rm -rf $dir/db/
 tar -xvf $file -C $dir
