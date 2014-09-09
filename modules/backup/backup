@@ -10,7 +10,7 @@ sqlite3 $dir/dbf/nettemp.db .dump > $dir/tmp/backup/nettemp.bak
 sqlite3 $dir/dbf/snmp.db .dump > $dir/tmp/backup/snmp.bak
 git log |head -1 |awk '{print $2}' > $dir/tmp/backup/commit
 cd $dir/modules/backup
-tar -cvf nettemp-date.tar.gz $dir/tmp/backup $dir/db
+tar -cvf nettemp-$date.tar.gz $dir/tmp/backup $dir/db
 fi
 if [ $action = "r" ] && [ -n "$file" ];then
 rm -rf $dir/dbf/
