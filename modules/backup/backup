@@ -6,19 +6,21 @@ action="$1"
 file="$2"
 
 if [ $action = "b" ];then
-sqlite3 $dir/dbf/nettemp.db .dump > $dir/tmp/backup/nettemp.bak
-sqlite3 $dir/dbf/snmp.db .dump > $dir/tmp/backup/snmp.bak
-git log |head -1 |awk '{print $2}' > $dir/tmp/backup/commit
-cd $dir/modules/backup
-tar -cvf nettemp-$date.tar.gz $dir/tmp/backup $dir/db
+    sqlite3 $dir/dbf/nettemp.db .dump > $dir/tmp/backup/nettemp.bak
+    sqlite3 $dir/dbf/snmp.db .dump > $dir/tmp/backup/snmp.bak
+    git log |head -1 |awk '{print $2}' > $dir/tmp/backup/commit
+    cd $dir/modules/backup
+    tar -cvf nettemp-$date.tar.gz $dir/tmp/backup $dir/db
+    rm -rf $dir/tmp/backup/*
 fi
 if [ $action = "r" ] && [ -n "$file" ];then
-rm -rf $dir/dbf/
-rm -rf $dir/db/
-tar -xvf $file -C $dir
-sqlite3 $dir/dbf/nettemp.db < $dir/tmp/backup/nettemp.bak
-sqlite3 $dir/dbf/snmp.db < $dir/tmp/backup/snmp.bak
-chgrp www-data $dir/dbf/nettemp.db
-chmod 775 $dir/dbf/nettemp.db
-git reset --hard $(cat $dir/modules/backup/commit)
+    rm -rf $dir/dbf/*
+    rm -rf $dir/db/*
+    tar -xvf $file -C /
+    sqlite3 $dir/dbf/nettemp.db < $dir/tmp/backup/nettemp.bak
+    sqlite3 $dir/dbf/snmp.db < $dir/tmp/backup/snmp.bak
+    chgrp www-data $dir/dbf/nettemp.db
+    chmod 775 $dir/dbf/nettemp.db
+    rm -rf $dir/tmp/backup/*
+    #git reset --hard $(cat $dir/modules/backup/commit)
 fi
