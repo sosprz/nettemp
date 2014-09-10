@@ -68,7 +68,8 @@ else
     echo "${REDB}WWW ACCESS: User is admin, pass is admin. You must change password. Press any key to continue.${R}"
     read lolol
 fi
-
+# php ini
+sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 50M/g' /etc/php5/cgi/php.ini
 
 
 echo -e "${GREEN}Which version you want to download?${R}"
