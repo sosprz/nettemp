@@ -79,6 +79,7 @@ case 'fw': include('modules/fw/html/fw.php'); break;
 case 'security': include('modules/security/html/security.php'); break;
 case 'devices': include('modules/devices/html/devices.php'); break;
 case 'backup': include('modules/backup/html/backup.php'); break;
+case 'upload': include('modules/backup/html/upload.php'); break;
 }
 ?>
 

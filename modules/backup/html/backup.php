@@ -31,7 +31,7 @@ if ($_POST['re'] == "re") {
 </form>
 
 
-
+<h3>Available images restore/delete</h3>
 <?php
 $dir = 'modules/backup/files/';
 $fileExtensions = array('gz');
@@ -58,4 +58,13 @@ foreach($files AS $file) {
 <?php
  }}
 ?>
+<h3>Upload nettemp image</h3>
+
+  <form enctype="multipart/form-data" action="upload" method="post">
+    <input type="hidden" name="MAX_FILE_SIZE" value="1000000000" />
+    Choose a file to upload: <input name="uploaded_file" type="file" />
+    <input type="submit" value="Upload" />
+  </form> 
+
+
 </span></span>
