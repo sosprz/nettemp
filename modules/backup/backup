@@ -23,5 +23,5 @@ if [ $action = "r" ] && [ -n "$file" ];then
     chgrp www-data $dir/dbf/nettemp.db
     chmod 775 $dir/dbf/nettemp.db
     rm -rf $dir/tmp/backup/*
-    git reset --hard $(cat $dir/modules/backup/commit)
+    git reset --hard $(cat $dir/tmp/backup/commit)
 fi
