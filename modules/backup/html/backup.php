@@ -16,7 +16,7 @@ if ($_POST['rm'] == "rm") {
 <?php
 $restore_file=$_POST['restore_file'];
 if ($_POST['re'] == "re") {   
-    system ("modules/backup/backup r $restore_file");
+    system ("modules/backup/backup r modules/backup/files/$restore_file");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     } 
