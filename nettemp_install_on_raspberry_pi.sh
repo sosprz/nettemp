@@ -159,11 +159,9 @@ echo -e "${GREEN} UPS status function${R}"
 echo -e "${GREEN} kWh function${R}"
 /var/www/nettemp/modules/kwh/install
 
-echo -e "${GREEN} SNMP function${R}"
-/var/www/nettemp/modules/snmp/install
-
 echo -e "${GREEN} OpenVPN serwer${R}"
 /var/www/nettemp/modules/vpn/install
+
 echo -e "${GREEN} Firewall${R}"
 /var/www/nettemp/modules/fw/install
 
