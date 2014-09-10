@@ -6,10 +6,11 @@ action="$1"
 file="$2"
 
 if [ $action = "b" ];then
+    mkdir -p $dir/tmp/backup
     sqlite3 $dir/dbf/nettemp.db .dump > $dir/tmp/backup/nettemp.bak
     sqlite3 $dir/dbf/snmp.db .dump > $dir/tmp/backup/snmp.bak
     git log |head -1 |awk '{print $2}' > $dir/tmp/backup/commit
-    cd $dir/modules/backup
+    cd $dir/modules/backup/files
     tar -cvf nettemp-$date.tar.gz $dir/tmp/backup $dir/db
     rm -rf $dir/tmp/backup/*
 fi

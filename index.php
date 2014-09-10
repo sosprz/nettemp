@@ -78,6 +78,7 @@ case 'vpn': include('modules/vpn/html/vpn.php'); break;
 case 'fw': include('modules/fw/html/fw.php'); break;
 case 'security': include('modules/security/html/security.php'); break;
 case 'devices': include('modules/devices/html/devices.php'); break;
+case 'backup': include('modules/backup/html/backup.php'); break;
 }
 ?>
 
