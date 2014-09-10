@@ -69,9 +69,6 @@ else
     read lolol
 fi
 
-#global dir
-echo  "<?php \$global_dir='/var/www/nettemp/';?>"  > /var/www/nettemp/conf.php
-
 
 echo -e "${GREEN}Which version you want to download?${R}"
 echo -e "${GREEN}Regular [r] or Beta [b]${R}"
@@ -92,6 +89,8 @@ if [ "$x" = "b" ]; then
 git clone -b beta https://github.com/sosprz/nettemp
 fi
 
+#global dir
+echo  "<?php \$global_dir='/var/www/nettemp/';?>"  > /var/www/nettemp/conf.php
 
 echo -e "${GREEN}Create database${R}"
 /var/www/nettemp/modules/reset/reset
