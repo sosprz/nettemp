@@ -20,10 +20,10 @@ foreach ($result as $a) { ?>
 include('conf.php');
 
          if ($_POST['scan'] == "Scan for new sensors"){
-         exec("sh $global_dir/modules/sensors/temp_dev_scan");   
+         passthru("sh $global_dir/modules/sensors/temp_dev_scan");   
          system("chmod 777 $global_dir/scripts/tmp/.digitemprc");
-         header("location: " . $_SERVER['REQUEST_URI']);
-         exit();
+         //header("location: " . $_SERVER['REQUEST_URI']);
+         //exit();
          } 
          
 
@@ -33,5 +33,4 @@ include('conf.php');
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <input type="submit" name="scan" value="Scan for new sensors" />
 </form>
- 
 </span></span>

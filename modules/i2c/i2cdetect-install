@@ -1,4 +1,0 @@
-#https://github.com/vanvught/OpenDMX/blob/master/bw_i2cdetect/src/i2cdetect.c
-#http://www.raspberrypi.org/forums/viewtopic.php?t=65813&p=483098
-
-gcc -O3 -Wall -o i2cdetect i2cdetect.c -l bcm2835
