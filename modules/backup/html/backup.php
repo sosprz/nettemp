@@ -43,6 +43,7 @@ foreach($files AS $file) {
 <table>
 <tr>
 <td><a href="<?php echo "$dir$file";?>"><?php echo $file; ?></a></td>
+<td><?php $filesize = (filesize("$dir$file") * .0009765625) * .0009765625; echo round($filesize, 2) . MB ?></td>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 <input type="hidden" name="restore_file" value="<?php echo $file; ?>" />
 <input type="hidden" name="re" value="re" />
