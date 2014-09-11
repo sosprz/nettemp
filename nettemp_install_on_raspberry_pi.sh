@@ -69,7 +69,7 @@ else
     read lolol
 fi
 # php ini
-sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 50M/g' /etc/php5/cgi/php.ini
+sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 200M/g' /etc/php5/cgi/php.ini
 
 
 echo -e "${GREEN}Which version you want to download?${R}"
