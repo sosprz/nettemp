@@ -165,6 +165,8 @@ echo -e "${GREEN} OpenVPN serwer${R}"
 
 echo -e "${GREEN} Firewall${R}"
 /var/www/nettemp/modules/fw/install
+echo -e "${GREEN} I2C install${R}"
+/var/www/nettemp/modules/i2c/install
 
 echo -e "${GREEN}Add permisions${R}"
  chown -R root.www-data /var/www/nettemp

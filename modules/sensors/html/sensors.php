@@ -16,47 +16,8 @@ $add_graf = $_POST["add_graf"];
 $del_graf = $_POST["del_graf"];
 $name_new2 = $_POST["name_new"];
 $name_new=trim($name_new2);
-
-
-
 ?>
-<?php include("modules/view/html/view_del.php"); ?>
 
-<?php //sekcja generowania grafu
-if ($_POST['add_graf1'] == "add_graf2") {
-	// kasuje zawartosc przed wygenerowaniem nowego
-   $mask = "img/instant/*.png";
-   array_map( "unlink", glob( $mask ) );
-	$db = new PDO('sqlite:dbf/nettemp.db');
-	$sth = $db1->prepare("select * from sensors WHERE rom='$add_graf'");
-	$sth->execute();
-	$result = $sth->fetchAll();
-	foreach ($result as $a) { 
-	$name=$a["name"];
-$rep_add_graf = str_replace(" ", "_", $add_graf);
-system ("rrdtool graph img/instant/$rep_add_graf\_hour.png \
---imgformat PNG \
---title=\"$name\" \
---width 894 --height 140 \
---vertical-label=\"Degrees C\" \
--s -1hour \
-DEF:temp=db/$rep_add_graf\.rrd:temp:AVERAGE \
-AREA:temp#0066FF \
-LINE2:temp#0000ff:\"$name\" \
-\"COMMENT:\\n\" \
-GPRINT:temp:LAST:\"cur %2.2lf C \"  \
-\"COMMENT:\\n\" \
-GPRINT:temp:MIN:\"min %2.2lf C \" \
-\"COMMENT:\\n\" \
-GPRINT:temp:MAX:\"max %2.2lf C  \" \
-\"COMMENT:\\n\" \
-GPRINT:temp:AVERAGE:\"ave %2.2lf C \" ");
-} //while
-system ("chmod 777 img/instant/$rep_add_graf\_hour.png");
-      header("location: " . $_SERVER['REQUEST_URI']);
-  	   exit();
-} 
-?>
 <?php // SQLite3 - sekcja dodawania do bazy && tworzenie baz rrd
 	if(!empty($id_rom_new)) {
 	system("$global_dir/modules/sensors/temp_add_sensor $id_rom_new ");
@@ -145,7 +106,7 @@ if ( $_POST['ss1'] == "ss2"){
 } 
 ?>
 
-
+<?php include("modules/sensors/html/sensors_device.php"); ?>
 <?php include("modules/sensors/html/sensors_settings.php"); ?>
 <?php include("modules/sensors/html/sensors_new.php"); ?>
 

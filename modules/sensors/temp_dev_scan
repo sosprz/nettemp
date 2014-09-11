@@ -122,6 +122,13 @@ for name in $snmp; do
  echo "$name" >> $dir/tmp/onewire
 done
 
+# i2c
+if [ -e /dev/i2c-0 ]; then 
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='on' WHERE id='1'"
+	echo "$date temp_dev_scan - Discovered I2C interface" >> $dir/tmp/log.txt
+else
+    /sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='off' WHERE id='1'"
+fi
 
 
 
