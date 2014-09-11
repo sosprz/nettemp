@@ -1,0 +1,25 @@
+#! /bin/bash 
+
+dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"'" '{ print $2 }')
+
+############
+# BMP 0x77
+###########
+
+db=$(ls $dir/db |grep  i2c_77)
+for i in $db; do
+all=$($dir/modules/i2c/bmp/Adafruit_BMP085_run.py)
+if echo $i |grep temp > /dev/null ; then 
+    temp=$(echo $all | awk '{ print $2}')
+    echo $temp
+fi
+if echo $i |grep altitude > /dev/null ; then 
+    altitude=$(echo  $all | awk '{ print $4}')
+    echo $altitude
+fi
+if echo $i |grep pressure > /dev/null ; then 
+    pressure=$(echo $all | awk '{ print $6}')
+    echo $pressure
+fi
+done
+

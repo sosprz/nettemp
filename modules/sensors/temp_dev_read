@@ -222,3 +222,13 @@ fi
 
 $dir/modules/snmp/snmp_read
 
+#####################
+#
+# I2C
+#
+#####################
+
+$dir/modules/i2c/i2c_read
+
+
+
