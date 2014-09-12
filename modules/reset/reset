@@ -68,7 +68,8 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE device (
    id INTEGER PRIMARY KEY,
    usb UNIQUE,
    onewire UNIQUE,
-   serial UNIQUE
+   serial UNIQUE,
+   i2c UNIQUE
   );" 
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE gpio (
@@ -135,6 +136,8 @@ sqlite3 $dir/dbf/nettemp.db "INSERT INTO device (usb, onewire, serial) VALUES ('
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO settings (mail, sms, rrd, highcharts, fw, vpn, gpio ) VALUES ('off','off', 'on', 'on', 'off', 'off', 'off' )"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO fw (ssh, icmp, ext, openvpn ) VALUES ('off','off', '0.0.0.0/0', 'off' )"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user ) VALUES ('smtp.gmail.com', '587', 'yourmail@gmail.com' )"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,i2c) VALUES (1,'off');"
+
 
 chmod 775 $dir/dbf/nettemp.db
 chgrp www-data $dir/dbf/nettemp.db
