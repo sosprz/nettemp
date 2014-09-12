@@ -11,15 +11,21 @@ for i in $db; do
 all=$($dir/modules/i2c/bmp/Adafruit_BMP085_run.py)
 if echo $i |grep temp > /dev/null ; then 
     temp=$(echo $all | awk '{ print $2}')
-    echo $temp
+    echo Temp $temp
+    rrdtool update $dir/db/$i N:$temp
+    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
 fi
 if echo $i |grep altitude > /dev/null ; then 
-    altitude=$(echo  $all | awk '{ print $4}')
-    echo $altitude
+    altitude=$(echo  $all | awk '{ print $6}')
+    echo Alititude $altitude
+    rrdtool update $dir/db/$i N:$altitude
+    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$altitude' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
 fi
 if echo $i |grep pressure > /dev/null ; then 
-    pressure=$(echo $all | awk '{ print $6}')
-    echo $pressure
+    pressure=$(echo $all | awk '{ print $4}')
+    echo Pressure $pressure
+    rrdtool update $dir/db/$i N:$pressure
+    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$pressure' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
 fi
 done
 
