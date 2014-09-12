@@ -10,11 +10,5 @@ $hc=$a["highcharts"];
 }
 if ($hc == "on" ) { include("modules/highcharts/html/altitude_menu.php"); }
 if ($rrd == "on" ) { include("modules/view/html/altitude_view_graph.php"); }
-else { ?>
-<span class="belka">&nbsp Info<span class="okno">
-Go to settings and set highcharts or RRD
-</span></span>
-<?php
-}
 ?>
 </div>
