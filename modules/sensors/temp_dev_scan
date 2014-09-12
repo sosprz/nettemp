@@ -127,7 +127,7 @@ if [ -e /dev/i2c-0 ]; then
 	echo "searching I2C" 
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='on' WHERE id='1'"
 	i2c=$(sudo i2cdetect -y 0 |sed '1d'|awk '{ $1=""; print $0 }' |grep -o '[0-9]*')
-	if [ -n $i2c ];then
+	if [ -n "$i2c" ];then
 	for i in $i2c; do
 	    if [ "$i" = "77" ]; then
 	    echo i2c_$i\_pressure >> $dir/tmp/onewire
@@ -135,7 +135,6 @@ if [ -e /dev/i2c-0 ]; then
 	    echo i2c_$i\_altitude >> $dir/tmp/onewire
 	    fi
 	done
-	fi
 	else 
 	i2c=$(sudo i2cdetect -y 1 |sed '1d'|awk '{ $1=""; print $0 }' |grep -o '[0-9]*')
 	for i in $i2c; do
@@ -145,6 +144,7 @@ if [ -e /dev/i2c-0 ]; then
 	    echo i2c_$i\_altitude >> $dir/tmp/onewire
 	    fi
 	done
+	fi
 	echo "$date temp_dev_scan - Discovered I2C interface" >> $dir/tmp/log.txt
 else
     echo "No I2C"
