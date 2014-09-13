@@ -8,6 +8,7 @@ mkdir -p $dir/tmp/snmp_view
 mkdir -p $dir/tmp/temp_view
 mkdir -p $dir/tmp/pressure_view
 mkdir -p $dir/tmp/altitude_view
+mkdir -p $dir/tmp/lux_view
 
 rrd_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT rrd FROM settings"`
 

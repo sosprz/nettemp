@@ -7,8 +7,8 @@ dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"'" '{ p
 ###########
 
 db=$(ls $dir/db |grep  i2c_77)
-for i in $db; do
 all=$($dir/modules/i2c/BMP180/Adafruit_BMP085_run.py)
+for i in $db; do
 if echo $i |grep temp > /dev/null ; then 
     temp=$(echo $all | awk '{ print $2}')
     echo Temp $temp
@@ -33,6 +33,24 @@ done
 # TSL 0x77
 ###########
 
+db=$(ls $dir/db |grep  i2c_39_lux)
+i2c0=$($dir/modules/i2c/TSL2561/TSL2561_i2c_0)
+if echo $i2c0 |grep Success > /dev/null; then
+    lux=$(echo $i2c0 |awk '{print $3}')
+    echo LUX $lux
+    rrdtool update $dir/db/$db N:$lux
+    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$lux' WHERE rom='$(echo $db |awk 'sub("....$", "")')'"
+else
+    i2c1=$($dir/modules/i2c/TSL2561/TSL2561_i2c_1)
+    if echo $i2c1 |grep Success > /dev/null; then
+	lux=$(echo $i2c1 |awk '{print $3}')
+	echo LUX $lux
+	rrdtool update $dir/db/$db N:$lux
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$lux' WHERE rom='$(echo $db |awk 'sub("....$", "")')'"
+    fi
+fi
+
+ 
 
 
 

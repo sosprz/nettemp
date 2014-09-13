@@ -50,6 +50,7 @@ USERS:
 
 Changelog:
 8.0
+Add support for BMP180 and TSL2561. Lux, Altitude, Pressure, Temp
 Remove default conf.php form repo. Now its generated from installation setup and frpm tools->updat or tools->file check
 Changed menu: In new tab Devices is GPIO, Sensors, SNMP, UPS. In Security tab is Firewall, VPN, authmod (www password)
 Reset to default for now don't remove rrd bases.

@@ -265,6 +265,59 @@ array[0]="rrdtool xport -s now-8064h -e now --step 600 "
 	eval ${array[@]}
 	unset array 
 
+### lux
+echo "lux"
+rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='lux'")
+
+	array[0]="rrdtool xport -s now-24h -e now --step 60 "
+	ar=1
+	for i in $rom; do
+		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
+		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
+		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
+		let ar=ar+1
+	done
+        array[$ar]="> $dir/tmp/highcharts/lux_highcharts.xml"
+	eval ${array[@]}
+	unset array 
+
+	array[0]="rrdtool xport -s now-168h -e now --step 60 "
+	ar=1
+	for i in $rom; do
+		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
+		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
+		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
+		let ar=ar+1
+	done
+        array[$ar]="> $dir/tmp/highcharts/lux_highcharts_week.xml"
+	eval ${array[@]}
+	unset array 
+
+	array[0]="rrdtool xport -s now-672h -e now --step 60 "
+	ar=1
+	for i in $rom; do
+		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
+		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
+		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
+		let ar=ar+1
+	done
+        array[$ar]="> $dir/tmp/highcharts/lux_highcharts_month.xml"
+	eval ${array[@]}
+	unset array 
+
+array[0]="rrdtool xport -s now-8064h -e now --step 600 "
+	ar=1
+	for i in $rom; do
+		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
+		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
+		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
+		let ar=ar+1
+	done
+        array[$ar]="> $dir/tmp/highcharts/lux_highcharts_year.xml"
+	eval ${array[@]}
+	unset array 
+
+
 
 
 

@@ -19,6 +19,7 @@
               var seriesOptions = {
                 name: $(this).text(),
                 data: []
+		
               };
               options.series.push(seriesOptions);
             });
@@ -36,8 +37,10 @@
                     };
                 });
             });
+
             options.title.text = "Humidity of the last 24h"
 	    options.yAxis.title.text ="H (%)"
+
             $.each(series, function(index) {
               options.series.push(series[index]);
             });
