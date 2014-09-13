@@ -123,13 +123,17 @@ for name in $snmp; do
 done
 
 # i2c
+
+bmp180="77" #0x77
+
+
 if [ -e /dev/i2c-0 ]; then
 	echo "searching I2C" 
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='on' WHERE id='1'"
 	i2c=$(sudo i2cdetect -y 0 |sed '1d'|awk '{ $1=""; print $0 }' |grep -o '[0-9]*')
 	if [ -n "$i2c" ];then
 	for i in $i2c; do
-	    if [ "$i" = "77" ]; then
+	    if [ "$i" = "$bmp180" ]; then
 	    echo i2c_$i\_pressure >> $dir/tmp/onewire
 	    echo i2c_$i\_temp >> $dir/tmp/onewire
 	    echo i2c_$i\_altitude >> $dir/tmp/onewire
@@ -138,7 +142,7 @@ if [ -e /dev/i2c-0 ]; then
 	else 
 	i2c=$(sudo i2cdetect -y 1 |sed '1d'|awk '{ $1=""; print $0 }' |grep -o '[0-9]*')
 	for i in $i2c; do
-	    if [ "$i" = "77" ]; then
+	    if [ "$i" = "$bmp180" ]; then
 	    echo i2c_$i\_pressure >> $dir/tmp/onewire
 	    echo i2c_$i\_temp >> $dir/tmp/onewire
 	    echo i2c_$i\_altitude >> $dir/tmp/onewire
