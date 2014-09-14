@@ -7,13 +7,13 @@ mkdir -p $dir2
 if [ ! -e $dir/db/cpu.rrd ]
 then { echo "tworze bazy";
 
-rrdtool create $dir/db/cpu.rrd -s 60 DS:cpu:GAUGE:100000:0:100000 \
+rrdtool create $dir/db/system_cpu.rrd -s 60 DS:cpu:GAUGE:100000:0:100000 \
 RRA:AVERAGE:0.5:1:48384 \
 RRA:MAX:0.5:1:48384 \
 RRA:MIN:0.5:1:48384 \
 RRA:LAST:0.5:1:48384
 
-rrdtool create $dir/db/memory.rrd -s 60 DS:mem:GAUGE:100000:0:100000 \
+rrdtool create $dir/db/system_memory.rrd -s 60 DS:mem:GAUGE:100000:0:100000 \
 RRA:AVERAGE:0.5:1:48384 \
 RRA:MAX:0.5:1:48384 \
 RRA:MIN:0.5:1:48384 \
@@ -34,8 +34,8 @@ memory=`free | grep Mem | awk '{print $3/$2 * 100.0}'`
 echo $cpu
 echo $memory
 
-rrdtool update $dir/db/cpu.rrd N:$cpu
-rrdtool update $dir/db/memory.rrd N:$memory
+rrdtool update $dir/db/system_cpu.rrd N:$cpu
+rrdtool update $dir/db/system_memory.rrd N:$memory
 
 
 for i in hour day week month
@@ -46,8 +46,8 @@ rrdtool graph $dir/tmp/system_stats/$i.png \
 --width 390 --height 150 \
 --vertical-label="RPi system `date +%H%M`" \
 -s -1$i \
-DEF:cpu=$dir/db/cpu.rrd:cpu:AVERAGE \
-DEF:mem=$dir/db/memory.rrd:mem:AVERAGE \
+DEF:cpu=$dir/db/system_cpu.rrd:cpu:AVERAGE \
+DEF:mem=$dir/db/system_memory.rrd:mem:AVERAGE \
 LINE1:cpu#0000ff:"Used % CPU" \
 GPRINT:cpu:LAST:"last %2.2lf " \
 GPRINT:cpu:MIN:"min %2.2lf " \
