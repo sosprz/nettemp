@@ -4,12 +4,12 @@
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE settings SET vpn='$vpn_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
     if (!empty($vpn_onoff)) {
-    shell_exec("sudo update-rc.d openvpn defaults");
-    shell_exec("sudo service openvpn start");
+    shell_exec("sudo sed -i '/iface eth0/a openvpn openvpn' /etc/network/interfaces");
+    shell_exec("#sudo service openvpn start");
     }
     else {	
-    shell_exec("sudo update-rc.d openvpn disable");
-    shell_exec("sudo service openvpn stop");
+    shell_exec("sudo sed -i '/openvpn openvpn/d' /etc/network/interfaces");
+    shell_exec("#sudo service openvpn stop");
     } 
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
