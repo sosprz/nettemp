@@ -49,12 +49,25 @@ if [ $create_mail == on ]; then
 	if [ -n "$tmp_max" ]; then
 	    #cr_ge=`echo "$tmp >= $tmp_max" | bc` #OLD BC
 	    cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
-	    if [ $cr_ge == 1 ]; then  echo "High temp $name $tmp C" >> $plik; fi
+	    if [ $cr_ge == 1 ]; then
+		if echo $name |grep lux; then
+		    echo "High Lux in: $name $tmp" >> $plik; 
+		else  
+		    echo "High Temperature in: $name $tmp C" >> $plik; 
+		fi
+	    fi
 	fi
 	if [ -n "$tmp_min" ]; then
 	    #cr_le=`echo "$tmp <= $tmp_min" | bc` #OLD BC
 	    cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
-	    if [ $cr_le == 1 ]; then  echo "Low temp $name $tmp C" >> $plik; fi
+	    if [ $cr_le == 1 ]; then  
+		if echo $name |grep lux; then
+		    echo "Low Lux in: $name $tmp" >> $plik; 
+		else  
+		    echo "Low Temperature in: $name $tmp C" >> $plik; 
+		fi
+		
+	    fi
 	fi
     done 
 
