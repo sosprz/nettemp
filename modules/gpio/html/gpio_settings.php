@@ -221,10 +221,15 @@ if (($_POST['gpio_kwh1'] == "gpio_kwh2") ){
     	if ( $a["gpio_kwh"] == "on") { 
     	$db->exec("UPDATE gpio SET gpio_kwh='off' where gpio='$gpio_post' ") or die("exec error");
 	$db->exec("UPDATE settings SET kwh=''") or die("exec error");
+	$reset="/bin/bash  $global_dir/modules/kwh/reset";
+        shell_exec("$reset");
     	}
     	else { 
     	$db->exec("UPDATE gpio SET gpio_kwh='on' where gpio='$gpio_post' ") or die("exec error");
 	$db->exec("UPDATE settings SET kwh='on'") or die("exec error");
+	$reset="/bin/bash  $global_dir/modules/kwh/reset";
+        shell_exec("$reset");
+
     	}
    }
 	 $db = NULL;

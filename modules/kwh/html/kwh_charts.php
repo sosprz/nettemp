@@ -12,7 +12,7 @@
 
 $(function() {
 
-    $.getJSON('db/data.json', function(data) {
+    $.getJSON('db/gpio_kwh_highcharts.json', function(data) {
 
 	// create the chart
 	$('#container').highcharts('StockChart', {

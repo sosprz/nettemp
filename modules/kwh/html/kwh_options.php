@@ -7,16 +7,19 @@ $kwh_divider = $_POST["kwh_divider"];  //sql
 	
 	
 	
-	if ( $_POST['kwh_divider1'] == "kwh_divider2"){
+	if ($_POST['kwh_divider1'] == "kwh_divider2"){
+	if (!empty($kwh_divider)){
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE gpio SET gpio_kwh_divider='$kwh_divider' WHERE gpio_kwh='on'") or die ($db->lastErrorMsg());
+	$kwh_dividert = trim($kwh_divider); 
+	$db->exec("UPDATE gpio SET gpio_kwh_divider='$kwh_dividert' WHERE gpio_kwh='on'") or die ($db->lastErrorMsg());
 	$db = NULL;
 	$reset="/bin/bash $global_dir/modules/kwh/reset";
 	shell_exec("$reset");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	 } 
-
+	else { ?> <font color="red">Divider cannot be empty!</font> <?php }
+	}
 
 	$kwh_hilo = $_POST["kwh_hilo"];
 	$gpio = $_POST["gpio"];
