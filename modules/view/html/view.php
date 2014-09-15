@@ -2,12 +2,25 @@
 
 <table><tr>
 <td><a href="index.php?id=view&type=temp_view" ><button>Temp view</button></a></td>
+<?php 
+if (glob('/var/www/nettemp/db/*humi*.rrd')) {?>
 <td><a href="index.php?id=view&type=humi_view" ><button>Humi view</button></a></td>
+<?php }
+if (glob('/var/www/nettemp/db/*pressure*.rrd')) {?>
 <td><a href="index.php?id=view&type=pressure_view" ><button>Pressure view</button></a></td>
+<?php }
+if (glob('/var/www/nettemp/db/*altitude*.rrd')) {?>
 <td><a href="index.php?id=view&type=altitude_view" ><button>Altitude view</button></a></td>
+<?php }
+if (glob('/var/www/nettemp/db/*snmp*.rrd')) {?>
 <td><a href="index.php?id=view&type=snmp_view" ><button>Snmp view</button></a></td>
+<?php }
+if (glob('/var/www/nettemp/db/*kwh*')) {?>
 <td><a href="index.php?id=view&type=kwh_view" ><button>kWh view</button></a></td>
+<?php }
+if (glob('/var/www/nettemp/db/*lux*.rrd')) {?>
 <td><a href="index.php?id=view&type=lux_view" ><button>LUX view</button></a></td>
+<?php } ?>
 </tr>
 </table>
 </span>
