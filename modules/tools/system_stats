@@ -4,7 +4,7 @@ dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"'" '{ p
 dir2=$dir/tmp/system_stats
 mkdir -p $dir2
 
-if [ ! -e $dir/db/cpu.rrd ]
+if [ ! -e $dir/db/system_cpu.rrd ]
 then { echo "tworze bazy";
 
 rrdtool create $dir/db/system_cpu.rrd -s 60 DS:cpu:GAUGE:100000:0:100000 \
