@@ -11,8 +11,8 @@
 <span class="belka">&nbsp Select action<span class="okno">
 
 <table><tr>
-<td><a href="index.php?id=devices&type=scan" ><button>Scan for sensors</button></a></td>
 <td><a href="index.php?id=devices&type=sensors" ><button>All sensors</button></a></td>
+<td><a href="index.php?id=devices&type=scan" ><button>Scan for sensors</button></a></td>
 <?php if ( $gpio == on ) { ?>
 <td><a href="index.php?id=devices&type=gpio" ><button>GPIO</button></a></td>
 	<?php } ?>

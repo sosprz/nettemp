@@ -54,28 +54,38 @@ onoff() {
 }
 status() {
 gpio_from_line="$1"
-humi=`sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox FROM gpio where gpio='$gpio_from_line'"`
-day_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio_from_line'")
-time_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_run FROM gpio WHERE gpio='$gpio_from_line'")
-temp_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio_from_line'")
-trigger_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_run FROM gpio WHERE gpio='$gpio_from_line'")
-simple_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT simple_run FROM gpio WHERE gpio='$gpio_from_line'")
+all=`sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox,day_run,time_run,temp_run,trigger_run,simple_run FROM gpio where gpio='$gpio_from_line'"`
 
-if [ -n "$gpio_from_line" ] && [ "$time_run" = "on" ] ;then
-    echo "on"
-elif [ -n "$gpio_from_line" ] && [ "$temp_run" = "on" ]; then
-    echo "on"
-elif [ -n "$gpio_from_line" ] && [ "$day_run" = "on" ]; then
-    echo "on"
-elif [ -n "$gpio_from_line" ] && [ "$humi" = "on" ]; then
+if [ -n "$gpio_from_line" ] && echo $all |awk -F'|' '{print $1}' |grep on >/dev/null; then
     echo "humi"
-elif [ -n "$gpio_from_line" ] && [ "$trigger_run" = "on" ]; then
-    echo "on"
-elif [ -n "$gpio_from_line" ] && [ "$simple_run" = "on" ];then 
+elif [ -n "$gpio_from_line" ] && echo $all |grep on >/dev/null; then
     echo "on"
 else
     echo "off"
 fi
+
+#humi=`sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox FROM gpio where gpio='$gpio_from_line'"`
+#day_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio_from_line'")
+#time_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT time_run FROM gpio WHERE gpio='$gpio_from_line'")
+#temp_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio_from_line'")
+#trigger_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_run FROM gpio WHERE gpio='$gpio_from_line'")
+#simple_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT simple_run FROM gpio WHERE gpio='$gpio_from_line'")
+
+#if [ -n "$gpio_from_line" ] && [ "$time_run" = "on" ] ;then
+#    echo "on"
+#elif [ -n "$gpio_from_line" ] && [ "$temp_run" = "on" ]; then
+#    echo "on"
+#elif [ -n "$gpio_from_line" ] && [ "$day_run" = "on" ]; then
+#    echo "on"
+#elif [ -n "$gpio_from_line" ] && [ "$humi" = "on" ]; then
+#    echo "humi"
+#elif [ -n "$gpio_from_line" ] && [ "$trigger_run" = "on" ]; then
+#    echo "on"
+#elif [ -n "$gpio_from_line" ] && [ "$simple_run" = "on" ];then 
+#    echo "on"
+#else
+#    echo "off"
+#fi
 
 }
 
@@ -99,6 +109,7 @@ for gpio in $gpio_list; do
 	tempday_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT tempday_checkbox FROM gpio WHERE gpio='$gpio'")
 	trigger_checkbox=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_checkbox FROM gpio WHERE gpio='$gpio'")
 	simple_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT simple_run FROM gpio WHERE gpio='$gpio'")
+
 if [ "$humi_checkbox" = "on" ]; then
     echo "Humidity enabled"
 elif [ "$day_checkbox" = "on" ]; then

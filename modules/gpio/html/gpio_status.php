@@ -24,10 +24,13 @@ $gpio=$a['gpio'];
     </tr></table>
 <?php
 }
+
 ?>
 
 
-<?php } else { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; } ?>
+<?php } 
+
+else { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; } ?>
 
 
 </span></span>
