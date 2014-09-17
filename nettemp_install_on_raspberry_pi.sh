@@ -63,7 +63,7 @@ else
     touch /etc/lighttpd/.lighttpdpassword
     chown www-data:www-data /etc/lighttpd/.lighttpdpassword
     echo "admin:admin" > /etc/lighttpd/.lighttpdpassword
-    /etc/init.d/lighttpd restart
+    
     lighttpd-enable-mod auth
     echo "${REDB}WWW ACCESS: User is admin, pass is admin. You must change password. Press any key to continue.${R}"
     read lolol
@@ -99,6 +99,8 @@ echo  "<?php \$global_dir='/var/www/nettemp/';?>"  > /var/www/nettemp/conf.php
 echo -e "${GREEN}Create database${R}"
 /var/www/nettemp/modules/reset/reset
 
+# run lighttpd
+/etc/init.d/lighttpd restart
 
 echo -e "${GREEN}Add cron line${R}"
  echo "*/1 * * * * /var/www/nettemp/modules/sensors/temp_dev_read && /var/www/nettemp/modules/view/view_gen && /var/www/nettemp/modules/highcharts/highcharts" > /var/spool/cron/crontabs/root

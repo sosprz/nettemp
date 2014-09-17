@@ -1,3 +1,16 @@
+<?php 
+$file_path='dbf/nettemp.db';
+if ( '' == file_get_contents( $file_path ) )
+{ ?>
+<html>
+<h1><font color="blue">nettemp.pl</font></h2>
+<h2><font color="red">Database not found <?php echo $file_path; ?></font></h2>
+<h3>Go to shell and reset/create nettemp database:<h3>
+/var/www/nettemp/modules/reset/reset <br />
+</html>
+<?php }
+else {
+?>
 <?php session_start(); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
@@ -91,6 +104,7 @@ case 'upload': include('modules/backup/html/upload.php'); break;
 
 </body>
 </html>
+<?php } ?>
 
 
 
