@@ -98,7 +98,7 @@ fi
 
 #RPI system temp
 
-if [ ! $(cat $dir/tmp/onewire |grep Raspberry_Pi) ]; then
+if [ ! $(cat $dir/tmp/onewire |grep Raspberry_Pi) ] && [ -e /opt/vc/bin/vcgencmd ]; then
     echo "Raspberry_Pi" >> $dir/tmp/onewire
     echo "add pi to onewire"
 fi
