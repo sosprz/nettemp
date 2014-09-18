@@ -1,8 +1,6 @@
 <?php
-include('conf.php');
-
 if ($_POST['temp_dev_read'] == "Read"){
-     exec("sh $global_dir/modules/sensors/temp_dev_read");       
+     exec("sh modules/sensors/temp_dev_read");       
      header("location: " . $_SERVER['REQUEST_URI']);
      exit();
      } 

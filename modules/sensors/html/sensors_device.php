@@ -17,13 +17,11 @@ foreach ($result as $a) { ?>
 ?>
 <hr>
 <?php
-include('conf.php');
-
          if ($_POST['scan'] == "Scan for new sensors"){
-         passthru("sh $global_dir/modules/sensors/temp_dev_scan");   
-         system("chmod 777 $global_dir/scripts/tmp/.digitemprc");
-         //header("location: " . $_SERVER['REQUEST_URI']);
-         //exit();
+         passthru("sh modules/sensors/temp_dev_scan");   
+         system("chmod 775 scripts/tmp/.digitemprc");
+         header("location: " . $_SERVER['REQUEST_URI']);
+         exit();
          } 
          
 

@@ -1,7 +1,6 @@
 <?php
-include('conf.php');
    if ($_POST['scan'] == "Scan"){
-	   exec("sh $global_dir/modules/sms/sms_scan");   
+	   exec("sh modules/sms/sms_scan");   
   		exec("rm tmp/gammu_identify");
 		header("location: " . $_SERVER['REQUEST_URI']);
   		exit();

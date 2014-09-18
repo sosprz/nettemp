@@ -15,14 +15,6 @@ if (!file_exists($katalogw)) { echo "<font color=\"#FF0000\">Dir $katalogw not e
 elseif (!is_writable($katalogw)) { echo "<font color=\"#FF0000\">Dir $katalogw not writeble</font><br />"; } 
 }
 
-$files[] = 'conf.php';
-foreach($files as $files) {
-if (!file_exists($files)) { echo "<font color=\"#FF0000\">File $files not exist</font><br />"; } 
-elseif (!is_writable($files)) { echo "<font color=\"#FF0000\">File $files not writeble</font><br />"; } 
-}
-
-
-
 // czy bazy sa do zapisu
 foreach(glob("dbf/*") as $db) {
 if (!is_writable($db)) { echo "<font color=\"#FF0000\">File $db not writable </font><br />"; } 

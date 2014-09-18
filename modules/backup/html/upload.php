@@ -1,7 +1,6 @@
 <!-- http://webcheatsheet.com/php/file_upload.php -->
 <span class="belka">&nbsp Backup/restore info<span class="okno">
 <?php
-include('conf.php');
 //Сheck that we have a file
 if((!empty($_FILES["uploaded_file"])) && ($_FILES['uploaded_file']['error'] == 0)) {
   //Check if the file is JPEG image and it's size is less than 350Kb
@@ -9,7 +8,7 @@ if((!empty($_FILES["uploaded_file"])) && ($_FILES['uploaded_file']['error'] == 0
   $ext = substr($filename, strrpos($filename, '.') + 1);
   if (($ext == "gz") && ($_FILES["uploaded_file"]["size"] < 350000000)) {
     //Determine the path to which we want to save this file
-      $newname = "$global_dir/modules/backup/files/$filename";
+      $newname = "modules/backup/files/$filename";
       //Check if the file with the same name is already exists on the server
       if (!file_exists($newname)) {
         //Attempt to move the uploaded file to it's new place

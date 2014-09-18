@@ -11,7 +11,6 @@ opkg install lighttpd php5-cgi php5-mod-pdo-sqlite php5-mod-sqlite3 rrdtool sqli
 
 cd /www/
 git clone -b beta --recursive git://github.com/sosprz/nettemp
-echo  "<?php \$global_dir='/www/nettemp/';?>"  > /www/nettemp/conf.php
 /www/nettemp/modules/reset/reset
 
 sed -i 's/doc_root = "\/www"/doc_root = "\/www\/nettemp"/g' /etc/php.ini

@@ -1,5 +1,4 @@
 <?php
-include('conf.php');
 	   include('modules/login/login_check.php');
 		if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { 
 
@@ -20,7 +19,7 @@ $name_new=trim($name_new2);
 
 <?php // SQLite3 - sekcja dodawania do bazy && tworzenie baz rrd
 	if(!empty($id_rom_new)) {
-	system("$global_dir/modules/sensors/temp_add_sensor $id_rom_new ");
+	system("modules/sensors/temp_add_sensor $id_rom_new ");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	 
 	} ?>
@@ -61,7 +60,7 @@ if(!empty($usun_rom_nw) && ($_POST['usun_nw2'] == "usun_nw3")) {   // 2x post ab
 	 ?> 
 
 <?php 	//read  digitemrc file and 1-wire bus
-	$file_digi = "$global_dir/tmp/.digitemprc";
+	$file_digi = "tmp/.digitemprc";
 	$file_digi2 = file($file_digi);
 	foreach($file_digi2 as $line_digi) {
 		if(strstr($line_digi,"ROM")) { 
@@ -71,7 +70,7 @@ if(!empty($usun_rom_nw) && ($_POST['usun_nw2'] == "usun_nw3")) {   // 2x post ab
 			$digitemprc[] = $id0; 
 			}
 	}
-	$f_one_wire = "$global_dir/tmp/onewire";
+	$f_one_wire = "tmp/onewire";
 	$one_wire = file($f_one_wire);
 	foreach($one_wire as $line_one_wire) {
 		if (!empty($line_one_wire)) {

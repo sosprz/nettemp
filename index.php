@@ -1,6 +1,5 @@
 <?php 
 $dbfile='dbf/nettemp.db';
-$conf='conf.php';
 if ( '' == file_get_contents( $dbfile ) )
 { ?>
 <html>
@@ -10,15 +9,6 @@ if ( '' == file_get_contents( $dbfile ) )
 /var/www/nettemp/modules/reset/reset <br />
 </html>
 <?php }
-elseif ( '' == file_get_contents( $conf ) ){ ?>
-<html>
-<h1><font color="blue">nettemp.pl</font></h2>
-<h2><font color="red"><?php echo $conf; ?> file not found!</font></h2>
-<h3>Go to shell and create conf.php:<h3>
-<pre><code>echo  "&ltphp $global_dir='/var/www/nettemp/';&gt"  > /var/www/nettemp/conf.php</code></pre>
-</html>
-<?php 
-}
 else {
 ?>
 <?php session_start(); ?>
