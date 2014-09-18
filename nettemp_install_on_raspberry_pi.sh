@@ -66,7 +66,7 @@ else
     echo "admin:admin" > /etc/lighttpd/.lighttpdpassword
     
     lighttpd-enable-mod auth
-    echo "${REDB}WWW ACCESS: User is admin, pass is admin. You must change password. Press any key to continue.${R}"
+    echo -e "${REDB}WWW ACCESS: User is admin, pass is admin. You must change password. Press any key to continue.${R}"
     read lolol
 fi
 # php ini
