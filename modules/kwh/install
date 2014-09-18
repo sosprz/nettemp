@@ -6,8 +6,6 @@ sqlite3 $dir/dbf/nettemp.db  "ALTER TABLE gpio ADD gpio_kwh type TEXT";
 sqlite3 $dir/dbf/nettemp.db  "ALTER TABLE gpio ADD gpio_kwh_divider type TEXT";
 sqlite3 $dir/dbf/nettemp.db  "ALTER TABLE gpio ADD gpio_kwh_hilo type TEXT";
 
-apt-get -y install bc
-
 sed -i '$a @reboot '$dir'/modules/kwh/reset' /var/spool/cron/crontabs/root
 sed -i '$a */1 * * * * '$dir'/modules/kwh/highcharts' /var/spool/cron/crontabs/root
 

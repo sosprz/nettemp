@@ -25,7 +25,7 @@ if [ "$y" = "y" ]; then
 fi
 
 echo -e "${GREEN}Install packages${R}"
- apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat command-not-found sharutils bc htop snmp
+apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat command-not-found sharutils bc htop snmp > /dev/null
 
 echo -e "${GREEN}Enable module: fastcgi-php${R}"
  lighty-enable-mod fastcgi-php
@@ -130,8 +130,7 @@ echo -e "${GREEN}Add wiringPI for gpio${R}"
  fi
 
 echo -e "${GREEN}Add watchdog${R}"
- 
- apt-get install watchdog
+ apt-get install watchdog > /dev/null
  update-rc.d watchdog defaults
  
  if cat /etc/modules |grep bcm2708_wdog 1> /dev/null
@@ -168,6 +167,7 @@ echo -e "${GREEN} I2C install${R}"
 /var/www/nettemp/modules/i2c/install
 
 echo -e "${GREEN}Add permisions${R}"
+ mkdir /var/www/nettemp/tmp
  chown -R root.www-data /var/www/nettemp
  chmod -R 775 /var/www/nettemp
  gpasswd -a www-data dialout

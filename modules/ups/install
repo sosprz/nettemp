@@ -3,8 +3,8 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 /etc/init.d/apcupsd stop
 killall apcupsd
-apt-get purge -y apcupsd
-apt-get install -y apcupsd
+apt-get purge -y apcupsd > /dev/null
+apt-get install -y apcupsd > /dev/null
 sed -i 's|UPSCABLE smart|UPSCABLE usb|g' /etc/apcupsd/apcupsd.conf
 sed -i 's|UPSTYPE apcsmart|UPSTYPE usb|g' /etc/apcupsd/apcupsd.conf
 sed -i 's|DEVICE /dev/ttyS0|DEVICE|g' /etc/apcupsd/apcupsd.conf
