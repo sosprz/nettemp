@@ -50,6 +50,9 @@ USERS:
 
 
 Changelog:
+8.1
+Add on/off to i2c script
+
 8.0
 Add support for BMP180 and TSL2561. Lux, Altitude, Pressure, Temp
 Remove default conf.php form repo. Now its generated from installation setup and frpm tools->updat or tools->file check
