@@ -10,7 +10,15 @@ if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-
 $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db1->prepare("select * from sensors");
 $sth->execute();
-$result = $sth->fetchAll(); ?>
+$result = $sth->fetchAll();
+
+$sth1 = $db->prepare("select * from settings ");
+$sth1->execute();
+$result2 = $sth1->fetchAll();
+foreach ($result2 as $a) {
+$rrd=$a["rrd"];
+}
+if ( $rrd == on ) { ?>
 <tr>
 <td></td>
 <td><center>Name</center></td>
@@ -27,6 +35,18 @@ $result = $sth->fetchAll(); ?>
 <td></td>
 <td></td>
 </tr>
+<?php } else { ?>
+<tr>
+<td></td>
+<td><center>Name</center></td>
+<td></td>
+<td><center>Sensor id</center></td>
+<td>DB</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<?php } ?>
 <?php foreach ($result as $a) { 	
 	
 ?>
@@ -34,7 +54,9 @@ $result = $sth->fetchAll(); ?>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <td><img src="media/ico/TO-220-icon.png" /></td>
 <td><input type="text" name="name_new" size="12" maxlength="10" value="<?php echo $a["name"]."\t"; ?>" /></td>
+<?php if ( $rrd == on ) { ?>
 <td><input type='color' name='color' value ="<?php echo $a["color"]; ?>" size="7" />
+<?php } ?>
 <input type="hidden" name="name_id" value="<?php echo $a["id"]."\t"; ?>" />
 <input type="hidden" name="id_name2" value="id_name3"/>
 <td><input type="image" src="media/ico/Actions-edit-redo-icon.png" /></td>
@@ -50,11 +72,6 @@ $result = $sth->fetchAll(); ?>
    { ?>
 <td><img src="media/ico/Ok-icon.png" /></td>
 </form>
-<!--<form  action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
-<input type="hidden" name="add_graf" value="<?php echo $a["rom"];  ?>" />
-<input type="hidden" name="add_graf1" value="add_graf2" />
-<td><center><input type="image" src="media/ico/graph-icon.png"  /></center></td>
-</form> -->
 <?php   }
 else { ?> 
 <td>Error - no rrd base</td>
@@ -65,6 +82,8 @@ else { ?>
 </form>
 
 <?php }
+
+if ( $rrd == on ) { 
 
 ?>
     <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"> 	
@@ -77,6 +96,7 @@ else { ?>
     <td><input type="checkbox" name="year" value="on" <?php echo $a["year"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="ss1" value="ss2" />
     </form>
+<?php } ?>
 
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 <input type="hidden" name="usun_czujniki" value="<?php echo $a["rom"]; ?>" />
