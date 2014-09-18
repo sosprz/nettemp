@@ -4,7 +4,7 @@
 #
 # nettemp Raspberry PI/Debian installer
 # 
-# 2014.09.16
+# 2014.09.18
 
 R='\033[0m'
 RED='\033[00;31m'
