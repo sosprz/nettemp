@@ -15,23 +15,30 @@ System stats
 
 
 
-AUTOMATIC INSTALL:
+Debian, RaspberryPi:
 
-    install script for raspberry pi, :
+	download and run like root, script will install all requirements like php, www.
+	
+	sudo apt-get update
+	sudo apt-get install ca-certificates
+	wget https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
+	wget --no-check-certificate https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
+	chmod 755 nettemp_install_on_raspberry_pi.sh
+	./nettemp_install_on_raspberry_pi.sh
+    
+    	In browser: http://your_ip
 
-    download and run like root, script will install all requirements like php, www.
-    
-    sudo apt-get update
-    sudo apt-get install ca-certificates
-    wget https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
-    chmod 755 nettemp_install_on_raspberry_pi.sh
-    ./nettemp_install_on_raspberry_pi.sh
-    
-    In browser: http://your_ip
+OpenWRT, beta version:
+	
+	opkg update
+	opkg install wget
+	wget --no-check-certificate https://raw.githubusercontent.com/sosprz/nettemp/beta/nettemp_install_on_openwrt.sh
+	chmod 755 nettemp_install_on_openwrt.sh
+	./nettemp_install_on_openwrt.sh
 
 USERS:
 
-    admin admin - access for all
+	admin admin - access for all
 
 ![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/2nettemp_view.jpg)
 ![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/1nettemp_status.jpg)
@@ -42,6 +49,23 @@ USERS:
 
 
 Changelog:
+8.0
+Add support for BMP180 and TSL2561. Lux, Altitude, Pressure, Temp
+Remove default conf.php form repo. Now its generated from installation setup and frpm tools->updat or tools->file check
+Changed menu: In new tab Devices is GPIO, Sensors, SNMP, UPS. In Security tab is Firewall, VPN, authmod (www password)
+Reset to default for now don't remove rrd bases.
+Reset erase all changes in nettemp code. git reset --hard HEAD
+Fix: VPN not started after reboot.
+i2c better searching
+Check if databse and exist before site is loading.
+REMOVE conf.php, this file is not anymore base info for php and bash working directory.
+Turn off RRD settings if rrd is off.
+
+7.7.3
+mv kwh to charts and gpio, gpio on/off, mv mail and sms to settings
+
+7.7.2
+fix login, dir
 
 7.7.1
 fix vpn and firewall bugs. Recommended reinstall nettemp:)

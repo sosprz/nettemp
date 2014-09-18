@@ -1,5 +1,4 @@
 <?php
-include('conf.php');
 $kwh_divider = $_POST["kwh_divider"];  //sql
 ?>
 
@@ -7,16 +6,19 @@ $kwh_divider = $_POST["kwh_divider"];  //sql
 	
 	
 	
-	if ( $_POST['kwh_divider1'] == "kwh_divider2"){
+	if ($_POST['kwh_divider1'] == "kwh_divider2"){
+	if (!empty($kwh_divider)){
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE gpio SET gpio_kwh_divider='$kwh_divider' WHERE gpio_kwh='on'") or die ($db->lastErrorMsg());
+	$kwh_dividert = trim($kwh_divider); 
+	$db->exec("UPDATE gpio SET gpio_kwh_divider='$kwh_dividert' WHERE gpio_kwh='on'") or die ($db->lastErrorMsg());
 	$db = NULL;
-	$reset="/bin/bash $global_dir/modules/kwh/reset";
+	$reset="/bin/bash modules/kwh/reset";
 	shell_exec("$reset");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	 } 
-
+	else { ?> <font color="red">Divider cannot be empty!</font> <?php }
+	}
 
 	$kwh_hilo = $_POST["kwh_hilo"];
 	$gpio = $_POST["gpio"];
@@ -24,7 +26,7 @@ $kwh_divider = $_POST["kwh_divider"];  //sql
 	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
         $db->exec("UPDATE gpio SET gpio_kwh_hilo='$kwh_hilo' WHERE gpio='$gpio'") or die("name exec error");
 	$db = NULL;
-	$reset="/bin/bash  $global_dir/modules/kwh/reset";
+	$reset="/bin/bash modules/kwh/reset";
 	shell_exec("$reset");
 		header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
@@ -41,8 +43,10 @@ $result = $sth->fetchAll();
 
 foreach ($result as $a) { ?>
 
-<span class="belka">&nbsp kWh options<span class="okno">
-	<form action="kwh" method="post">
+<!--<span class="belka">&nbsp kWh options<span class="okno">-->
+    <table>
+    <tr>	
+    <form action="gpio" method="post">
 	<td>Divider</td>
 	<td><input type="text" name="kwh_divider" size="20" value="<?php echo $a["gpio_kwh_divider"]; ?>"  /></td>
 	<input type="hidden" name="kwh_divider1" value="kwh_divider2" />
@@ -59,15 +63,17 @@ $sth->execute();
 $result = $sth->fetchAll();
 foreach ( $result as $a) { ?>
 	
-	<form action="kwh" method="post">
-        <tr><td>Input state   </td><td><select name="kwh_hilo" onchange="this.form.submit()" >
+	<form action="gpio" method="post">
+        <tr>
+	<td>Input state   </td><td><select name="kwh_hilo" onchange="this.form.submit()" >
         <option <?php echo $a['gpio_kwh_hilo'] == '1' ? 'selected="selected"' : ''; ?> value="1" >1 (high)</option>
         <option <?php echo $a['gpio_kwh_hilo'] == '0' ? 'selected="selected"' : ''; ?> value="0" >0 (low)</option>     
         </td></tr></select>
-	    <input type="hidden" name="kwh_hilo1" value="kwh_hilo2" />
+	<input type="hidden" name="kwh_hilo1" value="kwh_hilo2" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	</form>
+	</table>
 <?php } ?>
 
 
-</span></span>
+<!-- </span></span> -->

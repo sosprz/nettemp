@@ -1,9 +1,8 @@
 <?php
-include('conf.php');
-
 if ($_POST['perms'] == "perms") { 
-shell_exec("sudo chgrp -R www-data $global_dir");
-shell_exec("sudo chmod -R 775 $global_dir");
+$dir=getcwd();
+shell_exec("sudo chgrp -R www-data $dir");
+shell_exec("sudo chmod -R 775 $dir");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();	
 }

@@ -1,6 +1,4 @@
 <?php
-include('conf.php');
-session_start();
 include('modules/login/login_check.php');
     if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { 
 ?>

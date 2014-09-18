@@ -1,40 +1,53 @@
-<?php include('conf.php'); session_start(); include('modules/login/login_check.php'); if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { ?>
-<span class="belka">&nbsp OpenVPN status<span class="okno">
-<?php passthru('/etc/init.d/openvpn status'); ?>
+<?php
+    $vpn_onoff = $_POST["vpn_onoff"];
+    if (($_POST['onoff'] == "onoff") ){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE settings SET vpn='$vpn_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
+    if (!empty($vpn_onoff)) {
+    shell_exec("sudo sed -i '/iface eth0/a openvpn openvpn' /etc/network/interfaces");
+    shell_exec("sudo service openvpn start");
+    }
+    else {	
+    shell_exec("sudo sed -i '/openvpn openvpn/d' /etc/network/interfaces");
+    shell_exec("sudo service openvpn stop");
+    } 
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+?>
+<?php
+$db = new PDO('sqlite:dbf/nettemp.db');
+$sth = $db->prepare("select * from settings ");
+$sth->execute();
+$result = $sth->fetchAll();
+foreach ($result as $a) {
+$vpn=$a["vpn"];
 
-<?php passthru('cat /etc/openvpn/openvpn.conf |grep port');
-
-if ($_POST['disable'] == "disable") { 
-shell_exec ("/bin/bash modules/vpn/install disable");
-header("location: " . $_SERVER['REQUEST_URI']);
-  exit();
 }
+?>
+<span class="belka">&nbsp OpenVPN settings<span class="okno">
 
-if ($_POST['enable'] == "enable") { 
-shell_exec ("/bin/bash modules/vpn/install enable");
-header("location: " . $_SERVER['REQUEST_URI']);
-  exit();
 
-}
 
-exec('sudo service openvpn status', $output, $return); 
-if ( $return == 0 ) { ?>
-<form action="index.php?id=vpn" method="post">
-<input type="hidden" name="disable" value="disable">
-<input  type="submit" value="Disable"  />
-</form>
-<?php } 
-    else { ?>
-<form action="index.php?id=vpn" method="post">
-<input type="hidden" name="enable" value="enable">
-<input  type="submit" value="Enable"  />
-</form>
-<?php } ?>
+<table>
+
+<tr> <td><h2>OpenVPN</h2></td>
+    <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+    <td><input type="checkbox" name="vpn_onoff" value="on" <?php echo $vpn == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <input type="hidden" name="onoff" value="onoff" />
+    </form>
+</tr> 
+</table>
+<?php
+if ($vpn == "on" ) { 
+    include('vpn_add.php');
+    include('vpn_ca.php');
+	 } 
+?>
+
+
 
 
 </span></span>
 
-<?php include("vpn_add.php"); ?>
-<?php include("vpn_ca.php"); ?>
 
-<?php } else { header("Location: diened"); }; 

@@ -28,7 +28,7 @@ foreach ($gpiolist as $value1) {
    	$check = $result["gpio"]; 
 	}; ?>
 <table><tr>
-    <form action="gpio" method="post">
+    <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
     	<td><img src="media/ico/TO-220-icon.png" /></td>
     	<td>Gpio <?php echo $value1; ?></td>
 	 	<?php if ($check != $value1) { ?>
@@ -37,7 +37,7 @@ foreach ($gpiolist as $value1) {
     	<td><input type="image" src="media/ico/Add-icon.png"  /></td>
     </form>
 <?php } ?>
-    <form action="gpio" method="post"> 
+    <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"> 
     	<input type="hidden" name="gpioad" value="<?php echo $value1; ?>" >
     	<input type="hidden" name="del" value="DEL" />
     	<td><input type="image" src="media/ico/Close-2-icon.png"  /></td>

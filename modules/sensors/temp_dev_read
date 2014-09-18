@@ -1,7 +1,6 @@
 #! /bin/bash
 
-dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
-
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
 if [ ! -e $dir/tmp/log.txt ]; then
@@ -32,11 +31,11 @@ if [ "$usb" == "off" ]; then
 echo "INFO: no USB device"
 else
 
-for name in $db
+dbusb=$(ls $dir/db/ |grep -vE "[-,_]" |grep rrd)
+
+for name in $dbusb
 do
 name_str=${#name}
-
-if [ $name_str -gt "19" ]; then 
 
 name_1=`echo $name |awk 'sub("....$", "")' | sed 's/_/ /g'`
 name_3=`echo $name_1 | sed ':a;$!{N;s/\n//;ba;};s/..../& /g'`
@@ -59,7 +58,6 @@ fi
 	    echo "$date temp_dev_read - reading sensor error 85C (resistor, or calbe problem) $name " >> $dir/tmp/log.txt    
     fi
 
-fi
 done
 fi
 
@@ -75,11 +73,11 @@ if [ "$serial" == "off" ]; then
 echo "INFO: no serial device"
 else
 
-for name in $db
+dbserial=$(ls $dir/db/ |grep -vE "[-,_]" |grep rrd)
+
+for name in $dbserial
 do
 name_str=${#name}
-
-if [ $name_str -gt "19" ]; then 
 
 name_1=`echo $name |awk 'sub("....$", "")' | sed 's/_/ /g'`
 name_3=`echo $name_1 | sed ':a;$!{N;s/\n//;ba;};s/..../& /g'`
@@ -98,7 +96,6 @@ fi
 	    echo "$date temp_dev_read - reading sensor error 85C (resistor, or calbe problem) $name " >> $dir/tmp/log.txt    
     fi
 
-fi
 done
 fi
 
@@ -115,14 +112,13 @@ if [ "$onewire" == "off" ]; then
 echo "INFO: no 1-wire device"
 else
 
-for name in $db
+db1wire=$(ls $dir/db/ |grep -)
+
+for name in $db1wire
 do
 name_str=${#name}
-
-if [ $name_str -lt "20" ] && [ $name_str -gt "11" ]; then
     one_wire_name=`echo $name |awk 'sub("....$", "")'`
     name_1=`cat $dir/tmp/onewire |grep $one_wire_name`
-    if [ "$name_1" != "Raspberry_Pi" ] && echo "$name_1" | grep -q -v snmp; then    
 	if  [ -e /sys/bus/w1/devices/${name_1}/w1_slave ]; then
 	    wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.1f\n", $11/1000 } ' /sys/bus/w1/devices/${name_1}/w1_slave;`
 	    echo 1-wire: $wynik C
@@ -140,8 +136,6 @@ if [ $name_str -lt "20" ] && [ $name_str -gt "11" ]; then
 	else 
 	    echo "$date temp_dev_read - reding sensor error (CRC) $name" >> $dir/tmp/log.txt    
 	fi
-    fi
-fi
 done
 fi
 unset wynik
@@ -221,4 +215,14 @@ fi
 ######################
 
 $dir/modules/snmp/snmp_read
+
+#####################
+#
+# I2C
+#
+#####################
+
+$dir/modules/i2c/i2c_read
+
+
 

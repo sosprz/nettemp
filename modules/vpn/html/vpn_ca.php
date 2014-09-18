@@ -1,4 +1,3 @@
-<span class="belka">&nbsp OpenVPN status<span class="okno">
 <?php
 if ($_POST['download'] == "download") { 
 $path = "/etc/openvpn/";
@@ -13,8 +12,7 @@ exit;
 }
 ?>
 
-<form action="index.php?id=vpn" method="post">
+<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <input type="hidden" name="download" value="download">
 <td><input  type="submit" value="Download ca.crt"  /></td>
 </form>
-</span></span>

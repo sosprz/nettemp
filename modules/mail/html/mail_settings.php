@@ -27,28 +27,27 @@ $password = $_POST["password"];  //sql
 	foreach ($result as $a) {
 ?>
 
-<table>
-<tr>	<form action="mail" method="post">
-	<td>Username</td>
-	<td><input type="text" name="user" size="25" value="<?php echo $a["user"]; ?>" /></td>
-</tr>
-<tr>	
-	<td>Server smtp</td>
-	<td><input type="text" name="host" size="25" value="<?php echo $a["host"]; ?>" /></td>
-</tr>
-<tr>	
-	<td>Port</td>
-	<td><input type="text" name="port" size="25" value="<?php echo $a["port"]; ?>" /></td>
-</tr>
-<tr>	
-	<td>Password</td>
-	<td><input type="password" name="password" size="25" value="<?php echo $a["password"]; ?>" /></td>
-	<input type="hidden" name="change_password1" value="change_password2" />
-	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td>
-	</form>
-</tr>
+    <table>
+    <tr>
+    <form action="settings" method="post">
+    <td>Username</td>
+    <td><input type="text" name="user" size="25" value="<?php echo $a["user"]; ?>" /></td>
+    </tr>
+    <tr>	
+    <td>Server smtp</td>
+    <td><input type="text" name="host" size="25" value="<?php echo $a["host"]; ?>" /></td>
+    </tr>
+    <tr>	
+    <td>Port</td>
+    <td><input type="text" name="port" size="25" value="<?php echo $a["port"]; ?>" /></td>
+    </tr>
+    <tr>
+    <td>Password</td>
+    <td><input type="password" name="password" size="25" value="<?php echo $a["password"]; ?>" /></td>
+    <input type="hidden" name="change_password1" value="change_password2" />
+    <td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td>
+    </form>
+    </tr>
+    </table>
 
-
-
-</table>
 <?php }	?>

@@ -1,0 +1,9 @@
+#! /bin/bash
+
+sudo apt-get -y install python-smbus i2c-tools > /dev/null
+sed -i '$ai2c-bcm2708' /etc/modules
+sed -i '$ai2c-dev' /etc/modules
+sed -i 's/blacklist spi-bcm2708/#blacklist spi-bcm2708/g' /etc/modprobe.d/raspi-blacklist.conf
+sed -i 's/blacklist i2c-bcm2708/#blacklist i2c-bcm2708/g' /etc/modprobe.d/raspi-blacklist.conf
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/i2cdetect *' /etc/sudoers
+

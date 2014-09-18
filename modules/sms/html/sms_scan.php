@@ -1,7 +1,6 @@
 <?php
-include('conf.php');
    if ($_POST['scan'] == "Scan"){
-	   exec("sh $global_dir/modules/sms/sms_scan");   
+	   exec("sh modules/sms/sms_scan");   
   		exec("rm tmp/gammu_identify");
 		header("location: " . $_SERVER['REQUEST_URI']);
   		exit();
@@ -36,7 +35,7 @@ include('conf.php');
 ?>
 <table><tr>
 <td>Search modem</td>
-<form action="sms" method="post">
+<form action="settings" method="post">
 <td><input type="submit" name="scan" value="Scan" /></td>
 </form></tr></table>
 <table><tr><td>

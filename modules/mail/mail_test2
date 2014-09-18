@@ -13,7 +13,7 @@ user="nettempnotifications@gmail.com"
 (echo "From: $from"; echo "To: $reci"; echo "Subject: $subject" ;echo -e "$body";) | msmtp \
 --read-envelope-from \
 --host=$host --port=$port --auth=on --user=$user \
---tls=on --tls-starttls=on --tls-certcheck=on --tls-trust-file=/etc/ssl/certs/ca-certificates.crt  \
+--tls=on --tls-starttls=on --tls-certcheck=off \
 --timeout=10 -t $reci
 
 

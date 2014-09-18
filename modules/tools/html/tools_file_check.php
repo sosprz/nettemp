@@ -9,6 +9,7 @@ $katalogw[] = 'dbf';
 $katalogw[] = 'modules';
 $katalogw[] = 'media';
 $katalogw[] = 'tmp';
+
 foreach($katalogw as $katalogw) {
 if (!file_exists($katalogw)) { echo "<font color=\"#FF0000\">Dir $katalogw not exist</font><br />"; } 
 elseif (!is_writable($katalogw)) { echo "<font color=\"#FF0000\">Dir $katalogw not writeble</font><br />"; } 

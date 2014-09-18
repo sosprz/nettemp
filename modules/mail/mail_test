@@ -1,8 +1,7 @@
 #! /bin/bash -x
 
-dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
-
 
 reci=$1
 date2=`date +%Y-%m-%d-%H:%M`
@@ -23,7 +22,7 @@ body=$3
 --read-envelope-from \
 --host=$host --port=$port --auth=on --user=$user \
 --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
---tls=on --tls-starttls=on --tls-certcheck=on --tls-trust-file=/etc/ssl/certs/ca-certificates.crt  \
+--tls=on --tls-starttls=on --tls-certcheck=off \
 --timeout=10 -t $reci
 
 

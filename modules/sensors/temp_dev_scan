@@ -1,7 +1,6 @@
-#! /bin/bash
+#! /bin/bash -x
 
-dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
-
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
 rm -rf $dir/tmp/.digitemprc
@@ -21,7 +20,7 @@ for i in 0 1 2 3
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097U'"
 	echo "$date temp_dev_scan - Discovered DS9097U on USB" >> $dir/tmp/log.txt
 	else
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off'"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off' WHERE id='1'"
 	fi
 
 
@@ -32,7 +31,7 @@ if [ ! -e $dir/tmp/.digitemprc ]; then
     sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS2490'"
     echo "$date temp_dev_scan - Discovered DS2490 on USB" >> $dir/tmp/log.txt
     else
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off'"
+    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off' WHERE id='1'"
     fi
 fi
 
@@ -45,7 +44,7 @@ if [ ! -e $dir/tmp/.digitemprc ]; then
 	    fi
 	done
     if [ -e $dir/tmp/.digitemprc ]; then 
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097'"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097' WHERE id='1'"
 	echo "$date temp_dev_scan - Discovered DS9097 on USB" >> $dir/tmp/log.txt
 	else
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off'"
@@ -61,7 +60,7 @@ if [ ! -e $dir/tmp/.digitemprc ]; then
 	    fi
 	done
     if [ -e $dir/tmp/.digitemprc ]; then 
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET serial='DS9097'"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET serial='DS9097' WHERE id='1'"
 	echo "$date temp_dev_scan - Discovered DS9097 on serial port" >> $dir/tmp/log.txt
 	else
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET serial='off'"
@@ -71,7 +70,7 @@ fi
 # 1-wire
 
 if [ -e /sys/bus/w1/devices/w1_bus_master1/w1_master_slaves ]; then 
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET onewire='on'"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET onewire='on' WHERE id='1'"
 	echo "$date temp_dev_scan - Discovered 1-wire temp sensors" >> $dir/tmp/log.txt
 
 # scan 1-wire
@@ -93,7 +92,7 @@ done
 
 
 else
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET onewire='off'"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET onewire='off' WHERE id='1'"
 fi
 
 
@@ -121,6 +120,42 @@ snmp=`sqlite3 $dir/dbf/snmp.db "SELECT name FROM snmp"`
 for name in $snmp; do 
  echo "$name" >> $dir/tmp/onewire
 done
+
+# i2c
+
+bmp180="77" #0x77
+TSL2561="39" #0x39
+
+add(){
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+for i in $i2c; do
+	    if [ "$i" = "$bmp180" ]; then
+		echo i2c_$i\_pressure >> $dir/tmp/onewire
+		echo i2c_$i\_temp >> $dir/tmp/onewire
+		echo i2c_$i\_altitude >> $dir/tmp/onewire
+	    fi
+	    if [ "$i" = "$TSL2561" ]; then
+		echo i2c_$i\_lux >> $dir/tmp/onewire
+	    fi
+	done
+}
+
+
+if [ -e /dev/i2c-0 ] || [ -e /dev/i2c-1 ]; then
+	echo "searching I2C" 
+	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='on' WHERE id='1'"
+	i2c=$(sudo i2cdetect -y 0 |sed '1d'|awk '{ $1=""; print $0 }' |grep -o '[0-9]*')
+    	if [ -n "$i2c" ];then
+	    add
+	else 
+	i2c=$(sudo i2cdetect -y 1 |sed '1d'|awk '{ $1=""; print $0 }' |grep -o '[0-9]*')
+	    add	
+    	fi
+	echo "$date temp_dev_scan - Discovered I2C interface" >> $dir/tmp/log.txt
+else
+    echo "No I2C"
+    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='off' WHERE id='1'"
+fi
 
 
 

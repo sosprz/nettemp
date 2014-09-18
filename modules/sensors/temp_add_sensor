@@ -1,120 +1,83 @@
 #! /bin/bash
 
 #rrd from calc http://eccentric.cx/misc/rrdcalc.html
-dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+
+function rrd {
+id=$(echo $1 |md5sum | cut -c 1-14 )
+/usr/bin/rrdtool create $dir/db/$(echo $1).rrd --step 60 \
+DS:temp$id:GAUGE:240:U:U \
+RRA:AVERAGE:0.5:1:43800 \
+RRA:AVERAGE:0.5:5:52560 \
+RRA:AVERAGE:0.5:10:52596 \
+RRA:AVERAGE:0.5:15:175320 \
+RRA:MAX:0.5:1:43800 \
+RRA:MAX:0.5:5:52560 \
+RRA:MAX:0.5:10:52596 \
+RRA:MAX:0.5:15:175320 \
+RRA:MIN:0.5:1:43800 \
+RRA:MIN:0.5:5:52560 \
+RRA:MIN:0.5:10:52596 \
+RRA:MIN:0.5:15:175320 \
+RRA:LAST:0.5:1:43800 \
+RRA:LAST:0.5:5:52560 \
+RRA:LAST:0.5:10:52596 \
+RRA:LAST:0.5:15:175320 
+chmod 775 $dir/db/$(echo $1).rrd
+}
 
 if [ -n "$1" ]; then
-    
-    ##$humi_check=$(sqlite3 $dir/dbf/nettemp.db "SELECT humi_checkbox FROM gpio where gpio='$gpio_humi'")
-    ##$if [ "$humi_check" = "on" ] && [ $(echo $1 |grep humi) ]; then 
-     if echo $1 |grep humi; then 
+#humi
+ if echo $1 |grep humi; then 
 	gpio_humi=`echo "$1" | awk -F"_" '{ print $2 }'`
         sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
 	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
 	VALUES ('humi_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'humi', '$gpio_humi' )"
-	id=$(echo $1 |md5sum | cut -c 1-14 )
-/usr/bin/rrdtool create $dir/db/$(echo $1).rrd --step 60 \
-DS:temp$id:GAUGE:240:U:U \
-RRA:AVERAGE:0.5:1:43800 \
-RRA:AVERAGE:0.5:5:52560 \
-RRA:AVERAGE:0.5:10:52596 \
-RRA:AVERAGE:0.5:15:175320 \
-RRA:MAX:0.5:1:43800 \
-RRA:MAX:0.5:5:52560 \
-RRA:MAX:0.5:10:52596 \
-RRA:MAX:0.5:15:175320 \
-RRA:MIN:0.5:1:43800 \
-RRA:MIN:0.5:5:52560 \
-RRA:MIN:0.5:10:52596 \
-RRA:MIN:0.5:15:175320 \
-RRA:LAST:0.5:1:43800 \
-RRA:LAST:0.5:5:52560 \
-RRA:LAST:0.5:10:52596 \
-RRA:LAST:0.5:15:175320 
-	chmod 777 $dir/db/$(echo $1).rrd
+	rrd $1
 	echo "$date temp_add_sensor - Add Humi sensor on gpio $1" >> $dir/tmp/log.txt
-
+# temp
 elif echo $1 |grep temp; then 
 	gpio_temp=`echo "$1" | awk -F"_" '{ print $2 }'`
         sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
 	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
-	VALUES ('humi_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'temp', '$gpio_temp' )"
+	VALUES ('temp_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'temp', '$gpio_temp' )"
 	id=$(echo $1 |md5sum | cut -c 1-14 )
-/usr/bin/rrdtool create $dir/db/$(echo $1).rrd --step 60 \
-DS:temp$id:GAUGE:240:U:U \
-RRA:AVERAGE:0.5:1:43800 \
-RRA:AVERAGE:0.5:5:52560 \
-RRA:AVERAGE:0.5:10:52596 \
-RRA:AVERAGE:0.5:15:175320 \
-RRA:MAX:0.5:1:43800 \
-RRA:MAX:0.5:5:52560 \
-RRA:MAX:0.5:10:52596 \
-RRA:MAX:0.5:15:175320 \
-RRA:MIN:0.5:1:43800 \
-RRA:MIN:0.5:5:52560 \
-RRA:MIN:0.5:10:52596 \
-RRA:MIN:0.5:15:175320 \
-RRA:LAST:0.5:1:43800 \
-RRA:LAST:0.5:5:52560 \
-RRA:LAST:0.5:10:52596 \
-RRA:LAST:0.5:15:175320 
-	chmod 777 $dir/db/$(echo $1).rrd
+	rrd $1
 	echo "$date temp_add_sensor - Add Humi sensor on gpio $1" >> $dir/tmp/log.txt
-
-
+#snmp
 elif echo "$1" |grep snmp; then
 	sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
 	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
 	VALUES ('new_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'snmp', '$1' )"
-	id=$(echo $1 |md5sum | cut -c 1-14 )
-        /usr/bin/rrdtool create $dir/db/$1.rrd --step 60 \
-DS:temp$id:GAUGE:240:U:U \
-RRA:AVERAGE:0.5:1:43800 \
-RRA:AVERAGE:0.5:5:52560 \
-RRA:AVERAGE:0.5:10:52596 \
-RRA:AVERAGE:0.5:15:175320 \
-RRA:MAX:0.5:1:43800 \
-RRA:MAX:0.5:5:52560 \
-RRA:MAX:0.5:10:52596 \
-RRA:MAX:0.5:15:175320 \
-RRA:MIN:0.5:1:43800 \
-RRA:MIN:0.5:5:52560 \
-RRA:MIN:0.5:10:52596 \
-RRA:MIN:0.5:15:175320 \
-RRA:LAST:0.5:1:43800 \
-RRA:LAST:0.5:5:52560 \
-RRA:LAST:0.5:10:52596 \
-RRA:LAST:0.5:15:175320 
-
-	chmod 777 $dir/db/$1.rrd
+	rrd $1
 	echo "$date temp_add_sensor - Add Temp sensor on gpio $1" >> $dir/tmp/log.txt
-
-
+#Pressure
+elif echo "$1" |grep pressure; then
+	sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
+	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
+	VALUES ('new_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'pressure', '$1' )"
+	rrd $1
+	echo "$date temp_add_sensor - Add Pressure sensor on gpio $1" >> $dir/tmp/log.txt
+#Altitude
+elif echo "$1" |grep altitude; then
+	sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
+	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
+	VALUES ('new_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'altitude', '$1' )"
+	rrd $1
+	echo "$date temp_add_sensor - Add Altitude sensor on gpio $1" >> $dir/tmp/log.txt
+#lux
+elif echo "$1" |grep lux; then
+	sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
+	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
+	VALUES ('lux_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'lux', '$1' )"
+	rrd $1
+	echo "$date temp_add_sensor - Add Lux sensor on gpio $1" >> $dir/tmp/log.txt
+#other temp
 else
         sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
 	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
 	VALUES ('new_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'temp', '$1' )"
-	id=$(echo $1 |md5sum | cut -c 1-14 )
-        /usr/bin/rrdtool create $dir/db/$1.rrd --step 60 \
-DS:temp$id:GAUGE:240:U:U \
-RRA:AVERAGE:0.5:1:43800 \
-RRA:AVERAGE:0.5:5:52560 \
-RRA:AVERAGE:0.5:10:52596 \
-RRA:AVERAGE:0.5:15:175320 \
-RRA:MAX:0.5:1:43800 \
-RRA:MAX:0.5:5:52560 \
-RRA:MAX:0.5:10:52596 \
-RRA:MAX:0.5:15:175320 \
-RRA:MIN:0.5:1:43800 \
-RRA:MIN:0.5:5:52560 \
-RRA:MIN:0.5:10:52596 \
-RRA:MIN:0.5:15:175320 \
-RRA:LAST:0.5:1:43800 \
-RRA:LAST:0.5:5:52560 \
-RRA:LAST:0.5:10:52596 \
-RRA:LAST:0.5:15:175320 
-
-	chmod 777 $dir/db/$1.rrd
+	rrd $1
 	echo "$date temp_add_sensor - Add Temp sensor on gpio $1" >> $dir/tmp/log.txt
     fi    
 else    

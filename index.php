@@ -1,3 +1,17 @@
+<?php 
+$dbfile='dbf/nettemp.db';
+if ( '' == file_get_contents( $dbfile ) )
+{ ?>
+<html>
+<h1><font color="blue">nettemp.pl</font></h2>
+<h2><font color="red">Database not found <?php echo $dbfile; ?></font></h2>
+<h3>Go to shell and reset/create nettemp database:<h3>
+/var/www/nettemp/modules/reset/reset <br />
+</html>
+<?php }
+else {
+?>
+<?php session_start(); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
@@ -22,7 +36,6 @@ function timedRefresh(timeoutPeriod) {
 </head>
 <!-- <body onload="JavaScript:timedRefresh(60000);"> -->
 
-<?php ob_start(); ?>
 
 <div id="top">
 <div id="header">
@@ -36,30 +49,18 @@ function timedRefresh(timeoutPeriod) {
 <ul> 
 	<li><a href='status'><span>Status</span></a></li>
 	<li><a href='view'><span>Charts</span></a></li>
-
-      <?php
-	session_start();
-	  include('modules/login/login_check.php');
-		if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { ?>
-		  <li><a href='sensors'><span>Sensors</span></a></li>
-   		<li><a href='notification'><span>Notification</span></a></li>
-   		<?php } ?>
- <?php if ($numRows1 == 1 && ( $perms == "adm" )) { ?>
-	<li><a href='gpio'><span>Gpio</spam></a></li>
-	<li><a href='snmp'><span>SNMP</spam></a></li>
-	<li><a href='kwh'><span>kWh metter</spam></a></li>
-	<li><a href='ups'><span>UPS</span></a></li> 
-	<li><a href='settings'><span>Settings</spam></a></li>
-	<li><a href='vpn'><span>VPN</span></a></li> 
-	<li><a href='fw'><span>FW</span></a></li> 
-	<li><a href='tools'><span>Tools</span></a></li> 
-	<li><a href='info'><span>Info</span></a></li>
+	<?php if ($numRows1 == 1 && ( $perms == "adm" )) { ?>
+		<li><a href='devices'><span>Devices</span></a></li>
+		<li><a href='notification'><span>Notification</span></a></li>
+		<li><a href='security'><span>Security</span></a></li>
+		<li><a href='settings'><span>Settings</span></a></li>
+		<li><a href='tools'><span>Tools</span></a></li> 
+		<li><a href='info'><span>Info</span></a></li>
  <?php } 
 else {?>
-	<li><a href='info'><span>Info</span></a></li>
+		<li><a href='info'><span>Info</span></a></li>
 <?php
 } ?>
-
 </ul>
 </div>
 <div id="center">
@@ -84,21 +85,26 @@ case 'mail': include('modules/notification/html/notification.php'); break;
 case 'alarms': include('modules/notification/html/notification.php'); break;
 case 'settings': include('modules/settings/settings.php'); break;
 case 'ups': include('modules/ups/html/ups.php'); break;
-case 'kwh': include('modules/kwh/html/status.php'); break;
+case 'kwh': include('modules/kwh/html/kwh.php'); break;
 case 'snmp': include('modules/snmp/html/snmp.php'); break;
 case 'vpn': include('modules/vpn/html/vpn.php'); break;
 case 'fw': include('modules/fw/html/fw.php'); break;
+case 'security': include('modules/security/html/security.php'); break;
+case 'devices': include('modules/devices/html/devices.php'); break;
+case 'backup': include('modules/backup/html/backup.php'); break;
+case 'upload': include('modules/backup/html/upload.php'); break;
 }
 ?>
 
 </div>
 
-	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v7.7.1</td></tr></table></center>
+	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v8.0</td></tr></table></center>
 </div>
 </div>
 
 </body>
 </html>
+<?php } ?>
 
 
 

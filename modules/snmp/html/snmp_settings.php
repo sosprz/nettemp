@@ -52,7 +52,7 @@ $snmpid = "snmp_$snmp_name"
 <table>
 <tr><td></td><td>name</td><td>community</td><td>host</td><td>OID</td><td>Divider</td></tr>
 <tr>	
-	<form action="snmp" method="post">
+	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 	<td></td>
 	<td><input type="text" name="snmp_name" size="20" value="" /></td>
 	<td><input type="text" name="snmp_community" size="20" value="" /></td>
@@ -80,7 +80,7 @@ foreach ($result as $a) {
 	<td><?php echo $a["oid"]; ?></td>
 	<td><?php echo $a["divider"]; ?></td>
 	
-	<form action="snmp" method="post"> 	
+	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"> 	
 	<input type="hidden" name="snmp_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" type="submit" name="snmp_del1" value="snmp_del2" />
    <td><input type="image" src="media/ico/Close-2-icon.png"  /></td></tr>

@@ -6,7 +6,7 @@ create_mail=on
 #send on/off
 send_mail=on
 
-dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"\'" '{ print $2 }')
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
 
@@ -49,12 +49,25 @@ if [ $create_mail == on ]; then
 	if [ -n "$tmp_max" ]; then
 	    #cr_ge=`echo "$tmp >= $tmp_max" | bc` #OLD BC
 	    cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
-	    if [ $cr_ge == 1 ]; then  echo "High temp $name $tmp C" >> $plik; fi
+	    if [ $cr_ge == 1 ]; then
+		if echo $name |grep lux; then
+		    echo "High Lux in: $name $tmp" >> $plik; 
+		else  
+		    echo "High Temperature in: $name $tmp C" >> $plik; 
+		fi
+	    fi
 	fi
 	if [ -n "$tmp_min" ]; then
 	    #cr_le=`echo "$tmp <= $tmp_min" | bc` #OLD BC
 	    cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
-	    if [ $cr_le == 1 ]; then  echo "Low temp $name $tmp C" >> $plik; fi
+	    if [ $cr_le == 1 ]; then  
+		if echo $name |grep lux; then
+		    echo "Low Lux in: $name $tmp" >> $plik; 
+		else  
+		    echo "Low Temperature in: $name $tmp C" >> $plik; 
+		fi
+		
+	    fi
 	fi
     done 
 
@@ -71,13 +84,8 @@ if [ $send_mail == on ]; then
 	        	    chmod 777 $dir/$dirs/$kolejka
 	        	  		cat $dir/$dirs/$kolejka | msmtp --maildomain=default --read-envelope-from --host=$host --port=$port --auth=on --user=$user \
 					    --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
-					    --tls=on --tls-starttls=on --tls-certcheck=on --tls-trust-file=/etc/ssl/certs/ca-certificates.crt  \
+					    --tls=on --tls-starttls=on --tls-certcheck=off \
 					    --timeout=10 -t $get_mail
-
-
-
-
-	        	                 
 	        	  		echo "$date mail - send mail to $get_mail" >> $dir/tmp/log.txt
 						    rm $dir/$dirs/$kolejka
 			    else rm $dir/$dirs/$kolejka

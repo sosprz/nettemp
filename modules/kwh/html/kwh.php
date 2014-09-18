@@ -1,8 +1,8 @@
 <div id="left">
 <?php 
-include('all.php');
+include('kwh_status.php');
 include('kwh_charts.php');
-include('options.php');
+include('kwh_options.php');
 ?>
 </div>
 
