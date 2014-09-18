@@ -1,9 +1,10 @@
 #/bin/bash 
 
-# nettemp Raspberry PI installer
 # nettemp.pl
+#
+# nettemp Raspberry PI/Debian installer
 # 
-# 2013.08.09
+# 2014.09.16
 
 R='\033[0m'
 RED='\033[00;31m'
