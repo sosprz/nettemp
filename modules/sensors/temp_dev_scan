@@ -5,7 +5,7 @@ date=`date +%y%m%d-%H%M`
 
 rm -rf $dir/tmp/.digitemprc
 rm -rf $dir/tmp/onewire
-
+mkdir $dir/tmp
 
 echo "$date temp_dev_scan - Deleted .digitemprc" >> $dir/tmp/log.txt
 
