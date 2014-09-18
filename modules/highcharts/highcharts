@@ -1,6 +1,7 @@
 #! /bin/bash
 
-dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"'" '{ print $2 }')
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+
 mkdir -p $dir/tmp/highcharts
 
 hc_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT highcharts FROM settings"`

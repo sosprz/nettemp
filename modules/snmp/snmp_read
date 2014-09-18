@@ -1,6 +1,6 @@
 #! /bin/bash
 
-dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"'" '{ print $2 }')
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
 name=$(sqlite3 $dir/dbf/snmp.db "SELECT name FROM snmp")
     for snmp in $name; do 

@@ -1,6 +1,6 @@
 #! /bin/bash
 
-dir=$(cd "$( dirname "$0" )" && cat ../../conf.php |grep global | awk -F"'" '{ print $2 }')
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 
 sqlite3 $dir/dbf/nettemp.db  "ALTER TABLE gpio ADD gpio_kwh type TEXT";
 sqlite3 $dir/dbf/nettemp.db  "ALTER TABLE gpio ADD gpio_kwh_divider type TEXT";
