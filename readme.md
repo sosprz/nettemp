@@ -57,7 +57,7 @@ Reset to default for now don't remove rrd bases.
 Reset erase all changes in nettemp code. git reset --hard HEAD
 Fix: VPN not started after reboot.
 i2c better searching
-Check if ddatabse exist before site is loading.
+Check if ddatabse and conf.php exist before site is loading.
 
 7.7.3
 mv kwh to charts and gpio, gpio on/off, mv mail and sms to settings
