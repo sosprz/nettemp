@@ -11,7 +11,7 @@ if [ $action = "b" ];then
     sqlite3 $dir/dbf/snmp.db .dump > $dir/tmp/backup/snmp.bak
     git log |head -1 |awk '{print $2}' > $dir/tmp/backup/commit
     cd $dir/modules/backup/files
-    tar -cvf nettemp-$date.tar.gz $dir/tmp/backup $dir/db
+    tar -cpvf nettemp-$date.tar.gz $dir/tmp/backup $dir/db
     rm -rf $dir/tmp/backup/*
 fi
 if [ $action = "r" ] && [ -n "$file" ];then
