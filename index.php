@@ -98,7 +98,7 @@ case 'upload': include('modules/backup/html/upload.php'); break;
 
 </div>
 
-	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v8.1</td></tr></table></center>
+	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl v8.1 <?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}';");?></td></tr></table></center>
 </div>
 </div>
 
