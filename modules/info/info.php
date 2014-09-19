@@ -2,7 +2,7 @@
 </br >
 <center><a href="http://nettemp.pl" target="_blank">nettemp.pl</a></center>
 <center><a href="http://techfreak.pl/nettemp" target="_blank">techfreak.pl/nettemp</a></center>
-<center><h3>Tanks to</h3></center>
+<center><h3>Thanks to</h3></center>
 <center>Pawel K, Robert G, Dariusz K, Dariusz P, Radoslaw S, Piotr P, Adrian D, Michal K, Tobias H, Robert A, Zbigniew S, Aleksy B, Dawid W</center>
 <center><h3>Support</h3></center>
 <center><a href="http://forum.techfreak.pl" target="_blank">forum.techfreak.pl</a></center>

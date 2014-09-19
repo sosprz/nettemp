@@ -13,7 +13,7 @@
 <table><tr>
 <td><a href="index.php?id=devices&type=sensors" ><button>All sensors</button></a></td>
 <td><a href="index.php?id=devices&type=scan" ><button>Scan for sensors</button></a></td>
-<?php if ( $gpio == on ) { ?>
+<?php if ( $gpio == 'on' ) { ?>
 <td><a href="index.php?id=devices&type=gpio" ><button>GPIO</button></a></td>
 	<?php } ?>
 <td><a href="index.php?id=devices&type=snmp" ><button>SNMP</button></a></td>

@@ -11,5 +11,5 @@ include('modules/login/login_check.php');
     </div>
 <?php }
     else { 
-          header("Location: diened");
+          header("Location: denied");
     }; 

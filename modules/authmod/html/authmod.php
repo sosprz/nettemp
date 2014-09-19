@@ -80,5 +80,5 @@ if ($_POST['chg'] == "chg2") {
 <?php
  }
 else { 
-  	  header("Location: diened");
+  	  header("Location: denied");
     }; 

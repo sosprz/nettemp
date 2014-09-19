@@ -112,5 +112,5 @@ if ( $_POST['ss1'] == "ss2"){
 
 <?php }
 else { 
-  	  header("Location: diened");
+  	  header("Location: denied");
     }; 

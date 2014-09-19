@@ -4,4 +4,5 @@
 #sqlite3 ../../dbf/nettemp.db  "ALTER TABLE sensors ADD COLUMN type TEXT";
 #sqlite3 -header ../../dbf/nettemp.db  "SELECT * FROM sensors"
 #<?php echo $_SERVER['REQUEST_URI']; ?>
+#find $(pwd) -name \*.php -exec sed -i "s/diened/denied/g" {} \;
 sudo update-alternatives --config editor

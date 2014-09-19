@@ -9,7 +9,7 @@
 
 
 <span class="belka">&nbsp kWh status<span class="okno"> 
-<?php if ( $kwh == on ) { ?>
+<?php if ( $kwh == 'on' ) { ?>
 <pre>
 <?php $command='modules/kwh/kwh_status'; passthru($command);  ?>
 </pre>

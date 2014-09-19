@@ -11,6 +11,6 @@
 
 <?php }
 else { 
-  	  header("Location: diened");
+  	  header("Location: denied");
     }; 
 	 ?>

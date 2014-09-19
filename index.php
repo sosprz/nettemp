@@ -75,7 +75,7 @@ case 'view': include('modules/view/html/view.php'); break;
 case 'humi_view': include('modules/view/html/humi_view.php'); break;
 case 'temp_view': include('modules/view/html/temp_view.php'); break;
 case 'snmp_view': include('modules/view/html/snmp_view.php'); break;
-case 'diened': include('modules/login/diened.php'); break;
+case 'denied': include('modules/login/denied.php'); break;
 case 'diag': include('modules/tools/html/tools_file_check.php'); break;
 case 'tools': include('modules/tools/html/tools.php'); break;
 case 'info': include('modules/info/info.php'); break;

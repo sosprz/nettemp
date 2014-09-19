@@ -40,5 +40,5 @@ if ($_POST['login_change'] == "login_change1") {
 <?php
  }
 else { 
-  	  header("Location: diened");
+  	  header("Location: denied");
     }; 

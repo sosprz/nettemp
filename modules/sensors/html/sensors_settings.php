@@ -18,7 +18,7 @@ $result2 = $sth1->fetchAll();
 foreach ($result2 as $a) {
 $rrd=$a["rrd"];
 }
-if ( $rrd == on ) { ?>
+if ( $rrd == 'on' ) { ?>
 <tr>
 <td></td>
 <td><center>Name</center></td>
@@ -54,7 +54,7 @@ if ( $rrd == on ) { ?>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <td><img src="media/ico/TO-220-icon.png" /></td>
 <td><input type="text" name="name_new" size="12" maxlength="10" value="<?php echo $a["name"]."\t"; ?>" /></td>
-<?php if ( $rrd == on ) { ?>
+<?php if ( $rrd == 'on' ) { ?>
 <td><input type='color' name='color' value ="<?php echo $a["color"]; ?>" size="7" />
 <?php } ?>
 <input type="hidden" name="name_id" value="<?php echo $a["id"]."\t"; ?>" />
@@ -83,7 +83,7 @@ else { ?>
 
 <?php }
 
-if ( $rrd == on ) { 
+if ( $rrd == 'on' ) { 
 
 ?>
     <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"> 	

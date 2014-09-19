@@ -107,4 +107,4 @@ $gpio=$a["gpio"];
 </span></span>
 
 <?php } 
-else { header("Location: diened"); }; ?>
+else { header("Location: denied"); }; ?>
