@@ -3,7 +3,7 @@ $gpioad=$_POST['gpioad'];
 
 if ($_POST['add'] == "ADD") {
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT INTO gpio (gpio, name, time_start, gpio_rev_hilo ) VALUES ('$gpioad','new','off','off' )") or die ($db->lastErrorMsg());
+	$db->exec("INSERT INTO gpio (gpio, name, time_start, gpio_rev_hilo ,gpio_kwh_divider) VALUES ('$gpioad','new','off','off','1')") or die ($db->lastErrorMsg());
 	$db = NULL;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
