@@ -15,9 +15,9 @@ if [ $action = "b" ];then
     rm -rf $dir/tmp/backup/*
 fi
 if [ $action = "r" ] && [ -n "$file" ];then
-    rm -rf $dir/dbf/*
     rm -rf $dir/db/*
-    tar -xvf $file -C /
+    tar -xpvf $file -C /
+    rm -rf $dir/dbf/*
     sqlite3 $dir/dbf/nettemp.db < $dir/tmp/backup/nettemp.bak
     sqlite3 $dir/dbf/snmp.db < $dir/tmp/backup/snmp.bak
     chgrp www-data $dir/dbf/nettemp.db

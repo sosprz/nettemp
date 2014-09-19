@@ -55,6 +55,7 @@ Add on/off to i2c script
 If no vcdencmd sensor Raspberry_Pi is not activated.
 add missing date to temp_add_sensor
 show default value for divider in kwh
+fix backup restore bug. When restore time is long. 
 
 8.0
 Add support for BMP180 and TSL2561. Lux, Altitude, Pressure, Temp
