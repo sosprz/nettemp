@@ -27,4 +27,5 @@ if((!empty($_FILES["uploaded_file"])) && ($_FILES['uploaded_file']['error'] == 0
  echo "Error: No file uploaded";
 }
 ?>
+<FORM><INPUT Type="button" VALUE="Back" onClick="history.go(-1);return true;"></FORM>
 </span></span>
