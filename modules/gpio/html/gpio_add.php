@@ -1,22 +1,23 @@
 <?php 
-$gpioad=$_POST['gpioad'];
+$gpioad = isset($_POST['gpioad']) ? $_POST['gpioad'] : '';
+$add = isset($_POST['add']) ? $_POST['add'] : '';
+$del = isset($_POST['del']) ? $_POST['del'] : '';
 
-if ($_POST['add'] == "ADD") {
+if ( $add == 'ADD') {
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("INSERT INTO gpio (gpio, name, time_start, gpio_rev_hilo ,gpio_kwh_divider) VALUES ('$gpioad','new','off','off','1')") or die ($db->lastErrorMsg());
 	$db = NULL;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 }
-
-if ($_POST['del'] == "DEL") {
+if ( $del == 'DEL') {
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("DELETE FROM gpio WHERE gpio='$gpioad'") or die ($db->lastErrorMsg());
 	$db = NULL;
 	//exec("/usr/local/bin/gpio reset $gpioad");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit(); 
-} ?>
+}
 <span class="belka">&nbsp Add / del <span class="okno">
 <?php
 $gpiolist = array(17,18,21,22,23,24,25);
