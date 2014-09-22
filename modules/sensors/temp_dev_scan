@@ -79,7 +79,7 @@ if [ -e /sys/bus/w1/devices/w1_bus_master1/w1_master_slaves ]; then
 	#modprobe w1_therm
 
 	
-for sensor in `cat /sys/bus/w1/devices/w1_bus_master1/w1_master_slaves`; do 
+for sensor in `cat /sys/bus/w1/devices/w1_bus_master*/w1_master_slaves`; do 
 
 	
     if  [ -e /sys/bus/w1/devices/${sensor}/w1_slave ]; then

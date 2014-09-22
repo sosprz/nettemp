@@ -51,6 +51,9 @@ USERS:
 
 Changelog:
 
+8.3
+add ds2482 over i2c
+
 8.2
 fix php problems
 
