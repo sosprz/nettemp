@@ -51,6 +51,9 @@ USERS:
 
 Changelog:
 
+8.2
+fix php problems
+
 8.1
 Add on/off to i2c script
 If no vcdencmd sensor Raspberry_Pi is not activated.
