@@ -10,9 +10,12 @@ $_SESSION["timeout"] = time();
 ?>
  
 <?php
-if ($_POST['form_logout'] == "log") { session_destroy(); header("location: ".$_SERVER['PHP_SELF']);}
+$form_logout = isset($_POST['form_logout']) ? $_POST['form_logout'] : '';
 
-if ($_POST["form_login"]=="log") { /// do after login form is submitted  
+if ($form_logout == 'log') { session_destroy(); header("location: ".$_SERVER['PHP_SELF']);}
+
+$form_login = isset($_POST['form_login']) ? $_POST['form_login'] : '';
+if ($form_login == "log") { /// do after login form is submitted  
 	$user=$_POST["username"];
 	$pass=sha1($_POST["password"]);
 	$db = new PDO('sqlite:dbf/nettemp.db');

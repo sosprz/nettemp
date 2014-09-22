@@ -1,7 +1,5 @@
 <?php 
-  
-$logged=$_SESSION["logged"];     
-
+$logged = isset($_SESSION['logged']) ? $_SESSION['logged'] : '';
 $db1 = new PDO('sqlite:dbf/nettemp.db');
 $rows1 = $db1->query("SELECT * FROM users WHERE login='$logged'");
 $row1 = $rows1->fetchAll();

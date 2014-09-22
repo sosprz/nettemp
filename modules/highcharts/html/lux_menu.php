@@ -10,7 +10,9 @@
 
 
 
-<?php $art=$_GET['highcharts']; ?>
+<?php 
+$art = isset($_GET['highcharts']) ? $_GET['highcharts'] : '';
+?>
 <?php  
 switch ($art)
 { 

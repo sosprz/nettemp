@@ -1,4 +1,5 @@
 <?php 
+ob_start();
 $dbfile='dbf/nettemp.db';
 if ( '' == file_get_contents( $dbfile ) )
 { ?>
@@ -64,7 +65,9 @@ else {?>
 </ul>
 </div>
 <div id="center">
-<?php $id=$_GET['id']; ?>
+<?php 
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+?>
 <?php  
 switch ($id)
 { 
@@ -104,7 +107,9 @@ case 'upload': include('modules/backup/html/upload.php'); break;
 
 </body>
 </html>
-<?php } ?>
+<?php } 
+ob_end_flush();
+?>
 
 
 
