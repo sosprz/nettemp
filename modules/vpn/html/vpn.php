@@ -1,6 +1,8 @@
 <?php
-    $vpn_onoff = $_POST["vpn_onoff"];
-    if (($_POST['onoff'] == "onoff") ){
+    
+    $vpn_onoff = isset($_POST['vpn_onoff']) ? $_POST['vpn_onoff'] : '';
+    $onoff = isset($_POST['onoff']) ? $_POST['onoff'] : '';
+    if (($onoff == "onoff") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE settings SET vpn='$vpn_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
     if (!empty($vpn_onoff)) {

@@ -2,18 +2,18 @@
 	   include('modules/login/login_check.php');
 		if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { 
 
-$usun_czujniki = $_POST["usun_czujniki"]; 
-$name_new = $_POST["name_new"];
-$color = $_POST["color"];
+$usun_czujniki = isset($_POST['usun_czujniki']) ? $_POST['usun_czujniki'] : '';
+$name_new = isset($_POST['name_new']) ? $_POST['name_new'] : '';
+$color = isset($_POST['color']) ? $_POST['color'] : '';
 
-$name_id = $_POST["name_id"];
-$usun_rom_nw = $_POST["usun_nw"];
+$name_id = isset($_POST['name_id']) ? $_POST['name_id'] : '';
+$usun_rom_nw = isset($_POST['usun_nw']) ? $_POST['usun_nw'] : '';
 
-$id_rom_new2 = $_POST["id_rom_new"]; 
+$id_rom_new2 = isset($_POST['id_rom_new']) ? $_POST['id_rom_new'] : '';
 $id_rom_new=trim($id_rom_new2);
-$add_graf = $_POST["add_graf"];
-$del_graf = $_POST["del_graf"];
-$name_new2 = $_POST["name_new"];
+$add_graf = isset($_POST['add_graf']) ? $_POST['add_graf'] : '';
+$del_graf = isset($_POST['del_graf']) ? $_POST['del_graf'] : '';
+$name_new2 = isset($_POST['name_new']) ? $_POST['name_new'] : '';
 $name_new=trim($name_new2);
 ?>
 
@@ -25,7 +25,8 @@ $name_new=trim($name_new2);
 	} ?>
 <?php // SQLite3 - sekcja usuwania czujników
 	//z bazy
-	if(!empty($usun_czujniki) && ($_POST['usun2'] == "usun3")) { 
+	$usun2 = isset($_POST['usun2']) ? $_POST['usun2'] : '';
+	if(!empty($usun_czujniki) && ($usun2 == "usun3")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("DELETE FROM sensors WHERE rom='$usun_czujniki'") or die ($db->lastErrorMsg()); 
 	//plik rrd
@@ -37,7 +38,8 @@ $name_new=trim($name_new2);
 	exit();	
    } ?>	   
 <?php	// SQLite3 - sekcja usuwanie nie wykrytych czujnikow
-if(!empty($usun_rom_nw) && ($_POST['usun_nw2'] == "usun_nw3")) {   // 2x post aby potwierdzic multiple submit
+$usun_nw2 = isset($_POST['usun_nw2']) ? $_POST['usun_nw2'] : '';
+if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwierdzic multiple submit
 	//z bazy
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("DELETE FROM sensors WHERE rom='$usun_rom_nw'") or die ($db->lastErrorMsg());
@@ -84,15 +86,16 @@ if(!empty($usun_rom_nw) && ($_POST['usun_nw2'] == "usun_nw3")) {   // 2x post ab
 ?>
 
 <?php
-$hour = $_POST["hour"];
-$day = $_POST["day"];
-$week = $_POST["week"];
-$month = $_POST["month"];
-$year = $_POST["year"];
-$ss = $_POST["ss"];
+$hour = isset($_POST['hour']) ? $_POST['hour'] : '';
+$day = isset($_POST['day']) ? $_POST['day'] : '';
+$week = isset($_POST['week']) ? $_POST['week'] : '';
+$month = isset($_POST['month']) ? $_POST['month'] : '';
+$year = isset($_POST['year']) ? $_POST['year'] : '';
+$ss = isset($_POST['ss']) ? $_POST['ss'] : '';
 
+$ss1 = isset($_POST['ss1']) ? $_POST['ss1'] : '';
 // SQLite - graph view update 
-if ( $_POST['ss1'] == "ss2"){
+if ( $ss1 == "ss2"){
 
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE sensors SET hour='$hour' WHERE id='$ss'") ;

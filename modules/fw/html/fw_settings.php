@@ -1,9 +1,10 @@
 <?php
-    $ssh = $_POST["ssh"];
-    $icmp = $_POST["icmp"];
-    $openvpn = $_POST["openvpn"];
-    $ext = $_POST["ext"];
-    if (($_POST['fw_apply'] == "fw_apply") ){
+    $ssh = isset($_POST['ssh']) ? $_POST['ssh'] : '';
+    $icmp = isset($_POST['icmp']) ? $_POST['icmp'] : '';
+    $openvpn = isset($_POST['openvpn']) ? $_POST['openvpn'] : '';
+    $ext = isset($_POST['ext']) ? $_POST['ext'] : '';
+    $fw_apply = isset($_POST['fw_apply']) ? $_POST['fw_apply'] : '';
+    if (($fw_apply == "fw_apply") ){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE fw SET ssh='$ssh'") or die ("exec error");
 	$db->exec("UPDATE fw SET icmp='$icmp'") or die ("exec error");

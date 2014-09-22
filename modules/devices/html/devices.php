@@ -24,7 +24,9 @@
 </span>
 
 
-<?php $art=$_GET['type']; ?>
+<?php 
+$art=isset($_GET['type']) ? $_GET['type'] : '';
+?>
 <?php  
 switch ($art)
 { 

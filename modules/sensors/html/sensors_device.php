@@ -17,7 +17,8 @@ foreach ($result as $a) { ?>
 ?>
 <hr>
 <?php
-         if ($_POST['scan'] == "Scan for new sensors"){
+$scan = isset($_POST['scan']) ? $_POST['scan'] : '';
+         if ($scan == "Scan for new sensors"){
          passthru("sh modules/sensors/temp_dev_scan");   
          system("chmod 775 scripts/tmp/.digitemprc");
          header("location: " . $_SERVER['REQUEST_URI']);

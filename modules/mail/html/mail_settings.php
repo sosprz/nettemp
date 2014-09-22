@@ -1,13 +1,14 @@
 <?php
 //$address = $_POST["address"];  //sql
-$user = $_POST["user"];  //sql
-$host = $_POST["host"];  //sql
-$port = $_POST["port"];  //sql
-$password = $_POST["password"];  //sql
+$user = isset($_POST['user']) ? $_POST['user'] : '';
+$host = isset($_POST['host']) ? $_POST['host'] : '';
+$port = isset($_POST['port']) ? $_POST['port'] : '';
+$password = isset($_POST['password']) ? $_POST['password'] : '';
 ?>
 
 <?php // SQLite 
-    if  ($_POST['change_password1'] == "change_password2") {
+    $change_password1 = isset($_POST['change_password1']) ? $_POST['change_password1'] : '';
+    if  ($change_password1 == "change_password2") {
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE mail_settings SET port='$port'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE mail_settings SET host='$host'") or die ($db->lastErrorMsg());

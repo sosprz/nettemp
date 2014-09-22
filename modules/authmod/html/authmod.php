@@ -1,6 +1,4 @@
 <?php
-
-session_start();
 	   include('modules/login/login_check.php');
 		if ($numRows1 == 1 && ($perms == "adm" || $perms == "ops")) {?>
 		
@@ -9,15 +7,16 @@ session_start();
 <span class="belka">&nbsp Enable/Disable WWW password <span class="okno">
 
 <?php
-if ($_POST['disable'] == "disable") { 
+$disable = isset($_POST['disable']) ? $_POST['disable'] : '';
+if ($disable == "disable") { 
 shell_exec ("sudo lighttpd-disable-mod auth");
 shell_exec ("sudo service lighttpd reload");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 
 }
-
-if ($_POST['enable'] == "enable") { 
+$enable = isset($_POST['enable']) ? $_POST['enable'] : '';
+if ($enable == "enable") { 
 shell_exec ("sudo lighttpd-enable-mod auth");
 shell_exec ("sudo service lighttpd reload");
 header("location: " . $_SERVER['REQUEST_URI']);
@@ -48,11 +47,11 @@ exit();
 
 <span class="belka">&nbsp Change password <span class="okno">
 <?php
-    $pass=($_POST["pass"]);
-    $pass2=($_POST["pass2"]);
+    $pass = isset($_POST['pass']) ? $_POST['pass'] : '';
+    $pass2 = isset($_POST['pass2']) ? $_POST['pass2'] : '';
 
-
-if ($_POST['chg'] == "chg2") { 
+$chg = isset($_POST['chg']) ? $_POST['chg'] : '';
+if ($chg == "chg2") { 
 	if ($pass == $pass2) {
 	    $filename = "/etc/lighttpd/.lighttpdpassword";
 	    $output = "admin:$pass\n";

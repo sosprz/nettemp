@@ -1,18 +1,21 @@
 <?php
-$snmp_name = $_POST["snmp_name"];  
-$snmp_community = $_POST["snmp_community"];  
-$snmp_host = $_POST["snmp_host"];  
-$snmp_oid = $_POST["snmp_oid"];  
-$snmp_id = $_POST["snmp_id"];  
-$snmp_divider = $_POST["snmp_divider"];  
-$snmpid = "snmp_$snmp_name"
+
+
+
+$snmp_name = isset($_POST['snmp_name']) ? $_POST['snmp_name'] : '';
+$snmp_community = isset($_POST['snmp_community']) ? $_POST['snmp_community'] : '';
+$snmp_host = isset($_POST['snmp_host']) ? $_POST['snmp_host'] : '';
+$snmp_oid = isset($_POST['snmp_oid']) ? $_POST['snmp_oid'] : '';
+$snmp_id = isset($_POST['snmp_id']) ? $_POST['snmp_id'] : '';
+$snmp_divider = isset($_POST['snmp_divider']) ? $_POST['snmp_divider'] : '';
+$snmpid = isset($_POST['snmpid']) ? $_POST['snmpid'] : '';
 
 
 ?>
 
 <?php // SQlite
-	
-	if (!empty($snmp_name)  && !empty($snmp_community) && !empty($snmp_host) && !empty($snmp_oid) && ($_POST['snmp_add1'] == "snmp_add2") ){
+$snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['$snmp_add1'] : '';
+	if (!empty($snmp_name)  && !empty($snmp_community) && !empty($snmp_host) && !empty($snmp_oid) && ($snmp_add1 == "snmp_add2") ){
 	$db = new PDO('sqlite:dbf/snmp.db');
 	$db->exec("INSERT OR IGNORE INTO snmp (name, community, host, oid, divider) VALUES ('$snmpid', '$snmp_community', '$snmp_host', '$snmp_oid', '$snmp_divider')") or die ("cannot insert to DB" );
 	$file = 'tmp/onewire';
@@ -22,13 +25,13 @@ $snmpid = "snmp_$snmp_name"
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}	
-	elseif ($_POST['snmp_add1'] == "snmp_add2") { echo " Please input name, community, host and oid"; }
+	elseif ($snmp_add1 == "snmp_add2") { echo " Please input name, community, host and oid"; }
 	?>
 	
 	<?php 
-	
+	$notif_update1 = isset($_POST['notif_update1']) ? $_POST['notif_update1'] : '';
 	// SQLite - update 
-	if ( $_POST['notif_update1'] == "notif_update2"){
+	if ( $notif_update1 == "notif_update2"){
 	$db = new PDO('sqlite:dbf/snmp.db');
 	$db->exec("UPDATE recipient SET sms_alarm='$notif_update_sms' WHERE id='$notif_update'") or die ($db->lastErrorMsg());
 	$db->exec("UPDATE recipient SET mail_alarm='$notif_update_mail' WHERE id='$notif_update'") or die ($db->lastErrorMsg());

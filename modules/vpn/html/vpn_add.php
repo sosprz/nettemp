@@ -1,7 +1,7 @@
 <?php
-$user_name = $_POST["user_name"];  
-$user_pass = $_POST["user_pass"];  
-$user_id = $_POST["user_id"];  
+$user_name = isset($_POST['user_name']) ? $_POST['user_name'] : '';
+$user_pass = isset($_POST['user_pass']) ? $_POST['user_pass'] : '';
+$user_id = isset($_POST['user_id']) ? $_POST['user_id'] : '';
 
 	// SQlite add
 	if (!empty($user_name) && !empty($user_pass) && ($_POST['add'] == "add") ){
@@ -16,7 +16,8 @@ $user_id = $_POST["user_id"];
 	}	
 	
 	// SQLite - update 
-	if ( $_POST['notif_update1'] == "notif_update2"){
+	$notif_update1 = isset($_POST['notif_update1']) ? $_POST['notif_update1'] : '';
+	if ( $notif_update1 == "notif_update2"){
 	$db = new PDO('sqlite:dbf/snmp.db');
 	$db->exec("UPDATE recipient SET sms_alarm='$notif_update_sms' WHERE id='$notif_update'") or die ($db->lastErrorMsg());
 	$db->exec("UPDATE recipient SET mail_alarm='$notif_update_mail' WHERE id='$notif_update'") or die ($db->lastErrorMsg());

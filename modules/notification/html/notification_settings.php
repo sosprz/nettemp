@@ -1,27 +1,27 @@
 <?php
-$notif_name = $_POST["notif_name"];  //sql
-$notif_mail = $_POST["notif_mail"];
-$notif_tel = $_POST["notif_tel"];
-$notif_mail_alarm = $_POST["notif_mail_alarm"];
-$notif_sms_alarm = $_POST["notif_sms_alarm"];
+$notif_name = isset($_POST['notif_name']) ? $_POST['notif_name'] : '';
+$notif_mail = isset($_POST['notif_mail']) ? $_POST['notif_mail'] : '';
+$notif_tel = isset($_POST['notif_tel']) ? $_POST['notif_tel'] : '';
+$notif_mail_alarm = isset($_POST['notif_mail_alarm']) ? $_POST['notif_mail_alarm'] : '';
+$notif_sms_alarm = isset($_POST['notif_sms_alarm']) ? $_POST['notif_sms_alarm'] : '';
 
-$notif_update_sms = $_POST["notif_update_sms"];  //sql
-$notif_update_mail = $_POST["notif_update_mail"];  //sql
-$notif_update = $_POST["notif_update"];  //sql
+$notif_update_sms = isset($_POST['notif_update_sms']) ? $_POST['notif_update_sms'] : '';
+$notif_update_mail = isset($_POST['notif_update_mail']) ? $_POST['notif_update_mail'] : '';
+$notif_update = isset($_POST['notif_update']) ? $_POST['notif_update'] : '';
 
-$notif_del = $_POST["notif_del"];  //sql
+$notif_del = isset($_POST['notif_del']) ? $_POST['notif_del'] : '';
 ?>
 
 <?php // SQLite - ADD RECIPIENT
-	
+	$notif_add1 = isset($_POST['notif_add1']) ? $_POST['notif_add1'] : '';
 	if (!empty($notif_name)  && !empty($notif_mail) && !empty($notif_tel) && ($_POST['notif_add1'] == "notif_add2") ){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("INSERT OR IGNORE INTO recipient (name, mail, tel, mail_alarm, sms_alarm) VALUES ('$notif_name', '$notif_mail', '$notif_tel', '$notif_mail_alarm', '$notif_sms_alarm')") or die ($db->lastErrorMsg());
 	
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
-	}	
-	elseif ($_POST['notif_add1'] == "notif_add2") { echo "Please fill in all fields. Name, mail and tel."; }
+	}
+	elseif ($notif_add1 == "notif_add2") { echo "Please fill in all fields. Name, mail and tel."; }
 	
 
 	?>
@@ -29,7 +29,8 @@ $notif_del = $_POST["notif_del"];  //sql
 	<?php 
 	
 	// SQLite - update 
-	if ( $_POST['notif_update1'] == "notif_update2"){
+	$notif_update1 = isset($_POST['notif_update1']) ? $_POST['notif_update1'] : '';
+	if ( $notif_update1 == "notif_update2"){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE recipient SET sms_alarm='$notif_update_sms' WHERE id='$notif_update'") or die ($db->lastErrorMsg());
 	$db->exec("UPDATE recipient SET mail_alarm='$notif_update_mail' WHERE id='$notif_update'") or die ($db->lastErrorMsg());

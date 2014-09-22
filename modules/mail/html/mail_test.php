@@ -1,6 +1,7 @@
 <?php
-$test_mail=$_POST['test_mail'];
-if  ($_POST['mail_test1'] == "mail_test2") {
+$test_mail = isset($_POST['test_mail']) ? $_POST['test_mail'] : '';
+$mail_test1 = isset($_POST['mail_test1']) ? $_POST['mail_test1'] : '';
+if  ($mail_test1 == "mail_test2") {
 	 $test_mail1=escapeshellarg($test_mail);
     $cmd="modules/mail/mail_test $test_mail1 'Test from your nettemp device' 'Test mail from Your nettemp device.'";
     shell_exec($cmd); 

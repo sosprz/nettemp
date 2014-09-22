@@ -1,6 +1,7 @@
 <?php
-    $fw_onoff = $_POST["fw_onoff"];
-    if (($_POST['onoff'] == "onoff") ){
+    $fw_onoff = isset($_POST['fw_onoff']) ? $_POST['fw_onoff'] : '';
+    $onoff = isset($_POST['onoff']) ? $_POST['onoff'] : '';
+    if (($onoff == "onoff") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE settings SET fw='$fw_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
     if ($fw_onoff != "on") {

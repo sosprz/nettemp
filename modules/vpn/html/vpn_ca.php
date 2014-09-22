@@ -1,5 +1,6 @@
 <?php
-if ($_POST['download'] == "download") { 
+$download = isset($_POST['download']) ? $_POST['download'] : '';
+if ($download == "download") { 
 $path = "/etc/openvpn/";
 $filename = "ca.crt";
 
