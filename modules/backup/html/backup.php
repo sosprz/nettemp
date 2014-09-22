@@ -1,21 +1,24 @@
 <?php
-if ($_POST['backup'] == "backup") { 
+$backup = isset($_POST['backup']) ? $_POST['backup'] : '';
+if ($backup == "backup") { 
     passthru("modules/backup/backup b");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
 }
 ?>
 <?php
-$backup_file=$_POST['backup_file'];
-if ($_POST['rm'] == "rm") {   
+$backup_file = isset($_POST['backup_file']) ? $_POST['backup_file'] : '';
+$rm = isset($_POST['rm']) ? $_POST['rm'] : '';
+if ($rm == "rm") {
     unlink("modules/backup/files/$backup_file");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     } 
 ?> 
 <?php
-$restore_file=$_POST['restore_file'];
-if ($_POST['re'] == "re") {   
+$restore_file = isset($_POST['restore_file']) ? $_POST['restore_file'] : '';
+$re = isset($_POST['re']) ? $_POST['re'] : '';
+if ($re == "re") {   
     passthru("modules/backup/backup r modules/backup/files/$restore_file");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
@@ -43,7 +46,7 @@ foreach($files AS $file) {
 <table>
 <tr>
 <td><a href="<?php echo "$dir$file";?>"><?php echo $file; ?></a></td>
-<td><?php $filesize = (filesize("$dir$file") * .0009765625) * .0009765625; echo round($filesize, 2) . MB ?></td>
+<td><?php $filesize = (filesize("$dir$file") * .0009765625) * .0009765625; echo round($filesize, 2) ?>MB</td>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 <input type="hidden" name="restore_file" value="<?php echo $file; ?>" />
 <input type="hidden" name="re" value="re" />

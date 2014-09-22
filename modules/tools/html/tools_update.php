@@ -1,6 +1,7 @@
 <span class="belka">&nbsp Update<span class="okno">
 <?php
-if ($_POST['update'] == "Update") { 
+$update=isset($_POST['update']) ? $_POST['update'] : '';
+if ($update == "Update") { 
 //putenv('PATH='. getenv('PATH') .':var/www/nettemp');
 
 exec("/usr/bin/git reset --hard");

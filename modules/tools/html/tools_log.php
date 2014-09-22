@@ -1,6 +1,6 @@
 <?php	
-
-	if ($_POST['log_del'] == "Clear"){
+$log_del = isset($_POST['log_del']) ? $_POST['log_del'] : '';
+	if ($log_del == "Clear"){
 	exec("echo log cleared > tmp/log.txt");	
 	echo $dir; 
 	header("location: " . $_SERVER['REQUEST_URI']);

@@ -1,6 +1,7 @@
 <span class="belka">&nbsp Reset to default<span class="okno">
 <?php
-if ($_POST['admin_db_reset'] == "admin_db_reset1") { 
+$admin_db_reset = isset($_POST['admin_db_reset']) ? $_POST['admin_db_reset'] : '';
+if ($admin_db_reset == "admin_db_reset1") { 
 system ("cd modules/reset && sh reset");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();	

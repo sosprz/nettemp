@@ -1,5 +1,6 @@
 <?php
-if ($_POST['perms'] == "perms") { 
+$perms = isset($_POST['perms']) ? $_POST['perms'] : '';
+if ($perms == "perms") { 
 $dir=getcwd();
 shell_exec("sudo chgrp -R www-data $dir");
 shell_exec("sudo chmod -R 775 $dir");
