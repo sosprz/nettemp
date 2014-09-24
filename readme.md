@@ -51,6 +51,9 @@ USERS:
 
 Changelog:
 
+8.3.1
+fix Alarm POST 
+
 8.3
 add ds2482 over i2c
 

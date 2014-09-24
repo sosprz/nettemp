@@ -32,9 +32,9 @@ $del_alarm = isset($_POST['del_alarm']) ? $_POST['del_alarm'] : '';
      } 
     
 $triggernotice_checkbox = isset($_POST['triggernotice_checkbox']) ? $_POST['triggernotice_checkbox'] : '';
-$xtriggernoticeon = isset($_POST['value']) ? $_POST['value'] : '';
+$xtriggernoticeon = isset($_POST['xtriggernoticeon']) ? $_POST['xtriggernoticeon'] : '';
 if ($xtriggernoticeon == "xtriggernoticeON")  {
-	 exec("/usr/local/bin/gpio reset $gpio_post ");
+    //exec("/usr/local/bin/gpio reset $gpio_post ");
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET trigger_notice='$triggernotice_checkbox' WHERE gpio='$gpio_post'") or die("exec error");
     $db = NULL;
