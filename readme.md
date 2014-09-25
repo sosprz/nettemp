@@ -51,6 +51,9 @@ USERS:
 
 Changelog:
 
+8.3.2
+OpenVPN add: add & del users from system not base. After base reset did not see vpn user.
+
 8.3.1
 fix Alarm POST 
 
