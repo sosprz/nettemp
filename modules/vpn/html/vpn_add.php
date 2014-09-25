@@ -33,7 +33,8 @@ $user_pass = isset($_POST['user_pass']) ? $_POST['user_pass'] : '';
 	exit();
 	}
 ?>
-
+<h5>Port 1195</h5>
+<h5>LZO compression</h5>
 
 <table>
 <tr><td></td><td>User</td><td>Password<td></tr>
