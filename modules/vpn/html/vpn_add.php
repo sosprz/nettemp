@@ -35,7 +35,9 @@ $user_pass = isset($_POST['user_pass']) ? $_POST['user_pass'] : '';
 ?>
 <h5>Port 1195</h5>
 <h5>LZO compression</h5>
-
+<?php include('modules/vpn/html/vpn_ca.php'); ?>
+<hr>
+<h3>Users add/del</h4>
 <table>
 <tr><td></td><td>User</td><td>Password<td></tr>
     <tr><td></td>
@@ -69,5 +71,9 @@ foreach ($result as $a) {
 <?php
 }
 ?>
-
 </tr></table>
+<hr>
+<h3>Connection status</h3>
+<pre>
+<?php passthru('sudo cat /etc/openvpn/openvpn-status.log'); ?>
+</pre>

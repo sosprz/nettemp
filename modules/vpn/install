@@ -89,7 +89,7 @@ sed -i '/iface eth0/a pre-up iptables-restore < /etc/network/iptables' /etc/netw
 fi
 
 #PERMS
-sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/chpasswd *, /usr/sbin/useradd *, /usr/sbin/userdel *, /usr/sbin/groupadd *, /usr/sbin/service *, /usr/sbin/update-rc.d *, /bin/sed *' /etc/sudoers 
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/chpasswd *, /usr/sbin/useradd *, /usr/sbin/userdel *, /usr/sbin/groupadd *, /usr/sbin/service *, /usr/sbin/update-rc.d *, /bin/sed *, /bin/cat *' /etc/sudoers 
 
 #DB
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE vpn ( id INTEGER PRIMARY KEY, users UNIQUE );"

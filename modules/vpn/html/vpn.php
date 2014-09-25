@@ -43,7 +43,6 @@ $vpn=$a["vpn"];
 <?php
 if ($vpn == "on" ) { 
     include('vpn_add.php');
-    include('vpn_ca.php');
 	 } 
 ?>
 
