@@ -51,6 +51,9 @@ USERS:
 
 Changelog:
 
+8.3.3
+Add info to backup/restore about php.ini and max_upload_filesize.
+
 8.3.2
 OpenVPN add: add & del users from system not base. After base reset did not see vpn user.
 

@@ -27,7 +27,7 @@ if ($re == "re") {
 
 
 <span class="belka">&nbsp Backup/restore<span class="okno">
-
+<h3>Create backup</h3>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <input type="hidden" name="backup" value="backup">
 <input  type="submit" value="Make backup"  />
@@ -70,5 +70,9 @@ foreach($files AS $file) {
     <input type="submit" value="Upload" />
   </form> 
 
+<hr>
+If You want upload image, You must change upload_max_filezise in php.ini
+Now Your value is:
+<?php passthru('grep upload_max_filesize /etc/php5/cgi/php.ini');  ?>
 
 </span></span>
