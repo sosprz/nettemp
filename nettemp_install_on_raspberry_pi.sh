@@ -26,7 +26,7 @@ if [ "$y" = "y" ]; then
 fi
 
 echo -e "${GREEN}Install packages${R}"
-apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat command-not-found sharutils bc htop snmp > /dev/null
+apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat command-not-found sharutils bc htop snmp sudo > /dev/null
 
 echo -e "${GREEN}Enable module: fastcgi-php${R}"
  lighty-enable-mod fastcgi-php
