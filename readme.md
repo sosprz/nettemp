@@ -4,8 +4,8 @@ Nettemp work's on any system based on debian. But only on Raspberry Pi gpio will
 
 FEATURES:
 
-    Read temp sensors from DS18b20, humidity DHT11, DHT22, servers temperature over SNMP
-    Read value form BMP180, TSL2561 - thanks to ro-an
+    Read temp 1-wire sensors from DS18b20 over GPIO4 and DS2482, humidity DHT11, DHT22, servers temperature over SNMP
+    Read value from BMP180, TSL2561 - thanks to ro-an
     View charts with temeratures and humidity
     Send mail notofication when temperature is to high, You can set value
     Set gpio on/off, gpio temperature on/off, gpio time on/off
@@ -50,6 +50,9 @@ USERS:
 
 
 Changelog:
+
+8.3.4
+fix: port for openvpn is default 1194 not 1195
 
 8.3.3
 Add info to backup/restore about php.ini and max_upload_filesize.
