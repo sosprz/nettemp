@@ -53,6 +53,7 @@ Changelog:
 
 8.3.4
 add Raspberry Pi model version info in footer.
+fix mail notofication in trigger function.
 
 8.3.4
 fix: port for openvpn is default 1194 not 1195
