@@ -28,7 +28,7 @@ export EASY_RSA="${EASY_RSA:-.}"
 "$EASY_RSA/pkitool" --initca $*
 export EASY_RSA="${EASY_RSA:-.}"
 "$EASY_RSA/pkitool" --server server
-./build-dh
+./build-dh > /dev/null
 
 #COPY ca
 cd /usr/share/doc/openvpn/examples/easy-rsa/2.0/keys/

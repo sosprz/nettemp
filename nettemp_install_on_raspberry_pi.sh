@@ -124,8 +124,10 @@ else
     if [ -n "$rpi" ]
 	then
 	    echo "w1_gpio" | sudo tee -a /etc/modules
+	    modprobe w1_gpio
     fi
     echo "w1_therm" | sudo tee -a /etc/modules
+    modprobe w1_therm
 fi
 
 echo -e "${GREEN} UPS status function${R}"
