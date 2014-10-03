@@ -169,8 +169,8 @@ sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chmod *, /bin/chgrp *, /sbin/reboot
 sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/bin/whoami, /usr/bin/killall *, /usr/bin/nohup *' /etc/sudoers
 
 echo -e "${GREEN}Add perms${R}"
-chmod +s /opt/vc/bin/vcgencmd
-chmod +s /var/www/nettemp/modules/sensors/Adafruit_DHT
+#chmod +s /opt/vc/bin/vcgencmd
+#chmod +s /var/www/nettemp/modules/sensors/Adafruit_DHT
 
 echo -e "${GREEN}Starting services${R}"
 

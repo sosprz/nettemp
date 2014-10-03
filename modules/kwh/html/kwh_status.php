@@ -7,15 +7,12 @@
     }
     ?>
 
-
-<span class="belka">&nbsp kWh status<span class="okno"> 
 <?php if ( $kwh == 'on' ) { ?>
+<span class="belka">&nbsp kWh status<span class="okno"> 
 <pre>
 <?php $command='modules/kwh/kwh_status'; passthru($command);  ?>
 </pre>
-<?php } 
-else { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }
-?>
-
 </span></span>
+<?php } 
+?>
  

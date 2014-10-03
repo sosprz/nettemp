@@ -6,8 +6,8 @@
     $gpio=$a["gpio"];
     }
 ?>
-<span class="belka">&nbsp Gpio status<span class="okno"> 
 <?php if ( $gpio == 'on' ) { ?>
+<span class="belka">&nbsp Gpio status<span class="okno"> 
 <?php
 $dir="modules/gpio/";
 $db = new PDO('sqlite:dbf/nettemp.db') or die ("cannot open database");
@@ -27,10 +27,5 @@ $gpio=$a['gpio'];
 
 ?>
 
-
-<?php } 
-
-else { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; } ?>
-
-
 </span></span>
+<?php }  ?>
