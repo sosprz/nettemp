@@ -2,8 +2,6 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 
-sqlite3 $dir/dbf/nettemp.db  "ALTER TABLE settings ADD fw type TEXT";
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO fw (ssh, icmp, ext, openvpn ) VALUES ('off','off', '0.0.0.0/0', 'off' )"
 sed -i '$a www-data ALL=(ALL) NOPASSWD: /sbin/iptables *, /sbin/iptables-save *' /etc/sudoers
 # IPTABLES FORWARD
 if cat /etc/network/interfaces | grep 'iptables' 1>/dev/null; then
@@ -26,4 +24,4 @@ touch /etc/network/iptables
 chgrp www-data /etc/network/iptables
 chmod 664 /etc/network/iptables
 
-
+#db moved to modules/reset/reset

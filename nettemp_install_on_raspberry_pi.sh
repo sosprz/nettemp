@@ -24,7 +24,8 @@ fi
 echo -e "${GREEN}Nettemp installer${R}"
 apt-get update
 echo -e "${GREEN}Install packages${R}"
-apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat command-not-found sharutils bc htop snmp sudo > /dev/null
+apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat \
+command-not-found sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables > /dev/null
 
 echo -e "${GREEN}Configure WWW server${R}"
 # enable fastcgi
@@ -86,13 +87,9 @@ echo -e "${GREEN}Create nettemp database${R}"
 /var/www/nettemp/modules/reset/reset
 
 echo -e "${GREEN}Add cron line${R}"
-echo "*/1 * * * * /var/www/nettemp/modules/sensors/temp_dev_read && /var/www/nettemp/modules/view/view_gen && /var/www/nettemp/modules/highcharts/highcharts" > /var/spool/cron/crontabs/root
-echo "*/1 * * * * /var/www/nettemp/modules/gpio/gpio2 check" >> /var/spool/cron/crontabs/root
-echo "*/5 * * * * /var/www/nettemp/modules/sms/sms_send" >> /var/spool/cron/crontabs/root
-echo "*/5 * * * * /var/www/nettemp/modules/mail/mail_send" >> /var/spool/cron/crontabs/root
-sed -i '$a @reboot     echo "$(date +\\%y\\%m\\%d-\\%H\\%M) RPI rebooted" >> /var/www/nettemp/tmp/log.txt' /var/spool/cron/crontabs/root
-sed -i '$a @reboot  /var/www/nettemp/modules/tools/restart' /var/spool/cron/crontabs/root
-sed -i '$a*/1 * * * * /var/www/nettemp/modules/tools/system_stats' /var/spool/cron/crontabs/root
+echo "*/1 * * * * /var/www/nettemp/modules/cron/1" > /var/spool/cron/crontabs/root
+echo "*/5 * * * * /var/www/nettemp/modules/cron/5" >> /var/spool/cron/crontabs/root
+echo "@reboot /var/www/nettemp/modules/cron/r" >> /var/spool/cron/crontabs/root
 chmod 600 /var/spool/cron/crontabs/root
 
 if [ -n "$rpi" ]
@@ -107,7 +104,6 @@ then
 	./build
     fi
     echo -e "${GREEN}Add watchdog${R}"
-    apt-get install watchdog > /dev/null
     update-rc.d watchdog defaults
 	if cat /etc/modules |grep bcm2708_wdog 1> /dev/null
 	    then 
@@ -135,29 +131,37 @@ fi
 echo -e "${GREEN} UPS status function${R}"
 /var/www/nettemp/modules/ups/install
 
-echo -e "${GREEN} kWh function${R}"
-/var/www/nettemp/modules/kwh/install
-
 echo -e "${GREEN} OpenVPN serwer${R}"
 /var/www/nettemp/modules/vpn/install
 
 echo -e "${GREEN} Firewall${R}"
 /var/www/nettemp/modules/fw/install
 
+#i2c
+
 echo -e "${GREEN} I2C install${R}"
-/var/www/nettemp/modules/i2c/install
-
-
+if [ -n "$rpi" ]
+    then
+	sed -i '$ai2c-bcm2708' /etc/modules
+	sed -i 's/blacklist spi-bcm2708/#blacklist spi-bcm2708/g' /etc/modprobe.d/raspi-blacklist.conf
+	sed -i 's/blacklist i2c-bcm2708/#blacklist i2c-bcm2708/g' /etc/modprobe.d/raspi-blacklist.conf
+fi
+sed -i '$ai2c-dev' /etc/modules
+sed -i '$ads2482' /etc/modules
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/i2cdetect *' /etc/sudoers
 
 echo -e "${GREEN}Add permisions${R}"
 chown -R root.www-data /var/www/nettemp
 chmod -R 775 /var/www/nettemp
 gpasswd -a www-data dialout
 sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chmod *, /bin/chgrp *, /sbin/reboot' /etc/sudoers
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/bin/whoami, /usr/bin/killall *, /usr/bin/nohup *' /etc/sudoers
 
 echo -e "${GREEN}Add perms${R}"
 chmod +s /opt/vc/bin/vcgencmd
 chmod +s /var/www/nettemp/modules/sensors/Adafruit_DHT
+
+echo -e "${GREEN}Starting services${R}"
 
 update-rc.d ntp enable
 service ntp start
@@ -168,5 +172,6 @@ service lighttpd restart
 update-rc.d cron defaults
 service cron start
 
-echo -e "${GREEN}WWW ACCESS: User and passord is admin.${R}"
+echo -e "${GREEN}Nettemp instalation complette${R}"
+echo -e "${GREEN}Nettemp default login and pasword is admin${R}"
 

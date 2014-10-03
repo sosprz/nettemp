@@ -1,0 +1,5 @@
+#!/bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+$dir/modules/sms/sms_send
+$dir/modules/mail/mail_send
