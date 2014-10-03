@@ -17,11 +17,11 @@ if [[ $UID -ne 0 ]]; then
     exit 1
 fi 
 
-echo -e "${BLUE}Nettemp installer${R}"
-echo -e "${BLUE}Install packages${R}"
+echo -e "${YELLOW}Nettemp installer${R}"
+echo -e "${YELLOW}Install packages${R}"
 apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat command-not-found sharutils bc htop snmp sudo > /dev/null
 
-echo -e "${BLUE}Configure WWW server${R}"
+echo -e "${YELLOW}Configure WWW server${R}"
 # enable fastcgi
 lighty-enable-mod fastcgi-php
 # enable modrewrite
@@ -77,7 +77,7 @@ if [ "$x1" = "beta" ]
 	git clone --recursive git://github.com/sosprz/nettemp
 fi
 
-echo -e "${BLUE}Create nettemp database${R}"
+echo -e "${YELLOW}Create nettemp database${R}"
 /var/www/nettemp/modules/reset/reset
 
 echo -e "${GREEN}Add cron line${R}"
@@ -92,7 +92,7 @@ chmod 600 /var/spool/cron/crontabs/root
 
 if [ -n "$rpi" ]
 then
-    echo -e "${BLUE}Add wiringPI for gpio${R}"
+    echo -e "${YELLOW}Add wiringPI for gpio${R}"
     if which gpio 1> /dev/null
 	then 
 	    echo -e "${RED}WiringPI exist${R}"
@@ -101,7 +101,7 @@ then
 	cd wiringPi
 	./build
     fi
-    echo -e "${BLUE}Add watchdog${R}"
+    echo -e "${YELLOW}Add watchdog${R}"
     apt-get install watchdog > /dev/null
     update-rc.d watchdog defaults
 	if cat /etc/modules |grep bcm2708_wdog 1> /dev/null
@@ -115,7 +115,7 @@ then
 	    /etc/init.d/watchdog start
 fi
 
-echo -e "${BLUE}Add 1-wire modules${R}"
+echo -e "${YELLOW}Add 1-wire modules${R}"
 if cat /etc/modules |grep w1_ 1> /dev/null
 then 
     echo -e "${GREEN}1-wire modules exist in file${R}"
