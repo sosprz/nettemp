@@ -14,7 +14,16 @@ YELLOW='\033[00;33m'
 
 
 x1="$1"
+x2="$2"
+
 rpi=$(cat /proc/cmdline | awk -v RS=" " -F= '/boardrev/ { print $2 }')
+
+if [ "$x1" = "rpi" ] || [ "$x2" = "rpi" ]
+then
+rpi="1"
+fi
+
+ 
 
 if [[ $UID -ne 0 ]]; then
     echo -e "${GREEN} $0 must be run as root ${R}"
@@ -74,7 +83,7 @@ if [ -d "nettemp" ]; then
     echo -e "${GREEN}Your nettemp dir is moved to nettempOLD${R}"
 fi
 
-if [ "$x1" = "beta" ]
+if [ "$x1" = "beta" ] || [ "$x2" = "beta" ] 
     then
 	echo -e "${GREEN}Nettemp beta version${R}"
 	git clone -b beta --recursive git://github.com/sosprz/nettemp
