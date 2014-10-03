@@ -2,12 +2,16 @@
 
 # nettemp.pl
 
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 R='\033[0m'
 RED='\033[00;31m'
 REDB='\033[01;41;35m'
 GREEN='\033[00;32m'
 YELLOW='\033[00;33m'
-BLUE='\033[00;34m'
+
 
 x1="$1"
 rpi=$(cat /proc/cmdline | awk -v RS=" " -F= '/boardrev/ { print $2 }')
@@ -17,13 +21,14 @@ if [[ $UID -ne 0 ]]; then
     exit 1
 fi 
 
-echo -e "${YELLOW}Nettemp installer${R}"
-echo -e "${YELLOW}Install packages${R}"
+echo -e "${GREEN}Nettemp installer${R}"
+apt-get update
+echo -e "${GREEN}Install packages${R}"
 apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat command-not-found sharutils bc htop snmp sudo > /dev/null
 
-echo -e "${YELLOW}Configure WWW server${R}"
+echo -e "${GREEN}Configure WWW server${R}"
 # enable fastcgi
-lighty-enable-mod fastcgi-php
+lighty-enable-mod fastcgi-php 
 # enable modrewrite
 sed -i -e 's/#       "mod_rewrite",/       "mod_rewrite",/g'  /etc/lighttpd/lighttpd.conf
 # www dir
@@ -34,13 +39,13 @@ sed -i '$a url.access-deny             = ( "~", ".inc", ".dbf", ".db", ".txt", "
 # set url rewrite
 if cat /etc/lighttpd/lighttpd.conf |grep url.rewrite-once 1> /dev/null
     then
-	echo -e "${RED}Url rewrite exist${R}"
+	echo -e "${GREEN}Url rewrite exist${R}"
     else
 	echo "url.rewrite-once = ( \"^/([A-Za-z0-9-_-]+)\$\" => \"/index.php?id=\$1\" )" >> /etc/lighttpd/lighttpd.conf 
 fi
 # htaccess
 if cat /etc/lighttpd/lighttpd.conf |grep Password  1> /dev/null ; then
-    echo -e "${RED}Passwors already set${R}"
+    echo -e "${GREEN}Passwors already set${R}"
 else
     sed -i '$aauth.debug = 2' /etc/lighttpd/lighttpd.conf
     sed -i '$aauth.backend = "plain"' /etc/lighttpd/lighttpd.conf
@@ -65,19 +70,19 @@ cd /var/www
 
 if [ -d "nettemp" ]; then 
     mv nettemp nettempOLD
-    echo -e "${YELLOW}Your nettemp dir is moved to nettempOLD${R}"
+    echo -e "${GREEN}Your nettemp dir is moved to nettempOLD${R}"
 fi
 
 if [ "$x1" = "beta" ]
     then
-	echo -e "${RED}Nettemp beta version${R}"
+	echo -e "${GREEN}Nettemp beta version${R}"
 	git clone -b beta --recursive git://github.com/sosprz/nettemp
     else
-	echo -e "${RED}Nettemp master version${R}"
+	echo -e "${GREEN}Nettemp master version${R}"
 	git clone --recursive git://github.com/sosprz/nettemp
 fi
 
-echo -e "${YELLOW}Create nettemp database${R}"
+echo -e "${GREEN}Create nettemp database${R}"
 /var/www/nettemp/modules/reset/reset
 
 echo -e "${GREEN}Add cron line${R}"
@@ -92,16 +97,16 @@ chmod 600 /var/spool/cron/crontabs/root
 
 if [ -n "$rpi" ]
 then
-    echo -e "${YELLOW}Add wiringPI for gpio${R}"
+    echo -e "${GREEN}Add wiringPI for gpio${R}"
     if which gpio 1> /dev/null
 	then 
-	    echo -e "${RED}WiringPI exist${R}"
+	    echo -e "${GREEN}WiringPI exist${R}"
     else
 	git clone git://git.drogon.net/wiringPi
 	cd wiringPi
 	./build
     fi
-    echo -e "${YELLOW}Add watchdog${R}"
+    echo -e "${GREEN}Add watchdog${R}"
     apt-get install watchdog > /dev/null
     update-rc.d watchdog defaults
 	if cat /etc/modules |grep bcm2708_wdog 1> /dev/null
@@ -115,7 +120,7 @@ then
 	    /etc/init.d/watchdog start
 fi
 
-echo -e "${YELLOW}Add 1-wire modules${R}"
+echo -e "${GREEN}Add 1-wire modules${R}"
 if cat /etc/modules |grep w1_ 1> /dev/null
 then 
     echo -e "${GREEN}1-wire modules exist in file${R}"
@@ -163,5 +168,5 @@ service lighttpd restart
 update-rc.d cron defaults
 service cron start
 
-echo -e "${RED}WWW ACCESS: User and passord is admin.${R}"
+echo -e "${GREEN}WWW ACCESS: User and passord is admin.${R}"
 
