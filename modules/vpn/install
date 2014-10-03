@@ -8,31 +8,7 @@ if [ $USER != 'root' ]; then
     exit
 fi
 
-#CREATE CA
-cd /usr/share/doc/openvpn/examples/easy-rsa/2.0
-chmod +x /usr/share/doc/openvpn/examples/easy-rsa/2.0/vars
-. ./vars
-#cd .. 
-./clean-all 
-## ./build-ca
-export KEY_COUNTRY="PL"
-export KEY_PROVINCE="PL"
-export KEY_CITY="GD"
-export KEY_ORG="techfreak.pl"
-export KEY_EMAIL="admin@techfreak.pl"
-export KEY_CN=nettemp
-export KEY_NAME=nettemp
-export KEY_OU=IT
-
-export EASY_RSA="${EASY_RSA:-.}"
-"$EASY_RSA/pkitool" --initca $*
-export EASY_RSA="${EASY_RSA:-.}"
-"$EASY_RSA/pkitool" --server server
-./build-dh > /dev/null
-
-#COPY ca
-cd /usr/share/doc/openvpn/examples/easy-rsa/2.0/keys/
-cp ca.crt server.crt server.key dh1024.pem /etc/openvpn/
+$dir/modules/vpn/ca
 
 #CREATE openvpn.conf
 cat <<EOT > /etc/openvpn/openvpn.conf
