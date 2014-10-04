@@ -4,7 +4,7 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 
 onoff=$(sqlite3 $dir/dbf/nettemp.db "SELECT i2c FROM device WHERE id='1'")
 
-if [ "$onoff" == "on" ]; then 
+if [ "$onoff" == "i2c-1" ] || [ "$onoff" == "i2c-0" ] ; then 
 
 ###########
 # BMP 0x77
@@ -15,18 +15,30 @@ all=$($dir/modules/i2c/BMP180/Adafruit_BMP085_run.py)
 for i in $db; do
 if echo $i |grep temp > /dev/null ; then 
     temp=$(echo $all | awk '{ print $2}')
-    echo Temp $temp
-    rrdtool update $dir/db/$i N:$temp
-    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
+    if ! [[ "$temp" =~ .[0-9]+$ ]] 
+	then
+	    temp="error"
+    fi
+	    echo Temp $temp
+	    rrdtool update $dir/db/$i N:$temp
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
 fi
 if echo $i |grep altitude > /dev/null ; then 
     altitude=$(echo  $all | awk '{ print $6}')
+    if ! [[ "$altitude" =~ .[0-9]+$ ]] 
+	then
+	    altitude="error"
+    fi
     echo Alititude $altitude
     rrdtool update $dir/db/$i N:$altitude
     sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$altitude' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
 fi
 if echo $i |grep pressure > /dev/null ; then 
     pressure=$(echo $all | awk '{ print $4}')
+    if ! [[ "$pressure" =~ .[0-9]+$ ]] 
+	then
+	    pressure="error"
+    fi
     echo Pressure $pressure
     rrdtool update $dir/db/$i N:$pressure
     sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$pressure' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
@@ -37,23 +49,24 @@ done
 # TSL 0x77
 ###########
 
-db=$(ls $dir/db |grep  i2c_39_lux)
-i2c0=$($dir/modules/i2c/TSL2561/TSL2561_i2c_0)
-if echo $i2c0 |grep Success > /dev/null; then
-    lux=$(echo $i2c0 |awk '{print $3}')
+db=$(ls $dir/db |grep i2c_39_lux)
+
+i2c=$($dir/modules/i2c/TSL2561/TSL2561_i2c_$(echo $onoff | sed 's/i2c-//'))
+if echo $i2c |grep Success > /dev/null
+     then
+	lux=$(echo $i2c |awk '{print $3}')
+	    if ! [[ "$lux" =~ [0-9]+$ ]] 
+		then
+		    lux="error"
+	    fi
     echo LUX $lux
     rrdtool update $dir/db/$db N:$lux
     sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$lux' WHERE rom='$(echo $db |awk 'sub("....$", "")')'"
-else
-    i2c1=$($dir/modules/i2c/TSL2561/TSL2561_i2c_1)
-    if echo $i2c1 |grep Success > /dev/null; then
-	lux=$(echo $i2c1 |awk '{print $3}')
-	echo LUX $lux
-	rrdtool update $dir/db/$db N:$lux
-	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$lux' WHERE rom='$(echo $db |awk 'sub("....$", "")')'"
-    fi
 fi
 
+
+
+##########
 else 
     echo "i2c OFF"
 fi

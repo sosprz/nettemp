@@ -51,6 +51,12 @@ USERS:
 
 Changelog:
 
+8.4
+add i2c sensors status "error" if error :)
+if find i2c bus You will see which is 
+change crontab lines IMPORTANT: see in installer what lines must be in cron!!! or do new installation.
+auto add to boot if find ds2482
+
 8.3.4
 add Raspberry Pi model version info in footer.
 fix mail notofication in trigger function.
