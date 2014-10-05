@@ -52,9 +52,10 @@ USERS:
 Changelog:
 
 8.4.2
-add HTU21D sensors over I2C
+add HTU21D sensors over I2C + write to db fix
 new check for bus HTU21D
 add lm-sensors readings but You must configure modules sensors-detect
+
 
 8.4
 add i2c sensors status "error" if error :)

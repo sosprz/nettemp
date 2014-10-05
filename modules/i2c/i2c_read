@@ -79,7 +79,7 @@ htu21dh=$(echo $htu21d |awk '{ getline; printf "%3.2f\n", $5 }')
 		    htu21dt="error"
 	    fi
     echo HTU21D Temp: $htu21dt
-    rrdtool update $dir/db/$db N:$htu21dt
+    rrdtool update $dir/db/$dbhtu21dt N:$htu21dt
     sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$htu21dt' WHERE rom='$(echo $dbhtu21dt |awk 'sub("....$", "")')'"
 
 	    if ! [[ "$htu21dh" =~ [0-9]+$ ]] && [ -n "$htu21dh" ] 
@@ -87,7 +87,7 @@ htu21dh=$(echo $htu21d |awk '{ getline; printf "%3.2f\n", $5 }')
 		    htu21ddh="error"
 	    fi
     echo HTU21D Humid: $htu21dh
-    rrdtool update $dir/db/$db N:$htu21dh
+    rrdtool update $dir/db/$dbhtu21dh N:$htu21dh
     sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$htu21dh' WHERE rom='$(echo $dbhtu21dh |awk 'sub("....$", "")')'"
 
 
