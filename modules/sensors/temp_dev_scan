@@ -140,6 +140,7 @@ i2c=$(sudo i2cdetect -y $i2cbus |sed '1d'|awk '{ $1=""; print $0 }' |grep -o '[0
 bmp180="77" #0x77
 TSL2561="39" #0x39
 ds2482="18" #0x18 
+HTU21D="40" #0x40
 
 for i in $i2c; do
 	    if [ "$i" = "$bmp180" ]; then
@@ -156,6 +157,10 @@ for i in $i2c; do
 		    then
 		sed -i '$aecho ds2482 0x'$ds2482' > /sys/bus/i2c/devices/i2c-'$i2cbus'/new_device' $dir/modules/cron/r
 		fi
+	    fi
+	    if [ "$i" = "$HTU21D" ]; then
+		echo i2c_$i\_humi >> $dir/tmp/onewire
+		echo i2c_$i\_temp >> $dir/tmp/onewire
 	    fi
 	done
 
