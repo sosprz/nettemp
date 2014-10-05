@@ -97,10 +97,10 @@ fi
 
 
 #RPI system temp
-
-if [ ! $(cat $dir/tmp/onewire |grep Raspberry_Pi) ] && [ -e /opt/vc/bin/vcgencmd ]; then
+rpi=$(cat /proc/cmdline | awk -v RS=" " -F= '/boardrev/ { print $2 }')
+if [ ! $(cat $dir/tmp/onewire |grep Raspberry_Pi) ] && [ -e /opt/vc/bin/vcgencmd ] && [ -n "$rpi" ]; then
     echo "Raspberry_Pi" >> $dir/tmp/onewire
-    echo "add pi to onewire"
+    echo "Raspberry Pi internal sensor"
 fi
 
 # DHT11 22
