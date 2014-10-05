@@ -220,10 +220,12 @@ temp2=$(sensors |grep temp2 | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
 if [ -n "$temp1" ] &&  echo $temp1 | grep [0-9] > /dev/null
     then 
     rrdtool update $dir/db/lmsensors_temp1_temp.rrd N:$temp1
+    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp1' WHERE rom='lmsensors_temp1_temp'"
 fi
 if [ -n "$temp2" ] &&  echo $temp2 | grep [0-9] > /dev/null
     then 
     rrdtool update $dir/db/lmsensors_temp2_temp.rrd N:$temp2
+    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp2' WHERE rom='lmsensors_temp2_temp'"
 fi
 
 ######################
