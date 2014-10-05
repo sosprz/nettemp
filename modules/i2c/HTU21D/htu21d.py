@@ -1,8 +1,12 @@
 #!/usr/bin/python
-#script form http://www.raspberrypi.org/forums/viewtopic.php?f=44&t=76688
-# Autor: Davespice
+
+#orginal file http://www.raspberrypi.org/forums/viewtopic.php?f=44&t=76688
+#Autor: Davespice
+#modify nettemp.pl auto bus check
 
 import struct, array, time, io, fcntl
+import os.path
+
 
 I2C_SLAVE=0x0703
 HTU21D_ADDR = 0x40
@@ -13,6 +17,12 @@ CMD_READ_HUM_NOHOLD = "\xF5"
 CMD_WRITE_USER_REG = "\xE6"
 CMD_READ_USER_REG = "\xE7"
 CMD_SOFT_RESET= "\xFE"
+
+if  os.path.exists("/dev/i2c-0"):
+    BUS = "0"
+elif os.path.exists("/dev/i2c-1"):
+    BUS = "1"
+
 
 class i2c(object):
    def __init__(self, device, bus):
@@ -37,11 +47,7 @@ class i2c(object):
 
 class HTU21D(object):
    def __init__(self):
-    if i2c(HTU21D_ADDR, 0):	     #techfreak: check if bus exist
-      self.dev = i2c(HTU21D_ADDR, 0) #HTU21D 0x40, bus 1
-    else:
-      self.dev = i2c(HTU21D_ADDR, 1) #HTU21D 0x40, bus 1
-    
+      self.dev = i2c(HTU21D_ADDR, BUS) #HTU21D 0x40, bus 1
       self.dev.write(CMD_SOFT_RESET) #soft reset
       time.sleep(.1)
 
@@ -97,7 +103,8 @@ class HTU21D(object):
          return self.chumid(humid)
       else:
          return -255
-         
+
+
 if __name__ == "__main__":
    obj = HTU21D()
    print "Temp:", obj.read_tmperature(), "C"

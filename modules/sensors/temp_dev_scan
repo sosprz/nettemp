@@ -75,7 +75,7 @@ fi
 
 if [ -e /sys/bus/w1/devices/w1_bus_master1/w1_master_slaves ]; then 
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET onewire='on' WHERE id='1'"
-	w1_count=$(/bin/bash cat /sys/bus/w1/devices/w1_bus_master*/w1_master_slaves |grep -c [a-Z])
+	w1_count=$(cat /sys/bus/w1/devices/w1_bus_master*/w1_master_slaves |grep -c [a-Z])
 	echo "1-wire: $w1_count sensors found"
 	echo "$date temp_dev_scan - Discovered 1-wire temp sensors" >> $dir/tmp/log.txt
 
@@ -183,6 +183,12 @@ for i in $i2c; do
 		echo i2c_$i\_temp >> $dir/tmp/onewire
 	    fi
 	done
+
+
+# lm-sensors
+
+
+
 
 
 

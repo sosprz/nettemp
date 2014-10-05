@@ -51,9 +51,9 @@ USERS:
 
 Changelog:
 
-8.4.1
-
+8.4.2
 add HTU21D sensors over I2C
+new check for bus HTU21D
 
 8.4
 add i2c sensors status "error" if error :)
