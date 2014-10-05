@@ -1,4 +1,4 @@
-<span class="belka">&nbsp Temperature sensors device<span class="okno">
+<span class="belka">&nbsp Ddevices<span class="okno">
 <?php
 
 $db1 = new PDO('sqlite:dbf/nettemp.db');
