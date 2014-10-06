@@ -1,3 +1,10 @@
+<script type="text/JavaScript">
+function timedRefresh(timeoutPeriod) {
+    setTimeout("location.reload(true);",timeoutPeriod);
+    }
+</script>
+<body onload="JavaScript:timedRefresh(60000);">
+
 <span class="belka">&nbsp Select view<span class="okno">
 
 <table><tr>

@@ -28,14 +28,12 @@ else {
 
 
 <script type="text/JavaScript">
-<!--
-function timedRefresh(timeoutPeriod) {
+<!-- function timedRefresh(timeoutPeriod) {
     setTimeout("location.reload(true);",timeoutPeriod);
-    }
-    //   -->
+    }   -->
 </script>
 </head>
-<!-- <body onload="JavaScript:timedRefresh(60000);"> -->
+<!-- <body onload="JavaScript:timedRefresh(6000);"> -->
 
 
 <div id="top">

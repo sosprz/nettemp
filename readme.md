@@ -4,8 +4,10 @@ Nettemp work's on any system based on debian. But only on Raspberry Pi gpio will
 
 FEATURES:
 
-    Read temp 1-wire sensors from DS18b20 over GPIO4 and DS2482, humidity DHT11, DHT22, servers temperature over SNMP
-    Read value from BMP180, TSL2561 - thanks to ro-an
+    Read temp 1-wire sensors from DS18b20 over GPIO4 and DS2482 over I2C, humidity DHT11, DHT22 over GPIO, servers temperature over SNMP
+    Read value from BMP180, TSL2561, HTU21D over I2C - thanks to ro-an
+    Wirks with lm-sensors
+    Read internal temperature from Raspberry Pi, Banana Pi
     View charts with temeratures and humidity
     Send mail notofication when temperature is to high, You can set value
     Set gpio on/off, gpio temperature on/off, gpio time on/off
@@ -57,6 +59,7 @@ new check for bus HTU21D
 add lm-sensors readings but You must configure modules sensors-detect
 add Banana Pi internal temparature sensor
 add check in i2c_read
+add autorefresh in status and charts
 
 8.4
 add i2c sensors status "error" if error :)
