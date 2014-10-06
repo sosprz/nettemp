@@ -165,6 +165,22 @@ unset wynik
 
 ######################
 #
+# RaspberryPi temp
+#
+#######################
+
+bpi=$(cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input| awk '{ getline;  printf "%1.2f\n", $1/1000}' )
+if [ -f /boot/bananapi/script.bin ] && [ -n "$bpi" ]
+	then
+	rrdtool update $dir/db/Banana_Pi.rrd N:$bpi
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$bpi' WHERE rom='Banana_Pi'"
+		
+fi
+
+
+
+######################
+#
 # DHT11, 22 Adafruit
 #
 ######################
