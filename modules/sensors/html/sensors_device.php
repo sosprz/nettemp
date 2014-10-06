@@ -12,6 +12,7 @@ foreach ($result as $a) { ?>
 	<tr><td>1-wire <td>is</td> </td><td><?php echo  $a['onewire']; ?></td></tr>
 	<tr><td>Serial <td>is</td> </td><td><?php echo  $a['serial']; ?></td></tr>
 	<tr><td>I2C <td>is</td> </td><td><?php echo  $a['i2c']; ?></td></tr>
+	<tr><td>lm-sensors<td>is</td> </td><td><?php echo  $a['lmsensors']; ?></td></tr>
 	</table>
 <?php }
 ?>
