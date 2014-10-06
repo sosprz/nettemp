@@ -69,7 +69,8 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE device (
    usb UNIQUE,
    onewire UNIQUE,
    serial UNIQUE,
-   i2c UNIQUE
+   i2c UNIQUE,
+   lmsensors TEXT
   );" 
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE gpio (
@@ -132,7 +133,7 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE vpn (
 
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')"
 #sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('temp', 'd969831eb8a99cff8c02e681f43289e5d3d69664', 'ops')"
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO device (usb, onewire, serial, i2c) VALUES ('off','off','off','off')"
+sqlite3 $dir/dbf/nettemp.db "INSERT INTO device (usb, onewire, serial, i2c, lmsensors ) VALUES ('off','off','off','off','off')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO settings (mail, sms, rrd, highcharts, fw, vpn, gpio ) VALUES ('off','off', 'off', 'on', 'off', 'off', 'off' )"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO fw (ssh, icmp, ext, openvpn ) VALUES ('off','off', '0.0.0.0/0', 'off' )"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user ) VALUES ('smtp.gmail.com', '587', 'yourmail@gmail.com' )"

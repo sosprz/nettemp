@@ -12,3 +12,4 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD gpio type TEXT";
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO settings (id,gpio) VALUES (1,'off');"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE device ADD i2c type TEXT";
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,i2c) VALUES (1,'off');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,lmsensors) VALUES (1,'off');"
