@@ -135,6 +135,7 @@ name_str=${#name}
 	    fi
 	else 
 		echo "1-wire $name error"
+		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$name_1'"
 		echo "$date temp_dev_read - reding sensor error (CRC) $name" >> $dir/tmp/log.txt    
 	fi
 done
