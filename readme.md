@@ -60,6 +60,7 @@ add lm-sensors readings but You must configure modules sensors-detect
 add Banana Pi internal temparature sensor
 add check in i2c_read
 add autorefresh in status and charts
+i2c: not try to write error to rrd base :) 
 
 8.4
 add i2c sensors status "error" if error :)
