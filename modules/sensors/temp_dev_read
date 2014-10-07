@@ -134,7 +134,8 @@ name_str=${#name}
 		echo "$date temp_dev_read - reading sensor error (CRC OK but no result) $name " >> $dir/tmp/log.txt    
 	    fi
 	else 
-	    echo "$date temp_dev_read - reding sensor error (CRC) $name" >> $dir/tmp/log.txt    
+		echo "1-wire $name error"
+		echo "$date temp_dev_read - reding sensor error (CRC) $name" >> $dir/tmp/log.txt    
 	fi
 done
 fi
@@ -165,13 +166,14 @@ unset wynik
 
 ######################
 #
-# RaspberryPi temp
+# BananaPi temp
 #
 #######################
 
-bpi=$(cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input| awk '{ getline;  printf "%1.2f\n", $1/1000}' )
-if [ -f /boot/bananapi/script.bin ] && [ -n "$bpi" ]
+
+if [ -f /boot/bananapi/script.bin ] && [ -f /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input ]
 	then
+	bpi=$(cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input| awk '{ getline;  printf "%1.2f\n", $1/1000}' )
 	rrdtool update $dir/db/Banana_Pi.rrd N:$bpi
 	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$bpi' WHERE rom='Banana_Pi'"
 		
