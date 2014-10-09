@@ -56,12 +56,13 @@ Changelog:
 8.4.2
 add HTU21D sensors over I2C + write to db fix
 new check for bus HTU21D
-add lm-sensors readings but You must configure modules sensors-detect
+add lm-sensors readings 
 add Banana Pi internal temparature sensor
 add check in i2c_read
 add autorefresh in status and charts
 i2c: not try to write error to rrd base :) 
 change BananaPi check
+lmsensors: add core temp
 
 8.4
 add i2c sensors status "error" if error :)
