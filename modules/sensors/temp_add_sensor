@@ -29,7 +29,8 @@ chmod 775 $dir/db/$(echo $1).rrd
 
 if [ -n "$1" ]; then
 #humi
- if echo $1 |grep humi; then 
+ if echo "$1" |grep humi 
+	then 
 	gpio_humi=`echo "$1" | awk -F"_" '{ print $2 }'`
         sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
 	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
@@ -37,37 +38,42 @@ if [ -n "$1" ]; then
 	rrd $1
 	echo "$date temp_add_sensor - Add Humi sensor on gpio $1" >> $dir/tmp/log.txt
 # temp
-elif echo $1 |grep temp; then 
+elif echo "$1" |grep temp
+	then 
 	gpio_temp=`echo "$1" | awk -F"_" '{ print $2 }'`
         sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
 	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
 	VALUES ('temp_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'temp', '$gpio_temp' )"
 	id=$(echo $1 |md5sum | cut -c 1-14 )
 	rrd $1
-	echo "$date temp_add_sensor - Add Humi sensor on gpio $1" >> $dir/tmp/log.txt
+	echo "$date temp_add_sensor - Add Temp sensor on gpio $1" >> $dir/tmp/log.txt
 #snmp
-elif echo "$1" |grep snmp; then
+elif echo "$1" |grep snmp
+	then
 	sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
 	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
 	VALUES ('new_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'snmp', '$1' )"
 	rrd $1
-	echo "$date temp_add_sensor - Add Temp sensor on gpio $1" >> $dir/tmp/log.txt
+	echo "$date temp_add_sensor - Add SNMP sensor on gpio $1" >> $dir/tmp/log.txt
 #Pressure
-elif echo "$1" |grep pressure; then
+elif echo "$1" |grep pressure
+	then
 	sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
 	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
 	VALUES ('new_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'pressure', '$1' )"
 	rrd $1
 	echo "$date temp_add_sensor - Add Pressure sensor on gpio $1" >> $dir/tmp/log.txt
 #Altitude
-elif echo "$1" |grep altitude; then
+elif echo "$1" |grep altitude
+	then
 	sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
 	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
 	VALUES ('new_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'altitude', '$1' )"
 	rrd $1
 	echo "$date temp_add_sensor - Add Altitude sensor on gpio $1" >> $dir/tmp/log.txt
 #lux
-elif echo "$1" |grep lux; then
+elif echo "$1" |grep lux
+	then
 	sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
 	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, gpio) \
 	VALUES ('lux_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'lux', '$1' )"
