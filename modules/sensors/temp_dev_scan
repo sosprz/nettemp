@@ -196,24 +196,34 @@ for i in $i2c; do
 
 
 # lm-sensors
-temp1=$(sensors |grep temp1 | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
-temp2=$(sensors |grep temp2 | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
+temp=$(sensors |grep temp[0-9] | awk '{print $1}' | sed 's/://g')
+core=$(sensors |grep "Core [0-9]"  |awk '{print $1$2}' | sed 's/://g')
 
-if [ -n "$temp1" ] &&  echo $temp1 | grep [0-9] > /dev/null
-    then 
-    echo lmsensors_temp1_temp >> $dir/tmp/onewire
-fi
-if [ -n "$temp2" ] &&  echo $temp2 | grep [0-9] > /dev/null
-    then 
-    echo lmsensors_temp2_temp >> $dir/tmp/onewire
-fi
+for i in $temp
+    do
+    declare $i=$(sensors |grep $i | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
+         if [ -n "$i" ] &&  echo $i | grep [0-9] > /dev/null
+        then 
+            echo lmsensors_$i\_temp >> $dir/tmp/onewire
+        fi
+    done
 
-if [ -n "$temp1" ] || [ -n "$temp2" ]
+for i in $core
+    do
+    declare $i=$(sensors |grep "Core [0-9]"  |awk '{print $3}' | sed 's/://g' | sed 's/+//g' |sed 's/°C//g')
+         if [ -n "$i" ] &&  echo $i | grep [0-9] > /dev/null
+        then 
+            echo lmsensors_$i\_temp >> $dir/tmp/onewire
+        fi
+    done
+
+
+if [ -n "$temp" ]
     then
         echo lm-sensors: Sensors found
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET lmsensors='on' WHERE id='1'"
+    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET lmsensors='on' WHERE id='1'"
     else
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET lmsensors='off' WHERE id='1'"
+    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET lmsensors='off' WHERE id='1'"
 fi
 
 
