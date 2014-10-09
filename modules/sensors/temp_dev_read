@@ -242,10 +242,10 @@ core=$(sensors |grep "Core [0-9]"  |awk '{print $1$2}' | sed 's/://g')
 
 for i in $temp
     do
-    declare $temp=$(sensors |grep $i | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
+    $temp=$(sensors |grep $i | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
          if [ -n "$temp" ] &&  echo $temp | grep [0-9] > /dev/null
         then 
-		rrdtool update $dir/db/lmsensors_$i_temp.rrd N:$temp
+		rrdtool update $dir/db/lmsensors_$i\_temp.rrd N:$temp
 		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp' WHERE rom='lmsensors_$i_temp'"
 
         fi
@@ -253,20 +253,18 @@ for i in $temp
 
 for i in $core
     do
-    declare $temp=$(sensors |grep "Core [0-9]"  |awk '{print $3}' | sed 's/://g' | sed 's/+//g' |sed 's/°C//g')
+    $temp=$(sensors |grep "Core [0-9]"  |awk '{print $3}' | sed 's/://g' | sed 's/+//g' |sed 's/°C//g')
          if [ -n "$temp" ] &&  echo $temp | grep [0-9] > /dev/null
         then 
-            rrdtool update $dir/db/lmsensors_$i_temp.rrd N:$temp
+            rrdtool update $dir/db/lmsensors_$i\_temp.rrd N:$temp
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp' WHERE rom='lmsensors_$i_temp'"
         fi
     done
 	
 
+fi
 
 
-
-	    rrdtool update $dir/db/lmsensors_temp2_temp.rrd N:$temp2
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp2' WHERE rom='lmsensors_temp2_temp'"
 
 ######################
 #
