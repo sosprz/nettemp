@@ -237,31 +237,39 @@ lmsensors=$(sqlite3 $dir/dbf/nettemp.db "SELECT lmsensors FROM device where id='
 if [ "$lmsensors" == "on" ] 
     then
 
-temp=$(sensors |grep temp[0-9] | awk '{print $1}' | sed 's/://g')
-core=$(sensors |grep "Core [0-9]"  |awk '{print $1$2}' | sed 's/://g')
+fortemp=$(sensors |grep temp[0-9] | awk '{print $1}' | sed 's/://g')
+forcore=$(sensors |grep "Core [0-9]"  |awk '{print $1$2}' | sed 's/://g')
 
-for i in $temp
+for i in $fortemp
     do
-    $temp=$(sensors |grep $i | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
-         if [ -n "$temp" ] &&  echo $temp | grep [0-9] > /dev/null
+    name="lmsensors_$(echo $i)_temp"
+    declare de_$temp=$(sensors |grep $i | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
+    tmp=de_$temp
+    
+         if [ -n "${!tmp}" ] &&  echo ${!tmp} | grep [0-9] > /dev/null
         then 
-		rrdtool update $dir/db/lmsensors_$i\_temp.rrd N:$temp
-		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp' WHERE rom='lmsensors_$i_temp'"
-
+	rrdtool update $dir/db/$name.rrd N:${!tmp}
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!tmp}' WHERE rom='$name'"
+	echo lm-sensors: $name ${!tmp}
         fi
     done
 
-for i in $core
+
+for i in $forcore
     do
-    $temp=$(sensors |grep "Core [0-9]"  |awk '{print $3}' | sed 's/://g' | sed 's/+//g' |sed 's/°C//g')
-         if [ -n "$temp" ] &&  echo $temp | grep [0-9] > /dev/null
+    name="lmsensors_$(echo $i)_temp"
+    declare de_${temp}=$(sensors |grep "Core [0-9]"  |awk '{print $3}' | sed 's/://g' | sed 's/+//g' |sed 's/°C//g')
+    tmp=de_$temp
+    if ${!tmp}
+    
+         if [ -n "${!tmp}" ] &&  echo ${!tmp} | grep [0-9] > /dev/null
         then 
-            rrdtool update $dir/db/lmsensors_$i\_temp.rrd N:$temp
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp' WHERE rom='lmsensors_$i_temp'"
+            rrdtool update $dir/db/$name.rrd N:${!tmp}
+        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!tmp}' WHERE rom='$name'"
+        echo lm-sensors: $name ${!tmp}
         fi
     done
-	
-
+    
 fi
 
 
