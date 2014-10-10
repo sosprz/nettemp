@@ -99,9 +99,13 @@ case 'upload': include('modules/backup/html/upload.php'); break;
 
 </div>
 
-	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>nettemp.pl  <?php passthru("awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$' && /usr/bin/git branch |grep [*]|awk '{print $2}';"); passthru("cat /proc/cmdline | awk -v RS=\" \" -F= '/boardrev/ { print \"rpi \"$2 }'");?></td></tr></table></center>
+	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>version  <?php passthru("awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$' && /usr/bin/git branch |grep [*]|awk '{print $2}';"); ?></td></tr></table></center>
 </div>
 </div>
+<center>
+<?php //passthru("/usr/local/bin/gpio -v |grep Type | awk -F, '{ print $1 $2 $3 }' | sed 's/Type:/RPi/g'"); 
+?>
+</center>
 
 </body>
 </html>
