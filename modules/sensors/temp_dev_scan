@@ -129,7 +129,7 @@ fi
 snmp=`sqlite3 $dir/dbf/snmp.db "SELECT name FROM snmp"`
 if [ -n "$snmp" ]
     then
-	snmp_count=$(echo $snmp |grep -c [a-Z])
+	snmp_count=$(echo "$snmp" |grep -c snmp)
 	if [ "$snmp_count" != "0" ] && [ -n "$snmp_count" ]
 	    then
 	    echo SNMP: $snmp_count sensors found

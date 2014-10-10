@@ -54,7 +54,8 @@ USERS:
 Changelog:
 
 8.4.3
-fox snmp after fox php
+fix snmp after fox php
+del info errors
 
 8.4.2
 add HTU21D sensors over I2C + write to db fix
