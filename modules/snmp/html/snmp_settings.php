@@ -14,13 +14,14 @@ $snmpid = isset($_POST['snmpid']) ? $_POST['snmpid'] : '';
 ?>
 
 <?php // SQlite
-$snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['$snmp_add1'] : '';
+$snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	if (!empty($snmp_name)  && !empty($snmp_community) && !empty($snmp_host) && !empty($snmp_oid) && ($snmp_add1 == "snmp_add2") ){
 	$db = new PDO('sqlite:dbf/snmp.db');
-	$db->exec("INSERT OR IGNORE INTO snmp (name, community, host, oid, divider) VALUES ('$snmpid', '$snmp_community', '$snmp_host', '$snmp_oid', '$snmp_divider')") or die ("cannot insert to DB" );
+	$snmp_name=snmp_ . $snmp_name . _temp;
+	$db->exec("INSERT OR IGNORE INTO snmp (name, community, host, oid, divider) VALUES ('$snmp_name', '$snmp_community', '$snmp_host', '$snmp_oid', '$snmp_divider')") or die ("cannot insert to DB" );
 	$file = 'tmp/onewire';
 	$current = file_get_contents($file);
-	$current .= "$snmpid\n";
+	$current = "$snmp_name\n";
 	file_put_contents($file, $current);
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
@@ -55,7 +56,7 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['$snmp_add1'] : '';
 <table>
 <tr><td></td><td>name</td><td>community</td><td>host</td><td>OID</td><td>Divider</td></tr>
 <tr>	
-	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+	<form action="" method="post">
 	<td></td>
 	<td><input type="text" name="snmp_name" size="20" value="" /></td>
 	<td><input type="text" name="snmp_community" size="20" value="" /></td>
@@ -83,7 +84,7 @@ foreach ($result as $a) {
 	<td><?php echo $a["oid"]; ?></td>
 	<td><?php echo $a["divider"]; ?></td>
 	
-	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"> 	
+	<form action="" method="post"> 	
 	<input type="hidden" name="snmp_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" type="submit" name="snmp_del1" value="snmp_del2" />
    <td><input type="image" src="media/ico/Close-2-icon.png"  /></td></tr>
