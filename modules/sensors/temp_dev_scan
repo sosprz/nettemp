@@ -191,7 +191,7 @@ for i in "$i2c"
 
 # lm-sensors
 
-if which sensors
+if which sensors >/dev/null
     then
 
 temp=$(sensors |grep temp[0-9] | awk '{print $1}' | sed 's/://g')
@@ -216,7 +216,7 @@ for i in $core
     done
 
 
-if [ -n "$temp" ]
+if [ -n "$temp" ] || [ -n "$core" ]
     then
         echo lm-sensors: Sensors found
     sqlite3 $dir/dbf/nettemp.db "UPDATE device SET lmsensors='on' WHERE id='1'"
