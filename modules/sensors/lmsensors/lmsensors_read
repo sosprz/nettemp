@@ -1,0 +1,50 @@
+#! /bin/bash
+# lm-sensors
+
+ir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=`date +%y%m%d-%H%M`
+
+lmsensors=$(sqlite3 $dir/dbf/nettemp.db "SELECT lmsensors FROM device where id='1'")
+if [ "$lmsensors" == "on" ] 
+    then
+
+fortemp=$(sensors |grep temp[0-9] | awk '{print $1}' | sed 's/://g')
+forcore=$(sensors |grep "Core [0-9]"  |awk '{print $1$2}' | sed 's/://g')
+
+for i in $fortemp
+    do
+    name="lmsensors_$(echo $i)_temp"
+    declare de_$temp=$(sensors |grep $i | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
+    tmp=de_$temp
+    tmp=${!tmp}
+         if [ -n "$tmp" ] &&  echo $tmp | grep [0-9] > /dev/null
+        then 
+    rrdtool update $dir/db/$name.rrd N:$tmp
+    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$tmp' WHERE rom='$name'"
+    echo lm-sensors: $name $tmp
+        fi
+    done
+
+
+for i in $forcore
+    do
+    name="lmsensors_$(echo $i)_temp"
+    declare de_${temp}=$(sensors |grep "Core [0-9]"  |awk '{print $3}' | sed 's/://g' | sed 's/+//g' |sed 's/°C//g')
+    tmp1=de_$temp
+    tmp=${!tmp1}
+    c=$(echo $tmp | wc -m )
+    if [ "$c" -gt "5" ]
+        then
+    tmp=$( echo $tmp |awk '{ getline;  printf "%1.2f\n", $1/100000}')
+    
+    fi
+    
+         if [ -n "$tmp" ] &&  echo $tmp | grep [0-9] > /dev/null
+        then 
+            rrdtool update $dir/db/$name.rrd N:$tmp
+        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$tmp' WHERE rom='$name'"
+        echo lm-sensors: $name $tmp
+        fi
+    done
+    
+fi

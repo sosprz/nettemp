@@ -1,0 +1,40 @@
+#! /bin/bash
+
+# 1-wire gpio i2c
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=`date +%y%m%d-%H%M`
+
+onewire=`sqlite3 $dir/dbf/nettemp.db "SELECT onewire FROM device"`
+if [ "$onewire" == "off" ]; then
+echo "INFO: no 1-wire device"
+else
+
+db1wire=$(ls $dir/db/ |grep -)
+
+for name in $db1wire
+do
+name_str=${#name}
+    one_wire_name=`echo $name |awk 'sub("....$", "")'`
+    name_1=`cat $dir/tmp/onewire |grep $one_wire_name`
+    if  [ -e /sys/bus/w1/devices/${name_1}/w1_slave ]; then
+        wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.1f\n", $11/1000 } ' /sys/bus/w1/devices/${name_1}/w1_slave;`
+        echo 1-wire: $wynik C
+        if  [ -n "$wynik" ]; then
+        wire_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
+        if [ "$wire_temp_calc" == "1" ]; then
+    	    rrdtool update $dir/db/$name N:$wynik
+    	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
+	    else
+    	    echo "$date temp_dev_read - reading sensor error 85C (resistor, or calbe problem) $name " >> $dir/tmp/log.txt    
+	    fi
+        else
+	echo "$date temp_dev_read - reading sensor error (CRC OK but no result) $name " >> $dir/tmp/log.txt    
+        fi
+    else 
+	echo "1-wire $name error"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$name_1'"
+	echo "$date temp_dev_read - reding sensor error (CRC) $name" >> $dir/tmp/log.txt    
+    fi
+done
+fi
+unset wynik

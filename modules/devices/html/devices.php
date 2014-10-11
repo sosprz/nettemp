@@ -33,7 +33,7 @@ switch ($art)
 default: case '$art': include('modules/sensors/html/sensors.php'); break;
 case 'scan': include('modules/sensors/html/sensors_device.php'); break;
 case 'gpio': include('modules/gpio/html/gpio.php'); break;
-case 'snmp': include('modules/snmp/html/snmp.php'); break;
+case 'snmp': include('modules/sensors/snmp/html/snmp.php'); break;
 case 'sensors': include('modules/sensors/html/sensors.php'); break;
 case 'ups': include('modules/ups/html/ups.php'); break;
 

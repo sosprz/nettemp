@@ -9,10 +9,6 @@ chmod 775 $dir/tmp/log.txt
 chown root.www-data $dir/tmp/log.txt 
 fi
 
-usb=`sqlite3 $dir/dbf/nettemp.db "SELECT usb FROM device"`
-serial=`sqlite3 $dir/dbf/nettemp.db "SELECT serial FROM device"`
-onewire=`sqlite3 $dir/dbf/nettemp.db "SELECT onewire FROM device"`
-
 echo "$date temp_dev_read - read sensors" >> $dir/tmp/log.txt
 
 db=`ls $dir/db/`
@@ -21,280 +17,24 @@ echo "INFO: no sensors added"
 exit
 fi
 
-#########
-#
-# USB
-#
-#########
-
-if [ "$usb" == "off" ]; then
-echo "INFO: no USB device"
-else
-
-dbusb=$(ls $dir/db/ |grep -vE "[-,_]" |grep rrd)
-
-for name in $dbusb
-do
-name_str=${#name}
-
-name_1=`echo $name |awk 'sub("....$", "")' | sed 's/_/ /g'`
-name_3=`echo $name_1 | sed ':a;$!{N;s/\n//;ba;};s/..../& /g'`
-name_2=`cat $dir/tmp/.digitemprc |grep "$name_3" |awk 'BEGIN {FS=" "} {print $2}'`
-
-
-if [ "$usb" = "DS2490" ]; then
-	    wynik=`/usr/bin/digitemp_$usb -c $dir/tmp/.digitemprc -t $name_2 -q -o%.1C |grep -v Found`
-else 
-	    wynik=`/usr/bin/digitemp_$usb -c $dir/tmp/.digitemprc -t $name_2 -q -o%.1C`
-fi
-    usb_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
-    if [ "$usb_temp_calc" == "1" ]; then 
-	    echo USB: $wynik C
-	    rrdtool update $dir/db/$name N:$wynik
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
-    else 
-	    echo "error $wynik" 
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$name_1'"
-	    echo "$date temp_dev_read - reading sensor error 85C (resistor, or calbe problem) $name " >> $dir/tmp/log.txt    
-    fi
-
-done
-fi
-
-unset wynik 
-
-#########
-#
-# Serial
-#
-#########
-
-if [ "$serial" == "off" ]; then
-echo "INFO: no serial device"
-else
-
-dbserial=$(ls $dir/db/ |grep -vE "[-,_]" |grep rrd)
-
-for name in $dbserial
-do
-name_str=${#name}
-
-name_1=`echo $name |awk 'sub("....$", "")' | sed 's/_/ /g'`
-name_3=`echo $name_1 | sed ':a;$!{N;s/\n//;ba;};s/..../& /g'`
-name_2=`cat $dir/tmp/.digitemprc |grep "$name_3" |awk 'BEGIN {FS=" "} {print $2}'`
-
-
-if [ "$serial" = "DS9097" ]; then
-	    wynik=`/usr/bin/digitemp_$serial -c $dir/tmp/.digitemprc -t $name_2 -q -o%.1C`
-	    echo Serial: $wynik C
-fi
-    serial_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
-    if [ "$serial_temp_calc" == "1" ]; then 
-	    rrdtool update $dir/db/$name N:$wynik
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
-    else 
-	    echo "$date temp_dev_read - reading sensor error 85C (resistor, or calbe problem) $name " >> $dir/tmp/log.txt    
-    fi
-
-done
-fi
-
-unset wynik 
-
-
-##############
-#
-# 1-wire
-#
-################
-
-if [ "$onewire" == "off" ]; then
-echo "INFO: no 1-wire device"
-else
-
-db1wire=$(ls $dir/db/ |grep -)
-
-for name in $db1wire
-do
-name_str=${#name}
-    one_wire_name=`echo $name |awk 'sub("....$", "")'`
-    name_1=`cat $dir/tmp/onewire |grep $one_wire_name`
-	if  [ -e /sys/bus/w1/devices/${name_1}/w1_slave ]; then
-	    wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.1f\n", $11/1000 } ' /sys/bus/w1/devices/${name_1}/w1_slave;`
-	    echo 1-wire: $wynik C
-	    if  [ -n "$wynik" ]; then
-	    wire_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
-	    if [ "$wire_temp_calc" == "1" ]; then
-        		rrdtool update $dir/db/$name N:$wynik
-	    		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
-		    else
-	    		echo "$date temp_dev_read - reading sensor error 85C (resistor, or calbe problem) $name " >> $dir/tmp/log.txt    
-		    fi
-	    else
-		echo "$date temp_dev_read - reading sensor error (CRC OK but no result) $name " >> $dir/tmp/log.txt    
-	    fi
-	else 
-		echo "1-wire $name error"
-		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$name_1'"
-		echo "$date temp_dev_read - reding sensor error (CRC) $name" >> $dir/tmp/log.txt    
-	fi
-done
-fi
-unset wynik
-
-######################
-#
-# RaspberryPi temp
-#
-#######################
-
-
-
-    if [ -f /opt/vc/bin/vcgencmd ]; then
-        wynik=$(/opt/vc/bin/vcgencmd measure_temp | cut -c 6-9)
-	    pi_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
-	if [ "$pi_temp_calc" == "1" ]; then
-		rrdtool update $dir/db/Raspberry_Pi.rrd N:$wynik
-		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='Raspberry_Pi'"
-		echo Raspberry Pi: $wynik C
-	else 
-	    echo "WARNING: Bad readings from sensor"
-	fi
-    else
-	echo "INFO: No vcdencmd"
-    fi
-unset wynik
-
-######################
-#
-# BananaPi temp
-#
-#######################
-
-
-if [ -f /boot/bananapi/script.bin ] && [ -f /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input ]
-	then
-	bpi=$(cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input| awk '{ getline;  printf "%1.2f\n", $1/1000}' )
-	rrdtool update $dir/db/Banana_Pi.rrd N:$bpi
-	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$bpi' WHERE rom='Banana_Pi'"
-		
-fi
-
-
-
-######################
-#
+#usb
+$dir/modules/sensors/usb_serial/usb_read
+#serial
+$dir/modules/sensors/usb_serial/serial_read
+#1wire
+$dir/modules/sensors/1wire/1wire_read
+#raspberrypi
+$dir/modules/sensors/other/raspberrypi_read
+#bananapi
+$dir/modules/sensors/other/bananapi_read
 # DHT11, 22 Adafruit
-#
-######################
-gpio_list_0=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where humi_checkbox='on'"`
-if [ -n "$gpio_list_0" ]; then 
-    for gpio_list in $gpio_list_0; do
-	type=`sqlite3 $dir/dbf/nettemp.db "SELECT humi_type FROM gpio where gpio='$gpio_list'"`
-	sleep 3
-	dht=`$dir/modules/sensors/Adafruit_DHT $type $gpio_list |grep Temp`
-	if [ -n "$dht" ]; then
-    	    eval var1_$gpio_list=`echo $dht | awk '{ print $3 }'`
-    	    eval var2_$gpio_list=`echo $dht | awk '{ print $7 }'`
-	    #eval var1_$gpio_list="-36.6"
-    	    #eval var2_$gpio_list="99.3"
-	    dht_temp=var1_$gpio_list
-    	    dht_humi=var2_$gpio_list
-	    dht_humi_calc=$(echo ${!dht_humi} 100 -1 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
-	    if [ "$dht_humi_calc" == "1" ]; then 
-    		gpio_name=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='humi'"`
-    		rrdtool update $dir/db/$(echo $gpio_name).rrd N:${!dht_humi}
-    		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_humi}' WHERE rom='$(echo $gpio_name)'"
-		echo DHT humi: ${!dht_humi} %
-	    else
-		echo "WARNING: DHT Humi readings not in range"
-    	    fi
-	    dht_temp_calc=$(echo ${!dht_humi} 125 -41 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
-	    if [ "$dht_temp_calc" == "1" ]; then 
-		gpio_name2=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='temp'"`
-    		rrdtool update $dir/db/$(echo $gpio_name2).rrd N:${!dht_temp}
-    		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_temp}' WHERE rom='$(echo $gpio_name2)'"
-		echo DHT temp: ${!dht_temp} C
-	    else
-		echo "WARNING: DHT Temp readings not in range"
-	    fi
-	else 
-    	    echo "$date temp_dev_read - Error when reding Humi sensor from gpio $gpio_list" >> $dir/tmp/log.txt    
-	    echo DHT: Read error
-	fi
-    done
-else
-    echo "INFO: no DHT device"
-fi
-
-######################
-#
-# lm-sensors
-#
-######################
-
-lmsensors=$(sqlite3 $dir/dbf/nettemp.db "SELECT lmsensors FROM device where id='1'")
-if [ "$lmsensors" == "on" ] 
-    then
-
-fortemp=$(sensors |grep temp[0-9] | awk '{print $1}' | sed 's/://g')
-forcore=$(sensors |grep "Core [0-9]"  |awk '{print $1$2}' | sed 's/://g')
-
-for i in $fortemp
-    do
-    name="lmsensors_$(echo $i)_temp"
-    declare de_$temp=$(sensors |grep $i | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
-    tmp=de_$temp
-    tmp=${!tmp}
-         if [ -n "$tmp" ] &&  echo $tmp | grep [0-9] > /dev/null
-        then 
-	rrdtool update $dir/db/$name.rrd N:$tmp
-	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$tmp' WHERE rom='$name'"
-	echo lm-sensors: $name $tmp
-        fi
-    done
-
-
-for i in $forcore
-    do
-    name="lmsensors_$(echo $i)_temp"
-    declare de_${temp}=$(sensors |grep "Core [0-9]"  |awk '{print $3}' | sed 's/://g' | sed 's/+//g' |sed 's/°C//g')
-    tmp1=de_$temp
-    tmp=${!tmp1}
-    c=$(echo $tmp | wc -m )
-    if [ "$c" -gt "5" ]
-        then
-	tmp=$( echo $tmp |awk '{ getline;  printf "%1.2f\n", $1/100000}')
-	
-    fi
-    
-         if [ -n "$tmp" ] &&  echo $tmp | grep [0-9] > /dev/null
-        then 
-            rrdtool update $dir/db/$name.rrd N:$tmp
-        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$tmp' WHERE rom='$name'"
-        echo lm-sensors: $name $tmp
-        fi
-    done
-    
-fi
-
-
-
-######################
-#
+$dir/modules/sensors/GPIO/DHT/dht_read
+#lmsensors
+$dir/modules/sensors/lmsensors/lmsesnors_read
 # SNMP
-#
-######################
-
-$dir/modules/snmp/snmp_read
-
-#####################
-#
+$dir/modules/sensors/snmp/snmp_read
 # I2C
-#
-#####################
-
-$dir/modules/i2c/i2c_read
+$dir/modules/sensors/i2c/i2c_read
 
 
 

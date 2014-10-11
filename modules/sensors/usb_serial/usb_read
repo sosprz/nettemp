@@ -1,0 +1,42 @@
+#! /bin/bash
+
+# USB
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=`date +%y%m%d-%H%M`
+
+usb=`sqlite3 $dir/dbf/nettemp.db "SELECT usb FROM device"`
+if [ "$usb" == "off" ]; then
+echo "INFO: no USB device"
+else
+
+dbusb=$(ls $dir/db/ |grep -vE "[-,_]" |grep rrd)
+
+for name in $dbusb
+do
+name_str=${#name}
+
+name_1=`echo $name |awk 'sub("....$", "")' | sed 's/_/ /g'`
+name_3=`echo $name_1 | sed ':a;$!{N;s/\n//;ba;};s/..../& /g'`
+name_2=`cat $dir/tmp/.digitemprc |grep "$name_3" |awk 'BEGIN {FS=" "} {print $2}'`
+
+
+if [ "$usb" = "DS2490" ]; then
+        wynik=`/usr/bin/digitemp_$usb -c $dir/tmp/.digitemprc -t $name_2 -q -o%.1C |grep -v Found`
+else 
+        wynik=`/usr/bin/digitemp_$usb -c $dir/tmp/.digitemprc -t $name_2 -q -o%.1C`
+fi
+    usb_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
+    if [ "$usb_temp_calc" == "1" ]; then 
+        echo USB: $wynik C
+        rrdtool update $dir/db/$name N:$wynik
+        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_1'"
+    else 
+        echo "error $wynik" 
+        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$name_1'"
+        echo "$date temp_dev_read - reading sensor error 85C (resistor, or calbe problem) $name " >> $dir/tmp/log.txt    
+    fi
+
+done
+fi
+
+unset wynik

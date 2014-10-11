@@ -1,0 +1,20 @@
+#! /bin/bash 
+
+# RaspberryPi temp
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=`date +%y%m%d-%H%M`
+
+if [ -f /opt/vc/bin/vcgencmd ]; then
+        wynik=$(/opt/vc/bin/vcgencmd measure_temp | cut -c 6-9)
+        pi_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
+    if [ "$pi_temp_calc" == "1" ]; then
+	rrdtool update $dir/db/Raspberry_Pi.rrd N:$wynik
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='Raspberry_Pi'"
+	echo Raspberry Pi: $wynik C
+    else 
+        echo "WARNING: Bad readings from sensor"
+    fi
+    else
+    echo "INFO: No vcdencmd"
+fi
+unset wynik
