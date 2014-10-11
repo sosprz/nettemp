@@ -23,8 +23,16 @@ if ( $del == "DEL") {
 ?>
 <span class="belka">&nbsp Add / del <span class="okno">
 <?php
-$gpiolist = array(17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
-$gpiolist = array(17,18,21,22,23,24,25);
+    exec("/usr/local/bin/gpio -v |grep B+", $rpicheck );
+    if (!empty($rpicheck[0]))
+    {
+        $gpiolist = array(17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
+    }
+    else
+    {
+		$gpiolist = array(17,18,21,22,23,24,25);
+    }
+
 foreach ($gpiolist as $value1) {
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$rows = $db->query("SELECT * FROM gpio WHERE gpio='$value1'");
