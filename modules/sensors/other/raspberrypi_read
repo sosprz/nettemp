@@ -1,7 +1,7 @@
 #! /bin/bash 
 
 # RaspberryPi temp
-dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
 if [ -f /opt/vc/bin/vcgencmd ]; then
@@ -15,6 +15,6 @@ if [ -f /opt/vc/bin/vcgencmd ]; then
         echo "WARNING: Bad readings from sensor"
     fi
     else
-    echo "INFO: No vcdencmd"
+B    echo "INFO: No vcdencmd"
 fi
 unset wynik

@@ -17,12 +17,12 @@ echo "INFO: no sensors added"
 exit
 fi
 
-#usb
-$dir/modules/sensors/usb_serial/usb_read
-#serial
-$dir/modules/sensors/usb_serial/serial_read
-#1wire
-$dir/modules/sensors/1wire/1wire_read
+#1wire gpio i2c
+$dir/modules/sensors/1wire/1wire_gpio_i2c_read
+#1wire serial
+$dir/modules/sensors/1wire/1wire_serial_read
+#1wire usb
+$dir/modules/sensors/1wire/1wire_usb_read
 #raspberrypi
 $dir/modules/sensors/other/raspberrypi_read
 #bananapi
@@ -30,7 +30,7 @@ $dir/modules/sensors/other/bananapi_read
 # DHT11, 22 Adafruit
 $dir/modules/sensors/GPIO/DHT/dht_read
 #lmsensors
-$dir/modules/sensors/lmsensors/lmsesnors_read
+$dir/modules/sensors/lmsensors/lmsensors_read
 # SNMP
 $dir/modules/sensors/snmp/snmp_read
 # I2C

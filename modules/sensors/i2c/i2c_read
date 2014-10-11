@@ -1,6 +1,6 @@
 #! /bin/bash 
 
-dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 
 onoff=$(sqlite3 $dir/dbf/nettemp.db "SELECT i2c FROM device WHERE id='1'")
 
