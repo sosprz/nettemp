@@ -19,11 +19,11 @@ if [ "$rrd_onoff" == "on" ]; then
 
 # DS
 
-usb=`sqlite3 $dir/dbf/nettemp.db "SELECT usb FROM device"`
-onewire=`sqlite3 $dir/dbf/nettemp.db "SELECT onewire FROM device"`
-if [ "$usb" == "off" ] && [ "$onewire" == "off" ]; then 
-echo "no device"
-else
+#usb=`sqlite3 $dir/dbf/nettemp.db "SELECT usb FROM device"`
+#onewire=`sqlite3 $dir/dbf/nettemp.db "SELECT onewire FROM device"`
+#if [ "$usb" == "off" ] && [ "$onewire" == "off" ]; then 
+#echo "no device"
+#else
 
 
 echo "$date view_gen - view generated" >> $dir/tmp/log.txt
@@ -87,7 +87,7 @@ if [ -n "${!varinvar}" ]; then
 done
 
 
-fi
+#fi
 else 
     echo "rrd off"
 fi
