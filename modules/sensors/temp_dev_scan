@@ -4,7 +4,8 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
 rm -rf $dir/tmp/.digitemprc
-rm -rf $dir/tmp/onewire
+> $dir/tmp/onewire
+
 mkdir $dir/tmp 2> /dev/null
 
 echo "$date temp_dev_scan - Deleted .digitemprc" >> $dir/tmp/log.txt

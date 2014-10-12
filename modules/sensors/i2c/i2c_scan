@@ -28,25 +28,29 @@ if [ -n "$i2c" ]; then
     echo I2C: Found $i2c
 fi
 
-for i in "$i2c"
+for i in $i2c
     do
-        if [ "$i" = "$bmp180" ]; then
-	echo i2c_$i\_pressure >> $dir/tmp/onewire
-	echo i2c_$i\_temp >> $dir/tmp/onewire
-	echo i2c_$i\_altitude >> $dir/tmp/onewire
-        fi
-        if [ "$i" = "$TSL2561" ]; then
-	echo i2c_$i\_lux >> $dir/tmp/onewire
-        fi
-        if [ "$i" = "$ds2482" ]; then
-	echo ds2482 0x$ds2482 > /sys/bus/i2c/devices/i2c-$i2cbus/new_device
-	if ! grep -q 0x$ds2482 $dir/modules/cron/r
+        if [ "$i" = "$bmp180" ]
 	    then
-	sed -i '$aecho ds2482 0x'$ds2482' > /sys/bus/i2c/devices/i2c-'$i2cbus'/new_device' $dir/modules/cron/r
-	fi
+		echo i2c_$i\_pressure >> $dir/tmp/onewire
+		echo i2c_$i\_temp >> $dir/tmp/onewire
+		echo i2c_$i\_altitude >> $dir/tmp/onewire
         fi
-        if [ "$i" = "$HTU21D" ]; then
-	echo i2c_$i\_humi >> $dir/tmp/onewire
-	echo i2c_$i\_temp >> $dir/tmp/onewire
+        if [ "$i" = "$TSL2561" ]
+	    then
+		echo i2c_$i\_lux >> $dir/tmp/onewire
+        fi
+        if [ "$i" = "$ds2482" ]
+	    then
+		echo ds2482 0x$ds2482 > /sys/bus/i2c/devices/i2c-$i2cbus/new_device
+		    if ! grep -q 0x$ds2482 $dir/modules/cron/r
+			then
+			    sed -i '$aecho ds2482 0x'$ds2482' > /sys/bus/i2c/devices/i2c-'$i2cbus'/new_device' $dir/modules/cron/r
+		    fi
+        fi
+        if [ "$i" = "$HTU21D" ]
+	    then
+		echo i2c_$i\_humi >> $dir/tmp/onewire
+		echo i2c_$i\_temp >> $dir/tmp/onewire
         fi
     done
