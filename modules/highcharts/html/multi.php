@@ -18,6 +18,9 @@
 	
 	if(!highcharts){
 	    var highcharts = "hour";
+	}
+	if(!type){
+	    var type = "temp";
 	}	
 	//alert(type);
 	//alert(highcharts);
