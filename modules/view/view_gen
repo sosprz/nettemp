@@ -29,12 +29,15 @@ else
 echo "$date view_gen - view generated" >> $dir/tmp/log.txt
 
 
+type="temp humi snmp altitude pressure lux"
 
+for t in $type
+    do
 
 for rrd_time0 in hour day week month year
 do
     if [ -n "rrd_$rrd_time0" ]; then 
-    export rrd_$rrd_time0="`sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE $rrd_time0='on' AND type='temp' "`"
+    export rrd_$rrd_time0="`sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE $rrd_time0='on' AND type='$t' "`"
     fi
 done
 
@@ -44,7 +47,7 @@ varinvar=rrd_$time
 if [ -n "${!varinvar}" ]; then 
 
     i=1
-    array[0]="rrdtool graph $dir/tmp/temp_view/$time.png 
+    array[0]="rrdtool graph $dir/tmp/$t\_view/$time.png 
     --imgformat PNG 
     --title=\"$time\" 
     --width 894 
@@ -78,229 +81,14 @@ if [ -n "${!varinvar}" ]; then
 
 	IFS=$SAVEIFS
 
-fi
-unset array
-done
-
-
-#humi
-
-for rrd_time0 in hour day week month year
-do
-    if [ -n "rrd_$rrd_time0" ]; then 
-    export rrd_$rrd_time0="`sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE $rrd_time0='on' AND type='humi' "`"
-    fi
-done
-
-for time in hour day week month year
-do
-varinvar=rrd_$time
-if [ -n "${!varinvar}" ]; then 
-
-    i=1
-    array[0]="rrdtool graph $dir/tmp/humi_view/$time.png 
-    --imgformat PNG 
-    --title=\"$time\" 
-    --width 894 
-    --height 300 
-    --vertical-label=\"H (%)\" 
-    -s -1$time 
-    COMMENT:'\t \l'
-    COMMENT:'\t              Current\t    Min\t    Max\t  Average\t \l'
-    COMMENT:'\t \l'"
-
-
-    for rrd in ${!varinvar}
-    do
-    name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$rrd'")
-    color=$(sqlite3 $dir/dbf/nettemp.db "SELECT color from sensors WHERE rom='$rrd'")
-    id=$(echo $rrd |md5sum |cut -c 1-14)
-    array[$i]="DEF:temp$id=$dir/db/$rrd.rrd:temp$id:AVERAGE
-    LINE2:temp$id$color:'$(echo $name |awk '{ if (length($0) >= 10) { print $0 " " }  else if (length($0) >= 7) { print $0 "      " } else if (length($0) >= 4) { print $0 "          " } else if (length($0) <= 3) { print $0 "            " }      }') \t ' 
-    GPRINT:temp$id:LAST:'%2.2lf \t '
-    GPRINT:temp$id:MIN:'%2.2lf \t '
-    GPRINT:temp$id:MAX:'%2.2lf \t '
-    GPRINT:temp$id:AVERAGE:'%2.2lf \t \n' "
-    let i=i+1
+	fi
+	unset array
     done
-
-    #IFS for spaces
-	SAVEIFS=$IFS
-	IFS=$(echo -en "\n\b")    
-
-    eval ${array[@]} 
-
-	IFS=$SAVEIFS
-
-fi
-unset array
 done
-
-#snmp
-
-for rrd_time0 in hour day week month year
-do
-    if [ -n "rrd_$rrd_time0" ]; then 
-    export rrd_$rrd_time0="`sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE $rrd_time0='on' AND type='snmp' "`"
-    fi
-done
-
-for time in hour day week month year
-do
-varinvar=rrd_$time
-if [ -n "${!varinvar}" ]; then 
-
-    i=1
-    array[0]="rrdtool graph $dir/tmp/snmp_view/$time.png 
-    --imgformat PNG 
-    --title=\"$time\" 
-    --width 894 
-    --height 300 
-    --vertical-label=\"Degrees C\" 
-    -s -1$time 
-    COMMENT:'\t \l'
-    COMMENT:'\t              Current\t    Min\t    Max\t  Average\t \l'
-    COMMENT:'\t \l'"
-
-
-    for rrd in ${!varinvar}
-    do
-    name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$rrd'")
-    color=$(sqlite3 $dir/dbf/nettemp.db "SELECT color from sensors WHERE rom='$rrd'")
-    id=$(echo $rrd |md5sum |cut -c 1-14)
-    array[$i]="DEF:temp$id=$dir/db/$rrd.rrd:temp$id:AVERAGE
-    LINE2:temp$id$color:'$(echo $name |awk '{ if (length($0) >= 10) { print $0 " " }  else if (length($0) >= 7) { print $0 "      " } else if (length($0) >= 4) { print $0 "          " } else if (length($0) <= 3) { print $0 "            " }      }') \t ' 
-    GPRINT:temp$id:LAST:'%2.2lf \t '
-    GPRINT:temp$id:MIN:'%2.2lf \t '
-    GPRINT:temp$id:MAX:'%2.2lf \t '
-    GPRINT:temp$id:AVERAGE:'%2.2lf \t \n' "
-    let i=i+1
-    done
-
-    #IFS for spaces
-	SAVEIFS=$IFS
-	IFS=$(echo -en "\n\b")    
-
-    eval ${array[@]} 
-
-	IFS=$SAVEIFS
-
-fi
-unset array
-done
-
-#altitude
-
-for rrd_time0 in hour day week month year
-do
-    if [ -n "rrd_$rrd_time0" ]; then 
-    export rrd_$rrd_time0="`sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE $rrd_time0='on' AND type='altitude' "`"
-    fi
-done
-
-for time in hour day week month year
-do
-varinvar=rrd_$time
-if [ -n "${!varinvar}" ]; then 
-
-    i=1
-    array[0]="rrdtool graph $dir/tmp/altitude_view/$time.png 
-    --imgformat PNG 
-    --title=\"$time\" 
-    --width 894 
-    --height 300 
-    --vertical-label=\"Degrees C\" 
-    -s -1$time 
-    COMMENT:'\t \l'
-    COMMENT:'\t              Current\t    Min\t    Max\t  Average\t \l'
-    COMMENT:'\t \l'"
-
-
-    for rrd in ${!varinvar}
-    do
-    name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$rrd'")
-    color=$(sqlite3 $dir/dbf/nettemp.db "SELECT color from sensors WHERE rom='$rrd'")
-    id=$(echo $rrd |md5sum |cut -c 1-14)
-    array[$i]="DEF:temp$id=$dir/db/$rrd.rrd:temp$id:AVERAGE
-    LINE2:temp$id$color:'$(echo $name |awk '{ if (length($0) >= 10) { print $0 " " }  else if (length($0) >= 7) { print $0 "      " } else if (length($0) >= 4) { print $0 "          " } else if (length($0) <= 3) { print $0 "            " }      }') \t ' 
-    GPRINT:temp$id:LAST:'%2.2lf \t '
-    GPRINT:temp$id:MIN:'%2.2lf \t '
-    GPRINT:temp$id:MAX:'%2.2lf \t '
-    GPRINT:temp$id:AVERAGE:'%2.2lf \t \n' "
-    let i=i+1
-    done
-
-    #IFS for spaces
-	SAVEIFS=$IFS
-	IFS=$(echo -en "\n\b")    
-
-    eval ${array[@]} 
-
-	IFS=$SAVEIFS
-
-fi
-unset array
-done
-
-#pressure
-
-for rrd_time0 in hour day week month year
-do
-    if [ -n "rrd_$rrd_time0" ]; then 
-    export rrd_$rrd_time0="`sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE $rrd_time0='on' AND type='pressure' "`"
-    fi
-done
-
-for time in hour day week month year
-do
-varinvar=rrd_$time
-if [ -n "${!varinvar}" ]; then 
-
-    i=1
-    array[0]="rrdtool graph $dir/tmp/pressure_view/$time.png 
-    --imgformat PNG 
-    --title=\"$time\" 
-    --width 894 
-    --height 300 
-    --vertical-label=\"Degrees C\" 
-    -s -1$time 
-    COMMENT:'\t \l'
-    COMMENT:'\t              Current\t    Min\t    Max\t  Average\t \l'
-    COMMENT:'\t \l'"
-
-
-    for rrd in ${!varinvar}
-    do
-    name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$rrd'")
-    color=$(sqlite3 $dir/dbf/nettemp.db "SELECT color from sensors WHERE rom='$rrd'")
-    id=$(echo $rrd |md5sum |cut -c 1-14)
-    array[$i]="DEF:temp$id=$dir/db/$rrd.rrd:temp$id:AVERAGE
-    LINE2:temp$id$color:'$(echo $name |awk '{ if (length($0) >= 10) { print $0 " " }  else if (length($0) >= 7) { print $0 "      " } else if (length($0) >= 4) { print $0 "          " } else if (length($0) <= 3) { print $0 "            " }      }') \t ' 
-    GPRINT:temp$id:LAST:'%2.2lf \t '
-    GPRINT:temp$id:MIN:'%2.2lf \t '
-    GPRINT:temp$id:MAX:'%2.2lf \t '
-    GPRINT:temp$id:AVERAGE:'%2.2lf \t \n' "
-    let i=i+1
-    done
-
-    #IFS for spaces
-	SAVEIFS=$IFS
-	IFS=$(echo -en "\n\b")    
-
-    eval ${array[@]} 
-
-	IFS=$SAVEIFS
-
-fi
-unset array
-done
-
-
-
 
 
 fi
 else 
-echo "rrd off"
+    echo "rrd off"
 fi
 
