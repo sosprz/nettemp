@@ -14,7 +14,7 @@
 	if (empty($icmp)) { $icmp="off"; }
 	if (empty($openvpn)) { $openvpn="off"; }
 	if (empty($ext)) { $ext="off"; }
-	shell_exec("/bin/bash modules/fw/fw on $icmp $ssh $ext $openvpn");
+	shell_exec("/bin/bash modules/security/fw/fw on $icmp $ssh $ext $openvpn");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
     }
