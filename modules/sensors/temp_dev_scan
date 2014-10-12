@@ -9,222 +9,28 @@ mkdir $dir/tmp 2> /dev/null
 
 echo "$date temp_dev_scan - Deleted .digitemprc" >> $dir/tmp/log.txt
 
-# DS9097U na USB - meraprojekt new
-for i in 0 1 2 3
-    do
-	if [ `ls /dev/ttyUSB$i 2> /dev/null` ]; then 
-	/usr/bin/digitemp_DS9097U -i -c $dir/tmp/.digitemprc -s/dev/ttyUSB$i &> /dev/null
-	fi
-    done
-	if [ -e $dir/tmp/.digitemprc ]; then 
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097U'"
-	echo USB: DS9097 found
-	echo "$date temp_dev_scan - Discovered DS9097U on USB" >> $dir/tmp/log.txt
-	else
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off' WHERE id='1'"
-	fi
-
-
-# DS2490 na USB - meraprojekt old
-if [ ! -e $dir/tmp/.digitemprc ]; then 
-    /usr/bin/digitemp_DS2490 -i -c $dir/tmp/.digitemprc &> /dev/null
-    if [ -e $dir/tmp/.digitemprc ]; then 
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS2490'"
-    echo USB: DS2490 found
-    echo "$date temp_dev_scan - Discovered DS2490 on USB" >> $dir/tmp/log.txt
-    else
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off' WHERE id='1'"
-    fi
-fi
-
-# DS9097 na USB - serial na przejsciowce USB
-if [ ! -e $dir/tmp/.digitemprc ]; then 
-    for i in 0 1 2 3
-	do
-	    if [ `ls /dev/ttyUSB$i 2> /dev/null` ]; then 
-	    /usr/bin/digitemp_DS9097 -i -c $dir/tmp/.digitemprc -s/dev/ttyUSB$i &> /dev/null
-	    fi
-	done
-    if [ -e $dir/tmp/.digitemprc ]; then 
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097' WHERE id='1'"
-	USB: DS9097 found
-	echo "$date temp_dev_scan - Discovered DS9097 on USB" >> $dir/tmp/log.txt
-	else
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET usb='off'"
-    fi
-fi
-
+# USB
+$dir/modules/sensors/1wire/1wire_usb_scan
 # DS9097 - serial 
-if [ ! -e $dir/tmp/.digitemprc ]; then 
-    for i in 0 1 2 3
-	do
-	    if [ `ls /dev/ttyS$i 2> /dev/null` ]; then 
-	    /usr/bin/digitemp_DS9097 -i -c $dir/tmp/.digitemprc -s/dev/ttyS$i &> /dev/null
-	    fi
-	done
-    if [ -e $dir/tmp/.digitemprc ]; then 
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET serial='DS9097' WHERE id='1'"
-	echo Serial: DS9097 found
-	echo "$date temp_dev_scan - Discovered DS9097 on serial port" >> $dir/tmp/log.txt
-	else
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET serial='off'"
-    fi
-fi
-
+$dir/modules/sensors/1wire/1wire_serial_scan
 # 1-wire
-
-if [ -e /sys/bus/w1/devices/w1_bus_master1/w1_master_slaves ]; then 
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET onewire='on' WHERE id='1'"
-	w1_count=$(cat /sys/bus/w1/devices/w1_bus_master*/w1_master_slaves |grep -c [-])
-	if [ $w1_count != "0" ]
-	    then
-	    echo "1-wire: $w1_count sensors found"
-	    echo "$date temp_dev_scan - Discovered 1-wire temp sensors" >> $dir/tmp/log.txt
-	    for sensor in `cat /sys/bus/w1/devices/w1_bus_master*/w1_master_slaves`; do 
-	        if  [ -e /sys/bus/w1/devices/${sensor}/w1_slave ]; then
-    		    wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.2f\n", $11/1000 } ' /sys/bus/w1/devices/${sensor}/w1_slave;`
-		    echo $sensor  >>  $dir/tmp/onewire
-		fi
-	    done
-	fi
-else
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET onewire='off' WHERE id='1'"
-fi
-
-
-#Raspberry system temp
-rpi=$(cat /proc/cmdline | awk -v RS=" " -F= '/boardrev/ { print $2 }')
-if [ ! $(cat $dir/tmp/onewire |grep Raspberry_Pi) ] && [ -e /opt/vc/bin/vcgencmd ] && [ -n "$rpi" ]; then
-    echo "Raspberry_Pi" >> $dir/tmp/onewire
-    echo "Raspberry Pi: Internal sensor found"
-fi
-
-#Banana Pi system temp
-
-if [ -f /boot/bananapi/script.bin ] && [ -f /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input  ] && [ ! $(cat $dir/tmp/onewire |grep Banana_Pi) ] 
-    then
-	echo "Banana_Pi" >> $dir/tmp/onewire
-	echo "Banana Pi: Internal sensor found"
-fi
-
-
-
+$dir/modules/sensors/1wire/1wire_gpio_i2c_scan
+#raspberrypi
+$dir/modules/sensors/other/raspberrypi_scan
+#bananapi
+$dir/modules/sensors/other/bananapi_scan
 # DHT11 22
-dht=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where humi_checkbox='on'"`
-dht_count=$(echo $dht |grep -c [0-9])
-if [ "$dht_count" != "0" ] && [ -n "$dht_count" ]
-    then
-	echo GPIO: $dht_count sensors found
-for dht_gpio in $dht; do
- tmp1="gpio_$dht_gpio" 
- tmp2="_temp"
- echo "$tmp1$tmp2" >> $dir/tmp/onewire
- dht1="gpio_$dht_gpio"
- dht2="_humi"
- echo "$dht1$dht2" >> $dir/tmp/onewire
-done
-fi
-
-# snmp
-snmp=`sqlite3 $dir/dbf/snmp.db "SELECT name FROM snmp"`
-if [ -n "$snmp" ]
-    then
-	snmp_count=$(echo "$snmp" |grep -c snmp)
-	if [ "$snmp_count" != "0" ] && [ -n "$snmp_count" ]
-	    then
-	    echo SNMP: $snmp_count sensors found
-	    for name in $snmp; do 
-		echo "$name" >> $dir/tmp/onewire
-	    done
-	fi
-fi
-
-
+$dir/modules/sensors/GPIO/DHT/dht_scan
 # i2c
-
-if [ -e /dev/i2c-0 ] 
-    then
-    i2cbus="0"
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='i2c-0' WHERE id='1'"
-elif [ -e /dev/i2c-1 ]
-    then
-    i2cbus="1"
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='i2c-1' WHERE id='1'"    
-else
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='off' WHERE id='1'"
-fi 
-
-i2c=$(sudo i2cdetect -y $i2cbus |sed '1d'|awk '{ $1=""; print $0 }' |grep -o '[0-9]*')
-
-bmp180="77" #0x77
-TSL2561="39" #0x39
-ds2482="18" #0x18 
-HTU21D="40" #0x40
-
-if [ -n "$i2c" ]; then 
-    echo I2C: Found $i2c
-fi
-
-for i in "$i2c"
-    do
-	    if [ "$i" = "$bmp180" ]; then
-		echo i2c_$i\_pressure >> $dir/tmp/onewire
-		echo i2c_$i\_temp >> $dir/tmp/onewire
-		echo i2c_$i\_altitude >> $dir/tmp/onewire
-	    fi
-	    if [ "$i" = "$TSL2561" ]; then
-		echo i2c_$i\_lux >> $dir/tmp/onewire
-	    fi
-	    if [ "$i" = "$ds2482" ]; then
-		echo ds2482 0x$ds2482 > /sys/bus/i2c/devices/i2c-$i2cbus/new_device
-		if ! grep -q 0x$ds2482 $dir/modules/cron/r
-		    then
-		sed -i '$aecho ds2482 0x'$ds2482' > /sys/bus/i2c/devices/i2c-'$i2cbus'/new_device' $dir/modules/cron/r
-		fi
-	    fi
-	    if [ "$i" = "$HTU21D" ]; then
-		echo i2c_$i\_humi >> $dir/tmp/onewire
-		echo i2c_$i\_temp >> $dir/tmp/onewire
-	    fi
-	done
+$dir/modules/sensors/i2c/i2c_scan
+# snmp
+$dir/modules/sensors/snmp/snmp_scan
+# lmsensors
+$dir/modules/sensors/lmsensors/lmsensors_scan
 
 
-# lm-sensors
-
-if which sensors >/dev/null
-    then
-
-temp=$(sensors |grep temp[0-9] | awk '{print $1}' | sed 's/://g')
-core=$(sensors |grep "Core [0-9]"  |awk '{print $1$2}' | sed 's/://g')
-
-for i in $temp
-    do
-    declare $i=$(sensors |grep $i | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
-         if [ -n "$i" ] &&  echo $i | grep [0-9] > /dev/null
-        then 
-            echo lmsensors_$i\_temp >> $dir/tmp/onewire
-        fi
-    done
-
-for i in $core
-    do
-    declare $i=$(sensors |grep "Core [0-9]"  |awk '{print $3}' | sed 's/://g' | sed 's/+//g' |sed 's/°C//g')
-         if [ -n "$i" ] &&  echo $i | grep [0-9] > /dev/null
-        then 
-            echo lmsensors_$i\_temp >> $dir/tmp/onewire
-        fi
-    done
 
 
-if [ -n "$temp" ] || [ -n "$core" ]
-    then
-        echo lm-sensors: Sensors found
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET lmsensors='on' WHERE id='1'"
-    else
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET lmsensors='off' WHERE id='1'"
-fi
-
-fi
 
 
 

@@ -32,17 +32,10 @@ case 'reset': include('modules/tools/html/tools_reset.php'); break;
 case 'reboot': include('modules/tools/html/tools_reboot.php'); break;
 case 'log': include('modules/tools/html/tools_log.php'); break;
 case 'gpio': include('modules/tools/html/tools_gpio_readall.php'); break;
-case 'backup': include('modules/backup/html/backup.php'); break;
+case 'backup': include('modules/tools/backup/html/backup.php'); break;
 }
 ?>
 
-<?php //include(""); ?> 
-<?php //include(""); ?> 
-<?php //include("tools_update.php"); ?> 
-<?php //include("tools_reset.php"); ?> 
-<?php //include("tools_reboot.php"); ?> 
-<?php //include("tools_log.php"); ?>
-<?php //include(""); ?>
 
 
 

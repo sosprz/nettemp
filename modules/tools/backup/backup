@@ -1,6 +1,6 @@
 #! /bin/bash
 
-dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M%S`
 action="$1"
 file="$2"
@@ -10,7 +10,7 @@ if [ $action = "b" ];then
     sqlite3 $dir/dbf/nettemp.db .dump > $dir/tmp/backup/nettemp.bak
     sqlite3 $dir/dbf/snmp.db .dump > $dir/tmp/backup/snmp.bak
     git log |head -1 |awk '{print $2}' > $dir/tmp/backup/commit
-    cd $dir/modules/backup/files
+    cd $dir/modules/tools/backup/files
     tar -cpvf nettemp-$date.tar.gz $dir/tmp/backup $dir/db
     rm -rf $dir/tmp/backup/*
 fi

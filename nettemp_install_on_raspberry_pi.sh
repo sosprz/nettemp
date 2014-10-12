@@ -143,10 +143,10 @@ echo -e "${GREEN} UPS status function${R}"
 /var/www/nettemp/modules/ups/install
 
 echo -e "${GREEN} OpenVPN serwer${R}"
-/var/www/nettemp/modules/vpn/install
+/var/www/nettemp/modules/security/vpn/install
 
 echo -e "${GREEN} Firewall${R}"
-/var/www/nettemp/modules/fw/install
+/var/www/nettemp/modules/security/fw/install
 
 #i2c
 

@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.4
+change scripts localtion
+
 8.4.3
 fix snmp after fix php
 del info errors

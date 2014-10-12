@@ -14,10 +14,10 @@ $art = isset($_GET['type']) ? $_GET['type'] : '';
 <?php  
 switch ($art)
 { 
-default: case '$art': include('modules/fw/html/fw.php'); break;
-case 'fw': include('modules/fw/html/fw.php'); break;
-case 'vpn': include('modules/vpn/html/vpn.php'); break;
-case 'authmod': include('modules/authmod/html/authmod.php'); break;
+default: case '$art': include('modules/security/fw/html/fw.php'); break;
+case 'fw': include('modules/security/fw/html/fw.php'); break;
+case 'vpn': include('modules/security/vpn/html/vpn.php'); break;
+case 'authmod': include('modules/security/authmod/html/authmod.php'); break;
 
 
 }

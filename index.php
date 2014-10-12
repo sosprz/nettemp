@@ -88,12 +88,12 @@ case 'settings': include('modules/settings/settings.php'); break;
 case 'ups': include('modules/ups/html/ups.php'); break;
 case 'kwh': include('modules/kwh/html/kwh.php'); break;
 case 'snmp': include('modules/snmp/html/snmp.php'); break;
-case 'vpn': include('modules/vpn/html/vpn.php'); break;
-case 'fw': include('modules/fw/html/fw.php'); break;
+case 'vpn': include('modules/security/vpn/html/vpn.php'); break;
+case 'fw': include('modules/security/fw/html/fw.php'); break;
 case 'security': include('modules/security/html/security.php'); break;
 case 'devices': include('modules/devices/html/devices.php'); break;
-case 'backup': include('modules/backup/html/backup.php'); break;
-case 'upload': include('modules/backup/html/upload.php'); break;
+case 'backup': include('modules/tools/backup/html/backup.php'); break;
+case 'upload': include('modules/tools/backup/html/upload.php'); break;
 }
 ?>
 

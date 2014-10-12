@@ -1,0 +1,21 @@
+#! /bin/bash
+
+# DHT11 22
+
+dir=$( cd "$( dirname "$0" )" && cd ../../../../ && pwd )
+date=`date +%y%m%d-%H%M`
+
+dht=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where humi_checkbox='on'"`
+dht_count=$(echo $dht |grep -c [0-9])
+if [ "$dht_count" != "0" ] && [ -n "$dht_count" ]
+    then
+    echo GPIO: $dht_count sensors found
+for dht_gpio in $dht; do
+ tmp1="gpio_$dht_gpio" 
+ tmp2="_temp"
+ echo "$tmp1$tmp2" >> $dir/tmp/onewire
+ dht1="gpio_$dht_gpio"
+ dht2="_humi"
+ echo "$dht1$dht2" >> $dir/tmp/onewire
+done
+fi

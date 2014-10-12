@@ -11,7 +11,7 @@
 ?>
 </pre>
 <?php
-    exec('modules/reset/update_db');
+    exec('modules/tools/reset/update_db');
     //header("location: " . $_SERVER['REQUEST_URI']);
     //	exit();	
 } ?>

@@ -1,7 +1,7 @@
 <?php
 $backup = isset($_POST['backup']) ? $_POST['backup'] : '';
 if ($backup == "backup") { 
-    passthru("modules/backup/backup b");
+    passthru("modules/tools/backup/backup b");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
 }
@@ -10,7 +10,7 @@ if ($backup == "backup") {
 $backup_file = isset($_POST['backup_file']) ? $_POST['backup_file'] : '';
 $rm = isset($_POST['rm']) ? $_POST['rm'] : '';
 if ($rm == "rm") {
-    unlink("modules/backup/files/$backup_file");
+    unlink("modules/tools/backup/files/$backup_file");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     } 
@@ -19,7 +19,7 @@ if ($rm == "rm") {
 $restore_file = isset($_POST['restore_file']) ? $_POST['restore_file'] : '';
 $re = isset($_POST['re']) ? $_POST['re'] : '';
 if ($re == "re") {   
-    passthru("modules/backup/backup r modules/backup/files/$restore_file");
+    passthru("modules/tools/backup/backup r modules/backup/files/$restore_file");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     } 
@@ -36,7 +36,7 @@ if ($re == "re") {
 
 <h3>Available images restore/delete</h3>
 <?php
-$dir = 'modules/backup/files/';
+$dir = 'modules/tools/backup/files/';
 $fileExtensions = array('gz');
 $files = scandir($dir);
 foreach($files AS $file) {
