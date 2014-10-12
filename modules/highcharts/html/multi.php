@@ -6,10 +6,25 @@
     <script src="modules/kwh/html/js/exporting.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
+	function getUrlVars() {
+	    var vars = {};
+    	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+    	    vars[key] = value;
+	});
+	return vars;
+	}
+	var type = getUrlVars()["type"];
+	var highcharts = getUrlVars()["highcharts"];
+	
+	if(!highcharts){
+	    var highcharts = "hour";
+	}	
+	//alert(type);
+	//alert(highcharts);
 
         $.ajax({
           type: "GET",
-          url: "tmp/highcharts/humi_highcharts_year.xml",
+          url: "tmp/highcharts/"+type+"_highcharts_"+highcharts+".xml",
           dataType: "xml",
           success: function(xml) {
             var series = []
@@ -36,8 +51,7 @@
                     };
                 });
             });
-            options.title.text = "Humidity of the last year"
-	    options.yAxis.title.text ="H (%)"
+            options.title.text = type + " of the last " + highcharts
             $.each(series, function(index) {
               options.series.push(series[index]);
             });

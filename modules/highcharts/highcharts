@@ -7,332 +7,46 @@ mkdir -p $dir/tmp/highcharts
 hc_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT highcharts FROM settings"`
 
 if [ "$hc_onoff" == "on" ]; then
-echo "temp"
-rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='temp'")
-
-	array[0]="rrdtool xport -s now-24h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/temp_highcharts.xml"
-	eval ${array[@]}
-	unset array 
-
-	array[0]="rrdtool xport -s now-168h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/temp_highcharts_week.xml"
-	eval ${array[@]}
-	unset array 
-
-	array[0]="rrdtool xport -s now-672h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/temp_highcharts_month.xml"
-	eval ${array[@]}
-	unset array 
-
-array[0]="rrdtool xport -s now-8064h -e now --step 600 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/temp_highcharts_year.xml"
-	eval ${array[@]}
-	unset array 
-
-############## snmp
-echo "snmp"
-rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='snmp'")
-
-	array[0]="rrdtool xport -s now-24h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/snmp_highcharts.xml"
-	eval ${array[@]}
-	unset array 
-
-	array[0]="rrdtool xport -s now-168h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/snmp_highcharts_week.xml"
-	eval ${array[@]}
-	unset array 
-
-	array[0]="rrdtool xport -s now-672h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/snmp_highcharts_month.xml"
-	eval ${array[@]}
-	unset array 
-
-array[0]="rrdtool xport -s now-8064h -e now --step 600 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/snmp_highcharts_year.xml"
-	eval ${array[@]}
-	unset array 
-
-### humi
-echo "humi"
-rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='humi'")
-
-	array[0]="rrdtool xport -s now-24h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/humi_highcharts.xml"
-	eval ${array[@]}
-	unset array 
-
-	array[0]="rrdtool xport -s now-168h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/humi_highcharts_week.xml"
-	eval ${array[@]}
-	unset array 
-
-	array[0]="rrdtool xport -s now-672h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/humi_highcharts_month.xml"
-	eval ${array[@]}
-	unset array 
-
-array[0]="rrdtool xport -s now-8064h -e now --step 600 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/humi_highcharts_year.xml"
-	eval ${array[@]}
-	unset array 
-
-### altitude
-echo "altitude"
-rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='altitude'")
-
-	array[0]="rrdtool xport -s now-24h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/altitude_highcharts.xml"
-	eval ${array[@]}
-	unset array 
-
-	array[0]="rrdtool xport -s now-168h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/altitude_highcharts_week.xml"
-	eval ${array[@]}
-	unset array 
-
-	array[0]="rrdtool xport -s now-672h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/altitude_highcharts_month.xml"
-	eval ${array[@]}
-	unset array 
-
-array[0]="rrdtool xport -s now-8064h -e now --step 600 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/altitude_highcharts_year.xml"
-	eval ${array[@]}
-	unset array 
-
-### pressure
-echo "pressure"
-rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='pressure'")
-
-	array[0]="rrdtool xport -s now-24h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/pressure_highcharts.xml"
-	eval ${array[@]}
-	unset array 
-
-	array[0]="rrdtool xport -s now-168h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/pressure_highcharts_week.xml"
-	eval ${array[@]}
-	unset array 
-
-	array[0]="rrdtool xport -s now-672h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/pressure_highcharts_month.xml"
-	eval ${array[@]}
-	unset array 
-
-array[0]="rrdtool xport -s now-8064h -e now --step 600 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/pressure_highcharts_year.xml"
-	eval ${array[@]}
-	unset array 
-
-### lux
-echo "lux"
-rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='lux'")
-
-	array[0]="rrdtool xport -s now-24h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/lux_highcharts.xml"
-	eval ${array[@]}
-	unset array 
-
-	array[0]="rrdtool xport -s now-168h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/lux_highcharts_week.xml"
-	eval ${array[@]}
-	unset array 
-
-	array[0]="rrdtool xport -s now-672h -e now --step 60 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/lux_highcharts_month.xml"
-	eval ${array[@]}
-	unset array 
-
-array[0]="rrdtool xport -s now-8064h -e now --step 600 "
-	ar=1
-	for i in $rom; do
-		name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
-		id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
-		array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
-		let ar=ar+1
-	done
-        array[$ar]="> $dir/tmp/highcharts/lux_highcharts_year.xml"
-	eval ${array[@]}
-	unset array 
+type="temp snmp humi altitude pressure lux"
+for t in $type
+    do
+	echo $t
+	rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='$t'")
+	hour="1 24 168 672 864"
+	for h in $hour
+	    do
+		array[0]="rrdtool xport -s now-$h\h -e now --step 60 "
+		ar=1
+		for i in $rom; do
+		    name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name from sensors WHERE rom='$i'")
+		    id=$(sqlite3 $dir/dbf/nettemp.db "SELECT id from sensors WHERE rom='$i'")
+		    array[$ar]="DEF:$id=$dir/db/$i.rrd:temp$(echo $i |md5sum | cut -c 1-14 ):AVERAGE XPORT:$id:\"$name\""
+		    let ar=ar+1
+		done
+		if [ "$h" == 1 ]; then hc="hour"; fi
+		if [ "$h" == 24 ]; then hc="day"; fi
+		if [ "$h" == 168 ]; then hc="week"; fi
+		if [ "$h" == 672 ]; then hc="month"; fi
+		if [ "$h" == 864 ]; then hc="year"; fi
+	        array[$ar]="> $dir/tmp/highcharts/$t\_highcharts_$hc.xml"
+		eval ${array[@]}
+		unset array 
+    done
+done
 
 echo "$date Highcharts - generated" >> $dir/tmp/log.txt
-
-
 
 ###################
 # OLD RRDtool bug #
 ###################
 
-for i in $(ls $dir/tmp/highcharts/*_highcharts*); do
+    for i in $(ls $dir/tmp/highcharts/*_highcharts*); do
        if cat $i |head -2|grep step; then
-         sed -i '1d;2d' $i
+	    sed -i '1d;2d' $i
        fi
-done
+    done
 
 else 
-echo "highcharts off"
+    echo "highcharts off"
 fi
 
