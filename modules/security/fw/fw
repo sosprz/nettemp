@@ -30,7 +30,7 @@ if [ "$onoff" == "on" ] && [ -n "$2" ] && [ -n "$3" ] && [ -n "$4" ] && [ -n "$5
 	sudo iptables -A INPUT -s $ext -p tcp --dport 80 -j ACCEPT
     fi
     if [ "$vpn" == "on" ]; then
-	sudo iptables -A INPUT -p udp --dport 1195 -j ACCEPT
+	sudo iptables -A INPUT -p udp --dport 1194 -j ACCEPT
 	sudo iptables -A INPUT -i tun0 -j ACCEPT
 	sudo iptables -A FORWARD -s $tunnet -j ACCEPT
 	sudo iptables -A FORWARD -s $localnet -j ACCEPT
