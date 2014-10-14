@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.6
+fix sms
+
 8.4.5
 fix iptables openvpn port - back to standard
 add missing perms on backup file

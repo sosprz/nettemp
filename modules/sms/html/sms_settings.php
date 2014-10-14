@@ -28,7 +28,7 @@ $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { ?>
 <table><tr>
-<form action="settings" method="post"> 	
+<form action="" method="post"> 	
 <td>SMS Center number</td>
 <td><input type="text" name="smsc" size="25" value="<?php echo $a["smsc"]; ?>" /></td>
 <td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td></tr>
@@ -36,7 +36,7 @@ foreach ($result as $a) { ?>
 </form>
 
 <tr>	
-    <form action="settings" method="post">
+    <form action="" method="post">
     <td>Send test sms to</td>
     <td><input type="text" name="sms_test" size="25" value="<?php echo $a["sms_test"]; ?>" /></td>
     <input type="hidden" name="sms_test1" value="sms_test2" />

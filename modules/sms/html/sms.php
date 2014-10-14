@@ -18,7 +18,7 @@ if ($sms == "on" ) {
 ?> 
 	<?php include('sms_scan.php'); ?>
 	<hr>
-	<?php include("sms_settings.php"); ?>
+	<?php include('sms_settings.php'); ?>
 	<hr>
 	<?php include('sms_getallsms.php'); ?>
 

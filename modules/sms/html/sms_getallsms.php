@@ -14,10 +14,10 @@
 
 ?>
 <table><tr>
-<form action="sms" method="post">
+<form action="" method="post">
 <td><input type="submit" name="getallsms" value="Get all sms" /></td>
 </form>
-<form action="sms" method="post">
+<form action="" method="post">
 <td><input type="submit" name="delallsms" value="Del all sms" /></td>
 </form>
 </tr></table>

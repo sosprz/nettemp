@@ -35,11 +35,11 @@
 ?>
 <table><tr>
 <td>Search modem</td>
-<form action="settings" method="post">
+<form action="" method="post">
 <td><input type="submit" name="scan" value="Scan" /></td>
 </form></tr></table>
 <table><tr><td>
-<form action="sms" method="post"> 
+<form action="" method="post"> 
 <select name="sd"  onchange="this.form.submit()" >
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
