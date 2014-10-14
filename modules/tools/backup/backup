@@ -5,6 +5,9 @@ date=`date +%y%m%d-%H%M%S`
 action="$1"
 file="$2"
 
+if [ -n "$1" ] || [ -n "$2" ]
+    then
+
 if [ $action = "b" ];then
     mkdir -p $dir/tmp/backup
     sqlite3 $dir/dbf/nettemp.db .dump > $dir/tmp/backup/nettemp.bak
@@ -24,8 +27,11 @@ if [ $action = "r" ] && [ -n "$file" ];then
     sqlite3 $dir/tmp/backup/snmp.db < $dir/tmp/backup/snmp.bak
     mv $dir/tmp/backup/*.rrd $dir/db/
     mv -f $dir/tmp/backup/*.db $dir/dbf/
-    chgrp www-data $dir/dbf/nettemp.db/
+    chgrp www-data $dir/dbf/nettemp.db
     chmod 775 $dir/dbf/nettemp.db
     git reset --hard $(cat $dir/tmp/backup/commit)
     rm -rf $dir/tmp/backup/*
+fi
+else
+    echo "no option: b or r"
 fi
