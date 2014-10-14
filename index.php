@@ -7,7 +7,7 @@ if ( '' == file_get_contents( $dbfile ) )
 <h1><font color="blue">nettemp.pl</font></h2>
 <h2><font color="red">Database not found <?php echo $dbfile; ?></font></h2>
 <h3>Go to shell and reset/create nettemp database:<h3>
-/var/www/nettemp/modules/reset/reset <br />
+/var/www/nettemp/modules/tools/reset/reset <br />
 </html>
 <?php }
 else {

@@ -12,6 +12,7 @@ if [ $action = "b" ];then
     git log |head -1 |awk '{print $2}' > $dir/tmp/backup/commit
     cd $dir/modules/tools/backup/files
     tar -cpvf nettemp-$date.tar.gz $dir/tmp/backup $dir/db
+    chmod 775 nettemp-$date.tar.gz
     rm -rf $dir/tmp/backup/*
 fi
 if [ $action = "r" ] && [ -n "$file" ];then

@@ -55,6 +55,8 @@ Changelog:
 
 8.4.5
 fix iptables openvpn port - back to standard
+add missing perms on backup file
+fix path when search on 1wire
 
 8.4.4
 change scripts localtion
