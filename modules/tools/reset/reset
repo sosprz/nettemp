@@ -4,12 +4,9 @@ dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
 git reset --hard
 
-rm -rf $dir/dbf/nettemp.db
+rm -rf $dir/dbf/*.db
 #rm -rf $dir/db/*.rrd #uncomment will delete all stored data
-rm -rf $dir/tmp/log.txt
-rm -rf $dir/tmp/.digitemprc
-rm -rf $dir/tmp/onewire
-rm -rf $dir/tmp/gammu*
+rm -rf $dir/tmp/*
 
 sqlite3 $dir/dbf/nettemp.db  "CREATE TABLE sensors (
   id INTEGER PRIMARY KEY,

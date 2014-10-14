@@ -19,8 +19,9 @@ if [ $action = "r" ] && [ -n "$file" ];then
     rm -rf $dir/db/*
     tar -xpvf $file -C /
     rm -rf $dir/dbf/*
-    sqlite3 $dir/dbf/nettemp.db < $dir/tmp/backup/nettemp.bak
-    sqlite3 $dir/dbf/snmp.db < $dir/tmp/backup/snmp.bak
+    sqlite3 $dir/tmp/backup/nettemp.db < $dir/tmp/backup/nettemp.bak
+    sqlite3 $dir/tmp/backup/snmp.db < $dir/tmp/backup/snmp.bak
+    mv -f $dir/tmp/backup/*.db $dir/dbf/
     chgrp www-data $dir/dbf/nettemp.db
     chmod 775 $dir/dbf/nettemp.db
     git reset --hard $(cat $dir/tmp/backup/commit)
