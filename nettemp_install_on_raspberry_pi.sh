@@ -74,7 +74,8 @@ else
     lighttpd-enable-mod auth
 fi
 # php.ini upload file max size
-sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 200M/g' /etc/php5/cgi/php.ini
+sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 300M/g' /etc/php5/cgi/php.ini
+sed -i 's/post_max_size = 8M/post_max_size = 300M/g' /etc/php5/cgi/php.ini
 
 cd /var/www
 
