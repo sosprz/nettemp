@@ -6,7 +6,7 @@ git reset --hard
 
 rm -rf $dir/dbf/*.db
 #rm -rf $dir/db/*.rrd #uncomment will delete all stored data
-rm -rf $dir/tmp/.??*
+rm -rf $dir/tmp/.* $dir/tmp/*
 
 sqlite3 $dir/dbf/nettemp.db  "CREATE TABLE sensors (
   id INTEGER PRIMARY KEY,
