@@ -19,7 +19,7 @@ if ($rm == "rm") {
 $restore_file = isset($_POST['restore_file']) ? $_POST['restore_file'] : '';
 $re = isset($_POST['re']) ? $_POST['re'] : '';
 if ($re == "re") {   
-    passthru("modules/tools/backup/backup r modules/backup/files/$restore_file");
+    passthru("modules/tools/backup/backup r modules/tools/backup/files/$restore_file");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     } 

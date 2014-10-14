@@ -22,9 +22,9 @@ if [ $action = "b" ]
 fi
 if [ $action = "r" ] && [ -n "$file" ]
     then
-	tar -xpvf $file -C $dir/tmp/backup
-	rm -rf $dir/db/*
-	rm -rf $dir/dbf/*
+	tar -xpvf $file -C $dir/tmp/backup >> $dir/log
+	rm -rf $dir/db/* >> $dir/log
+	rm -rf $dir/dbf/* >> $dir/log
 	sqlite3 $dir/tmp/backup/nettemp.db < $dir/tmp/backup/nettemp.bak
 	sqlite3 $dir/tmp/backup/snmp.db < $dir/tmp/backup/snmp.bak
 	mv $dir/tmp/backup/*.rrd $dir/db/
@@ -32,7 +32,7 @@ if [ $action = "r" ] && [ -n "$file" ]
 	chgrp www-data $dir/dbf/nettemp.db
 	chmod 775 $dir/dbf/nettemp.db
 	git reset --hard $(cat $dir/tmp/backup/commit)
-	rm -rf $dir/tmp/backup/*
+	rm -rf $dir/tmp/backup/* 
 fi
 else
     echo "no option: b or r"
