@@ -166,7 +166,7 @@ echo -e "${GREEN}Add permisions${R}"
 chown -R root.www-data /var/www/nettemp
 chmod -R 775 /var/www/nettemp
 gpasswd -a www-data dialout
-sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chmod *, /bin/chgrp *, /sbin/reboot' /etc/sudoers
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chmod *, /bin/chown *, /bin/chgrp *, /sbin/reboot' /etc/sudoers
 sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/bin/whoami, /usr/bin/killall *, /usr/bin/nohup *' /etc/sudoers
 
 echo -e "${GREEN}Starting services${R}"

@@ -3,7 +3,7 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 
 sudo chmod -R 775 $dir
-sudo chgrp -R www-data $dir
+sudo chown -R root.www-data $dir
 
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD vpn type TEXT";
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE vpn (id INTEGER PRIMARY KEY,users UNIQUE);"

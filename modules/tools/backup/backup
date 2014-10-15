@@ -29,7 +29,6 @@ if [ $action = "r" ] && [ -n "$file" ]
 	sqlite3 $dir/tmp/backup/snmp.db < $dir/tmp/backup/snmp.bak
 	mv $dir/tmp/backup/*.rrd $dir/db/
 	mv -f $dir/tmp/backup/*.db $dir/dbf/
-	chgrp www-data $dir/dbf/nettemp.db
 	chmod 775 $dir/dbf/nettemp.db
 	git reset --hard $(cat $dir/tmp/backup/commit)
 	rm -rf $dir/tmp/backup/* 

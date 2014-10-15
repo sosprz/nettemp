@@ -137,7 +137,7 @@ sqlite3 $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user ) VALUE
 
 
 chmod 775 $dir/dbf/nettemp.db
-chgrp www-data $dir/dbf/nettemp.db
+chown root.www-data $dir/dbf/nettemp.db
 
 
 # SNMP
@@ -153,7 +153,7 @@ sqlite3 $dir/dbf/snmp.db  "CREATE TABLE snmp (
   );"
 
 chmod 775 $dir/dbf/snmp.db
-chgrp www-data $dir/dbf/snmp.db
+chown root.www-data $dir/dbf/snmp.db
 
 
 echo "$date Default settings restored" >> $dir/tmp/log.txt
