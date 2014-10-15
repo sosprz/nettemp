@@ -68,7 +68,7 @@ else {?>
 switch ($id)
 { 
 default: case '$id': include('modules/status/html/status.php'); break;
-//case 'notification': include('modules/notification/html/notification.php'); break;
+case 'notification': include('modules/notification/html/notification.php'); break;
 //case 'sensors': include('modules/sensors/html/sensors.php'); break;
 case 'view': include('modules/view/html/view.php'); break;
 //case 'humi_view': include('modules/view/html/humi_view.php'); break;
