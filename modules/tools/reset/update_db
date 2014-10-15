@@ -1,10 +1,9 @@
 #! /bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
-dir2=$( cd "$( dirname "$0" )" && cd ../../../../ && pwd )
 
-sudo chmod -R 775 $dir2/nettemp
-sudo chgrp -R www-data $dir2/nettemp
+sudo chmod -R 775 $dir
+sudo chgrp -R www-data $dir
 
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD vpn type TEXT";
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE vpn (id INTEGER PRIMARY KEY,users UNIQUE);"
