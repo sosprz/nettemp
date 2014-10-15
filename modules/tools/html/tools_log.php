@@ -15,12 +15,11 @@ $log_del = isset($_POST['log_del']) ? $_POST['log_del'] : '';
 <div style="width:990px;height:300px;overflow:auto;padding:5px;">
 <pre>
 <?php
-$file = file("tmp/log.txt");
-$file = array_reverse($file);
-foreach($file as $f){
-    echo $f;
-}
-
+$filearray = file("tmp/log.txt");
+$last = array_slice($filearray,-100);
+    foreach($last as $f){
+    	echo $f;
+    }
 ?>
 </pre>
 </div>

@@ -53,6 +53,11 @@ USERS:
 
 Changelog:
 
+8.4.7
+show noly last 100 lines in log
+reset clean all tmp dir
+update set good perms
+
 8.4.6
 fix sms
 
