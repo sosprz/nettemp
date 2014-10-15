@@ -54,7 +54,7 @@ $notif_del = isset($_POST['notif_del']) ? $_POST['notif_del'] : '';
 <table>
 <tr><td></td><td><img src="media/ico/User-Preppy-Blue-icon.png" ></td><td><img src="media/ico/message-icon.png" ></td><td><img src="media/ico/phone-blue-glow-icon.png" ></td><td><img src="media/ico/message-icon.png" ></td><td><img src="media/ico/phone-blue-glow-icon.png" ></td></tr>
 <tr>	
-	<form action="notification" method="post">
+	<form action="" method="post">
 	<td></td>
 	<td><input type="text" name="notif_name" size="20" value="" /></td>
 	<td><input type="text" name="notif_mail" size="20" value="" /></td>
@@ -80,14 +80,14 @@ foreach ($result as $a) {
 	<td><?php echo $a["mail"];?></td>
 	<td><?php echo $a["tel"]; ?></td>
 	
-	<form action="notification" method="post"> 	
+	<form action="" method="post"> 	
 	<input type="hidden" name="notif_update" value="<?php echo $a["id"]; ?>" />
 	<td><input type="checkbox" name="notif_update_mail" value="yes" <?php echo $a["mail_alarm"] == 'yes' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()"/></td>
 	<td><input type="checkbox" name="notif_update_sms" value="yes" <?php echo $a["sms_alarm"] == 'yes' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
 	<input type="hidden" name="notif_update1" value="notif_update2" />
 	</form>
 	
-	<form action="notification" method="post"> 	
+	<form action="" method="post"> 	
 	<input type="hidden" name="notif_del" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" type="submit" name="notif_del1" value="notif_del2" />
    <td><input type="image" src="media/ico/Close-2-icon.png"  /></td></tr>

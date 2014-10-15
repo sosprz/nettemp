@@ -59,7 +59,7 @@ if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-
 
 
 	<tr>
-	<form action="alarms" method="post"> 
+	<form action="" method="post"> 
 	<td><img src="media/ico/TO-220-icon.png" /></td>
 	<td><?php echo $a['name']; ?></td>
 	<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
@@ -70,7 +70,7 @@ if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-
 	<input type="hidden" name="ok" value="ok" />
 	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td>
 	</form>
-	<form action="alarms" method="post"> 
+	<form action="" method="post"> 
 	<input type="hidden" name="del_alarm1" value="del_alarm2" />
 	<input type="hidden" name="del_alarm" value="<?php echo $a['id']; ?>" />
 	<td><input type="image" src="media/ico/Close-2-icon.png"  /></td>
@@ -92,7 +92,7 @@ $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { ?>
     <tr>
-   <form action="alarms" method="post">
+   <form action="" method="post">
    <td><img src="media/ico/TO-220-icon.png" /></td>
 	<td><?php echo $a['name']; ?></td>
 	<input type="hidden" name="add_alarm" value="<?php echo $a['id']; ?>" />
@@ -117,7 +117,7 @@ $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { ?>
     <tr>
-	<form action="alarms" method="post"> 
+	<form action="" method="post"> 
 	<td><img src="media/ico/TO-220-icon.png" /></td>
 	<td><?php echo $a['name']; ?></td>
 		<td><input type="checkbox" name="triggernotice_checkbox" value="on" <?php echo $a["trigger_notice"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
