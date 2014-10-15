@@ -28,23 +28,7 @@ foreach (glob("tmp/*") as $tmp) {
 if (!is_writable($tmp)) { echo "<font color=\"#FF0000\">File $tmp not writable </font><br />"; }
 }
 
-
-//skrypty
-#$script[] = 'scripts/mail';
-#$script[] = 'scripts/temp';
-#$script[] = 'scripts/scan';
-#foreach($script as $filename5) {
-#if (!file_exists($filename5)) { echo "<font color=\"#FF0000\">File $filename5 not exist </font><br />"; } 
-#elseif (!is_readable($filename5)) { echo "<font color=\"#FF0000\">File $filename5 not readable </font><br />"; }
-#}
-
-//mczy pliki html sa do odczytu
-//$pliki_html[] = 'index.php';
-
-//foreach($pliki_html as $filename6) {
-//if (!file_exists($filename6)) { echo "<font color=\"#FF0000\">File $filename6 not exist </font><br />"; } 
-//elseif (!is_readable($filename6)) { echo "<font color=\"#FF0000\">File $filename6 not readable </font><br />"; }
-//}
+passthru('modules/tools/check_sudoers');
 
 include('tools_perms.php');
 

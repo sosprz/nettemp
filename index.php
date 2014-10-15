@@ -102,8 +102,6 @@ case 'upload': include('modules/tools/backup/html/upload.php'); break;
 </div>
 </div>
 <center>
-<?php //passthru("/usr/local/bin/gpio -v |grep Type | awk -F, '{ print $1 $2 $3 }' | sed 's/Type:/RPi/g'"); 
-?>
 </center>
 
 </body>
