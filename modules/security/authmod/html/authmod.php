@@ -53,7 +53,7 @@ $am=$a["authmod"];
 <?php
     if ($am == "on" ) { ?>
     <?php 
-	include('authmod_old.php'); 
+	include('authmod_pass.php'); 
     ?>
 <?php	 } ?>
 
