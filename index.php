@@ -1,5 +1,6 @@
 <?php 
 ob_start();
+$id = isset($_GET['id']) ? $_GET['id'] : '';
 $dbfile='dbf/nettemp.db';
 if ( '' == file_get_contents( $dbfile ) )
 { ?>
@@ -46,26 +47,23 @@ else {
 </table></div>
 <div id="tabs22">
 <ul> 
-	<li><a href='status'><span>Status</span></a></li>
-	<li><a href='view'><span>Charts</span></a></li>
+    <li><a href='status' <?php echo $id == 'status' ? ' class="active"' : ''; ?> ><span <?php echo $id == 'status' ? ' class="active"' : ''; ?> >Status</span></a></li>
+	<li><a href='view' <?php echo $id == 'view' ? ' class="active"' : ''; ?> ><span <?php echo $id == 'view' ? ' class="active"' : ''; ?> >Charts</span></a></li>
 	<?php if ($numRows1 == 1 && ( $perms == "adm" )) { ?>
-		<li><a href='devices'><span>Devices</span></a></li>
-		<li><a href='notification'><span>Notification</span></a></li>
-		<li><a href='security'><span>Security</span></a></li>
-		<li><a href='settings'><span>Settings</span></a></li>
-		<li><a href='tools'><span>Tools</span></a></li> 
-		<li><a href='info'><span>Info</span></a></li>
+		<li><a href='devices'<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><span <?php echo $id == 'devices' ? ' class="active"' : ''; ?>>Devices</span></a></li>
+		<li><a href='notification'<?php echo $id == 'notification' ? ' class="active"' : ''; ?>><span <?php echo $id == 'notification' ? ' class="active"' : ''; ?>>Notification</span></a></li>
+		<li><a href='security'<?php echo $id == 'security' ? ' class="active"' : ''; ?>><span <?php echo $id == 'security' ? ' class="active"' : ''; ?>>Security</span></a></li>
+		<li><a href='settings'<?php echo $id == 'settings' ? ' class="active"' : ''; ?>><span <?php echo $id == 'settings' ? ' class="active"' : ''; ?>>Settings</span></a></li>
+		<li><a href='tools'<?php echo $id == 'tools' ? ' class="active"' : ''; ?>><span <?php echo $id == 'tools' ? ' class="active"' : ''; ?>>Tools</span></a></li> 
+		<li><a href='info'<?php echo $id == 'info' ? ' class="active"' : ''; ?>><span <?php echo $id == 'info' ? ' class="active"' : ''; ?>>Info</span></a></li>
  <?php } 
 else {?>
-		<li><a href='info'><span>Info</span></a></li>
+		<li><a href='info'<?php echo $id == 'info' ? ' class="active"' : ''; ?> ><span <?php echo $id == 'info' ? ' class="active"' : ''; ?>>Info</span></a></li>
 <?php
 } ?>
 </ul>
 </div>
 <div id="center">
-<?php 
-$id = isset($_GET['id']) ? $_GET['id'] : '';
-?>
 <?php  
 switch ($id)
 { 
