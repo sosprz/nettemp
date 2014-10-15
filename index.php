@@ -70,29 +70,29 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 switch ($id)
 { 
 default: case '$id': include('modules/status/html/status.php'); break;
-case 'notification': include('modules/notification/html/notification.php'); break;
-case 'sensors': include('modules/sensors/html/sensors.php'); break;
+//case 'notification': include('modules/notification/html/notification.php'); break;
+//case 'sensors': include('modules/sensors/html/sensors.php'); break;
 case 'view': include('modules/view/html/view.php'); break;
-case 'humi_view': include('modules/view/html/humi_view.php'); break;
-case 'temp_view': include('modules/view/html/temp_view.php'); break;
-case 'snmp_view': include('modules/view/html/snmp_view.php'); break;
+//case 'humi_view': include('modules/view/html/humi_view.php'); break;
+//case 'temp_view': include('modules/view/html/temp_view.php'); break;
+//case 'snmp_view': include('modules/view/html/snmp_view.php'); break;
 case 'denied': include('modules/login/denied.php'); break;
 case 'diag': include('modules/tools/html/tools_file_check.php'); break;
 case 'tools': include('modules/tools/html/tools.php'); break;
 case 'info': include('modules/info/info.php'); break;
-case 'gpio': include('modules/gpio/html/gpio.php'); break;
-case 'sms': include('modules/notification/html/notification.php'); break;
-case 'mail': include('modules/notification/html/notification.php'); break;
-case 'alarms': include('modules/notification/html/notification.php'); break;
+//case 'gpio': include('modules/gpio/html/gpio.php'); break;
+//case 'sms': include('modules/notification/html/notification.php'); break;
+//case 'mail': include('modules/notification/html/notification.php'); break;
+//case 'alarms': include('modules/notification/html/notification.php'); break;
 case 'settings': include('modules/settings/settings.php'); break;
-case 'ups': include('modules/ups/html/ups.php'); break;
-case 'kwh': include('modules/kwh/html/kwh.php'); break;
-case 'snmp': include('modules/snmp/html/snmp.php'); break;
-case 'vpn': include('modules/security/vpn/html/vpn.php'); break;
-case 'fw': include('modules/security/fw/html/fw.php'); break;
+//case 'ups': include('modules/ups/html/ups.php'); break;
+//case 'kwh': include('modules/kwh/html/kwh.php'); break;
+//case 'snmp': include('modules/snmp/html/snmp.php'); break;
+//case 'vpn': include('modules/security/vpn/html/vpn.php'); break;
+//case 'fw': include('modules/security/fw/html/fw.php'); break;
 case 'security': include('modules/security/html/security.php'); break;
 case 'devices': include('modules/devices/html/devices.php'); break;
-case 'backup': include('modules/tools/backup/html/backup.php'); break;
+//case 'backup': include('modules/tools/backup/html/backup.php'); break;
 case 'upload': include('modules/tools/backup/html/upload.php'); break;
 }
 ?>
