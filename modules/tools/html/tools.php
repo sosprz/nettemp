@@ -1,3 +1,14 @@
+<?php $db = new PDO('sqlite:dbf/nettemp.db');
+    $sth = $db->prepare("select * from settings where id='1'");
+    $sth->execute();
+    $result = $sth->fetchAll();
+    foreach ($result as $a) {
+    $gpio=$a["gpio"];
+    }
+?>
+
+
+
 <span class="belka">&nbsp Tools<span class="okno">
 
 <table><tr>
@@ -8,7 +19,9 @@
 <td><a href="index.php?id=tools&type=reset" ><button>Reset to default</button></a></td>
 <td><a href="index.php?id=tools&type=reboot" ><button>Reboot</button></a></td>
 <td><a href="index.php?id=tools&type=log" ><button>Logging</button></a></td>
+<?php if ( $gpio == 'on' ) { ?>
 <td><a href="index.php?id=tools&type=gpio" ><button>Gpio</button></a></td>
+<?php } ?>
 <td><a href="index.php?id=tools&type=backup" ><button>Backup/Restore</button></a></td>
 </tr>
 </table>
