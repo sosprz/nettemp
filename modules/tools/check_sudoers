@@ -1,12 +1,16 @@
 #! /bin/bash
 
-list="lighttpd-enable-mod lighttpd-disable-mod whoami killall nohup chpasswd useradd userdel \
-groupadd service update-rc.d sed cat iptables iptables-save i2cdetect chmod chown chgrp reboot"
+list="/usr/sbin/lighttpd-enable-mod /usr/sbin/lighttpd-disable-mod /usr/sbin/chpasswd /usr/sbin/useradd \
+/usr/sbin/userdel /usr/sbin/groupadd /usr/sbin/service /usr/sbin/update-rc.d /bin/sed /bin/cat \
+/sbin/iptables /sbin/iptables-save /usr/sbin/i2cdetect /bin/chmod /bin/chgrp /sbin/reboot \
+/usr/bin/whoami /usr/bin/killall /usr/bin/nohup /bin/chown"
+
 
 for i in $list
     do
      if ! sudo cat /etc/sudoers |grep $i > /dev/null
 	then 
-	    echo ERROR: missing $i in /etc/sudoers go to shell and add missing line
+	    echo Add missing $i to /etc/sudoers
+	    sudo sed -i '$a www-data ALL=(ALL) NOPASSWD: '$i' *' /etc/sudoers
     fi
 done
