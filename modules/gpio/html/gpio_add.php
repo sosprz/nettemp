@@ -6,7 +6,7 @@ $gpio = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 if ( $add == "ADD") {
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	if (!empty($gpioad)) { 
-	    $db->exec("INSERT INTO gpio (gpio, name, time_start, gpio_rev_hilo ,gpio_kwh_divider) VALUES ('$gpio','new','off','off','1')") or die ($db->lastErrorMsg());
+	    $db->exec("INSERT INTO gpio (gpio, name) VALUES ('$gpio','new_$gpio')") or die ($db->lastErrorMsg());
 	}
 	else {
 	    $db->exec("DELETE FROM gpio WHERE gpio='$gpio'") or die ($db->lastErrorMsg());
