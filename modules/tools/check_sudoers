@@ -1,0 +1,12 @@
+#! /bin/bash
+
+list="lighttpd-enable-mod lighttpd-disable-mod whoami killall nohup chpasswd useradd userdel \
+groupadd service update-rc.d sed cat iptables iptables-save i2cdetect chmod chown chgrp reboot"
+
+for i in $list
+    do
+     if ! sudo cat /etc/sudoers |grep $i > /dev/null
+	then 
+	    echo ERROR: missing $i in /etc/sudoers go to shell and add missing line
+    fi
+done
