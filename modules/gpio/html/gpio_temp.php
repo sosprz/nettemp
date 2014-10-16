@@ -1,3 +1,15 @@
+<?php
+$tempoff = isset($_POST['tempoff']) ? $_POST['tempoff'] : '';
+if (($tempoff == "tempoff") ){
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or die("simple off db error");
+     $db = null;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
+
+
 // temp
 $temp_sensor = isset($_POST['temp_sensor']) ? $_POST['temp_sensor'] : '';
 $temp_onoff = isset($_POST['temp_onoff']) ? $_POST['temp_onoff'] : '';
@@ -28,13 +40,9 @@ if ($dayon == "dayON")  {
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     }
+?>
 
-
-<form action="" method="post">
-	<td><input type="image" name="temp_checkbox" value="off" src="media/ico/back-icon.png" title="Back"  onclick="this.form.submit()" /><td>
-	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="hidden" name="xtempon" value="xtempON" />
-    </form>
+    
     <form action="" method="post">
 	<td><img  src="media/ico/day-icon.png" title="Day plan" /></td>
 	<td><input type="checkbox" name="tempday_checkbox" value="on" <?php echo $a["tempday_checkbox"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
@@ -84,4 +92,9 @@ if ($dayon == "dayON")  {
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	    <td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
 	<input type="hidden" name="tempon" value="tempON" />
+	<form action="" method="post">
+	<td><input type="image" name="tempoff" value="off" src="media/ico/back-icon.png" title="Back"  onclick="this.form.submit()" /><td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="tempoff" value="tempoff" />
+    </form>
 </form>
