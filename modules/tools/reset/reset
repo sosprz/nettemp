@@ -91,6 +91,7 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE gpio (
   day_run TEXT,
   tempday_run TEXT,
   trigger_run TEXT,
+  trigger_status TEXT,
   trigger_notice TEXT,
   gpio_kwh TEXT,
   gpio_kwh_divider TEXT,

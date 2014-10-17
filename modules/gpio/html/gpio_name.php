@@ -1,6 +1,8 @@
 <?php
 $id = isset($_POST['id']) ? $_POST['id'] : '';
 $name1 = isset($_POST['name1']) ? $_POST['name1'] : '';
+$name = isset($_POST['name']) ? $_POST['name'] : '';
+
 if ($name1 == "name2"){
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET name='$name' WHERE id='$id'") or die("name exec error");

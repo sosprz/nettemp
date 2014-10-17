@@ -72,27 +72,27 @@
 	<input type="hidden" name="simpleon" value="simpleon" />
     </form>
     <form action="" method="post">
-	<td><input type="image" src="media/ico/Clock-icon.png" title="Set time" onclick="this.form.submit()" /><td>
+	<td><input type="image" src="media/ico/Clock-icon.png" title="Set time" onclick="this.form.submit()" /></td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="timeon" value="timeon" />   
    </form>
     <form action="" method="post">
-	<td><input type="image" src="media/ico/temp2-icon.png" title="Set temp when sensor will turn on/off" onclick="this.form.submit()" /><td>
+	<td><input type="image" src="media/ico/temp2-icon.png" title="Set temp when sensor will turn on/off" onclick="this.form.submit()" /></td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="tempon" value="tempon" />
     </form>
     <form action="" method="post">
-	<td><input type="image" src="media/ico/rain-icon.png" title="Humidity on/off"  onclick="this.form.submit()" /><td>
+	<td><input type="image" src="media/ico/rain-icon.png" title="Humidity on/off"  onclick="this.form.submit()" /></td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio'];?>"/>
 	<input type="hidden" name="humidon" value="humidon" />
     </form> 
     <form action="" method="post">
-	<td><input type="image" src="media/ico/day-icon.png" title="Day plan"   onclick="this.form.submit()" /><td>
+	<td><input type="image" src="media/ico/day-icon.png" title="Day plan"   onclick="this.form.submit()" /></td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="dayon" value="dayon" />
     </form>
     <form action="" method="post">
-	<td><input type="image" src="media/ico/alarm-icon.png" title="Alarm trigger" onclick="this.form.submit()" /><td>
+	<td><input type="image" src="media/ico/alarm-icon.png" title="Alarm trigger" onclick="this.form.submit()" /></td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="triggeron" value="triggeron" />
     </form>
