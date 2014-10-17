@@ -24,3 +24,5 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD simple type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD rev type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD humid_type type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD trigger_status type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD kwh_run type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD kwh_divider type TEXT";

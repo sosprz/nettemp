@@ -93,9 +93,8 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE gpio (
   trigger_run TEXT,
   trigger_status TEXT,
   trigger_notice TEXT,
-  gpio_kwh TEXT,
-  gpio_kwh_divider TEXT,
-  gpio_kwh_hilo TEXT
+  kwh_run TEXT,
+  kwh_divider TEXT,
     );"
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE settings (

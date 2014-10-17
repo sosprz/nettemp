@@ -1,6 +1,6 @@
 <?php
-$kwhoff = isset($_POST['kwhoff']) ? $_POST['kwhoff'] : '';
-if (($kwhoff == "kwhoff") ){
+$kwhexit = isset($_POST['kwhexit']) ? $_POST['kwhexit'] : '';
+if (($kwhexit == "kwhexit") ){
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or die("simple off db error");
      $db = null;
@@ -8,45 +8,90 @@ if (($kwhoff == "kwhoff") ){
     exit();
     }
 
-
-
-$gpio_kwh = isset($_POST['gpio_kwh']) ? $_POST['gpio_kwh'] : '';
-$gpio_kwh1 = isset($_POST['gpio_kwh1']) ? $_POST['gpio_kwh1'] : '';
-if (($gpio_kwh1 == "gpio_kwh2") ){
+$kwhrun = isset($_POST['kwhrun']) ? $_POST['kwhrun'] : '';
+if (($kwhrun == "on") ){
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $sth = $db->prepare("select * from gpio where gpio='$gpio_post'");
-        $sth->execute();
-        $result = $sth->fetchAll();    
-    foreach ($result as $a) { 
-	if ( $a["gpio_kwh"] == "on") { 
-	$db->exec("UPDATE gpio SET gpio_kwh='off' where gpio='$gpio_post' ") or die("exec error");
-    $db->exec("UPDATE settings SET kwh=''") or die("exec error");
+    $db->exec("UPDATE gpio SET kwh_run='on' where gpio='$gpio_post' ") or die("simple off db error");
     $reset="/bin/bash modules/kwh/reset";
-        shell_exec("$reset");
-	}
-	else { 
-	$db->exec("UPDATE gpio SET gpio_kwh='on' where gpio='$gpio_post' ") or die("exec error");
-    $db->exec("UPDATE settings SET kwh='on'") or die("exec error");
-    $reset="/bin/bash modules/kwh/reset";
-        shell_exec("$reset");
-
-	}
-   }
-     $db = null;
+    shell_exec("$reset");
+    $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
+    }
+if (($kwhrun == "off") ){
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET kwh_run='' where gpio='$gpio_post' ") or die("simple off db error");
+    $reset="/bin/bash modules/kwh/reset";
+    shell_exec("$reset");
+    shell_exec("sudo killall nettemp_kwh");
+    $db = null;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
+$kwh_divider = isset($_POST['kwh_divider']) ? $_POST['kwh_divider'] : '';
+$kwh_divider1 = isset($_POST['kwh_divider1']) ? $_POST['kwh_divider1'] : '';
+if ($kwh_divider1 == "kwh_divider2"){
+    if (!empty($kwh_divider)){
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$kwh_dividert = trim($kwh_divider); 
+	$db->exec("UPDATE gpio SET kwh_divider='$kwh_dividert' WHERE gpio='$gpio'") or die ($db->lastErrorMsg());
+	$db = NULL;
+	$reset="/bin/bash modules/kwh/reset";
+	shell_exec("$reset");
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+     } 
+else 
+    { 
+    ?> 
+	<font color="red">Divider cannot be empty!</font> 
+    <?php 
+    }
+}
+
+$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+   $sth = $db->prepare("select * from gpio where gpio='$gpio'");
+   $sth->execute();
+   $result = $sth->fetchAll();    
+   foreach ($result as $a) {
+    $kwhrun=$a['kwh_run'];
+        if ($kwhrun=='on') { 
+?>
+    <td>Status: ON</td>
+	<form action="" method="post">
+	<td><input type="image" src="media/ico/Button-Turn-Off-icon.png" title="Simple on/off" onclick="this.form.submit()" /></td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="kwhrun" value="off" />
+    </form>
+
+<?php 
+} 
+    else 
+    {
+    include('gpio_rev.php');
+    ?>
+<form action="" method="post">
+    <td><input type="image" name="simpleexit" value="exit" src="media/ico/Close-2-icon.png" title="Back"   onclick="this.form.submit()" /><td>
+    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="kwhexit" value="kwhexit" />
+</form>
+
+<td>kWh status: OFF</td>
+<form action="" method="post">
+	<td>Divider</td>
+	<td><input type="text" name="kwh_divider" size="2" value="<?php echo $a["kwh_divider"]; ?>"  /></td>
+	<input type="hidden" name="kwh_divider1" value="kwh_divider2" />
+	<td><input type="image" src="media/ico/Add-icon.png" /></td>
+    </form>
+<form action="" method="post">
+    <td><input type="image" src="media/ico/Button-Turn-On-icon.png" title="Simple on/off" onclick="this.form.submit()" /></td>
+    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="kwhrun" value="on" />
+</form>
+
+
+    <?php 
+    } 
 }
 ?>
-
-    <form action="" method="post">
-	<td>kWh <?php echo $a["gpio_kwh"]; ?></td>
-	<td><input type="image" src="media/ico/Lamp-icon.png" title="kWh metter" name="gpio_kwh" value="on" <?php echo $a["gpio_kwh"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
-	<input type="hidden" name="gpio_kwh1" value="gpio_kwh2" />
-	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-       </form>
-    <?php include('modules/kwh/html/kwh_options.php'); ?>
-    <form action="" method="post">
-	<td><input type="image" name="kwhoff" value="off" src="media/ico/back-icon.png" title="Back"   onclick="this.form.submit()" /><td>
-	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="hidden" name="kwhoff" value="kwhoff" />
-    </form>
