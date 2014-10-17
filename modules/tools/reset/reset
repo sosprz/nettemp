@@ -80,21 +80,20 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE gpio (
   time_run TEXT,
   time_offset TEXT,
   time_start TEXT,
-  temp_run TEXT,
-  temp_sensor TEXT,
-  temp_onoff TEXT,
-  temp_temp REAL,
-  temp_op TEXT,
   humid_type TEXT,
   day_zone1s TEXT,
   day_zone1e TEXT,
   day_run TEXT,
-  tempday_run TEXT,
   trigger_run TEXT,
   trigger_status TEXT,
   trigger_notice TEXT,
   kwh_run TEXT,
   kwh_divider TEXT,
+  temp_run TEXT,
+  temp_sensor TEXT,
+  temp_onoff TEXT,
+  temp_temp REAL,
+  temp_op TEXT
     );"
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE settings (
