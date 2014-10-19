@@ -6,11 +6,8 @@ date=`date +%y%m%d-%H%M`
 
 
 serial=`sqlite3 $dir/dbf/nettemp.db "SELECT serial FROM device"`
-if [ "$serial" == "off" ]; then
-echo "INFO: no serial device"
-else
-
-dbserial=$(cat $dir/tmp/.digitemprcs |grep ROM)
+if [ "$serial" != "off" ]; then
+bserial=$(cat $dir/tmp/.digitemprcs |grep ROM)
 for name in "$dbserial"
 do
 name_str=${#name}
