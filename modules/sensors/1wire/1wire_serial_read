@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash 
 
 # Serial
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
@@ -7,7 +7,7 @@ date=`date +%y%m%d-%H%M`
 
 serial=`sqlite3 $dir/dbf/nettemp.db "SELECT serial FROM device"`
 if [ "$serial" != "off" ]; then
-bserial=$(cat $dir/tmp/.digitemprcs |grep ROM)
+dbserial=$(cat $dir/tmp/.digitemprcs |grep ROM)
 for name in "$dbserial"
 do
 name_str=${#name}
