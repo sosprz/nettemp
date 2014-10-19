@@ -41,6 +41,4 @@ if [ -n "$gpio_list_0" ]; then
         echo DHT: Read error
     fi
     done
-else
-    echo "INFO: no DHT device"
 fi

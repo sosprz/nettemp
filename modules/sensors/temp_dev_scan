@@ -4,6 +4,7 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
 rm -rf $dir/tmp/.digitemprc
+rm -rf $dir/tmp/.digitemprcs
 > $dir/tmp/onewire
 
 mkdir $dir/tmp 2> /dev/null

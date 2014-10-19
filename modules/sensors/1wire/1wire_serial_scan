@@ -4,14 +4,14 @@ dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
 # DS9097 - serial 
-if [ ! -e $dir/tmp/.digitemprc ]; then 
-    for i in 0 1 2 3
+if [ ! -e $dir/tmp/.digitemprcs ]; then 
+    for i in 0 1 2 
     do
         if [ `ls /dev/ttyS$i 2> /dev/null` ]; then 
-        /usr/bin/digitemp_DS9097 -i -c $dir/tmp/.digitemprc -s/dev/ttyS$i &> /dev/null
+        /usr/bin/digitemp_DS9097 -i -c $dir/tmp/.digitemprcs -s/dev/ttyS$i &> /dev/null
         fi
     done
-    if [ -e $dir/tmp/.digitemprc ]; then 
+    if [ -e $dir/tmp/.digitemprcs ]; then 
     sqlite3 $dir/dbf/nettemp.db "UPDATE device SET serial='DS9097' WHERE id='1'"
     echo Serial: DS9097 found
     echo "$date temp_dev_scan - Discovered DS9097 on serial port" >> $dir/tmp/log.txt

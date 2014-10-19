@@ -3,8 +3,8 @@
 # BananaPi temp
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
-
-if [ -f /boot/bananapi/script.bin ] && [ -f /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input ]
+bpi=$(sqlite3 -header $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom='Banana_Pi'")
+if [ -n "$bpi" ]
     then
     bpi=$(cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input| awk '{ getline;  printf "%1.2f\n", $1/1000}' )
     rrdtool update $dir/db/Banana_Pi.rrd N:$bpi

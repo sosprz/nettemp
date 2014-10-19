@@ -62,7 +62,8 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 	 ?> 
 
 <?php 	//read  digitemrc file and 1-wire bus
-	$file_digi = "tmp/.digitemprc";
+foreach (glob("tmp/.digitemp*") as $file_digi) {
+	//$file_digi = "tmp/.digitemprc";
 	$file_digi2 = file($file_digi);
 	foreach($file_digi2 as $line_digi) {
 		if(strstr($line_digi,"ROM")) { 
@@ -72,6 +73,8 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 			$digitemprc[] = $id0; 
 			}
 	}
+}
+	
 	$f_one_wire = "tmp/onewire";
 	$one_wire = file($f_one_wire);
 	foreach($one_wire as $line_one_wire) {
@@ -80,6 +83,7 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 		$digitemprc[] = $line_one_wire2; }
  	
 	}
+	
 
 
 	
