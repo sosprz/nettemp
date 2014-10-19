@@ -6,7 +6,7 @@ date=`date +%y%m%d-%H%M`
 
 onewire=`sqlite3 $dir/dbf/nettemp.db "SELECT onewire FROM device"`
 if [ "$onewire" == "on" ]; then
-b1wire=$(ls $dir/db/ |grep -)
+db1wire=$(ls $dir/db/ |grep -)
 
 for name in $db1wire
 do
