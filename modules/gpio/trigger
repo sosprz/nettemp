@@ -1,0 +1,29 @@
+#! /bin/bash
+
+ trigger_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_run FROM gpio WHERE gpio='$gpio'")
+    if [ "$trigger_run" = "on" ]; then
+	status=$(/usr/local/bin/gpio -g read $gpio)
+	rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
+	if [ "$status" = "0" ] && [ "$rev" = "on" ]
+	    then 
+		echo ALARM!!!
+		trigger="on"
+		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='Alarm!' WHERE gpio='$gpio'"
+	elif [ "$status" = "1" ] && [ "$rev" = "" ]
+	    then
+		echo ALARM!!!
+		trigger="on"
+		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='Alarm!' WHERE gpio='$gpio'"
+	fi
+    	trigger_notice=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
+    	if [ "$trigger_notice" = "on" ] && [ $trigger = "on" ]; then
+    	    name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio WHERE gpio='$gpio'")
+	    get_mail=$(sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
+	    plik=$dir/tmp/mail/temp-$date
+	    echo "From: nettemp device" > $plik 
+	    echo "To:$get_mail" >> $plik
+	    echo "Subject: Notification from nettemp" >> $plik
+	    echo "" >> $plik
+    	fi
+    	    
+    fi
