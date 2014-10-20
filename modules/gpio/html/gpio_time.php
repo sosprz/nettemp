@@ -1,5 +1,6 @@
 <?php
 
+
 $timeexit = isset($_POST['timeexit']) ? $_POST['timeexit'] : '';
 if ($timeexit == "timeexit")  {
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
@@ -16,7 +17,7 @@ if ($timerun == "timerun") {
     $date = new DateTime();
     $time_start=$date->getTimestamp();
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET time_run='on', time_offset='$time_offset',time_start='$time_start' WHERE gpio='$gpio_post'") or die("exec error");
+    $db->exec("UPDATE gpio SET time_run='on', status='$time_offset', time_offset='$time_offset',time_start='$time_start' WHERE gpio='$gpio_post'") or die("exec error");
 }
 
 if ($timerun == "off") {
@@ -39,7 +40,7 @@ $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 ?>
 
     <form action="" method="post">
-	<td>Status: <?php echo $a['time_offset']; ?>min</td> 
+	<td>Status: <?php echo $a['status']; ?> min</td> 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<td><input type="image" src="media/ico/Button-Turn-Off-icon.png"/></td>
 	<input type="hidden" name="timerun" value="off" />
@@ -57,7 +58,6 @@ include('gpio_rev.php');
 	<td><input type="image" name="time_checkbox" src="media/ico/Close-2-icon.png" title="back" value="off"  onclick="this.form.submit()" /><td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="timeexit" value="timeexit" />
-	<input type="hidden" name="on" value="on" />        
    </form>
 
     <form action="" method="post">

@@ -1,4 +1,24 @@
 <?php
+
+
+$simpleon = isset($_POST['simpleon']) ? $_POST['simpleon'] : '';
+if ($simpleon == "on")  {
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET simple='on' WHERE gpio='$gpio_post'") or die("PDO exec error");
+    $db = null;
+    //header("location: " . $_SERVER['REQUEST_URI']);
+    //exit();
+    }
+$simpleoff = isset($_POST['simpleoff']) ? $_POST['simpleoff'] : '';
+if ($simpleoff == "off")  {
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET simple='off' WHERE gpio='$gpio_post'") or die("PDO exec error");
+    $db = null;
+    //header("location: " . $_SERVER['REQUEST_URI']);
+    //exit();
+    }
+
+
 $simpleexit = isset($_POST['simpleexit']) ? $_POST['simpleexit'] : '';
 if (($simpleexit == "simpleexit") ){
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
@@ -15,8 +35,8 @@ $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
    $sth->execute();
    $result = $sth->fetchAll();    
    foreach ($result as $a) { 
-        if ( empty($a["simple"])) { 
-include('gpio_rev.php');
+        if ( $a['simple'] == "off" ) { 
+	include('gpio_rev.php');
 
 ?>
 <form action="" method="post">
@@ -30,6 +50,7 @@ include('gpio_rev.php');
     <td><input type="image" src="media/ico/Button-Turn-On-icon.png" title="Simple on/off" onclick="this.form.submit()" /></td>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="on" value="on" />
+    <input type="hidden" name="simpleon" value="on" />
 </form>
 
 <?php 
@@ -42,6 +63,7 @@ include('gpio_rev.php');
     <td><input type="image" src="media/ico/Button-Turn-Off-icon.png" title="Simple on/off" onclick="this.form.submit()" /></td>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="off" value="off" />
+    <input type="hidden" name="simpleoff" value="off" />
     </form>
     <?php 
     } 

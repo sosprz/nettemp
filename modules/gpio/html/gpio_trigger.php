@@ -13,14 +13,14 @@ if (($triggerexit == "triggerexit") ){
 $triggerrun = isset($_POST['triggerrun']) ? $_POST['triggerrun'] : '';
 if ($triggerrun == "on")  {
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET trigger_run='on', trigger_status='wait' WHERE gpio='$gpio_post'") or die("exec error");
+    $db->exec("UPDATE gpio SET trigger_run='on', status='wait' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
 if ($triggerrun == "off")  {
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET trigger_run='', trigger_status='' WHERE gpio='$gpio_post'") or die("exec error");
+    $db->exec("UPDATE gpio SET trigger_run='', status='' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -33,10 +33,10 @@ $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $result = $sth->fetchAll();    
     foreach ($result as $a) { 
     $trigger_run=$a['trigger_run'];
-    $trigger_status=$a['trigger_status'];
+    $status=$a['status'];
     if ($trigger_run == 'on') { 
 ?>
-    <td>Status: <?php echo $trigger_status ?></td>
+    <td>Status: <?php echo $status ?></td>
     <form action="" method="post">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<td><input type="image" src="media/ico/Button-Turn-Off-icon.png"/></td>
