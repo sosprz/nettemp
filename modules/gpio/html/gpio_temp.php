@@ -85,7 +85,8 @@ if ($a['temp_sensor'.$v] == $select['id']) {
 }
 }
 ?>
-</table><td>
+</table></td>
+<td>Status:<?php echo $a['simple'];?></td>
 <form action="" method="post">
 <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 <td><input type="image" src="media/ico/Button-Turn-Off-icon.png"/></td>
