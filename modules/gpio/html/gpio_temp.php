@@ -9,10 +9,10 @@ if ($tempexit == "tempexit"){
     }
 
 // temp
-$temp_sensor = isset($_POST['temp_sensor']) ? $_POST['temp_sensor'] : '';
-$temp_onoff = isset($_POST['temp_onoff']) ? $_POST['temp_onoff'] : '';
-$temp_op = isset($_POST['temp_op']) ? $_POST['temp_op'] : '';
-$temp_temp = isset($_POST['temp_temp']) ? $_POST['temp_temp'] : '';
+$temp_sensor0 = isset($_POST['temp_sensor0']) ? $_POST['temp_sensor0'] : '';
+$temp_onoff0 = isset($_POST['temp_onoff0']) ? $_POST['temp_onoff0'] : '';
+$temp_op0 = isset($_POST['temp_op0']) ? $_POST['temp_op0'] : '';
+$temp_temp0 = isset($_POST['temp_temp0']) ? $_POST['temp_temp0'] : '';
 
 $temp_sensor1 = isset($_POST['temp_sensor1']) ? $_POST['temp_sensor1'] : '';
 $temp_onoff1 = isset($_POST['temp_onoff1']) ? $_POST['temp_onoff1'] : '';
@@ -29,13 +29,21 @@ $temp_temp2 = isset($_POST['temp_temp2']) ? $_POST['temp_temp2'] : '';
 $tempon = isset($_POST['tempon']) ? $_POST['tempon'] : '';
 if ($tempon == "on") {
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET temp_op='$temp_op',temp_sensor='$temp_sensor',temp_onoff='$temp_onoff',temp_temp='$temp_temp' WHERE gpio='$gpio_post'") or die("exec error");
+    $db->exec("UPDATE gpio SET temp_run='on', temp_op0='$temp_op0',temp_sensor0='$temp_sensor0',temp_onoff0='$temp_onoff0',temp_temp0='$temp_temp0' WHERE gpio='$gpio_post'") or die("exec error");
     $db->exec("UPDATE gpio SET temp_op1='$temp_op1',temp_sensor1='$temp_sensor1',temp_onoff1='$temp_onoff1',temp_temp1='$temp_temp1' WHERE gpio='$gpio_post'") or die("exec error");
     $db->exec("UPDATE gpio SET temp_op2='$temp_op2',temp_sensor2='$temp_sensor2',temp_onoff2='$temp_onoff2',temp_temp2='$temp_temp2' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     }
+if ($tempon == "off") {
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET temp_run='off' WHERE gpio='$gpio_post'") or die("exec error");
+    $db = null;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();	
+    }
+
 
 $dayrunon = isset($_POST['dayrunon']) ? $_POST['dayrunon'] : '';
 $dayrun = isset($_POST['dayrun']) ? $_POST['dayrun'] : '';
@@ -46,6 +54,47 @@ if ($dayrunon == "on")  {
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     }
+$arr = array(0, 1, 2 );
+
+$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+   $sth = $db->prepare("select * from gpio where gpio='$gpio'");
+   $sth->execute();
+   $result = $sth->fetchAll();    
+   foreach ($result as $a) { 
+        if ( $a['temp_run'] == "on") { ?>
+
+<td><table>
+<?php
+foreach ($arr as $v) {
+$sth = $db->prepare("SELECT * FROM sensors");
+$sth->execute();
+$result = $sth->fetchAll();
+foreach ($result as $select) {
+
+if ($a['temp_sensor'.$v] == $select['id']) {
+?>
+<tr>
+<td><?php echo $select['name'];?></td>
+<td><?php echo $select['tmp'];?>&deg;C</td>
+<td><?php echo $a['temp_op'.$v];?></td>  
+<td><?php echo $a['temp_temp'.$v];?>&deg;C</td> 
+<td><?php echo $a['temp_onoff'.$v];?></td>
+</tr>
+<?php
+}
+}
+}
+?>
+</table><td>
+<form action="" method="post">
+<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+<td><input type="image" src="media/ico/Button-Turn-Off-icon.png"/></td>
+<input type="hidden" name="tempon" value="off" />
+</form>
+<?php
+}
+else
+    {
 ?>
 
 <form action="" method="post">
@@ -62,34 +111,47 @@ if ($dayrunon == "on")  {
 <td>if</td>
 <td>
 <form action="" method="post">
-	<select name="temp_sensor" >
+<td><table>
+<?php 
+foreach ($arr as &$v) {
+?>
+<tr>
+<td><select name="<?php echo temp_sensor . $v; ?>" >
 	    <?php $sth = $db->prepare("SELECT * FROM sensors");
 	    $sth->execute();
 	    $result = $sth->fetchAll();
 	    foreach ($result as $select) { ?>
-		<option <?php echo $a['temp_sensor'] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}" ?>&deg;C</option>
+		<option <?php echo $a['temp_sensor'.$v] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}" ?>&deg;C</option>
 	    <?php } ?>
-        </select></td>
+</select></td>
 	<td>
-    <select name="temp_op" >
-        <option <?php echo $a['temp_op'] == 'lt' ? 'selected="selected"' : ''; ?> value="lt">&lt;</option>   
-        <option <?php echo $a['temp_op'] == 'le' ? 'selected="selected"' : ''; ?> value="le">&lt;&#61;</option>     
-        <option <?php echo $a['temp_op'] == 'gt' ? 'selected="selected"' : ''; ?> value="gt">&gt;</option>   
-        <option <?php echo $a['temp_op'] == 'ge' ? 'selected="selected"' : ''; ?> value="ge">&gt;&#61;</option>   
-    </select>
+<select name="<?php echo temp_op . $v ?>" >
+        <option <?php echo $a['temp_op'.$v] == 'lt' ? 'selected="selected"' : ''; ?> value="lt">&lt;</option>   
+        <option <?php echo $a['temp_op'.$v] == 'le' ? 'selected="selected"' : ''; ?> value="le">&lt;&#61;</option>     
+        <option <?php echo $a['temp_op'.$v] == 'gt' ? 'selected="selected"' : ''; ?> value="gt">&gt;</option>   
+        <option <?php echo $a['temp_op'.$v] == 'ge' ? 'selected="selected"' : ''; ?> value="ge">&gt;&#61;</option>   
+</select>
 	</td>
-	<td><input type="text" name="temp_temp" value="<?php echo $a['temp_temp']; ?>" size=3" >&deg;C</td>
+	<td><input type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" size=3" >&deg;C</td>
 	<td>then</td> 
 	<td>
-        <select name="temp_onoff" >
-        <option <?php echo $a['temp_onoff'] == 'on' ? 'selected="selected"' : ''; ?> value="on">On</option>   
-        <option <?php echo $a['temp_onoff'] == 'off' ? 'selected="selected"' : ''; ?> value="off">Off</option>     
-        </select></td>
-	
+<select name="<?php echo temp_onoff . $v ?>" >
+        <option <?php echo $a['temp_onoff'.$v] == 'on' ? 'selected="selected"' : ''; ?> value="on">On</option>   
+        <option <?php echo $a['temp_onoff'.$v] == 'off' ? 'selected="selected"' : ''; ?> value="off">Off</option>     
+</select></td>
+</td>
+</tr>
+<?php
+}
+?>
+</table>
 <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 <td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
 <input type="hidden" name="tempon" value="on" />
 </form>
-
+<?php
+}
+}
+?>
 
 
