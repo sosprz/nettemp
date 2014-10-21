@@ -11,7 +11,7 @@ if (($kwhexit == "kwhexit") ){
 $kwhrun = isset($_POST['kwhrun']) ? $_POST['kwhrun'] : '';
 if (($kwhrun == "on") ){
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET kwh_run='on' where gpio='$gpio_post' ") or die("simple off db error");
+    $db->exec("UPDATE gpio SET kwh_run='on', status='ON' where gpio='$gpio_post' ") or die("simple off db error");
     $reset="/bin/bash modules/kwh/reset";
     shell_exec("$reset");
     $db = null;
@@ -20,7 +20,7 @@ if (($kwhrun == "on") ){
     }
 if (($kwhrun == "off") ){
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET kwh_run='' where gpio='$gpio_post' ") or die("simple off db error");
+    $db->exec("UPDATE gpio SET kwh_run='', status='OFF' where gpio='$gpio_post' ") or die("simple off db error");
     $reset="/bin/bash modules/kwh/reset";
     shell_exec("$reset");
     shell_exec("sudo killall nettemp_kwh");
@@ -58,7 +58,7 @@ $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $kwhrun=$a['kwh_run'];
         if ($kwhrun=='on') { 
 ?>
-    <td>Status: ON</td>
+    <td>Status: <?php echo $a['status']; ?></td>
 	<form action="" method="post">
 	<td><input type="image" src="media/ico/Button-Turn-Off-icon.png" title="Simple on/off" onclick="this.form.submit()" /></td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
@@ -77,12 +77,12 @@ $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     <input type="hidden" name="kwhexit" value="kwhexit" />
 </form>
 
-<td>kWh status: OFF</td>
+<td>kWh status: <?php echo $a['status']; ?></td>
 <form action="" method="post">
 	<td>Divider</td>
 	<td><input type="text" name="kwh_divider" size="2" value="<?php echo $a["kwh_divider"]; ?>"  /></td>
 	<input type="hidden" name="kwh_divider1" value="kwh_divider2" />
-	<td><input type="image" src="media/ico/Add-icon.png" /></td>
+	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png" /></td>
     </form>
 <form action="" method="post">
     <td><input type="image" src="media/ico/Button-Turn-On-icon.png" title="Simple on/off" onclick="this.form.submit()" /></td>

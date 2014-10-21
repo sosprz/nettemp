@@ -8,7 +8,7 @@ if (($gpio_rev1 == "gpio_rev1") ){
     $sth->execute();
     $result = $sth->fetchAll();    
     foreach ($result as $a) { 
-	if ( $a["rev"] == "on") { 
+	if ( $a['rev'] == "on") { 
 	$db->exec("UPDATE gpio SET rev='' where gpio='$gpio_post' ") or die("exec error");
 	}
 	else { 
@@ -22,8 +22,14 @@ if (($gpio_rev1 == "gpio_rev1") ){
 ?>
 
 <form action="" method="post">
-    <td><img type="image" src="media/ico/Letter-R-blue-icon.png" title="Reverse state HIGH to LOW" ></td>
-    <td><input type="checkbox" name="gpio_rev" value="on" <?php echo $a["rev"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <?php if ( $a['rev'] == "on"){ ?>
+    <td><input type="image" src="media/ico/Letter-L-icon.png" title="Reverse state HIGH to LOW" onclick="this.form.submit()"/></td>
+    <?php } else { ?>
+    <td><input type="image" src="media/ico/Letter-H-icon.png" title="Reverse state HIGH to LOW" onclick="this.form.submit()"/></td>
+    <?php } ?>
     <input type="hidden" name="gpio_rev1" value="gpio_rev1" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 </form>
+
+
+    

@@ -1,4 +1,5 @@
 <?php
+
 //time
     $timeon = isset($_POST['timeon']) ? $_POST['timeon'] : '';
     if ($timeon == "timeon")  {
@@ -62,6 +63,15 @@
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
     }
+//buzzer
+    $buzzeron = isset($_POST['buzzeron']) ? $_POST['buzzeron'] : '';
+    if ($buzzeron == "buzzeron")  {
+	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+	$db->exec("UPDATE gpio SET mode='buzzer', status='' WHERE gpio='$gpio_post'") or die("exec error");
+	$db = null;
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
 
 
 ?>
@@ -96,9 +106,26 @@
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="triggeron" value="triggeron" />
     </form>
+<?php 
+if (empty($mode3)){ ?>
     <form action="" method="post">
 	<td><input type="image" src="media/ico/Lamp-icon.png" title="kWh metter" onclick="this.form.submit()" /></td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="kwhon" value="kwhon" />
 	
     </form>
+<?php 
+}
+if (empty($mode2)) { ?>
+    <form action="" method="post">
+	<td><input type="image" src="media/ico/speaker-icon.png" title="Buzzer" onclick="this.form.submit()" /></td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="buzzeron" value="buzzeron" />
+	
+    </form>
+<?php 
+}
+?>
+
+
+

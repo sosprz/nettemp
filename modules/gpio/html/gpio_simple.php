@@ -2,9 +2,9 @@
 
 
 $simpleon = isset($_POST['simpleon']) ? $_POST['simpleon'] : '';
-if ($simpleon == "on")  {
+if ($simpleon == "on")  {    
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET simple='on' WHERE gpio='$gpio_post'") or die("PDO exec error");
+    $db->exec("UPDATE gpio SET simple='on', status='ON' WHERE gpio='$gpio_post'") or die("PDO exec error");
     $db = null;
     //header("location: " . $_SERVER['REQUEST_URI']);
     //exit();
@@ -12,7 +12,7 @@ if ($simpleon == "on")  {
 $simpleoff = isset($_POST['simpleoff']) ? $_POST['simpleoff'] : '';
 if ($simpleoff == "off")  {
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET simple='off' WHERE gpio='$gpio_post'") or die("PDO exec error");
+    $db->exec("UPDATE gpio SET simple='off', status='OFF' WHERE gpio='$gpio_post'") or die("PDO exec error");
     $db = null;
     //header("location: " . $_SERVER['REQUEST_URI']);
     //exit();
@@ -35,36 +35,36 @@ $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
    $sth->execute();
    $result = $sth->fetchAll();    
    foreach ($result as $a) { 
-        if ( $a['simple'] == "off" ) { 
-	include('gpio_rev.php');
+        if ( $a['simple'] == "on" ) { 
+	
 
 ?>
-<form action="" method="post">
-    <td><input type="image" name="simpleexit" value="exit" src="media/ico/Close-2-icon.png" title="Back"   onclick="this.form.submit()" /><td>
-    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    <input type="hidden" name="simpleexit" value="simpleexit" />
-</form>
-
-<td>Status: OFF</td>
-<form action="" method="post">
-    <td><input type="image" src="media/ico/Button-Turn-On-icon.png" title="Simple on/off" onclick="this.form.submit()" /></td>
-    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    <input type="hidden" name="on" value="on" />
-    <input type="hidden" name="simpleon" value="on" />
-</form>
-
-<?php 
-} 
-    else 
-    {
-    ?>
-    <td>Status: ON</td>
+<td>Status: <?php echo $a['status']; ?></td>
     <form action="" method="post">
     <td><input type="image" src="media/ico/Button-Turn-Off-icon.png" title="Simple on/off" onclick="this.form.submit()" /></td>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="off" value="off" />
     <input type="hidden" name="simpleoff" value="off" />
     </form>
+<?php 
+} 
+    else 
+    {
+include('gpio_rev.php');
+    ?>
+<form action="" method="post">
+    <td><input type="image" name="simpleexit" value="exit" src="media/ico/Close-2-icon.png" title="Back"   onclick="this.form.submit()" /><td>
+    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="simpleexit" value="simpleexit" />
+</form>
+
+<td>Status: <?php echo $a['status']; ?></td>
+<form action="" method="post">
+    <td><input type="image" src="media/ico/Button-Turn-On-icon.png" title="Simple on/off" onclick="this.form.submit()" /></td>
+    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="on" value="on" />
+    <input type="hidden" name="simpleon" value="on" />
+</form>
     <?php 
     } 
 }

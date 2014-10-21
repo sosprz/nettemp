@@ -36,6 +36,8 @@ elif [ "$mode" = "temp" ]; then
     source $(dirname $0)/temp
 elif [ "$mode" = "trigger" ]; then
     source $(dirname $0)/trigger
+elif [ "$mode" = "day" ]; then
+    source $(dirname $0)/day
 
 fi
 done

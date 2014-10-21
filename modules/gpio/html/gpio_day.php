@@ -19,7 +19,7 @@ $day_zone3e = isset($_POST['day_zone3e']) ? $_POST['day_zone3e'] : '';
 $dayrun = isset($_POST['dayrun']) ? $_POST['dayrun'] : '';
 if ($dayrun == "on")  {
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET day_run='on',day_zone1s='$day_zone1s',day_zone1e='$day_zone1e',day_zone2s='$day_zone2s',day_zone2e='$day_zone2e',day_zone3s='$day_zone3s',day_zone3e='$day_zone3e'  WHERE gpio='$gpio_post'") or die("exec error");
+    $db->exec("UPDATE gpio SET status='Wait',day_run='on',day_zone1s='$day_zone1s',day_zone1e='$day_zone1e',day_zone2s='$day_zone2s',day_zone2e='$day_zone2e',day_zone3s='$day_zone3s',day_zone3e='$day_zone3e'  WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
@@ -27,7 +27,7 @@ if ($dayrun == "on")  {
 
 if ($dayrun == "off")  {
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET day_run='' WHERE gpio='$gpio_post'") or die("exec error");
+    $db->exec("UPDATE gpio SET day_run='', status='OFF' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
@@ -43,7 +43,8 @@ $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 ?>
 
     <form action="" method="post">
-	<td>Status: <?php echo $a['day_zone1s']; ?>-<?php echo $a['day_zone1e']; ?> </td> 
+	<td>Status:<?php echo $a['status']; ?></td> 
+	<td><?php echo $a['day_zone1s']; ?>-<?php echo $a['day_zone1e']; ?> </td> 
 	<td><?php echo $a['day_zone2s']; ?>-<?php echo $a['day_zone2e']; ?> </td> 
 	<td><?php echo $a['day_zone3s']; ?>-<?php echo $a['day_zone3e']; ?> </td> 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
@@ -69,19 +70,19 @@ include('gpio_rev.php');
 	<td>
 	<table>
 	<tr><td>Start time</td>
-	<td><input type="text" name="day_zone1s" value="<?php echo $a['day_zone1s']; ?>" size="8"  ></td><td></td> 
+	<td><input type="text" name="day_zone1s" value="<?php echo $a['day_zone1s']; ?>" size="4"  ></td><td></td> 
 	<td>End time</td>
-	<td><input type="text" name="day_zone1e" value="<?php echo $a['day_zone1e']; ?>" size="8"  ></td><td></td> 
+	<td><input type="text" name="day_zone1e" value="<?php echo $a['day_zone1e']; ?>" size="4"  ></td><td></td> 
 	</tr><tr>	
 	<td>Start time</td>
-	<td><input type="text" name="day_zone2s" value="<?php echo $a['day_zone2s']; ?>" size="8"  ></td><td></td> 
+	<td><input type="text" name="day_zone2s" value="<?php echo $a['day_zone2s']; ?>" size="4"  ></td><td></td> 
 	<td>End time</td>
-	<td><input type="text" name="day_zone2e" value="<?php echo $a['day_zone2e']; ?>" size="8"  ></td><td></td> 
+	<td><input type="text" name="day_zone2e" value="<?php echo $a['day_zone2e']; ?>" size="4"  ></td><td></td> 
 	</tr><tr>	
 	<td>Start time</td>
-	<td><input type="text" name="day_zone3s" value="<?php echo $a['day_zone3s']; ?>" size="8"  ></td><td></td> 
+	<td><input type="text" name="day_zone3s" value="<?php echo $a['day_zone3s']; ?>" size="4"  ></td><td></td> 
 	<td>End time</td>
-	<td><input type="text" name="day_zone3e" value="<?php echo $a['day_zone3e']; ?>" size="8"  ></td><td></td> 
+	<td><input type="text" name="day_zone3e" value="<?php echo $a['day_zone3e']; ?>" size="4"  ></td><td></td> 
 	</tr>
 	</table>
 	</td>
