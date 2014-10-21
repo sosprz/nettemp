@@ -94,10 +94,6 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE gpio (
   kwh_run TEXT,
   kwh_divider TEXT,
   temp_run TEXT,
-  temp_sensor0 TEXT,
-  temp_onoff0 TEXT,
-  temp_temp0 REAL,
-  temp_op0 TEXT,B
   temp_sensor1 TEXT,
   temp_onoff1 TEXT,
   temp_temp1 REAL,
@@ -105,7 +101,11 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE gpio (
   temp_sensor2 TEXT,
   temp_onoff2 TEXT,
   temp_temp2 REAL,
-  temp_op2 TEXT
+  temp_op2 TEXT,
+  temp_sensor3 TEXT,
+  temp_onoff3 TEXT,
+  temp_temp3 TEXT,
+  temp_op3 TEXT
     );"
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE settings (

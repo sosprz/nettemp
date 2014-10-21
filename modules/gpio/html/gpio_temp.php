@@ -9,10 +9,10 @@ if ($tempexit == "tempexit"){
     }
 
 // temp
-$temp_sensor0 = isset($_POST['temp_sensor0']) ? $_POST['temp_sensor0'] : '';
-$temp_onoff0 = isset($_POST['temp_onoff0']) ? $_POST['temp_onoff0'] : '';
-$temp_op0 = isset($_POST['temp_op0']) ? $_POST['temp_op0'] : '';
-$temp_temp0 = isset($_POST['temp_temp0']) ? $_POST['temp_temp0'] : '';
+$temp_sensor3 = isset($_POST['temp_sensor3']) ? $_POST['temp_sensor3'] : '';
+$temp_onoff3 = isset($_POST['temp_onoff3']) ? $_POST['temp_onoff3'] : '';
+$temp_op3 = isset($_POST['temp_op3']) ? $_POST['temp_op3'] : '';
+$temp_temp3 = isset($_POST['temp_temp3']) ? $_POST['temp_temp3'] : '';
 
 $temp_sensor1 = isset($_POST['temp_sensor1']) ? $_POST['temp_sensor1'] : '';
 $temp_onoff1 = isset($_POST['temp_onoff1']) ? $_POST['temp_onoff1'] : '';
@@ -29,9 +29,9 @@ $temp_temp2 = isset($_POST['temp_temp2']) ? $_POST['temp_temp2'] : '';
 $tempon = isset($_POST['tempon']) ? $_POST['tempon'] : '';
 if ($tempon == "on") {
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET temp_run='on', temp_op0='$temp_op0',temp_sensor0='$temp_sensor0',temp_onoff0='$temp_onoff0',temp_temp0='$temp_temp0' WHERE gpio='$gpio_post'") or die("exec error");
-    $db->exec("UPDATE gpio SET temp_op1='$temp_op1',temp_sensor1='$temp_sensor1',temp_onoff1='$temp_onoff1',temp_temp1='$temp_temp1' WHERE gpio='$gpio_post'") or die("exec error");
-    $db->exec("UPDATE gpio SET temp_op2='$temp_op2',temp_sensor2='$temp_sensor2',temp_onoff2='$temp_onoff2',temp_temp2='$temp_temp2' WHERE gpio='$gpio_post'") or die("exec error");
+    $db->exec("UPDATE gpio SET temp_run='on', temp_op3='$temp_op3',temp_sensor3='$temp_sensor3',temp_onoff3='$temp_onoff3',temp_temp3='$temp_temp3' WHERE gpio='$gpio_post'") or die("exec 1");
+    $db->exec("UPDATE gpio SET temp_op1='$temp_op1',temp_sensor1='$temp_sensor1',temp_onoff1='$temp_onoff1',temp_temp1='$temp_temp1' WHERE gpio='$gpio_post'") or die("exec 2");
+    $db->exec("UPDATE gpio SET temp_op2='$temp_op2',temp_sensor2='$temp_sensor2',temp_onoff2='$temp_onoff2',temp_temp2='$temp_temp2' WHERE gpio='$gpio_post'") or die("exec 3");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
@@ -54,7 +54,7 @@ if ($dayrunon == "on")  {
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     }
-$arr = array(0, 1, 2 );
+$arr = array(1,2,3);
 
 $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
    $sth = $db->prepare("select * from gpio where gpio='$gpio'");
@@ -86,7 +86,7 @@ if ($a['temp_sensor'.$v] == $select['id']) {
 }
 ?>
 </table></td>
-<td>Status:<?php echo $a['simple'];?></td>
+<td>Status:<?php echo $a['status'];?></td>
 <form action="" method="post">
 <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 <td><input type="image" src="media/ico/Button-Turn-Off-icon.png"/></td>
