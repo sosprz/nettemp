@@ -2,7 +2,7 @@
 temp_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio'")
 if [ "$temp_run" = "on" ]; then
 
-for i in 1
+for i in 1 2 3
     do 
 
 declare temp_onoff$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_onoff$i FROM gpio WHERE gpio='$gpio'"`
@@ -19,87 +19,97 @@ sensor_temp=sensor_temp$i
 sensor_name=sensor_name$i
 temp_op=temp_op$i
 
-        if [ "${!temp_op}" = "gt" ]; then
-    gt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print 0 }') 
+if [ "${!temp_op}" = "gt" ]; then
+gt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print 0 }') 
     if [ "$gt" = "1" ];then
         if [ "${!temp_onoff}" = "on" ];then
-            gpio_on $gpio
-	echo "${!sensor_name} ${!sensor_temp} &deg;C is greater than ${!temp_temp} &deg;C - gpio is ON"
+            onoff=on
+	    echo "${!sensor_name} ${!sensor_temp} C > ${!temp_temp} C - gpio ON"
         else
-            gpio_off $gpio
-	    echo "${!sensor_name} ${!sensor_temp} &deg;C is greater than ${!temp_temp} &deg;C - gpio is OFF"
+            onoff=off
+	    echo "${!sensor_name} ${!sensor_temp} C > ${!temp_temp} C - gpio OFF"
         fi
     else
         if [ "$temp_onoff" = "on" ];then
-            gpio_off $gpio
-            echo "${!sensor_name} ${!sensor_temp} &deg;C is less than {!$temp_temp} &deg;C - gpio is OFF"
+            onoff=off
+            echo "${!sensor_name} ${!sensor_temp} C < {!$temp_temp} C - gpio OFF"
         else
-            gpio_on $gpio
-	    echo "${!sensor_name} ${!sensor_temp} &deg;C is less than ${!temp_temp} &deg;C - gpio is ON"
+            onoff=on
+	    echo "${!sensor_name} ${!sensor_temp} C < ${!temp_temp} C - gpio ON"
         fi
     fi
     
-        fi
-        if [ "${!temp_op}" = "ge" ]; then
-    ge=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 >= $2) print 1; else print 0 }') 
+fi
+if [ "${!temp_op}" = "ge" ]; then
+ge=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 >= $2) print 1; else print 0 }') 
     if [ "$ge" = "1" ];then
         if [ "${temp_onoff}" = "on" ];then
-            gpio_on $gpio
-	echo "${!sensor_name} ${!sensor_temp} &deg;C is greather or equal to ${!temp_temp} &deg;C - gpio is ON"
+            onoff=on
+	    echo "${!sensor_name} ${!sensor_temp} C >= ${!temp_temp} C - gpio ON"
         else
-            gpio_off $gpio
-	    echo "${!sensor_name} ${!sensor_temp} &deg;C is greather or equal to ${!temp_temp} &deg;C - gpio is OFF"
+            onoff=off
+	    echo "${!sensor_name} ${!sensor_temp} C >= ${!temp_temp} C - gpio OFF"
         fi
     else
         if [ "${!temp_onoff}" = "on" ];then
-            gpio_off $gpio
-            echo "${!sensor_name} ${sensor_temp} &deg;C is less than or equal to ${!temp_temp} &deg;C - gpio is OFF"
+            onoff=off
+            echo "${!sensor_name} ${sensor_temp} C <= ${!temp_temp} C - gpio OFF"
         else
-            gpio_on $gpio
-	    echo "${!sensor_name} ${!sensor_temp} &deg;C is less than or equal to ${!temp_temp} &deg;C - gpio is ON"
+            onoff=on
+	    echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio ON"
         fi
     fi
         fi
-        if [ "${!temp_op}" = "le" ]; then
-    le=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 <= $2) print 1; else print 0 }') 
+if [ "${!temp_op}" = "le" ]; then
+le=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 <= $2) print 1; else print 0 }') 
     if [ "$le" = "1" ];then
         if [ "${!temp_onoff}" = "on" ];then
-            gpio_on $gpio
-	echo "${!sensor_name} ${!sensor_temp} &deg;C is less than or equal to ${!temp_temp} &deg;C - gpio is ON"
+            onoff=on
+	echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio ON"
         else
-            gpio_off $gpio
-	    echo "${!sensor_name} ${!sensor_temp} &deg;C is less than or equal to ${!temp_temp} &deg;C - gpio is OFF"
+            onoff=off
+	    echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio OFF"
         fi
     else
         if [ "${!temp_onoff}" = "on" ];then
-            gpio_off $gpio
-            echo "${!sensor_name{ ${!sensor_temp} &deg;C is greather or equal to ${!temp_temp} &deg;C - gpio is OFF"
+            onoff=off
+            echo "${!sensor_name} ${!sensor_temp} C >= ${!temp_temp} C - gpio OFF"
         else
-            gpio_on $gpio
-	    echo "${!sensor_name} ${!sensor_temp} &deg;C is greather or equal to ${temp_temp} &deg;C - gpio is ON"
-        fi
-    fi
-        fi
-        if [ "${!temp_op}" = "lt" ]; then
-    lt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 < $2) print 1; else print 0 }') 
-    if [ "$lt" = "1" ];then
-        if [ "${!temp_onoff}" = "on" ];then
-            gpio_on $gpio
-	echo "${!sensor_name} ${!sensor_temp}! &deg;C < ${!temp_temp} &deg;C - gpio is ON"
-        else
-            gpio_off $gpio
-	    echo "${!sensor_name} ${!sensor_temp} &deg;C < ${!temp_temp} &deg;C - gpio is OFF"
-        fi
-    else
-        if [ "${!temp_onoff}" = "on" ];then
-            gpio_off $gpio
-            echo "${!sensor_name} ${!sensor_temp} &deg;C > ${!temp_temp} &deg;C - gpio is OFF"
-        else
-            gpio_on $gpio
-	    echo "${!sensor_name} ${!sensor_temp} &deg;C > ${!temp_temp} &deg;C - gpio is ON"
+            onoff=on
+	    echo "${!sensor_name} ${!sensor_temp} C >= to ${temp_temp} C - gpio ON"
         fi
     fi
         fi
 
+if [ "${!temp_op}" = "lt" ]; then
+lt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 < $2) print 1; else print 0 }') 
+    if [ "$lt" = "1" ];then
+        if [ "${!temp_onoff}" = "on" ];then
+            onoff=on
+	echo "${!sensor_name} ${!sensor_temp} C < ${!temp_temp} C - gpio ON"
+        else
+            onoff=off
+	    echo "${!sensor_name} ${!sensor_temp} C < ${!temp_temp} C - gpio OFF"
+        fi
+    else
+        if [ "${!temp_onoff}" = "on" ];then
+            onoff=off
+            echo "${!sensor_name} ${!sensor_temp} C > ${!temp_temp} C - gpio OFF"
+        else
+            onoff=on
+	    echo "${!sensor_name} ${!sensor_temp} C > ${!temp_temp} C - gpio ON"
+        fi
+    fi
+        fi
+
+unset temp_onoff
+unset temp_temp
+unset temp_sensor
+unset sensor_temp
+unset sensor_name
+unset temp_op
+
+
     done
+echo $onoff
 fi #last 
