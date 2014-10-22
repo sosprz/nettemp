@@ -40,8 +40,8 @@ if ($tempon == "off") {
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET temp_run='off' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();	
+    //header("location: " . $_SERVER['REQUEST_URI']);
+    //exit();	
     }
 
 
@@ -56,11 +56,13 @@ if ($dayrunon == "on")  {
     }
 $arr = array(1,2,3);
 
-$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-   $sth = $db->prepare("select * from gpio where gpio='$gpio'");
-   $sth->execute();
-   $result = $sth->fetchAll();    
-   foreach ($result as $a) { 
+include('gpio_onoff.php');
+
+   //$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+   //$sth = $db->prepare("select * from gpio where gpio='$gpio'");
+   //$sth->execute();
+   //$result = $sth->fetchAll();    
+   //foreach ($result as $a) { 
         if ( $a['temp_run'] == "on") { ?>
 
 <td><table>
@@ -91,6 +93,7 @@ if ($a['temp_sensor'.$v] == $select['id']) {
 <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 <td><input type="image" src="media/ico/Button-Turn-Off-icon.png"/></td>
 <input type="hidden" name="tempon" value="off" />
+<input type="hidden" name="off" value="off" />
 </form>
 <?php
 }
@@ -152,7 +155,7 @@ foreach ($arr as &$v) {
 </form>
 <?php
 }
-}
+//}
 ?>
 
 

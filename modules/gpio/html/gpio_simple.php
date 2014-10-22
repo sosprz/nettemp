@@ -17,6 +17,17 @@ if ($simpleoff == "off")  {
     //header("location: " . $_SERVER['REQUEST_URI']);
     //exit();
     }
+$bi = isset($_POST['bi']) ? $_POST['bi'] : '';
+if ($bi == "bi")  {
+    if ($a['rev'] == 'on') {
+    exec("/usr/local/bin/gpio -g write $gpio_post 0 && sleep 1 && /usr/local/bin/gpio -g write $gpio_post 1");
+    } else {
+    exec("/usr/local/bin/gpio -g write $gpio_post 1 && sleep 1 && /usr/local/bin/gpio -g write $gpio_post 0");
+    }
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
 
 
 $simpleexit = isset($_POST['simpleexit']) ? $_POST['simpleexit'] : '';
@@ -30,13 +41,12 @@ if (($simpleexit == "simpleexit") ){
 
 include('gpio_onoff.php');
 
-$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-   $sth = $db->prepare("select * from gpio where gpio='$gpio'");
-   $sth->execute();
-   $result = $sth->fetchAll();    
-   foreach ($result as $a) { 
+   //$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+   //$sth = $db->prepare("select * from gpio where gpio='$gpio'");
+   //$sth->execute();
+   //$result = $sth->fetchAll();    
+   //foreach ($result as $a) { 
         if ( $a['simple'] == "on" ) { 
-	
 
 ?>
 <td>Status: <?php echo $a['status']; ?></td>
@@ -57,6 +67,11 @@ include('gpio_rev.php');
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="simpleexit" value="simpleexit" />
 </form>
+<form action="" method="post">
+    <td><input type="image" name="bi" value="bi" src="media/ico/Button-Log-Off-icon.png" title="Turn on wait 1s and off"   onclick="this.form.submit()" /><td>
+    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+</form>
+
 
 <td>Status: <?php echo $a['status']; ?></td>
 <form action="" method="post">
@@ -67,5 +82,5 @@ include('gpio_rev.php');
 </form>
     <?php 
     } 
-}
+//}
 ?>

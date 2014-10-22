@@ -50,11 +50,11 @@ else
     }
 }
 
-$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-   $sth = $db->prepare("select * from gpio where gpio='$gpio'");
-   $sth->execute();
-   $result = $sth->fetchAll();    
-   foreach ($result as $a) {
+  // $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+  // $sth = $db->prepare("select * from gpio where gpio='$gpio'");
+  // $sth->execute();
+  // $result = $sth->fetchAll();    
+   //foreach ($result as $a) {
     $kwhrun=$a['kwh_run'];
         if ($kwhrun=='on') { 
 ?>
@@ -93,5 +93,5 @@ $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 
     <?php 
     } 
-}
+//}
 ?>

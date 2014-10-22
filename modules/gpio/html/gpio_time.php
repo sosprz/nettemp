@@ -30,11 +30,11 @@ if ($timerun == "off") {
 include('gpio_onoff.php');
 
 
-$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $sth = $db->prepare("select * from gpio where gpio='$gpio'");
-    $sth->execute();
-    $result = $sth->fetchAll();    
-    foreach ($result as $a) { 
+    //$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    //$sth = $db->prepare("select * from gpio where gpio='$gpio'");
+    //$sth->execute();
+    //$result = $sth->fetchAll();    
+    //foreach ($result as $a) { 
     $time_run=$a['time_run'];
     if ($time_run == 'on') { 
 ?>
@@ -69,5 +69,5 @@ include('gpio_rev.php');
     </form>
 <?php 
     }
-    }
+//    }
 ?> 

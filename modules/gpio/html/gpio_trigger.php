@@ -27,11 +27,11 @@ if ($triggerrun == "off")  {
 }
 
 
-$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $sth = $db->prepare("select * from gpio where gpio='$gpio'");
-    $sth->execute();
-    $result = $sth->fetchAll();    
-    foreach ($result as $a) { 
+    //$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    //$sth = $db->prepare("select * from gpio where gpio='$gpio'");
+    //$sth->execute();
+    //$result = $sth->fetchAll();    
+    //foreach ($result as $a) { 
     $trigger_run=$a['trigger_run'];
     $status=$a['status'];
     if ($trigger_run == 'on') { 
@@ -63,5 +63,5 @@ include('gpio_rev.php');
     </form>
 <?php
 }
-}
+//}
 ?>

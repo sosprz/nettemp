@@ -29,15 +29,16 @@ if ($dayrun == "off")  {
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET day_run='', status='OFF' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();	
+    //header("location: " . $_SERVER['REQUEST_URI']);
+    //exit();	
     }
 
-$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $sth = $db->prepare("select * from gpio where gpio='$gpio'");
-    $sth->execute();
-    $result = $sth->fetchAll();    
-    foreach ($result as $a) { 
+include('gpio_onoff.php');
+    //$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    //$sth = $db->prepare("select * from gpio where gpio='$gpio'");
+    //$sth->execute();
+    //$result = $sth->fetchAll();    
+    //foreach ($result as $a) { 
     $day_run=$a['day_run'];
     if ($day_run == 'on') { 
 ?>
@@ -93,6 +94,7 @@ include('gpio_rev.php');
 	
     </form>
 <?php
-    }}
+    }
+    //}
 ?>
 

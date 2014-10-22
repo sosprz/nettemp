@@ -3,18 +3,18 @@ $gpio_rev = isset($_POST['gpio_rev']) ? $_POST['gpio_rev'] : '';
 $gpio_rev1 = isset($_POST['gpio_rev1']) ? $_POST['gpio_rev1'] : '';
 if (($gpio_rev1 == "gpio_rev1") ){
     //exec("/usr/local/bin/gpio -g mode $gpio_post output");
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $sth = $db->prepare("select * from gpio where gpio='$gpio_post'");
-    $sth->execute();
-    $result = $sth->fetchAll();    
-    foreach ($result as $a) { 
+    //$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    //$sth = $db->prepare("select * from gpio where gpio='$gpio_post'");
+    //$sth->execute();
+    //$result = $sth->fetchAll();    
+    //foreach ($result as $a) { 
 	if ( $a['rev'] == "on") { 
 	$db->exec("UPDATE gpio SET rev='' where gpio='$gpio_post' ") or die("exec error");
 	}
 	else { 
 	$db->exec("UPDATE gpio SET rev='on' where gpio='$gpio_post' ") or die("exec error");
 	}
-   }
+//   }
      $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
