@@ -29,7 +29,7 @@ $temp_temp2 = isset($_POST['temp_temp2']) ? $_POST['temp_temp2'] : '';
 $tempon = isset($_POST['tempon']) ? $_POST['tempon'] : '';
 if ($tempon == "on") {
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET temp_run='on', temp_op3='$temp_op3',temp_sensor3='$temp_sensor3',temp_onoff3='$temp_onoff3',temp_temp3='$temp_temp3' WHERE gpio='$gpio_post'") or die("exec 1");
+    $db->exec("UPDATE gpio SET temp_run='on', status='wait', temp_op3='$temp_op3',temp_sensor3='$temp_sensor3',temp_onoff3='$temp_onoff3',temp_temp3='$temp_temp3' WHERE gpio='$gpio_post'") or die("exec 1");
     $db->exec("UPDATE gpio SET temp_op1='$temp_op1',temp_sensor1='$temp_sensor1',temp_onoff1='$temp_onoff1',temp_temp1='$temp_temp1' WHERE gpio='$gpio_post'") or die("exec 2");
     $db->exec("UPDATE gpio SET temp_op2='$temp_op2',temp_sensor2='$temp_sensor2',temp_onoff2='$temp_onoff2',temp_temp2='$temp_temp2' WHERE gpio='$gpio_post'") or die("exec 3");
     $db = null;
@@ -96,8 +96,8 @@ if ($a['temp_sensor'.$v] == $select['id']) {
 }
 else
     {
+include('gpio_rev.php');
 ?>
-
 <form action="" method="post">
     <td><input type="image" name="tempexit" value="tempexit" src="media/ico/Close-2-icon.png" title="Back"  onclick="this.form.submit()" /><td>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>

@@ -6,19 +6,20 @@ for i in 1 2 3
     do 
 
 declare temp_onoff$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_onoff$i FROM gpio WHERE gpio='$gpio'"`
-declare temp_temp$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_temp$i FROM gpio WHERE gpio='$gpio'"`
-declare temp_sensor$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_sensor$i FROM gpio WHERE gpio='$gpio'"`
-declare sensor_temp$i=`sqlite3 $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id='$temp_sensor$i'"`
-declare sensor_name$i=`sqlite3 $dir/dbf/nettemp.db "SELECT name FROM sensors WHERE id='$temp_sensor$i'"`
-declare temp_op$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_op$i FROM gpio WHERE gpio='$gpio'"`
-
 temp_onoff=temp_onoff$i
+declare temp_temp$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_temp$i FROM gpio WHERE gpio='$gpio'"`
 temp_temp=temp_temp$i
+declare temp_sensor$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_sensor$i FROM gpio WHERE gpio='$gpio'"`
 temp_sensor=temp_sensor$i
+declare sensor_temp$i=`sqlite3 $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id='${!temp_sensor}'"`
 sensor_temp=sensor_temp$i
+declare sensor_name$i=`sqlite3 $dir/dbf/nettemp.db "SELECT name FROM sensors WHERE id='${!temp_sensor}'"`
 sensor_name=sensor_name$i
+declare temp_op$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_op$i FROM gpio WHERE gpio='$gpio'"`
 temp_op=temp_op$i
 
+if [ -n "${!temp_temp}" ]
+    then
 if [ "${!temp_op}" = "gt" ]; then
 gt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print 0 }') 
     if [ "$gt" = "1" ];then
@@ -109,7 +110,8 @@ unset sensor_temp
 unset sensor_name
 unset temp_op
 
-
-    done
-echo $onoff
+fi
+done
+gpio_$onoff $gpio
+sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='$onoff'  WHERE gpio='$gpio'"
 fi #last 
