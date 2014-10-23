@@ -107,12 +107,12 @@ foreach ($result as $a) { ?>
 <table>
 <?php	
 $db = new PDO('sqlite:dbf/nettemp.db');
-$rows = $db->query("SELECT * from gpio WHERE trigger_checkbox='on'");
+$rows = $db->query("SELECT * from gpio WHERE mode='trigger'");
 $row = $rows->fetchAll();
 $numRows = count($row);
 if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }
 
-$sth = $db1->prepare("select * from gpio WHERE trigger_checkbox='on'");
+$sth = $db1->prepare("select * from gpio WHERE mode='trigger'");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { ?>
