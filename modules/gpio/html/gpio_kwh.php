@@ -1,7 +1,7 @@
 <?php
 $kwhexit = isset($_POST['kwhexit']) ? $_POST['kwhexit'] : '';
 if (($kwhexit == "kwhexit") ){
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or die("simple off db error");
      $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -10,7 +10,7 @@ if (($kwhexit == "kwhexit") ){
 
 $kwhrun = isset($_POST['kwhrun']) ? $_POST['kwhrun'] : '';
 if (($kwhrun == "on") ){
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET kwh_run='on', status='ON' where gpio='$gpio_post' ") or die("simple off db error");
     $reset="/bin/bash modules/kwh/reset";
     shell_exec("$reset");
@@ -19,7 +19,7 @@ if (($kwhrun == "on") ){
     exit();
     }
 if (($kwhrun == "off") ){
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET kwh_run='', status='OFF' where gpio='$gpio_post' ") or die("simple off db error");
     $reset="/bin/bash modules/kwh/reset";
     shell_exec("$reset");
@@ -33,7 +33,7 @@ $kwh_divider = isset($_POST['kwh_divider']) ? $_POST['kwh_divider'] : '';
 $kwh_divider1 = isset($_POST['kwh_divider1']) ? $_POST['kwh_divider1'] : '';
 if ($kwh_divider1 == "kwh_divider2"){
     if (!empty($kwh_divider)){
-	$db = new PDO('sqlite:dbf/nettemp.db');
+//	$db = new PDO('sqlite:dbf/nettemp.db');
 	$kwh_dividert = trim($kwh_divider); 
 	$db->exec("UPDATE gpio SET kwh_divider='$kwh_dividert' WHERE gpio='$gpio'") or die ($db->lastErrorMsg());
 	$db = NULL;

@@ -2,7 +2,7 @@
 $humidexit = isset($_POST['humidexit']) ? $_POST['humidexit'] : '';
 
 if (($humidexit == "humidexit") ){
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET mode='', status='' where gpio='$gpio_post' ") or die("humid off db error");
      $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -13,7 +13,7 @@ $dht11_onoff = isset($_POST['dht11_onoff']) ? $_POST['dht11_onoff'] : '';
 $dht11_onoff1 = isset($_POST['dht11_onoff1']) ? $_POST['dht11_onoff1'] : '';
 
 if (($dht11_onoff1 == "dht11_onoff2") ){
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET humid_type='$dht11_onoff', status='Humid DHT $dht11_onoff'  where gpio='$gpio_post' ") or die("exec error");
      $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -23,7 +23,7 @@ $dht22_onoff = isset($_POST['dht22_onoff']) ? $_POST['dht22_onoff'] : '';
 $dht22_onoff1 = isset($_POST['dht22_onoff1']) ? $_POST['dht22_onoff1'] : '';
 
 if (($dht22_onoff1 == "dht22_onoff2") ){
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET humid_type='$dht22_onoff', status='Humid DHT $dht22_onoff' where gpio='$gpio_post' ") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);

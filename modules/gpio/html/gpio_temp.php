@@ -1,8 +1,8 @@
 <?php
 $tempexit = isset($_POST['tempexit']) ? $_POST['tempexit'] : '';
 if ($tempexit == "tempexit"){
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or die("simple off db error");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET mode='', day_run='', week_run='' where gpio='$gpio_post' ") or die("simple off db error");
      $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -28,7 +28,7 @@ $temp_temp2 = isset($_POST['temp_temp2']) ? $_POST['temp_temp2'] : '';
 
 $tempon = isset($_POST['tempon']) ? $_POST['tempon'] : '';
 if ($tempon == "on") {
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET temp_run='on', status='wait', temp_op3='$temp_op3',temp_sensor3='$temp_sensor3',temp_onoff3='$temp_onoff3',temp_temp3='$temp_temp3' WHERE gpio='$gpio_post'") or die("exec 1");
     $db->exec("UPDATE gpio SET temp_op1='$temp_op1',temp_sensor1='$temp_sensor1',temp_onoff1='$temp_onoff1',temp_temp1='$temp_temp1' WHERE gpio='$gpio_post'") or die("exec 2");
     $db->exec("UPDATE gpio SET temp_op2='$temp_op2',temp_sensor2='$temp_sensor2',temp_onoff2='$temp_onoff2',temp_temp2='$temp_temp2' WHERE gpio='$gpio_post'") or die("exec 3");
@@ -37,7 +37,7 @@ if ($tempon == "on") {
     exit();	
     }
 if ($tempon == "off") {
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET temp_run='off' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
     //header("location: " . $_SERVER['REQUEST_URI']);
@@ -48,12 +48,23 @@ if ($tempon == "off") {
 $dayrunon = isset($_POST['dayrunon']) ? $_POST['dayrunon'] : '';
 $dayrun = isset($_POST['dayrun']) ? $_POST['dayrun'] : '';
 if ($dayrunon == "on")  {
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET day_run='$dayrun'  WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     }
+$weekrunon = isset($_POST['weekrunon']) ? $_POST['weekrunon'] : '';
+$weekrun = isset($_POST['weekrun']) ? $_POST['weekrun'] : '';
+if ($weekrunon == "on")  {
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET week_run='$weekrun'  WHERE gpio='$gpio_post'") or die("exec error");
+    $db = null;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();	
+    }
+
+
 $arr = array(1,2,3);
 
 include('gpio_onoff.php');
@@ -111,7 +122,12 @@ include('gpio_rev.php');
 	    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	    <input type="hidden" name="dayrunon" value="on" /> 
 </form>
-
+<form action="" method="post">
+	    <td><img  src="media/ico/Actions-view-calendar-week-icon.png" title="Week plan" /></td>
+	    <td><input type="checkbox" name="weekrun" value="on" <?php echo $a["week_run"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+	    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	    <input type="hidden" name="weekrunon" value="on" /> 
+</form>
 <td>if</td>
 <td>
 <form action="" method="post">

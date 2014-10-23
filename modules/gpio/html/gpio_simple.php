@@ -3,7 +3,7 @@
 
 $simpleon = isset($_POST['simpleon']) ? $_POST['simpleon'] : '';
 if ($simpleon == "on")  {    
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    //$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET simple='on', status='ON' WHERE gpio='$gpio_post'") or die("PDO exec error");
     $db = null;
     //header("location: " . $_SERVER['REQUEST_URI']);
@@ -11,7 +11,7 @@ if ($simpleon == "on")  {
     }
 $simpleoff = isset($_POST['simpleoff']) ? $_POST['simpleoff'] : '';
 if ($simpleoff == "off")  {
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    //$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET simple='off', status='OFF' WHERE gpio='$gpio_post'") or die("PDO exec error");
     $db = null;
     //header("location: " . $_SERVER['REQUEST_URI']);

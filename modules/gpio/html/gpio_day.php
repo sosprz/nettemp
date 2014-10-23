@@ -1,7 +1,7 @@
 <?php
 $dayexit = isset($_POST['dayexit']) ? $_POST['dayexit'] : '';
 if (($dayexit == "dayexit") ){
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or die("simple off db error");
      $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -18,15 +18,25 @@ $day_zone3e = isset($_POST['day_zone3e']) ? $_POST['day_zone3e'] : '';
 
 $dayrun = isset($_POST['dayrun']) ? $_POST['dayrun'] : '';
 if ($dayrun == "on")  {
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET status='Wait',day_run='on',day_zone1s='$day_zone1s',day_zone1e='$day_zone1e',day_zone2s='$day_zone2s',day_zone2e='$day_zone2e',day_zone3s='$day_zone3s',day_zone3e='$day_zone3e'  WHERE gpio='$gpio_post'") or die("exec error");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET status='Wait',day_run='on' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     }
 
+$dayset = isset($_POST['dayset']) ? $_POST['dayset'] : '';
+if ($dayset == "on")  {
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET day_zone1s='$day_zone1s',day_zone1e='$day_zone1e',day_zone2s='$day_zone2s',day_zone2e='$day_zone2e',day_zone3s='$day_zone3s',day_zone3e='$day_zone3e'  WHERE gpio='$gpio_post'") or die("exec error");
+    $db = null;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();	
+    }
+
+
 if ($dayrun == "off")  {
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET day_run='', status='OFF' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
     //header("location: " . $_SERVER['REQUEST_URI']);
@@ -87,6 +97,11 @@ include('gpio_rev.php');
 	</tr>
 	</table>
 	</td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png"/></td>
+	<input type="hidden" name="dayset" value="on" />
+    </form>
+    <form action="" method="post">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
 	<input type="hidden" name="dayrun" value="on" />

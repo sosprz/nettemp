@@ -3,7 +3,7 @@
 //time
     $timeon = isset($_POST['timeon']) ? $_POST['timeon'] : '';
     if ($timeon == "timeon")  {
-	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 	$db->exec("UPDATE gpio SET mode='time' WHERE gpio='$gpio_post'") or die("exec error");
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
@@ -12,7 +12,7 @@
 //temp
     $tempon = isset($_POST['tempon']) ? $_POST['tempon'] : '';
     if ($tempon == "tempon")  {
-	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 	$db->exec("UPDATE gpio SET mode='temp' WHERE gpio='$gpio_post'") or die("exec error");
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
@@ -21,7 +21,7 @@
 //humid
     $humidon = isset($_POST['humidon']) ? $_POST['humidon'] : '';
     if ($humidon == "humidon")  {
-	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 	$db->exec("UPDATE gpio SET mode='humid' WHERE gpio='$gpio_post'") or die("exec error");
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
@@ -30,16 +30,27 @@
 //dayon
     $dayon = isset($_POST['dayon']) ? $_POST['dayon'] : '';
     if ($dayon == "dayon")  {
-	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 	$db->exec("UPDATE gpio SET mode='day' WHERE gpio='$gpio_post'") or die("exec error");
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
     }
+//weekon
+    $weekon = isset($_POST['weekon']) ? $_POST['weekon'] : '';
+    if ($weekon == "weekon")  {
+//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+	$db->exec("UPDATE gpio SET mode='week' WHERE gpio='$gpio_post'") or die("exec error");
+	$db = null;
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
+
+
 //triggeron
     $triggeron = isset($_POST['triggeron']) ? $_POST['triggeron'] : '';
     if ($triggeron == "triggeron")  {
-	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 	$db->exec("UPDATE gpio SET mode='trigger' WHERE gpio='$gpio_post'") or die("exec error");
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
@@ -48,7 +59,7 @@
 //kwh
     $kwhon = isset($_POST['kwhon']) ? $_POST['kwhon'] : '';
     if ($kwhon == "kwhon")  {
-	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 	$db->exec("UPDATE gpio SET mode='kwh' WHERE gpio='$gpio_post'") or die("exec error");
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
@@ -57,7 +68,7 @@
 //simple
     $simpleon = isset($_POST['simpleon']) ? $_POST['simpleon'] : '';
     if ($simpleon == "simpleon")  {
-	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 	$db->exec("UPDATE gpio SET mode='simple' WHERE gpio='$gpio_post'") or die("exec error");
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
@@ -66,7 +77,7 @@
 //buzzer
     $buzzeron = isset($_POST['buzzeron']) ? $_POST['buzzeron'] : '';
     if ($buzzeron == "buzzeron")  {
-	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 	$db->exec("UPDATE gpio SET mode='buzzer', status='' WHERE gpio='$gpio_post'") or die("exec error");
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
@@ -87,6 +98,17 @@
 	<input type="hidden" name="timeon" value="timeon" />   
    </form>
     <form action="" method="post">
+	<td><input type="image" src="media/ico/day-icon.png" title="Day plan"   onclick="this.form.submit()" /></td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="dayon" value="dayon" />
+    </form>
+    <form action="" method="post">
+	<td><input type="image" src="media/ico/Actions-view-calendar-week-icon.png" title="Week plan"   onclick="this.form.submit()" /></td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="weekon" value="weekon" />
+    </form>
+
+    <form action="" method="post">
 	<td><input type="image" src="media/ico/temp2-icon.png" title="Set temp when sensor will turn on/off" onclick="this.form.submit()" /></td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="tempon" value="tempon" />
@@ -96,11 +118,6 @@
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio'];?>"/>
 	<input type="hidden" name="humidon" value="humidon" />
     </form> 
-    <form action="" method="post">
-	<td><input type="image" src="media/ico/day-icon.png" title="Day plan"   onclick="this.form.submit()" /></td>
-	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="hidden" name="dayon" value="dayon" />
-    </form>
     <form action="" method="post">
 	<td><input type="image" src="media/ico/alarm-icon.png" title="Alarm trigger" onclick="this.form.submit()" /></td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>

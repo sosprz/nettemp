@@ -48,6 +48,10 @@ elseif ($mode == 'day')
 { 
     include('gpio_day.php');
 } 
+elseif ($mode == 'week') 
+{ 
+    include('gpio_week.php');
+} 
 elseif  ($mode == 'temp') 
 { 
     include('gpio_temp.php');

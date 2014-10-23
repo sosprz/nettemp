@@ -3,9 +3,9 @@
 
 $timeexit = isset($_POST['timeexit']) ? $_POST['timeexit'] : '';
 if ($timeexit == "timeexit")  {
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET mode='' WHERE gpio='$gpio_post'") or die("exec error");
-    $db = null;
+//    $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
@@ -16,14 +16,14 @@ $timerun = isset($_POST['timerun']) ? $_POST['timerun'] : '';
 if ($timerun == "timerun") {
     $date = new DateTime();
     $time_start=$date->getTimestamp();
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET time_run='on', status='ON $time_offset min', time_offset='$time_offset',time_start='$time_start' WHERE gpio='$gpio_post'") or die("exec error");
 }
 
 if ($timerun == "off") {
     $date = new DateTime();
     $time_start=$date->getTimestamp();
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET time_run='', time_start='', status='OFF' WHERE gpio='$gpio_post'") or die("exec error");
 }
 

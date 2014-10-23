@@ -2,7 +2,7 @@
 $triggerexit = isset($_POST['triggerexit']) ? $_POST['triggerexit'] : '';
 
 if (($triggerexit == "triggerexit") ){
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or die("humid off db error");
      $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -12,14 +12,14 @@ if (($triggerexit == "triggerexit") ){
 
 $triggerrun = isset($_POST['triggerrun']) ? $_POST['triggerrun'] : '';
 if ($triggerrun == "on")  {
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET trigger_run='on', status='Wait' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
 if ($triggerrun == "off")  {
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET trigger_run='', status='OFF' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
