@@ -1,9 +1,9 @@
     <?php $db = new PDO('sqlite:dbf/nettemp.db');
-    $sth = $db->prepare("select * from settings where id='1'");
+    $sth = $db->prepare("select * from gpio where mode='kwh'");
     $sth->execute();
     $result = $sth->fetchAll();
     foreach ($result as $a) {
-    $kwh=$a["kwh"];
+    $kwh=$a["kwh_run"];
     }
     ?>
 

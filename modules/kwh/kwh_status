@@ -2,8 +2,8 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 
-gpio=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio FROM gpio WHERE gpio_kwh='on'")
-divider=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio_kwh_divider FROM gpio WHERE $gpio")
+gpio=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio FROM gpio WHERE mode='kwh'")
+divider=$(sqlite3 $dir/dbf/nettemp.db  "SELECT kwh_divider FROM gpio WHERE $gpio")
 
 kwh=$(cat $dir/db/gpio_kwh.db  | awk -F "," '{ sum+=$2 / '$divider' } END {print sum }')
 echo "All consumption: $kwh kWh"
