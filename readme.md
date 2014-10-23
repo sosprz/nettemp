@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.8
+add to gpio week function, buzzer, 3 day zones, 3 sensors for the selection like source.
+
 8.4.7
 show noly last 100 lines in log
 reset clean all tmp dir

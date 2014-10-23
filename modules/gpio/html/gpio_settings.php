@@ -15,6 +15,12 @@ $result3 = $sth3->fetchAll();
 foreach ( $result3 as $ab) {
 $mode3=$ab['mode'];
 }
+$sth4 = $db->prepare("select gpio from gpio where mode='buzzer'");
+$sth4->execute();
+$result4 = $sth4->fetchAll();
+foreach ( $result4 as $ab) {
+$buzzer=$ab['gpio'];
+}
 
 
 

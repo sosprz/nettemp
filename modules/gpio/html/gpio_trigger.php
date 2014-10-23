@@ -22,6 +22,7 @@ if ($triggerrun == "off")  {
 //    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET trigger_run='', status='OFF' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
+    exec("/usr/local/bin/gpio -g write $buzzer 0");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
@@ -53,6 +54,7 @@ include('gpio_rev.php');
     <form action="" method="post">
 	<td><input type="image" name="triggerexit" value="off" src="media/ico/Close-2-icon.png" title="Back"  onclick="this.form.submit()" /><td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="buzzer" value="<?php echo $buzzer; ?>"/>
 	<input type="hidden" name="triggerexit" value="triggerexit" />
     </form>
     <td>Status: OFF</td>

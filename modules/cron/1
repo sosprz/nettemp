@@ -2,8 +2,8 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 $dir/modules/sensors/temp_dev_read 
+$dir/modules/gpio/gpio2 check
 $dir/modules/view/view_gen 
 $dir/modules/highcharts/highcharts
-$dir/modules/gpio/gpio2 check
 $dir/modules/tools/system_stats
 $dir/modules/kwh/highcharts

@@ -20,9 +20,9 @@ if ($simpleoff == "off")  {
 $bi = isset($_POST['bi']) ? $_POST['bi'] : '';
 if ($bi == "bi")  {
     if ($a['rev'] == 'on') {
-    exec("/usr/local/bin/gpio -g write $gpio_post 0 && sleep 1 && /usr/local/bin/gpio -g write $gpio_post 1");
+    exec("/usr/local/bin/gpio -g write $gpio_post 0 &&  /usr/local/bin/gpio -g write $gpio_post 1");
     } else {
-    exec("/usr/local/bin/gpio -g write $gpio_post 1 && sleep 1 && /usr/local/bin/gpio -g write $gpio_post 0");
+    exec("/usr/local/bin/gpio -g write $gpio_post 1 &&  /usr/local/bin/gpio -g write $gpio_post 0");
     }
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();

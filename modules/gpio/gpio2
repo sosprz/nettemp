@@ -3,13 +3,24 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=$(date +%y%m%d-%H%M)
 
+function buzzer {
+buzzer=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='buzzer'")
+if [ -n "$buzzer" ]
+	    then
+		/usr/local/bin/gpio -g write $buzzer 1 &&  /usr/local/bin/gpio -g write $buzzer 0
+	fi
+}
+
 gpio_on(){
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$1'")
+    
     /usr/local/bin/gpio -g mode $1 output
-    if [ "$rev" = "on" ]; then 
+    if [ "$rev" = "on" ]; then
 	/usr/local/bin/gpio -g write $1 0
+	buzzer	
     elif [ "$rev" = "" ]; then
         /usr/local/bin/gpio -g write $1 1
+	buzzer
     fi
 }
 gpio_off(){
