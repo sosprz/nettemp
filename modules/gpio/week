@@ -1,0 +1,46 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+if [ -z "$gpio" ]
+    then
+	gpio="$1"
+	mode="time"
+fi
+week_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT week_run FROM gpio WHERE gpio='$gpio'")
+if [ "$week_run" = "on" ]; then
+	mo=$(sqlite3 $dir/dbf/nettemp.db "SELECT week_Mon FROM gpio WHERE gpio='$gpio'")
+	tu=$(sqlite3 $dir/dbf/nettemp.db "SELECT week_Thu FROM gpio WHERE gpio='$gpio'")
+	wes=$(sqlite3 $dir/dbf/nettemp.db "SELECT week_Wed FROM gpio WHERE gpio='$gpio'")
+	Thu=$(sqlite3 $dir/dbf/nettemp.db "SELECT week_Thu FROM gpio WHERE gpio='$gpio'")
+	fr=$(sqlite3 $dir/dbf/nettemp.db "SELECT week_Fri FROM gpio WHERE gpio='$gpio'")
+	sa=$(sqlite3 $dir/dbf/nettemp.db "SELECT week_Sat FROM gpio WHERE gpio='$gpio'")
+	su=$(sqlite3 $dir/dbf/nettemp.db "SELECT week_Sun FROM gpio WHERE gpio='$gpio'")
+
+	date2=$(date '+%a')
+
+for i in Mon Tue Wed Thu Fri Sat Sun
+    do 
+	if [ "$i" == "$date2" ]
+	    then
+		if [ "${!i}" == "on" ]
+		    then
+			onoff="on"
+			sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='week on' WHERE gpio='$gpio'"
+		fi
+		break
+	    else 
+		onoff="off"
+	fi
+done
+
+
+    if [ $mode == "time" ]
+	then
+    	    echo $onoff
+    else
+	gpio_$onoff $gpio
+	echo $onoff
+    fi
+
+fi
+

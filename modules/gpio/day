@@ -43,6 +43,7 @@ if [ "$day_run" = "on" ]; then
     	    echo $onoff
     else
 	gpio_$onoff $gpio
+	echo $onoff
     fi
 
 fi
