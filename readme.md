@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.9
+bug fix authmod, gpio temp. Tools > update
+
 8.4.8
 add to gpio week function, buzzer, 3 day zones, 3 sensors for the selection like source.
 

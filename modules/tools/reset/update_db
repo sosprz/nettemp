@@ -47,4 +47,9 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_sensor2 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_onoff2 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_temp2 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op2 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_sensor3 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_onoff3 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_temp3 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op3 type TEXT";
+
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD status type TEXT";

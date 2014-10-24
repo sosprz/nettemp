@@ -126,7 +126,8 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE settings (
    fw TEXT,
    vpn TEXT,
    gpio TEXT,
-   kwh TEXT
+   kwh TEXT,
+   authmod TEXT
   );"
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE fw (
