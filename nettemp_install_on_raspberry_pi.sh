@@ -113,17 +113,17 @@ then
 	cd wiringPi
 	./build
     fi
-    echo -e "${GREEN}Add watchdog${R}"
-    update-rc.d watchdog defaults
-	if cat /etc/modules |grep bcm2708_wdog 1> /dev/null
-	    then 
-		echo "bcm2708_wdog exist in file"
-	else 
-		echo "bcm2708_wdog" | sudo tee -a /etc/modules
-	fi
-	    sed -i -e '10s/#max-load-1/max-load-1/' /etc/watchdog.conf 
-	    sed -i -e '23s/#watchdog-device/watchdog-device/' /etc/watchdog.conf 
-	    /etc/init.d/watchdog start
+#    echo -e "${GREEN}Add watchdog${R}"
+#    update-rc.d watchdog defaults
+#	if cat /etc/modules |grep bcm2708_wdog 1> /dev/null
+#	    then 
+#		echo "bcm2708_wdog exist in file"
+#	else 
+#		echo "bcm2708_wdog" | sudo tee -a /etc/modules
+#	fi
+#	    sed -i -e '10s/#max-load-1/max-load-1/' /etc/watchdog.conf 
+#	    sed -i -e '23s/#watchdog-device/watchdog-device/' /etc/watchdog.conf 
+#	    /etc/init.d/watchdog start
 fi
 
 echo -e "${GREEN}Add 1-wire modules${R}"
