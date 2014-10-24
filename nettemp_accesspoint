@@ -30,6 +30,9 @@ EOT
 
 sed -i 's/#DAEMON_CONF=""/DAEMON_CONF="\/etc\/hostapd\/hostapd.conf"/g' /etc/default/hostapd
 
+sed -i 's/INTERFACES="auto"/INTERFACES="eth0"/g' /etc/default/ifplugd
+sed -i 's/HOTPLUG_INTERFACES="auto"/HOTPLUG_INTERFACES="eth0"/g' /etc/default/ifplugd
+
 service hostapd restart
 
 sed -i '$ainterface=wlan0' /etc/dnsmasq.conf
