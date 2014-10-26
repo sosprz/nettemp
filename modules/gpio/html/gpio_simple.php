@@ -3,19 +3,17 @@
 
 $simpleon = isset($_POST['simpleon']) ? $_POST['simpleon'] : '';
 if ($simpleon == "on")  {    
-    //$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET simple='on', status='ON' WHERE gpio='$gpio_post'") or die("PDO exec error");
-    //$db = null;
-    //header("location: " . $_SERVER['REQUEST_URI']);
-    //exit();
+    include('gpio_on.php');
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
     }
 $simpleoff = isset($_POST['simpleoff']) ? $_POST['simpleoff'] : '';
 if ($simpleoff == "off")  {
-    //$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET simple='off', status='OFF' WHERE gpio='$gpio_post'") or die("PDO exec error");
-    $db = null;
-    //header("location: " . $_SERVER['REQUEST_URI']);
-    //exit();
+    include('gpio_off.php');
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
     }
 $bi = isset($_POST['bi']) ? $_POST['bi'] : '';
 if ($bi == "bi")  {
@@ -39,13 +37,6 @@ if (($simpleexit == "simpleexit") ){
     exit();
     }
 
-include('gpio_onoff.php');
-
-   //$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-   //$sth = $db->prepare("select * from gpio where gpio='$gpio'");
-   //$sth->execute();
-   //$result = $sth->fetchAll();    
-   //foreach ($result as $a) { 
         if ( $a['simple'] == "on" ) { 
 
 ?>
@@ -53,7 +44,6 @@ include('gpio_onoff.php');
     <form action="" method="post">
     <td><input type="image" src="media/ico/Button-Turn-Off-icon.png" title="Simple on/off" onclick="this.form.submit()" /></td>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    <input type="hidden" name="off" value="off" />
     <input type="hidden" name="simpleoff" value="off" />
     </form>
 <?php 
@@ -78,7 +68,6 @@ include('gpio_rev.php');
 <form action="" method="post">
     <td><input type="image" src="media/ico/Button-Turn-On-icon.png" title="Simple on/off" onclick="this.form.submit()" /></td>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    <input type="hidden" name="on" value="on" />
     <input type="hidden" name="simpleon" value="on" />
 </form>
     <?php 

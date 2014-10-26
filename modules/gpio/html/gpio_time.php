@@ -3,9 +3,7 @@
 
 $timeexit = isset($_POST['timeexit']) ? $_POST['timeexit'] : '';
 if ($timeexit == "timeexit")  {
-//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET mode='' WHERE gpio='$gpio_post'") or die("exec error");
-//    $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
@@ -14,27 +12,25 @@ if ($timeexit == "timeexit")  {
 $time_offset = isset($_POST['time_offset']) ? $_POST['time_offset'] : '';
 $timerun = isset($_POST['timerun']) ? $_POST['timerun'] : '';
 if ($timerun == "timerun") {
+    include('gpio_on.php');
     $date = new DateTime();
     $time_start=$date->getTimestamp();
-//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET time_run='on', status='ON $time_offset min', time_offset='$time_offset',time_start='$time_start' WHERE gpio='$gpio_post'") or die("exec error");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+
 }
 
 if ($timerun == "off") {
     $date = new DateTime();
+    include('gpio_off.php');
     $time_start=$date->getTimestamp();
-//    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
     $db->exec("UPDATE gpio SET time_run='', time_start='', status='OFF' WHERE gpio='$gpio_post'") or die("exec error");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+
 }
 
-include('gpio_onoff.php');
-
-
-    //$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    //$sth = $db->prepare("select * from gpio where gpio='$gpio'");
-    //$sth->execute();
-    //$result = $sth->fetchAll();    
-    //foreach ($result as $a) { 
     $time_run=$a['time_run'];
     if ($time_run == 'on') { 
 ?>
@@ -65,7 +61,6 @@ include('gpio_rev.php');
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
 	<input type="hidden" name="timerun" value="timerun" />
-	<input type="hidden" name="on" value="on" />
     </form>
 <?php 
     }

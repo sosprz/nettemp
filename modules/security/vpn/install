@@ -8,7 +8,7 @@ if [ $USER != 'root' ]; then
     exit
 fi
 
-$dir/modules/vpn/ca
+$dir/modules/security/vpn/ca
 
 #CREATE openvpn.conf
 cat <<EOT > /etc/openvpn/openvpn.conf
