@@ -1,3 +1,4 @@
+#htaccess for apache
 Options FollowSymLinks
 RewriteEngine on
 #RewriteBase /

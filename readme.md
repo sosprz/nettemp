@@ -24,8 +24,8 @@ Debian, RaspberryPi:
 	
 	sudo apt-get update
 	sudo apt-get install ca-certificates
-	wget https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
-	wget --no-check-certificate https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
+	wget https://raw.github.com/sosprz/nettemp/master/other/nettemp_install_on_raspberry_pi.sh
+	wget --no-check-certificate https://raw.github.com/sosprz/nettemp/master/other/nettemp_install_on_raspberry_pi.sh
 	chmod 755 nettemp_install_on_raspberry_pi.sh
 	./nettemp_install_on_raspberry_pi.sh
     
@@ -35,7 +35,7 @@ OpenWRT, beta version:
 	
 	opkg update
 	opkg install wget
-	wget --no-check-certificate https://raw.githubusercontent.com/sosprz/nettemp/beta/nettemp_install_on_openwrt.sh
+	wget --no-check-certificate https://raw.githubusercontent.com/sosprz/nettemp/beta/other/nettemp_install_on_openwrt.sh
 	chmod 755 nettemp_install_on_openwrt.sh
 	./nettemp_install_on_openwrt.sh
 
