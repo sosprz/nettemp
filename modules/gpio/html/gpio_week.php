@@ -77,8 +77,7 @@ $day_zone3e = isset($_POST['day_zone3e']) ? $_POST['day_zone3e'] : '';
 
 $weekrun = isset($_POST['weekrun']) ? $_POST['weekrun'] : '';
 if ($weekrun == "on")  {
-	 include('gpio_on.php');
-    $db->exec("UPDATE gpio SET status='Wait',week_run='on' WHERE gpio='$gpio_post'") or die("exec error");
+	 $db->exec("UPDATE gpio SET status='Wait',week_run='on' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	

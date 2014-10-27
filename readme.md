@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.4.11
+bugfix in week
+add date to footer
+
 8.4.10
 fixes and add function day to week. Now You can set zones in each day in week 
 

@@ -98,7 +98,7 @@ case 'upload': include('modules/tools/backup/html/upload.php'); break;
 
 </div>
 
-	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>version  <?php passthru("awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$' && /usr/bin/git branch |grep [*]|awk '{print $2}';"); ?></td></tr></table></center>
+	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>version  <?php passthru("awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$' && /usr/bin/git branch |grep [*]|awk '{print $2}';"); ?></td><td><?php $today=date("H:i:s"); echo $today;?></td></tr></table></center>
 </div>
 </div>
 <center>
