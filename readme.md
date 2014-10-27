@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.10
+fixes and add function day to week. Now You can set zones in each day in week 
+
 8.4.9
 bug fix authmod, gpio temp. Tools > update
 

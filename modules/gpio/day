@@ -4,7 +4,7 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 if [ -z "$gpio" ]
     then
 	gpio="$1"
-	mode="temp"
+	mode="simgle"
 fi
 day_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio'")
 if [ "$day_run" = "on" ]; then
@@ -25,20 +25,20 @@ if [ "$day_run" = "on" ]; then
 	date2=$(date +%H%M)
 
 	if [[ "$date2" > "$day_zone1s_cut" && "$date2" < "$day_zone1e_cut" ]]; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON range 1' WHERE gpio='$gpio'"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='on - day range 1' WHERE gpio='$gpio'"
 	    onoff="on"
         elif  [[ "$date2" > "$day_zone2s_cut" && "$date2" < "$day_zone2e_cut" ]]; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON range 2' WHERE gpio='$gpio'"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='on - day range 2' WHERE gpio='$gpio'"
 	    onoff="on"
 	elif [[ "$date2" > "$day_zone3s_cut" && "$date2" < "$day_zone3e_cut" ]]; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON range 3' WHERE gpio='$gpio'"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='on - range 3' WHERE gpio='$gpio'"
 	    onoff="on"
         else
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF not in range' WHERE gpio='$gpio'"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='off - not in day range' WHERE gpio='$gpio'"
 	    onoff="off"
 	fi
 
-    if [ $mode == "temp" ]
+    if [ $mode == "simgle" ]
 	then
     	    echo $onoff
     else

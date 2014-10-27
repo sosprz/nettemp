@@ -1,19 +1,29 @@
 <?php
-$download = isset($_POST['download']) ? $_POST['download'] : '';
-if ($download == "download") { 
-$path = "/etc/openvpn/";
-$filename = "ca.crt";
-
-header("Content-Type:image/file");
-header("Content-Disposition: attachment; filename=".$filename);
-header("Cache-control: private");
-header('X-Sendfile: '.$path);
-readfile($path);
-exit;
-}
+$homepage = file_get_contents('/etc/openvpn/ca.crt');
 ?>
 
-<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
-<input type="hidden" name="download" value="download">
-<td><input  type="submit" value="Download ca.crt"  /></td>
-</form>
+<script language="javascript"> 
+function toggle() {
+    var ele = document.getElementById("toggleText");
+    var text = document.getElementById("displayText");
+    if(ele.style.display == "block") {
+	    ele.style.display = "none";
+	text.innerHTML = "<button>Show ca.crt</button>";
+    }
+    else {
+	ele.style.display = "block";
+	text.innerHTML = "<button>Hide ca.crt</button>";
+    }
+} 
+</script>
+ 
+<a id="displayText" href="javascript:toggle();"><button>Show ca.crt</button></a>
+<div id="toggleText" style="display: none">
+<br>
+Copy and paste bellow lines to ca.crt file.
+<br>
+<pre>
+<?php  echo $homepage; ?>
+</pre>
+
+</div>
