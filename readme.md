@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.12
+add files required to build nettempUSB system.
+
 8.4.11
 bugfix in week
 add date to footer
