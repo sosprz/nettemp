@@ -11,6 +11,12 @@ sed -i '$aiface wlan0 inet static' /etc/network/interfaces
 sed -i '$aaddress 192.168.0.1' /etc/network/interfaces
 sed -i '$anetmask 255.255.255.0' /etc/network/interfaces
 
+
+sed -i 's/INTERFACES="auto"/INTERFACES="eth0"/g' /etc/default/ifplugd
+sed -i 's/HOTPLUG_INTERFACES="all"/HOTPLUG_INTERFACES="eth0"/g' /etc/default/ifplugd
+
+service ifplugd restart
+
 ifdown wlan0
 ifup wlan0
 
@@ -32,11 +38,6 @@ EOT
 
 sed -i 's/#DAEMON_CONF=""/DAEMON_CONF="\/etc\/hostapd\/hostapd.conf"/g' /etc/default/hostapd
 
-sed -i 's/INTERFACES="auto"/INTERFACES="eth0"/g' /etc/default/ifplugd
-sed -i 's/HOTPLUG_INTERFACES="auto"/HOTPLUG_INTERFACES="eth0"/g' /etc/default/ifplugd
-
-service hostapd restart
-
 sed -i '$ainterface=wlan0' /etc/dnsmasq.conf
 sed -i '$adhcp-range=192.168.0.1,192.168.0.250,255.255.255.0,1h' /etc/dnsmasq.conf 
 
@@ -47,6 +48,7 @@ sed -i '$a192.168.0.1 nettemp' /etc/hosts
 sed -i '$a192.168.0.1 nettemp.pl' /etc/hosts
 sed -i '$a192.168.0.1 nettemppl' /etc/hosts
 
+service hostapd restart
 service dnsmasq restart
 
 
