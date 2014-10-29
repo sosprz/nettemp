@@ -22,7 +22,7 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	$file = 'tmp/onewire';
 	$current = file_get_contents($file);
 	$current = "$snmp_name\n";
-	file_put_contents($file, $current);
+	file_put_contents($file, $current, FILE_APPEND );
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}	
