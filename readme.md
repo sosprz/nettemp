@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.13
+kwh charts now generate hour charts
+
 8.4.12
 add files required to build nettempUSB system.
 
