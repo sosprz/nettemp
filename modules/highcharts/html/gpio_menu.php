@@ -2,8 +2,8 @@
 
 <table><tr>
 <?php
-foreach(glob("tmp/gpio/*") as $files){
-$v = preg_replace("/[^0-9,.]/", "", basename($files));
+foreach(glob("db/gpio/*") as $files){
+$v = preg_replace("/[^0-9,]/", "", basename($files));
 ?>
 <td><a href="index.php?id=view&type=gpio&gpio=<?php echo $v ?>" ><button>GPIO <?php echo $v ?></button></a></td>
 <?php

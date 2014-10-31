@@ -6,4 +6,5 @@
         else { 
         exec("/usr/local/bin/gpio -g write $gpio_post 1");	
         }
+	exec("modules/gpio/timestamp $gpio_post 1");	
 ?>
