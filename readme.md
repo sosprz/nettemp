@@ -55,6 +55,7 @@ Changelog:
 
 8.4.13
 kwh charts now generate hour charts
+add new function charts from gpio status
 
 8.4.12
 add files required to build nettempUSB system.

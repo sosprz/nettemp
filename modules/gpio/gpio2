@@ -13,7 +13,7 @@ if [ -n "$buzzer" ]
 
 gpio_on(){
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$1'")
-    
+    echo "$[($(date +%s)+7200)*1000],$[1]" >> $dir/tmp/gpio/gpio$1    
     /usr/local/bin/gpio -g mode $1 output
     if [ "$rev" = "on" ]; then
 	/usr/local/bin/gpio -g write $1 0
@@ -25,6 +25,7 @@ gpio_on(){
 }
 gpio_off(){
     rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$1'")
+    echo "$[($(date +%s)+7200)*1000],$[0]" >> $dir/tmp/gpio/gpio$1    
     /usr/local/bin/gpio -g mode $1 output
     if [ "$rev" = "on" ]; then 
         /usr/local/bin/gpio -g write $1 1

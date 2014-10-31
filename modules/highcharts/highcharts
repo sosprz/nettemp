@@ -46,6 +46,22 @@ echo "$date Highcharts - generated" >> $dir/tmp/log.txt
        fi
     done
 
+
+# gpio
+mkdir $dir/tmp/gpio 2>/dev/null
+mkdir $dir/db/gpio 2>/dev/null
+gc=$(ls /var/www/nettemp/tmp/gpio/ |grep gpio[0-9])
+for i in $gc
+    do
+	middle=$(cat $dir/tmp/gpio/$i | awk -F "," '{print "["$1","$2"]," }')
+	echo -e "[ ${middle%?} ]" > $dir/db/gpio/$i.json
+	unset middle
+done
+
+
+
+
+
 else 
     echo "highcharts off"
 fi
