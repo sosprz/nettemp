@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.14
+change time settings in kwh charts and gpio charts 
+
 8.4.13
 kwh charts now generate hour charts
 add new function charts from gpio status
