@@ -12,8 +12,10 @@ date=`date +%y%m%d-%H%M`
 
 onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM settings"`
 
-mkdir -p $dir/tmp/mail
-dirs=/tmp/mail
+dirs=$dir/tmp/mail
+mkdir -p $dirs/hour
+
+
 
 
 if [ "$onoff" == "on" ]; then
@@ -37,7 +39,7 @@ if [ $create_mail == on ]; then
 	    tmp=`echo $line | awk 'BEGIN {FS="|"}{print $4}'`
 	    tmp_min=`echo $line | awk 'BEGIN {FS="|"}{print $5}'`
 	    tmp_max=`echo $line | awk 'BEGIN {FS="|"}{print $6}'`
-	    plik=$dir/$dirs/temp-$date
+	    plik=$dirs/$name.mail
 	    touch $plik
 	if [ ! -s $plik  ]; then 
 	    echo "From: Nettemp Device <$user>" > $plik
@@ -55,9 +57,18 @@ if [ $create_mail == on ]; then
 	    cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
 	    if [ $cr_ge == 1 ]; then
 		if echo $name |grep lux; then
-		    echo "High Lux in: $name $tmp" >> $plik; 
-		else  
+		    echo "High Lux in: $name $tmp" >> $plik;
+		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET send='on' WHERE name='$name'"
+		else
 		    echo "High Temperature in: $name $tmp C" >> $plik; 
+		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET send='on' WHERE name='$name'"
+		fi
+	    else
+		status=`sqlite3 $dir/dbf/nettemp.db "SELECT send FROM sensors WHERE name='$name'"`
+		if [ "$status" == "on" ]
+		    then
+			echo "Recovery: $name $tmp C" >> $plik; 
+			sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET send='' WHERE name='$name'"
 		fi
 	    fi
 	fi
@@ -66,41 +77,79 @@ if [ $create_mail == on ]; then
 	    cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
 	    if [ $cr_le == 1 ]; then  
 		if echo $name |grep lux; then
-		    echo "Low Lux in: $name $tmp" >> $plik; 
-		else  
-		    echo "Low Temperature in: $name $tmp C" >> $plik; 
+		    echo "Low Lux in: $name $tmp" >> $plik;
+		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET send='on' WHERE name='$name'"
+		else
+		    echo "Low Temperature in: $name $tmp C" >> $plik;
+		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET send='on' WHERE name='$name'"
 		fi
-		
+	    else
+	    status=`sqlite3 $dir/dbf/nettemp.db "SELECT send FROM sensors WHERE name='$name'"`
+		if [ "$status" == "on" ]
+		    then
+			echo "Recovery: $name $tmp C" >> $plik; 
+			sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET send='' WHERE name='$name'"
+		fi
 	    fi
 	fi
+
+	# clean if empty
+	if [ ! `cat $plik |wc -l` -gt 4 ]
+	    then
+		rm $dirs/hour/$name.mail
+	fi
+	#clean if off 
+	if [ ! -n "$tmp_max" ] && [ ! -n "$tmp_min" ] && [ -e $plik ]
+	    then
+		rm $plik
+	fi
+
     done 
 
 fi #on_off
 
 
-if [ $send_mail == on ]; then  
-    pliki_kolejka=`ls $dir/$dirs |wc -l`
-    if [ $pliki_kolejka -gt 0  ] ; then
-    dir_ls=`ls $dir/$dirs`
-    for kolejka in $dir_ls  
-	do
-    	if [ `cat $dir/$dirs/$kolejka |wc -l` -gt 4 ] ; then 
-    	    chmod 777 $dir/$dirs/$kolejka
-	    cat $dir/$dirs/$kolejka | msmtp --maildomain=default --read-envelope-from --host=$host --port=$port --auth=on --user=$user \
-    	    --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
-    	    --tls=on --tls-starttls=on --tls-certcheck=off \
-    	    --timeout=10 -t $get_mail
-	    echo "$date mail - send mail to $get_mail" >> $dir/tmp/log.txt
-	    rm $dir/$dirs/$kolejka
-	else rm $dir/$dirs/$kolejka
+function send {
+cat $1 | msmtp --maildomain=default --read-envelope-from --host=$host --port=$port --auth=on --user=$user \
+    		    --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
+    		    --tls=on --tls-starttls=on --tls-certcheck=off \
+    		    --timeout=10 -t $get_mail
+		    echo "$date mail - send mail to $get_mail" >> $dir/tmp/log.txt
+} 
+
+export -f send #export for find
+
+
+    if [ $send_mail == "on" ]; then
+###################################################
+
+	dir_mail=`ls $dirs |grep mail |wc -l `
+	if [ "$dir_mail" -gt 0  ] ; then
+	        for kolejka in $(ls $dirs |grep mail)
+		do
+    		if [ ! -e $dirs/hour/$kolejka ]  ; then 
+    		    chmod 777 $dirs/$kolejka
+		    send $dirs/$kolejka    
+		    mv $dirs/$kolejka $dirs/hour
+		else
+		    if cat $dirs/$kolejka|grep Recovery
+			then
+			    send $dirs/$kolejka
+			    rm $dirs/hour/$kolejka
+			    rm $dirs/$kolejka
+		    else
+			rm $dirs/$kolejka
+		    fi
+		    
+		fi
+		done
 	fi
-	done
-    else 
-    echo "Brak pliku w $pliki_kolejka"
+	find $dirs/hour -mmin +59 -type f -name "*.mail" | while read file; do send "$file"; done
+
+##################################################
     fi
-fi #on_off
-    else 
-    echo "mail off"
-fi #onoff
+else 
+	echo "mail off"
+fi #last
 
 

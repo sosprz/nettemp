@@ -19,7 +19,7 @@ if ( $add == "ADD") {
 <span class="belka">&nbsp Free gpio <span class="okno">
 <?php
     exec("/usr/local/bin/gpio -v |grep B+", $bplus );
-    exec("/usr/local/bin/gpio -v |grep B2", $btwo );
+    exec("/usr/local/bin/gpio -v |grep 'Model B, Revision: 2'", $btwo );
     if (!empty($bplus[0]))
     {
         $gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);

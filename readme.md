@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.4.16
+Add to mail sender: Recovery nitification, send once on start and later every hour.
+fix Rpi model check
+
 8.4.15
 fix html exit in temp function
 fix mail sender adress
