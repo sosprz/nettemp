@@ -99,6 +99,7 @@ echo -e "${GREEN}Create nettemp database${R}"
 echo -e "${GREEN}Add cron line${R}"
 echo "*/1 * * * * /var/www/nettemp/modules/cron/1" > /var/spool/cron/crontabs/root
 echo "*/5 * * * * /var/www/nettemp/modules/cron/5" >> /var/spool/cron/crontabs/root
+echo "0 * * * * /var/www/nettemp/modules/cron/1h" >> /var/spool/cron/crontabs/root
 echo "@reboot /var/www/nettemp/modules/cron/r" >> /var/spool/cron/crontabs/root
 chmod 600 /var/spool/cron/crontabs/root
 
