@@ -143,7 +143,7 @@ cat $1 | msmtp --maildomain=default --read-envelope-from --host=$host --port=$po
 		fi
 		done
 	fi
-	find $dirs/hour -mmin +1 -type f -name "*.mail" | while read file; do send "$file"; done
+	find $dirs/hour -mmin +59 -type f -name "*.mail" | while read file; do send "$file"; done
 
 ##################################################
     fi
