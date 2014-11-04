@@ -18,14 +18,19 @@ if ( $add == "ADD") {
 ?>
 <span class="belka">&nbsp Free gpio <span class="okno">
 <?php
-    exec("/usr/local/bin/gpio -v |grep B+", $rpicheck );
-    if (!empty($rpicheck[0]))
+    exec("/usr/local/bin/gpio -v |grep B+", $bplus );
+    exec("/usr/local/bin/gpio -v |grep B2", $btwo );
+    if (!empty($bplus[0]))
     {
         $gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
     }
+    elseif (!empty($btwo[0]))
+    {
+        $gpiolist = array(4,17,27,22,18,23,24,25);
+    }
     else
     {
-		$gpiolist = array(4,17,18,21,22,23,24,25);
+		$gpiolist = array(4,17,21,22,18,23,24,25);
     } ?>
 <table><tr>
 <?php

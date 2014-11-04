@@ -53,6 +53,11 @@ USERS:
 
 Changelog:
 
+8.4.15
+fix html exit in temp function
+fix mail sender adress
+add gpio numbers to RPi B2
+
 8.4.14
 change time settings in kwh charts and gpio charts 
 

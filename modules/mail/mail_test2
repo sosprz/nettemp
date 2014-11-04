@@ -1,5 +1,7 @@
 #! /bin/bash -x
 
+user="nettempnotifications@gmail.com"
+
 from="nettemp device"
 reci="test@techfreak.pl"
 subject="Testowy mail"
@@ -7,7 +9,7 @@ body="blablabla"
 
 host="smtp.gmail.com"
 port="587"
-user="nettempnotifications@gmail.com"
+
 
 
 (echo "From: $from"; echo "To: $reci"; echo "Subject: $subject" ;echo -e "$body";) | msmtp \

@@ -103,6 +103,7 @@ include('gpio_rev.php');
 <form action="" method="post">
     <td><input type="image" name="tempexit" value="tempexit" src="media/ico/Close-2-icon.png" title="Back"  onclick="this.form.submit()" /><td>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="tempexit" value="tempexit" /> 
 </form>
 <form action="" method="post">
 	    <td><img  src="media/ico/day-icon.png" title="Day plan" /></td>
