@@ -91,8 +91,8 @@ CREATE TABLE sensors (
   year TEXT,
   color TEXT,
   type TEXT,
-  gpio TEXT, 
-  send type TEXT);
+  gpio TEXT
+ );
 CREATE TABLE settings (
    id INTEGER PRIMARY KEY,
    mail TEXT,

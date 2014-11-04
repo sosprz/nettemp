@@ -52,8 +52,6 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_onoff3 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_temp3 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op3 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD status type TEXT";
-sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD send type TEXT";
-
 
 if ! cat /var/spool/cron/crontabs/root |grep  'cron/1h'
     then
