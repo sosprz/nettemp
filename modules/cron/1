@@ -7,3 +7,4 @@ $dir/modules/view/view_gen
 $dir/modules/highcharts/highcharts
 $dir/modules/tools/system_stats
 $dir/modules/kwh/highcharts
+$dir/modules/mail/mail_send

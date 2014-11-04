@@ -96,12 +96,12 @@ if [ $create_mail == on ]; then
 	# clean if empty
 	if [ ! `cat $plik |wc -l` -gt 4 ]
 	    then
-		rm $dirs/hour/$name.mail
+		rm $plik
 	fi
 	#clean if off 
 	if [ ! -n "$tmp_max" ] && [ ! -n "$tmp_min" ] && [ -e $plik ]
 	    then
-		rm $plik
+		rm $dirs/hour/$name.mail
 	fi
 
     done 
@@ -117,7 +117,6 @@ cat $1 | msmtp --maildomain=default --read-envelope-from --host=$host --port=$po
 		    echo "$date mail - send mail to $get_mail" >> $dir/tmp/log.txt
 } 
 
-export -f send #export for find
 
 
     if [ $send_mail == "on" ]; then
@@ -144,7 +143,7 @@ export -f send #export for find
 		fi
 		done
 	fi
-	find $dirs/hour -mmin +59 -type f -name "*.mail" | while read file; do send "$file"; done
+	find $dirs/hour -mmin +1 -type f -name "*.mail" | while read file; do send "$file"; done
 
 ##################################################
     fi
