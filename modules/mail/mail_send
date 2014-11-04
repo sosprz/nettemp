@@ -1,25 +1,15 @@
 #! /bin/bash 
 
-# for debug
-#create on/off
-create_mail=on
-#send on/off
-send_mail=on
-
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
 
 onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM settings"`
 
-dirs=$dir/tmp/mail
-mkdir -p $dirs/hour
-
-
-
-
 if [ "$onoff" == "on" ]; then
 
+dirs=$dir/tmp/mail
+mkdir -p $dirs/hour
 date2=`date +%Y%m%d-%H:%M`
 get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }'`
 
@@ -29,123 +19,90 @@ user=`sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
 password=`sqlite3 $dir/dbf/nettemp.db "SELECT password FROM mail_settings"`
 address=`sqlite3 $dir/dbf/nettemp.db "SELECT address FROM mail_settings"`
 
+function send {
+cat $1 | msmtp --maildomain=default --read-envelope-from --host=$host --port=$port --auth=on --user=$user \
+    		    --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
+    		    --tls=on --tls-starttls=on --tls-certcheck=off \
+    		    --timeout=10 -t $get_mail
+}
+
+function file {
+> $plik
+echo "From: Nettemp Device <$user>" > $plik
+echo "To: $get_mail" >> $plik
+echo "Subject: Notification from nettemp" >> $plik
+echo "" >> $plik
+chmod 777 $plik
+}
 
 
-
-if [ $create_mail == on ]; then
-    for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'"| sed 's/ /_/g'`; 
+for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'"| sed 's/ /_/g'`; 
     do
 	    name=`echo $line | awk 'BEGIN {FS="|"}{print $2}'`
 	    tmp=`echo $line | awk 'BEGIN {FS="|"}{print $4}'`
 	    tmp_min=`echo $line | awk 'BEGIN {FS="|"}{print $5}'`
 	    tmp_max=`echo $line | awk 'BEGIN {FS="|"}{print $6}'`
 	    plik=$dirs/$name.mail
-	    touch $plik
-	if [ ! -s $plik  ]; then 
-	    echo "From: Nettemp Device <$user>" > $plik
-	    echo "To: $get_mail" >> $plik
-	    echo "Subject: Notification from nettemp" >> $plik
-	    echo "" >> $plik
-	    fi
+	    plik2=$dirs/hour/$name.mail
+	
+	    
 
-	if [ "$tmp" == "error" ]; then
+	if [ "$tmp" == "error" ]
+	then
+	    file
 	    echo "Error in $name" >> $plik; 
 	fi
-
-	if [ -n "$tmp_max" ]; then
+	if [ -n "$tmp_max" ] || [ -n "$tmp_min" ] 
+	then
 	    #cr_ge=`echo "$tmp >= $tmp_max" | bc` #OLD BC
 	    cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
-	    if [ $cr_ge == 1 ]; then
-		if echo $name |grep lux; then
-		    echo "High Lux in: $name $tmp" >> $plik;
-		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET send='on' WHERE name='$name'"
-		else
-		    echo "High Temperature in: $name $tmp C" >> $plik; 
-		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET send='on' WHERE name='$name'"
-		fi
-	    else
-		status=`sqlite3 $dir/dbf/nettemp.db "SELECT send FROM sensors WHERE name='$name'"`
-		if [ "$status" == "on" ]
-		    then
-			echo "Recovery: $name $tmp C" >> $plik; 
-			sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET send='' WHERE name='$name'"
-		fi
-	    fi
-	fi
-	if [ -n "$tmp_min" ]; then
 	    #cr_le=`echo "$tmp <= $tmp_min" | bc` #OLD BC
 	    cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
-	    if [ $cr_le == 1 ]; then  
-		if echo $name |grep lux; then
-		    echo "Low Lux in: $name $tmp" >> $plik;
-		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET send='on' WHERE name='$name'"
-		else
-		    echo "Low Temperature in: $name $tmp C" >> $plik;
-		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET send='on' WHERE name='$name'"
+	    
+	    if  [ $cr_ge == 1 ] 
+	    then
+		if [ ! -f $plik2 ]
+		then
+		    file
+		    echo "High value in: $name $tmp C" >> $plik; 
+		    if send $plik    
+		    then
+    		        mv $plik $dirs/hour
+		    fi
+		fi
+	    elif [ $cr_le == 1 ] 
+	    then
+		if [ ! -f $plik2 ]
+		then
+		    file
+		    echo "Low value in: $name $tmp C" >> $plik;
+		    if send $plik    
+		    then
+    		        mv $plik $dirs/hour
+		    fi
 		fi
 	    else
-	    status=`sqlite3 $dir/dbf/nettemp.db "SELECT send FROM sensors WHERE name='$name'"`
-		if [ "$status" == "on" ]
+		if [ -f $plik2 ]
+		then
+		    file
+		    echo "Recovery: $name $tmp C" >> $plik; 
+		    if send $plik
 		    then
-			echo "Recovery: $name $tmp C" >> $plik; 
-			sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET send='' WHERE name='$name'"
+			rm $plik2
+			rm $plik
+		    fi
 		fi
 	    fi
 	fi
 
-	# clean if empty
-	if [ ! `cat $plik |wc -l` -gt 4 ]
-	    then
-		rm $plik
-	fi
-	#clean if off 
-	if [ ! -n "$tmp_max" ] && [ ! -n "$tmp_min" ] && [ -e $plik ]
+	#clean if off
+	if [ -z "${tmp_max// }" ] && [ -z "${tmp_min// }" ] && [ -e $dirs/hour/$name.mail ]
 	    then
 		rm $dirs/hour/$name.mail
 	fi
 
-    done 
+done 
 
-fi #on_off
-
-
-function send {
-cat $1 | msmtp --maildomain=default --read-envelope-from --host=$host --port=$port --auth=on --user=$user \
-    		    --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
-    		    --tls=on --tls-starttls=on --tls-certcheck=off \
-    		    --timeout=10 -t $get_mail
-		    echo "$date mail - send mail to $get_mail" >> $dir/tmp/log.txt
-} 
-
-
-
-    if [ $send_mail == "on" ]; then
-###################################################
-
-	dir_mail=`ls $dirs |grep mail |wc -l `
-	if [ "$dir_mail" -gt 0  ] ; then
-	        for kolejka in $(ls $dirs |grep mail)
-		do
-    		if [ ! -e $dirs/hour/$kolejka ]  ; then 
-    		    chmod 777 $dirs/$kolejka
-		    send $dirs/$kolejka    
-		    mv $dirs/$kolejka $dirs/hour
-		else
-		    if cat $dirs/$kolejka|grep Recovery
-			then
-			    send $dirs/$kolejka
-			    rm $dirs/hour/$kolejka
-			    rm $dirs/$kolejka
-		    else
-			rm $dirs/$kolejka
-		    fi
-		    
-		fi
-		done
-	fi
-
-##################################################
-    fi
 else 
 	echo "mail off"
 fi #last

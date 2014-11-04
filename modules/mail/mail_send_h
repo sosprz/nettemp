@@ -17,7 +17,6 @@ cat $1 | msmtp --maildomain=default --read-envelope-from --host=$host --port=$po
 	        --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
 	        --tls=on --tls-starttls=on --tls-certcheck=off \
 	        --timeout=10 -t $get_mail
-	    echo "$date mail - send mail to $get_mail" >> $dir/tmp/log.txt
 } 
 
 ls $dirs/hour |grep mail | while read file; do send "$dirs/hour/$file"; done
