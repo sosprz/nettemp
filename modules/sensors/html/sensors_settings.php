@@ -53,7 +53,7 @@ if ( $rrd == 'on' ) { ?>
 <tr>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <td><img src="media/ico/TO-220-icon.png" /></td>
-<td><input type="text" name="name_new" size="12" maxlength="10" value="<?php echo $a["name"]."\t"; ?>" /></td>
+<td><input type="text" name="name_new" size="12" maxlength="30" value="<?php echo $a["name"]."\t"; ?>" /></td>
 <?php if ( $rrd == 'on' ) { ?>
 <td><input type='color' name='color' value ="<?php echo $a["color"]; ?>" size="7" />
 <?php } ?>
