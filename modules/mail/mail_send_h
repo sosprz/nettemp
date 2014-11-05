@@ -19,4 +19,7 @@ cat $1 | msmtp --maildomain=default --read-envelope-from --host=$host --port=$po
 	        --timeout=10 -t $get_mail
 } 
 
-ls $dirs/hour |grep mail | while read file; do send "$dirs/hour/$file"; done
+for i in $(ls $dirs/hour |grep mail)
+    do
+	send $dirs/hour/$file
+done

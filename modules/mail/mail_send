@@ -45,23 +45,23 @@ for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'
 	    plik=$dirs/$name.mail
 	    plik2=$dirs/hour/$name.mail
 	
-    if [ "$tmp" == "error" ]
+    if [[ $tmp == "error" ]]
     then
         file
         echo "Error in $name" >> $plik; 
     fi
-    if [ -n "$tmp_max" ] || [ -n "$tmp_min" ] 
+    if [[ -n $tmp_max ]] || [[ -n $tmp_min ]] 
     then
-        cr_ge=`echo "$tmp >= $tmp_max" | bc` #OLD BC
+        cr_ge=`echo "$tmp" >= "$tmp_max" | bc` #OLD BC
         #cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
-        cr_le=`echo "$tmp <= $tmp_min" | bc` #OLD BC
+        cr_le=`echo "$tmp" <= "$tmp_min" | bc` #OLD BC
         #cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
         
-        if  [ $cr_ge == 1 ]
+        if  [[ $cr_ge == 1 ]]
         then
-	if [ -n "$tmp_max" ]
+	if [[ -n $tmp_max ]]
 	then
-	    if [ ! -f $plik2 ]
+	    if [[ ! -f $plik2 ]]
 	    then
 	    file
 	    echo "High value in: $name $tmp C" >> $plik; 
@@ -71,11 +71,11 @@ for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'
 	    fi
 	    fi
 	fi
-        elif [ $cr_le == 1 ] 
+        elif [[ $cr_le == 1 ]]
         then
-	if [ -n "$tmp_min" ]
+	if [[ -n $tmp_min ]]
 	then
-	    if [ ! -f $plik2 ]
+	    if [[ ! -f $plik2 ]]
 	    then
 	    file
 	    echo "Low value in: $name $tmp C" >> $plik;
@@ -86,7 +86,7 @@ for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'
 	    fi
 	fi
         else
-	if [ -f $plik2 ]
+	if [[ -f $plik2 ]]
 	then
 	    file
 	    echo "Recovery: $name $tmp C" >> $plik; 
@@ -100,7 +100,7 @@ for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'
     fi
 
     #clean if off
-    if [ -z "${tmp_max// }" ] && [ -z "${tmp_min// }" ] && [ -e $dirs/hour/$name.mail ]
+    if [[ -z $tmp_max ]] && [[ -z $tmp_min ]] && [[ -e $dirs/hour/$name.mail ]]
         then
 	rm $dirs/hour/$name.mail
     fi
