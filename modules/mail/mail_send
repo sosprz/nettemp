@@ -57,37 +57,36 @@ for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'
         #cr_le=$(echo $tmp <= $tmp_min | bc) #OLD BC
         cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
         
-        if  [ "$cr_ge" == "1" ]
-        then
-	if [ -n "$tmp_max" ]
+        if  [ "$cr_ge" == "1" ] && [ -n "$tmp_max" ]
 	then
+	    echo HIGH $name
 	    if [ ! -f "$plik2" ]
 	    then
-	    file
-	    echo "High value in: $name $tmp C" >> $plik; 
-	    if send $plik    
-	    then
+		echo NEW MV
+		file
+		echo "High value in: $name $tmp C" >> $plik; 
+		if send $plik    
+		then
 	    	    mv $plik $dirs/hour
+		fi
 	    fi
-	    fi
-	fi
-        elif [ "$cr_le" == "1" ]
-        then
-	if [ -n "$tmp_min" ]
+        elif [ "$cr_le" == "1" ] && [ -n "$tmp_min" ]
 	then
+	    echo LOW $name
 	    if [ ! -f "$plik2" ]
 	    then
-	    file
-	    echo "Low value in: $name $tmp C" >> $plik;
-	    if send $plik    
-	    then
+		echo NEW MV
+		file
+		echo "Low value in: $name $tmp C" >> $plik;
+		if send $plik    
+		then
 	    	    mv $plik $dirs/hour
+		fi
 	    fi
-	    fi
-	fi
         else
 	if [ -f "$plik2" ]
 	then
+	    echo RECOVERY $name
 	    file
 	    echo "Recovery: $name $tmp C" >> $plik; 
 	    if send $plik
