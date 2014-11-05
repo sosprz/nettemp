@@ -53,7 +53,7 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_temp3 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op3 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD status type TEXT";
 
-if  cat /var/spool/cron/crontabs/root |grep -q 'cron/1h'
+if  sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/1h'
     then
 	echo ok
     else
