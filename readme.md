@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.17
+fix RDD (color problem)
+
 8.4.16
 Add to mail sender: Recovery nitification, send once on start and later every hour.
 fix Rpi model check

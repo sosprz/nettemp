@@ -55,7 +55,9 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 	if (!empty($name_new) && !empty($name_id) && ($_POST['id_name2'] == "id_name3") ){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE sensors SET name='$name_new' WHERE id='$name_id'") or die ($db->lastErrorMsg());
+	if (!empty($color)) {
 	$db->exec("UPDATE sensors SET color='$color' WHERE id='$name_id'") or die ($db->lastErrorMsg());
+	}
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	 } 
