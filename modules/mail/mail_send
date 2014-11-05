@@ -52,10 +52,10 @@ for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'
     fi
     if [ -n "$tmp_max" ] || [ -n "$tmp_min" ] 
     then
-        #cr_ge=`echo "$tmp >= $tmp_max" | bc` #OLD BC
-        cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
-        #cr_le=`echo "$tmp <= $tmp_min" | bc` #OLD BC
-        cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
+        cr_ge=`echo "$tmp >= $tmp_max" | bc` #OLD BC
+        #cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
+        cr_le=`echo "$tmp <= $tmp_min" | bc` #OLD BC
+        #cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
         
         if  [ $cr_ge == 1 ]
         then
@@ -104,13 +104,6 @@ for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'
         then
 	rm $dirs/hour/$name.mail
     fi
-
-
-	#clean if off
-	if [ -z "${tmp_max// }" ] && [ -z "${tmp_min// }" ] && [ -e $dirs/hour/$name.mail ]
-	    then
-		rm $dirs/hour/$name.mail
-	fi
 
 done 
 
