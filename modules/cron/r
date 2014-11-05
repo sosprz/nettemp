@@ -5,3 +5,4 @@ echo "$(date +\%y\%m\%d-\%H\%M) RPI rebooted" >> $dir/tmp/log.txt
 $dir/modules/tools/restart
 $dir/modules/kwh/reset
 
+echo ds2482 0x18 > /sys/bus/i2c/devices/i2c-1/new_device

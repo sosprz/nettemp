@@ -55,6 +55,7 @@ Changelog:
 
 8.4.17
 fix RDD (color problem)
+add WAL mode to sqlite3
 
 8.4.16
 Add to mail sender: Recovery nitification, send once on start and later every hour.
