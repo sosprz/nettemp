@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.18
+optimize week function in gpio
+
 8.4.17
 fix RDD (color problem)
 add WAL mode to sqlite3
