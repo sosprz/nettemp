@@ -46,11 +46,19 @@ for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'
 	    plik2=$dirs/hour/$name.mail
 	
     if [ "$tmp" == "error" ]
+    #if [ "error" == "error" ]
     then
-        file
-        echo "Error in $name" >> $plik; 
-    fi
-    if [ -n "$tmp_max" ] || [ -n "$tmp_min" ] 
+	if [ ! -f "$plik2" ]
+	    then
+		echo NEW ERROR
+		file
+		echo "Error in $name" >> $plik; 
+		if send $plik    
+		then
+	    	    mv $plik $dirs/hour
+		fi
+	    fi
+    elif [ -n "$tmp_max" ] || [ -n "$tmp_min" ] 
     then
         #cr_ge=$(echo $tmp >= $tmp_max | bc) #OLD BC
         cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
