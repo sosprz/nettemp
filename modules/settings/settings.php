@@ -55,6 +55,7 @@ $hc=$a["highcharts"];
 $ss=$a["sms"];
 $ms=$a["mail"];
 $gpio=$a["gpio"];
+
 }
 ?>
 
@@ -109,7 +110,11 @@ $gpio=$a["gpio"];
     <input type="hidden" name="gpio_onoff1" value="gpio_onoff2" />
     </form>
     </table>
+<?php
+if ($gpio == "on" ) { 
+    include('gpio_options.php');
+     } 
+?>
 </span></span>
-
 <?php } 
 else { header("Location: denied"); }; ?>

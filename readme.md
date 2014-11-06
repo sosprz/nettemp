@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.19
+add to option to settings->gpio strong_pullup=0 to ds2482
+
 8.4.18
 optimize week function in gpio
 
