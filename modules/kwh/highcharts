@@ -11,12 +11,18 @@ if [ -z "$divider" ]; then
 divider="1"
 fi
 
-i=$(cat $dir/tmp/kwh/kwh_count_$(date +%y%m%d%H) 2> /dev/null )
-echo "$[($(date +%s)+3600)*1000],$[$i]" > $dir/tmp/kwh/kwh_daily_$(date +%y%m%d%H)
-#cat $dir/tmp/kwh/kwh_daily* > $dir/db/gpio_kwh.db
-#echo $(echo '[' ; cat $dir/db/gpio_kwh.db | awk -F "," '{print $1","$2 / '$divider' }' |sed -e 's/^/[/'|sed -e 's/,$/,/'|sed -e 's/\([^,]\)$/\1\],/'; sed 's/.$//' ; echo  ']') > $dir/db/gpio_kwh_highcharts.json
-middle=$(cat $dir/tmp/kwh/kwh_daily* | awk -F "," '{print "["$1","$2 / '$divider'"]," }')
-echo -e "[ ${middle%?} ]" > $dir/db/gpio_kwh.json
+hour=$(cat $dir/tmp/kwh/kwh_count_$(date +%y%m%d%H) 2> /dev/null )
+echo "$[($(date +%s)+3600)*1000],$[$hour]" > $dir/tmp/kwh/kwh_hour_$(date +%y%m%d%H)
+middle=$(cat $dir/tmp/kwh/kwh_hour* | awk -F "," '{print "["$1","$2 / '$divider'"]," }')
+echo -e "[ ${middle%?} ]" > $dir/db/gpio_kwh_hour.json
+
+day=$(cat $dir/tmp/kwh/kwh_hour_$(date +%y%m%d)* 2> /dev/null )
+echo "$day" > $dir/tmp/kwh/kwh_day_$(date +%y%m%d)
+middle=$(cat $dir/tmp/kwh/kwh_day* | awk -F "," '{print "["$1","$2 / '$divider'"]," }')
+echo -e "[ ${middle%?} ]" > $dir/db/gpio_kwh_day.json
+
+
+
 
 else 
     echo "kWh OFF"
