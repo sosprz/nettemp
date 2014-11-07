@@ -48,13 +48,7 @@ foreach ($gpiolist as $value1) {
     <input type="hidden" name="gpio" value="<?php echo $value1 ?>" />
     <input type="hidden" name="add" value="ADD" />
     </form>
-
-
-
-
-
-
-
 <?php } ?>
 </tr></table>
+    <font color="grey">Note: Do not use GPIO4 when use 1wire sensors connected to GPIO4</font>
 </span></span>

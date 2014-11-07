@@ -105,7 +105,7 @@ $gpio=$a["gpio"];
 <span class="belka">&nbsp Other settings<span class="okno">
     <table>
     <form action="settings" method="post">
-    <td>Gpio</td>
+    <td>Gpio on/off</td>
     <td><input type="checkbox" name="gpio_onoff" value="on" <?php echo $gpio == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="gpio_onoff1" value="gpio_onoff2" />
     </form>

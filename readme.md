@@ -53,8 +53,11 @@ USERS:
 
 Changelog:
 
+8.4.20
+add to option to settings->gpio pullup=1 to GPIO (1wire)
+
 8.4.19
-add to option to settings->gpio strong_pullup=0 to ds2482
+add to option to settings->gpio strong_pullup=0 to ds2482 (1wire)
 
 8.4.18
 optimize week function in gpio
