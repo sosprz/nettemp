@@ -69,10 +69,10 @@ foreach($files AS $file) {
     Choose a file to upload: <input name="uploaded_file" type="file" />
     <input type="submit" value="Upload" />
   </form> 
+    <br />
 
-<hr>
-If You want upload image, You must change upload_max_filezise in php.ini
-Now Your value is:
-<?php passthru('grep upload_max_filesize /etc/php5/cgi/php.ini');  ?>
+    <font color="grey">Note: If You want upload image, You must change upload_max_filezise in php.ini<br />
+        Now Your value is:
+        <?php passthru('grep upload_max_filesize /etc/php5/cgi/php.ini');  ?></font>
 
 </span></span>
