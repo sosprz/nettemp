@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.21
+new kwh counter and hour and day charts
+
 8.4.20
 add to option to settings->gpio pullup=1 to GPIO (1wire)
 
