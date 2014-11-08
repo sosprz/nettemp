@@ -37,5 +37,20 @@ sqlite3 $dir/dbf/snmp.db  "CREATE TABLE snmp (
 chmod 775 $dir/dbf/snmp.db
 chown root.www-data $dir/dbf/snmp.db
 
+#kwh
+
+rm -rf $dir/dbf/kwh.db
+sqlite3 $dir/dbf/kwh.db  "CREATE TABLE kwh (  
+    t UNIQUE,
+    d UNIQUE,
+    imp TEXT
+   );"
+
+chmod 775 $dir/dbf/kwh.db
+chown root.www-data $dir/dbf/kwh.db
+
+
+
+
 
 echo "$date Default settings restored" >> $dir/tmp/log.txt

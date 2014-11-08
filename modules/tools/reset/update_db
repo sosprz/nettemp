@@ -60,7 +60,7 @@ if  sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/1h'
 	sudo sed -i '$a0 * * * * /var/www/nettemp/modules/cron/1h' /var/spool/cron/crontabs/root
 fi
 
-
+$dir/modules/kwh/kwhdb
 
 
 

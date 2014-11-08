@@ -14,38 +14,38 @@
 
 $(function() {
 
-    $.getJSON('db/gpio_kwh_hour.json', function(data) {
+    $.getJSON('tmp/kwh/gpio_kwh_min.json', function(data) {
 
-	// create the chart
-	$('#container').highcharts('StockChart', {
-	    chart: {
-	        alignTicks: false
-	    },
+    // create the chart
+    $('#container').highcharts('StockChart', {
+        chart: {
+            alignTicks: false
+        },
 
-	    rangeSelector: {
-		inputEnabled: $('#container').width() > 480,
-	        selected: 1
-	    },
+        rangeSelector: {
+	inputEnabled: $('#container').width() > 480,
+            selected: 1
+        },
 
-	    title: {
-	        text: 'kWh hour'
-	    },
+        title: {
+            text: 'kWh hour'
+        },
 
-	    series: [{
-	        type: 'column',
-	        name: 'kWh',
-	        data: data,
-	        dataGrouping: {
-		    units: [[
-			'week', // unit name
-			[1] // allowed multiples
-		    ], [
-			'month',
-			[1, 2, 3, 4, 6]
-		    ]]
-	        }
-	    }]
-	});
+        series: [{
+            type: 'column',
+            name: 'kWh',
+            data: data,
+            dataGrouping: {
+	    units: [[
+	    'minute', // unit name
+	    [60] // allowed multiples
+	    ], [
+	    'month',
+	    [1, 2, 3, 4, 6]
+	    ]]
+            }
+        }]
+    });
     });
 });
 
@@ -57,38 +57,38 @@ $(function() {
 
 $(function() {
 
-    $.getJSON('db/gpio_kwh_day.json', function(data) {
+    $.getJSON('tmp/kwh/gpio_kwh_min.json', function(data) {
 
-	// create the chart
-	$('#container2').highcharts('StockChart', {
-	    chart: {
-	        alignTicks: false
-	    },
+    // create the chart
+    $('#container2').highcharts('StockChart', {
+        chart: {
+            alignTicks: false
+        },
 
-	    rangeSelector: {
-		inputEnabled: $('#container2').width() > 480,
-	        selected: 1
-	    },
+        rangeSelector: {
+	inputEnabled: $('#container2').width() > 480,
+            selected: 1
+        },
 
-	    title: {
-	        text: 'kWh day'
-	    },
+        title: {
+            text: 'kWh day'
+        },
 
-	    series: [{
-	        type: 'column',
-	        name: 'kWh',
-	        data: data,
-	        dataGrouping: {
-		    units: [[
-			'week', // unit name
-			[1] // allowed multiples
-		    ], [
-			'month',
-			[1, 2, 3, 4, 6]
-		    ]]
-	        }
-	    }]
-	});
+        series: [{
+            type: 'column',
+            name: 'kWh',
+            data: data,
+            dataGrouping: {
+	    units: [[
+	    'day', // unit name
+	    [1] // allowed multiples
+	    ], [
+	    'month',
+	    [1, 2, 3, 4, 6]
+	    ]]
+            }
+        }]
+    });
     });
 });
 
