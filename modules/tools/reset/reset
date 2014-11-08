@@ -40,6 +40,7 @@ chown root.www-data $dir/dbf/snmp.db
 #kwh
 
 rm -rf $dir/dbf/kwh.db
+sqlite3 $dir/dbf/kwh.db "PRAGMA journal_mode=WAL;"
 sqlite3 $dir/dbf/kwh.db  "CREATE TABLE kwh (  
     t UNIQUE,
     d UNIQUE,

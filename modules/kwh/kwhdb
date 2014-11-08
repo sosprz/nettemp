@@ -4,6 +4,7 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 
 if [ ! -f $dir/dbf/kwh.db ]
     then
+	sqlite3 $dir/dbf/kwh.db "PRAGMA journal_mode=WAL;"
 	sqlite3 $dir/dbf/kwh.db  "CREATE TABLE kwh (  t UNIQUE,  d UNIQUE,  imp TEXT   );"
 fi
 chmod 775 $dir/dbf/kwh.db

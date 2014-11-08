@@ -36,6 +36,8 @@ $(function() {
             name: 'kWh',
             data: data,
             dataGrouping: {
+	    enabled: true,
+	    forced: true,
 	    units: [[
 	    'minute', // unit name
 	    [60] // allowed multiples
@@ -79,6 +81,8 @@ $(function() {
             name: 'kWh',
             data: data,
             dataGrouping: {
+	    enabled: true,
+	    forced: true,
 	    units: [[
 	    'day', // unit name
 	    [1] // allowed multiples

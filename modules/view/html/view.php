@@ -22,7 +22,7 @@ if (glob('db/*altitude*.rrd')) {?>
 if (glob('db/*snmp*.rrd')) {?>
 <td><a href="index.php?id=view&type=snmp" ><button>Snmp view</button></a></td>
 <?php }
-if (glob('db/*kwh*')) {?>
+if (glob('tmp/kwh/*.json')) {?>
 <td><a href="index.php?id=view&type=kwh" ><button>kWh view</button></a></td>
 <?php }
 if (glob('db/*lux*.rrd')) {?>
