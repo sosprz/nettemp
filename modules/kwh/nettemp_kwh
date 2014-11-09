@@ -66,13 +66,13 @@ def dbwrite():
     # jesli puls ma wartosc inna niz  0 to  zapisujemy do bazy jesli 0 pomijamy zapis
 
     if pulseValue >=1:
-        now = datetime.datetime.now() 
+        #now = datetime.datetime.now() # use sqlite auto timestamp
 
         # podpinamy sie do bazy i zapisujemy dane
 
         db = sqlite3.connect('/var/www/nettemp/dbf/kwh.db')
         c = db.cursor()
-        c.execute("INSERT INTO kwh( time,pulse ) VALUES(?,?)", (now,pulseValue))
+        c.execute("INSERT INTO kwh( pulse ) VALUES(?)", (pulseValue))
         db.commit()
         db.close()
 
