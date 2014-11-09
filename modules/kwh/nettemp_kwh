@@ -72,7 +72,7 @@ def dbwrite():
 
         db = sqlite3.connect('/var/www/nettemp/dbf/kwh.db')
         c = db.cursor()
-        c.execute("INSERT INTO kwh( pulse ) VALUES(?)", (pulseValue))
+        c.execute("INSERT INTO kwh( pulse ) VALUES(?)", (pulseValue,))
         db.commit()
         db.close()
 
