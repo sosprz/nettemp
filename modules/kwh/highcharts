@@ -11,9 +11,13 @@ if [ -z "$divider" ]; then
 divider="1"
 fi
 
-middle=$(sqlite3 /var/www/nettemp/dbf/kwh.db  "SELECT * FROM kwh" | awk -F "|" '{print "["}{ printf "%3.0f",($1+3600)*1000}{print ","$3 / '$divider' "]," }')
-echo -e "[ ${middle%?} ]" > $dir/tmp/kwh/gpio_kwh_min.json
-
+if base=$(sqlite3 /var/www/nettemp/dbf/kwh.db "SELECT * FROM kwh")
+    then
+	middle=$(printf "$base %s\n" | awk -F "|" '{print "["}{ printf "%3.0f",($1+3600)*1000}{print ","$3 / '$divider' "]," }')
+	echo -e "[ ${middle%?} ]" > $dir/tmp/kwh/gpio_kwh_min.json
+    else 
+	echo "cannot read base"
+fi
 else 
     echo "kWh OFF"
 fi
