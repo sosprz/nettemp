@@ -1,47 +1,100 @@
-#! /bin/bash
+#!/usr/bin/env python
+#
+#  Skrypt stworzony na pogrzeby nettemp.
+#  Autor dise - dise@o2.pl
 
-dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+import RPi.GPIO as GPIO
+import datetime
+import sys
+import signal
+import time
+import os
+import sqlite3
+import threading
 
-if [[ "`pidof -x $(basename $0) -o %PPID`" ]]; then echo "Already running" && exit; fi
+############################################################################################################
 
-mkdir -p $dir/tmp/kwh 1> /dev/null
-gpio=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio FROM gpio WHERE mode='kwh'")
-divider=$(sqlite3 $dir/dbf/nettemp.db  "SELECT kwh_divider FROM gpio WHERE gpio='$gpio'")
-rev=$(sqlite3 $dir/dbf/nettemp.db  "SELECT rev FROM gpio WHERE gpio='$gpio'")
-if [ "$rev" == "on" ]
-    then
-	hilo="0"
-else
-    hilo="1"
-fi
+pulseValue = 0
+dbWriteSleep = 60 # zapis do bazy co 60 sekund
 
-if [ -n "$gpio" ]; then
+def signal_handler(signal, frame): # cos nie dziala ctr+c no ale moze kiedys zaczenie
+        print('You pressed Ctrl+C, so exiting')
+        GPIO.cleanup()
+        sys.exit(0)
+        cleanup_stop_thread();
+        thread.exit()
+try:
+        db = sqlite3.connect('/var/www/nettemp/dbf/nettemp.db')
+        c = db.cursor()
+        c.execute("SELECT gpio FROM gpio WHERE mode='kwh'")
+        array=[r[0] for r in c.fetchall()]
+        gpiopin = int(array[0]) # int gpiopin
 
-while :
-do
-    date=$(date +%Y%m%d%H%M)
-    time=$(date +%s)
-    check=$(sqlite3 $dir/dbf/kwh.db "SELECT imp FROM kwh WHERE d='$date'" )
-    if [ ! -n $check ]
-	 then
-	i=0
-    fi
-    
-    i=$(sqlite3 $dir/dbf/kwh.db "SELECT imp FROM kwh WHERE d='$date'")
-    status=$(gpio -g read $gpio)
-    if [ "$status" == "$hilo" ]; then
-        i=$((i+1))
-	echo $i imp
-	sqlite3 $dir/dbf/kwh.db "INSERT OR REPLACE INTO kwh (t,d,imp) VALUES ( '$time','$date','$i');"
-	sleep 0.1
-    fi
-done
+        c.execute("SELECT rev FROM gpio WHERE gpio like ? ", (gpiopin,))
+        array=[r[0] for r in c.fetchall()]
+        rev = str(array[0]) # rev = 'on' - High to Low - FALLING
+                            # rev = ' '  - Low  to High - RISING
+        db.close()
 
-else 
-    echo "no gpio"
-fi
+except:
+        print ("Blad wczytania danych z bazy netemp'a !! ")
+        sys.exit(0)
+# Ustawiamy GPIO zgodnie z tym co zaczytane z bazy
 
+# print gpiopin
+# print rev
 
+signal.signal(signal.SIGINT, signal_handler)
 
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(gpiopin, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
+if rev == 'on' :  # ustawiamy detekcje odpowiednio z tym co w bazie
+        gpioEvent1 = GPIO.FALLING
+        gpioEvent2 = GPIO.RISING
+else:
+        gpioEvent1 = GPIO.RISING
+        gpioEvent2 = GPIO.FALLING
 
+def dbwrite():
+    # czekamy dbWriteSleep sekund i zapisujemy do bazy , po zapisie resetujemy licznik
+    global pulseValue # operujemy na globalnej zmiennej ilosci pulsow
+
+    threading.Timer(dbWriteSleep, dbwrite).start()
+    threading.Timer(dbWriteSleep, dbwrite).setDaemon(True)
+
+    # jesli puls ma wartosc inna niz  0 to  zapisujemy do bazy jesli 0 pomijamy zapis
+
+    if pulseValue >=1:
+        now = datetime.datetime.now() 
+
+        # podpinamy sie do bazy i zapisujemy dane
+
+        db = sqlite3.connect('/var/www/nettemp/dbf/kwh.db')
+        c = db.cursor()
+        c.execute("INSERT INTO kwh( time,pulse ) VALUES(?,?)", (now,pulseValue))
+        db.commit()
+        db.close()
+
+        #print ('Timestamp : ', now)
+        #print ('Puls : ', pulseValue)
+        pulseValue = 0  # jesli zapis pomyslny to zerujemy licznik pulsow
+
+# Startujemy z watkiem zapisywania do bazy
+
+dbwrite()
+
+######    Glowna petla programu
+
+while True:
+
+        # Czekamy na zmiane stanu pinu...
+        GPIO.wait_for_edge(gpiopin, gpioEvent1)
+
+        # inkrementujemy wartosc pulsu zawsze przy zdarzeniu
+        pulseValue += 1
+
+        # .... i znowu az pin powroci
+        GPIO.wait_for_edge(gpiopin, gpioEvent2)
+
+############################################################################################################

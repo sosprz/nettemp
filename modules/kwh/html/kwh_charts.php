@@ -87,7 +87,7 @@ $(function() {
 	    forced: true,
 	    units: [[
 	    'day', // unit name
-	    [1] // allowed multiples
+	    [1,2] // allowed multiples
 	    ], [
 	    'month',
 	    [1, 2, 3, 4, 6]
