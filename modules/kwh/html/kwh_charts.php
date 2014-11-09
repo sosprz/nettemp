@@ -9,6 +9,8 @@
 <div id="container" style="height: 400px"></div>
 <br />
 <div id="container2" style="height: 400px"></div>
+<br />
+<div id="container3" style="height: 400px"></div>
 
 <script type="text/javascript">
 
@@ -99,5 +101,53 @@ $(function() {
 
 
 </script>
+
+<script type="text/javascript">
+
+$(function() {
+
+    $.getJSON('tmp/kwh/gpio_kwh_min.json', function(data) {
+
+    // create the chart
+    $('#container3').highcharts('StockChart', {
+        chart: {
+            alignTicks: false
+        },
+
+        rangeSelector: {
+	inputEnabled: $('#container3').width() > 480,
+            selected: 1
+        },
+
+        title: {
+            text: 'kWh minute'
+        },
+
+        series: [{
+            type: 'spline',
+            name: 'kWh',
+            data: data,
+            dataGrouping: {
+	    enabled: true,
+	    forced: true,
+	    units: [[
+	    'minute', // unit name
+	    [1] // allowed multiples
+	    ], [
+	    'month',
+	    [1, 2, 3, 4, 6]
+	    ]]
+            }
+        }]
+    });
+    });
+});
+
+
+
+</script>
+
+
+
 
 </span></span>
