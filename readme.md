@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.23
+fix when notification is off and mail still is sending
+
 8.4.22
 fix when kwh counter still work after off
 perms cleaning
