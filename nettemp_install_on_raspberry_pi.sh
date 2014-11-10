@@ -169,6 +169,10 @@ chmod -R 775 /var/www/nettemp
 gpasswd -a www-data dialout
 sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chmod *, /bin/chown *, /bin/chgrp *, /sbin/reboot' /etc/sudoers
 sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/bin/whoami, /usr/bin/killall *, /usr/bin/nohup *' /etc/sudoers
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/bin/pkill -f nettemp_kwh' /etc/sudoers
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /sbin/iptables *, /sbin/iptables-save *' /etc/sudoers
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/chpasswd *, /usr/sbin/useradd *, /usr/sbin/userdel *, /usr/sbin/groupadd *, /usr/sbin/service *, /usr/sbin/update-rc.d *, /bin/sed *, /bin/cat *' /etc/sudoers 
+
 
 echo -e "${GREEN}Starting services${R}"
 

@@ -26,7 +26,7 @@ def signal_handler(signal, frame): # cos nie dziala ctr+c no ale moze kiedys zac
 try:
         db = sqlite3.connect('/var/www/nettemp/dbf/nettemp.db')
         c = db.cursor()
-        c.execute("SELECT gpio FROM gpio WHERE mode='kwh'")
+        c.execute("SELECT gpio FROM gpio WHERE kwh_run='on'")
         array=[r[0] for r in c.fetchall()]
         gpiopin = int(array[0]) # int gpiopin
 

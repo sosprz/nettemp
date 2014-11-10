@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.4.22
+fix when kwh counter still work after off
+perms cleaning
+
 8.4.21
 new kwh counter and hour and day charts
 
