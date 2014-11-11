@@ -35,8 +35,10 @@ echo "" >> $plik
 chmod 777 $plik
 }
 
-alarms=$(sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'"| sed 's/ /_/g')
+names=() #array for remove old files
 
+
+alarms=$(sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'"| sed 's/ /_/g')
 if [ -n "$alarms" ]
     then
 
@@ -115,15 +117,28 @@ for line in $alarms
         then
 	rm $dirs/hour/$name.mail
     fi
-
+names+=("$name")
 done 
 
-else
-echo rm old
-rm $dirs/hour/*
 fi
 
-else 
+echo rm old
+
+#echo ${names[*]}  
+
+for i in $(cd $dirs/hour && ls )
+    do
+	o=$(echo $i|awk -F"." {'print $1'})
+	echo $o
+	if echo ${names[*]}|grep -v $o
+	    then
+	    rm $dirs/hour/$i
+	fi
+done
+
+
+
+else
 	echo "mail off"
 fi #last
 
