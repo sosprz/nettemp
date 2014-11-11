@@ -122,10 +122,7 @@ done
 
 fi
 
-echo rm old
-
-#echo ${names[*]}  
-
+# rm when turned off 
 for i in $(cd $dirs/hour && ls )
     do
 	o=$(echo $i|awk -F"." {'print $1'})
