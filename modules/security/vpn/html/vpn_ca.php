@@ -17,13 +17,57 @@ function toggle() {
 } 
 </script>
  
-<a id="displayText" href="javascript:toggle();"><button>Show ca.crt</button></a>
+<a id="displayText" href="javascript:toggle();">
+<button>Show ca.crt</button></a>
 <div id="toggleText" style="display: none">
 <br>
-Copy and paste bellow lines to ca.crt file.
+<font color="grey">Note: Copy and paste bellow lines to ca.crt file.</font>
+
 <br>
 <pre>
 <?php  echo $homepage; ?>
 </pre>
-
 </div>
+
+<?php
+$dca = isset($_POST['dca']) ? $_POST['dca'] : '';
+    if (($dca == "dca") ){
+
+$files = array(
+    '/etc/openvpn/ca.crt',
+);
+
+# create new zip opbject
+$zip = new ZipArchive();
+
+# create a temp file & open it
+$tmp_file = tempnam('.','');
+$zip->open($tmp_file, ZipArchive::CREATE);
+
+# loop through each file
+foreach($files as $file){
+
+    # download file
+    $download_file = file_get_contents($file);
+
+    #add it to the zip
+    $zip->addFromString(basename($file),$download_file);
+
+}
+
+# close zip
+$zip->close();
+
+# send the file to the browser as a download
+header('Content-disposition: attachment; filename=download.zip');
+header('Content-type: application/zip');
+readfile($tmp_file);
+}
+?>
+<form method="post" action="" method"post">
+    <input type="hidden" name="dca" value="dca" />
+    <input type="submit" name="submit" value="Download ca.crt" />
+</form>
+
+
+
