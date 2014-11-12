@@ -102,7 +102,7 @@ $gpio=$a["gpio"];
 <?php include('modules/mail/html/mail.php'); ?>
 </span></span>
 
-<span class="belka">&nbsp Other settings<span class="okno">
+<span class="belka">&nbsp GPIO settings<span class="okno">
     <table>
     <form action="settings" method="post">
     <td>Gpio on/off</td>
