@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.24
+ca.crt download button back
+
 8.4.23
 fix when notification is off and mail still is sending
 
