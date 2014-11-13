@@ -5,7 +5,7 @@ dir2=$dir/tmp/system_stats
 mkdir -p $dir2
 
 
-for i in system_cpu.rrd system_mem.rrd system_memc.rrd
+for i in system_cpu0.rrd system_mem.rrd system_memc.rrd
     do
 	if [ ! -e $dir/db/$i ]
 	then
@@ -28,7 +28,7 @@ echo $cpu %
 echo $memoryc %
 echo $memory %
 
-rrdtool update $dir/db/system_cpu.rrd N:$cpu
+rrdtool update $dir/db/system_cpu0.rrd N:$cpu
 rrdtool update $dir/db/system_memc.rrd N:$memoryc
 rrdtool update $dir/db/system_mem.rrd N:$memory
 
@@ -41,14 +41,14 @@ rrdtool graph $dir/tmp/system_stats/$i.png \
 --width 390 --height 150 \
 --vertical-label="RPi system `date +%H%M`" \
 -s -1$i \
-DEF:cpu=$dir/db/system_cpu.rrd:cpu:AVERAGE \
+DEF:cpu0=$dir/db/system_cpu0.rrd:cpu0:AVERAGE \
 DEF:mem=$dir/db/system_mem.rrd:mem:AVERAGE \
 DEF:memc=$dir/db/system_memc.rrd:memc:AVERAGE \
-LINE1:cpu#0000ff:"CPU (%)       " \
-GPRINT:cpu:LAST:"last %2.2lf " \
-GPRINT:cpu:MIN:"min %2.2lf " \
-GPRINT:cpu:MAX:"max %2.2lf " \
-GPRINT:cpu:AVERAGE:"ave %2.2lf  \n" \
+LINE1:cpu0#0000ff:"CPU (%)       " \
+GPRINT:cpu0:LAST:"last %2.2lf " \
+GPRINT:cpu0:MIN:"min %2.2lf " \
+GPRINT:cpu0:MAX:"max %2.2lf " \
+GPRINT:cpu0:AVERAGE:"ave %2.2lf  \n" \
 LINE1:mem#FF0000:"Mem used (%)  " \
 GPRINT:mem:LAST:"last %2.2lf " \
 GPRINT:mem:MIN:"min %2.2lf " \
