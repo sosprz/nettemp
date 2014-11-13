@@ -37,4 +37,6 @@ $dir/modules/sensors/snmp/snmp_read
 $dir/modules/sensors/i2c/i2c_read
 
 
+#snmp server
+sqlite3 $dir/dbf/nettemp.db "SELECT name,tmp FROM sensors" | sed 's/$/:/' |tr -d "\n" > $dir/tmp/results
 
