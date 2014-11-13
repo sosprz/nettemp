@@ -24,9 +24,9 @@ max=$(free |grep Mem |awk '{print $2}')
 memoryc=$(free | grep Mem | awk '{printf "%3.1f", ($3/'$max') * 100.0}')
 memory=$(free | grep cache: | awk '{printf "%3.1f", ($3/'$max') * 100.0}')
 
-echo $cpu %
-echo $memoryc %
-echo $memory %
+#echo $cpu %
+#echo $memoryc %
+#echo $memory %
 
 rrdtool update $dir/db/system_cpu0.rrd N:$cpu
 rrdtool update $dir/db/system_memc.rrd N:$memoryc
