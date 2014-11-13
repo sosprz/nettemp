@@ -52,10 +52,8 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_onoff3 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_temp3 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op3 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD status type TEXT";
-if  sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/1h'
+if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/1h'
     then
-	echo ok
-    else
 	sudo sed -i '$a0 * * * * /var/www/nettemp/modules/cron/1h' /var/spool/cron/crontabs/root
 fi
 if ! sudo cat /etc/sudoers |grep pkill
