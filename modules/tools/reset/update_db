@@ -58,7 +58,10 @@ if  sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/1h'
     else
 	sudo sed -i '$a0 * * * * /var/www/nettemp/modules/cron/1h' /var/spool/cron/crontabs/root
 fi
-sudo sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/bin/pkill -f nettemp_kwh' /etc/sudoers
+if sudo cat /etc/sudoers |grep -v 'pkill'
+    then
+	sudo sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/bin/pkill -f nettemp_kwh' /etc/sudoers
+fi
 $dir/modules/kwh/kwhdb
 
 

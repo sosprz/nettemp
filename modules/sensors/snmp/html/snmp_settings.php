@@ -16,6 +16,9 @@ $snmpid = isset($_POST['snmpid']) ? $_POST['snmpid'] : '';
 <?php // SQlite
 $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	if (!empty($snmp_name)  && !empty($snmp_community) && !empty($snmp_host) && !empty($snmp_oid) && ($snmp_add1 == "snmp_add2") ){
+	if (empty($snmp_divider)) {
+	    $snmp_divider='1';
+	}
 	$db = new PDO('sqlite:dbf/snmp.db');
 	$snmp_name=snmp_ . $snmp_name . _temp;
 	$db->exec("INSERT OR IGNORE INTO snmp (name, community, host, oid, divider) VALUES ('$snmp_name', '$snmp_community', '$snmp_host', '$snmp_oid', '$snmp_divider')") or die ("cannot insert to DB" );
@@ -58,11 +61,11 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 <tr>	
 	<form action="" method="post">
 	<td></td>
-	<td><input type="text" name="snmp_name" size="20" value="" /></td>
-	<td><input type="text" name="snmp_community" size="20" value="" /></td>
-	<td><input type="text" name="snmp_host" size="20" value="" /></td>
-	<td><input type="text" name="snmp_oid" size="20" value="" /></td>
-	<td><input type="text" name="snmp_divider" size="20" value="" /></td>
+	<td><input type="text" name="snmp_name" size="10" value="" /></td>
+	<td><input type="text" name="snmp_community" size="7" value="" /></td>
+	<td><input type="text" name="snmp_host" size="7" value="" /></td>
+	<td><input type="text" name="snmp_oid" size="60" value="" /></td>
+	<td><input type="text" name="snmp_divider" size="1" value="" /></td>
 	<input type="hidden" name="snmp_add1" value="snmp_add2" />
 	<td><input type="image" src="media/ico/Add-icon.png" /></td>
 	</tr>

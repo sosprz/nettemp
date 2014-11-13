@@ -8,8 +8,8 @@ name=$(sqlite3 $dir/dbf/snmp.db "SELECT name FROM snmp")
 	host=$(sqlite3 $dir/dbf/snmp.db "SELECT host FROM snmp WHERE name='$snmp'")
 	oid=$(sqlite3 $dir/dbf/snmp.db "SELECT oid FROM snmp WHERE name='$snmp'")
 	divider=$(sqlite3 $dir/dbf/snmp.db "SELECT divider FROM snmp WHERE name='$snmp'")
-	walk=$(snmpwalk -v 2c -c $community $host $oid -O v)
-        wynik=`echo $walk | awk '{printf "%3.1f\n", $2/'$divider' }'`  
+	walk=$(snmpget -v 2c -c $community $host $oid -O v)
+        wynik=`echo $walk | tr -d \" | awk '{printf "%3.1f\n", $2/'$divider' }'`  
 	rrdtool update $dir/db/$snmp.rrd N:$wynik
 	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$snmp'"
 	echo SNMP: $wynik C
