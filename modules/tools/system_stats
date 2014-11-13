@@ -4,32 +4,19 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 dir2=$dir/tmp/system_stats
 mkdir -p $dir2
 
-if [ ! -e $dir/db/system_cpu.rrd ]
-then 
-echo "tworze bazy"
 
-rrdtool create $dir/db/system_cpu.rrd -s 60 DS:cpu:GAUGE:100000:0:100000 \
-RRA:AVERAGE:0.5:1:48384 \
-RRA:MAX:0.5:1:48384 \
-RRA:MIN:0.5:1:48384 \
-RRA:LAST:0.5:1:48384
-
-rrdtool create $dir/db/system_memoryc.rrd -s 60 DS:memc:GAUGE:100000:0:100000 \
-RRA:AVERAGE:0.5:1:48384 \
-RRA:MAX:0.5:1:48384 \
-RRA:MIN:0.5:1:48384 \
-RRA:LAST:0.5:1:48384
-
-rrdtool create $dir/db/system_memory.rrd -s 60 DS:mem:GAUGE:100000:0:100000 \
-RRA:AVERAGE:0.5:1:48384 \
-RRA:MAX:0.5:1:48384 \
-RRA:MIN:0.5:1:48384 \
-RRA:LAST:0.5:1:48384
-
-
-else 
-    echo "bazy sa";
-fi
+for i in system_cpu.rrd system_mem.rrd system_memc.rrd
+    do
+	if [ ! -e $dir/db/$i ]
+	then
+	    v=$(echo $i |awk -F"_" '{print $2}'|sed 's/....$//') 
+	    rrdtool create $dir/db/$i -s 60 DS:$v:GAUGE:100000:0:100000 \
+	    RRA:AVERAGE:0.5:1:48384 \
+	    RRA:MAX:0.5:1:48384 \
+	    RRA:MIN:0.5:1:48384 \
+	    RRA:LAST:0.5:1:48384
+	fi
+done
 
 #cpu=$(mpstat | grep all | sed -s 's/.* all// ; s/ * / /g' | cut -d ' ' -f10 | awk '{print 100-$1}')
 cpu=$(mpstat | grep all | sed 's/.* all// ; s/ * / /g' | cut -d ' ' -f10 | awk '{print 100-$1}')
@@ -37,13 +24,13 @@ max=$(free |grep Mem |awk '{print $2}')
 memoryc=$(free | grep Mem | awk '{printf "%3.1f", ($3/'$max') * 100.0}')
 memory=$(free | grep cache: | awk '{printf "%3.1f", ($3/'$max') * 100.0}')
 
-echo $cpu
-echo $memoryc
-echo $memory
+echo $cpu %
+echo $memoryc %
+echo $memory %
 
 rrdtool update $dir/db/system_cpu.rrd N:$cpu
-rrdtool update $dir/db/system_memoryc.rrd N:$memoryc
-rrdtool update $dir/db/system_memory.rrd N:$memory
+rrdtool update $dir/db/system_memc.rrd N:$memoryc
+rrdtool update $dir/db/system_mem.rrd N:$memory
 
 
 for i in hour day week month
@@ -55,19 +42,19 @@ rrdtool graph $dir/tmp/system_stats/$i.png \
 --vertical-label="RPi system `date +%H%M`" \
 -s -1$i \
 DEF:cpu=$dir/db/system_cpu.rrd:cpu:AVERAGE \
-DEF:mem=$dir/db/system_memory.rrd:mem:AVERAGE \
-DEF:memc=$dir/db/system_memoryc.rrd:memc:AVERAGE \
-LINE1:cpu#0000ff:"Used % CPU" \
+DEF:mem=$dir/db/system_mem.rrd:mem:AVERAGE \
+DEF:memc=$dir/db/system_memc.rrd:memc:AVERAGE \
+LINE1:cpu#0000ff:"CPU (%)       " \
 GPRINT:cpu:LAST:"last %2.2lf " \
 GPRINT:cpu:MIN:"min %2.2lf " \
 GPRINT:cpu:MAX:"max %2.2lf " \
 GPRINT:cpu:AVERAGE:"ave %2.2lf  \n" \
-LINE1:mem#FF0000:"Used % Memory" \
+LINE1:mem#FF0000:"Mem used (%)  " \
 GPRINT:mem:LAST:"last %2.2lf " \
 GPRINT:mem:MIN:"min %2.2lf " \
 GPRINT:mem:MAX:"max %2.2lf " \
 GPRINT:mem:AVERAGE:"ave %2.2lf  \n" \
-LINE1:memc#FFA500:"Used % Memory cached" \
+LINE1:memc#FFA500:"Mem cached (%)" \
 GPRINT:memc:LAST:"last %2.2lf " \
 GPRINT:memc:MIN:"min %2.2lf " \
 GPRINT:memc:MAX:"max %2.2lf " \
