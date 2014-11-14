@@ -30,7 +30,7 @@ $(function() {
         },
 
         title: {
-            text: 'kWh hour'
+            text: 'kWh'
         },
 
         series: [{
