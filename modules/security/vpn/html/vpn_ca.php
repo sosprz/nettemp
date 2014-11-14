@@ -33,9 +33,8 @@ function toggle() {
 $dca = isset($_POST['dca']) ? $_POST['dca'] : '';
     if (($dca == "dca") ){
 
-$files = array(
-    '/etc/openvpn/ca.crt',
-);
+$file='/etc/openvpn/ca.crt';
+
 
 # create new zip opbject
 $zip = new ZipArchive();
@@ -45,7 +44,7 @@ $tmp_file = tempnam('.','');
 $zip->open($tmp_file, ZipArchive::CREATE);
 
 # loop through each file
-foreach($files as $file){
+#foreach($files as $file){
 
     # download file
     $download_file = file_get_contents($file);
@@ -53,13 +52,13 @@ foreach($files as $file){
     #add it to the zip
     $zip->addFromString(basename($file),$download_file);
 
-}
+#}
 
 # close zip
 $zip->close();
 
 # send the file to the browser as a download
-header('Content-disposition: attachment; filename=download.zip');
+header('Content-disposition: attachment; filename=ca.zip');
 header('Content-type: application/zip');
 readfile($tmp_file);
 }
