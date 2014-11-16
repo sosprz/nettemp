@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.25
+add i2c sensor MPL3115A2
+
 8.4.24
 ca.crt download button back
 

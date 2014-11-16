@@ -23,6 +23,7 @@ bmp180="77" #0x77
 TSL2561="39" #0x39
 ds2482="18" #0x18 
 HTU21D="40" #0x40
+MPL3115A2="60" #0x60
 
 if [ -n "$i2c" ]; then 
     echo I2C: Found $i2c
@@ -51,6 +52,11 @@ for i in $i2c
         if [ "$i" = "$HTU21D" ]
 	    then
 		echo i2c_$i\_humi >> $dir/tmp/onewire
+		echo i2c_$i\_temp >> $dir/tmp/onewire
+        fi
+	if [ "$i" = "$MPL3115A2" ]
+	    then
+		echo i2c_$i\_pressure >> $dir/tmp/onewire
 		echo i2c_$i\_temp >> $dir/tmp/onewire
         fi
     done
