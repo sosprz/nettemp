@@ -1,19 +1,14 @@
-<?php $db = new PDO('sqlite:dbf/nettemp.db');
-    $sth = $db->prepare("select * from settings where id='1'");
-    $sth->execute();
-    $result = $sth->fetchAll();
-    foreach ($result as $a) {
-    $gpio=$a["gpio"];
-    }
-?>
-<?php if ( $gpio == 'on' ) { ?>
-<span class="belka">&nbsp Gpio status<span class="okno"> 
-<?php
+<?php 
 $dir="modules/gpio/";
 $db = new PDO('sqlite:dbf/nettemp.db') or die ("cannot open database");
 $sth = $db->prepare("select * from gpio");
 $sth->execute();
 $result = $sth->fetchAll();
+$numRows = count($result);
+?>
+<?php if ( $numRows > '0' ) { ?>
+<span class="belka">&nbsp Gpio status<span class="okno"> 
+<?php
 foreach ( $result as $a) {
 $gpio=$a['gpio'];
 ?>

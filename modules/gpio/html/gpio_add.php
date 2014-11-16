@@ -39,12 +39,13 @@ foreach ($gpiolist as $value1) {
 	$rows = $db->query("SELECT * FROM gpio WHERE gpio='$value1'");
 	$row = $rows->fetchAll();
 	foreach ($row as $result) { 
-   	$check = $result['gpio']; 
+   	$check = $result['gpio'];
+	$disabled = $result['mode']; 
 	}; ?>
  
    <form action="" method="post">
     <td><?php echo $value1 ?></td>
-    <td><input type="checkbox" name="gpioad" value="<?php echo $value1 ?>" <?php  echo $check==$value1 ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <td><input type="checkbox" name="gpioad" value="<?php echo $value1 ?>" <?php  echo $check==$value1 ? 'checked="checked"' : ''; ?> <?php echo !empty($disabled) ? 'disabled="disabled"' : ''; unset($disabled) ?>onclick="this.form.submit()" /></td>
     <input type="hidden" name="gpio" value="<?php echo $value1 ?>" />
     <input type="hidden" name="add" value="ADD" />
     </form>
