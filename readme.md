@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.26
+fix higcharts on OpenWRT
+
 8.4.25
 add i2c sensor MPL3115A2
 add to gpio: You cannot remove gpio when some option is turned on.
