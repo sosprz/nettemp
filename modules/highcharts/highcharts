@@ -41,9 +41,9 @@ echo "$date Highcharts - generated" >> $dir/tmp/log.txt
 ###################
 
     for i in $(ls $dir/tmp/highcharts/*_highcharts*); do
-       if cat $i |head -2|grep step; then
-	    sed -i '1d;2d' $i
-       fi
+       #if cat $i |head -2|grep step; then
+	    sed -i -r -n -e '/<?xml/,${p}' $i
+       #fi
     done
 
 

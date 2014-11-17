@@ -32,35 +32,19 @@ function toggle() {
 <?php
 $dca = isset($_POST['dca']) ? $_POST['dca'] : '';
     if (($dca == "dca") ){
-
 $file='/etc/openvpn/ca.crt';
-
-
-# create new zip opbject
-$zip = new ZipArchive();
-
-# create a temp file & open it
-$tmp_file = tempnam('.','');
-$zip->open($tmp_file, ZipArchive::CREATE);
-
-# loop through each file
-#foreach($files as $file){
-
-    # download file
-    $download_file = file_get_contents($file);
-
-    #add it to the zip
-    $zip->addFromString(basename($file),$download_file);
-
-#}
-
-# close zip
-$zip->close();
-
-# send the file to the browser as a download
-header('Content-disposition: attachment; filename=ca.zip');
-header('Content-type: application/zip');
-readfile($tmp_file);
+    header('Content-Description: File Transfer');
+    header('Content-Type: text/plain');
+    header('Content-Disposition: attachment; filename='.basename($file));
+    header('Content-Transfer-Encoding: binary');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($file));
+    ob_clean();
+    flush();
+    readfile($file);
+    exit();
 }
 ?>
 <form method="post" action="" method"post">
