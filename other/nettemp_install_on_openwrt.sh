@@ -1,9 +1,13 @@
 #! /bin/ash
 
-# version 5
+# version 6
 
 opkg update
-opkg install lighttpd php5-cgi php5-mod-pdo-sqlite php5-mod-sqlite3 rrdtool sqlite3-cli msmtp digitemp digitemp-usb git mc sysstat  bc htop snmp-utils perl nano lighttpd-mod-auth lighttpd-mod-rewrite lighttpd-mod-fastcgi lighttpd-mod-cgi php5-mod-session bash openvpn iptables digitemp-usb usbutils
+opkg install lighttpd php5-cgi php5-mod-pdo-sqlite php5-mod-sqlite3 rrdtool \
+sqlite3-cli msmtp digitemp digitemp-usb git mc sysstat  bc htop snmp-utils perl \
+nano lighttpd-mod-auth lighttpd-mod-rewrite lighttpd-mod-fastcgi lighttpd-mod-cgi \
+php5-mod-session bash openvpn iptables digitemp-usb usbutils sudo
+
 
 /etc/init.d/uhttpd stop
 /etc/init.d/uhttpd disable
@@ -11,7 +15,7 @@ opkg install lighttpd php5-cgi php5-mod-pdo-sqlite php5-mod-sqlite3 rrdtool sqli
 
 cd /www/
 git clone -b beta --recursive git://github.com/sosprz/nettemp
-/www/nettemp/modules/reset/reset
+/www/nettemp/modules/tools/reset/reset
 
 sed -i 's/doc_root = "\/www"/doc_root = "\/www\/nettemp"/g' /etc/php.ini
 #sed -i 's/;extension=pdo_sqlite.so/extension=pdo_sqlite.so/g' /etc/php.ini
@@ -32,14 +36,10 @@ sed -i 's/#server.groupname = "nobody"/server.groupname = "www-data"/g' /etc/lig
 opkg install kmod-usb-serial kmod-usb-serial-ch341 kmod-usb-serial-ftdi kmod-usb-serial-pl2303
 opkg install kmod-w1-master-ds2490 kmod-w1-slave-therm
 
-echo "*/1 * * * * /www/nettemp/modules/sensors/temp_dev_read && /www/nettemp/modules/view/view_gen && /www/nettemp/modules/highcharts/highcharts" > /etc/crontabs/root
-#echo "*/1 * * * * /www/nettemp/modules/gpio/gpio2 check" >> /etc/crontabs/root
-#echo "*/5 * * * * /www/nettemp/modules/sms/sms_send" >> /etc/crontabs/root
-echo "*/5 * * * * /www/nettemp/modules/mail/mail_send" >> /etc/crontabs/root
-sed -i '$a @reboot     echo "$(date +\\%y\\%m\\%d-\\%H\\%M) RPI rebooted" >> /www/nettemp/tmp/log.txt' /etc/crontabs/root
-sed -i '$a @reboot  /www/nettemp/modules/tools/restart' /etc/crontabs/root
-sed -i '$a*/1 * * * * /www/nettemp/modules/tools/system_stats' /etc/crontabs/root
-
+echo "*/1 * * * * /www/nettemp/modules/cron/1" > /etc/crontabs/root
+echo "*/5 * * * * /www/nettemp/modules/cron/5" >> /etc/crontabs/root
+echo "0 * * * * /www/nettemp/modules/cron/1h" >> /etc/crontabs/root
+echo "@reboot /www/nettemp/modules/cron/r" >> /etc/crontabs/root
 
 
 #openwrt git bug https://dev.openwrt.org/ticket/11930
