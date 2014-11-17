@@ -1,6 +1,6 @@
 #! /bin/ash
 
-# version 6
+# version 2014-11-17
 
 opkg update
 opkg install lighttpd php5-cgi php5-mod-pdo-sqlite php5-mod-sqlite3 rrdtool \
@@ -45,7 +45,6 @@ echo "@reboot /www/nettemp/modules/cron/r" >> /etc/crontabs/root
 #openwrt git bug https://dev.openwrt.org/ticket/11930
 ln -s $(which git) /usr/libexec/git-core/git
 
-opkg install sudo 
 sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chmod *, /bin/chgrp *, /sbin/reboot' /etc/sudoers 
 chmod -R 775 /www/nettemp
 chown -R root.www-data /www/nettemp
