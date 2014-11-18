@@ -11,10 +11,11 @@
 ?>
 </pre>
 <?php
-    exec('modules/tools/reset/update_db');
-    //header("location: " . $_SERVER['REQUEST_URI']);
-    //	exit();	
-} ?>
+    exec('modules/tools/update_su');
+    exec('modules/tools/update_db');
+    exec('modules/tools/update_fi');
+    } 
+?>
     <form action="index.php?id=tools&type=update" method="post">
     <input type="hidden" name="update" value="Update">
     <input  type="submit" value="Update"  />

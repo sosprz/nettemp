@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.27
+add to status file check option
+
 8.4.26
 fix higcharts on OpenWRT
 

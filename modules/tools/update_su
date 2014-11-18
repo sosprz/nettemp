@@ -10,7 +10,6 @@ for i in $list
     do
      if ! sudo cat /etc/sudoers |grep $i > /dev/null
 	then 
-	    echo Add missing $i to /etc/sudoers
 	    sudo sed -i '$a www-data ALL=(ALL) NOPASSWD: '$i' *' /etc/sudoers
     fi
 done

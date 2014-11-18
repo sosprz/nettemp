@@ -94,7 +94,7 @@ if [ "$x1" = "beta" ] || [ "$x2" = "beta" ]
 fi
 
 echo -e "${GREEN}Create nettemp database${R}"
-/var/www/nettemp/modules/tools/reset/reset
+/var/www/nettemp/modules/tools/db_reset
 
 echo -e "${GREEN}Add cron line${R}"
 echo "*/1 * * * * /var/www/nettemp/modules/cron/1" > /var/spool/cron/crontabs/root

@@ -8,7 +8,7 @@ header("location: " . $_SERVER['REQUEST_URI']);
 exit();	
 }
 ?>
-<form action="index.php?id=tools&type=file_check" method="post">
+<form action="" method="post">
 <input type="hidden" name="perms" value="perms">
-<input  type="submit" value="Set good permissions"  />
+<input  type="submit" value="Fix"  />
 </form>

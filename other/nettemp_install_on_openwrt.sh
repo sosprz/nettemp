@@ -15,7 +15,7 @@ php5-mod-session bash openvpn iptables digitemp-usb usbutils sudo
 
 cd /www/
 git clone -b beta --recursive git://github.com/sosprz/nettemp
-/www/nettemp/modules/tools/reset/reset
+/www/nettemp/modules/tools/db_reset
 
 sed -i 's/doc_root = "\/www"/doc_root = "\/www\/nettemp"/g' /etc/php.ini
 #sed -i 's/;extension=pdo_sqlite.so/extension=pdo_sqlite.so/g' /etc/php.ini
