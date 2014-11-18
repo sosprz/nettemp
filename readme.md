@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.28
+add better view to gpio temp function
+
 8.4.27
 add to status file check option
 
