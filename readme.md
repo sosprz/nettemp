@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.29
+add to mail settings option "send errors"
+
 8.4.28
 add better view to gpio temp function
 

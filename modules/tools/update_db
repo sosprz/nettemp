@@ -54,5 +54,7 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op3 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD status type TEXT";
 $dir/modules/kwh/kwhdb
 
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD error type TEXT";
+
 
 

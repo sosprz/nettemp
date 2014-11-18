@@ -38,8 +38,8 @@ chmod 777 $plik
 names=() #array for remove old files
 
 
-alarms=$(sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'"| sed 's/ /_/g')
-if [ -n "$alarms" ]
+
+if alarms=$(sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'"| sed 's/ /_/g')
     then
 
 for line in $alarms
@@ -51,10 +51,9 @@ for line in $alarms
 	    plik=$dirs/$name.mail
 	    plik2=$dirs/hour/$name.mail
 	
-    if [ "$tmp" == "error" ]
-    #if [ "error" == "error" ]
+    if [ "$tmp" == "error" ] &&  error=$(sqlite3 $dir/dbf/nettemp.db "SELECT error FROM mail_settings WHERE id='1'")
     then
-	if [ ! -f "$plik2" ]
+	if [ ! -f "$plik2" ] && [ "$error" == "on" ]
 	    then
 		echo NEW ERROR
 		file

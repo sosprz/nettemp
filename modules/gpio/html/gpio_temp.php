@@ -266,7 +266,7 @@ include('gpio_rev.php');
     		<option <?php echo $a['temp_op'.$v] == 'ge' ? 'selected="selected"' : ''; ?> value="ge">&gt;&#61;</option>   
 	    </select>
 	    </td>
-	    <td><input type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" size=3" >&deg;C</td>
+	    <td><input type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" size="1" >&deg;C</td>
 	    <td>then</td> 
 	    <td>
 	    <select name="<?php echo temp_onoff . $v ?>" >
@@ -308,7 +308,7 @@ include('gpio_rev.php');
     if ($a['week_run'] == 'on') { 
 ?>
 <tr>
-<table border="0">
+<table border="0B">
 <tr>
 <?php
 $arr = array(Mon, Tue, Wed, Thu, Fri, Sat, Sun);

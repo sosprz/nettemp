@@ -4,9 +4,8 @@ $user = isset($_POST['user']) ? $_POST['user'] : '';
 $host = isset($_POST['host']) ? $_POST['host'] : '';
 $port = isset($_POST['port']) ? $_POST['port'] : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
-?>
 
-<?php // SQLite 
+
     $change_password1 = isset($_POST['change_password1']) ? $_POST['change_password1'] : '';
     if  ($change_password1 == "change_password2") {
     $db = new PDO('sqlite:dbf/nettemp.db');
@@ -17,7 +16,21 @@ $password = isset($_POST['password']) ? $_POST['password'] : '';
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+
+    $senderrors = isset($_POST['senderrors']) ? $_POST['senderrors'] : '';
+    $sende = isset($_POST['sende']) ? $_POST['sende'] : '';
+    if (($sende == "sende") ){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE mail_settings SET error='$senderrors' WHERE id='1'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
+
+
+
 ?>
+
 
 
 <?php
@@ -49,6 +62,22 @@ $password = isset($_POST['password']) ? $_POST['password'] : '';
     <td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td>
     </form>
     </tr>
+    <form action="settings" method="post">
+    <td>Send errors</td>
+    <td><input type="checkbox" name="senderrors" value="on" <?php echo $a['error'] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <input type="hidden" name="sende" value="sende" />
+    </form>
+
     </table>
 
 <?php }	?>
+
+    
+
+
+
+
+
+
+
+
