@@ -7,11 +7,11 @@ date=`date +%y%m%d-%H%M`
 
 serial=`sqlite3 $dir/dbf/nettemp.db "SELECT serial FROM device"`
 if [ "$serial" != "off" ]; then
-dbserial=$(cat $dir/tmp/.digitemprcs |grep ROM)
-for name in $dbserial
-do
-name_str=${#name}
-
+#dbserial=$(cat $dir/tmp/.digitemprcs |grep ROM )
+#for name in "$dbserial"
+grep ROM $dir/tmp/.digitemprcs | while read -r name
+    do
+#name_str=${#name}
 #echo $name
 name_0=$(echo $name| awk 'BEGIN {FS=" "} {print $3$4$5$6$7$8$9$10}')
 name_1=$(echo $name| awk 'BEGIN {FS=" "} {print $3" "$4" "$5" "$6" "$7" "$8" "$9" "$10}')
