@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.30
+fix temperature serial readings
+
 8.4.29
 add to mail settings option "send errors"
 
