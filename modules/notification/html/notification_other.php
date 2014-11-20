@@ -17,7 +17,7 @@
     foreach ($result as $a) {
 ?>
 
-<form action="settings" method="post">
+<form action="" method="post">
     <td>Send readings errors</td>
     <td><input type="checkbox" name="senderrors" value="on" <?php echo $a['error'] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="sende" value="sende" />
