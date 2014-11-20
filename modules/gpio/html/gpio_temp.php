@@ -221,7 +221,7 @@ include('gpio_rev.php');
 	    <tr><td>Zone 1 <input type="text" name="day_zone1s" value="<?php echo $a['day_zone1s']; ?>" size="2"  >-<input type="text" name="day_zone1e" value="<?php echo $a['day_zone1e']; ?>" size="2"  ></td></tr> 
 	    <tr><td>Zone 2 <input type="text" name="day_zone2s" value="<?php echo $a['day_zone2s']; ?>" size="2"  >-<input type="text" name="day_zone2e" value="<?php echo $a['day_zone2e']; ?>" size="2"  ></td></tr> 
 	    <tr><td>Zone 3 <input type="text" name="day_zone3s" value="<?php echo $a['day_zone3s']; ?>" size="2"  >-<input type="text" name="day_zone3e" value="<?php echo $a['day_zone3e']; ?>" size="2"  ></td></tr>
-	    <tr><td>example: 07:00 - 15:00</td></tr> 
+	    <tr><td><font color="grey">Note: example: 07:00 - 15:00</font></td></tr> 
 	    </table>
 	</td>
 	<td>
@@ -263,7 +263,7 @@ include('gpio_rev.php');
     		<option <?php echo $a['temp_op'.$v] == 'lt' ? 'selected="selected"' : ''; ?> value="lt">&lt;</option>   
     		<option <?php echo $a['temp_op'.$v] == 'le' ? 'selected="selected"' : ''; ?> value="le">&lt;&#61;</option>     
     		<option <?php echo $a['temp_op'.$v] == 'gt' ? 'selected="selected"' : ''; ?> value="gt">&gt;</option>   
-    		<option <?php echo $a['temp_op'.$v] == 'ge' ? 'selected="selected"' : ''; ?> value="ge">&gt;&#61;</option>   
+    		<option <?php echo $a['temp_op'.$v] == 'ge' ? 'selected="selected"' : ''; ?> value="ge">&gt;&#61;B</option>   
 	    </select>
 	    </td>
 	    <td><input type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" size="1" >&deg;C</td>

@@ -82,7 +82,7 @@ include('gpio_rev.php');
 	<tr><td>Zone 1 <input type="text" name="day_zone1s" value="<?php echo $a['day_zone1s']; ?>" size="2"  >-<input type="text" name="day_zone1e" value="<?php echo $a['day_zone1e']; ?>" size="2"  ></td></tr> 
 	<tr><td>Zone 2 <input type="text" name="day_zone2s" value="<?php echo $a['day_zone2s']; ?>" size="2"  >-<input type="text" name="day_zone2e" value="<?php echo $a['day_zone2e']; ?>" size="2"  ></td></tr> 
 	<tr><td>Zone 3 <input type="text" name="day_zone3s" value="<?php echo $a['day_zone3s']; ?>" size="2"  >-<input type="text" name="day_zone3e" value="<?php echo $a['day_zone3e']; ?>" size="2"  ></td></tr>
-	<tr><td>example: 07:00 - 15:00</td></tr> 
+	<tr><td><font color="grey">example: 07:00 - 15:00</font></td></tr> 
 	</tr>
 	</table>
 	</td>

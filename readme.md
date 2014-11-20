@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.31
+add grey info in gpio day function
+
 8.4.30
 fix temperature serial readings
 
