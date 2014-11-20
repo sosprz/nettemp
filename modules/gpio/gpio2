@@ -55,13 +55,5 @@ elif [ "$mode" = "week" ]; then
 fi
 done
 
-#onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM settings"`
-#if [ "$onoff" = "on" ];then
-    
-#    echo "on"
-    
-#else
-#    echo "GPIO OFF"
-#fi
 
 

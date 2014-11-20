@@ -52,10 +52,17 @@ $notif_del = isset($_POST['notif_del']) ? $_POST['notif_del'] : '';
 
 <span class="belka">&nbsp Add user<span class="okno">
 <table>
-<tr><td></td><td><img src="media/ico/User-Preppy-Blue-icon.png" ></td><td><img src="media/ico/message-icon.png" ></td><td><img src="media/ico/phone-blue-glow-icon.png" ></td><td><img src="media/ico/message-icon.png" ></td><td><img src="media/ico/phone-blue-glow-icon.png" ></td></tr>
+<tr>
+<td><img src="media/ico/User-Preppy-Blue-icon.png"> Name</td>
+<td><img src="media/ico/message-icon.png"> Email</td>
+<td><img src="media/ico/phone-blue-glow-icon.png"> Telephone</td>
+<td><img src="media/ico/message-icon.png"></td>
+<td><img src="media/ico/phone-blue-glow-icon.png"></td>
+<td></td>
+<td></td>
+</tr>
 <tr>	
 	<form action="" method="post">
-	<td></td>
 	<td><input type="text" name="notif_name" size="20" value="" /></td>
 	<td><input type="text" name="notif_mail" size="20" value="" /></td>
 	<td><input type="text" name="notif_tel" size="20" value="" /></td>
@@ -63,9 +70,9 @@ $notif_del = isset($_POST['notif_del']) ? $_POST['notif_del'] : '';
 	<td><input type="checkbox" name="notif_sms_alarm" size="2" value="yes" /></td>
 	<input type="hidden" name="notif_add1" value="notif_add2" />
 	<td><input type="image" src="media/ico/Add-icon.png" /></td>
-	</tr>
+	<td></td>
 	</form>
-
+</tr>
 <?php
 
 $db = new PDO('sqlite:dbf/nettemp.db');
@@ -75,8 +82,7 @@ $result = $sth->fetchAll();
 foreach ($result as $a) { 
 ?>
 	<tr>
-	<td><img src="media/ico/User-Preppy-Blue-icon.png" ></td>
-	<td><?php echo $a["name"];?></td>
+	<td><img src="media/ico/User-Preppy-Blue-icon.png"> <?php echo $a["name"];?></td>
 	<td><?php echo $a["mail"];?></td>
 	<td><?php echo $a["tel"]; ?></td>
 	
@@ -88,10 +94,11 @@ foreach ($result as $a) {
 	</form>
 	
 	<form action="" method="post"> 	
-	<input type="hidden" name="notif_del" value="<?php echo $a["id"]; ?>" />
-	<input type="hidden" type="submit" name="notif_del1" value="notif_del2" />
-   <td><input type="image" src="media/ico/Close-2-icon.png"  /></td></tr>
+	    <input type="hidden" name="notif_del" value="<?php echo $a["id"]; ?>" />
+	    <input type="hidden" type="submit" name="notif_del1" value="notif_del2" />
+        <td><input type="image" src="media/ico/Close-2-icon.png"  /></td>
 	</form>
+	</tr>
 <?php }
 
 
@@ -99,5 +106,5 @@ foreach ($result as $a) {
 	
 		?>
 	
-</tr></table>
+</table>
 </span></span>

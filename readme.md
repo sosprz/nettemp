@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.32
+little view changes
+
 8.4.31
 add grey info in gpio day function
 
