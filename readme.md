@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.33
+nettemp now hourly send updated temp value, not first saved. 
+
 8.4.32
 little view changes
 

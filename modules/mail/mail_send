@@ -82,6 +82,9 @@ for line in $alarms
 		then
 	    	    mv $plik $dirs/hour
 		fi
+	    else
+                echo UPDATE
+                sed -i 's/High.*/High value in: '$name' '$tmp' C/g' $plik2
 	    fi
         elif [ "$cr_le" == "1" ] && [ -n "$tmp_min" ]
 	then
@@ -95,6 +98,10 @@ for line in $alarms
 		then
 	    	    mv $plik $dirs/hour
 		fi
+            else
+		echo UPDATE
+		sed -i 's/Low.*/Low value in: '$name' '$tmp' C/g' $plik2
+		 
 	    fi
         else
 	if [ -f "$plik2" ]
