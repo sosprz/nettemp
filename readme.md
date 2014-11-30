@@ -55,6 +55,7 @@ Changelog:
 
 8.4.33
 nettemp now hourly send updated temp value, not first saved. 
+new email body with nettemp ip.
 
 8.4.32
 little view changes

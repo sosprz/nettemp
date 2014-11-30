@@ -32,6 +32,11 @@ echo "From: Nettemp Device <$user>" > $plik
 echo "To: $get_mail" >> $plik
 echo "Subject: Notification from nettemp" >> $plik
 echo "" >> $plik
+echo "This is notification from nettemp" >> $plik
+echo "" >> $plik
+echo "VALUE" >> $plik
+echo "" >> $plik
+echo Go to http://$(hostname -I | cut -d' ' -f1) >> $plik
 chmod 777 $plik
 }
 
@@ -77,7 +82,8 @@ for line in $alarms
 	    then
 		echo NEW MV
 		file
-		echo "High value in: $name $tmp C" >> $plik; 
+		#echo "High value in: $name $tmp C" >> $plik;
+		sed -i 's/VALUE.*/High value in: '$name' '$tmp' C/g' $plik 
 		if send $plik    
 		then
 	    	    mv $plik $dirs/hour
@@ -93,7 +99,8 @@ for line in $alarms
 	    then
 		echo NEW MV
 		file
-		echo "Low value in: $name $tmp C" >> $plik;
+		#echo "Low value in: $name $tmp C" >> $plik;
+		sed -i 's/VALUE.*/Low value in: '$name' '$tmp' C/g' $plik
 		if send $plik    
 		then
 	    	    mv $plik $dirs/hour
@@ -108,7 +115,8 @@ for line in $alarms
 	then
 	    echo RECOVERY $name
 	    file
-	    echo "Recovery: $name $tmp C" >> $plik; 
+	    #echo "Recovery: $name $tmp C" >> $plik; 
+	    sed -i 's/VALUE.*/Recovery: '$name' '$tmp' C/g' $plik
 	    if send $plik
 	    then
 	    rm $plik2
