@@ -24,8 +24,8 @@ Debian, RaspberryPi:
 	
 	sudo apt-get update
 	sudo apt-get install ca-certificates
-	wget https://raw.github.com/sosprz/nettemp/master/other/nettemp_install_on_raspberry_pi.sh
-	wget --no-check-certificate https://raw.github.com/sosprz/nettemp/master/other/nettemp_install_on_raspberry_pi.sh
+	wget https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
+	wget --no-check-certificate https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
 	chmod 755 nettemp_install_on_raspberry_pi.sh
 	./nettemp_install_on_raspberry_pi.sh
     
