@@ -34,7 +34,14 @@ echo -e "${GREEN}Nettemp installer${R}"
 apt-get update
 echo -e "${GREEN}Install packages${R}"
 apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat \
-command-not-found sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables > /dev/null
+sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables
+
+if [ "$?" -eq "0" ]; then
+    echo "All packages installed ok"
+    else
+    echo "error when install packages, try again"
+    exit
+fi
 
 echo -e "${GREEN}Configure WWW server${R}"
 # enable fastcgi
