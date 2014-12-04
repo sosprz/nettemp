@@ -34,7 +34,7 @@ echo -e "${GREEN}Nettemp installer${R}"
 apt-get update
 echo -e "${GREEN}Install packages${R}"
 apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat \
-sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables
+sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables rcconf
 
 if [ "$?" -eq "0" ]; then
     echo "${GREEN}All packages installed ok${R}"
@@ -183,14 +183,14 @@ sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/chpasswd *, /usr/sbin/useradd 
 
 echo -e "${GREEN}Starting services${R}"
 
-update-rc.d ntp enable
-service ntp start
+#update-rc.d ntp enable
+#service ntp start
 
-update-rc.d lighttpd enable
-service lighttpd restart
+#update-rc.d lighttpd enable
+#service lighttpd restart
 
-update-rc.d cron defaults
-service cron start
+#update-rc.d cron defaults
+#service cron start
 
 echo -e "${GREEN}Nettemp instalation complette${R}"
 echo -e "${GREEN}Nettemp default login and pasword is admin${R}"

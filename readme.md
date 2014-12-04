@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.43
+add en_EN tmp locale to week script
+
 8.4.33
 nettemp now hourly send updated temp value, not first saved. 
 new email body with nettemp ip.
