@@ -119,8 +119,8 @@ if ($gpio == "on" ) {
 </span></span>
 
 <span class="belka">&nbsp Time settings<span class="okno">
-<?php
-include('time.php');
+<?php	
+    include('time.php');
 ?>
 </span></span>
 

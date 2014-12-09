@@ -53,8 +53,11 @@ USERS:
 
 Changelog:
 
+8.4.46
+RTC clock 100%
+
 8.4.45
-fox ups status
+fix ups status
 add RTC hardware clock DS1307 support (90%)
 
 8.4.43

@@ -36,7 +36,7 @@ if (exec("cat /etc/modules | grep 'ds1307'") &&  exec("cat /etc/rc.local | grep 
 	$rtc='on';
 } else {
     $rtc='';
-    echo "module not added or autostart";
+    //echo "module not added or autostart";
 }
 
 
@@ -57,16 +57,55 @@ $ntp='';
             <input type="hidden" name="ntp_onoff" value="ntp_onoff" />
         </form>
     </tr>
+<?php
+if ((file_exists("/dev/i2c-0")) || (file_exists("/dev/i2c-1"))) {
+?>
     <tr>
-        <form action="" method="post">
-            <td>RTC (Raspberry PI)</td>
+        <td>RTC (Raspberry PI)</td>
+
+	<form action="" method="post">
             <td><input type="checkbox" name="rtc" value="on" <?php echo $rtc == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />  
             <input type="hidden" name="rtc_onoff" value="rtc_onoff" />
         </form>
     </tr>
-    <tr><td><?php echo "Date: "; passthru("date");?></td></tr>
-    <tr><td><?php echo "Hwclock: "; passthru("/sbin/hwclock --show");?></td></tr>
+    <tr><td><?php echo "System date: "; passthru("date");?></td></tr>
+<?php
+$ntsync = isset($_POST['ntsync']) ? $_POST['ntsync'] : '';
+if ($ntsync == "ntsync") { 
+shell_exec("sudo service ntp restart; sleep 5; sudo /usr/sbin/ntpd -qg");
+header("location: " . $_SERVER['REQUEST_URI']);
+exit();	
+}
+?>
+<form action="" method="post">
+<input type="hidden" name="ntsync" value="ntsync">
+<tr><td><input  type="submit" value="Time sync"  /></td></tr>
+</form>
+
+
+    <tr><td><?php echo "Hwclock date: "; passthru("sudo /sbin/hwclock --show");?></td></tr>
+<?php
+$hwsync = isset($_POST['hwsync']) ? $_POST['hwsync'] : '';
+if ($hwsync == "hwsync") { 
+shell_exec("sudo /sbin/hwclock -w");
+header("location: " . $_SERVER['REQUEST_URI']);
+exit();	
+}
+?>
+<form action="" method="post">
+<input type="hidden" name="hwsync" value="hwsync">
+<tr><td><input  type="submit" value="RTC sync"  /></td></tr>
+</form>
+<?php 
+}
+else { ?>
+    <tr>
+        <td>RTC - No i2c modules loaded</td>
+    </tr>
+
+<?php }
+?>
     </table>
 
-<font color="grey">Note: Changes in this section required reboot</font>
+<font color="grey">Note: After RTC on, reboot is required</font>
 
