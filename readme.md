@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.4.45
+fox ups status
+add RTC hardware clock DS1307 support (90%)
+
 8.4.43
 add en_EN tmp locale to week script
 

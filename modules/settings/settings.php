@@ -102,6 +102,7 @@ $gpio=$a["gpio"];
 <?php include('modules/mail/html/mail.php'); ?>
 </span></span>
 
+
 <span class="belka">&nbsp GPIO settings<span class="okno">
     <table>
     <form action="settings" method="post">
@@ -116,5 +117,12 @@ if ($gpio == "on" ) {
      } 
 ?>
 </span></span>
+
+<span class="belka">&nbsp Time settings<span class="okno">
+<?php
+include('time.php');
+?>
+</span></span>
+
 <?php } 
 else { header("Location: denied"); }; ?>

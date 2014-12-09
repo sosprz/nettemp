@@ -1,8 +1,0 @@
-#! /bin/bash
-
-
-if apcaccess 1>/dev/null |grep -E "^MODEL"; then
-    apcaccess |grep -E "^MODEL|^BATTV|^STATUS|^LINEV|^TIMELEFT|^BCHARGE" 
-    else
-    echo "No UPC connected or no apc software installed or started."
-fi
