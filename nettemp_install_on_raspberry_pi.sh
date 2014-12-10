@@ -184,10 +184,13 @@ sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/chpasswd *, /usr/sbin/useradd 
 echo -e "${GREEN}Starting services${R}"
 
 #update-rc.d ntp enable
-#service ntp start
+service ntp start
+
+service apache2 stop
+update-rc.d apache2 disable
 
 #update-rc.d lighttpd enable
-#service lighttpd restart
+service lighttpd restart
 
 #update-rc.d cron defaults
 #service cron start
