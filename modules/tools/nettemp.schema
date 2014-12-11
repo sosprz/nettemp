@@ -5,7 +5,8 @@ CREATE TABLE device (
    onewire UNIQUE,
    serial UNIQUE,
    i2c UNIQUE,
-   lmsensors TEXT
+   lmsensors TEXT,
+   wireless TEXT
   );
 CREATE TABLE fw (
    id INTEGER PRIMARY KEY,

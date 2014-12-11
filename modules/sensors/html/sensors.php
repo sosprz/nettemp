@@ -116,7 +116,7 @@ if ( $ss1 == "ss2"){
 
 <?php include("modules/sensors/html/sensors_settings.php"); ?>
 <?php include("modules/sensors/html/sensors_new.php"); ?>
-<?php //include("modules/sensors/html/sensors_device.php"); ?>
+<?php include("modules/sensors/html/sensors_device.php"); ?>
 	
 
 <?php }

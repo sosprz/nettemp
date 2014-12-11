@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.47
+disable apache2 after install
+
 8.4.46
 RTC clock 100%
 
