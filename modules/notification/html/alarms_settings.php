@@ -51,7 +51,8 @@ $rows = $db->query("SELECT * FROM sensors WHERE alarm='on'");
 $row = $rows->fetchAll();
 $numRows = count($row);
 
-if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }
+//if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }
+
 	$sth = $db1->prepare("select * from sensors WHERE alarm='on'");
 	$sth->execute();
 	$result = $sth->fetchAll();

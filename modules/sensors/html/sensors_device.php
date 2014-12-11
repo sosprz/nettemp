@@ -15,15 +15,20 @@ foreach ($result as $a) { ?>
 	<tr><td>lm-sensors </td><td><?php echo  $a['lmsensors']; ?></td></tr>
 	<tr><td>wireless </td><td><?php echo  $a['wireless']; ?></td></tr>
 	</table>
-<?php }
+<?php 
+    }
 ?>
 <hr>
 <?php
-$scan = isset($_POST['scan']) ? $_POST['scan'] : '';
-         if ($scan == "Scan for new sensors"){ ?>
+	$scan = isset($_POST['scan']) ? $_POST['scan'] : '';
+        if ($scan == "Scan for new sensors"){ 
+        shell_exec("/bin/bash modules/sensors/temp_dev_scan > $dir/tmp/temp_dev_scan"); 
+        header("location: " . $_SERVER['REQUEST_URI']);
+        exit();
+	}
+?>
 <pre>
-<?php 
-    shell_exec("/bin/bash modules/sensors/temp_dev_scan > $dir/tmp/temp_dev_scan"); 
+<?php
     $array = file("$dir/tmp/temp_dev_scan");
     //$last = array_slice($filearray,-100);
     foreach($array as $f){
@@ -31,10 +36,6 @@ $scan = isset($_POST['scan']) ? $_POST['scan'] : '';
     }
 ?>
 </pre>
-<?php
-}
-?>
-
 
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <input type="submit" name="scan" value="Scan for new sensors" />
