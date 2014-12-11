@@ -7,7 +7,8 @@ mkdir -p $dir/tmp/highcharts
 hc_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT highcharts FROM settings"`
 
 if [ "$hc_onoff" == "on" ]; then
-type="temp snmp humi altitude pressure lux"
+#type="temp snmp humi altitude pressure lux"
+type="temp snmp humi pressure lux"
 for t in $type
     do
 	echo $t

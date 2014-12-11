@@ -28,17 +28,17 @@ if [ -n "$db" ]
 		echo BMP180 Temp $temp
 		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
 	    fi
-	    if echo $i |grep altitude > /dev/null ; then 
-		altitude=$(echo  $all | awk '{ print $6}')
-		if ! [[ "$altitude" =~ .[0-9]+$ ]] 
-		    then
-			altitude="error"
-		    else
-			rrdtool update $dir/db/$i N:$altitude
-		fi
-		echo BMP180 Alititude $altitude
-		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$altitude' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
-	    fi
+	#	if echo $i |grep altitude > /dev/null ; then 
+	#	altitude=$(echo  $all | awk '{ print $6}')
+	#	if ! [[ "$altitude" =~ .[0-9]+$ ]] 
+	#	    then
+	#		altitude="error"
+	#	    else
+	#		rrdtool update $dir/db/$i N:$altitude
+	#	fi
+	#	echo BMP180 Alititude $altitude
+	#	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$altitude' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
+	#    fi
 	    if echo $i |grep pressure > /dev/null ; then 
 		pressure=$(echo $all | awk '{ print $4}')
 		if ! [[ "$pressure" =~ .[0-9]+$ ]] 

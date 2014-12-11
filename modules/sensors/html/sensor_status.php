@@ -12,8 +12,9 @@ if ($numRows == 0 ) { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop
     $result = $sth->fetchAll(); ?>
     <table> <?php       
     foreach ($result as $a) { 	
-	if($a['type'] == 'temp'){
-		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == on ) { ?> <tr><td><img src="media/ico/temp_high.png" /></td><td><font color="#FF0000"> <?php echo $a['name']; ?></td><td><font color="#FF0000"><?php echo $a['tmp']; echo " C "; echo "max:"; echo $a['tmp_max'];?> &#176;C</font></td></tr><?php	}
+	if($a['type'] == 'temp'){ 
+		if($a['device'] == 'wireless'){ ?> <tr><td><img src="media/ico/wifi-circle-icon.png" /></td> <?php } else { ?> <tr> <?php } 
+		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == on ) { ?> <td><img src="media/ico/temp_high.png" /></td><td><font color="#FF0000"> <?php echo $a['name']; ?></td><td><font color="#FF0000"><?php echo $a['tmp']; echo " C "; echo "max:"; echo $a['tmp_max'];?> &#176;C</font></td></tr><?php	}
 		elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min']) && $a['alarm'] == on ) { ?> <tr><td><img src="media/ico/temp_low.png" /></td><td><font color="#0095FF"> <?php echo $a['name']; ?></td><td><font color="#0095FF"><?php echo $a['tmp']; echo " C "; echo "min:"; echo $a['tmp_min'];?> &#176;C</font></td></tr>  <?php	}
 		else { ?> <tr><td><img src="media/ico/temp2-icon.png" /></td><td><font  color="#108218"> <?php echo $a['name']; ?> </td><td><font  color="#108218"> <?php echo $a['tmp'];?> &#176;C</td></tr></font> <?php }
 	}
@@ -42,14 +43,7 @@ if ($numRows == 0 ) { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop
 		elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min']) && $a['alarm'] == on ) { ?> <tr><td><img src="media/ico/sun-icon.png" /></td><td><font color="#0095FF"> <?php echo $a['name']; ?></td><td><font color="#0095FF"><?php echo $a['tmp']; echo " lux "; echo "min:"; echo $a['tmp_min'];?>&nbsplux</font></td></tr>  <?php	}
 		else { ?> <tr><td><img src="media/ico/sun-icon.png" /></td><td><font  color="#108218"> <?php echo $a['name']; ?> </td><td><font  color="#108218"> <?php echo $a['tmp'];?>&nbsplux</td></tr></font> <?php }
 	}
-	if($a['type'] == 'wireless'){
-		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == on ) { ?> <tr><td><img src="media/ico/wifi-circle-icon.png" /></td><td><font color="#FF0000"> <?php echo $a['name']; ?></td><td><font color="#FF0000"><?php echo $a['tmp']; echo " C "; echo "max:"; echo $a['tmp_max'];?>&nbsplux</font></td></tr><?php	}
-		elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min']) && $a['alarm'] == on ) { ?> <tr><td><img src="media/ico/wifi-circle-icon.png" /></td><td><font color="#0095FF"> <?php echo $a['name']; ?></td><td><font color="#0095FF"><?php echo $a['tmp']; echo " C "; echo "min:"; echo $a['tmp_min'];?>&nbsplux</font></td></tr>  <?php	}
-		else { ?> <tr><td><img src="media/ico/wifi-circle-icon.png" /></td><td><font  color="#108218"> <?php echo $a['name']; ?> </td><td><font  color="#108218"> <?php echo $a['tmp'];?>&nbspC</td></tr></font> <?php }
-	}
 	
-	
- 
 
     } ?>
     </table> <?php

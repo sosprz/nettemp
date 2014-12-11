@@ -58,5 +58,6 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD error type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE device ADD wireless type TEXT";
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,wireless) VALUES (1,'off');"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD ip type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD device type TEXT";
 
 

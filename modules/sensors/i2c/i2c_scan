@@ -35,7 +35,7 @@ for i in $i2c
 	    then
 		echo i2c_$i\_pressure >> $dir/tmp/onewire
 		echo i2c_$i\_temp >> $dir/tmp/onewire
-		echo i2c_$i\_altitude >> $dir/tmp/onewire
+		#echo i2c_$i\_altitude >> $dir/tmp/onewire
         fi
         if [ "$i" = "$TSL2561" ]
 	    then
