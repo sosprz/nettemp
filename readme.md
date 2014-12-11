@@ -54,7 +54,7 @@ USERS:
 Changelog:
 
 8.4.48
-add wireless sensors ESP8266 - discover only 
+add wireless sensors ESP8266 - ok 
 
 8.4.47
 disable apache2 after install
