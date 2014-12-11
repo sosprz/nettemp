@@ -85,7 +85,7 @@ elif echo "$1" | awk -F_ '{ print $1 }'|grep wireless
 	ip=`echo "$1" | awk -F"_" '{ print $2 }'`
         sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO sensors \
 	(name, color, rom, tmp, tmp_min, tmp_max, alarm, hour, day, week, month, year, type, ip) \
-	VALUES ('wifi_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'temp', '$ip' )"
+	VALUES ('wifi_$RANDOM','#07FF00','$1', '0', '', '', 'off', 'on', 'on', 'on', 'on', 'on', 'wireless', '$ip' )"
 	id=$(echo $1 |md5sum | cut -c 1-14 )
 	rrd $1
 	echo "$date temp_add_sensor - Add wifi temp sensor on $ip" >> $dir/tmp/log.txt
