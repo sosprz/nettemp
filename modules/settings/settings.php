@@ -56,10 +56,11 @@ $ss=$a["sms"];
 $ms=$a["mail"];
 $gpio=$a["gpio"];
 
+
 }
 ?>
 
-<span class="belka">&nbsp View settings<span class="okno">
+<span class="belka">&nbsp View<span class="okno">
     <table>
     <tr>	
     <form action="settings" method="post">
@@ -103,7 +104,7 @@ $gpio=$a["gpio"];
 </span></span>
 
 
-<span class="belka">&nbsp GPIO settings<span class="okno">
+<span class="belka">&nbsp GPIO <span class="okno">
     <table>
     <form action="settings" method="post">
     <td>Gpio on/off</td>
@@ -118,11 +119,17 @@ if ($gpio == "on" ) {
 ?>
 </span></span>
 
-<span class="belka">&nbsp Time settings<span class="okno">
+<span class="belka">&nbsp Time <span class="okno">
 <?php	
     include('time.php');
 ?>
 </span></span>
+<span class="belka">&nbsp I2C - set i2c BUS<span class="okno">
+<?php	
+    include('i2c.php');
+?>
+</span></span>
+
 
 <?php } 
 else { header("Location: denied"); }; ?>
