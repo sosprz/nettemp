@@ -129,6 +129,11 @@ if ($gpio == "on" ) {
     include('i2c.php');
 ?>
 </span></span>
+<span class="belka">&nbsp Snmpd server<span class="okno">
+<?php	
+    include('snmpd.php');
+?>
+</span></span>
 
 
 <?php } 
