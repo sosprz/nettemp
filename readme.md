@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.50
+fix sudo
+
 8.4.49
 now in settings menu, i2c bus can be set 0 or 1.
 

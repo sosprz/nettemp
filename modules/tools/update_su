@@ -3,7 +3,7 @@
 list="/usr/sbin/lighttpd-enable-mod /usr/sbin/lighttpd-disable-mod /usr/sbin/chpasswd /usr/sbin/useradd \
 /usr/sbin/userdel /usr/sbin/groupadd /usr/sbin/service /usr/sbin/update-rc.d /bin/sed /bin/cat \
 /sbin/iptables /sbin/iptables-save /usr/sbin/i2cdetect /bin/chmod /bin/chgrp /sbin/reboot \
-/usr/bin/whoami /usr/bin/killall /usr/bin/nohup /bin/chown /usr/bin/pkill /sbin/hwclock /usr/sbin/ntpd arp-scan"
+/usr/bin/whoami /usr/bin/killall /usr/bin/nohup /bin/chown /usr/bin/pkill /sbin/hwclock /usr/sbin/ntpd /usr/bin/arp-scan"
 
 
 for i in $list
