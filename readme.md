@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.51
+add snmpd server to gui
+
 8.4.50
 fix sudo
 
