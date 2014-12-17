@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.52
+fix snmp client
+
 8.4.51
 add snmpd server to gui
 
