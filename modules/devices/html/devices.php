@@ -18,6 +18,7 @@
 	<?php } ?>
 <td><a href="index.php?id=devices&type=snmp" ><button>SNMP</button></a></td>
 <td><a href="index.php?id=devices&type=ups" ><button>UPS</button></a></td>
+<td><a href="index.php?id=devices&type=hosts" ><button>Hosts</button></a></td>
 </tr>
 </table>
 </span>
@@ -36,6 +37,7 @@ case 'gpio': include('modules/gpio/html/gpio.php'); break;
 case 'snmp': include('modules/sensors/snmp/html/snmp.php'); break;
 case 'sensors': include('modules/sensors/html/sensors.php'); break;
 case 'ups': include('modules/ups/html/ups.php'); break;
+case 'hosts': include('modules/hosts/html/hosts.php'); break;
 
 }
 ?>

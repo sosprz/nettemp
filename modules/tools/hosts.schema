@@ -1,0 +1,6 @@
+CREATE TABLE hosts (
+  id INTEGER PRIMARY KEY,
+  name UNIQUE,
+  ip TEXT,
+  type TEXT
+  );

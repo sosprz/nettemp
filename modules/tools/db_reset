@@ -23,25 +23,18 @@ chown root.www-data $dir/dbf/nettemp.db
 
 
 # SNMP
-
 rm -rf $dir/dbf/snmp.db
-sqlite3 $dir/dbf/snmp.db  "CREATE TABLE snmp (
-  id INTEGER PRIMARY KEY,
-  name UNIQUE,
-  community TEXT,
-  host TEXT,
-  oid TEXT,
-  divider TEXT
-  );"
-
+sqlite3 $dir/dbf/snmp.db < $dir/modules/tools/snmp.schema
 chmod 775 $dir/dbf/snmp.db
 chown root.www-data $dir/dbf/snmp.db
 
+# hosts
+rm -rf $dir/dbf/hosts.db
+sqlite3 $dir/dbf/hosts.db < $dir/modules/tools/hosts.schema
+chmod 775 $dir/dbf/hosts.db
+chown root.www-data $dir/dbf/hosts.db
+
 #kwh
 $dir/modules/kwh/kwhdb
-
-
-
-
 
 echo "$date Default settings restored" >> $dir/tmp/log.txt
