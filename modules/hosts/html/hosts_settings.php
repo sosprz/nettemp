@@ -10,14 +10,12 @@ $host_type = isset($_POST['host_type']) ? $_POST['host_type'] : '';
 <?php // SQlite
 	$host_add1 = isset($_POST['host_add1']) ? $_POST['host_add1'] : '';
 	if (!empty($host_name)  && !empty($host_ip) && ($host_add1 == "host_add2") ){
-
 	$db = new PDO('sqlite:dbf/hosts.db');
-	$host_name="host_ . $host_name";
-	$db->exec("INSERT OR IGNORE INTO host (name, ip, type) VALUES ('$host_name', '$host_ip', '$host_type')") or die ("cannot insert to DB" );
-	$file = 'tmp/onewire';
-	$current = file_get_contents($file);
-	$current = "$host_name\n";
-	file_put_contents($file, $current, FILE_APPEND );
+	$host_name=host_ . $host_name;
+	$db->exec("INSERT OR IGNORE INTO hosts (name, ip, type) VALUES ('$host_name', '$host_ip', '$host_type')") or die ("cannot insert to DB" );
+	    $dbnew = new PDO("sqlite:db/$host_name.sql");
+	    $dbnew->exec('CREATE TABLE def (time DATETIME DEFAULT CURRENT_TIMESTAMP, value INTEEGER)');
+	    $dbnew==NULL;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}	
@@ -26,18 +24,19 @@ $host_type = isset($_POST['host_type']) ? $_POST['host_type'] : '';
 	
 
 <?php // SQLite - del
-	if (!empty($host_id) && ($_POST['host_del1'] == "host_del2") ){
+	if (!empty($host_name) && ($_POST['host_del1'] == "host_del2") ){
 	$db = new PDO('sqlite:dbf/hosts.db');
-	$db->exec("DELETE FROM host WHERE id='$host_id'") or die ($db->lastErrorMsg());
+	$db->exec("DELETE FROM hosts WHERE name='$host_name'") or die ($db->lastErrorMsg());
+	unlink("db/$host_name.sql");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}
 	?>
 
 
-<span class="belka">&nbsp Add sensor over host<span class="okno">
+<span class="belka">&nbsp Add host to monitoring<span class="okno">
 <table>
-<tr><td></td><td>name</td><td>ip</td><td>type</td></tr>
+<tr><td></td><td>name</td><td>ip, name</td><td>type</td></tr>
 <tr>	
 	<form action="" method="post">
 	<td></td>
@@ -63,12 +62,13 @@ $result = $sth->fetchAll();
 foreach ($result as $a) { 
 ?>
 	<tr>
-	<td><img src="media/ico/host-icon.png" ></td>
+	<td><img src="media/ico/Computer-icon.png" ></td>
 	<td><?php echo $a["name"];?></td>
 	<td><?php echo $a["ip"];?></td>
+	<td><?php echo $a["type"];?></td>
 	
 	<form action="" method="post"> 	
-	<input type="hidden" name="host_id" value="<?php echo $a["id"]; ?>" />
+	<input type="hidden" name="host_name" value="<?php echo $a["name"]; ?>" />
 	<input type="hidden" type="submit" name="host_del1" value="host_del2" />
    <td><input type="image" src="media/ico/Close-2-icon.png"  /></td></tr>
 	</form>
