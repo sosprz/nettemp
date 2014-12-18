@@ -52,14 +52,27 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_onoff3 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_temp3 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op3 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD status type TEXT";
-$dir/modules/kwh/kwhdb
-
+if [ ! -s $dir/dbf/kwh.db ]
+    then
+    sqlite3 $dir/dbf/kwh.db < $dir/modules/tools/kwh.schema
+    sudo chmod 775 $dir/dbf/kwh.db
+    sudo chown root.www-data $dir/dbf/kwh.db
+    else 
+    echo kwh.db exist
+fi
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD error type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE device ADD wireless type TEXT";
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,wireless) VALUES (1,'off');"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD ip type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD device type TEXT";
-sqlite3 $dir/dbf/hosts.db < $dir/modules/tools/hosts.schema
+if [ ! -s $dir/dbf/hosts.db ]
+    then
+    sqlite3 $dir/dbf/hosts.db < $dir/modules/tools/hosts.schema
+    sudo chmod 775 $dir/dbf/hosts.db
+    sudo chown root.www-data $dir/dbf/hosts.db
+    else 
+    echo hosts.db exist
+fi
 
 
 

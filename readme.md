@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.53
+add host monitoring
+
 8.4.52
 fix snmp client
 

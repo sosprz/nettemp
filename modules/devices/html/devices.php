@@ -18,7 +18,7 @@
 	<?php } ?>
 <td><a href="index.php?id=devices&type=snmp" ><button>SNMP</button></a></td>
 <td><a href="index.php?id=devices&type=ups" ><button>UPS</button></a></td>
-<td><a href="index.php?id=devices&type=hosts" ><button>Hosts</button></a></td>
+<td><a href="index.php?id=devices&type=hosts" ><button>Host monitoring</button></a></td>
 </tr>
 </table>
 </span>

@@ -7,14 +7,37 @@ if ip=$(sqlite3 $dir/dbf/hosts.db "SELECT ip FROM hosts WHERE type='httpping'")
     then
     for i in $ip; do 
 	name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts WHERE ip='$i'")
-	if wynik=$(httping -m -c 1 $i)
+	wynik=$(httping -m -c 1 $i)
+	if [ "$wynik" != "-1" ] && [ -n "$wynik" ]
 	    then 
 		sqlite3 $dir/db/$name.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
 		sqlite3 $dir/dbf/hosts.db "UPDATE hosts SET last='$wynik', status='OK' WHERE ip='$i'"
 	else
 	    sqlite3 $dir/db/$name.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
 	    sqlite3 $dir/dbf/hosts.db "UPDATE hosts SET last='0', status='FAIL' WHERE ip='$i'"
+	    echo fail
 	fi
 	echo Httping $name: $wynik
+     done
+fi
+
+unset name
+unset wynik
+
+if ip=$(sqlite3 $dir/dbf/hosts.db "SELECT ip FROM hosts WHERE type='ping'")
+    then
+    for i in $ip; do 
+	name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts WHERE ip='$i'")
+	wynik=$(fping $i -e | awk -F"(" '{ print $2}' |sed 's/.\{3\}$//')
+	if [ -n "$wynik" ]
+	    then
+		sqlite3 $dir/db/$name.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
+		sqlite3 $dir/dbf/hosts.db "UPDATE hosts SET last='$wynik', status='OK' WHERE ip='$i'"
+	else
+	    sqlite3 $dir/db/$name.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
+	    sqlite3 $dir/dbf/hosts.db "UPDATE hosts SET last='0', status='FAIL' WHERE ip='$i'"
+	    echo fail
+	fi
+	echo ping $name: $wynik
      done
 fi

@@ -12,6 +12,7 @@ $host_type = isset($_POST['host_type']) ? $_POST['host_type'] : '';
 	if (!empty($host_name)  && !empty($host_ip) && ($host_add1 == "host_add2") ){
 	$db = new PDO('sqlite:dbf/hosts.db');
 	$host_name=host_ . $host_name;
+	$host_name=str_replace(".","",$host_name);
 	$db->exec("INSERT OR IGNORE INTO hosts (name, ip, type) VALUES ('$host_name', '$host_ip', '$host_type')") or die ("cannot insert to DB" );
 	    $dbnew = new PDO("sqlite:db/$host_name.sql");
 	    $dbnew->exec('CREATE TABLE def (time DATETIME DEFAULT CURRENT_TIMESTAMP, value INTEEGER)');
@@ -36,7 +37,7 @@ $host_type = isset($_POST['host_type']) ? $_POST['host_type'] : '';
 
 <span class="belka">&nbsp Add host to monitoring<span class="okno">
 <table>
-<tr><td></td><td>name</td><td>ip, name</td><td>type</td></tr>
+<tr><td></td><td>name</td><td>ip or name</td><td>type</td></tr>
 <tr>	
 	<form action="" method="post">
 	<td></td>
@@ -63,7 +64,7 @@ foreach ($result as $a) {
 ?>
 	<tr>
 	<td><img src="media/ico/Computer-icon.png" ></td>
-	<td><?php echo $a["name"];?></td>
+	<td><?php echo str_replace("host_","",$a["name"]);?></td>
 	<td><?php echo $a["ip"];?></td>
 	<td><?php echo $a["type"];?></td>
 	
