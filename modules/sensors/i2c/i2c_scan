@@ -8,7 +8,7 @@ date=`date +%y%m%d-%H%M`
 for bus in $(ls /dev/i2c-*)
     do
 	i2c=$(echo $bus| awk -F"-" {'print $2'})
-        if sudo i2cdetect -y $i2c |sed '1d'|awk '{ $1=""; print $0 }' |grep -o '[0-9]*'
+        if det=$(sudo i2cdetect -y $i2c |sed '1d'|awk '{ $1=""; print $0 }' |grep -o '[0-9]*')
 		then
 		    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='$i2c' WHERE id='1'"
 	fi
@@ -23,10 +23,10 @@ HTU21D="40" #0x40
 MPL3115A2="60" #0x60
 
 if [ -n "$i2c" ]; then 
-    echo I2C: Found $i2c
+    echo I2C: Found $det
 fi
 
-for i in $i2c
+for i in $det
     do
         if [ "$i" = "$bmp180" ]
 	    then
