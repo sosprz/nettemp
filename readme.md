@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.54
+add new i2c scan
+
 8.4.53
 add host monitoring
 

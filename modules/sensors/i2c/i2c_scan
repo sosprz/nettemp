@@ -5,19 +5,16 @@ dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
 
-if [ -e /dev/i2c-0 ] 
-    then
-    i2cbus="0"
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='i2c-0' WHERE id='1'"
-elif [ -e /dev/i2c-1 ]
-    then
-    i2cbus="1"
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='i2c-1' WHERE id='1'"    
-else
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='off' WHERE id='1'"
-fi 
+for bus in $(ls /dev/i2c-*)
+    do
+	i2c=$(echo $bus| awk -F"-" {'print $2'})
+        if sudo i2cdetect -y $i2c |sed '1d'|awk '{ $1=""; print $0 }' |grep -o '[0-9]*'
+		then
+		    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='$i2c' WHERE id='1'"
+	fi
+done
 
-i2c=$(sudo i2cdetect -y $i2cbus |sed '1d'|awk '{ $1=""; print $0 }' |grep -o '[0-9]*')
+
 
 bmp180="77" #0x77
 TSL2561="39" #0x39

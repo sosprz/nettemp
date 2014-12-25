@@ -46,14 +46,38 @@ $(function() {
 	        data: data,
 	        dataGrouping: {
 		    units: [[
-			'week', // unit name
+			'day', // unit name
 			[1] // allowed multiples
 		    ], [
 			'month',
 			[1, 2, 3, 4, 6]
 		    ]]
 	        }
-	    }]
+	    }],
+	    rangeSelector : {
+                buttons: [{
+                    type: 'hour',
+                    count: 1,
+                    text: '1h'
+                }, {
+                    type: 'day',
+                    count: 1,
+                    text: '1d'
+                }, {
+                    type: 'month',
+                    count: 1,
+                    text: '1m'
+                }, {
+                    type: 'year',
+                    count: 1,
+                    text: '1y'
+                }, {
+                    type: 'all',
+                    text: 'All'
+                }],
+                inputEnabled: false, // it supports only days
+                selected : 1 // all
+            },
 	});
     });
 });
