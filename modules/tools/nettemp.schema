@@ -1,13 +1,11 @@
-PRAGMA journal_mode=WAL;
 CREATE TABLE device (
    id INTEGER PRIMARY KEY,
    usb UNIQUE,
    onewire UNIQUE,
    serial UNIQUE,
    i2c UNIQUE,
-   lmsensors TEXT,
-   wireless TEXT
-  );
+   lmsensors TEXT
+  , wireless type TEXT);
 CREATE TABLE fw (
    id INTEGER PRIMARY KEY,
    ssh TEXT,
@@ -69,7 +67,7 @@ CREATE TABLE mail_settings (
   password TEXT,
   address TEXT,
   test_mail TEXT
-  );
+  , error type TEXT);
 CREATE TABLE recipient (
   id INTEGER PRIMARY KEY,
   name TEXT,
@@ -94,7 +92,7 @@ CREATE TABLE sensors (
   color TEXT,
   type TEXT,
   gpio TEXT
- );
+ , ip type TEXT, device type TEXT);
 CREATE TABLE settings (
    id INTEGER PRIMARY KEY,
    mail TEXT,

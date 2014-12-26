@@ -41,9 +41,10 @@ for i in $det
         if [ "$i" = "$ds2482" ]
 	    then
 		echo ds2482 0x$ds2482 > /sys/bus/i2c/devices/i2c-$i2cbus/new_device
-		    if ! grep -q 0x$ds2482 $dir/modules/cron/r
+		    if ! grep -q 0x$ds2482 $dir/tmp/cronr
 			then
-			    sed -i '$aecho ds2482 0x'$ds2482' > /sys/bus/i2c/devices/i2c-'$i2cbus'/new_device' $dir/modules/cron/r
+			    echo "echo ds2482 0x$ds2482 > /sys/bus/i2c/devices/i2c-$(echo $i2c)/new_device" >> $dir/tmp/cronr
+			    sudo /bin/chmod +x $dir/tmp/cronr
 		    fi
         fi
         if [ "$i" = "$HTU21D" ]
