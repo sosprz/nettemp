@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.4.55
+add new code to ESP8166 in modules/sensors/wireless/
+new script to read wireless temp
+
 8.4.54
 add new i2c scan
 

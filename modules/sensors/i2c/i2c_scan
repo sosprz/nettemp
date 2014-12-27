@@ -8,8 +8,9 @@ date=`date +%y%m%d-%H%M`
 for bus in $(ls /dev/i2c-*)
     do
 	i2c=$(echo $bus| awk -F"-" {'print $2'})
-        if det=$(sudo i2cdetect -y $i2c |sed '1d'|awk '{ $1=""; print $0 }' |grep -o '[0-9]*')
+        if det=$(sudo i2cdetect -y $i2c |sed '1d'|awk '{ $1=""; print $0 }' |grep -o -E '77|39|18|40|60|1a')
 		then
+		    echo $det
 		    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET i2c='i2c-$i2c' WHERE id='1'"
 	fi
 done
@@ -18,7 +19,7 @@ done
 
 bmp180="77" #0x77
 TSL2561="39" #0x39
-ds2482="18" #0x18 
+ds2482=['18','1a'] #0x18,1a
 HTU21D="40" #0x40
 MPL3115A2="60" #0x60
 
@@ -38,12 +39,13 @@ for i in $det
 	    then
 		echo i2c_$i\_lux >> $dir/tmp/onewire
         fi
-        if [ "$i" = "$ds2482" ]
+        
+	if [[ ${ds2482[*]} =~  $i ]]
 	    then
-		echo ds2482 0x$ds2482 > /sys/bus/i2c/devices/i2c-$i2cbus/new_device
-		    if ! grep -q 0x$ds2482 $dir/tmp/cronr
+	    echo ds2482 0x$i > /sys/bus/i2c/devices/i2c-$i2c/new_device
+		    if ! grep -q 0x$i $dir/tmp/cronr
 			then
-			    echo "echo ds2482 0x$ds2482 > /sys/bus/i2c/devices/i2c-$(echo $i2c)/new_device" >> $dir/tmp/cronr
+			    echo "echo ds2482 0x$i > /sys/bus/i2c/devices/i2c-$(echo $i2c)/new_device" >> $dir/tmp/cronr
 			    sudo /bin/chmod +x $dir/tmp/cronr
 		    fi
         fi
