@@ -21,16 +21,56 @@ $(function() {
     // create the chart
     $('#container').highcharts('StockChart', {
         chart: {
-            alignTicks: false
+            alignTicks: false,
+                backgroundColor: {
+                linearGradient: [0, 0, 500, 500],
+                stops: [
+                    [0, 'rgb(255, 255, 255)'],
+                    [1, 'rgb(237, 235, 234)']
+                ]
+            },
         },
 
         rangeSelector: {
 	inputEnabled: $('#container').width() > 480,
-            selected: 1
+            selected: 0,
+       buttons: [{
+	type: 'day',
+	count: 1,
+	text: '1d'
+               }, {
+	type: 'day',
+	count: 7,
+	text: '7d'
+               }, {
+	type: 'month',
+	count: 1,
+	text: '1m'
+               }, {
+	type: 'ytd',
+	text: 'YTD'
+               }, {
+	type: 'year',
+	count: 1,
+	text: '1y'
+               }, {
+	type: 'all',
+	text: 'All'
+              }]
         },
 
         title: {
-            text: 'kWh'
+            text: 'kWh hour'
+        },
+
+        yAxis: {
+        min: 0
+        },
+
+
+        tooltip: {
+            valueDecimals: 2,
+            valueSuffix: ' kWh'
         },
 
         series: [{
@@ -66,16 +106,60 @@ $(function() {
     // create the chart
     $('#container2').highcharts('StockChart', {
         chart: {
-            alignTicks: false
+            alignTicks: false,
+
+	backgroundColor: {
+                linearGradient: [0, 0, 500, 500],
+                stops: [
+                    [0, 'rgb(255, 255, 255)'],
+                    [1, 'rgb(237, 235, 234)']
+                ]
+            },
+
         },
 
         rangeSelector: {
 	inputEnabled: $('#container2').width() > 480,
-            selected: 1
+            selected: 1,
+          buttons: [{
+        type: 'day',
+        count: 1,
+        text: '1d'
+               }, {
+        type: 'day',
+        count: 7,
+        text: '7d'
+               }, {
+        type: 'month',
+        count: 1,
+        text: '1m'
+               }, {
+        type: 'ytd',
+        text: 'YTD'
+               }, {
+        type: 'year',
+        count: 1,
+        text: '1y'
+               }, {
+        type: 'all',
+        text: 'All'
+        
+              }]
+
         },
 
         title: {
             text: 'kWh day'
+        },
+
+        yAxis: {
+        min: 0
+        },
+
+
+        tooltip: {
+            valueDecimals: 2,
+            valueSuffix: ' kWh'
         },
 
         series: [{
@@ -111,17 +195,65 @@ $(function() {
     // create the chart
     $('#container3').highcharts('StockChart', {
         chart: {
-            alignTicks: false
+            alignTicks: false,
+
+        backgroundColor: {
+                linearGradient: [0, 0, 500, 500],
+                stops: [
+                    [0, 'rgb(255, 255, 255)'],
+                    [1, 'rgb(237, 235, 234)']
+                ]
+            },
+
         },
 
         rangeSelector: {
 	inputEnabled: $('#container3').width() > 480,
-            selected: 1
+            selected: 0,
+        buttons: [{
+
+        type: 'hour',
+        count: 1,
+        text: '1h'
+               }, {
+        type: 'day',
+        count: 1,
+        text: '1d'
+               }, {
+        type: 'day',
+        count: 7,
+        text: '7d'
+              }, {
+        type: 'month',
+        count: 1,
+        text: '1m'
+               }, {
+        type: 'ytd',
+        text: 'YTD'
+               }, {
+        type: 'year',
+        count: 1,
+        text: '1y'
+               }, {
+        type: 'all',
+        text: 'All'
+
+             }]
         },
 
         title: {
             text: 'kWh minute'
         },
+        
+        tooltip: {
+            valueDecimals: 3,
+            valueSuffix: ' kWh'
+        },
+
+        yAxis: {
+        min: 0
+	},
+        
 
         series: [{
             type: 'spline',
