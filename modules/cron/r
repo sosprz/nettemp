@@ -5,4 +5,5 @@ echo "$(date +\%y\%m\%d-\%H\%M) RPI rebooted" >> $dir/tmp/log.txt
 $dir/modules/tools/restart
 $dir/modules/kwh/reset
 $dir/tmp/cronr
+$dir/modules/lcd/lcd
 

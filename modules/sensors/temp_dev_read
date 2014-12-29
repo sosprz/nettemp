@@ -41,4 +41,7 @@ $dir/modules/sensors/wireless/esp8266_read
 
 #snmp server
 sqlite3 $dir/dbf/nettemp.db "SELECT tmp FROM sensors" | sed 's/$/:/' | sed '$s/.$//' |tr -d "\n" > $dir/tmp/results
+#lcd
+sqlite3 $dir/dbf/nettemp.db "SELECT name,tmp FROM sensors WHERE lcd='on'" | sed 's/|/ /g' > $dir/tmp/lcd
+
 
