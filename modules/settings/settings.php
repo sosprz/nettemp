@@ -8,6 +8,17 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+
+    $lcd = isset($_POST['lcd']) ? $_POST['lcd'] : '';
+    $lcdon = isset($_POST['lcdon']) ? $_POST['lcdon'] : '';
+    
+    if (($lcd == "lcd") ){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE settings SET lcd='$lcdon' WHERE id='1'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
     $gpio_onoff = isset($_POST['gpio_onoff']) ? $_POST['gpio_onoff'] : '';
     $gpio_onoff1 = isset($_POST['gpio_onoff1']) ? $_POST['gpio_onoff1'] : '';
     if (($gpio_onoff1 == "gpio_onoff2") ){
@@ -55,6 +66,7 @@ $hc=$a["highcharts"];
 $ss=$a["sms"];
 $ms=$a["mail"];
 $gpio=$a["gpio"];
+$lcd=$a["lcd"];
 
 
 }
@@ -124,7 +136,7 @@ if ($gpio == "on" ) {
     include('time.php');
 ?>
 </span></span>
-<span class="belka">&nbsp I2C - set i2c BUS<span class="okno">
+<span class="belka">&nbsp I2C - set i2c BUS (TEST: if i2c work good form "scan", forget about this option)<span class="okno">
 <?php	
     include('i2c.php');
 ?>
@@ -134,6 +146,19 @@ if ($gpio == "on" ) {
     include('snmpd.php');
 ?>
 </span></span>
+
+<span class="belka">&nbsp LCD<span class="okno">
+    <table>
+    <tr>	
+    <form action="settings" method="post">
+    <td>LCD 1602 HD44789 PCF8574 I2C</td>
+    <td><input type="checkbox" name="lcdon" value="on" <?php echo $lcd == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <input type="hidden" name="lcd" value="lcd" />
+    </form>
+    </tr> 
+    </table>
+</span></span>
+
 
 
 <?php } 

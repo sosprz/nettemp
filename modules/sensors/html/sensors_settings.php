@@ -17,6 +17,7 @@ $sth1->execute();
 $result2 = $sth1->fetchAll();
 foreach ($result2 as $a) {
 $rrd=$a["rrd"];
+$lcd=$a["lcd"];
 }
 if ( $rrd == 'on' ) { ?>
 <tr>
@@ -26,7 +27,7 @@ if ( $rrd == 'on' ) { ?>
 <td></td>
 <td><center>Sensor id</center></td>
 <td>DB</td>
-<td></td>
+<td>LCD</td>
 <td>Hour</td>
 <td>Day</td>
 <td>Week</td>
@@ -42,6 +43,7 @@ if ( $rrd == 'on' ) { ?>
 <td></td>
 <td><center>Sensor id</center></td>
 <td>DB</td>
+<?php if ( $lcd == 'on' ) { ?> <td>LCD</td> <?php } else { ?> <td></td> <?php } ?>
 <td></td>
 <td></td>
 <td></td>
@@ -96,7 +98,20 @@ if ( $rrd == 'on' ) {
     <td><input type="checkbox" name="year" value="on" <?php echo $a["year"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="ss1" value="ss2" />
     </form>
-<?php } ?>
+<?php } 
+
+if ( $lcd == 'on' ) { 
+?>
+    <form action="" method="post"> 	
+    <input type="hidden" name="lcdid" value="<?php echo $a["id"]; ?>" />
+    <td><input type="checkbox" name="lcdon" value="on" <?php echo $a["lcd"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <input type="hidden" name="lcd" value="lcd" />
+    </form>
+<?php
+}
+?>
+
+
 
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 <input type="hidden" name="usun_czujniki" value="<?php echo $a["rom"]; ?>" />

@@ -69,8 +69,8 @@ $numRows = count($row);
 	<td><img src="media/ico/TO-220-icon.png" /></td>
 	<td><?php echo $a['name']; ?></td>
 	<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
-	<td><input type="text" name="tmp_min_new" size="1" value="<?php echo $a['tmp_min']; ?>" /> -</td>
-	<td><input type="text" name="tmp_max_new" size="1" value="<?php echo $a['tmp_max']; ?>" /></td>
+	<td><input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" /> -</td>
+	<td><input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" /></td>
 	<input type="hidden" name="ok" value="ok" />
 	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td>
 	</form>

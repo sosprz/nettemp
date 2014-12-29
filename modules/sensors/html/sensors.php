@@ -99,6 +99,10 @@ $month = isset($_POST['month']) ? $_POST['month'] : '';
 $year = isset($_POST['year']) ? $_POST['year'] : '';
 $ss = isset($_POST['ss']) ? $_POST['ss'] : '';
 
+$lcd = isset($_POST['lcd']) ? $_POST['lcd'] : '';
+$lcdon = isset($_POST['lcdon']) ? $_POST['lcdon'] : '';
+$lcdid = isset($_POST['lcdid']) ? $_POST['lcdid'] : '';
+
 $ss1 = isset($_POST['ss1']) ? $_POST['ss1'] : '';
 // SQLite - graph view update 
 if ( $ss1 == "ss2"){
@@ -112,6 +116,17 @@ if ( $ss1 == "ss2"){
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 } 
+
+if ( $lcd == "lcd"){
+
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET lcd='$lcdon' WHERE id='$lcdid'") ;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+} 
+
+
+
 ?>
 
 <?php include("modules/sensors/html/sensors_settings.php"); ?>

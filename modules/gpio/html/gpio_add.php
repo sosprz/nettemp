@@ -20,11 +20,16 @@ if ( $add == "ADD") {
 <?php
     exec("/usr/local/bin/gpio -v |grep B+", $bplus );
     exec("/usr/local/bin/gpio -v |grep 'Model B, Revision: 2'", $btwo );
+    exec("/usr/local/bin/gpio -v |grep 'Model B, Revision: 1'", $bone );
     if (!empty($bplus[0]))
     {
         $gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
     }
     elseif (!empty($btwo[0]))
+    {
+        $gpiolist = array(4,17,27,22,18,23,24,25,28,29,30,31);
+    }
+    elseif (!empty($bone[0]))
     {
         $gpiolist = array(4,17,27,22,18,23,24,25);
     }

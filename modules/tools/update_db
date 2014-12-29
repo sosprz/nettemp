@@ -73,7 +73,8 @@ if [ ! -s $dir/dbf/hosts.db ]
     else 
     echo hosts.db exist
 fi
-
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD lcd type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD lcd type TEXT";
 
 
 

@@ -53,10 +53,18 @@ USERS:
 
 Changelog:
 
+8.4.57
+add LCD over i2c (settings -> lcd)
+
+8.4.56
+changed: reverse lock icon bellow login
+add: gpio 28,29,30,31 to rpi rev2
+fix: notification inputs
+
 8.4.55
 add new code to ESP8166 in modules/sensors/wireless/
 new script to read wireless temp
-add kwh charts stule from forum user Dise
+add kwh charts style from forum user Dise
 
 8.4.54
 add new i2c scan
