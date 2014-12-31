@@ -7,7 +7,8 @@ onoff=$(sqlite3 $dir/dbf/nettemp.db  "SELECT lcd FROM settings WHERE id='1'")
 
 if [ "$onoff" == "on" ]
 then
-
+$dir/modules/lcd/lcdi2c -l -b 1 "$(printf "%-15s %-15s" "$(echo nettemp.pl| cut -c 1-15) " "$(echo lcd mod| cut -c 1-15)")"
+sleep 2
 while :
     do
 	
@@ -16,7 +17,7 @@ while :
 	f="0"
 	s="1"
 	while [ "$s" -le "$max" ] ; do
-	    ./lcdi2c -l -b 1 "$(printf "%-15s %-15s" "$(echo ${lines[$f]}| cut -c 1-15) " "$(echo ${lines[$s]}| cut -c 1-15)")"
+	    $dir/modules/lcd/lcdi2c -l -b 1 "$(printf "%-15s %-15s" "$(echo ${lines[$f]}| cut -c 1-15) " "$(echo ${lines[$s]}| cut -c 1-15)")"
 	    sleep 2
 	    f=$(expr $f + 1)
 	    s=$(expr $s + 1)

@@ -55,6 +55,7 @@ Changelog:
 
 8.4.57
 add LCD over i2c (settings -> lcd)
+fix lcd
 
 8.4.56
 changed: reverse lock icon bellow login
