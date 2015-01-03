@@ -18,7 +18,7 @@ while :
 	s="1"
 	t="2"
 	l="3"
-	while [ "$s" -le "$max" ] ; do
+	while [ "$l" -le "$max" ] ; do
 	    $dir/modules/lcd/lcdi2c -l -b 1 -r 4 "$(printf "%-15s %-15s %-15s %-15s" "$(echo ${lines[$f]}| cut -c 1-15)" "$(echo ${lines[$s]}| cut -c 1-15)" "$(echo ${lines[$t]}| cut -c 1-15)" "$(echo ${lines[$l]}| cut -c 1-15)")"
 	    sleep 2
 	    f=$(expr $f + 1)
