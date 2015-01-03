@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.58
+fixed lcd init
+
 8.4.57
 add LCD over i2c (settings -> lcd)
 fix lcd
