@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.59
+test: fix ESP8166 searching for wlan devs.
+
 8.4.58
 fixed lcd init
 
@@ -64,7 +67,7 @@ fix lcd
 changed: reverse lock icon bellow login
 add: gpio 28,29,30,31 to rpi rev2
 fix: notification inputs
-
+ 
 8.4.55
 add new code to ESP8166 in modules/sensors/wireless/
 new script to read wireless temp
