@@ -37,4 +37,4 @@ chown root.www-data $dir/dbf/hosts.db
 #kwh
 $dir/modules/kwh/kwhdb
 
-echo "$date Default settings restored" >> $dir/tmp/log.txt
+echo "$date Default settings restored" >> $dir/tmp/log.txt 1>/dev/null
