@@ -52,6 +52,7 @@ elseif ( $id == 'tools' ){ ?>
     <span class="belka">&nbsp File diagnostic<span class="okno">
     <?php
     echo "It's ok";
+    include('modules/tools/html/tools_perms.php');
     ?>
     </span></span>
 <?php

@@ -2,7 +2,7 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
-git reset --hard
+cd $dir && git reset --hard && cd -
 
 rm -rf $dir/dbf/*.db
 #rm -rf $dir/db/*.rrd #uncomment will delete all stored data
