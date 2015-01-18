@@ -1,5 +1,7 @@
 #! /bin/bash
 
+hostname
+
 uname -a
 
 for i in $(ls /sys/class/net/); do
@@ -26,3 +28,4 @@ netstat -pln
 
 iptables -L
 iptables -L -t nat
+
