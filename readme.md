@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.60
+add other/ntinfo for debug
+
 8.4.59
 test: fix ESP8166 searching for wlan devs.
 

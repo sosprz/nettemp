@@ -1,0 +1,28 @@
+#! /bin/bash
+
+uname -a
+
+for i in $(ls /sys/class/net/); do
+    op=$(cat /sys/class/net/$i/operstate)
+    echo $i $op
+done
+
+free -m
+
+cd /var/www/nettemp
+awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$' && /usr/bin/git branch |grep [*]|awk '{print $2}';
+
+df -h
+
+dpkg --get-selections |apache
+/etc/init.d/apache status
+
+/etc/init.d/cron status
+
+cd /var/www/nettemp
+ls -la
+
+netstat -pln
+
+iptables -L
+iptables -L -t nat
