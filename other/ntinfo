@@ -1,31 +1,31 @@
 #! /bin/bash
 
+echo "-----hostname"
 hostname
-
+echo "-----kernel"
 uname -a
-
+echo "-----interfaces"
 for i in $(ls /sys/class/net/); do
     op=$(cat /sys/class/net/$i/operstate)
     echo $i $op
 done
-
+echo "-----memory"
 free -m
-
+echo "-----version"
 cd /var/www/nettemp
 awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$' && /usr/bin/git branch |grep [*]|awk '{print $2}';
-
+echo "-----space"
 df -h
-
-dpkg --get-selections |apache
-/etc/init.d/apache status
-
+echo "-----apache"
+dpkg --get-selections |grep apache && /etc/init.d/apache status
+echo "-----cron"
 /etc/init.d/cron status
-
+echo "-----perms"
 cd /var/www/nettemp
 ls -la
-
+echo "-----ports"
 netstat -pln
-
+echo "-----firewall"
 iptables -L -n
 iptables -L -t nat -n
 
