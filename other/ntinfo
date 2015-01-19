@@ -26,6 +26,6 @@ ls -la
 
 netstat -pln
 
-iptables -L
-iptables -L -t nat
+iptables -L -n
+iptables -L -t nat -n
 
