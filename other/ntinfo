@@ -28,4 +28,8 @@ netstat -pln
 echo "-----firewall"
 iptables -L -n
 iptables -L -t nat -n
+echo "-----USB info"
+lsusb
+dmesg |grep -E 'usb|atm'
+
 
