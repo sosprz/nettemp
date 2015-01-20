@@ -41,8 +41,10 @@ fi
 
 function checkifrpi {
 rpi=$(cat /proc/cmdline | awk -v RS=" " -F= '/boardrev/ { print $2 }')
-if [ -n $rpi ]; then
-echo -e "[ ${GREEN}ok${R} ] Raspberry Pi detected"
+if [ -n "$rpi" ]; then
+    echo -e "[ ${GREEN}ok${R} ] Raspberry Pi detected"
+else
+    echo -e "[ ${GREEN}ok${R} ] no Raspberry Pi detected"
 fi
 }
 
@@ -184,9 +186,9 @@ function www-server {
 # enable fastcgi
 lighty-enable-mod fastcgi-php 1>/dev/null
 # enable modrewrite
-sed -i -e 's/# "mod_rewrite",/ "mod_rewrite",/g' /etc/lighttpd/lighttpd.conf
+sed -i -e 's/#        "mod_rewrite",/ "mod_rewrite",/g' /etc/lighttpd/lighttpd.conf
 # www dir
-sed -i -e 's/server.document-root = \"\/var\/www\"/server.document-root = \"\/var\/www\/nettemp\"/g' /etc/lighttpd/lighttpd.conf
+sed -i -e 's/server.document-root        = \"\/var\/www\"/server.document-root        = \"\/var\/www\/nettemp\"/g' /etc/lighttpd/lighttpd.conf
 # didable dir access
 sed -i '/url.access-deny/d' /etc/lighttpd/lighttpd.conf
 sed -i '$a url.access-deny = ( "~", ".inc", ".dbf", ".db", ".txt", ".rrd" )' /etc/lighttpd/lighttpd.conf
@@ -248,24 +250,24 @@ fi
 }
 
 
-start
-checkifrpi
-fexit update
-fexit packages
-fexit check-other-www-servers
-fexit www-server
-fexit download-nettemp
-fexit database
-fexit cron
-fexit wiringpi
-fexit 1wire
-fexit ups
-fexit vpn
-fexit firewall
-fexit i2c
-fexit perms
-fexit services
-end
+#start
+fexit checkifrpi
+#fexit update
+#fexit packages
+#fexit check-other-www-servers
+#fexit www-server
+#fexit download-nettemp
+#fexit database
+#fexit cron
+#fexit wiringpi
+#fexit 1wire
+#fexit ups
+#fexit vpn
+#fexit firewall
+#fexit i2c
+#fexit perms
+#fexit services
+#end
 
-echo "(Exit status was $exitstatus)"
+#echo "(Exit status was $exitstatus)"
 
