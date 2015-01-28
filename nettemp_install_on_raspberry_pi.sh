@@ -34,7 +34,7 @@ echo -e "${GREEN}Nettemp installer${R}"
 apt-get update
 echo -e "${GREEN}Install packages${R}"
 apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat \
-sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables rcconf arp-scan snmpd httping fping make gcc
+sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables rcconf arp-scan snmpd httping fping make gcc build-essential
 
 if [ "$?" -eq "0" ]; then
     echo "${GREEN}All packages installed ok${R}"
