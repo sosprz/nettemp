@@ -31,5 +31,10 @@ iptables -L -t nat -n
 echo "-----USB info"
 lsusb
 dmesg |grep -E 'usb|atm'
+echo "-----modules"
+lsmod
+cat /etc/modules
+
+
 
 
