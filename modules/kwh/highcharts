@@ -1,30 +1,23 @@
-#! /bin/bash
+#! /bin/bash -x
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 
 mkdir -p $dir/tmp/kwh 1> /dev/null
-gpio=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio FROM gpio WHERE gpio_kwh='on'")
+gpio=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio FROM gpio WHERE mode='kwh'")
 
 if [ -n "$gpio" ]; then
-divider=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio_kwh_divider FROM gpio WHERE gpio='$gpio'")
+divider=$(sqlite3 $dir/dbf/nettemp.db  "SELECT kwh_divider FROM gpio WHERE gpio='$gpio'")
 if [ -z "$divider" ]; then 
 divider="1"
 fi
 
-# org
-#i=$(cat $dir/tmp/kwh/kwh_count_$(date +%y%m%d) 2> /dev/null )
-#echo "$[($(date +%s)+7200)*1000],$[$i/$divider]" > $dir/tmp/kwh/kwh_daily_$(date +%y%m%d)
-#cat $dir/tmp/kwh/kwh_daily* > $dir/db/kwh.all
-#echo $(echo '[' ; cat $dir/db/kwh.all |sed -e 's/^/[/'|sed -e 's/,$/,/'|sed -e 's/\([^,]\)$/\1\],/' |sed '$s/,$//' ; echo  ']') > $dir/db/data.json 
-
-
-# new
-i=$(cat $dir/tmp/kwh/kwh_count_$(date +%y%m%d) 2> /dev/null )
-echo "$[($(date +%s)+7200)*1000],$[$i]" > $dir/tmp/kwh/kwh_daily_$(date +%y%m%d)
-cat $dir/tmp/kwh/kwh_daily* > $dir/db/gpio_kwh.db
-echo $(echo '[' ; cat $dir/db/gpio_kwh.db | awk -F "," '{print $1","$2 / '$divider' }' |sed -e 's/^/[/'|sed -e 's/,$/,/'|sed -e 's/\([^,]\)$/\1\],/' |sed '$s/,$//' ; echo  ']') > $dir/db/gpio_kwh_highcharts.json 
-#
-
+if base=$(sqlite3 /var/www/nettemp/dbf/kwh.db "select strftime('%s', time),pulse FROM kwh;") ;
+    then
+	middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1+3600)*1000}{printf ","}{printf "%3.3f", $2/'$divider'}{print "]," }')
+	echo -e "[ ${middle%?} ]" > $dir/tmp/kwh/gpio_kwh_min.json
+    else 
+	echo "cannot read base"
+fi
 else 
     echo "kWh OFF"
 fi

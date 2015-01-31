@@ -10,24 +10,28 @@ function timedRefresh(timeoutPeriod) {
 <table><tr>
 <td><a href="index.php?id=view&type=temp" ><button>Temp view</button></a></td>
 <?php 
-if (glob('/var/www/nettemp/db/*humi*.rrd')) {?>
+if (glob('db/*humi*.rrd')) {?>
 <td><a href="index.php?id=view&type=humi" ><button>Humi view</button></a></td>
 <?php }
-if (glob('/var/www/nettemp/db/*pressure*.rrd')) {?>
+if (glob('db/*pressure*.rrd')) {?>
 <td><a href="index.php?id=view&type=pressure" ><button>Pressure view</button></a></td>
 <?php }
-if (glob('/var/www/nettemp/db/*altitude*.rrd')) {?>
+if (glob('db/*altitude*.rrd')) {?>
 <td><a href="index.php?id=view&type=altitude" ><button>Altitude view</button></a></td>
 <?php }
-if (glob('/var/www/nettemp/db/*snmp*.rrd')) {?>
+if (glob('db/*snmp*.rrd')) {?>
 <td><a href="index.php?id=view&type=snmp" ><button>Snmp view</button></a></td>
 <?php }
-if (glob('/var/www/nettemp/db/*kwh*')) {?>
+if (glob('tmp/kwh/*.json')) {?>
 <td><a href="index.php?id=view&type=kwh" ><button>kWh view</button></a></td>
 <?php }
-if (glob('/var/www/nettemp/db/*lux*.rrd')) {?>
+if (glob('db/*lux*.rrd')) {?>
 <td><a href="index.php?id=view&type=lux" ><button>LUX view</button></a></td>
-<?php } ?>
+<?php } 
+if (glob('db/gpio/gpio*')) {?>
+<td><a href="index.php?id=view&type=gpio" ><button>GPIO view</button></a></td>
+<?php } ?> 
+<td><a href="index.php?id=view&type=hosts" ><button>Hosts</button></a></td>
 </tr>
 </table>
 </span>
@@ -49,6 +53,8 @@ case 'altitude': include('modules/view/html/altitude_view.php'); break;
 case 'pressure': include('modules/view/html/pressure_view.php'); break;
 case 'kwh': include('modules/kwh/html/kwh_charts.php'); break;
 case 'lux': include('modules/view/html/lux_view.php'); break;
+case 'gpio': include('modules/highcharts/html/gpio_menu.php'); break;
+case 'hosts': include('modules/highcharts/html/hosts_menu.php'); break;
 }
 ?>
 

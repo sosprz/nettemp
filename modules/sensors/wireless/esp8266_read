@@ -1,0 +1,16 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
+date=`date +%y%m%d-%H%M`
+if rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='wireless'")
+    then
+    for all in $rom
+    do 
+	ip=$(echo $all |awk -F_ '{print $2}')
+	#wynik=$(curl -s  $ip |awk -F" " '{print $4}')
+	wynik=$(nc $ip 80 |awk -F":" '{print $2}'|cut -c 2-6)
+	rrdtool update $dir/db/$all.rrd N:$wynik
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$all'"
+	echo ESP8266: $wynik C
+     done
+fi

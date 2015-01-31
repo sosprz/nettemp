@@ -1,0 +1,40 @@
+#! /bin/bash  
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=`date +%y%m%d-%H%M`
+cd $dir && git reset --hard && cd -
+
+rm -rf $dir/dbf/*.db
+#rm -rf $dir/db/*.rrd #uncomment will delete all stored data
+rm -rf $dir/tmp/.* $dir/tmp/*
+
+sqlite3 $dir/dbf/nettemp.db < $dir/modules/tools/nettemp.schema
+
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')"
+#sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('temp', 'd969831eb8a99cff8c02e681f43289e5d3d69664', 'ops')"
+sqlite3 $dir/dbf/nettemp.db "INSERT INTO device (usb, onewire, serial, i2c, lmsensors, wireless ) VALUES ('off','off','off','off','off','off')"
+sqlite3 $dir/dbf/nettemp.db "INSERT INTO settings (mail, sms, rrd, highcharts, fw, vpn, gpio, authmod ) VALUES ('off','off', 'off', 'on', 'off', 'off', 'off', 'on' )"
+sqlite3 $dir/dbf/nettemp.db "INSERT INTO fw (ssh, icmp, ext, openvpn ) VALUES ('off','off', '0.0.0.0/0', 'off' )"
+sqlite3 $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user ) VALUES ('smtp.gmail.com', '587', 'yourmail@gmail.com' )"
+
+
+chmod 775 $dir/dbf/nettemp.db
+chown root.www-data $dir/dbf/nettemp.db
+
+
+# SNMP
+rm -rf $dir/dbf/snmp.db
+sqlite3 $dir/dbf/snmp.db < $dir/modules/tools/snmp.schema
+chmod 775 $dir/dbf/snmp.db
+chown root.www-data $dir/dbf/snmp.db
+
+# hosts
+rm -rf $dir/dbf/hosts.db
+sqlite3 $dir/dbf/hosts.db < $dir/modules/tools/hosts.schema
+chmod 775 $dir/dbf/hosts.db
+chown root.www-data $dir/dbf/hosts.db
+
+#kwh
+$dir/modules/kwh/kwhdb
+
+#echo "$date Default settings restored" >> $dir/tmp/log.txt &>/dev/null

@@ -1,60 +1,60 @@
 <?php 
 $gpioad = isset($_POST['gpioad']) ? $_POST['gpioad'] : '';
 $add = isset($_POST['add']) ? $_POST['add'] : '';
-$del = isset($_POST['del']) ? $_POST['del'] : '';
-$check = isset($_POST['check']) ? $_POST['check'] : '';
+$gpio = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 
 if ( $add == "ADD") {
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT INTO gpio (gpio, name, time_start, gpio_rev_hilo ,gpio_kwh_divider) VALUES ('$gpioad','new','off','off','1')") or die ($db->lastErrorMsg());
+	if (!empty($gpioad)) { 
+	    $db->exec("INSERT INTO gpio (gpio, name, status) VALUES ('$gpio','new_$gpio','OFF')") or die ($db->lastErrorMsg());
+	}
+	else {
+	    $db->exec("DELETE FROM gpio WHERE gpio='$gpio'") or die ($db->lastErrorMsg());
+	}
 	$db = NULL;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 }
-if ( $del == "DEL") {
-	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("DELETE FROM gpio WHERE gpio='$gpioad'") or die ($db->lastErrorMsg());
-	$db = NULL;
-	unset($del);
-	//exec("/usr/local/bin/gpio reset $gpioad");
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit(); 
-}
 ?>
-<span class="belka">&nbsp Add / del <span class="okno">
+<span class="belka">&nbsp Free gpio <span class="okno">
 <?php
-    exec("/usr/local/bin/gpio -v |grep B+", $rpicheck );
-    if (!empty($rpicheck[0]))
+    exec("/usr/local/bin/gpio -v |grep B+", $bplus );
+    exec("/usr/local/bin/gpio -v |grep 'Model B, Revision: 2'", $btwo );
+    exec("/usr/local/bin/gpio -v |grep 'Model B, Revision: 1'", $bone );
+    if (!empty($bplus[0]))
     {
-        $gpiolist = array(17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
+        $gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
+    }
+    elseif (!empty($btwo[0]))
+    {
+        $gpiolist = array(4,17,27,22,18,23,24,25,28,29,30,31);
+    }
+    elseif (!empty($bone[0]))
+    {
+        $gpiolist = array(4,17,27,22,18,23,24,25);
     }
     else
     {
-		$gpiolist = array(17,18,21,22,23,24,25);
-    }
-
+		$gpiolist = array(4,17,21,22,18,23,24,25);
+    } ?>
+<table><tr>
+<?php
 foreach ($gpiolist as $value1) {
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$rows = $db->query("SELECT * FROM gpio WHERE gpio='$value1'");
 	$row = $rows->fetchAll();
 	foreach ($row as $result) { 
-   	$check = $result['gpio']; 
+   	$check = $result['gpio'];
+	$disabled = $result['mode']; 
 	}; ?>
-<table><tr>
-    <form action="" method="post">
-    	<td><img src="media/ico/TO-220-icon.png" /></td>
-    	<td>Gpio <?php echo $value1; ?></td>
-	 	<?php if ( $check != $value1) { ?>
-    	<input type="hidden" name="gpioad" value="<?php echo $value1; ?>" >
-    	<input type="hidden" name="add" value="ADD" />
-    	<td><input type="image" src="media/ico/Add-icon.png"  /></td>
+ 
+   <form action="" method="post">
+    <td><?php echo $value1 ?></td>
+    <td><input type="checkbox" name="gpioad" value="<?php echo $value1 ?>" <?php  echo $check==$value1 ? 'checked="checked"' : ''; ?> <?php echo !empty($disabled) ? 'disabled="disabled"' : ''; unset($disabled) ?>onclick="this.form.submit()" /></td>
+    <input type="hidden" name="gpio" value="<?php echo $value1 ?>" />
+    <input type="hidden" name="add" value="ADD" />
     </form>
 <?php } ?>
-    <form action="" method="post"> 
-    	<input type="hidden" name="gpioad" value="<?php echo $value1; ?>" >
-    	<input type="hidden" name="del" value="DEL" />
-    	<td><input type="image" src="media/ico/Close-2-icon.png"  /></td>
-    </form>
 </tr></table>
-<?php } ?>
+    <font color="grey">Note: Do not use GPIO4 when use 1wire sensors connected to GPIO4</font>
 </span></span>

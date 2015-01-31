@@ -1,0 +1,47 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+
+if [[ "`pidof -x $(basename $0) -o %PPID`" ]]; then echo "Already running" && exit; fi
+
+mkdir -p $dir/tmp/kwh 1> /dev/null
+gpio=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio FROM gpio WHERE mode='kwh'")
+divider=$(sqlite3 $dir/dbf/nettemp.db  "SELECT kwh_divider FROM gpio WHERE gpio='$gpio'")
+rev=$(sqlite3 $dir/dbf/nettemp.db  "SELECT rev FROM gpio WHERE gpio='$gpio'")
+if [ "$rev" == "on" ]
+    then
+	hilo="0"
+else
+    hilo="1"
+fi
+
+if [ -n "$gpio" ]; then
+
+while :
+do
+    date=$(date +%Y%m%d%H%M)
+    time=$(date +%s)
+    check=$(sqlite3 $dir/dbf/kwh.db "SELECT imp FROM kwh WHERE d='$date'" )
+    if [ ! -n $check ]
+	 then
+	i=0
+    fi
+    
+    i=$(sqlite3 $dir/dbf/kwh.db "SELECT imp FROM kwh WHERE d='$date'")
+    status=$(gpio -g read $gpio)
+    if [ "$status" == "$hilo" ]; then
+        i=$((i+1))
+	echo $i imp
+	sqlite3 $dir/dbf/kwh.db "INSERT OR REPLACE INTO kwh (t,d,imp) VALUES ( '$time','$date','$i');"
+	sleep 0.1
+    fi
+done
+
+else 
+    echo "no gpio"
+fi
+
+
+
+
+

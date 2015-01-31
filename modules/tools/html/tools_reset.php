@@ -2,7 +2,8 @@
 <?php
 $admin_db_reset = isset($_POST['admin_db_reset']) ? $_POST['admin_db_reset'] : '';
 if ($admin_db_reset == "admin_db_reset1") { 
-system ("cd modules/tools/reset && sh reset");
+system ("cd modules/tools && sh db_reset");
+
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();	
 }

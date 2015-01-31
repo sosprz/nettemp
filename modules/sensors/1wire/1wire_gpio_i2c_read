@@ -5,10 +5,7 @@ dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
 onewire=`sqlite3 $dir/dbf/nettemp.db "SELECT onewire FROM device"`
-if [ "$onewire" == "off" ]; then
-echo "INFO: no 1-wire device"
-else
-
+if [ "$onewire" == "on" ]; then
 db1wire=$(ls $dir/db/ |grep -)
 
 for name in $db1wire

@@ -1,0 +1,19 @@
+#! /bin/bash -x
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+
+
+
+# hosts
+name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts")
+for i in $name; do
+    if base=$(sqlite3 /var/www/nettemp/db/$i.sql "select strftime('%s', time),value FROM def;") ;
+	then
+	    middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1+3600)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
+	    echo -e "[ ${middle%?} ]" > $dir/tmp/highcharts/$i.json
+	else 
+    	    echo "cannot read base"
+    fi
+done
+
+

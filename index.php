@@ -8,7 +8,7 @@ if ( '' == file_get_contents( $dbfile ) )
 <h1><font color="blue">nettemp.pl</font></h2>
 <h2><font color="red">Database not found <?php echo $dbfile; ?></font></h2>
 <h3>Go to shell and reset/create nettemp database:<h3>
-/var/www/nettemp/modules/tools/reset/reset <br />
+/var/www/nettemp/modules/tools/db_reset <br />
 </html>
 <?php }
 else {
@@ -98,7 +98,7 @@ case 'upload': include('modules/tools/backup/html/upload.php'); break;
 
 </div>
 
-	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>version  <?php passthru("awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$' && /usr/bin/git branch |grep [*]|awk '{print $2}';"); ?></td></tr></table></center>
+	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>v <?php passthru("awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$' && /usr/bin/git branch |grep [*]|awk '{print $2}';"); ?></td><td>| System time <?php $today=date("H:i:s"); echo $today;?></td></tr></table></center>
 </div>
 </div>
 <center>

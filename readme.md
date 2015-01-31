@@ -35,7 +35,7 @@ OpenWRT, beta version:
 	
 	opkg update
 	opkg install wget
-	wget --no-check-certificate https://raw.githubusercontent.com/sosprz/nettemp/beta/nettemp_install_on_openwrt.sh
+	wget --no-check-certificate https://raw.githubusercontent.com/sosprz/nettemp/beta/other/nettemp_install_on_openwrt.sh
 	chmod 755 nettemp_install_on_openwrt.sh
 	./nettemp_install_on_openwrt.sh
 
@@ -52,6 +52,154 @@ USERS:
 
 
 Changelog:
+
+8.4.61
+add show modules to ntinfo
+
+8.4.60
+add other/ntinfo for debug
+
+8.4.59
+test: fix ESP8166 searching for wlan devs.
+
+8.4.58
+fixed lcd init
+
+8.4.57
+add LCD over i2c (settings -> lcd)
+fix lcd
+
+8.4.56
+changed: reverse lock icon bellow login
+add: gpio 28,29,30,31 to rpi rev2
+fix: notification inputs
+ 
+8.4.55
+add new code to ESP8166 in modules/sensors/wireless/
+new script to read wireless temp
+add kwh charts style from forum user Dise
+
+8.4.54
+add new i2c scan
+
+8.4.53
+add host monitoring
+
+8.4.52
+fix snmp client
+
+8.4.51
+add snmpd server to gui
+
+8.4.50
+fix sudo
+
+8.4.49
+now in settings menu, i2c bus can be set 0 or 1.
+
+8.4.48
+add wireless sensors ESP8266 - ok 
+
+8.4.47
+disable apache2 after install
+
+8.4.46
+RTC clock 100%
+
+8.4.45
+fix ups status
+add RTC hardware clock DS1307 support (90%)
+
+8.4.43
+add en_EN tmp locale to week script
+
+8.4.33
+nettemp now hourly send updated temp value, not first saved. 
+new email body with nettemp ip.
+
+8.4.32
+little view changes
+
+8.4.31
+add grey info in gpio day function
+
+8.4.30
+fix temperature serial readings
+
+8.4.29
+add to mail settings option "send errors"
+
+8.4.28
+add better view to gpio temp function
+
+8.4.27
+add to status file check option
+
+8.4.26
+fix higcharts on OpenWRT
+
+8.4.25
+add i2c sensor MPL3115A2
+add to gpio: You cannot remove gpio when some option is turned on.
+fix gpio status
+
+8.4.24
+ca.crt download button back
+
+8.4.23
+fix when notification is off and mail still is sending
+
+8.4.22
+fix when kwh counter still work after off
+perms cleaning
+
+8.4.21
+new kwh counter and hour and day charts
+
+8.4.20
+add to option to settings->gpio pullup=1 to GPIO (1wire)
+
+8.4.19
+add to option to settings->gpio strong_pullup=0 to ds2482 (1wire)
+
+8.4.18
+optimize week function in gpio
+
+8.4.17
+fix RDD (color problem)
+add WAL mode to sqlite3
+
+8.4.16
+Add to mail sender: Recovery nitification, send once on start and later every hour.
+fix Rpi model check
+
+8.4.15
+fix html exit in temp function
+fix mail sender adress
+add gpio numbers to RPi B2
+
+8.4.14
+change time settings in kwh charts and gpio charts 
+
+8.4.13
+kwh charts now generate hour charts
+add new function charts from gpio status
+
+8.4.12
+add files required to build nettempUSB system.
+
+8.4.11
+bugfix in week
+add date to footer
+
+8.4.10
+fixes and add function day to week. Now You can set zones in each day in week 
+
+8.4.9
+bug fix authmod, gpio temp. Tools > update
+
+8.4.8
+add to gpio week function, buzzer, 3 day zones, 3 sensors for the selection like source.
 
 8.4.7
 show noly last 100 lines in log

@@ -55,14 +55,17 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 	if (!empty($name_new) && !empty($name_id) && ($_POST['id_name2'] == "id_name3") ){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE sensors SET name='$name_new' WHERE id='$name_id'") or die ($db->lastErrorMsg());
+	if (!empty($color)) {
 	$db->exec("UPDATE sensors SET color='$color' WHERE id='$name_id'") or die ($db->lastErrorMsg());
+	}
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	 } 
 	 ?> 
 
 <?php 	//read  digitemrc file and 1-wire bus
-	$file_digi = "tmp/.digitemprc";
+foreach (glob("tmp/.digitemp*") as $file_digi) {
+	//$file_digi = "tmp/.digitemprc";
 	$file_digi2 = file($file_digi);
 	foreach($file_digi2 as $line_digi) {
 		if(strstr($line_digi,"ROM")) { 
@@ -72,6 +75,8 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 			$digitemprc[] = $id0; 
 			}
 	}
+}
+	
 	$f_one_wire = "tmp/onewire";
 	$one_wire = file($f_one_wire);
 	foreach($one_wire as $line_one_wire) {
@@ -80,6 +85,7 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 		$digitemprc[] = $line_one_wire2; }
  	
 	}
+	
 
 
 	
@@ -92,6 +98,10 @@ $week = isset($_POST['week']) ? $_POST['week'] : '';
 $month = isset($_POST['month']) ? $_POST['month'] : '';
 $year = isset($_POST['year']) ? $_POST['year'] : '';
 $ss = isset($_POST['ss']) ? $_POST['ss'] : '';
+
+$lcd = isset($_POST['lcd']) ? $_POST['lcd'] : '';
+$lcdon = isset($_POST['lcdon']) ? $_POST['lcdon'] : '';
+$lcdid = isset($_POST['lcdid']) ? $_POST['lcdid'] : '';
 
 $ss1 = isset($_POST['ss1']) ? $_POST['ss1'] : '';
 // SQLite - graph view update 
@@ -106,11 +116,22 @@ if ( $ss1 == "ss2"){
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 } 
+
+if ( $lcd == "lcd"){
+
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET lcd='$lcdon' WHERE id='$lcdid'") ;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+} 
+
+
+
 ?>
 
 <?php include("modules/sensors/html/sensors_settings.php"); ?>
 <?php include("modules/sensors/html/sensors_new.php"); ?>
-<?php //include("modules/sensors/html/sensors_device.php"); ?>
+<?php include("modules/sensors/html/sensors_device.php"); ?>
 	
 
 <?php }

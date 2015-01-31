@@ -8,7 +8,7 @@ if [ $USER != 'root' ]; then
     exit
 fi
 
-$dir/modules/vpn/ca
+$dir/modules/security/vpn/ca
 
 #CREATE openvpn.conf
 cat <<EOT > /etc/openvpn/openvpn.conf
@@ -61,12 +61,6 @@ else
 echo "Add IPtables restore"
 sed -i '/iface eth0/a pre-up iptables-restore < /etc/network/iptables' /etc/network/interfaces
 fi
-
-#PERMS
-sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/chpasswd *, /usr/sbin/useradd *, /usr/sbin/userdel *, /usr/sbin/groupadd *, /usr/sbin/service *, /usr/sbin/update-rc.d *, /bin/sed *, /bin/cat *' /etc/sudoers 
-
-#DB
-#moved to /modules/reset/reset
 
 
 

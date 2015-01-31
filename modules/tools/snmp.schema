@@ -1,0 +1,8 @@
+CREATE TABLE snmp (
+  id INTEGER PRIMARY KEY,
+  name UNIQUE,
+  community TEXT,
+  host TEXT,
+  oid TEXT,
+  divider TEXT
+  );

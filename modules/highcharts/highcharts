@@ -7,7 +7,8 @@ mkdir -p $dir/tmp/highcharts
 hc_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT highcharts FROM settings"`
 
 if [ "$hc_onoff" == "on" ]; then
-type="temp snmp humi altitude pressure lux"
+#type="temp snmp humi altitude pressure lux"
+type="temp snmp humi pressure lux"
 for t in $type
     do
 	echo $t
@@ -41,10 +42,26 @@ echo "$date Highcharts - generated" >> $dir/tmp/log.txt
 ###################
 
     for i in $(ls $dir/tmp/highcharts/*_highcharts*); do
-       if cat $i |head -2|grep step; then
-	    sed -i '1d;2d' $i
-       fi
+       #if cat $i |head -2|grep step; then
+	    sed -i -r -n -e '/<?xml/,${p}' $i
+       #fi
     done
+
+
+# gpio
+mkdir $dir/tmp/gpio 2>/dev/null
+mkdir $dir/db/gpio 2>/dev/null
+gc=$(ls /var/www/nettemp/tmp/gpio/ |grep gpio[0-9])
+for i in $gc
+    do
+	middle=$(cat $dir/tmp/gpio/$i | awk -F "," '{print "["$1","$2"]," }')
+	echo -e "[ ${middle%?} ]" > $dir/db/gpio/$i.json
+	unset middle
+done
+
+
+
+
 
 else 
     echo "highcharts off"

@@ -1,0 +1,81 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+
+sudo chmod -R 775 $dir
+sudo chown -R root.www-data $dir
+
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD vpn type TEXT";
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE vpn (id INTEGER PRIMARY KEY,users UNIQUE);"
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD fw type TEXT";
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE fw (id INTEGER PRIMARY KEY,ssh TEXT,icmp TEXT,openvpn TEXT,ext TEXT);"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO fw (id, ssh, icmp, ext, openvpn ) VALUES (1,'off','off', '0.0.0.0/0', 'off');"
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD kwh type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD gpio type TEXT";
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO settings (id,gpio) VALUES (1,'off');"
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE device ADD i2c type TEXT";
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,i2c) VALUES (1,'off');"
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE device ADD lmsensors type TEXT";
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,lmsensors) VALUES (1,'off');"
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD authmod type TEXT";
+
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD mode type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD simple type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD rev type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD humid_type type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD kwh_run type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD kwh_divider type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_run type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD week_run type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD week_status type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD week_Mon type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD week_Tue type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD week_Wed type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD week_Thu type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD week_Fri type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD week_Sat type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD week_Sun type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone2s type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone2e type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone3s type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone3e type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_sensor1 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_onoff1 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_temp1 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op1 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_sensor2 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_onoff2 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_temp2 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op2 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_sensor3 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_onoff3 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_temp3 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op3 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD status type TEXT";
+if [ ! -s $dir/dbf/kwh.db ]
+    then
+    sqlite3 $dir/dbf/kwh.db < $dir/modules/tools/kwh.schema
+    sudo chmod 775 $dir/dbf/kwh.db
+    sudo chown root.www-data $dir/dbf/kwh.db
+    else 
+    echo kwh.db exist
+fi
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD error type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE device ADD wireless type TEXT";
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,wireless) VALUES (1,'off');"
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD ip type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD device type TEXT";
+if [ ! -s $dir/dbf/hosts.db ]
+    then
+    sqlite3 $dir/dbf/hosts.db < $dir/modules/tools/hosts.schema
+    sudo chmod 775 $dir/dbf/hosts.db
+    sudo chown root.www-data $dir/dbf/hosts.db
+    else 
+    echo hosts.db exist
+fi
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD lcd type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD lcd type TEXT";
+
+
+
+

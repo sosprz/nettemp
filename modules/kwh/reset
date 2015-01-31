@@ -3,7 +3,7 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 
 pid=$(pgrep nettemp_kwh)
-sudo killall nettemp_kwh
+sudo pkill -f nettemp_kwh
 sudo nohup $dir/modules/kwh/nettemp_kwh  > /dev/null & echo $!
 exit 
 

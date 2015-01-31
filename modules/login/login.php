@@ -34,7 +34,7 @@ if ($form_login == "log") { /// do after login form is submitted
 	<form action="index.php" method="post">
 	<input type="hidden" name="form_logout" value="log"> 
 	<?php echo $logged; ?>
-  <input type="image" src="media/ico/Lock-icon.png" type="submit" value="Logout" />
+  <input type="image" src="media/ico/Unlock-icon.png" type="submit" value="Logout" />
 	</form> 	
 	</span>
 	<?php	 
@@ -45,7 +45,7 @@ if ($form_login == "log") { /// do after login form is submitted
 	  <input type="hidden" name="form_login" value="log">  
      Username: <input type="text" name="username" size="8"/><br>
      Password: <input type="password" name="password" size="8"/><br>
-     <input type="image" src="media/ico/Unlock-icon.png" type="submit" value="Login" />
+     <input type="image" src="media/ico/Lock-icon.png" type="submit" value="Login" />
      </form>
      </span>
 	<?php	}; 

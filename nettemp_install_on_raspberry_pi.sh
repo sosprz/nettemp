@@ -34,7 +34,14 @@ echo -e "${GREEN}Nettemp installer${R}"
 apt-get update
 echo -e "${GREEN}Install packages${R}"
 apt-get -y install lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat \
-command-not-found sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables > /dev/null
+sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables rcconf arp-scan snmpd httping fping make gcc build-essential
+
+if [ "$?" -eq "0" ]; then
+    echo "${GREEN}All packages installed ok${R}"
+    else
+    echo "${GREEN}error when install packages, try again${R}"
+    exit
+fi
 
 echo -e "${GREEN}Configure WWW server${R}"
 # enable fastcgi
@@ -94,11 +101,12 @@ if [ "$x1" = "beta" ] || [ "$x2" = "beta" ]
 fi
 
 echo -e "${GREEN}Create nettemp database${R}"
-/var/www/nettemp/modules/tools/reset/reset
+/var/www/nettemp/modules/tools/db_reset
 
 echo -e "${GREEN}Add cron line${R}"
 echo "*/1 * * * * /var/www/nettemp/modules/cron/1" > /var/spool/cron/crontabs/root
 echo "*/5 * * * * /var/www/nettemp/modules/cron/5" >> /var/spool/cron/crontabs/root
+echo "0 * * * * /var/www/nettemp/modules/cron/1h" >> /var/spool/cron/crontabs/root
 echo "@reboot /var/www/nettemp/modules/cron/r" >> /var/spool/cron/crontabs/root
 chmod 600 /var/spool/cron/crontabs/root
 
@@ -113,17 +121,17 @@ then
 	cd wiringPi
 	./build
     fi
-    echo -e "${GREEN}Add watchdog${R}"
-    update-rc.d watchdog defaults
-	if cat /etc/modules |grep bcm2708_wdog 1> /dev/null
-	    then 
-		echo "bcm2708_wdog exist in file"
-	else 
-		echo "bcm2708_wdog" | sudo tee -a /etc/modules
-	fi
-	    sed -i -e '10s/#max-load-1/max-load-1/' /etc/watchdog.conf 
-	    sed -i -e '23s/#watchdog-device/watchdog-device/' /etc/watchdog.conf 
-	    /etc/init.d/watchdog start
+#    echo -e "${GREEN}Add watchdog${R}"
+#    update-rc.d watchdog defaults
+#	if cat /etc/modules |grep bcm2708_wdog 1> /dev/null
+#	    then 
+#		echo "bcm2708_wdog exist in file"
+#	else 
+#		echo "bcm2708_wdog" | sudo tee -a /etc/modules
+#	fi
+#	    sed -i -e '10s/#max-load-1/max-load-1/' /etc/watchdog.conf 
+#	    sed -i -e '23s/#watchdog-device/watchdog-device/' /etc/watchdog.conf 
+#	    /etc/init.d/watchdog start
 fi
 
 echo -e "${GREEN}Add 1-wire modules${R}"
@@ -168,17 +176,24 @@ chmod -R 775 /var/www/nettemp
 gpasswd -a www-data dialout
 sed -i '$a www-data ALL=(ALL) NOPASSWD: /bin/chmod *, /bin/chown *, /bin/chgrp *, /sbin/reboot' /etc/sudoers
 sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/bin/whoami, /usr/bin/killall *, /usr/bin/nohup *' /etc/sudoers
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/bin/pkill -f nettemp_kwh' /etc/sudoers
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /sbin/iptables *, /sbin/iptables-save *' /etc/sudoers
+sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/chpasswd *, /usr/sbin/useradd *, /usr/sbin/userdel *, /usr/sbin/groupadd *, /usr/sbin/service *, /usr/sbin/update-rc.d *, /bin/sed *, /bin/cat *' /etc/sudoers 
+
 
 echo -e "${GREEN}Starting services${R}"
 
-update-rc.d ntp enable
+#update-rc.d ntp enable
 service ntp start
 
-update-rc.d lighttpd enable
+service apache2 stop
+update-rc.d apache2 disable
+
+#update-rc.d lighttpd enable
 service lighttpd restart
 
-update-rc.d cron defaults
-service cron start
+#update-rc.d cron defaults
+#service cron start
 
 echo -e "${GREEN}Nettemp instalation complette${R}"
 echo -e "${GREEN}Nettemp default login and pasword is admin${R}"

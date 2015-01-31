@@ -1,0 +1,10 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=$(date +%y%m%d-%H%M)
+
+gpio="$1"
+onoff="$2"
+
+echo "$[($(date +%s)+3600)*1000],$[$onoff]" >> $dir/tmp/gpio/gpio$gpio
+

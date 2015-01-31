@@ -1,8 +1,9 @@
-#! /bin/bash 
+#! /bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 
-onoff=$(sqlite3 $dir/dbf/nettemp.db "SELECT i2c FROM device WHERE id='1'")
+if onoff=$(sqlite3 $dir/dbf/nettemp.db "SELECT i2c FROM device WHERE id='1'")
+then
 
 if [ "$onoff" == "i2c-1" ] || [ "$onoff" == "i2c-0" ] ; then 
 
@@ -13,43 +14,48 @@ if [ "$onoff" == "i2c-1" ] || [ "$onoff" == "i2c-0" ] ; then
 db=$(ls $dir/db |grep  i2c_77)
 if [ -n "$db" ]
     then
-all=$($dir/modules/sensors/i2c/BMP180/Adafruit_BMP085_run.py)
-for i in $db; do
-if echo $i |grep temp > /dev/null ; then 
-    temp=$(echo $all | awk '{ print $2}')
-    if ! [[ "$temp" =~ .[0-9]+$ ]] 
+    if all=$($dir/modules/sensors/i2c/BMP180/Adafruit_BMP085_run.py)
 	then
-	    temp="error"
-	else
-	    rrdtool update $dir/db/$i N:$temp
+	for i in $db; do
+	    if echo $i |grep temp > /dev/null ; then 
+		temp=$(echo $all | awk '{ print $2}')
+		if ! [[ "$temp" =~ .[0-9]+$ ]] 
+		    then
+			temp="error"
+		else
+		    rrdtool update $dir/db/$i N:$temp
+		fi
+		echo BMP180 Temp $temp
+		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
+	    fi
+	#	if echo $i |grep altitude > /dev/null ; then 
+	#	altitude=$(echo  $all | awk '{ print $6}')
+	#	if ! [[ "$altitude" =~ .[0-9]+$ ]] 
+	#	    then
+	#		altitude="error"
+	#	    else
+	#		rrdtool update $dir/db/$i N:$altitude
+	#	fi
+	#	echo BMP180 Alititude $altitude
+	#	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$altitude' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
+	#    fi
+	    if echo $i |grep pressure > /dev/null ; then 
+		pressure=$(echo $all | awk '{ print $4}')
+		if ! [[ "$pressure" =~ .[0-9]+$ ]] 
+		    then
+			pressure="error"
+		else
+		    rrdtool update $dir/db/$i N:$pressure
+		fi
+		echo BMP180 Pressure $pressure
+		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$pressure' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
+	    fi
+	done
+    else
+	echo BMP180 main error
     fi
-	    echo BMP180 Temp $temp
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
 fi
-if echo $i |grep altitude > /dev/null ; then 
-    altitude=$(echo  $all | awk '{ print $6}')
-    if ! [[ "$altitude" =~ .[0-9]+$ ]] 
-	then
-	    altitude="error"
-	else
-	    rrdtool update $dir/db/$i N:$altitude
-    fi
-    echo BMP180 Alititude $altitude
-    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$altitude' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
-fi
-if echo $i |grep pressure > /dev/null ; then 
-    pressure=$(echo $all | awk '{ print $4}')
-    if ! [[ "$pressure" =~ .[0-9]+$ ]] 
-	then
-	    pressure="error"
-	else
-	    rrdtool update $dir/db/$i N:$pressure
-    fi
-    echo BMP180 Pressure $pressure
-    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$pressure' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
-fi
-done
-fi
+
 ###########
 # TSL
 ###########
@@ -57,18 +63,21 @@ fi
 
 db=$(ls $dir/db |grep i2c_39_lux)
 if [ -n "$db" ] 
-#&& echo $i2c |grep Success > /dev/null
     then
-    i2c=$($dir/modules/sensors/i2c/TSL2561/TSL2561_i2c_$(echo $onoff | sed 's/i2c-//'))
-	lux=$(echo $i2c |awk '{print $3}')
+	if i2c=$($dir/modules/sensors/i2c/TSL2561/TSL2561_i2c_$(echo $onoff | sed 's/i2c-//'))
+	    then
+	    lux=$(echo $i2c |awk '{print $3}')
 	    if ! [[ "$lux" =~ [0-9]+$ ]] 
 		then
     		    lux="error"
 		else 
 		    rrdtool update $dir/db/$db N:$lux
 	    fi
-    echo TSL2561 $lux
-    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$lux' WHERE rom='$(echo $db |awk 'sub("....$", "")')'"
+	    echo TSL2561 $lux
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$lux' WHERE rom='$(echo $db |awk 'sub("....$", "")')'"
+	else
+	    echo HTU21D main error
+	fi
 fi
 
 ###########
@@ -79,9 +88,10 @@ dbhtu21dt=$(ls $dir/db |grep i2c_40_temp)
 dbhtu21dh=$(ls $dir/db |grep i2c_40_humi)
 if [ -n "$htu21dt" ] || [ -n "$dbhtu21dh" ]
     then
-htu21d=$($dir/modules/sensors/i2c/HTU21D/htu21d.py )
-htu21dt=$(echo $htu21d |awk '{ getline; printf "%3.2f\n", $2 }')
-htu21dh=$(echo $htu21d |awk '{ getline; printf "%3.2f\n", $5 }')
+    if htu21d=$($dir/modules/sensors/i2c/HTU21D/htu21d.py )
+	then
+	htu21dt=$(echo $htu21d |awk '{ getline; printf "%3.2f\n", $2 }')
+	htu21dh=$(echo $htu21d |awk '{ getline; printf "%3.2f\n", $5 }')
 
 	    if ! [[ "$htu21dt" =~ [0-9]+$ ]] && [ -n "$htu21dt" ]
 		then
@@ -89,17 +99,55 @@ htu21dh=$(echo $htu21d |awk '{ getline; printf "%3.2f\n", $5 }')
 		else
 		    rrdtool update $dir/db/$dbhtu21dt N:$htu21dt
 	    fi
-    echo HTU21D Temp: $htu21dt
-    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$htu21dt' WHERE rom='$(echo $dbhtu21dt |awk 'sub("....$", "")')'"
+	echo HTU21D Temp: $htu21dt
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$htu21dt' WHERE rom='$(echo $dbhtu21dt |awk 'sub("....$", "")')'"
 
 	    if ! [[ "$htu21dh" =~ [0-9]+$ ]] && [ -n "$htu21dh" ] 
 		then
 		    htu21ddh="error"
 	    fi
-    echo HTU21D Humid: $htu21dh
-    rrdtool update $dir/db/$dbhtu21dh N:$htu21dh
-    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$htu21dh' WHERE rom='$(echo $dbhtu21dh |awk 'sub("....$", "")')'"
+	echo HTU21D Humid: $htu21dh
+	rrdtool update $dir/db/$dbhtu21dh N:$htu21dh
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$htu21dh' WHERE rom='$(echo $dbhtu21dh |awk 'sub("....$", "")')'"
+    else
+	echo HTU21D main error
+    fi
 fi
+
+###########
+# MPL3115A2 
+###########
+
+dbmplt=$(ls $dir/db |grep i2c_60_temp)
+dbmplp=$(ls $dir/db |grep i2c_60_pressure)
+if [ -n "$dbmplt" ] || [ -n "$dbmplp" ]
+    then
+    if mpl=$(cd $dir && $dir/modules/sensors/i2c/MPL3115A2/mpl3115a2.py && cd -)
+	then
+	mplt=$(echo $mpl |awk '{print $4}')
+	mplp=$(echo $mpl |awk '{printf $2}')
+
+	    if ! [[ "$mplt" =~ [0-9]+$ ]] && [ -n "$mplt" ]
+		then
+		    mplt="error"
+		else
+		    rrdtool update $dir/db/$dbmplt N:$mplt
+	    fi
+	echo MPL31152A Temp: $mplt
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$mplt' WHERE rom='$(echo $dbmplt |awk 'sub("....$", "")')'"
+
+	    if ! [[ "$mplp" =~ [0-9]+$ ]] && [ -n "$mplp" ] 
+		then
+		    mplp="error"
+	    fi
+	echo MPL31152A Pressure: $mplp
+	rrdtool update $dir/db/$dbmplp N:$mplp
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$mplp' WHERE rom='$(echo $dbmplp |awk 'sub("....$", "")')'"
+    else
+        echo MPL3115A2 main error
+    fi
+fi
+
 
 
 ##########
@@ -107,5 +155,6 @@ else
     echo "i2c OFF"
 fi
 
+fi # first
 
 

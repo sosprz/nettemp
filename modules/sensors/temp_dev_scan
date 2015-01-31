@@ -4,6 +4,7 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
 rm -rf $dir/tmp/.digitemprc
+rm -rf $dir/tmp/.digitemprcs
 > $dir/tmp/onewire
 
 mkdir $dir/tmp 2> /dev/null
@@ -28,6 +29,8 @@ $dir/modules/sensors/i2c/i2c_scan
 $dir/modules/sensors/snmp/snmp_scan
 # lmsensors
 $dir/modules/sensors/lmsensors/lmsensors_scan
+# esp8266
+$dir/modules/sensors/wireless/esp8266_scan
 
 
 
