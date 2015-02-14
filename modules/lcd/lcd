@@ -16,8 +16,10 @@ while :
 	max=$(cat $file |wc -l)
 	f="0"
 	s="1"
+	    
 	while [ "$s" -le "$max" ] ; do
-	    $dir/modules/lcd/lcdi2c -l -b 1 "$(printf "%-15s %-15s" "$(echo ${lines[$f]}| cut -c 1-15)" "$(echo ${lines[$s]}| cut -c 1-15)")"
+	    $dir/modules/lcd/lcdi2c -l -b 1 "$(printf "%-15s %-15s" "$(echo ${lines[$f]} | sed 's/pressure/hPa/g' | sed 's/temp/C/g' | sed 's/humi/%/g' | cut -c 1-15)" "$(echo ${lines[$s]} | sed 's/pressure/hPa/g' | sed 's/temp/C/g' | sed 's/humi/%/g' | cut -c 1-15)")"
+	    echo "$(printf "%-15s %-15s" "$(echo ${lines[$f]} | sed 's/pressure/hPa/g' | sed 's/temp/C/g' | sed 's/humi/%/g' | cut -c 1-15 )" "$(echo ${lines[$s]}|  sed 's/pressure/hPa/g' | sed 's/temp/C/g' | sed 's/humi/%/g' |cut -c 1-15)")"
 	    sleep 2
 	    f=$(expr $f + 1)
 	    s=$(expr $s + 1)
