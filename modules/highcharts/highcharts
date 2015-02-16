@@ -13,7 +13,7 @@ for t in $type
     do
 	echo $t
 	rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom from sensors WHERE type='$t'")
-	hour="1 24 168 672 864"
+	hour="1 24 168 672 8064"
 	for h in $hour
 	    do
 		array[0]="rrdtool xport -s now-$h\h -e now --step 60 "
@@ -28,7 +28,7 @@ for t in $type
 		if [ "$h" == 24 ]; then hc="day"; fi
 		if [ "$h" == 168 ]; then hc="week"; fi
 		if [ "$h" == 672 ]; then hc="month"; fi
-		if [ "$h" == 864 ]; then hc="year"; fi
+		if [ "$h" == 8064 ]; then hc="year"; fi
 	        array[$ar]="> $dir/tmp/highcharts/$t\_highcharts_$hc.xml"
 		eval ${array[@]}
 		unset array 

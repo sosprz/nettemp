@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.63
+fix YEAR highcharts
+
 8.4.62
 add to units lcd 
 
