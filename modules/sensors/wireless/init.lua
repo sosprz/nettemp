@@ -59,7 +59,7 @@ print(wifi.sta.getip())
         getTemp()
         t1 = lasttemp / 10000
         t2 = (lasttemp >= 0 and lasttemp % 10000) or (10000 - lasttemp % 10000)
-        conn:send("<!DOCTYPE html><html><body><p><b>nettemp.pl ds18b20</b><br>Temperature: " .. t1 .. "." .. string.format("%02d", t2) .. "</p></body></html>")
+	conn:send("<!DOCTYPE html><html><body><p><b>nettemp.pl ds18b20</b><br>Temperature: " .. string.format("%2d", t1) .. "." .. string.format("%02d", t2) .. "</p></body></html>")
        conn:on("sent",function(conn) conn:close() end)
     end)
 

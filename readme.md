@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.64
+new init.lua for ESP8266
+
 8.4.63
 fix YEAR highcharts
 
