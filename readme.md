@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.65
+add to mail settings - tls on/off, tls_check_cert on/off, auth on/off
+
 8.4.64
 new init.lua for ESP8266
 

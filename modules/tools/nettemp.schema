@@ -66,8 +66,11 @@ CREATE TABLE mail_settings (
   user TEXT,
   password TEXT,
   address TEXT,
-  test_mail TEXT
-  , error type TEXT);
+  test_mail TEXT,
+  error type TEXT,
+  auth type TEXT,
+  tls type TEXT,
+  tlscheck type TEXT);
 CREATE TABLE recipient (
   id INTEGER PRIMARY KEY,
   name TEXT,

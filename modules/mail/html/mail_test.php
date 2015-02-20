@@ -26,7 +26,7 @@ $db->exec("UPDATE mail_settings SET test_mail='$test_mail'") or die ($db->lastEr
     <td>Send test mail to:</td>
     <td><input type="text" name="test_mail" size="25" value="<?php echo $a["test_mail"]; ?>" /></td>
     <input type="hidden" name="mail_test1" value="mail_test2" />
-    <td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td>
+    <td><input type="submit" value="Test"  /></td>
     </form>
 </tr>		
 </table>
