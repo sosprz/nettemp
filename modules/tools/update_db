@@ -78,6 +78,9 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD lcd type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD tlscheck type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD tls type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD auth type TEXT";
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO mail_settings (id,tlscheck) VALUES (1,'off');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO mail_settings (id,tls) VALUES (1,'on');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO mail_settings (id,auth) VALUES (1,'on');"
 
 
 
