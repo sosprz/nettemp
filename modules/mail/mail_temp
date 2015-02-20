@@ -1,0 +1,141 @@
+#! /bin/bash 
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=`date +%y%m%d-%H%M`
+
+
+onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM settings"`
+
+if [ "$onoff" == "on" ]; then
+
+dirs=$dir/tmp/mail
+mkdir -p $dirs/hour
+date2=`date +%Y%m%d-%H:%M`
+get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }'`
+user=`sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
+
+function file {
+> $plik
+echo "From: Nettemp Device <$user>" > $plik
+echo "To: $get_mail" >> $plik
+echo "Subject: Notification from nettemp" >> $plik
+echo "" >> $plik
+echo "This is notification from nettemp" >> $plik
+echo "" >> $plik
+echo "VALUE" >> $plik
+echo "" >> $plik
+echo Go to http://$(hostname -I | cut -d' ' -f1) >> $plik
+chmod 777 $plik
+}
+
+names=() #array for remove old files
+
+if alarms=$(sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'"| sed 's/ /_/g')
+    then
+
+for line in $alarms
+    do
+	    name=`echo $line | awk 'BEGIN {FS="|"}{print $2}'`
+	    tmp=`echo $line | awk 'BEGIN {FS="|"}{print $4}'`
+	    tmp_min=`echo $line | awk 'BEGIN {FS="|"}{print $5}'`
+	    tmp_max=`echo $line | awk 'BEGIN {FS="|"}{print $6}'`
+	    plik=$dirs/$name.mail
+	    plik2=$dirs/hour/$name.mail
+	
+    if [ "$tmp" == "error" ] &&  error=$(sqlite3 $dir/dbf/nettemp.db "SELECT error FROM mail_settings WHERE id='1'")
+    then
+	if [ ! -f "$plik2" ] && [ "$error" == "on" ]
+	    then
+		echo NEW ERROR
+		file
+		echo "Error in $name" >> $plik; 
+#		if send $plik    
+#		then
+#	    	    mv $plik $dirs/hour
+#		fi
+	    fi
+    elif [ -n "$tmp_max" ] || [ -n "$tmp_min" ] 
+    then
+        #cr_ge=$(echo $tmp >= $tmp_max | bc) #OLD BC
+        cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
+        #cr_le=$(echo $tmp <= $tmp_min | bc) #OLD BC
+        cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
+        
+        if  [ "$cr_ge" == "1" ] && [ -n "$tmp_max" ]
+	then
+	    echo HIGH $name
+	    if [ ! -f "$plik2" ]
+	    then
+		echo NEW MV
+		file
+		#echo "High value in: $name $tmp C" >> $plik;
+		sed -i 's/VALUE.*/High value in: '$name' '$tmp' C/g' $plik 
+#		if send $plik    
+#		then
+#	    	    mv $plik $dirs/hour
+#		fi
+	    else
+                echo UPDATE
+                sed -i 's/High.*/High value in: '$name' '$tmp' C/g' $plik2
+	    fi
+        elif [ "$cr_le" == "1" ] && [ -n "$tmp_min" ]
+	then
+	    echo LOW $name
+	    if [ ! -f "$plik2" ]
+	    then
+		echo NEW MV
+		file
+		#echo "Low value in: $name $tmp C" >> $plik;
+		sed -i 's/VALUE.*/Low value in: '$name' '$tmp' C/g' $plik
+#		if send $plik    
+#		then
+#	    	    mv $plik $dirs/hour
+#		fi
+            else
+		echo UPDATE
+		sed -i 's/Low.*/Low value in: '$name' '$tmp' C/g' $plik2
+		 
+	    fi
+        else
+	if [ -f "$plik2" ]
+	then
+	    echo RECOVERY $name
+	    file
+	    #echo "Recovery: $name $tmp C" >> $plik; 
+	    sed -i 's/VALUE.*/Recovery: '$name' '$tmp' C/g' $plik
+#	    if send $plik
+#	    then
+	    rm $plik2
+#	    rm $plik
+#	    fi
+	fi
+        fi
+    fi
+
+    #clean if off
+    if [ -z $tmp_max ] && [ -z $tmp_min ] && [ -e $plik2 ]
+        then
+	#rm $dirs/hour/$name.mail
+	rm $plik2
+    fi
+names+=("$name")
+done 
+
+fi
+
+# rm when turned off 
+for i in $(cd $dirs/hour && ls )
+    do
+	o=$(echo $i|awk -F"." {'print $1'})
+	echo $o
+	if echo ${names[*]}|grep -v $o
+	    then
+	    rm $dirs/hour/$i
+	fi
+done
+
+else
+	echo "mail off"
+fi #last
+
+
