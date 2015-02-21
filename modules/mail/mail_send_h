@@ -17,7 +17,7 @@ tlscheck=`sqlite3 $dir/dbf/nettemp.db "SELECT tlscheck FROM mail_settings"`
 function send {
 cat $1 | msmtp --maildomain=default --read-envelope-from --host=$host --port=$port --auth=$auth --user=$user \
             --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
-            --tls=$tls --tls-starttls=$tls --tls-certcheck=$tlscert \
+            --tls=$tls --tls-starttls=$tls --tls-certcheck=$tlscheck \
             --timeout=10 -t $get_mail
 }
 
