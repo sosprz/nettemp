@@ -53,6 +53,9 @@ USERS:
 
 Changelog:
 
+8.4.66
+increase temp sensors to control gpio 
+
 8.4.65
 add to mail settings - tls on/off, tls_check_cert on/off, auth on/off
 

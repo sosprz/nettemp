@@ -8,22 +8,19 @@ if ($tempexit == "tempexit"){
     }
 
 // temp
-$temp_sensor3 = isset($_POST['temp_sensor3']) ? $_POST['temp_sensor3'] : '';
-$temp_onoff3 = isset($_POST['temp_onoff3']) ? $_POST['temp_onoff3'] : '';
-$temp_op3 = isset($_POST['temp_op3']) ? $_POST['temp_op3'] : '';
-$temp_temp3 = isset($_POST['temp_temp3']) ? $_POST['temp_temp3'] : '';
+$arr = array(1,2,3,4);
 
-$temp_sensor1 = isset($_POST['temp_sensor1']) ? $_POST['temp_sensor1'] : '';
-$temp_onoff1 = isset($_POST['temp_onoff1']) ? $_POST['temp_onoff1'] : '';
-$temp_op1 = isset($_POST['temp_op1']) ? $_POST['temp_op1'] : '';
-$temp_temp1 = isset($_POST['temp_temp1']) ? $_POST['temp_temp1'] : '';
+foreach ($arr as $ta) {
+$temp_temp='temp_temp' . $ta;
+$temp_sensor='temp_sensor' . $ta;
+$temp_onoff='temp_onoff' . $ta;
+$temp_op='temp_op' . $ta;
 
-$temp_sensor2 = isset($_POST['temp_sensor2']) ? $_POST['temp_sensor2'] : '';
-$temp_onoff2 = isset($_POST['temp_onoff2']) ? $_POST['temp_onoff2'] : '';
-$temp_op2 = isset($_POST['temp_op2']) ? $_POST['temp_op2'] : '';
-$temp_temp2 = isset($_POST['temp_temp2']) ? $_POST['temp_temp2'] : '';
-
-
+$$temp_sensor= isset($_POST["temp_sensor".$ta]) ? $_POST["temp_sensor".$ta] : '';
+$$temp_onoff= isset($_POST["temp_onoff".$ta]) ? $_POST["temp_onoff".$ta] : '';
+$$temp_op= isset($_POST["temp_op".$ta]) ? $_POST["temp_op".$ta] : '';
+$$temp_temp=isset($_POST["temp_temp".$ta]) ? $_POST["temp_temp".$ta] : '';
+}
 
 $tempon = isset($_POST['tempon']) ? $_POST['tempon'] : '';
 if ($tempon == "on") {
@@ -35,9 +32,13 @@ if ($tempon == "on") {
 
 $tempset = isset($_POST['tempset']) ? $_POST['tempset'] : '';
 if ($tempset == "on") {
-    $db->exec("UPDATE gpio SET temp_op3='$temp_op3',temp_sensor3='$temp_sensor3',temp_onoff3='$temp_onoff3',temp_temp3='$temp_temp3' WHERE gpio='$gpio_post'") or die("exec 1");
-    $db->exec("UPDATE gpio SET temp_op1='$temp_op1',temp_sensor1='$temp_sensor1',temp_onoff1='$temp_onoff1',temp_temp1='$temp_temp1' WHERE gpio='$gpio_post'") or die("exec 2");
-    $db->exec("UPDATE gpio SET temp_op2='$temp_op2',temp_sensor2='$temp_sensor2',temp_onoff2='$temp_onoff2',temp_temp2='$temp_temp2' WHERE gpio='$gpio_post'") or die("exec 3");
+    foreach ($arr as $up) {
+    $temp_temp=${'temp_temp' . $up};
+    $temp_onoff=${'temp_onoff' . $up};
+    $temp_sensor=${'temp_sensor' . $up};
+    $temp_op=${'temp_op' . $up};
+    $db->exec("UPDATE gpio SET temp_op$up='$temp_op',temp_sensor$up='$temp_sensor',temp_onoff$up='$temp_onoff',temp_temp$up='$temp_temp' WHERE gpio='$gpio_post'") or die("exec 1");
+    }
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
@@ -149,7 +150,6 @@ $SatSat = isset($_POST['SatSat']) ? $_POST['SatSat'] : '';
 
 // MAIN
 
-$arr = array(1,2,3);
         if ( $a['temp_run'] == "on") { ?>
 
 <td><table>
