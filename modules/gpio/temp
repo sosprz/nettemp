@@ -2,13 +2,13 @@
 temp_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio'")
 day_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio'")
 week_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT week_run FROM gpio WHERE gpio='$gpio'")
-
+tempnum=6;
 
 if [ "$temp_run" = "on" ]
     then
 
 function temp {
-for i in 1 2 3 4
+for i in $(seq 1 $tempnum);
     do 
 
 declare temp_onoff$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_onoff$i FROM gpio WHERE gpio='$gpio'"`

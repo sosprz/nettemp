@@ -105,6 +105,7 @@ CREATE TABLE settings (
    fw TEXT,
    vpn TEXT,
    gpio TEXT,
+   tempnum TEXT,
    kwh TEXT,
    authmod TEXT
   );

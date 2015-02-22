@@ -136,11 +136,11 @@ if ($gpio == "on" ) {
     include('time.php');
 ?>
 </span></span>
-<span class="belka">&nbsp I2C - set i2c BUS (TEST: if i2c work good form "scan", forget about this option)<span class="okno">
+<!-- <span class="belka">&nbsp I2C - set i2c BUS (TEST: if i2c work good form "scan", forget about this option)<span class="okno">
 <?php	
-    include('i2c.php');
+//    include('i2c.php');
 ?>
-</span></span>
+</span></span> -->
 <span class="belka">&nbsp Snmpd server<span class="okno">
 <?php	
     include('snmpd.php');

@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.4.67
+
+add to settings, option to control number of temp sensor for gpio (1-10).
+
 8.4.66
 increase temp sensors to control gpio 
 

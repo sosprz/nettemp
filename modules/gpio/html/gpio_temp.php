@@ -1,4 +1,12 @@
 <?php
+
+	    $sth = $db->prepare("SELECT tempnum FROM settings WHERE id='1'");
+	    $sth->execute();
+	    $result = $sth->fetchAll();
+	    foreach ($result as $a) { 
+	    $tempnum=$a['tempnum'];
+	    }
+
 $tempexit = isset($_POST['tempexit']) ? $_POST['tempexit'] : '';
 if ($tempexit == "tempexit"){
     $db->exec("UPDATE gpio SET mode='', day_run='', week_run='' where gpio='$gpio_post' ") or die("simple off db error");
@@ -8,9 +16,7 @@ if ($tempexit == "tempexit"){
     }
 
 // temp
-$arr = array(1,2,3,4);
-
-foreach ($arr as $ta) {
+foreach (range(1, $tempnum) as $ta) {
 $temp_temp='temp_temp' . $ta;
 $temp_sensor='temp_sensor' . $ta;
 $temp_onoff='temp_onoff' . $ta;
@@ -154,7 +160,7 @@ $SatSat = isset($_POST['SatSat']) ? $_POST['SatSat'] : '';
 
 <td><table>
 <?php
-foreach ($arr as $v) {
+foreach (range(1, $tempnum) as $v) {
 $sth = $db->prepare("SELECT * FROM sensors");
 $sth->execute();
 $result = $sth->fetchAll();
@@ -246,7 +252,7 @@ include('gpio_rev.php');
 	    <table>
 	    <form action="" method="post">
 	    <?php
-		foreach ($arr as &$v) {
+		foreach (range(1, $tempnum) as $v) {
 	    ?>
 	    <tr>
 	    <td><select name="<?php echo temp_sensor . $v; ?>" >
