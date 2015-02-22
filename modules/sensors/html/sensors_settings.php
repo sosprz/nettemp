@@ -68,7 +68,7 @@ if ( $rrd == 'on' ) { ?>
 <td><?php 	echo  $a["rom"] ;?></td>
 <?php
 	$id_rom3 = str_replace(" ", "_", $a["rom"]);
-	$id_rom2 = "$id_rom3.rrd";
+	$id_rom2 = "$id_rom3.sql";
 	$file3 =  "db/$id_rom2";
 	if (file_exists($file3))
    { ?>

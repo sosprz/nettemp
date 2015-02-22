@@ -16,7 +16,7 @@ grep ROM $dir/tmp/.digitemprcs | while read -r name
 name_0=$(echo $name| awk 'BEGIN {FS=" "} {print $3$4$5$6$7$8$9$10}')
 name_1=$(echo $name| awk 'BEGIN {FS=" "} {print $3" "$4" "$5" "$6" "$7" "$8" "$9" "$10}')
 name_2=`cat $dir/tmp/.digitemprcs |grep "$name_1" |awk 'BEGIN {FS=" "} {print $2}'`
-name_3="$name_0.rrd"
+name_3="$name_0.sql"
 
 if [ "$serial" = "DS9097" ]; then
         wynik=`/usr/bin/digitemp_$serial -c $dir/tmp/.digitemprcs -t $name_2 -q -o%.1C`
@@ -24,7 +24,7 @@ if [ "$serial" = "DS9097" ]; then
 fi
     serial_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
     if [ "$serial_temp_calc" == "1" ]; then 
-        rrdtool update $dir/db/$name_3 N:$wynik
+	sqlite3 $dir/db/$name3 "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
         sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_0'"
     else 
 	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$name_0'"

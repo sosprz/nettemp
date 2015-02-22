@@ -19,7 +19,13 @@ $name_new=trim($name_new2);
 
 <?php // SQLite3 - sekcja dodawania do bazy && tworzenie baz rrd
 	if(!empty($id_rom_new)) {
-	system("modules/sensors/temp_add_sensor $id_rom_new ");
+	$rand=rand();
+	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp) VALUES ('$rand','$id_rom_new', 'temp', 'off', 'wait' )") or die ("cannot insert to DB" );
+        $dbnew = new PDO("sqlite:db/$id_rom_new.sql");
+        $dbnew->exec('CREATE TABLE def (time DATETIME DEFAULT CURRENT_TIMESTAMP, value INTEEGER)');
+        $dbnew==NULL;
+
+	//system("modules/sensors/temp_add_sensor $id_rom_new ");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	 
 	} ?>

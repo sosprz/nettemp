@@ -23,7 +23,7 @@ if [ -n "$db" ]
 		    then
 			temp="error"
 		else
-		    rrdtool update $dir/db/$i N:$temp
+		    sqlite3 $dir/db/$i "INSERT OR IGNORE INTO def (value) VALUES ('$temp');"
 		fi
 		echo BMP180 Temp $temp
 		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
@@ -45,7 +45,7 @@ if [ -n "$db" ]
 		    then
 			pressure="error"
 		else
-		    rrdtool update $dir/db/$i N:$pressure
+		    sqlite3 $dir/db/$i "INSERT OR IGNORE INTO def (value) VALUES ('$pressure');"
 		fi
 		echo BMP180 Pressure $pressure
 		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$pressure' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
@@ -71,7 +71,7 @@ if [ -n "$db" ]
 		then
     		    lux="error"
 		else 
-		    rrdtool update $dir/db/$db N:$lux
+		    sqlite3 $dir/db/$db "INSERT OR IGNORE INTO def (value) VALUES ('$lux');"
 	    fi
 	    echo TSL2561 $lux
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$lux' WHERE rom='$(echo $db |awk 'sub("....$", "")')'"
@@ -97,7 +97,7 @@ if [ -n "$htu21dt" ] || [ -n "$dbhtu21dh" ]
 		then
 		    htu21dt="error"
 		else
-		    rrdtool update $dir/db/$dbhtu21dt N:$htu21dt
+		    sqlite3 $dir/db/$dbhtu21dt "INSERT OR IGNORE INTO def (value) VALUES ('$htu21dt');"
 	    fi
 	echo HTU21D Temp: $htu21dt
 	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$htu21dt' WHERE rom='$(echo $dbhtu21dt |awk 'sub("....$", "")')'"
@@ -107,6 +107,7 @@ if [ -n "$htu21dt" ] || [ -n "$dbhtu21dh" ]
 		    htu21ddh="error"
 	    fi
 	echo HTU21D Humid: $htu21dh
+	sqlite3 $dir/db/$dbhtu21dh "INSERT OR IGNORE INTO def (value) VALUES ('$htu21dh');"
 	rrdtool update $dir/db/$dbhtu21dh N:$htu21dh
 	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$htu21dh' WHERE rom='$(echo $dbhtu21dh |awk 'sub("....$", "")')'"
     else
@@ -131,7 +132,7 @@ if [ -n "$dbmplt" ] || [ -n "$dbmplp" ]
 		then
 		    mplt="error"
 		else
-		    rrdtool update $dir/db/$dbmplt N:$mplt
+		    sqlite3 $dir/db/$dbmplt "INSERT OR IGNORE INTO def (value) VALUES ('$mplt');"
 	    fi
 	echo MPL31152A Temp: $mplt
 	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$mplt' WHERE rom='$(echo $dbmplt |awk 'sub("....$", "")')'"
@@ -141,7 +142,7 @@ if [ -n "$dbmplt" ] || [ -n "$dbmplp" ]
 		    mplp="error"
 	    fi
 	echo MPL31152A Pressure: $mplp
-	rrdtool update $dir/db/$dbmplp N:$mplp
+	sqlite3 $dir/db/$dbmplp "INSERT OR IGNORE INTO def (value) VALUES ('$mplp');"
 	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$mplp' WHERE rom='$(echo $dbmplp |awk 'sub("....$", "")')'"
     else
         echo MPL3115A2 main error

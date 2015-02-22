@@ -8,7 +8,7 @@ if [ -n "$rpi" ]; then
         wynik=$(/opt/vc/bin/vcgencmd measure_temp | cut -c 6-9)
         pi_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
     if [ "$pi_temp_calc" == "1" ]; then
-	rrdtool update $dir/db/Raspberry_Pi.rrd N:$wynik
+	sqlite3 $dir/db/Raspberry_Pi.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
 	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='Raspberry_Pi'"
 	echo Raspberry Pi: $wynik C
     else 

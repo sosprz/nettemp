@@ -29,7 +29,7 @@ fi
     usb_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
     if [ "$usb_temp_calc" == "1" ]; then 
         echo USB: $wynik C
-        rrdtool update $dir/db/$name_3 N:$wynik
+	sqlite3 $dir/db/$name3 "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
         sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_0'"
     else 
         echo "error $wynik" 
