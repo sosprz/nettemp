@@ -8,30 +8,31 @@ function timedRefresh(timeoutPeriod) {
 <span class="belka">&nbsp Select view<span class="okno">
 
 <table><tr>
-<td><a href="index.php?id=view&type=temp" ><button>Temp view</button></a></td>
+<td><a href="index.php?id=view&type=temp" ><button>Temperature</button></a></td>
 <?php 
 if (glob('db/*humi*.sql')) {?>
-<td><a href="index.php?id=view&type=humid" ><button>Humi view</button></a></td>
+<td><a href="index.php?id=view&type=humid" ><button>Humidity</button></a></td>
 <?php }
 if (glob('db/*pressure*.sql')) {?>
-<td><a href="index.php?id=view&type=pressure" ><button>Pressure view</button></a></td>
+<td><a href="index.php?id=view&type=pressure" ><button>Pressure</button></a></td>
 <?php }
 if (glob('db/*altitude*.sql')) {?>
 <td><a href="index.php?id=view&type=altitude" ><button>Altitude view</button></a></td>
 <?php }
 if (glob('db/*snmp*.sql')) {?>
-<td><a href="index.php?id=view&type=snmp" ><button>Snmp view</button></a></td>
+<td><a href="index.php?id=view&type=snmp" ><button>SNMP</button></a></td>
 <?php }
 if (glob('tmp/kwh/*.json')) {?>
-<td><a href="index.php?id=view&type=kwh" ><button>kWh view</button></a></td>
+<td><a href="index.php?id=view&type=kwh" ><button>kWh</button></a></td>
 <?php }
 if (glob('db/*lux*.sql')) {?>
-<td><a href="index.php?id=view&type=lux" ><button>LUX view</button></a></td>
+<td><a href="index.php?id=view&type=lux" ><button>LUX</button></a></td>
 <?php } 
 if (glob('tmp/highcharts/*gpio*.json')) {?>
-<td><a href="index.php?id=view&type=gpio" ><button>GPIO view</button></a></td>
+<td><a href="index.php?id=view&type=gpio" ><button>GPIO</button></a></td>
 <?php } ?> 
 <td><a href="index.php?id=view&type=hosts" ><button>Hosts</button></a></td>
+<td><a href="index.php?id=view&type=system" ><button>System stats</button></a></td>
 </tr>
 </table>
 </span>
@@ -54,6 +55,7 @@ case 'kwh': include('modules/kwh/html/kwh_charts.php'); break;
 case 'lux': include('modules/highcharts/html/lux_menu.php'); break;
 case 'gpio': include('modules/highcharts/html/gpio_menu.php'); break;
 case 'hosts': include('modules/highcharts/html/hosts_menu.php'); break;
+case 'system': include('modules/highcharts/html/system_menu.php'); break;
 }
 ?>
 

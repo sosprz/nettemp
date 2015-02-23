@@ -34,3 +34,18 @@ for n in temp press lux humid snmp wireless; do
 	    fi
     done
 done
+
+# hosts
+name=$(ls $dir/db/ |grep system )
+echo $name
+read y
+for i in $name; do
+    if base=$(sqlite3 /var/www/nettemp/db/$i "select strftime('%s', time),value FROM def;") ;
+	then
+	    middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1+3600)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
+	    last=$(echo $i |sed '$s/....$//')
+	    echo -e "[ ${middle%?} ]" > $dir/tmp/highcharts/$last.json
+	else 
+    	    echo "cannot read base"
+    fi
+done
