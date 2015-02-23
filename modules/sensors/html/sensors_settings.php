@@ -5,38 +5,17 @@ $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
 $numRows = count($row);
-
 if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }
-$db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db1->prepare("select * from sensors");
-$sth->execute();
-$result = $sth->fetchAll();
 
 $sth1 = $db->prepare("select * from settings ");
 $sth1->execute();
 $result2 = $sth1->fetchAll();
 foreach ($result2 as $a) {
-$rrd=$a["rrd"];
 $lcd=$a["lcd"];
 }
-if ( $rrd == 'on' ) { ?>
-<tr>
-<td></td>
-<td><center>Name</center></td>
-<td><center>Color</center></td>
-<td></td>
-<td><center>Sensor id</center></td>
-<td>DB</td>
-<td>LCD</td>
-<td>Hour</td>
-<td>Day</td>
-<td>Week</td>
-<td>Month</td>
-<td>Year</td>
-<td></td>
-<td></td>
-</tr>
-<?php } else { ?>
+
+
+?>
 <tr>
 <td></td>
 <td><center>Name</center></td>
@@ -48,8 +27,7 @@ if ( $rrd == 'on' ) { ?>
 <td></td>
 <td></td>
 </tr>
-<?php } ?>
-<?php foreach ($result as $a) { 	
+<?php foreach ($row as $a) { 	
 	
 ?>
 <tr>
@@ -70,36 +48,22 @@ if ( $rrd == 'on' ) { ?>
 	$id_rom3 = str_replace(" ", "_", $a["rom"]);
 	$id_rom2 = "$id_rom3.sql";
 	$file3 =  "db/$id_rom2";
-	if (file_exists($file3))
+	if (file_exists($file3) && ( 0 != filesize($file3)))
    { ?>
 <td><img src="media/ico/Ok-icon.png" /></td>
 </form>
 <?php   }
 else { ?> 
-<td>Error - no rrd base</td>
+<td>Error - no sql base</td>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 <input type="hidden" name="usun_czujniki" value="<?php echo $a["rom"]; ?>" />
 <input type="hidden" name="usun2" value="usun3" />
 <td><input type="image" src="media/ico/Close-2-icon.png" /></td>
 </form>
 
-<?php }
+<?php } ?>
 
-if ( $rrd == 'on' ) { 
-
-?>
-    <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"> 	
-    <input type="hidden" name="ss" value="<?php echo $a["id"]; ?>" />
-    <td><img src="media/ico/Chart-Graph-Ascending-icon.png" /></td>
-    <td><input type="checkbox" name="hour" value="on" <?php echo $a["hour"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
-    <td><input type="checkbox" name="day" value="on" <?php echo $a["day"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
-    <td><input type="checkbox" name="week" value="on" <?php echo $a["week"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
-    <td><input type="checkbox" name="month" value="on" <?php echo $a["month"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
-    <td><input type="checkbox" name="year" value="on" <?php echo $a["year"] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
-    <input type="hidden" name="ss1" value="ss2" />
-    </form>
-<?php } 
-
+<?php 
 if ( $lcd == 'on' ) { 
 ?>
     <form action="" method="post"> 	

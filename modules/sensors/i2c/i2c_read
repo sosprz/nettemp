@@ -108,7 +108,6 @@ if [ -n "$htu21dt" ] || [ -n "$dbhtu21dh" ]
 	    fi
 	echo HTU21D Humid: $htu21dh
 	sqlite3 $dir/db/$dbhtu21dh "INSERT OR IGNORE INTO def (value) VALUES ('$htu21dh');"
-	rrdtool update $dir/db/$dbhtu21dh N:$htu21dh
 	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$htu21dh' WHERE rom='$(echo $dbhtu21dh |awk 'sub("....$", "")')'"
     else
 	echo HTU21D main error

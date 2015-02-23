@@ -21,8 +21,7 @@ if [ ! -e $dir/db/system_cpu.sql ]; then
 	chown root.www-data $dir/db/$i.sql
     done
 fi
-
-
+rm -rf $dir/db/system*.rrd
 
 sqlite3 $dir/db/system_cpu.sql "INSERT OR IGNORE INTO def (value) VALUES ('$cpu');"
 sqlite3 $dir/db/system_memory_cached.sql "INSERT OR IGNORE INTO def (value) VALUES ('$memoryc');"

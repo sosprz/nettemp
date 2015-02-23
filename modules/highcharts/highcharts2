@@ -38,7 +38,6 @@ done
 # hosts
 name=$(ls $dir/db/ |grep system )
 echo $name
-read y
 for i in $name; do
     if base=$(sqlite3 /var/www/nettemp/db/$i "select strftime('%s', time),value FROM def;") ;
 	then

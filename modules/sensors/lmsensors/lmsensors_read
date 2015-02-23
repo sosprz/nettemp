@@ -41,7 +41,7 @@ for i in $forcore
     
          if [ -n "$tmp" ] &&  echo $tmp | grep [0-9] > /dev/null
         then 
-            rrdtool update $dir/db/$name.rrd N:$tmp
+	sqlite3 $dir/db/$name.sql "INSERT OR IGNORE INTO def (value) VALUES ('$tmp');"
         sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$tmp' WHERE rom='$name'"
         echo lm-sensors: $name $tmp
         fi
