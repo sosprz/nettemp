@@ -1,10 +1,10 @@
 <?php
 
-	    $sth = $db->prepare("SELECT tempnum FROM settings WHERE id='1'");
-	    $sth->execute();
-	    $result = $sth->fetchAll();
-	    foreach ($result as $a) { 
-	    $tempnum=$a['tempnum'];
+	    $sth34 = $db->prepare("SELECT tempnum FROM settings WHERE id='1'");
+	    $sth34->execute();
+	    $result34 = $sth34->fetchAll();
+	    foreach ($result34 as $a34) { 
+	    $tempnum=$a34['tempnum'];
 	    }
 
 $tempexit = isset($_POST['tempexit']) ? $_POST['tempexit'] : '';
@@ -38,7 +38,8 @@ if ($tempon == "on") {
 
 $tempset = isset($_POST['tempset']) ? $_POST['tempset'] : '';
 if ($tempset == "on") {
-    foreach ($arr as $up) {
+foreach (range(1, $tempnum) as $up) {
+    
     $temp_temp=${'temp_temp' . $up};
     $temp_onoff=${'temp_onoff' . $up};
     $temp_sensor=${'temp_sensor' . $up};
