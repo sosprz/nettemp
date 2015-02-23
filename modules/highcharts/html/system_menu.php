@@ -47,9 +47,6 @@ echo "names = ". $js_array . ";\n";
 
                 yAxis: {
                     labels: {
-                        formatter: function () {
-                            return (this.value > 0 ? ' + ' : '') + this.value + '%';
-                        }
                     },
                     plotLines: [{
                         value: 0,
@@ -60,12 +57,11 @@ echo "names = ". $js_array . ";\n";
 
                 plotOptions: {
                     series: {
-                        compare: 'percent'
                     }
                 },
 
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
                     valueDecimals: 2
                 },
 

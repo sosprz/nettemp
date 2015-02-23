@@ -45,27 +45,61 @@ echo "names = ". $js_array . ";\n";
                     selected: 4
                 },
 
+		 rangeSelector: {
+		inputEnabled: $('#container').width() > 480,
+		selected: 1,
+		buttons: [{
+		type: 'hour',
+		count: 1,
+		text: '1h'
+		},
+		{
+		type: 'day',
+		count: 1,
+		text: '1d'
+		}, {
+		type: 'day',
+		count: 7,
+		text: '7d'
+		}, {
+		type: 'month',
+		count: 1,
+		text: '1m'
+		}, {
+		type: 'ytd',
+		text: 'YTD'
+		}, {
+		type: 'year',
+		count: 1,
+		text: '1y'
+		}, {
+		type: 'all',
+		text: 'All'
+		}]
+		},
+
                 yAxis: {
-                    labels: {
-                        formatter: function () {
-                            return (this.value > 0 ? ' + ' : '') + this.value + '%';
-                        }
-                    },
-                    plotLines: [{
-                        value: 0,
-                        width: 2,
-                        color: 'silver'
-                    }]
+                    //labels: {
+                    //    formatter: function () {
+                    //        return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                    //    }
+                    //},
+                    //plotLines: [{
+                    //    value: 0,
+                    //    width: 2,
+                    //    color: 'silver'
+                    //}]
                 },
 
                 plotOptions: {
-                    series: {
-                        compare: 'percent'
+                    series: { 
+			type: 'spline',
+                        //compare: 'percent'
                     }
                 },
 
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} °C</b><br/>',
                     valueDecimals: 2
                 },
 
