@@ -10,25 +10,25 @@ function timedRefresh(timeoutPeriod) {
 <table><tr>
 <td><a href="index.php?id=view&type=temp" ><button>Temp view</button></a></td>
 <?php 
-if (glob('db/*humi*.rrd')) {?>
-<td><a href="index.php?id=view&type=humi" ><button>Humi view</button></a></td>
+if (glob('db/*humi*.sql')) {?>
+<td><a href="index.php?id=view&type=humid" ><button>Humi view</button></a></td>
 <?php }
-if (glob('db/*pressure*.rrd')) {?>
+if (glob('db/*pressure*.sql')) {?>
 <td><a href="index.php?id=view&type=pressure" ><button>Pressure view</button></a></td>
 <?php }
-if (glob('db/*altitude*.rrd')) {?>
+if (glob('db/*altitude*.sql')) {?>
 <td><a href="index.php?id=view&type=altitude" ><button>Altitude view</button></a></td>
 <?php }
-if (glob('db/*snmp*.rrd')) {?>
+if (glob('db/*snmp*.sql')) {?>
 <td><a href="index.php?id=view&type=snmp" ><button>Snmp view</button></a></td>
 <?php }
 if (glob('tmp/kwh/*.json')) {?>
 <td><a href="index.php?id=view&type=kwh" ><button>kWh view</button></a></td>
 <?php }
-if (glob('db/*lux*.rrd')) {?>
+if (glob('db/*lux*.sql')) {?>
 <td><a href="index.php?id=view&type=lux" ><button>LUX view</button></a></td>
 <?php } 
-if (glob('db/gpio/gpio*')) {?>
+if (glob('tmp/highcharts/*gpio*.json')) {?>
 <td><a href="index.php?id=view&type=gpio" ><button>GPIO view</button></a></td>
 <?php } ?> 
 <td><a href="index.php?id=view&type=hosts" ><button>Hosts</button></a></td>
@@ -45,14 +45,13 @@ $art = isset($_GET['type']) ? $_GET['type'] : '';
 <?php  
 switch ($art)
 { 
-default: case '$art': include('modules/view/html/temp_view.php'); break;
-case 'temp': include('modules/view/html/temp_view.php'); break;
-case 'humi': include('modules/view/html/humi_view.php'); break;
-case 'snmp': include('modules/view/html/snmp_view.php'); break;
-case 'altitude': include('modules/view/html/altitude_view.php'); break;
-case 'pressure': include('modules/view/html/pressure_view.php'); break;
+default: case '$art': include('modules/highcharts/html/temp_menu.php'); break;
+case 'temp': include('modules/highcharts/html/temp_menu.php'); break;
+case 'humid': include('modules/highcharts/html/humid_menu.php'); break;
+case 'snmp': include('modules/highcharts/html/snmp_menu.php'); break;
+case 'pressure': include('modules/highcharts/html/pressure_menu.php'); break;
 case 'kwh': include('modules/kwh/html/kwh_charts.php'); break;
-case 'lux': include('modules/view/html/lux_view.php'); break;
+case 'lux': include('modules/highcharts/html/lux_menu.php'); break;
 case 'gpio': include('modules/highcharts/html/gpio_menu.php'); break;
 case 'hosts': include('modules/highcharts/html/hosts_menu.php'); break;
 }

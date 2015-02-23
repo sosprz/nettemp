@@ -6,5 +6,5 @@ date=$(date +%y%m%d-%H%M)
 gpio="$1"
 onoff="$2"
 
-echo "$[($(date +%s)+3600)*1000],$[$onoff]" >> $dir/tmp/gpio/gpio$gpio
+echo "$[($(date +%s)+3600)*1000],$[$onoff]" >> $dir/tmp/highcharts/gpio_$gpio.json
 
