@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.1
+
+BETA - remove RRD system stats and add Highcharts system stats
+
 8.5
 
 BETA - remove RRD charts, move forward with sqlite3 and highcharts.
