@@ -28,7 +28,7 @@ if ($numRows == 0 ) { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop
 		elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min']) && $a['alarm'] == on ) { ?> <tr><td><img src="media/ico/rain-icon.png" /></td><td><font color="#0095FF"> <?php echo $a['name']; ?></td><td><font color="#0095FF"><?php echo $a['tmp']; echo " % "; echo "min:"; echo $a['tmp_min'];?>&nbsp%</font></td></tr>  <?php	}
 		else { ?> <tr><td><img src="media/ico/rain-icon.png" /></td><td><font  color="#108218"> <?php echo $a['name']; ?> </td><td><font  color="#108218"> <?php echo $a['tmp'];?>&nbsp %</td></tr></font> <?php }
 	}
-	if($a['type'] == 'pressure'){
+	if($a['type'] == 'press'){
 		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == on ) { ?> <tr><td><img src="media/ico/Science-Pressure-icon.png" /></td><td><font color="#FF0000"> <?php echo $a['name']; ?></td><td><font color="#FF0000"><?php echo $a['tmp']; echo " Pa "; echo "max:"; echo $a['tmp_max'];?>&nbspPa</font></td></tr><?php	}
 		elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min']) && $a['alarm'] == on ) { ?> <tr><td><img src="media/ico/Science-Pressure-icon.png" /></td><td><font color="#0095FF"> <?php echo $a['name']; ?></td><td><font color="#0095FF"><?php echo $a['tmp']; echo " Pa "; echo "min:"; echo $a['tmp_min'];?>&nbspPa</font></td></tr>  <?php	}
 		else { ?> <tr><td><img src="media/ico/Science-Pressure-icon.png" /></td><td><font  color="#108218"> <?php echo $a['name'];?> </td><td><font  color="#108218"> <?php echo $a['tmp'];?>&nbspPa</td></tr></font> <?php }

@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5
+
+BETA - remove RRD charts, move forward with sqlite3 and highcharts.
+
 8.4.67
 
 add to settings, option to control number of temp sensor for gpio (1-10).

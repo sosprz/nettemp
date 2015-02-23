@@ -20,9 +20,9 @@ foreach($g as $x)
 {
     if(is_dir($x))$ar[$x]=scandir($x);
     else
-	if (strpos($x,'lux') !== false) {
+	if (strpos($x,'humid') !== false) {
 		$rest1=str_replace(".json", "", "$x");
-		$rest=str_replace("lux_", "", "$rest1");
+		$rest=str_replace("humid_", "", "$rest1");
 		$php_array[]=$rest;
 		
 	}
@@ -72,7 +72,7 @@ echo "names = ". $js_array . ";\n";
 
     $.each(names, function (i, name) {
 
-        $.getJSON('tmp/highcharts/lux_' + name + '.json',    function (data) {
+        $.getJSON('tmp/highcharts/humid_' + name + '.json',    function (data) {
         
             seriesOptions[i] = {
                 name: name,

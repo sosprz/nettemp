@@ -2,7 +2,10 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 
+mkdir $dir/tmp/highcharts
 
+
+rm -rf $dir/tmp/highcharts/*
 
 # hosts
 name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts")
@@ -17,8 +20,6 @@ for i in $name; do
 done
 
 # sensors
-
-rm -rf $dir/tmp/highcharts/*
 
 for n in temp press lux humid snmp wireless; do
     name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM sensors WHERE type='$n'")

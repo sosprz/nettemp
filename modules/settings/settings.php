@@ -72,7 +72,7 @@ $lcd=$a["lcd"];
 }
 ?>
 
-<span class="belka">&nbsp View<span class="okno">
+<!-- <span class="belka">&nbsp View<span class="okno">
     <table>
     <tr>	
     <form action="settings" method="post">
@@ -89,7 +89,7 @@ $lcd=$a["lcd"];
     </form>
     </tr> 
     </table>
-</span></span>
+</span></span> -->
 
 <span class="belka">&nbsp SMS settings<span class="okno">
     <table>
