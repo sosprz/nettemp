@@ -53,6 +53,11 @@ USERS:
 
 Changelog:
 
+8.5.3
+
+new DHT11/22 driver
+/var/www/nettemp/modules/sensors/GPIO/DHT/dhtlib/install
+
 8.5.2
 
 add legend to highcharts
