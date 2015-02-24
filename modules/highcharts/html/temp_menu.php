@@ -44,6 +44,25 @@ echo "names = ". $js_array . ";\n";
                 rangeSelector: {
                     selected: 4
                 },
+    
+		chart: {
+	        spacingBottom: 50
+    		},
+
+
+		legend: {
+		enabled: true,
+        	//layout: 'vertical',
+		floating: true,
+    	        verticalAlign: 'bottom',
+		align: 'center',
+		y:20,
+        	labelFormatter: function() {
+                var lastVal = this.yData[this.yData.length - 1];
+                    return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + '°C</b> </n>';
+        	    }
+		},
+
 
 		 rangeSelector: {
 		inputEnabled: $('#container').width() > 480,

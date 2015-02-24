@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.2
+
+add legend to highcharts
+
 8.5.1
 
 BETA - remove RRD system stats and add Highcharts system stats
