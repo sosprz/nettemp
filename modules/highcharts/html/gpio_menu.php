@@ -3,7 +3,7 @@
 <script type="text/javascript" src="modules/kwh/html/js/jquery.min.js"></script>
 <script src="modules/kwh/html/js/highstock.js"></script>
 <script src="modules/kwh/html/js/exporting.js"></script>
-
+<script type="text/javascript" src="modules/highcharts/js/dark-unica.js"></script>
 <div id="container" style="height: 400px; min-width: 310px"></div>
 
 <script type="text/javascript">

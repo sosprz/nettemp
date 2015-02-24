@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.4
+
+add dark theme to highcharts
+
 8.5.3
 
 new DHT11/22 driver
