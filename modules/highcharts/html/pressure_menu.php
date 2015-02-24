@@ -60,9 +60,9 @@ echo "names = ". $js_array . ";\n";
 
                 yAxis: {
                     labels: {
-                        formatter: function () {
-                            return (this.value > 0 ? ' + ' : '') + this.value + '%';
-                        }
+                    //    formatter: function () {
+                    //        return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                    //    }
                     },
                     plotLines: [{
                         value: 0,
@@ -73,7 +73,7 @@ echo "names = ". $js_array . ";\n";
 
                 plotOptions: {
                     series: {
-                        compare: 'percent'
+		    // compare: 'percent'
                     }
                 },
 
