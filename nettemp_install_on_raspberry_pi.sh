@@ -112,6 +112,9 @@ chmod 600 /var/spool/cron/crontabs/root
 
 if [ -n "$rpi" ]
 then
+
+/var/www/nettemp/modules/sensors/GPIO/DHT/dhtlib/install
+
     echo -e "${GREEN}Add wiringPI for gpio${R}"
     if which gpio 1> /dev/null
 	then 

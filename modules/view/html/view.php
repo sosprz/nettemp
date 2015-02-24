@@ -10,7 +10,7 @@ function timedRefresh(timeoutPeriod) {
 <table><tr>
 <td><a href="index.php?id=view&type=temp" ><button>Temperature</button></a></td>
 <?php 
-if (glob('db/*humi*.sql')) {?>
+if (glob('db/*humid*.sql')) {?>
 <td><a href="index.php?id=view&type=humid" ><button>Humidity</button></a></td>
 <?php }
 if (glob('db/*pressure*.sql')) {?>

@@ -20,9 +20,9 @@ foreach($g as $x)
 {
     if(is_dir($x))$ar[$x]=scandir($x);
     else
-	if (strpos($x,'humid') !== false) {
+	if (strpos($x,'temp') !== false) {
 		$rest1=str_replace(".json", "", "$x");
-		$rest=str_replace("humid_", "", "$rest1");
+		$rest=str_replace("temp_", "", "$rest1");
 		$php_array[]=$rest;
 		
 	}
@@ -118,7 +118,7 @@ echo "names = ". $js_array . ";\n";
                 },
 
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} %</b><br/>',
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} °C</b><br/>',
                     valueDecimals: 2
                 },
 
@@ -128,7 +128,7 @@ echo "names = ". $js_array . ";\n";
 
     $.each(names, function (i, name) {
 
-        $.getJSON('tmp/highcharts/humid_' + name + '.json',    function (data) {
+        $.getJSON('tmp/highcharts/temp_' + name + '.json',    function (data) {
         
             seriesOptions[i] = {
                 name: name,

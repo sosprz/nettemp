@@ -130,6 +130,7 @@ if [ -n "$rpi" ];then
     else
 	echo -e "[ ${GREEN}ok${R} ] WiringPi already installed"
     fi
+/var/www/nettemp/modules/sensors/GPIO/DHT/dhtlib/install
 fi
 }
 # echo -e "${GREEN}Add watchdog${R}"

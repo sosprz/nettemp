@@ -1,5 +1,6 @@
 #! /bin/bash 
 
+# DHT11, 22 Adafruit
 
 dir=$( cd "$( dirname "$0" )" && cd ../../../../ && pwd )
 date=`date +%y%m%d-%H%M`
@@ -8,25 +9,19 @@ gpio_list_0=`sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='humi
 if [ -n "$gpio_list_0" ]; then 
     for gpio_list in $gpio_list_0; do
     type=`sqlite3 $dir/dbf/nettemp.db "SELECT humid_type FROM gpio where gpio='$gpio_list'"`
-    sleep 1
-    arr=($($dir/modules/sensors/GPIO/DHT/dhtlib/example/dhtsensor DHT$type $gpio_list))
-    #echo ${arr[2]}
-    #echo ${arr[5]}
-    #dht=`$dir/modules/sensors/GPIO/DHT/Adafruit_DHT $type $gpio_list |grep Temp`
-    dht=${arr[5]}
-     if [ -n "$dht" ]; then
-	    #eval var1_$gpio_list=`echo $dht | awk '{ print $3 }'`
-	    #eval var2_$gpio_list=`echo $dht | awk '{ print $7 }'`
-	    eval var1_$gpio_list=`echo ${arr[5]}`
-	    eval var2_$gpio_list=`echo ${arr[2]}`
-    	    #eval var1_$gpio_list="-36.6"
+    sleep 3
+    dht=`$dir/modules/sensors/GPIO/DHT/Adafruit_DHT $type $gpio_list |grep Temp`
+    if [ -n "$dht" ]; then
+	    eval var1_$gpio_list=`echo $dht | awk '{ print $3 }'`
+	    eval var2_$gpio_list=`echo $dht | awk '{ print $7 }'`
+        #eval var1_$gpio_list="-36.6"
 	    #eval var2_$gpio_list="99.3"
-    	    dht_temp=var1_$gpio_list
+        dht_temp=var1_$gpio_list
 	    dht_humi=var2_$gpio_list
         dht_humi_calc=$(echo ${!dht_humi} 100 -1 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
         if [ "$dht_humi_calc" == "1" ]; then 
-	    gpio_name=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='humid'"`
-	    sqlite3 $dir/db/$gpio_name.sql "INSERT OR IGNORE INTO def (value) VALUES ('${!dht_humi}');"
+	    gpio_name=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='humi'"`
+	    sqlite3 $dir/db/$(echo $gpio_name).sql "INSERT OR IGNORE INTO def (value) VALUES ('${!dht_humi}');"
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_humi}' WHERE rom='$(echo $gpio_name)'"
 	echo DHT humi: ${!dht_humi} %
         else
@@ -35,7 +30,7 @@ if [ -n "$gpio_list_0" ]; then
         dht_temp_calc=$(echo ${!dht_humi} 125 -41 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
         if [ "$dht_temp_calc" == "1" ]; then 
 	gpio_name2=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='temp'"`
-	    sqlite3 $dir/db/$gpio_name2.sql "INSERT OR IGNORE INTO def (value) VALUES ('${!dht_temp}');"
+	    sqlite3 $dir/db/$(echo $gpio_name2).sql "INSERT OR IGNORE INTO def (value) VALUES ('${!dht_temp}');"
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_temp}' WHERE rom='$(echo $gpio_name2)'"
 	echo DHT temp: ${!dht_temp} C
         else
