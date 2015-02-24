@@ -45,6 +45,22 @@ echo "names = ". $js_array . ";\n";
                     selected: 4
                 },
 
+		chart: {
+        	spacingBottom: 50
+		},
+
+
+		legend: {
+		enabled: true,
+		floating: true,
+	        verticalAlign: 'bottom',
+		align: 'center',
+		y:40,
+    		labelFormatter: function() {
+                var lastVal = this.yData[this.yData.length - 1];
+                    return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + '</b> </n>';
+    		    }
+		},
                 yAxis: {
                     labels: {
                         formatter: function () {
@@ -65,7 +81,7 @@ echo "names = ". $js_array . ";\n";
                 },
 
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change})<br/>',
                     valueDecimals: 2
                 },
 
