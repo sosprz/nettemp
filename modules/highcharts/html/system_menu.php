@@ -45,6 +45,58 @@ echo "names = ". $js_array . ";\n";
                     selected: 4
                 },
 
+		chart: {
+            spacingBottom: 50
+	    },
+
+
+	legend: {
+	enabled: true,
+    	//layout: 'vertical',
+	floating: true,
+	        verticalAlign: 'bottom',
+	align: 'center',
+	y:40,
+    	labelFormatter: function() {
+                var lastVal = this.yData[this.yData.length - 1];
+                    return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + '%</b> </n>';
+    	    }
+	},
+
+	 rangeSelector: {
+	inputEnabled: $('#container').width() > 480,
+	selected: 1,
+	buttons: [{
+	type: 'hour',
+	count: 1,
+	text: '1h'
+	},
+	{
+	type: 'day',
+	count: 1,
+	text: '1d'
+	}, {
+	type: 'day',
+	count: 7,
+	text: '7d'
+	}, {
+	type: 'month',
+	count: 1,
+	text: '1m'
+	}, {
+	type: 'ytd',
+	text: 'YTD'
+	}, {
+	type: 'year',
+	count: 1,
+	text: '1y'
+	}, {
+	type: 'all',
+	text: 'All'
+	}]
+	},
+
+
                 yAxis: {
                     labels: {
                     },
