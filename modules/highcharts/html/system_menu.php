@@ -28,10 +28,6 @@ foreach($g as $x)
 		
 	}
 }
-//print_r($php_array);
-
-//print_r($php_array);
-//$php_array = array('rpi','wppl');
 $js_array = json_encode($php_array);
 echo "names = ". $js_array . ";\n";
 ?>
@@ -42,10 +38,6 @@ echo "names = ". $js_array . ";\n";
 
             $('#container').highcharts('StockChart', {
 
-                rangeSelector: {
-                    selected: 4
-                },
-
 		chart: {
             spacingBottom: 50
 	    },
@@ -53,9 +45,8 @@ echo "names = ". $js_array . ";\n";
 
 	legend: {
 	enabled: true,
-    	//layout: 'vertical',
 	floating: true,
-	        verticalAlign: 'bottom',
+        verticalAlign: 'bottom',
 	align: 'center',
 	y:40,
     	labelFormatter: function() {
@@ -66,7 +57,7 @@ echo "names = ". $js_array . ";\n";
 
 	 rangeSelector: {
 	inputEnabled: $('#container').width() > 480,
-	selected: 1,
+	selected: 0,
 	buttons: [{
 	type: 'hour',
 	count: 1,

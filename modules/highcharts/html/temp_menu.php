@@ -42,10 +42,6 @@ echo "names = ". $js_array . ";\n";
 
             $('#container').highcharts('StockChart', {
 
-                rangeSelector: {
-                    selected: 4
-                },
-    
 		chart: {
 	        spacingBottom: 50
     		},
@@ -67,7 +63,7 @@ echo "names = ". $js_array . ";\n";
 
 		 rangeSelector: {
 		inputEnabled: $('#container').width() > 480,
-		selected: 1,
+		selected: 0,
 		buttons: [{
 		type: 'hour',
 		count: 1,

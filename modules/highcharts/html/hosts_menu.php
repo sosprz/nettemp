@@ -39,9 +39,39 @@ echo "names = ". $js_array . ";\n";
 
             $('#container').highcharts('StockChart', {
 
-                rangeSelector: {
-                    selected: 4
-                },
+		rangeSelector: {
+		inputEnabled: $('#container').width() > 480,
+		selected: 0,
+		buttons: [{
+		type: 'hour',
+		count: 1,
+		text: '1h'
+		},
+		{
+		type: 'day',
+		count: 1,
+		text: '1d'
+		}, {
+		type: 'day',
+		count: 7,
+		text: '7d'
+		}, {
+		type: 'month',
+		count: 1,
+		text: '1m'
+		}, {
+		type: 'ytd',
+		text: 'YTD'
+		}, {
+		type: 'year',
+		count: 1,
+		text: '1y'
+		}, {
+		type: 'all',
+		text: 'All'
+		}]
+		},
+
 		chart: {
         	spacingBottom: 50
 		},
