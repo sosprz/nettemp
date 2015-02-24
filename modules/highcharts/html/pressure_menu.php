@@ -28,7 +28,6 @@ foreach($g as $x)
 		
 	}
 }
-//print_r($php_array);
 $js_array = json_encode($php_array);
 echo "names = ". $js_array . ";\n";
 ?>
@@ -42,6 +41,22 @@ echo "names = ". $js_array . ";\n";
                 rangeSelector: {
                     selected: 4
                 },
+		chart: {
+        	spacingBottom: 50
+		},
+
+		legend: {
+		enabled: true,
+    		//layout: 'vertical',
+		floating: true,
+	        verticalAlign: 'bottom',
+		align: 'center',
+		y:40,
+    		labelFormatter: function() {
+                var lastVal = this.yData[this.yData.length - 1];
+                    return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + ' hPa</b> </n>';
+    		    }
+		},
 
                 yAxis: {
                     labels: {
