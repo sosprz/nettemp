@@ -19,7 +19,7 @@ $name_new=trim($name_new2);
 
 <?php // SQLite3 - sekcja dodawania do bazy && tworzenie baz rrd
 	if(!empty($id_rom_new)) {
-	$rand=rand();
+	$rand=substr(rand(), 0, 4);
 	    if (strpos($id_rom_new,'temp') !== false) {
 		    if (strpos($id_rom_new, 'gpio') !== false) {
 		    $rest1=str_replace("gpio_", "",$id_rom_new);
@@ -51,7 +51,7 @@ $name_new=trim($name_new2);
 		    $rest1=str_replace("_temp", "", "$id_rom_new");
 		    $gpio=str_replace("gpio_", "", "$rest1");
 		    }
-	    $db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$gpio','$id_rom_new', 'temp', 'off', 'wait', '$gpio' )") or die ("cannot insert to DB" );
+	    $db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$rand','$id_rom_new', 'temp', 'off', 'wait', '$gpio' )") or die ("cannot insert to DB" );
 	    }
 	    
         $dbnew = new PDO("sqlite:db/$id_rom_new.sql");

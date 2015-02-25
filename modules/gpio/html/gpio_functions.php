@@ -21,8 +21,23 @@
 //humid
     $humidon = isset($_POST['humidon']) ? $_POST['humidon'] : '';
     if ($humidon == "humidon")  {
-//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 	$db->exec("UPDATE gpio SET mode='humid' WHERE gpio='$gpio_post'") or die("exec error");
+	$id_rom_newh='gpio_'.$gpio_post.'_humid';
+	$id_rom_newt='gpio_'.$gpio_post.'_temp';
+	$id_rom_h='gpio_'.$gpio_post.'_humid.sql';
+	$id_rom_t='gpio_'.$gpio_post.'_temp.sql';
+	$rand=substr(rand(), 0, 4);
+	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$rand','$id_rom_newh', 'humid', 'off', 'wait', '$gpio_post' )") or die ("cannot insert to DB humi" );
+	$rand=substr(rand(), 0, 4);
+	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$rand','$id_rom_newt', 'temp', 'off', 'wait', '$gpio_post' )") or die ("cannot insert to DB temp" );
+	$dbnew = new PDO("sqlite:db/$id_rom_h");
+	$dbnew->exec('CREATE TABLE def (time DATETIME DEFAULT CURRENT_TIMESTAMP, value INTEEGER)');
+	$dbnew = new PDO("sqlite:db/$id_rom_t");
+	$dbnew->exec('CREATE TABLE def (time DATETIME DEFAULT CURRENT_TIMESTAMP, value INTEEGER)');
+	$file = 'tmp/onewire';
+	$current = file_get_contents($file);
+	$current = "gpio_".$gpio_post."_humid\ngpio_".$gpio_post."_temp";
+	file_put_contents($file, $current, FILE_APPEND );
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
