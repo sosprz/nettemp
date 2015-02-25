@@ -20,17 +20,13 @@ foreach($g as $x)
 {
     if(is_dir($x))$ar[$x]=scandir($x);
     else
-	if (strpos($x,'gpio') !== false) {
+	if (strpos($x,'gonoff') !== false) {
 		$rest1=str_replace(".json", "", "$x");
-		$rest=str_replace("gpio_", "", "$rest1");
+		$rest=str_replace("gonoff_", "", "$rest1");
 		$php_array[]=$rest;
 		
 	}
 }
-//print_r($php_array);
-
-//print_r($php_array);
-//$php_array = array('rpi','wppl');
 $js_array = json_encode($php_array);
 echo "names = ". $js_array . ";\n";
 ?>
@@ -120,7 +116,7 @@ rangeSelector: {
 
     $.each(names, function (i, name) {
 
-        $.getJSON('tmp/highcharts/gpio_' + name + '.json',    function (data) {
+        $.getJSON('tmp/highcharts/gonoff_' + name + '.json',    function (data) {
         
             seriesOptions[i] = {
                 name: name,

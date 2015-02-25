@@ -34,9 +34,6 @@ $lcd=$a["lcd"];
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <td><img src="media/ico/TO-220-icon.png" /></td>
 <td><input type="text" name="name_new" size="12" maxlength="30" value="<?php echo $a["name"]."\t"; ?>" /></td>
-<?php if ( $rrd == 'on' ) { ?>
-<td><input type='color' name='color' value ="<?php echo $a["color"]; ?>" size="7" />
-<?php } ?>
 <input type="hidden" name="name_id" value="<?php echo $a["id"]."\t"; ?>" />
 <input type="hidden" name="id_name2" value="id_name3"/>
 <td><input type="image" src="media/ico/Actions-edit-redo-icon.png" /></td>

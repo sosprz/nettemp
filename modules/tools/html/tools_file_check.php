@@ -1,4 +1,5 @@
 <?php
+$exit = "";
 $katalogw[] = 'db';
 $katalogw[] = 'dbf';
 $katalogw[] = 'modules';

@@ -35,7 +35,7 @@ $art = isset($_GET['type']) ? $_GET['type'] : '';
 <?php  
 switch ($art)
 { 
-default: case '$art': include('modules/tools/html/tools_system_stats.php'); break;
+default: case '$art': include('modules/tools/html/tools_update.php'); break;
 case 'file_check': include('modules/tools/html/tools_file_check.php'); break;
 case 'password': include('modules/tools/html/tools_change_pass.php'); break;
 case 'update': include('modules/tools/html/tools_update.php'); break;

@@ -11,6 +11,8 @@ for i in $(ls /sys/class/net/); do
 done
 echo "-----memory"
 free -m
+echo "-----cpu"
+cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
 echo "-----version"
 cd /var/www/nettemp
 awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$' && /usr/bin/git branch |grep [*]|awk '{print $2}';
@@ -34,7 +36,9 @@ dmesg |grep -E 'usb|atm'
 echo "-----modules"
 lsmod
 cat /etc/modules
-
+echo "----- Device tree"
+grep device_tree /boot/config.txt
+echo "----- END -----"
 
 
 

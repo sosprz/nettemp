@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.5
+
+fix: gpio status charts, php, i2c pressure
+
 8.5.4
 
 add dark theme to highcharts

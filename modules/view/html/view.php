@@ -28,7 +28,7 @@ if (glob('tmp/kwh/*.json')) {?>
 if (glob('db/*lux*.sql')) {?>
 <td><a href="index.php?id=view&type=lux" ><button>LUX</button></a></td>
 <?php } 
-if (glob('tmp/highcharts/*gpio*.json')) {?>
+if (glob('db/gonoff*.sql')) {?>
 <td><a href="index.php?id=view&type=gpio" ><button>GPIO</button></a></td>
 <?php } ?> 
 <td><a href="index.php?id=view&type=hosts" ><button>Hosts</button></a></td>

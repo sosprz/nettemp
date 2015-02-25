@@ -36,10 +36,10 @@ for n in temp press lux humid snmp wireless; do
 done
 
 # hosts
-name=$(ls $dir/db/ |grep system )
+name=$(ls $dir/db/ |grep -e system  -e gonoff )
 echo $name
 for i in $name; do
-    if base=$(sqlite3 /var/www/nettemp/db/$i "select strftime('%s', time),value FROM def;") ;
+    if base=$(sqlite3 $dir/db/$i "select strftime('%s', time),value FROM def;") ;
 	then
 	    middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1+3600)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
 	    last=$(echo $i |sed '$s/....$//')
