@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bashmv 
 
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M%S`
@@ -17,6 +17,7 @@ if [ $action = "b" ]
 	cd $dir/modules/tools/backup/files
 	tar -cpvf nettemp-$date.tar.gz -C $dir/tmp/backup/ .
 	tar -rpvf nettemp-$date.tar.gz -C $dir/db/ .
+	tar -rpvf nettemp-$date.tar.gz $dir/tmp/onewire
 	chmod 775 nettemp-$date.tar.gz
 	rm -rf $dir/tmp/backup/*
 fi
@@ -29,6 +30,7 @@ if [ $action = "r" ] && [ -n "$file" ]
 	sqlite3 $dir/tmp/backup/snmp.db < $dir/tmp/backup/snmp.bak
 	mv $dir/tmp/backup/*.rrd $dir/db/
 	mv -f $dir/tmp/backup/*.db $dir/dbf/
+	mv -f $dir/tmp/backup/onewire $dir/tmp/
 	chmod 775 $dir/dbf/nettemp.db
 	git reset --hard $(cat $dir/tmp/backup/commit)
 	rm -rf $dir/tmp/backup/* 
