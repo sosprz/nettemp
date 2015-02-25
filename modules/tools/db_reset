@@ -7,7 +7,7 @@ cd $dir && git reset --hard && cd -
 rm -rf $dir/dbf/*.db
 #rm -rf $dir/db/*.rrd #uncomment will delete all stored data
 rm -rf $dir/tmp
-
+mkdir $dir/tmp
 
 sqlite3 $dir/dbf/nettemp.db < $dir/modules/tools/nettemp.schema
 
