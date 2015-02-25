@@ -30,9 +30,8 @@ for i in $det
     do
         if [ "$i" = "$bmp180" ]
 	    then
-		echo i2c_$i\_pressure >> $dir/tmp/onewire
+		echo i2c_$i\_press >> $dir/tmp/onewire
 		echo i2c_$i\_temp >> $dir/tmp/onewire
-		#echo i2c_$i\_altitude >> $dir/tmp/onewire
         fi
         if [ "$i" = "$TSL2561" ]
 	    then
@@ -50,12 +49,12 @@ for i in $det
         fi
         if [ "$i" = "$HTU21D" ]
 	    then
-		echo i2c_$i\_humi >> $dir/tmp/onewire
+		echo i2c_$i\_humid >> $dir/tmp/onewire
 		echo i2c_$i\_temp >> $dir/tmp/onewire
         fi
 	if [ "$i" = "$MPL3115A2" ]
 	    then
-		echo i2c_$i\_pressure >> $dir/tmp/onewire
+		echo i2c_$i\_press >> $dir/tmp/onewire
 		echo i2c_$i\_temp >> $dir/tmp/onewire
         fi
     done

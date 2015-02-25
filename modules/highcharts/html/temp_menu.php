@@ -8,9 +8,6 @@
 <div id="container" style="height: 400px; min-width: 310px"></div>
 
 <script type="text/javascript">
-
-
-
 $(function () {
     var seriesOptions = [],
         seriesCounter = 0,
@@ -25,13 +22,8 @@ foreach($g as $x)
 		$rest1=str_replace(".json", "", "$x");
 		$rest=str_replace("temp_", "", "$rest1");
 		$php_array[]=$rest;
-		
 	}
 }
-//print_r($php_array);
-
-//print_r($php_array);
-//$php_array = array('rpi','wppl');
 $js_array = json_encode($php_array);
 echo "names = ". $js_array . ";\n";
 ?>
@@ -43,13 +35,11 @@ echo "names = ". $js_array . ";\n";
             $('#container').highcharts('StockChart', {
 
 		chart: {
-	        spacingBottom: 50
+	        spacingBottom: 70
     		},
-
 
 		legend: {
 		enabled: true,
-        	//layout: 'vertical',
 		floating: true,
     	        verticalAlign: 'bottom',
 		align: 'center',
@@ -60,34 +50,33 @@ echo "names = ". $js_array . ";\n";
         	    }
 		},
 
-
-		 rangeSelector: {
+		rangeSelector: {
 		inputEnabled: $('#container').width() > 480,
 		selected: 0,
 		buttons: [{
 		type: 'hour',
 		count: 1,
-		text: '1h'
+		text: '1H'
 		},
 		{
 		type: 'day',
 		count: 1,
-		text: '1d'
+		text: '1D'
 		}, {
 		type: 'day',
 		count: 7,
-		text: '7d'
+		text: '7D'
 		}, {
 		type: 'month',
 		count: 1,
-		text: '1m'
+		text: '1M'
 		}, {
 		type: 'ytd',
 		text: 'YTD'
 		}, {
 		type: 'year',
 		count: 1,
-		text: '1y'
+		text: '1Y'
 		}, {
 		type: 'all',
 		text: 'All'
@@ -95,24 +84,26 @@ echo "names = ". $js_array . ";\n";
 		},
 
                 yAxis: {
-                    //labels: {
-                    //    formatter: function () {
-                    //        return (this.value > 0 ? ' + ' : '') + this.value + '%';
-                    //    }
-                    //},
-                    //plotLines: [{
-                    //    value: 0,
-                    //    width: 2,
-                    //    color: 'silver'
-                    //}]
                 },
 
-                plotOptions: {
-                    series: { 
-			type: 'spline',
-                        //compare: 'percent'
-                    }
-                },
+		plotOptions: {
+    		series: {
+		type: 'spline',
+                
+                events: {
+                legendItemClick: function(event) {
+                    var selected = this.index;
+                    var allSeries = this.chart.series;
+                    
+                    $.each(allSeries, function(index, series) {
+                        selected == index ? series.show() : series.hide();
+                	});
+                    
+                    return false;
+            	    }
+        	}
+    		}
+		},
 
                 tooltip: {
                     pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} °C</b><br/>',
