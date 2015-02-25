@@ -85,7 +85,7 @@ fi
 ###########
 
 dbhtu21dt=$(ls $dir/db |grep i2c_40_temp)
-dbhtu21dh=$(ls $dir/db |grep i2c_40_humi)
+dbhtu21dh=$(ls $dir/db |grep i2c_40_humid)
 if [ -n "$htu21dt" ] || [ -n "$dbhtu21dh" ]
     then
     if htu21d=$($dir/modules/sensors/i2c/HTU21D/htu21d.py )
