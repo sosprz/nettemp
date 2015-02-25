@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.6
+
+fix: humid, rm sensors
+
 8.5.5
 
 fix: gpio status charts, php, i2c pressure

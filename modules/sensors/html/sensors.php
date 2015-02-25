@@ -68,7 +68,7 @@ $name_new=trim($name_new2);
 	$db->exec("DELETE FROM sensors WHERE rom='$usun_czujniki'") or die ($db->lastErrorMsg()); 
 	//plik rrd
 	$rep_del_db = str_replace(" ", "_", $usun_czujniki);
-	$name_rep_del_db = "$rep_del_db.rrd";
+	$name_rep_del_db = "$rep_del_db.sql";
 	//echo $name_rep_del_db;    
 	unlink("db/$name_rep_del_db");
 	header("location: " . $_SERVER['REQUEST_URI']);

@@ -13,7 +13,7 @@ function timedRefresh(timeoutPeriod) {
 if (glob('db/*humid*.sql')) {?>
 <td><a href="index.php?id=view&type=humid" ><button>Humidity</button></a></td>
 <?php }
-if (glob('db/*pressure*.sql')) {?>
+if (glob('db/*press*.sql')) {?>
 <td><a href="index.php?id=view&type=pressure" ><button>Pressure</button></a></td>
 <?php }
 if (glob('db/*altitude*.sql')) {?>
@@ -28,7 +28,7 @@ if (glob('tmp/kwh/*.json')) {?>
 if (glob('db/*lux*.sql')) {?>
 <td><a href="index.php?id=view&type=lux" ><button>LUX</button></a></td>
 <?php } 
-if (glob('db/gonoff*.sql')) {?>
+if (glob('db/*gonoff*.sql')) {?>
 <td><a href="index.php?id=view&type=gpio" ><button>GPIO</button></a></td>
 <?php } ?> 
 <td><a href="index.php?id=view&type=hosts" ><button>Hosts</button></a></td>
