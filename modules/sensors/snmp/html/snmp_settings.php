@@ -23,7 +23,7 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	}
 	$snmp_name=snmp_ . $snmp_name . _temp;
 	$db->exec("INSERT OR IGNORE INTO snmp (name, community, host, oid, divider) VALUES ('$snmp_name', '$snmp_community', '$snmp_host', '$snmp_oid', '$snmp_divider')") or die ("cannot insert to DB" );
-	$dbn->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$snmp_name')") or die ("cannot insert to newdev" );
+	$dbn->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$snmp_name')");
         $dbn->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$snmp_name','$snmp_name','snmp', 'off', 'wait', '$gpio_post' )") or die ("cannot insert to " );
 
 	$dbnew = new PDO("sqlite:db/$snmp_name");
@@ -51,8 +51,9 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 <?php // SQLite - del
 	if (!empty($snmp_id) && ($_POST['snmp_del1'] == "snmp_del2") ){
 	$db->exec("DELETE FROM snmp WHERE id='$snmp_id'") or die ($db->lastErrorMsg());
-	$dbn->exec("DELETE FROM newdev WHERE list='$snmp_id'"); 
+	$dbn->exec("DELETE FROM newdev WHERE list='$snmp_name'"); 
 	header("location: " . $_SERVER['REQUEST_URI']);
+	echo $snmp_id;
 	exit();
 	}
 	?>
@@ -92,6 +93,7 @@ foreach ($result as $a) {
 	
 	<form action="" method="post"> 	
 	<input type="hidden" name="snmp_id" value="<?php echo $a["id"]; ?>" />
+	<input type="hidden" name="snmp_name" value="<?php echo $a["name"]; ?>" />
 	<input type="hidden" type="submit" name="snmp_del1" value="snmp_del2" />
    <td><input type="image" src="media/ico/Close-2-icon.png"  /></td></tr>
 	</form>
