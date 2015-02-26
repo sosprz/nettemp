@@ -1,4 +1,5 @@
 <?php	
+$dir = '';
 $log_del = isset($_POST['log_del']) ? $_POST['log_del'] : '';
 	if ($log_del == "Clear"){
 	exec("echo log cleared > tmp/log.txt");	
