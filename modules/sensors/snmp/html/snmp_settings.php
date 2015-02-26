@@ -9,6 +9,8 @@ $snmp_oid = isset($_POST['snmp_oid']) ? $_POST['snmp_oid'] : '';
 $snmp_id = isset($_POST['snmp_id']) ? $_POST['snmp_id'] : '';
 $snmp_divider = isset($_POST['snmp_divider']) ? $_POST['snmp_divider'] : '';
 $snmpid = isset($_POST['snmpid']) ? $_POST['snmpid'] : '';
+	$db = new PDO('sqlite:dbf/snmp.db');
+	$dbn = new PDO('sqlite:dbf/nettemp.db');
 
 
 ?>
@@ -19,13 +21,11 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	if (empty($snmp_divider)) {
 	    $snmp_divider='1';
 	}
-	$db = new PDO('sqlite:dbf/snmp.db');
 	$snmp_name=snmp_ . $snmp_name . _temp;
 	$db->exec("INSERT OR IGNORE INTO snmp (name, community, host, oid, divider) VALUES ('$snmp_name', '$snmp_community', '$snmp_host', '$snmp_oid', '$snmp_divider')") or die ("cannot insert to DB" );
-	$file = 'tmp/onewire';
-	$current = file_get_contents($file);
-	$current = "$snmp_name\n";
-	file_put_contents($file, $current, FILE_APPEND );
+	$dbn->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$snmp_name')") or die ("cannot insert to newdev" );
+        $dbn->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$snmp_name','$snmp_name','snmp', 'off', 'wait', '$gpio_post' )") or die ("cannot insert to " );
+
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}	
@@ -47,8 +47,8 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 
 <?php // SQLite - del
 	if (!empty($snmp_id) && ($_POST['snmp_del1'] == "snmp_del2") ){
-	$db = new PDO('sqlite:dbf/snmp.db');
 	$db->exec("DELETE FROM snmp WHERE id='$snmp_id'") or die ($db->lastErrorMsg());
+	$dbn->exec("DELETE FROM newdev WHERE list='$snmp_id'"); 
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}

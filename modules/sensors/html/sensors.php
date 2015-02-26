@@ -114,16 +114,18 @@ foreach (glob("tmp/.digitemp*") as $file_digi) {
 	}
 }
 	
-	$f_one_wire = "tmp/onewire";
-	$one_wire = file($f_one_wire);
+	//$f_one_wire = "tmp/onewire";
+	//$one_wire = file($f_one_wire);
+	$db23 = new PDO('sqlite:dbf/nettemp.db');
+	$sth23 = $db23->prepare("select * from newdev");
+	$sth23->execute();
+	$one_wire = $sth23->fetchAll();
 	foreach($one_wire as $line_one_wire) {
-		if (!empty($line_one_wire)) {
-		$line_one_wire2=trim($line_one_wire);
+		if (!empty($line_one_wire['list'])) {
+		$line_one_wire2=trim($line_one_wire['list']);
 		$digitemprc[] = $line_one_wire2; }
  	
 	}
-	
-
 
 	
 ?>

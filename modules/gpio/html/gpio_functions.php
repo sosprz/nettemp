@@ -34,10 +34,8 @@
 	$dbnew->exec('CREATE TABLE def (time DATETIME DEFAULT CURRENT_TIMESTAMP, value INTEEGER)');
 	$dbnew = new PDO("sqlite:db/$id_rom_t");
 	$dbnew->exec('CREATE TABLE def (time DATETIME DEFAULT CURRENT_TIMESTAMP, value INTEEGER)');
-	$file = 'tmp/onewire';
-	$current = file_get_contents($file);
-	$current = "gpio_".$gpio_post."_humid\ngpio_".$gpio_post."_temp";
-	file_put_contents($file, $current, FILE_APPEND );
+	$db->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$id_rom_newh')") or die ("cannot insert to newdev" );
+	$db->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$id_rom_newt')") or die ("cannot insert to newdev" );
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();

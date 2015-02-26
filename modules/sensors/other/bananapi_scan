@@ -7,6 +7,7 @@ date=`date +%y%m%d-%H%M`
 
 if [ -f /boot/bananapi/script.bin ] && [ -f /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input  ] && [ ! $(cat $dir/tmp/onewire |grep Banana_Pi) ] 
     then
-    echo "Banana_Pi" >> $dir/tmp/onewire
+    #echo "Banana_Pi" >> $dir/tmp/onewire
+    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('Banana_Pi')"
     echo "Banana Pi: Internal sensor found"
 fi

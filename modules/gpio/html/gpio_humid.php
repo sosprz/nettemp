@@ -9,7 +9,10 @@ if (($humidexit == "humidexit") ){
     $id_rom_t='gpio_'.$gpio_post.'_temp.sql';
 
     $db->exec("UPDATE gpio SET mode='', status='' where gpio='$gpio_post' ") or die ("humid off db error");
-    $db->exec("DELETE FROM sensors WHERE rom='$id_rom_newh' AND rom='$id_rom_newt' ") or die ("humid rm db error"); 
+    $db->exec("DELETE FROM sensors WHERE rom='$id_rom_newh' "); 
+    $db->exec("DELETE FROM sensors WHERE rom='$id_rom_newt' "); 
+    $db->exec("DELETE FROM newdev WHERE list='$id_rom_newh'"); 
+    $db->exec("DELETE FROM newdev WHERE list='$id_rom_newt'"); 
     unlink("db/$id_rom_h");
     unlink("db/$id_rom_t");
     $db = null;

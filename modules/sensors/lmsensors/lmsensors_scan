@@ -16,7 +16,8 @@ for i in $temp
     declare $i=$(sensors |grep $i | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
          if [ -n "$i" ] &&  echo $i | grep [0-9] > /dev/null
         then 
-            echo lmsensors_$i\_temp >> $dir/tmp/onewire
+            #echo lmsensors_$i\_temp >> $dir/tmp/onewire
+	    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('lmsensors_$i\_temp')"
         fi
     done
 
@@ -25,7 +26,8 @@ for i in $core
     declare $i=$(sensors |grep "Core [0-9]"  |awk '{print $3}' | sed 's/://g' | sed 's/+//g' |sed 's/°C//g')
          if [ -n "$i" ] &&  echo $i | grep [0-9] > /dev/null
         then 
-            echo lmsensors_$i\_temp >> $dir/tmp/onewire
+            #echo lmsensors_$i\_temp >> $dir/tmp/onewire
+		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('lmsensors_$i\_temp')"
         fi
     done
 

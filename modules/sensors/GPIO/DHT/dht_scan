@@ -13,9 +13,11 @@ if [ "$dht_count" != "0" ] && [ -n "$dht_count" ]
 for dht_gpio in $dht; do
  tmp1="gpio_$dht_gpio" 
  tmp2="_temp"
- echo "$tmp1$tmp2" >> $dir/tmp/onewire
+ sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$tmp1$tmp2')"
+ #echo "$tmp1$tmp2" >> $dir/tmp/onewire
  dht1="gpio_$dht_gpio"
  dht2="_humid"
- echo "$dht1$dht2" >> $dir/tmp/onewire
+ #echo "$dht1$dht2" >> $dir/tmp/onewire
+ sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$dht1$dht2')"
 done
 fi

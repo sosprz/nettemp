@@ -30,12 +30,15 @@ for i in $det
     do
         if [ "$i" = "$bmp180" ]
 	    then
-		echo i2c_$i\_press >> $dir/tmp/onewire
-		echo i2c_$i\_temp >> $dir/tmp/onewire
+		#echo i2c_$i\_press >> $dir/tmp/onewire
+		#echo i2c_$i\_temp >> $dir/tmp/onewire
+		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_77_press')"
+		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_77_temp')"
         fi
         if [ "$i" = "$TSL2561" ]
 	    then
-		echo i2c_$i\_lux >> $dir/tmp/onewire
+		#echo i2c_$i\_lux >> $dir/tmp/onewire
+		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_39_lux')"
         fi
         
 	if [[ ${ds2482[*]} =~  $i ]]
@@ -49,12 +52,16 @@ for i in $det
         fi
         if [ "$i" = "$HTU21D" ]
 	    then
-		echo i2c_$i\_humid >> $dir/tmp/onewire
-		echo i2c_$i\_temp >> $dir/tmp/onewire
+		#echo i2c_$i\_humid >> $dir/tmp/onewire
+		#echo i2c_$i\_temp >> $dir/tmp/onewire
+		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_40_humid')"
+		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_40_temp')"
         fi
 	if [ "$i" = "$MPL3115A2" ]
 	    then
-		echo i2c_$i\_press >> $dir/tmp/onewire
-		echo i2c_$i\_temp >> $dir/tmp/onewire
+		#echo i2c_$i\_press >> $dir/tmp/onewire
+		#echo i2c_$i\_temp >> $dir/tmp/onewire
+		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_60_press')"
+		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_60_temp')"
         fi
     done

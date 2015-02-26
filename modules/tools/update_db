@@ -81,7 +81,7 @@ sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO mail_settings (id,tlscheck) V
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO mail_settings (id,tls) VALUES (1,'on');"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO mail_settings (id,auth) VALUES (1,'on');"
 sqlite3 $dir/dbf/nettemp.db "UPDATE mail_settings SET tlscheck='off' WHERE id='1'"
-
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE newdev (id INTEGER PRIMARY KEY,list UNIQUE);"
 
 
 

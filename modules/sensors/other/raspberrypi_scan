@@ -5,8 +5,9 @@ date=`date +%y%m%d-%H%M`
 
 #Raspberry system temp
 rpi=$(cat /proc/cmdline | awk -v RS=" " -F= '/boardrev/ { print $2 }')
-if [ ! $(cat $dir/tmp/onewire |grep Raspberry_Pi) ] && [ -e /opt/vc/bin/vcgencmd ] && [ -n "$rpi" ]; then
-    echo "Raspberry_Pi" >> $dir/tmp/onewire
+if [ -e /opt/vc/bin/vcgencmd ] && [ -n "$rpi" ]; then
+    #echo "Raspberry_Pi" >> $dir/tmp/onewire
+    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('Raspberry_Pi')"
     echo "Raspberry Pi: Internal sensor found"
 fi
 

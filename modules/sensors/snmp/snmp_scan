@@ -13,7 +13,8 @@ if [ -n "$snmp" ]
         then
         echo SNMP: $snmp_count sensors found
         for name in $snmp; do 
-	echo "$name" >> $dir/tmp/onewire
+	#echo "$name" >> $dir/tmp/onewire
+	sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$name')"
         done
     fi
 fi

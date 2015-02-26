@@ -35,7 +35,7 @@ for n in temp press lux humid snmp wireless; do
     done
 done
 
-# hosts
+# gpio on off
 name=$(ls $dir/db/ |grep -e system  -e gonoff )
 echo $name
 for i in $name; do

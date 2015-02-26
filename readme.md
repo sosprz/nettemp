@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.7
+
+add DHT11/22 without scan, remove onewire file and move to sql
+
 8.5.6
 
 fix: humid, rm sensors
