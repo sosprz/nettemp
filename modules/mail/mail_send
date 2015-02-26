@@ -16,13 +16,41 @@ tlscheck=`sqlite3 $dir/dbf/nettemp.db "SELECT tlscheck FROM mail_settings"`
 
 function send {
 cat $1 | msmtp --maildomain=default --read-envelope-from --host=$host --port=$port --auth=$auth --user=$user \
-            --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
-            --tls=$tls --tls-starttls=$tls --tls-certcheck=$tlscheck \
-            --timeout=10 -t $get_mail
+	        --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
+	        --tls=$tls --tls-starttls=$tls --tls-certcheck=$tlscheck \
+	        --timeout=10 -t $get_mail
 }
 
+function minute {
+for file in $(ls $dirs |grep mail)
+    do
+	if send $dirs/$file
+	    then
+		if grep Recovery $dirs/$file
+		    then
+    		    rm $dirs/$file
+		else
+		    mv $dirs/$file $dirs/hour
+		fi
+	fi
+done
+}
 
+function hour {
 for file in $(ls $dirs/hour |grep mail)
     do
-	send $dirs/hour/$file
+    send $dirs/hour/$file
 done
+}
+
+if [ "$1" == "minute" ]; then
+    minute
+fi
+
+if [ "$1" == "hour" ]; then
+    hour
+fi
+
+
+
+

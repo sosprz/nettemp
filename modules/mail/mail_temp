@@ -70,10 +70,6 @@ for line in $alarms
 		file
 		#echo "High value in: $name $tmp C" >> $plik;
 		sed -i 's/VALUE.*/High value in: '$name' '$tmp' C/g' $plik 
-#		if send $plik    
-#		then
-#	    	    mv $plik $dirs/hour
-#		fi
 	    else
                 echo UPDATE
                 sed -i 's/High.*/High value in: '$name' '$tmp' C/g' $plik2
@@ -103,11 +99,7 @@ for line in $alarms
 	    file
 	    #echo "Recovery: $name $tmp C" >> $plik; 
 	    sed -i 's/VALUE.*/Recovery: '$name' '$tmp' C/g' $plik
-#	    if send $plik
-#	    then
 	    rm $plik2
-#	    rm $plik
-#	    fi
 	fi
         fi
     fi
@@ -122,6 +114,10 @@ names+=("$name")
 done 
 
 fi
+
+
+
+
 
 # rm when turned off 
 for i in $(cd $dirs/hour && ls )

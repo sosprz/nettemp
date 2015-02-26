@@ -1,4 +1,4 @@
 #!/bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
-$dir/modules/mail/mail_send_h
+$dir/modules/mail/mail_send hour
