@@ -55,7 +55,7 @@ $name_new=trim($name_new2);
 	    }
 	    
         $dbnew = new PDO("sqlite:db/$id_rom_new.sql");
-        $dbnew->exec('CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)');
+        $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
         $dbnew==NULL;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	 
