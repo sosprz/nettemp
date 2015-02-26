@@ -52,12 +52,6 @@ $lcd=$a["lcd"];
 <?php   }
 else { ?> 
 <td>Error - no sql base</td>
-<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
-<input type="hidden" name="usun_czujniki" value="<?php echo $a["rom"]; ?>" />
-<input type="hidden" name="usun2" value="usun3" />
-<td><input type="image" src="media/ico/Close-2-icon.png" /></td>
-</form>
-
 <?php } ?>
 
 <?php 
