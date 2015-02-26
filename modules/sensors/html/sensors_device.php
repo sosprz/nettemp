@@ -1,6 +1,8 @@
 <span class="belka">&nbsp Devices<span class="okno">
 <?php
 
+$dir='';
+
 $db1 = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db1->prepare("select * from device");
 $sth->execute();
@@ -29,10 +31,13 @@ foreach ($result as $a) { ?>
 ?>
 <pre>
 <?php
+    
+    if (file_exists("$dir/tmp/temp_dev_scan")) {
     $array = file("$dir/tmp/temp_dev_scan");
     //$last = array_slice($filearray,-100);
     foreach($array as $f){
 	echo $f;
+	}
     }
 ?>
 </pre>

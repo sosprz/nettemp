@@ -27,7 +27,7 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
         $dbn->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$snmp_name','$snmp_name','snmp', 'off', 'wait', '$gpio_post' )") or die ("cannot insert to " );
 
 	$dbnew = new PDO("sqlite:db/$snmp_name");
-	$dbnew->exec('CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)');
+	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
 
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();

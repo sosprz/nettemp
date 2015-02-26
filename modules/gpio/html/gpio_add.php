@@ -2,6 +2,7 @@
 $gpioad = isset($_POST['gpioad']) ? $_POST['gpioad'] : '';
 $add = isset($_POST['add']) ? $_POST['add'] : '';
 $gpio = isset($_POST['gpio']) ? $_POST['gpio'] : '';
+$check = '';
 
 if ( $add == "ADD") {
 	$db = new PDO('sqlite:dbf/nettemp.db');

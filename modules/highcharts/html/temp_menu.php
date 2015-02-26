@@ -12,6 +12,7 @@ $(function () {
     var seriesOptions = [],
         seriesCounter = 0,
 <?php
+$php_array = '';
 $ar=array();
 $g=scandir('tmp/highcharts/');
 foreach($g as $x)
