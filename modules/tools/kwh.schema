@@ -1,1 +1,1 @@
-CREATE TABLE kwh ( time DATETIME DEFAULT CURRENT_TIMESTAMP, pulse INTEEGER );
+CREATE TABLE kwh ( time DATE DEFAULT (datetime('now','localtime')), pulse INTEEGER );

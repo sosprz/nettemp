@@ -5,7 +5,7 @@ name=$(echo $1 | sed '$s/....$//')
 
 cat filename.xml |grep row | awk '{ print $2" "$3" "$8}'  | sed 's/<\/v><\/row>//g' | sed 's/<row><v>//g' > file.n
 
-sqlite3 $name.sql  "CREATE TABLE def (time DATETIME DEFAULT CURRENT_TIMESTAMP, value INTEEGER);"
+sqlite3 $name.sql  "CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER);"
 
 cat file.n | while read in; do 
 

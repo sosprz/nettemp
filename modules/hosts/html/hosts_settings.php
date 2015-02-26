@@ -15,7 +15,7 @@ $host_type = isset($_POST['host_type']) ? $_POST['host_type'] : '';
 	$host_name=str_replace(".","",$host_name);
 	$db->exec("INSERT OR IGNORE INTO hosts (name, ip, type) VALUES ('$host_name', '$host_ip', '$host_type')") or die ("cannot insert to DB" );
 	    $dbnew = new PDO("sqlite:db/$host_name.sql");
-	    $dbnew->exec('CREATE TABLE def (time DATETIME DEFAULT CURRENT_TIMESTAMP, value INTEEGER)');
+	    $dbnew->exec('CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)');
 	    $dbnew==NULL;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();

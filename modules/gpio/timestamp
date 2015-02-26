@@ -9,6 +9,6 @@ onoff="$2"
 if [ -e $dir/db/gonoff_$gpio ]; then
     sqlite3 $dir/db/gonoff_$gpio.sql "INSERT OR IGNORE INTO def (value) VALUES ('$2');"
 else
-    sqlite3 $dir/db/gonoff_$gpio.sql "CREATE TABLE def (time DATETIME DEFAULT CURRENT_TIMESTAMP, value INTEEGER);"
+    sqlite3 $dir/db/gonoff_$gpio.sql "CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER);"
     sqlite3 $dir/db/gonoff_$gpio.sql "INSERT OR IGNORE INTO def (value) VALUES ('$2');"
 fi

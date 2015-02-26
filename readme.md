@@ -55,7 +55,10 @@ Changelog:
 
 8.5.7
 
-add DHT11/22 without scan, remove onewire file and move to sql
+add DHT11/22 without scan
+remove onewire file and move to sql
+support more bananapi distro - thx hryst
+change timestamp to localtime in sqlite3 base
 
 8.5.6
 
