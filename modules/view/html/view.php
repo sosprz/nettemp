@@ -30,8 +30,10 @@ if (glob('db/*lux*.sql')) {?>
 <?php } 
 if (glob('db/*gonoff*.sql')) {?>
 <td><a href="index.php?id=view&type=gpio" ><button>GPIO</button></a></td>
-<?php } ?> 
+<?php } 
+if (glob('db/*host*.sql')) {?>
 <td><a href="index.php?id=view&type=hosts" ><button>Hosts</button></a></td>
+<?php } ?> 
 <td><a href="index.php?id=view&type=system" ><button>System stats</button></a></td>
 </tr>
 </table>
