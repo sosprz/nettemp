@@ -31,9 +31,9 @@
 	$rand=substr(rand(), 0, 4);
 	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$rand','$id_rom_newt', 'temp', 'off', 'wait', '$gpio_post' )") or die ("cannot insert to DB temp" );
 	$dbnew = new PDO("sqlite:db/$id_rom_h");
-	$dbnew->exec('CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)');
+	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
 	$dbnew = new PDO("sqlite:db/$id_rom_t");
-	$dbnew->exec('CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)');
+	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
 	$db->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$id_rom_newh')") or die ("cannot insert to newdev" );
 	$db->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$id_rom_newt')") or die ("cannot insert to newdev" );
 	$db = null;
