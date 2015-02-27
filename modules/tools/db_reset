@@ -9,7 +9,13 @@ rm -rf $dir/dbf/*.db
 rm -rf $dir/tmp
 mkdir $dir/tmp
 
-sqlite3 $dir/dbf/nettemp.db < $dir/modules/tools/nettemp.schema
+for i in snmp hosts kwh nettemp; do 
+    rm -rf $dir/dbf/$i.db
+    sqlite3 $dir/dbf/$i.db < $dir/modules/tools/$i.schema
+    chmod 775 $dir/dbf/$i.db
+    chown root.www-data $dir/dbf/$i.db
+done
+
 
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')"
 #sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('temp', 'd969831eb8a99cff8c02e681f43289e5d3d69664', 'ops')"
@@ -19,23 +25,4 @@ sqlite3 $dir/dbf/nettemp.db "INSERT INTO fw (ssh, icmp, ext, openvpn ) VALUES ('
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user, auth, tls, tlscheck ) VALUES ('smtp.gmail.com', '587', 'yourmail@gmail.com', 'on', 'on', 'off' )"
 
 
-chmod 775 $dir/dbf/nettemp.db
-chown root.www-data $dir/dbf/nettemp.db
 
-
-# SNMP
-rm -rf $dir/dbf/snmp.db
-sqlite3 $dir/dbf/snmp.db < $dir/modules/tools/snmp.schema
-chmod 775 $dir/dbf/snmp.db
-chown root.www-data $dir/dbf/snmp.db
-
-# hosts
-rm -rf $dir/dbf/hosts.db
-sqlite3 $dir/dbf/hosts.db < $dir/modules/tools/hosts.schema
-chmod 775 $dir/dbf/hosts.db
-chown root.www-data $dir/dbf/hosts.db
-
-#kwh
-$dir/modules/kwh/kwhdb
-
-#echo "$date Default settings restored" >> $dir/tmp/log.txt &>/dev/null

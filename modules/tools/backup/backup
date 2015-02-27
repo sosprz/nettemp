@@ -11,25 +11,19 @@ if [ -n "$1" ] || [ -n "$2" ]
 
 if [ $action = "b" ]
     then
-	sqlite3 $dir/dbf/hosts.db .dump > $dir/tmp/backup/hosts.bak
-	sqlite3 $dir/dbf/nettemp.db .dump > $dir/tmp/backup/nettemp.bak
-	sqlite3 $dir/dbf/snmp.db .dump > $dir/tmp/backup/snmp.bak
 	git log |head -1 |awk '{print $2}' > $dir/tmp/backup/commit
 	cd $dir/modules/tools/backup/files
-	tar -cpvf nettemp-$date.tar.gz -C $dir/tmp/backup/ .
 	tar -rpvf nettemp-$date.tar.gz -C $dir/db/ .
+        tar -rpvf nettemp-$date.tar.gz -C $dir/dbf/ .  
 	chmod 775 nettemp-$date.tar.gz
 	rm -rf $dir/tmp/backup/*
 fi
 if [ $action = "r" ] && [ -n "$file" ]
     then
-	tar -xpvf $file -C $dir/tmp/backup >> $dir/log
-	rm -rf $dir/db/* >> $dir/log
-	rm -rf $dir/dbf/* >> $dir/log
-	sqlite3 $dir/tmp/backup/hosts.db < $dir/tmp/backup/hosts.bak
-	sqlite3 $dir/tmp/backup/nettemp.db < $dir/tmp/backup/nettemp.bak
-	sqlite3 $dir/tmp/backup/snmp.db < $dir/tmp/backup/snmp.bak
-	mv $dir/tmp/backup/*.rrd $dir/db/
+	tar -xpvf $file -C $dir/tmp/backup
+	rm -rf $dir/db/*
+	rm -rf $dir/dbf/*
+	mv -f $dir/tmp/backup/*.sql $dir/db/
 	mv -f $dir/tmp/backup/*.db $dir/dbf/
 	chmod 775 $dir/dbf/nettemp.db
 	git reset --hard $(cat $dir/tmp/backup/commit)
