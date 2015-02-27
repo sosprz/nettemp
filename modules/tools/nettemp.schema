@@ -71,6 +71,7 @@ CREATE TABLE mail_settings (
   auth type TEXT,
   tls type TEXT,
   tlscheck type TEXT);
+CREATE TABLE newdev (id INTEGER PRIMARY KEY,list UNIQUE);
 CREATE TABLE recipient (
   id INTEGER PRIMARY KEY,
   name TEXT,
