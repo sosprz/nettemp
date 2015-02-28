@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.8
+
+beta fixes
+
 8.5.7
 
 add DHT11/22 without scan
