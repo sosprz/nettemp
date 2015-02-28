@@ -2,7 +2,7 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 
-if cat /sys/class/net/eth0/operstate |grep up
+if cat /sys/class/net/eth0/operstate |grep -q up 
     then 
 	wi=$(sudo /usr/bin/arp-scan -I eth0 -l |grep '18:fe:34' |awk  '{ print $1"_"$2 }' |tr -d :)
     else

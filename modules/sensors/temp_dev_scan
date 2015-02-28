@@ -6,7 +6,7 @@ date=`date +%y%m%d-%H%M`
 rm -rf $dir/tmp/.digitemprc
 rm -rf $dir/tmp/.digitemprcs
 
-//> $dir/tmp/onewire
+#> $dir/tmp/onewire
 sqlite3 $dir/dbf/nettemp.db "DELETE FROM newdev;"
 
 mkdir $dir/tmp 2> /dev/null
