@@ -151,7 +151,7 @@ if ($gpio == "on" ) {
     <table>
     <tr>	
     <form action="settings" method="post">
-    <td>LCD 1602 HD44789 PCF8574 I2C</td>
+    <td>LCD 1602 HD44780 PCF8574 I2C</td>
     <td><input type="checkbox" name="lcdon" value="on" <?php echo $lcd == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="lcd" value="lcd" />
     </form>
