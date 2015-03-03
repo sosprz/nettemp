@@ -8,5 +8,6 @@ $dir/modules/highcharts/highcharts2 && \
 $dir/modules/tools/system_stats && \
 $dir/modules/kwh/highcharts && \
 $dir/modules/mail/mail_temp && \
+$dir/modules/mail/mail_hosts && \
 $dir/modules/mail/mail_send minute
  

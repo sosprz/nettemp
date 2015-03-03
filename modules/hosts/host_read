@@ -12,9 +12,10 @@ if ip=$(sqlite3 $dir/dbf/hosts.db "SELECT ip FROM hosts WHERE type='httpping'")
 	    then 
 		sqlite3 $dir/db/$name.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
 		sqlite3 $dir/dbf/hosts.db "UPDATE hosts SET last='$wynik', status='OK' WHERE ip='$i'"
+		$dir/modules/
 	else
 	    sqlite3 $dir/db/$name.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-	    sqlite3 $dir/dbf/hosts.db "UPDATE hosts SET last='0', status='FAIL' WHERE ip='$i'"
+	    sqlite3 $dir/dbf/hosts.db "UPDATE hosts SET last='0', status='error' WHERE ip='$i'"
 	    echo fail
 	fi
 	echo Httping $name: $wynik
@@ -35,7 +36,7 @@ if ip=$(sqlite3 $dir/dbf/hosts.db "SELECT ip FROM hosts WHERE type='ping'")
 		sqlite3 $dir/dbf/hosts.db "UPDATE hosts SET last='$wynik', status='OK' WHERE ip='$i'"
 	else
 	    sqlite3 $dir/db/$name.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-	    sqlite3 $dir/dbf/hosts.db "UPDATE hosts SET last='0', status='FAIL' WHERE ip='$i'"
+	    sqlite3 $dir/dbf/hosts.db "UPDATE hosts SET last='0', status='error' WHERE ip='$i'"
 	    echo fail
 	fi
 	echo ping $name: $wynik

@@ -1,0 +1,67 @@
+#! /bin/bash 
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=`date +%y%m%d-%H%M`
+
+
+dirs=$dir/tmp/mail
+mkdir -p $dirs/hour
+dirs2=$dirs/hour
+date2=`date +%Y%m%d-%H:%M`
+get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }'`
+user=`sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
+
+function file {
+> $2
+echo "From: Nettemp Device <$user>" > $2
+echo "To: $get_mail" >> $2
+echo "Subject: Notification from nettemp" >> $2
+echo "" >> $2
+echo "This is notification from nettemp" >> $2
+echo "" >> $2
+echo "$1 " >> $2
+echo "" >> $2
+echo Go to http://$(hostname -I | cut -d' ' -f1) >> $2
+chmod 777 $2
+}
+
+if name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='error'")
+    then
+	for name in $name
+	do  
+	    minute=$dirs/$name.mail
+	    hour=$dirs2/$name.mail
+	    if [ ! -f $hour ]
+		then  
+		    file "Lost connection with $name" $minute
+	    fi
+	done
+fi
+
+unset name
+
+if name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='OK'")
+    then
+	for name in $name
+	do
+	    minute=$dirs/$name.mail
+	    hour=$dirs2/$name.mail
+	    if [ -f "$hour" ]
+		then
+		    file "Recovery connection with $name" $hour
+		    rm $hour
+	    fi	    
+	done
+	
+fi
+
+
+
+
+
+
+
+
+
+
+
