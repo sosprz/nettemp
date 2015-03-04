@@ -29,6 +29,7 @@ for file in $(ls $dirs |grep mail)
 		if grep Recovery $dirs/$file
 		    then
     		    rm $dirs/$file
+		    rm $dirs/hour/$file
 		else
 		    mv $dirs/$file $dirs/hour
 		fi

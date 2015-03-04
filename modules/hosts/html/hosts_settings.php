@@ -29,6 +29,8 @@ $host_type = isset($_POST['host_type']) ? $_POST['host_type'] : '';
 	$db = new PDO('sqlite:dbf/hosts.db');
 	$db->exec("DELETE FROM hosts WHERE name='$host_name'") or die ($db->lastErrorMsg());
 	unlink("db/$host_name.sql");
+	unlink("tmp/mail/$host_name.mail");
+	unlink("tmp/mail/hour/$host_name.mail");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}

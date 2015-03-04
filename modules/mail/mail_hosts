@@ -48,8 +48,7 @@ if name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='OK'")
 	    hour=$dirs2/$name.mail
 	    if [ -f "$hour" ]
 		then
-		    file "Recovery connection with $name" $hour
-		    rm $hour
+		    file "Recovery connection with $name" $minute
 	    fi	    
 	done
 	

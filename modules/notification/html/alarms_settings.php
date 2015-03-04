@@ -17,7 +17,9 @@ $del_alarm = isset($_POST['del_alarm']) ? $_POST['del_alarm'] : '';
 <?php	// SQLite - usuwanie alarmu
     if (!empty($del_alarm) && ($_POST['del_alarm1'] == "del_alarm2")){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE sensors SET alarm='off' WHERE id='$del_alarm'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE sensors SET alarm='off' WHERE name='$del_alarm'") or die ($db->lastErrorMsg());
+    unlink("tmp/mail/$del_alarm.mail");
+    unlink("tmp/mail/hour/$del_alarm.mail");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
      } 
@@ -76,7 +78,7 @@ $numRows = count($row);
 	</form>
 	<form action="" method="post"> 
 	<input type="hidden" name="del_alarm1" value="del_alarm2" />
-	<input type="hidden" name="del_alarm" value="<?php echo $a['id']; ?>" />
+	<input type="hidden" name="del_alarm" value="<?php echo $a['name']; ?>" />
 	<td><input type="image" src="media/ico/Close-2-icon.png"  /></td>
 	</form></tr>  							
 		 <?php	} 

@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.9
+
+new scripts for mail sending - temperature notification and host monitoring
+
 8.5.8
 
 beta fixes
