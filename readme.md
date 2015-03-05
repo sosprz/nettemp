@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.10
+
+add wireless ESP8266 get metod - BETA
+
 8.5.9
 
 new scripts for mail sending - temperature notification and host monitoring

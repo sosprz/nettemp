@@ -78,20 +78,7 @@ case 'info': include('modules/info/info.php'); break;
 case 'denied': include('modules/login/denied.php'); break;
 case 'diag': include('modules/tools/html/tools_file_check.php'); break;
 case 'upload': include('modules/tools/backup/html/upload.php'); break;
-//case 'sensors': include('modules/sensors/html/sensors.php'); break;
-//case 'humi_view': include('modules/view/html/humi_view.php'); break;
-//case 'temp_view': include('modules/view/html/temp_view.php'); break;
-//case 'snmp_view': include('modules/view/html/snmp_view.php'); break;
-//case 'gpio': include('modules/gpio/html/gpio.php'); break;
-//case 'sms': include('modules/notification/html/notification.php'); break;
-//case 'mail': include('modules/notification/html/notification.php'); break;
-//case 'alarms': include('modules/notification/html/notification.php'); break;
-//case 'ups': include('modules/ups/html/ups.php'); break;
-//case 'kwh': include('modules/kwh/html/kwh.php'); break;
-//case 'snmp': include('modules/snmp/html/snmp.php'); break;
-//case 'vpn': include('modules/security/vpn/html/vpn.php'); break;
-//case 'fw': include('modules/security/fw/html/fw.php'); break;
-//case 'backup': include('modules/tools/backup/html/backup.php'); break;
+case 'receiver': include('modules/sensors/html/receiver.php'); break;
 
 }
 ?>
