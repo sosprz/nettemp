@@ -21,7 +21,8 @@ $lcd=$a["lcd"];
 <td><center>Name</center></td>
 <td></td>
 <td><center>Sensor id</center></td>
-<td>DB</td>
+<td><center>Size</center></td>
+<td><center>Status</center></td>
 <?php if ( $lcd == 'on' ) { ?> <td>LCD</td> <?php } else { ?> <td></td> <?php } ?>
 <td></td>
 <td></td>
@@ -46,8 +47,9 @@ $lcd=$a["lcd"];
 	$id_rom2 = "$id_rom3.sql";
 	$file3 =  "db/$id_rom2";
 	if (file_exists($file3) && ( 0 != filesize($file3)))
-   { ?>
-<td><img src="media/ico/Ok-icon.png" /></td>
+   {?>
+<td><?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3) ?>MB</td>
+<td><center><img src="media/ico/Ok-icon.png" /></center></td>
 </form>
 <?php   }
 else { ?> 

@@ -20,18 +20,20 @@ $name_new=trim($name_new2);
 <?php // SQLite3 - sekcja dodawania do bazy && tworzenie baz rrd
 	if(!empty($id_rom_new)) {
 	$rand=substr(rand(), 0, 4);
+	$gpio=0;
+	    
 	    if (strpos($id_rom_new,'temp') !== false) {
 		    if (strpos($id_rom_new, 'gpio') !== false) {
 		    $rest1=str_replace("gpio_", "",$id_rom_new);
 		    $gpio=str_replace("_temp", "",$rest1);
 		    }
-		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$rand','$id_rom_new', 'temp', 'off', 'wait', '$gpio' )") or die ("cannot insert to DB" );
+		    $db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$rand','$id_rom_new', 'temp', 'off', 'wait', '$gpio' )") or die ("cannot insert to DB" );
 	    }
 	    elseif (strpos($id_rom_new,'lux') !== false) {
-	    $db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp) VALUES ('$rand','$id_rom_new', 'lux', 'off', 'wait' )") or die ("cannot insert to DB" );
+		    $db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp) VALUES ('$rand','$id_rom_new', 'lux', 'off', 'wait' )") or die ("cannot insert to DB" );
 	    }
 	    elseif (strpos($id_rom_new,'press') !== false) {
-	    $db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp) VALUES ('$rand','$id_rom_new', 'press', 'off', 'wait' )") or die ("cannot insert to DB" );
+		    $db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp) VALUES ('$rand','$id_rom_new', 'press', 'off', 'wait' )") or die ("cannot insert to DB" );
 	    }
 	    elseif (strpos($id_rom_new,'humid') !== false) {
 		if (strpos($id_rom_new,'gpio') !== false) {
@@ -41,22 +43,24 @@ $name_new=trim($name_new2);
 		    $db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$rand','$id_rom_new', 'humid', 'off', 'wait', '$gpio' )") or die ("cannot insert to DB" );
 	    }
 	    elseif (strpos($id_rom_new,'wireless') !== false) {
-	    $db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, device) VALUES ('$rand','$id_rom_new', 'temp', 'off', 'wait', 'wireless' )") or die ("cannot insert to DB" );
+		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, device) VALUES ('$rand','$id_rom_new', 'temp', 'off', 'wait', 'wireless' )") or die ("cannot insert to DB" );
 	    }
 	    elseif (strpos($id_rom_new,'snmp') !== false) {
-	    $db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp) VALUES ('$rand','$id_rom_new', 'snmp', 'off', 'wait' )") or die ("cannot insert to DB" );
+		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp) VALUES ('$rand','$id_rom_new', 'snmp', 'off', 'wait' )") or die ("cannot insert to DB" );
 	    }
 	    else {
 		    if (strpos($id_rom_new,'gpio') !== false) {
-		    $rest1=str_replace("_temp", "", "$id_rom_new");
-		    $gpio=str_replace("gpio_", "", "$rest1");
+			$rest1=str_replace("_temp", "", "$id_rom_new");
+			$gpio=str_replace("gpio_", "", "$rest1");
 		    }
-	    $db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$rand','$id_rom_new', 'temp', 'off', 'wait', '$gpio' )") or die ("cannot insert to DB" );
+		    
+		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$rand','$id_rom_new', 'temp', 'off', 'wait', '$gpio' )") or die ("cannot insert to DB last" );
 	    }
 	    
-        $dbnew = new PDO("sqlite:db/$id_rom_new.sql");
-        $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
-        $dbnew==NULL;
+	    $dbnew = new PDO("sqlite:db/$id_rom_new.sql");
+	    $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
+            $dbnew==NULL;
+
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	 
 	} ?>
