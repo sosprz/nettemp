@@ -6,7 +6,7 @@ date=`date +%y%m%d-%H%M`
 
 usb=`sqlite3 $dir/dbf/nettemp.db "SELECT usb FROM device"`
 if [ "$usb" != "off" ]; then
-    rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE rom LIKE '0x28%'")
+    rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE rom LIKE '0x10%' OR rom LIKE '0x22%' OR rom LIKE '0x28%' OR rom LIKE '0x3b%'")
     for name in $rom; do
         name_1=$(echo $name |sed 's/..../& /g;s/+$//')
 	num=`cat $dir/tmp/.digitemprc |grep "$name_1" |awk 'BEGIN {FS=" "} {print $2}'`
