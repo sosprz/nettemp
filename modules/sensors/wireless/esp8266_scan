@@ -9,12 +9,14 @@ if cat /sys/class/net/eth0/operstate |grep -q up
 	wi=$(sudo /usr/bin/arp-scan -I wlan0 -l |grep '18:fe:34' |awk  '{ print $1"_"$2 }' |tr -d :)	
 fi
 
+temp=_temp
+wiv=wireless_
 
 if [ -n "$wi" ] 
     then 
 	for i in $wi; do
 		    #echo wireless_$i >> $dir/tmp/onewire
-		    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('wireless_$i')"
+		    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$temp')"
 	done
 	echo Wireless: ESP6288 found
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET wireless='on' WHERE id='1'"

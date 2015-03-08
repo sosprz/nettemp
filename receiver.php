@@ -20,6 +20,8 @@ if  ( !empty($temp) && !empty($mac) ) {
     if (file_exists("db/$file")) {
 	$db = new PDO("sqlite:db/$file");
 	$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$temp')") or die ("cannot insert to DB 1" );
+	$dbn = new PDO("sqlite:dbf/nettemp.db");
+	$dbn->exec("UPDATE sensors SET tmp='$temp' WHERE rom='$rom'") or die ("cannot insert to status" );
 	echo "ok";
     }
     else {  
