@@ -122,8 +122,11 @@ CREATE TABLE sensors (
   year TEXT,
   color TEXT,
   type TEXT,
-  gpio TEXT
- , ip type TEXT, device type TEXT, lcd type TEXT);
+  gpio TEXT, 
+  ip type TEXT, 
+  device type TEXT,
+  lcd type TEXT,
+  method type TEXT);
 CREATE TABLE settings (
    id INTEGER PRIMARY KEY,
    mail TEXT,

@@ -23,6 +23,8 @@ $name_new=trim($name_new2);
 	$gpio='';
 	$type='';
 	$device='';
+	$method='';
+	$ip='';
 	    
 	    if (strpos($id_rom_new,'humid') !== false) {
 		    if (strpos($id_rom_new,'gpio') !== false) {
@@ -37,6 +39,12 @@ $name_new=trim($name_new2);
 			$type='temp';
 		    }
 		    $device='wireless';
+
+		    if (strpos($id_rom_new, ".") !== false) {
+			$rest1=str_replace("wireless_", "",$id_rom_new);
+			$ip=substr($rest1, 0, -18);
+			$method='post';
+		    }    
 	    }
 	    elseif (strpos($id_rom_new,'snmp') !== false) {
 		    
@@ -65,7 +73,7 @@ $name_new=trim($name_new2);
 		    $type='temp';
 	    }
 
-	    $db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device) VALUES ('$rand','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device' )") or die ("cannot insert to DB" );
+	    $db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip) VALUES ('$rand','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip' )") or die ("cannot insert to DB" );
 	    
 	    
 	

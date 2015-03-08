@@ -15,7 +15,6 @@ wiv=wireless_
 if [ -n "$wi" ] 
     then 
 	for i in $wi; do
-		    #echo wireless_$i >> $dir/tmp/onewire
 		    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$temp')"
 	done
 	echo Wireless: ESP6288 found
