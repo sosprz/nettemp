@@ -7,7 +7,7 @@ sudo chown -R root.www-data $dir
 
 if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/1h'
     then
-	sudo sed -i '$a0 * * * * /var/www/nettemp/modules/cron/1h' /var/spool/cron/crontabs/root
+	sudo sed -i '$a0 * * * * '$dir'/modules/cron/1h' /var/spool/cron/crontabs/root
 fi
 
 

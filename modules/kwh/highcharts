@@ -11,7 +11,7 @@ if [ -z "$divider" ]; then
 divider="1"
 fi
 
-if base=$(sqlite3 /var/www/nettemp/dbf/kwh.db "select strftime('%s', time),pulse FROM kwh;") ;
+if base=$(sqlite3 $dir/dbf/kwh.db "select strftime('%s', time),pulse FROM kwh;") ;
     then
 	middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1)*1000}{printf ","}{printf "%3.3f", $2/'$divider'}{print "]," }')
 	echo -e "[ ${middle%?} ]" > $dir/tmp/kwh/gpio_kwh_min.json
