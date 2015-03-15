@@ -1,6 +1,16 @@
 #! /bin/bash -x
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+
+
+if pidof -o %PPID -x $(basename $0) > /dev/null; then
+echo runnning
+echo "run" >> $dir/log.txt
+exit
+fi
+
+
+
 mkdir $dir/tmp/highcharts
 rm -rf $dir/tmp/highcharts/*
 
