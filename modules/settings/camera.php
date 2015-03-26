@@ -27,6 +27,9 @@ $name_del = isset($_POST['name_del']) ? $_POST['name_del'] : '';
 <table>
 	<form action="" method="post">
 	<tr>
+	    <td></td><td>Name</td><td>Link</td>
+	</tr>
+	<tr>
 	<td><img type="image" src="media/ico/Security-Camera-icon.png" /></td>
 	<td><input type="text" name="name" size="20" value="" /></td>
 	<td><input type="text" name="link" size="30" value="" /></td>
