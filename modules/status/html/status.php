@@ -3,7 +3,7 @@ function timedRefresh(timeoutPeriod) {
     setTimeout("location.reload(true);",timeoutPeriod);
     }
 </script>
-<!-- <body onload="JavaScript:timedRefresh(60000);"> -->
+ <body onload="JavaScript:timedRefresh(60000);">
 
 <script src="media/masonry.pkgd.min.js"></script>
 <script type="text/JavaScript">
@@ -23,6 +23,7 @@ var msnry = new Masonry( container, {
 }
 .masonry {
   margin: 0 auto;
+  float: left;
 }
 .masonry .item {
   width:  341px;
@@ -33,6 +34,7 @@ var msnry = new Masonry( container, {
 
 <div class="masonry js-masonry"  data-masonry-options='{ "isFitWidth": true }'>
   <div class="item"><?php include('modules/sensors/html/sensor_status.php'); ?></div>
+  
   <div class="item "><?php include('modules/status/html/cam1.php'); ?></div>
   <div class="item "><?php include('modules/status/html/cam2.php'); ?></div>
   <div class="item "><?php include('modules/status/html/cam3.php'); ?></div>
