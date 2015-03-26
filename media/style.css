@@ -33,28 +33,37 @@ h2
 
 body
 {
-    background:#BAD7D4;
+    background:#ccc;
     font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
     font-size:small;
-    margin:0px;
-    padding:0px;
-    background-color:#Fff;
+    margin:5px;
+    padding:5px;
+    background-color:#fff;
     color: 000;
 }
 
 #top {
-margin:10px auto;
-width:1024px;
-background-color:#cccccc;
+background-color:#eaeced;
 border:1px solid #888;
--moz-border-radius: 10px;
--webkit-border-radius: 10px;
-border-radius: 10px;
+-webkit-border-top-left-radius: 10px;
+-webkit-border-top-right-radius: 10px;
+-moz-border-radius-topleft: 10px;
+-moz-border-radius-topright: 10px;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+
+-webkit-border-bottom-right-radius: 10px;
+-webkit-border-bottom-left-radius: 10px;
+-moz-border-radius-bottomright: 10px;
+-moz-border-radius-bottomleft: 10px;
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px;
+
 }
 #header {
-	float: left;
-	background-color: #eaeced;
-	border:0px;
+background-color: #000;
+border:0px;
+width: 100%;
 -webkit-border-top-left-radius: 10px;
 -webkit-border-top-right-radius: 10px;
 -moz-border-radius-topleft: 10px;
@@ -64,7 +73,9 @@ border-top-right-radius: 10px;
 }
 #center {
 float:left;
-width: 1024px;
+width: 100%;
+background-color: #ccc;
+border-top:1px solid #888;
 }
 #footer {
 	clear: both;
@@ -78,6 +89,8 @@ width: 1024px;
 -moz-border-radius-bottomleft: 10px;
 border-bottom-right-radius: 10px;
 border-bottom-left-radius: 10px;
+
+
 }
 
 
@@ -122,17 +135,19 @@ border-top-right-radius: 5px;
 
 /* koniec table */
 span.login {
+float:right;
 text-align: right;	
 display: block;
 padding: 3px;
 }
 span.logo {
+float:left;
 text-align: left;	
 display: block;
 padding: 3px;
 }
 span.brak {
-	padding: 5px;
+	padding: 1px;
 	display: block;
 }
 

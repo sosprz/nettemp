@@ -18,13 +18,8 @@ else {
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<!--<link rel="stylesheet" href="media/style.css" type="text/css"/>
-<link href="media/menu.css" rel="stylesheet" type="text/css"> -->
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
-<link media="Screen" href="media/menu.css" type="text/css" rel="stylesheet" />
-<link media="Screen" href="media/style.css" type="text/css" rel="stylesheet" /> 
-<link media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" href="media/mobile.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="media/style.css" type="text/css"/>
+<link href="media/menu.css" rel="stylesheet" type="text/css">
 
 
 
@@ -36,15 +31,11 @@ else {
 </head>
 <!-- <body onload="JavaScript:timedRefresh(6000);"> -->
 
-
 <div id="top">
 <div id="header">
-<table border="0" width="1024">
-<tr>
-<td><span class="logo"><a href="http://nettemp.pl" target="_blank"><img src="media/png/nettemp.pl.png" alt="Monitoring Temperatury"></a></span></td>
-<td valign="top"><?php include("modules/login/login.php"); ?></td>
-</tr>
-</table></div>
+<span class="logo"><a href="http://nettemp.pl" target="_blank"><img src="media/png/nettemp.pl.png" alt="Monitoring Temperatury"></a></span>
+<span class="login"><?php include("modules/login/login.php"); ?></span>
+</div>
 <div id="tabs22">
 <ul> 
     <li><a href='status' <?php echo $id == 'status' ? ' class="active"' : ''; ?> ><span <?php echo $id == 'status' ? ' class="active"' : ''; ?> >Status</span></a></li>
@@ -88,8 +79,6 @@ case 'receiver': include('modules/sensors/html/receiver.php'); break;
 	<div id="footer"><center><table><tr><td>Donate for developing</td><td> <?php include('modules/info/paypal.php'); ?></td><td>v <?php passthru("awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$' && /usr/bin/git branch |grep [*]|awk '{print $2}';"); ?></td><td>| System time <?php $today=date("H:i:s"); echo $today;?></td></tr></table></center>
 </div>
 </div>
-<center>
-</center>
 
 </body>
 </html>

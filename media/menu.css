@@ -1,5 +1,5 @@
 #tabs22 {
-font:bold 11px/1.5em Verdana;
+//font:bold 11px/1.5em Verdana;
 float:left;
 width:100%;
 background:change-background;
@@ -8,13 +8,13 @@ line-height:normal;
 }
 
 #tabs22 ul {
-width:964px;
-border-bottom:1px solid #888;
+width:auto;
+//border-bottom:1px solid #888;
 float:left;
 background:#eaeced;
 list-style:none;
-margin:0;
-padding:10px 10px 0 50px;
+margin:0px;
+padding:10px 0px 0px 10px;
 }
 
 #tabs22 li {
