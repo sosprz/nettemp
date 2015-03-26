@@ -158,8 +158,9 @@ if ($gpio == "on" ) {
     </tr> 
     </table>
 </span></span>
-
-
+<?php	
+    include('camera.php');
+?>
 
 <?php } 
 else { header("Location: denied"); }; ?>

@@ -159,3 +159,8 @@ CREATE TABLE vpn (
     id INTEGER PRIMARY KEY, 
     users UNIQUE 
     );
+CREATE TABLE camera ( 
+    id INTEGER PRIMARY KEY, 
+    name UNIQUE,
+    link UNIQUE
+    );
