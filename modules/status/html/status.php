@@ -16,15 +16,15 @@ var msnry = new Masonry( container, {
 </script>
 
 <style type="text/css">
-//* {
-//  -webkit-box-sizing: border-box;
-//     -moz-box-sizing: border-box;
-//          box-sizing: border-box;
-//}
-//a.masonry {
-//  margin: 0 auto;
-//  float: left;
-//}
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.masonry {
+  margin: auto;
+  float: left;
+}
 .masonry .item {
   width:  341px;
   float: left;
