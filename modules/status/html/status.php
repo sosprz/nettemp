@@ -15,26 +15,25 @@ var msnry = new Masonry( container, {
 });
 </script>
 
-<STYLE type="text/css">
-* {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-}
-.masonry {
-  margin: 0 auto;
-  float: left;
-}
+<style type="text/css">
+//* {
+//  -webkit-box-sizing: border-box;
+//     -moz-box-sizing: border-box;
+//          box-sizing: border-box;
+//}
+//a.masonry {
+//  margin: 0 auto;
+//  float: left;
+//}
 .masonry .item {
   width:  341px;
   float: left;
 }
-</STYLE>
+</style>
 
 
 <div class="masonry js-masonry"  data-masonry-options='{ "isFitWidth": true }'>
   <div class="item"><?php include('modules/sensors/html/sensor_status.php'); ?></div>
-  
   <div class="item "><?php include('modules/status/html/cam1.php'); ?></div>
   <div class="item "><?php include('modules/status/html/cam2.php'); ?></div>
   <div class="item "><?php include('modules/status/html/cam3.php'); ?></div>
