@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.11
+
+Now You can add four IP camera and watch them in status. In settings add links.
+
 8.5.10
 
 add wireless ESP8266 get metod - BETA

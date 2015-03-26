@@ -58,10 +58,10 @@ foreach ($result as $a) {
         <td><input type="image" src="media/ico/Close-2-icon.png"  /></td>
 	</form>
 	</tr>
-    </table>
+
 <?php }
 ?>
-
+    </table>
 		
 	
 <table>
