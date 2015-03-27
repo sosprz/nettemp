@@ -6,7 +6,10 @@ date=`date +%y%m%d-%H%M`
 
 onewire=`sqlite3 $dir/dbf/nettemp.db "SELECT onewire FROM device"`
 if [ "$onewire" == "on" ]; then
-rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE rom LIKE '28-%'")
+rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE rom LIKE '28-%' OR rom LIKE '10-%'")
+
+WHERE rom LIKE '0x10%' OR rom LIKE '0x22%' OR rom LIKE '0x28%' OR rom LIKE '0x3b%'
+
 for name in $rom
 do
     if  [ -e /sys/bus/w1/devices/$name/w1_slave ]; then

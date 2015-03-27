@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.12
+
+add bynio fix
+
 8.5.11
 
 Now You can add four IP camera and watch them in status. In settings add links.
