@@ -41,7 +41,7 @@ var msnry = new Masonry( container, {
 var auto_refresh = setInterval(
 (function () {
     $("#res").load("modules/sensors/html/sensor_status.php");
-}), 10000);
+}), 60000);
 </script>
 
 
