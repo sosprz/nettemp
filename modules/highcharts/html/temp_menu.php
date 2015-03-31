@@ -91,18 +91,6 @@ echo "names = ". $js_array . ";\n";
     		series: {
 		type: 'spline',
                 
-                events: {
-                legendItemClick: function(event) {
-                    var selected = this.index;
-                    var allSeries = this.chart.series;
-                    
-                    $.each(allSeries, function(index, series) {
-                        selected == index ? series.show() : series.hide();
-                	});
-                    
-                    return false;
-            	    }
-        	}
     		}
 		},
 

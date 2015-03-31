@@ -53,6 +53,12 @@ USERS:
 
 Changelog:
 
+8.5.13
+
+changes in highcharts - revert to default
+refresh only sensors in status, camera dont buffering after refresh
+fix: when name contains space, higharts dont generate charts
+
 8.5.12
 
 add bynio fix

@@ -1,10 +1,3 @@
-<script type="text/JavaScript">
-function timedRefresh(timeoutPeriod) {
-    setTimeout("location.reload(true);",timeoutPeriod);
-    }
-</script>
- <body onload="JavaScript:timedRefresh(60000);">
-
 <script src="media/masonry.pkgd.min.js"></script>
 <script type="text/JavaScript">
 var container = document.querySelector('#container');
@@ -31,9 +24,9 @@ var msnry = new Masonry( container, {
 }
 </style>
 
-
 <div class="masonry js-masonry"  data-masonry-options='{ "isFitWidth": true }'>
-  <div class="item"><?php include('modules/sensors/html/sensor_status.php'); ?></div>
+  <div id="res" class="item"><?php include_once('modules/sensors/html/sensor_status.php'); 
+?></div>
   <div class="item "><?php include('modules/status/html/cam1.php'); ?></div>
   <div class="item "><?php include('modules/status/html/cam2.php'); ?></div>
   <div class="item "><?php include('modules/status/html/cam3.php'); ?></div>
@@ -42,6 +35,16 @@ var msnry = new Masonry( container, {
   <div class="item"><?php include('modules/kwh/html/kwh_status.php'); ?></div>
   <div class="item"><?php include('modules/tools/html/tools_file_check.php'); ?></div>
 </div>
+
+<script src="media/jquery.min.js"></script>
+<script>
+var auto_refresh = setInterval(
+(function () {
+    $("#res").load("modules/sensors/html/sensor_status.php");
+}), 10000);
+</script>
+
+
 
 
 
