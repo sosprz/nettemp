@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.14
+
+add wireless lua code to DHT11 over wifi module ESP8266
+
 8.5.13
 
 changes in highcharts - revert to default
