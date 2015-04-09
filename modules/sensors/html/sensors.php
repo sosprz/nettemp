@@ -26,7 +26,7 @@ $name_new=trim($name_new2);
 	$method='';
 	$ip='';
 	    
-	    if (strpos($id_rom_new,'humid') !== false) {
+	    if (strpos($id_rom_new,'humid') !== false && strpos($id_rom_new,'wireless') == true ) {
 		    if (strpos($id_rom_new,'gpio') !== false) {
 			$rest1=str_replace("_humid", "", "$id_rom_new");
 			$gpio=str_replace("gpio_", "", "$rest1");
@@ -38,11 +38,16 @@ $name_new=trim($name_new2);
 		    if (strpos($id_rom_new,'temp') !== false) {
 			$type='temp';
 		    }
+		    if (strpos($id_rom_new,'humid') !== false) {
+			$type='humid';
+		    }
 		    $device='wireless';
 
 		    if (strpos($id_rom_new, ".") !== false) {
-			$rest1=str_replace("wireless_", "",$id_rom_new);
-			$ip=substr($rest1, 0, -18);
+			//$rest1=str_replace("wireless_", "",$id_rom_new);
+			//$ip=substr($rest1, 0, -18);
+			$pieces = explode("_", $id_rom_new);
+			$ip=$pieces[1];
 			$method='post';
 		    }    
 	    }

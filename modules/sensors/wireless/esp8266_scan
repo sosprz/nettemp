@@ -4,18 +4,26 @@ dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 
 if cat /sys/class/net/eth0/operstate |grep -q up 
     then 
-	wi=$(sudo /usr/bin/arp-scan -I eth0 -l |grep '18:fe:34' |awk  '{ print $1"_"$2 }' |tr -d :)
+	rom=$(sudo /usr/bin/arp-scan -I eth0 -l |grep '18:fe:34' |awk  '{ print $1"_"$2 }' |tr -d :)
     else
-	wi=$(sudo /usr/bin/arp-scan -I wlan0 -l |grep '18:fe:34' |awk  '{ print $1"_"$2 }' |tr -d :)	
+	rom=$(sudo /usr/bin/arp-scan -I wlan0 -l |grep '18:fe:34' |awk  '{ print $1"_"$2 }' |tr -d :)	
 fi
 
 temp=_temp
+humid=_humid
 wiv=wireless_
 
-if [ -n "$wi" ] 
+if [ -n "$rom" ] 
     then 
-	for i in $wi; do
-		    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$temp')"
+	for i in $rom; do
+		    ip=$(echo $rom|awk -F"_" '{print $1}')
+		    type=$(lynx --dump $ip |grep nettemp |awk '{ print $2}')
+			if [ "$type" == "DHT11" ]; then
+			    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$temp')"
+			    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$humid')"
+			elif [ "$type" == "ds18b20" ]; then
+			    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$temp')"
+			fi
 	done
 	echo Wireless: ESP6288 found
 	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET wireless='on' WHERE id='1'"
