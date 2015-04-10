@@ -22,6 +22,7 @@
 <td><a href="index.php?id=tools&type=gpio" ><button>Gpio</button></a></td>
 <?php } ?>
 <td><a href="index.php?id=tools&type=backup" ><button>Backup/Restore</button></a></td>
+<td><a href="index.php?id=tools&type=espupload" ><button>ESPupload</button></a></td>
 </tr>
 </table>
 </span>
@@ -44,6 +45,7 @@ case 'reboot': include('modules/tools/html/tools_reboot.php'); break;
 case 'log': include('modules/tools/html/tools_log.php'); break;
 case 'gpio': include('modules/tools/html/tools_gpio_readall.php'); break;
 case 'backup': include('modules/tools/backup/html/backup.php'); break;
+case 'espupload': include('modules/sensors/wireless/espupload/espupload.php'); break;
 }
 ?>
 

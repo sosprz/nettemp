@@ -8,7 +8,7 @@
 
 print(wifi.sta.getip())
 wifi.setmode(wifi.STATION)
-wifi.sta.config("ap","pass")
+wifi.sta.config("ssid","pass")
 print(wifi.sta.getip())
 
 
@@ -51,7 +51,7 @@ print(wifi.sta.getip())
                        end
              t = t * 625
                        lasttemp = t
-             print("Last temp: " .. lasttemp)
+             --print("Last temp: " .. lasttemp)
     end
 
     srv=net.createServer(net.TCP)

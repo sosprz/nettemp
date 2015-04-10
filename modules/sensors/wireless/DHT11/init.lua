@@ -31,15 +31,15 @@ function ReadDHT()
         temp=t/10
     end
     fare=(temp*9/5+32)
-    print("Humidity:    "..humi.."%")
-    print("Temperature: "..temp.."C")
+    --print("Humidity:    "..humi.."%")
+    --print("Temperature: "..temp.."C")
     -- release module
     dht=nil
     package.loaded["testdht"]=nil
 end
 
 wifi.setmode(wifi.STATION)
-wifi.sta.config("ap","pass")
+wifi.sta.config("ssid","pass")
 ip = wifi.sta.getip()
 print(ip)
 
