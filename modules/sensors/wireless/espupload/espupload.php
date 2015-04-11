@@ -9,7 +9,7 @@ $ssid = $_POST["ssid"];
 $pass = $_POST["pass"];
 if ($_POST['run'] == "run") {
 
-    if (empty($usb)) {
+    if (!empty($usb)) {
 	if (!empty($ds18b20) || !empty($dht11)) {
 	    if (!empty($ssid) && !empty($pass)) {
 		    if (!empty($dht11) ) {
