@@ -11,12 +11,12 @@ if rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='wire
 	#wynik=$(nc $ip 80 |awk -F":" '{print $2}'|cut -c 2-6)
 	type=$(echo $all |awk -F"_" '{ print $4}')
 	    if [ "$type" == "humid" ]; then
-		wynik=$(lynx --dump $ip |grep Humid | awk '{ print $2}')
+		wynik=$(curl $ip |sed -e 's/<[^>]*>/\n/g' |grep Humid | awk '{ print $2}')
 		sqlite3 $dir/db/$all.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
 		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$all'"
 	    fi
 	    if [ "$type" == "temp" ]; then
-		wynik=$(lynx --dump $ip |grep Temp | awk '{ print $2}')
+		wynik=$(curl $ip |sed -e 's/<[^>]*>/\n/g'  |grep Temp | awk '{ print $2}')
 		sqlite3 $dir/db/$all.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
 		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$all'"
 	    fi

@@ -26,9 +26,11 @@ if ($_POST['run'] == "run") {
 		    if (!empty($ds18b20) ) {
 			$cmd0="cp '$dir'/modules/sensors/wireless/ds18b20/init.lua '$dir'/tmp && sed -i s/pass/'$pass'/g '$dir'/tmp/init.lua && sed -i s/ssid/'$ssid'/g '$dir'/tmp/init.lua";
 			$cmd1="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/tmp/init.lua -t init.lua 2>&1";
+			$cmd2="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/modules/sensors/wireless/ds18b20/ds18b20.lua -t ds18b20.lua 2>&1";
 			echo '<pre>';
 			passthru($cmd0); 
 			passthru($cmd1); 
+			passthru($cmd2); 
 			echo '</pre>';
 		    }
 		    
@@ -48,8 +50,8 @@ if ($_POST['run'] == "run") {
 			//$cmd4="echo 'file.close()' > '$usb'";
 			//$cmd1="echo 'wifi.setmode(wifi.STATION)' > '$usb'";
 			//$cmd2="echo 'wifi.sta.config('\"'$ssid'\"','\"'$pass'\"');' > '$usb'";
-	    		//$cmd3="echo  'node.restart();' > '$usb'";
-			//passthru($cmd1); 
+	    		$cmdr="echo  'node.restart();' > '$usb'";
+			passthru($cmdr); 
 			//passthru($cmd2); 
 			//passthru($cmd3); 
 			//passthru($cmd4); 
@@ -67,7 +69,7 @@ if ($_POST['run'] == "run") {
 	}
 	else
 	{
-	    echo "Eroor - Select program";
+	    echo "Error - Select program";
 	    echo '<br><br>';
 	} 
     } else
@@ -99,7 +101,7 @@ foreach($i as $o ) {
 Select program:<br>
     <input type="radio" name="dht11" value="dht11" >DHT11
     <br>
-    <input type="radio" name="ds81b20" value="ds81b20" >DS18B20
+    <input type="radio" name="ds18b20" value="ds18b20" >DS18B20
     <br><br>
 Configure WiFi:<br>
     SSID:   <input type="input" name="ssid" value="" ><br>
