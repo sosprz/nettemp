@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.16
+
+fix i2c HTU21D
+
 8.5.15
 
 add ESPuploader in tools (based on luaupload.py) 
