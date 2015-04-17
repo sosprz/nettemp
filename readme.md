@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.17
+
+remove refresh from charts
+
 8.5.16
 
 fix i2c HTU21D
