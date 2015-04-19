@@ -1,0 +1,6 @@
+150419-2149 temp_dev_scan - Deleted .digitemprc
+150419-2149 temp_dev_scan - Discovered 1-wire temp sensors
+150419-2150 temp_dev_read - read sensors
+150419-2151 temp_dev_read - read sensors
+150419-2152 temp_dev_read - read sensors
+150419-2153 temp_dev_read - read sensors
