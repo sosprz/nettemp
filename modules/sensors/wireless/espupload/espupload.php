@@ -4,19 +4,31 @@ $dir=$_SERVER["DOCUMENT_ROOT"];
 $usb = $_POST["usb"];
 $ds18b20 = $_POST["ds18b20"];
 $dht11 = $_POST["dht11"];
+$dht22 = $_POST["dht22"];
 $list = $_POST["list"];
 $ssid = $_POST["ssid"];
 $pass = $_POST["pass"];
 if ($_POST['run'] == "run") {
 
     if (!empty($usb)) {
-	if (!empty($ds18b20) || !empty($dht11)) {
+	if (!empty($ds18b20) || !empty($dht11) || !empty($dht22)) {
 	    if (!empty($ssid) && !empty($pass)) {
 		    if (!empty($dht11) ) {
 
 			$cmd0="cp '$dir'/modules/sensors/wireless/DHT11/init.lua '$dir'/tmp && sed -i s/pass/'$pass'/g '$dir'/tmp/init.lua && sed -i s/ssid/'$ssid'/g '$dir'/tmp/init.lua";
 			$cmd1="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/tmp/init.lua -t init.lua 2>&1";
 			$cmd2="'$dir'/modules/sensors/wireless/espupload/luatool.py -r -p '$usb' -f '$dir'/modules/sensors/wireless/DHT11/dht.lua -t dht.lua 2>&1";
+			echo '<pre>';
+			passthru($cmd0); 
+			passthru($cmd1); 
+			passthru($cmd2);
+			echo '</pre>';
+		    }
+		    if (!empty($dht22) ) {
+
+			$cmd0="cp '$dir'/modules/sensors/wireless/DHT22/init.lua '$dir'/tmp && sed -i s/pass/'$pass'/g '$dir'/tmp/init.lua && sed -i s/ssid/'$ssid'/g '$dir'/tmp/init.lua";
+			$cmd1="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/tmp/init.lua -t init.lua 2>&1";
+			$cmd2="'$dir'/modules/sensors/wireless/espupload/luatool.py -r -p '$usb' -f '$dir'/modules/sensors/wireless/DHT22/dht.lua -t dht.lua 2>&1";
 			echo '<pre>';
 			passthru($cmd0); 
 			passthru($cmd1); 
@@ -99,6 +111,8 @@ foreach($i as $o ) {
 }
 ?>
 Select program:<br>
+    <input type="radio" name="dht22" value="dht22" >DHT22
+    <br>
     <input type="radio" name="dht11" value="dht11" >DHT11
     <br>
     <input type="radio" name="ds18b20" value="ds18b20" >DS18B20

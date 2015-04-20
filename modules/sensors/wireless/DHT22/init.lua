@@ -10,7 +10,7 @@
 
 
 
-sensorType="dht11"          -- set sensor type dht11 or dht22
+sensorType="dht22"          -- set sensor type dht11 or dht22
  
     PIN = 4 --  data pin, GPIO0
     humi=0
@@ -46,7 +46,7 @@ print(ip)
 srv=net.createServer(net.TCP)
     srv:listen(80,function(conn)
 	ReadDHT()
-    conn:send("<!DOCTYPE html><html><body><b>nettemp.pl DHT11</b><br>Humidity: " .. string.format("%d",humi) .. " %<br>Temperature: " .. string.format("%d",temp) .. " &degC </body></html>")
+    conn:send("<!DOCTYPE html><html><body><b>nettemp.pl DHT22</b><br>Humidity: " .. string.format("%d",humi) .. " %<br>Temperature: " .. string.format("%d",temp) .. " &degC </body></html>")
     conn:on("sent",function(conn) conn:close() end)
 end)
 
