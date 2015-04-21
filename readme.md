@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.19
+
+add error in status to ESP
+
 8.5.18
 
 add wireless DHT22 to ESPuploader
