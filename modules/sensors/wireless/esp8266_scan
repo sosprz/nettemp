@@ -13,10 +13,10 @@ temp=_temp
 humid=_humid
 wiv=wireless_
 
-if [ -n "$rom" ] 
+if [ -n "$rom" ]
     then 
 	for i in $rom; do
-		    ip=$(echo $rom|awk -F"_" '{print $1}')
+		    ip=$(echo $i|awk -F"_" '{print $1}')
 		    type=$(curl $ip |sed -e 's/<[^>]*>/\n/g' |grep nettemp |awk '{ print $2}')
 			if [ "$type" == "DHT11" ] || [ "$type" == "DHT22" ]; then
 			    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$temp')"

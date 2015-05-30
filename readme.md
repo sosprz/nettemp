@@ -53,6 +53,10 @@ USERS:
 
 Changelog:
 
+8.5.20
+
+fix DS18b20 ESP8266 discovery
+
 8.5.19
 
 add error in status to ESP
