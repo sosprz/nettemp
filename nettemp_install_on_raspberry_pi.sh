@@ -199,6 +199,9 @@ service lighttpd restart
 #update-rc.d cron defaults
 #service cron start
 
+#perms
+/var/www/nettemp/modules/tools/update_su
+
 echo -e "${GREEN}Nettemp instalation complette${R}"
 echo -e "${GREEN}Nettemp default login and pasword is admin${R}"
 

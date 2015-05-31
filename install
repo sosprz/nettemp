@@ -63,6 +63,7 @@ sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/bin/pkill -f nettemp_kwh' /etc/sudo
 sed -i '$a www-data ALL=(ALL) NOPASSWD: /sbin/iptables *, /sbin/iptables-save *' /etc/sudoers
 sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/chpasswd *, /usr/sbin/useradd *, /usr/sbin/userdel *, /usr/sbin/groupadd' /etc/sudoers
 sed -i '$a www-data ALL=(ALL) NOPASSWD: /usr/sbin/i2cdetect *' /etc/sudoers
+/var/www/nettemp/modules/tools/update_su
 }
 
 function i2c {
