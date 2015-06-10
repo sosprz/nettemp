@@ -230,6 +230,22 @@ fi
 # php.ini upload file max size
 sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 300M/g' /etc/php5/cgi/php.ini
 sed -i 's/post_max_size = 8M/post_max_size = 300M/g' /etc/php5/cgi/php.ini
+#ssl
+mkdir /etc/lighttpd/certs
+cd /etc/lighttpd/certs
+openssl req -new -x509 -keyout lighttpd.pem -out lighttpd.pem -days 365 -nodes -subj "/C=PL/ST=Pomorskie/L=PL/O=techfreak.pl/CN=nettemp.local" 
+chmod 400 lighttpd.pem
+if cat /etc/lighttpd/lighttpd.conf |grep -q 'ssl.engine' ; then
+    echo "ssl already on"
+else 
+echo "add ssl"
+sed -i '$a$SERVER["socket"] == ":443" {' /etc/lighttpd/lighttpd.conf
+sed -i '$a  ssl.engine = "enable" ' /etc/lighttpd/lighttpd.conf
+sed -i '$a  ssl.pemfile = "/etc/lighttpd/certs/lighttpd.pem" ' /etc/lighttpd/lighttpd.conf
+sed -i '$a}' /etc/lighttpd/lighttpd.conf
+fi
+
+
 }
 
 function packages { 
