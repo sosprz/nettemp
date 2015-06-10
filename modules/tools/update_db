@@ -45,6 +45,7 @@ sqlite3 $dir/dbf/nettemp.db "UPDATE or IGNORE settings SET tempnum='3' where id=
 for i in $(seq 1 10);
     do
     sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_sensor$i type TEXT";
+    sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_sensor_diff$i type TEXT";
     sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_onoff$i type TEXT";
     sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_temp$i type TEXT";
     sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op$i type TEXT";

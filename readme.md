@@ -53,6 +53,11 @@ USERS:
 
 Changelog:
 
+8.5.21
+Now You can diff sensors with sensor in gpio temp function 
+bug fix in gpio charts
+optimization/bug fix in gpio/not working GPIO temperature sensor number in options
+
 8.5.20
 
 fix DS18b20 ESP8266 discovery

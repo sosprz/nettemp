@@ -19,10 +19,12 @@ if ($tempexit == "tempexit"){
 foreach (range(1, $tempnum) as $ta) {
 $temp_temp='temp_temp' . $ta;
 $temp_sensor='temp_sensor' . $ta;
+$temp_sensor_diff='temp_sensor_diff' . $ta;
 $temp_onoff='temp_onoff' . $ta;
 $temp_op='temp_op' . $ta;
 
 $$temp_sensor= isset($_POST["temp_sensor".$ta]) ? $_POST["temp_sensor".$ta] : '';
+$$temp_sensor_diff= isset($_POST["temp_sensor_diff".$ta]) ? $_POST["temp_sensor_diff".$ta] : '';
 $$temp_onoff= isset($_POST["temp_onoff".$ta]) ? $_POST["temp_onoff".$ta] : '';
 $$temp_op= isset($_POST["temp_op".$ta]) ? $_POST["temp_op".$ta] : '';
 $$temp_temp=isset($_POST["temp_temp".$ta]) ? $_POST["temp_temp".$ta] : '';
@@ -43,8 +45,9 @@ foreach (range(1, $tempnum) as $up) {
     $temp_temp=${'temp_temp' . $up};
     $temp_onoff=${'temp_onoff' . $up};
     $temp_sensor=${'temp_sensor' . $up};
+    $temp_sensor_diff=${'temp_sensor_diff' . $up};
     $temp_op=${'temp_op' . $up};
-    $db->exec("UPDATE gpio SET temp_op$up='$temp_op',temp_sensor$up='$temp_sensor',temp_onoff$up='$temp_onoff',temp_temp$up='$temp_temp' WHERE gpio='$gpio_post'") or die("exec 1");
+    $db->exec("UPDATE gpio SET temp_op$up='$temp_op',temp_sensor$up='$temp_sensor',temp_sensor_diff$up='$temp_sensor_diff',temp_onoff$up='$temp_onoff',temp_temp$up='$temp_temp' WHERE gpio='$gpio_post'") or die("exec 1");
     }
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -274,6 +277,17 @@ include('gpio_rev.php');
 	    </select>
 	    </td>
 	    <td><input type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" size="3" >&deg;C</td>
+	    <td>or</td>
+	    <td><select name="<?php echo temp_sensor_diff . $v; ?>" >
+	    <?php $sth = $db->prepare("SELECT * FROM sensors");
+	    $sth->execute();
+	    $result = $sth->fetchAll();
+	    foreach ($result as $select) { ?>
+		<option <?php echo $a['temp_sensor_diff'.$v] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}" ?>&deg;C</option>
+	    <?php } ?>
+		<option <?php echo $a['temp_sensor_diff'.$v] == '' ? 'selected="selected"' : ''; ?> value="">off</option>
+	    </select>
+	    </td>
 	    <td>then</td> 
 	    <td>
 	    <select name="<?php echo temp_onoff . $v ?>" >

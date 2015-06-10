@@ -109,7 +109,8 @@ function firewall {
 
 
 
-function 1wire {
+function sensors {
+#1wire
 if cat /etc/modules |grep w1_ 1> /dev/null; then
 echo -e "[ ${GREEN}ok${R} ] 1-wire modules allready added"
 else
@@ -120,7 +121,13 @@ else
 echo "w1_therm" | sudo tee -a /etc/modules
 modprobe w1_therm
 fi
+#dht 11/22
+cd /var/www/nettemp/modules/sensors/GPIO/DHT/dhtlib/
+./install
+cd -
+
 }
+
 
 function wiringpi {
 if [ -n "$rpi" ];then
@@ -241,6 +248,7 @@ function update {
     } &> /dev/null
 }
 
+
 function start {
 whiptail  --backtitle "Nettemp.pl" --title "Nettemp installer" --yesno "Do You want install nettemp?" 8 78
 exitstatus=$?
@@ -262,7 +270,7 @@ fexit download-nettemp
 fexit database
 fexit cron
 fexit wiringpi
-fexit 1wire
+fexit sensors
 fexit ups
 fexit vpn
 fexit firewall
