@@ -1,3 +1,8 @@
+CREATE TABLE camera ( 
+    id INTEGER PRIMARY KEY, 
+    name UNIQUE,
+    link UNIQUE
+    );
 CREATE TABLE device (
    id INTEGER PRIMARY KEY,
    usb UNIQUE,
@@ -85,7 +90,7 @@ CREATE TABLE gpio (
   temp_sensor10 type TEXT, 
   temp_onoff10 type TEXT, 
   temp_temp10 type TEXT, 
-  temp_op10 type TEXT);
+  temp_op10 type TEXT, temp_sensor_diff1 type TEXT, temp_sensor_diff2 type TEXT, temp_sensor_diff3 type TEXT, temp_sensor_diff4 type TEXT, temp_sensor_diff5 type TEXT, temp_sensor_diff6 type TEXT, temp_sensor_diff7 type TEXT, temp_sensor_diff8 type TEXT, temp_sensor_diff9 type TEXT, temp_sensor_diff10 type TEXT);
 CREATE TABLE mail_settings (
   id INTEGER PRIMARY KEY,
   host TEXT,
@@ -126,7 +131,7 @@ CREATE TABLE sensors (
   ip type TEXT, 
   device type TEXT,
   lcd type TEXT,
-  method type TEXT);
+  method type TEXT, tmp_5ago type TEXT);
 CREATE TABLE settings (
    id INTEGER PRIMARY KEY,
    mail TEXT,
@@ -158,9 +163,4 @@ CREATE TABLE users (
 CREATE TABLE vpn ( 
     id INTEGER PRIMARY KEY, 
     users UNIQUE 
-    );
-CREATE TABLE camera ( 
-    id INTEGER PRIMARY KEY, 
-    name UNIQUE,
-    link UNIQUE
     );

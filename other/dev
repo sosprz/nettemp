@@ -5,4 +5,5 @@
 #sqlite3 -header /var/www/nettemp/dbf/nettemp.db  "SELECT * FROM sensors"
 #<?php echo $_SERVER['REQUEST_URI']; ?>
 #find $(pwd) -name \*.php -exec sed -i "s/diened/denied/g" {} \;
+sqlite3 /var/www/nettemp/dbf/nettemp.db ".schema" > /var/www/nettemp/modules/tools/nettemp.schema
 sudo update-alternatives --config editor
