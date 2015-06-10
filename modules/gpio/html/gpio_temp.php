@@ -1,3 +1,5 @@
+
+
 <?php
 
 	    $sth34 = $db->prepare("SELECT tempnum FROM settings WHERE id='1'");
@@ -268,6 +270,17 @@ include('gpio_rev.php');
 	    <?php } ?>
 	    </select>
 	    </td>
+
+<script type="text/JavaScript">
+function showtemp() {
+    if (document.getElementById('state').value == '') {
+        document.getElementById('inputtemp').style.display = 'block';
+    } else {
+        document.getElementById('inputtemp').style.display = 'none';
+    }
+}
+</script>
+
 	    <td>
 	    <select name="<?php echo temp_op . $v ?>" >
     		<option <?php echo $a['temp_op'.$v] == 'lt' ? 'selected="selected"' : ''; ?> value="lt">&lt;</option>   
@@ -276,9 +289,8 @@ include('gpio_rev.php');
     		<option <?php echo $a['temp_op'.$v] == 'ge' ? 'selected="selected"' : ''; ?> value="ge">&gt;&#61;</option>   
 	    </select>
 	    </td>
-	    <td><input type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" size="3" >&deg;C</td>
-	    <td>or</td>
-	    <td><select name="<?php echo temp_sensor_diff . $v; ?>" >
+	    <td id="inputtemp" style="display: none"><input   type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" size="3" >&deg;C</td>
+	    <td><select name="<?php echo temp_sensor_diff . $v; ?>" id="state" onclick='showtemp()'>
 	    <?php $sth = $db->prepare("SELECT * FROM sensors");
 	    $sth->execute();
 	    $result = $sth->fetchAll();
@@ -369,5 +381,4 @@ foreach ($arr as &$days) {
 }
 //}
 ?>
-
 
