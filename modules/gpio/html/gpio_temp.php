@@ -1,5 +1,12 @@
-
-
+<script type="text/JavaScript">
+	    function showtemp(n) {
+	    if (document.getElementById('state' + n).value == '') {
+    	    document.getElementById('inputtemp' + n).style.display = 'block';
+	    } else {
+    		document.getElementById('inputtemp1').style.display = 'none';
+		}
+	    }
+	    </script>
 <?php
 
 	    $sth34 = $db->prepare("SELECT tempnum FROM settings WHERE id='1'");
@@ -159,7 +166,6 @@ $SatSat = isset($_POST['SatSat']) ? $_POST['SatSat'] : '';
 
 
 
-
 // MAIN
 
         if ( $a['temp_run'] == "on") { ?>
@@ -271,15 +277,7 @@ include('gpio_rev.php');
 	    </select>
 	    </td>
 
-<script type="text/JavaScript">
-function showtemp() {
-    if (document.getElementById('state').value == '') {
-        document.getElementById('inputtemp').style.display = 'block';
-    } else {
-        document.getElementById('inputtemp').style.display = 'none';
-    }
-}
-</script>
+	    
 
 	    <td>
 	    <select name="<?php echo temp_op . $v ?>" >
@@ -289,15 +287,15 @@ function showtemp() {
     		<option <?php echo $a['temp_op'.$v] == 'ge' ? 'selected="selected"' : ''; ?> value="ge">&gt;&#61;</option>   
 	    </select>
 	    </td>
-	    <td id="inputtemp" style="display: none"><input   type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" size="3" >&deg;C</td>
-	    <td><select name="<?php echo temp_sensor_diff . $v; ?>" id="state" onclick='showtemp()'>
+	    <td><input id="<?php echo inputtemp.$v; ?>" style="display: none"  type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" size="3" ></td>
+	    <td><select name="<?php echo temp_sensor_diff . $v; ?>" id="<?php echo state . $v; ?>" onclick='showtemp(<?php echo $v; ?>)'>
 	    <?php $sth = $db->prepare("SELECT * FROM sensors");
 	    $sth->execute();
 	    $result = $sth->fetchAll();
 	    foreach ($result as $select) { ?>
 		<option <?php echo $a['temp_sensor_diff'.$v] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}" ?>&deg;C</option>
 	    <?php } ?>
-		<option <?php echo $a['temp_sensor_diff'.$v] == '' ? 'selected="selected"' : ''; ?> value="">custom <?php echo $a['temp_temp'.$v]; ?></option>
+		<option <?php echo $a['temp_sensor_diff'.$v] == '' ? 'selected="selected"' : ''; ?> value="">custom <?php echo $a['temp_temp'.$v]; ?>&deg;C</option>
 	    </select>
 	    </td>
 	    <td>then</td> 
