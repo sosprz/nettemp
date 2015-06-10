@@ -15,6 +15,10 @@ if rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='wire
 		if [ -n "$wynik" ]; then
 		    sqlite3 $dir/db/$all.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
 		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$all'"
+		    if date +%M |cut -c 2-2 | grep -E '0|5'; then
+			    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$wynik' WHERE rom='$all'"
+		    fi
+
 		else
 		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$all'"
 		fi
@@ -24,6 +28,10 @@ if rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='wire
 		if [ -n "$wynik" ]; then
 		    sqlite3 $dir/db/$all.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
 		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$all'"
+		    if date +%M |cut -c 2-2 | grep -E '0|5'; then
+			    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$wynik' WHERE rom='$all'"
+		    fi
+    
 		else
 		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$all'"
 		    

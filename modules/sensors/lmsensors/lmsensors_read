@@ -21,6 +21,10 @@ for i in $fortemp
         then 
     sqlite3 $dir/db/$name.sql "INSERT OR IGNORE INTO def (value) VALUES ('$tmp');"
     sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$tmp' WHERE rom='$name'"
+    if date +%M |cut -c 2-2 | grep -E '0|5'; then
+        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$tmp' WHERE rom='$name'"
+    fi
+
     echo lm-sensors: $name $tmp
         fi
     done
@@ -43,6 +47,10 @@ for i in $forcore
         then 
 	sqlite3 $dir/db/$name.sql "INSERT OR IGNORE INTO def (value) VALUES ('$tmp');"
         sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$tmp' WHERE rom='$name'"
+	if date +%M |cut -c 2-2 | grep -E '0|5'; then
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$tmp' WHERE rom='$name'"
+	fi
+
         echo lm-sensors: $name $tmp
         fi
     done

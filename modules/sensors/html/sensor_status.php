@@ -38,6 +38,7 @@ if ($numRows == 0 ) { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop
 		    <td><img src="media/ico/temp2-icon.png" /></td>
 		    <td><font  color="#108218"> <?php echo $name ?> </td>
 		    <td><font  color="#108218"> <?php echo $a['tmp'];?> &#176;C</td>
+		    <td><?php if($a['tmp'] > $a['tmp_5ago']) { ?><img src="media/ico/Up-3-icon.png" /><?php } elseif($a['tmp'] < $a['tmp_5ago']){?><img src="media/ico/Down-3-icon.png" /><?php } ?></td>
 		</tr></font> 
 		<?php }
 	}
@@ -119,9 +120,29 @@ if ($numRows == 0 ) { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop
 		else { ?> <tr><td><img src="media/ico/paper-plane-icon.png" /></td><td><font  color="#108218"> <?php echo $name ?> </td><td><font  color="#108218"> <?php echo $a['tmp'];?>&nbspm</td></tr></font> <?php }
 	}
 	if($a['type'] == 'lux'){
-		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == on ) { ?> <tr><td></td><td><img src="media/ico/sun-icon.png" /></td><td><font color="#FF0000"> <?php echo $name ?></td><td><font color="#FF0000"><?php echo $a['tmp']; echo " lux "; echo "max:"; echo $a['tmp_max'];?>&nbsplux</font></td></tr><?php	}
-		elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min']) && $a['alarm'] == on ) { ?> <tr><td></td><td><img src="media/ico/sun-icon.png" /></td><td><font color="#0095FF"> <?php echo $name ?></td><td><font color="#0095FF"><?php echo $a['tmp']; echo " lux "; echo "min:"; echo $a['tmp_min'];?>&nbsplux</font></td></tr>  <?php	}
-		else { ?> <tr><td><img src="media/ico/sun-icon.png" /></td><td><font  color="#108218"> <?php echo $name ?> </td><td></td><td><font  color="#108218"> <?php echo $a['tmp'];?>&nbsplux</td></tr></font> <?php }
+		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == on ) { ?> 
+		<tr>
+		    <td></td>
+		    <td><img src="media/ico/sun-icon.png" /></td>
+		    <td><font color="#FF0000"> <?php echo $name ?></td>
+		    <td><font color="#FF0000"><?php echo $a['tmp']; echo " lux "; echo "max:"; echo $a['tmp_max'];?>&nbsplux</font></td>
+		</tr>
+		<?php	}
+		elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min']) && $a['alarm'] == on ) { ?> 
+		<tr>
+		    <td></td>
+		    <td><img src="media/ico/sun-icon.png" /></td>
+		    <td><font color="#0095FF"> <?php echo $name ?></td>
+		    <td><font color="#0095FF"><?php echo $a['tmp']; echo " lux "; echo "min:"; echo $a['tmp_min'];?>&nbsplux</font></td>
+		</tr>  <?php	}
+		else { ?>  
+		    <tr>
+			<td></td>
+			<td><img src="media/ico/sun-icon.png" /></td>
+			<td><font  color="#108218"> <?php echo $name ?> </td>
+			<td><font  color="#108218"> <?php echo $a['tmp'];?>&nbsplux</td>
+		    </tr>
+	    </font> <?php }
 	}
 	
 

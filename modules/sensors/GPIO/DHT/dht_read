@@ -28,6 +28,10 @@ if [ -n "$gpio_list_0" ]; then
 	    gpio_name=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='humid'"`
 	    sqlite3 $dir/db/$gpio_name.sql "INSERT OR IGNORE INTO def (value) VALUES ('${!dht_humi}');"
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_humi}' WHERE rom='$(echo $gpio_name)'"
+	    if date +%M |cut -c 2-2 | grep -E '0|5'; then
+		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='${!dht_humi}' WHERE rom='$(echo $gpio_name)'"
+	    fi
+
 	echo DHT humi: ${!dht_humi} %
         else
 	echo "WARNING: DHT Humi readings not in range"
@@ -37,6 +41,9 @@ if [ -n "$gpio_list_0" ]; then
 	gpio_name2=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='temp'"`
 	    sqlite3 $dir/db/$gpio_name2.sql "INSERT OR IGNORE INTO def (value) VALUES ('${!dht_temp}');"
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='${!dht_temp}' WHERE rom='$(echo $gpio_name2)'"
+	    if date +%M |cut -c 2-2 | grep -E '0|5'; then
+		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='${!dht_temp}' WHERE rom='$(echo $gpio_name2)'"
+	    fi
 	echo DHT temp: ${!dht_temp} C
         else
 	echo "WARNING: DHT Temp readings not in range"

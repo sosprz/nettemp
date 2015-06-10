@@ -9,5 +9,9 @@ if [ -n "$bpi" ]
     bpi=$(cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input| awk '{ getline;  printf "%1.2f\n", $1/1000}' )
     sqlite3 $dir/db/Banana_Pi.sql "INSERT OR IGNORE INTO def (value) VALUES ('$bpi');"
     sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$bpi' WHERE rom='Banana_Pi'"
+    if date +%M |cut -c 2-2 | grep -E '0|5'; then
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$bpi' WHERE rom='Banana_Pi'"
+	fi
+
 	
 fi

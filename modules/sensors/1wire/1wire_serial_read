@@ -26,6 +26,10 @@ fi
     if [ "$serial_temp_calc" == "1" ]; then 
 	sqlite3 $dir/db/$name3 "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
         sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name_0'"
+	if date +%M |cut -c 2-2 | grep -E '0|5'; then
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$wynik' WHERE rom='$name_0'"
+	fi
+
     else 
 	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$name_0'"
         echo "$date temp_dev_read - reading sensor error 85C $name_0 " >> $dir/tmp/log.txt    
