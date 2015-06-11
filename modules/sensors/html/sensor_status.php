@@ -64,6 +64,7 @@ if ($numRows == 0 ) { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop
 		    <td><img src="media/ico/temp2-icon.png" /></td>
 		    <td><font  color="#108218"> <?php echo $name ?> </td>
 		    <td><font  color="#108218"> <?php echo $a['tmp'];?> &#176;C</font></td>
+		    <td><?php if($a['tmp'] > $a['tmp_5ago']) { ?><img src="media/ico/Up-3-icon.png" /><?php } elseif($a['tmp'] < $a['tmp_5ago']){?><img src="media/ico/Down-3-icon.png" /><?php } ?></td>
 		</tr> 
 		<?php }
 	}
@@ -86,6 +87,7 @@ if ($numRows == 0 ) { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop
 		    <td><?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?></td>
 		    <td><img src="media/ico/rain-icon.png" /></td><td><font  color="#108218"> <?php echo $name ?> </td>
 		    <td><font  color="#108218"> <?php echo $a['tmp'];?>&nbsp %</td>
+		    <td><?php if($a['tmp'] > $a['tmp_5ago']) { ?><img src="media/ico/Up-3-icon.png" /><?php } elseif($a['tmp'] < $a['tmp_5ago']){?><img src="media/ico/Down-3-icon.png" /><?php } ?></td>
 		</tr></font> 
 		<?php }
 	}
@@ -111,6 +113,7 @@ if ($numRows == 0 ) { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop
 		    <td><img src="media/ico/Science-Pressure-icon.png" /></td>
 		    <td><font  color="#108218"> <?php echo $name?></font> </td>
 		    <td><font  color="#108218"> <?php echo $a['tmp'];?>&nbspPa</font></td>
+		    <td><?php if($a['tmp'] > $a['tmp_5ago']) { ?><img src="media/ico/Up-3-icon.png" /><?php } elseif($a['tmp'] < $a['tmp_5ago']){?><img src="media/ico/Down-3-icon.png" /><?php } ?></td>
 		</tr> 
 		<?php }
 	}
