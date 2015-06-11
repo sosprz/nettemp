@@ -59,6 +59,8 @@ bug fix in gpio charts
 optimization/bug fix in gpio/not working GPIO temperature sensor number in options
 add https to lighttpd CN=nettemp.local
 add linerar trend in status
+optimize i2c read script
+add index on kwh.db - optimize kWh status
 
 8.5.20
 

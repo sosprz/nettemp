@@ -7,6 +7,25 @@ then
 
 if [ "$onoff" == "i2c-1" ] || [ "$onoff" == "i2c-0" ] ; then 
 
+function checkwrite {
+value=$1
+name=$2
+if ! [[ "$value" =~ .[0-9]+$ ]] && [ -n "$value" ]
+    then
+	value="error"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$value' WHERE rom='$name'"
+    else
+	sqlite3 $dir/db/$i "INSERT OR IGNORE INTO def (value) VALUES ('$value');"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$value' WHERE rom='$name'"
+fi
+
+if date +%M |cut -c 2-2 | grep -E '0|5'; then
+    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$value' WHERE rom='$name'"
+fi
+}
+
+
+
 ###########
 # BMP180
 ###########
@@ -20,40 +39,14 @@ if [ -n "$db" ]
 	    name=$(echo $i |awk 'sub("....$", "")')
 	    if echo $i |grep temp > /dev/null ; then 
 		temp=$(echo $all | awk '{ print $2}')
-		if ! [[ "$temp" =~ .[0-9]+$ ]] 
-		    then
-			temp="error"
-		else
-		    sqlite3 $dir/db/$i "INSERT OR IGNORE INTO def (value) VALUES ('$temp');"
-		fi
+		checkwrite $temp $name
 		echo BMP180 Temp $temp
-		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$temp' WHERE rom='$name'"
-		    if date +%M |cut -c 2-2 | grep -E '0|5'; then
-			sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$temp' WHERE rom='$name'"
-		    fi
-
 	    fi
-	#	if echo $i |grep altitude > /dev/null ; then 
-	#	altitude=$(echo  $all | awk '{ print $6}')
-	#	if ! [[ "$altitude" =~ .[0-9]+$ ]] 
-	#	    then
-	#		altitude="error"
-	#	    else
-	#		rrdtool update $dir/db/$i N:$altitude
-	#	fi
-	#	echo BMP180 Alititude $altitude
-	#	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$altitude' WHERE rom='$(echo $i |awk 'sub("....$", "")')'"
-	#    fi
+
 	    if echo $i |grep press > /dev/null ; then 
 		pressure=$(echo $all | awk '{ print $4}')
-		if ! [[ "$pressure" =~ .[0-9]+$ ]] 
-		    then
-			pressure="error"
-		else
-		    sqlite3 $dir/db/$i "INSERT OR IGNORE INTO def (value) VALUES ('$pressure');"
-		fi
+		checkwrite $pressure $name
 		echo BMP180 Pressure $pressure
-		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$pressure' WHERE rom='$name'"
 	    fi
 	done
     else
@@ -71,19 +64,10 @@ if [ -n "$db" ]
     then
 	if i2c=$($dir/modules/sensors/i2c/TSL2561/TSL2561_i2c_$(echo $onoff | sed 's/i2c-//'))
 	    then
+	    name=$(echo $db |awk 'sub("....$", "")')
 	    lux=$(echo $i2c |awk '{print $3}')
-	    if ! [[ "$lux" =~ [0-9]+$ ]] 
-		then
-    		    lux="error"
-		else 
-		    sqlite3 $dir/db/$db "INSERT OR IGNORE INTO def (value) VALUES ('$lux');"
-	    fi
+	    checkwrite $lux $name
 	    echo TSL2561 $lux
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$lux' WHERE rom='$(echo $db |awk 'sub("....$", "")')'"
-	    if date +%M |cut -c 2-2 | grep -E '0|5'; then
-		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$lux' WHERE rom='$(echo $db |awk 'sub("....$", "")')'"
-	    fi
-
 	else
 	    echo HTU21D main error
 	fi
@@ -101,31 +85,12 @@ if [ -n "$htu21dt" ] || [ -n "$dbhtu21dh" ]
 	then
 	htu21dt=$(echo $htu21d |awk '{ getline; printf "%3.2f\n", $2 }')
 	htu21dh=$(echo $htu21d |awk '{ getline; printf "%3.2f\n", $5 }')
-
-	    if ! [[ "$htu21dt" =~ [0-9]+$ ]] && [ -n "$htu21dt" ]
-		then
-		    htu21dt="error"
-		else
-		    sqlite3 $dir/db/$dbhtu21dt "INSERT OR IGNORE INTO def (value) VALUES ('$htu21dt');"
-	    fi
+	name=$(echo $dbhtu21dt |awk 'sub("....$", "")')
+	checkwrite $htu21dt $name
 	echo HTU21D Temp: $htu21dt
-	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$htu21dt' WHERE rom='$(echo $dbhtu21dt |awk 'sub("....$", "")')'"
-	if date +%M |cut -c 2-2 | grep -E '0|5'; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$htu21dt' WHERE rom='$(echo $dbhtu21dt |awk 'sub("....$", "")')'"
-	fi
-
-
-	    if ! [[ "$htu21dh" =~ [0-9]+$ ]] && [ -n "$htu21dh" ] 
-		then
-		    htu21ddh="error"
-	    fi
+	name=$(echo $dbhtu21dh |awk 'sub("....$", "")')
+	checkwrite $htu21dh $name
 	echo HTU21D Humid: $htu21dh
-	sqlite3 $dir/db/$dbhtu21dh "INSERT OR IGNORE INTO def (value) VALUES ('$htu21dh');"
-	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$htu21dh' WHERE rom='$(echo $dbhtu21dh |awk 'sub("....$", "")')'"
-	if date +%M |cut -c 2-2 | grep -E '0|5'; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$htu21dh' WHERE rom='$(echo $dbhtu21dh |awk 'sub("....$", "")')'"
-	fi
-
     else
 	echo HTU21D main error
     fi
@@ -143,31 +108,14 @@ if [ -n "$dbmplt" ] || [ -n "$dbmplp" ]
 	then
 	mplt=$(echo $mpl |awk '{print $4}')
 	mplp=$(echo $mpl |awk '{printf $2}')
-
-	    if ! [[ "$mplt" =~ [0-9]+$ ]] && [ -n "$mplt" ]
-		then
-		    mplt="error"
-		else
-		    sqlite3 $dir/db/$dbmplt "INSERT OR IGNORE INTO def (value) VALUES ('$mplt');"
-	    fi
+	
+	name=$(echo $dbmplt |awk 'sub("....$", "")')
+	checkwrite $mplt $name
 	echo MPL31152A Temp: $mplt
-	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$mplt' WHERE rom='$(echo $dbmplt |awk 'sub("....$", "")')'"
-	if date +%M |cut -c 2-2 | grep -E '0|5'; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$mplt' WHERE rom='$(echo $dbmplt |awk 'sub("....$", "")')'"
-	fi
-
-
-	    if ! [[ "$mplp" =~ [0-9]+$ ]] && [ -n "$mplp" ] 
-		then
-		    mplp="error"
-	    fi
+	
+	name=$(echo $dbmplp |awk 'sub("....$", "")')
+	checkwrite $mplp $name
 	echo MPL31152A Pressure: $mplp
-	sqlite3 $dir/db/$dbmplp "INSERT OR IGNORE INTO def (value) VALUES ('$mplp');"
-	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$mplp' WHERE rom='$(echo $dbmplp |awk 'sub("....$", "")')'"
-	if date +%M |cut -c 2-2 | grep -E '0|5'; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$mplp' WHERE rom='$(echo $dbmplp |awk 'sub("....$", "")')'"
-	fi
-
     else
         echo MPL3115A2 main error
     fi
