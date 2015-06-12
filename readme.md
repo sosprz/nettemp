@@ -53,6 +53,8 @@ USERS:
 
 Changelog:
 
+
+
 8.5.21
 Now You can diff sensors with sensor in gpio temp function 
 bug fix in gpio charts
@@ -61,6 +63,7 @@ add https to lighttpd CN=nettemp.local
 add linerar trend in status
 optimize i2c read script
 add index on kwh.db - optimize kWh status
+add support to HIH6130 and TMP102 over i2c
 
 8.5.20
 
