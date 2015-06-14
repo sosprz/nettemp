@@ -38,6 +38,8 @@ lsmod
 cat /etc/modules
 echo "----- Device tree"
 grep device_tree /boot/config.txt
+echo "----- highchats"
+du -sh /var/www/nettemp/modules/highcharts/
 echo "----- END -----"
 
 
