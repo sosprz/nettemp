@@ -63,6 +63,7 @@ add linerar trend in status
 optimize i2c read script
 add index on kwh.db - optimize kWh status
 add support to HIH6130 and TMP102 over i2c
+update higcharts
 
 8.5.20
 

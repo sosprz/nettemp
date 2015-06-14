@@ -1,3 +1,8 @@
+<script type="text/javascript" src="modules/highcharts/js/jquery.js"></script>
+<script type="text/javascript" src="modules/highcharts/js/highstock.js"></script>
+<script type="text/javascript" src="modules/highcharts/js/exporting.js"></script>
+<script type="text/javascript" src="modules/highcharts/js/dark-unica.js"></script>
+
 <script type="text/JavaScript">
 function timedRefresh(timeoutPeriod) {
     setTimeout("location.reload(true);",timeoutPeriod);

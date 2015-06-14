@@ -10,7 +10,7 @@ exit
 fi
 
 
-mkdir $dir/tmp/highcharts
+mkdir -p $dir/tmp/highcharts
 rm -rf $dir/tmp/highcharts/*
 
 # hosts
@@ -45,7 +45,7 @@ done
 
 # gpio on/off, system
 name=$(ls $dir/db/ |grep -e system  -e gonoff )
-echo $name
+#echo $name
 for i in $name; do
     if base=$(sqlite3 $dir/db/$i "select strftime('%s', time),value FROM def;") ;
 	then
