@@ -24,7 +24,7 @@ foreach ($result as $a) { ?>
 <?php
 	$scan = isset($_POST['scan']) ? $_POST['scan'] : '';
         if ($scan == "Scan for new sensors"){ 
-        shell_exec("/bin/bash modules/sensors/temp_dev_scan > $dir/tmp/temp_dev_scan"); 
+        shell_exec("/bin/bash modules/sensors/scan"); 
         header("location: " . $_SERVER['REQUEST_URI']);
         exit();
 	}
