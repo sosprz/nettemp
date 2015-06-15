@@ -9,24 +9,25 @@ $numRows = count($result);
 <?php if ( $numRows > '0' ) { ?>
 <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Panel title</h3>
+              <h3 class="panel-title">GPIO status</h3>
             </div>
             <div class="panel-body">
-              Panel content
+<table class="table table-striped">
 <?php
 foreach ( $result as $a) {
 $gpio=$a['gpio'];
 ?>
-    <table><tr>
+    <tr>
     <td>	<img type="image" src="media/ico/SMD-64-pin-icon_24.png" /></td>
     <td><?php echo $a['name']; ?></td>
     <td><?php echo $a['mode']; ?></td>
     <td><?php echo $a['status']; ?></td>
-    </tr></table>
+    </tr>
 <?php
 }
 
 ?>
+</table>
             </div>
           </div>
 <?php }  ?>

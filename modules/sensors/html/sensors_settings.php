@@ -1,5 +1,11 @@
-<span class="belka">&nbsp Sensors<span class="okno"> 
-<table>
+<div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Sensors</h3>
+            </div>
+            <div class="panel-body">
+
+<table class="table table-striped">
+
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors");
@@ -16,18 +22,21 @@ $lcd=$a["lcd"];
 
 
 ?>
+<thead>
 <tr>
-<td></td>
-<td><center>Name</center></td>
-<td></td>
-<td><center>Sensor id</center></td>
-<td><center>Size</center></td>
-<td><center>Status</center></td>
-<?php if ( $lcd == 'on' ) { ?> <td>LCD</td> <?php } else { ?> <td></td> <?php } ?>
-<td></td>
-<td></td>
-<td></td>
+<th>#</th>
+<th>Name</th>
+<th>Set</th>
+<th>id</th>
+<th>Size</th>
+<th>Status</th>
+<?php if ( $lcd == 'on' ) { ?> <th>LCD</th> <?php } ?>
+<th>Remove</th>
 </tr>
+</thead>
+
+
+
 <?php foreach ($row as $a) { 	
 	
 ?>
@@ -85,4 +94,5 @@ if ( $lcd == 'on' ) {
 
 ?>
 </table>
-</span></span>
+            </div>
+          </div>

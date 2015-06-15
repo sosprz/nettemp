@@ -1,4 +1,3 @@
-<span class="belka">&nbsp Highcharts<span class="okno">
 <script type="text/javascript" src="modules/highcharts/js/dark-unica.js"></script>
 
 <div id="container" style="height: 400px; min-width: 310px"></div>
@@ -88,6 +87,3 @@ echo "names = ". $js_array . ";\n";
     });
 });
 </script>
-
-</span>
-</span>

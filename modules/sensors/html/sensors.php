@@ -1,7 +1,4 @@
 <?php
-	   include('modules/login/login_check.php');
-		if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { 
-
 $usun_czujniki = isset($_POST['usun_czujniki']) ? $_POST['usun_czujniki'] : '';
 $name_new = isset($_POST['name_new']) ? $_POST['name_new'] : '';
 $color = isset($_POST['color']) ? $_POST['color'] : '';
@@ -194,9 +191,4 @@ if ( $lcd == "lcd"){
 <?php include("modules/sensors/html/sensors_settings.php"); ?>
 <?php include("modules/sensors/html/sensors_new.php"); ?>
 <?php include("modules/sensors/html/sensors_device.php"); ?>
-	
 
-<?php }
-else { 
-  	  header("Location: denied");
-    }; 

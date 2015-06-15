@@ -21,6 +21,7 @@ var msnry = new Masonry( container, {
 .masonry .item {
   width:  341px;
   float: left;
+  padding: 0px 10px 0px 0px;
 }
 </style>
 
@@ -36,7 +37,7 @@ var msnry = new Masonry( container, {
   <div class="item"><?php include('modules/tools/html/tools_file_check.php'); ?></div>
 </div>
 
-<script src="media/jquery.min.js"></script>
+<script src="media/jquery.js"></script>
 <script>
 var auto_refresh = setInterval(
 (function () {

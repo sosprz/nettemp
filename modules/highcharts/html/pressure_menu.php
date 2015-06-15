@@ -1,4 +1,3 @@
-<span class="belka">&nbsp Highcharts<span class="okno">
 <div id="container" style="height: 400px; min-width: 310px"></div>
 
 <script type="text/javascript">
@@ -130,6 +129,3 @@ rangeSelector: {
     });
 });
 </script>
-
-</span>
-</span>

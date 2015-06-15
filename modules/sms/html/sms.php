@@ -1,9 +1,4 @@
 <?php
-	   include('modules/login/login_check.php');
-		if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { 
-		
-		?>
-<?php
 $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("select * from settings ");
 $sth->execute();
@@ -26,9 +21,3 @@ if ($sms == "on" ) {
     //else { echo "OFF"; }
 
 ?>
-
-<?php }
-else { 
-  	  header("Location: denied");
-    }; 
-	 ?>

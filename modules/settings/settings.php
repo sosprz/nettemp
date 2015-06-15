@@ -1,4 +1,3 @@
-<?php include('modules/login/login_check.php'); if ($numRows1 == 1 && ($perms == "ops" || $perms == "adm" )) { ?>
 <?php
     $rrd_onoff = isset($_POST['rrd_onoff']) ? $_POST['rrd_onoff'] : '';
     $rrd_onoff1 = isset($_POST['rrd_onoff1']) ? $_POST['rrd_onoff1'] : '';
@@ -161,6 +160,3 @@ if ($gpio == "on" ) {
 <?php	
     include('camera.php');
 ?>
-
-<?php } 
-else { header("Location: denied"); }; ?>

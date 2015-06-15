@@ -1,7 +1,6 @@
-<script type="text/javascript" src="modules/highcharts/js/jquery.js"></script>
-<script type="text/javascript" src="modules/highcharts/js/highstock.js"></script>
-<script type="text/javascript" src="modules/highcharts/js/exporting.js"></script>
-<script type="text/javascript" src="modules/highcharts/js/dark-unica.js"></script>
+<script type="text/javascript" src="media/js/highstock.js"></script>
+<script type="text/javascript" src="media/js/exporting.js"></script>
+<script type="text/javascript" src="media/js/dark-unica.js"></script>
 
 <script type="text/JavaScript">
 function timedRefresh(timeoutPeriod) {
@@ -10,42 +9,35 @@ function timedRefresh(timeoutPeriod) {
 </script>
 <!-- <body onload="JavaScript:timedRefresh(60000);"> -->
 
-<span class="belka">&nbsp Select view<span class="okno">
-
-<table><tr>
-<td><a href="index.php?id=view&type=temp" ><button>Temperature</button></a></td>
+<p>
+<a href="index.php?id=view&type=temp" ><button class="btn btn-default">Temperature</button></a>
 <?php 
 if (glob('db/*humid*.sql')) {?>
-<td><a href="index.php?id=view&type=humid" ><button>Humidity</button></a></td>
+<a href="index.php?id=view&type=humid" ><button class="btn btn-default">Humidity</button></a>
 <?php }
 if (glob('db/*press*.sql')) {?>
-<td><a href="index.php?id=view&type=pressure" ><button>Pressure</button></a></td>
+<a href="index.php?id=view&type=pressure" ><button class="btn btn-default">Pressure</button></a>
 <?php }
 if (glob('db/*altitude*.sql')) {?>
-<td><a href="index.php?id=view&type=altitude" ><button>Altitude view</button></a></td>
+<a href="index.php?id=view&type=altitude" ><button class="btn btn-default">Altitude view</button></a>
 <?php }
 if (glob('db/*snmp*.sql')) {?>
-<td><a href="index.php?id=view&type=snmp" ><button>SNMP</button></a></td>
+<a href="index.php?id=view&type=snmp" ><button class="btn btn-default">SNMP</button></a>
 <?php }
 if (glob('tmp/kwh/*.json')) {?>
-<td><a href="index.php?id=view&type=kwh" ><button>kWh</button></a></td>
+<a href="index.php?id=view&type=kwh" ><button class="btn btn-default">kWh</button></a>
 <?php }
 if (glob('db/*lux*.sql')) {?>
-<td><a href="index.php?id=view&type=lux" ><button>LUX</button></a></td>
+<a href="index.php?id=view&type=lux" ><button class="btn btn-default">LUX</button></a>
 <?php } 
 if (glob('db/*gonoff*.sql')) {?>
-<td><a href="index.php?id=view&type=gpio" ><button>GPIO</button></a></td>
+<a href="index.php?id=view&type=gpio" ><button class="btn btn-default">GPIO</button></a>
 <?php } 
 if (glob('db/*host*.sql')) {?>
-<td><a href="index.php?id=view&type=hosts" ><button>Hosts</button></a></td>
+<a href="index.php?id=view&type=hosts" ><button class="btn btn-default">Hosts</button></a>
 <?php } ?> 
-<td><a href="index.php?id=view&type=system" ><button>System stats</button></a></td>
-</tr>
-</table>
-</span>
-</span>
-
-
+<a href="index.php?id=view&type=system" ><button class="btn btn-default">System stats</button></a>
+</p>
 
 <?php 
 $art = isset($_GET['type']) ? $_GET['type'] : '';

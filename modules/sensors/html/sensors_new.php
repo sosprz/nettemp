@@ -1,5 +1,10 @@
-<span class="belka">&nbsp New or not detected sensors<span class="okno">
-	<table><tr>	
+<div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">New sensors</h3>
+            </div>
+            <div class="panel-body">
+
+<table class="table table-striped"><tr>	
 	<?php	
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$sth = $db->prepare("SELECT rom FROM sensors");
@@ -32,9 +37,9 @@
      	?>
      	</table>
 <hr>
-	    
+<table class="table table-striped">
      <?php 
-    $sth = $db1->prepare("SELECT rom FROM sensors");
+    $sth = $db->prepare("SELECT rom FROM sensors");
     $sth->execute();
     $result = $sth->fetchAll();
     foreach ($result as $a) { 		
@@ -45,7 +50,7 @@
     
     foreach($array20 as $rom_no){
 	   if (!in_array($rom_no, $digitemprc)){ ?>
-       <table>	
+       
        <tr>
        <?php $del_empty_array[]=$rom_no; ?>
        <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
@@ -62,4 +67,5 @@
 	    
 	    ?>
 	    </table>
-	    </span></span>	
+            </div>
+          </div>
