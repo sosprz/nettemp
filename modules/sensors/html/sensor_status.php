@@ -1,4 +1,4 @@
-<span class="belka">&nbsp Sensors status<span class="okno"> 
+<div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Sensros</h3></div><div class="panel-body">
 <?php
 $dbl=$_SERVER["DOCUMENT_ROOT"]."dbf/nettemp.db";
 $db = new PDO("sqlite:$dbl");
@@ -145,4 +145,5 @@ if ($numRows == 0 ) { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop
     } ?>
     </table> <?php
 ?>
-</span></span>
+</div>
+</div>

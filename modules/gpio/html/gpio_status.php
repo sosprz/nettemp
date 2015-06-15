@@ -7,7 +7,12 @@ $result = $sth->fetchAll();
 $numRows = count($result);
 ?>
 <?php if ( $numRows > '0' ) { ?>
-<span class="belka">&nbsp Gpio status<span class="okno"> 
+<div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Panel title</h3>
+            </div>
+            <div class="panel-body">
+              Panel content
 <?php
 foreach ( $result as $a) {
 $gpio=$a['gpio'];
@@ -22,6 +27,6 @@ $gpio=$a['gpio'];
 }
 
 ?>
-
-</span></span>
+            </div>
+          </div>
 <?php }  ?>

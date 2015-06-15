@@ -1,19 +1,5 @@
 <?php
-$inactive = 180;
-if (isset($_SESSION["timeout"])) {
-       $sessionTTL = time() - $_SESSION["timeout"];
-    if ($sessionTTL > $inactive) {
-        session_destroy();
-       }
-}
-$_SESSION["timeout"] = time();
-?>
- 
-<?php
-$form_logout = isset($_POST['form_logout']) ? $_POST['form_logout'] : '';
-
-if ($form_logout == 'log') { session_destroy(); header("location: ".$_SERVER['PHP_SELF']);}
-
+session_start();
 $form_login = isset($_POST['form_login']) ? $_POST['form_login'] : '';
 if ($form_login == "log") { /// do after login form is submitted  
 	$user=$_POST["username"];
@@ -21,28 +7,20 @@ if ($form_login == "log") { /// do after login form is submitted
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$rows = $db->query("SELECT * FROM users WHERE login='$user' AND password='$pass' ");
 	$row = $rows->fetchAll();
-   $numRows = count($row);
-     if ($numRows == 1) { $_SESSION["logged"]=$_POST["username"];    
-     session_regenerate_id();
-     } 
-     else {echo 'Wrong login or password, try again.';}; 
-	}; 
-
-	include("login_check.php");
-	if ($numRows1 == 1) { 	?>
-	<form action="index.php" method="post">
-	<input type="hidden" name="form_logout" value="log"> 
-	<?php echo $logged; ?>
-  <input type="image" src="media/ico/Unlock-icon.png" type="submit" value="Logout" />
-	</form> 	
-	<?php	 
+	foreach($row as $a) {
+	    $user=$a['login'];
 	}
-	  else { ?>
-	  <form action="index.php" method="post">
-	  <input type="hidden" name="form_login" value="log">  
-     Username: <input type="text" name="username" size="8"/><br>
-     Password: <input type="password" name="password" size="8"/><br>
-     <input type="image" src="media/ico/Lock-icon.png" type="submit" value="Login" />
-     </form>
-	<?php	}; 
+	//print_r($row);
+	$numRows = count($row);
+     if ($numRows == 1) {
+	$_SESSION["user"] = $user;
+	} else {
+	    $message = "Invalid Username or Password!";
+	}
+	
+	if(isset($_SESSION["user"])) {
+	header("Location:status");
+	}
+}
 ?>
+
