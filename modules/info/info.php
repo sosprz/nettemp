@@ -1,5 +1,8 @@
-<div id="left"><span class="belka">&nbsp info<span class="okno">
-</br >
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Info</h3>
+</div>
+<div class="panel-body">
 <center><a href="http://nettemp.pl" target="_blank">nettemp.pl</a></center>
 <center><a href="http://techfreak.pl/nettemp" target="_blank">techfreak.pl/nettemp</a></center>
 <center><h3>Support</h3></center>
@@ -18,5 +21,4 @@ Gammu<br />
 <center><h3>Licence</h3></center>
 <center><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</center>
 <center><h3>Thanks to all donators and supporters</h3></center>
-</span></span>
-</div>
+</div></div>

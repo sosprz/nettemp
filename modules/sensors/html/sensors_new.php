@@ -5,6 +5,7 @@
             <div class="panel-body">
 
 <table class="table table-striped"><tr>	
+<thead><tr><th>#</th><th>id</th><th>Add</th></tr></thead>
 	<?php	
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$sth = $db->prepare("SELECT rom FROM sensors");
@@ -36,8 +37,15 @@
     
      	?>
      	</table>
-<hr>
+</div></div>
+<div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Not detected</h3>
+            </div>
+            <div class="panel-body">
+
 <table class="table table-striped">
+<thead><tr><th>#</th><th>id</th><th>Rem</th></tr></thead>
      <?php 
     $sth = $db->prepare("SELECT rom FROM sensors");
     $sth->execute();
@@ -63,7 +71,7 @@
       
 	<?php	
 	}
-	    }	if (empty($del_empty_array)) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }  
+	    }	//if (empty($del_empty_array)) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }  
 	    
 	    ?>
 	    </table>

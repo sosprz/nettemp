@@ -39,24 +39,19 @@ if (!is_writable($tmp)) {
 }
 
 if ($exit == true ) { ?>
-    <span class="belka">&nbsp File diagnostic<span class="okno">
     <?php
     foreach ($tofix as $line) {
 	echo $line;
     }
-    include('modules/tools/html/tools_perms.php');
+    //include('modules/tools/html/tools_perms.php');
     ?>
-    </span></span>
     <?php
 }
-elseif ( $id == 'tools' ){ ?>
-    <span class="belka">&nbsp File diagnostic<span class="okno">
-    <?php
-    echo "It's ok";
-    include('modules/tools/html/tools_perms.php');
-    ?>
-    </span></span>
+//elseif ( $id == 'tools' ){ ?>
 <?php
-    }
+    //include('modules/tools/html/tools_perms.php');
+?>
+<?php
+//    }
 ?>
 

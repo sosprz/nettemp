@@ -7,8 +7,12 @@ $result = $sth->fetchAll();
 $numRows = count($result);
 ?>
 <?php if ( $numRows > '0' ) { ?>
-<span class="belka">&nbsp Host status<span class="okno"> 
-    <table>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Monitoring</h3>
+</div>
+<div class="panel-body">
+<table class="table table-striped">
 <?php
 foreach ( $result as $a) {
 ?>
@@ -25,5 +29,6 @@ foreach ( $result as $a) {
 
 ?>
     </table>
-</span></span>
+</div>
+</div>
 <?php }  ?>

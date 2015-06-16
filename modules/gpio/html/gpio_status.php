@@ -9,7 +9,7 @@ $numRows = count($result);
 <?php if ( $numRows > '0' ) { ?>
 <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">GPIO status</h3>
+              <h3 class="panel-title">GPIO</h3>
             </div>
             <div class="panel-body">
 <table class="table table-striped">

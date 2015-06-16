@@ -6,30 +6,19 @@
     $gpio=$a["gpio"];
     }
 ?>
-
-
-
-<span class="belka">&nbsp Tools<span class="okno">
-
-<table><tr>
-<td><a href="index.php?id=tools&type=file_check" ><button>File check</button></a></td>
-<td><a href="index.php?id=tools&type=password" ><button>Password</button></a></td>
-<td><a href="index.php?id=tools&type=update" ><button>Update</button></a></td>
-<td><a href="index.php?id=tools&type=reset" ><button>Reset to default</button></a></td>
-<td><a href="index.php?id=tools&type=reboot" ><button>Reboot</button></a></td>
-<td><a href="index.php?id=tools&type=log" ><button>Logging</button></a></td>
+<p>
+<a href="index.php?id=tools&type=file_check" ><button class="btn btn-default">File check</button></a>
+<a href="index.php?id=tools&type=password" ><button class="btn btn-default">Password</button></a>
+<a href="index.php?id=tools&type=update" ><button class="btn btn-default">Update</button></a>
+<a href="index.php?id=tools&type=reset" ><button class="btn btn-default">Reset to default</button></a>
+<a href="index.php?id=tools&type=reboot" ><button class="btn btn-default">Reboot</button></a>
+<a href="index.php?id=tools&type=log" ><button class="btn btn-default">Logging</button></a>
 <?php if ( $gpio == 'on' ) { ?>
-<td><a href="index.php?id=tools&type=gpio" ><button>Gpio</button></a></td>
+<a href="index.php?id=tools&type=gpio" ><button class="btn btn-default">Gpio</button></a>
 <?php } ?>
-<td><a href="index.php?id=tools&type=backup" ><button>Backup/Restore</button></a></td>
-<td><a href="index.php?id=tools&type=espupload" ><button>ESPupload</button></a></td>
-</tr>
-</table>
-</span>
-</span>
-
-
-
+<a href="index.php?id=tools&type=backup" ><button class="btn btn-default">Backup/Restore</button></a>
+<a href="index.php?id=tools&type=espupload" ><button class="btn btn-default">ESPupload</button></a>
+</p>
 <?php 
 $art = isset($_GET['type']) ? $_GET['type'] : '';
 ?>
@@ -37,7 +26,7 @@ $art = isset($_GET['type']) ? $_GET['type'] : '';
 switch ($art)
 { 
 default: case '$art': include('modules/tools/html/tools_update.php'); break;
-case 'file_check': include('modules/tools/html/tools_file_check.php'); break;
+case 'file_check': include('modules/tools/html/tools_perms.php'); break;
 case 'password': include('modules/tools/html/tools_change_pass.php'); break;
 case 'update': include('modules/tools/html/tools_update.php'); break;
 case 'reset': include('modules/tools/html/tools_reset.php'); break;
