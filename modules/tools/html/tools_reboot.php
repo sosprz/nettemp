@@ -1,4 +1,8 @@
-<span class="belka">&nbsp Reboot<span class="okno">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Reboot system</h3>
+</div>
+<div class="panel-body">
 <?php
 $reboot = isset($_POST['reboot']) ? $_POST['reboot'] : '';
 if ($reboot == "reboot1") { 
@@ -9,6 +13,8 @@ exit();
 ?>
 <form action="index.php?id=tools&type=reboot" method="post">
 <input type="hidden" name="reboot" value="reboot1">
-<input  type="submit" value="Reboot"  />
+<input  type="submit" value="Reboot" class="btn btn-warning" />
 </form>
-</span></span>
+
+</div>
+</div>

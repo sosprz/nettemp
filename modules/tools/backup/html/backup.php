@@ -25,16 +25,17 @@ if ($re == "re") {
     } 
 ?> 
 
-
-<span class="belka">&nbsp Backup/restore<span class="okno">
-<h3>Create backup</h3>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Backup/restore</h3>
+</div>
+<div class="panel-body">
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <input type="hidden" name="backup" value="backup">
-<input  type="submit" value="Make backup"  />
+<input  type="submit" value="Make backup" class="btn btn-primary" />
 </form>
 
 
-<h3>Available images restore/delete</h3>
 <?php
 $dir = 'modules/tools/backup/files/';
 $fileExtensions = array('gz');
@@ -43,7 +44,8 @@ foreach($files AS $file) {
  $fileinfo = pathinfo($file);
  if(is_file($dir.'/'.$file) AND in_array($fileinfo['extension'], $fileExtensions)) { 
 ?>
-<table>
+<table class="table table-striped">
+<thead><tr><th>file</th><th>Size</th><th>Restore</th><th>Remove</th></tr></thead>
 <tr>
 <td><a href="<?php echo "$dir$file";?>"><?php echo $file; ?></a></td>
 <td><?php $filesize = (filesize("$dir$file") * .0009765625) * .0009765625; echo round($filesize, 2) ?>MB</td>
@@ -62,17 +64,18 @@ foreach($files AS $file) {
 <?php
  }}
 ?>
-<h3>Upload nettemp image</h3>
-
-  <form enctype="multipart/form-data" action="upload" method="post">
+<p>
+  <form enctype="multipart/form-data" action="upload" method="post" >
     <input type="hidden" name="MAX_FILE_SIZE" value="1000000000" />
-    Choose a file to upload: <input name="uploaded_file" type="file" />
-    <input type="submit" value="Upload" />
+    <input name="uploaded_file" type="file" />
+    <input type="submit" value="Upload" class="btn btn-danger" />
   </form> 
+</p>
     <br />
 
     <font color="grey">Note: If You want upload image, You must change upload_max_filezise in php.ini<br />
         Now Your value is:
         <?php passthru('grep upload_max_filesize /etc/php5/cgi/php.ini');  ?></font>
 
-</span></span>
+</div>
+</div>

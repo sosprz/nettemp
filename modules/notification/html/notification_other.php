@@ -8,7 +8,12 @@
     exit();
     }
 ?>
-<span class="belka">&nbsp Other <span class="okno">
+
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">other</h3>
+</div>
+<div class="panel-body">
 <?php
     $db = new PDO('sqlite:dbf/nettemp.db');
     $sth = $db->prepare("select * from mail_settings ");
@@ -25,4 +30,5 @@
 <?php
     }
 ?>
-</span></span>
+</div>
+</div>

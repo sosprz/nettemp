@@ -50,7 +50,12 @@ $notif_del = isset($_POST['notif_del']) ? $_POST['notif_del'] : '';
 	?>
 
 
-<span class="belka">&nbsp Add user<span class="okno">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Users</h3>
+</div>
+<div class="panel-body">
+
 <table>
 <tr>
 <td><img src="media/ico/User-Preppy-Blue-icon.png"> Name</td>
@@ -107,4 +112,5 @@ foreach ($result as $a) {
 		?>
 	
 </table>
-</span></span>
+</div>
+</div>

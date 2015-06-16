@@ -1,3 +1,8 @@
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">SNMPD</h3>
+</div>
+<div class="panel-body">
 <?php
     $snmpd_onoff = isset($_POST['snmpd_onoff']) ? $_POST['snmpd_onoff'] : '';
     $snmpd = isset($_POST['snmpd']) ? $_POST['snmpd'] : '';
@@ -51,5 +56,6 @@ $snmpd='';
         </form>
     </tr>
     </table>
-
+</div>
+</div>
 

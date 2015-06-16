@@ -1,3 +1,8 @@
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Camera</h3>
+</div>
+<div class="panel-body">
 <?php
 $link = isset($_POST['link']) ? $_POST['link'] : '';
 $name = isset($_POST['name']) ? $_POST['name'] : '';
@@ -71,4 +76,5 @@ foreach ($result as $a) {
 
 	
 </table>
-</span></span>
+</div>
+</div>

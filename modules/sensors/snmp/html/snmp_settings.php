@@ -1,7 +1,9 @@
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">SNMPD</h3>
+</div>
+<div class="panel-body">
 <?php
-
-
-
 $snmp_name = isset($_POST['snmp_name']) ? $_POST['snmp_name'] : '';
 $snmp_community = isset($_POST['snmp_community']) ? $_POST['snmp_community'] : '';
 $snmp_host = isset($_POST['snmp_host']) ? $_POST['snmp_host'] : '';
@@ -105,4 +107,5 @@ foreach ($result as $a) {
 		?>
 	
 </tr></table>
-</span></span>
+</div>
+</div>

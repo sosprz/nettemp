@@ -8,16 +8,6 @@
     exit();
     }
 
-    $lcd = isset($_POST['lcd']) ? $_POST['lcd'] : '';
-    $lcdon = isset($_POST['lcdon']) ? $_POST['lcdon'] : '';
-    
-    if (($lcd == "lcd") ){
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET lcd='$lcdon' WHERE id='1'") or die ($db->lastErrorMsg());
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
-
     $gpio_onoff = isset($_POST['gpio_onoff']) ? $_POST['gpio_onoff'] : '';
     $gpio_onoff1 = isset($_POST['gpio_onoff1']) ? $_POST['gpio_onoff1'] : '';
     if (($gpio_onoff1 == "gpio_onoff2") ){
@@ -90,10 +80,14 @@ $lcd=$a["lcd"];
     </table>
 </span></span> -->
 
-<span class="belka">&nbsp SMS settings<span class="okno">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">SMS</h3>
+</div>
+<div class="panel-body">
     <table>
     <tr>
-    <form action="settings" method="post">
+    <form action="" method="post">
     <td>SMS</td>
     <td><input type="checkbox" name="ss_onoff" value="on" <?php echo $ss == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="ss_onoff1" value="ss_onoff2" />
@@ -101,9 +95,14 @@ $lcd=$a["lcd"];
     </tr>
     </table>
 <?php include('modules/sms/html/sms.php'); ?>
-</span></span>
+</div>
+</div>
 
-<span class="belka">&nbsp Mail settings<span class="okno">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Mail</h3>
+</div>
+<div class="panel-body">
     <table>
     <form action="settings" method="post">
     <td>Mail</td>
@@ -111,11 +110,17 @@ $lcd=$a["lcd"];
     <input type="hidden" name="ms_onoff1" value="ms_onoff2" />
     </form>
     </table>
-<?php include('modules/mail/html/mail.php'); ?>
-</span></span>
+<?php if ($ms == "on" ) { 
+ include('modules/mail/html/mail.php'); 
+} ?>
+</div>
+</div>
 
-
-<span class="belka">&nbsp GPIO <span class="okno">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">GPIO</h3>
+</div>
+<div class="panel-body">
     <table>
     <form action="settings" method="post">
     <td>Gpio on/off</td>
@@ -123,40 +128,17 @@ $lcd=$a["lcd"];
     <input type="hidden" name="gpio_onoff1" value="gpio_onoff2" />
     </form>
     </table>
-<?php
-if ($gpio == "on" ) { 
+<?php if ($gpio == "on" ) { 
     include('gpio_options.php');
-     } 
+ } 
 ?>
-</span></span>
+</div>
+</div>
 
-<span class="belka">&nbsp Time <span class="okno">
-<?php	
+
+<?php
     include('time.php');
-?>
-</span></span>
-<!-- <span class="belka">&nbsp I2C - set i2c BUS (TEST: if i2c work good form "scan", forget about this option)<span class="okno">
-<?php	
-//    include('i2c.php');
-?>
-</span></span> -->
-<span class="belka">&nbsp Snmpd server<span class="okno">
-<?php	
     include('snmpd.php');
-?>
-</span></span>
-
-<span class="belka">&nbsp LCD<span class="okno">
-    <table>
-    <tr>	
-    <form action="settings" method="post">
-    <td>LCD 1602 HD44780 PCF8574 I2C</td>
-    <td><input type="checkbox" name="lcdon" value="on" <?php echo $lcd == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
-    <input type="hidden" name="lcd" value="lcd" />
-    </form>
-    </tr> 
-    </table>
-</span></span>
-<?php	
     include('camera.php');
+    include('lcd.php');
 ?>

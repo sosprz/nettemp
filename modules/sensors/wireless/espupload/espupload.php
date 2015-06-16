@@ -1,4 +1,8 @@
-<span class="belka">&nbsp ESPuploader - based on luaupload<span class="okno"> 
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">ESPupload</h3>
+</div>
+<div class="panel-body">
 <?php
 $dir=$_SERVER["DOCUMENT_ROOT"];
 $usb = $_POST["usb"];
@@ -8,7 +12,7 @@ $dht22 = $_POST["dht22"];
 $list = $_POST["list"];
 $ssid = $_POST["ssid"];
 $pass = $_POST["pass"];
-if ($_POST['run'] == "run") {
+if ($_POST['run'] == "Upload") {
 
     if (!empty($usb)) {
 	if (!empty($ds18b20) || !empty($dht11) || !empty($dht22)) {
@@ -126,10 +130,11 @@ Other:<br>
     <br><br>
     
     
-    <input type="submit" name="run" value="run">
+    <input type="submit" name="run" value="Upload" class="btn btn-primary">
     </form>
 
-</span></span>
+</div>
+</div>
 
 
 

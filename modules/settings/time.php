@@ -1,3 +1,8 @@
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">time</h3>
+</div>
+<div class="panel-body">
 <?php
     $ntp_onoff = isset($_POST['ntp_onoff']) ? $_POST['ntp_onoff'] : '';
     $rtc_onoff = isset($_POST['rtc_onoff']) ? $_POST['rtc_onoff'] : '';
@@ -108,4 +113,5 @@ else { ?>
     </table>
 
 <font color="grey">Note: After RTC on, reboot is required</font>
-
+</div>
+</div>

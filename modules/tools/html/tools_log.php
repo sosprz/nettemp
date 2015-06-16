@@ -8,12 +8,17 @@ $log_del = isset($_POST['log_del']) ? $_POST['log_del'] : '';
 	exit();
 	 } 
 	 ?>	
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Logs form nettemp</h3>
+</div>
+<div class="panel-body">
 
-
-<div id="left"><span class="belka">&nbsp Log <span class="okno">
-<form action="index.php?id=tools&type=log" method="post"><input type="submit" name="log_del" value="Clear" /></form>
+<form action="index.php?id=tools&type=log" method="post">
+    <input type="submit" name="log_del" value="Clear" class="btn btn-danger" />
+</form>
 <br />
-<div style="width:990px;height:300px;overflow:auto;padding:5px;">
+<div style="height:300px;overflow:auto;padding:5px;">
 <pre>
 <?php
 $filearray = file("tmp/log.txt");
@@ -24,5 +29,5 @@ $last = array_slice($filearray,-100);
 ?>
 </pre>
 </div>
-</span></span>
+</div>
 </div>

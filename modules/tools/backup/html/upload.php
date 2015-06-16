@@ -1,5 +1,9 @@
 <!-- http://webcheatsheet.com/php/file_upload.php -->
-<span class="belka">&nbsp Backup/restore info<span class="okno">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Upload</h3>
+</div>
+<div class="panel-body">
 <?php
 //Сheck that we have a file
 if((!empty($_FILES["uploaded_file"])) && ($_FILES['uploaded_file']['error'] == 0)) {
@@ -27,5 +31,6 @@ if((!empty($_FILES["uploaded_file"])) && ($_FILES['uploaded_file']['error'] == 0
  echo "Error: No file uploaded";
 }
 ?>
-<FORM><INPUT Type="button" VALUE="Back" onClick="history.go(-1);return true;"></FORM>
-</span></span>
+<FORM><INPUT Type="button" VALUE="Back" onClick="history.go(-1);return true;" class="btn btn-default"></FORM>
+</div>
+</div>
