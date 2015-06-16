@@ -21,8 +21,12 @@ $fw=$a["fw"];
 
 }
 ?>
-<span class="belka">&nbsp Firewall settings<span class="okno">
 
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Firewall</h3>
+</div>
+<div class="panel-body">
 
 
 <table>
@@ -52,6 +56,6 @@ $fw=$a["fw"];
 
 
 
-</span></span>
+</div></div>
 
 

@@ -44,25 +44,24 @@ if ($xtriggernoticeon == "xtriggernoticeON")  {
     exit();
 }
 ?>
-
-<span class="belka">&nbsp Set the temperature range<span class="okno">
-<table>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Set the temperature range</h3>
+</div>
+<div class="panel-body">
+<table class="table table-striped">
+<thead><tr><th></th><th>Name</th><th><img src="media/ico/temp_low.png" /> min</th><th><img src="media/ico/temp2-icon.png" />max</th><th>Set temp</th><th>Remove</th></tr></thead>
 <?php  
-$db = new PDO('sqlite:dbf/nettemp.db');
-$rows = $db->query("SELECT * FROM sensors WHERE alarm='on'");
-$row = $rows->fetchAll();
-$numRows = count($row);
+//$db = new PDO('sqlite:dbf/nettemp.db');
+//$rows = $db->query("SELECT * FROM sensors WHERE alarm='on'");
+//$row = $rows->fetchAll();
+//$numRows = count($row);
 
 //if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }
-
+	$db1 = new PDO('sqlite:dbf/nettemp.db');
 	$sth = $db1->prepare("select * from sensors WHERE alarm='on'");
 	$sth->execute();
 	$result = $sth->fetchAll();
-?>
-<tr>
-    <td></td><td></td><td><img src="media/ico/temp_low.png" /> min</td><td><img src="media/ico/temp2-icon.png" />max</td><td></td><td></td><td></td>
-</tr>
-<?php
 		foreach ($result as $a) { ?>
 
 	
@@ -71,7 +70,7 @@ $numRows = count($row);
 	<td><img src="media/ico/TO-220-icon.png" /></td>
 	<td><?php echo $a['name']; ?></td>
 	<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
-	<td><input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" /> -</td>
+	<td><input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" /></td>
 	<td><input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" /></td>
 	<input type="hidden" name="ok" value="ok" />
 	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td>
@@ -85,7 +84,15 @@ $numRows = count($row);
 
 ?>
 </table>
-<table>
+</div></div>
+
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Free sensors</h3>
+</div>
+<div class="panel-body">
+<table class="table table-striped">
+<thead><tr><th></th><th>Name</th><th>Add</th></tr></thead>
 <?php	
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors WHERE alarm='off'");
@@ -107,10 +114,16 @@ foreach ($result as $a) { ?>
 	</tr>    
     </form>
 <?php }  ?>
-</table></span></span>
+</table>
+</div>
+</div>
 
-<span class="belka">&nbsp Set the trigger alarms<span class="okno">
-<table>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Trigger alarms</h3>
+</div>
+<div class="panel-body">
+<table class="table table-striped">
 <?php	
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * from gpio WHERE mode='trigger'");
@@ -133,8 +146,9 @@ foreach ($result as $a) { ?>
     
     
 <?php }  ?>
-</table></span></span>
-
+</table>
+</div>
+</div>
 
 
 	
