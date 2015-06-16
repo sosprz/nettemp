@@ -27,8 +27,12 @@ $vpn=$a["vpn"];
 
 }
 ?>
-<span class="belka">&nbsp OpenVPN settings<span class="okno">
 
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">VPN</h3>
+</div>
+<div class="panel-body">
 
 
 <table>
@@ -46,9 +50,7 @@ if ($vpn == "on" ) {
 	 } 
 ?>
 
-
-
-
-</span></span>
+</div>
+</div>
 
 

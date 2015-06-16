@@ -27,7 +27,11 @@ $am=$a["authmod"];
 
 }
 ?>
-<span class="belka">&nbsp Authmod - WWW access <span class="okno">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">WWW auth</h3>
+</div>
+<div class="panel-body">
 
 
 
@@ -57,9 +61,9 @@ $am=$a["authmod"];
     ?>
 <?php	 } ?>
 
+</div>
+</div>
 
 
-
-</span></span>
 
 

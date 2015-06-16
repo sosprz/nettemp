@@ -1,13 +1,8 @@
-<span class="belka">&nbsp Select action<span class="okno">
-
-<table><tr>
-<td><a href="index.php?id=security&type=fw" ><button>Firewall</button></a></td>
-<td><a href="index.php?id=security&type=vpn" ><button>VPN</button></a></td>
-<td><a href="index.php?id=security&type=authmod" ><button>WWW authmod</button></a></td>
-</tr>
-</table>
-</span>
-</span>
+<p>
+<a href="index.php?id=security&type=fw" ><button class="btn btn-default">Firewall</button></a>
+<a href="index.php?id=security&type=vpn" ><button class="btn btn-default">VPN</button></a>
+<a href="index.php?id=security&type=authmod" ><button class="btn btn-default">WWW authmod</button></a>
+</p>
 <?php 
 $art = isset($_GET['type']) ? $_GET['type'] : '';
 ?>

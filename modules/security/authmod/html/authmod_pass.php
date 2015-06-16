@@ -1,7 +1,4 @@
 <?php
-include('modules/login/login_check.php');
-if ($numRows1 == 1 && ($perms == "adm" || $perms == "ops")) 
-{ 
     if (!file_exists("/etc/lighttpd/conf-enabled/05-auth.conf")) {
 	echo "Status: disabled"; 
 	}
@@ -33,15 +30,3 @@ if ($chg == "chg2") {
 	</table>     
         <input  type="submit" value="Change"  />
         </form>
-
-<?php
- }
-else {
-  	  header("Location: denied");
-    }
-?>
-
-
-
-
- 

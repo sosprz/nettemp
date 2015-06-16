@@ -9,6 +9,9 @@ function timedRefresh(timeoutPeriod) {
 </script>
 <!-- <body onload="JavaScript:timedRefresh(60000);"> -->
 
+<?php 
+$art = isset($_GET['type']) ? $_GET['type'] : '';
+?>
 <p>
 <a href="index.php?id=view&type=temp" ><button class="btn btn-default">Temperature</button></a>
 <?php 
@@ -39,9 +42,7 @@ if (glob('db/*host*.sql')) {?>
 <a href="index.php?id=view&type=system" ><button class="btn btn-default">System stats</button></a>
 </p>
 
-<?php 
-$art = isset($_GET['type']) ? $_GET['type'] : '';
-?>
+
 <?php  
 switch ($art)
 { 
