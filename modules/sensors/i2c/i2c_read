@@ -60,7 +60,7 @@ id=39
 if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
     if all=$($dir/modules/sensors/i2c/TSL2561/TSL2561_i2c_$(echo $onoff | sed 's/i2c-//')); then
 	l=i2c_${id}_lux.sql
-	if [ -s "$tsl" ]; then
+	if [ -s "$l" ]; then
 	    name=$(echo $l |awk 'sub("....$", "")')
 	    lux=$(echo $all |awk '{print $3}')
 	    checkwrite $lux $name
@@ -79,13 +79,13 @@ if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%
     if all=$($dir/modules/sensors/i2c/HTU21D/htu21d.py ); then
 	t=i2c_${id}_temp.sql
 	h=i2c_${id}_humid.sql
-	if [ -s "$htut" ]; then
+	if [ -s "$t" ]; then
 	    temp=$(echo $all |awk '{ getline; printf "%3.2f\n", $2 }')
 	    name=$(echo $t |awk 'sub("....$", "")')
 	    checkwrite $temp $name
 	    echo $v Temp: $temp
 	fi
-    if [ -s "$htuh" ]; then
+    if [ -s "$h" ]; then
 	humid=$(echo $all |awk '{ getline; printf "%3.2f\n", $5 }')
 	name=$(echo $h |awk 'sub("....$", "")')
 	checkwrite $humid $name
@@ -106,13 +106,13 @@ if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%
     if all=$(cd $dir && $dir/modules/sensors/i2c/MPL3115A2/mpl3115a2.py && cd -); then
 	t=i2c_${id}_temp.sql
 	p=i2c_${id}_pressure.sql
-	if [ -s "$mplt" ]; then
+	if [ -s "$t" ]; then
 	    temp=$(echo $all |awk '{print $4}')
 	    name=$(echo $t |awk 'sub("....$", "")')
 	    checkwrite $temp $name
 	    echo $v Temp: $temp
 	fi
-	if [ -s "$mplp" ]; then
+	if [ -s "$p" ]; then
 	    press=$(echo $all |awk '{printf $2}')
 	    name=$(echo $p |awk 'sub("....$", "")')
 	    checkwrite $press $name
