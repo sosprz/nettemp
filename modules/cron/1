@@ -1,6 +1,8 @@
 #! /bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+mkdir -p $dir/tmp/debug/time
+
 (time $dir/modules/sensors/read) 2> $dir/tmp/debug/time/read && \
 (time $dir/modules/gpio/gpio2 check) 2> $dir/tmp/debug/time/gpio && \
 (time $dir/modules/hosts/host_read) 2> $dir/tmp/debug/time/host && \
