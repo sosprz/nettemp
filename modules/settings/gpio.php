@@ -4,6 +4,7 @@
     if (($gpio_onoff1 == "gpio_onoff2") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE settings SET gpio='$gpio_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
+    echo $gpio_onoff;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -22,21 +23,17 @@ $lcd=$a["lcd"];
 
 }
 ?>
+
 <div class="panel panel-default">
 <div class="panel-heading">
 <h3 class="panel-title">GPIO</h3>
 </div>
-<div class="panel-body">
-    <table>
-    <form action="settings" method="post">
-    <td>Gpio on/off</td>
-    <td><input type="checkbox" name="gpio_onoff" value="on" <?php echo $gpio == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
-    <input type="hidden" name="gpio_onoff1" value="gpio_onoff2" />
-    </form>
-    </table>
-<?php if ($gpio == "on" ) { 
-    include('gpio_options.php');
- } 
-?>
+<div class="panel-body"> 
+<form action="" method="post">
+  <input type="hidden" name="gpio_onoff1" value="gpio_onoff2"  />
+  <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="gpio_onoff" value="on"  <?php echo $gpio == 'on' ? 'checked="checked"' : ''; ?> >
+</form>
 </div>
 </div>
+
+

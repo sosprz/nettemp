@@ -46,18 +46,19 @@
 
 <table class="table table-striped">
 <thead><tr><th>#</th><th>id</th><th>Rem</th></tr></thead>
+
      <?php 
     $sth = $db->prepare("SELECT rom FROM sensors");
     $sth->execute();
     $result = $sth->fetchAll();
     foreach ($result as $a) { 		
-	
-	
     $array20[]=$a["rom"];
     }	 
     
     foreach($array20 as $rom_no){
 	   if (!in_array($rom_no, $digitemprc)){ ?>
+
+
        
        <tr>
        <?php $del_empty_array[]=$rom_no; ?>

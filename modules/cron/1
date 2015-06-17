@@ -1,13 +1,13 @@
 #! /bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
-(time $dir/modules/sensors/read) 2> $dir/tmp/debug/read && \
-(time $dir/modules/gpio/gpio2 check) 2> $dir/tmp/debug/gpio && \
-(time $dir/modules/hosts/host_read) 2> $dir/tmp/debug/host && \
-(time $dir/modules/tools/system_stats) 2> $dir/tmp/debug/system_stat && \
-(time $dir/modules/mail/mail_temp) 2> $dir/tmp/debug/mail_temp && \
-(time $dir/modules/mail/mail_hosts) 2> $dir/tmp/debug/mail_host && \
-(time $dir/modules/mail/mail_send minute) 2> $dir/tmp/debug/mail_send
+(time $dir/modules/sensors/read) 2> $dir/tmp/debug/time/read && \
+(time $dir/modules/gpio/gpio2 check) 2> $dir/tmp/debug/time/gpio && \
+(time $dir/modules/hosts/host_read) 2> $dir/tmp/debug/time/host && \
+(time $dir/modules/tools/system_stats) 2> $dir/tmp/debug/time/system_stat && \
+(time $dir/modules/mail/mail_temp) 2> $dir/tmp/debug/time/mail_temp && \
+(time $dir/modules/mail/mail_hosts) 2> $dir/tmp/debug/time/mail_host && \
+(time $dir/modules/mail/mail_send minute) 2> $dir/tmp/debug/time/mail_send
 
 # moved to 5 $dir/modules/highcharts/highcharts2 && \
 # moved to 5 $dir/modules/kwh/highcharts && \

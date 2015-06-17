@@ -24,7 +24,7 @@
 
 <form action="" method="post">
     <td>Send readings errors</td>
-    <td><input type="checkbox" name="senderrors" value="on" <?php echo $a['error'] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <td><input data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="senderrors" value="on" <?php echo $a['error'] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
     <input type="hidden" name="sende" value="sende" />
 </form>
 <?php

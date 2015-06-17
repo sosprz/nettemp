@@ -1,4 +1,4 @@
-<script src="media/masonry.pkgd.min.js"></script>
+<script src="/jscss/mansonry/masonry.pkgd.min.js"></script>
 <script type="text/JavaScript">
 var container = document.querySelector('#container');
 var msnry = new Masonry( container, {
@@ -19,9 +19,9 @@ var msnry = new Masonry( container, {
   float: left;
 }
 .masonry .item {
-  width:  341px;
+  width:  350px;
   float: left;
-  padding: 0px 10px 0px 0px;
+  padding: 0px 5px 0px 0px;
 }
 </style>
 
@@ -45,7 +45,7 @@ var auto_refresh = setInterval(
 }), 60000);
 </script>
 
-
+login sesje na kazdy plik
 
 
 

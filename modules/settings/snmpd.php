@@ -47,15 +47,10 @@ $snmpd='';
 
 ?>
 
-<table>
-    <tr>
-        <form action="" method="post">
-            <td>SNMP Server</td>
-            <td><input type="checkbox" name="snmpd" value="on" <?php echo $snmpd == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />
-            <input type="hidden" name="snmpd_onoff" value="snmpd_onoff" />
-        </form>
-    </tr>
-    </table>
+<form action="" method="post">
+<input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="snmpd" value="on" <?php echo $snmpd == 'on' ? 'checked="checked"' : ''; ?> />
+<input type="hidden" name="snmpd_onoff" value="snmpd_onoff" />
+</form>
 </div>
 </div>
 

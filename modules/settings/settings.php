@@ -2,6 +2,7 @@
 <a href="index.php?id=settings&type=mail" ><button class="btn btn-default">Mail</button></a>
 <a href="index.php?id=settings&type=sms" ><button class="btn btn-default">SMS</button></a>
 <a href="index.php?id=settings&type=gpio" ><button class="btn btn-default">GPIO</button></a>
+<a href="index.php?id=settings&type=1wire" ><button class="btn btn-default">1wire</button></a>
 <a href="index.php?id=settings&type=time" ><button class="btn btn-default">Time</button></a>
 <a href="index.php?id=settings&type=snmpd" ><button class="btn btn-default">SNMPD</button></a>
 <a href="index.php?id=settings&type=lcd" ><button class="btn btn-default">LCD</button></a>
@@ -19,5 +20,6 @@ case 'time': include('modules/settings/time.php'); break;
 case 'snmpd': include('modules/settings/snmpd.php'); break;
 case 'camera': include('modules/settings/camera.php'); break;
 case 'lcd': include('modules/settings/lcd.php'); break;
+case '1wire': include('modules/settings/1wire.php'); break;
 }
 ?>

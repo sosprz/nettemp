@@ -1,3 +1,8 @@
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">1wire</h3>
+</div>
+<div class="panel-body">
 <?php
     $therm_onoff = isset($_POST['therm_onoff']) ? $_POST['therm_onoff'] : '';
     $gpio_onoff = isset($_POST['gpio_onoff']) ? $_POST['gpio_onoff'] : '';
@@ -52,51 +57,18 @@ Pullup - this settings must be set when uses only DATA,GND in 1-wire
     <tr>
         <form action="" method="post">
             <td>1-wire Nettemp module (DS2482)</td>
-            <td><input type="checkbox" name="therm" value="on" <?php echo $therm == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />
+            <td><input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="therm" value="on" <?php echo $therm == 'on' ? 'checked="checked"' : ''; ?>  />
             <input type="hidden" name="therm_onoff" value="therm_onoff" />
         </form>
     </tr>
     <tr>
-        <form action="settings" method="post">
+        <form action="" method="post">
             <td>1-wire Raspberry Pi (GPIO4)</td>
-            <td><input type="checkbox" name="gpio" value="on" <?php echo $gpio == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />  
+            <td><input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="gpio" value="on" <?php echo $gpio == 'on' ? 'checked="checked"' : ''; ?>  />  
             <input type="hidden" name="gpio_onoff" value="gpio_onoff" />
         </form>
     </tr>
     </table>
 <font color="grey">Note: Changes in this section required reboot</font>
-<br />
-<br />
-<?php
-    $tempnum = isset($_POST['tempnum']) ? $_POST['tempnum'] : '';
-    $set_tempnum = isset($_POST['set_tempnum']) ? $_POST['set_tempnum'] : '';
-    if  ($set_tempnum == "set_tempnum") {
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET tempnum='$tempnum' WHERE id='1'");
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
-
-
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $sth = $db->prepare("select * from settings ");
-    $sth->execute();
-    $result = $sth->fetchAll();
-    foreach ($result as $a) {
-?>
-<form action="" method="post">
-   <tr><td>GPIO temperature sensor number</td><td>
-    <select name="tempnum" onchange="this.form.submit()">
-	<?php foreach (range(1, 10) as $num) { ?>
-        <option <?php echo $a['tempnum'] == "$num" ? 'selected="selected"' : ''; ?> value="<?php echo $num; ?>"><?php echo $num; ?></option>   
-	<?php } ?>
-    </select>    
-    </td>
-    </tr>
-    <input type="hidden" name="set_tempnum" value="set_tempnum" />
-</form>
-
-<?php
-}
-?>
-
+</div>
+</div>

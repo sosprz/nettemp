@@ -25,10 +25,17 @@ else {
     <title>nettemp</title>
 
     <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="jscss/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="media/custom.css" rel="stylesheet">
+    <link href="jscss/custom.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="jscss/jquery/jquery.js"></script>
+
+    <!-- bootstrap-toogle -->
+    <link href="jscss/bootstrap-toggle/bootstrap-toggle.min.css" rel="stylesheet">
+    <script type="text/javascript" src="jscss/bootstrap-toggle/bootstrap-toggle.min.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,15 +43,20 @@ else {
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="media/js/jquery.js"></script>
-  </head>
-  <body>
+    
+
+ 
+
+
+
+ </head>
+<body>
 
  <!-- Static navbar -->
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-		<img src="media/png/nettemp.pl.png" height="50">
+		<a href="http://nettemp.pl" target="_blank"><img src="media/png/nettemp.pl.png" height="50"></a>
 
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
               <span class="sr-only">Toggle navigation</span>
@@ -126,15 +138,17 @@ case 'espupload': include('modules/sensors/wireless/espupload/espupload.php'); b
 
 <footer class="footer">
       <div class="container text-center">
-        <p class="text-muted">Donate for developing paypal <?php //include('modules/info/paypal.php'); ?> build <?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?></td><td>| System time <?php $today=date("H:i:s"); echo $today;?></p>
+        <p class="text-muted"><table><tr>Donate for developing <?php include('modules/info/paypal.php'); ?> build <?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?>| System time <?php $today=date("H:i:s"); echo $today;?></tr></table></p>
       </div>
     </footer>
 
-
+    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+    <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+    <script src="jscss/bootstrap/js/bootstrap.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-        
+
+
   </body>
 </html>
 

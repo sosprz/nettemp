@@ -29,15 +29,10 @@ $lcd=$a["lcd"];
 <h3 class="panel-title">SMS</h3>
 </div>
 <div class="panel-body">
-    <table>
-    <tr>
     <form action="" method="post">
-    <td>SMS</td>
-    <td><input type="checkbox" name="ss_onoff" value="on" <?php echo $ss == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="ss_onoff" value="on" <?php echo $ss == 'on' ? 'checked="checked"' : ''; ?> />
     <input type="hidden" name="ss_onoff1" value="ss_onoff2" />
     </form>
-    </tr>
-    </table>
 <?php include('modules/sms/html/sms.php'); ?>
 </div>
 </div>
