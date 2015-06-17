@@ -138,7 +138,7 @@ case 'espupload': include('modules/sensors/wireless/espupload/espupload.php'); b
 
 <footer class="footer">
       <div class="container text-center">
-        <p class="text-muted"><table><tr>Donate for developing <?php include('modules/info/paypal.php'); ?> <?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?>| System time <?php $today=date("H:i:s"); echo $today;?></tr></table></p>
+        <p class="text-muted"><table><tr>Donate for developing <?php include('modules/info/paypal.php'); ?> <?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?>| System time <?php passthru("date +%H:%M:%S");?></tr></table></p>
       </div>
     </footer>
 
