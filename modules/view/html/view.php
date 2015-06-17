@@ -1,6 +1,6 @@
-<script type="text/javascript" src="media/js/highstock.js"></script>
-<script type="text/javascript" src="media/js/exporting.js"></script>
-<script type="text/javascript" src="media/js/dark-unica.js"></script>
+<script type="text/javascript" src="jscss/highcharts/highstock.js"></script>
+<script type="text/javascript" src="jscss/highcharts/exporting.js"></script>
+<script type="text/javascript" src="jscss/highcharts/dark-unica.js"></script>
 
 <script type="text/JavaScript">
 function timedRefresh(timeoutPeriod) {
