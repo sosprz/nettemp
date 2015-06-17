@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">time</h3>
+<h3 class="panel-title">NTP service sync</h3>
 </div>
 <div class="panel-body">
 <?php
@@ -36,7 +36,9 @@
     exit();
     }
 
+?>
 
+<?php
 if (exec("cat /etc/modules | grep 'ds1307'") &&  exec("cat /etc/rc.local | grep 'ds1307'")) {
 	$rtc='on';
 } else {
@@ -53,24 +55,30 @@ $ntp='';
 }
 
 ?>
-
-        <form action="" method="post">
-            <td>NTP</td>
+            <form action="" method="post">
+            NTP
             <input onchange="this.form.submit()"  type="checkbox"  data-toggle="toggle" data-size="mini"  name="ntp" value="on" <?php echo $ntp == 'on' ? 'checked="checked"' : ''; ?> />
             <input type="hidden" name="ntp_onoff" value="ntp_onoff" />
         </form>
+</div></div>
+
+
+
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">RTC i2c</h3>
+</div>
+<div class="panel-body">
+
 <?php
 if ((file_exists("/dev/i2c-0")) || (file_exists("/dev/i2c-1"))) {
 ?>
-    <tr>
-        <td>RTC (Raspberry PI)</td>
 
-	<form action="" method="post">
-            <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="rtc" value="on" <?php echo $rtc == 'on' ? 'checked="checked"' : ''; ?>  />
-            <input type="hidden" name="rtc_onoff" value="rtc_onoff" />
-        </form>
-    </tr>
-    <tr><td><?php echo "System date: "; passthru("date");?></td></tr>
+<form action="" method="post">
+<input data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="rtc" value="on" <?php echo $rtc == 'on' ? 'checked="checked"' : ''; ?>  />
+<input type="hidden" name="rtc_onoff" value="rtc_onoff" />
+</form>
+    <?php echo "System date: "; passthru("date");?>
 <?php
 $ntsync = isset($_POST['ntsync']) ? $_POST['ntsync'] : '';
 if ($ntsync == "ntsync") { 
@@ -80,12 +88,10 @@ exit();
 }
 ?>
 <form action="" method="post">
-<input type="hidden" name="ntsync" value="ntsync">
-<tr><td><input  type="submit" value="Time sync"  /></td></tr>
+    <input type="hidden" name="ntsync" value="ntsync">
+    <input  type="submit" value="Time sync"  />
 </form>
-
-
-    <tr><td><?php echo "Hwclock date: "; passthru("sudo /sbin/hwclock --show");?></td></tr>
+<?php echo "Hwclock date: "; passthru("sudo /sbin/hwclock --show");?>
 <?php
 $hwsync = isset($_POST['hwsync']) ? $_POST['hwsync'] : '';
 if ($hwsync == "hwsync") { 
@@ -96,19 +102,15 @@ exit();
 ?>
 <form action="" method="post">
 <input type="hidden" name="hwsync" value="hwsync">
-<tr><td><input  type="submit" value="RTC sync"  /></td></tr>
+<input  type="submit" value="RTC sync"  />
 </form>
 <?php 
 }
 else { ?>
-    <tr>
-        <td>RTC - No i2c modules loaded</td>
-    </tr>
+RTC - No i2c modules loaded
 
 <?php }
 ?>
-    </table>
-
 <font color="grey">Note: After RTC on, reboot is required</font>
 </div>
 </div>

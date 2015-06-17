@@ -21,15 +21,18 @@ $lcd=$a["lcd"];
 }
 
 ?>
+
 <div class="panel panel-default">
 <div class="panel-heading">
 <h3 class="panel-title">Mail</h3>
 </div>
 <div class="panel-body">
-    <form action="" method="post">
+<p>
+<form action="" method="post">
     <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="ms_onoff" value="on" <?php echo $ms == 'on' ? 'checked="checked"' : ''; ?>  />
     <input type="hidden" name="ms_onoff1" value="ms_onoff2" />
-    </form>
+</form>
+</p>
 <?php include('modules/mail/html/mail.php'); ?>
 </div>
 </div>

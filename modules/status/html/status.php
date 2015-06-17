@@ -44,19 +44,3 @@ var auto_refresh = setInterval(
     $("#res").load("modules/sensors/html/sensor_status.php");
 }), 60000);
 </script>
-
-login sesje na kazdy plik
-
-
-
-
-
-
-
-
-
-
-
-
-
-

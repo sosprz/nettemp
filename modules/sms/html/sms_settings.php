@@ -27,7 +27,8 @@ $sth = $db->prepare("select * from sms_settings WHERE default_dev='on' ");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { ?>
-<table><tr>
+<table <table class="table table-striped">>
+<tr>
 <form action="" method="post"> 	
 <td>SMS Center number</td>
 <td><input type="text" name="smsc" size="25" value="<?php echo $a["smsc"]; ?>" /></td>

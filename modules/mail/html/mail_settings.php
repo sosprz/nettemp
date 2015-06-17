@@ -35,7 +35,7 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
 	foreach ($result as $a) {
 ?>
 
-    <table>
+    <table  class="table">
     <tr>
     <form action="settings" method="post">
     <td>Username</td>
@@ -63,9 +63,10 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
     </td>
     </tr>
     <tr><td>TLS</td><td>
+
     <select name="tls" >
 	    <option <?php echo $a['tls'] == 'on' ? 'selected="selected"' : ''; ?> value="on">on</option>   
-	    <option <?php echo $a['tls'] == 'off' ? 'selected="selected"' : ''; ?> value="off">off</option>   
+	    <!-- <option <?php echo $a['tls'] == 'off' ? 'selected="selected"' : ''; ?> value="off">off</option>   -->
     </select>    
     </td>
     </tr>
@@ -76,7 +77,7 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
     </select>    
     </td>
     </tr>
-    <tr><td><input type="submit" value="Save"  /></td></tr>
+    <tr><td><input type="submit" value="Save" class="btn btn-primary" /></td></tr>
     </form>
 
     </table>

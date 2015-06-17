@@ -53,7 +53,7 @@ $gpio='';
 
    
 Pullup - this settings must be set when uses only DATA,GND in 1-wire
-<table>
+<table class="table">
     <tr>
         <form action="" method="post">
             <td>1-wire Nettemp module (DS2482)</td>

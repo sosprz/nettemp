@@ -20,13 +20,13 @@ $db->exec("UPDATE mail_settings SET test_mail='$test_mail'") or die ($db->lastEr
     foreach ($result as $a) {
 ?>
 
-<table>
+<table  class="table">
 <tr>	
     <form action="settings" method="post">
     <td>Send test mail to:</td>
     <td><input type="text" name="test_mail" size="25" value="<?php echo $a["test_mail"]; ?>" /></td>
     <input type="hidden" name="mail_test1" value="mail_test2" />
-    <td><input type="submit" value="Test"  /></td>
+    <td><input class="btn btn-primary" type="submit" value="Test"  /></td>
     </form>
 </tr>		
 </table>
