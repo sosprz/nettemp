@@ -5,6 +5,9 @@
 	else {
 	    echo "Status: enabled"; 
 	}
+?>
+<hr>
+<?php
 
 $pass = isset($_POST['pass']) ? $_POST['pass'] : '';
 $pass2 = isset($_POST['pass2']) ? $_POST['pass2'] : '';
@@ -22,11 +25,11 @@ if ($chg == "chg2") {
 	}
 	?>
 
-	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 	<table> 
+	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 	<input type="hidden"  name="chg" value="chg2"/></td></tr>
-        <tr><td>Password :</td><td><input type="password"  name="pass" size="8"/></td></tr>		
-	<tr><td>Repeat:</td><td><input type="password"  name="pass2" size="8"/></td></tr>		
-	</table>     
-        <input  type="submit" value="Change" class="btn btn-default" />
+        <tr><td><label>Password:</label><input type="password"  name="pass" size="8"/></td></tr>		
+	<tr><td><label>Repeat:</label><input type="password"  name="pass2" size="8"/></td></tr>		
+        <tr><td><input  type="submit" value="Change" class="btn btn-primary" /></td></tr>		
         </form>
+</table>     

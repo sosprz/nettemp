@@ -10,7 +10,7 @@ fi
 
 
 
-mkdir -p $dir/tmp/kwh 1> /dev/null
+mkdir -p $dir/tmp/kwh
 gpio=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio FROM gpio WHERE mode='kwh'")
 
 if [ -n "$gpio" ]; then
@@ -24,7 +24,7 @@ if base=$(sqlite3 $dir/dbf/kwh.db "select strftime('%s', time),pulse FROM kwh;")
 	middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1)*1000}{printf ","}{printf "%3.3f", $2/'$divider'}{print "]," }')
 	echo -e "[ ${middle%?} ]" > $dir/tmp/kwh/gpio_kwh_min.json
     else 
-	echo "cannot read base"
+	echo "kWh: cannot read base"
 fi
 else 
     echo "kWh OFF"

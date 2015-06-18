@@ -1,11 +1,3 @@
-<span class="belka">&nbsp kWh charts<span class="okno"> 
-
-<script type="text/javascript" src="modules/kwh/html/js/jquery.min.js"></script>
-<script src="modules/kwh/html/js/highstock.js"></script>
-<script src="modules/kwh/html/js/exporting.js"></script>
-
-
-
 <div id="container" style="height: 400px"></div>
 <br />
 <div id="container2" style="height: 400px"></div>

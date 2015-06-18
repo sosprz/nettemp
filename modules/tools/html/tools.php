@@ -14,7 +14,7 @@
 <a href="index.php?id=tools&type=reboot" ><button class="btn btn-default">Reboot</button></a>
 <a href="index.php?id=tools&type=log" ><button class="btn btn-default">Logging</button></a>
 <?php if ( $gpio == 'on' ) { ?>
-<a href="index.php?id=tools&type=gpio" ><button class="btn btn-default">Gpio</button></a>
+<a href="index.php?id=tools&type=gpio" ><button class="btn btn-default">GPIO</button></a>
 <?php } ?>
 <a href="index.php?id=tools&type=backup" ><button class="btn btn-default">Backup/Restore</button></a>
 <a href="index.php?id=tools&type=espupload" ><button class="btn btn-default">ESPupload</button></a>
