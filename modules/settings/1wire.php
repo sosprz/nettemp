@@ -69,6 +69,6 @@ Pullup - this settings must be set when uses only DATA,GND in 1-wire
         </form>
     </tr>
     </table>
-<font color="grey">Note: Changes in this section required reboot</font>
+<span id="helpBlock" class="help-block">Changes in this section required reboot.</span>
 </div>
 </div>

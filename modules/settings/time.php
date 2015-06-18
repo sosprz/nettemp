@@ -56,7 +56,6 @@ $ntp='';
 
 ?>
             <form action="" method="post">
-            NTP
             <input onchange="this.form.submit()"  type="checkbox"  data-toggle="toggle" data-size="mini"  name="ntp" value="on" <?php echo $ntp == 'on' ? 'checked="checked"' : ''; ?> />
             <input type="hidden" name="ntp_onoff" value="ntp_onoff" />
         </form>
@@ -78,6 +77,7 @@ if ((file_exists("/dev/i2c-0")) || (file_exists("/dev/i2c-1"))) {
 <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="rtc" value="on" <?php echo $rtc == 'on' ? 'checked="checked"' : ''; ?>  />
 <input type="hidden" name="rtc_onoff" value="rtc_onoff" />
 </form>
+<hr>
     <?php echo "System date: "; passthru("date");?>
 <?php
 $ntsync = isset($_POST['ntsync']) ? $_POST['ntsync'] : '';
@@ -89,7 +89,7 @@ exit();
 ?>
 <form action="" method="post">
     <input type="hidden" name="ntsync" value="ntsync">
-    <input  type="submit" value="Time sync"  />
+    <input  type="submit" value="Time sync"  class="btn btn-primary"/>
 </form>
 <?php echo "Hwclock date: "; passthru("sudo /sbin/hwclock --show");?>
 <?php
@@ -102,7 +102,7 @@ exit();
 ?>
 <form action="" method="post">
 <input type="hidden" name="hwsync" value="hwsync">
-<input  type="submit" value="RTC sync"  />
+<input  type="submit" value="RTC sync" class="btn btn-primary" />
 </form>
 <?php 
 }
@@ -111,6 +111,6 @@ RTC - No i2c modules loaded
 
 <?php }
 ?>
-<font color="grey">Note: After RTC on, reboot is required</font>
+<span id="helpBlock" class="help-block">After RTC on, reboot is required</span>
 </div>
 </div>

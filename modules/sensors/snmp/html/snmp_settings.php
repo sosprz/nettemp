@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">SNMPD</h3>
+<h3 class="panel-title">Add temperature sensor over SNMP</h3>
 </div>
 <div class="panel-body">
 <?php
@@ -61,9 +61,9 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	?>
 
 
-<span class="belka">&nbsp Add sensor over SNMP<span class="okno">
-<table>
-<tr><td></td><td>name</td><td>community</td><td>host</td><td>OID</td><td>Divider</td></tr>
+<table class="table table-striped">
+
+<thead><tr><th></th><th>Name</th><th>Community</th><th>Host</th><th>OID</th><th>Divider</th></tr></thead>
 <tr>	
 	<form action="" method="post">
 	<td></td>
@@ -74,9 +74,8 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	<td><input type="text" name="snmp_divider" size="1" value="" /></td>
 	<input type="hidden" name="snmp_add1" value="snmp_add2" />
 	<td><input type="image" src="media/ico/Add-icon.png" /></td>
-	</tr>
-	</form>
-
+    </form>
+</tr>
 <?php
 
 $db = new PDO('sqlite:dbf/snmp.db');
@@ -97,15 +96,14 @@ foreach ($result as $a) {
 	<input type="hidden" name="snmp_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="snmp_name" value="<?php echo $a["name"]; ?>" />
 	<input type="hidden" type="submit" name="snmp_del1" value="snmp_del2" />
-   <td><input type="image" src="media/ico/Close-2-icon.png"  /></td></tr>
+	<td><input type="image" src="media/ico/Close-2-icon.png"  /></td>
 	</form>
-<?php }
-
-
-		
+	</tr>
+<?php 
+    }
+?>
 	
-		?>
-	
-</tr></table>
+</tr>
+</table>
 </div>
 </div>

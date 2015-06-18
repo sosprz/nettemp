@@ -29,21 +29,14 @@ $am=$a["authmod"];
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">WWW auth</h3>
+<h3 class="panel-title">WWW Authmod</h3>
 </div>
 <div class="panel-body">
-
-
-
-<table>
-
-<tr> <td><h2>Authmod</h2></td>
     <form action="" method="post">
-    <td><input type="checkbox" name="am_onoff" value="on" <?php echo $am == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <td><input type="checkbox" name="am_onoff" value="on" <?php echo $am == 'on' ? 'checked="checked"' : ''; ?> data-toggle="toggle" data-size="mini" onchange="this.form.submit()" /></td>
     <input type="hidden" name="onoff" value="onoff" />
     </form>
-</tr> 
-</table>
+<hr>
 
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');

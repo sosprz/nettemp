@@ -27,11 +27,12 @@ $lcd=$a["lcd"];
 }
 
 ?>
-    <form action="" method="post">
     
+    <form action="" method="post">
+    <label>LCD 1602 HD44780 PCF8574 I2C</label>
     <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="lcdon" value="on" <?php echo $lcd == 'on' ? 'checked="checked"' : ''; ?> /></td>
     <input type="hidden" name="lcd" value="lcd" />
     </form>
-LCD 1602 HD44780 PCF8574 I2C
+
 </div>
 </div>

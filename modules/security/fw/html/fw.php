@@ -28,17 +28,10 @@ $fw=$a["fw"];
 </div>
 <div class="panel-body">
 
-
-<table>
-
-<tr> <td><h2>Firewall</h2></td>
-    <form action="" method="post">
-    <td><input type="checkbox" name="fw_onoff" value="on" <?php echo $fw == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
-    <input type="hidden" name="onoff" value="onoff" />
-    </form>
-</tr> 
-</table>
-
+<form action="" method="post">
+<input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="fw_onoff" value="on" <?php echo $fw == 'on' ? 'checked="checked"' : ''; ?> />
+<input type="hidden" name="onoff" value="onoff" />
+</form>
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("select * from settings ");
@@ -52,10 +45,7 @@ $fw=$a["fw"];
     if ($fw == "on" ) { ?>
     <?php include('fw_settings.php'); ?>
 <?php	 } ?>
-
-
-
-
-</div></div>
+</div>
+</div>
 
 

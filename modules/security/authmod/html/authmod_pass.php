@@ -28,5 +28,5 @@ if ($chg == "chg2") {
         <tr><td>Password :</td><td><input type="password"  name="pass" size="8"/></td></tr>		
 	<tr><td>Repeat:</td><td><input type="password"  name="pass2" size="8"/></td></tr>		
 	</table>     
-        <input  type="submit" value="Change"  />
+        <input  type="submit" value="Change" class="btn btn-default" />
         </form>

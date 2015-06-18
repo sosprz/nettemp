@@ -21,9 +21,6 @@
 ?>
 
 
-
-<table>
-	
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("select * from fw ");
@@ -37,17 +34,20 @@ $openvpn=$a["openvpn"];
 
 }
 ?>
+<hr>
 		<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method"post">
-		<ul>
-		<li><p>Web mgmt IP</p></li>
-		<li><input name="ext" type="text" maxlength="50" value="<?php echo $ext;?>"/>0.0.0.0/0 for all</li>
-		<li><p>Access for all</p></li>
-		<li><input name="ssh" type="checkbox" value="on" <?php echo $ssh == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />SSH</li>
-		<li><input name="icmp" type="checkbox" value="on" <?php echo $icmp == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />ICMP</li>
-		<li><input name="openvpn" type="checkbox" value="on" <?php echo $openvpn == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />OpenVPN</li>
-		    <input type="hidden" name="fw_apply" value="fw_apply" />
-	        <li><input type="submit" name="submit" value="Apply" /></li>
-		</ul>
+		<label>Management IP</label>
+		<input name="ext" type="text" maxlength="50" value="<?php echo $ext;?>"/> 0.0.0.0/0 for all
+		<p>
+		<label>SSH</label>
+		<input name="ssh" type="checkbox" value="on" <?php echo $ssh == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />
+		<label>ICMP</label>
+		<input name="icmp" type="checkbox" value="on" <?php echo $icmp == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />
+		<label>OpenVPN</label>
+		<input name="openvpn" type="checkbox" value="on" <?php echo $openvpn == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />
+		</p>
+		<input type="hidden" name="fw_apply" value="fw_apply" />
+		<br>
+	        <input type="submit" name="submit" value="Apply" class="btn btn-primary" />
 		</form>
 	
-</table>

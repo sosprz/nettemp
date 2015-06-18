@@ -33,8 +33,12 @@ foreach ( $result as $a) {
 $gpio=$a['gpio'];
 $mode=$a['mode'];
 ?>
-<span class="belka">&nbsp Gpio <?php echo $gpio ?> <span class="okno">
-<table>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">GPIO <?php echo $gpio ?></h3>
+</div>
+<div class="panel-body">
+<table class="table table-striped">
 <tr>   
 <?php 
 include('gpio_name.php');
@@ -81,7 +85,7 @@ include('gpio_functions.php');
 ?>
 </tr>
 </table>
-</span></span>
+</div></div>
 <?php 
 }
 $db = null;

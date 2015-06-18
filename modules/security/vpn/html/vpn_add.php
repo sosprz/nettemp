@@ -33,9 +33,10 @@ $user_pass = isset($_POST['user_pass']) ? $_POST['user_pass'] : '';
 	exit();
 	}
 ?>
-<h5>Port 1194</h5>
-<h5>LZO compression</h5>
-<?php include('modules/security/vpn/html/vpn_ca.php'); ?>
+<hr>
+<p>Port: 1194</p>
+<p>LZO compression: on</p>
+<p><?php include('modules/security/vpn/html/vpn_ca.php'); ?></p>
 <hr>
 <h3>Users add/del</h4>
 <table>
