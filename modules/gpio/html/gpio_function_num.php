@@ -1,3 +1,8 @@
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">GPIO function number</h3>
+</div>
+<div class="panel-body">
 <?php
     $tempnum = isset($_POST['tempnum']) ? $_POST['tempnum'] : '';
     $set_tempnum = isset($_POST['set_tempnum']) ? $_POST['set_tempnum'] : '';
@@ -16,17 +21,15 @@
     foreach ($result as $a) {
 ?>
 <form action="" method="post">
-   <tr><td>GPIO temperature sensor number</td><td>
     <select name="tempnum" onchange="this.form.submit()">
     <?php foreach (range(1, 10) as $num) { ?>
         <option <?php echo $a['tempnum'] == "$num" ? 'selected="selected"' : ''; ?> value="<?php echo $num; ?>"><?php echo $num; ?></option>   
     <?php } ?>
     </select>    
-    </td>
-    </tr>
     <input type="hidden" name="set_tempnum" value="set_tempnum" />
 </form>
 
 <?php
 }
 ?>
+</div></div>

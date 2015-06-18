@@ -61,5 +61,5 @@ foreach ($gpiolist as $value1) {
     </form>
 <?php } ?>
 </tr></table>
-    <font color="grey">Note: Do not use GPIO4 when use 1wire sensors connected to GPIO4</font>
+<span id="helpBlock" class="help-block">Note: Do not use GPIO4 when use 1wire sensors connected to GPIO4 </span>
 </div></div>
