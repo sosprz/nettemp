@@ -13,6 +13,16 @@ sed -i '$a$SERVER["socket"] == ":443" {' /etc/lighttpd/lighttpd.conf
 sed -i '$a  ssl.engine = "enable" ' /etc/lighttpd/lighttpd.conf
 sed -i '$a  ssl.pemfile = "/etc/lighttpd/certs/lighttpd.pem" ' /etc/lighttpd/lighttpd.conf
 sed -i '$a}' /etc/lighttpd/lighttpd.conf
+
+
+
+sed -i '$a$HTTP["scheme"] == "http" {' /etc/lighttpd/lighttpd.conf
+sed -i '$a    $HTTP["host"] =~ ".*" {' /etc/lighttpd/lighttpd.conf
+sed -i '$a        url.redirect = (".*" => "https://%0$0")' /etc/lighttpd/lighttpd.conf
+sed -i '$a    }' /etc/lighttpd/lighttpd.conf
+sed -i '$a}' /etc/lighttpd/lighttpd.conf
+
+/etc/init.d/lighttpd reload
 fi
 
 

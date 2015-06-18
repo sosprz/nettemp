@@ -36,7 +36,7 @@ if ($login_change == "login_change1") {
 		<label for="pwd2">Repeat:</label>
 		<input type="password" class="form-control" id="pwd2" name="pas2" >
 	    </div>
-	  <input  type="submit" value="Change" class="btn btn-default" />
+	  <input  type="submit" value="Change" class="btn btn-primary" />
         </form>   
  
 </div></div>

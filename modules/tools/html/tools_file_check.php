@@ -1,4 +1,4 @@
-<div class="alert alert-danger" role="alert">
+
 <?php
 $exit = "";
 $katalogw[] = 'db';
@@ -40,12 +40,16 @@ if (!is_writable($tmp)) {
 }
 
 if ($exit == true ) { ?>
+<div class="alert alert-danger" role="alert">
+
     <?php
     foreach ($tofix as $line) {
 	echo $line;
     }
     //include('modules/tools/html/tools_perms.php');
     ?>
+</div>
+
     <?php
 }
 //elseif ( $id == 'tools' ){ ?>
@@ -55,4 +59,4 @@ if ($exit == true ) { ?>
 <?php
 //    }
 ?>
-</div>
+

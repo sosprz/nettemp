@@ -23,7 +23,7 @@
 ?>
     <form action="index.php?id=tools&type=update" method="post">
     <input type="hidden" name="update" value="Update">
-    <input  type="submit" value="Check update" class="btn btn-default"  />
+    <input  type="submit" value="Check update" class="btn btn-primary"  />
     </form>
 
 </div></div>
