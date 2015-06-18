@@ -14,13 +14,6 @@ $(function() {
     $('#container').highcharts('StockChart', {
         chart: {
             alignTicks: false,
-                backgroundColor: {
-                linearGradient: [0, 0, 500, 500],
-                stops: [
-                    [0, 'rgb(255, 255, 255)'],
-                    [1, 'rgb(237, 235, 234)']
-                ]
-            },
         },
 
         rangeSelector: {
@@ -99,14 +92,6 @@ $(function() {
     $('#container2').highcharts('StockChart', {
         chart: {
             alignTicks: false,
-
-	backgroundColor: {
-                linearGradient: [0, 0, 500, 500],
-                stops: [
-                    [0, 'rgb(255, 255, 255)'],
-                    [1, 'rgb(237, 235, 234)']
-                ]
-            },
 
         },
 
@@ -188,15 +173,6 @@ $(function() {
     $('#container3').highcharts('StockChart', {
         chart: {
             alignTicks: false,
-
-        backgroundColor: {
-                linearGradient: [0, 0, 500, 500],
-                stops: [
-                    [0, 'rgb(255, 255, 255)'],
-                    [1, 'rgb(237, 235, 234)']
-                ]
-            },
-
         },
 
         rangeSelector: {
@@ -270,8 +246,3 @@ $(function() {
 
 
 </script>
-
-
-
-
-</span></span>
