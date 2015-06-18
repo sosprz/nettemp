@@ -68,15 +68,17 @@ $ntp='';
 <h3 class="panel-title">RTC i2c</h3>
 </div>
 <div class="panel-body">
+<form action="" method="post">
+<input data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="rtc" value="on" <?php echo $rtc == 'on' ? 'checked="checked"' : ''; ?>  />
+<input type="hidden" name="rtc_onoff" value="rtc_onoff" />
+</form>
+<?php if ( $rtc == "on") { ?>
 
 <?php
 if ((file_exists("/dev/i2c-0")) || (file_exists("/dev/i2c-1"))) {
 ?>
 
-<form action="" method="post">
-<input data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="rtc" value="on" <?php echo $rtc == 'on' ? 'checked="checked"' : ''; ?>  />
-<input type="hidden" name="rtc_onoff" value="rtc_onoff" />
-</form>
+
 <hr>
     <?php echo "System date: "; passthru("date");?>
 <?php
@@ -109,8 +111,14 @@ exit();
 else { ?>
 RTC - No i2c modules loaded
 
-<?php }
+<?php 
+    }
 ?>
 <span id="helpBlock" class="help-block">After RTC on, reboot is required</span>
+
+
+<?php 
+    }
+?>
 </div>
 </div>
