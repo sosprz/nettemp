@@ -33,7 +33,12 @@ $lcd=$a["lcd"];
     <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="ss_onoff" value="on" <?php echo $ss == 'on' ? 'checked="checked"' : ''; ?> />
     <input type="hidden" name="ss_onoff1" value="ss_onoff2" />
     </form>
-<?php include('modules/sms/html/sms.php'); ?>
+
+<?php 
+    if ( $ss == "on"){ 
+	include('modules/sms/html/sms.php'); 
+    }
+?>
 </div>
 </div>
 

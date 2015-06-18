@@ -34,10 +34,23 @@
      } 
 ?>
 <table><tr>
-<td>Search modem</td>
 <form action="" method="post">
-<td><input type="submit" name="scan" value="Scan" /></td>
+<td><button type="submit" name="scan" value="Scan" class="btn btn-primary">Search GSM modem</button </td>
 </form></tr></table>
+<?php
+$db = new PDO('sqlite:dbf/nettemp.db');
+$sth = $db->prepare("SELECT * FROM sms_settings where id='2'");
+$sth->execute();
+$result = $sth->fetchAll();
+foreach ($result as $a) {
+$name=$a['name'];
+}
+
+if (!empty($name)) { ?>
+
+
+
+
 <table><tr><td>
 <form action="" method="post"> 
 <select name="sd"  onchange="this.form.submit()" >
@@ -53,6 +66,14 @@ foreach ($result as $a) { ?>
 <input type="hidden" name="sd1" value="sd2" />
 </td>
 </form>
-<tr><td><pre><?php include('tmp/gammu_identify'); ?></pre></td></tr>
+<?php
+    if (file_exists("tmp/gammu_identify")) { ?>
+    <tr><td><pre><?php include('tmp/gammu_identify'); ?></pre></td></tr>
+<?php
+    }
+?>
 </tr></table>
 
+<?php 
+} 
+?>

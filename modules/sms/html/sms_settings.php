@@ -27,12 +27,13 @@ $sth = $db->prepare("select * from sms_settings WHERE default_dev='on' ");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { ?>
-<table <table class="table table-striped">>
+<table <table class="table table-striped">
 <tr>
 <form action="" method="post"> 	
 <td>SMS Center number</td>
 <td><input type="text" name="smsc" size="25" value="<?php echo $a["smsc"]; ?>" /></td>
-<td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td></tr>
+<td><button type="submit" class="btn btn-primary">Save</button></td>
+</tr>
 <input type="hidden" name="smsc1" value="smsc2" />
 </form>
 
@@ -41,7 +42,7 @@ foreach ($result as $a) { ?>
     <td>Send test sms to</td>
     <td><input type="text" name="sms_test" size="25" value="<?php echo $a["sms_test"]; ?>" /></td>
     <input type="hidden" name="sms_test1" value="sms_test2" />
-    <td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td>
+    <td><button type="submit" class="btn btn-primary">Send</button></td>
     </form>
 </tr>		
 </table>

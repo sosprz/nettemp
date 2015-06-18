@@ -1,23 +1,15 @@
+<hr>
+	<?php include('sms_scan.php'); ?>
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("select * from settings ");
+$sth = $db->prepare("SELECT default_dev FROM sms_settings WHERE default_dev='on' ");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) {
-$sms=$a["sms"];
+$dev=$a['default_dev'];
 }
-?>
 
-<?php
-if ($sms == "on" ) {
-?> 
-	<?php include('sms_scan.php'); ?>
-	<hr>
-	<?php include('sms_settings.php'); ?>
-	<hr>
-	<?php include('sms_getallsms.php'); ?>
-
-<?php } 
-    //else { echo "OFF"; }
-
-?>
+if ( $dev == "on") {
+    include('sms_settings.php'); 
+    include('sms_getallsms.php');
+} ?>
