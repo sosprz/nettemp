@@ -7,6 +7,10 @@ GREEN='\033[00;32m'
 YELLOW='\033[00;33m'
 
 dir=/var/www/nettemp
+if [[ ! $(pwd) = "/var/www/nettemp" ]]; then
+        whiptail --title "Nettemp installer" --msgbox "Nettemp installer must be in /var/www/nettemp dir. Hit OK to exit." 8 78
+exit 1
+fi 
 
 if [[ $UID -ne 0 ]]; then
     whiptail --title "Nettemp installer" --msgbox "You must be root. Hit OK to exit." 8 78

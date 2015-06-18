@@ -21,15 +21,12 @@ FEATURES:
 Debian, RaspberryPi:
 
 	download and run like root, script will install all requirements like php, www.
-	
-	sudo apt-get update
-	sudo apt-get install ca-certificates
-	wget https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
-	wget --no-check-certificate https://raw.github.com/sosprz/nettemp/master/nettemp_install_on_raspberry_pi.sh
-	chmod 755 nettemp_install_on_raspberry_pi.sh
-	./nettemp_install_on_raspberry_pi.sh
+
+	mkdir -p /var/www/nettemp && cd /var/www
+	git clone https://github.com/sosprz/nettemp
+	cd nettemp && ./install_nettemp
     
-    	In browser: http://your_ip
+    	Go to  http://your_ip
 
 OpenWRT, beta version:
 	
