@@ -6,6 +6,7 @@
 <a href="index.php?id=settings&type=time" ><button class="btn btn-default">Time</button></a>
 <a href="index.php?id=settings&type=snmpd" ><button class="btn btn-default">SNMPD</button></a>
 <a href="index.php?id=settings&type=lcd" ><button class="btn btn-default">LCD</button></a>
+<a href="index.php?id=settings&type=camera" ><button class="btn btn-default">IP Cam</button></a>
 </p>
 <?php 
 $art = isset($_GET['type']) ? $_GET['type'] : '';
