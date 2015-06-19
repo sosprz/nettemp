@@ -8,8 +8,8 @@
 	}
 	?>
 <p>
+<a href="index.php?id=devices&type=scan" ><button class="btn   <?php if (!file_exists('tmp/scan')) { echo "btn-danger"; } else { echo "btn-default"; } ?> ">Device scan</button></a>
 <a href="index.php?id=devices&type=sensors" ><button class="btn btn-default">Sensors</button></a>
-<a href="index.php?id=devices&type=scan" ><button class="btn btn-default">Scanner</button></a>
 <?php if ( $gpio == 'on' ) { ?>
 <a href="index.php?id=devices&type=gpio" ><button class="btn btn-default">GPIO</button></a>
 	<?php } ?>
