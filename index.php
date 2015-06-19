@@ -67,8 +67,17 @@ else {
 	              </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
+<?php
+$db1 = new PDO('sqlite:dbf/nettemp.db');
+$rows1 = $db1->query("SELECT * FROM gpio WHERE mode='simple'");
+$row1 = $rows1->fetchAll();
+$numsimple = count($row1);
+?>
               <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status">Status</a></li>
               <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="view">Charts </a></li>
+<?php if ( $numsimple >= "1") { ?>
+	      <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls">Controls</a></li>
+<?php } ?>
               <?php if(isset($_SESSION["user"])) {?>
 	      <li<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><a href="devices">Devices</span></a></li>
 	      <li <?php echo $id == 'notification' ? ' class="active"' : ''; ?>><a href="notification">Notification</span></a></li>
@@ -123,6 +132,7 @@ case 'diag': include('modules/tools/html/tools_file_check.php'); break;
 case 'upload': include('modules/tools/backup/html/upload.php'); break;
 case 'receiver': include('modules/sensors/html/receiver.php'); break;
 case 'espupload': include('modules/sensors/wireless/espupload/espupload.php'); break;
+case 'controls': include('modules/controls/controls.php'); break;
 
 }
 ?>

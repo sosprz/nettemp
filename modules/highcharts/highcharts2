@@ -1,11 +1,11 @@
 #! /bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
-
+date=`date +%y%m%d-%H%M`
 
 if pidof -o %PPID -x $(basename $0) > /dev/null; then
 echo runnning
-echo "run" >> $dir/log.txt
+echo "$date highcharts already running" >> $dir/log.txt
 exit
 fi
 

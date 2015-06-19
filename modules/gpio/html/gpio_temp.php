@@ -272,7 +272,7 @@ include('gpio_rev.php');
 	    $sth->execute();
 	    $result = $sth->fetchAll();
 	    foreach ($result as $select) { ?>
-		<option <?php echo $a['temp_sensor'.$v] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}" ?>&deg;C</option>
+		<option <?php echo $a['temp_sensor'.$v] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}" ?></option>
 	    <?php } ?>
 	    </select>
 	    </td>
@@ -293,9 +293,9 @@ include('gpio_rev.php');
 	    $sth->execute();
 	    $result = $sth->fetchAll();
 	    foreach ($result as $select) { ?>
-		<option <?php echo $a['temp_sensor_diff'.$v] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}" ?>&deg;C</option>
+		<option <?php echo $a['temp_sensor_diff'.$v] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']}" ?></option>
 	    <?php } ?>
-		<option <?php echo $a['temp_sensor_diff'.$v] == '' ? 'selected="selected"' : ''; ?> value="">custom <?php echo $a['temp_temp'.$v]; ?>&deg;C</option>
+		<option <?php echo $a['temp_sensor_diff'.$v] == '' ? 'selected="selected"' : ''; ?> value="">custom <?php echo $a['temp_temp'.$v]; ?></option>
 	    </select>
 	    </td>
 	    <td>then</td> 

@@ -38,7 +38,7 @@ $mode=$a['mode'];
 <h3 class="panel-title">GPIO <?php echo $gpio ?></h3>
 </div>
 <div class="panel-body">
-<table class="table table-striped">
+<table class="table table-striped table-condensed">
 <tr>   
 <?php 
 include('gpio_name.php');

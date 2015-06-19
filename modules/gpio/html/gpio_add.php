@@ -54,7 +54,7 @@ foreach ($gpiolist as $value1) {
 	$disabled = $result['mode']; 
 	}; ?>
     <form action="" method="post" class="form-inline">
-    <label><?php echo $value1 ?></label>
+    <label>GPIO <?php echo $value1 ?></label>
     <input type="checkbox" name="gpioad" value="<?php echo $value1 ?>" <?php  echo $check==$value1 ? 'checked="checked"' : ''; ?> <?php echo !empty($disabled) ? 'disabled="disabled"' : ''; unset($disabled) ?> data-toggle="toggle" data-size="mini" onchange="this.form.submit()" />
     <input type="hidden" name="gpio" value="<?php echo $value1 ?>" />
     <input type="hidden" name="add" value="ADD" />

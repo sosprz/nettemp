@@ -28,12 +28,10 @@ $name_del = isset($_POST['name_del']) ? $_POST['name_del'] : '';
 	?>
 
 
-<span class="belka">&nbsp Add camera<span class="okno">
-<table>
+<table class="table table-striped">
+<thead><tr><th></th><th>Name</th><th>link</th><th>Add/Rem</th></tr></thead>
+<tbody>
 	<form action="" method="post">
-	<tr>
-	    <td></td><td>Name</td><td>Link</td>
-	</tr>
 	<tr>
 	<td><img type="image" src="media/ico/Security-Camera-icon.png" /></td>
 	<td><input type="text" name="name" size="20" value="" /></td>
@@ -66,15 +64,11 @@ foreach ($result as $a) {
 
 <?php }
 ?>
-    </table>
+</tbody>
+</table>
 		
 	
-<table>
-	<tr><td><font color="grey">ex: rtsp://172.18.10.103:554/play1.sdp</font></td></tr>
-	<tr><td><font color="grey">ex: rtsp://guest:guest@172.18.10.103:554/play1.sdp</font></td></tr>
-</table>
-
-	
-</table>
+<span id="helpBlock" class="help-block">rtsp://172.18.10.103:554/play1.sdp</span>
+<span id="helpBlock" class="help-block">rtsp://guest:guest@172.18.10.103:554/play1.sdp</span>
 </div>
 </div>

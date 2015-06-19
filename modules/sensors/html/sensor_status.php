@@ -14,13 +14,6 @@ if ($numRows == 0 ) { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop
     $sth->execute();
     $result = $sth->fetchAll(); ?>
     <table class="table table-striped table-condensed"> 
-    <thead><tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    </tr></thead>
     <tbody>
 <?php       
     foreach ($result as $a) {
