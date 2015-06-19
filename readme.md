@@ -24,7 +24,7 @@ Debian, RaspberryPi:
 
 	mkdir -p /var/www/nettemp && cd /var/www
 	git clone https://github.com/sosprz/nettemp
-	cd nettemp && ./install_nettemp
+    	cd nettemp && git checkout nettemp2 && ./install_nettemp
     
     	Go to  http://your_ip
 
