@@ -27,16 +27,16 @@ foreach ($result as $a) { ?>
 <?php
 	$scan = isset($_POST['scan']) ? $_POST['scan'] : '';
         if ($scan == "Scan for new sensors"){ 
-        shell_exec("/bin/bash modules/sensors/scan > $dir/tmp/scan"); 
+        shell_exec("/bin/bash modules/sensors/scan > tmp/scan"); 
         header("location: " . $_SERVER['REQUEST_URI']);
         exit();
 	}
 ?>
 
 <?php
-    if (file_exists("/var/www/nettemp/tmp/scan")) { ?>
+    if (file_exists("tmp/scan")) { ?>
     <pre><?php
-    $array = file("/var/www/nettemp/tmp/scan");
+    $array = file("tmp/scan");
     foreach($array as $f){
 	echo $f;
 	}
