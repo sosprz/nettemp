@@ -31,7 +31,7 @@ else {
     <link href="jscss/custom.css" rel="stylesheet">
 
     <!-- jQuery -->
-    <script type="text/javascript" src="jscss/jquery/jquery.js"></script>
+    <script type="text/javascript" src="jscss/jquery/jquery-1.11.3.min.js"></script>
 
     <!-- bootstrap-toogle -->
     <link href="jscss/bootstrap-toggle/bootstrap-toggle.min.css" rel="stylesheet">
