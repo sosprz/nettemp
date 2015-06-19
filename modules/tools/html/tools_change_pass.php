@@ -4,28 +4,6 @@
 </div>
 <div class="panel-body">
 
-<?php
-
-$pass=sha1(isset($_POST['pas1']) ? $_POST['pas1'] : '');
-$pass2=sha1(isset($_POST['pas2']) ? $_POST['pas2'] : '');
-$user=$_SESSION["user"];
-   
-$login_change = isset($_POST['login_change']) ? $_POST['login_change'] : '';
-
-if ($login_change == "login_change1") { 
-	if ($pass == $pass2) {
-	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE users SET password='$pass' WHERE login='$user' ");
-	?>
-	<span class="label label-success">Password changed</span>
-	<?php
-	}	
-	    else { ?>
-		<span class="label label-warning">Password not match</span>
-<?php
-	} 
-}
-?>
 	<form action="" method="post" role="form">
 	  <input type="hidden" name="login_change" value="login_change1">
 	    <div class="form-group">
@@ -36,8 +14,32 @@ if ($login_change == "login_change1") {
 		<label for="pwd2">Repeat:</label>
 		<input type="password" class="form-control" id="pwd2" name="pas2" >
 	    </div>
-	  <input  type="submit" value="Change" class="btn btn-primary" />
+	  <input  type="submit" value="Save" class="btn btn-primary" />
         </form>   
+
+
+<?php
+
+$pas1=sha1(isset($_POST['pas1']) ? $_POST['pas1'] : '');
+$pas2=sha1(isset($_POST['pas2']) ? $_POST['pas2'] : '');
+$user=$_SESSION["user"];
+   
+$login_change = isset($_POST['login_change']) ? $_POST['login_change'] : '';
+
+if ($login_change == "login_change1") { 
+	if ((!empty($pas1)) && (!empty($pas2)) && ($pas1 == $pas2)) {
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db->exec("UPDATE users SET password='$pass' WHERE login='$user' ");
+	?>
+	<span class="label label-success">Password changed</span>
+	<?php
+	}	
+	    else { ?>
+		<span class="label label-danger">Password do not match or empty</span>
+<?php
+	} 
+}
+?>
  
 </div></div>
 

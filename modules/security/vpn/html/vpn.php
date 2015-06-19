@@ -37,13 +37,16 @@ $vpn=$a["vpn"];
     <input type="checkbox" name="vpn_onoff" value="on" <?php echo $vpn == 'on' ? 'checked="checked"' : ''; ?> data-toggle="toggle" data-size="mini" onchange="this.form.submit()" />
     <input type="hidden" name="onoff" value="onoff" />
     </form>
+</div>
+</div>
+
 <?php
 if ($vpn == "on" ) { 
     include('vpn_add.php');
+    include('ovpn_status.php');
+    
 	 } 
 ?>
 
-</div>
-</div>
 
 

@@ -34,20 +34,27 @@ $openvpn=$a["openvpn"];
 
 }
 ?>
-<hr>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Settings</h3>
+</div>
+<div class="panel-body">
 		<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method"post">
 		<label>Management IP</label>
-		<input name="ext" type="text" maxlength="50" value="<?php echo $ext;?>"/> 0.0.0.0/0 for all
-		<p>
-		<label>SSH</label>
+		<input name="ext" type="text" maxlength="50" value="<?php echo $ext;?>"/> 
+		<span id="helpBlock" class="help-block">Example: Single IP 84.84.84.84/32, All ip 0.0.0.0/0</span>
+		 <span class="label label-primary">Allow services for all IP:</span><br>
+		<span class="label label-info">SSH</span>
 		<input name="ssh" type="checkbox" value="on" <?php echo $ssh == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />
-		<label>ICMP</label>
+		<span class="label label-info">ICMP</span>
 		<input name="icmp" type="checkbox" value="on" <?php echo $icmp == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />
-		<label>OpenVPN</label>
+		<span class="label label-info">OpenVPN</span>
 		<input name="openvpn" type="checkbox" value="on" <?php echo $openvpn == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />
 		</p>
 		<input type="hidden" name="fw_apply" value="fw_apply" />
 		<br>
 	        <input type="submit" name="submit" value="Save" class="btn btn-primary" />
 		</form>
-	
+</div>
+</div>
+

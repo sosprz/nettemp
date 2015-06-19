@@ -33,14 +33,19 @@ $user_pass = isset($_POST['user_pass']) ? $_POST['user_pass'] : '';
 	exit();
 	}
 ?>
-<hr>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">OpenVPN settings</h3>
+</div>
+<div class="panel-body">
 <p>Port: 1194</p>
 <p>LZO compression: on</p>
 <p><?php include('modules/security/vpn/html/vpn_ca.php'); ?></p>
 <hr>
-<h3>Users add/del</h4>
-<table>
+<h4>Users Add/Remove<h4>
+<table class="table table-striped">
 <tr><td></td><td>User</td><td>Password<td></tr>
+<thead><tr><th></th><th>Name</th><th>Password</th><th>Add/Rem</th></tr></thead>
     <tr><td></td>
 	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 	<td><input type="text" name="user_name" size="20" value="" /></td>
@@ -52,10 +57,6 @@ $user_pass = isset($_POST['user_pass']) ? $_POST['user_pass'] : '';
 
 
 <?php
-//$db = new PDO('sqlite:dbf/nettemp.db');
-//$sth = $db->prepare("select * from vpn ");
-//$sth->execute();
-//$result = $sth->fetchAll();
 $pass=exec("awk -F':' '/vpn/{print $4}' /etc/group");
 $result = array_filter(explode(",", $pass));
 //var_dump($result);
@@ -73,8 +74,5 @@ foreach ($result as $a) {
 }
 ?>
 </tr></table>
-<hr>
-<h3>Connection status</h3>
-<pre>
-<?php passthru('sudo cat /etc/openvpn/openvpn-status.log'); ?>
-</pre>
+</div>
+</div>

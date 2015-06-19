@@ -32,6 +32,9 @@ $fw=$a["fw"];
 <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="fw_onoff" value="on" <?php echo $fw == 'on' ? 'checked="checked"' : ''; ?> />
 <input type="hidden" name="onoff" value="onoff" />
 </form>
+</div>
+</div>
+
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("select * from settings ");
@@ -44,8 +47,7 @@ $fw=$a["fw"];
 <?php
     if ($fw == "on" ) { ?>
     <?php include('fw_settings.php'); ?>
+    <?php include('fw_status.php'); ?>
 <?php	 } ?>
-</div>
-</div>
 
 

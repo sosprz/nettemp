@@ -7,29 +7,46 @@
 	}
 ?>
 <hr>
-<?php
 
-$pass = isset($_POST['pass']) ? $_POST['pass'] : '';
-$pass2 = isset($_POST['pass2']) ? $_POST['pass2'] : '';
+
+    <form action="" method="post" role="form">
+      <input type="hidden" name="login_change" value="login_change1">
+        <div class="form-group">
+	<label for="pwd">Password:</label>
+	<input type="password" class="form-control" id="pwd" name="pas1" >
+        </div>
+        <div class="form-group">
+	<label for="pwd2">Repeat:</label>
+	<input type="password" class="form-control" id="pwd2" name="pas2" >
+        </div>
+      <input  type="submit" value="Save" class="btn btn-primary" />
+	<input type="hidden"  name="chg" value="chg2"/>
+        </form>   
+
+<?php
+$pas1 = isset($_POST['pas1']) ? $_POST['pas1'] : '';
+$pas2 = isset($_POST['pas2']) ? $_POST['pas2'] : '';
 $chg = isset($_POST['chg']) ? $_POST['chg'] : '';
 if ($chg == "chg2") { 
-	if ($pass == $pass2) {
+	if ((!empty($pas1)) && (!empty($pas2)) && ($pas1 == $pas2)) {
 	    $filename = "/etc/lighttpd/.lighttpdpassword";
-	    $output = "admin:$pass\n";
+	    $output = "admin:$pas2\n";
 	    $filehandle = fopen($filename, 'w');
 	    fwrite($filehandle, $output);
 	    fclose($filehandle);
 	    //shell_exec("sudo service lighttpd reload");
+	?>
+	 <span class="label label-psuccess">Password changed</span>
+	<?php
+
 	}	
-	else { echo "Password not match"; }
-	}
+	else { ?>
+	 <span class="label label-danger">Password do not match or empty</span>
+	<?php
+	} }
 	?>
 
-	<table> 
-	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
-	<input type="hidden"  name="chg" value="chg2"/></td></tr>
-        <tr><td><label>Password:</label><input type="password"  name="pass" size="8"/></td></tr>		
-	<tr><td><label>Repeat:</label><input type="password"  name="pass2" size="8"/></td></tr>		
-        <tr><td><input  type="submit" value="Change" class="btn btn-primary" /></td></tr>		
-        </form>
-</table>     
+
+
+
+
