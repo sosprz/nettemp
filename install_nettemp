@@ -90,7 +90,7 @@ fi
 }
 
 function ups {
-if dpkg --get-selections | grep apcupsd 1>/dev/null; then
+if dpkg --get-selections | grep -q apcupsd; then
     echo -e "[ ${GREEN}ok${R} ] ups function already installed"
     else
     /var/www/nettemp/modules/ups/install

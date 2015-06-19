@@ -1,7 +1,7 @@
 #! /bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
-/etc/init.d/apcupsd stop
+service apcupsd stop
 killall apcupsd
 apt-get purge -y apcupsd > /dev/null
 apt-get install -y apcupsd > /dev/null
