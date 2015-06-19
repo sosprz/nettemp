@@ -43,6 +43,7 @@ if ( $add == "ADD") {
     {
 	$gpiolist = array(4,17,21,22,18,23,24,25);
     } ?>
+    
 <?php
 foreach ($gpiolist as $value1) {
 	$db = new PDO('sqlite:dbf/nettemp.db');
@@ -52,14 +53,13 @@ foreach ($gpiolist as $value1) {
    	$check = $result['gpio'];
 	$disabled = $result['mode']; 
 	}; ?>
-
-    <form action="" method="post">
+    <form action="" method="post" class="form-inline">
     <label><?php echo $value1 ?></label>
     <input type="checkbox" name="gpioad" value="<?php echo $value1 ?>" <?php  echo $check==$value1 ? 'checked="checked"' : ''; ?> <?php echo !empty($disabled) ? 'disabled="disabled"' : ''; unset($disabled) ?> data-toggle="toggle" data-size="mini" onchange="this.form.submit()" />
     <input type="hidden" name="gpio" value="<?php echo $value1 ?>" />
     <input type="hidden" name="add" value="ADD" />
     </form>
 <?php } ?>
-</tr></table>
+    
 <span id="helpBlock" class="help-block">Note: Do not use GPIO4 when use 1wire sensors connected to GPIO4 </span>
 </div></div>

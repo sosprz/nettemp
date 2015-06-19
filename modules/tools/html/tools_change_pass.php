@@ -29,7 +29,7 @@ $login_change = isset($_POST['login_change']) ? $_POST['login_change'] : '';
 if ($login_change == "login_change1") { 
 	if ((!empty($pas1)) && (!empty($pas2)) && ($pas1 == $pas2)) {
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE users SET password='$pass' WHERE login='$user' ");
+	$db->exec("UPDATE users SET password='$pas1' WHERE login='admin' ");
 	?>
 	<span class="label label-success">Password changed</span>
 	<?php
