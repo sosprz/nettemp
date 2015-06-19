@@ -40,6 +40,9 @@ echo "----- Device tree"
 grep device_tree /boot/config.txt
 echo "----- highchats"
 du -sh /var/www/nettemp/modules/highcharts/
+echo "----- highchats data count"
+cat /var/www/nettemp/tmp/highcharts/* |grep -c .
+
 echo "----- END -----"
 
 
