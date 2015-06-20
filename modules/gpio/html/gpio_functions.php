@@ -87,6 +87,15 @@
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
     }
+    $momenton = isset($_POST['momenton']) ? $_POST['momenton'] : '';
+    if ($momenton == "momenton")  {
+//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+	$db->exec("UPDATE gpio SET mode='moment' WHERE gpio='$gpio_post'") or die("exec error");
+	$db = null;
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
+
 //buzzer
     $buzzeron = isset($_POST['buzzeron']) ? $_POST['buzzeron'] : '';
     if ($buzzeron == "buzzeron")  {
@@ -105,6 +114,12 @@
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="simpleon" value="simpleon" />
     </form>
+    <form action="" method="post">
+	<td><input type="image" src="media/ico/Button-Turn-On-icon.png" title="Moment 1s on" onclick="this.form.submit()" /></td>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="momenton" value="momenton" />
+    </form>
+
     <form action="" method="post">
 	<td><input type="image" src="media/ico/Clock-icon.png" title="Set time" onclick="this.form.submit()" /></td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>

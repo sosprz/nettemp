@@ -1,0 +1,11 @@
+#! /bin/bash -x
+
+simple_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT simple FROM gpio WHERE gpio='$gpio'")
+if [ "$simple_run" = "on" ]
+    then
+	gpio_on $gpio
+	echo "gpio $gpio on - simple"
+    else 
+	gpio_off $gpio
+	echo "gpio $gpio off - simple"
+fi

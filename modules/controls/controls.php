@@ -45,10 +45,32 @@ foreach ( $result2 as $a) {
     <input type="checkbox" title="Simple on/off" data-toggle="toggle"  onchange="this.form.submit()" name="simple"  value="<?php echo $a['simple'] == on  ? 'off' : 'on'; ?>" <?php echo $a['simple'] == 'on' ? 'checked="checked"' : ''; ?>  />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="onoff" value="onoff" />
-    </form>
+</form>
+</div></div>
+<?php 
+}
+
+$sth2 = $db->prepare("select * from gpio where mode='moment'");
+$sth2->execute();
+$result2 = $sth2->fetchAll();
+foreach ( $result2 as $a) {
+?>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title"><?php echo $a['name']; ?></h3>
+</div>
+<div class="panel-body">
+
+<form action="" method="post">
+    <td><input data-onstyle="warning" type="checkbox" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" name="simple"  title="Turn on wait 1s and off"   onclick="this.form.submit()" /><td>
+    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="bi" value="bi" />
+</form>
+
 </div></div>
 <?php 
 }
 ?>
 
  
+

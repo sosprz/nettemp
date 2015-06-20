@@ -50,6 +50,10 @@ elseif ($mode == 'simple')
 { 
     include('gpio_simple.php');
 } 
+elseif ($mode == 'moment') 
+{ 
+    include('gpio_moment.php');
+} 
 elseif ($mode == 'time') 
 { 
     include('gpio_time.php');

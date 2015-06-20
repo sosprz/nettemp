@@ -15,17 +15,6 @@ if ($simpleoff == "off")  {
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
-$bi = isset($_POST['bi']) ? $_POST['bi'] : '';
-if ($bi == "bi")  {
-    if ($a['rev'] == 'on') {
-    exec("/usr/local/bin/gpio -g write $gpio_post 0 && sleep 0.5 &&  /usr/local/bin/gpio -g write $gpio_post 1");
-    } else {
-    exec("/usr/local/bin/gpio -g write $gpio_post 1 && sleep 0.5 && /usr/local/bin/gpio -g write $gpio_post 0");
-    }
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
-
 
 
 $simpleexit = isset($_POST['simpleexit']) ? $_POST['simpleexit'] : '';
@@ -57,12 +46,6 @@ include('gpio_rev.php');
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="simpleexit" value="simpleexit" />
 </form>
-<form action="" method="post">
-    <td><input type="image" name="bi" value="on" src="media/ico/Button-Log-Off-icon.png" title="Turn on wait 1s and off"   onclick="this.form.submit()" /><td>
-    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    <input type="hidden" name="bi" value="bi" />
-</form>
-
 
 <td>Status: <?php echo $a['status']; ?></td>
 <form action="" method="post">
