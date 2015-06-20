@@ -204,7 +204,6 @@ if (($a['temp_sensor'.$v] == $select['id']) && (!empty($a['temp_temp'.$v]))) {
 }
 else
     {
-include('gpio_rev.php');
 ?>
 <form action="" method="post">
     <td><input type="image" name="tempexit" value="tempexit" src="media/ico/Close-2-icon.png" title="Back"  onclick="this.form.submit()" /><td>

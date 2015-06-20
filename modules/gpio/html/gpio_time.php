@@ -47,8 +47,6 @@ if ($timerun == "off") {
     } 
     else {
 
-include('gpio_rev.php');
-
 ?>
     <form action="" method="post">
 	<input type="image" name="time_checkbox" src="media/ico/Close-2-icon.png" title="back" value="off"  onclick="this.form.submit()" />

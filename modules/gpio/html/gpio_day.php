@@ -66,7 +66,6 @@ if ($dayrun == "off")  {
     }
 	else 
     {
-include('gpio_rev.php');
 ?>
     
     <form action="" method="post">

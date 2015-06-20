@@ -26,8 +26,6 @@ if (($mexit == "mexit") ){
 
 ?>
 
-<?php include('gpio_rev.php'); ?>
-
 <form action="" method="post">
     <input type="image" name="simpleexit" value="exit" src="media/ico/Close-2-icon.png" title="Back"   onclick="this.form.submit()" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>

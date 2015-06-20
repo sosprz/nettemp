@@ -106,7 +106,7 @@
 	exit();
     }
 
-
+include('gpio_rev.php');
 ?>
 
     <form action="" method="post">
