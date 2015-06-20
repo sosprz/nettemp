@@ -46,6 +46,8 @@ if [ "$mode" = "time" ]; then
     source $(dirname $0)/time
 elif [ "$mode" = "temp" ]; then
     source $(dirname $0)/temp
+elif [ "$mode" = "simple" ]; then
+    source $(dirname $0)/simple
 elif [ "$mode" = "trigger" ]; then
     source $(dirname $0)/trigger
 elif [ "$mode" = "day" ]; then
