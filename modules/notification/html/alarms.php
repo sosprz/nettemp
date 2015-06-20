@@ -48,7 +48,7 @@ if ($xtriggernoticeon == "xtriggernoticeON")  {
 <div class="panel-heading">Set the temperature range
 </div>
 <table class="table table-striped">
-<thead><tr><th></th><th>Name</th><th><img src="media/ico/temp_low.png" /> min</th><th><img src="media/ico/temp2-icon.png" />max</th><th>Set temp</th><th>Remove</th></tr></thead>
+<thead><tr><th></th><th>Name</th><th><img src="media/ico/temp_low.png" /> min <img src="media/ico/temp2-icon.png" />max</th><th>Remove</th></tr></thead>
 <?php  
 //$db = new PDO('sqlite:dbf/nettemp.db');
 //$rows = $db->query("SELECT * FROM sensors WHERE alarm='on'");
@@ -68,15 +68,15 @@ if ($xtriggernoticeon == "xtriggernoticeON")  {
 	<td><img src="media/ico/TO-220-icon.png" /></td>
 	<td><?php echo $a['name']; ?></td>
 	<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
-	<td><input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" /></td>
-	<td><input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" /></td>
+	<td><input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" />
+	<input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" />
 	<input type="hidden" name="ok" value="ok" />
-	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png"  /></td>
+	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button></td>
 	</form>
 	<form action="" method="post"> 
 	<input type="hidden" name="del_alarm1" value="del_alarm2" />
 	<input type="hidden" name="del_alarm" value="<?php echo $a['name']; ?>" />
-	<td><input type="image" src="media/ico/Close-2-icon.png"  /></td>
+	<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
 	</form></tr>  							
 		 <?php	} 
 
@@ -106,7 +106,7 @@ foreach ($result as $a) { ?>
 	<td><?php echo $a['name']; ?></td>
 	<input type="hidden" name="add_alarm" value="<?php echo $a['id']; ?>" />
 	<input type="hidden" name="add_alarm1" value="add_alarm2" />
-    <td>&nbsp<input type="image" src="media/ico/Add-icon.png"  /></td>
+<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	</tr>    
     </form>
 <?php }  ?>
