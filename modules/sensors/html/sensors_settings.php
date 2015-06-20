@@ -24,7 +24,7 @@ $lcd=$a["lcd"];
 ?>
 <thead>
 <tr>
-<th>#</th>
+<th></th>
 <th>Name</th>
 <th>Set</th>
 <th>id</th>

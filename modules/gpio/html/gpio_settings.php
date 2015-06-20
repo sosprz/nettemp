@@ -89,7 +89,8 @@ include('gpio_functions.php');
 ?>
 </tr>
 </table>
-</div></div>
+</div>
+</div>
 <?php 
 }
 $db = null;

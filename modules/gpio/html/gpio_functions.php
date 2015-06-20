@@ -115,7 +115,7 @@
 	<input type="hidden" name="simpleon" value="simpleon" />
     </form>
     <form action="" method="post">
-	<td><input type="image" src="media/ico/Button-Turn-On-icon.png" title="Moment 1s on" onclick="this.form.submit()" /></td>
+	<td><input type="image" src="media/ico/Button-Log-Off-icon.png" title="Moment 1s on" onclick="this.form.submit()" /></td>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="momenton" value="momenton" />
     </form>

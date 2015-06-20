@@ -5,7 +5,7 @@
             <div class="panel-body">
 
 <table class="table table-striped"><tr>	
-<thead><tr><th>#</th><th>id</th><th>Add</th></tr></thead>
+<thead><tr><th></th><th>id</th><th>Add</th></tr></thead>
 	<?php	
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$sth = $db->prepare("SELECT rom FROM sensors");
@@ -45,7 +45,7 @@
             <div class="panel-body">
 
 <table class="table table-striped">
-<thead><tr><th>#</th><th>id</th><th>Rem</th></tr></thead>
+<thead><tr><th></th><th>id</th><th>Rem</th></tr></thead>
 
      <?php 
     $sth = $db->prepare("SELECT rom FROM sensors");
