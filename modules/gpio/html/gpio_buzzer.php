@@ -11,9 +11,9 @@ if (($buzzerexit == "buzzerexit") ){
 
 
 ?>
-<td><img type="image" src="media/ico/speaker-icon.png" title="Buzzer on" " /></td>
+<img type="image" src="media/ico/speaker-icon.png" title="Buzzer on" " />
 <form action="" method="post">
-    <td><input type="image" name="simpleexit" value="exit" src="media/ico/Close-2-icon.png" title="Back"   onclick="this.form.submit()" /><td>
+    <input type="image" name="simpleexit" value="exit" src="media/ico/Close-2-icon.png" title="Back"   onclick="this.form.submit()" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="buzzerexit" value="buzzerexit" />
 </form>

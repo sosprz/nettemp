@@ -36,9 +36,9 @@ if ($timerun == "off") {
 ?>
 
     <form action="" method="post">
-	<td>Status: <?php echo $a['status']; ?></td> 
+	Status: <?php echo $a['status']; ?> 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<td><input type="image" src="media/ico/Button-Turn-Off-icon.png"/></td>
+	<input type="image" src="media/ico/Button-Turn-Off-icon.png"/>
 	<input type="hidden" name="timerun" value="off" />
 	<input type="hidden" name="off" value="off" />
     </form>
@@ -51,15 +51,15 @@ include('gpio_rev.php');
 
 ?>
     <form action="" method="post">
-	<td><input type="image" name="time_checkbox" src="media/ico/Close-2-icon.png" title="back" value="off"  onclick="this.form.submit()" /><td>
+	<input type="image" name="time_checkbox" src="media/ico/Close-2-icon.png" title="back" value="off"  onclick="this.form.submit()" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="timeexit" value="timeexit" />
    </form>
 
     <form action="" method="post">
-	<td><input type="text" name="time_offset" value="<?php echo $a['time_offset']; ?>" size="1"  ></td><td>min</td> 
+	<input type="text" name="time_offset" value="<?php echo $a['time_offset']; ?>" size="1"  >min 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
+	<input type="image" src="media/ico/Button-Turn-On-icon.png"/>
 	<input type="hidden" name="timerun" value="timerun" />
     </form>
 <?php 

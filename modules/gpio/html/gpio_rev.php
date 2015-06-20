@@ -23,9 +23,9 @@ if (($gpio_rev1 == "gpio_rev1") ){
 
 <form action="" method="post">
     <?php if ( $a['rev'] == "on"){ ?>
-    <td><input type="image" src="media/ico/Letter-L-icon.png" title="Reverse state HIGH to LOW" onclick="this.form.submit()"/></td>
+    <input type="image" src="media/ico/Letter-L-icon.png" title="Reverse state HIGH to LOW" onclick="this.form.submit()"/>
     <?php } else { ?>
-    <td><input type="image" src="media/ico/Letter-H-icon.png" title="Reverse state HIGH to LOW" onclick="this.form.submit()"/></td>
+    <input type="image" src="media/ico/Letter-H-icon.png" title="Reverse state HIGH to LOW" onclick="this.form.submit()"/>
     <?php } ?>
     <input type="hidden" name="gpio_rev1" value="gpio_rev1" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>

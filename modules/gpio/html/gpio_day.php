@@ -47,17 +47,17 @@ if ($dayrun == "off")  {
 ?>
 
   
-	<td>Status:<?php echo $a['status']; ?></td> 
-	<td>
+	Status:<?php echo $a['status']; ?> 
+	
 	<table>
-	<tr><td><?php echo $a['day_zone1s']; ?>-<?php echo $a['day_zone1e']; ?> </td></tr> 
-	<tr><td><?php echo $a['day_zone2s']; ?>-<?php echo $a['day_zone2e']; ?> </td></tr>
-	<tr><td><?php echo $a['day_zone3s']; ?>-<?php echo $a['day_zone3e']; ?> </td></tr>
+	<?php echo $a['day_zone1s']; ?>-<?php echo $a['day_zone1e']; ?>  
+	<?php echo $a['day_zone2s']; ?>-<?php echo $a['day_zone2e']; ?> 
+	<?php echo $a['day_zone3s']; ?>-<?php echo $a['day_zone3e']; ?> 
 	</table>
-	</td>
+	
 	  <form action="" method="post">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<td><input type="image" src="media/ico/Button-Turn-Off-icon.png"/></td>
+	<input type="image" src="media/ico/Button-Turn-Off-icon.png"/>
 	<input type="hidden" name="dayrun" value="off" />
 	<input type="hidden" name="off" value="off" />
     </form>
@@ -70,28 +70,23 @@ include('gpio_rev.php');
 ?>
     
     <form action="" method="post">
-	<td><input type="image" name="dayoff" value="off" src="media/ico/Close-2-icon.png" title="Back" onclick="this.form.submit()" /><td>
+	<input type="image" name="dayoff" value="off" src="media/ico/Close-2-icon.png" title="Back" onclick="this.form.submit()" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="dayexit" value="dayexit" />        
    </form>
    
     <form action="" method="post">
-	<td>
-	<table>
-	<tr><td>Set hour range:</td></tr>
-	<tr><td>Zone 1 <input type="text" name="day_zone1s" value="<?php echo $a['day_zone1s']; ?>" size="3" placeholder="08:00"  >-<input type="text" name="day_zone1e" value="<?php echo $a['day_zone1e']; ?>" size="3" placeholder="11:00"></td></tr> 
-	<tr><td>Zone 2 <input type="text" name="day_zone2s" value="<?php echo $a['day_zone2s']; ?>" size="3" placeholder="12:30" >-<input type="text" name="day_zone2e" value="<?php echo $a['day_zone2e']; ?>" size="3" placeholder="16:30"></td></tr> 
-	<tr><td>Zone 3 <input type="text" name="day_zone3s" value="<?php echo $a['day_zone3s']; ?>" size="3" placeholder="20:15" >-<input type="text" name="day_zone3e" value="<?php echo $a['day_zone3e']; ?>" size="3" placeholder="06:00"></td></tr> 
-	</tr>
-	</table>
-	</td>
+	Set hour range:
+	Zone 1 <input type="text" name="day_zone1s" value="<?php echo $a['day_zone1s']; ?>" size="3" placeholder="08:00"  >-<input type="text" name="day_zone1e" value="<?php echo $a['day_zone1e']; ?>" size="3" placeholder="11:00"> 
+	Zone 2 <input type="text" name="day_zone2s" value="<?php echo $a['day_zone2s']; ?>" size="3" placeholder="12:30" >-<input type="text" name="day_zone2e" value="<?php echo $a['day_zone2e']; ?>" size="3" placeholder="16:30"> 
+	Zone 3 <input type="text" name="day_zone3s" value="<?php echo $a['day_zone3s']; ?>" size="3" placeholder="20:15" >-<input type="text" name="day_zone3e" value="<?php echo $a['day_zone3e']; ?>" size="3" placeholder="06:00"> 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<td><input type="image" src="media/ico/Actions-edit-redo-icon.png"/></td>
+	<input type="image" src="media/ico/Actions-edit-redo-icon.png"/>
 	<input type="hidden" name="dayset" value="on" />
     </form>
     <form action="" method="post">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
+	<input type="image" src="media/ico/Button-Turn-On-icon.png"/>
 	<input type="hidden" name="dayrun" value="on" />
 	
 	

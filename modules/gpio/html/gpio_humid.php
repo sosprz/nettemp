@@ -40,20 +40,20 @@ if (($dht22_onoff1 == "dht22_onoff2") ){
     }
 ?>
     <form action="" method="post">
-	<td><input type="image" name="humid" value="off" src="media/ico/Close-2-icon.png" title="Back"   onclick="this.form.submit()" /><td>
+	<input type="image" name="humid" value="off" src="media/ico/Close-2-icon.png" title="Back"   onclick="this.form.submit()" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="humidexit" value="humidexit" />
     </form>
     
    <form action="" method="post">
-	<td>DHT11</td>
-	<td><input type="checkbox" name="dht11_onoff" value="11" <?php echo $a["humid_type"] == '11' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+	DHT11
+	<input type="checkbox" name="dht11_onoff" value="11" <?php echo $a["humid_type"] == '11' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="dht11_onoff1" value="dht11_onoff2" />
     </form>
     <form action="" method="post">
-	<td>DHT22</td>
-	<td><input type="checkbox" name="dht22_onoff" value="22" <?php echo $a["humid_type"] == '22' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+	DHT22
+	<input type="checkbox" name="dht22_onoff" value="22" <?php echo $a["humid_type"] == '22' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="dht22_onoff1" value="dht22_onoff2" />
     </form>

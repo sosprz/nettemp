@@ -37,12 +37,9 @@ $host_type = isset($_POST['host_type']) ? $_POST['host_type'] : '';
 	?>
 
 <div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Monitoring</h3>
-</div>
-<div class="panel-body">
+<div class="panel-heading">Monitoring</div>
 <table class="table table-striped">
-<thead><tr><th>#</th><th>Name</th><th>IP / Name</th><th>Type</th><th>Add / Rem</tf></tr></thead>
+<thead><tr><th></th><th>Name</th><th>IP / Name</th><th>Type</th><th>Add / Rem</tf></tr></thead>
 <tr>	
 	<form action="" method="post">
 	<td></td>
@@ -85,5 +82,6 @@ foreach ($result as $a) {
 	
 		?>
 	
-</tr></table>
-</span></span>
+</tr>
+</table>
+</div>

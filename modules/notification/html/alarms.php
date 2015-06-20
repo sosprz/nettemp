@@ -45,10 +45,8 @@ if ($xtriggernoticeon == "xtriggernoticeON")  {
 }
 ?>
 <div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Set the temperature range</h3>
+<div class="panel-heading">Set the temperature range
 </div>
-<div class="panel-body">
 <table class="table table-striped">
 <thead><tr><th></th><th>Name</th><th><img src="media/ico/temp_low.png" /> min</th><th><img src="media/ico/temp2-icon.png" />max</th><th>Set temp</th><th>Remove</th></tr></thead>
 <?php  
@@ -84,13 +82,11 @@ if ($xtriggernoticeon == "xtriggernoticeON")  {
 
 ?>
 </table>
-</div></div>
+</div>
 
 <div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Free sensors</h3>
+<div class="panel-heading">Free sensors
 </div>
-<div class="panel-body">
 <table class="table table-striped">
 <thead><tr><th></th><th>Name</th><th>Add</th></tr></thead>
 <?php	
@@ -116,13 +112,9 @@ foreach ($result as $a) { ?>
 <?php }  ?>
 </table>
 </div>
-</div>
 
 <div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Trigger alarms</h3>
-</div>
-<div class="panel-body">
+<div class="panel-heading">Trigger alarms</div>
 <table class="table table-striped">
 <?php	
 $db = new PDO('sqlite:dbf/nettemp.db');
@@ -148,8 +140,3 @@ foreach ($result as $a) { ?>
 <?php }  ?>
 </table>
 </div>
-</div>
-
-
-	
-	

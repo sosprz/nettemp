@@ -8,10 +8,7 @@ $numRows = count($result);
 ?>
 <?php if ( $numRows > '0' ) { ?>
 <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">GPIO</h3>
-            </div>
-            <div class="panel-body">
+            <div class="panel-heading">GPIO</div>
 <table class="table table-striped">
 <?php
 foreach ( $result as $a) {
@@ -29,5 +26,4 @@ $gpio=$a['gpio'];
 ?>
 </table>
             </div>
-          </div>
 <?php }  ?>

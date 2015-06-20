@@ -107,19 +107,15 @@ if ($dayrunon == "on")  {
     if ($week_run == 'on') { 
 ?>
 
-   <td>
-   <table>
-	<tr><td>Status: <?php echo $a['status']; ?></td></tr>
-	<tr><td>Mon: <?php echo $a['week_Mon']; ?> Tue:<?php echo $a['week_Tue']; ?> Wed:<?php echo $a['week_Wed']; ?> Thu:<?php echo $a['week_Thu']; ?> Fri:<?php echo $a['week_Fri']; ?> Sat:<?php echo $a['week_Sat']; ?> Sun:<?php echo $a['week_Sun']; ?> </td></tr>
-	</table> 
-	</td>
-	
+   
+	Status: <?php echo $a['status']; ?>
+	Mon: <?php echo $a['week_Mon']; ?> Tue:<?php echo $a['week_Tue']; ?> Wed:<?php echo $a['week_Wed']; ?> Thu:<?php echo $a['week_Thu']; ?> Fri:<?php echo $a['week_Fri']; ?> Sat:<?php echo $a['week_Sat']; ?> Sun:<?php echo $a['week_Sun']; ?> 
 	<form action="" method="post">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<td><input type="image" src="media/ico/Button-Turn-Off-icon.png"/></td>
+	<input type="image" src="media/ico/Button-Turn-Off-icon.png"/>
 	<input type="hidden" name="weekrun" value="off" />
 	<input type="hidden" name="off" value="off" />
-    </form>
+        </form>
 
 <?php 
     }
@@ -130,28 +126,27 @@ include('gpio_rev.php');
 ?>
     
     <form action="" method="post">
-		<td><input type="image" name="weekoff" value="off" src="media/ico/Close-2-icon.png" title="Back" onclick="this.form.submit()" /><td>
+		<input type="image" name="weekoff" value="off" src="media/ico/Close-2-icon.png" title="Back" onclick="this.form.submit()" />
 		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 		<input type="hidden" name="weekexit" value="weekexit" />        
    </form>
    <form action="" method="post">
-	    <td><img  src="media/ico/day-icon.png" title="Day plan" /></td>
-	    <td><input type="checkbox" name="dayrun" value="on" <?php echo $a["day_run"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+	    <img  src="media/ico/day-icon.png" title="Day plan" />
+	    <input type="checkbox" name="dayrun" value="on" <?php echo $a["day_run"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" />
 	    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	    <input type="hidden" name="dayrunon" value="on" /> 
 	</form>
-<td>Day of the week:</td>
-<td>
-<table>
-<tr>
+Day of the week:
+
+
 <?php
 $arr = array(Mon, Tue, Wed, Thu, Fri, Sat, Sun);
 foreach ($arr as &$days) {
 ?>
 	<form action="" method="post">
-	<td>
+	
 	<label><?php echo $days ?></label>
-   <input type="checkbox" name="<?php echo $days; echo $days; ?>" value="on" <?php echo $a['week_'.$days] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
+   <input type="checkbox" name="<?php echo $days; echo $days; ?>" value="on" <?php echo $a['week_'.$days] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="<?php echo $days; ?>" value="<?php echo $days; ?>"/>
 	
@@ -159,14 +154,13 @@ foreach ($arr as &$days) {
 <?php
 }
 ?>
-</tr>
-</table>
-</td>
+
+
 
 
     <form action="" method="post">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
+	<input type="image" src="media/ico/Button-Turn-On-icon.png"/>
 	<input type="hidden" name="weekrun" value="on" />
 	
 	

@@ -1,8 +1,5 @@
           <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Sensors</h3>
-            </div>
-            <div class="panel-body">
+            <div class="panel-heading">Sensors</div>
 <?php
 $dbl=$_SERVER["DOCUMENT_ROOT"]."dbf/nettemp.db";
 $db = new PDO("sqlite:$dbl");
@@ -13,7 +10,7 @@ if ($numRows == 0 ) { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop
     $sth = $db->prepare("select * from sensors");
     $sth->execute();
     $result = $sth->fetchAll(); ?>
-    <table class="table table-striped table-condensed"> 
+    <table class="table table-striped"> 
     <tbody>
 <?php       
     foreach ($result as $a) {
@@ -174,5 +171,4 @@ if ($numRows == 0 ) { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop
     </tbody>
     </table> <?php
 ?>
-            </div>
           </div>

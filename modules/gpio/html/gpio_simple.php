@@ -29,9 +29,9 @@ if (($simpleexit == "simpleexit") ){
         if ( $a['simple'] == "on" ) { 
 
 ?>
-<td>Status: <?php echo $a['status']; ?></td>
+Status: <?php echo $a['status']; ?>
     <form action="" method="post">
-    <td><input type="image" src="media/ico/Button-Turn-Off-icon.png" title="Simple on/off" onclick="this.form.submit()" /></td>
+    <input type="image" src="media/ico/Button-Turn-Off-icon.png" title="Simple on/off" onclick="this.form.submit()" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="simpleoff" value="off" />
     </form>
@@ -42,14 +42,14 @@ if (($simpleexit == "simpleexit") ){
 include('gpio_rev.php');
     ?>
 <form action="" method="post">
-    <td><input type="image" name="simpleexit" value="exit" src="media/ico/Close-2-icon.png" title="Back"   onclick="this.form.submit()" /><td>
+    <input type="image" name="simpleexit" value="exit" src="media/ico/Close-2-icon.png" title="Back"   onclick="this.form.submit()" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="simpleexit" value="simpleexit" />
 </form>
 
-<td>Status: <?php echo $a['status']; ?></td>
+Status: <?php echo $a['status']; ?>
 <form action="" method="post">
-    <td><input type="image" src="media/ico/Button-Turn-On-icon.png" title="Simple on/off" onclick="this.form.submit()" /></td>
+    <input type="image" src="media/ico/Button-Turn-On-icon.png" title="Simple on/off" onclick="this.form.submit()" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="simpleon" value="on" />
 </form>

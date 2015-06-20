@@ -1,8 +1,5 @@
 <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Discovered devices</h3>
-            </div>
-            <div class="panel-body">
+            <div class="panel-heading">Discovered devices</div>
 <table class="table">
 <?php
 $dir='';
@@ -49,6 +46,5 @@ foreach ($result as $a) { ?>
 <input type="submit" name="scan" value="Scan for new sensors" class="btn btn-primary"/>
 </form>
 
-</div>
 </div>
 

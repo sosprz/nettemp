@@ -1,8 +1,5 @@
 <div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Add temperature sensor over SNMP</h3>
-</div>
-<div class="panel-body">
+<div class="panel-heading">Add temperature sensor over SNMP</div>
 <?php
 $snmp_name = isset($_POST['snmp_name']) ? $_POST['snmp_name'] : '';
 $snmp_community = isset($_POST['snmp_community']) ? $_POST['snmp_community'] : '';
@@ -105,5 +102,4 @@ foreach ($result as $a) {
 	
 </tr>
 </table>
-</div>
 </div>

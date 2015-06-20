@@ -1,8 +1,6 @@
 <div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Camera</h3>
+<div class="panel-heading">Camera
 </div>
-<div class="panel-body">
 <?php
 $link = isset($_POST['link']) ? $_POST['link'] : '';
 $name = isset($_POST['name']) ? $_POST['name'] : '';
@@ -70,5 +68,4 @@ foreach ($result as $a) {
 	
 <span id="helpBlock" class="help-block">rtsp://172.18.10.103:554/play1.sdp</span>
 <span id="helpBlock" class="help-block">rtsp://guest:guest@172.18.10.103:554/play1.sdp</span>
-</div>
 </div>

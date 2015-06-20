@@ -51,10 +51,7 @@ $notif_del = isset($_POST['notif_del']) ? $_POST['notif_del'] : '';
 
 
 <div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Users</h3>
-</div>
-<div class="panel-body">
+<div class="panel-heading">Users</div>
 
 <table class="table table-striped">
 <thead><tr><th>Name</th><th>Email</th><th>Telephone</th><th><img src="media/ico/message-icon.png"></th><th><img src="media/ico/phone-blue-glow-icon.png"></th></tr></thead>
@@ -105,5 +102,4 @@ foreach ($result as $a) {
 		?>
 	
 </table>
-</div>
 </div>

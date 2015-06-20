@@ -8,10 +8,7 @@ $numRows = count($result);
 ?>
 <?php if ( $numRows > '0' ) { ?>
 <div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Monitoring</h3>
-</div>
-<div class="panel-body">
+<div class="panel-heading">Monitoring</div>
 <table class="table table-striped">
 <?php
 foreach ( $result as $a) {
@@ -29,6 +26,5 @@ foreach ( $result as $a) {
 
 ?>
     </table>
-</div>
 </div>
 <?php }  ?>

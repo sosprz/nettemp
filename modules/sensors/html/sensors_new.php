@@ -1,8 +1,5 @@
 <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">New sensors</h3>
-            </div>
-            <div class="panel-body">
+            <div class="panel-heading">New sensors</div>
 
 <table class="table table-striped"><tr>	
 <thead><tr><th></th><th>id</th><th>Add</th></tr></thead>
@@ -37,12 +34,9 @@
     
      	?>
      	</table>
-</div></div>
+</div>
 <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Not detected</h3>
-            </div>
-            <div class="panel-body">
+            <div class="panel-heading">Not detected</div>
 
 <table class="table table-striped">
 <thead><tr><th></th><th>id</th><th>Rem</th></tr></thead>
@@ -77,4 +71,3 @@
 	    ?>
 	    </table>
             </div>
-          </div>

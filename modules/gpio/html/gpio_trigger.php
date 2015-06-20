@@ -37,10 +37,10 @@ if ($triggerrun == "off")  {
     $status=$a['status'];
     if ($trigger_run == 'on') { 
 ?>
-    <td>Status: <?php echo $status ?></td>
+    Status: <?php echo $status ?>
     <form action="" method="post">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<td><input type="image" src="media/ico/Button-Turn-Off-icon.png"/></td>
+	<input type="image" src="media/ico/Button-Turn-Off-icon.png"/>
 	<input type="hidden" name="triggerrun" value="off" />
     </form>
 
@@ -52,15 +52,15 @@ include('gpio_rev.php');
 ?>
     
     <form action="" method="post">
-	<td><input type="image" name="triggerexit" value="off" src="media/ico/Close-2-icon.png" title="Back"  onclick="this.form.submit()" /><td>
+	<input type="image" name="triggerexit" value="off" src="media/ico/Close-2-icon.png" title="Back"  onclick="this.form.submit()" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="buzzer" value="<?php echo $buzzer; ?>"/>
 	<input type="hidden" name="triggerexit" value="triggerexit" />
     </form>
-    <td>Status: OFF</td>
+    Status: OFF
     <form action="" method="post">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<td><input type="image" src="media/ico/Button-Turn-On-icon.png"/></td>
+	<input type="image" src="media/ico/Button-Turn-On-icon.png"/>
 	<input type="hidden" name="triggerrun" value="on" />
     </form>
 <?php
