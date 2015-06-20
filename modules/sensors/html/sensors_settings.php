@@ -22,7 +22,6 @@ $lcd=$a["lcd"];
 <tr>
 <th></th>
 <th>Name</th>
-<th>Set</th>
 <th>id</th>
 <th>Size</th>
 <th>Status</th>
@@ -39,10 +38,10 @@ $lcd=$a["lcd"];
 <tr>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <td><img src="media/ico/TO-220-icon.png" /></td>
-<td><input type="text" name="name_new" size="12" maxlength="30" value="<?php echo $a["name"]."\t"; ?>" /></td>
+<td><input type="text" name="name_new" size="12" maxlength="30" value="<?php echo $a["name"]."\t"; ?>" />
 <input type="hidden" name="name_id" value="<?php echo $a["id"]."\t"; ?>" />
 <input type="hidden" name="id_name2" value="id_name3"/>
-<td><input type="image" src="media/ico/Actions-edit-redo-icon.png" /></td>
+<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button></td>
 </form>
 
 
@@ -54,7 +53,7 @@ $lcd=$a["lcd"];
 	if (file_exists($file3) && ( 0 != filesize($file3)))
    {?>
 <td><?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3) ?>MB</td>
-<td><center><img src="media/ico/Ok-icon.png" /></center></td>
+<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-ok"></span> </button></td>
 </form>
 <?php   }
 else { ?> 
@@ -78,7 +77,8 @@ if ( $lcd == 'on' ) {
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 <input type="hidden" name="usun_czujniki" value="<?php echo $a["rom"]; ?>" />
 <input type="hidden" name="usun2" value="usun3" />
-<td><input type="image" src="media/ico/Close-2-icon.png" /></td>
+<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
+
 </form>
 
 </tr>

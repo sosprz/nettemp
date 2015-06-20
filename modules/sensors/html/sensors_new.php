@@ -23,15 +23,11 @@
 	<input type="hidden" name="id_rom_new" value="<?php echo "$trim_rom_new"; ?>" > 
 	<input type="hidden" name="name_new" value="nowy_czujnik" />
 	<input type="hidden" name="button" value="Add to base" />
-    <td><input type="image" src="media/ico/Add-icon.png"  /></td>
+       <td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	</tr>    
     </form>
    <?php } 					
      	}
-     	if (empty($new_empty_array)) { 
-     	echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>";
-     	}
-    
      	?>
      	</table>
 </div>
@@ -61,8 +57,10 @@
         <td><?php echo $rom_no;?></td>
 	<input type="hidden" name="usun_nw" value="<?php echo "$rom_no"; ?>" />
 	<input type="hidden" name="usun_nw2" value="usun_nw3" />
-      <td><input type="image" src="media/ico/Close-2-icon.png" />
-      </form></td></tr>
+       <td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
+
+      </form>
+    </tr>
       
 	<?php	
 	}

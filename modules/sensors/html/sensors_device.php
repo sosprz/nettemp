@@ -41,10 +41,11 @@ foreach ($result as $a) { ?>
 <?php
     }
 ?>
-
+<div class="panel-body">
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <input type="submit" name="scan" value="Scan for new sensors" class="btn btn-primary"/>
 </form>
+</div>
 
 </div>
 
