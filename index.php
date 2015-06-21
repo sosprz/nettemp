@@ -69,13 +69,19 @@ else {
             <ul class="nav navbar-nav">
 <?php
 $db1 = new PDO('sqlite:dbf/nettemp.db');
-$rows1 = $db1->query("SELECT * FROM gpio,relays WHERE mode='simple' OR mode='moment' OR type='relay' ");
+$rows1 = $db1->query("SELECT * FROM gpio WHERE mode='simple' OR mode='moment'");
+$rows2 = $db1->query("SELECT * FROM relays WHERE type='relay'");
 $row1 = $rows1->fetchAll();
+$row2 = $rows2->fetchAll();
+
+//echo $row1[];
 $numsimple = count($row1);
+$numsimple2 = count($row2);
+
 ?>
               <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status">Status</a></li>
               <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="view">Charts </a></li>
-<?php if ( $numsimple >= "1") { ?>
+<?php if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { ?>
 	      <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls">Controls</a></li>
 <?php } ?>
               <?php if(isset($_SESSION["user"])) {?>
