@@ -70,7 +70,7 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	<td><input type="text" name="snmp_oid" size="60" value="" /></td>
 	<td><input type="text" name="snmp_divider" size="1" value="" /></td>
 	<input type="hidden" name="snmp_add1" value="snmp_add2" />
-	<td><input type="image" src="media/ico/Add-icon.png" /></td>
+<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
     </form>
 </tr>
 <?php
@@ -93,7 +93,7 @@ foreach ($result as $a) {
 	<input type="hidden" name="snmp_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="snmp_name" value="<?php echo $a["name"]; ?>" />
 	<input type="hidden" type="submit" name="snmp_del1" value="snmp_del2" />
-	<td><input type="image" src="media/ico/Close-2-icon.png"  /></td>
+<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
 	</form>
 	</tr>
 <?php 

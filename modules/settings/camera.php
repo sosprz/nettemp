@@ -35,7 +35,7 @@ $name_del = isset($_POST['name_del']) ? $_POST['name_del'] : '';
 	<td><input type="text" name="name" size="20" value="" /></td>
 	<td><input type="text" name="link" size="30" value="" /></td>
 	<input type="hidden" name="add" value="add" />
-	<td><input type="image" src="media/ico/Add-icon.png" /></td>
+<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	</form>
 	</tr>
 
@@ -56,7 +56,7 @@ foreach ($result as $a) {
 	<form action="" method="post"> 	
 	    <input type="hidden" name="name_del" value="<?php echo $a["name"]; ?>" />
 	    <input type="hidden" type="submit" name="del" value="del" />
-        <td><input type="image" src="media/ico/Close-2-icon.png"  /></td>
+<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
 	</form>
 	</tr>
 

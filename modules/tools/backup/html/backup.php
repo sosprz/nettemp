@@ -52,12 +52,12 @@ foreach($files AS $file) {
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 <input type="hidden" name="restore_file" value="<?php echo $file; ?>" />
 <input type="hidden" name="re" value="re" />
-<td><input type="image" src="media/ico/backup-restore-icon.png" title="Restore backup"/></td>
+<td><button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-play"></span> </button></td>
 </form>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 <input type="hidden" name="backup_file" value="<?php echo $file; ?>" />
 <input type="hidden" name="rm" value="rm" />
-<td><input type="image" src="media/ico/Close-2-icon.png" title="Delete backup" /></td>
+<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
 </form>
 </tr>
 </table>

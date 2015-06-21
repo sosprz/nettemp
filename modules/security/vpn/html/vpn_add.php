@@ -51,7 +51,7 @@ $user_pass = isset($_POST['user_pass']) ? $_POST['user_pass'] : '';
 	<td><input type="text" name="user_name" size="20" value="" /></td>
 	<td><input type="text" name="user_pass" size="20" value="" /></td>
 	<input type="hidden" name="add" value="add" />
-	<td><input type="image" src="media/ico/Add-icon.png" /></td>
+<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	</tr>
 	</form>
 
@@ -68,7 +68,8 @@ foreach ($result as $a) {
 	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"> 	
 	<input type="hidden" name="user_name" value="<?php echo $a; ?>" />
 	<input type="hidden" type="submit" name="del" value="del" />
-       <td><input type="image" src="media/ico/Close-2-icon.png"  /></td></tr>
+<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
+</tr>
 	</form>
 <?php
 }

@@ -52,7 +52,7 @@ $host_type = isset($_POST['host_type']) ? $_POST['host_type'] : '';
         </select>
 	</td>
 	<input type="hidden" name="host_add1" value="host_add2" />
-	<td><input type="image" src="media/ico/Add-icon.png" /></td>
+<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	</tr>
 	</form>
 
@@ -73,7 +73,8 @@ foreach ($result as $a) {
 	<form action="" method="post"> 	
 	<input type="hidden" name="host_name" value="<?php echo $a["name"]; ?>" />
 	<input type="hidden" type="submit" name="host_del1" value="host_del2" />
-   <td><input type="image" src="media/ico/Close-2-icon.png"  /></td></tr>
+<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
+</tr>
 	</form>
 <?php }
 

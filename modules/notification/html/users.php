@@ -64,7 +64,7 @@ $notif_del = isset($_POST['notif_del']) ? $_POST['notif_del'] : '';
 	<td><input type="checkbox" name="notif_mail_alarm" size="2" value="yes" /></td>
 	<td><input type="checkbox" name="notif_sms_alarm" size="2" value="yes" /></td>
 	<input type="hidden" name="notif_add1" value="notif_add2" />
-	<td><input type="image" src="media/ico/Add-icon.png" /></td>
+<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	<td></td>
 	</form>
 </tr>
@@ -91,7 +91,7 @@ foreach ($result as $a) {
 	<form action="" method="post"> 	
 	    <input type="hidden" name="notif_del" value="<?php echo $a["id"]; ?>" />
 	    <input type="hidden" type="submit" name="notif_del1" value="notif_del2" />
-        <td><input type="image" src="media/ico/Close-2-icon.png"  /></td>
+<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
 	</form>
 	</tr>
 <?php }
