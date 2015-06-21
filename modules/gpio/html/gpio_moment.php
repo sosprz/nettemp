@@ -26,14 +26,15 @@ if (($mexit == "mexit") ){
 
 ?>
 
-<form action="" method="post">
-    <input type="image" name="simpleexit" value="exit" src="media/ico/Close-2-icon.png" title="Back"   onclick="this.form.submit()" />
-    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    <input type="hidden" name="mexit" value="mexit" />
-</form>
-<form action="" method="post">
-    <input type="image" name="bi" value="on" src="media/ico/Button-Log-Off-icon.png" title="Turn on wait 1s and off"   onclick="this.form.submit()" />
+<form action="" method="post" style=" display:inline!important;">
+    <button type="submit" class="btn btn-xs btn-warning">ON 1s OFF</button>
+    <input type="hidden" name="bi" value="on" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="bi" value="bi" />
+</form>
+<form action="" method="post" style=" display:inline!important;">
+    <button type="submit" class="btn btn-xs btn-danger">Exit</button>
+    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="mexit" value="mexit" />
 </form>
 

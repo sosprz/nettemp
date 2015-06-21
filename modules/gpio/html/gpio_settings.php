@@ -38,10 +38,11 @@ $mode=$a['mode'];
 <h3 class="panel-title">GPIO <?php echo $gpio ?></h3>
 </div>
 <div class="panel-body">
-<table class="table table-striped table-condensed" frame="box">
+<table">
 <tr>   
 <?php 
 include('gpio_name.php');
+
 if  ($mode == 'humid') 
 { 
     include('gpio_humid.php');

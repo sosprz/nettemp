@@ -108,62 +108,60 @@
 
 include('gpio_rev.php');
 ?>
-
-    <form action="" method="post">
-	<input type="image" src="media/ico/Button-Turn-On-icon.png" title="Simple on/off" onclick="this.form.submit()" />
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">Simple on/off</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="simpleon" value="simpleon" />
     </form>
-    <form action="" method="post">
-	<input type="image" src="media/ico/Button-Log-Off-icon.png" title="Moment 1s on" onclick="this.form.submit()" />
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">Moment on/off</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="momenton" value="momenton" />
     </form>
 
-    <form action="" method="post">
-	<input type="image" src="media/ico/Clock-icon.png" title="Set time" onclick="this.form.submit()" />
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">Time</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="timeon" value="timeon" />   
    </form>
-    <form action="" method="post">
-	<input type="image" src="media/ico/day-icon.png" title="Day plan"   onclick="this.form.submit()" />
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">Day plan</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="dayon" value="dayon" />
     </form>
-    <form action="" method="post">
-	<input type="image" src="media/ico/Actions-view-calendar-week-icon.png" title="Week plan"   onclick="this.form.submit()" />
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">Week plan</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="weekon" value="weekon" />
     </form>
 
-    <form action="" method="post">
-	<input type="image" src="media/ico/temp2-icon.png" title="Set temp when sensor will turn on/off" onclick="this.form.submit()" />
+    <form action="" method="post" style=" display:inline!important;">
+	<button class="btn btn-xs btn-primary">Temperature</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="tempon" value="tempon" />
     </form>
-    <form action="" method="post">
-	<input type="image" src="media/ico/rain-icon.png" title="Humidity on/off"  onclick="this.form.submit()" />
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">DHT11/22</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio'];?>"/>
 	<input type="hidden" name="humidon" value="humidon" />
     </form> 
-    <form action="" method="post">
-	<input type="image" src="media/ico/alarm-icon.png" title="Alarm trigger" onclick="this.form.submit()" />
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">Trigger</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="triggeron" value="triggeron" />
     </form>
 <?php 
 if (empty($mode3)){ ?>
-    <form action="" method="post">
-	<input type="image" src="media/ico/Lamp-icon.png" title="kWh metter" onclick="this.form.submit()" />
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">kWh</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="kwhon" value="kwhon" />
-	
     </form>
 <?php 
 }
 if (empty($mode2)) { ?>
-    <form action="" method="post">
-	<input type="image" src="media/ico/speaker-icon.png" title="Buzzer" onclick="this.form.submit()" />
+    <form action="" method="post" style="display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">Buzzer</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="buzzeron" value="buzzeron" />
 	
@@ -171,6 +169,5 @@ if (empty($mode2)) { ?>
 <?php 
 }
 ?>
-
 
 
