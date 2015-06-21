@@ -88,6 +88,13 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE newdev (id INTEGER PRIMARY KEY,list UN
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE camera (id INTEGER PRIMARY KEY,list UNIQUE);"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE camera ADD name type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE camera ADD link type TEXT";
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE relays (id INTEGER PRIMARY KEY,list UNIQUE);"
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD name type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD ip type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD delay type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD rom type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD type type TEXT";
+
 
 
 

@@ -112,6 +112,7 @@ CREATE TABLE recipient (
   mail_alarm TEXT,
   sms_alarm TEXT
   );
+CREATE TABLE relays (id INTEGER PRIMARY KEY,list UNIQUE, name type TEXT, ip type TEXT, delay type TEXT, rom type TEXT, type type TEXT);
 CREATE TABLE sensors (
   id INTEGER PRIMARY KEY,
   name UNIQUE,

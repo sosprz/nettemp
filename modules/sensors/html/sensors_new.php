@@ -11,6 +11,12 @@
 	foreach ($result as $a) { 
 	$file_expl_array2[]=$a["rom"];	
 	}
+	$sth2 = $db->prepare("SELECT rom FROM relays");
+	$sth2->execute();
+	$result = $sth2->fetchAll();
+	foreach ($result as $a) { 
+	$file_expl_array2[]=$a["rom"];	
+	}
 	
 	foreach ($digitemprc as $rom_new) { ?>
 	<?php 
@@ -38,7 +44,7 @@
 <thead><tr><th></th><th>id</th><th>Rem</th></tr></thead>
 
      <?php 
-    $sth = $db->prepare("SELECT rom FROM sensors");
+    $sth = $db->prepare("SELECT rom FROM sensors,relays");
     $sth->execute();
     $result = $sth->fetchAll();
     foreach ($result as $a) { 		

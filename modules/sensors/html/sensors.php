@@ -31,6 +31,11 @@ $name_new=trim($name_new2);
 		    if (strpos($id_rom_new,'humid') !== false) {
 			$type='humid';
 		    }
+		    if (strpos($id_rom_new,'relay') !== false) {
+			$type='relay';
+			
+			
+		    }
 		    if (strpos($id_rom_new, ".") !== false) {
 			$pieces = explode("_", $id_rom_new);
 			$ip=$pieces[1];
@@ -67,10 +72,13 @@ $name_new=trim($name_new2);
 	    else {
 		    $type='temp';
 	    }
-
-	    $db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip) VALUES ('$rand','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip' )") or die ("cannot insert to DB" );
 	    
-	    
+	    if ( $type != "relay" ) {
+		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip) VALUES ('$rand','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip' )") or die ("cannot insert to DB" );
+	    }
+	    if ( $type == "relay" ) {
+		$db->exec("INSERT OR IGNORE INTO relays (name, rom, ip, type) VALUES ('$rand','$id_rom_new','$ip', '$type'  )") or die ("cannot insert to DB" );
+	    }
 	
 	    $dbnew = new PDO("sqlite:db/$id_rom_new.sql");
 	    $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
@@ -189,6 +197,7 @@ if ( $lcd == "lcd"){
 ?>
 
 <?php include("modules/sensors/html/sensors_settings.php"); ?>
+<?php include("modules/devices/html/relays_settings.php"); ?>
 <?php include("modules/sensors/html/sensors_new.php"); ?>
 <?php //include("modules/sensors/html/sensors_device.php"); ?>
 

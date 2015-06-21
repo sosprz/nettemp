@@ -69,7 +69,7 @@ else {
             <ul class="nav navbar-nav">
 <?php
 $db1 = new PDO('sqlite:dbf/nettemp.db');
-$rows1 = $db1->query("SELECT * FROM gpio WHERE mode='simple' OR mode='moment' ");
+$rows1 = $db1->query("SELECT * FROM gpio,relays WHERE mode='simple' OR mode='moment' OR type='relay' ");
 $row1 = $rows1->fetchAll();
 $numsimple = count($row1);
 ?>
