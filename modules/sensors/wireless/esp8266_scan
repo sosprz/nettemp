@@ -11,6 +11,7 @@ fi
 
 temp=_temp
 humid=_humid
+relay=_relay
 wiv=wireless_
 
 if [ -n "$rom" ]
@@ -23,6 +24,8 @@ if [ -n "$rom" ]
 			    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$humid')"
 			elif [ "$type" == "ds18b20" ]; then
 			    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$temp')"
+			elif [ "$type" == "relay" ]; then
+			    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$relay')"
 			fi
 	done
 	echo Wireless: ESP6288 found

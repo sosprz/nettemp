@@ -9,19 +9,20 @@ $usb = $_POST["usb"];
 $ds18b20 = $_POST["ds18b20"];
 $dht11 = $_POST["dht11"];
 $dht22 = $_POST["dht22"];
+$relay = $_POST["relay"];
 $list = $_POST["list"];
 $ssid = $_POST["ssid"];
 $pass = $_POST["pass"];
 if ($_POST['run'] == "Upload") {
 
     if (!empty($usb)) {
-	if (!empty($ds18b20) || !empty($dht11) || !empty($dht22)) {
+	if (!empty($ds18b20) || !empty($dht11) || !empty($dht22) || !empty($relay)) {
 	    if (!empty($ssid) && !empty($pass)) {
 		    if (!empty($dht11) ) {
 
 			$cmd0="cp '$dir'/modules/sensors/wireless/DHT11/init.lua '$dir'/tmp && sed -i s/pass/'$pass'/g '$dir'/tmp/init.lua && sed -i s/ssid/'$ssid'/g '$dir'/tmp/init.lua";
 			$cmd1="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/tmp/init.lua -t init.lua 2>&1";
-			$cmd2="'$dir'/modules/sensors/wireless/espupload/luatool.py -r -p '$usb' -f '$dir'/modules/sensors/wireless/DHT11/dht.lua -t dht.lua 2>&1";
+			$cmd2="'$dir'/modules/sensors/wireless/espupload/luatool.py -r -p '$usb' -f '$dir'/modules/sensors/wireless/DHT11/dht.lua -t dht.lua -r 2>&1";
 			echo '<pre>';
 			passthru($cmd0); 
 			passthru($cmd1); 
@@ -32,7 +33,7 @@ if ($_POST['run'] == "Upload") {
 
 			$cmd0="cp '$dir'/modules/sensors/wireless/DHT22/init.lua '$dir'/tmp && sed -i s/pass/'$pass'/g '$dir'/tmp/init.lua && sed -i s/ssid/'$ssid'/g '$dir'/tmp/init.lua";
 			$cmd1="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/tmp/init.lua -t init.lua 2>&1";
-			$cmd2="'$dir'/modules/sensors/wireless/espupload/luatool.py -r -p '$usb' -f '$dir'/modules/sensors/wireless/DHT22/dht.lua -t dht.lua 2>&1";
+			$cmd2="'$dir'/modules/sensors/wireless/espupload/luatool.py -r -p '$usb' -f '$dir'/modules/sensors/wireless/DHT22/dht.lua -t dht.lua -r 2>&1";
 			echo '<pre>';
 			passthru($cmd0); 
 			passthru($cmd1); 
@@ -42,11 +43,19 @@ if ($_POST['run'] == "Upload") {
 		    if (!empty($ds18b20) ) {
 			$cmd0="cp '$dir'/modules/sensors/wireless/ds18b20/init.lua '$dir'/tmp && sed -i s/pass/'$pass'/g '$dir'/tmp/init.lua && sed -i s/ssid/'$ssid'/g '$dir'/tmp/init.lua";
 			$cmd1="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/tmp/init.lua -t init.lua 2>&1";
-			$cmd2="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/modules/sensors/wireless/ds18b20/ds18b20.lua -t ds18b20.lua 2>&1";
+			$cmd2="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/modules/sensors/wireless/ds18b20/ds18b20.lua -t ds18b20.lua -r 2>&1";
 			echo '<pre>';
 			passthru($cmd0); 
 			passthru($cmd1); 
 			passthru($cmd2); 
+			echo '</pre>';
+		    }
+		    if (!empty($relay) ) {
+			$cmd0="cp '$dir'/modules/sensors/wireless/relay/init.lua '$dir'/tmp && sed -i s/pass/'$pass'/g '$dir'/tmp/init.lua && sed -i s/ssid/'$ssid'/g '$dir'/tmp/init.lua";
+			$cmd1="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/tmp/init.lua -t init.lua -r 2>&1";
+			echo '<pre>';
+			passthru($cmd0); 
+			passthru($cmd1); 
 			echo '</pre>';
 		    }
 		    
@@ -66,8 +75,8 @@ if ($_POST['run'] == "Upload") {
 			//$cmd4="echo 'file.close()' > '$usb'";
 			//$cmd1="echo 'wifi.setmode(wifi.STATION)' > '$usb'";
 			//$cmd2="echo 'wifi.sta.config('\"'$ssid'\"','\"'$pass'\"');' > '$usb'";
-	    		$cmdr="echo  'node.restart();' > '$usb'";
-			passthru($cmdr); 
+	    		//$cmdr="echo  'node.restart();' > '$usb'";
+			//passthru($cmdr); 
 			//passthru($cmd2); 
 			//passthru($cmd3); 
 			//passthru($cmd4); 
@@ -105,13 +114,16 @@ exec($cmd, $i);
 <form action="" method="post">
 Select device:<br>
 <?php
+$n=0;
 foreach($i as $o ) {
     $cmdd="udevadm info -q all --name='$o' 2> /dev/null |grep -m1 ID_MODEL |cut -c 13-";
-    exec($cmdd, $ii);
+    exec($cmdd, $name);
 ?>
-    <input type="radio" name="usb" value="<?php echo $o ?>" ><?php echo $ii[0] ." ". $o ?>
+    
+    <input type="radio" name="usb" value="<?php echo $o ?>" ><?php echo $name["$n"] ." ". $o ?>
     <br><br>
 <?php
+$n=$n+1;
 }
 ?>
 Select program:<br>
@@ -119,6 +131,8 @@ Select program:<br>
     <br>
     <input type="radio" name="dht11" value="dht11" >DHT11
     <br>
+    <input type="radio" name="relay" value="relay" >Relay
+    <br>            
     <input type="radio" name="ds18b20" value="ds18b20" >DS18B20
     <br><br>
 Configure WiFi:<br>

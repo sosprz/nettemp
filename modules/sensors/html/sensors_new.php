@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-            <div class="panel-heading">New sensors</div>
+            <div class="panel-heading">New devices</div>
 
 <table class="table table-striped"><tr>	
 <thead><tr><th></th><th>id</th><th>Add</th></tr></thead>
