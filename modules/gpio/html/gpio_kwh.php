@@ -55,7 +55,7 @@ else
         if ($kwhrun=='on') { 
 ?>
     Status: <?php echo $a['status']; ?>
-	<form action="" method="post">
+	<form action="" method="post" style=" display:inline!important;">
 	<input type="image" src="media/ico/Button-Turn-Off-icon.png" title="Simple on/off" onclick="this.form.submit()" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="kwhrun" value="off" />
@@ -66,24 +66,25 @@ else
     else 
     {
     ?>
-<form action="" method="post">
-    <input type="image" name="simpleexit" value="exit" src="media/ico/Close-2-icon.png" title="Back"   onclick="this.form.submit()" />
+kWh status: <?php echo $a['status']; ?>
+<form action="" method="post" style=" display:inline!important;">
+	Divider
+	<input type="text" name="kwh_divider" size="2" value="<?php echo $a["kwh_divider"]; ?>"  />
+	<input type="hidden" name="kwh_divider1" value="kwh_divider2" />
+	<button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+    </form>
+<form action="" method="post" style=" display:inline!important;">
+    <button type="submit" class="btn btn-xs btn-primary">ON</button>
+    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="kwhrun" value="on" />
+</form>
+<form action="" method="post" style=" display:inline!important;">
+    <button type="submit" class="btn btn-xs btn-danger">Exit</button>
+    <input type="hidden" name="simpleexit" value="exit" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="kwhexit" value="kwhexit" />
 </form>
 
-kWh status: <?php echo $a['status']; ?>
-<form action="" method="post">
-	Divider
-	<input type="text" name="kwh_divider" size="2" value="<?php echo $a["kwh_divider"]; ?>"  />
-	<input type="hidden" name="kwh_divider1" value="kwh_divider2" />
-	<input type="image" src="media/ico/Actions-edit-redo-icon.png" />
-    </form>
-<form action="" method="post">
-    <input type="image" src="media/ico/Button-Turn-On-icon.png" title="Simple on/off" onclick="this.form.submit()" />
-    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    <input type="hidden" name="kwhrun" value="on" />
-</form>
 
 
     <?php 

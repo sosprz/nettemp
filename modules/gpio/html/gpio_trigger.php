@@ -38,9 +38,9 @@ if ($triggerrun == "off")  {
     if ($trigger_run == 'on') { 
 ?>
     Status: <?php echo $status ?>
-    <form action="" method="post">
+    <form action="" method="post" style=" display:inline!important;">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="image" src="media/ico/Button-Turn-Off-icon.png"/>
+	<button type="submit" class="btn btn-xs btn-danger">OFF </button>
 	<input type="hidden" name="triggerrun" value="off" />
     </form>
 
@@ -50,18 +50,20 @@ else
 {
 ?>
     
-    <form action="" method="post">
-	<input type="image" name="triggerexit" value="off" src="media/ico/Close-2-icon.png" title="Back"  onclick="this.form.submit()" />
+    Status: OFF
+    <form action="" method="post" style=" display:inline!important;">
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<button type="submit" class="btn btn-xs btn-primary">ON</button>
+	<input type="hidden" name="triggerrun" value="on" />
+    </form>
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-danger">Exit</button>
+	<input type="hidden" name="triggerexit" value="off" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="buzzer" value="<?php echo $buzzer; ?>"/>
 	<input type="hidden" name="triggerexit" value="triggerexit" />
     </form>
-    Status: OFF
-    <form action="" method="post">
-	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="image" src="media/ico/Button-Turn-On-icon.png"/>
-	<input type="hidden" name="triggerrun" value="on" />
-    </form>
+
 <?php
 }
 //}

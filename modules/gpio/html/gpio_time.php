@@ -35,10 +35,10 @@ if ($timerun == "off") {
     if ($time_run == 'on') { 
 ?>
 
-    <form action="" method="post">
+    <form action="" method="post" style=" display:inline!important;">
 	Status: <?php echo $a['status']; ?> 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="image" src="media/ico/Button-Turn-Off-icon.png"/>
+	<button type="submit" class="btn btn-xs btn-danger">OFF </button>
 	<input type="hidden" name="timerun" value="off" />
 	<input type="hidden" name="off" value="off" />
     </form>
@@ -48,18 +48,20 @@ if ($timerun == "off") {
     else {
 
 ?>
-    <form action="" method="post">
-	<input type="image" name="time_checkbox" src="media/ico/Close-2-icon.png" title="back" value="off"  onclick="this.form.submit()" />
+    
+    <form action="" method="post" style=" display:inline!important;">
+	<input type="text" name="time_offset" value="<?php echo $a['time_offset']; ?>" size="4"  >min 
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<button type="submit" class="btn btn-xs btn-primary">ON</button>
+	<input type="hidden" name="timerun" value="timerun" />
+    </form>
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-danger">Exit</button>
+	<input type="hidden" name="time_checkbox" value="off"  />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="timeexit" value="timeexit" />
    </form>
 
-    <form action="" method="post">
-	<input type="text" name="time_offset" value="<?php echo $a['time_offset']; ?>" size="1"  >min 
-	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="image" src="media/ico/Button-Turn-On-icon.png"/>
-	<input type="hidden" name="timerun" value="timerun" />
-    </form>
 <?php 
     }
 //    }
