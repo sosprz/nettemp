@@ -4,10 +4,10 @@ $relay = isset($_POST['relay']) ? $_POST['relay'] : '';
 $ronoff = isset($_POST['ronoff']) ? $_POST['ronoff'] : '';
 if (($ronoff == "ronoff")){
     if ($relay == 'on' ){
-    $cmd="curl $ip/on";
+    $cmd="curl $ip/seton";
     exec($cmd);
     } else { 
-    $cmd="curl $ip/off";
+    $cmd="curl $ip/setoff";
     exec($cmd);
     }
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -21,12 +21,11 @@ $result2 = $sth2->fetchAll();
 foreach ( $result2 as $a) {
 $ip=$a['ip'];
 
-$cmd="curl $ip/status";
+$cmd="curl $ip/showstatus";
 exec($cmd, $i);
 $s=$i[0];
-$o=str_replace('status', '', $s);
-if ( $o == '1') { $rs='on'; }
-if ( $o == '0') { $rs='off'; }
+$os=str_replace('status', '', $s);
+$o = str_replace(' ', '', $os);
 ?>
 
 
@@ -36,7 +35,7 @@ if ( $o == '0') { $rs='off'; }
 </div>
 <div class="panel-body">
     <form action="" method="post">
-    <input type="checkbox"  data-toggle="toggle"  onchange="this.form.submit()" name="relay" value="<?php echo $rs == on  ? 'off' : 'on'; ?>" <?php echo $rs == 'on' ? 'checked="checked"' : ''; ?>  />
+    <input type="checkbox"  data-toggle="toggle"  onchange="this.form.submit()" name="relay" value="<?php echo $o == 'on'  ? 'off' : 'on'; ?>" <?php echo $o == 'on' ? 'checked="checked"' : ''; ?>  />
     <input type="hidden" name="ip" value="<?php echo $a['ip']; ?>"/>
     <input type="hidden" name="ronoff" value="ronoff" />
 </form>

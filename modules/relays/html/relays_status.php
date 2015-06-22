@@ -13,12 +13,13 @@ $numRows = count($result);
 <?php
 foreach ( $result as $a) {
 $ip=$a['ip'];
-$cmd="curl $ip/status";
+$cmd="curl $ip/showstatus";
 exec($cmd, $i);
 $s=$i[0];
-$o=str_replace('status', '', $s);
-if ( $o == '1') { $rs='ON'; }
-if ( $o == '0') { $rs='OFF'; }
+$o1=str_replace('status', '', $s);
+$o = str_replace(' ', '', $o1);
+if ( $o == 'on') { $rs='ON'; }
+if ( $o == 'off') { $rs='OFF'; }
 
 
 ?>
