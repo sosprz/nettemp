@@ -33,6 +33,7 @@ var msnry = new Masonry( container, {
   <div class="item "><?php include('modules/status/html/cam3.php'); ?></div>
   <div class="item"><?php include('modules/hosts/html/hosts_status.php'); ?></div>
   <div class="item"><?php include('modules/gpio/html/gpio_status.php'); ?></div>
+  <div class="item"><?php include('modules/relays/html/relays_status.php'); ?></div>
   <div class="item"><?php include('modules/kwh/html/kwh_status.php'); ?></div>
   <div class="item"><?php include('modules/tools/html/tools_file_check.php'); ?></div>
 </div>

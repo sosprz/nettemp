@@ -44,10 +44,16 @@
 <thead><tr><th></th><th>id</th><th>Rem</th></tr></thead>
 
      <?php 
-    $sth = $db->prepare("SELECT rom FROM sensors,relays");
+    $sth = $db->prepare("SELECT rom FROM sensors");
     $sth->execute();
     $result = $sth->fetchAll();
     foreach ($result as $a) { 		
+    $array20[]=$a["rom"];
+    }
+    $sth = $db->prepare("SELECT rom FROM relays");
+    $sth2->execute();
+    $result2 = $sth->fetchAll();
+    foreach ($result2 as $a) { 		
     $array20[]=$a["rom"];
     }	 
     

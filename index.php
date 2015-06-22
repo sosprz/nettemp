@@ -138,7 +138,7 @@ case 'diag': include('modules/tools/html/tools_file_check.php'); break;
 case 'upload': include('modules/tools/backup/html/upload.php'); break;
 case 'receiver': include('modules/sensors/html/receiver.php'); break;
 case 'espupload': include('modules/sensors/wireless/espupload/espupload.php'); break;
-case 'controls': include('modules/controls/controls.php'); break;
+case 'controls': include('modules/relays/html/relays_controls.php'); include('modules/gpio/html/gpio_controls.php'); break;
 
 }
 ?>
