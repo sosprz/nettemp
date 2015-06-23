@@ -12,12 +12,18 @@ if ($name1 == "name2"){
      } 
 
 
-if (!empty($mode)) { ?>
-     <td><img type="image" src="media/ico/SMD-64-pin-icon_24.png" ></td>
-    <?php echo $a['name']; 
-    }
-    else { 
+//if (!empty($mode)) { 
 ?>
+<!--     <td><img type="image" src="media/ico/SMD-64-pin-icon_24.png" ></td> -->
+    <?php //echo $a['name']; 
+    //}
+    //else { 
+?>
+
+<?php
+if (empty($mode)) { 
+?>
+
 <form action="" method="post" style=" display:inline!important;">
     <img type="image" src="media/ico/SMD-64-pin-icon_24.png" >
     <input type="text" name="name" value="<?php echo $a['name']; ?>" size="6">

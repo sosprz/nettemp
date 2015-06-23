@@ -7,67 +7,6 @@ if (($weekexit == "weekexit") ){
     exit();
     }
 
-$Mon = isset($_POST['Mon']) ? $_POST['Mon'] : '';
-$MonMon = isset($_POST['MonMon']) ? $_POST['MonMon'] : '';
-    if ( $Mon == "Mon" ) {
-    $db->exec("UPDATE gpio SET week_Mon='$MonMon' where gpio='$gpio_post' ") or die("simple off db error");
-    $db = null;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
-$Tue = isset($_POST['Tue']) ? $_POST['Tue'] : '';
-$TueTue = isset($_POST['TueTue']) ? $_POST['TueTue'] : '';
-    if ( $Tue == "Tue" ) {
-    $db->exec("UPDATE gpio SET week_Tue='$TueTue' where gpio='$gpio_post' ") or die("simple off db error");
-    $db = null;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
-$Wed = isset($_POST['Wed']) ? $_POST['Wed'] : '';
-$WedWed = isset($_POST['WedWed']) ? $_POST['WedWed'] : '';
-    if ( $Wed == "Wed" ) {
-    $db->exec("UPDATE gpio SET week_Wed='$WedWed' where gpio='$gpio_post' ") or die("simple off db error");
-    $db = null;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
-$Thu = isset($_POST['Thu']) ? $_POST['Thu'] : '';
-$ThuThu = isset($_POST['ThuThu']) ? $_POST['ThuThu'] : '';
-    if ( $Thu == "Thu" ) {
-    $db->exec("UPDATE gpio SET week_Thu='$ThuThu' where gpio='$gpio_post' ") or die("simple off db error");
-    $db = null;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
-$Fri = isset($_POST['Fri']) ? $_POST['Fri'] : '';
-$FriFri = isset($_POST['FriFri']) ? $_POST['FriFri'] : '';
-    if ( $Fri == "Fri" ) {
-    $db->exec("UPDATE gpio SET week_Fri='$FriFri' where gpio='$gpio_post' ") or die("simple off db error");
-    $db = null;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
-$Sun = isset($_POST['Sun']) ? $_POST['Sun'] : '';
-$SunSun = isset($_POST['SunSun']) ? $_POST['SunSun'] : '';
-    if ( $Sun == "Sun" ) {
-    $db->exec("UPDATE gpio SET week_Sun='$SunSun' where gpio='$gpio_post' ") or die("simple off db error");
-    $db = null;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
-$Sat = isset($_POST['Sat']) ? $_POST['Sat'] : '';
-$SatSat = isset($_POST['SatSat']) ? $_POST['SatSat'] : '';
-    if ( $Sat == "Sat" ) {
-    $db->exec("UPDATE gpio SET week_Sat='$SatSat' where gpio='$gpio_post' ") or die("simple off db error");
-    $db = null;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
-
-
-
-
-
 $day_zone1s = isset($_POST['day_zone1s']) ? $_POST['day_zone1s'] : '';
 $day_zone1e = isset($_POST['day_zone1e']) ? $_POST['day_zone1e'] : '';
 $day_zone2s = isset($_POST['day_zone2s']) ? $_POST['day_zone2s'] : '';
@@ -129,25 +68,10 @@ if ($dayrunon == "on")  {
 	    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	    <input type="hidden" name="dayrunon" value="on" /> 
 	</form>
-Day of the week:
-
-
 <?php
-$arr = array(Mon, Tue, Wed, Thu, Fri, Sat, Sun);
-foreach ($arr as &$days) {
-?>
-	<form action="" method="post" style=" display:inline!important;">
-	
-	<label><?php echo $days ?></label>
-   <input type="checkbox" name="<?php echo $days; echo $days; ?>" value="on" <?php echo $a['week_'.$days] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" />
-	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="hidden" name="<?php echo $days; ?>" value="<?php echo $days; ?>"/>
-	
-	</form>
-<?php
-}
-?>
+include('modules/gpio/html/gpio_week_forms.php');
 
+?>
 
 
 

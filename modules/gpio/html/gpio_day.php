@@ -8,13 +8,6 @@ if (($dayexit == "dayexit") ){
     }
 
 
-$day_zone1s = isset($_POST['day_zone1s']) ? $_POST['day_zone1s'] : '';
-$day_zone1e = isset($_POST['day_zone1e']) ? $_POST['day_zone1e'] : '';
-$day_zone2s = isset($_POST['day_zone2s']) ? $_POST['day_zone2s'] : '';
-$day_zone2e = isset($_POST['day_zone2e']) ? $_POST['day_zone2e'] : '';
-$day_zone3s = isset($_POST['day_zone3s']) ? $_POST['day_zone3s'] : '';
-$day_zone3e = isset($_POST['day_zone3e']) ? $_POST['day_zone3e'] : '';
-
 $dayrun = isset($_POST['dayrun']) ? $_POST['dayrun'] : '';
 if ($dayrun == "on")  {
 	 include('gpio_on.php');
@@ -23,15 +16,6 @@ if ($dayrun == "on")  {
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     }
-
-$dayset = isset($_POST['dayset']) ? $_POST['dayset'] : '';
-if ($dayset == "on")  {
-    $db->exec("UPDATE gpio SET day_zone1s='$day_zone1s',day_zone1e='$day_zone1e',day_zone2s='$day_zone2s',day_zone2e='$day_zone2e',day_zone3s='$day_zone3s',day_zone3e='$day_zone3e'  WHERE gpio='$gpio_post'") or die("exec error");
-    $db = null;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();	
-    }
-
 
 if ($dayrun == "off")  {
 	 include('gpio_off.php');
@@ -64,18 +48,8 @@ if ($dayrun == "off")  {
     }
 	else 
     {
+include('gpio_day_forms.php');
 ?>
-    
-    
-    <form action="" method="post" style=" display:inline!important;">
-	Set hour range:
-	Zone 1 <input type="text" name="day_zone1s" value="<?php echo $a['day_zone1s']; ?>" size="3" placeholder="08:00"  >-<input type="text" name="day_zone1e" value="<?php echo $a['day_zone1e']; ?>" size="3" placeholder="11:00"> 
-	Zone 2 <input type="text" name="day_zone2s" value="<?php echo $a['day_zone2s']; ?>" size="3" placeholder="12:30" >-<input type="text" name="day_zone2e" value="<?php echo $a['day_zone2e']; ?>" size="3" placeholder="16:30"> 
-	Zone 3 <input type="text" name="day_zone3s" value="<?php echo $a['day_zone3s']; ?>" size="3" placeholder="20:15" >-<input type="text" name="day_zone3e" value="<?php echo $a['day_zone3e']; ?>" size="3" placeholder="06:00"> 
-	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
-	<input type="hidden" name="dayset" value="on" />
-    </form>
     <form action="" method="post" style=" display:inline!important;">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<button type="submit" class="btn btn-xs btn-primary">ON</button>
