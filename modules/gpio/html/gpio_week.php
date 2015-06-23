@@ -62,32 +62,30 @@ if ($dayrunon == "on")  {
     {
 ?>
     
-   <form action="" method="post" style=" display:inline!important;">
-	    <img  src="media/ico/day-icon.png" title="Day plan" />
-	    <input type="checkbox" name="dayrun" value="on" <?php echo $a["day_run"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" />
-	    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	    <input type="hidden" name="dayrunon" value="on" /> 
-	</form>
 <?php
 include('modules/gpio/html/gpio_week_forms.php');
 
 ?>
 
 
+<form action="" method="post" style=" display:inline!important;">
+    <button type="submit" name="dayrun" value="<?php echo $a["day_run"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["day_run"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-primary"'; ?>  >Day</button>
+    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="dayrunon" value="on" /> 
+</form>
 
-    <form action="" method="post" style=" display:inline!important;">
+<form action="" method="post" style=" display:inline!important;">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<button type="submit" class="btn btn-xs btn-primary">ON</button>
 	<input type="hidden" name="weekrun" value="on" />
-	
-	
-    </form>
-    <form action="" method="post" style=" display:inline!important;">
-		<input type="hidden" name="weekoff" value="off" />
-		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-		<input type="hidden" name="weekexit" value="weekexit" />
-		<button type="submit" class="btn btn-xs btn-danger">Exit</button>
-   </form>
+</form>
+
+<form action="" method="post" style=" display:inline!important;">
+    <input type="hidden" name="weekoff" value="off" />
+    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="weekexit" value="weekexit" />
+    <button type="submit" class="btn btn-xs btn-danger">Exit</button>
+</form>
 
 <?php
     }

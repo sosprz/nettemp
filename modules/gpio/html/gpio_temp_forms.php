@@ -111,9 +111,13 @@ foreach (range(1, $tempnum) as $up) {
     }
 ?>
 
-<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-<input type="hidden" name="tempset" value="on" />
-<button type="submit" class="btn btn-xs btn-primary">SAVE</button>
+<div class="form-group">
+    <div class="col-sm-6">
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="tempset" value="on" />
+	<button type="submit" class="btn btn-xs btn-primary">SAVE</button>
+    </div>
+</div>
 
 </fieldset>
 </form>
