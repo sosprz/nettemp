@@ -1,11 +1,14 @@
 <?php
 
+$rand=substr(rand(), 0, 10);
 $host_name = isset($_POST['host_name']) ? $_POST['host_name'] : '';
 $host_ip = isset($_POST['host_ip']) ? $_POST['host_ip'] : '';
 $host_id = isset($_POST['host_id']) ? $_POST['host_id'] : '';
 $host_type = isset($_POST['host_type']) ? $_POST['host_type'] : '';
 
 ?>
+<div class="panel panel-default">
+<div class="panel-heading">Monitoring</div>
 
 <?php // SQlite
 	$host_add1 = isset($_POST['host_add1']) ? $_POST['host_add1'] : '';
@@ -13,15 +16,20 @@ $host_type = isset($_POST['host_type']) ? $_POST['host_type'] : '';
 	$db = new PDO('sqlite:dbf/hosts.db');
 	$host_name=host_ . $host_name;
 	$host_name=str_replace(".","",$host_name);
-	$db->exec("INSERT OR IGNORE INTO hosts (name, ip, type) VALUES ('$host_name', '$host_ip', '$host_type')") or die ("cannot insert to DB" );
+	$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type) VALUES ('$host_name', '$host_ip', '$host_name', '$host_type')") or die ("cannot insert to DB" );
 	    $dbnew = new PDO("sqlite:db/$host_name.sql");
 	    $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
 	    $dbnew==NULL;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}	
-	elseif ($host_add1 == "host_add2") { echo " Please input name and IP"; }
-	?>
+	elseif ($host_add1 == "host_add2") { ?>
+	<div class="panel-body">
+	<span class="label label-danger">Please input name and IP</span> 
+	</div>
+<?php
+	}
+?>
 	
 
 <?php // SQLite - del
@@ -36,8 +44,6 @@ $host_type = isset($_POST['host_type']) ? $_POST['host_type'] : '';
 	}
 	?>
 
-<div class="panel panel-default">
-<div class="panel-heading">Monitoring</div>
 <table class="table table-striped">
 <thead><tr><th></th><th>Name</th><th>IP / Name</th><th>Type</th><th>Add / Rem</tf></tr></thead>
 <tr>	

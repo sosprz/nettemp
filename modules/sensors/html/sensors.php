@@ -82,7 +82,7 @@ $name_new=trim($name_new2);
 		$db->exec("INSERT OR IGNORE INTO relays (name, rom, ip, type) VALUES ('wi_relay_$name','$id_rom_new','$ip', '$type'  )") or die ("cannot insert relays to DB" );
 		//host for monitoring
 		$dbhost = new PDO("sqlite:dbf/hosts.db");	
-		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type) VALUES ('wi_relay_$name', '$ip', 'host_$id_rom_new', 'ping')") or die ("cannot insert host to DB" );	
+		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type) VALUES ('host_wifi_relay_$name', '$ip', 'host_$id_rom_new', 'ping')") or die ("cannot insert host to DB" );	
 		$dbnew = new PDO("sqlite:db/host_$id_rom_new.sql");
     		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
     		$dbnew==NULL;
