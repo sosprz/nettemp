@@ -9,7 +9,7 @@ $numRows = count($row);
 if ($numRows == 0 ) { ?>
 <div class="panel-body">
 Go to device scan!
-<a href="http://172.18.10.10/index.php?id=devices&type=scan" class="btn btn-success">GO!</a>
+<a href="index.php?id=devices&type=scan" class="btn btn-success">GO!</a>
 </div>
 <?php 
     }
