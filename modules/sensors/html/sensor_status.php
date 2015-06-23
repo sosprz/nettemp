@@ -6,7 +6,13 @@ $db = new PDO("sqlite:$dbl");
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
 $numRows = count($row);
-if ($numRows == 0 ) { echo "<span class=\"empty\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }
+if ($numRows == 0 ) { ?>
+Go to device scan!
+<a href="http://172.18.10.10/index.php?id=devices&type=scan" class="btn btn-success">GO!</a>
+<?php 
+    }
+?>
+
     $sth = $db->prepare("select * from sensors");
     $sth->execute();
     $result = $sth->fetchAll(); ?>

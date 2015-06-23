@@ -77,7 +77,15 @@ $name_new=trim($name_new2);
 		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip) VALUES ('$rand','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip' )") or die ("cannot insert to DB" );
 	    }
 	    if ( $type == "relay" ) {
-		$db->exec("INSERT OR IGNORE INTO relays (name, rom, ip, type) VALUES ('$rand','$id_rom_new','$ip', '$type'  )") or die ("cannot insert to DB" );
+		$name=$rand;
+		//relays
+		$db->exec("INSERT OR IGNORE INTO relays (name, rom, ip, type) VALUES ('wi_relay_$name','$id_rom_new','$ip', '$type'  )") or die ("cannot insert relays to DB" );
+		//host for monitoring
+		$dbhost = new PDO("sqlite:dbf/hosts.db");	
+		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type) VALUES ('wi_relay_$name', '$ip', 'host_$id_rom_new', 'ping')") or die ("cannot insert host to DB" );	
+		$dbnew = new PDO("sqlite:db/host_$id_rom_new.sql");
+    		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
+    		$dbnew==NULL;
 	    }
 	
 	    $dbnew = new PDO("sqlite:db/$id_rom_new.sql");

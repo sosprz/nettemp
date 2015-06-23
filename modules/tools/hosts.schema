@@ -5,4 +5,4 @@ CREATE TABLE hosts (
   type TEXT,
   last TEXT,
   status TEXT
-  );
+  , rom type TEXT);

@@ -95,6 +95,8 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD delay type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD rom type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD type type TEXT";
 
+sqlite3 $dir/dbf/hosts.db "ALTER TABLE hosts ADD rom type TEXT";
+
 
 
 
