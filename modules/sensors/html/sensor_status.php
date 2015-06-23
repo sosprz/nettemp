@@ -11,7 +11,6 @@ Go to device scan!
 <a href="http://172.18.10.10/index.php?id=devices&type=scan" class="btn btn-success">GO!</a>
 <?php 
     }
-?>
 
     $sth = $db->prepare("select * from sensors");
     $sth->execute();
