@@ -23,9 +23,6 @@ $db->exec("UPDATE mail_settings SET test_mail='$test_mail'") or die ($db->lastEr
 <form class="form-horizontal" action="" method="post">
 <fieldset>
 
-<!-- Form Name -->
-<legend>Send test mail</legend>
-
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="user">@</label>  

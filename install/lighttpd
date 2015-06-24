@@ -9,6 +9,7 @@ sed -i -e 's/server.document-root        = \"\/var\/www\"/server.document-root  
 # didable dir access
 sed -i '/url.access-deny/d' /etc/lighttpd/lighttpd.conf
 sed -i '$a url.access-deny = ( "~", ".inc", ".dbf", ".db", ".txt", ".rrd" )' /etc/lighttpd/lighttpd.conf
+sed -i '$a $HTTP["url"] =~ "^/modules"  { url.access-deny = ("") }' /etc/lighttpd/lighttpd.conf
 # set url rewrite
 if cat /etc/lighttpd/lighttpd.conf |grep url.rewrite-once 1> /dev/null; then
 echo -e "[ ${GREEN}ok${R} ] lighttpd: Url rewrite exist"

@@ -1,3 +1,9 @@
+<?php 
+if(!isset($_SESSION['user'])){
+header("Location: denied");
+}
+?>
+
 <?php
     $fw_onoff = isset($_POST['fw_onoff']) ? $_POST['fw_onoff'] : '';
     $onoff = isset($_POST['onoff']) ? $_POST['onoff'] : '';

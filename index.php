@@ -99,10 +99,10 @@ $numsimple2 = count($row2);
     <?php if(!isset($_SESSION["user"])) {?>
 	    <form action="" method="post" class="navbar-form navbar-right" >
             <div class="form-group">
-              <input type="text" name="username" placeholder="User" class="form-control input-sm">
+              <input type="text" name="username" placeholder="User" class="form-control input-sm" required="">
             </div>
             <div class="form-group">
-              <input type="password" name="password" placeholder="Password" class="form-control input-sm">
+              <input type="password" name="password" placeholder="Password" class="form-control input-sm" required="">
             </div>
 	    <input type="hidden" name="form_login" value="log">
             <button type="submit" class="btn-xs btn-primary">Sign in</button>
@@ -163,6 +163,3 @@ case 'controls': include('modules/relays/html/relays_controls.php'); include('mo
 <?php 
 }
 ?>
-
-
-
