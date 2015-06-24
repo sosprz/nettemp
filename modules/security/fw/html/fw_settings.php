@@ -39,10 +39,12 @@ $openvpn=$a["openvpn"];
 <h3 class="panel-title">Settings</h3>
 </div>
 <div class="panel-body">
-		<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method"post">
-		<label>Management IP</label>
-		<input name="ext" type="text" maxlength="50" value="<?php echo $ext;?>"/> 
+		<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" class="form-horizontal">
+		<div class="col-md-4">
+    		<label>Management IP</label>
+		<input name="ext" type="text" maxlength="50" value="<?php echo $ext;?>" class="form-control input-md" required=""/> 
 		<span id="helpBlock" class="help-block">Example: Single IP 84.84.84.84/32, All ip 0.0.0.0/0</span>
+		</div>
 		 <span class="label label-primary">Allow services for all IP:</span><br>
 		<span class="label label-info">SSH</span>
 		<input name="ssh" type="checkbox" value="on" <?php echo $ssh == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />

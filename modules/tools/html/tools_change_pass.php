@@ -8,11 +8,11 @@
 	  <input type="hidden" name="login_change" value="login_change1">
 	    <div class="form-group">
 		<label for="pwd">Password:</label>
-		<input type="password" class="form-control" id="pwd" name="pas1" >
+		<input type="password" class="form-control" id="pwd" name="pas1" required="" >
 	    </div>
 	    <div class="form-group">
 		<label for="pwd2">Repeat:</label>
-		<input type="password" class="form-control" id="pwd2" name="pas2" >
+		<input type="password" class="form-control" id="pwd2" name="pas2" required="" >
 	    </div>
 	  <input  type="submit" value="Save" class="btn btn-primary" />
         </form>   

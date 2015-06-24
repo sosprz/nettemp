@@ -1,6 +1,6 @@
 <?php
     $smsc = $_POST["smsc"];
-    if (!empty($smsc) && ($_POST['smsc1'] == "smsc2") ){
+    if (!empty($smsc) && ($_POST['smsc1'] == "smsc1") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE sms_settings SET smsc='$smsc' WHERE default_dev='on'") or die ($db->lastErrorMsg());
     $set_smsc="gammu -c tmp/gammurc setsmsc 1 $smsc";
@@ -12,7 +12,7 @@
 
 <?php
 $sms_test = $_POST["sms_test"];
-if  ($_POST['sms_test1'] == "sms_test2") {
+if  ($_POST['sms_test1'] == "sms_test1") {
 	$db = new PDO('sqlite:dbf/nettemp.db');
    $db->exec("UPDATE sms_settings SET sms_test='$sms_test' WHERE default_dev='on'") or die ($db->lastErrorMsg());
 	$cmd="modules/sms/sms_test";
@@ -27,25 +27,53 @@ $sth = $db->prepare("select * from sms_settings WHERE default_dev='on' ");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { ?>
-<table <table class="table table-striped">
-<tr>
-<form action="" method="post"> 	
-<td>SMS Center number</td>
-<td><input type="text" name="smsc" size="25" value="<?php echo $a["smsc"]; ?>" /></td>
-<td><button type="submit" class="btn btn-primary">Save</button></td>
-</tr>
-<input type="hidden" name="smsc1" value="smsc2" />
+
+<form class="form-horizontal" action="" method="post">
+<fieldset>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="smsc">SMS center number</label>  
+  <div class="col-md-4">
+  <input id="smsc" name="smsc" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a["smsc"]; ?>">
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="smsc1"></label>
+  <div class="col-md-4">
+    <button id="smsc1" name="smsc1"  value="smsc1" class="btn btn-primary">Save </button>
+  </div>
+</div>
+
+</fieldset>
 </form>
 
-<tr>	
-    <form action="" method="post">
-    <td>Send test sms to</td>
-    <td><input type="text" name="sms_test" size="25" value="<?php echo $a["sms_test"]; ?>" /></td>
-    <input type="hidden" name="sms_test1" value="sms_test2" />
-    <td><button type="submit" class="btn btn-primary">Send</button></td>
-    </form>
-</tr>		
-</table>
+<form class="form-horizontal" action="" method="post">
+<fieldset>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="sms_test">Number</label>  
+  <div class="col-md-4">
+  <input id="sms_test" name="sms_test" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a["sms_test"]; ?>">
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="sms_test1"></label>
+  <div class="col-md-4">
+    <button id="sms_test1" name="sms_test1" value="sms_test1" class="btn btn-primary">Send test </button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
+
 <?php }?>
 
 

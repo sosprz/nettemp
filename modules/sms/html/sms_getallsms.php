@@ -14,12 +14,12 @@
 
 ?>
 
-<form action="" method="post">
+<form action="" method="post" style=" display:inline!important;">
 <button class="btn btn-primary" type="submit" name="getall" value="getall">Get sms</button>
 </form>
 
 
-<form action="" method="post">
+<form action="" method="post" style=" display:inline!important;">
 <button class="btn btn-primary" type="submit" name="delall" value="delall">Remove all SMS</button>
 </form>
 

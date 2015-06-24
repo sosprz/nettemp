@@ -62,7 +62,7 @@ foreach ($result as $select) {
 Status:<?php echo $a['status'];?>
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    <input type="image" src="media/ico/Button-Turn-Off-icon.png"/>
+    <button type="submit" class="btn btn-xs btn-danger">Exit</button>
     <input type="hidden" name="tempon" value="off" />
     <input type="hidden" name="off" value="off" />
 </form>

@@ -1,5 +1,6 @@
 <div class="panel panel-default">
-            <div class="panel-heading">Relays</div>
+<div class="panel-heading">Relays</div>
+<div class="table-responsive">
 <table class="table table-striped">
 
 <?php
@@ -73,4 +74,5 @@ $row = $sth2->fetchAll();
 }  
 ?>
 </table>
+</div>
 </div>

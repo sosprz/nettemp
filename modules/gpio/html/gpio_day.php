@@ -39,7 +39,7 @@ if ($dayrun == "off")  {
 	
 	 <form action="" method="post" style=" display:inline!important;">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<button type="submit" class="btn btn-xs btn-danger">OFF </button>
+	<button type="submit" class="btn btn-xs btn-danger">Exit</button>
 	<input type="hidden" name="dayrun" value="off" />
 	<input type="hidden" name="off" value="off" />
 	</form>

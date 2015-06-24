@@ -1,5 +1,3 @@
-<div class="panel panel-default">
-<div class="panel-heading">Add temperature sensor over SNMP</div>
 <?php
 $snmp_name = isset($_POST['snmp_name']) ? $_POST['snmp_name'] : '';
 $snmp_community = isset($_POST['snmp_community']) ? $_POST['snmp_community'] : '';
@@ -57,22 +55,35 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	}
 	?>
 
+<div class="panel panel-default">
+<div class="panel-heading">Add temperature sensor over SNMP</div>
 
-<table class="table table-striped">
-
-<thead><tr><th></th><th>Name</th><th>Community</th><th>Host</th><th>OID</th><th>Divider</th></tr></thead>
-<tr>	
-	<form action="" method="post">
+<div class="table-responsive">
+<table class="table">
+<thead><tr><th></th><th>Name</th><th>Community</th><th>Host</th><th>OID</th><th>Divider</th><th>Add/Rem</th></tr></thead>
+    <form action="" method="post" class="form-horizontal">
+	<tr>
 	<td></td>
-	<td><input type="text" name="snmp_name" size="10" value="" /></td>
-	<td><input type="text" name="snmp_community" size="7" value="" /></td>
-	<td><input type="text" name="snmp_host" size="7" value="" /></td>
-	<td><input type="text" name="snmp_oid" size="60" value="" /></td>
-	<td><input type="text" name="snmp_divider" size="1" value="" /></td>
+	<div class="col-md-2">
+	<td><input type="text" name="snmp_name" value="" class="form-control input-md" required=""/></td>
+	</div>
+	<div class="col-md-2">
+	<td><input type="text" name="snmp_community"  value="" class="form-control input-md" required=""/></td>
+	</div>
+	<div class="col-md-2">
+	<td><input type="text" name="snmp_host"  value="" class="form-control input-md" required=""/></td>
+	</div>
+	<div class="col-md-2">
+	<td><input type="text" name="snmp_oid" value="" class="form-control input-md" required=""/></td>
+	</div>
+	<div class="col-md-2">
+	<td><input type="text" name="snmp_divider" value="" class="form-control input-md"/></td>
+	</div>
 	<input type="hidden" name="snmp_add1" value="snmp_add2" />
-<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
+	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button></td>
+    </tr>
     </form>
-</tr>
+
 <?php
 
 $db = new PDO('sqlite:dbf/snmp.db');
@@ -88,18 +99,17 @@ foreach ($result as $a) {
 	<td><?php echo $a["host"]; ?></td>
 	<td><?php echo $a["oid"]; ?></td>
 	<td><?php echo $a["divider"]; ?></td>
-	
-	<form action="" method="post"> 	
-	<input type="hidden" name="snmp_id" value="<?php echo $a["id"]; ?>" />
-	<input type="hidden" name="snmp_name" value="<?php echo $a["name"]; ?>" />
+
+	<form action="" method="post">
+	<input type="hidden" name="snmp_id" value="<?php echo $a["id"]; ?>"/>
+	<input type="hidden" name="snmp_name" value="<?php echo $a["name"]; ?>"/>
 	<input type="hidden" type="submit" name="snmp_del1" value="snmp_del2" />
-<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
+	<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
 	</form>
 	</tr>
 <?php 
     }
 ?>
-	
-</tr>
 </table>
+</div>
 </div>

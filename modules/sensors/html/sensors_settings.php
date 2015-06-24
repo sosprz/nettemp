@@ -1,5 +1,7 @@
 <div class="panel panel-default">
-            <div class="panel-heading">Sensors</div>
+<div class="panel-heading">Sensors</div>
+
+<div class="table-responsive">
 <table class="table table-striped">
 
 <?php
@@ -90,4 +92,5 @@ if ( $lcd == 'on' ) {
 
 ?>
 </table>
-          </div>
+</div>
+</div>

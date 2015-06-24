@@ -41,39 +41,42 @@ $user_pass = isset($_POST['user_pass']) ? $_POST['user_pass'] : '';
 <p>Port: 1194</p>
 <p>LZO compression: on</p>
 <p><?php include('modules/security/vpn/html/vpn_ca.php'); ?></p>
-<hr>
-<h4>Users Add/Remove<h4>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">VPN Users</h3>
+</div>
+<div class="table-responsive">
 <table class="table table-striped">
-<tr><td></td><td>User</td><td>Password<td></tr>
 <thead><tr><th></th><th>Name</th><th>Password</th><th>Add/Rem</th></tr></thead>
     <tr><td></td>
-	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
-	<td><input type="text" name="user_name" size="20" value="" /></td>
-	<td><input type="text" name="user_pass" size="20" value="" /></td>
+	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post" calss="form">
+	<td><input type="text" name="user_name" value="" class="form-control" required=""/></td>
+	<td><input type="text" name="user_pass" value="" class="form-control" required=""/></td>
 	<input type="hidden" name="add" value="add" />
-<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
-	</tr>
+	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	</form>
-
-
+    </tr>
 <?php
 $pass=exec("awk -F':' '/vpn/{print $4}' /etc/group");
 $result = array_filter(explode(",", $pass));
 //var_dump($result);
 foreach ($result as $a) { 
 ?>
-	<tr>
+    <tr>
 	<td><img src="media/ico/User-Preppy-Blue-icon.png" ></td>
 	<td><?php echo $a;?></td><td></td>
 	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"> 	
 	<input type="hidden" name="user_name" value="<?php echo $a; ?>" />
 	<input type="hidden" type="submit" name="del" value="del" />
-<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
-</tr>
+	<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
 	</form>
+    </tr>
 <?php
 }
 ?>
-</tr></table>
+</table>
 </div>
 </div>

@@ -35,52 +35,93 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
 	foreach ($result as $a) {
 ?>
 
-    <table  class="table">
-    <tr>
-    <form action="settings" method="post">
-    <td>Username</td>
-    <td><input type="text" name="user" size="25" value="<?php echo $a["user"]; ?>" /></td>
-    </tr>
-    <tr>	
-    <td>Server smtp</td>
-    <td><input type="text" name="host" size="25" value="<?php echo $a["host"]; ?>" /></td>
-    </tr>
-    <tr>	
-    <td>Port</td>
-    <td><input type="text" name="port" size="25" value="<?php echo $a["port"]; ?>" /></td>
-    </tr>
-    <tr>
-    <td>Password</td>
-    <td><input type="password" name="password" size="25" value="<?php echo $a["password"]; ?>" /></td>
+<form class="form-horizontal" action="" method="post">
+<fieldset>
+
+<!-- Form Name -->
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="user">Username</label>  
+  <div class="col-md-4">
+  <input id="user" name="user" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a["user"]; ?>">
+    
+  </div>
+</div>
+
+<!-- Password input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="password">Password</label>
+  <div class="col-md-4">
+    <input id="password" name="password" placeholder="" class="form-control input-md" required="" type="password" value="<?php echo $a["password"]; ?>">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="smtp">Server SMTP</label>  
+  <div class="col-md-4">
+  <input id="host" name="host" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a["host"]; ?>">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="port">Port</label>  
+  <div class="col-md-2">
+  <input id="port" name="port" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a["port"]; ?>">
+    
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="auth">Auth</label>
+  <div class="col-md-2">
+    <select id="auth" name="auth" class="form-control">
+      <option value="on">on</option>
+      <option value="off">off</option>
+      <option value="login">login</option>
+    </select>
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="tls">TLS</label>
+  <div class="col-md-4">
+    <select id="tls" name="tls" class="form-control">
+      <option value="on">TLS</option>
+    </select>
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="tlscheck">TLS Ceck</label>
+  <div class="col-md-4">
+    <select id="tlscheck" name="tlscheck" class="form-control">
+      <option value="on">on</option>
+      <option value="off">off</option>
+    </select>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="mailsave"></label>
+  <div class="col-md-4">
     <input type="hidden" name="change_password1" value="change_password2" />
-    </tr>
-    <tr><td>Auth</td><td>
-    <select name="auth" >
-	    <option <?php echo $a['auth'] == 'on' ? 'selected="selected"' : ''; ?> value="on">on</option>   
-	    <option <?php echo $a['auth'] == 'off' ? 'selected="selected"' : ''; ?> value="off">off</option>   
-	    <option <?php echo $a['auth'] == 'login' ? 'selected="selected"' : ''; ?> value="login">login</option>   
-    </select>    
-    </td>
-    </tr>
-    <tr><td>TLS</td><td>
+    <button id="mailsave" name="mailsave" class="btn btn-primary">Save</button>
+  </div>
+</div>
 
-    <select name="tls" >
-	    <option <?php echo $a['tls'] == 'on' ? 'selected="selected"' : ''; ?> value="on">on</option>   
-	    <!-- <option <?php echo $a['tls'] == 'off' ? 'selected="selected"' : ''; ?> value="off">off</option>   -->
-    </select>    
-    </td>
-    </tr>
-    <tr><td>TLS Check cert</td><td>
-    <select name="tlscheck" >
-	    <option <?php echo $a['tlscheck'] == 'on' ? 'selected="selected"' : ''; ?> value="on">on</option>   
-	    <option <?php echo $a['tlscheck'] == 'off' ? 'selected="selected"' : ''; ?> value="off">off</option>   
-    </select>    
-    </td>
-    </tr>
-    <tr><td><input type="submit" value="Save" class="btn btn-primary" /></td></tr>
-    </form>
+</fieldset>
+</form>
 
-    </table>
+</div>
 
 <?php }	?>
 

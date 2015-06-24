@@ -1,6 +1,6 @@
 <div class="panel panel-default">
-            <div class="panel-heading">New devices</div>
-
+<div class="panel-heading">New devices</div>
+<div class="table-responsive">
 <table class="table table-striped"><tr>	
 <thead><tr><th></th><th>id</th><th>Add</th></tr></thead>
 	<?php	
@@ -79,5 +79,6 @@
 	    }	//if (empty($del_empty_array)) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }  
 	    
 	    ?>
-	    </table>
-            </div>
+</table>
+</div>
+</div>

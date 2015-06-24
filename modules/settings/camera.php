@@ -1,6 +1,5 @@
 <div class="panel panel-default">
-<div class="panel-heading">Camera
-</div>
+<div class="panel-heading">Camera</div>
 <?php
 $link = isset($_POST['link']) ? $_POST['link'] : '';
 $name = isset($_POST['name']) ? $_POST['name'] : '';
@@ -25,17 +24,17 @@ $name_del = isset($_POST['name_del']) ? $_POST['name_del'] : '';
 	}
 	?>
 
-
+<div class="table-responsive">
 <table class="table table-striped">
 <thead><tr><th></th><th>Name</th><th>link</th><th>Add/Rem</th></tr></thead>
 <tbody>
 	<form action="" method="post">
 	<tr>
 	<td><img type="image" src="media/ico/Security-Camera-icon.png" /></td>
-	<td><input type="text" name="name" size="20" value="" /></td>
-	<td><input type="text" name="link" size="30" value="" /></td>
+	<td><input type="text" name="name" size="20" value="" class="form-control" required=""/></td>
+	<td><input type="text" name="link" size="30" value="" class="form-control" required=""/></td>
 	<input type="hidden" name="add" value="add" />
-<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
+	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	</form>
 	</tr>
 
@@ -49,14 +48,15 @@ foreach ($result as $a) {
 ?>
     
 	<tr>
-	<td></td>
+	<td><img type="image" src="media/ico/Security-Camera-icon.png" /></td>
 	<td><?php echo $a["name"];?></td>
 	<td><?php echo $a["link"];?></td>
 	
-	<form action="" method="post"> 	
+	<form action="" method="post">
+	    
 	    <input type="hidden" name="name_del" value="<?php echo $a["name"]; ?>" />
 	    <input type="hidden" type="submit" name="del" value="del" />
-<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
+	    <td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
 	</form>
 	</tr>
 
@@ -64,8 +64,10 @@ foreach ($result as $a) {
 ?>
 </tbody>
 </table>
+</div>
 		
-	
+<div class="panel-body">
 <span id="helpBlock" class="help-block">rtsp://172.18.10.103:554/play1.sdp</span>
 <span id="helpBlock" class="help-block">rtsp://guest:guest@172.18.10.103:554/play1.sdp</span>
+</div>
 </div>

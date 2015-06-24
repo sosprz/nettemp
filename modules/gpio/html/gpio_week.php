@@ -51,7 +51,7 @@ if ($dayrunon == "on")  {
 	Mon: <?php echo $a['week_Mon']; ?> Tue:<?php echo $a['week_Tue']; ?> Wed:<?php echo $a['week_Wed']; ?> Thu:<?php echo $a['week_Thu']; ?> Fri:<?php echo $a['week_Fri']; ?> Sat:<?php echo $a['week_Sat']; ?> Sun:<?php echo $a['week_Sun']; ?> 
 	<form action="" method="post" style=" display:inline!important;">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="image" src="media/ico/Button-Turn-Off-icon.png"/>
+	<button type="submit" class="btn btn-xs btn-danger">Exit</button>
 	<input type="hidden" name="weekrun" value="off" />
 	<input type="hidden" name="off" value="off" />
         </form>
