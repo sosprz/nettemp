@@ -111,41 +111,104 @@ $cmd="ls /dev/ttyU*";
 exec($cmd, $i);
 //print_r($i);
 ?>
-<form action="" method="post">
-Select device:<br>
+
+<form class="form-horizontal" action="" method="post">
+<fieldset>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="usb">Select USB</label>
+  <div class="col-md-5">
+    <select id="usb" name="usb" class="form-control">
 <?php
 $n=0;
 foreach($i as $o ) {
     $cmdd="udevadm info -q all --name='$o' 2> /dev/null |grep -m1 ID_MODEL |cut -c 13-";
     exec($cmdd, $name);
 ?>
-    
-    <input type="radio" name="usb" value="<?php echo $o ?>" ><?php echo $name["$n"] ." ". $o ?>
-    <br><br>
+ <option value="<?php echo $o ?>"><?php echo $name["$n"] ." ". $o ?></option>
 <?php
 $n=$n+1;
 }
 ?>
-Select program:<br>
-    <input type="radio" name="dht22" value="dht22" >DHT22
-    <br>
-    <input type="radio" name="dht11" value="dht11" >DHT11
-    <br>
-    <input type="radio" name="relay" value="relay" >Relay
-    <br>            
-    <input type="radio" name="ds18b20" value="ds18b20" >DS18B20
-    <br><br>
-Configure WiFi:<br>
-    SSID:   <input type="input" name="ssid" value="" ><br>
-    Pasword:<input type="input" name="pass" value="" ><br>
-    <br><br>
-Other:<br>
-    <input type="radio" name="list" value="list" >List files on ESP
-    <br><br>
+
+
+    </select>
+  </div>
+</div>
+
+<!-- Multiple Radios -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="radios">ESP8266 Programs</label>
+  <div class="col-md-4">
+  <div class="radio">
+    <label for="radios-0">
+      <input name="dht11" id="radios-0" value="dht11" checked="checked" type="radio">
+      DHT11
+    </label>
+    </div>
+  <div class="radio">
+    <label for="radios-1">
+      <input name="dht22" id="radios-1" value="dht22" type="radio">
+      DHT22
+    </label>
+    </div>
+  <div class="radio">
+    <label for="radios-2">
+      <input name="relay" id="radios-2" value="relay" type="radio">
+      Relay pin4
+    </label>
+    </div>
+  <div class="radio">
+    <label for="radios-3">
+      <input name="ds18b20" id="radios-3" value="ds18b20" type="radio">
+      DS18B20
+    </label>
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="ssid">SSID</label>  
+  <div class="col-md-4">
+  <input id="ssid" name="ssid" placeholder="" class="form-control input-md" required="" type="text">
     
+  </div>
+</div>
+
+<!-- Password input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="pass">Password</label>
+  <div class="col-md-4">
+    <input id="pass" name="pass" placeholder="" class="form-control input-md" required="" type="password">
     
-    <input type="submit" name="run" value="Upload" class="btn btn-primary">
-    </form>
+  </div>
+</div>
+
+<!-- Multiple Radios (inline) -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="radios">List files</label>
+  <div class="col-md-4"> 
+    <label class="radio-inline" for="radios-0">
+      <input name="list" id="list" value="on" type="checkbox">
+      list files
+    </label>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="run"></label>
+  <div class="col-md-4">
+    <button id="run" name="run" value="Upload" class="btn btn-primary">Upload</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
 
 </div>
 </div>

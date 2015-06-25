@@ -1,3 +1,5 @@
+<?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
+
 <p>
 <a href="index.php?id=settings&type=mail" ><button class="btn btn-default">Mail</button></a>
 <a href="index.php?id=settings&type=sms" ><button class="btn btn-default">SMS</button></a>

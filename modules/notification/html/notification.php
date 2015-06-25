@@ -1,7 +1,8 @@
+<?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
 <p>
 <a href="index.php?id=notification&type=users" ><button class="btn btn-default">Users</button></a>
 <a href="index.php?id=notification&type=sensors" ><button class="btn btn-default">Alarms</button></a>
-</p>
+</[>
 <?php 
 $art = isset($_GET['type']) ? $_GET['type'] : '';
 ?>

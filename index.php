@@ -134,10 +134,8 @@ case 'tools': include('modules/tools/html/tools.php'); break;
 case 'info': include('modules/info/info.php'); break;
 case 'denied': include('modules/login/denied.php'); break;
 case 'logout': include('modules/login/logout.php'); break;
-case 'diag': include('modules/tools/html/tools_file_check.php'); break;
 case 'upload': include('modules/tools/backup/html/upload.php'); break;
 case 'receiver': include('modules/sensors/html/receiver.php'); break;
-case 'espupload': include('modules/sensors/wireless/espupload/espupload.php'); break;
 case 'controls': include('modules/relays/html/relays_controls.php'); include('modules/gpio/html/gpio_controls.php'); break;
 
 }

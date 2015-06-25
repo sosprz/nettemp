@@ -1,3 +1,5 @@
+<?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
+
 <p>
 <a href="index.php?id=security&type=fw" ><button class="btn btn-default">Firewall</button></a>
 <a href="index.php?id=security&type=vpn" ><button class="btn btn-default">VPN</button></a>

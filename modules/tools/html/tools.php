@@ -1,3 +1,5 @@
+<?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
+
 <?php $db = new PDO('sqlite:dbf/nettemp.db');
     $sth = $db->prepare("select * from settings where id='1'");
     $sth->execute();
