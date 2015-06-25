@@ -6,19 +6,16 @@
 <?php
 $dir=$_SERVER["DOCUMENT_ROOT"];
 $usb = $_POST["usb"];
-$ds18b20 = $_POST["ds18b20"];
-$dht11 = $_POST["dht11"];
-$dht22 = $_POST["dht22"];
-$relay = $_POST["relay"];
+$prog = $_POST["prog"];
 $list = $_POST["list"];
 $ssid = $_POST["ssid"];
 $pass = $_POST["pass"];
 if ($_POST['run'] == "Upload") {
 
     if (!empty($usb)) {
-	if (!empty($ds18b20) || !empty($dht11) || !empty($dht22) || !empty($relay)) {
+	if (!empty($prog)) {
 	    if (!empty($ssid) && !empty($pass)) {
-		    if (!empty($dht11) ) {
+		    if ( $prog == 'dht11' ) {
 
 			$cmd0="cp '$dir'/modules/sensors/wireless/DHT11/init.lua '$dir'/tmp && sed -i s/pass/'$pass'/g '$dir'/tmp/init.lua && sed -i s/ssid/'$ssid'/g '$dir'/tmp/init.lua";
 			$cmd1="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/tmp/init.lua -t init.lua 2>&1";
@@ -29,7 +26,7 @@ if ($_POST['run'] == "Upload") {
 			passthru($cmd2);
 			echo '</pre>';
 		    }
-		    if (!empty($dht22) ) {
+		    if ($prog == 'dht22') {
 
 			$cmd0="cp '$dir'/modules/sensors/wireless/DHT22/init.lua '$dir'/tmp && sed -i s/pass/'$pass'/g '$dir'/tmp/init.lua && sed -i s/ssid/'$ssid'/g '$dir'/tmp/init.lua";
 			$cmd1="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/tmp/init.lua -t init.lua 2>&1";
@@ -40,7 +37,7 @@ if ($_POST['run'] == "Upload") {
 			passthru($cmd2);
 			echo '</pre>';
 		    }
-		    if (!empty($ds18b20) ) {
+		    if ($prog == 'ds18b20') {
 			$cmd0="cp '$dir'/modules/sensors/wireless/ds18b20/init.lua '$dir'/tmp && sed -i s/pass/'$pass'/g '$dir'/tmp/init.lua && sed -i s/ssid/'$ssid'/g '$dir'/tmp/init.lua";
 			$cmd1="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/tmp/init.lua -t init.lua 2>&1";
 			$cmd2="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/modules/sensors/wireless/ds18b20/ds18b20.lua -t ds18b20.lua -r 2>&1";
@@ -50,7 +47,7 @@ if ($_POST['run'] == "Upload") {
 			passthru($cmd2); 
 			echo '</pre>';
 		    }
-		    if (!empty($relay) ) {
+		    if ($prog == 'relay') {
 			$cmd0="cp '$dir'/modules/sensors/wireless/relay/init.lua '$dir'/tmp && sed -i s/pass/'$pass'/g '$dir'/tmp/init.lua && sed -i s/ssid/'$ssid'/g '$dir'/tmp/init.lua";
 			$cmd1="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/tmp/init.lua -t init.lua -r 2>&1";
 			echo '<pre>';
@@ -143,25 +140,25 @@ $n=$n+1;
   <div class="col-md-4">
   <div class="radio">
     <label for="radios-0">
-      <input name="dht11" id="radios-0" value="dht11" checked="checked" type="radio">
+      <input name="prog" id="radios-0" value="dht11" type="radio">
       DHT11
     </label>
     </div>
   <div class="radio">
     <label for="radios-1">
-      <input name="dht22" id="radios-1" value="dht22" type="radio">
+      <input name="prog" id="radios-1" value="dht22" type="radio">
       DHT22
     </label>
     </div>
   <div class="radio">
     <label for="radios-2">
-      <input name="relay" id="radios-2" value="relay" type="radio">
+      <input name="prog" id="radios-2" value="relay" type="radio">
       Relay pin4
     </label>
     </div>
   <div class="radio">
     <label for="radios-3">
-      <input name="ds18b20" id="radios-3" value="ds18b20" type="radio">
+      <input name="prog" id="radios-3" value="ds18b20" type="radio">
       DS18B20
     </label>
     </div>
