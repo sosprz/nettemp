@@ -60,8 +60,11 @@ service lighttpd restart
 }
 
 function perms {
-/var/www/nettemp/modules/tools/update_perms
 /var/www/nettemp/modules/tools/update_su
+/var/www/nettemp/modules/tools/update_perms
+umask 002 $dir/tmp
+umask 002 $dir/db
+umask 002 $dir/dbf
 }
 
 function i2c {
