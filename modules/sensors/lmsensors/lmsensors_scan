@@ -3,31 +3,34 @@
 # lm-sensors
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
-
+end="_temp"
 
 if which sensors >/dev/null
     then
 
 temp=$(sensors |grep temp[0-9] | awk '{print $1}' | sed 's/://g')
-core=$(sensors |grep "Core [0-9]"  |awk '{print $1$2}' | sed 's/://g')
+core=$(sensors |grep "Core [0-9]"  |awk '{print $2}' | sed 's/://g')
 
 for i in $temp
     do
-    declare $i=$(sensors |grep $i | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
-         if [ -n "$i" ] &&  echo $i | grep [0-9] > /dev/null
+    t=$(sensors |grep $i | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
+         if [ -n "$t" ] &&  echo $t | grep -q [0-9]
         then 
-            #echo lmsensors_$i\_temp >> $dir/tmp/onewire
-	    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('lmsensors_$i\_temp')"
+	    rom=lmsensors_$i$end
+	    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')"
         fi
     done
 
+
+
+
 for i in $core
     do
-    declare $i=$(sensors |grep "Core [0-9]"  |awk '{print $3}' | sed 's/://g' | sed 's/+//g' |sed 's/°C//g')
-         if [ -n "$i" ] &&  echo $i | grep [0-9] > /dev/null
-        then 
-            #echo lmsensors_$i\_temp >> $dir/tmp/onewire
-		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('lmsensors_$i\_temp')"
+    c=$(sensors |grep "Core $i" |awk '{print $3}' | sed 's/://g' | sed 's/+//g' |sed 's/°C//g')
+         if [ -n "$c" ] &&  echo $c | grep -q [0-9]
+        then
+		rom=lmsensors_Core$i$end 
+		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')"
         fi
     done
 

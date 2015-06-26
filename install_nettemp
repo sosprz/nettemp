@@ -60,9 +60,7 @@ service lighttpd restart
 }
 
 function perms {
-chown -R root.www-data /var/www/nettemp
-chmod -R 775 /var/www/nettemp
-gpasswd -a www-data dialout 1>/dev/null
+/var/www/nettemp/modules/tools/update_perms
 /var/www/nettemp/modules/tools/update_su
 }
 

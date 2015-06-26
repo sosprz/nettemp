@@ -1,8 +1,7 @@
           <div class="panel panel-default">
             <div class="panel-heading">Sensors</div>
 <?php
-$dbl=$_SERVER["DOCUMENT_ROOT"]."dbf/nettemp.db";
-$db = new PDO("sqlite:$dbl");
+$db = new PDO("sqlite:dbf/nettemp.db");
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
 $numRows = count($row);
