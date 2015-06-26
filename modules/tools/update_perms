@@ -4,8 +4,7 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 
 sudo chown -R root.www-data $dir
 sudo chmod -R 775 $dir
-sudo chmod g+s $dir
-#sudo umask 002 $dir/tmp
-#sudo umask 002 $dir/db
-#sudo umask 002 $dir/dbf
+sudo chmod g+s -R $dir/tmp
+sudo chmod g+s -R $dir/db
+sudo chmod g+s -R $dir/dbf
 sudo gpasswd -a www-data dialout 1>/dev/null
