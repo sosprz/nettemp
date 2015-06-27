@@ -106,6 +106,16 @@
 	exit();
     }
 
+//troggerout
+    $triggerout = isset($_POST['triggerout']) ? $_POST['triggerout'] : '';
+    if ($triggerout == "triggerout")  {
+//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+	$db->exec("UPDATE gpio SET mode='triggerout', status='' WHERE gpio='$gpio_post'") or die("exec error");
+	$db = null;
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
+
 include('gpio_rev.php');
 ?>
     <form action="" method="post" style=" display:inline!important;">
@@ -150,7 +160,16 @@ include('gpio_rev.php');
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="triggeron" value="triggeron" />
     </form>
+<?php
+if (empty($mode4)) { ?>
+    <form action="" method="post" style="display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">Triggerout</button>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="triggerout" value="triggerout" />
+	
+    </form>
 <?php 
+}
 if (empty($mode3)){ ?>
     <form action="" method="post" style=" display:inline!important;">
 	<button type="submit" class="btn btn-xs btn-primary">kWh</button>

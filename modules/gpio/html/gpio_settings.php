@@ -19,7 +19,19 @@ $sth4 = $db->prepare("select gpio from gpio where mode='buzzer'");
 $sth4->execute();
 $result4 = $sth4->fetchAll();
 foreach ( $result4 as $ab) {
-$buzzer=$ab['gpio'];
+$buzzergpio=$ab['gpio'];
+}
+$sth5 = $db->prepare("select gpio from gpio where mode='triggerout'");
+$sth5->execute();
+$result5 = $sth5->fetchAll();
+foreach ( $result5 as $ab) {
+$triggeroutgpio=$ab['gpio'];
+}
+$sth6 = $db->prepare("select mode from gpio where mode='triggerout'");
+$sth6->execute();
+$result6 = $sth6->fetchAll();
+foreach ( $result6 as $ab) {
+$mode4=$ab['mode'];
 }
 
 
@@ -36,7 +48,7 @@ $name=$a['name'];
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">GPIO <?php echo $gpio ?> - <?php echo $name ?>  </h3>
+<h3 class="panel-title">GPIO <?php echo $gpio ?> - <?php echo $name ?> <?php echo $mode ?>  </h3>
 </div>
 <div class="panel-body">
 <table">
@@ -84,6 +96,11 @@ elseif ($mode == 'buzzer')
 {
     include('gpio_buzzer.php');
 } 
+elseif ($mode == 'triggerout') 
+{
+    include('gpio_triggerout.php');
+} 
+
 else 
 { 
 include('gpio_functions.php');
