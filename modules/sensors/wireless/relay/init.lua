@@ -20,8 +20,9 @@ srv:listen(80,function(conn)
 	end
 	if string.find(payload,"showstatus") ~= nil then 
 	    conn:send('status ' .. state) 
-	end 
-	conn:send("nettemp.pl relay") end
-	) 
+	else 
+	conn:send("nettemp.pl relay") 
+	end
+	end) 
     conn:on("sent",function(conn) conn:close() end) 
 end)

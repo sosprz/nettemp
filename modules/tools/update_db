@@ -49,6 +49,7 @@ for i in $(seq 1 10);
     sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_onoff$i type TEXT";
     sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_temp$i type TEXT";
     sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op$i type TEXT";
+    sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_hyst$i type TEXT";
 done
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD status type TEXT";
 if [ ! -s $dir/dbf/kwh.db ]

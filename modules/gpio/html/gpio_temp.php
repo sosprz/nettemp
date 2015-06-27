@@ -44,19 +44,20 @@ if ($weekrunon == "on")  {
 // MAIN
 
 if ( $a['temp_run'] == "on") {
+
 foreach (range(1, $tempnum) as $v) {
 $sth = $db->prepare("SELECT * FROM sensors");
 $sth->execute();
 $result = $sth->fetchAll();
-foreach ($result as $select) {
-    if (($a['temp_sensor'.$v] == $select['id']) && (!empty($a['temp_temp'.$v]))) {
-    echo $select['name'];
-    echo $select['tmp'];?>&deg;C<?php
-    echo $a['temp_op'.$v];
-    echo $a['temp_temp'.$v];?>&deg;C<?php
-    echo $a['temp_onoff'.$v];
-    }
-}
+//foreach ($result as $select) {
+//    if (($a['temp_sensor'.$v] == $select['id']) && (!empty($a['temp_temp'.$v]))) {
+//    echo $select['name'];
+//    echo $select['tmp'];
+//    echo $a['temp_op'.$v];
+//    echo $a['temp_temp'.$v];
+//    echo $a['temp_onoff'.$v];
+//    }
+//}
 }
 ?>
 Status:<?php echo $a['status'];?>

@@ -1,4 +1,5 @@
-#! /bin/bash -x
+#! /bin/bash
+
 temp_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio'")
 day_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio'")
 week_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT week_run FROM gpio WHERE gpio='$gpio'")
@@ -19,21 +20,35 @@ temp_temp=temp_temp$i
 
 declare temp_sensor$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_sensor$i FROM gpio WHERE gpio='$gpio'"`
 temp_sensor=temp_sensor$i
+
 declare sensor_temp$i=`sqlite3 $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id='${!temp_sensor}'"`
 sensor_temp=sensor_temp$i
 
 declare temp_sensor_diff$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_sensor_diff$i FROM gpio WHERE gpio='$gpio'"`
 temp_sensor_diff=temp_sensor_diff$i
+
 declare diff_temp$i=`sqlite3 $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id='${!temp_sensor_diff}'"`
 diff_temp=diff_temp$i
 
 declare sensor_name$i=`sqlite3 $dir/dbf/nettemp.db "SELECT name FROM sensors WHERE id='${!temp_sensor}'"`
 sensor_name=sensor_name$i
+
 declare temp_op$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_op$i FROM gpio WHERE gpio='$gpio'"`
 temp_op=temp_op$i
 
+declare temp_hyst$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_hyst$i FROM gpio WHERE gpio='$gpio'"`
+temp_hyst=temp_hyst$i
+
+declare temp_hyst_sum$i=$(echo ${!diff_temp} ${!temp_hyst} |awk '{ sum = $1 + $2; print sum }')
+temp_hyst_sum=temp_hyst_sum$i
+
 if [ -n "${!diff_temp}" ]; then
     temp_temp=$diff_temp
+	if [ -n "${!temp_hyst}" ]; then
+	    temp_temp=$temp_hyst_sum
+	fi
+read
+
 fi
 
 if [ -n "${!temp_temp}" ]; then
@@ -127,9 +142,13 @@ unset temp_sensor
 unset sensor_temp
 unset sensor_name
 unset temp_op
+unset temp_hyst
 
+else
+    echo "error: no input temp"
 fi
 done
+
 gpio_$onoff $gpio
 sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='$onoff' WHERE gpio='$gpio'"
 echo $onoff
