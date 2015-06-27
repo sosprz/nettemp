@@ -81,9 +81,9 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
   <label class="col-md-4 control-label" for="auth">Auth</label>
   <div class="col-md-2">
     <select id="auth" name="auth" class="form-control">
-      <option value="on">on</option>
-      <option value="off">off</option>
-      <option value="login">login</option>
+      <option value="on" <?php echo $a['auth'] == 'on' ? 'selected="selected"' : ''; ?>>on</option>
+      <option value="off" <?php echo $a['auth'] == 'off' ? 'selected="selected"' : ''; ?>>off</option>
+      <option value="login" <?php echo $a['login'] == 'login' ? 'selected="selected"' : ''; ?>>login</option>
     </select>
   </div>
 </div>
@@ -103,8 +103,8 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
   <label class="col-md-4 control-label" for="tlscheck">TLS Ceck</label>
   <div class="col-md-4">
     <select id="tlscheck" name="tlscheck" class="form-control">
-      <option value="on">on</option>
-      <option value="off">off</option>
+      <option value="on" <?php echo $a['tlscheck'] == 'on' ? 'selected="selected"' : ''; ?>>on</option>
+      <option value="off" <?php echo $a['tlscheck'] == 'off' ? 'selected="selected"' : ''; ?> >off</option>
     </select>
   </div>
 </div>
