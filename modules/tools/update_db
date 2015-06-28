@@ -39,6 +39,8 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone2s type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone2e type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone3s type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone3e type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD trigger_source type TEXT";
+
 
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD tempnum type TEXT";
 sqlite3 $dir/dbf/nettemp.db "UPDATE or IGNORE settings SET tempnum='3' where id='1'"

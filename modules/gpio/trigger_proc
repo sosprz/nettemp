@@ -1,0 +1,76 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=$(date +%y%m%d-%H%M)
+
+gpio="$1"
+
+if [ ! -n "$gpio" ]; then echo "no gpio input" && exit; fi 
+#if pgrep -l -f trigger_proc|grep -q $gpio; then echo "trigger_proc $gpio already running" && exit; fi
+
+function buzzer {
+	if [ -n "$buzzer" ]
+	        then
+	    for i in $buzzer; do
+	        /usr/local/bin/gpio -g mode $i out
+    	        /usr/local/bin/gpio -g write $i $1
+	    done
+	fi
+}
+
+function triggerout_gpio {
+	    for i in $out; do
+		g=$(echo $i|awk -F"|" '{ print $1}')
+		r=$(echo $i|awk -F"|" '{ print $2}')
+		/usr/local/bin/gpio -g mode $g out
+		    if [ "$r" = "on" ]; then
+			/usr/local/bin/gpio -g write $g 0
+		    else
+			/usr/local/bin/gpio -g write $g 1
+		    fi
+	    done
+}
+
+function mail { 
+    if [ "$trigger_notice" = "on" ] && [ $trigger = "on" ]; then
+        plik=$dir/tmp/mail/temp-$date
+        echo "From: nettemp device" > $plik 
+        echo "To:$get_mail" >> $plik
+        echo "Subject: Notification from nettemp" >> $plik
+        echo "" >> $plik
+    fi
+}
+
+out=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND trigger_source='$gpio'")
+buzzer=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='buzzer'")
+rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
+buzzer=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='buzzer'")
+trigger_notice=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
+name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio WHERE gpio='$gpio'")
+get_mail=$(sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
+
+while :
+do
+    status=$(/usr/local/bin/gpio -g read $gpio)
+    if [ "$status" = "0" ] && [ "$rev" = "on" ]
+        then
+	trigger="on"
+	buzzer 1
+        triggerout_gpio
+	mail		
+	break
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='Alarm!' WHERE gpio='$gpio'"
+    elif [ "$status" = "1" ] && [ "$rev" = "" ]
+        then
+	trigger="on"
+	buzzer 1
+	triggerout_gpio
+	mail
+	break
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='Alarm!' WHERE gpio='$gpio'"
+    fi
+
+    
+    
+sleep 1
+done

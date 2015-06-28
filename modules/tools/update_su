@@ -1,10 +1,10 @@
 #! /bin/bash
 
-list="/usr/sbin/lighttpd-enable-mod /usr/sbin/lighttpd-disable-mod /usr/sbin/chpasswd /usr/sbin/useradd \
+list="/bin/kill /usr/sbin/lighttpd-enable-mod /usr/sbin/lighttpd-disable-mod /usr/sbin/chpasswd /usr/sbin/useradd \
 /usr/sbin/userdel /usr/sbin/groupadd /usr/sbin/service /usr/sbin/update-rc.d /bin/sed /bin/cat \
 /sbin/iptables /sbin/iptables-save /usr/sbin/i2cdetect /bin/chmod /bin/chgrp /sbin/reboot \
 /usr/bin/whoami /usr/bin/killall /usr/bin/nohup /bin/chown /usr/bin/pkill /sbin/hwclock /usr/sbin/ntpd /usr/bin/arp-scan \
-/bin/cp /usr/bin/tee /usr/bin/gpasswd"
+/bin/cp /usr/bin/tee /usr/bin/gpasswd "
 
 
 for i in $list
@@ -12,5 +12,6 @@ for i in $list
      if ! sudo cat /etc/sudoers |grep $i > /dev/null
 	then 
 	    sudo sed -i '$a www-data ALL=(ALL) NOPASSWD: '$i' *' /etc/sudoers
+	    echo "add $i"
     fi
 done

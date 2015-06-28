@@ -19,12 +19,12 @@ if ($triggerrun == "on")  {
 if ($triggerrun == "off")  {
     $db->exec("UPDATE gpio SET trigger_run='', status='OFF' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
+    shell_exec("modules/gpio/trigger_close $gpio_post");
     exec("/usr/local/bin/gpio -g write $buzzergpio 0");
-    exec("/usr/local/bin/gpio -g write $triggeroutgpio 0");
+    //exec("/usr/local/bin/gpio -g write $triggeroutgpio 0");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
-
 
     $trigger_run=$a['trigger_run'];
     $status=$a['status'];

@@ -1,0 +1,25 @@
+#! /bin/bash 
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=$(date +%y%m%d-%H%M)
+
+g="$1"
+
+sudo /bin/kill -9 `pgrep -l -f trigger_proc |grep $g | awk '{print $1}'`
+
+out=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND trigger_source='$g'")
+
+function close {
+        for i in $out; do
+	g=$(echo $i|awk -F"|" '{ print $1}')
+	r=$(echo $i|awk -F"|" '{ print $2}')
+	/usr/local/bin/gpio -g mode $g out
+	    if [ "$r" = "on" ]; then
+	    /usr/local/bin/gpio -g write $g 1
+	    else
+	    /usr/local/bin/gpio -g write $g 0
+	    fi
+        done
+}
+
+close

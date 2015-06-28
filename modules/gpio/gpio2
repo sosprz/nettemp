@@ -55,6 +55,8 @@ elif [ "$mode" = "day" ]; then
 elif [ "$mode" = "week" ]; then
     source $(dirname $0)/week
 fi
+
+
 done
 
 
