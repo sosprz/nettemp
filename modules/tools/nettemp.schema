@@ -90,7 +90,7 @@ CREATE TABLE gpio (
   temp_sensor10 type TEXT, 
   temp_onoff10 type TEXT, 
   temp_temp10 type TEXT, 
-  temp_op10 type TEXT, temp_sensor_diff1 type TEXT, temp_sensor_diff2 type TEXT, temp_sensor_diff3 type TEXT, temp_sensor_diff4 type TEXT, temp_sensor_diff5 type TEXT, temp_sensor_diff6 type TEXT, temp_sensor_diff7 type TEXT, temp_sensor_diff8 type TEXT, temp_sensor_diff9 type TEXT, temp_sensor_diff10 type TEXT, temp_hyst1 type TEXT, temp_hyst2 type TEXT, temp_hyst3 type TEXT, temp_hyst4 type TEXT, temp_hyst5 type TEXT, temp_hyst6 type TEXT, temp_hyst7 type TEXT, temp_hyst8 type TEXT, temp_hyst9 type TEXT, temp_hyst10 type TEXT);
+  temp_op10 type TEXT, temp_sensor_diff1 type TEXT, temp_sensor_diff2 type TEXT, temp_sensor_diff3 type TEXT, temp_sensor_diff4 type TEXT, temp_sensor_diff5 type TEXT, temp_sensor_diff6 type TEXT, temp_sensor_diff7 type TEXT, temp_sensor_diff8 type TEXT, temp_sensor_diff9 type TEXT, temp_sensor_diff10 type TEXT, temp_hyst1 type TEXT, temp_hyst2 type TEXT, temp_hyst3 type TEXT, temp_hyst4 type TEXT, temp_hyst5 type TEXT, temp_hyst6 type TEXT, temp_hyst7 type TEXT, temp_hyst8 type TEXT, temp_hyst9 type TEXT, temp_hyst10 type TEXT, trigger_source type TEXT);
 CREATE TABLE mail_settings (
   id INTEGER PRIMARY KEY,
   host TEXT,

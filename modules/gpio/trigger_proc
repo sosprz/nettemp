@@ -33,14 +33,15 @@ function triggerout_gpio {
 
 function mail { 
     if [ "$trigger_notice" = "on" ] && [ $trigger = "on" ]; then
-        plik=$dir/tmp/mail/temp-$date
+        plik=$dir/tmp/mail/mail-$date
         echo "From: nettemp device" > $plik 
         echo "To:$get_mail" >> $plik
         echo "Subject: Notification from nettemp" >> $plik
-        echo "" >> $plik
+        echo "Alarm from $name $date" >> $plik
     fi
 }
 
+name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio where gpio='$gpio'")
 out=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND trigger_source='$gpio'")
 buzzer=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='buzzer'")
 rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
@@ -58,16 +59,16 @@ do
 	buzzer 1
         triggerout_gpio
 	mail		
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
 	break
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='Alarm!' WHERE gpio='$gpio'"
     elif [ "$status" = "1" ] && [ "$rev" = "" ]
         then
 	trigger="on"
 	buzzer 1
 	triggerout_gpio
 	mail
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
 	break
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='Alarm!' WHERE gpio='$gpio'"
     fi
 
     
