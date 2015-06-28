@@ -28,30 +28,20 @@ if (($triggeroutexit == "triggeroutexit") ){
 <div class="form-group">
   <label class="col-md-2 control-label" for="trigger_source">Select control source</label>
   <div class="col-md-1">
-    <select id="trigger_source" name="trigger_source" class="form-control">
+    <select id="trigger_source" name="trigger_source" class="form-control" onchange="this.form.submit()">
 <?php $sth = $db->prepare("SELECT * FROM gpio WHERE mode='trigger'");
     $sth->execute();
     $result = $sth->fetchAll();
     foreach ($result as $s) { ?>
-    <option <?php echo $a['trigger_source'] == $s['gpio'] ? 'selected="selected"' : ''; ?> value="<?php echo $s['gpio']; ?>"><?php echo $s['gpio'] ?></option>
-
+    <option <?php echo $a['trigger_source'] == $s['gpio'] ? 'selected="selected"' : ''; ?> value="<?php echo $s['gpio']; ?>" ><?php echo $s['gpio'] ?></option>
 <?php 
-echo $a['trigger_source'];
     } 
 ?>
     </select>
   </div>
 </div>
-
-<!-- Button -->
-<div class="form-group">
-  <label class="col-md-2 control-label" for="save"></label>
-  <div class="col-md-1">
-    <button id="save" name="save" value="save" class="btn btn-sm btn-primary">Save</button>
-    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-  </div>
-</div>            
-
+<input type="hidden" name="save" value="save"/>
+<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 </fieldset>
 </form>
 
