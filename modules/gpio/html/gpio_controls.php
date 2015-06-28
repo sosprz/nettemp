@@ -28,15 +28,29 @@ if ($bi == "bi")  {
     exit();
     }
 
+$triggeronoff = isset($_POST['triggeronoff']) ? $_POST['triggeronoff'] : '';
 $trigger = isset($_POST['trigger']) ? $_POST['trigger'] : '';
-if ($trigger == "off")  {
-    $db->exec("UPDATE gpio SET trigger_run='', status='OFF' WHERE gpio='$gpio_post'") or die("exec error");
-    $db = null;
-    shell_exec("modules/gpio/trigger_close $gpio_post");
-    exec("/usr/local/bin/gpio -g write $buzzergpio 0");
+if ($triggeronoff == "onoff")  {
+    if ( $trigger == 'on' ) {
+	$db->exec("UPDATE gpio SET trigger_run='on', status='Wait' WHERE gpio='$gpio_post'") or die("exec error");
+	$db = null;
+    } else {
+	$db->exec("UPDATE gpio SET trigger_run='', status='OFF' WHERE gpio='$gpio_post'") or die("exec error");
+	$db = null;
+	shell_exec("modules/gpio/trigger_close $gpio_post");
+	exec("/usr/local/bin/gpio -g write $buzzergpio 0");
+    }
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
+
+if ($trigger == "on")  {
+    
+    $db = null;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+}
+
 
 
 
@@ -53,7 +67,7 @@ foreach ( $result2 as $a) {
 </div>
 <div class="panel-body">
     <form action="" method="post">
-    <input type="checkbox" title="Simple on/off" data-toggle="toggle"  onchange="this.form.submit()" name="simple"  value="<?php echo $a['simple'] == on  ? 'off' : 'on'; ?>" <?php echo $a['simple'] == 'on' ? 'checked="checked"' : ''; ?>  />
+    <input type="checkbox" title="Simple on/off" data-toggle="toggle"  onchange="this.form.submit()" name="simple"  value="on" <?php echo $a['simple'] == 'on' ? 'checked="checked"' : ''; ?>  />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="onoff" value="onoff" />
 </form>
@@ -94,9 +108,9 @@ foreach ( $result2 as $a) {
 <div class="panel-body">
 
 <form action="" method="post">
-    <td><input type="checkbox" data-toggle="toggle" name="trigger" value="<?php echo $a['trigger_run'] == on  ? 'off' : 'on'; ?>" <?php echo $a['trigger_run'] == 'on' ? 'checked="checked"' : ''; ?>  onchange="this.form.submit()" /><td>
+    <td><input type="checkbox" data-toggle="toggle" name="trigger" value="on" <?php echo $a['trigger_run'] == 'on' ? 'checked="checked"' : ''; ?>  onchange="this.form.submit()" /><td>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    <input type="hidden" name="trigger" value="off" />
+    <input type="hidden" name="triggeronoff" value="onoff" />
 </form>
 
 </div></div>
