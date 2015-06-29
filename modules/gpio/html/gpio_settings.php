@@ -27,13 +27,6 @@ $result5 = $sth5->fetchAll();
 foreach ( $result5 as $ab) {
 $triggeroutgpio=$ab['gpio'];
 }
-$sth6 = $db->prepare("select mode from gpio where mode='triggerout'");
-$sth6->execute();
-$result6 = $sth6->fetchAll();
-foreach ( $result6 as $ab) {
-$mode4=$ab['mode'];
-}
-
 
 
 //main loop

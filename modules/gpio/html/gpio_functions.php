@@ -160,8 +160,6 @@ include('gpio_rev.php');
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="triggeron" value="triggeron" />
     </form>
-<?php
-if (empty($mode4)) { ?>
     <form action="" method="post" style="display:inline!important;">
 	<button type="submit" class="btn btn-xs btn-primary">Triggerout</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
@@ -169,7 +167,6 @@ if (empty($mode4)) { ?>
 	
     </form>
 <?php 
-}
 if (empty($mode3)){ ?>
     <form action="" method="post" style=" display:inline!important;">
 	<button type="submit" class="btn btn-xs btn-primary">kWh</button>

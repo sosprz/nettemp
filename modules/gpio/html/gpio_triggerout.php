@@ -28,15 +28,16 @@ if (($triggeroutexit == "triggeroutexit") ){
 <div class="form-group">
   <label class="col-md-2 control-label" for="trigger_source">Select control source</label>
   <div class="col-md-1">
-    <select id="trigger_source" name="trigger_source" class="form-control" onchange="this.form.submit()">
+    <select id="trigger_source" name="trigger_source" class="form-control input-sm" onchange="this.form.submit()">
 <?php $sth = $db->prepare("SELECT * FROM gpio WHERE mode='trigger'");
     $sth->execute();
     $result = $sth->fetchAll();
     foreach ($result as $s) { ?>
-    <option <?php echo $a['trigger_source'] == $s['gpio'] ? 'selected="selected"' : ''; ?> value="<?php echo $s['gpio']; ?>" ><?php echo $s['gpio'] ?></option>
+    <option <?php echo $a['trigger_source'] == $s['gpio'] ? 'selected="selected"' : ''; ?> value="<?php echo $s['gpio']; ?>"><?php echo $s['gpio'] ?></option>
 <?php 
     } 
 ?>
+    <option value="" <?php echo $a['trigger_source'] == '' ? 'selected="selected"' : ''; ?>>-</option>
     </select>
   </div>
 </div>

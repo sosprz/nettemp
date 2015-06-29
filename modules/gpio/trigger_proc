@@ -33,7 +33,7 @@ function triggerout_gpio {
 
 function mail { 
     if [ "$trigger_notice" = "on" ] && [ $trigger = "on" ]; then
-        plik=$dir/tmp/mail/mail-$date
+        plik=$dir/tmp/mail/mail-alarm$gpio-$date
         echo "From: nettemp device" > $plik 
         echo "To:$get_mail" >> $plik
         echo "Subject: Notification from nettemp" >> $plik
@@ -60,6 +60,7 @@ do
         triggerout_gpio
 	mail		
 	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
+	$dir/modules/gpio/timestamp $gpio
 	break
     elif [ "$status" = "1" ] && [ "$rev" = "" ]
         then
@@ -68,10 +69,10 @@ do
 	triggerout_gpio
 	mail
 	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
+	$dir/modules/gpio/timestamp $gpio
 	break
     fi
 
-    
     
 sleep 1
 done
