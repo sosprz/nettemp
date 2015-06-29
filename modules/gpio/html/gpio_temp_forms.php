@@ -59,16 +59,19 @@ foreach (range(1, $tempnum) as $up) {
 
 <form class="form-horizontal" action="" method="post">
 <fieldset>
-
-<!-- Form Name -->
 <legend>Temperature</legend>
 
+<!-- Form Name -->
+<div class="table-responsive">
+<table class="table">
+<thead><tr><th>Sensor</th><th>State</th><th>Temp</th><th>Sensor</th><th>Hysteresis</th><th>on/off</th></tr></thead>
+<div class="form-group">
 <?php
     foreach (range(1, $tempnum) as $v) {
 ?>
-<div class="form-group">
 
-<div class="col-md-2">
+<tr>
+<td class="col-md-2">
 <select name="<?php echo temp_sensor . $v; ?>" class="form-control input-sm">
 <?php $sth = $db->prepare("SELECT * FROM sensors");
     $sth->execute();
@@ -79,22 +82,22 @@ foreach (range(1, $tempnum) as $up) {
     } 
 ?>
 </select>
-</div>
+</td>
 
-<div class="col-md-1">
+<td class="col-md-1">
 <select name="<?php echo temp_op . $v ?>" class="form-control input-sm">
     <option <?php echo $a['temp_op'.$v] == 'lt' ? 'selected="selected"' : ''; ?> value="lt">&lt;</option>   
     <option <?php echo $a['temp_op'.$v] == 'le' ? 'selected="selected"' : ''; ?> value="le">&lt;&#61;</option>     
     <option <?php echo $a['temp_op'.$v] == 'gt' ? 'selected="selected"' : ''; ?> value="gt">&gt;</option>   
     <option <?php echo $a['temp_op'.$v] == 'ge' ? 'selected="selected"' : ''; ?> value="ge">&gt;&#61;</option>   
 </select>
-</div>
+</td>
 
-<div class="col-md-1">
+<td class="col-md-1">
 <input id="<?php echo inputtemp.$v; ?>" style="display: none"  type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" class="form-control input-sm" >
-</div>
+</td>
 
-<div class="col-md-3">
+<td class="col-md-2">
 <select name="<?php echo temp_sensor_diff . $v; ?>" id="<?php echo state . $v; ?>" onclick='showtemp(<?php echo $v; ?>)' class="form-control input-sm">
 <?php $sth = $db->prepare("SELECT * FROM sensors");
     $sth->execute();
@@ -104,35 +107,36 @@ foreach (range(1, $tempnum) as $up) {
 <?php } ?>
 	<option <?php echo $a['temp_sensor_diff'.$v] == '' ? 'selected="selected"' : ''; ?> value="">custom <?php echo $a['temp_temp'.$v]; ?></option>
 </select>
-</div>
+</td>
 
-<div class="col-md-1">
+<td class="col-md-1">
 <input id="<?php echo inputhyst.$v; ?>" style="display: none" type="text" name="<?php echo temp_hyst . $v ?>" value="<?php echo $a['temp_hyst'.$v]; ?>" class="form-control input-sm" >
-</div>
+</td>
 
-
-<div class="col-md-1">
+<td class="col-md-1">
 <select name="<?php echo temp_onoff . $v ?>" class="form-control input-sm">
     <option <?php echo $a['temp_onoff'.$v] == 'on' ? 'selected="selected"' : ''; ?> value="on">On</option>   
     <option <?php echo $a['temp_onoff'.$v] == 'off' ? 'selected="selected"' : ''; ?> value="off">Off</option>     
 </select>
-</div>
+</td>
+</tr>
 
-</div>
+
 <?php
     }
 ?>
-
+</div>
+</table>
+</div>
 <div class="form-group">
-    <div class="col-sm-6">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="tempset" value="on" />
+     <div class="col-md-4">
 	<button type="submit" class="btn btn-xs btn-primary">SAVE</button>
     </div>
 </div>
-
 </fieldset>
 </form>
-
+</table>
 
 
