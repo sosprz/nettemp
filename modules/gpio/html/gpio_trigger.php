@@ -13,6 +13,7 @@ $triggerrun = isset($_POST['triggerrun']) ? $_POST['triggerrun'] : '';
 if ($triggerrun == "on")  {
     $db->exec("UPDATE gpio SET trigger_run='on', status='Wait' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
+    shell_exec("modules/gpio/trigger_proc $gpio_post");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
@@ -20,8 +21,6 @@ if ($triggerrun == "off")  {
     $db->exec("UPDATE gpio SET trigger_run='', status='OFF' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
     shell_exec("modules/gpio/trigger_close $gpio_post");
-    exec("/usr/local/bin/gpio -g write $buzzergpio 0");
-    //exec("/usr/local/bin/gpio -g write $triggeroutgpio 0");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
@@ -51,9 +50,7 @@ else
     </form>
     <form action="" method="post" style=" display:inline!important;">
 	<button type="submit" class="btn btn-xs btn-danger">Exit</button>
-	<input type="hidden" name="triggerexit" value="off" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="hidden" name="buzzer" value="<?php echo $buzzer; ?>"/>
 	<input type="hidden" name="triggerexit" value="triggerexit" />
     </form>
 
