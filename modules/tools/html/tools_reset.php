@@ -12,7 +12,7 @@ header("location: " . $_SERVER['REQUEST_URI']);
 exit();	
 }
 ?>
-<form action="index.php?id=tools&type=reset" method="post">
+<form action="" method="post">
 <input type="hidden" name="admin_db_reset" value="admin_db_reset1">
 <input  type="submit" value="Reset" class="btn btn-danger" />
 </form>
