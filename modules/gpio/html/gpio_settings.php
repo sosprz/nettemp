@@ -41,7 +41,7 @@ $name=$a['name'];
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">GPIO <?php echo $gpio ?> - <?php echo $name ?> <?php echo $mode ?>  </h3>
+<h3 class="panel-title">GPIO <?php echo $gpio ?> - <?php echo $name ?> </h3>
 </div>
 <div class="panel-body">
 <table">

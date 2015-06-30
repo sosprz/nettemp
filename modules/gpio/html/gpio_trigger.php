@@ -26,11 +26,24 @@ if ($triggerrun == "off")  {
     exit();
 }
 
+
+$toutonoff = isset($_POST['toutonoff']) ? $_POST['toutonoff'] : '';
+foreach (range(1, 30) as $num) {
+$tout=isset($_POST["tout".$num]) ? $_POST["tout".$num] : '';
+if (($toutonoff == "onoff") &&  (!empty($tout)))  {
+    $tout == "off" ? $tout='' : "";
+    $db->exec("UPDATE gpio SET tout$num='$tout' WHERE gpio='$gpio_post'") or die("exec error");
+    $db = null;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+}
+}
+
+
     $trigger_run=$a['trigger_run'];
     $status=$a['status'];
     if ($trigger_run == 'on') { 
 ?>
-    Status: <?php echo $status ?>
     <form action="" method="post" style=" display:inline!important;">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<button type="submit" class="btn btn-xs btn-danger">OFF </button>
@@ -41,9 +54,23 @@ if ($triggerrun == "off")  {
 }
 else
 {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $rows = $db->query("SELECT * FROM gpio WHERE mode='triggerout'");
+    $row = $rows->fetchAll();
+    foreach ($row as $b) {
+    $sec=$a['gpio'];
+    $to="tout$sec";
+?>    
+<form action="" method="post" style=" display:inline!important;">
+    <button type="submit" name="<?php echo $to; ?>"  <?php echo $b["$to"] == 'on' ? 'class="btn btn-xs btn-danger" value="off"' : 'class="btn btn-xs btn-primary" value="on"'; ?> onchange="this.form.submit()" ><?php echo $b['name']; ?></button>
+    <input type="hidden" name="gpio" value="<?php echo $b['gpio'] ?>" />
+    <input type="hidden" name="toutonoff" value="onoff" />
+</form>
+<?php
+}
 ?>
-    
-    Status: OFF
+
+
     <form action="" method="post" style=" display:inline!important;">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<button type="submit" class="btn btn-xs btn-primary">ON</button>

@@ -12,7 +12,7 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE fw (id INTEGER PRIMARY KEY,ssh TEXT,ic
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO fw (id, ssh, icmp, ext, openvpn ) VALUES (1,'off','off', '0.0.0.0/0', 'off');"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD kwh type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD gpio type TEXT";
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO settings (id,gpio) VALUES (1,'off');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO settings (id,gpio) VALUES (1,'on');"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE device ADD i2c type TEXT";
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,i2c) VALUES (1,'off');"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE device ADD lmsensors type TEXT";
@@ -39,8 +39,6 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone2s type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone2e type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone3s type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone3e type TEXT";
-sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD trigger_source type TEXT";
-
 
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD tempnum type TEXT";
 sqlite3 $dir/dbf/nettemp.db "UPDATE or IGNORE settings SET tempnum='3' where id='1'"
@@ -97,9 +95,12 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD ip type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD delay type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD rom type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD type type TEXT";
-
 sqlite3 $dir/dbf/hosts.db "ALTER TABLE hosts ADD rom type TEXT";
 
+for i in $(seq 1 30);
+    do
+    sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD tout$i type TEXT";
+done
 
 
 

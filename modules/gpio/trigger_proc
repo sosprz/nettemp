@@ -31,7 +31,7 @@ function mail {
 }
 
 name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio where gpio='$gpio'")
-out=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND trigger_source='$gpio'")
+out=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND tout$gpio='on'")
 rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
 trigger_notice=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
 name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio WHERE gpio='$gpio'")
