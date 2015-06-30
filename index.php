@@ -66,11 +66,8 @@ $rows1 = $db1->query("SELECT * FROM gpio WHERE mode='simple' OR mode='moment' OR
 $rows2 = $db1->query("SELECT * FROM relays WHERE type='relay'") or header("Location: html/errors/db_error.php");
 $row1 = $rows1->fetchAll();
 $row2 = $rows2->fetchAll();
-
-//echo $row1[];
 $numsimple = count($row1);
 $numsimple2 = count($row2);
-
 ?>
               <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status">Status</a></li>
               <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="view">Charts </a></li>
