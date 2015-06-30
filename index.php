@@ -3,18 +3,11 @@ include("modules/login/login.php");
 ob_start();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $dbfile='dbf/nettemp.db';
-if ( '' == file_get_contents( $dbfile ) )
-{ ?>
-<html>
-<h1><font color="blue">nettemp.pl</font></h2>
-<h2><font color="red">Database not found <?php echo $dbfile; ?></font></h2>
-<h3>Go to shell and reset/create nettemp database:<h3>
-/var/www/nettemp/modules/tools/db_reset <br />
-</html>
-<?php }
+if ( '' == file_get_contents( $dbfile ) ) {
+header("Location: html/errors/no_db.php");
+}
 else {
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>

@@ -50,8 +50,8 @@
 	              </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-
-		<li><a href="sqlite_error.php">Update DB</a></li>
+		<li><a href="../../status">Home</a></li>
+		<li><a href="db_error.php">Update DB</a></li>
             </ul>
 
     	</div><!--/.nav-collapse -->

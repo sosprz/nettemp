@@ -5,10 +5,12 @@
 <div class="panel-body">
 
 <?php
-    $update=isset($_POST['update']) ? $_POST['update'] : '';
-    if ($update == "Update") { 
-	putenv('PATH='. getenv('PATH') .':var/www/nettemp');
-	exec("/usr/bin/git reset --hard");
+$dir=$_SERVER['DOCUMENT_ROOT'];
+$update=isset($_POST['update']) ? $_POST['update'] : '';
+
+if ($update == "Update") { 
+    putenv('PATH='. getenv('PATH') .':var/www/nettemp');
+    exec("/usr/bin/git reset --hard");
 ?>
 <pre>
 <?php
@@ -16,12 +18,12 @@
 ?>
 </pre>
 <?php
-    exec('modules/tools/update_su');
-    exec('modules/tools/update_db');
-    exec('modules/tools/update_fi');
-    } 
+    shell_exec("$dir/modules/tools/update_su");
+    shell_exec("$dir/modules/tools/update_db");
+    shell_exec("$dir/modules/tools/update_fi");
+    }
 ?>
-    <form action="index.php?id=tools&type=update" method="post">
+    <form action="" method="post">
     <input type="hidden" name="update" value="Update">
     <input  type="submit" value="Update" class="btn btn-primary"  />
     </form>
