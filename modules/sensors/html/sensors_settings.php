@@ -6,10 +6,6 @@
 
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
-$rows = $db->query("SELECT * FROM sensors");
-$row = $rows->fetchAll();
-$numRows = count($row);
-if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }
 
 $sth1 = $db->prepare("select * from settings ");
 $sth1->execute();
