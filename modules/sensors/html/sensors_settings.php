@@ -6,11 +6,9 @@
 
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
-
-$sth1 = $db->prepare("select * from settings ");
-$sth1->execute();
-$result2 = $sth1->fetchAll();
-foreach ($result2 as $a) {
+$rows = $db->query("SELECT * FROM sensors");
+$row = $rows->fetchAll();
+foreach ($row as $a) {
 $lcd=$a["lcd"];
 }
 
