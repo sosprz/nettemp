@@ -13,7 +13,8 @@ $triggerrun = isset($_POST['triggerrun']) ? $_POST['triggerrun'] : '';
 if ($triggerrun == "on")  {
     $db->exec("UPDATE gpio SET trigger_run='on', status='Wait' WHERE gpio='$gpio_post'") or die("exec error");
     $db = null;
-    shell_exec("modules/gpio/trigger_proc $gpio_post");
+    $cmd=("nohup modules/gpio/trigger_proc $gpio_post");
+    shell_exec( $cmd . "> /dev/null 2>/dev/null &" );
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }

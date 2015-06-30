@@ -32,9 +32,7 @@ function mail {
 
 name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio where gpio='$gpio'")
 out=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND trigger_source='$gpio'")
-buzzer=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='buzzer'")
 rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
-buzzer=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='buzzer'")
 trigger_notice=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
 name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio WHERE gpio='$gpio'")
 get_mail=$(sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
