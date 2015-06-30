@@ -14,11 +14,11 @@ $numRows = count($result);
 foreach ( $result as $a) {
 ?>
     <tr>
-    <td>	<img type="image" src="media/ico/Computer-icon.png" /></td>
-    <td><?php echo str_replace("host_","",$a["name"]);?></td>
-    <td><?php echo $a['last']; ?> ms</td>
-    <td></td>
-    <td><?php echo $a['status']; ?></td>
+    <td <?php echo $a['status'] == 'error' ? 'class="danger"' : '' ?>>	<img type="image" src="media/ico/Computer-icon.png" /></td>
+    <td <?php echo $a['status'] == 'error' ? 'class="danger"' : '' ?>><?php echo str_replace("host_","",$a["name"]);?></td>
+    <td <?php echo $a['status'] == 'error' ? 'class="danger"' : '' ?>><?php echo $a['last']; ?> ms</td>
+    <td <?php echo $a['status'] == 'error' ? 'class="danger"' : '' ?>></td>
+    <td <?php echo $a['status'] == 'error' ? 'class="danger"' : '' ?>><?php echo $a['status']; ?></td>
     </tr>
 
 <?php

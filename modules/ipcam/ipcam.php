@@ -10,6 +10,16 @@ $name_del = isset($_POST['name_del']) ? $_POST['name_del'] : '';
 	if (!empty($name)  && !empty($link) && ($_POST['add'] == "add")){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("INSERT OR IGNORE INTO camera (name, link) VALUES ('$name', '$link')") or die ($db->lastErrorMsg());
+	$fi = explode("/",$link);
+	$link = explode(":",$fi[2]);
+	$ip=$link[0];
+		
+        $dbhost = new PDO("sqlite:dbf/hosts.db");	
+	$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type) VALUES ('host_cam_$name', '$ip', 'host_$name', 'ping')") or die ("cannot insert host to DB" );	
+	$dbnew = new PDO("sqlite:db/host_$name.sql");
+        $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
+        $dbnew==NULL;
+
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}
@@ -45,13 +55,13 @@ $sth = $db->prepare("select * from camera");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { 
+$link=$a['link'];
 ?>
     
 	<tr>
 	<td><img type="image" src="media/ico/Security-Camera-icon.png" /></td>
 	<td><?php echo $a["name"];?></td>
 	<td><?php echo $a["link"];?></td>
-	
 	<form action="" method="post">
 	    
 	    <input type="hidden" name="name_del" value="<?php echo $a["name"]; ?>" />
@@ -61,6 +71,8 @@ foreach ($result as $a) {
 	</tr>
 
 <?php }
+
+
 ?>
 </tbody>
 </table>

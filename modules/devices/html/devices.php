@@ -18,6 +18,7 @@
 <a href="index.php?id=devices&type=snmp" ><button class="btn btn-default">SNMP</button></a>
 <a href="index.php?id=devices&type=ups" ><button class="btn btn-default">UPS</button></a>
 <a href="index.php?id=devices&type=hosts" ><button class="btn btn-default">Host monitoring</button></a>
+<a href="index.php?id=devices&type=ipcam" ><button class="btn btn-default">IP Cam</button></a>
 </[>
 
 <?php 
@@ -33,7 +34,7 @@ case 'snmp': include('modules/sensors/snmp/html/snmp.php'); break;
 case 'sensors': include('modules/sensors/html/sensors.php'); break;
 case 'ups': include('modules/ups/html/ups.php'); break;
 case 'hosts': include('modules/hosts/html/hosts.php'); break;
-
+case 'ipcam' : include('modules/ipcam/ipcam.php'); break;
 }
 ?>
 

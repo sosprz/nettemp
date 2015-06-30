@@ -207,5 +207,4 @@ if ( $lcd == "lcd"){
 <?php include("modules/sensors/html/sensors_settings.php"); ?>
 <?php include("modules/relays/html/relays_settings.php"); ?>
 <?php include("modules/sensors/html/sensors_new.php"); ?>
-<?php //include("modules/sensors/html/sensors_device.php"); ?>
 
