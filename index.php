@@ -25,17 +25,17 @@ else {
     <title>nettemp</title>
 
     <!-- Bootstrap -->
-    <link href="jscss/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="html/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="jscss/custom.css" rel="stylesheet">
+    <link href="html/custom.css" rel="stylesheet">
 
     <!-- jQuery -->
-    <script type="text/javascript" src="jscss/jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="html/jquery/jquery-1.11.3.min.js"></script>
 
     <!-- bootstrap-toogle -->
-    <link href="jscss/bootstrap-toggle/bootstrap-toggle.min.css" rel="stylesheet">
-    <script type="text/javascript" src="jscss/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+    <link href="html/bootstrap-toggle/bootstrap-toggle.min.css" rel="stylesheet">
+    <script type="text/javascript" src="html/bootstrap-toggle/bootstrap-toggle.min.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -70,7 +70,7 @@ else {
 <?php
 $db1 = new PDO('sqlite:dbf/nettemp.db');
 $rows1 = $db1->query("SELECT * FROM gpio WHERE mode='simple' OR mode='moment' OR mode='trigger'");
-$rows2 = $db1->query("SELECT * FROM relays WHERE type='relay'");
+$rows2 = $db1->query("SELECT * FROM relays WHERE type='relay'") or header("Location: html/errors/db_error.php");
 $row1 = $rows1->fetchAll();
 $row2 = $rows2->fetchAll();
 
@@ -152,7 +152,7 @@ case 'controls': include('modules/relays/html/relays_controls.php'); include('mo
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
-    <script src="jscss/bootstrap/js/bootstrap.min.js"></script>
+    <script src="html/bootstrap/js/bootstrap.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
 
 

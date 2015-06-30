@@ -1,4 +1,4 @@
-<script src="/jscss/mansonry/masonry.pkgd.min.js"></script>
+<script src="html/mansonry/masonry.pkgd.min.js"></script>
 <script type="text/JavaScript">
 var container = document.querySelector('#container');
 var msnry = new Masonry( container, {
