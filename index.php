@@ -135,7 +135,7 @@ case 'controls': include('modules/relays/html/relays_controls.php'); include('mo
 
 <footer class="footer">
       <div class="container text-center">
-        <p class="text-muted"><table><tr>Donate for developing <?php include('modules/info/paypal.php'); ?> <?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?>| System time <?php passthru("date +%H:%M:%S");?></tr></table></p>
+        <p class="text-muted"><table><tr><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?>| System time <?php passthru("date +%H:%M:%S");?></tr></table></p>
       </div>
 </footer>
 

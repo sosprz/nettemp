@@ -1,5 +1,7 @@
 www.nettemp.pl
 
+[![Alt text for your video](https://http://img.youtube.com/vi/BSCJAicMaFY/0.jpg)](https://www.youtube.com/watch?v=BSCJAicMaFY)
+
 Nettemp work's on any system based on debian. But only on Raspberry Pi gpio will work.
 
 FEATURES:
@@ -39,13 +41,6 @@ OpenWRT, beta version:
 USERS:
 
 	admin admin - access for all
-
-![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/2nettemp_view.jpg)
-![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/1nettemp_status.jpg)
-![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/3nettemp_snmp.jpg)
-![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/4nettemp_sensors.jpg)
-![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/5nettemp_tools.jpg)
-![alt tag](https://raw.github.com/sosprz/nettemp/beta/media/demo/6nettemp_gpio.jpg)
 
 
 Changelog:
