@@ -32,9 +32,13 @@ do
     if [[ "$status" = "0" &&  "$rev" = "on" ]] || [[ "$status" = "1"  &&  "$rev" = "" ]]
         then
 	control
-	sleep 2
+	echo "button!"
+	sleep 1
+	echo 3
+	sleep 1
+	echo 2
+	sleep 1
+	echo 1
     fi
-
-    
-sleep 1
+sleep 0.1
 done
