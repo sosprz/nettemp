@@ -34,11 +34,13 @@ if ($triggeronoff == "onoff")  {
     if ( $trigger == 'on' ) {
 	$db->exec("UPDATE gpio SET trigger_run='on', status='Wait' WHERE gpio='$gpio_post'") or die("exec error");
 	$db = null;
+	$cmd=("nohup modules/gpio/trigger_proc $gpio_post");
+        shell_exec( $cmd . "> /dev/null 2>/dev/null &" );
+
     } else {
 	$db->exec("UPDATE gpio SET trigger_run='', status='OFF' WHERE gpio='$gpio_post'") or die("exec error");
 	$db = null;
 	shell_exec("modules/gpio/trigger_close $gpio_post");
-	exec("/usr/local/bin/gpio -g write $buzzergpio 0");
     }
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
