@@ -1,6 +1,6 @@
 www.nettemp.pl
 
-[![Alt text for your video](http://http://img.youtube.com/vi/BSCJAicMaFY/0.jpg)](http://www.youtube.com/watch?v=BSCJAicMaFY)
+[![nettemp.pl](http://img.youtube.com/vi/BSCJAicMaFY/0.jpg)](http://www.youtube.com/watch?v=BSCJAicMaFY)
 
 Nettemp work's on any system based on debian. But only on Raspberry Pi gpio will work.
 
