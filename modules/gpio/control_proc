@@ -1,0 +1,40 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=$(date +%y%m%d-%H%M)
+
+gpio="$1"
+
+if [ ! -n "$gpio" ]; then echo "no gpio input" && exit; fi 
+
+function control {
+    if [ "$cf" == "trigger" ]; then
+	r=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_run FROM gpio where gpio='$cgpio'")
+	    if [ "$r" != "on" ]; then
+		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET trigger_run='on' WHERE gpio='$cgpio'"
+		$dir/modules/gpio/trigger_proc $cgpio &
+	    else
+		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET trigger_run='' WHERE gpio='$cgpio'"
+		$dir/modules/gpio/trigger_close $cgpio &
+	    fi
+    fi
+}
+
+
+cgpio=$(sqlite3 $dir/dbf/nettemp.db "SELECT control FROM gpio where gpio='$gpio'")
+cf=$(sqlite3 $dir/dbf/nettemp.db "SELECT mode FROM gpio where gpio='$cgpio'")
+rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
+name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio WHERE gpio='$gpio'")
+
+while :
+do
+    status=$(/usr/local/bin/gpio -g read $gpio)
+    if [[ "$status" = "0" &&  "$rev" = "on" ]] || [[ "$status" = "1"  &&  "$rev" = "" ]]
+        then
+	control
+	sleep 2
+    fi
+
+    
+sleep 1
+done

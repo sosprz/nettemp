@@ -93,7 +93,10 @@ elseif ($mode == 'triggerout')
 {
     include('gpio_triggerout.php');
 } 
-
+elseif ($mode == 'control') 
+{
+    include('gpio_control.php');
+} 
 else 
 { 
 include('gpio_functions.php');

@@ -116,6 +116,16 @@
 	exit();
     }
 
+//functiononoff
+    $control = isset($_POST['control']) ? $_POST['control'] : '';
+    if ($control == "on")  {
+//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+	$db->exec("UPDATE gpio SET mode='control', status='' WHERE gpio='$gpio_post'") or die("exec error");
+	$db = null;
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
+
 include('gpio_rev.php');
 ?>
     <form action="" method="post" style=" display:inline!important;">
@@ -161,11 +171,18 @@ include('gpio_rev.php');
 	<input type="hidden" name="triggeron" value="triggeron" />
     </form>
     <form action="" method="post" style="display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary">Triggerout</button>
+	<button type="submit" class="btn btn-xs btn-primary">Trigger out</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="triggerout" value="triggerout" />
 	
     </form>
+    <form action="" method="post" style="display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">Control</button>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="control" value="on" />
+	
+    </form>
+
 <?php 
 if (empty($mode3)){ ?>
     <form action="" method="post" style=" display:inline!important;">

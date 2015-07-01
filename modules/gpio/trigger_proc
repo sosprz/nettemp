@@ -34,21 +34,12 @@ name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio where gpio='$gpio'")
 out=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND tout$gpio='on'")
 rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
 trigger_notice=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
-name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio WHERE gpio='$gpio'")
 get_mail=$(sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
 
 while :
 do
     status=$(/usr/local/bin/gpio -g read $gpio)
-    if [ "$status" = "0" ] && [ "$rev" = "on" ]
-        then
-	trigger="on"
-        triggerout_gpio
-	mail		
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
-	$dir/modules/gpio/timestamp $gpio
-	break
-    elif [ "$status" = "1" ] && [ "$rev" = "" ]
+    if [[ "$status" = "0" &&  "$rev" = "on" ]] || [[ "$status" = "1" &&  "$rev" = "" ]]
         then
 	trigger="on"
 	triggerout_gpio
