@@ -48,7 +48,22 @@ rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
 trigger_notice=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
 get_mail=$(sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
 led=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='led'")
+
 /usr/local/bin/gpio -g write $led 1
+sleep 1
+/usr/local/bin/gpio -g write $led 0
+sleep 1
+/usr/local/bin/gpio -g write $led 1
+sleep 1
+/usr/local/bin/gpio -g write $led 0
+sleep 1
+/usr/local/bin/gpio -g write $led 1
+sleep 1
+/usr/local/bin/gpio -g write $led 0
+sleep 1
+/usr/local/bin/gpio -g write $led 1
+
+
 
 while :
 do
@@ -62,7 +77,5 @@ do
 	$dir/modules/gpio/timestamp $gpio
 	break
     fi
-
-    
-sleep 1
+sleep 0.1
 done
