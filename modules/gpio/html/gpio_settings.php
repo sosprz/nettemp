@@ -32,7 +32,6 @@ $sth6->execute();
 $result6 = $sth6->fetchAll();
 foreach ( $result6 as $ab) {
 $mode4=$ab['gpio'];
-echo $mode4;
 }
 
 
