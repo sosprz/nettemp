@@ -8,6 +8,8 @@ gl="$1"
 sudo /bin/kill -9 `pgrep -l -f trigger_proc |grep $gl | awk '{print $1}'`
 
 out=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND tout$gl='on'")
+led=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='led'")
+/usr/local/bin/gpio -g write $led 0
 
 function close {
         for i in $out; do

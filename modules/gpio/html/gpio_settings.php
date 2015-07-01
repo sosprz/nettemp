@@ -27,6 +27,13 @@ $result5 = $sth5->fetchAll();
 foreach ( $result5 as $ab) {
 $triggeroutgpio=$ab['gpio'];
 }
+$sth6 = $db->prepare("select gpio from gpio where mode='led'");
+$sth6->execute();
+$result6 = $sth6->fetchAll();
+foreach ( $result6 as $ab) {
+$mode4=$ab['gpio'];
+echo $mode4;
+}
 
 
 //main loop
@@ -97,6 +104,11 @@ elseif ($mode == 'control')
 {
     include('gpio_control.php');
 } 
+elseif ($mode == 'led') 
+{
+    include('gpio_led.php');
+} 
+
 else 
 { 
 include('gpio_functions.php');

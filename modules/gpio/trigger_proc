@@ -17,8 +17,20 @@ function triggerout_gpio {
 		    else
 			/usr/local/bin/gpio -g write $g 1
 		    fi
+		ledalarm
 	    done
 }
+
+function ledalarm {
+		/usr/local/bin/gpio -g mode $led out
+		    while :; do
+			/usr/local/bin/gpio -g write $led 0
+			sleep 0.5
+			/usr/local/bin/gpio -g write $led 1
+			sleep 0.5
+		    done
+}
+
 
 function mail { 
     if [ "$trigger_notice" = "on" ] && [ $trigger = "on" ]; then
@@ -35,6 +47,8 @@ out=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='trigger
 rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
 trigger_notice=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
 get_mail=$(sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
+led=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='led'")
+/usr/local/bin/gpio -g write $led 1
 
 while :
 do

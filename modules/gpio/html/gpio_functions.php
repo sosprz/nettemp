@@ -109,7 +109,6 @@
 //troggerout
     $triggerout = isset($_POST['triggerout']) ? $_POST['triggerout'] : '';
     if ($triggerout == "triggerout")  {
-//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 	$db->exec("UPDATE gpio SET mode='triggerout', status='' WHERE gpio='$gpio_post'") or die("exec error");
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
@@ -119,12 +118,20 @@
 //functiononoff
     $control = isset($_POST['control']) ? $_POST['control'] : '';
     if ($control == "on")  {
-//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 	$db->exec("UPDATE gpio SET mode='control', status='' WHERE gpio='$gpio_post'") or die("exec error");
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
     }
+
+    $led = isset($_POST['led']) ? $_POST['led'] : '';
+    if ($led == "on")  {
+	$db->exec("UPDATE gpio SET mode='led', status='' WHERE gpio='$gpio_post'") or die("exec error");
+	$db = null;
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
+
 
 include('gpio_rev.php');
 ?>
@@ -174,7 +181,6 @@ include('gpio_rev.php');
 	<button type="submit" class="btn btn-xs btn-primary">Trigger out</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="triggerout" value="triggerout" />
-	
     </form>
     <form action="" method="post" style="display:inline!important;">
 	<button type="submit" class="btn btn-xs btn-primary">Control</button>
@@ -182,8 +188,16 @@ include('gpio_rev.php');
 	<input type="hidden" name="control" value="on" />
 	
     </form>
-
 <?php 
+if (empty($mode4)){ ?>
+    <form action="" method="post" style="display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">LED</button>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="led" value="on" />
+	
+    </form>
+<?php 
+}
 if (empty($mode3)){ ?>
     <form action="" method="post" style=" display:inline!important;">
 	<button type="submit" class="btn btn-xs btn-primary">kWh</button>
