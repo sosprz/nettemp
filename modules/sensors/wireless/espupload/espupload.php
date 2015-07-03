@@ -104,9 +104,8 @@ if ($_POST['run'] == "Upload") {
 } //end post
 
 
-$cmd="ls /dev/ttyU*";
+$cmd="ls /dev/ttyU* /dev/ttyA*";
 exec($cmd, $i);
-//print_r($i);
 ?>
 
 <form class="form-horizontal" action="" method="post">
