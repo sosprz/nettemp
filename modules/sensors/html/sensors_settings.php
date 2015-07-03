@@ -8,8 +8,11 @@
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
-foreach ($row as $a) {
-$lcd=$a["lcd"];
+
+$lcd = $db->query("SELECT * FROM settings");
+$lcd = $lcd->fetchAll();
+foreach ($lcd as $c) {
+$lcd=$c['lcd'];
 }
 
 
