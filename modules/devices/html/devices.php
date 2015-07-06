@@ -10,20 +10,18 @@
 	}
 	?>
 <p>
-<a href="index.php?id=devices&type=scan" ><button class="btn   <?php if (!file_exists('tmp/scan')) { echo "btn-danger"; } else { echo "btn-default"; } ?> ">Device scan</button></a>
-<a href="index.php?id=devices&type=sensors" ><button class="btn btn-default">Devices</button></a>
+<a href="index.php?id=devices&type=scan" ><button class="btn   <?php if (!file_exists('tmp/scan')) { echo "btn-danger"; } else { echo $art == 'scan' ? 'btn-info' : 'btn-default'; } ?> ">Device scan</button></a>
+<a href="index.php?id=devices&type=sensors" ><button class="btn  <?php echo $art == 'sensors' ? 'btn-info' : 'btn-default'; ?>">Devices</button></a>
 <?php if ( $gpio == 'on' ) { ?>
-<a href="index.php?id=devices&type=gpio" ><button class="btn btn-default">GPIO</button></a>
+<a href="index.php?id=devices&type=gpio" ><button class="btn <?php echo $art == 'gpio' ? 'btn-info' : 'btn-default'; ?>">GPIO</button></a>
 	<?php } ?>
-<a href="index.php?id=devices&type=snmp" ><button class="btn btn-default">SNMP</button></a>
-<a href="index.php?id=devices&type=ups" ><button class="btn btn-default">UPS</button></a>
-<a href="index.php?id=devices&type=hosts" ><button class="btn btn-default">Host monitoring</button></a>
-<a href="index.php?id=devices&type=ipcam" ><button class="btn btn-default">IP Cam</button></a>
+<a href="index.php?id=devices&type=snmp" ><button class="btn <?php echo $art == 'snmp' ? 'btn-info' : 'btn-default'; ?>">SNMP</button></a>
+<a href="index.php?id=devices&type=ups" ><button class="btn <?php echo $art == 'ups' ? 'btn-info' : 'btn-default'; ?>">UPS</button></a>
+<a href="index.php?id=devices&type=hosts" ><button class="btn <?php echo $art == 'hosts' ? 'btn-info' : 'btn-default'; ?>">Host monitoring</button></a>
+<a href="index.php?id=devices&type=ipcam" ><button class="btn <?php echo $art == 'ipcam' ? 'btn-info' : 'btn-default'; ?>">IP Cam</button></a>
 </[>
 
-<?php 
-$art=isset($_GET['type']) ? $_GET['type'] : '';
-?>
+
 <?php  
 switch ($art)
 { 

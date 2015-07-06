@@ -2,6 +2,7 @@
 include("modules/login/login.php");
 ob_start();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
+$art=isset($_GET['type']) ? $_GET['type'] : '';
 $dbfile='dbf/nettemp.db';
 if ( '' == file_get_contents( $dbfile ) ) {
 header("Location: html/errors/no_db.php");

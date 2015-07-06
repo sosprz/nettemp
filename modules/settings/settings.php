@@ -1,17 +1,14 @@
 <?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
 
 <p>
-<a href="index.php?id=settings&type=mail" ><button class="btn btn-default">Mail</button></a>
-<a href="index.php?id=settings&type=sms" ><button class="btn btn-default">SMS</button></a>
-<a href="index.php?id=settings&type=gpio" ><button class="btn btn-default">GPIO</button></a>
-<a href="index.php?id=settings&type=1wire" ><button class="btn btn-default">1wire</button></a>
-<a href="index.php?id=settings&type=time" ><button class="btn btn-default">Time</button></a>
-<a href="index.php?id=settings&type=snmpd" ><button class="btn btn-default">SNMPD</button></a>
-<a href="index.php?id=settings&type=lcd" ><button class="btn btn-default">LCD</button></a>
+<a href="index.php?id=settings&type=mail" ><button class="btn <?php echo $art == 'mail' ? 'btn-info' : 'btn-default'; ?>">Mail</button></a>
+<a href="index.php?id=settings&type=sms" ><button class="btn <?php echo $art == 'sms' ? 'btn-info' : 'btn-default'; ?>">SMS</button></a>
+<a href="index.php?id=settings&type=gpio" ><button class="btn <?php echo $art == 'gpio' ? 'btn-info' : 'btn-default'; ?>">GPIO</button></a>
+<a href="index.php?id=settings&type=1wire" ><button class="btn <?php echo $art == '1wire' ? 'btn-info' : 'btn-default'; ?>">1wire</button></a>
+<a href="index.php?id=settings&type=time" ><button class="btn <?php echo $art == 'time' ? 'btn-info' : 'btn-default'; ?>">Time</button></a>
+<a href="index.php?id=settings&type=snmpd" ><button class="btn <?php echo $art == 'snmpd' ? 'btn-info' : 'btn-default'; ?>">SNMPD</button></a>
+<a href="index.php?id=settings&type=lcd" ><button class="btn <?php echo $art == 'lcd' ? 'btn-info' : 'btn-default'; ?>">LCD</button></a>
 </p>
-<?php 
-$art = isset($_GET['type']) ? $_GET['type'] : '';
-?>
 <?php  
 switch ($art)
 { 

@@ -1,13 +1,10 @@
 <?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
 
 <p>
-<a href="index.php?id=security&type=fw" ><button class="btn btn-default">Firewall</button></a>
-<a href="index.php?id=security&type=vpn" ><button class="btn btn-default">VPN</button></a>
-<a href="index.php?id=security&type=authmod" ><button class="btn btn-default">WWW authmod</button></a>
+<a href="index.php?id=security&type=fw" ><button class="btn <?php echo $art == 'fw' ? 'btn-info' : 'btn-default'; ?>">Firewall</button></a>
+<a href="index.php?id=security&type=vpn" ><button class="btn <?php echo $art == 'vpn' ? 'btn-info' : 'btn-default'; ?>">VPN</button></a>
+<a href="index.php?id=security&type=authmod" ><button class="btn <?php echo $art == 'authmod' ? 'btn-info' : 'btn-default'; ?>">WWW authmod</button></a>
 </p>
-<?php 
-$art = isset($_GET['type']) ? $_GET['type'] : '';
-?>
 <?php  
 switch ($art)
 { 

@@ -9,21 +9,18 @@
     }
 ?>
 <p>
-<a href="index.php?id=tools&type=file_check" ><button class="btn btn-default">File check</button></a>
-<a href="index.php?id=tools&type=password" ><button class="btn btn-default">Password</button></a>
-<a href="index.php?id=tools&type=update" ><button class="btn btn-default">Update</button></a>
-<a href="index.php?id=tools&type=reset" ><button class="btn btn-default">Reset to default</button></a>
-<a href="index.php?id=tools&type=reboot" ><button class="btn btn-default">Reboot</button></a>
-<a href="index.php?id=tools&type=log" ><button class="btn btn-default">Logging</button></a>
+<a href="index.php?id=tools&type=file_check" ><button class="btn <?php echo $art == 'file_check' ? 'btn-info' : 'btn-default'; ?>">File check</button></a>
+<a href="index.php?id=tools&type=password" ><button class="btn <?php echo $art == 'password' ? 'btn-info' : 'btn-default'; ?>">Password</button></a>
+<a href="index.php?id=tools&type=update" ><button class="btn <?php echo $art == 'update' ? 'btn-info' : 'btn-default'; ?>">Update</button></a>
+<a href="index.php?id=tools&type=reset" ><button class="btn <?php echo $art == 'reset' ? 'btn-info' : 'btn-default'; ?>">Reset to default</button></a>
+<a href="index.php?id=tools&type=reboot" ><button class="btn <?php echo $art == 'reboot' ? 'btn-info' : 'btn-default'; ?>">Reboot</button></a>
+<a href="index.php?id=tools&type=log" ><button class="btn <?php echo $art == 'log' ? 'btn-info' : 'btn-default'; ?>">Logging</button></a>
 <?php if ( $gpio == 'on' ) { ?>
-<a href="index.php?id=tools&type=gpio" ><button class="btn btn-default">GPIO</button></a>
+<a href="index.php?id=tools&type=gpio" ><button class="btn <?php echo $art == 'gpio' ? 'btn-info' : 'btn-default'; ?>">GPIO</button></a>
 <?php } ?>
-<a href="index.php?id=tools&type=backup" ><button class="btn btn-default">Backup/Restore</button></a>
-<a href="index.php?id=tools&type=espupload" ><button class="btn btn-default">ESPupload</button></a>
+<a href="index.php?id=tools&type=backup" ><button class="btn <?php echo $art == 'backup' ? 'btn-info' : 'btn-default'; ?>">Backup/Restore</button></a>
+<a href="index.php?id=tools&type=espupload" ><button class="btn <?php echo $art == 'espupload' ? 'btn-info' : 'btn-default'; ?>">ESPupload</button></a>
 </p>
-<?php 
-$art = isset($_GET['type']) ? $_GET['type'] : '';
-?>
 <?php  
 switch ($art)
 { 
