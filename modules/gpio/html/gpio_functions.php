@@ -132,6 +132,14 @@
 	exit();
     }
 
+    $gpiodel = isset($_POST['gpiodel']) ? $_POST['gpiodel'] : '';
+    if ($gpiodel == "gpiodel")  {
+	$db->exec("DELETE FROM gpio WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+	$db = null;
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
+
 
 include('gpio_rev.php');
 ?>
@@ -211,8 +219,15 @@ if (empty($mode2)) { ?>
 	<button type="submit" class="btn btn-xs btn-primary">Buzzer</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="buzzeron" value="buzzeron" />
-	
     </form>
+
+    <form action="" method="post" style="display:inline!important;">
+        <input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
+        <input type="hidden" type="submit" name="gpiodel" value="gpiodel" />
+        <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+    </form>
+
+
 <?php 
 }
 ?>

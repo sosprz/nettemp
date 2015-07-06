@@ -1,7 +1,7 @@
 <?php 
 $dir="modules/gpio/";
 $db = new PDO('sqlite:dbf/nettemp.db') or die ("cannot open database");
-$sth = $db->prepare("select * from gpio");
+$sth = $db->prepare("select * from gpio where mode='trigger' or mode='simple' or mode='day' or mode='week' or mode='temp' ");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);

@@ -46,27 +46,32 @@ $notif_del = isset($_POST['notif_del']) ? $_POST['notif_del'] : '';
 	}
 	?>
 
-
 <div class="panel panel-default">
-<div class="panel-heading">Users</div>
+<div class="panel-heading">
+<h3 class="panel-title">Panel title</h3>
+</div>
+<div class="panel-body">
 
-<div class="table-responsive">
-<table class="table table-striped">
-<thead><tr><th></th><th>Name</th><th>Email</th><th>Telephone</th><th><img src="media/ico/message-icon.png"></th><th><img src="media/ico/phone-blue-glow-icon.png"></th><th>Add/Rem</th></tr></thead>
+<div class="row">
+    <div class="col-sm-2">Name</div>
+    <div class="col-sm-2">Email</div>
+    <div class="col-sm-2">Telephone</div>
+    <div class="col-sm-1">Mail</div>
+    <div class="col-sm-1">SMS</div>
+    <div class="col-sm-1"></div>
+</div>
 
-<tr>	
+<div class="row">
 	<form action="" method="post">
-	<td></td>
-	<td><input type="text" name="notif_name" value="" class="form-control" required=""/></td>
-	<td><input type="text" name="notif_mail" value="" class="form-control" required=""/></td>
-	<td><input type="text" name="notif_tel" value="" class="form-control" required=""/></td>
-	<td><input type="checkbox" name="notif_mail_alarm" value="yes" /></td>
-	<td><input type="checkbox" name="notif_sms_alarm" value="yes" /></td>
+	<div class="col-sm-2"><input type="text" name="notif_name" value="" class="form-control" required=""/></div>
+	<div class="col-sm-2"><input type="text" name="notif_mail" value="" class="form-control" required=""/></div>
+	<div class="col-sm-2"><input type="text" name="notif_tel" value="" class="form-control" required=""/></div>
 	<input type="hidden" name="notif_add1" value="notif_add2" />
-	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
-	<td></td>
+	<div class="col-sm-1"><input type="checkbox" name="notif_mail_alarm" value="yes" /></div>
+	<div class="col-sm-1"><input type="checkbox" name="notif_sms_alarm" value="yes" /></div>
+	<div class="col-sm-1"><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></div>
 	</form>
-</tr>
+</div>
 <?php
 
 $db = new PDO('sqlite:dbf/nettemp.db');
@@ -75,32 +80,29 @@ $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { 
 ?>
-	<tr>
-	<td><img src="media/ico/User-Preppy-Blue-icon.png"></td>
-	<td><?php echo $a["name"];?></td>
-	<td><?php echo $a["mail"];?></td>
-	<td><?php echo $a["tel"]; ?></td>
+<p>
+<div class="row">
+	<div class="col-sm-2"><?php echo $a["name"];?></div>
+	<div class="col-sm-2"><?php echo $a["mail"];?></div>
+	<div class="col-sm-2"><?php echo $a["tel"]; ?></div>
 	
-	<form action="" method="post"> 	
-	<input type="hidden" name="notif_update" value="<?php echo $a["id"]; ?>" />
-	<td><input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="notif_update_mail" value="yes" <?php echo $a["mail_alarm"] == 'yes' ? 'checked="checked"' : ''; ?> /></td>
-	<td><input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="notif_update_sms" value="yes" <?php echo $a["sms_alarm"] == 'yes' ? 'checked="checked"' : ''; ?> /></td>
+        <form action="" method="post">
+	<div class="col-sm-1"><input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="notif_update_mail" value="yes" <?php echo $a["mail_alarm"] == 'yes' ? 'checked="checked"' : ''; ?> /></div>
+	<div class="col-sm-1"><input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="notif_update_sms" value="yes" <?php echo $a["sms_alarm"] == 'yes' ? 'checked="checked"' : ''; ?> /></div>
 	<input type="hidden" name="notif_update1" value="notif_update2" />
+	<input type="hidden" name="notif_update" value="<?php echo $a["id"]; ?>" />
 	</form>
-	
-	<form action="" method="post"> 	
+
+	<form action="" method="post">
 	    <input type="hidden" name="notif_del" value="<?php echo $a["id"]; ?>" />
 	    <input type="hidden" type="submit" name="notif_del1" value="notif_del2" />
-	    <td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
+	    <div class="col-sm-1"><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button></div>
 	</form>
-	</tr>
-<?php }
+</div>
+</p>
+<?php 
+}
+?>
 
-
-		
-	
-		?>
-	
-</table>
 </div>
 </div>

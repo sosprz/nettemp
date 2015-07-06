@@ -102,8 +102,9 @@ Status:<?php echo $a['status'];?>
     <button type="submit" class="btn btn-xs btn-danger">Exit</button>
 </form>
 
-
 <?php
+
+include('gpio_function_num.php');
 }
 ?>
 

@@ -24,7 +24,7 @@ else {
     <link href="html/custom.css" rel="stylesheet">
 
     <!-- jQuery -->
-    <script type="text/javascript" src="html/jquery/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="html/jquery/jquery-1.11.3.min.js"></script>
 
     <!-- bootstrap-toogle -->
     <link href="html/bootstrap-toggle/bootstrap-toggle.min.css" rel="stylesheet">
@@ -135,7 +135,7 @@ case 'controls': include('modules/relays/html/relays_controls.php'); include('mo
 
 <footer class="footer">
       <div class="container text-center">
-        <p class="text-muted"><table><tr><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?>| System time <?php passthru("date +%H:%M:%S");?></tr></table></p>
+        <p class="text-muted"><?php include('modules/info/paypal.php');?><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?>| System time <?php passthru("date +%H:%M:%S");?></p>
       </div>
 </footer>
 
@@ -144,8 +144,6 @@ case 'controls': include('modules/relays/html/relays_controls.php'); include('mo
     <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
     <script src="html/bootstrap/js/bootstrap.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-
-
   </body>
 </html>
 <?php 

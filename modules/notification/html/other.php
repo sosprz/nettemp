@@ -8,12 +8,12 @@
     exit();
     }
 ?>
-
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">other</h3>
+<h3 class="panel-title">Other</h3>
 </div>
 <div class="panel-body">
+
 <?php
     $db = new PDO('sqlite:dbf/nettemp.db');
     $sth = $db->prepare("select * from mail_settings ");
@@ -21,12 +21,13 @@
     $result = $sth->fetchAll();
     foreach ($result as $a) {
 ?>
-
+<div class="row">
 <form action="" method="post">
-    <td>Send readings errors</td>
-    <td><input data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="senderrors" value="on" <?php echo $a['error'] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></td>
+    <div class="col-sm-2">Send readings errors</div>
+    <div class="col-sm-1"><input data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="senderrors" value="on" <?php echo $a['error'] == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" /></div>
     <input type="hidden" name="sende" value="sende" />
 </form>
+</div>
 <?php
     }
 ?>

@@ -165,8 +165,8 @@ Go to device scan!
 		    <tr>
 			<td></td>
 			<td><img src="media/ico/sun-icon.png" /></td>
-			<td><font  color="#108218"> <?php echo $name ?> </td>
-			<td><font  color="#108218"> <?php echo $a['tmp'];?>&nbsplux</td>
+			<td><?php echo $name ?> </td>
+			<td><?php echo $a['tmp'];?>&nbsplux</td>
 			<td></td
 		    </tr>
 	    </font> <?php }

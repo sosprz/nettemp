@@ -33,62 +33,46 @@ $del_alarm = isset($_POST['del_alarm']) ? $_POST['del_alarm'] : '';
     exit();
      } 
     
-$triggernotice_checkbox = isset($_POST['triggernotice_checkbox']) ? $_POST['triggernotice_checkbox'] : '';
-$xtriggernoticeon = isset($_POST['xtriggernoticeon']) ? $_POST['xtriggernoticeon'] : '';
-if ($xtriggernoticeon == "xtriggernoticeON")  {
-    //exec("/usr/local/bin/gpio reset $gpio_post ");
-    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET trigger_notice='$triggernotice_checkbox' WHERE gpio='$gpio_post'") or die("exec error");
-    $db = NULL;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-}
 ?>
 <div class="panel panel-default">
-<div class="panel-heading">Set the temperature range
-</div>
-<table class="table table-striped">
-<thead><tr><th></th><th>Name</th><th><img src="media/ico/temp_low.png" /> min <img src="media/ico/temp2-icon.png" />max</th><th>Remove</th></tr></thead>
+<div class="panel-heading">Set the temperature range</div>
+<div class="panel-body">
 <?php  
-//$db = new PDO('sqlite:dbf/nettemp.db');
-//$rows = $db->query("SELECT * FROM sensors WHERE alarm='on'");
-//$row = $rows->fetchAll();
-//$numRows = count($row);
-
-//if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }
 	$db1 = new PDO('sqlite:dbf/nettemp.db');
 	$sth = $db1->prepare("select * from sensors WHERE alarm='on'");
 	$sth->execute();
-	$result = $sth->fetchAll();
+	$result =  $sth->fetchAll();
 		foreach ($result as $a) { ?>
 
+<div class="row">
 	
-	<tr>
-	<form action="" method="post"> 
-	<td><img src="media/ico/TO-220-icon.png" /></td>
-	<td><?php echo $a['name']; ?></td>
+	<form action="" method="post" style=" display:inline!important;"> 
+	<div class="col-md-1"><img src="media/ico/TO-220-icon.png" />
+	<?php echo $a['name']; ?></div>
 	<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
-	<td><input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" />
-	<input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" />
+	<div class="col-md-1"><input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" placeholder="min"/></div>
+	<div class="col-md-1"><input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" placeholder="max"/></div>
+	<div class="col-md-1"><button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button></div>
 	<input type="hidden" name="ok" value="ok" />
-	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button></td>
 	</form>
-	<form action="" method="post"> 
+
+	<form action="" method="post" style=" display:inline!important;"> 
 	<input type="hidden" name="del_alarm1" value="del_alarm2" />
 	<input type="hidden" name="del_alarm" value="<?php echo $a['name']; ?>" />
-	<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
-	</form></tr>  							
-		 <?php	} 
+	<div class="col-md-1"><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></div>
+	</form>
 
+</div>							
+		 
+<?php
+}
 ?>
-</table>
+</div>
 </div>
 
 <div class="panel panel-default">
-<div class="panel-heading">Free sensors
-</div>
-<table class="table table-striped">
-<thead><tr><th></th><th>Name</th><th>Add</th></tr></thead>
+<div class="panel-heading">Free sensors</div>
+<div class="panel-body">
 <?php	
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors WHERE alarm='off'");
@@ -100,43 +84,21 @@ $sth = $db1->prepare("select * from sensors WHERE alarm='off'");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { ?>
-    <tr>
-   <form action="" method="post">
-   <td><img src="media/ico/TO-220-icon.png" /></td>
-	<td><?php echo $a['name']; ?></td>
+<div class="row">
+    <form action="" method="post">
+	<div class="col-sm-1"><img src="media/ico/TO-220-icon.png" />
+	<?php echo $a['name']; ?></div>
 	<input type="hidden" name="add_alarm" value="<?php echo $a['id']; ?>" />
 	<input type="hidden" name="add_alarm1" value="add_alarm2" />
-<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
-	</tr>    
+	<div class="col-sm-1"><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></div>
     </form>
+</div>
 <?php }  ?>
-</table>
+
+
+</div>
 </div>
 
-<div class="panel panel-default">
-<div class="panel-heading">Trigger alarms</div>
-<table class="table table-striped">
-<?php	
-$db = new PDO('sqlite:dbf/nettemp.db');
-$rows = $db->query("SELECT * from gpio WHERE mode='trigger'");
-$row = $rows->fetchAll();
-$numRows = count($row);
-if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }
 
-$sth = $db1->prepare("select * from gpio WHERE mode='trigger'");
-$sth->execute();
-$result = $sth->fetchAll();
-foreach ($result as $a) { ?>
-    <tr>
-	<form action="" method="post"> 
-	<td><img src="media/ico/TO-220-icon.png" /></td>
-	<td><?php echo $a['name']; ?></td>
-		<td><input type="checkbox" name="triggernotice_checkbox" value="on" <?php echo $a["trigger_notice"] == 'on' ? 'checked="checked"' : ''; ?>  onclick="this.form.submit()" /><td>
-		<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-		<input type="hidden" name="xtriggernoticeon" value="xtriggernoticeON" />
-	</form>    
-    
-    
-<?php }  ?>
-</table>
-</div>
+
+
