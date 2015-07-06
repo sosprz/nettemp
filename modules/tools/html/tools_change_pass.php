@@ -4,19 +4,39 @@
 </div>
 <div class="panel-body">
 
-	<form action="" method="post" role="form">
-	  <input type="hidden" name="login_change" value="login_change1">
-	    <div class="form-group">
-		<label for="pwd">Password:</label>
-		<input type="password" class="form-control" id="pwd" name="pas1" required="" >
-	    </div>
-	    <div class="form-group">
-		<label for="pwd2">Repeat:</label>
-		<input type="password" class="form-control" id="pwd2" name="pas2" required="" >
-	    </div>
-	  <input  type="submit" value="Save" class="btn btn-primary" />
-        </form>   
+<form class="form-horizontal" action="" method="post">
+<fieldset>
 
+
+<!-- Password input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="passwordinput">Password</label>
+  <div class="col-md-4">
+    <input id="passwordinput" name="pas1" placeholder="" class="form-control input-md" required="" type="password">
+    
+  </div>
+</div>
+
+<!-- Password input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="passwordinput">Repeat</label>
+  <div class="col-md-4">
+    <input id="passwordinput" name="pas2" placeholder="" class="form-control input-md" required="" type="password">
+    
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="save"></label>
+  <div class="col-md-4">
+    <button type="submit" id="save" name="save" class="btn btn-primary">Save</button>
+    	  <input type="hidden" name="login_change" value="login_change1">
+  </div>
+</div>
+
+</fieldset>
+</form>
 
 <?php
 
