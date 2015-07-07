@@ -36,13 +36,12 @@ $name_del = isset($_POST['name_del']) ? $_POST['name_del'] : '';
 
 <div class="table-responsive">
 <table class="table table-striped">
-<thead><tr><th></th><th>Name</th><th>link</th><th>Add/Rem</th></tr></thead>
+<thead><tr><th>Name</th><th>link</th><th></th></tr></thead>
 <tbody>
 	<form action="" method="post">
 	<tr>
-	<td><img type="image" src="media/ico/Security-Camera-icon.png" /></td>
-	<td><input type="text" name="name" size="20" value="" class="form-control" required=""/></td>
-	<td><input type="text" name="link" size="30" value="" class="form-control" required=""/></td>
+	<td class="col-md-2"><input type="text" name="name" size="20" value="" class="form-control" required=""/></td>
+	<td class="col-md-4"><input type="text" name="link" size="30" value="" class="form-control" required=""/></td>
 	<input type="hidden" name="add" value="add" />
 	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	</form>

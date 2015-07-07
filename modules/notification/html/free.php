@@ -15,7 +15,13 @@ $add_alarm1 = isset($_POST['add_alarm1']) ? $_POST['add_alarm1'] : '';
 
 <div class="panel panel-default">
 <div class="panel-heading">Free sensors</div>
-<div class="panel-body">
+
+<table class="table table-hover">
+<tbody>
+ <tr>
+    <th>Name</th>
+    <th></th>
+ </tr>
 <?php	
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors WHERE alarm='off'");
@@ -27,18 +33,22 @@ $sth = $db1->prepare("select * from sensors WHERE alarm='off'");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { ?>
-<div class="row">
-    <form action="" method="post">
-	<div class="col-sm-2"><img src="media/ico/TO-220-icon.png" /><?php echo $a['name']; ?></div>
+<tr>
+    <td class="col-sm-2">
+	<img src="media/ico/TO-220-icon.png" /><?php echo $a['name']; ?>
+    </td>
+    <td class="col-sm-10">
+    <form action="" method="post" style="display:inline!important;">
 	<input type="hidden" name="add_alarm" value="<?php echo $a['id']; ?>" />
 	<input type="hidden" name="add_alarm1" value="add_alarm2" />
-	<div class="col-sm-1"><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></div>
+	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button>
     </form>
-</div>
+    </td>
+</tr>
 <?php }  ?>
+</tbody>
+</table>
 
-
-</div>
 </div>
 
 

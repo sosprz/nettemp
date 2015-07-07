@@ -37,10 +37,9 @@ $row = $sth2->fetchAll();
 ?>
 <thead>
 <tr>
-<th></th>
 <th>Name</th>
 <th>id</th>
-<th>Remove</th>
+<th></th>
 </tr>
 </thead>
 
@@ -50,23 +49,24 @@ $row = $sth2->fetchAll();
 	
 ?>
 <tr>
-<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
-<td><img src="media/ico/TO-220-icon.png" /></td>
-<td><input type="text" name="rname" size="12" maxlength="30" value="<?php echo $a["name"]; ?>" />
-<input type="hidden" name="rid" value="<?php echo $a["id"]; ?>" />
-<input type="hidden" name="rchg" value="rchg"/>
-<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button></td>
-</form>
-
-
-<td><?php 	echo  $a["rom"] ;?></td>
-<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
-<input type="hidden" name="rrom" value="<?php echo $a["rom"]; ?>" />
-<input type="hidden" name="rrm" value="rrm" />
-<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
-
-</form>
-
+    <td class="col-md-2"><img src="media/ico/TO-220-icon.png" />
+    <form action="" method="post" style="display:inline!important;">
+	<input type="text" name="rname" size="12" maxlength="30" value="<?php echo $a["name"]; ?>" />
+	<input type="hidden" name="rid" value="<?php echo $a["id"]; ?>" />
+	<input type="hidden" name="rchg" value="rchg"/>
+	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+    </form>
+    </td>
+    <td class="col-md-2">
+	<?php echo $a["rom"] ;?>
+    </td>
+    <td class="col-md-8">
+    <form action="" method="post" style="display:inline!important;" >
+	<input type="hidden" name="rrom" value="<?php echo $a["rom"]; ?>" />
+	<input type="hidden" name="rrm" value="rrm" />
+	<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+    </form>
+    </td>
 </tr>
 		
 

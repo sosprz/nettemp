@@ -34,10 +34,11 @@ $del_alarm1 = isset($_POST['del_alarm1']) ? $_POST['del_alarm1'] : '';
      } 
 ?>
 <div class="panel panel-default">
-<div class="panel-heading">Set the temperature range
-</div>
-<table class="table table-striped">
-<thead><tr><th></th><th>Name</th><th><img src="media/ico/temp_low.png" /> min <img src="media/ico/temp2-icon.png" />max</th><th>Remove</th></tr></thead>
+<div class="panel-heading">Set the temperature range</div>
+
+<table class="table table-condensed table-hover">
+<thead><tr><th>Name</th><th><img src="media/ico/temp_low.png" />min<img src="media/ico/temp2-icon.png" />max</th><th></th></tr></thead>
+<tbody>
 <?php  
 	$db1 = new PDO('sqlite:dbf/nettemp.db');
 	$sth = $db1->prepare("select * from sensors WHERE alarm='on'");
@@ -45,25 +46,27 @@ $del_alarm1 = isset($_POST['del_alarm1']) ? $_POST['del_alarm1'] : '';
 	$result = $sth->fetchAll();
 		foreach ($result as $a) { ?>
 
-	
-	<tr>
-	<form action="" method="post"> 
-	<td><img src="media/ico/TO-220-icon.png" /></td>
-	<td><?php echo $a['name']; ?></td>
+<tr>
+    <td class="col-md-2"><img src="media/ico/TO-220-icon.png" /><?php echo $a['name']; ?></td>
+    <td class="col-md-10">
+    <form action="" method="post" style="display:inline!important;"> 
 	<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
-	<td><input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" />
+	<input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" />
 	<input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" />
 	<input type="hidden" name="ok" value="ok" />
-	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button></td>
-	</form>
-	<form action="" method="post"> 
+	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;"> 
 	<input type="hidden" name="del_alarm1" value="del_alarm2" />
 	<input type="hidden" name="del_alarm" value="<?php echo $a['name']; ?>" />
-	<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
-	</form></tr>  							
-		 <?php	} 
-
+	<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+    </form>
+    </td>
+</tr>
+<?php
+}
 ?>
+</tbody>
 </table>
 </div>
 

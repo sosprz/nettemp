@@ -64,21 +64,11 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
     <form action="" method="post" class="form-horizontal">
 	<tr>
 	<td></td>
-	<div class="col-md-2">
-	<td><input type="text" name="snmp_name" value="" class="form-control input-md" required=""/></td>
-	</div>
-	<div class="col-md-2">
-	<td><input type="text" name="snmp_community"  value="" class="form-control input-md" required=""/></td>
-	</div>
-	<div class="col-md-2">
-	<td><input type="text" name="snmp_host"  value="" class="form-control input-md" required=""/></td>
-	</div>
-	<div class="col-md-2">
-	<td><input type="text" name="snmp_oid" value="" class="form-control input-md" required=""/></td>
-	</div>
-	<div class="col-md-2">
-	<td><input type="text" name="snmp_divider" value="" class="form-control input-md"/></td>
-	</div>
+	<td class="col-md-2"><input type="text" name="snmp_name" value="" class="form-control input-md" required=""/></td>
+	<td class="col-md-2"><input type="text" name="snmp_community"  value="" class="form-control input-md" required=""/></td>
+	<td class="col-md-2"><input type="text" name="snmp_host"  value="" class="form-control input-md" required=""/></td>
+	<td class="col-md-5"><input type="text" name="snmp_oid" value="" class="form-control input-md" required=""/></td>
+	<td class="col-md-1"><input type="text" name="snmp_divider" value="" class="form-control input-md"/></td>
 	<input type="hidden" name="snmp_add1" value="snmp_add2" />
 	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button></td>
     </tr>
