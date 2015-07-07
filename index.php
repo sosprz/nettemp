@@ -37,12 +37,6 @@ else {
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-
- 
-
-
-
  </head>
 <body>
 
@@ -122,7 +116,7 @@ case 'notification': include('modules/notification/html/notification.php'); brea
 case 'security': include('modules/security/html/security.php'); break;
 case 'settings': include('modules/settings/settings.php'); break;
 case 'tools': include('modules/tools/html/tools.php'); break;
-case 'info': include('modules/info/info.php'); break;
+case 'info': include('html/info/info.php'); break;
 case 'denied': include('modules/login/denied.php'); break;
 case 'logout': include('modules/login/logout.php'); break;
 case 'upload': include('modules/tools/backup/html/upload.php'); break;
@@ -136,7 +130,7 @@ case 'controls': include('modules/relays/html/relays_controls.php'); include('mo
 
 <footer class="footer">
       <div class="container text-center">
-        <p class="text-muted"><?php include('modules/info/paypal.php');?><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?>| System time <?php passthru("date +%H:%M:%S");?></p>
+        <p class="text-muted"><?php include('html/info/paypal.php');?><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?>| System time <?php passthru("date +%H:%M:%S");?></p>
       </div>
 </footer>
 

@@ -1,4 +1,4 @@
-<script src="html/mansonry/masonry.pkgd.min.js"></script>
+<script src="html/masonry/masonry.pkgd.min.js"></script>
 <script type="text/JavaScript">
 var container = document.querySelector('#container');
 var msnry = new Masonry( container, {
@@ -38,7 +38,7 @@ var msnry = new Masonry( container, {
   <div class="item"><?php include('modules/tools/html/tools_file_check.php'); ?></div>
 </div>
 
-<script src="media/jquery.js"></script>
+<script src="html/jquery/jquery.js"></script>
 <script>
 var auto_refresh = setInterval(
 (function () {

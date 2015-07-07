@@ -2,7 +2,7 @@
 
 mkdir /etc/lighttpd/certs
 cd /etc/lighttpd/certs
-openssl req -new -x509 -keyout lighttpd.pem -out lighttpd.pem -days 365 -nodes -subj "/C=PL/ST=Pomorskie/L=PL/O=techfreak.pl/CN=nettemp.local" 
+openssl req -new -x509 -sha256 -keyout lighttpd.pem -out lighttpd.pem -days 365 -nodes -subj "/C=PL/ST=Pomorskie/L=PL/O=techfreak.pl/CN=nettemp.local" 
 chmod 400 lighttpd.pem
 
 if cat /etc/lighttpd/lighttpd.conf |grep -q 'ssl.engine' ; then
