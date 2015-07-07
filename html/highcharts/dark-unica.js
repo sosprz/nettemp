@@ -5,9 +5,9 @@
 
 // Load the fonts
 //Highcharts.createElement('link', {
-//	href: '//fonts.googleapis.com/css?family=Unica+One',
-//	rel: 'stylesheet',
-//	type: 'text/css'
+	//href: '//fonts.googleapis.com/css?family=Unica+One',
+	//rel: 'stylesheet',
+	//type: 'text/css'
 //}, null, document.getElementsByTagName('head')[0]);
 
 Highcharts.theme = {
