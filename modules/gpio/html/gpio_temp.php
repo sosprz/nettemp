@@ -74,11 +74,13 @@ Status:<?php echo $a['status'];?>
 <?php 
     if ($a['day_run'] == 'on') { 
 	include('gpio_day_forms.php');
+	
     } 
     if ($a['week_run'] == 'on') { 
 	include('gpio_week_forms.php');
     }
 	include('gpio_temp_forms.php');
+	
 ?>
 
 <form action="" method="post" style=" display:inline!important;">
@@ -102,9 +104,11 @@ Status:<?php echo $a['status'];?>
     <button type="submit" class="btn btn-xs btn-danger">Exit</button>
 </form>
 
-<?php
 
+
+<?php
 include('gpio_function_num.php');
+
 }
 ?>
 

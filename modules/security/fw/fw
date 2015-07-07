@@ -28,6 +28,9 @@ if [ "$onoff" == "on" ] && [ -n "$2" ] && [ -n "$3" ] && [ -n "$4" ] && [ -n "$5
     fi
     if [ -n "$ext" ];then
 	sudo iptables -A INPUT -s $ext -p tcp --dport 80 -j ACCEPT
+	sudo iptables -A INPUT -s $ext -p tcp --dport 443 -j ACCEPT
+	sudo iptables -A INPUT -s $ext -m limit --limit 1/second -p tcp --dport 22 -j ACCEPT
+	sudo iptables -A INPUT -s $ext -p icmp --icmp-type echo-request -j ACCEPT
     fi
     if [ "$vpn" == "on" ]; then
 	sudo iptables -A INPUT -p udp --dport 1194 -j ACCEPT

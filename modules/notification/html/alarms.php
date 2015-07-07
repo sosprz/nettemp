@@ -1,10 +1,10 @@
 <?php
-$tmp_id = isset($_POST['tmp_id']) ? $_POST['tmp_id'] : '';
 $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 $tmp_min_new = isset($_POST['tmp_min_new']) ? $_POST['tmp_min_new'] : '';
 $tmp_max_new = isset($_POST['tmp_max_new']) ? $_POST['tmp_max_new'] : '';
-$add_alarm = isset($_POST['add_alarm']) ? $_POST['add_alarm'] : '';
+$tmp_id = isset($_POST['tmp_id']) ? $_POST['tmp_id'] : '';
 $del_alarm = isset($_POST['del_alarm']) ? $_POST['del_alarm'] : '';
+$del_alarm1 = isset($_POST['del_alarm1']) ? $_POST['del_alarm1'] : '';
 ?>
 <?php	// SQLite - dodawania alarmu
     if (!empty($add_alarm) && ($_POST['add_alarm1'] == "add_alarm2")){
@@ -32,73 +32,40 @@ $del_alarm = isset($_POST['del_alarm']) ? $_POST['del_alarm'] : '';
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
      } 
-    
 ?>
 <div class="panel panel-default">
-<div class="panel-heading">Set the temperature range</div>
-<div class="panel-body">
+<div class="panel-heading">Set the temperature range
+</div>
+<table class="table table-striped">
+<thead><tr><th></th><th>Name</th><th><img src="media/ico/temp_low.png" /> min <img src="media/ico/temp2-icon.png" />max</th><th>Remove</th></tr></thead>
 <?php  
 	$db1 = new PDO('sqlite:dbf/nettemp.db');
 	$sth = $db1->prepare("select * from sensors WHERE alarm='on'");
 	$sth->execute();
-	$result =  $sth->fetchAll();
+	$result = $sth->fetchAll();
 		foreach ($result as $a) { ?>
 
-<div class="row">
 	
-	<form action="" method="post" style=" display:inline!important;"> 
-	<div class="col-md-1"><img src="media/ico/TO-220-icon.png" />
-	<?php echo $a['name']; ?></div>
+	<tr>
+	<form action="" method="post"> 
+	<td><img src="media/ico/TO-220-icon.png" /></td>
+	<td><?php echo $a['name']; ?></td>
 	<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
-	<div class="col-md-1"><input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" placeholder="min"/></div>
-	<div class="col-md-1"><input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" placeholder="max"/></div>
-	<div class="col-md-1"><button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button></div>
+	<td><input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" />
+	<input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" />
 	<input type="hidden" name="ok" value="ok" />
+	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button></td>
 	</form>
-
-	<form action="" method="post" style=" display:inline!important;"> 
+	<form action="" method="post"> 
 	<input type="hidden" name="del_alarm1" value="del_alarm2" />
 	<input type="hidden" name="del_alarm" value="<?php echo $a['name']; ?>" />
-	<div class="col-md-1"><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></div>
-	</form>
+	<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
+	</form></tr>  							
+		 <?php	} 
 
-</div>							
-		 
-<?php
-}
 ?>
-</div>
-</div>
-
-<div class="panel panel-default">
-<div class="panel-heading">Free sensors</div>
-<div class="panel-body">
-<?php	
-$db = new PDO('sqlite:dbf/nettemp.db');
-$rows = $db->query("SELECT * FROM sensors WHERE alarm='off'");
-$row = $rows->fetchAll();
-$numRows = count($row);
-if ($numRows == 0 ) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }
-
-$sth = $db1->prepare("select * from sensors WHERE alarm='off'");
-$sth->execute();
-$result = $sth->fetchAll();
-foreach ($result as $a) { ?>
-<div class="row">
-    <form action="" method="post">
-	<div class="col-sm-1"><img src="media/ico/TO-220-icon.png" />
-	<?php echo $a['name']; ?></div>
-	<input type="hidden" name="add_alarm" value="<?php echo $a['id']; ?>" />
-	<input type="hidden" name="add_alarm1" value="add_alarm2" />
-	<div class="col-sm-1"><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></div>
-    </form>
-</div>
-<?php }  ?>
-
-
-</div>
+</table>
 </div>
 
-
-
+<?php include('free.php'); ?>
 
