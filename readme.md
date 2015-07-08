@@ -45,8 +45,11 @@ USERS:
 
 Changelog:
 
-8.6
+8.6.1
 
+Fix not working HIGH/LOW reverse state.
+
+8.6
 add wifi relays based on ESP8266. To upload firmware to ESP8266 go to tools > ESPupload
 
 8.5.21
