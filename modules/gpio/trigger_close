@@ -26,6 +26,7 @@ function close {
 
 close
 
+sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET trigger_run='', status='BUTTON OFF' WHERE gpio='$gl'"
 
 fil=$(ls $dir/tmp/mail/hour/ |grep alarm$gl)
 for i in $fil; do

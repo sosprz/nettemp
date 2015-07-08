@@ -2,7 +2,7 @@
 $triggerexit = isset($_POST['triggerexit']) ? $_POST['triggerexit'] : '';
 
 if (($triggerexit == "triggerexit") ){
-    $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or die("humid off db error");
+    $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or exit(header("Location: html/errors/db_error.php"));
      $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -11,7 +11,7 @@ if (($triggerexit == "triggerexit") ){
 
 $triggerrun = isset($_POST['triggerrun']) ? $_POST['triggerrun'] : '';
 if ($triggerrun == "on")  {
-    $db->exec("UPDATE gpio SET trigger_run='on', status='Wait' WHERE gpio='$gpio_post'") or die("exec error");
+    $db->exec("UPDATE gpio SET trigger_run='on', status='Wait' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     $cmd=("nohup modules/gpio/trigger_proc $gpio_post");
     shell_exec( $cmd . "> /dev/null 2>/dev/null &" );
@@ -19,7 +19,7 @@ if ($triggerrun == "on")  {
     exit();
 }
 if ($triggerrun == "off")  {
-    $db->exec("UPDATE gpio SET trigger_run='', status='OFF' WHERE gpio='$gpio_post'") or die("exec error");
+    $db->exec("UPDATE gpio SET trigger_run='', status='WWW OFF' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     shell_exec("modules/gpio/trigger_close $gpio_post");
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -32,7 +32,7 @@ foreach (range(1, 30) as $num) {
 $tout=isset($_POST["tout".$num]) ? $_POST["tout".$num] : '';
 if (($toutonoff == "onoff") &&  (!empty($tout)))  {
     $tout == "off" ? $tout='' : "";
-    $db->exec("UPDATE gpio SET tout$num='$tout' WHERE gpio='$gpio_post'") or die("exec error");
+    $db->exec("UPDATE gpio SET tout$num='$tout' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();

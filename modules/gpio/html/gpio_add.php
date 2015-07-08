@@ -7,10 +7,10 @@ $check = '';
 if ( $add == "ADD") {
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	if (!empty($gpioad)) { 
-	    $db->exec("INSERT INTO gpio (gpio, name, status) VALUES ('$gpio','new_$gpio','OFF')") or die ($db->lastErrorMsg());
+	    $db->exec("INSERT INTO gpio (gpio, name, status) VALUES ('$gpio','new_$gpio','OFF')") or exit(header("Location: html/errors/db_error.php"));
 	}
 	else {
-	    $db->exec("DELETE FROM gpio WHERE gpio='$gpio'") or die ($db->lastErrorMsg());
+	    $db->exec("DELETE FROM gpio WHERE gpio='$gpio'") or exit(header("Location: html/errors/db_error.php"));
 	}
 	$db = NULL;
 	header("location: " . $_SERVER['REQUEST_URI']);
@@ -47,7 +47,7 @@ if ( $add == "ADD") {
 <?php
 foreach ($gpiolist as $value1) {
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$rows = $db->query("SELECT * FROM gpio WHERE gpio='$value1'");
+	$rows = $db->query("SELECT * FROM gpio WHERE gpio='$value1'") or exit(header("Location: html/errors/db_error.php"));
 	$row = $rows->fetchAll();
 	foreach ($row as $result) { 
    	    $added[] = $result['gpio'];

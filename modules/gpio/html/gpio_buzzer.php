@@ -2,7 +2,7 @@
 
 $buzzerexit = isset($_POST['buzzerexit']) ? $_POST['buzzerexit'] : '';
 if (($buzzerexit == "buzzerexit") ){
-    $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or die("simple off db error");
+    $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();

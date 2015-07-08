@@ -45,8 +45,10 @@ USERS:
 
 Changelog:
 
-8.6.1
+8.6.2
+fix trigger, mail notification 
 
+8.6.1
 Fix not working HIGH/LOW reverse state.
 
 8.6

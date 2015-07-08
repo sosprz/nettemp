@@ -17,8 +17,8 @@ function triggerout_gpio {
 		    else
 			/usr/local/bin/gpio -g write $g 1
 		    fi
-		ledalarm
 	    done
+
 }
 
 function ledalarm {
@@ -70,11 +70,12 @@ do
     status=$(/usr/local/bin/gpio -g read $gpio)
     if [[ "$status" = "0" &&  "$rev" = "on" ]] || [[ "$status" = "1" &&  "$rev" = "" ]]
         then
-	trigger="on"
-	triggerout_gpio
-	mail
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
-	$dir/modules/gpio/timestamp $gpio
+	    trigger="on"
+	    triggerout_gpio
+	    ledalarm &
+	    mail
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
+	    $dir/modules/gpio/timestamp $gpio
 	break
     fi
 sleep 0.1
