@@ -9,7 +9,7 @@ $numRows = count($result);
 <?php if ( $numRows > '0' ) { ?>
 <div class="panel panel-default">
             <div class="panel-heading">WiFi Relays</div>
-<table class="table table-striped">
+<table class="table table-hover">
 <?php
 foreach ( $result as $a) {
 $ip=$a['ip'];

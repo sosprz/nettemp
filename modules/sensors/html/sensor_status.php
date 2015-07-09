@@ -16,7 +16,7 @@ Go to device scan!
     $sth = $db->prepare("select * from sensors");
     $sth->execute();
     $result = $sth->fetchAll(); ?>
-    <table class="table table-striped"> 
+    <table class="table table-hover"> 
     <tbody>
 <?php       
     foreach ($result as $a) {

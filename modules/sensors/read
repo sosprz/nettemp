@@ -9,7 +9,7 @@ chmod 775 $dir/tmp/log.txt
 chown root.www-data $dir/tmp/log.txt 
 fi
 
-echo "$date temp_dev_read - read sensors" >> $dir/tmp/log.txt
+#echo "$date temp_dev_read - read sensors" >> $dir/tmp/log.txt
 
 db=`ls $dir/db/`
 if [[ -z "$db" ]]; then 
