@@ -26,7 +26,7 @@ for file in $(ls $dirs |grep mail)
     do
 	if send $dirs/$file
 	    then
-		if grep Recovery $dirs/$file
+		if grep RECOVERY $dirs/$file
 		    then
     		    rm $dirs/$file
 		    rm $dirs/hour/$file

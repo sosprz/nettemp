@@ -19,12 +19,27 @@ function file {
 echo "From: Nettemp Device <$user>" > $2
 echo "To: $get_mail" >> $2
 echo "Subject: Notification from nettemp" >> $2
-echo "" >> $2
-echo "This is notification from nettemp" >> $2
-echo "" >> $2
+#echo "" >> $2
+sed -i '$aContent-Type: text/html' $2
+sed -i '$aMIME-Version: 1.0' $2
+sed -i '$a<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">' $2
+sed -i '$a<html>' $2
+sed -i '$a<head>' $2
+sed -i '$a<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">' $2
+sed -i '$a<style>* { margin: 0; padding: 0; } a {text-decoration: none;} th, td {  padding: 5px;} table, th, td { border: 1px solid black;  border-collapse: collapse;}' $2
+sed -i '$a* {font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;}</style>' $2
+sed -i '$a</head>' $2
+sed -i '$a<body bgcolor="#ffffff" text="#000000">' $2
+sed -i '$a<h4>Hi, this is notification from <a href="http://'$(hostname -I | cut -d' ' -f1)'">nettemp system.</a></br></h4><br>' $2
+sed -i '$a<table border="1" style="">' $2
+sed -i '$a<tr><th>Name</th><th>Value</th><th>Date</th><th>Status</th></tr><tr>' $2
 echo "$1" >> $2
-echo "" >> $2
-echo Go to http://$(hostname -I | cut -d' ' -f1) >> $2
+sed -i '$a</tr></table><br><br>' $2
+sed -i '$a<a href="http://techfreak.pl/tag/nettemp"> <img src="http://techfreak.pl/wp-content/uploads/2012/12/nettemp.pl_.png" style="width:120px;height:40px;"></a><br>' $2
+sed -i '$a</div>' $2
+sed -i '$a</body>' $2
+sed -i '$a</html>' $2
+
 chmod 777 $2
 }
 
@@ -58,10 +73,10 @@ if alarms=$(sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'"
 			if [ ! -f "$plik2" ]
 			    then
 			    echo NEW MV
-			    file "High value in: $name $tmp C" $plik
+			    file "<td>$name</td><td>$tmp</td><td>$date2</td><td bgcolor="#FF0000">HIGH</td>" $plik
 			else
             		    echo UPDATE
-            		    file "High value in: $name $tmp C" $plik2
+            		    file "<td>$name</td><td>$tmp</td><td>$date2</td><td bgcolor="#FF0000">HIGH</td>" $plik2
 			fi
     		    elif [ "$cr_le" == "1" ] && [ -n "$tmp_min" ]
 			then
@@ -69,16 +84,16 @@ if alarms=$(sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'"
 			if [ ! -f "$plik2" ]
 			    then
 			    echo NEW MV
-			    file "Low value in: $name $tmp C" $plik
+			    file "<td>$name</td><td>$tmp</td><td>$date2</td><td bgcolor="#FF0000">LOW</td>" $plik
         	    else
 			echo UPDATE
-			file "Low value in: $name $tmp C" $plik2
+			    file "<td>$name</td><td>$tmp</td><td>$date2</td><td bgcolor="#FF0000">LOW</td>" $plik2
 		    fi
         else
 	    if [ -f "$plik2" ]
 		then
 		    echo RECOVERY $name
-		    file "Recovery: $name $tmp C" $plik
+		    file "<td>$name</td><td>$tmp</td><td>$date2</td><td bgcolor="#00FF00">RECOVERY</td>" $plik
 	    fi
         fi
     fi
