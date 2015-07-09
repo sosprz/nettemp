@@ -25,11 +25,11 @@ foreach ($result as $a) { ?>
 	$scan = isset($_POST['scan']) ? $_POST['scan'] : '';
         if ($scan == "Scan for new sensors"){ 
         shell_exec("/bin/bash modules/sensors/scan > tmp/scan"); 
-        header("location: " . $_SERVER['REQUEST_URI']);
+	header("location: " . $_SERVER['REQUEST_URI']);
         exit();
 	}
 ?>
-
+<div class="panel-body">
 <?php
     if (file_exists("tmp/scan")) { ?>
     <pre><?php
@@ -41,11 +41,34 @@ foreach ($result as $a) { ?>
 <?php
     }
 ?>
-<div class="panel-body">
-<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
-<input type="submit" name="scan" value="Scan for new sensors" class="btn btn-primary"/>
+
+
+
+
+
+<form action="" method="post" name="mfo">
+<button type="submit" name="scan" value="Scan for new sensors" data-loading-text="Loading..." class="btn btn-primary">
+  Scan
+</button>
 </form>
 </div>
 
-</div>
+<script type="text/javascript">
+$("button").click(function() {
+    var $btn = $(this);
+    $btn.button('loading');
+function submitform()
+{
+    $btn.button('reset');
+}
+});
+</script>
+
+
+
+
+
+
+
+
 

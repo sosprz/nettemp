@@ -24,8 +24,17 @@ if ($update == "Update") {
     }
 ?>
     <form action="" method="post">
-    <input type="hidden" name="update" value="Update">
-    <input  type="submit" value="Update" class="btn btn-primary"  />
+    <button type="submit" name="update" value="Update" class="btn btn-primary"  />Update</button>
     </form>
 
 </div></div>
+<script type="text/javascript">
+$("button").click(function() {
+    var $btn = $(this);
+    $btn.button('loading');
+function submitform()
+{
+    $btn.button('reset');
+}
+});
+</script>
