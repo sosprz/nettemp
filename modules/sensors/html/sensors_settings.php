@@ -34,7 +34,7 @@ $lcd=$c['lcd'];
 	
 ?>
 <tr>
-    <td class="col-md-2">
+    <td class="col-md-3">
 	<img src="media/ico/TO-220-icon.png" />
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="name_new" size="12" maxlength="30" value="<?php echo $a["name"]; ?>" />
