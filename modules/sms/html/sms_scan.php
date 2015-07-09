@@ -33,10 +33,22 @@
    		exit();
      } 
 ?>
-<table><tr>
 <form action="" method="post">
-<td><button type="submit" name="scan" value="Scan" class="btn btn-primary">Search GSM modem</button </td>
-</form></tr></table>
+    <button type="submit" name="scan" value="Scan" class="btn btn-primary">Search GSM modem</button>
+</form>
+<script type="text/javascript">
+$("button").click(function() {
+    var $btn = $(this);
+    $btn.button('loading');
+function submitform()
+{
+    $btn.button('reset');
+}
+});
+</script>
+
+
+
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("SELECT * FROM sms_settings where id='2'");
@@ -47,10 +59,6 @@ $name=$a['name'];
 }
 
 if (!empty($name)) { ?>
-
-
-
-
 <table><tr><td>
 <form action="" method="post"> 
 <select name="sd"  onchange="this.form.submit()" >
