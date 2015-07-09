@@ -49,7 +49,7 @@ $row = $sth2->fetchAll();
 	
 ?>
 <tr>
-    <td class="col-md-2"><img src="media/ico/TO-220-icon.png" />
+    <td class="col-md-3"><img src="media/ico/TO-220-icon.png" />
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="rname" size="12" maxlength="30" value="<?php echo $a["name"]; ?>" />
 	<input type="hidden" name="rid" value="<?php echo $a["id"]; ?>" />
