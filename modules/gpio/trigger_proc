@@ -50,10 +50,10 @@ trigger_notice=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WH
 get_mail=$(sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
 user=$(sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings")
 led=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='led'")
+delay=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_delay FROM gpio where gpio='$gpio'")
 
-ledflash="5"
 
-for i in $(seq $ledflash)
+for i in $(seq $delay)
     do
     /usr/local/bin/gpio -g write $led 1
     sleep 1

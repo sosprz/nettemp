@@ -42,7 +42,7 @@ if (($toutonoff == "onoff") &&  (!empty($tout)))  {
 $trigger_delay = isset($_POST['trigger_delay']) ? $_POST['trigger_delay'] : '';
 $trigger_delay1 = isset($_POST['trigger_delay1']) ? $_POST['trigger_delay1'] : '';
 if ($trigger_delay1 == "trigger_delay1") {
-    $db->exec("UPDATE gpio SET trigger_delay='$trigger_delay' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+    $db->exec("UPDATE gpio SET trigger_delay='$trigger_delay' WHERE gpio='20'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -79,13 +79,13 @@ else
 }
 ?>
      <form action="" method="post" style=" display:inline!important;">
-	 <select name="trigger_delay" value="<?php echo $a['trigger_delay']; ?>" onchange="this.form.submit()">
-	    <option type="submit" value="">Delay</option>
-	    <option <?php echo $a['trigger_delay'] == "5" ? 'selected="selected"' : ''; ?> value="5">5 sec</option>
-	    <option <?php echo $a['trigger_delay'] == "30" ? 'selected="selected"' : ''; ?> value="30">30 sec</option>
-	    <option <?php echo $a['trigger_delay'] == "60" ? 'selected="selected"' : ''; ?> value="60">1 min</option>
-	    <option <?php echo $a['trigger_delay'] == "120" ? 'selected="selected"' : ''; ?> value="120">2 min</option>
-	    <option <?php echo $a['trigger_delay'] == "360" ? 'selected="selected"' : ''; ?> value="360">5 min</option>
+	 <select name="trigger_delay" onchange="this.form.submit()">
+	    <option <?php echo $a['trigger_delay'] == "" ? 'selected="selected"' : ''; ?> value="">Delay 0</option>
+	    <option <?php echo $a['trigger_delay'] == "5" ? 'selected="selected"' : ''; ?> value="5">Delay 5 sec</option>
+	    <option <?php echo $a['trigger_delay'] == "30" ? 'selected="selected"' : ''; ?> value="30">Delay 30 sec</option>
+	    <option <?php echo $a['trigger_delay'] == "60" ? 'selected="selected"' : ''; ?> value="60">Delay 1 min</option>
+	    <option <?php echo $a['trigger_delay'] == "120" ? 'selected="selected"' : ''; ?> value="120">Delay 2 min</option>
+	    <option <?php echo $a['trigger_delay'] == "360" ? 'selected="selected"' : ''; ?> value="360">Delay 5 min</option>
 	</select> 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="trigger_delay1" value="trigger_delay1" />
