@@ -35,11 +35,12 @@ function ledalarm {
 function mail { 
     if [ "$trigger_notice" = "on" ] && [ $trigger = "on" ]; then
         plik=$dir/tmp/mail/mail-alarm$gpio-$date
-        echo "From: nettemp device" > $plik 
-        echo "To:$get_mail" >> $plik
-        echo "Subject: Notification from nettemp" >> $plik
-        echo "Alarm from $name $date" >> $plik
-    fi
+	function file {
+	    source $dir/modules/mail/mail_body
+	    chmod 777 $plik
+	}
+	file "<td>$name</td><td></td><td>$date</td><td bgcolor="#FF0000">ALARM</td>" $plik
+	fi
 }
 
 name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio where gpio='$gpio'")
@@ -47,6 +48,7 @@ out=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='trigger
 rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
 trigger_notice=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
 get_mail=$(sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
+user=$(sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings")
 led=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='led'")
 
 /usr/local/bin/gpio -g write $led 1
@@ -73,7 +75,7 @@ do
 	    trigger="on"
 	    triggerout_gpio
 	    ledalarm &
-	    mail
+	    mail &
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
 	    $dir/modules/gpio/timestamp $gpio
 	break

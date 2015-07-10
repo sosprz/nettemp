@@ -12,16 +12,7 @@ get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_ala
 user=`sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
 
 function file {
-> $2
-echo "From: Nettemp Device <$user>" > $2
-echo "To: $get_mail" >> $2
-echo "Subject: Notification from nettemp" >> $2
-echo "" >> $2
-echo "This is notification from nettemp" >> $2
-echo "" >> $2
-echo "$1 " >> $2
-echo "" >> $2
-echo Go to http://$(hostname -I | cut -d' ' -f1) >> $2
+source $(dirname $0)/mail_body
 chmod 777 $2
 }
 
@@ -32,8 +23,8 @@ if name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='error'
 	    minute=$dirs/$name.mail
 	    hour=$dirs2/$name.mail
 	    if [ ! -f $hour ]
-		then  
-		    file "Lost connection with $name" $minute
+		then
+		    file "<td>$name</td><td>0</td><td>$date</td><td bgcolor="#FF0000">Lost connection</td>" $minute
 	    fi
 	done
 fi
@@ -48,7 +39,7 @@ if name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='OK'")
 	    hour=$dirs2/$name.mail
 	    if [ -f "$hour" ]
 		then
-		    file "Recovery connection with $name" $minute
+		    file "<td>$name</td><td></td><td>$date</td><td bgcolor="#00FF00">Recovery</td>" $minute
 	    fi	    
 	done
 	

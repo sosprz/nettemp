@@ -3,8 +3,8 @@ $test_mail = isset($_POST['test_mail']) ? $_POST['test_mail'] : '';
 $send = isset($_POST['send']) ? $_POST['send'] : '';
 if  ($send == "send") {
 	 $test_mail1=escapeshellarg($test_mail);
-    $cmd="modules/mail/mail_test $test_mail1 'Test from your nettemp device' 'Test mail from Your nettemp device.'";
-    shell_exec($cmd); 
+    $cmd="nohup modules/mail/mail_test $test_mail1 'Test from your nettemp device' 'Test mail from Your nettemp device.'";
+    shell_exec($cmd . "> /dev/null 2>/dev/null &" ); 
     
 $db = new PDO('sqlite:dbf/nettemp.db');
 $db->exec("UPDATE mail_settings SET test_mail='$test_mail'") or die ($db->lastErrorMsg());
