@@ -51,20 +51,18 @@ get_mail=$(sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_al
 user=$(sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings")
 led=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='led'")
 
-/usr/local/bin/gpio -g write $led 1
-sleep 1
-/usr/local/bin/gpio -g write $led 0
-sleep 1
-/usr/local/bin/gpio -g write $led 1
-sleep 1
-/usr/local/bin/gpio -g write $led 0
-sleep 1
-/usr/local/bin/gpio -g write $led 1
-sleep 1
-/usr/local/bin/gpio -g write $led 0
-sleep 1
-/usr/local/bin/gpio -g write $led 1
+ledflash="5"
 
+for i in $(seq $ledflash)
+    do
+    /usr/local/bin/gpio -g write $led 1
+    sleep 1
+    /usr/local/bin/gpio -g write $led 0
+    sleep 1
+    echo $i
+done
+    sleep 1
+    /usr/local/bin/gpio -g write $led 1
 
 
 while :

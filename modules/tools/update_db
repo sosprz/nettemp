@@ -100,8 +100,9 @@ sqlite3 $dir/dbf/hosts.db "ALTER TABLE hosts ADD rom type TEXT";
 for i in $(seq 1 30);
     do
     sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD tout$i type TEXT";
-done
+Bdone
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD control type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD control_run type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD trigger_delay type TEXT";
 
 
