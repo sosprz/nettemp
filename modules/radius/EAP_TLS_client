@@ -1,0 +1,39 @@
+#! /bin/bash
+
+user="$1"
+mail="$2"
+days="$3"
+
+if [[ ! -n "$user" || ! -n "$mail" ]]; then
+    echo "No user or email or days"
+    echo "ex. client test test@test.com 365"
+    exit 0
+fi
+
+cd /usr/local/etc/raddb/certs
+mkdir -p users/$user
+
+clientfile=client.cnf
+pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
+
+if [ -n "$days" ]; then
+sed -i -e '/\[ CA_default \]/,/^\[/ s/.*default_days.*/default_days		= '$days'/' $clientfile
+fi
+
+sed -i -e '/\[ req \]/,/^\[/ s/.*input_password.*/input_password		= '$pass'/' $clientfile
+sed -i -e '/\[ req \]/,/^\[/ s/.*output_password.*/output_password	= '$pass'/' $clientfile
+sed -i -e '/\[client\]/,/^\[/ s/.*emailAddress.*/emailAddress		= '$mail'/' $clientfile
+sed -i -e '/\[client\]/,/^\[/ s/.*commonName.*/commonName		= '$user'/' $clientfile
+
+make client
+
+openssl pkcs12 -export -in client.crt -inkey client.key -out client.p12  -passin pass:$pass -passout pass:$pass -name "RADIUS Nettemp"
+
+
+mv client.p12 users/$user/export.p12
+mv client.pem users/$user/$user.pem
+rm $mail.pem
+echo "$pass" > users/$user/pass.txt
+
+
+/var/www/nettemp/modules/mail/mail_test $mail "WiFi certificate form RADIUS "  "This is Your certificate file and export password: $(cat users/$user/pass.txt)" users/$user/export.p12

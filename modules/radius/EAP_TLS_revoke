@@ -1,0 +1,15 @@
+#! /bin/bash
+
+cd /usr/local/etc/raddb/certs
+
+user="users/$1/$1.pem"
+name="$1"
+
+capass=$(grep output_password ca.cnf | sed 's/.*=//;s/^ *//')
+
+openssl ca -revoke $user -keyfile ca.key -key $capass -cert ca.pem -config ./ca.cnf
+openssl ca -gencrl -keyfile ca.key -key $capass -cert ca.pem -out CA/crl.pem -config ./ca.cnf
+
+rm CA/ca.pem
+cp ca.pem CA/
+c_rehash CA/

@@ -80,12 +80,13 @@ else
 ?>
      <form action="" method="post" style=" display:inline!important;">
 	 <select name="trigger_delay" onchange="this.form.submit()">
-	    <option <?php echo $a['trigger_delay'] == "" ? 'selected="selected"' : ''; ?> value="">Delay 0</option>
-	    <option <?php echo $a['trigger_delay'] == "5" ? 'selected="selected"' : ''; ?> value="5">Delay 5 sec</option>
-	    <option <?php echo $a['trigger_delay'] == "30" ? 'selected="selected"' : ''; ?> value="30">Delay 30 sec</option>
-	    <option <?php echo $a['trigger_delay'] == "60" ? 'selected="selected"' : ''; ?> value="60">Delay 1 min</option>
-	    <option <?php echo $a['trigger_delay'] == "120" ? 'selected="selected"' : ''; ?> value="120">Delay 2 min</option>
-	    <option <?php echo $a['trigger_delay'] == "360" ? 'selected="selected"' : ''; ?> value="360">Delay 5 min</option>
+	    <option <?php echo $a['trigger_delay'] == "" ? 'selected="selected"' : ''; ?> value="">Start delay 0</option>
+	    <option <?php echo $a['trigger_delay'] == "5" ? 'selected="selected"' : ''; ?> value="5">Start delay 5 sec</option>
+	    <option <?php echo $a['trigger_delay'] == "10" ? 'selected="selected"' : ''; ?> value="10">Start delay 10 sec</option>
+	    <option <?php echo $a['trigger_delay'] == "30" ? 'selected="selected"' : ''; ?> value="30">Start delay 30 sec</option>
+	    <option <?php echo $a['trigger_delay'] == "60" ? 'selected="selected"' : ''; ?> value="60">Start delay 1 min</option>
+	    <option <?php echo $a['trigger_delay'] == "120" ? 'selected="selected"' : ''; ?> value="120">Start delay 2 min</option>
+	    <option <?php echo $a['trigger_delay'] == "360" ? 'selected="selected"' : ''; ?> value="360">Start delay 5 min</option>
 	</select> 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="trigger_delay1" value="trigger_delay1" />
