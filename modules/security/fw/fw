@@ -5,6 +5,7 @@ icmp="$2"
 ssh="$3"
 ext="$4"
 vpn="$5"
+radius="$6"
 
 tunnet="10.8.0.0/24"
 localnet=$(ifconfig eth0 |grep -m 1 inet |awk -F":" '{print $2 $4}' | sed 's/Bcast/ /g' | awk -F '.' '{printf("%d.%d.%d.%d", $1, $2, $3, 0)} {print "/"255"."$5"."$6"."$7}')
@@ -40,6 +41,11 @@ if [ "$onoff" == "on" ] && [ -n "$2" ] && [ -n "$3" ] && [ -n "$4" ] && [ -n "$5
 	#sudo iptables -A FORWARD -i tun0 -j ACCEPT
 	sudo iptables -t nat -A POSTROUTING -s $tunnet -j MASQUERADE
     fi
+    if [ "$radius" == "on" ]; then
+	sudo iptables -A INPUT -p udp --dport 1812 -j ACCEPT
+	sudo iptables -A INPUT -p udp --dport 1813 -j ACCEPT
+    fi
+
     sudo iptables-save > /etc/network/iptables    
 fi
 

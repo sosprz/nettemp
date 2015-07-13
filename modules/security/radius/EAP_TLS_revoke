@@ -1,0 +1,27 @@
+#! /bin/bash
+
+cd /usr/local/etc/raddb/certs
+
+user="users/$1/$1.pem"
+name="$1"
+
+if [[ ! -n "$name" ]]; then
+    echo "No name"
+exit 0 
+fi
+
+
+capass=$(grep output_password ca.cnf | sed 's/.*=//;s/^ *//')
+
+sudo openssl ca -revoke $user -keyfile ca.key -key $capass -cert ca.pem -config ./ca.cnf
+sudo openssl ca -gencrl -keyfile ca.key -key $capass -cert ca.pem -out CA/crl.pem -config ./ca.cnf
+
+sudo rm CA/ca.pem
+sudo cp ca.pem CA/
+sudo c_rehash CA/
+
+sudo rm -rf users/$name
+#index=$(cat index.txt |grep =$name/ |awk '{print $4}')
+#rm $index.pem
+sudo pkill radiusd
+sudo radiusd

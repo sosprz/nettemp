@@ -9,7 +9,8 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD vpn type TEXT";
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE vpn (id INTEGER PRIMARY KEY,users UNIQUE);"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD fw type TEXT";
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE fw (id INTEGER PRIMARY KEY,ssh TEXT,icmp TEXT,openvpn TEXT,ext TEXT);"
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO fw (id, ssh, icmp, ext, openvpn ) VALUES (1,'off','off', '0.0.0.0/0', 'off');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO fw (id, ssh, icmp, ext, openvpn, radius ) VALUES (1,'off','off', '0.0.0.0/0', 'off', 'off');"
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE fw ADD radius type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD kwh type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD gpio type TEXT";
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO settings (id,gpio) VALUES (1,'on');"

@@ -1,4 +1,5 @@
 <?php
+    $radius = isset($_POST['radius']) ? $_POST['radius'] : '';
     $ssh = isset($_POST['ssh']) ? $_POST['ssh'] : '';
     $icmp = isset($_POST['icmp']) ? $_POST['icmp'] : '';
     $openvpn = isset($_POST['openvpn']) ? $_POST['openvpn'] : '';
@@ -10,11 +11,13 @@
 	$db->exec("UPDATE fw SET icmp='$icmp'") or die ("exec error");
 	$db->exec("UPDATE fw SET openvpn='$openvpn'") or die ("exec error");
 	$db->exec("UPDATE fw SET ext='$ext'") or die ("exec error");
+	$db->exec("UPDATE fw SET radius='$radius'") or die ("exec error");
 	if (empty($ssh)) { $ssh="off"; }
 	if (empty($icmp)) { $icmp="off"; }
 	if (empty($openvpn)) { $openvpn="off"; }
 	if (empty($ext)) { $ext="off"; }
-	shell_exec("/bin/bash modules/security/fw/fw on $icmp $ssh $ext $openvpn");
+	if (empty($radius)) { $radius="off"; }
+	shell_exec("/bin/bash modules/security/fw/fw on $icmp $ssh $ext $openvpn $radius");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
     }
@@ -31,6 +34,7 @@ $ext=$a["ext"];
 $icmp=$a["icmp"];
 $ssh=$a["ssh"];
 $openvpn=$a["openvpn"];
+$radius=$a["radius"];
 
 }
 ?>
@@ -52,6 +56,8 @@ $openvpn=$a["openvpn"];
 		<input name="icmp" type="checkbox" value="on" <?php echo $icmp == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />
 		<span class="label label-info">OpenVPN</span>
 		<input name="openvpn" type="checkbox" value="on" <?php echo $openvpn == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />
+		<span class="label label-info">RADIUS</span>
+		<input name="radius" type="checkbox" value="on" <?php echo $radius == 'on' ? 'checked="checked"' : ''; ?> onclick="this.form.submit()" />
 		</p>
 		<input type="hidden" name="fw_apply" value="fw_apply" />
 		<br>

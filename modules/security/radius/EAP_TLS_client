@@ -17,7 +17,9 @@ clientfile=client.cnf
 pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
 
 if [ -n "$days" ]; then
-sed -i -e '/\[ CA_default \]/,/^\[/ s/.*default_days.*/default_days		= '$days'/' $clientfile
+    sed -i -e '/\[ CA_default \]/,/^\[/ s/.*default_days.*/default_days		= '$days'/' $clientfile
+else
+    days="365"
 fi
 
 sed -i -e '/\[ req \]/,/^\[/ s/.*input_password.*/input_password		= '$pass'/' $clientfile
@@ -35,5 +37,14 @@ mv client.pem users/$user/$user.pem
 rm $mail.pem
 echo "$pass" > users/$user/pass.txt
 
+if [ -s users/$user/export.p12 ]; then
+    /var/www/nettemp/modules/mail/mail_test $mail "WiFi certificate from RADIUS "  "This is Your certificate file and export password, valid $days days: $(cat users/$user/pass.txt)" users/$user/export.p12
+else
+    echo "empty export"
+fi
 
-/var/www/nettemp/modules/mail/mail_test $mail "WiFi certificate form RADIUS "  "This is Your certificate file and export password: $(cat users/$user/pass.txt)" users/$user/export.p12
+sudo pkill radiusd
+radiusd
+
+
+

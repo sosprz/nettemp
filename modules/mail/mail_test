@@ -11,7 +11,7 @@ host=`sqlite3 $dir/dbf/nettemp.db "SELECT host FROM mail_settings"`
 port=`sqlite3 $dir/dbf/nettemp.db "SELECT port FROM mail_settings"`
 user=`sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
 password=`sqlite3 $dir/dbf/nettemp.db "SELECT password FROM mail_settings"`
-#address=`sqlite3 $dir/dbf/nettemp.db "SELECT address FROM mail_settings"`
+address=`sqlite3 $dir/dbf/nettemp.db "SELECT address FROM mail_settings"`
 auth=`sqlite3 $dir/dbf/nettemp.db "SELECT auth FROM mail_settings"`
 tls=`sqlite3 $dir/dbf/nettemp.db "SELECT tls FROM mail_settings"`
 tlscheck=`sqlite3 $dir/dbf/nettemp.db "SELECT tlscheck FROM mail_settings"`
@@ -21,12 +21,12 @@ body=$3
 
 
 
-(echo "From: nettemp device <$user> "; echo "To: $reci"; echo "Subject: $subject"; echo ""; echo -e "$body"; uuencode $4 $4 ) | msmtp \
---read-envelope-from \
+(echo "From: nettemp device <$address> "; echo "To: <$reci>"; echo "Subject: $subject"; echo ""; echo -e "$body"; uuencode $4 $4 ) | msmtp \
+-f $address \
 --host=$host --port=$port --auth=$auth --user=$user \
 --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
 --tls=$tls --tls-starttls=$tls --tls-certcheck=$tlscheck \
---timeout=10 -t $reci
+--timeout=10 -t $reci 
 
 
 echo "$date mail_test - send test mail to $reci" >> $dir/tmp/log.txt

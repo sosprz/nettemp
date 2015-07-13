@@ -1,5 +1,5 @@
 <?php
-//$address = $_POST["address"];  //sql
+$address = isset($_POST['address']) ? $_POST['address'] : '';
 $user = isset($_POST['user']) ? $_POST['user'] : '';
 $host = isset($_POST['host']) ? $_POST['host'] : '';
 $port = isset($_POST['port']) ? $_POST['port'] : '';
@@ -15,6 +15,7 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
     $db->exec("UPDATE mail_settings SET port='$port'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE mail_settings SET host='$host'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE mail_settings SET user='$user'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE mail_settings SET address='$address'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE mail_settings SET password='$password'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE mail_settings SET auth='$auth'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE mail_settings SET tls='$tls'") or die ($db->lastErrorMsg());
@@ -39,6 +40,15 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
 <fieldset>
 
 <!-- Form Name -->
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="user">Address</label>  
+  <div class="col-md-4">
+  <input id="user" name="address" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a["address"]; ?>">
+    
+  </div>
+</div>
 
 <!-- Text input-->
 <div class="form-group">
@@ -83,7 +93,7 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
     <select id="auth" name="auth" class="form-control">
       <option value="on" <?php echo $a['auth'] == 'on' ? 'selected="selected"' : ''; ?>>on</option>
       <option value="off" <?php echo $a['auth'] == 'off' ? 'selected="selected"' : ''; ?>>off</option>
-      <option value="login" <?php echo $a['login'] == 'login' ? 'selected="selected"' : ''; ?>>login</option>
+      <option value="login" <?php echo $a['auth'] == 'login' ? 'selected="selected"' : ''; ?>>login</option>
     </select>
   </div>
 </div>
@@ -93,7 +103,8 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
   <label class="col-md-4 control-label" for="tls">TLS</label>
   <div class="col-md-4">
     <select id="tls" name="tls" class="form-control">
-      <option value="on">TLS</option>
+    <option value="on" <?php echo $a['tls'] == 'on' ? 'selected="selected"' : ''; ?>>on</option>
+    <option value="off" <?php echo $a['tls'] == 'off' ? 'selected="selected"' : ''; ?>>off</option>
     </select>
   </div>
 </div>
