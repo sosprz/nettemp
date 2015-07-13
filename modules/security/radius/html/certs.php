@@ -1,12 +1,25 @@
 <?php
-$urm = isset($_POST['urm']) ? $_POST['urm'] : '';
-$user = isset($_POST['user']) ? $_POST['user'] : '';
+$rmu = isset($_POST['rmu']) ? $_POST['rmu'] : '';
+$rmuser = isset($_POST['rmuser']) ? $_POST['rmuser'] : '';
     
-if ($urm == "urm"){ 
-    shell_exec("modules/security/radius/EAP_TLS_revoke $user"); 
+if ($rmu == "rmu"){ 
+    shell_exec("modules/security/radius/EAP_TLS_revoke $rmuser"); 
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
+
+$username = isset($_POST['username']) ? $_POST['username'] : '';
+$mail = isset($_POST['mail']) ? $_POST['mail'] : '';
+$days = isset($_POST['days']) ? $_POST['days'] : '';
+$add = isset($_POST['add']) ? $_POST['add'] : '';
+
+if ($add == "add"){ 
+    shell_exec("modules/security/radius/EAP_TLS_client $username $mail $days"); 
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+}
+
+
 ?>
 
 <div class="table-responsive">
@@ -15,10 +28,10 @@ if ($urm == "urm"){
 <tr>	
     <form action="" method="post" class="form-horizontal">
     <div class="form-group">
-    <td class="col-md-2"><input type="text" name="host_name" value="" class="form-control" required=""/></td>
-    <td class="col-md-2"><input type="text" name="host_ip" value="" class="form-control" required=""/></td>
-    <td class="col-md-1"><input type="text" name="host_ip" value="" class="form-control" /></td>
-    <input type="hidden" name="host_add1" value="host_add2" class="form-control"/>
+    <td class="col-md-2"><input type="text" name="username" value="" class="form-control" required=""/></td>
+    <td class="col-md-2"><input type="text" name="mail" value="" class="form-control" required=""/></td>
+    <td class="col-md-1"><input type="text" name="days" value="" class="form-control" /></td>
+    <input type="hidden" name="add" value="add" class="form-control"/>
     <td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button></td>
     </div>
     </form>
@@ -33,8 +46,8 @@ foreach(glob($Mydir.'*', GLOB_ONLYDIR) as $dir) {
     echo $dir;
     ?>
     <form action="" method="post" style=" display:inline!important;">
-        <input type="hidden" name="user" value="<?php echo "$dir"; ?>" />
-        <input type="hidden" name="urm" value="urm" />
+        <input type="hidden" name="rmuser" value="<?php echo "$dir"; ?>" />
+        <input type="hidden" name="rmu" value="rmu" />
 	<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
     </form>
 <?php

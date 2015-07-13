@@ -73,6 +73,6 @@ sed -i -e 's/.*ca_path = ${cadir}.*/ca_path = ${cadir}\/CA/' ../mods-available/e
 sed -i -e 's/.*check_cert_cn = %{User-Name}.*/check_cert_cn = %{User-Name}/' ../mods-available/eap
 
 chmod 644 /usr/local/etc/raddb/clients.conf
-chmod o+rx -R /usr/local/etc/raddb/certs/
-
+chmod g+rx -R /usr/local/etc/raddb/certs/
+gpasswd -a www-data staff
 

@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash -x
 
 user="$1"
 mail="$2"
@@ -11,40 +11,42 @@ if [[ ! -n "$user" || ! -n "$mail" ]]; then
 fi
 
 cd /usr/local/etc/raddb/certs
-mkdir -p users/$user
+sudo mkdir -p users/$user
 
 clientfile=client.cnf
-pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
+pass=$(sudo openssl rand -base64 6 | tr -dc 'a-zA-Z0-9' )
 
 if [ -n "$days" ]; then
-    sed -i -e '/\[ CA_default \]/,/^\[/ s/.*default_days.*/default_days		= '$days'/' $clientfile
+    sudo sed -i -e '/\[ CA_default \]/,/^\[/ s/.*default_days.*/default_days		= '$days'/' $clientfile
 else
     days="365"
 fi
 
-sed -i -e '/\[ req \]/,/^\[/ s/.*input_password.*/input_password		= '$pass'/' $clientfile
-sed -i -e '/\[ req \]/,/^\[/ s/.*output_password.*/output_password	= '$pass'/' $clientfile
-sed -i -e '/\[client\]/,/^\[/ s/.*emailAddress.*/emailAddress		= '$mail'/' $clientfile
-sed -i -e '/\[client\]/,/^\[/ s/.*commonName.*/commonName		= '$user'/' $clientfile
+sudo sed -i -e '/\[ req \]/,/^\[/ s/.*input_password.*/input_password		= '$pass'/' $clientfile
+sudo sed -i -e '/\[ req \]/,/^\[/ s/.*output_password.*/output_password	= '$pass'/' $clientfile
+sudo sed -i -e '/\[client\]/,/^\[/ s/.*emailAddress.*/emailAddress		= '$mail'/' $clientfile
+sudo sed -i -e '/\[client\]/,/^\[/ s/.*commonName.*/commonName		= '$user'/' $clientfile
 
-make client
+sudo make client
 
-openssl pkcs12 -export -in client.crt -inkey client.key -out client.p12  -passin pass:$pass -passout pass:$pass -name "RADIUS Nettemp"
+sudo openssl pkcs12 -export -in client.crt -inkey client.key -out client.p12  -passin pass:$pass -passout pass:$pass -name "RADIUS Nettemp"
 
 
-mv client.p12 users/$user/export.p12
-mv client.pem users/$user/$user.pem
-rm $mail.pem
-echo "$pass" > users/$user/pass.txt
+sudo mv client.p12 users/$user/export.p12
+sudo mv client.pem users/$user/$user.pem
+sudo rm $mail.pem
+sudo touch users/$user/pass.txt
+sudo chmod g+w users/$user/pass.txt
+sudo echo "$pass" > users/$user/pass.txt
 
 if [ -s users/$user/export.p12 ]; then
-    /var/www/nettemp/modules/mail/mail_test $mail "WiFi certificate from RADIUS "  "This is Your certificate file and export password, valid $days days: $(cat users/$user/pass.txt)" users/$user/export.p12
+    /var/www/nettemp/modules/mail/mail_test $mail "WiFi certificate from RADIUS "  "This is Your certificate file and export password, valid $days days: $pass" users/$user/export.p12
 else
     echo "empty export"
 fi
 
 sudo pkill radiusd
-radiusd
+sudo radiusd
 
 
 
