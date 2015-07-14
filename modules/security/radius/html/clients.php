@@ -21,7 +21,7 @@ if ($rmc == "rmc"){
     $rmclient=rtrim($rmclient);
     $rmclient=trim($rmclient);
     shell_exec("sudo sed -i '/$rmclient/d' /usr/local/etc/raddb/clients.conf"); 
-    echo $rmclient;
+    shell_exec("sudo pkill radiusd && radiusd");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
