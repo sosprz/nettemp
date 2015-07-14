@@ -2,11 +2,12 @@
 
 user="$1"
 mail="$2"
-days="$3"
+method="$3"
+days="$4"
 
-if [[ ! -n "$user" || ! -n "$mail" ]]; then
-    echo "No user or email or days"
-    echo "ex. client test test@test.com 365"
+if [[ ! -n "$user" || ! -n "$mail" || ! -n "$method" ]]; then
+    echo "No user or email or days or method"
+    echo "ex. client test test@test.com p12 365"
     exit 0
 fi
 
@@ -33,16 +34,28 @@ sudo openssl pkcs12 -export -in client.crt -inkey client.key -out client.p12  -p
 
 
 sudo mv client.p12 users/$user/export.p12
-sudo mv client.pem users/$user/$user.pem
+sudo mv client.pem users/$user/export.pem
+sudo mv client.key users/$user/export.key
+sudo mv client.crt users/$user/export.crt
 sudo rm $mail.pem
 sudo touch users/$user/pass.txt
 sudo chmod g+w users/$user/pass.txt
 sudo echo "$pass" > users/$user/pass.txt
 
-if [ -s users/$user/export.p12 ]; then
-    /var/www/nettemp/modules/mail/mail_test $mail "WiFi certificate from RADIUS "  "This is Your certificate file and export password, valid $days days: $pass" users/$user/export.p12
-else
-    echo "empty export"
+
+if [ "$method" == "pem" ]; then
+    if [[ -s users/$user/export.pem && -s users/$user/export.key ]]; then
+	/var/www/nettemp/modules/mail/mail_test $mail "WiFi certificate from RADIUS "  "This is Your certificate file and export password, valid $days days: $pass" "users/$user/export.pem" "users/$user/export.key"  
+    else
+	echo "No pem or key file"
+    fi
+fi
+if [ "$method" == "p12" ]; then
+    if [ -s users/$user/export.p12 ]; then
+	/var/www/nettemp/modules/mail/mail_test $mail "WiFi certificate from RADIUS "  "This is Your certificate file and export password, valid $days days: $pass" "users/$user/export.p12"
+    else
+	echo "No p12 file"
+    fi
 fi
 
 sudo pkill radiusd

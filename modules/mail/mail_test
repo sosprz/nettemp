@@ -21,7 +21,7 @@ body=$3
 
 
 
-(echo "From: nettemp device <$address> "; echo "To: <$reci>"; echo "Subject: $subject"; echo ""; echo -e "$body"; uuencode $4 $4 ) | msmtp \
+(echo "From: nettemp device <$address> "; echo "To: <$reci>"; echo "Subject: $subject"; echo ""; echo -e "$body"; uuencode  $4 $4 && uuencode $5 $5) | msmtp \
 -f $address \
 --host=$host --port=$port --auth=$auth --user=$user \
 --passwordeval="sqlite3 $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
