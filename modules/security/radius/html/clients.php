@@ -16,12 +16,14 @@ if ($addnas == "add"){
 $rmclient = isset($_POST['rmclient']) ? $_POST['rmclient'] : '';
 $rmc = isset($_POST['rmc']) ? $_POST['rmc'] : '';
 if ($rmc == "rmc"){ 
+    
+    $rmclient=str_replace('/', '\/', $rmclient);
+    $rmclient=rtrim($rmclient);
+    $rmclient=trim($rmclient);
+    shell_exec("sudo sed -i '/$rmclient/d' /usr/local/etc/raddb/clients.conf"); 
     echo $rmclient;
-    $rmclient1=trim($rmclient,'*');
-    shell_exec("sudo sed -i '/'$rmclient1'/d' /usr/local/etc/raddb/clients.conf"); 
-    echo $rmclient1;
-    //header("location: " . $_SERVER['REQUEST_URI']);
-    //exit();
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
 }
 
 ?>
