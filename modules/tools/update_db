@@ -105,5 +105,5 @@ done
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD control type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD control_run type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD trigger_delay type TEXT";
-
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD radius type TEXT";
 

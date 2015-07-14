@@ -55,10 +55,18 @@ $ntp='';
 }
 
 ?>
-            <form action="" method="post">
-            <input onchange="this.form.submit()"  type="checkbox"  data-toggle="toggle" data-size="mini"  name="ntp" value="on" <?php echo $ntp == 'on' ? 'checked="checked"' : ''; ?> />
-            <input type="hidden" name="ntp_onoff" value="ntp_onoff" />
-        </form>
+<form action="" method="post">
+    <input onchange="this.form.submit()"  type="checkbox"  data-toggle="toggle" data-size="mini"  name="ntp" value="on" <?php echo $ntp == 'on' ? 'checked="checked"' : ''; ?> />
+    <input type="hidden" name="ntp_onoff" value="ntp_onoff" />
+</form>
+<?php
+exec("pgrep ntpd", $pids);
+if(empty($pids)) { ?>
+<span class="label label-danger">NTPd not work</span>
+<?php
+}
+?>
+
 </div></div>
 
 
@@ -72,7 +80,9 @@ $ntp='';
 <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="rtc" value="on" <?php echo $rtc == 'on' ? 'checked="checked"' : ''; ?>  />
 <input type="hidden" name="rtc_onoff" value="rtc_onoff" />
 </form>
-<?php if ( $rtc == "on") { ?>
+<?php 
+    if ( $rtc == "on") { 
+?>
 
 <?php
 if ((file_exists("/dev/i2c-0")) || (file_exists("/dev/i2c-1"))) {
