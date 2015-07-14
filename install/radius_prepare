@@ -72,7 +72,10 @@ sed -i -e 's/.*check_crl =.*/check_crl = yes/' ../mods-available/eap
 sed -i -e 's/.*ca_path = ${cadir}.*/ca_path = ${cadir}\/CA/' ../mods-available/eap
 sed -i -e 's/.*check_cert_cn = %{User-Name}.*/check_cert_cn = %{User-Name}/' ../mods-available/eap
 
+#perms
 chmod 644 /usr/local/etc/raddb/clients.conf
 chmod g+rx -R /usr/local/etc/raddb/certs/
 gpasswd -a www-data staff
-
+chmod o+rx -R /usr/local/etc/raddb/certs/
+sed -i '214,241 s/^/#/' /usr/local/etc/raddb/sites-enabled/default
+sed -i -e 's/.*allow_vulnerable_openssl = no.*/allow_vulnerable_openssl = yes/' /usr/local/etc/raddb/radiusd.conf
