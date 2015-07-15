@@ -55,18 +55,21 @@ $gpio='';
 Pullup - this settings must be set when uses only DATA,GND in 1-wire
 <table class="table">
     <tr>
+	<td>
         <form action="" method="post">
-            <td>1-wire Nettemp module (DS2482)</td>
-            <td><input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="therm" value="on" <?php echo $therm == 'on' ? 'checked="checked"' : ''; ?>  />
+            1-wire Nettemp module (DS2482)</td>
+            <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="therm" value="on" <?php echo $therm == 'on' ? 'checked="checked"' : ''; ?>  />
             <input type="hidden" name="therm_onoff" value="therm_onoff" />
         </form>
+	</td>
     </tr>
     <tr>
-        <form action="" method="post">
-            <td>1-wire Raspberry Pi (GPIO4)</td>
-            <td><input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="gpio" value="on" <?php echo $gpio == 'on' ? 'checked="checked"' : ''; ?>  />  
+        <td><form action="" method="post">
+            1-wire Raspberry Pi (GPIO4)
+            <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="gpio" value="on" <?php echo $gpio == 'on' ? 'checked="checked"' : ''; ?>  />
             <input type="hidden" name="gpio_onoff" value="gpio_onoff" />
         </form>
+	</td>
     </tr>
     </table>
 <span id="helpBlock" class="help-block">Changes in this section required reboot.</span>
