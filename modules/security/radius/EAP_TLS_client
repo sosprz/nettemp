@@ -58,7 +58,7 @@ if [ "$method" == "p12" ]; then
     fi
 fi
 
-sudo pkill radiusd
+sudo pkill -f radiusd
 sudo radiusd
 
 

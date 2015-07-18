@@ -139,7 +139,6 @@ if [ -n "$rpi" ];then
     else
 	echo -e "[ ${GREEN}ok${R} ] WiringPi already installed"
     fi
-/var/www/nettemp/modules/sensors/GPIO/DHT/dhtlib/install
 fi
 }
 # echo -e "${GREEN}Add watchdog${R}"
@@ -191,7 +190,7 @@ function packages {
 echo -e "[ ${GREEN}ok${R} ] Installing packages. Please wait.."
 {
 package="lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat \
-    sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables rcconf arp-scan snmpd httping fping make gcc lynx"
+    sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables rcconf arp-scan snmpd httping fping make gcc lynx wiringpi"
     apt-get -y install $package
 } &> /dev/null
 }
