@@ -16,7 +16,7 @@ $name_new=trim($name_new2);
 
 <?php // SQLite3 - sekcja dodawania do bazy && tworzenie baz rrd
 	if(!empty($id_rom_new)) {
-	$rand=substr(rand(), 0, 4);
+	$name=substr(rand(), 0, 4);
 	$gpio='';
 	$type='';
 	$device='';
@@ -33,8 +33,6 @@ $name_new=trim($name_new2);
 		    }
 		    if (strpos($id_rom_new,'relay') !== false) {
 			$type='relay';
-			
-			
 		    }
 		    if (strpos($id_rom_new, ".") !== false) {
 			$pieces = explode("_", $id_rom_new);
@@ -74,15 +72,17 @@ $name_new=trim($name_new2);
 	    }
 	    
 	    if ( $type != "relay" ) {
-		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip) VALUES ('$rand','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip' )") or die ("cannot insert to DB" );
+		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip) VALUES ('$name','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip' )") or die ("cannot insert to DB" );
 	    }
 	    if ( $type == "relay" ) {
-		$name=$rand;
 		//relays
-		$db->exec("INSERT OR IGNORE INTO relays (name, rom, ip, type) VALUES ('wi_relay_$name','$id_rom_new','$ip', '$type'  )") or die ("cannot insert relays to DB" );
+		$db->exec("INSERT OR IGNORE INTO relays (name, rom, ip, type) VALUES ('wifi_relay_$name','$id_rom_new','$ip', '$type'  )") or die ("cannot insert relays to DB" );
+	    }
+	    if ( $device == "wireless"  ) {
 		//host for monitoring
+		$name='host_wifi_' . $type . '_' . $name;
 		$dbhost = new PDO("sqlite:dbf/hosts.db");	
-		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type) VALUES ('host_wifi_relay_$name', '$ip', 'host_$id_rom_new', 'ping')") or die ("cannot insert host to DB" );	
+		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping')") or die ("cannot insert host to DB" );	
 		$dbnew = new PDO("sqlite:db/host_$id_rom_new.sql");
     		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
     		$dbnew==NULL;
