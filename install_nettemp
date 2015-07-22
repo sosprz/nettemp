@@ -7,7 +7,8 @@ GREEN='\033[00;32m'
 YELLOW='\033[00;33m'
 
 dir=/var/www/nettemp
-if [[ ! $(pwd) = "/var/www/nettemp" ]]; then
+
+if [[ ! $(pwd) = "$dir" ]]; then
         whiptail --title "Nettemp installer" --msgbox "Nettemp installer must be in /var/www/nettemp dir. Hit OK to exit." 8 78
 exit 1
 fi 
@@ -60,8 +61,8 @@ service lighttpd restart
 }
 
 function perms {
-/var/www/nettemp/modules/tools/update_su
-/var/www/nettemp/modules/tools/update_perms
+$dir/modules/tools/update_su
+$dir/modules/tools/update_perms
 umask 002 $dir/tmp
 umask 002 $dir/db
 umask 002 $dir/dbf
@@ -94,36 +95,28 @@ function ups {
 if dpkg --get-selections | grep -q apcupsd; then
     echo -e "[ ${GREEN}ok${R} ] ups function already installed"
     else
-    /var/www/nettemp/modules/ups/install
+    $dir/modules/ups/install
 fi
 }
 function vpn {
     echo -e "[ ${GREEN}ok${R} ] Generating certs for OpenVPN. Please wait.."
     {
-    /var/www/nettemp/modules/security/vpn/install
+    $dir/modules/security/vpn/install
     } &> /dev/null
 }
 
 function firewall {
-    /var/www/nettemp/modules/security/fw/install
+    $dir/modules/security/fw/install
 } &> /dev/null
 
 
 
 function sensors {
 #1wire
-if cat /etc/modules |grep w1_ 1> /dev/null; then
-echo -e "[ ${GREEN}ok${R} ] 1-wire modules allready added"
-else
-    if [ -n "$rpi" ];then
-    echo "w1_gpio" | sudo tee -a /etc/modules
-    modprobe w1_gpio
-    fi
-echo "w1_therm" | sudo tee -a /etc/modules
-modprobe w1_therm
-fi
+$dir/install/1wire on off off
+
 #dht 11/22
-cd /var/www/nettemp/modules/sensors/GPIO/DHT/dhtlib/
+cd $dir/modules/sensors/GPIO/DHT/dhtlib/
 ./install
 cd -
 
@@ -159,15 +152,15 @@ function cron {
 if crontab -l |grep nettemp 1> /dev/null; then
 echo -e "[ ${GREEN}ok${R} ] Cron lines already exist"
 else
-echo "*/1 * * * * /var/www/nettemp/modules/cron/1" > /var/spool/cron/crontabs/root
-echo "*/5 * * * * /var/www/nettemp/modules/cron/5" >> /var/spool/cron/crontabs/root
-echo "0 * * * * /var/www/nettemp/modules/cron/1h" >> /var/spool/cron/crontabs/root
-echo "@reboot /var/www/nettemp/modules/cron/r" >> /var/spool/cron/crontabs/root
+echo "*/1 * * * * $dir/modules/cron/1" > /var/spool/cron/crontabs/root
+echo "*/5 * * * * $dir/modules/cron/5" >> /var/spool/cron/crontabs/root
+echo "0 * * * * $dir/modules/cron/1h" >> /var/spool/cron/crontabs/root
+echo "@reboot $dir/modules/cron/r" >> /var/spool/cron/crontabs/root
 chmod 600 /var/spool/cron/crontabs/root
 fi
 }
 function database {
-/var/www/nettemp/modules/tools/db_reset
+$dir/modules/tools/db_reset
 } &>/dev/null
 
 function check-other-www-servers {
