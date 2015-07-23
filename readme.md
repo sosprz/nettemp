@@ -6,15 +6,19 @@ Nettemp work's on any system based on debian. But only on Raspberry Pi gpio will
 
 FEATURES:
 
-    Read temp 1-wire sensors from DS18b20 over GPIO4 and DS2482 over I2C, humidity DHT11, DHT22 over GPIO, servers temperature over SNMP
-    Read value from BMP180, TSL2561, HTU21D over I2C - thanks to ro-an
-    Wirks with lm-sensors
+    Read temp 1-wire sensors from DS18b20 over GPIO4
+    Read temp 1-wire sensors from DS18b20 over DS2482 (I2C)
+    Read humidity DHT11, DHT22 over GPIO
+    Read servers temperature over SNMP
+    Read value from BMP180, TSL2561, HTU21D, HIH6130, TMP102, MPL3115A2 over I2C - thanks to ro-an nad kamami.pl
+    Read temperatures form lm-sensors
     Read internal temperature from Raspberry Pi, Banana Pi
     View charts with temeratures and humidity
-    Send mail notofication when temperature is to high, You can set value
+    Send mail notofication when temperature is to high or to low, You can set value.
     Set gpio on/off, gpio temperature on/off, gpio time on/off
     You can connect APC UPS over USB and recieve notification form UPS
     OpenVPN server. User + Pass + CRT
+    Radius server 802.1x EAP TLS
     Firewall function
     System stats
 
