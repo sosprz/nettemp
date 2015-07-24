@@ -49,6 +49,10 @@ USERS:
 
 Changelog:
 
+8.6.3
+
+fix higcharts bug
+
 8.6.2
 fix trigger, mail notification 
 
