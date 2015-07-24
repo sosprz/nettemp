@@ -1,9 +1,30 @@
-<div id="container" style="height: 400px; min-width: 310px"></div>
+<div id="container" style="height: 400 ; min-width: 310px"></div>
 <script type="text/javascript">
+
+function getUrlVars() {
+        var vars = {};
+	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+	    vars[key] = value;
+    });
+    return vars;
+    }
+    var type = getUrlVars()["type"];
+
+if (type=='temp') { var xval = " °C"}
+if (type=='humid') { var xval = " %"}
+if (type=='press') { var xval = " hPa"}
+if (type=='gonoff') { var xval = " H/L"}
+if (type=='host') { var xval = " ms"}
+if (type=='system') { var xval = " %"}
+
 $(function () {
     var seriesOptions = [],
         seriesCounter = 0,
 <?php
+parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $url);
+$type=$url[type];
+$type=$type . "_";
+
 $php_array = '';
 $ar=array();
 $g=scandir('tmp/highcharts/');
@@ -11,9 +32,9 @@ foreach($g as $x)
 {
     if(is_dir($x))$ar[$x]=scandir($x);
     else
-	if (strpos($x,'temp_') !== false) {
+	if (strpos($x,$type) !== false) {
 		$rest1=str_replace(".json", "", "$x");
-		$rest=str_replace("temp_", "", "$rest1");
+		$rest=str_replace("$type", "", "$rest1");
 		$php_array[]=$rest;
 	}
 }
@@ -28,18 +49,17 @@ echo "names = ". $js_array . ";\n";
             $('#container').highcharts('StockChart', {
 
 		chart: {
-	        spacingBottom: 70
+	        spacingBottom: 0
     		},
 
 		legend: {
 		enabled: true,
-		floating: true,
     	        verticalAlign: 'bottom',
 		align: 'center',
-		y:40,
+		y: 0,
         	labelFormatter: function() {
                 var lastVal = this.yData[this.yData.length - 1];
-                    return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + '°C</b> </n>';
+                    return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + xval +'</b> </n>';
         	    }
 		},
 
@@ -87,7 +107,7 @@ echo "names = ". $js_array . ";\n";
 		},
 
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} °C</b><br/>',
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} '+ xval +'</b><br/>',
                     valueDecimals: 2
                 },
 
@@ -97,7 +117,7 @@ echo "names = ". $js_array . ";\n";
 
     $.each(names, function (i, name) {
 
-        $.getJSON('tmp/highcharts/temp_' + name + '.json',    function (data) {
+        $.getJSON('tmp/highcharts/' + type + '_' + name + '.json',    function (data) {
         
             seriesOptions[i] = {
                 name: name,

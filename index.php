@@ -65,7 +65,7 @@ $numsimple = count($row1);
 $numsimple2 = count($row2);
 ?>
               <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status">Status</a></li>
-              <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="view">Charts </a></li>
+              <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp">Charts </a></li>
 <?php if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { ?>
 	      <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls">Controls</a></li>
 <?php } ?>
