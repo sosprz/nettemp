@@ -11,7 +11,7 @@ foreach($g as $x)
 {
     if(is_dir($x))$ar[$x]=scandir($x);
     else
-	if (strpos($x,'temp') !== false) {
+	if (strpos($x,'temp_') !== false) {
 		$rest1=str_replace(".json", "", "$x");
 		$rest=str_replace("temp_", "", "$rest1");
 		$php_array[]=$rest;

@@ -17,7 +17,7 @@ foreach($g as $x)
 {
     if(is_dir($x))$ar[$x]=scandir($x);
     else
-	if (strpos($x,'snmp') !== false) {
+	if (strpos($x,'snmp_') !== false) {
 		$rest1=str_replace(".json", "", "$x");
 		$rest=str_replace("snmp_", "", "$rest1");
 		$php_array[]=$rest;
