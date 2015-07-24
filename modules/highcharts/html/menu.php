@@ -16,6 +16,7 @@ if (type=='press') { var xval = " hPa"}
 if (type=='gonoff') { var xval = " H/L"}
 if (type=='host') { var xval = " ms"}
 if (type=='system') { var xval = " %"}
+if (type=='lux') { var xval = " lux"}
 
 $(function () {
     var seriesOptions = [],
