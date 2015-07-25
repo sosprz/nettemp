@@ -1,6 +1,7 @@
 CREATE TABLE snmp (
   id INTEGER PRIMARY KEY,
   name UNIQUE,
+  rom UNIQUE,
   community TEXT,
   host TEXT,
   oid TEXT,

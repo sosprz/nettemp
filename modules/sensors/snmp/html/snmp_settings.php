@@ -6,6 +6,7 @@ $snmp_oid = isset($_POST['snmp_oid']) ? $_POST['snmp_oid'] : '';
 $snmp_id = isset($_POST['snmp_id']) ? $_POST['snmp_id'] : '';
 $snmp_divider = isset($_POST['snmp_divider']) ? $_POST['snmp_divider'] : '';
 $snmpid = isset($_POST['snmpid']) ? $_POST['snmpid'] : '';
+$rom = isset($_POST['rom']) ? $_POST['rom'] : '';
 	$db = new PDO('sqlite:dbf/snmp.db');
 	$dbn = new PDO('sqlite:dbf/nettemp.db');
 
@@ -18,12 +19,12 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	if (empty($snmp_divider)) {
 	    $snmp_divider='1';
 	}
-	$snmp_name=snmp_ . $snmp_name . _temp;
-	$db->exec("INSERT OR IGNORE INTO snmp (name, community, host, oid, divider) VALUES ('$snmp_name', '$snmp_community', '$snmp_host', '$snmp_oid', '$snmp_divider')") or die ("cannot insert to DB" );
-	$dbn->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$snmp_name')");
-        $dbn->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$snmp_name','$snmp_name','snmp', 'off', 'wait', '$gpio_post' )") or die ("cannot insert to " );
+	$rom=snmp_ . $snmp_name . _temp;
+	$db->exec("INSERT OR IGNORE INTO snmp (name, rom, community, host, oid, divider) VALUES ('$snmp_name','$rom','$snmp_community', '$snmp_host', '$snmp_oid', '$snmp_divider')") or die ("cannot insert to DB 1" );
+	$dbn->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')");
+        $dbn->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$snmp_name','$rom','snmp', 'off', 'wait', '$gpio_post' )") or die ("cannot insert to DB 2" );
 
-	$dbnew = new PDO("sqlite:db/$snmp_name");
+	$dbnew = new PDO("sqlite:db/$rom.sql");
 	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
 
 	header("location: " . $_SERVER['REQUEST_URI']);
