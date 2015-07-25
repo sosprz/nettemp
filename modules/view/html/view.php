@@ -24,9 +24,6 @@ if (glob('db/*press*.sql')) {?>
 if (glob('db/*altitude*.sql')) {?>
 <a href="index.php?id=view&type=altitude" ><button class="btn btn-default">Altitude view</button></a>
 <?php }
-if (glob('db/*snmp*.sql')) {?>
-<a href="index.php?id=view&type=snmp" ><button class="btn btn-default">SNMP</button></a>
-<?php }
 if (glob('tmp/kwh/*.json')) {?>
 <a href="index.php?id=view&type=kwh" ><button class="btn btn-default">kWh</button></a>
 <?php }

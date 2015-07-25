@@ -29,7 +29,7 @@ done
 
 # sensors
 
-for n in temp press lux humid snmp; do
+for n in temp press lux humid; do
     name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM sensors WHERE type='$n'")
     for i in $name; do
 	rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE name='$i'")

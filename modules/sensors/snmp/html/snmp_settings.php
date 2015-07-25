@@ -22,7 +22,7 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	$rom=snmp_ . $snmp_name . _temp;
 	$db->exec("INSERT OR IGNORE INTO snmp (name, rom, community, host, oid, divider) VALUES ('$snmp_name','$rom','$snmp_community', '$snmp_host', '$snmp_oid', '$snmp_divider')") or die ("cannot insert to DB 1" );
 	$dbn->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')");
-        $dbn->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$snmp_name','$rom','snmp', 'off', 'wait', '$gpio_post' )") or die ("cannot insert to DB 2" );
+        $dbn->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$snmp_name','$rom','temp', 'off', 'wait', '$gpio_post' )") or die ("cannot insert to DB 2" );
 
 	$dbnew = new PDO("sqlite:db/$rom.sql");
 	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");

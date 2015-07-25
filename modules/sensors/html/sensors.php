@@ -41,10 +41,10 @@ $name_new=trim($name_new2);
 		    }    
 		    $device='wireless';
 	    }
-	    elseif (strpos($id_rom_new,'snmp') !== false) {
+	    //elseif (strpos($id_rom_new,'snmp') !== false) {
 		    
-		    $type='snmp';
-	    }
+	    //	    $type='snmp';
+	    //}
 	    elseif (strpos($id_rom_new,'lux') !== false) {
 		    $type='lux';
 	    }

@@ -2,19 +2,19 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
-if name=$(sqlite3 $dir/dbf/snmp.db "SELECT name FROM snmp")
+if name=$(sqlite3 $dir/dbf/snmp.db "SELECT rom FROM snmp")
     then
-    for snmp in $name; do 
-	community=$(sqlite3 $dir/dbf/snmp.db "SELECT community FROM snmp WHERE name='$snmp'")
-	host=$(sqlite3 $dir/dbf/snmp.db "SELECT host FROM snmp WHERE name='$snmp'")
-	oid=$(sqlite3 $dir/dbf/snmp.db "SELECT oid FROM snmp WHERE name='$snmp'")
-	divider=$(sqlite3 $dir/dbf/snmp.db "SELECT divider FROM snmp WHERE name='$snmp'")
+    for rom in $name; do 
+	community=$(sqlite3 $dir/dbf/snmp.db "SELECT community FROM snmp WHERE rom='$rom'")
+	host=$(sqlite3 $dir/dbf/snmp.db "SELECT host FROM snmp WHERE rom='$rom'")
+	oid=$(sqlite3 $dir/dbf/snmp.db "SELECT oid FROM snmp WHERE rom='$rom'")
+	divider=$(sqlite3 $dir/dbf/snmp.db "SELECT divider FROM snmp WHERE rom='$rom'")
 	walk=$(snmpget -v 2c -c $community $host $oid -O v)
         wynik=`echo $walk | tr -d \" | awk '{printf "%3.1f\n", $2/'$divider' }'`  
-	sqlite3 $dir/db/$snmp.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$snmp'"
+	sqlite3 $dir/db/$rom.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$rom'"
 	if date +%M |cut -c 2-2 | grep -E '0|5'; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$wynik' WHERE rom='$snmp'"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$wynik' WHERE rom='$rom'"
 	fi
 
 	echo SNMP: $wynik C
