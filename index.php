@@ -25,8 +25,9 @@ else {
     <link href="html/custom.css" rel="stylesheet">
 
     <!-- jQuery -->
-    <script type="text/javascript" src="html/jquery/jquery-1.11.3.min.js"></script>
-
+    <script src="html/jquery/jquery-1.11.3.min.js"></script>
+    <script src="html/jquery/jquery-migrate-1.2.1.min.js"></script>
+    
     <!-- bootstrap-toogle -->
     <link href="html/bootstrap-toggle/bootstrap-toggle.min.css" rel="stylesheet">
     <script type="text/javascript" src="html/bootstrap-toggle/bootstrap-toggle.min.js"></script>
@@ -136,7 +137,7 @@ case 'controls': include('modules/relays/html/relays_controls.php'); include('mo
 
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
     <script src="html/bootstrap/js/bootstrap.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
   </body>
