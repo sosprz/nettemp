@@ -107,3 +107,16 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD control_run type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD trigger_delay type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD radius type TEXT";
 
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE i2c (id INTEGER PRIMARY KEY,name TEXT, addr UNQUE);"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('bmp180','77');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tsl2561','39');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('ds2482','18');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('ds2482','1a');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('htu21d','40');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('mpl3115a2','60');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('hih6130','27');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tmp102','48');"
+
+
+
+
