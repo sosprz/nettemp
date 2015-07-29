@@ -19,7 +19,24 @@ $add = isset($_POST['add']) ? $_POST['add'] : '';
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+
+    $default = isset($_POST['default']) ? $_POST['default'] : '';
+    if ($default == "default") { 
+    $db = new PDO("sqlite:dbf/nettemp.db");	
+    $db->exec("DELETE table i2c") or header("Location: html/errors/db_error.php");
+    $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('bmp180','77')") or header("Location: html/errors/db_error.php");
+    $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('tsl2561','39')") or header("Location: html/errors/db_error.php");
+    $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('ds2482','18')") or header("Location: html/errors/db_error.php");	
+    $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('htu21d','40')") or header("Location: html/errors/db_error.php");
+    $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('mpl3115a2','60')") or header("Location: html/errors/db_error.php");
+    $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('hih6130','27')") or header("Location: html/errors/db_error.php");
+    $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('tmp102','48')") or header("Location: html/errors/db_error.php");
+
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();	
+    }
 ?>
+
 
 
 
@@ -31,10 +48,10 @@ $add = isset($_POST['add']) ? $_POST['add'] : '';
 
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
-$rows = $db->query("SELECT * FROM i2c");
+$rows = $db->query("SELECT * FROM i2c") or header("Location: html/errors/db_error.php");
 $row = $rows->fetchAll();
 
-$lcd = $db->query("SELECT * FROM settings");
+$lcd = $db->query("SELECT * FROM settings") or header("Location: html/errors/db_error.php");
 $lcd = $lcd->fetchAll();
 foreach ($lcd as $c) {
 $lcd=$c['lcd'];
@@ -104,5 +121,18 @@ $lcd=$c['lcd'];
 }  
 ?>
 </table>
+
+<div class="panel-body">
+<form class="form-horizontal" action="" method="post">
+<fieldset>
+<div class="form-group">
+  <div class="col-md-1">
+    <input type="hidden" name="default" value="default">
+    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Reset to default</button>
+  </div>
+</div>
+</fieldset>
+</form>
+</div>
 </div>
 </div>
