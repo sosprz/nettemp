@@ -23,7 +23,7 @@ $add = isset($_POST['add']) ? $_POST['add'] : '';
     $default = isset($_POST['default']) ? $_POST['default'] : '';
     if ($default == "default") { 
     $db = new PDO("sqlite:dbf/nettemp.db");	
-    $db->exec("DELETE table i2c") or header("Location: html/errors/db_error.php");
+    $db->exec("DELETE from i2c") or header("Location: html/errors/db_error.php");
     $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('bmp180','77')") or header("Location: html/errors/db_error.php");
     $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('tsl2561','39')") or header("Location: html/errors/db_error.php");
     $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('ds2482','18')") or header("Location: html/errors/db_error.php");	
