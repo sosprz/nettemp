@@ -5,6 +5,7 @@
 <a href="index.php?id=settings&type=sms" ><button class="btn <?php echo $art == 'sms' ? 'btn-info' : 'btn-default'; ?>">SMS</button></a>
 <a href="index.php?id=settings&type=gpio" ><button class="btn <?php echo $art == 'gpio' ? 'btn-info' : 'btn-default'; ?>">GPIO</button></a>
 <a href="index.php?id=settings&type=1wire" ><button class="btn <?php echo $art == '1wire' ? 'btn-info' : 'btn-default'; ?>">1wire</button></a>
+<a href="index.php?id=settings&type=i2c" ><button class="btn <?php echo $art == 'i2c' ? 'btn-info' : 'btn-default'; ?>">i2c</button></a>
 <a href="index.php?id=settings&type=time" ><button class="btn <?php echo $art == 'time' ? 'btn-info' : 'btn-default'; ?>">Time</button></a>
 <a href="index.php?id=settings&type=snmpd" ><button class="btn <?php echo $art == 'snmpd' ? 'btn-info' : 'btn-default'; ?>">SNMPD</button></a>
 <a href="index.php?id=settings&type=lcd" ><button class="btn <?php echo $art == 'lcd' ? 'btn-info' : 'btn-default'; ?>">LCD</button></a>
@@ -19,5 +20,6 @@ case 'time': include('modules/settings/time.php'); break;
 case 'snmpd': include('modules/settings/snmpd.php'); break;
 case 'lcd': include('modules/settings/lcd.php'); break;
 case '1wire': include('modules/settings/1wire.php'); break;
+case 'i2c': include('modules/settings/i2c.php'); break;
 }
 ?>
