@@ -17,7 +17,7 @@ rm -rf $dir/tmp/highcharts/*
 name="$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts")"
 for i in $name; do
     rom=$(sqlite3 $dir/dbf/hosts.db "SELECT rom FROM hosts WHERE name='$i'")
-    if base=$(sqlite3 $dir/db/$rom.sql "select strftime('%s', time),value FROM def;") ;
+    if base=$(sqlite3 $dir/db/$rom.sql "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
 	then
 	    #middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1+3600)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
 	    middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
@@ -33,7 +33,7 @@ for n in temp press lux humid; do
     name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM sensors WHERE type='$n'")
     for i in $name; do
 	rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE name='$i'")
-	    if base=$(sqlite3 $dir/db/$rom.sql "select strftime('%s', time),value FROM def;") ;
+	    if base=$(sqlite3 $dir/db/$rom.sql "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
 		then
 		    #middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1+3600)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
 		    middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
@@ -48,7 +48,7 @@ done
 name=$(ls $dir/db/ |grep -e system  -e gonoff )
 #echo $name
 for i in $name; do
-    if base=$(sqlite3 $dir/db/$i "select strftime('%s', time),value FROM def;") ;
+    if base=$(sqlite3 $dir/db/$i "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
 	then
 	    middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
 	    last=$(echo $i |sed '$s/....$//')
