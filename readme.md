@@ -49,6 +49,10 @@ USERS:
 
 Changelog:
 
+8.6.4
+
+highcarts - improve charts generating and prevent lock base.
+
 8.6.3
 
 fix higcharts bug
