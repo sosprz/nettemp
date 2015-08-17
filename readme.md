@@ -49,6 +49,10 @@ USERS:
 
 Changelog:
 
+8.6.5
+
+fix - add row to snmp table
+
 8.6.4
 
 highcarts - improve charts generating and prevent lock base.
