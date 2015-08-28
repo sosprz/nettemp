@@ -117,7 +117,7 @@ sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('mpl3
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('hih6130','27');"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tmp102','48');"
 sqlite3 $dir/dbf/snmp.db "ALTER TABLE snmp ADD rom type UNIQUE";
-
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD trigger_con type TEXT";
 
 
 

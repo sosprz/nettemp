@@ -1,7 +1,7 @@
 #! /bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
-date=$(date +%y%m%d-%H%M)
+date=$(date +%y%m%d-%H%M%S)
 
 gpio="$1"
 
@@ -33,8 +33,9 @@ function ledalarm {
 
 
 function mail { 
+    daten=$(date +%y%m%d-%H%M%S)
     if [ "$trigger_notice" = "on" ] && [ $trigger = "on" ]; then
-        plik=$dir/tmp/mail/mail-alarm$gpio-$date
+        plik=$dir/tmp/mail/mail-alarm$gpio-$daten
 	function file {
 	    source $dir/modules/mail/mail_body
 	    chmod 777 $plik
@@ -51,7 +52,9 @@ get_mail=$(sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_al
 user=$(sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings")
 led=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='led'")
 delay=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_delay FROM gpio where gpio='$gpio'")
-
+con=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_con FROM gpio where gpio='$gpio'")
+echo $con
+read
 
 for i in $(seq $delay)
     do
@@ -76,7 +79,11 @@ do
 	    mail &
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
 	    $dir/modules/gpio/timestamp $gpio
-	break
+	if [[ $con = "on" ]]; then
+	    continue
+	else
+	    break
+	fi
     fi
 sleep 0.1
 done

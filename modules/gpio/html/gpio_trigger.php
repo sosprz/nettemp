@@ -42,7 +42,16 @@ if (($toutonoff == "onoff") &&  (!empty($tout)))  {
 $trigger_delay = isset($_POST['trigger_delay']) ? $_POST['trigger_delay'] : '';
 $trigger_delay1 = isset($_POST['trigger_delay1']) ? $_POST['trigger_delay1'] : '';
 if ($trigger_delay1 == "trigger_delay1") {
-    $db->exec("UPDATE gpio SET trigger_delay='$trigger_delay' WHERE gpio='20'") or exit(header("Location: html/errors/db_error.php"));
+    $db->exec("UPDATE gpio SET trigger_delay='$trigger_delay' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+    $db = null;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+}
+
+$con = isset($_POST['con']) ? $_POST['con'] : '';
+$cononoff = isset($_POST['cononoff']) ? $_POST['cononoff'] : '';
+if ($cononoff == "onoff") {
+    $db->exec("UPDATE gpio SET trigger_con='$con' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -91,6 +100,12 @@ else
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="trigger_delay1" value="trigger_delay1" />
     </form>
+
+<form action="" method="post" style=" display:inline!important;">
+    <button type="submit" name="con"  <?php echo $a['trigger_con'] == 'on' ? 'class="btn btn-xs btn-danger" value="off"' : 'class="btn btn-xs btn-primary" value="on"'; ?> onchange="this.form.submit()" >Continous mode</button>
+    <input type="hidden" name="gpio" value="<?php echo $a['gpio'] ?>" />
+    <input type="hidden" name="cononoff" value="onoff" />
+</form>
 
 
     <form action="" method="post" style=" display:inline!important;">
