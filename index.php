@@ -105,7 +105,12 @@ $numsimple2 = count($row2);
  
 
 <div class="container">
-
+<?php 
+if (file_exists("tmp/reboot")) {  ?>
+<div class="alert alert-warning" role="alert"><a href="index.php?id=tools&type=reboot" class="btn btn-warning">Reboot required</a></div>
+<?php
+}
+?>
 
 <?php  
 switch ($id)
@@ -127,7 +132,6 @@ case 'controls': include('modules/relays/html/relays_controls.php'); include('mo
 }
 ?>
 </div>
-
 
 <footer class="footer">
       <div class="container text-center">

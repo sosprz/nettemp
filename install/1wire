@@ -1,5 +1,7 @@
 #! /bin/bash 
 
+dir=$( cd "$( dirname "$0" )" && cd ../ && pwd )
+
 dtgpio="$1"
 ds="$2"
 modgpio="$3"
@@ -32,3 +34,5 @@ fi
 if [ "$modgpio" == "off" ]; then
     sudo sed -i 's/w1_gpio.*//g' /etc/modules
 fi
+
+touch $dir/tmp/reboot

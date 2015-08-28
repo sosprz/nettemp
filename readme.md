@@ -49,6 +49,10 @@ USERS:
 
 Changelog:
 
+8.6.6
+
+add warnings when reboot needed
+
 8.6.5
 
 fix - add row to snmp table

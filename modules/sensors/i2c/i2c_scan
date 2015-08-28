@@ -57,6 +57,7 @@ for i in ${det[@]}
 	for s in $(sqlite3 $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='ds2482' AND addr='$i'")
 	    do
 	    echo ds2482 0x$s > /sys/bus/i2c/devices/i2c-$i2c/new_device
+	    touch $dir/reboot
 		    if [ ! -f $dir/tmp/cronr ]; then
 			touch $dir/tmp/cronr
 		    fi    
