@@ -4,7 +4,7 @@ dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
 # DS9097U na USB - meraprojekt new
-for i in 0 1 2 3
+for i in 0 1 2 3 4
     do
     if [ `ls /dev/ttyUSB$i 2> /dev/null` ]; then 
     /usr/bin/digitemp_DS9097U -i -c $dir/tmp/.digitemprc -s/dev/ttyUSB$i &> /dev/null
