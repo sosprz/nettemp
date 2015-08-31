@@ -5,7 +5,7 @@ date=`date +%y%m%d-%H%M`
 
 # DS9097 - serial 
 if [ ! -e $dir/tmp/.digitemprcs ]; then 
-    for i in 0 1 2 
+    for i in 0 1 2 3 4
     do
         if [ `ls /dev/ttyS$i 2> /dev/null` ]; then 
         /usr/bin/digitemp_DS9097 -i -c $dir/tmp/.digitemprcs -s/dev/ttyS$i &> /dev/null

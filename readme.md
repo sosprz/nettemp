@@ -49,6 +49,10 @@ USERS:
 
 Changelog:
 
+8.6.7
+
+add more USB to scan
+
 8.6.6
 
 add warnings when reboot needed
