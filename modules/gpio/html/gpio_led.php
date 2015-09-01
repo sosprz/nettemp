@@ -10,6 +10,7 @@ if (($ledexit == "ledexit") ){
 
 
 ?>
+<img type="image" src="media/ico/led-icon.png" title="LED" " />
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="ledexit" value="ledexit" />

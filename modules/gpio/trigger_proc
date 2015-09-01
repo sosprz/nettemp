@@ -7,6 +7,16 @@ gpio="$1"
 
 if [ ! -n "$gpio" ]; then echo "no gpio input" && exit; fi 
 
+name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio where gpio='$gpio'")
+out=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND tout$gpio='on'")
+rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
+trigger_notice=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
+get_mail=$(sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
+user=$(sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings")
+led=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='led'")
+delay=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_delay FROM gpio where gpio='$gpio'")
+con=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_con FROM gpio where gpio='$gpio'")
+
 function triggerout_gpio {
 	    for i in $out; do
 		g=$(echo $i|awk -F"|" '{ print $1}')
@@ -17,18 +27,35 @@ function triggerout_gpio {
 		    else
 			/usr/local/bin/gpio -g write $g 1
 		    fi
+		if [[ $con = "on" ]]; then
+		    sleep 0.1
+		    if [ "$r" = "on" ]; then
+			/usr/local/bin/gpio -g write $g 1
+		    else
+			/usr/local/bin/gpio -g write $g 0
+		    fi
+		fi
 	    done
-
 }
 
 function ledalarm {
 		/usr/local/bin/gpio -g mode $led out
+		if [[ $con = "on" ]]; then
+		    while :; do
+			/usr/local/bin/gpio -g write $led 0
+			sleep 0.5
+			/usr/local/bin/gpio -g write $led 1
+			sleep 0.5
+			break
+		    done
+		else
 		    while :; do
 			/usr/local/bin/gpio -g write $led 0
 			sleep 0.5
 			/usr/local/bin/gpio -g write $led 1
 			sleep 0.5
 		    done
+		fi
 }
 
 
@@ -44,17 +71,7 @@ function mail {
 	fi
 }
 
-name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio where gpio='$gpio'")
-out=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND tout$gpio='on'")
-rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
-trigger_notice=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
-get_mail=$(sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
-user=$(sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings")
-led=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='led'")
-delay=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_delay FROM gpio where gpio='$gpio'")
-con=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_con FROM gpio where gpio='$gpio'")
-echo $con
-read
+
 
 for i in $(seq $delay)
     do
@@ -75,15 +92,21 @@ do
         then
 	    trigger="on"
 	    triggerout_gpio
-	    ledalarm &
+    
+	    if [[ -n "$led" ]]; then
+		ledalarm &
+	    fi
+
 	    mail &
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
+	    
 	    $dir/modules/gpio/timestamp $gpio
-	if [[ $con = "on" ]]; then
-	    continue
-	else
-	    break
-	fi
+
+	    if [[ $con = "on" ]]; then
+		continue
+	    else
+		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
+		break
+	    fi
     fi
 sleep 0.1
 done

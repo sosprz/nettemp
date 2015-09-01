@@ -7,6 +7,7 @@ if (($triggeroutexit == "triggeroutexit") ){
     exit();
     }
 ?>
+<img type="image" src="media/ico/light-icon.png" title="trigger Out" " />
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="simpleexit" value="exit" />
     <input type="hidden" name="triggeroutexit" value="triggeroutexit" />

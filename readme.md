@@ -49,6 +49,10 @@ USERS:
 
 Changelog:
 
+8.6.8
+
+add more code to gpio trigger
+
 8.6.7
 
 add more USB to scan
