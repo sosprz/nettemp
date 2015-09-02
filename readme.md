@@ -49,6 +49,10 @@ USERS:
 
 Changelog:
 
+8.6.9
+
+fix gpio temperature function >=
+
 8.6.8
 
 add more code to gpio trigger

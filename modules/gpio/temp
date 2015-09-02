@@ -77,7 +77,7 @@ fi
 if [ "${!temp_op}" = "ge" ]; then
 ge=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 >= $2) print 1; else print 0 }') 
     if [ "$ge" = "1" ];then
-        if [ "${temp_onoff}" = "on" ];then
+        if [ "${!temp_onoff}" = "on" ];then
             onoff=on
 	    echo "${!sensor_name} ${!sensor_temp} C >= ${!temp_temp} C - gpio ON debug 5"
         else
