@@ -49,6 +49,10 @@ USERS:
 
 Changelog:
 
+8.6.10
+
+fix bug in i2c settings. No more duplicate addresses.
+
 8.6.9
 
 fix gpio temperature function >=
