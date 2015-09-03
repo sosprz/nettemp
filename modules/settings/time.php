@@ -25,11 +25,11 @@
     if (($rtc_onoff == "rtc_onoff") ){
     if (!empty($rtc)) {
 	    shell_exec("sudo sed -i '\$artc-ds1307' /etc/modules");
-	    shell_exec("sudo sed -i '/exit 0/i echo ds1307 0x68 > \/sys\/class\/i2c-adapter\/'$(ls /dev/i2c-* |awk -F/ '{print $3}')'\/new_device && hwclock -s' /etc/rc.local");
-
+	    shell_exec("sudo sed -i '\$aecho ds1307 0x68 > \/sys\/class\/i2c-adapter\/'$(ls /dev/i2c-* |awk -F/ '{print $3}')'\/new_device && hwclock -s' tmp/cronr");
+	    shell_exec("sudo touch tmp/reboot");
     }
     else {
-	shell_exec("sudo sed -i '/rtc-ds1307/d' /etc/rc.local");
+	shell_exec("sudo sed -i '/ds1307/d' tmp/cronr");
         shell_exec("sudo sed -i '/rtc-ds1307/d' /etc/modules");
 	} 
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -39,7 +39,7 @@
 ?>
 
 <?php
-if (exec("cat /etc/modules | grep 'ds1307'") &&  exec("cat /etc/rc.local | grep 'ds1307'")) {
+if (exec("cat /etc/modules | grep 'ds1307'") &&  exec("cat tmp/cronr | grep 'ds1307'")) {
 	$rtc='on';
 } else {
     $rtc='';
@@ -124,7 +124,6 @@ RTC - No i2c modules loaded
 <?php 
     }
 ?>
-<span id="helpBlock" class="help-block">After RTC on, reboot is required</span>
 
 
 <?php 

@@ -52,6 +52,7 @@ Changelog:
 8.6.10
 
 fix bug in i2c settings. No more duplicate addresses.
+add reboot monit to RCT time
 
 8.6.9
 
