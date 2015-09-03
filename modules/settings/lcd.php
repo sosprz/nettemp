@@ -6,10 +6,20 @@
 <?php
     $lcd = isset($_POST['lcd']) ? $_POST['lcd'] : '';
     $lcdon = isset($_POST['lcdon']) ? $_POST['lcdon'] : '';
+    $lcd4 = isset($_POST['lcd4']) ? $_POST['lcd4'] : '';
+    $lcdon4 = isset($_POST['lcdon4']) ? $_POST['lcdon4'] : '';
     
     if (($lcd == "lcd") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE settings SET lcd='$lcdon' WHERE id='1'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE settings SET lcd4='off' WHERE id='1'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+    if (($lcd4 == "lcd4") ){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE settings SET lcd4='$lcdon4' WHERE id='1'") or die ($db->lastErrorMsg());
+        $db->exec("UPDATE settings SET lcd='off' WHERE id='1'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -24,14 +34,20 @@ $ss=$a["sms"];
 $ms=$a["mail"];
 $gpio=$a["gpio"];
 $lcd=$a["lcd"];
+$lcd4=$a["lcd4"];
 }
 
 ?>
     
     <form action="" method="post">
-    <label>LCD 1602 HD44780 PCF8574 I2C</label>
+    <label>LCD 1602 HD44780 PCF8574 I2C 2x16</label>
     <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="lcdon" value="on" <?php echo $lcd == 'on' ? 'checked="checked"' : ''; ?> /></td>
     <input type="hidden" name="lcd" value="lcd" />
+    </form>
+    <form action="" method="post">
+    <label>LCD 1602 HD44780 PCF8574 I2C 4x20</label>
+    <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="lcdon4" value="on" <?php echo $lcd4 == 'on' ? 'checked="checked"' : ''; ?> /></td>
+    <input type="hidden" name="lcd4" value="lcd4" />
     </form>
 
 </div>

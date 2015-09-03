@@ -77,6 +77,7 @@ if [ ! -s $dir/dbf/hosts.db ]
 fi
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD lcd type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD method type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD lcd4 type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD lcd type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD tmp_5ago type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD tlscheck type TEXT";
