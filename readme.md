@@ -51,6 +51,7 @@ Changelog:
 
 8.6.12
 
+add max 10 ipcam
 fix lcd4
 
 8.6.11

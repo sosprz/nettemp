@@ -28,15 +28,22 @@ var msnry = new Masonry( container, {
 <div class="masonry js-masonry"  data-masonry-options='{ "isFitWidth": true }'>
   <div id="res" class="item"><?php include_once('modules/sensors/html/sensor_status.php'); 
 ?></div>
-  <div class="item "><?php include('modules/ipcam/cam1.php'); ?></div>
-  <div class="item "><?php include('modules/ipcam/cam2.php'); ?></div>
-  <div class="item "><?php include('modules/ipcam/cam3.php'); ?></div>
-  <div class="item"><?php include('modules/hosts/html/hosts_status.php'); ?></div>
-  <div class="item"><?php include('modules/gpio/html/gpio_status.php'); ?></div>
-  <div class="item"><?php include('modules/relays/html/relays_status.php'); ?></div>
-  <div class="item"><?php include('modules/kwh/html/kwh_status.php'); ?></div>
-  <div class="item"><?php include('modules/tools/html/tools_file_check.php'); ?></div>
-  <div class="item"><?php include('modules/settings/meteo_status.php'); ?></div>
+    <div class="item"><?php include('modules/ipcam/cam1.php'); ?></div>
+    <div class="item"><?php include('modules/ipcam/cam2.php'); ?></div>
+    <div class="item"><?php include('modules/ipcam/cam3.php'); ?></div>    
+    <div class="item"><?php include('modules/ipcam/cam4.php'); ?></div>
+    <div class="item"><?php include('modules/ipcam/cam5.php'); ?></div>
+    <div class="item"><?php include('modules/ipcam/cam6.php'); ?></div>
+    <div class="item"><?php include('modules/ipcam/cam7.php'); ?></div>
+    <div class="item"><?php include('modules/ipcam/cam8.php'); ?></div>
+    <div class="item"><?php include('modules/ipcam/cam9.php'); ?></div>
+    <div class="item"><?php include('modules/ipcam/cam10.php'); ?></div>
+    <div class="item"><?php include('modules/hosts/html/hosts_status.php'); ?></div>
+    <div class="item"><?php include('modules/gpio/html/gpio_status.php'); ?></div>
+    <div class="item"><?php include('modules/relays/html/relays_status.php'); ?></div>
+    <div class="item"><?php include('modules/kwh/html/kwh_status.php'); ?></div>
+    <div class="item"><?php include('modules/tools/html/tools_file_check.php'); ?></div>
+    <div class="item"><?php include('modules/settings/meteo_status.php'); ?></div>
   
 </div>
 
