@@ -3,7 +3,7 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 file=$dir/tmp/lcd
 
-lcd=$(sqlite3 $dir/dbf/nettemp.db  "SELECT lcd, FROM settings WHERE id='1'")
+lcd=$(sqlite3 $dir/dbf/nettemp.db  "SELECT lcd FROM settings WHERE id='1'")
 lcd4=$(sqlite3 $dir/dbf/nettemp.db  "SELECT lcd4 FROM settings WHERE id='1'")
 
 if [[ "$lcd" == "on" ]]
@@ -28,7 +28,7 @@ then
 	done
 	done
 
-elif if [[ "$lcd4" == "on" ]]
+elif [[ "$lcd4" == "on" ]]
 then
 
     $dir/modules/lcd/lcdi2c -i -l -b 1 "$(printf "%-15s %-15s" "$(echo nettemp.pl| cut -c 1-15) " "$(echo lcd mod| cut -c 1-15)")"

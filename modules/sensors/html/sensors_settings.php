@@ -13,6 +13,7 @@ $lcd = $db->query("SELECT * FROM settings");
 $lcd = $lcd->fetchAll();
 foreach ($lcd as $c) {
 $lcd=$c['lcd'];
+$lcd4=$c['lcd4'];
 }
 
 
@@ -23,7 +24,7 @@ $lcd=$c['lcd'];
 <th>id</th>
 <th>Size</th>
 <th>Status</th>
-<?php if ( $lcd == 'on' ) { ?> <th>LCD</th> <?php } ?>
+<?php if ( $lcd == 'on' || $lcd4 == 'on' ) { ?> <th>LCD</th> <?php } ?>
 <th></th>
 </tr>
 </thead>
@@ -62,7 +63,7 @@ else { ?>
 <?php } ?>
 
 <?php 
-if ( $lcd == 'on' ) { 
+if ( $lcd == 'on' || $lcd4 == 'on' ) { 
 ?>
     <td class="col-md-1">
     <form action="" method="post" style="display:inline!important;"> 	
