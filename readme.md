@@ -49,6 +49,10 @@ USERS:
 
 Changelog:
 
+8.6.12
+
+fix lcd4
+
 8.6.11
 
 add BETA meteo page 

@@ -42,7 +42,7 @@ then
 	s="1"
 	    
 	while [ "$s" -le "$max" ] ; do
-            $dir/modules/lcd/lcdi2c -l -b 1 -r 0  "$(printf "%-19s %-19s %-19s  %-19s" "$(echo ${lines[$f]} | sed 's/press/hPa/g' | sed 's/temp/C/g' | sed 's/humid/%/g' | cut -c 1-19)" "$(echo ${lines[$s]} | sed 's/press/hPa/g' | sed 's/temp/C/g' | sed 's/humid/%/g' | cut -c 1-19)" "$(echo ${lines[$t]} | sed 's/press/hPa/g' | sed 's/temp/C/g' | sed 's/humid/%/g' | cut -c 1-19)" "$(date | cut -c 1-16)")"
+            $dir/modules/lcd/lcdi2c4 -l -b 1 -r 0  "$(printf "%-19s %-19s %-19s  %-19s" "$(echo ${lines[$f]} | sed 's/press/hPa/g' | sed 's/temp/C/g' | sed 's/humid/%/g' | cut -c 1-19)" "$(echo ${lines[$s]} | sed 's/press/hPa/g' | sed 's/temp/C/g' | sed 's/humid/%/g' | cut -c 1-19)" "$(echo ${lines[$t]} | sed 's/press/hPa/g' | sed 's/temp/C/g' | sed 's/humid/%/g' | cut -c 1-19)" "$(date | cut -c 1-16)")"
             echo  "$(printf "%-19s %-19s %-19s %-19s" "$(echo ${lines[$f]} | sed 's/press/hPa/g' | sed 's/temp/C/g' | sed 's/humid/%/g' | cut -c 1-19)" "$(echo ${lines[$s]} | sed 's/press/hPa/g' | sed 's/temp/C/g' | sed 's/humid/%/g' | cut -c 1-19$)" "$(echo ${lines[$t]} | sed 's/press/hPa/g' | sed 's/temp/C/g' | sed 's/humid/%/g' | cut -c 1-19)" "$(echo ${lines[$l]} | sed 's/press/hPa/g' | sed 's/temp/C/g' | sed 's/humid/%/g' | cut -c 1-19)")"	    
 	    sleep 2
 	    f=$(expr $f + 1)
