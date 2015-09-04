@@ -36,6 +36,8 @@ var msnry = new Masonry( container, {
   <div class="item"><?php include('modules/relays/html/relays_status.php'); ?></div>
   <div class="item"><?php include('modules/kwh/html/kwh_status.php'); ?></div>
   <div class="item"><?php include('modules/tools/html/tools_file_check.php'); ?></div>
+  <div class="item"><?php include('modules/settings/meteo_status.php'); ?></div>
+  
 </div>
 
 <script src="html/jquery/jquery.js"></script>
