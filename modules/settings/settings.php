@@ -9,6 +9,7 @@
 <a href="index.php?id=settings&type=time" ><button class="btn <?php echo $art == 'time' ? 'btn-info' : 'btn-default'; ?>">Time</button></a>
 <a href="index.php?id=settings&type=snmpd" ><button class="btn <?php echo $art == 'snmpd' ? 'btn-info' : 'btn-default'; ?>">SNMPD</button></a>
 <a href="index.php?id=settings&type=lcd" ><button class="btn <?php echo $art == 'lcd' ? 'btn-info' : 'btn-default'; ?>">LCD</button></a>
+<a href="index.php?id=settings&type=meteo" ><button class="btn <?php echo $art == 'meteo' ? 'btn-info' : 'btn-default'; ?>">Meteo</button></a>
 </p>
 <?php  
 switch ($art)
@@ -21,5 +22,7 @@ case 'snmpd': include('modules/settings/snmpd.php'); break;
 case 'lcd': include('modules/settings/lcd.php'); break;
 case '1wire': include('modules/settings/1wire.php'); break;
 case 'i2c': include('modules/settings/i2c.php'); break;
+case 'meteo': include('modules/settings/meteo.php'); break;
+
 }
 ?>

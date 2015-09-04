@@ -49,6 +49,10 @@ USERS:
 
 Changelog:
 
+8.6.11
+
+add BETA meteo page 
+
 8.6.10
 
 fix bug in i2c settings. No more duplicate addresses.

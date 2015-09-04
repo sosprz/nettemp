@@ -120,6 +120,7 @@ sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tmp1
 sqlite3 $dir/dbf/snmp.db "ALTER TABLE snmp ADD rom type UNIQUE";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD trigger_con type TEXT";
 
-
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE meteo (id INTEGER PRIMARY KEY, temp TEXT, latitude TEXT, height TEXT, pressure TEXT, humid TEXT);"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO meteo (id, temp, latitude, height, pressure, humid ) VALUES (1,'0','0','0','0','0');"
 
 
