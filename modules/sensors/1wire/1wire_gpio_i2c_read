@@ -15,17 +15,19 @@ do
         echo 1-wire: $wynik C
         if  [ -n "$wynik" ]; then
         wire_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
-        if [ "$wire_temp_calc" == "1" ]; then
-	    sqlite3 $dir/db/$name.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-    	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name'"
-		if date +%M |cut -c 2-2 | grep -E '0|5'; then
-		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$wynik' WHERE rom='$name'"
-		fi
+    	    if [ "$wire_temp_calc" == "1" ]; then
+		sqlite3 $dir/db/$name.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
+    		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$name'"
+		    if date +%M |cut -c 2-2 | grep -E '0|5'; then
+			sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$wynik' WHERE rom='$name'"
+		    fi
 	    else
-    	    echo "$date temp_dev_read - reading sensor error 85C (resistor, or calbe problem) $name " >> $dir/tmp/log.txt    
+		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$name'"
+    		echo "$date temp_dev_read - reading sensor error 85C (resistor, or calbe problem) $name " >> $dir/tmp/log.txt    
 	    fi
         else
-	echo "$date temp_dev_read - reading sensor error (CRC OK but no result) $name " >> $dir/tmp/log.txt    
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$name'"
+	    echo "$date temp_dev_read - reading sensor error (CRC OK but no result) $name " >> $dir/tmp/log.txt    
         fi
     else 
 	echo "1-wire $name error"
