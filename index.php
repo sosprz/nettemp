@@ -67,10 +67,10 @@ $numsimple2 = count($row2);
 ?>
               <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status">Status</a></li>
               <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp">Charts </a></li>
-<?php if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { ?>
-	      <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls">Controls</a></li>
-<?php } ?>
               <?php if(isset($_SESSION["user"])) {?>
+		<?php if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { ?>
+	        <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls">Controls</a></li>
+		<?php } ?>
 	      <li<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><a href="devices">Devices</span></a></li>
 	      <li <?php echo $id == 'notification' ? ' class="active"' : ''; ?>><a href="notification">Notification</span></a></li>
 	      <li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security">Security</span></a></li>

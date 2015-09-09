@@ -1,3 +1,5 @@
+<?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
+
 <?php
 $ip = isset($_POST['ip']) ? $_POST['ip'] : '';
 $relay = isset($_POST['relay']) ? $_POST['relay'] : '';
