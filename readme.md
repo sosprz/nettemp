@@ -49,6 +49,11 @@ USERS:
 
 Changelog:
 
+8.6.13
+
+lcd fix form fireman
+fix: control view after login
+
 8.6.12
 
 add max 10 ipcam
