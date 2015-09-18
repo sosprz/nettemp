@@ -29,7 +29,7 @@ if [ "$usb" != "off" ]; then
 
     else 
         echo "error $wynik" 
-        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$name_0'"
+        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$name'"
         echo "$date temp_dev_read - reading sensor error 85C (resistor, or calbe problem) $name " >> $dir/tmp/log.txt    
     fi
 

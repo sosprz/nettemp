@@ -49,6 +49,10 @@ USERS:
 
 Changelog:
 
+8.6.14
+
+fix 1wireUSB read info bug
+
 8.6.13
 
 lcd fix form fireman
