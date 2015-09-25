@@ -10,5 +10,7 @@ if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/1h'
 	sudo sed -i '$a0 * * * * '$dir'/modules/cron/1h' /var/spool/cron/crontabs/root
 fi
 
+touch $dir/tmp/cronr
+
 
 

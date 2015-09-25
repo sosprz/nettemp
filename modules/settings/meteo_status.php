@@ -68,7 +68,7 @@ $wilgotnosc=$a['tmp'];
 
 
 <tr>
-    <td>temperatura punku rosy [°C]
+    <td>temperatura punktu rosy [°C]
     <td><?php echo 243.12*(((LOG10($wilgotnosc)-2)/0.4343)+(17.5*$temperatura)/(243.12+$temperatura))/(17.62-(((LOG10($wilgotnosc)-2)/0.4343)+(17.5*$temperatura)/(243.12+$temperatura)));?></td>
 </tr>
 

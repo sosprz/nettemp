@@ -24,6 +24,7 @@
                 
     if (($rtc_onoff == "rtc_onoff") ){
     if (!empty($rtc)) {
+	    shell_exec("sudo touch tmp/cronr");
 	    shell_exec("sudo sed -i '\$artc-ds1307' /etc/modules");
 	    shell_exec("sudo sed -i '\$aecho ds1307 0x68 > \/sys\/class\/i2c-adapter\/'$(ls /dev/i2c-* |awk -F/ '{print $3}')'\/new_device && hwclock -s' tmp/cronr");
 	    shell_exec("sudo touch tmp/reboot");

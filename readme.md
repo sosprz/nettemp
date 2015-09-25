@@ -49,6 +49,9 @@ USERS:
 
 Changelog:
 
+8.6.15
+check if cronr exist
+
 8.6.14
 
 fix 1wireUSB read info bug
