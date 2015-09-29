@@ -220,16 +220,13 @@ if (empty($mode2)) { ?>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="buzzeron" value="buzzeron" />
     </form>
-
+<?php 
+}
+?>
     <form action="" method="post" style="display:inline!important;">
         <input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
         <input type="hidden" type="submit" name="gpiodel" value="gpiodel" />
         <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
     </form>
-
-
-<?php 
-}
-?>
 
 
