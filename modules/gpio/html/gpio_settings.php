@@ -1,8 +1,17 @@
 <?php
+$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 $dir="modules/gpio/";
 $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 
-$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+$gpiodel = isset($_POST['gpiodel']) ? $_POST['gpiodel'] : '';
+    if ($gpiodel == "gpiodel")  {
+    $db->exec("DELETE FROM gpio WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db = null;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
+
 $sth2 = $db->prepare("select mode from gpio where mode='buzzer'");
 $sth2->execute();
 $result2 = $sth2->fetchAll();
@@ -47,8 +56,15 @@ $name=$a['name'];
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">GPIO <?php echo $gpio ?> - <?php echo $name ?> </h3>
-</div>
+<h3 class="panel-title">GPIO <?php echo $gpio ?> - <?php echo $name ?>
+<?php if (empty($mode)) { ?>
+<form action="" method="post" style="display:inline!important;" class="pull-right">
+        <input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
+        <input type="hidden" type="submit" name="gpiodel" value="gpiodel" />
+        <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+</form>
+<?php } ?>
+</h3></div>
 <div class="panel-body">
 <table">
 <tr>   
