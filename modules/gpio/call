@@ -1,0 +1,63 @@
+#!/usr/bin/expect
+
+set timeout -1
+set now [clock seconds]
+set DATE [clock format $now -format {%y%m%d-%H%M}]
+
+set dev [lindex $argv 0]
+
+set g1 [lindex $argv 1]
+set num1 [lindex $argv 2]
+set num2 [lindex $argv 3]
+set num3 [lindex $argv 4]
+set g2 [lindex $argv 5]
+set num4 [lindex $argv 6]
+set num5 [lindex $argv 7]
+set num6 [lindex $argv 8]
+set g3 [lindex $argv 9]
+set num7 [lindex $argv 10]
+set num8 [lindex $argv 11]
+set num9 [lindex $argv 12]
+
+
+
+proc relay {a} {
+exec /usr/local/bin/gpio -g mode $a output
+exec /usr/local/bin/gpio -g write $a 1
+exec sleep 3
+exec /usr/local/bin/gpio -g write $a 0
+send "AT+CHUP\r"
+
+}
+
+
+spawn socat -s - $dev,raw,echo=0,crlf,nonblock
+#spawn socat -s - $dev,crlf
+
+send "AT\r"
+send "AT+CLIP=1\r"
+expect  {
+    
+    -re "$num1|$num2|$num3" {
+        relay $g1
+        exec echo $DATE Allowed call from group number GPIO $g1 >> /var/www/nettemp/tmp/log.txt
+        exp_continue
+    }
+    -re "$num4|$num5|$num6" {
+        relay $g2
+        exec echo $DATE Allowed call from group number GPIO $g1 >> /var/www/nettemp/tmp/log.txt
+        exp_continue
+    }
+    -re "$num7|$num8|$num9" {
+        relay $g3
+        exec echo $DATE Allowed call from group number GPIO $g1 >> /var/www/nettemp/tmp/log.txt
+        exp_continue
+    }
+
+    "CLIP" {
+        send "AT+CHUP\r"
+        exec echo Droped $DATE >> /var/www/nettemp/tmp/log.txt
+        send_user "Other number\r"
+        exp_continue
+    }
+}

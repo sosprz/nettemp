@@ -106,10 +106,19 @@
 	exit();
     }
 
-//troggerout
+//triggerout
     $triggerout = isset($_POST['triggerout']) ? $_POST['triggerout'] : '';
     if ($triggerout == "triggerout")  {
 	$db->exec("UPDATE gpio SET mode='triggerout', status='' WHERE gpio='$gpio_post'") or die("exec error");
+	$db = null;
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
+
+//call
+    $call = isset($_POST['call']) ? $_POST['call'] : '';
+    if ($call == "on")  {
+	$db->exec("UPDATE gpio SET mode='call', status='' WHERE gpio='$gpio_post'") or die("exec error");
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
@@ -195,6 +204,11 @@ include('gpio_rev.php');
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="control" value="on" />
 	
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">On/Off on 2sec over call</button>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="call" value="on" />
     </form>
 <?php 
 if (empty($mode4)){ ?>

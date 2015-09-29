@@ -3,6 +3,7 @@
 <p>
 <a href="index.php?id=settings&type=mail" ><button class="btn <?php echo $art == 'mail' ? 'btn-info' : 'btn-default'; ?>">Mail</button></a>
 <a href="index.php?id=settings&type=sms" ><button class="btn <?php echo $art == 'sms' ? 'btn-info' : 'btn-default'; ?>">SMS</button></a>
+<a href="index.php?id=settings&type=modem" ><button class="btn <?php echo $art == 'modem' ? 'btn-info' : 'btn-default'; ?>">Modem</button></a>
 <a href="index.php?id=settings&type=gpio" ><button class="btn <?php echo $art == 'gpio' ? 'btn-info' : 'btn-default'; ?>">GPIO</button></a>
 <a href="index.php?id=settings&type=1wire" ><button class="btn <?php echo $art == '1wire' ? 'btn-info' : 'btn-default'; ?>">1wire</button></a>
 <a href="index.php?id=settings&type=i2c" ><button class="btn <?php echo $art == 'i2c' ? 'btn-info' : 'btn-default'; ?>">i2c</button></a>
@@ -23,6 +24,7 @@ case 'lcd': include('modules/settings/lcd.php'); break;
 case '1wire': include('modules/settings/1wire.php'); break;
 case 'i2c': include('modules/settings/i2c.php'); break;
 case 'meteo': include('modules/settings/meteo.php'); break;
+case 'modem': include('modules/settings/modem.php'); break;
 
 }
 ?>
