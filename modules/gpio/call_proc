@@ -5,6 +5,9 @@ date=$(date +%y%m%d-%H%M)
 
 dev=$(sqlite3 $dir/dbf/nettemp.db "SELECT dev FROM call_settings WHERE default_dev='on'")
 gpios=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio WHERE mode='call'")
+
+if [[ -n "$dev" ]] && [[ -n "$gpios" ]]; then
+
 array=()
 c=$(wc -w <<< "$gpios")
 if [[ "$c" = "1" ]]; then 
@@ -42,4 +45,4 @@ done
 #echo ${array[@]}
 $dir/modules/gpio/call $dev ${array[@]}
 
-
+fi
