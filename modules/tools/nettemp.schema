@@ -1,3 +1,4 @@
+CREATE TABLE access_time (id INTEGER PRIMARY KEY, name UNIQUE, Mon TEXT, Tue TEXT, Wed TEXT, Thu TEXT, Fri TEXT, Sat TEXT, Sun TEXT, stime TEXT, etime TEXT);
 CREATE TABLE call_settings (id INTEGER PRIMARY KEY, name TEXT, dev TEXT, default_dev TEXT);
 CREATE TABLE camera ( 
     id INTEGER PRIMARY KEY, 
