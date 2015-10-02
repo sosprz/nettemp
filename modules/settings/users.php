@@ -209,7 +209,7 @@ foreach ($result as $a) {
 	<?php 
 	    } 
 	?>
-	<option <?php echo $a['at'] == OFF ? 'selected="selected"' : ''; ?> value="OFF">OFF</option>
+	<option <?php echo $a['at'] == any ? 'selected="selected"' : ''; ?> value="any">OFF</option>
 	</select>
 	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="up_at" value="up_at" />
