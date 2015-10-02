@@ -1,0 +1,19 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+set dev [lindex $argv 0]
+
+spawn socat -s - $dev,raw,echo=0,crlf,nonblock
+
+send "AT\r"
+send "AT+CLIP=1\r"
+
+
+expect {
+    -re {"([^"])*"} {
+    set string $expect_out(0,string)
+    send "AT+CHUP\r"
+    exec /var/www/nettemp/modules/call/check $string
+    exp_continue
+    }
+}

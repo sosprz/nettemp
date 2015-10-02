@@ -1,0 +1,9 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=$(date +%y%m%d-%H%M)
+
+dev=$(sqlite3 $dir/dbf/nettemp.db "SELECT dev FROM call_settings WHERE default_dev='on'")
+
+$dir/modules/call/call $dev
+
