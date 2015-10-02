@@ -67,10 +67,11 @@ $numsimple2 = count($row2);
 ?>
               <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status">Status</a></li>
               <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp">Charts </a></li>
-              <?php if(isset($_SESSION["user"])) {?>
+              
 		<?php if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { ?>
 	        <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls">Controls</a></li>
-		<?php } ?>
+	<?php } ?>
+		<?php if(($_SESSION["perms"] == 'adm') && (isset($_SESSION["user"])))  {?>
 	      <li<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><a href="devices">Devices</span></a></li>
 	      <li <?php echo $id == 'notification' ? ' class="active"' : ''; ?>><a href="notification">Notification</span></a></li>
 	      <li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security">Security</span></a></li>
@@ -78,8 +79,6 @@ $numsimple2 = count($row2);
 	      <li <?php echo $id == 'tools' ? ' class="active"' : ''; ?>><a href="tools">Tools</span></a></li>
 		<?php } ?>
 		<li <?php echo $id == 'info' ? ' class="active"' : ''; ?>><a href="info">Info</a></li>
-
-
             </ul>
 
     <?php if(!isset($_SESSION["user"])) {?>
@@ -96,6 +95,7 @@ $numsimple2 = count($row2);
     <?php } ?>
     <?php if(isset($_SESSION["user"])) {?>
 	<form action="" method="post" class="navbar-form navbar-right" >
+	    <?php echo $_SESSION["user"];?>
 	    <a href="logout"><button type="button" class="btn-xs btn-success">Log Out</button></a>
 	</form>        
     <?php } ?>

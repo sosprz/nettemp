@@ -6,5 +6,5 @@ $dir/modules/tools/restart
 $dir/modules/kwh/reset
 $dir/tmp/cronr
 nohup $dir/modules/lcd/lcd &
-nohup $dir/modules/gpio/call_proc &
+nohup $dir/modules/call/call_proc &
 

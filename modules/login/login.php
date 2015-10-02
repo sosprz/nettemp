@@ -9,11 +9,13 @@ if ($form_login == "log") { /// do after login form is submitted
 	$row = $rows->fetchAll();
 	foreach($row as $a) {
 	    $user=$a['login'];
+	    $perms=$a['perms'];
 	}
 	//print_r($row);
 	$numRows = count($row);
      if ($numRows == 1) {
 	$_SESSION["user"] = $user;
+	$_SESSION["perms"] = $perms;
 	} else {
 	    $message = "Invalid Username or Password!";
 	}

@@ -73,7 +73,7 @@ $notif_del = isset($_POST['notif_del']) ? $_POST['notif_del'] : '';
 	<input type="hidden" name="notif_add1" value="notif_add2" />
 	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	</form>
-</tr>
+</tr> 
 <?php
 
 $db = new PDO('sqlite:dbf/nettemp.db');
@@ -101,11 +101,11 @@ foreach ($result as $a) {
 	</form>
 	</td>
 	<td>
-    	<form action="" method="post"> 	
+    	 <form action="" method="post"> 	
 	    <input type="hidden" name="notif_del" value="<?php echo $a["id"]; ?>" />
 	    <input type="hidden" type="submit" name="notif_del1" value="notif_del2" />
 	    <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
-	</form>
+	</form> 
 	</td>
 	</tr>
 <?php }

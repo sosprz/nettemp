@@ -205,12 +205,15 @@ include('gpio_rev.php');
 	<input type="hidden" name="control" value="on" />
 	
     </form>
+<?php
+//if (empty($mode5)){ ?>
     <form action="" method="post" style="display:inline!important;">
 	<button type="submit" class="btn btn-xs btn-primary">On/Off on 2sec over call</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="call" value="on" />
     </form>
 <?php 
+//}
 if (empty($mode4)){ ?>
     <form action="" method="post" style="display:inline!important;">
 	<button type="submit" class="btn btn-xs btn-primary">LED</button>

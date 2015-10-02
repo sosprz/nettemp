@@ -23,6 +23,7 @@ sqlite3 $dir/dbf/nettemp.db "INSERT INTO device (usb, onewire, serial, i2c, lmse
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO settings (mail, sms, rrd, highcharts, fw, vpn, gpio, authmod ) VALUES ('off','off', 'off', 'on', 'off', 'off', 'on', 'on' )"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO fw (ssh, icmp, ext, openvpn ) VALUES ('off','off', '0.0.0.0/0', 'off' )"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user, auth, tls, tlscheck ) VALUES ('smtp.gmail.com', '587', 'yourmail@gmail.com', 'on', 'on', 'off' )"
+sqlite3 $dir/dbf/nettemp.db "INSERT INTO access_time (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime) VALUES  ('any', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', '00:00', '23:59')"
 
 
 

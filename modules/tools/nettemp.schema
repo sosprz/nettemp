@@ -149,7 +149,7 @@ CREATE TABLE settings (
    kwh TEXT,
    lcd TEXT,
    authmod TEXT
-  , radius type TEXT, lcdmode type TEXT, lcd4 type TEXT);
+  , radius type TEXT, lcdmode type TEXT, lcd4 type TEXT, call type TEXT);
 CREATE TABLE sms_settings (
   id INTEGER PRIMARY KEY,
   name TEXT,
@@ -162,8 +162,9 @@ CREATE TABLE users (
   id INTEGER PRIMARY KEY,
   login UNIQUE, 
   password TEXT, 
-  perms TEXT
-  );
+  perms TEXT, 
+  tel UNIQUE, 
+  mail UNIQUE, smsa type TEXT, maila type TEXT, adm type TEXT, ctr type TEXT, simple type TEXT, trigger type TEXT, moment type TEXT, cam type TEXT, at type TEXT);
 CREATE TABLE vpn ( 
     id INTEGER PRIMARY KEY, 
     users UNIQUE 

@@ -43,6 +43,13 @@ foreach ( $result6 as $ab) {
 $mode4=$ab['gpio'];
 }
 
+$sth7 = $db->prepare("select gpio from gpio where mode='call'");
+$sth7->execute();
+$result7 = $sth7->fetchAll();
+foreach ( $result7 as $ab) {
+$mode5=$ab['gpio'];
+}
+
 
 //main loop
 $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");

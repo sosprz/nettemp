@@ -1,4 +1,9 @@
 <?php
+
+$user = isset($_SESSION["user"]) ? $_SESSION["user"] : '';
+$perms = isset($_SESSION["perms"]) ? $_SESSION["perms"] : '';
+
+
 $dir="modules/gpio/";
 $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
@@ -46,19 +51,32 @@ if ($triggeronoff == "onoff")  {
     exit();
 }
 
-if ($trigger == "on")  {
-    
-    $db = null;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
+
+if( $perms == 'usr' ) {
+    $row = $db->prepare("SELECT * FROM users where login='$user'") or exit(header("Location: html/errors/db_error.php"));
+    $row->execute();
+    $result = $row->fetchAll();
+    foreach ( $result as $u) {
+	$call=$u['ctr'];
+	$simple=$u['simple'];
+	$trigger=$u['trigger'];
+	$moment=$u['moment'];
+	
+    }
+$simple = $db->prepare("select * from gpio where mode='simple' and gpio='$simple'") or exit(header("Location: html/errors/db_error.php"));
+$call = $db->prepare("select * from gpio where mode='call' and gpio='$call'") or exit(header("Location: html/errors/db_error.php"));
+$trigger = $db->prepare("select * from gpio where mode='trigger' and gpio='$trigger'") or exit(header("Location: html/errors/db_error.php"));
+$moment = $db->prepare("select * from gpio where mode='moment' and gpio='$moment'") or exit(header("Location: html/errors/db_error.php"));
 }
-
-
-
-
-$sth2 = $db->prepare("select * from gpio where mode='simple'") or exit(header("Location: html/errors/db_error.php"));
-$sth2->execute();
-$result2 = $sth2->fetchAll();
+else {
+$simple = $db->prepare("select * from gpio where mode='simple'") or exit(header("Location: html/errors/db_error.php"));
+$call = $db->prepare("select * from gpio where mode='call'") or exit(header("Location: html/errors/db_error.php"));
+$trigger = $db->prepare("select * from gpio where mode='trigger'") or exit(header("Location: html/errors/db_error.php"));
+$moment = $db->prepare("select * from gpio where mode='moment'") or exit(header("Location: html/errors/db_error.php"));
+}
+    
+$simple->execute();
+$result2 = $simple->fetchAll();
 foreach ( $result2 as $a) {
 ?>
 
@@ -77,9 +95,9 @@ foreach ( $result2 as $a) {
 <?php 
 }
 
-$sth2 = $db->prepare("select * from gpio where mode='moment'");
-$sth2->execute();
-$result2 = $sth2->fetchAll();
+
+$moment->execute();
+$result2 = $moment->fetchAll();
 foreach ( $result2 as $a) {
 ?>
 <div class="panel panel-default">
@@ -98,9 +116,9 @@ foreach ( $result2 as $a) {
 <?php 
 }
 
-$sth2 = $db->prepare("select * from gpio where mode='trigger'");
-$sth2->execute();
-$result2 = $sth2->fetchAll();
+
+$trigger->execute();
+$result2 = $trigger->fetchAll();
 foreach ( $result2 as $a) {
 ?>
 <div class="panel panel-default">
@@ -113,6 +131,27 @@ foreach ( $result2 as $a) {
     <td><input type="checkbox" data-toggle="toggle" name="trigger" value="on" <?php echo $a['trigger_run'] == 'on' ? 'checked="checked"' : ''; ?>  onchange="this.form.submit()" /><td>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="triggeronoff" value="onoff" />
+</form>
+
+</div></div>
+<?php 
+}
+
+
+$call->execute();
+$result2 = $call->fetchAll();
+foreach ( $result2 as $a) {
+?>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title"><?php echo $a['name']; ?></h3>
+</div>
+<div class="panel-body">
+
+<form action="" method="post">
+    <td><input data-onstyle="warning" type="checkbox" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" name="simple"  title="Turn on wait 1s and off"   onclick="this.form.submit()" /><td>
+    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="bi" value="bi" />
 </form>
 
 </div></div>
