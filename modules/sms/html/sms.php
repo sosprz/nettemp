@@ -1,5 +1,4 @@
 <hr>
-	<?php include('sms_scan.php'); ?>
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("SELECT default_dev FROM sms_settings WHERE default_dev='on' ");

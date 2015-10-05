@@ -4,6 +4,7 @@ $pass=sha1(isset($_POST['pass']) ? $_POST['pass'] : '');
 $mail = isset($_POST['mail']) ? $_POST['mail'] : '';
 $tel = isset($_POST['tel']) ? $_POST['tel'] : '';
 $smspin = isset($_POST['smspin']) ? $_POST['smspin'] : '';
+$smsts = isset($_POST['smsts']) ? $_POST['smsts'] : '';
 $maila = isset($_POST['maila']) ? $_POST['maila'] : '';
 $smsa = isset($_POST['smsa']) ? $_POST['smsa'] : '';
 $perms = isset($_POST['perms']) ? $_POST['perms'] : '';
@@ -21,7 +22,7 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	if ( $perms != 'adm' ) { $perms = 'usr'; }
 	if (!empty($login)  && !empty($mail) && !empty($tel) && ($_POST['add1'] == "add2") ){
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT OR IGNORE INTO users (login, password, mail, tel, smsa, maila, perms, ctr, simple, moment, trigger, at, smspin ) VALUES ('$login', '$pass', '$mail', '$tel', '$maila', '$smsa', '$perms', 'OFF', 'OFF', 'OFF', 'OFF', 'any', '$smspin')") or die ($db->lastErrorMsg());
+	$db->exec("INSERT OR IGNORE INTO users (login, password, mail, tel, smsa, maila, perms, ctr, simple, moment, trigger, at, smspin, smsts ) VALUES ('$login', '$pass', '$mail', '$tel', '$maila', '$smsa', '$perms', 'OFF', 'OFF', 'OFF', 'OFF', 'any', '$smspin', '$smsts')") or die ($db->lastErrorMsg());
 	
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
@@ -55,6 +56,15 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	if ($up_sms == 'up_sms'){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE users SET smsa='$update_smsa' WHERE id='$id'") or die ($db->lastErrorMsg());
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+	 }
+    
+	$update_smsts = isset($_POST['update_smsts']) ? $_POST['update_smsts'] : '';
+	$up_smsts = isset($_POST['up_smsts']) ? $_POST['up_smsts'] : '';
+	if ($up_smsts == 'up_smsts'){
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db->exec("UPDATE users SET smsts='$update_smsts' WHERE id='$id'") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	 }
@@ -131,6 +141,7 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 <th><img src="media/ico/phone-blue-glow-icon.png"></th>
 <th>Admin</th>
 <th>IP Cam access</th>
+<th>SMS to script</th>
 <th>Access time</th>
 <th>Call to relay</th>
 <th>Simple</th>
@@ -150,11 +161,13 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	<td><input type="checkbox" name="smsa" value="yes" /></td>
 	<td><input type="checkbox" name="perms" value="yes" /></td>    
 	<td><input type="checkbox" name="cam" value="yes" /></td>
+	<td><input type="checkbox" name="smsts" value="yes" /></td>
 	<td></td>        
 	<td></td>
 	<td></td>
 	<td></td>
 	<td></td>
+
 	<input type="hidden" name="add1" value="add2" />
 	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	</form>
@@ -202,6 +215,15 @@ foreach ($result as $a) {
 	<input type="hidden" name="up_cam" value="up_cam" />
 	</form>
 	</td>
+
+	<td>
+	<form action="" method="post">
+	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
+	<input data-toggle="toggle"  data-size="mini" onchange="this.form.submit()" type="checkbox" name="update_smsts" value="yes" <?php echo $a["smsts"] == 'yes' ? 'checked="checked"' : ''; ?> />
+	<input type="hidden" name="up_smsts" value="up_smsts" />
+	</form>
+	</td>
+
 	<td>
 	<form action="" method="post"> 
 	<select name="update_at" class="form-control input-sm" onchange="this.form.submit()">
@@ -291,8 +313,6 @@ foreach ($result as $a) {
 	<input type="hidden" name="up_trigger" value="up_trigger" />
 	</form>
 	</td>
-
-
 
 	<td>
     	<form action="" method="post"> 	
