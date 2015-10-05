@@ -21,6 +21,8 @@ $lcd4=$c['lcd4'];
 <thead>
 <tr>
 <th>Name</th>
+<th>Value</th>
+<th>Adjust</th>
 <th>id</th>
 <th>Size</th>
 <th>Status</th>
@@ -44,6 +46,18 @@ $lcd4=$c['lcd4'];
 	<input type="hidden" name="id_name2" value="id_name3"/>
     </form>
     </td>
+    <td class="col-md-1">
+	<?php echo  $a["tmp"]+$a["adj"] ;?>
+    </td>
+    <td class="col-md-2">
+    <form action="" method="post" style="display:inline!important;">
+	<input type="text" name="adj" size="4" maxlength="30" value="<?php echo $a["adj"]; ?>" />
+	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
+	<input type="hidden" name="adj1" value="adj2"/>
+    </form>
+    </td>
+
     <td class="col-md-1">
 	<?php echo  $a["rom"] ;?>
     </td>
@@ -75,7 +89,7 @@ if ( $lcd == 'on' || $lcd4 == 'on' ) {
 <?php
 }
 ?>
-    <td class="col-md-6">
+    <td class="col-md-1">
     <form action="" method="post" style="display:inline!important;">
 	<input type="hidden" name="usun_czujniki" value="<?php echo $a["rom"]; ?>" />
 	<input type="hidden" name="usun2" value="usun3" />
