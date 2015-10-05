@@ -3,6 +3,7 @@ $login = isset($_POST['login']) ? $_POST['login'] : '';
 $pass=sha1(isset($_POST['pass']) ? $_POST['pass'] : '');
 $mail = isset($_POST['mail']) ? $_POST['mail'] : '';
 $tel = isset($_POST['tel']) ? $_POST['tel'] : '';
+$smspin = isset($_POST['smspin']) ? $_POST['smspin'] : '';
 $maila = isset($_POST['maila']) ? $_POST['maila'] : '';
 $smsa = isset($_POST['smsa']) ? $_POST['smsa'] : '';
 $perms = isset($_POST['perms']) ? $_POST['perms'] : '';
@@ -20,7 +21,7 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	if ( $perms != 'adm' ) { $perms = 'usr'; }
 	if (!empty($login)  && !empty($mail) && !empty($tel) && ($_POST['add1'] == "add2") ){
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT OR IGNORE INTO users (login, password, mail, tel, smsa, maila, perms, ctr, simple, moment, trigger, at ) VALUES ('$login', '$pass', '$mail', '$tel', '$maila', '$smsa', '$perms', 'OFF', 'OFF', 'OFF', 'OFF', 'any')") or die ($db->lastErrorMsg());
+	$db->exec("INSERT OR IGNORE INTO users (login, password, mail, tel, smsa, maila, perms, ctr, simple, moment, trigger, at, smspin ) VALUES ('$login', '$pass', '$mail', '$tel', '$maila', '$smsa', '$perms', 'OFF', 'OFF', 'OFF', 'OFF', 'any', '$smspin')") or die ($db->lastErrorMsg());
 	
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
@@ -125,6 +126,7 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 <th>Password</th>
 <th>Mail</th>
 <th>Telephone</th>
+<th>SMS pin</th>
 <th><img src="media/ico/message-icon.png"></th>
 <th><img src="media/ico/phone-blue-glow-icon.png"></th>
 <th>Admin</th>
@@ -140,9 +142,10 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
     <tr>	
 	<form action="" method="post">
 	<td><input type="text" name="login" value="" class="form-control" required=""/></td>
-	<td><input type="text" name="pass" value="" class="form-control" required=""/></td>
-	<td><input type="text" name="mail" value="" class="form-control" required=""/></td>
+	<td><input type="password" name="pass" value="" class="form-control" required=""/></td>
+	<td><input type="email" name="mail" value="" class="form-control" required=""/></td>
 	<td><input type="text" name="tel" value="" class="form-control" required=""/></td>
+	<td><input type="text" name="smspin" value="" class="form-control" required=""/></td>
 	<td><input type="checkbox" name="maila" value="yes" /></td>
 	<td><input type="checkbox" name="smsa" value="yes" /></td>
 	<td><input type="checkbox" name="perms" value="yes" /></td>    
@@ -169,6 +172,7 @@ foreach ($result as $a) {
 	<td></td>
 	<td><?php echo $a["mail"];?></td>
 	<td><?php echo $a["tel"]; ?></td>
+	<td><?php echo $a["smspin"]; ?></td>
 	<td>
 	<form action="" method="post">
 	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />

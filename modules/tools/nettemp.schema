@@ -136,7 +136,7 @@ CREATE TABLE sensors (
   ip type TEXT, 
   device type TEXT,
   lcd type TEXT,
-  method type TEXT, tmp_5ago type TEXT);
+  method type TEXT, tmp_5ago type TEXT, adj type TEXT);
 CREATE TABLE settings (
    id INTEGER PRIMARY KEY,
    mail TEXT,
@@ -165,7 +165,7 @@ CREATE TABLE users (
   password TEXT, 
   perms TEXT, 
   tel UNIQUE, 
-  mail UNIQUE, smsa type TEXT, maila type TEXT, adm type TEXT, ctr type TEXT, simple type TEXT, trigger type TEXT, moment type TEXT, cam type TEXT, at type TEXT);
+  mail UNIQUE, smsa type TEXT, maila type TEXT, adm type TEXT, ctr type TEXT, simple type TEXT, trigger type TEXT, moment type TEXT, cam type TEXT, at type TEXT, smspin type TEXT);
 CREATE TABLE vpn ( 
     id INTEGER PRIMARY KEY, 
     users UNIQUE 

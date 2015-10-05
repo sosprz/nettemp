@@ -21,9 +21,9 @@ if [[ "$day" == "$date1" && "$date2" > "$stime" && "$date2" < "$etime" ]]; then
     /usr/local/bin/gpio -g write $gpio 1
     sleep 2
     /usr/local/bin/gpio -g write $gpio 0
-    echo "${DATE} Allow $number" >> ${LOG}
+    echo "${DATE} Call Allow $number" >> ${LOG}
 else 
-    echo "${DATE} Time access deny $number" >> ${LOG}
+    echo "${DATE} Call Deny $number" >> ${LOG}
 fi
 
 exit 0
