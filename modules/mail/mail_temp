@@ -11,7 +11,6 @@ if [ "$onoff" == "on" ]; then
 dirs=$dir/tmp/mail
 mkdir -p $dirs/hour
 date2=`date +%Y%m%d-%H:%M`
-get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }'`
 user=`sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
 
 function file {

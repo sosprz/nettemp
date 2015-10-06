@@ -4,7 +4,7 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=$(date +%y%m%d-%H%M)
 dirs=$dir/tmp/mail
 
-get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }'`
+get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM users WHERE maila='yes'" | awk '{ printf " "$1 }'`
 host=`sqlite3 $dir/dbf/nettemp.db "SELECT host FROM mail_settings"`
 port=`sqlite3 $dir/dbf/nettemp.db "SELECT port FROM mail_settings"`
 user=`sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`

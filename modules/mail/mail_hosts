@@ -8,7 +8,7 @@ dirs=$dir/tmp/mail
 mkdir -p $dirs/hour
 dirs2=$dirs/hour
 date2=`date +%Y%m%d-%H:%M`
-get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }'`
+get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM users WHERE maila='yes'" | awk '{ printf " "$1 }'`
 user=`sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
 
 function file {
