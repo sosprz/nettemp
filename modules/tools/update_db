@@ -125,9 +125,8 @@ sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO meteo (id, temp, latitude, he
 sqlite3 $dir/dbf/nettemp.db  "ALTER TABLE meteo ADD COLUMN onoff TEXT";
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE call_settings (id INTEGER PRIMARY KEY, name TEXT, dev TEXT, default_dev TEXT);"
-sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD tel_num1 type TEXT";
-sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD tel_num2 type TEXT";
-sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD tel_num3 type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD tel_any type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD tel_at type TEXT";
 
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE users ADD tel type UNIQUE";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE users ADD mail type UNIQUE";
