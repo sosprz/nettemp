@@ -33,10 +33,11 @@ else
 	/usr/local/bin/gpio -g mode $tel_any output
 	/usr/local/bin/gpio -g write $tel_any 1
 	sleep 2
-	/usr/local/bin/gpio -g write $tal_any 0
+	/usr/local/bin/gpio -g write $tel_any 0
 	echo "${DATE} Call Allow $number - Any rule" >> ${LOG}    
     else
         echo "${DATE} Call Deny $number" >> ${LOG}
+    fi
 fi
 
 
