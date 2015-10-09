@@ -58,8 +58,8 @@ $link=$a['link'];
 ?>
     
 	<tr>
-	<td><img type="image" src="media/ico/Security-Camera-icon.png" /></td>
-	<td><?php echo $a["name"];?></td>
+	<td><img type="image" src="media/ico/Security-Camera-icon.png" />
+	<?php echo $a["name"];?></td>
 	<td><?php echo $a["link"];?></td>
 	<form action="" method="post">
 	    

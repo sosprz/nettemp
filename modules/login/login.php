@@ -10,12 +10,14 @@ if ($form_login == "log") { /// do after login form is submitted
 	foreach($row as $a) {
 	    $user=$a['login'];
 	    $perms=$a['perms'];
+	    $accesscam=$a['cam'];
 	}
 	//print_r($row);
 	$numRows = count($row);
      if ($numRows == 1) {
 	$_SESSION["user"] = $user;
 	$_SESSION["perms"] = $perms;
+	$_SESSION["accesscam"] = $accesscam;
 	} else {
 	    $message = "Invalid Username or Password!";
 	}

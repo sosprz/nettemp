@@ -30,7 +30,7 @@ var msnry = new Masonry( container, {
 ?></div>
     <div class="item"><?php include('modules/ipcam/cam1.php'); ?></div>
     <div class="item"><?php include('modules/ipcam/cam2.php'); ?></div>
-    <div class="item"><?php include('modules/ipcam/cam3.php'); ?></div>    
+    <div class="item"><?php include('modules/ipcam/cam3.php'); ?></div>
     <div class="item"><?php include('modules/ipcam/cam4.php'); ?></div>
     <div class="item"><?php include('modules/ipcam/cam5.php'); ?></div>
     <div class="item"><?php include('modules/ipcam/cam6.php'); ?></div>

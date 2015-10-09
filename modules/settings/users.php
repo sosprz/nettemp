@@ -59,6 +59,16 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	 }
+
+	$update_cam = isset($_POST['update_cam']) ? $_POST['update_cam'] : '';
+	$up_cam = isset($_POST['up_cam']) ? $_POST['up_cam'] : '';
+	if ($up_cam == 'up_cam'){
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db->exec("UPDATE users SET cam='$update_cam' WHERE id='$id'") or die ($db->lastErrorMsg());
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+	 }
+
     
 	$update_smsts = isset($_POST['update_smsts']) ? $_POST['update_smsts'] : '';
 	$up_smsts = isset($_POST['up_smsts']) ? $_POST['up_smsts'] : '';
@@ -160,7 +170,7 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	<td><input type="checkbox" name="maila" value="yes" /></td>
 	<td><input type="checkbox" name="smsa" value="yes" /></td>
 	<td><input type="checkbox" name="perms" value="yes" /></td>    
-	<td><input type="checkbox" name="cam" value="yes" /></td>
+	<td><input type="checkbox" name="cama" value="yes" /></td>
 	<td><input type="checkbox" name="smsts" value="yes" /></td>
 	<td></td>        
 	<td></td>
@@ -211,7 +221,7 @@ foreach ($result as $a) {
 	<td>
 	<form action="" method="post">
 	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
-	<input data-toggle="toggle"  data-size="mini" onchange="this.form.submit()" type="checkbox" name="update_cam" value="yes" <?php echo $a["cama"] == 'yes' ? 'checked="checked"' : ''; ?> />
+	<input data-toggle="toggle"  data-size="mini" onchange="this.form.submit()" type="checkbox" name="update_cam" value="yes" <?php echo $a["cam"] == 'yes' ? 'checked="checked"' : ''; ?> />
 	<input type="hidden" name="up_cam" value="up_cam" />
 	</form>
 	</td>
