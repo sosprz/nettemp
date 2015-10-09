@@ -13,12 +13,14 @@
 <a href="index.php?id=settings&type=snmpd" ><button class="btn <?php echo $art == 'snmpd' ? 'btn-info' : 'btn-default'; ?>">SNMPD</button></a>
 <a href="index.php?id=settings&type=lcd" ><button class="btn <?php echo $art == 'lcd' ? 'btn-info' : 'btn-default'; ?>">LCD</button></a>
 <a href="index.php?id=settings&type=meteo" ><button class="btn <?php echo $art == 'meteo' ? 'btn-info' : 'btn-default'; ?>">Meteo</button></a>
+<a href="index.php?id=settings&type=smsscript" ><button class="btn <?php echo $art == 'smsscript' ? 'btn-info' : 'btn-default'; ?>">SMS script</button></a>
 </p>
 <?php  
 switch ($art)
 { 
 default: case '$mail': include('modules/settings/mail.php'); break;
 case 'sms': include('modules/settings/sms.php'); break;
+case 'smsscript': include('modules/settings/sms_script.php'); break;
 case 'accesstime': include('modules/settings/accesstime.php'); break;
 case 'gpio': include('modules/settings/gpio.php'); break;
 case 'time': include('modules/settings/time.php'); break;
