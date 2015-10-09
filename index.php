@@ -73,7 +73,6 @@ $numsimple2 = count($row2);
 	<?php } ?>
 		<?php if(($_SESSION["perms"] == 'adm') && (isset($_SESSION["user"])))  {?>
 	      <li<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><a href="devices">Devices</span></a></li>
-	      <li <?php echo $id == 'notification' ? ' class="active"' : ''; ?>><a href="notification">Notification</span></a></li>
 	      <li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security">Security</span></a></li>
 	      <li <?php echo $id == 'settings' ? ' class="active"' : ''; ?>><a href="settings">Settings</span></a></li>
 	      <li <?php echo $id == 'tools' ? ' class="active"' : ''; ?>><a href="tools">Tools</span></a></li>
@@ -118,7 +117,6 @@ switch ($id)
 default: case '$id': include('modules/status/html/status.php'); break;
 case 'view': include('modules/view/html/view.php'); break;
 case 'devices': include('modules/devices/html/devices.php'); break;
-case 'notification': include('modules/notification/html/notification.php'); break;
 case 'security': include('modules/security/html/security.php'); break;
 case 'settings': include('modules/settings/settings.php'); break;
 case 'tools': include('modules/tools/html/tools.php'); break;

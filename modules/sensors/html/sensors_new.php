@@ -44,6 +44,7 @@
 
 
 
+
 <div class="panel panel-danger">
 <div class="panel-heading">Not detected</div>
 
@@ -83,7 +84,7 @@
 	}
 	    }	//if (empty($del_empty_array)) { echo "<span class=\"brak\"><img src=\"media/ico/Sign-Stop-icon.png\" /></span>"; }  
 	    
-	    ?>
+?>
 </table>
 </div>
-</div>
+

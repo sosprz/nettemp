@@ -1,5 +1,7 @@
 <?php
 
+include('gpio_access_time.php');
+
 $user = isset($_SESSION["user"]) ? $_SESSION["user"] : '';
 $perms = isset($_SESSION["perms"]) ? $_SESSION["perms"] : '';
 
@@ -52,7 +54,7 @@ if ($triggeronoff == "onoff")  {
 }
 
 
-if( $perms == 'usr' ) {
+if( $perms == 'usr' && $accesstime == 'yes') {
     $row = $db->prepare("SELECT * FROM users where login='$user'") or exit(header("Location: html/errors/db_error.php"));
     $row->execute();
     $result = $row->fetchAll();
@@ -68,7 +70,7 @@ $call = $db->prepare("select * from gpio where mode='call' and gpio='$call'") or
 $trigger = $db->prepare("select * from gpio where mode='trigger' and gpio='$trigger'") or exit(header("Location: html/errors/db_error.php"));
 $moment = $db->prepare("select * from gpio where mode='moment' and gpio='$moment'") or exit(header("Location: html/errors/db_error.php"));
 }
-else {
+elseif ($perms == 'adm' && $accesstime == 'yes') {
 $simple = $db->prepare("select * from gpio where mode='simple'") or exit(header("Location: html/errors/db_error.php"));
 $call = $db->prepare("select * from gpio where mode='call'") or exit(header("Location: html/errors/db_error.php"));
 $trigger = $db->prepare("select * from gpio where mode='trigger'") or exit(header("Location: html/errors/db_error.php"));

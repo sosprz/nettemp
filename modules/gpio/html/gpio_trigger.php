@@ -1,6 +1,16 @@
 <?php
-$triggerexit = isset($_POST['triggerexit']) ? $_POST['triggerexit'] : '';
+$triggernotice_checkbox = isset($_POST['triggernotice_checkbox']) ? $_POST['triggernotice_checkbox'] : '';
+$xtriggernoticeon = isset($_POST['xtriggernoticeon']) ? $_POST['xtriggernoticeon'] : '';
+if ($xtriggernoticeon == "xtriggernoticeON")  {
+    $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET trigger_notice='$triggernotice_checkbox' WHERE gpio='$gpio_post'") or die("exec error");
+    $db = NULL;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+}
 
+
+$triggerexit = isset($_POST['triggerexit']) ? $_POST['triggerexit'] : '';
 if (($triggerexit == "triggerexit") ){
     $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or exit(header("Location: html/errors/db_error.php"));
      $db = null;
@@ -107,17 +117,24 @@ else
     <input type="hidden" name="cononoff" value="onoff" />
 </form>
 
+<form method="post" type="submit" style=" display:inline!important;">
+    <button type="submit" name="triggernotice_checkbox"  <?php echo $a['trigger_notice'] == 'on' ? 'class="btn btn-xs btn-danger" value=""' : 'class="btn btn-xs btn-primary" value="on"'; ?> onchange="this.form.submit()" >Send mail</button>
+    <!-- <input type="checkbox" name="triggernotice_checkbox" value="on" <?php echo $a["trigger_notice"] == 'on' ? 'checked="checked"' : ''; ?> data-toggle="toggle" data-size="mini" onchange="this.form.submit()" /></div> -->
+    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="xtriggernoticeon" value="xtriggernoticeON" />
+</form>
 
-    <form action="" method="post" style=" display:inline!important;">
+<form action="" method="post" style=" display:inline!important;">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<button type="submit" class="btn btn-xs btn-primary">ON</button>
 	<input type="hidden" name="triggerrun" value="on" />
-    </form>
-    <form action="" method="post" style=" display:inline!important;">
+</form>
+
+<form action="" method="post" style=" display:inline!important;">
 	<button type="submit" class="btn btn-xs btn-danger">Exit</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="triggerexit" value="triggerexit" />
-    </form>
+</form>
 
 <?php
 }
