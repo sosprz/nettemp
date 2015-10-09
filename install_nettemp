@@ -183,7 +183,7 @@ function packages {
 echo -e "[ ${GREEN}ok${R} ] Installing packages. Please wait.."
 {
 package="lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat \
-    sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables rcconf arp-scan snmpd httping fping make gcc lynx expect socat mgetty"
+    sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables rcconf arp-scan snmpd httping fping make gcc lynx expect socat"
     apt-get -y install $package
 } &> /dev/null
 }
@@ -204,6 +204,16 @@ if [ $exitstatus = 1 ]; then
     exit 1
 fi
 
+function smstools {
+    echo -e "[ ${GREEN}ok${R} ] Installing SMStools. Please wait.."
+    {
+    chmod +x $dir/install/smstools
+    $dir/install/smstools
+    } &> /dev/null
+}
+
+
+
 }
 
 
@@ -211,6 +221,7 @@ start
 fexit checkifrpi
 fexit update
 fexit packages
+fexit smstools
 fexit check-other-www-servers
 fexit www-server
 fexit database
