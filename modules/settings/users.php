@@ -137,8 +137,8 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 <th>Mail</th>
 <th>Telephone</th>
 <th>SMS pin</th>
-<th><img src="media/ico/message-icon.png"></th>
-<th><img src="media/ico/phone-blue-glow-icon.png"></th>
+<th>Receive Mail</th>
+<th>Receive SMS</th>
 <th>Admin</th>
 <th>IP Cam access</th>
 <th>SMS to script</th>

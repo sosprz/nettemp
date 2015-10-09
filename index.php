@@ -78,6 +78,7 @@ $numsimple2 = count($row2);
 	      <li <?php echo $id == 'tools' ? ' class="active"' : ''; ?>><a href="tools">Tools</span></a></li>
 		<?php } ?>
 		<li <?php echo $id == 'info' ? ' class="active"' : ''; ?>><a href="info">Info</a></li>
+		<li> <?php include('modules/settings/access_time_check.php'); ?></li>
             </ul>
 
     <?php if(!isset($_SESSION["user"])) {?>

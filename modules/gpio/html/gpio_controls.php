@@ -69,16 +69,32 @@ $simple = $db->prepare("select * from gpio where mode='simple' and gpio='$simple
 $call = $db->prepare("select * from gpio where mode='call' and gpio='$call'") or exit(header("Location: html/errors/db_error.php"));
 $trigger = $db->prepare("select * from gpio where mode='trigger' and gpio='$trigger'") or exit(header("Location: html/errors/db_error.php"));
 $moment = $db->prepare("select * from gpio where mode='moment' and gpio='$moment'") or exit(header("Location: html/errors/db_error.php"));
+$simple->execute();
+$result2 = $simple->fetchAll();
+$moment->execute();
+$result2 = $moment->fetchAll();
+$trigger->execute();
+$result2 = $trigger->fetchAll();
+$call->execute();
+$result2 = $call->fetchAll();
+
 }
 elseif ($perms == 'adm' && $accesstime == 'yes') {
 $simple = $db->prepare("select * from gpio where mode='simple'") or exit(header("Location: html/errors/db_error.php"));
 $call = $db->prepare("select * from gpio where mode='call'") or exit(header("Location: html/errors/db_error.php"));
 $trigger = $db->prepare("select * from gpio where mode='trigger'") or exit(header("Location: html/errors/db_error.php"));
 $moment = $db->prepare("select * from gpio where mode='moment'") or exit(header("Location: html/errors/db_error.php"));
-}
-    
 $simple->execute();
 $result2 = $simple->fetchAll();
+$moment->execute();
+$result2 = $moment->fetchAll();
+$trigger->execute();
+$result2 = $trigger->fetchAll();
+$call->execute();
+$result2 = $call->fetchAll();
+
+}
+
 foreach ( $result2 as $a) {
 ?>
 
@@ -97,9 +113,6 @@ foreach ( $result2 as $a) {
 <?php 
 }
 
-
-$moment->execute();
-$result2 = $moment->fetchAll();
 foreach ( $result2 as $a) {
 ?>
 <div class="panel panel-default">
@@ -119,8 +132,6 @@ foreach ( $result2 as $a) {
 }
 
 
-$trigger->execute();
-$result2 = $trigger->fetchAll();
 foreach ( $result2 as $a) {
 ?>
 <div class="panel panel-default">
@@ -140,8 +151,6 @@ foreach ( $result2 as $a) {
 }
 
 
-$call->execute();
-$result2 = $call->fetchAll();
 foreach ( $result2 as $a) {
 ?>
 <div class="panel panel-default">

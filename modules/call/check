@@ -5,7 +5,8 @@ LOG="/var/www/nettemp/tmp/incoming_calls.txt"
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=$(date +%y%m%d-%H%)
 
-    number=$(echo ${1} |sed 's/"//' |sed 's/"//' |sed 's/+//' |sed 's/.*\(......\)/\1/')
+    #number=$(echo ${1} |sed 's/"//' |sed 's/"//' |sed 's/+//' |sed 's/.*\(......\)/\1/')
+    number=$(echo ${1} |sed 's/"//' |sed 's/"//' |sed 's/+//')
 
     date1=$(LC_ALL=en_EN.utf8 date '+%a')
     date2=$(date +%H%M)
