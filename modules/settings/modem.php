@@ -64,6 +64,20 @@ $dir=$_SERVER["DOCUMENT_ROOT"];
 			header("location: " . $_SERVER['REQUEST_URI']);
    		exit();
      } 
+
+
+$sms_test = $_POST["sms_test"];
+if  ($_POST['sms_test1'] == "sms_test1") {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $file = "/var/spool/sms/outgoing/smstest";
+    $current = file_get_contents($file);
+    $current .= "To: $sms_test\n";
+    $current .= " \n";
+    $current .= "Test form nettemp\n";
+    file_put_contents($file, $current);
+    shell_exec($cmd); 
+    }
+
 ?>
 <form action="" method="post">
     <button type="submit" name="scan" value="Scan" class="btn btn-primary">Search GSM modem</button>
@@ -138,6 +152,30 @@ $smscff=shell_exec("sudo cat /etc/smsd.conf |grep ^smsc |awk '{print $3}'");
 
 </fieldset>
 </form>
+
+<form class="form-horizontal" action="" method="post">
+<fieldset>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-2 control-label" for="sms_test">Number</label>  
+  <div class="col-md-2">
+  <input id="sms_test" name="sms_test" placeholder="" class="form-control input-md" required="" type="text" value="">
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-2 control-label" for="sms_test1"></label>
+  <div class="col-md-2">
+    <button id="sms_test1" name="sms_test1" value="sms_test1" class="btn btn-primary">Send test </button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
 </div>
 </div>
 

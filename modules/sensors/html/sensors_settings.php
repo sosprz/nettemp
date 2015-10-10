@@ -3,6 +3,7 @@
     $tmp_min_new = isset($_POST['tmp_min_new']) ? $_POST['tmp_min_new'] : '';
     $tmp_max_new = isset($_POST['tmp_max_new']) ? $_POST['tmp_max_new'] : '';
     $tmp_id = isset($_POST['tmp_id']) ? $_POST['tmp_id'] : '';
+	
     if (!empty($tmp_id) && ($_POST['ok'] == "ok")){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE sensors SET tmp_min='$tmp_min_new' WHERE id='$tmp_id'") or die ($db->lastErrorMsg());
@@ -11,6 +12,16 @@
     exit();
      } 
 ?>
+<?php
+    $alarm = isset($_POST['alarm']) ? $_POST['alarm'] : '';
+    $id = isset($_POST['id']) ? $_POST['id'] : '';
+    if ($_POST['alarmonoff'] == "onoff"){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET alarm='$alarm' WHERE id='$id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+     } 
+?> 
 
 
 <div class="panel panel-info">
@@ -32,6 +43,7 @@ $row = $rows->fetchAll();
 <th>Status</th>
 <th>Value</th>
 <th>Adjust</th>
+<th>Alarm</th>
 <th>Min/Max</th>
 <th>LCD</th>
 <th></th>
@@ -86,6 +98,13 @@ else { ?>
     </form>
     </td>
 
+    <td class="col-md-1">
+    <form action="" method="post" style="display:inline!important;">
+	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarm" value="on" <?php echo $a["alarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+	<input type="hidden" name="alarmonoff" value="onoff" />
+    </form>
+    </td>
     <td class="col-md-2">
     <form action="" method="post" style="display:inline!important;"> 
 	<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />

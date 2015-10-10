@@ -1,40 +1,41 @@
 #!/bin/bash 
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
-date=`date +%y%m%d-%H%M`
+date=`date +%y%m%d-%H%M%S`
 
-onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT sms FROM settings"`
-
-if [ "$onoff" == "on" ]; then
-
-nr=`sqlite3 $dir/dbf/nettemp.db "SELECT tel FROM recipient WHERE sms_alarm='yes'" | awk '{ printf " "$1 }'`
-dev=`sqlite3 $dir/dbf/nettemp.db "SELECT dev FROM sms_settings WHERE default_dev='on'"`
-smsc=`sqlite3 $dir/dbf/nettemp.db "SELECT smsc FROM sms_settings WHERE default_dev='on'"`
-
-#if [ ! -z $nr ] && [ ! -z $dev ] ; then
-if [ ! -z $dev ] ; then
+nr=`sqlite3 $dir/dbf/nettemp.db "SELECT tel FROM users WHERE smsa='yes'" | awk '{ printf " "$1 }'`
 
 mkdir -p $dir/tmp/sms
-
 
 check_alarm() {
 for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'"| sed 's/ /_/g'`; 
     do
-	    name=`echo $line | awk 'BEGIN {FS="|"}{print $2}'`
-	    tmp=`echo $line | awk 'BEGIN {FS="|"}{print $4}'`
-	    tmp_min=`echo $line | awk 'BEGIN {FS="|"}{print $5}'`
-	    tmp_max=`echo $line | awk 'BEGIN {FS="|"}{print $6}'`
-	    plik=$dir/tmp/sms/temp-$date
-	    
-
-	if [ -n "$tmp_max" ]; then
-	    cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
-	    if [ $cr_ge == 1 ]; then  echo "high $name $tmp C" >> $plik; fi
-	fi
-	if [ -n "$tmp_min" ]; then
-	    cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
-	    if [ $cr_le == 1 ]; then  echo "low $name $tmp C" >> $plik; fi
-	fi
+	for line2 in $nr
+	    do
+		line2=$(echo $line2 |sed 's/ //g')
+		name=`echo $line | awk 'BEGIN {FS="|"}{print $2}'`
+		tmp=`echo $line | awk 'BEGIN {FS="|"}{print $4}'`
+		tmp_min=`echo $line | awk 'BEGIN {FS="|"}{print $5}'`
+		tmp_max=`echo $line | awk 'BEGIN {FS="|"}{print $6}'`
+		plik=/var/spool/sms/outgoing/sms-$name-$line2
+	
+		if [ -n "$tmp_max" ]; then
+		    cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
+		    if [ $cr_ge == 1 ]; then
+			echo "To: $line2" > $plik; 
+			echo "" >> $plik; 
+			echo "high $name $tmp C" >> $plik; 
+		    fi
+		fi
+		if [ -n "$tmp_min" ]; then
+		    cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
+		    if [ $cr_le == 1 ]; then  
+			echo "To: $line2" > $plik; 
+			echo "" >> $plik; 
+			echo "low $name $tmp C" >> $plik; 
+		    fi
+		fi
+	    done
 done 
 }
 
@@ -45,30 +46,6 @@ echo "$date sms_test - send sms to $1 $(cat $plik | gammu -c $dir/tmp/gammurc  -
 
 
 check_alarm
-
-    if [[ -s $plik ]]; then
-	if [[ -n $nr ]]; then
-		for i in $nr; do
-		    send_sms $i
-		    sleep 3
-		done
-	rm -rf $plik
-	else
-	echo "$date sms_send - no number added" >> $dir/tmp/log.txt
-	fi
-    else 
-	echo "$date sms_send - no sms file " >> $dir/tmp/log.txt
-    fi
-
-
-else 
-echo "$date sms_send - no device " >> $dir/tmp/log.txt
-
-fi
-else 
-echo "sms off"
-fi #onoff
-
 
 
 

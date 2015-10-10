@@ -3,7 +3,6 @@
 <p>
 <a href="index.php?id=settings&type=users" ><button class="btn <?php echo $art == 'users' ? 'btn-info' : 'btn-default'; ?>">Users</button></a>
 <a href="index.php?id=settings&type=mail" ><button class="btn <?php echo $art == 'mail' ? 'btn-info' : 'btn-default'; ?>">Mail</button></a>
-<a href="index.php?id=settings&type=sms" ><button class="btn <?php echo $art == 'sms' ? 'btn-info' : 'btn-default'; ?>">SMS</button></a>
 <a href="index.php?id=settings&type=accesstime" ><button class="btn <?php echo $art == 'accesstime' ? 'btn-info' : 'btn-default'; ?>">Access time</button></a>
 <a href="index.php?id=settings&type=modem" ><button class="btn <?php echo $art == 'modem' ? 'btn-info' : 'btn-default'; ?>">Modem</button></a>
 <a href="index.php?id=settings&type=gpio" ><button class="btn <?php echo $art == 'gpio' ? 'btn-info' : 'btn-default'; ?>">GPIO</button></a>
@@ -19,7 +18,6 @@
 switch ($art)
 { 
 default: case '$mail': include('modules/settings/mail.php'); break;
-case 'sms': include('modules/settings/sms.php'); break;
 case 'smsscript': include('modules/settings/sms_script.php'); break;
 case 'accesstime': include('modules/settings/accesstime.php'); break;
 case 'gpio': include('modules/settings/gpio.php'); break;
