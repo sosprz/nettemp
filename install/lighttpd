@@ -6,6 +6,7 @@ lighty-enable-mod fastcgi-php 1>/dev/null
 sed -i -e 's/#       "mod_rewrite",/ "mod_rewrite",/g' /etc/lighttpd/lighttpd.conf
 # www dir
 sed -i -e 's/server.document-root        = \"\/var\/www\"/server.document-root        = \"\/var\/www\/nettemp\"/g' /etc/lighttpd/lighttpd.conf
+sed -i -e 's/server.document-root        = \"\/var\/www\/html"/server.document-root        = \"\/var\/www\/nettemp\"/g' /etc/lighttpd/lighttpd.conf
 # didable dir access
 sed -i '/url.access-deny/d' /etc/lighttpd/lighttpd.conf
 sed -i '$a url.access-deny = ( "~", ".inc", ".dbf", ".db", ".txt", ".rrd" )' /etc/lighttpd/lighttpd.conf

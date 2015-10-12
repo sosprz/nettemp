@@ -125,13 +125,9 @@ cd -
 
 function wiringpi {
 if [ -n "$rpi" ];then
-    if ! which gpio 1> /dev/null; then
         git clone git://git.drogon.net/wiringPi
 	cd wiringPi
 	./build
-    else
-	echo -e "[ ${GREEN}ok${R} ] WiringPi already installed"
-    fi
 fi
 }
 # echo -e "${GREEN}Add watchdog${R}"

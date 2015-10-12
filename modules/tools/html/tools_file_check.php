@@ -43,7 +43,7 @@ if ($exit == true ) { ?>
 
     <?php
     foreach ($tofix as $line) {
-	echo $line;
+	echo $line . "<br>";
     }
     //include('modules/tools/html/tools_perms.php');
     ?>
