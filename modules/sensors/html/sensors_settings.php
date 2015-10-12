@@ -14,13 +14,20 @@
 ?>
 <?php
     $alarm = isset($_POST['alarm']) ? $_POST['alarm'] : '';
-    $id = isset($_POST['id']) ? $_POST['id'] : '';
-    if ($_POST['alarmonoff'] == "onoff"){
+    $name = isset($_POST['name']) ? $_POST['name'] : '';
+    if ( !empty($alarm) && ($_POST['alarmonoff'] == "onoff")){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE sensors SET alarm='$alarm' WHERE id='$id'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE sensors SET alarm='$alarm' WHERE name='$name'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
-     } 
+    } 
+    elseif (empty($alarm) && ($_POST['alarmonoff'] == "onoff")){
+    $db->exec("UPDATE sensors SET alarm='' WHERE name='$name'") or die ($db->lastErrorMsg());
+    unlink("tmp/mail/$name.mail");
+    unlink("tmp/mail/hour/$name.mail");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
 ?> 
 
 
@@ -100,7 +107,7 @@ else { ?>
 
     <td class="col-md-1">
     <form action="" method="post" style="display:inline!important;">
-	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
+	<input type="hidden" name="name" value="<?php echo $a["name"]; ?>" />
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarm" value="on" <?php echo $a["alarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="alarmonoff" value="onoff" />
     </form>

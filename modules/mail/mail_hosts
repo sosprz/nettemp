@@ -39,7 +39,7 @@ if name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='OK'")
 	    hour=$dirs2/$name.mail
 	    if [ -f "$hour" ]
 		then
-		    file "<td>$name</td><td></td><td>$date</td><td bgcolor="#00FF00">Recovery</td>" $minute
+		    file "<td>$name</td><td></td><td>$date</td><td bgcolor="#00FF00">RECOVERY</td>" $minute
 	    fi	    
 	done
 	

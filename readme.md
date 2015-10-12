@@ -49,6 +49,16 @@ USERS:
 
 Changelog:
 
+8.7
+
+After Update You must install smstools, socat, expect
+
+fix revovery mail loop in host monitoring
+add smstools for sending sms
+add call to relay based on numbers
+add permisions for relays and IP cam
+add adjust option to sensors but is not work for now
+
 8.6.15
 check if cronr exist
 
