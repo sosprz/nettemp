@@ -53,6 +53,7 @@ Changelog:
 
 add new script for higcharts - highcharts3
 check if ists faster than higcharts2
+Prevent to remove admin account or disable
 
 8.7
 

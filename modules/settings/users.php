@@ -211,11 +211,13 @@ foreach ($result as $a) {
 	</form>
 	</td>
 	<td>
+	<?php if ($a['login'] != 'admin') { ?>
 	<form action="" method="post">
 	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
 	<input data-toggle="toggle"  data-size="mini" onchange="this.form.submit()" type="checkbox" name="update_perms" value="adm" <?php echo $a["perms"] == 'adm' ? 'checked="checked"' : ''; ?> />
 	<input type="hidden" name="up_perms" value="up_perms" />
 	</form>
+	<?php } ?>
 	</td>
 
 	<td>
@@ -325,11 +327,13 @@ foreach ($result as $a) {
 	</td>
 
 	<td>
+	<?php if ($a['login'] != 'admin') { ?>
     	<form action="" method="post"> 	
 	    <input type="hidden" name="del" value="<?php echo $a["id"]; ?>" />
 	    <input type="hidden" type="submit" name="del1" value="del2" />
 	    <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
 	</form>
+	<?php } ?>
 	</td>
 	</tr>
 <?php }
