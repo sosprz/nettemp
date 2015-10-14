@@ -88,11 +88,13 @@ foreach ($result as $a) {
 
 
 	<td>
+	<?php if ($a['name'] != 'any') { ?>
     	<form action="" method="post"> 	
 	    <input type="hidden" name="del" value="<?php echo $a["id"]; ?>" />
 	    <input type="hidden" type="submit" name="del1" value="del2" />
 	    <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
 	</form>
+	<?php } ?>
 	</td>
 	</tr>
 <?php }
