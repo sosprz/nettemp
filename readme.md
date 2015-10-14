@@ -49,6 +49,11 @@ USERS:
 
 Changelog:
 
+8.7.2
+
+prevent to remove all profile in time access
+add reboot info after set call modem
+
 8.7.1
 
 add new script for higcharts - highcharts3
