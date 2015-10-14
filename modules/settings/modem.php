@@ -61,8 +61,9 @@ $dir=$_SERVER["DOCUMENT_ROOT"];
 				fclose ($fh);
 			}
   		 	exec("gammu -c tmp/gammurc identify > tmp/gammu_identify_call");
-			header("location: " . $_SERVER['REQUEST_URI']);
-   		exit();
+	shell_exec("sudo touch tmp/reboot");
+	header("location: " . $_SERVER['REQUEST_URI']);
+   	exit();
      } 
 
 
