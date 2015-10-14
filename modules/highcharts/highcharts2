@@ -31,8 +31,8 @@ done
 
 # sensors
 
-for n in temp press lux humid; do
-    name=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT name FROM sensors WHERE type='$n'")
+#for n in temp press lux humid; do
+    name=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT name FROM sensors WHERE type='temp' OR type='press' OR type='lux' OR type='humid'")
     for i in $name; do
 	rom=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT rom FROM sensors WHERE name='$i'")
 	    if base=$(sqlite3 $dir/db/$rom.sql "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
@@ -44,7 +44,7 @@ for n in temp press lux humid; do
     		    echo "cannot read base"
 	    fi
     done
-done
+#done
 
 # gpio on/off, system
 name=$(ls $dir/db/ |grep -e system  -e gonoff )

@@ -49,6 +49,11 @@ USERS:
 
 Changelog:
 
+8.7.1
+
+add new script for higcharts - highcharts3
+check if ists faster than higcharts2
+
 8.7
 
 After Update You must install smstools, socat, expect
