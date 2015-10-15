@@ -70,13 +70,13 @@ $call = $db->prepare("select * from gpio where mode='call' and gpio='$call'") or
 $trigger = $db->prepare("select * from gpio where mode='trigger' and gpio='$trigger'") or exit(header("Location: html/errors/db_error.php"));
 $moment = $db->prepare("select * from gpio where mode='moment' and gpio='$moment'") or exit(header("Location: html/errors/db_error.php"));
 $simple->execute();
-$result2 = $simple->fetchAll();
+$results = $simple->fetchAll();
 $moment->execute();
-$result2 = $moment->fetchAll();
+$resultm = $moment->fetchAll();
 $trigger->execute();
-$result2 = $trigger->fetchAll();
+$resultt = $trigger->fetchAll();
 $call->execute();
-$result2 = $call->fetchAll();
+$resultc = $call->fetchAll();
 
 }
 elseif ($perms == 'adm') {
@@ -85,17 +85,17 @@ $call = $db->prepare("select * from gpio where mode='call'") or exit(header("Loc
 $trigger = $db->prepare("select * from gpio where mode='trigger'") or exit(header("Location: html/errors/db_error.php"));
 $moment = $db->prepare("select * from gpio where mode='moment'") or exit(header("Location: html/errors/db_error.php"));
 $simple->execute();
-$result2 = $simple->fetchAll();
+$results = $simple->fetchAll();
 $moment->execute();
-$result2 = $moment->fetchAll();
+$resultm = $moment->fetchAll();
 $trigger->execute();
-$result2 = $trigger->fetchAll();
+$resultt = $trigger->fetchAll();
 $call->execute();
-$result2 = $call->fetchAll();
+$resultc = $call->fetchAll();
 
 }
 
-foreach ( $result2 as $a) {
+foreach ( $results as $a) {
 ?>
 
 
@@ -113,7 +113,7 @@ foreach ( $result2 as $a) {
 <?php 
 }
 
-foreach ( $result2 as $a) {
+foreach ( $resultm as $a) {
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -122,7 +122,7 @@ foreach ( $result2 as $a) {
 <div class="panel-body">
 
 <form action="" method="post">
-    <td><input data-onstyle="warning" type="checkbox" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" name="simple"  title="Turn on wait 1s and off"   onclick="this.form.submit()" /><td>
+    <td><input data-onstyle="warning" type="checkbox" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" /><td>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="bi" value="bi" />
 </form>
@@ -132,7 +132,7 @@ foreach ( $result2 as $a) {
 }
 
 
-foreach ( $result2 as $a) {
+foreach ( $resultt as $a) {
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -151,7 +151,7 @@ foreach ( $result2 as $a) {
 }
 
 
-foreach ( $result2 as $a) {
+foreach ( $resultc as $a) {
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -160,7 +160,7 @@ foreach ( $result2 as $a) {
 <div class="panel-body">
 
 <form action="" method="post">
-    <td><input data-onstyle="warning" type="checkbox" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" name="simple"  title="Turn on wait 1s and off"   onclick="this.form.submit()" /><td>
+    <td><input data-onstyle="warning" type="checkbox" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()"  title="Turn on wait 1s and off"   onclick="this.form.submit()" /><td>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="bi" value="bi" />
 </form>
