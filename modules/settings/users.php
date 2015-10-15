@@ -22,11 +22,10 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	if ( $perms != 'adm' ) { $perms = 'usr'; }
 	if (!empty($login)  && !empty($mail) && !empty($tel) && ($_POST['add1'] == "add2") ){
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT OR IGNORE INTO users (login, password, mail, tel, smsa, maila, perms, ctr, simple, moment, trigger, at, smspin, smsts ) VALUES ('$login', '$pass', '$mail', '$tel', '$maila', '$smsa', '$perms', 'OFF', 'OFF', 'OFF', 'OFF', 'any', '$smspin', '$smsts')") or die ($db->lastErrorMsg());
-	
+	$db->exec("INSERT OR IGNORE INTO users (login, password, mail, tel, smsa, maila, perms, ctr, simple, moment, trigger, at, smspin, smsts ) VALUES ('$login', '$pass', '$mail', '$tel', '$maila', '$smsa', '$perms', 'OFF', 'OFF', 'OFF', 'OFF', 'any', '$smspin', '$smsts')") or die("User, mail, tel or PIN must be unique");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
-	}
+	} 
 	?>
 	
 	<?php 
