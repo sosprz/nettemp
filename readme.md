@@ -50,7 +50,7 @@ USERS:
 Changelog:
 
 8.7.2
-
+add fixed perms to admin
 prevent to remove all profile in time access
 add reboot info after set call modem
 

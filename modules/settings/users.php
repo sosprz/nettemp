@@ -237,8 +237,9 @@ foreach ($result as $a) {
 	</td>
 
 	<td>
+	
 	<form action="" method="post"> 
-	<select name="update_at" class="form-control input-sm" onchange="this.form.submit()">
+	<select name="update_at" class="form-control input-sm" onchange="this.form.submit()" <?php if ($a['login'] == 'admin') { ?>disabled<?php }?> >
 	<?php $sth = $db->prepare("SELECT * FROM access_time");
 	$sth->execute();
 	$result = $sth->fetchAll();

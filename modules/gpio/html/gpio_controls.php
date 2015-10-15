@@ -79,7 +79,7 @@ $call->execute();
 $result2 = $call->fetchAll();
 
 }
-elseif ($perms == 'adm' && $accesstime == 'yes') {
+elseif ($perms == 'adm') {
 $simple = $db->prepare("select * from gpio where mode='simple'") or exit(header("Location: html/errors/db_error.php"));
 $call = $db->prepare("select * from gpio where mode='call'") or exit(header("Location: html/errors/db_error.php"));
 $trigger = $db->prepare("select * from gpio where mode='trigger'") or exit(header("Location: html/errors/db_error.php"));

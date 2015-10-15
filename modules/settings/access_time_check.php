@@ -35,12 +35,12 @@ $accesstime = yes;
 }
 ?>
 <?php 
-    if ($accesstime == 'yes' && !empty($user)) { 
+    if ($accesstime == 'yes' && !empty($user) && $user != 'admin') { 
 ?>
 <span class="label label-info" role="success">Access profile:<?php echo $mon . " " .  $tue . " " . $wed . " " .  $thu . " " . $fri . " " . $sat . " " . $sun  . " " . $stime . " " . $etime ; ?></span>
 <?php
 } 
-    elseif (!empty($user)) {
+    elseif (!empty($user) && $user != 'admin') {
 ?>
 <span class="label label-danger" role="alert">Access profile:<?php echo $mon . " " .  $tue . " " . $wed . " " .  $thu . " " . $fri . " " . $sat . " " . $sun  . " " . $stime . " " . $etime ; ?></span>
 <?php

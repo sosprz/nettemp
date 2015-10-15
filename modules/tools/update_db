@@ -146,5 +146,5 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TABLE access_time (id INTEGER PRIMARY KEY, n
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO access_time (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime) VALUES  ('any', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', '00:00', '23:59')"
 
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD adj type TEXT";
-
+sqlite3 $dir/dbf/nettemp.db "UPDATE users SET perms='adm' WHERE login='admin'"
 
