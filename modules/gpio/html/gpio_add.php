@@ -23,10 +23,15 @@ if ( $add == "ADD") {
 </div>
 <div class="panel-body">
 <?php
-    exec("/usr/local/bin/gpio -v |grep B+", $bplus );
-    exec("/usr/local/bin/gpio -v |grep 'Model B, Revision: 2'", $btwo );
-    exec("/usr/local/bin/gpio -v |grep 'Model B, Revision: 1'", $bone );
-    exec("/usr/local/bin/gpio -v |grep 'Model 2, Revision: 1.1'", $two );
+
+$wp = '/usr/local/bin/gpio';
+
+if (file_exists($wp)) {
+
+    exec("$wp -v |grep B+", $bplus );
+    exec("$wp -v |grep 'Model B, Revision: 2'", $btwo );
+    exec("$wp -v |grep 'Model B, Revision: 1'", $bone );
+    exec("$wp -v |grep 'Model 2, Revision: 1.1'", $two );
     if ((!empty($bplus[0])) || (!empty($two[0])))
     {
         $gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
@@ -42,7 +47,13 @@ if ( $add == "ADD") {
     else
     {
 	$gpiolist = array(4,17,21,22,18,23,24,25);
-    } ?>
+    } 
+}
+else { ?>
+<span class="label label-warning">Warning: No wirinPI package</span>
+<?php }
+
+?>
 
 <?php
 foreach ($gpiolist as $value1) {
