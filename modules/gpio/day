@@ -1,6 +1,9 @@
 #! /bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+day=$(LC_ALL=en_EN.utf8 date '+%a')
+date2=$(date +%H%M)
+
 if [ -z "$gpio" ]
     then
 	gpio="$1"
@@ -8,35 +11,22 @@ if [ -z "$gpio" ]
 fi
 day_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio'")
 if [ "$day_run" = "on" ]; then
-	day_zone1s=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone1s FROM gpio WHERE gpio='$gpio'")
-	day_zone1e=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone1e FROM gpio WHERE gpio='$gpio'")
-	day_zone2s=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone2s FROM gpio WHERE gpio='$gpio'")
-	day_zone2e=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone2e FROM gpio WHERE gpio='$gpio'")
-	day_zone3s=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone3s FROM gpio WHERE gpio='$gpio'")
-	day_zone3e=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone3e FROM gpio WHERE gpio='$gpio'")
+
+	names=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM day_plan WHERE mon='$day' OR tue='$day' OR wed='$day' OR thu='$day' OR fri='$day' OR sat='$day' OR sun='$day'")
 	
-	day_zone1s_cut=`echo $day_zone1s | sed 's/://g'`
-	day_zone1e_cut=`echo $day_zone1e | sed 's/://g'`
-	day_zone2s_cut=`echo $day_zone2s | sed 's/://g'`
-	day_zone2e_cut=`echo $day_zone2e | sed 's/://g'`
-	day_zone3s_cut=`echo $day_zone3s | sed 's/://g'`
-	day_zone3e_cut=`echo $day_zone3e | sed 's/://g'`
-
-	date2=$(date +%H%M)
-
-	if [[ "$date2" > "$day_zone1s_cut" && "$date2" < "$day_zone1e_cut" ]]; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='on - day range 1' WHERE gpio='$gpio'"
-	    onoff="on"
-        elif  [[ "$date2" > "$day_zone2s_cut" && "$date2" < "$day_zone2e_cut" ]]; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='on - day range 2' WHERE gpio='$gpio'"
-	    onoff="on"
-	elif [[ "$date2" > "$day_zone3s_cut" && "$date2" < "$day_zone3e_cut" ]]; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='on - range 3' WHERE gpio='$gpio'"
-	    onoff="on"
-        else
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='off - not in day range' WHERE gpio='$gpio'"
-	    onoff="off"
-	fi
+	for i in $names; do
+	    stime=$(sqlite3 $dir/dbf/nettemp.db "SELECT stime FROM day_plan WHERE name='$i'")
+	    etime=$(sqlite3 $dir/dbf/nettemp.db "SELECT etime FROM day_plan WHERE name='$i'")
+	    stimec=`echo $stime | sed 's/://g'`
+	    etimec=`echo $etime | sed 's/://g'`
+	    if [[ "$date2" > "$stimec" && "$date2" < "$etimec" ]]; then
+		onoff="on"
+		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON - Profile $i' WHERE gpio='$gpio'"
+	    else
+	    	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
+	    	onoff="off"
+	    fi
+	done
 
     if [ $mode == "simgle" ]
 	then

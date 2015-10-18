@@ -51,7 +51,7 @@ Changelog:
 
 8.7.3
 add check if package wirinfPi exist in system in GPIO add section
-
+new day/week plan more zones
 
 8.7.2
 add fixed perms to admin

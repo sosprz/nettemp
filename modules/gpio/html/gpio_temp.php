@@ -73,7 +73,7 @@ Status:<?php echo $a['status'];?>
 ?>
 <?php 
     if ($a['day_run'] == 'on') { 
-	include('gpio_day_forms.php');
+	include('gpio_day_plan.php');
 	
     } 
     if ($a['week_run'] == 'on') { 
@@ -84,15 +84,15 @@ Status:<?php echo $a['status'];?>
 ?>
 
 <form action="" method="post" style=" display:inline!important;">
-	    <button type="submit" name="dayrun" value="<?php echo $a["day_run"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["day_run"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-primary"'; ?>  >Day</button>
+	    <button type="submit" name="dayrun" value="<?php echo $a["day_run"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["day_run"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-primary"'; ?>  >Day/Week</button>
 	    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	    <input type="hidden" name="dayrunon" value="on" /> 
 </form>
-<form action="" method="post" style=" display:inline!important;">
+<!-- <form action="" method="post" style=" display:inline!important;">
 	    <button type="submit" name="weekrun"  value="<?php echo $a["week_run"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["week_run"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-primary"'; ?>  >Week</button>
 	    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	    <input type="hidden" name="weekrunon" value="on" /> 
-</form>
+</form> -->
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="tempon" value="on" />

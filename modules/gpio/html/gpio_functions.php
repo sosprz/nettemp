@@ -169,16 +169,16 @@ include('gpio_rev.php');
 	<input type="hidden" name="timeon" value="timeon" />   
    </form>
     <form action="" method="post" style=" display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary">Day plan</button>
+	<button type="submit" class="btn btn-xs btn-primary">Day-Week plan</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="dayon" value="dayon" />
     </form>
-    <form action="" method="post" style=" display:inline!important;">
+<!--    <form action="" method="post" style=" display:inline!important;">
 	<button type="submit" class="btn btn-xs btn-primary">Week plan</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="weekon" value="weekon" />
     </form>
-
+-->
     <form action="" method="post" style=" display:inline!important;">
 	<button class="btn btn-xs btn-primary">Temperature</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
