@@ -49,6 +49,9 @@ USERS:
 
 Changelog:
 
+8.7.4
+fix day plan per gpio
+
 8.7.3
 add check if package wirinfPi exist in system in GPIO add section
 new day/week plan more zones
