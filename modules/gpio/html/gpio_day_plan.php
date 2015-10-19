@@ -10,13 +10,14 @@ $fri = isset($_POST['fri']) ? $_POST['fri'] : '';
 $sat = isset($_POST['sat']) ? $_POST['sat'] : '';
 $sun = isset($_POST['sun']) ? $_POST['sun'] : '';
 $del = isset($_POST['del']) ? $_POST['del'] : '';
+$dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 ?>
 
 <?php // SQLite - ADD RECIPIENT
 	$dpdd1 = isset($_POST['add1']) ? $_POST['add1'] : '';
 	if ($_POST['add1'] == "add2"){
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT OR IGNORE INTO day_plan (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime, gpio) VALUES ('$name','$mon', '$tue', '$wed', '$thu', '$fri', '$sat', '$sun', '$stime', '$etime', '$gpio')") or die ($db->lastErrorMsg());
+	$db->exec("INSERT OR IGNORE INTO day_plan (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime, gpio) VALUES ('$name','$mon', '$tue', '$wed', '$thu', '$fri', '$sat', '$sun', '$stime', '$etime', '$dpgpio')") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}
@@ -63,6 +64,7 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	<td><input type="text" name="stime" value="" class="form-control" required="" placeholder="07:00"/></td>
 	<td><input type="text" name="etime" value="" class="form-control" required="" placeholder="19:00"/></td>
 	<input type="hidden" name="add1" value="add2" />
+	<input type="hidden" name="dpgpio" value="<?php echo $gpio; ?>" />
 	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	</form>
     </tr> 
