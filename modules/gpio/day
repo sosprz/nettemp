@@ -12,8 +12,9 @@ fi
 day_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio'")
 if [ "$day_run" = "on" ]; then
 
-	names=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM day_plan WHERE mon='$day' OR tue='$day' OR wed='$day' OR thu='$day' OR fri='$day' OR sat='$day' OR sun='$day'")
-	
+	names=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM day_plan WHERE gpio='$gpio' and (mon='$day' OR tue='$day' OR wed='$day' OR thu='$day' OR fri='$day' OR sat='$day' OR sun='$day')")
+	echo $gpio
+	echo "$names"
 	for i in $names; do
 	    stime=$(sqlite3 $dir/dbf/nettemp.db "SELECT stime FROM day_plan WHERE name='$i'")
 	    etime=$(sqlite3 $dir/dbf/nettemp.db "SELECT etime FROM day_plan WHERE name='$i'")

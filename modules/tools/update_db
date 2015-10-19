@@ -149,4 +149,9 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD adj type TEXT";
 sqlite3 $dir/dbf/nettemp.db "UPDATE users SET perms='adm' WHERE login='admin'"
 
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE day_plan (id INTEGER PRIMARY KEY, name UNIQUE, Mon TEXT, Tue TEXT, Wed TEXT, Thu TEXT, Fri TEXT, Sat TEXT, Sun TEXT, stime TEXT, etime TEXT);"
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE day_plan ADD gpio type TEXT";
+
+
+
+
 

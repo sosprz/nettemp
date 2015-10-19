@@ -16,7 +16,7 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	$dpdd1 = isset($_POST['add1']) ? $_POST['add1'] : '';
 	if ($_POST['add1'] == "add2"){
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT OR IGNORE INTO day_plan (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime) VALUES ('$name','$mon', '$tue', '$wed', '$thu', '$fri', '$sat', '$sun', '$stime', '$etime')") or die ($db->lastErrorMsg());
+	$db->exec("INSERT OR IGNORE INTO day_plan (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime, gpio) VALUES ('$name','$mon', '$tue', '$wed', '$thu', '$fri', '$sat', '$sun', '$stime', '$etime', '$gpio')") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}
@@ -69,7 +69,7 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 <?php
 
 $db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("select * from day_plan");
+$sth = $db->prepare("select * from day_plan where gpio='$gpio'");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $dp) { 
@@ -88,13 +88,11 @@ foreach ($result as $dp) {
 
 
 	<td>
-	<?php if ($dp['name'] != 'any') { ?>
     	<form action="" method="post"> 	
 	    <input type="hidden" name="del" value="<?php echo $dp["id"]; ?>" />
 	    <input type="hidden" type="submit" name="del1" value="del2" />
 	    <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
 	</form>
-<?php } ?>
 	</td>
 	</tr>
 <?php 
