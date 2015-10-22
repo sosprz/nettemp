@@ -18,7 +18,7 @@ $link=$a['link'];
 <div class="panel-body">
 
 <?php 
-if($accesstime == 'yes' && $_SESSION['accesscam'] == 'yes' ){
+if(($accesstime == 'yes' && $_SESSION['accesscam'] == 'yes') || ($_SESSION['user'] == 'admin' )){
 
 if (strpos($link,'http') !== false) { ?>
 
