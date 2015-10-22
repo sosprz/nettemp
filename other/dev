@@ -6,5 +6,6 @@
 #sqlite3 -header /var/www/nettemp/dbf/nettemp.db  "UPDATE users SET perms='adm' WHERE login='admin'"
 #<?php echo $_SERVER['REQUEST_URI']; ?>
 #find $(pwd) -name \*.php -exec sed -i "s/diened/denied/g" {} \;
+#for F in {2..10}; do cp cam1.php cam$F.php; done
 sqlite3 /var/www/nettemp/dbf/nettemp.db ".schema" > /var/www/nettemp/modules/tools/nettemp.schema
 sudo update-alternatives --config editor

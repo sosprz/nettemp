@@ -3,6 +3,10 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
+hc_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT highcharts FROM settings"`
+
+if [ "$hc_onoff" == "on" ]; then
+
 if pidof -o %PPID -x $(basename $0) > /dev/null; then
 echo runnning
 echo "$date highcharts already running" >> $dir/log.txt
@@ -62,3 +66,7 @@ done
 
 
 rm $dir/tmp/highcharts/nettemp.db
+
+else 
+    echo "highcharts off"
+fi

@@ -74,7 +74,7 @@ Pullup - this settings must be set when uses only DATA,GND in 1-wire
 <table class="table">
     <tr>
 	<td class="col-md-2">
-	    1-wire Nettemp module (DS2482)
+	    1-wire Nettemp module (DS2482) and other USB modules
 	</td>
 	<td class="col-md-2">
     	    <form action="" method="post" style=" display:inline!important;">
