@@ -18,9 +18,9 @@ for i in $fortemp
      if [ -n "$tmp" ] &&  echo $tmp | grep -q [0-9]
         then 
     sqlite3 $dir/db/$rom.sql "INSERT OR IGNORE INTO def (value) VALUES ('$tmp');"
-    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$tmp' WHERE rom='$rom'"
+    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$tmp'+adj WHERE rom='$rom'"
     if date +%M |cut -c 2-2 | grep -E '0|5'; then
-        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$tmp' WHERE rom='$rom'"
+        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$tmp'+adj WHERE rom='$rom'"
     fi
 
     echo lm-sensors: $rom $tmp
@@ -35,9 +35,9 @@ for i in $forcore
     if [ -n "$tmp" ] &&  echo $tmp | grep -q [0-9]
     then 
 	sqlite3 $dir/db/$rom.sql "INSERT OR IGNORE INTO def (value) VALUES ('$tmp');"
-        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$tmp' WHERE rom='$rom'"
+        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$tmp'+adj WHERE rom='$rom'"
 	if date +%M |cut -c 2-2 | grep -E '0|5'; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$tmp' WHERE rom='$rom'"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$tmp'+adj WHERE rom='$rom'"
 	fi
     echo lm-sensors: $rom $tmp
     fi

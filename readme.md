@@ -49,6 +49,9 @@ USERS:
 
 Changelog:
 
+8.7.6
+add Adjust function to sensors
+
 8.7.5
 fix ESP8266 relays - array
 
