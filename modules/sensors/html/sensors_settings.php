@@ -23,7 +23,7 @@
     } 
     elseif (empty($alarm) && ($_POST['alarmonoff'] == "onoff")){
     $db->exec("UPDATE sensors SET alarm='' WHERE name='$name'") or die ($db->lastErrorMsg());
-    unlink("tmp/mail/$nameBA.mail");
+    unlink("tmp/mail/$name.mail");
     unlink("tmp/mail/hour/$name.mail");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -93,7 +93,7 @@ else { ?>
 <?php } ?>
 
     <td class="col-md-1">
-	<?php echo  $a["tmp"];?>
+	<?php echo  $a["tmp"]+$a["adj"] ;?>
     </td>
 
     <td class="col-md-1">
