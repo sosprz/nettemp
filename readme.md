@@ -49,6 +49,9 @@ USERS:
 
 Changelog:
 
+8.7.5
+fix ESP8266 relays - array
+
 8.7.4
 fix day plan per gpio
 
