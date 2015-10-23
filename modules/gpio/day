@@ -23,6 +23,7 @@ if [ "$day_run" = "on" ]; then
 	    if [[ "$date2" > "$stimec" && "$date2" < "$etimec" ]]; then
 		onoff="on"
 		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON - Profile $i' WHERE gpio='$gpio'"
+		break
 	    else
 	    	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
 	    	onoff="off"
