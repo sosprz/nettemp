@@ -5,7 +5,7 @@ CREATE TABLE camera (
     name UNIQUE,
     link UNIQUE
     );
-CREATE TABLE day_plan (id INTEGER PRIMARY KEY, name UNIQUE, Mon TEXT, Tue TEXT, Wed TEXT, Thu TEXT, Fri TEXT, Sat TEXT, Sun TEXT, stime TEXT, etime TEXT);
+CREATE TABLE day_plan (id INTEGER PRIMARY KEY, name UNIQUE, Mon TEXT, Tue TEXT, Wed TEXT, Thu TEXT, Fri TEXT, Sat TEXT, Sun TEXT, stime TEXT, etime TEXT, gpio type TEXT);
 CREATE TABLE device (
    id INTEGER PRIMARY KEY,
    usb UNIQUE,
@@ -151,7 +151,7 @@ CREATE TABLE settings (
    kwh TEXT,
    lcd TEXT,
    authmod TEXT
-  , radius type TEXT, lcdmode type TEXT, lcd4 type TEXT, call type TEXT);
+  , radius type TEXT, lcdmode type TEXT, lcd4 type TEXT, call type TEXT, logger type TEXT);
 CREATE TABLE sms_settings (
   id INTEGER PRIMARY KEY,
   name TEXT,
