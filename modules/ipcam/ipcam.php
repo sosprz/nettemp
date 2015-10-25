@@ -78,7 +78,10 @@ $link=$a['link'];
 </div>
 		
 <div class="panel-body">
-<span id="helpBlock" class="help-block">rtsp://172.18.10.103:554/play1.sdp</span>
-<span id="helpBlock" class="help-block">rtsp://guest:guest@172.18.10.103:554/play1.sdp</span>
+<span id="helpBlock" class="help-block">examples:</span>
+<span id="helpBlock" class="help-block">rtsp://192.168.1.1:554/play1.sdp</span>
+<span id="helpBlock" class="help-block">rtsp://guest:guest@192.168.1.1:554/play1.sdp</span>
+<span id="helpBlock" class="help-block">rtsp://192.168.1.1:554/11</span>
+<span id="helpBlock" class="help-block">http://192.168.1.1:8080/video</span>
 </div>
 </div>
