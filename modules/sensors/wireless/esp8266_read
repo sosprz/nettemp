@@ -14,7 +14,7 @@ if rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='wire
 		wynik=$(curl $ip |sed -e 's/<[^>]*>/\n/g' |grep Humid | awk '{ print $2}')
 		if [ -n "$wynik" ]; then
 		    sqlite3 $dir/db/$all.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik'+adj WHERE rom='$all'"
+		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$all'"
 		    if date +%M |cut -c 2-2 | grep -E '0|5'; then
 			    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$wynik' WHERE rom='$all'"
 		    fi
@@ -27,7 +27,7 @@ if rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='wire
 		wynik=$(curl $ip |sed -e 's/<[^>]*>/\n/g'  |grep Temp | awk '{ print $2}')
 		if [ -n "$wynik" ]; then
 		    sqlite3 $dir/db/$all.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik'+adj WHERE rom='$all'"
+		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$all'"
 		    if date +%M |cut -c 2-2 | grep -E '0|5'; then
 			    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$wynik' WHERE rom='$all'"
 		    fi
@@ -40,7 +40,7 @@ if rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='wire
 	    fi
 
 	#sqlite3 $dir/db/$all.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-	#sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik'+adj WHERE rom='$all'"
+	#sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='$all'"
 	#echo ESP8266: $wynik C
      done
 fi
