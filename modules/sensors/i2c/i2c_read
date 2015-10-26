@@ -16,7 +16,7 @@ if ! [[ "$value" =~ [.0-9]+$ ]] && [ -n "$value" ]
 	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$value' WHERE rom='$name'"
     else
 	sqlite3 $dir/db/$2.sql "INSERT OR IGNORE INTO def (value) VALUES ('$value');"
-	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$value' WHERE rom='$name'"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$value'+adj WHERE rom='$name'"
 fi
 
 if date +%M |cut -c 2-2 | grep -E '0|5'; then

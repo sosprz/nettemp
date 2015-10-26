@@ -21,7 +21,7 @@ temp_temp=temp_temp$i
 declare temp_sensor$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_sensor$i FROM gpio WHERE gpio='$gpio'"`
 temp_sensor=temp_sensor$i
 
-declare sensor_temp$i=`sqlite3 $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id='${!temp_sensor}'"`
+declare sensor_temp$i=`sqlite3 $dir/dbf/nettemp.db "SELECT tmp+adj FROM sensors WHERE id='${!temp_sensor}'"`
 sensor_temp=sensor_temp$i
 
 declare temp_sensor_diff$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_sensor_diff$i FROM gpio WHERE gpio='$gpio'"`

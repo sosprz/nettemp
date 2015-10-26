@@ -9,7 +9,7 @@ if [ -n "$rpi" ]; then
         pi_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
     if [ "$pi_temp_calc" == "1" ]; then
 	sqlite3 $dir/db/Raspberry_Pi.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik' WHERE rom='Raspberry_Pi'"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik'+adj WHERE rom='Raspberry_Pi'"
 	if date +%M |cut -c 2-2 | grep -E '0|5'; then
 	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$wynik' WHERE rom='Raspberry_Pi'"
 	fi
