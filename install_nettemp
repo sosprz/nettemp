@@ -199,6 +199,7 @@ if [ $exitstatus = 1 ]; then
     echo "bye.."
     exit 1
 fi
+}
 
 function smstools {
     echo -e "[ ${GREEN}ok${R} ] Installing SMStools. Please wait.."
@@ -209,8 +210,6 @@ function smstools {
 }
 
 
-
-}
 
 
 start
