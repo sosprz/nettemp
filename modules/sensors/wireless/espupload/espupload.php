@@ -2,7 +2,9 @@
 <div class="panel-heading">
 <h3 class="panel-title">ESPupload</h3>
 </div>
+<center><span class="label label-warning text-center">WARNING: Push Upload quickly after power ON ESP module</span></center>
 <div class="panel-body">
+
 <?php
 $dir=$_SERVER["DOCUMENT_ROOT"];
 $usb = $_POST["usb"];
