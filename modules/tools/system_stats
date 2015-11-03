@@ -6,6 +6,9 @@ mkdir -p $dir2
 
 #cpu=$(mpstat | grep all | sed -s 's/.* all// ; s/ * / /g' | cut -d ' ' -f10 | awk '{print 100-$1}')
 cpu=$(mpstat | grep all | sed 's/.* all// ; s/ * / /g' | cut -d ' ' -f10 | awk '{print 100-$1}')
+if [[ $cpu == "100" ]]; then
+    cpu=$(mpstat | grep all | sed 's/.* all// ; s/ * / /g' | cut -d ' ' -f11 | awk '{print 100-$1}')
+fi
 max=$(free |grep Mem |awk '{print $2}')
 memoryc=$(free | grep Mem | awk '{printf "%3.1f", ($3/'$max') * 100.0}')
 memory=$(free | grep cache: | awk '{printf "%3.1f", ($3/'$max') * 100.0}')
