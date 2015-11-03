@@ -38,12 +38,14 @@ var msnry = new Masonry( container, {
     <div class="item"><?php include('modules/ipcam/cam8.php'); ?></div>
     <div class="item"><?php include('modules/ipcam/cam9.php'); ?></div>
     <div class="item"><?php include('modules/ipcam/cam10.php'); ?></div>
+    <div class="item"><?php include('modules/settings/weather.php'); ?></div>
     <div class="item"><?php include('modules/hosts/html/hosts_status.php'); ?></div>
     <div class="item"><?php include('modules/gpio/html/gpio_status.php'); ?></div>
     <div class="item"><?php include('modules/relays/html/relays_status.php'); ?></div>
     <div class="item"><?php include('modules/kwh/html/kwh_status.php'); ?></div>
     <div class="item"><?php include('modules/tools/html/tools_file_check.php'); ?></div>
     <div class="item"><?php include('modules/settings/meteo_status.php'); ?></div>
+    
   
 </div>
 

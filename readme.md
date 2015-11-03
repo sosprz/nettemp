@@ -49,6 +49,11 @@ USERS:
 
 Changelog:
 
+8.7.7
+add ESP8266 wide scan
+add info to ESPuploader
+other fixes
+
 8.7.6
 add Adjust function to sensors
 
