@@ -14,6 +14,7 @@
 <a href="index.php?id=settings&type=meteo" ><button class="btn <?php echo $art == 'meteo' ? 'btn-info' : 'btn-default'; ?>">Meteo</button></a>
 <a href="index.php?id=settings&type=smsscript" ><button class="btn <?php echo $art == 'smsscript' ? 'btn-info' : 'btn-default'; ?>">SMS script</button></a>
 <a href="index.php?id=settings&type=charts" ><button class="btn <?php echo $art == 'charts' ? 'btn-info' : 'btn-default'; ?>">Charts</button></a>
+<a href="index.php?id=settings&type=ownwidget" ><button class="btn <?php echo $art == 'charts' ? 'btn-info' : 'btn-default'; ?>">OwnWidget</button></a>
 </p>
 <?php  
 switch ($art)
@@ -31,5 +32,6 @@ case 'meteo': include('modules/settings/meteo.php'); break;
 case 'modem': include('modules/settings/modem.php'); break;
 case 'users': include('modules/settings/users.php'); break;
 case 'charts': include('modules/settings/charts.php'); break;
+case 'ownwidget': include('modules/settings/ownwidget.php'); break;
 }
 ?>
