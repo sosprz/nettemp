@@ -2,11 +2,18 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 
-if cat /sys/class/net/eth0/operstate |grep -q up 
-    then 
-	rom=$(sudo /usr/bin/arp-scan -I eth0 -l |grep '18:fe:34' |awk  '{ print $1"_"$2 }' |tr -d :)
+#if cat /sys/class/net/eth0/operstate |grep -q up 
+#    then 
+#	rom=$(sudo /usr/bin/arp-scan -I eth0 -l |grep '18:fe:34' |awk  '{ print $1"_"$2 }' |tr -d :)
+#    else
+#	rom=$(sudo /usr/bin/arp-scan -I wlan0 -l |grep '18:fe:34' |awk  '{ print $1"_"$2 }' |tr -d :)	
+#fi
+
+if cat /sys/class/net/eth0/operstate |grep -q up
+    then
+	rom=$(sudo /usr/bin/arp-scan -q -I eth0 -l | grep -E "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" |awk  '{ print $1"_"$2 }' |tr -d :)
     else
-	rom=$(sudo /usr/bin/arp-scan -I wlan0 -l |grep '18:fe:34' |awk  '{ print $1"_"$2 }' |tr -d :)	
+	rom=$(sudo /usr/bin/arp-scan -q -I wlan0 -l | grep -E "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" |awk  '{ print $1"_"$2 }' |tr -d :)
 fi
 
 temp=_temp
@@ -15,21 +22,26 @@ relay=_relay
 wiv=wireless_
 
 if [ -n "$rom" ]
-    then 
+    then
 	for i in $rom; do
-		    ip=$(echo $i|awk -F"_" '{print $1}')
-		    type=$(curl $ip |sed -e 's/<[^>]*>/\n/g' |grep nettemp |awk '{ print $2}')
+	        ip=$(echo $i|awk -F"_" '{print $1}')
+		    type=$(curl --connect-timeout 2 $ip |sed -e 's/<[^>]*>/\n/g' |grep nettemp |awk '{ print $2}')
 			if [ "$type" == "DHT11" ] || [ "$type" == "DHT22" ]; then
 			    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$temp')"
 			    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$humid')"
+			    echo Wireless: ESP6288 DHT11/22 found on $ip
+			    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET wireless='on' WHERE id='1'"
 			elif [ "$type" == "ds18b20" ]; then
 			    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$temp')"
+			    echo Wireless: ESP6288 ds18b20 found on $ip
+			    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET wireless='on' WHERE id='1'"
 			elif [ "$type" == "relay" ]; then
 			    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$relay')"
+			    echo Wireless: ESP6288 relay found on $ip
+			    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET wireless='on' WHERE id='1'"
 			fi
 	done
-	echo Wireless: ESP6288 found
-	sqlite3 $dir/dbf/nettemp.db "UPDATE device SET wireless='on' WHERE id='1'"
+	
 else
     sqlite3 $dir/dbf/nettemp.db "UPDATE device SET wireless='off' WHERE id='1'"
 fi
