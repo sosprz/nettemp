@@ -1,5 +1,6 @@
-          <div class="panel panel-default">
-            <div class="panel-heading">Sensors</div>
+<div class="grid-item">
+<div class="panel panel-default">
+<div class="panel-heading">Sensors</div>
 <?php
 $db = new PDO("sqlite:dbf/nettemp.db");
 $rows = $db->query("SELECT * FROM sensors");
@@ -177,4 +178,5 @@ Go to device scan!
     </tbody>
     </table> <?php
 ?>
-          </div>
+</div>
+</div>

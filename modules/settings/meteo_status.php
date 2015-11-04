@@ -42,6 +42,7 @@ foreach ($result as $a) {
 $wilgotnosc=$a['tmp'];
 }
 ?>
+<div class="grid-item">
 <div class="panel panel-default">
   <div class="panel-heading">Meteo</div>
 <table class="table stripped">
@@ -90,6 +91,7 @@ $wilgotnosc=$a['tmp'];
 
 
 </table>
+</div>
 </div>
 </div>
 

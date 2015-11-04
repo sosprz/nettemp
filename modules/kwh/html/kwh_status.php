@@ -11,15 +11,16 @@
     ?>
 
 <?php if ( $kwh == 'on' ) { ?>
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">kWh status</h3>
-</div>
-<div class="panel-body">
+<div class="grid-item">
+    <div class="panel panel-default">
+	<div class="panel-heading"><h3 class="panel-title">kWh status</h3></div>
+	    <div class="panel-body">
 <pre>
 <?php $command='modules/kwh/kwh_status'; passthru($command);  ?>
 </pre>
-</div></div>
+	    </div>
+    </div>
+</div>
 <?php } 
 ?>
  

@@ -39,6 +39,7 @@ if (!is_writable($tmp)) {
 }
 
 if ($exit == true ) { ?>
+<div class="grid-item">
 <div class="alert alert-danger" role="alert">
 
     <?php
@@ -47,6 +48,7 @@ if ($exit == true ) { ?>
     }
     //include('modules/tools/html/tools_perms.php');
     ?>
+</div>
 </div>
 
     <?php

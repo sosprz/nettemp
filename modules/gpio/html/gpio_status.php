@@ -7,6 +7,7 @@ $result = $sth->fetchAll();
 $numRows = count($result);
 ?>
 <?php if ( $numRows > '0' ) { ?>
+<div class="grid-item">
 <div class="panel panel-default">
             <div class="panel-heading">GPIO</div>
 <table class="table table-hover">
@@ -25,5 +26,6 @@ $gpio=$a['gpio'];
 
 ?>
 </table>
-            </div>
+</div>
+</div>
 <?php }  ?>

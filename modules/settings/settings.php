@@ -32,6 +32,6 @@ case 'meteo': include('modules/settings/meteo.php'); break;
 case 'modem': include('modules/settings/modem.php'); break;
 case 'users': include('modules/settings/users.php'); break;
 case 'charts': include('modules/settings/charts.php'); break;
-case 'ownwidget': include('modules/settings/ownwidget.php'); break;
+case 'ownwidget': include('modules/settings/ownwidget_edit.php'); break;
 }
 ?>
