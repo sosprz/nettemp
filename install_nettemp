@@ -209,6 +209,14 @@ function smstools {
     } &> /dev/null
 }
 
+function drivers {
+    echo -e "[ ${GREEN}ok${R} ] Installing drivers. Please wait.."
+    {
+    chmod +x $dir/install/drivers
+    $dir/install/drivers
+    } &> /dev/null
+}
+
 
 
 
@@ -229,6 +237,7 @@ fexit firewall
 fexit i2c
 fexit perms
 fexit services
+fexit drivers
 end
 
 #echo "(Exit status was $exitstatus)"

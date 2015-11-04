@@ -33,18 +33,18 @@ id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$
 
 for id in $id; do
     if sqlite3 $dir/dbf/nettemp.db "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
-	if all=$($dir/modules/sensors/i2c/BMP180/Adafruit_BMP085_run.py); then
+	if all=($($dir/modules/sensors/i2c/BMP180/bmp180.py)); then
 	    t=i2c_${id}_temp.sql
 	    p=i2c_${id}_press.sql
 	    if [ -s "$t" ]; then
 		name=$(echo $t |awk 'sub("....$", "")')
-		temp=$(echo $all | awk '{ print $2}')
+		temp=${all[0]}
 		checkwrite $temp $name
 		echo $v Temp $temp
 	    fi
 	    if [ -s "$p" ]; then
 		name=$(echo $p |awk 'sub("....$", "")')
-		press=$(echo $all | awk '{ print $4}')
+		press=${all[1]}
 		checkwrite $press $name
 		echo $v Pressure $press
 	    fi

@@ -5,7 +5,7 @@ list="/bin/kill /usr/sbin/lighttpd-enable-mod /usr/sbin/lighttpd-disable-mod /us
 /sbin/iptables /sbin/iptables-save /usr/sbin/i2cdetect /bin/chmod /bin/chgrp /sbin/reboot \
 /usr/bin/whoami /usr/bin/killall /usr/bin/nohup /bin/chown /usr/bin/pkill /sbin/hwclock /usr/sbin/ntpd /usr/bin/arp-scan \
 /bin/cp /usr/bin/tee /usr/bin/gpasswd /usr/bin/c_rehash /bin/rm /usr/bin/openssl /usr/local/sbin/radiusd /usr/bin/make /bin/mv \
-/bin/mkdir /bin/echo /usr/bin/touch"
+/bin/mkdir /bin/echo /usr/bin/touch /usr/bin/python"
 
 
 for i in $list
