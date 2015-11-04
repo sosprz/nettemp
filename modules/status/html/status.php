@@ -1,4 +1,5 @@
 <script src="html/masonry/masonry.pkgd.min.js"></script>
+
 <script type="text/JavaScript">
 </script>
 
@@ -11,9 +12,14 @@
   float: left;
   padding: 0px 5px 0px 0px;
 }
+
+
+
+
 </style>
 
 <div class="grid">
+<div class="grid-sizer"></div>
     <?php include('modules/sensors/html/sensor_status.php'); ?>
     <?php include('modules/ipcam/cam1.php'); ?>
     <?php include('modules/settings/ownwidget.php'); ?>
@@ -32,3 +38,4 @@ var auto_refresh = setInterval(
     $("#res").load("modules/sensors/html/sensor_status.php");
 }), 60000);
 </script>
+
