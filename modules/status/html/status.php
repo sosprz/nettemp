@@ -1,6 +1,5 @@
 <script src="html/masonry/masonry.pkgd.min.js"></script>
 <script type="text/JavaScript">
-
 </script>
 
 
@@ -15,8 +14,8 @@
 </style>
 
 <div class="grid">
-    <?php include('modules/ipcam/cam1.php'); ?>
     <?php include('modules/sensors/html/sensor_status.php'); ?>
+    <?php include('modules/ipcam/cam1.php'); ?>
     <?php include('modules/settings/ownwidget.php'); ?>
     <?php include('modules/hosts/html/hosts_status.php'); ?>
     <?php include('modules/gpio/html/gpio_status.php'); ?>
