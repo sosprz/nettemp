@@ -1,3 +1,6 @@
+<?php
+if ( 0 != filesize('tmp/ownwidget.php') )
+{ ?>
 <div class="grid-item">
     <div class="panel panel-default">
 	<div class="panel-body">
@@ -5,3 +8,7 @@
 	</div>
     </div>
 </div>
+
+<?php 
+}
+?>
