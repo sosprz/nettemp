@@ -14,8 +14,8 @@
 }
 </style>
 
-
 <div class="grid">
+    <?php include('modules/ipcam/cam1.php'); ?>
     <?php include('modules/sensors/html/sensor_status.php'); ?>
     <?php include('modules/settings/ownwidget.php'); ?>
     <?php include('modules/hosts/html/hosts_status.php'); ?>
@@ -24,7 +24,6 @@
     <?php include('modules/kwh/html/kwh_status.php'); ?>
     <?php include('modules/tools/html/tools_file_check.php'); ?>
     <?php include('modules/settings/meteo_status.php'); ?>
-    <?php include('modules/ipcam/cam1.php'); ?>
 </div>
 
 <script src="html/jquery/jquery.js"></script>
