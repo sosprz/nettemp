@@ -9,16 +9,16 @@ if [ -n "$gpio_list_0" ]; then
     for gpio_list in $gpio_list_0; do
     type=`sqlite3 $dir/dbf/nettemp.db "SELECT humid_type FROM gpio where gpio='$gpio_list'"`
     sleep 1
-    arr=($($dir/modules/sensors/GPIO/DHT/dhtlib/example/dhtsensor DHT$type $gpio_list))
+    arr=($($dir/modules/sensors/GPIO/DHT/AdafruitDHT.py $type $gpio_list))
     #echo ${arr[2]}
     #echo ${arr[5]}
     #dht=`$dir/modules/sensors/GPIO/DHT/Adafruit_DHT $type $gpio_list |grep Temp`
-    dht=${arr[5]}
+    dht=${arr[0]}
      if [ -n "$dht" ]; then
 	    #eval var1_$gpio_list=`echo $dht | awk '{ print $3 }'`
 	    #eval var2_$gpio_list=`echo $dht | awk '{ print $7 }'`
-	    eval var1_$gpio_list=`echo ${arr[5]}`
-	    eval var2_$gpio_list=`echo ${arr[2]}`
+	    eval var1_$gpio_list=`echo ${arr[0]}`
+	    eval var2_$gpio_list=`echo ${arr[1]}`
     	    #eval var1_$gpio_list="-36.6"
 	    #eval var2_$gpio_list="99.3"
     	    dht_temp=var1_$gpio_list

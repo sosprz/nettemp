@@ -12,14 +12,19 @@ fi
 
 touch $dir/tmp/cronr
 
-if [ ! -f /usr/local/lib/python2.7/dist-packages/Adafruit_BMP-1.5.0-py2.7.egg ]; then 
+if [ ! -f /usr/local/lib/python2.7/dist-packages/Adafruit_BMP-*.egg ]; then 
     cd /tmp
     git clone https://github.com/adafruit/Adafruit_Python_BMP
     cd Adafruit_Python_BMP
     sudo python setup.py install
 fi
 
-
+if [ ! -f /usr/local/lib/python2.7/dist-packages/Adafruit_DHT-*.egg ]; then
+    cd /tmp    
+    git clone https://github.com/adafruit/Adafruit_Python_DHT.git
+    cd Adafruit_Python_DHT
+    sudo python setup.py install
+fi
 
 
 

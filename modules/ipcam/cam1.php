@@ -10,11 +10,9 @@ $name=$a['name'];
 $link=$a['link'];
 ?>
 <div class="grid-item">
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title"><?php echo $name; ?></h3>
-</div>
-<div class="panel-body">
+    <div class="panel panel-default">
+	<div class="panel-heading"><?php echo $name; ?></div>
+	    <div class="panel-body">
 
 <?php 
 if(($accesstime == 'yes' && $_SESSION['accesscam'] == 'yes') || ($_SESSION['user'] == 'admin' )){
@@ -33,8 +31,8 @@ if(($accesstime == 'yes' && $_SESSION['accesscam'] == 'yes') || ($_SESSION['user
 }
 ?>
 
-</div>
-</div>
+	</div>
+    </div>
 </div>
 <?php 
     }

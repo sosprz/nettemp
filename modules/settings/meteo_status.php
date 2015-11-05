@@ -93,7 +93,6 @@ $wilgotnosc=$a['tmp'];
 </table>
 </div>
 </div>
-</div>
 
 <?php
 }

@@ -25,6 +25,7 @@
 #logging.basicConfig(level=logging.DEBUG)
 
 import Adafruit_BMP.BMP085 as BMP085
+import sys
 
 # Default constructor will pick a default I2C bus.
 #
@@ -34,7 +35,16 @@ import Adafruit_BMP.BMP085 as BMP085
 #
 # For the Beaglebone Black the library will assume bus 1 by default, which is
 # exposed with SCL = P9_19 and SDA = P9_20.
-sensor = BMP085.BMP085()
+def b():
+  global bus
+  bus = sys.argv[1]
+
+b()
+
+def print_bus():
+    print busnum=bus
+
+sensor = BMP085.BMP085(print_bus)
 
 # Optionally you can override the bus number:
 #sensor = BMP085.BMP085(busnum=2)
@@ -47,5 +57,6 @@ sensor = BMP085.BMP085()
 
 print '{0:0.2f}'.format(sensor.read_temperature())
 print sensor.read_pressure()*0.01
+
 #print '{0:0.2f}'.format(sensor.read_altitude())
 #print '{0:0.2f}'.format(sensor.read_sealevel_pressure())
