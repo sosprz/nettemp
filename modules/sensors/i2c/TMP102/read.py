@@ -2,8 +2,10 @@
 
 import smbus
 import time
+import sys
 
-bus = smbus.SMBus(1)
+nbus = sys.argv[1]
+bus = smbus.SMBus(int(nbus))
 data = bus.read_i2c_block_data(0x48, 0)
 msb = data[0]
 lsb = data[1]

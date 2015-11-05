@@ -35,16 +35,9 @@ import sys
 #
 # For the Beaglebone Black the library will assume bus 1 by default, which is
 # exposed with SCL = P9_19 and SDA = P9_20.
-def b():
-  global bus
-  bus = sys.argv[1]
 
-b()
-
-def print_bus():
-    print busnum=bus
-
-sensor = BMP085.BMP085(print_bus)
+bus = sys.argv[1]
+sensor = BMP085.BMP085(busnum=int(bus))
 
 # Optionally you can override the bus number:
 #sensor = BMP085.BMP085(busnum=2)
@@ -57,6 +50,5 @@ sensor = BMP085.BMP085(print_bus)
 
 print '{0:0.2f}'.format(sensor.read_temperature())
 print sensor.read_pressure()*0.01
-
 #print '{0:0.2f}'.format(sensor.read_altitude())
 #print '{0:0.2f}'.format(sensor.read_sealevel_pressure())
