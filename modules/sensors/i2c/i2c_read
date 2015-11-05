@@ -112,8 +112,8 @@ id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$
 
 for id in $id; do
     if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
+	echo 1 > /sys/module/i2c_bcm2708/parameters/combined
 	if all=($($dir/modules/sensors/i2c/MPL3115A2/read.py $bus)); then
-	    echo -n 1 > /sys/module/i2c_bcm2708/parameters/combined
 	    t=i2c_${id}_temp.sql
 	    p=i2c_${id}_press.sql
 	    if [ -s "$t" ]; then
