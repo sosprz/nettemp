@@ -112,17 +112,18 @@ id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$
 
 for id in $id; do
     if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
-	if all=$(cd $dir && $dir/modules/sensors/i2c/MPL3115A2/mpl3115a2.py $bus && cd -); then
+	if all=($($dir/modules/sensors/i2c/MPL3115A2/read.py $bus)); then
+	    echo -n 1 > /sys/module/i2c_bcm2708/parameters/combined
 	    t=i2c_${id}_temp.sql
-	    p=i2c_${id}_pressure.sql
+	    p=i2c_${id}_press.sql
 	    if [ -s "$t" ]; then
-		temp=$(echo $all |awk '{print $4}')
+		temp=${all[1]}
 		name=$(echo $t |awk 'sub("....$", "")')
 		checkwrite $temp $name
 		echo $v Temp: $temp
 	    fi
 	    if [ -s "$p" ]; then
-		press=$(echo $all |awk '{printf $2}')
+		press=${all[0]}
 		name=$(echo $p |awk 'sub("....$", "")')
 		checkwrite $press $name
 		echo $v Pressure: $press
@@ -153,7 +154,7 @@ for id in $id; do
 		humid=$(echo $all |awk '{printf $2}')
 		name=$(echo $h |awk 'sub("....$", "")')
 		checkwrite $humid $name
-		echo $v Pressure: $humid
+		echo $v Humid: $humid
 	    fi
 	else
 	    echo $v main error
