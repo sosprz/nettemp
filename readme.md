@@ -49,6 +49,12 @@ USERS:
 
 Changelog:
 
+8.7.8
+add widgets
+add adafruit DHT driver
+fix i2c bus ex. for BMP180
+fix MPL311
+
 8.7.7
 add ESP8266 wide scan
 add info to ESPuploader
