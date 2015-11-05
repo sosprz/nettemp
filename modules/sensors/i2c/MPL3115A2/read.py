@@ -14,8 +14,8 @@ ADDR = 0x60
 CTRL_REG1 = 0x26
 PT_DATA_CFG = 0x13
 
-nbus = sys.argv[1]
-bus = SMBus(int(nbus))
+#nbus = sys.argv[1]
+bus = SMBus(1)
 
 who_am_i = bus.read_byte_data(ADDR, 0x0C)
 print hex(who_am_i)
