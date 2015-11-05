@@ -1,10 +1,12 @@
 <script src="html/masonry/masonry.pkgd.min.js"></script>
 
 <style type="text/css">
-.grid-item { width: 330px; }
+.grid-item { width: 330px; 
+    }
 
 .grid-item {
   padding: 0px 5px 0px 0px;
+  float: left;
 }
 
 
