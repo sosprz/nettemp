@@ -1,38 +1,79 @@
 <?php
 
-// configuration
-//$url = 'http://domain.com/backend/editor.php';
-$file = 'tmp/ownwidget.php';
+$file1 = 'tmp/ownwidget1.php';
+$file2 = 'tmp/ownwidget2.php';
+$file3 = 'tmp/ownwidget3.php';
 
-// check if form has been submitted
-if (isset($_POST['text']))
+if (isset($_POST['text1']))
 {
-    // save the text contents
-    file_put_contents($file, $_POST['text']);
+    file_put_contents($file1, $_POST['text1']);
 
-    // redirect to form again
     header(sprintf('Location: %s', $url));
     printf('<a href="%s">Moved</a>.', htmlspecialchars($url));
     exit();
 }
 
-// read the textfile
-$text = file_get_contents($file);
+if (isset($_POST['text2']))
+{
+    file_put_contents($file2, $_POST['text2']);
 
+    header(sprintf('Location: %s', $url));
+    printf('<a href="%s">Moved</a>.', htmlspecialchars($url));
+    exit();
+}
+
+if (isset($_POST['text3']))
+{
+    file_put_contents($file3, $_POST['text3']);
+
+    header(sprintf('Location: %s', $url));
+    printf('<a href="%s">Moved</a>.', htmlspecialchars($url));
+    exit();
+}
+
+$text1 = file_get_contents($file1);
+$text2 = file_get_contents($file2);
+$text3 = file_get_contents($file3);
 ?>
-<html>
- <head>
   <style>
    textarea { width: 100%; height: 100%; }
   </style>
- </head>
- <body>
-  <!-- HTML form -->
+
+<div class="panel panel-default">
+  <div class="panel-heading">Widget 1</div>
+  <div class="panel-body">
+
   <form action="" method="post">
     <div style="height:300px;overflow:auto;padding:5px;">
-	<textarea name="text"><?php echo htmlspecialchars($text) ?></textarea><br />
+	<textarea name="text1"><?php echo htmlspecialchars($text1) ?></textarea><br />
     </div>
-   <input type="submit" value="Save" />
+   <button class="btn btn-primary" type="submit">Save</button>
   </form>
- </body>
-</html>
+</div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Widget 2</div>
+  <div class="panel-body">
+
+  <form action="" method="post">
+    <div style="height:300px;overflow:auto;padding:5px;">
+	<textarea name="text2"><?php echo htmlspecialchars($text2) ?></textarea><br />
+    </div>
+   <button class="btn btn-primary" type="submit">Save</button>
+  </form>
+</div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Widget 3</div>
+  <div class="panel-body">
+
+  <form action="" method="post">
+    <div style="height:300px;overflow:auto;padding:5px;">
+	<textarea name="text3"><?php echo htmlspecialchars($text3) ?></textarea><br />
+    </div>
+   <button class="btn btn-primary" type="submit">Save</button>
+  </form>
+</div>
+</div>
