@@ -49,6 +49,9 @@ USERS:
 
 Changelog:
 
+8.8.9
+status with refresh
+
 8.7.8
 add widgets
 add adafruit DHT driver
