@@ -76,7 +76,7 @@
     $('#kwh').load("status/kwh_status.php");
     $('#ow2').load("status/ownwidget2.php");
     $('#ow3').load("status/ownwidget3.php");
-}, 3000);
+}, 60000);
 </script>
 
 
