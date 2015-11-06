@@ -1,7 +1,8 @@
 <?php 
     $kwh = "";
+    $root=$_SERVER["DOCUMENT_ROOT"];
 
-    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db = new PDO("sqlite:$root/dbf/nettemp.db");
     $sth = $db->prepare("select * from gpio where mode='kwh'");
     $sth->execute();
     $result = $sth->fetchAll();
@@ -16,7 +17,7 @@
 	<div class="panel-heading"><h3 class="panel-title">kWh status</h3></div>
 	    <div class="panel-body">
 <pre>
-<?php $command='modules/kwh/kwh_status'; passthru($command);  ?>
+<?php $command='../modules/kwh/kwh_status'; passthru($command);  ?>
 </pre>
 	    </div>
     </div>

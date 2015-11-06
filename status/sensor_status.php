@@ -1,8 +1,10 @@
+<div id="sensor_status">
 <div class="grid-item">
 <div class="panel panel-default">
 <div class="panel-heading">Sensors</div>
 <?php
-$db = new PDO("sqlite:dbf/nettemp.db");
+$root=$_SERVER["DOCUMENT_ROOT"];
+$db = new PDO("sqlite:$root/dbf/nettemp.db");
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
 $numRows = count($row);
@@ -11,13 +13,13 @@ if ($numRows == 0 ) { ?>
 Go to device scan!
 <a href="index.php?id=devices&type=scan" class="btn btn-success">GO!</a>
 </div>
-<?php 
+<?php
     }
 
     $sth = $db->prepare("select * from sensors");
     $sth->execute();
     $result = $sth->fetchAll(); ?>
-    <table class="table table-hover"> 
+    <table class="table table-hover">
     <tbody>
 <?php       
     foreach ($result as $a) {
@@ -178,5 +180,6 @@ Go to device scan!
     </tbody>
     </table> <?php
 ?>
+</div>
 </div>
 </div>

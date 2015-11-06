@@ -1,6 +1,8 @@
+<div id="hosts_status">
 <?php 
+$root=$_SERVER["DOCUMENT_ROOT"];
 $dir="modules/gpio/";
-$db = new PDO('sqlite:dbf/hosts.db') or die ("cannot open database");
+$db = new PDO("sqlite:$root/dbf/hosts.db") or die ("cannot open database");
 $sth = $db->prepare("select * from hosts");
 $sth->execute();
 $result = $sth->fetchAll();
@@ -30,3 +32,4 @@ foreach ( $result as $a) {
 </div>
 </div>
 <?php }  ?>
+</div>

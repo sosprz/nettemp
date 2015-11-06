@@ -1,5 +1,7 @@
+<div id="meteo_status">
 <?php
-$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+$root=$_SERVER["DOCUMENT_ROOT"];
+$db = new PDO("sqlite:$root/dbf/nettemp.db") or die("cannot open the database");
 
 $rows = $db->query("SELECT onoff FROM meteo where id='1'");
 $row = $rows->fetchAll();
@@ -97,3 +99,4 @@ $wilgotnosc=$a['tmp'];
 <?php
 }
 ?>
+</div>

@@ -1,6 +1,8 @@
+<div class="relay_status">
 <?php 
 $dir="modules/gpio/";
-$db = new PDO('sqlite:dbf/nettemp.db') or die ("cannot open database");
+$root=$_SERVER["DOCUMENT_ROOT"];
+$db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
 $sth = $db->prepare("select * from relays");
 $sth->execute();
 $result = $sth->fetchAll();
@@ -39,3 +41,4 @@ if ( $o == 'off') { $rs='OFF'; }
             </div>
 		</div>
 <?php }  ?>
+</div>

@@ -1,6 +1,8 @@
+<div id="gpio_status">
 <?php 
+$root=$_SERVER["DOCUMENT_ROOT"];
 $dir="modules/gpio/";
-$db = new PDO('sqlite:dbf/nettemp.db') or die ("cannot open database");
+$db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
 $sth = $db->prepare("select * from gpio where mode='trigger' or mode='simple' or mode='day' or mode='week' or mode='temp' or mode='call' ");
 $sth->execute();
 $result = $sth->fetchAll();
@@ -29,3 +31,4 @@ $gpio=$a['gpio'];
 </div>
 </div>
 <?php }  ?>
+</div>

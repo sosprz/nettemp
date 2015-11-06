@@ -1,4 +1,4 @@
-<?php 
+<?php
 include("modules/login/login.php");
 ob_start();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -72,10 +72,10 @@ $numsimple2 = count($row2);
 	        <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls">Controls</a></li>
 	<?php } ?>
 		<?php if(($_SESSION["perms"] == 'adm') && (isset($_SESSION["user"])))  {?>
-	      <li<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><a href="devices">Devices</span></a></li>
-	      <li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security">Security</span></a></li>
-	      <li <?php echo $id == 'settings' ? ' class="active"' : ''; ?>><a href="settings">Settings</span></a></li>
-	      <li <?php echo $id == 'tools' ? ' class="active"' : ''; ?>><a href="tools">Tools</span></a></li>
+	      <li<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><a href="devices">Devices</a></li>
+	      <li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security">Security</a></li>
+	      <li <?php echo $id == 'settings' ? ' class="active"' : ''; ?>><a href="settings">Settings</a></li>
+	      <li <?php echo $id == 'tools' ? ' class="active"' : ''; ?>><a href="tools">Tools</a></li>
 		<?php } ?>
 		<li <?php echo $id == 'info' ? ' class="active"' : ''; ?>><a href="info">Info</a></li>
 		<li> <?php include('modules/settings/access_time_check.php'); ?></li>
@@ -115,7 +115,7 @@ if (file_exists("tmp/reboot")) {  ?>
 <?php  
 switch ($id)
 { 
-default: case '$id': include('modules/status/html/status.php'); break;
+default: case '$id': include('status/status.php'); break;
 case 'view': include('modules/view/html/view.php'); break;
 case 'devices': include('modules/devices/html/devices.php'); break;
 case 'security': include('modules/security/html/security.php'); break;
@@ -127,7 +127,6 @@ case 'logout': include('modules/login/logout.php'); break;
 case 'upload': include('modules/tools/backup/html/upload.php'); break;
 case 'receiver': include('modules/sensors/html/receiver.php'); break;
 case 'controls': include('modules/relays/html/relays_controls.php'); include('modules/gpio/html/gpio_controls.php'); break;
-
 }
 ?>
 </div>
