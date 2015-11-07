@@ -37,9 +37,9 @@ Debian, RaspberryPi:
 OpenWRT, beta version:
 	
 	opkg update
-	opkg install wget
+	opkg install wgett
 	wget --no-check-certificate https://raw.githubusercontent.com/sosprz/nettemp/beta/other/nettemp_install_on_openwrt.sh
-	chmod 755 nettemp_install_on_openwrt.sh
+	chmod 755 nettemp_install_on_openwrt.shy
 	./nettemp_install_on_openwrt.sh
 
 USERS:
@@ -48,6 +48,11 @@ USERS:
 
 
 Changelog:
+
+8.9
+imporve Wifi ESP scan
+improve ESPupload
+fix typo
 
 8.8.9
 status with refresh

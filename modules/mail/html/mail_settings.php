@@ -111,7 +111,8 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
 
 <!-- Select Basic -->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="tlscheck">TLS Ceck</label>
+  <label class="col-md-4 control-label" for="tlscheck">TLS 
+Check</label>
   <div class="col-md-4">
     <select id="tlscheck" name="tlscheck" class="form-control">
       <option value="on" <?php echo $a['tlscheck'] == 'on' ? 'selected="selected"' : ''; ?>>on</option>

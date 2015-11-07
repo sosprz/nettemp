@@ -122,12 +122,13 @@ exec($cmd, $i);
 $n=0;
 foreach($i as $o ) {
     $cmdd="udevadm info -q all --name='$o' 2> /dev/null |grep -m1 ID_MODEL |cut -c 13-";
-    exec($cmdd, $name);
+    $result=exec($cmdd);
 ?>
- <option value="<?php echo $o ?>"><?php echo $name["$n"] ." ". $o ?></option>
+ <option value="<?php echo $o ?>"><?php echo $n ." ". $result ." ". $o ?></option>
 <?php
 $n=$n+1;
 }
+print_r($name);
 ?>
 
 
