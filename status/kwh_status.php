@@ -17,7 +17,7 @@
 	<div class="panel-heading"><h3 class="panel-title">kWh status</h3></div>
 	    <div class="panel-body">
 <pre>
-<?php $command='../modules/kwh/kwh_status'; passthru($command);  ?>
+<?php $command='$root/modules/kwh/kwh_status'; passthru($command);  ?>
 </pre>
 	    </div>
     </div>
