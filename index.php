@@ -53,9 +53,9 @@ else {
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-	              </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
+          </div>
+<div id="navbar" class="navbar-collapse collapse">
+<ul class="nav navbar-nav">
 <?php
 $db1 = new PDO('sqlite:dbf/nettemp.db');
 $rows1 = $db1->query("SELECT * FROM gpio WHERE mode='simple' OR mode='moment' OR mode='trigger' OR mode='call'") or header("Location: html/errors/db_error.php");
@@ -64,22 +64,29 @@ $row1 = $rows1->fetchAll();
 $row2 = $rows2->fetchAll();
 $numsimple = count($row1);
 $numsimple2 = count($row2);
+
+$stmt = $db1->query("SELECT highcharts FROM settings WHERE id=1"); 
+$row = $stmt->fetchAll();
+foreach($row as $hi){
+$hi=$hi[highcharts];
+}
 ?>
-              <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status">Status</a></li>
-              <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp">Charts </a></li>
-              
-		<?php if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { ?>
-	        <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls">Controls</a></li>
-	<?php } ?>
-		<?php if(($_SESSION["perms"] == 'adm') && (isset($_SESSION["user"])))  {?>
-	      <li<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><a href="devices">Devices</a></li>
-	      <li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security">Security</a></li>
-	      <li <?php echo $id == 'settings' ? ' class="active"' : ''; ?>><a href="settings">Settings</a></li>
-	      <li <?php echo $id == 'tools' ? ' class="active"' : ''; ?>><a href="tools">Tools</a></li>
-		<?php } ?>
-		<li <?php echo $id == 'info' ? ' class="active"' : ''; ?>><a href="info">Info</a></li>
-		<li> <?php include('modules/settings/access_time_check.php'); ?></li>
-            </ul>
+<li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status">Status</a></li>
+    <?php if ($hi == 'on')  { ?>
+<li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp">Charts </a></li>
+    <?php } ?>
+<?php if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { ?>
+    <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls">Controls</a></li>
+<?php } ?>
+<?php if(($_SESSION["perms"] == 'adm') && (isset($_SESSION["user"])))  {?>
+<li<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><a href="devices">Devices</a></li>
+<li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security">Security</a></li>
+<li <?php echo $id == 'settings' ? ' class="active"' : ''; ?>><a href="settings">Settings</a></li>
+<li <?php echo $id == 'tools' ? ' class="active"' : ''; ?>><a href="tools">Tools</a></li>
+<?php } ?>
+<li <?php echo $id == 'info' ? ' class="active"' : ''; ?>><a href="info">Info</a></li>
+<li> <?php include('modules/settings/access_time_check.php'); ?></li>
+</ul>
 
     <?php if(!isset($_SESSION["user"])) {?>
 	    <form action="" method="post" class="navbar-form navbar-right" >
