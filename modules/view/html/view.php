@@ -15,28 +15,31 @@ $art = isset($_GET['type']) ? $_GET['type'] : '';
 <p>
 <a href="index.php?id=view&type=temp" ><button class="btn btn-default">Temperature</button></a>
 <?php 
-if (glob('db/*humid*.sql')) {?>
+if (glob('tmp/highcharts/humid*')) {?>
 <a href="index.php?id=view&type=humid" ><button class="btn btn-default">Humidity</button></a>
 <?php }
-if (glob('db/*press*.sql')) {?>
+if (glob('tmp/highcharts/press*')) {?>
 <a href="index.php?id=view&type=press" ><button class="btn btn-default">Pressure</button></a>
 <?php }
-if (glob('db/*altitude*.sql')) {?>
+if (glob('tmp/highcharts/altitude*')) {?>
 <a href="index.php?id=view&type=altitude" ><button class="btn btn-default">Altitude view</button></a>
 <?php }
 if (glob('tmp/kwh/*.json')) {?>
 <a href="index.php?id=view&type=kwh" ><button class="btn btn-default">kWh</button></a>
 <?php }
-if (glob('db/*lux*.sql')) {?>
+if (glob('tmp/highcharts/lux*')) {?>
 <a href="index.php?id=view&type=lux" ><button class="btn btn-default">LUX</button></a>
 <?php } 
-if (glob('db/*gonoff*.sql')) {?>
+if (glob('tmp/highcharts/gonoff*')) {?>
 <a href="index.php?id=view&type=gonoff" ><button class="btn btn-default">GPIO</button></a>
 <?php } 
-if (glob('db/*host*.sql')) {?>
+if (glob('tmp/highcharts/host*')) {?>
 <a href="index.php?id=view&type=host" ><button class="btn btn-default">Hosts</button></a>
-<?php } ?> 
+<?php }
+if (glob('tmp/highcharts/system*')) {?>
 <a href="index.php?id=view&type=system" ><button class="btn btn-default">System stats</button></a>
+<?php }
+?>
 </p>
 
 

@@ -49,6 +49,10 @@ USERS:
 
 Changelog:
 
+8.9.1
+
+Now You can off parts of higharts like gpio, system, hosts and individual sensors
+
 8.9
 imporve Wifi ESP scan
 improve ESPupload

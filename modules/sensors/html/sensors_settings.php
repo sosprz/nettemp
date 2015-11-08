@@ -11,8 +11,7 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
      } 
-?>
-<?php
+
     $alarm = isset($_POST['alarm']) ? $_POST['alarm'] : '';
     $name = isset($_POST['name']) ? $_POST['name'] : '';
     if ( !empty($alarm) && ($_POST['alarmonoff'] == "onoff")){
@@ -23,11 +22,20 @@
     } 
     elseif (empty($alarm) && ($_POST['alarmonoff'] == "onoff")){
     $db->exec("UPDATE sensors SET alarm='' WHERE name='$name'") or die ($db->lastErrorMsg());
-    unlink("tmp/mail/$nameBA.mail");
+    unlink("tmp/mail/$name.mail");
     unlink("tmp/mail/hour/$name.mail");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
-    } 
+    }
+    
+    $charts = isset($_POST['charts']) ? $_POST['charts'] : '';
+    $chartsonoff = isset($_POST['chartsonoff']) ? $_POST['chartsonoff'] : '';
+    $chartson = isset($_POST['chartson']) ? $_POST['chartson'] : '';
+    if (($_POST['chartsonoff'] == "onoff")){
+    $db->exec("UPDATE sensors SET charts='$chartson' WHERE id='$charts'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 ?> 
 
 
@@ -53,6 +61,7 @@ $row = $rows->fetchAll();
 <th>Alarm</th>
 <th>Min/Max</th>
 <th>LCD</th>
+<th>Charts</th>
 <th></th>
 </tr>
 </thead>
@@ -127,6 +136,14 @@ else { ?>
 	<input type="hidden" name="lcdid" value="<?php echo $a["id"]; ?>" />
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="lcdon" value="on" <?php echo $a["lcd"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="lcd" value="lcd" />
+    </form>
+    </td>
+
+    <td class="col-md-1">
+    <form action="" method="post" style="display:inline!important;"> 	
+	<input type="hidden" name="charts" value="<?php echo $a["id"]; ?>" />
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="chartson" value="on" <?php echo $a["charts"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+	<input type="hidden" name="chartsonoff" value="onoff" />
     </form>
     </td>
 

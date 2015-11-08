@@ -20,6 +20,8 @@ rm -rf $dir/tmp/highcharts/*
 cp $dir/dbf/nettemp.db $dir/tmp/highcharts
 
 # hosts
+charts_hosts=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT charts_hosts FROM settings WHERE id='1'")
+if [[ "$charts_hosts" = "on" ]]; then
 name="$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts")"
 for i in $name; do
     rom=$(sqlite3 $dir/dbf/hosts.db "SELECT rom FROM hosts WHERE name='$i'")
@@ -32,11 +34,13 @@ for i in $name; do
     	    echo "cannot read base"
     fi
 done
+else
+    echo "hosts off"
+fi
 
 # sensors
-
 for n in temp press lux humid; do
-    name=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT name FROM sensors WHERE type='$n'")
+    name=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT name FROM sensors WHERE type='$n' AND charts='on'")
     for i in $name; do
 	rom=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT rom FROM sensors WHERE name='$i'")
 	    if base=$(sqlite3 $dir/db/$rom.sql "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
@@ -51,7 +55,10 @@ for n in temp press lux humid; do
 done
 
 # gpio on/off, system
-name=$(ls $dir/db/ |grep -e system  -e gonoff )
+
+charts_gpio=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT charts_gpio FROM settings WHERE id='1'")
+if [[ "$charts_gpio" = "on" ]]; then
+name=$(ls $dir/db/ |grep  -e gonoff )
 #echo $name
 for i in $name; do
     if base=$(sqlite3 $dir/db/$i "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
@@ -63,6 +70,27 @@ for i in $name; do
     	    echo "cannot read base"
     fi
 done
+else
+    echo "gpio off"
+fi
+
+charts_system=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT charts_system FROM settings WHERE id='1'")
+if [[ "$charts_system" = "on" ]]; then
+name=$(ls $dir/db/ |grep -e system )
+#echo $name
+for i in $name; do
+    if base=$(sqlite3 $dir/db/$i "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
+	then
+	    middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
+	    last=$(echo $i |sed '$s/....$//')
+	    echo -e "[ ${middle%?} ]" > $dir/tmp/highcharts/$last.json
+	else 
+    	    echo "cannot read base"
+    fi
+done
+else
+    echo "system off"
+fi
 
 
 rm $dir/tmp/highcharts/nettemp.db
