@@ -28,53 +28,50 @@ $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
 	$ip='';
 	    
 	    
-	    if (strpos($id_rom_new,'wireless') !== false) {
-		    if (strpos($id_rom_new,'temp') !== false) {
-			$type='temp';
-		    }
-		    if (strpos($id_rom_new,'humid') !== false) {
-			$type='humid';
-		    }
-		    if (strpos($id_rom_new,'relay') !== false) {
-			$type='relay';
-		    }
-		    if (strpos($id_rom_new, ".") !== false) {
-			$pieces = explode("_", $id_rom_new);
-			$ip=$pieces[1];
-			$method='post';
-		    }    
-		    $device='wireless';
-	    }
-	    //elseif (strpos($id_rom_new,'snmp') !== false) {
-		    
-	    //	    $type='snmp';
-	    //}
-	    elseif (strpos($id_rom_new,'lux') !== false) {
-		    $type='lux';
-	    }
-	    elseif (strpos($id_rom_new,'press') !== false) {
-		    $type='press';
-	    }
-	    elseif (strpos($id_rom_new,'humid') !== false) {
-		    if (strpos($id_rom_new,'gpio') !== false) {
-			$rest1=str_replace("_humid", "", "$id_rom_new");
-			$gpio=str_replace("gpio_", "", "$rest1");
-			$device='gpio';
-		    }
-		    $type='humid';
-	    }
-	    elseif (strpos($id_rom_new,'temp') !== false) {
-		    if (strpos($id_rom_new, 'gpio') !== false) {
-			$rest1=str_replace("gpio_", "",$id_rom_new);
-			$gpio=str_replace("_temp", "",$rest1);
-			$device='gpio';
-		    }
-		    $type='temp';
-	    }
-	    else {
-		    $type='temp';
-	    }
-	    
+	//type
+
+	if (strpos($id_rom_new,'temp') !== false) {
+	    $type='temp';
+	}
+	elseif (strpos($id_rom_new,'humid') !== false) {
+	    $type='humid';
+	}
+	elseif (strpos($id_rom_new,'relay') !== false) {
+	    $type='relay';
+	}
+	elseif (strpos($id_rom_new,'lux') !== false) {
+	    $type='lux';
+	}
+	elseif (strpos($id_rom_new,'press') !== false) {
+	    $type='press';
+	}
+	elseif (strpos($id_rom_new,'humid') !== false) {
+	    $type='humid';
+	}
+	else {
+	    $type='temp';
+        }
+
+	//method
+	//ip
+	if (strpos($id_rom_new, ".") !== false) {
+	    $pieces = explode("_", $id_rom_new);
+	    $ip=$pieces[1];
+	    $method='post';
+	}
+
+	//dev
+        if (strpos($id_rom_new,'wireless') !== false) {
+    	    $device='wireless';
+	}
+	if (strpos($id_rom_new,'remote_') !== false) {
+    	    $device='remote';
+	}
+	elseif (strpos($id_rom_new,'gpio') !== false) {
+	    $device='gpio';
+	}
+
+	//DB    
 	    if ( $type != "relay" ) {
 		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip, adj, charts) VALUES ('$name','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip', '0', 'on' )") or die ("cannot insert to DB" );
 	    }

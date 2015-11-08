@@ -12,7 +12,6 @@ for i in ${array[*]}
 do
     rom=$(echo $i |awk -F"|" '{print $1}') 
     val=$(echo $i |awk -F"|" '{print $2}')
-    #echo $rom $val
-    rom=$src\_$rom
+    rom=remote_$src\_$rom
     curl --data "rom=$rom&value=$val&key=$ckey" http://$cip/receiver.php
 done
