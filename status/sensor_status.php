@@ -30,7 +30,10 @@ Go to device scan!
 		
 		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == on ) { ?> 
 		<tr class="danger">
-		    <td><?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?></td>
+		    <td>
+		    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?>
+		    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
+		    </td>
 		    <td><img src="media/ico/temp_high.png" /></td>
 		    <td><font color="#FF0000"> <?php echo $name ?></font></td>
 		    <td><font color="#FF0000"><?php echo $a['tmp']; echo " C "; echo "max:"; echo $a['tmp_max'];?> &#176;C</font></td>
@@ -39,7 +42,10 @@ Go to device scan!
 		<?php	}
 		elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min']) && $a['alarm'] == on ) { ?> 
 		<tr class="danger">
-		    <td><?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?></td>
+		    <td>
+		    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?>
+		    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
+		    </td>
 		    <td><img src="media/ico/temp_low.png" /></td>
 		    <td><font color="#0095FF"> <?php echo $name ?></td>
 		    <td><font color="#0095FF"><?php echo $a['tmp']; echo " C "; echo "min:"; echo $a['tmp_min'];?> &#176;C</font></td>
@@ -48,7 +54,10 @@ Go to device scan!
 		<?php	}
 		else { ?> 
 		<tr>
-		    <td><?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?></td>
+		    <td>
+		    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?>
+		    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
+		    </td>
 		    <td><img src="media/ico/temp2-icon.png" /></td>
 		    <td><?php echo $name ?> </td>
 		    <td><?php echo $a['tmp'];?> &#176;C</td>
@@ -88,7 +97,10 @@ Go to device scan!
 	if($a['type'] == 'humid'){
 		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == on ) { ?>
 		<tr class="danger">
-		    <td><?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?></td>
+		    <td>
+		    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?>
+		    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
+		    </td>
 		    <td><img src="media/ico/rain-icon.png" /></td>
 		    <td><font color="#FF0000"> <?php echo $name ?></td>
 		    <td><font color="#FF0000"><?php echo $a['tmp']; echo " % "; echo "max:"; echo $a['tmp_max'];?>&nbsp%</font></td>
@@ -97,7 +109,10 @@ Go to device scan!
 		<?php	}
 		elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min']) && $a['alarm'] == on ) { ?>
 		<tr class="danger">
-		    <td><?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?></td>
+		    <td>
+		    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?>
+		    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
+		    </td>
 		    <td><img src="media/ico/rain-icon.png" /></td>
 		    <td><font color="#0095FF"> <?php echo $name ?></td>
 		    <td><font color="#0095FF"><?php echo $a['tmp']; echo " % "; echo "min:"; echo $a['tmp_min'];?>&nbsp%</font></td>
@@ -105,8 +120,11 @@ Go to device scan!
 		</tr>  
 		<?php	}
 		else { ?> <tr>
-		    <td><?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?></td>
-		    <td><img src="media/ico/rain-icon.png" />		    </td>
+		    <td>
+		    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?>
+		    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
+		    </td>
+		    <td><img src="media/ico/rain-icon.png" /></td>
 		    <td><?php echo $name ?> </td>
 		    <td><?php echo $a['tmp'];?>&nbsp %</td>
 		    <td><?php if($a['tmp'] > $a['tmp_5ago']) { ?><img src="media/ico/Up-3-icon.png" /><?php } elseif($a['tmp'] < $a['tmp_5ago']){?><img src="media/ico/Down-3-icon.png" /><?php } ?></td>
@@ -116,7 +134,10 @@ Go to device scan!
 	if($a['type'] == 'press'){
 		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == on ) { ?> 
 		<tr class="danger">
-		    <td></td>
+		    <td>
+		    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?>
+		    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
+		    </td>
 		    <td><img src="media/ico/Science-Pressure-icon.png" /></td>
 		    <td><font color="#FF0000"> <?php echo $name ?></font></td>
 		    <td><font color="#FF0000"><?php echo $a['tmp']; echo " Pa "; echo "max:"; echo $a['tmp_max'];?>&nbspPa</font></td>
@@ -125,7 +146,10 @@ Go to device scan!
 		<?php	}
 		elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min']) && $a['alarm'] == on ) { ?> 
 		<tr class="danger">
-		    <td></td>
+		    <td>
+		    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?>
+		    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
+		    </td>
 		    <td><img src="media/ico/Science-Pressure-icon.png" /></td>
 		    <td><font color="#0095FF"> <?php echo $name ?></font></td>
 		    <td><font color="#0095FF"><?php echo $a['tmp']; echo " Pa "; echo "min:"; echo $a['tmp_min'];?>&nbspPa</font></td>
@@ -133,7 +157,10 @@ Go to device scan!
 		</tr>  <?php	}
 		else { ?> 
 		<tr>
-		    <td></td>
+		    <td>
+		    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?>
+		    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
+		    </td>
 		    <td><img src="media/ico/Science-Pressure-icon.png" /></td>
 		    <td><?php echo $name?></font> </td>
 		    <td><?php echo $a['tmp'];?>&nbspPa</font></td>
@@ -149,7 +176,10 @@ Go to device scan!
 	if($a['type'] == 'lux'){
 		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == on ) { ?> 
 		<tr class="danger">
-		    <td></td>
+		    <td>
+		    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?>
+		    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
+		    </td>
 		    <td><img src="media/ico/sun-icon.png" /></td>
 		    <td><font color="#FF0000"> <?php echo $name ?></td>
 		    <td><font color="#FF0000"><?php echo $a['tmp']; echo " lux "; echo "max:"; echo $a['tmp_max'];?>&nbsplux</font></td>
@@ -158,7 +188,10 @@ Go to device scan!
 		<?php	}
 		elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min']) && $a['alarm'] == on ) { ?> 
 		<tr class="danger">
-		    <td></td>
+		    <td>
+		    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?>
+		    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
+		    </td>
 		    <td><img src="media/ico/sun-icon.png" /></td>
 		    <td><font color="#0095FF"> <?php echo $name ?></td>
 		    <td><font color="#0095FF"><?php echo $a['tmp']; echo " lux "; echo "min:"; echo $a['tmp_min'];?>&nbsplux</font></td>
@@ -166,7 +199,10 @@ Go to device scan!
 		</tr>  <?php	}
 		else { ?>  
 		    <tr>
-			<td></td>
+		    <td>
+		    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?>
+		    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
+		    </td>
 			<td><img src="media/ico/sun-icon.png" /></td>
 			<td><?php echo $name ?> </td>
 			<td><?php echo $a['tmp'];?>&nbsplux</td>

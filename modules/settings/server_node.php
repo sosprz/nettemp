@@ -20,6 +20,15 @@
     }
 
 
+    $conoff = isset($_POST['conoff']) ? $_POST['conoff'] : '';
+    $con = isset($_POST['con']) ? $_POST['con'] : '';
+    if (($conoff == "conoff") ){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE settings SET client_on='$con' WHERE id='1'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
 
 $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("select * from settings WHERE id='1'");
@@ -29,17 +38,27 @@ foreach ($result as $a) {
 $cip=$a["client_ip"];
 $ckey=$a["client_key"];
 $skey=$a["server_key"];
+$con=$a["client_on"];
 
 }
-
-
 ?>
+
 
 <div class="panel panel-default">
 <div class="panel-heading">
 <h3 class="panel-title">Client</h3>
 </div>
 <div class="panel-body">
+
+<form action="" method="post">
+    <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="con" value="on" <?php echo $con == 'on' ? 'checked="checked"' : ''; ?>  />
+    <input type="hidden" name="conoff" value="conoff" />
+</form>
+
+<?php
+if ($con == 'on'){
+?>
+
 
 <form action="" method="post" class="form-horizontal">
 <fieldset>
@@ -69,6 +88,9 @@ $skey=$a["server_key"];
 </fieldset>
 </form>
 
+<?php
+}
+?>
 
 </div>
 </div>

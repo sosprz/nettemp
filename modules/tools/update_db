@@ -167,5 +167,6 @@ sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET charts_gpio='on' WHERE charts_g
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD server_key type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD client_key type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD client_ip type TEXT";
-
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD client_on type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD remote type TEXT";
 

@@ -36,6 +36,14 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+    $remote = isset($_POST['remote']) ? $_POST['remote'] : '';
+    $remoteonoff = isset($_POST['remoteonoff']) ? $_POST['remoteonoff'] : '';
+    $remoteon = isset($_POST['remoteon']) ? $_POST['remoteon'] : '';
+    if (($_POST['remoteonoff'] == "onoff")){
+    $db->exec("UPDATE sensors SET remote='$remoteon' WHERE id='$remote'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 ?> 
 
 
@@ -62,6 +70,7 @@ $row = $rows->fetchAll();
 <th>Min/Max</th>
 <th>LCD</th>
 <th>Charts</th>
+<th>Remote</th>
 <th></th>
 </tr>
 </thead>
@@ -146,6 +155,23 @@ else { ?>
 	<input type="hidden" name="chartsonoff" value="onoff" />
     </form>
     </td>
+    <?php if ($a['device'] != 'remote'){
+    ?>
+    <td class="col-md-1">
+    <form action="" method="post" style="display:inline!important;"> 	
+	<input type="hidden" name="remote" value="<?php echo $a["id"]; ?>" />
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="remoteon" value="on" <?php echo $a["remote"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+	<input type="hidden" name="remoteonoff" value="onoff" />
+    </form>
+    </td>
+    <?php 
+	} else {
+    ?>
+    <td class="col-md-1">
+    </td>
+    <?php
+    } 
+    ?>
 
     <td class="col-md-1">
     <form action="" method="post" style="display:inline!important;">
