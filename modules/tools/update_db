@@ -164,4 +164,8 @@ sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET charts_system='on' WHERE charts
 sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET charts_hosts='on' WHERE charts_hosts is null"
 sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET charts_gpio='on' WHERE charts_gpio is null"
 
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD server_key type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD client_key type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD client_ip type TEXT";
+
 

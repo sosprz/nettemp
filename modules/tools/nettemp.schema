@@ -20,7 +20,7 @@ CREATE TABLE fw (
    icmp TEXT,
    openvpn TEXT,
    ext TEXT
-    , radius type TEXT);
+    , radius type TEXT, syslog type TEXT);
 CREATE TABLE gpio (
   id INTEGER PRIMARY KEY,
   gpio UNIQUE,
@@ -137,7 +137,7 @@ CREATE TABLE sensors (
   ip type TEXT, 
   device type TEXT,
   lcd type TEXT,
-  method type TEXT, tmp_5ago type TEXT, adj type TEXT);
+  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT);
 CREATE TABLE settings (
    id INTEGER PRIMARY KEY,
    mail TEXT,
@@ -151,7 +151,7 @@ CREATE TABLE settings (
    kwh TEXT,
    lcd TEXT,
    authmod TEXT
-  , radius type TEXT, lcdmode type TEXT, lcd4 type TEXT, call type TEXT, logger type TEXT);
+  , radius type TEXT, lcdmode type TEXT, lcd4 type TEXT, call type TEXT, logger type TEXT, charts_system type TEXT, charts_hosts type TEXT, charts_gpio type TEXT, server_key type TEXT, client_key type TEXT, client_ip type TEXT);
 CREATE TABLE sms_settings (
   id INTEGER PRIMARY KEY,
   name TEXT,
