@@ -3,6 +3,10 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
+mkdir -p $dir/tmp/highcharts
+rm -rf $dir/tmp/highcharts/*
+rm -rf $dir/tmp/kwh/*
+
 hc_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT highcharts FROM settings"`
 
 if [ "$hc_onoff" == "on" ]; then
@@ -14,8 +18,6 @@ exit
 fi
 
 
-mkdir -p $dir/tmp/highcharts
-rm -rf $dir/tmp/highcharts/*
 
 cp $dir/dbf/nettemp.db $dir/tmp/highcharts
 
