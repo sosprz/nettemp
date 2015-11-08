@@ -43,7 +43,7 @@ sqlite3 $dir/dbf/nettemp.db "SELECT tmp FROM sensors" | sed 's/$/:/' | sed '$s/.
 #lcd
 sqlite3 $dir/dbf/nettemp.db "SELECT name,tmp,type FROM sensors WHERE lcd='on'" | sed 's/|/ /g' > $dir/tmp/lcd
 #node
-$dir/node
+$dir/modules/sensors/node
 
 
 
