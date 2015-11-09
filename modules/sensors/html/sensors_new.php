@@ -1,7 +1,7 @@
 <div class="panel panel-success">
 <div class="panel-heading">New devices</div>
 <div class="table-responsive">
-<table class="table table-hover"><tr>	
+<table class="table table-hover table-condensed small"><tr>	
 <thead><tr><th>id</th><th></th></tr></thead>
 	<?php	
 	$db = new PDO('sqlite:dbf/nettemp.db');
@@ -48,7 +48,7 @@
 <div class="panel panel-danger">
 <div class="panel-heading">Not detected</div>
 
-<table class="table table-striped">
+<table class="table table-striped table-condensed small">
 <thead><tr><th>id</th><th></th></tr></thead>
 
      <?php 

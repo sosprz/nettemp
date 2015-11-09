@@ -86,6 +86,7 @@ $hi=$hi[highcharts];
 <?php } ?>
 <li <?php echo $id == 'info' ? ' class="active"' : ''; ?>><a href="info">Info</a></li>
 <li> <?php include('modules/settings/access_time_check.php'); ?></li>
+
 </ul>
 
     <?php if(!isset($_SESSION["user"])) {?>
@@ -140,7 +141,10 @@ case 'controls': include('modules/relays/html/relays_controls.php'); include('mo
 
 <footer class="footer">
       <div class="container text-center">
-        <p class="text-muted"><?php include('html/info/paypal.php');?><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?>| System time <?php passthru("date +%H:%M:%S");?></p>
+	    <span class="label label-default">Hostname: <?php echo gethostname(); ?> </span>
+	    <span class="label label-info"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </span>
+	    <span class="label label-success">System time <?php passthru("date +%H:%M:%S");?></span>
+	    <?php include('html/info/paypal.php');?>
       </div>
 </footer>
 
