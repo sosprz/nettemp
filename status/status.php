@@ -1,6 +1,6 @@
 <style type="text/css">
 .grid-item { 
-    width: 350px; 
+    width: 330px; 
     }
 .grid-item {
   padding: 0px 5px 0px 0px;
@@ -12,8 +12,8 @@
 .grid {
  -moz-column-width: 21em;
  -webkit-column-width: 21em;
- -moz-column-gap: 1em;
- -webkit-column-gap:1em; 
+ -moz-column-gap: 0em;
+ -webkit-column-gap:0em; 
 }
 
 #ss,#ow1,#ow2,#ow3,#gs,#hs,#rs,#kwh,#ms,#cam {

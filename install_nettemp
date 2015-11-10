@@ -114,6 +114,10 @@ function firewall {
 function sensors {
 #1wire
 $dir/install/1wire on off off
+#dht 11/22
+cd $dir/modules/sensors/GPIO/DHT/dhtlib/
+./install
+cd -
 
 #dht 11/22
 cd $dir/modules/sensors/GPIO/DHT/dhtlib/
@@ -170,8 +174,6 @@ fi
 function www-server {
 #lighttpd
 $dir/install/lighttpd
-#ssl
-#$dir/install/lighttpd_ssl_on
 
 }
 

@@ -27,9 +27,9 @@
 	$id_rom_h='gpio_'.$gpio_post.'_humid.sql';
 	$id_rom_t='gpio_'.$gpio_post.'_temp.sql';
 	$rand=substr(rand(), 0, 4);
-	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$rand','$id_rom_newh', 'humid', 'off', 'wait', '$gpio_post' )") or die ("cannot insert to DB humi" );
+	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj) VALUES ('$rand','$id_rom_newh', 'humid', 'off', 'wait', '$gpio_post', '0' )") or die ("cannot insert to DB humi" );
 	$rand=substr(rand(), 0, 4);
-	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$rand','$id_rom_newt', 'temp', 'off', 'wait', '$gpio_post' )") or die ("cannot insert to DB temp" );
+	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj) VALUES ('$rand','$id_rom_newt', 'temp', 'off', 'wait', '$gpio_post', '0' )") or die ("cannot insert to DB temp" );
 	$dbnew = new PDO("sqlite:db/$id_rom_h");
 	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
 	$dbnew = new PDO("sqlite:db/$id_rom_t");
