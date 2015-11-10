@@ -49,6 +49,10 @@ USERS:
 
 Changelog:
 
+8.9.2
+Now DHT11 and DHT22 works
+fix few bugs
+
 8.9.1
 
 Now You can off parts of higharts like gpio, system, hosts and individual sensors
