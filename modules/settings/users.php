@@ -20,12 +20,20 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 <?php // SQLite - ADD RECIPIENT
 	$add1 = isset($_POST['add1']) ? $_POST['add1'] : '';
 	if ( $perms != 'adm' ) { $perms = 'usr'; }
-	if (!empty($login)  && !empty($mail) && !empty($tel) && ($_POST['add1'] == "add2") ){
+	if (!empty($login)  && !empty($pass) && !empty($mail) && !empty($tel) && ($_POST['add1'] == "add2") ){
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT OR IGNORE INTO users (login, password, mail, tel, smsa, maila, perms, ctr, simple, moment, trigger, at, smspin, smsts ) VALUES ('$login', '$pass', '$mail', '$tel', '$maila', '$smsa', '$perms', 'OFF', 'OFF', 'OFF', 'OFF', 'any', '$smspin', '$smsts')") or die("User, mail, tel or PIN must be unique");
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit();
-	} 
+	    $rows = $db->query("SELECT * FROM users WHERE login='$login' OR mail='$mail' OR tel='$tel'") or header("Location: html/errors/db_error.php");
+	    $row = $rows->fetchAll();
+	    $c = count($row);
+	    if ( $c >= "1") { ?>
+	    <span class="label label-warning">User, mail or tel number exist in database</span>
+	<?php 
+	    } else {
+	    $db->exec("INSERT OR IGNORE INTO users (login, password, mail, tel, smsa, maila, perms, ctr, simple, moment, trigger, at, smspin, smsts ) VALUES ('$login', '$pass', '$mail', '$tel', '$maila', '$smsa', '$perms', 'OFF', 'OFF', 'OFF', 'OFF', 'any', '$smspin', '$smsts')") or header("Location: html/errors/db_error.php");
+	    header("location: " . $_SERVER['REQUEST_URI']);
+	    exit();
+	    }
+	}
 	?>
 	
 	<?php 
