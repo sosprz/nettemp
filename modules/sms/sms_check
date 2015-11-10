@@ -31,6 +31,7 @@ if [[ "$day" == "$date1" && "$date2" > "$stime" && "$date2" < "$etime" && "$smst
     echo "${DATE} SMS Allow $number" >> ${LOG}
 else 
     echo "${DATE} SMS Deny $number" >> ${LOG}
+	mv $i /var/spool/sms/checked/
 fi
 done
 

@@ -5,7 +5,6 @@ date=`date +%y%m%d-%H%M`
 
 mkdir -p $dir/tmp/highcharts
 rm -rf $dir/tmp/highcharts/*
-rm -rf $dir/tmp/kwh/*
 
 hc_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT highcharts FROM settings"`
 

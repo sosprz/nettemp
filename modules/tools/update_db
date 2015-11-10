@@ -9,17 +9,12 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD vpn type TEXT";
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE vpn (id INTEGER PRIMARY KEY,users UNIQUE);"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD fw type TEXT";
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE fw (id INTEGER PRIMARY KEY,ssh TEXT,icmp TEXT,openvpn TEXT,ext TEXT);"
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO fw (id, ssh, icmp, ext, openvpn, radius ) VALUES (1,'off','off', '0.0.0.0/0', 'off', 'off');"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE fw ADD radius type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD kwh type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD gpio type TEXT";
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO settings (id,gpio) VALUES (1,'on');"
-sqlite3 $dir/dbf/nettemp.db "ALTER TABLE device ADD i2c type TEXT";
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,i2c) VALUES (1,'off');"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE device ADD lmsensors type TEXT";
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,lmsensors) VALUES (1,'off');"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD authmod type TEXT";
-
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE device ADD i2c type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD mode type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD simple type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD rev type TEXT";
@@ -40,9 +35,7 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone2s type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone2e type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone3s type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone3e type TEXT";
-
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD tempnum type TEXT";
-sqlite3 $dir/dbf/nettemp.db "UPDATE or IGNORE settings SET tempnum='3' where id='1'"
 for i in $(seq 1 10);
     do
     sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_sensor$i type TEXT";
@@ -64,7 +57,6 @@ fi
 sqlite3 $dir/dbf/kwh.db "CREATE INDEX time_index ON kwh(time)";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD error type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE device ADD wireless type TEXT";
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,wireless) VALUES (1,'off');"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD ip type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD device type TEXT";
 if [ ! -s $dir/dbf/hosts.db ]
@@ -83,10 +75,6 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD tmp_5ago type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD tlscheck type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD tls type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD auth type TEXT";
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO mail_settings (id,tlscheck) VALUES (1,'off');"
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO mail_settings (id,tls) VALUES (1,'on');"
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO mail_settings (id,auth) VALUES (1,'on');"
-sqlite3 $dir/dbf/nettemp.db "UPDATE mail_settings SET tlscheck='off' WHERE id='1'"
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE newdev (id INTEGER PRIMARY KEY,list UNIQUE);"
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE camera (id INTEGER PRIMARY KEY,list UNIQUE);"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE camera ADD name type TEXT";
@@ -98,7 +86,6 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD delay type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD rom type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE relays ADD type type TEXT";
 sqlite3 $dir/dbf/hosts.db "ALTER TABLE hosts ADD rom type TEXT";
-
 for i in $(seq 1 30);
     do
     sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD tout$i type TEXT";
@@ -107,27 +94,12 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD control type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD control_run type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD trigger_delay type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD radius type TEXT";
-
 sqlite3 $dir/dbf/nettemp.db "CREATE TABLE i2c (id INTEGER PRIMARY KEY,name TEXT, addr UNIQUE);"
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('bmp180','77');"
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tsl2561','39');"
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('ds2482','18');"
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('ds2482','1a');"
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('htu21d','40');"
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('mpl3115a2','60');"
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('hih6130','27');"
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tmp102','48');"
 sqlite3 $dir/dbf/snmp.db "ALTER TABLE snmp ADD rom type UNIQUE";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD trigger_con type TEXT";
-
-sqlite3 $dir/dbf/nettemp.db "CREATE TABLE meteo (id INTEGER PRIMARY KEY, temp TEXT, latitude TEXT, height TEXT, pressure TEXT, humid TEXT, onoff TEXT);"
-sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO meteo (id, temp, latitude, height, pressure, humid, onoff ) VALUES (1,'0','0','0','0','0','off');"
-sqlite3 $dir/dbf/nettemp.db  "ALTER TABLE meteo ADD COLUMN onoff TEXT";
-
-sqlite3 $dir/dbf/nettemp.db "CREATE TABLE call_settings (id INTEGER PRIMARY KEY, name TEXT, dev TEXT, default_dev TEXT);"
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE meteo ADD COLUMN onoff TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD tel_any type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD tel_at type TEXT";
-
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE users ADD tel type UNIQUE";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE users ADD mail type UNIQUE";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE users ADD smsa type TEXT";
@@ -141,32 +113,50 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE users ADD at type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE users ADD smspin type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE users ADD smsts type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD call type TEXT";
-
-sqlite3 $dir/dbf/nettemp.db "CREATE TABLE access_time (id INTEGER PRIMARY KEY, name UNIQUE, Mon TEXT, Tue TEXT, Wed TEXT, Thu TEXT, Fri TEXT, Sat TEXT, Sun TEXT, stime TEXT, etime TEXT);"
-sqlite3 $dir/dbf/nettemp.db "INSERT INTO access_time (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime) VALUES  ('any', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', '00:00', '23:59')"
-
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD adj type TEXT";
-sqlite3 $dir/dbf/nettemp.db "UPDATE users SET perms='adm' WHERE login='admin'"
-
-sqlite3 $dir/dbf/nettemp.db "CREATE TABLE day_plan (id INTEGER PRIMARY KEY, name UNIQUE, Mon TEXT, Tue TEXT, Wed TEXT, Thu TEXT, Fri TEXT, Sat TEXT, Sun TEXT, stime TEXT, etime TEXT);"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE day_plan ADD gpio type TEXT";
-
-sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET adj='0' WHERE adj='' OR adj=' ' OR adj is null"
-
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD charts type TEXT";
-sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET charts='on' WHERE charts is null"
-
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD charts_system type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD charts_hosts type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD charts_gpio type TEXT";
-
-sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET charts_system='on' WHERE charts_system is null"
-sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET charts_hosts='on' WHERE charts_hosts is null"
-sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET charts_gpio='on' WHERE charts_gpio is null"
-
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD server_key type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD client_key type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD client_ip type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD client_on type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD remote type TEXT";
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE call_settings (id INTEGER PRIMARY KEY, name TEXT, dev TEXT, default_dev TEXT);"
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE access_time (id INTEGER PRIMARY KEY, name UNIQUE, Mon TEXT, Tue TEXT, Wed TEXT, Thu TEXT, Fri TEXT, Sat TEXT, Sun TEXT, stime TEXT, etime TEXT);"
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE day_plan (id INTEGER PRIMARY KEY, name UNIQUE, Mon TEXT, Tue TEXT, Wed TEXT, Thu TEXT, Fri TEXT, Sat TEXT, Sun TEXT, stime TEXT, etime TEXT);"
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE meteo (id INTEGER PRIMARY KEY, temp TEXT, latitude TEXT, height TEXT, pressure TEXT, humid TEXT, onoff TEXT);"
+
+sqlite3 $dir/dbf/nettemp.db "UPDATE mail_settings SET tlscheck='off' WHERE id='1' AND tlscheck is null"
+sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET charts_system='on' WHERE charts_system is null"
+sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET charts_hosts='on' WHERE charts_hosts is null"
+sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET charts_gpio='on' WHERE charts_gpio is null"
+sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET charts='on' WHERE charts is null"
+sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET adj='0' WHERE adj='' OR adj=' ' OR adj is null"
+sqlite3 $dir/dbf/nettemp.db "UPDATE users SET perms='adm' WHERE login='admin' AND perms is null" 
+sqlite3 $dir/dbf/nettemp.db "UPDATE OR IGNORE settings SET tempnum='3' where id='1' AND tempnum is null"
+
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO mail_settings (id,tlscheck) VALUES (1,'off');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO mail_settings (id,tls) VALUES (1,'on');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO mail_settings (id,auth) VALUES (1,'on');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO access_time (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime) VALUES  ('any', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', '00:00', '23:59')"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('bmp180','77');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tsl2561','39');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('ds2482','18');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('ds2482','1a');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('htu21d','40');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('mpl3115a2','60');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('hih6130','27');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tmp102','48');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO fw (id, ssh, icmp, ext, openvpn, radius ) VALUES (1,'off','off', '0.0.0.0/0', 'off', 'off');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO meteo (id, temp, latitude, height, pressure, humid, onoff ) VALUES (1,'0','0','0','0','0','off');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO settings (id,gpio) VALUES (1,'on');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,lmsensors) VALUES (1,'off');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,i2c) VALUES (1,'off');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,wireless) VALUES (1,'off');"
+
+# 20151110
+
 

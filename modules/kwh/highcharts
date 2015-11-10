@@ -11,6 +11,7 @@ fi
 
 
 mkdir -p $dir/tmp/kwh
+rm -rf $dir/tmp/kwh/*
 gpio=$(sqlite3 $dir/dbf/nettemp.db  "SELECT gpio FROM gpio WHERE mode='kwh'")
 
 if [ -n "$gpio" ]; then
