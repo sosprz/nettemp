@@ -128,14 +128,36 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 	if (!empty($name_new) && !empty($name_id) && ($_POST['id_name2'] == "id_name3") ){
 	$rep = str_replace(" ", "_", $name_new);
 	$db = new PDO('sqlite:dbf/nettemp.db');
+        $rows = $db->query("SELECT * FROM sensors WHERE name='$rep'") or header("Location: html/errors/db_error.php");
+        $row = $rows->fetchAll();
+        $c = count($row);
+        if ( $c >= "1") { ?>
+	<div class="panel panel-warning">
+	    <div class="panel-heading">Name <?php echo $rep; ?> already exist in database.</div>
+	    <div class="panel-body">
+		<button type="button" class="btn btn-primary" onclick="goBack()">Back</button>
+	    </div>
+	    
+	</div>
+	<script>
+	function goBack() {
+	    window.history.back();
+	}
+	</script>
+	
+	<?php 
+	exit();
+	} 
+	else {
 	$db->exec("UPDATE sensors SET name='$rep' WHERE id='$name_id'") or die ($db->lastErrorMsg());
 	if (!empty($color)) {
-	$db->exec("UPDATE sensors SET color='$color' WHERE id='$name_id'") or die ($db->lastErrorMsg());
+	    $db->exec("UPDATE sensors SET color='$color' WHERE id='$name_id'") or die ($db->lastErrorMsg());
 	}
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
-	 } 
-	 ?> 
+	}
+	} 
+	?> 
 
 <?php	
 	if ($_POST['adj1'] == "adj2"){
