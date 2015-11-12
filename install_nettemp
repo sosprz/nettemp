@@ -58,7 +58,7 @@ fi
 function services {
 service ntp start
 service lighttpd restart
-}
+} >> install_log.txt 2>&1
 
 function perms {
 $dir/modules/tools/update_su
@@ -97,17 +97,18 @@ if dpkg --get-selections | grep -q apcupsd; then
     else
     $dir/modules/ups/install
 fi
-}
+} >> install_log.txt 2>&1
+
 function vpn {
     echo -e "[ ${GREEN}ok${R} ] Generating certs for OpenVPN. Please wait.."
     {
     $dir/modules/security/vpn/install
-    } &> /dev/null
+    } 
 }
 
 function firewall {
     $dir/modules/security/fw/install
-} &> /dev/null
+} >> install_log.txt 2>&1
 
 
 
@@ -129,11 +130,11 @@ cd -
 
 function wiringpi {
 if [ -n "$rpi" ];then
-        git clone git://git.drogon.net/wiringPi 1> /dev/null
-	cd wiringPi 
-	./build 1> /dev/null
+        git clone git://git.drogon.net/wiringPi 
+	cd wiringPi
+	./build
 fi 
-}
+} >> install_log.txt 2>&1
 # echo -e "${GREEN}Add watchdog${R}"
 # update-rc.d watchdog defaults
 # if cat /etc/modules |grep bcm2708_wdog 1> /dev/null
@@ -161,7 +162,7 @@ fi
 }
 function database {
 $dir/modules/tools/db_reset
-} &>/dev/null
+} >> install_log.txt 2>&1 
 
 function check-other-www-servers {
 if dpkg --get-selections | grep apache; then
@@ -169,7 +170,7 @@ service apache2 stop
 update-rc.d apache2 disable
 echo -e "[ ${GREEN}ok${R} ] Looks like You have Apache, service was stoped, until reboot.$old"
 fi
-}
+} >> install_log.txt 2>&1
 
 function www-server {
 #lighttpd
@@ -184,14 +185,14 @@ package="lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-
 	sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables rcconf \
 	arp-scan snmpd httping fping make gcc lynx expect socat build-essential python-dev"
     apt-get -y install $package
-} &> /dev/null
-}
+} 
+} >> install_log.txt 2>&1
 
 function update {
     echo -e "[ ${GREEN}ok${R} ] apt-get repo updating. Please wait.."
     {
     apt-get -y update
-    } &> /dev/null
+    } >> install_log.txt 2>&1
 }
 
 
@@ -209,7 +210,7 @@ function smstools {
     {
     chmod +x $dir/install/smstools
     $dir/install/smstools
-    } &> /dev/null
+    } >> install_log.txt 2>&1
 }
 
 function drivers {
@@ -217,7 +218,7 @@ function drivers {
     {
     chmod +x $dir/install/drivers
     $dir/install/drivers
-    } &> /dev/null
+    } >> install_log.txt 2>&1
 }
 
 
