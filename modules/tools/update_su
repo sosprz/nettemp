@@ -12,7 +12,7 @@ for i in $list
     do
      if ! sudo cat /etc/sudoers |grep $i > /dev/null
 	then 
-	    sudo sed -i '$a www-data ALL=(ALL) NOPASSWD: '$i' *' /etc/sudoers
-	    echo "add $i"
+	    sudo sed -i '$a www-data ALL=(ALL) NOPASSWD: '$i' *' /etc/sudoers 
+	    #echo "add $i"
     fi
 done

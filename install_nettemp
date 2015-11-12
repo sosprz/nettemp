@@ -129,10 +129,10 @@ cd -
 
 function wiringpi {
 if [ -n "$rpi" ];then
-        git clone git://git.drogon.net/wiringPi
-	cd wiringPi
-	./build
-fi
+        git clone git://git.drogon.net/wiringPi 1> /dev/null
+	cd wiringPi 
+	./build 1> /dev/null
+fi 
 }
 # echo -e "${GREEN}Add watchdog${R}"
 # update-rc.d watchdog defaults
