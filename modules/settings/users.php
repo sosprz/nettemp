@@ -26,12 +26,24 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	    $row = $rows->fetchAll();
 	    $c = count($row);
 	    if ( $c >= "1") { ?>
-	    <span class="label label-warning">User, mail or tel number exist in database</span>
-	<?php 
-	    } else {
-	    $db->exec("INSERT OR IGNORE INTO users (login, password, mail, tel, smsa, maila, perms, ctr, simple, moment, trigger, at, smspin, smsts ) VALUES ('$login', '$pass', '$mail', '$tel', '$maila', '$smsa', '$perms', 'OFF', 'OFF', 'OFF', 'OFF', 'any', '$smspin', '$smsts')") or header("Location: html/errors/db_error.php");
-	    header("location: " . $_SERVER['REQUEST_URI']);
+        <div class="panel panel-warning">
+        <div class="panel-heading">Name <?php echo $login." or address ".$mail." or tel ".$tel ?> already exist in database.</div>
+        <div class="panel-body">
+	<button type="button" class="btn btn-primary" onclick="goBack()">Back</button>
+        </div>
+        </div>
+	<script>
+	    function goBack() {
+    	    window.history.back();
+	    }
+	    </script>
+        <?php 
 	    exit();
+	    } 
+	    else {
+		$db->exec("INSERT OR IGNORE INTO users (login, password, mail, tel, smsa, maila, perms, ctr, simple, moment, trigger, at, smspin, smsts ) VALUES ('$login', '$pass', '$mail', '$tel', '$maila', '$smsa', '$perms', 'OFF', 'OFF', 'OFF', 'OFF', 'any', '$smspin', '$smsts')") or header("Location: html/errors/db_error.php");
+		header("location: " . $_SERVER['REQUEST_URI']);
+		exit();
 	    }
 	}
 	?>
