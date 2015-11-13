@@ -27,20 +27,24 @@ if (isset($_POST['rom'])) {
     $file = "$rom.sql";
 
 if  ( !empty($rom) && !empty($val) ) {
-    if (file_exists("db/$file")) {
-	$db = new PDO("sqlite:db/$file");
-	$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to DB 1" );
+	$db = new PDO('sqlite:dbf/nettemp.db');
+        $rows = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
+        $row = $rows->fetchAll();
+        $c = count($row);
+        if ( $c >= "1") {
+	    $db = new PDO("sqlite:db/$file");
+	    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to DB 1" );
 	
-	$dbn = new PDO("sqlite:dbf/nettemp.db");
-	$dbn->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to status" );
-	echo "OK";
-    }
-    else {
-	$dbnew = new PDO("sqlite:dbf/nettemp.db");
-	$dbnew->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')");
-	$dbnew==NULL;
-	echo "Added $rom to new";
-    }
+	    $dbn = new PDO("sqlite:dbf/nettemp.db");
+	    $dbn->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to status" );
+	    echo "OK";
+	}
+	else {
+	    $dbnew = new PDO("sqlite:dbf/nettemp.db");
+	    $dbnew->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')");
+	    $dbnew==NULL;
+	    echo "Added $rom to new";
+	}
 } 
 else { 
     echo "no values";

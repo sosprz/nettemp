@@ -6,11 +6,11 @@
 	$db->exec("UPDATE settings SET authmod='$am_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
 	if ($am_onoff == "on") {
 	    shell_exec ("sudo lighttpd-enable-mod auth");
-	    shell_exec ("sudo service lighttpd reload");
+	    shell_exec ("sudo service lighttpd restart");
 	}
 	if ($am_onoff != "on") {
 	    shell_exec ("sudo lighttpd-disable-mod auth");
-	    shell_exec ("sudo service lighttpd reload");
+	    shell_exec ("sudo service lighttpd restart");
 	}
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
