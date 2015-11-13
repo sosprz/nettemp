@@ -25,11 +25,12 @@ if alarms=$(sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'"
     for line in $alarms
     do
 	name=`echo $line | awk 'BEGIN {FS="|"}{print $2}'`
+	rom=`echo $line | awk 'BEGIN {FS="|"}{print $3}'`
         tmp=`echo $line | awk 'BEGIN {FS="|"}{print $4}'`
 	tmp_min=`echo $line | awk 'BEGIN {FS="|"}{print $5}'`
 	tmp_max=`echo $line | awk 'BEGIN {FS="|"}{print $6}'`
-	plik=$dirs/$name.mail
-	plik2=$dirs/hour/$name.mail
+	plik=$dirs/$rom.mail
+	plik2=$dirs/hour/$rom.mail
 	
 	if [ "$tmp" == "error" ] &&  error=$(sqlite3 $dir/dbf/nettemp.db "SELECT error FROM mail_settings WHERE id='1'")
 	    then

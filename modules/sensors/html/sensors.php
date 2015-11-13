@@ -1,5 +1,5 @@
 <?php
-$usun_czujniki = isset($_POST['usun_czujniki']) ? $_POST['usun_czujniki'] : '';
+
 $name_new = isset($_POST['name_new']) ? $_POST['name_new'] : '';
 $color = isset($_POST['color']) ? $_POST['color'] : '';
 
@@ -98,15 +98,14 @@ $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
 	} ?>
 <?php // SQLite3 - sekcja usuwania czujników
 	//z bazy
+	$rom = isset($_POST['rom']) ? $_POST['rom'] : '';
 	$usun2 = isset($_POST['usun2']) ? $_POST['usun2'] : '';
-	if(!empty($usun_czujniki) && ($usun2 == "usun3")) { 
+	if(!empty($rom) && ($usun2 == "usun3")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("DELETE FROM sensors WHERE rom='$usun_czujniki'") or die ($db->lastErrorMsg()); 
-	//plik rrd
-	$rep_del_db = str_replace(" ", "_", $usun_czujniki);
-	$name_rep_del_db = "$rep_del_db.sql";
-	//echo $name_rep_del_db;    
-	unlink("db/$name_rep_del_db");
+	$db->exec("DELETE FROM sensors WHERE rom='$rom'") or die ($db->lastErrorMsg()); 
+	unlink("db/$rom.sql");
+	unlink("tmp/mail/$rom.mail");
+	unlink("tmp/mail/hour/$rom.mail");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
    } ?>	   
@@ -119,7 +118,8 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 	//plik rrd
 	$rep_del_db = str_replace(" ", "_", $usun_rom_nw);
 	$name_rep_del_db = "$rep_del_db.rrd";
-	//echo $name_rep_del_db;    
+	unlink("tmp/mail/$rom.mail");
+	unlink("tmp/mail/hour/$rom.mail");
 	unlink("db/$name_rep_del_db");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	

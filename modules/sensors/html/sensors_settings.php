@@ -10,20 +10,20 @@
     $db->exec("UPDATE sensors SET tmp_max='$tmp_max_new' WHERE id='$tmp_id'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
-     } 
+    } 
 
     $alarm = isset($_POST['alarm']) ? $_POST['alarm'] : '';
-    $name = isset($_POST['name']) ? $_POST['name'] : '';
+    $rom = isset($_POST['rom']) ? $_POST['rom'] : '';
     if ( !empty($alarm) && ($_POST['alarmonoff'] == "onoff")){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE sensors SET alarm='$alarm' WHERE name='$name'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE sensors SET alarm='$alarm' WHERE rom='$rom'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     } 
     elseif (empty($alarm) && ($_POST['alarmonoff'] == "onoff")){
-    $db->exec("UPDATE sensors SET alarm='' WHERE name='$name'") or die ($db->lastErrorMsg());
-    unlink("tmp/mail/$name.mail");
-    unlink("tmp/mail/hour/$name.mail");
+    $db->exec("UPDATE sensors SET alarm='' WHERE rom='$rom'") or die ($db->lastErrorMsg());
+    unlink("tmp/mail/$rom.mail");
+    unlink("tmp/mail/hour/$rom.mail");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -36,6 +36,7 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+
     $remote = isset($_POST['remote']) ? $_POST['remote'] : '';
     $remoteonoff = isset($_POST['remoteonoff']) ? $_POST['remoteonoff'] : '';
     $remoteon = isset($_POST['remoteon']) ? $_POST['remoteon'] : '';
@@ -123,7 +124,7 @@ else { ?>
 
     <td >
     <form action="" method="post" style="display:inline!important;">
-	<input type="hidden" name="name" value="<?php echo $a["name"]; ?>" />
+	<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarm" value="on" <?php echo $a["alarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="alarmonoff" value="onoff" />
     </form>
@@ -173,7 +174,7 @@ else { ?>
 
     <td>
     <form action="" method="post" style="display:inline!important;">
-	<input type="hidden" name="usun_czujniki" value="<?php echo $a["rom"]; ?>" />
+	<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />
 	<input type="hidden" name="usun2" value="usun3" />
 	<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
     </form>
