@@ -16,7 +16,7 @@ $numRows = count($result);
 <?php
 foreach ( $result as $a) {
 $ip=$a['ip'];
-$cmd="curl $ip/showstatus";
+$cmd="curl --connect-timeout 3 $ip/showstatus";
 exec($cmd, $i);
 $s=$i[0];
 $o1=str_replace('status', '', $s);

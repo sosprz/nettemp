@@ -1,4 +1,9 @@
-<?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
+<?php 
+$user = isset($_SESSION["user"]) ? $_SESSION["user"] : '';
+$perms = isset($_SESSION["perms"]) ? $_SESSION["perms"] : '';
+if( $user == 'admin'){
+
+?>
 
 <?php
 $ip = isset($_POST['ip']) ? $_POST['ip'] : '';
@@ -6,10 +11,10 @@ $relay = isset($_POST['relay']) ? $_POST['relay'] : '';
 $ronoff = isset($_POST['ronoff']) ? $_POST['ronoff'] : '';
 if (($ronoff == "ronoff")){
     if ($relay == 'on' ){
-    $cmd="curl $ip/seton";
+    $cmd="curl --connect-timeout 3 $ip/seton";
     exec($cmd);
     } else { 
-    $cmd="curl $ip/setoff";
+    $cmd="curl --connect-timeout 3 $ip/setoff";
     exec($cmd);
     }
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -22,7 +27,7 @@ $sth2->execute();
 $result2 = $sth2->fetchAll();
 foreach ( $result2 as $r) {
 $ip=$r['ip'];
-$cmd="curl $ip/showstatus";
+$cmd="curl --connect-timeout 3 $ip/showstatus";
 exec($cmd, $i);
 $s=$i[0];
 $os=str_replace('status', '', $s);
@@ -46,4 +51,5 @@ $o=str_replace(' ', '', $os);
 unset($i);
 }
 
+}
 ?>

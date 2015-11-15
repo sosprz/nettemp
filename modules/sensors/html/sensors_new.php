@@ -52,7 +52,7 @@
 <thead><tr><th>id</th><th></th></tr></thead>
 
      <?php 
-    $sth = $db->prepare("SELECT rom FROM sensors");
+    $sth = $db->prepare("SELECT rom FROM sensors WHERE rom NOT LIKE 'remote_%'");
     $sth->execute();
     $result = $sth->fetchAll();
     foreach ($result as $a) { 		

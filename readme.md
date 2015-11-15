@@ -30,9 +30,9 @@ Debian, RaspberryPi:
 
 	mkdir -p /var/www/nettemp && cd /var/www
 	git clone https://github.com/sosprz/nettemp
-    	cd nettemp && git checkout nettemp2 && ./install_nettemp
+	cd nettemp && git checkout nettemp2 && ./install_nettemp
     
-    	Go to  http://your_ip
+	Go to  http://your_ip
 
 OpenWRT, beta version:
 	
@@ -48,6 +48,17 @@ USERS:
 
 
 Changelog:
+
+8.9.4
+
+fix DHT count in scan.
+remove remote sensors from not detected after scan beacause this sensors cannot be detected immediately.
+add connection timeout to check relays status beacuse if host (ESP) is not available nettemp wait too long.
+remove wireless relay form controls if You are not admin (temporary, wait for mode code)
+
+
+8.9.3
+Few upgrades and changes
 
 8.9.2
 Now DHT11 and DHT22 works

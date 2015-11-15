@@ -1,7 +1,5 @@
 <?php
 
-include('gpio_access_time.php');
-
 $user = isset($_SESSION["user"]) ? $_SESSION["user"] : '';
 $perms = isset($_SESSION["perms"]) ? $_SESSION["perms"] : '';
 

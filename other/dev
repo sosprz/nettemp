@@ -7,5 +7,6 @@
 #<?php echo $_SERVER['REQUEST_URI']; ?>
 #find $(pwd) -name \*.php -exec sed -i "s/diened/denied/g" {} \;
 #for F in {2..10}; do cp cam1.php cam$F.php; done
+#sqlite3 $d/var/www/nettemp/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wwireless_8.8.8.8_cafecafecafe_relay')"
 sqlite3 /var/www/nettemp/dbf/nettemp.db ".schema" > /var/www/nettemp/modules/tools/nettemp.schema
 sudo update-alternatives --config editor
