@@ -5,4 +5,4 @@ date=$(date +%y%m%d-%H%M)
 
 gl="$1"
 
-sudo /bin/kill -9 `pgrep -l -f control_proc |grep $gl | awk '{print $1}'`
+sudo /bin/kill -9 `pgrep -a control_proc |grep $gl | awk '{print $1}'`
