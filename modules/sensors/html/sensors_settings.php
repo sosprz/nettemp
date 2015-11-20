@@ -114,12 +114,17 @@ else { ?>
     </td>
 
     <td class="col-md-1"">
+    <?php if ($a['device'] != 'remote'){
+    ?>
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="adj" size="2" maxlength="30" value="<?php echo $a["adj"]; ?>" required="" />
 	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="adj1" value="adj2"/>
     </form>
+    <?php 
+	    }
+    ?>
     </td>
 
     <td >

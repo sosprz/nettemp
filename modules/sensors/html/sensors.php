@@ -70,6 +70,9 @@ $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
 	elseif (strpos($id_rom_new,'gpio') !== false) {
 	    $device='gpio';
 	}
+	elseif (strpos($id_rom_new,'i2c') !== false) {
+	    $device='i2c';
+	}
 
 	//DB    
 	    if ( $type != "relay" ) {
