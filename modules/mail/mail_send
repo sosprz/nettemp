@@ -31,6 +31,10 @@ for file in $(ls $dirs |grep mail)
     		    rm $dirs/$file
 		    rm $dirs/hour/$file
 		else
+		    if echo $file |grep oneshot
+			then
+			rm $dirs/$file
+		    fi
 		    mv $dirs/$file $dirs/hour
 		fi
 	fi

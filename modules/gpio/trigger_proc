@@ -62,7 +62,7 @@ function ledalarm {
 function mail { 
     daten=$(date +%y%m%d-%H%M%S)
     if [ "$trigger_notice" = "on" ] && [ $trigger = "on" ]; then
-        plik=$dir/tmp/mail/mail-alarm$gpio-$daten
+        plik=$dir/tmp/mail/mail-alarm-$gpio-$daten-oneshot
 	function file {
 	    source $dir/modules/mail/mail_body
 	    chmod 777 $plik
