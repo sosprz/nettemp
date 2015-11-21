@@ -16,7 +16,8 @@ do
     rom=$(echo $i |awk -F"|" '{print $1}') 
     val=$(echo $i |awk -F"|" '{print $2}')
     rom=remote_$src\_$rom
-    curl --data "rom=$rom&value=$val&key=$ckey" http://$cip/receiver.php
+    curl --connect-timeout 3 -G "http://$cip/receiver.php" -d "rom=$rom&value=$val&key=$ckey"
+    #curl --data "rom=$rom&value=$val&key=$ckey" http://$cip/receiver.php #POST
 done
 
 else
