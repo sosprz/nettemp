@@ -23,18 +23,14 @@ function db($rom,$val) {
 	    if (is_numeric($val)) {
 		$db = new PDO("sqlite:db/$file");
 		$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
-	
-		$dbn = new PDO("sqlite:dbf/nettemp.db");
-		$dbn->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status" );
 		$min=intval(date('i'));
 		if ((strpos($min,'0') !== false) || (strpos($min,'5') !== false)) {
 		    $dbn->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to status" );
 		}
+	    }
+		$dbn = new PDO("sqlite:dbf/nettemp.db");
+		$dbn->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status" );
 		echo "$rom ok";
-	    }
-	    else {
-		echo "value is not numeric";
-	    }
 	}
 	else {
 	    $dbnew = new PDO("sqlite:dbf/nettemp.db");
