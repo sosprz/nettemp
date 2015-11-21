@@ -6,6 +6,7 @@ date=`date +%y%m%d-%H%M`
 
 usb=`sqlite3 $dir/dbf/nettemp.db "SELECT usb FROM device"`
 if [ "$usb" != "off" ]; then
+    skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
     rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE rom LIKE '0x10%' OR rom LIKE '0x22%' OR rom LIKE '0x28%' OR rom LIKE '0x3b%'")
     for name in $rom; do
         name_1=$(echo $name |sed 's/..../& /g;s/+$//')
@@ -16,23 +17,7 @@ if [ "$usb" != "off" ]; then
 	else 
         wynik=`/usr/bin/digitemp_$usb -c $dir/tmp/.digitemprc -t $num -q -o%.1C`
 	fi
-
-    usb_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
-
-    if [ "$usb_temp_calc" == "1" ]; then 
-        echo USB: $wynik C
-	    sqlite3 $dir/db/$name.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-    	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik'+adj WHERE rom='$name'"
-	    if date +%M |cut -c 2-2 | grep -E '0|5'; then
-		sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$wynik' WHERE rom='$name'"
-	    fi
-
-    else 
-        echo "error $wynik" 
-        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$name'"
-        echo "$date temp_dev_read - reading sensor error 85C (resistor, or calbe problem) $name " >> $dir/tmp/log.txt    
-    fi
-
+	php-cgi -f $dir/receiver.php key=$skey rom=$name value=$wynik type=temp
 done
 fi
 

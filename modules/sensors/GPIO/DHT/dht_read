@@ -11,34 +11,27 @@ if [ -n "$gpio_list_0" ]; then
  for gpio_list in $gpio_list_0; do
     type=`sqlite3 $dir/dbf/nettemp.db "SELECT humid_type FROM gpio where gpio='$gpio_list'"`
     sleep 1
-	if [[ "$type" == "22" ]]; then 
-	    arr=($($dir/modules/sensors/GPIO/DHT/AdafruitDHT.py $type $gpio_list))
+    if [[ "$type" == "22" ]]; then 
+        arr=($($dir/modules/sensors/GPIO/DHT/AdafruitDHT.py $type $gpio_list))
 	else
 	    arr=($($dir/modules/sensors/GPIO/DHT/dhtlib/example/dhtsensor DHT$type $gpio_list))
-	fi
+    fi
+    dht=${arr[0]}
 
-	dht=${arr[0]}
+    eval var1_$gpio_list=`echo ${arr[0]}`
+    eval var2_$gpio_list=`echo ${arr[1]}`
+    #eval var1_$gpio_list="-36.6"
+    #eval var2_$gpio_list="99.3"
+    dht_temp=var1_$gpio_list
+    dht_humi=var2_$gpio_list
 
-	    eval var1_$gpio_list=`echo ${arr[0]}`
-	    eval var2_$gpio_list=`echo ${arr[1]}`
-    	    #eval var1_$gpio_list="-36.6"
-	    #eval var2_$gpio_list="99.3"
-    	    dht_temp=var1_$gpio_list
-	    dht_humi=var2_$gpio_list
-    	    dht_humi_calc=$(echo ${!dht_humi} 100 -1 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
+    gpio_name=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='humid'"`
+    php-cgi -f $dir/receiver.php key=$skey rom=$(echo $gpio_name) type=humid value=${!dht_humi}
+    echo DHT humid: ${!dht_humi} %
 
-    	    if [ "$dht_humi_calc" == "1" ]; then
-		gpio_name=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='humid'"`
-		php-cgi -f $dir/receiver.php key=$skey rom=$(echo $gpio_name) type=humid value=${!dht_humi}
-		echo DHT humid: ${!dht_humi} %
-	    fi
+    gpio_name2=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='temp'"`
+    php-cgi -f $dir/receiver.php key=$skey rom=$(echo $gpio_name2) type=temp value=${!dht_temp}
+    echo DHT humid: ${!dht_temp} %
 
-	    dht_temp_calc=$(echo ${!dht_humi} 125 -41 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
-
-    	    if [ "$dht_temp_calc" == "1" ]; then
-		gpio_name2=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$gpio_list' AND type='temp'"`
-		php-cgi -f $dir/receiver.php key=$skey rom=$(echo $gpio_name2) type=temp value=${!dht_temp}
-		echo DHT humid: ${!dht_temp} %
-    	    fi
  done
 fi

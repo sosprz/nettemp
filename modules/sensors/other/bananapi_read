@@ -6,12 +6,7 @@ date=`date +%y%m%d-%H%M`
 bpi=$(sqlite3 -header $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom='Banana_Pi'")
 if [ -n "$bpi" ]
     then
-    bpi=$(cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input| awk '{ getline;  printf "%1.2f\n", $1/1000}' )
-    sqlite3 $dir/db/Banana_Pi.sql "INSERT OR IGNORE INTO def (value) VALUES ('$bpi');"
-    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$bpi'+adj WHERE rom='Banana_Pi'"
-    if date +%M |cut -c 2-2 | grep -E '0|5'; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$bpi' WHERE rom='Banana_Pi'"
-	fi
-
-	
+    val=$(cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input| awk '{ getline;  printf "%1.2f\n", $1/1000}' )
+    skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
+    php-cgi -f $dir/receiver.php key=$skey rom=Banana_Pi value=$val type=temp
 fi

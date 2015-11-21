@@ -2,8 +2,9 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
-if rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='wireless' AND method='post'")
+if rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='wireless' AND type='temp' OR type='humid'")
     then
+    skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
     for all in $rom
     do 
 	ip=$(echo $all |awk -F_ '{print $2}')
@@ -12,35 +13,11 @@ if rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='wire
 	type=$(echo $all |awk -F"_" '{ print $4}')
 	    if [ "$type" == "humid" ]; then
 		wynik=$(curl $ip |sed -e 's/<[^>]*>/\n/g' |grep Humid | awk '{ print $2}')
-		if [ -n "$wynik" ]; then
-		    sqlite3 $dir/db/$all.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik'+adj WHERE rom='$all'"
-		    if date +%M |cut -c 2-2 | grep -E '0|5'; then
-			    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$wynik' WHERE rom='$all'"
-		    fi
-
-		else
-		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$all'"
-		fi
+		php-cgi -f $dir/receiver.php key=$skey rom=$all value=$wynik type=humid
 	    fi
 	    if [ "$type" == "temp" ]; then
 		wynik=$(curl $ip |sed -e 's/<[^>]*>/\n/g'  |grep Temp | awk '{ print $2}')
-		if [ -n "$wynik" ]; then
-		    sqlite3 $dir/db/$all.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik'+adj WHERE rom='$all'"
-		    if date +%M |cut -c 2-2 | grep -E '0|5'; then
-			    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$wynik' WHERE rom='$all'"
-		    fi
-    
-		else
-		    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='error' WHERE rom='$all'"
-		    
-		fi
-		
+		php-cgi -f $dir/receiver.php key=$skey rom=$all value=$wynik type=temp
 	    fi
-
-	#sqlite3 $dir/db/$all.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-	#sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik'+adj WHERE rom='$all'"
-	#echo ESP8266: $wynik C
      done
 fi

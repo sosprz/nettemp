@@ -5,18 +5,10 @@ dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
 rpi=$(sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom='Raspberry_Pi'")
 if [ -n "$rpi" ]; then
-        wynik=$(/opt/vc/bin/vcgencmd measure_temp | cut -c 6-9)
-        pi_temp_calc=$(echo $wynik 125 -55 85 85.0 | awk '{if ($1 < $2 && $1 > $3 && $1 != $4 && $1 != $5 && $1 ~ /[0-9]/ ) print 1; else print 0 }')
-    if [ "$pi_temp_calc" == "1" ]; then
-	sqlite3 $dir/db/Raspberry_Pi.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$wynik'+adj WHERE rom='Raspberry_Pi'"
-	if date +%M |cut -c 2-2 | grep -E '0|5'; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$wynik' WHERE rom='Raspberry_Pi'"
-	fi
+        val=$(/opt/vc/bin/vcgencmd measure_temp | cut -c 6-9)
+	skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
+	php-cgi -f $dir/receiver.php key=$skey rom=Raspberry_Pi value=$val type=temp
 
-	echo Raspberry Pi: $wynik C
-    else 
-        echo "WARNING: Bad readings from sensor"
-    fi
+	echo Raspberry Pi: $val C
 fi
 unset wynik

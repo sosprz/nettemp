@@ -7,6 +7,8 @@ date=`date +%y%m%d-%H%M`
 lmsensors=$(sqlite3 $dir/dbf/nettemp.db "SELECT lmsensors FROM device where id='1'")
 if [ "$lmsensors" == "on" ] 
     then
+skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
+php-cgi -f $dir/receiver.php key=$skey rom=Banana_Pi value=$bpi type=temp
 
 fortemp=$(sensors |grep temp[0-9] | awk '{print $1}' | sed 's/://g')
 forcore=$(sensors |grep "Core [0-9]"  |awk '{print $2}' | sed 's/://g')
@@ -16,15 +18,10 @@ for i in $fortemp
     rom="lmsensors_$(echo $i)_temp"
     tmp=$(sensors |grep $i | awk '{print $2}'| sed 's/+//g' |sed 's/°C//g')
      if [ -n "$tmp" ] &&  echo $tmp | grep -q [0-9]
-        then 
-    sqlite3 $dir/db/$rom.sql "INSERT OR IGNORE INTO def (value) VALUES ('$tmp');"
-    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$tmp'+adj WHERE rom='$rom'"
-    if date +%M |cut -c 2-2 | grep -E '0|5'; then
-        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$tmp'+adj WHERE rom='$rom'"
+    then 
+        php-cgi -f $dir/receiver.php key=$skey rom=$rom value=$tmp type=temp
+        echo lm-sensors: $rom $tmp
     fi
-
-    echo lm-sensors: $rom $tmp
-        fi
     done
 
 
@@ -34,12 +31,8 @@ for i in $forcore
     tmp=$(sensors |grep "Core $i" |awk '{print $3}' | sed 's/://g' | sed 's/+//g' |sed 's/°C//g')
     if [ -n "$tmp" ] &&  echo $tmp | grep -q [0-9]
     then 
-	sqlite3 $dir/db/$rom.sql "INSERT OR IGNORE INTO def (value) VALUES ('$tmp');"
-        sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$tmp'+adj WHERE rom='$rom'"
-	if date +%M |cut -c 2-2 | grep -E '0|5'; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$tmp'+adj WHERE rom='$rom'"
-	fi
-    echo lm-sensors: $rom $tmp
+        php-cgi -f $dir/receiver.php key=$skey rom=$rom value=$tmp type=temp
+        echo lm-sensors: $rom $tmp
     fi
     done
     
