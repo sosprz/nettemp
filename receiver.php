@@ -6,40 +6,8 @@
 // method: OLD
 // ip:
 
-// i2c curl --data "key=123456&device=i2c&type=humid&value=10&i2c=34" http://172.18.10.10/receiver.php
+// url --data "key=123456&device=i2c&type=humid&value=10&i2c=34" http://172.18.10.10/receiver.php
 // php-cgi -f receiver.php key=123456 rom=new_12_temp value=23
-
-//$rom='';
-//$key='';
-
-
-function db($rom,$val) {
-	$file = "$rom.sql";
-    	$db = new PDO('sqlite:dbf/nettemp.db');
-        $rows = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
-        $row = $rows->fetchAll();
-        $c = count($row);
-        if ( $c >= "1") {
-	    if (is_numeric($val)) {
-		$db = new PDO("sqlite:db/$file");
-		$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
-		$min=intval(date('i'));
-		if ((strpos($min,'0') !== false) || (strpos($min,'5') !== false)) {
-		    $dbn->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to status" );
-		}
-	    }
-		$dbn = new PDO("sqlite:dbf/nettemp.db");
-		$dbn->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status" );
-		echo "$rom ok";
-	}
-	else {
-	    $dbnew = new PDO("sqlite:dbf/nettemp.db");
-	    $dbnew->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')");
-	    $dbnew==NULL;
-	    echo "Added $rom to new sensors";
-	}
-} 
-
 
 if (isset($_GET['key'])) {
 	    $key = $_GET['key'];
@@ -68,6 +36,85 @@ if (isset($_GET['i2c'])) {
     }
 
 
+function check(&$val,$type) {
+    
+		if ($type == 'lux') {
+		    if ((0 <= $val) && ($val <= 1000)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+			    
+		}
+		elseif ($type == 'temp') {
+		    if (( -50 <= $val) && ($val <= 200)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		    
+		}
+		elseif ($type == 'humid') {
+		    if ((0 <= $val) && ($val <= 110)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		
+		}
+		elseif ($type == 'press') {
+    		    if ((0 <= $val) && ($val <= 1100)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}
+}
+
+
+
+
+function db($rom,$val,$type) {
+	$file = "$rom.sql";
+    	$db = new PDO('sqlite:dbf/nettemp.db');
+        $rows = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
+        $row = $rows->fetchAll();
+        $c = count($row);
+        if ( $c >= "1") {
+	    check($val,$type);
+	    if (is_numeric($val)) {
+		$db = new PDO("sqlite:db/$file");
+		$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
+
+		$dbn = new PDO("sqlite:dbf/nettemp.db");
+		$dbn->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status" );
+		
+		$min=intval(date('i'));
+		if ((strpos($min,'0') !== false) || (strpos($min,'5') !== false)) {
+		    $dbn->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to status" );
+		}
+	    }
+	    else {
+		$dbn = new PDO("sqlite:dbf/nettemp.db");
+		$dbn->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to status" );
+		}
+		
+	echo "$rom ok";
+	}
+	else {
+	    $dbnew = new PDO("sqlite:dbf/nettemp.db");
+	    $dbnew->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')");
+	    $dbnew==NULL;
+	    echo "Added $rom to new sensors";
+	}
+} 
+
+
+
 $db = new PDO("sqlite:dbf/nettemp.db") or die ("cannot open database");
 $sth = $db->prepare("select server_key from settings WHERE id='1'");
 $sth->execute();
@@ -76,19 +123,15 @@ foreach ( $result as $a) {
 $skey=$a['server_key'];
 }
 
-//echo $key;
-//echo $skey;
-//echo $rom;
-
 if ("$key" != "$skey"){
     echo "wrong key";
 } else {
 
 // main
-if  (!empty($val) && !empty($rom)) {
-    	db($rom,$val);
+if  (isset($val) && isset($rom) && isset($type)) {
+    	db($rom,$val,$type);
     }
-elseif (!empty($val) && empty($rom)) {
+elseif (isset($val) && isset($type)) {
 
 	if ( $device == "i2c" ) { 
 	    if (!empty($type) && !empty($i2c)) {
@@ -116,7 +159,7 @@ elseif (!empty($val) && empty($rom)) {
 	}
 
 	$file = "$rom.sql";
-	db($rom,$val);
+	db($rom,$val,$type);
 
 }
 else {

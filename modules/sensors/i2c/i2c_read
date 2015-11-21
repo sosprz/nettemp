@@ -7,22 +7,10 @@ then
 if [ "$onoff" == "i2c-1" ] || [ "$onoff" == "i2c-0" ] || [ "$onoff" == "i2c-2" ] || [ "$onoff" == "i2c-3" ] ; then 
 ####################################################################################
 bus=$(echo $onoff|sed 's/i2c-//g')
+skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
 
 function checkwrite {
-value=$1
-name=$2
-if ! [[ "$value" =~ [.0-9]+$ ]] && [ -n "$value" ]
-    then
-	value="error"
-	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$value' WHERE rom='$name'"
-    else
-	sqlite3 $dir/db/$2.sql "INSERT OR IGNORE INTO def (value) VALUES ('$value');"
-	sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp='$value'+adj WHERE rom='$name'"
-fi
-
-if date +%M |cut -c 2-2 | grep -E '0|5'; then
-    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET tmp_5ago='$value' WHERE rom='$name'"
-fi
+php-cgi -f $dir/receiver.php key=$skey rom=$2 value=$1 type=$3
 }
 
 cd $dir/db
@@ -42,14 +30,14 @@ for id in $id; do
 		name=$(echo $t |awk 'sub("....$", "")')
 		temp=${all[0]}
 		if [[ ! -n $temp ]]; then temp="error"; fi
-		checkwrite $temp $name
+		checkwrite $temp $name temp
 		echo $v Temp $temp
 	    fi
 	    if [ -s "$p" ]; then
 		name=$(echo $p |awk 'sub("....$", "")')
 		press=${all[1]}
 		if [[ ! -n $press ]]; then press="error"; fi
-		checkwrite $press $name
+		checkwrite $press $name press
 		echo $v Pressure $press
 	    fi
 	#else
@@ -72,7 +60,7 @@ for id in $id; do
 		name=$(echo $l |awk 'sub("....$", "")')
 		lux=$(echo $all |awk '{print $3}')
 		if [[ ! -n $lux ]]; then lux="error"; fi
-		checkwrite $lux $name
+		checkwrite $lux $name lux
 		echo $v $lux
 	    else
     		echo $v main error
@@ -96,14 +84,14 @@ for id in $id; do
 		temp=${all[0]}
 		if [[ ! -n $temp ]]; then temp="error"; fi
 		name=$(echo $t |awk 'sub("....$", "")')
-		checkwrite $temp $name
+		checkwrite $temp $name temp
 		echo $v Temp: $temp
 	    fi
 	if [ -s "$h" ]; then
 	    humid=${all[1]}
 	    if [[ ! -n $humid ]]; then humid="error"; fi
 	    name=$(echo $h |awk 'sub("....$", "")')
-	    checkwrite $humid $name
+	    checkwrite $humid $name humid
 	    echo $v Humid: $humid
 	fi
 	#    else
@@ -129,14 +117,14 @@ for id in $id; do
 		temp=${all[1]}
 		if [[ ! -n $temp ]]; then temp="error"; fi
 		name=$(echo $t |awk 'sub("....$", "")')
-		checkwrite $temp $name
+		checkwrite $temp $name temp
 		echo $v Temp: $temp
 	    fi
 	    if [ -s "$p" ]; then
 		press=${all[0]}
 		if [[ ! -n $press ]]; then press="error"; fi
 		name=$(echo $p |awk 'sub("....$", "")')
-		checkwrite $press $name
+		checkwrite $press $name press
 		echo $v Pressure: $press
 	    fi
 	#else
@@ -159,14 +147,14 @@ for id in $id; do
 		temp=$(echo $all |awk '{print $4}')
 		if [[ ! -n $temp ]]; then temp="error"; fi
 		name=$(echo $t |awk 'sub("....$", "")')
-		checkwrite $temp $name
+		checkwrite $temp $name temp
 		echo $v Temp: $temp
 	    fi
 	    if [ -s "$h" ]; then
 		humid=$(echo $all |awk '{printf $2}')
 		if [[ ! -n $humid ]]; then humid="error"; fi
 		name=$(echo $h |awk 'sub("....$", "")')
-		checkwrite $humid $name
+		checkwrite $humid $name humid
 		echo $v Humid: $humid
 	    fi
     fi
@@ -186,7 +174,7 @@ for id in $id; do
 		temp=$(echo $all |awk 'sub("..$", "")')
 		if [[ ! -n $temp ]]; then temp="error"; fi
 		name=$(echo $t |awk 'sub("....$", "")')
-		checkwrite $temp $name
+		checkwrite $temp $name temp
 		echo $v Temp: $temp
 	    fi
 	#else
