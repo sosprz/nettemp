@@ -14,9 +14,7 @@ do
     if  [ -e /sys/bus/w1/devices/$name/w1_slave ]; then
         wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.1f\n", $11/1000 } ' /sys/bus/w1/devices/$name/w1_slave;`
         echo 1-wire: $wynik C
-        if  [ -n "$wynik" ]; then
-	    php-cgi -f $dir/receiver.php key=$skey rom=$name value=$wynik type=temp
-	fi
+        php-cgi -f $dir/receiver.php key=$skey rom=$name value=$wynik type=temp
     fi
 done
 fi
