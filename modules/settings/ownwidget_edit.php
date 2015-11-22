@@ -40,6 +40,22 @@ $text3 = file_get_contents($file3);
   </style>
 
 <div class="panel panel-default">
+<div class="panel-heading">Widget example</div>
+    <div class="panel-body">
+<code>
+<pre>
+    &lt;div class="panel-heading"&gt;Widget&lt;/div&gt;
+    &lt;div class="panel-body"&gt;
+    &lt;?php 
+	echo "My first nettemp widget";
+    ?&gt;
+    &lt;/div&gt;
+</pre>
+</code>
+</div>
+</div>
+
+<div class="panel panel-default">
   <div class="panel-heading">Widget 1</div>
   <div class="panel-body">
 

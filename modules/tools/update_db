@@ -139,6 +139,7 @@ sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET charts='on' WHERE charts is null
 sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET adj='0' WHERE adj='' OR adj=' ' OR adj is null"
 sqlite3 $dir/dbf/nettemp.db "UPDATE users SET perms='adm' WHERE login='admin' AND perms is null" 
 sqlite3 $dir/dbf/nettemp.db "UPDATE OR IGNORE settings SET tempnum='3' where id='1' AND tempnum is null"
+sqlite3 $dir/dbf/nettemp.db "UPDATE OR IGNORE settings SET server_key='$(date +%s | sha256sum | base64 | head -c 10 ; echo)' where id='1' AND server_key is null"
 
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO mail_settings (id,tlscheck) VALUES (1,'off');"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO mail_settings (id,tls) VALUES (1,'on');"

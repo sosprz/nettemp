@@ -37,7 +37,7 @@ if (glob('tmp/highcharts/gas*')) {?>
 <a href="index.php?id=view&type=gas" ><button class="btn btn-default">Gas</button></a>
 <?php } 
 if (glob('tmp/highcharts/lux*')) {?>
-<a href="index.php?id=view&type=lux" ><button class="btn btn-default">LUX</button></a>
+<a href="index.php?id=view&type=lux" ><button class="btn btn-default">Light</button></a>
 <?php } 
 if (glob('tmp/highcharts/gonoff*')) {?>
 <a href="index.php?id=view&type=gonoff" ><button class="btn btn-default">GPIO</button></a>
