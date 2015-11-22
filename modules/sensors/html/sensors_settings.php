@@ -92,7 +92,16 @@ $row = $rows->fetchAll();
     </form>
     </td>
     <td>
-	<?php echo  $a["rom"] ;?>
+	<?php 
+	    $rom=$a["rom"];
+	    if (strpos($rom,'0x') !== false) {
+		$part = explode("0x", $rom);
+		echo strtolower($part[1].'-'.$part[7].''.$part[6].''.$part[5].''.$part[4].''.$part[3].''.$part[2]);
+	    } 
+	    else {
+		echo $rom;
+	    }
+	?>
     </td>
 <?php
 	$id_rom3 = str_replace(" ", "_", $a["rom"]);
