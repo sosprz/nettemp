@@ -6,7 +6,8 @@
 // method: OLD
 // ip:
 
-// url --data "key=123456&device=i2c&type=humid&value=10&i2c=34" http://172.18.10.10/receiver.php
+// curl --connect-timeout 3 -G "http://172.18.10.10/receiver.php" -d "value=1&key=123456&device=wireless&type=gas&ip=172.18.10.9"
+// curl --connect-timeout 3 -G "http://172.18.10.10/receiver.php" -d "value=20&key=123456&device=wireless&type=elec&ip=172.18.10.9"
 // php-cgi -f receiver.php key=123456 rom=new_12_temp value=23
 
 // |sed 's/.sql//g'|awk -F0x '{print $2"-"$8$7$6$5$4$3}' |tr A-Z a-z

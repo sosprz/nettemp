@@ -37,7 +37,7 @@ $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
 	    $type='humid';
 	}
 	elseif (strpos($id_rom_new,'elec') !== false) {
-	    $type='humid';
+	    $type='elec';
 	}
 	elseif (strpos($id_rom_new,'water') !== false) {
 	    $type='water';
