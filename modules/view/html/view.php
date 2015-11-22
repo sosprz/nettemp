@@ -27,6 +27,15 @@ if (glob('tmp/highcharts/altitude*')) {?>
 if (glob('tmp/kwh/*.json')) {?>
 <a href="index.php?id=view&type=kwh" ><button class="btn btn-default">kWh</button></a>
 <?php }
+if (glob('tmp/highcharts/elec*')) {?>
+<a href="index.php?id=view&type=elec" ><button class="btn btn-default">Electricity</button></a>
+<?php } 
+if (glob('tmp/highcharts/water*')) {?>
+<a href="index.php?id=view&type=water" ><button class="btn btn-default">Water</button></a>
+<?php } 
+if (glob('tmp/highcharts/gas*')) {?>
+<a href="index.php?id=view&type=gas" ><button class="btn btn-default">Gas</button></a>
+<?php } 
 if (glob('tmp/highcharts/lux*')) {?>
 <a href="index.php?id=view&type=lux" ><button class="btn btn-default">LUX</button></a>
 <?php } 

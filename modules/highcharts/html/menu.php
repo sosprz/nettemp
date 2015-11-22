@@ -17,6 +17,10 @@ if (type=='gonoff') { var xval = " H/L"}
 if (type=='host') { var xval = " ms"}
 if (type=='system') { var xval = " %"}
 if (type=='lux') { var xval = " lux"}
+if (type=='water') { var xval = " m3"}
+if (type=='gas') { var xval = " m3"}
+if (type=='elec') { var xval = " kWh"}
+
 
 $(function () {
     var seriesOptions = [],

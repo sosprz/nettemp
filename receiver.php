@@ -1,6 +1,6 @@
 <?php
 // name:
-// type: temp, humid, relay, lux, press, humid, kwh
+// type: temp, humid, relay, lux, press, humid, gas, water, elec
 // gpio:
 // device: wireless, remote, gpio, i2c
 // method: OLD
@@ -75,6 +75,31 @@ function check(&$val,$type) {
 			$val='range';
 		    }
 		}
+		elseif ($type == 'gas') {
+    		    if ((0 <= $val) && ($val <= 100)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}
+		elseif ($type == 'water') {
+    		    if ((0 <= $val) && ($val <= 100)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}
+		elseif ($type == 'elec') {
+    		    if ((0 <= $val) && ($val <= 100)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}
+
 }
 
 
@@ -151,7 +176,7 @@ elseif (isset($val) && isset($type)) {
 		exit();
 	    }
 	}
-	if ( $device == "wireless" ) { 
+	if ( $device == "wireless" ) {
 	    if (!empty($type) && !empty($ip)) {
 		$rom=$device.'_'.$ip.'_'.$type; 
 	    } else {

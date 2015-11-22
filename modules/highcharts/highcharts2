@@ -32,7 +32,7 @@ for i in $name; do
 	    middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
 	    echo -e "[ ${middle%?} ]" > $dir/tmp/highcharts/$rom.json
 	else 
-    	    echo "cannot read base"
+    	    echo "cannot read batse"
     fi
 done
 else
@@ -40,7 +40,7 @@ else
 fi
 
 # sensors
-for n in temp press lux humid; do
+for n in temp press lux humid elec water gas; do
     name=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT name FROM sensors WHERE type='$n' AND charts='on'")
     for i in $name; do
 	rom=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT rom FROM sensors WHERE name='$i'")
