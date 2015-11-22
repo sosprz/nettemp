@@ -9,6 +9,8 @@
 // url --data "key=123456&device=i2c&type=humid&value=10&i2c=34" http://172.18.10.10/receiver.php
 // php-cgi -f receiver.php key=123456 rom=new_12_temp value=23
 
+// |sed 's/.sql//g'|awk -F0x '{print $2"-"$8$7$6$5$4$3}' |tr A-Z a-z
+
 if (isset($_GET['key'])) {
 	    $key = $_GET['key'];
     }
@@ -85,8 +87,8 @@ function db($rom,$val,$type) {
         $row = $rows->fetchAll();
         $c = count($row);
         if ( $c >= "1") {
-	    check($val,$type);
 	    if (is_numeric($val)) {
+		check($val,$type);
 		$db = new PDO("sqlite:db/$file");
 		$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
 
@@ -100,7 +102,7 @@ function db($rom,$val,$type) {
 	    }
 	    else {
 		$dbn = new PDO("sqlite:dbf/nettemp.db");
-		$dbn->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to status" );
+		$dbn->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert to status" );
 		}
 		
 	echo "$rom ok";
