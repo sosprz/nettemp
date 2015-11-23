@@ -11,44 +11,56 @@ function timedRefresh(timeoutPeriod) {
 
 <?php 
 $art = isset($_GET['type']) ? $_GET['type'] : '';
+$db1 = new PDO('sqlite:dbf/nettemp.db');
+$rows1 = $db1->query("SELECT type FROM sensors WHERE charts='on'");
+$row1 = $rows1->fetchAll();
+foreach($row1 as $hi){
+$type[]=$hi['type'];
+}
+
+$db1 = new PDO('sqlite:dbf/hosts.db');
+$rows1 = $db1->query("SELECT name FROM hosts");
+$row1 = $rows1->fetchAll();
+$hostc = count($row1);
+
+
+//print_r($type);
 ?>
 <p>
 <a href="index.php?id=view&type=temp" ><button class="btn btn-default">Temperature</button></a>
 <?php 
-if (glob('tmp/highcharts/humid*')) {?>
+if (in_array('humid', $type))  {?>
 <a href="index.php?id=view&type=humid" ><button class="btn btn-default">Humidity</button></a>
 <?php }
-if (glob('tmp/highcharts/press*')) {?>
+if (in_array('press', $type))  {?>
 <a href="index.php?id=view&type=press" ><button class="btn btn-default">Pressure</button></a>
 <?php }
-if (glob('tmp/highcharts/altitude*')) {?>
+if (in_array('altitude', $type))  {?>
 <a href="index.php?id=view&type=altitude" ><button class="btn btn-default">Altitude view</button></a>
 <?php }
 if (glob('tmp/kwh/*.json')) {?>
 <a href="index.php?id=view&type=kwh" ><button class="btn btn-default">kWh</button></a>
 <?php }
-if (glob('tmp/highcharts/elec*')) {?>
+if (in_array('elex', $type))  {?>
 <a href="index.php?id=view&type=elec" ><button class="btn btn-default">Electricity</button></a>
 <?php } 
-if (glob('tmp/highcharts/water*')) {?>
+if (in_array('water', $type))  {?>
 <a href="index.php?id=view&type=water" ><button class="btn btn-default">Water</button></a>
 <?php } 
-if (glob('tmp/highcharts/gas*')) {?>
+if (in_array('gas', $type))  {?>
 <a href="index.php?id=view&type=gas" ><button class="btn btn-default">Gas</button></a>
 <?php } 
-if (glob('tmp/highcharts/lux*')) {?>
+if (in_array('lux', $type))  {?>
 <a href="index.php?id=view&type=lux" ><button class="btn btn-default">Light</button></a>
 <?php } 
-if (glob('tmp/highcharts/gonoff*')) {?>
+if (in_array('gonoff', $type))  {?>
 <a href="index.php?id=view&type=gonoff" ><button class="btn btn-default">GPIO</button></a>
 <?php } 
-if (glob('tmp/highcharts/host*')) {?>
-<a href="index.php?id=view&type=host" ><button class="btn btn-default">Hosts</button></a>
-<?php }
-if (glob('tmp/highcharts/system*')) {?>
-<a href="index.php?id=view&type=system" ><button class="btn btn-default">System stats</button></a>
-<?php }
+if ( $hostc >= "1")  {?>
+<a href="index.php?id=view&type=hosts" ><button class="btn btn-default">Hosts</button></a>
+<?php } 
 ?>
+<a href="index.php?id=view&type=system" ><button class="btn btn-default">System stats</button></a>
 </p>
 
 

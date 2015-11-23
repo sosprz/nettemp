@@ -28,22 +28,35 @@ $(function () {
 <?php
 parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $url);
 $type=$url[type];
-$type=$type . "_";
 
-$php_array = '';
-$ar=array();
-$g=scandir('tmp/highcharts/');
-foreach($g as $x)
-{
-    if(is_dir($x))$ar[$x]=scandir($x);
-    else
-	if (strpos($x,$type) !== false) {
-		$rest1=str_replace(".json", "", "$x");
-		$rest=str_replace("$type", "", "$rest1");
-		$php_array[]=$rest;
-	}
+if ($type == 'system') {
+    $array[]=cpu;
+    $array[]=memory;
+    $array[]=memory_cached;
 }
-$js_array = json_encode($php_array);
+
+elseif ($type == 'hosts') {
+    $dirb = "sqlite:dbf/hosts.db";
+    $dbh = new PDO($dirb) or die("cannot open database");
+    $query = "SELECT name FROM hosts";
+    foreach ($dbh->query($query) as $row) {
+	$array[]=$row[0];
+    }
+}
+
+else {
+// sensors
+$dirb = "sqlite:dbf/nettemp.db";
+$dbh = new PDO($dirb) or die("cannot open database");
+$query = "select name FROM sensors WHERE type='$type' AND charts='on'";
+foreach ($dbh->query($query) as $row) {
+    $array[]=$row[0];
+    }
+}
+
+
+
+$js_array = json_encode($array);
 echo "names = ". $js_array . ";\n";
 ?>
 	
@@ -122,8 +135,8 @@ echo "names = ". $js_array . ";\n";
 
     $.each(names, function (i, name) {
 
-        $.getJSON('tmp/highcharts/' + type + '_' + name + '.json',    function (data) {
-        
+        $.getJSON('hc_data.php?type='+type+'&name='+name,  function (data) {
+
             seriesOptions[i] = {
                 name: name,
                 data: data
