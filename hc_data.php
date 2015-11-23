@@ -46,21 +46,19 @@ $rows = $db->query("SELECT * FROM sensors WHERE type='$type' and name='$name'");
 $row = $rows->fetchAll();
 foreach($row as $a) {
 $file=$a['rom'];
-$name=$a['name'];
-$type=$a['type'];
+}
 
 
 $dirb = "sqlite:$root/db/$file.sql";
 $dbh = new PDO($dirb) or die("cannot open database");
 $query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
 
-             
 foreach ($dbh->query($query) as $row) {
     $line=[$row[0]*1000 . "," . $row[1]];
     $array[]=$line;
     }
 
-}
+
 //print json_encode($array, JSON_NUMERIC_CHECK);
 print str_replace('"', "",json_encode($array));
 }
