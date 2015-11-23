@@ -55,7 +55,7 @@ fix DHT count in scan.
 remove remote sensors from not detected after scan beacause this sensors cannot be detected immediately.
 add connection timeout to check relays status beacuse if host (ESP) is not available nettemp wait too long.
 remove wireless relay form controls if You are not admin (temporary, wait for mode code)
-
+add php5-fpm
 
 8.9.3
 Few upgrades and changes
