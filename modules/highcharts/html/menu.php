@@ -65,12 +65,22 @@ echo "names = ". $js_array . ";\n";
 
         // create the chart when all data is loaded
         createChart = function () {
-
             $('#container').highcharts('StockChart', {
 
 		chart: {
-	        spacingBottom: 0
-    		},
+	        spacingBottom: 0,
+		zoomType: 'x'
+		},
+
+	    
+	
+		navigator : {
+            	    adaptToUpdatedData: false,
+            	},
+
+        	scrollbar: {
+            	    liveRedraw: false,
+        	},
 
 		legend: {
 		enabled: true,
@@ -98,7 +108,7 @@ echo "names = ". $js_array . ";\n";
 		}, {
 		type: 'day',
 		count: 7,
-		text: '7D'
+		text: '1W'
 		}, {
 		type: 'month',
 		count: 1,
@@ -132,7 +142,10 @@ echo "names = ". $js_array . ";\n";
                 },
 
                 series: seriesOptions
+
+	    
             });
+	
         };
 
     $.each(names, function (i, name) {
@@ -142,14 +155,16 @@ echo "names = ". $js_array . ";\n";
             seriesOptions[i] = {
                 name: name,
                 data: data
-            };
+	    };
+	    
 
             // As we're loading the data asynchronously, we don't know what order it will arrive. So
             // we keep a counter and create the chart when all the data is loaded.
             seriesCounter += 1;
-
+	    
             if (seriesCounter === names.length) {
-                createChart();
+               createChart();
+	    
             }
         });
     });
