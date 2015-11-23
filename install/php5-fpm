@@ -1,7 +1,7 @@
 #! /bin/bash
 
 aptitude update
-aptitude -y install php5-pfm
+aptitude -y install php5-fpm
 mv /etc/lighttpd/conf-available/15-fastcgi-php.conf /etc/lighttpd/conf-available/15-fastcgi-php.conf.old
 cp /var/www/nettemp/install/conf/15-fastcgi-php.conf /etc/lighttpd/conf-available/
 
