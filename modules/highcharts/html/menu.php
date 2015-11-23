@@ -9,6 +9,7 @@ function getUrlVars() {
     return vars;
     }
     var type = getUrlVars()["type"];
+    var max = getUrlVars()["max"];
 
 if (type=='temp') { var xval = " °C"}
 if (type=='humid') { var xval = " %"}
@@ -69,18 +70,8 @@ echo "names = ". $js_array . ";\n";
 
 		chart: {
 	        spacingBottom: 0,
-		zoomType: 'x'
+		zoomType: 'x',
 		},
-
-	    
-	
-		navigator : {
-            	    adaptToUpdatedData: false,
-            	},
-
-        	scrollbar: {
-            	    liveRedraw: false,
-        	},
 
 		legend: {
 		enabled: true,
@@ -94,37 +85,37 @@ echo "names = ". $js_array . ";\n";
 		},
 
 		rangeSelector: {
-		inputEnabled: $('#container').width() > 480,
-		selected: 0,
-		buttons: [{
-		type: 'hour',
-		count: 1,
-		text: '1H'
-		},
-		{
-		type: 'day',
-		count: 1,
-		text: '1D'
-		}, {
-		type: 'day',
-		count: 7,
-		text: '1W'
-		}, {
-		type: 'month',
-		count: 1,
-		text: '1M'
-		}, {
-		type: 'ytd',
-		text: 'YTD'
-		}, {
-		type: 'year',
-		count: 1,
-		text: '1Y'
-		}, {
-		type: 'all',
-		text: 'All'
-		}]
-		},
+	inputEnabled: $('#container').width() > 480,
+	selected: 0,
+	buttons: [{
+	type: 'hour',
+	count: 1,
+	text: '1H'
+	},
+	{
+	type: 'day',
+	count: 1,
+	text: '1D'
+	}, {
+	type: 'day',
+	count: 7,
+	text: '7D'
+	}, {
+	type: 'month',
+	count: 1,
+	text: '1M'
+	}, {
+	type: 'ytd',
+	text: 'YTD'
+	}, {
+	type: 'year',
+	count: 1,
+	text: '1Y'
+	}, {
+	type: 'all',
+	text: 'All'
+	}]
+	},
 
                 yAxis: {
                 },
@@ -150,7 +141,7 @@ echo "names = ". $js_array . ";\n";
 
     $.each(names, function (i, name) {
 
-        $.getJSON('hc_data.php?type='+type+'&name='+name,  function (data) {
+        $.getJSON('hc_data.php?type='+type+'&name='+name+'&max='+max,  function (data) {
 
             seriesOptions[i] = {
                 name: name,
