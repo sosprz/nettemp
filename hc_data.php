@@ -24,22 +24,21 @@ if ($type == 'system') {
     exit();
 }
 
-if ($type == 'hosts') {
+elseif ($type == 'hosts') {
 
     $file=$name;
     $dirb = "sqlite:$root/db/$file.sql";
     $dbh = new PDO($dirb) or die("cannot open database");
     $query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
 
-             
     foreach ($dbh->query($query) as $row) {
-    $line=[$row[0]*1000 . "," . $row[1]];
-    $array[]=$line;
+	$array[]=[$row[0]*1000 . "," . $row[1]];
     }
     print str_replace('"', "",json_encode($array));
     exit();
 }
 
+else {
 
 //sensors
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
@@ -64,5 +63,6 @@ foreach ($dbh->query($query) as $row) {
 }
 //print json_encode($array, JSON_NUMERIC_CHECK);
 print str_replace('"', "",json_encode($array));
+}
 
 ?>

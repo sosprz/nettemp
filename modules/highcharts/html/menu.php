@@ -20,6 +20,8 @@ if (type=='lux') { var xval = " lux"}
 if (type=='water') { var xval = " m3"}
 if (type=='gas') { var xval = " m3"}
 if (type=='elec') { var xval = " kWh"}
+if (type=='hosts') { var xval = " ms"}
+
 
 
 $(function () {
