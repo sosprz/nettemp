@@ -172,4 +172,4 @@ CREATE TABLE sensors (
   device type TEXT,
   lcd type TEXT,
   method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT);
-CREATE TRIGGER update_time_trigger AFTER UPDATE ON sensors FOR EACH ROW BEGIN UPDATE sensors SET time = current_timestamp WHERE time = old.time; END;
+CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = current_timestamp WHERE time = old.time; END;
