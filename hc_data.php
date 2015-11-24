@@ -37,7 +37,8 @@ if ($type == 'system') {
     $dirb = "sqlite:$root/db/$file.sql";
     $dbh = new PDO($dirb) or die("cannot open database");
 
-    query($max,$query);
+    //query($max,$query);
+    $query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
              
     foreach ($dbh->query($query) as $row) {
     $line=[$row[0]*1000 . "," . $row[1]];
@@ -53,7 +54,8 @@ elseif ($type == 'hosts') {
     $dirb = "sqlite:$root/db/$file.sql";
     $dbh = new PDO($dirb) or die("cannot open database");
 
-    query($max,$query);
+    //query($max,$query);
+    $query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
 
     foreach ($dbh->query($query) as $row) {
 	$array[]=[$row[0]*1000 . "," . $row[1]];
@@ -75,7 +77,8 @@ $file=$a['rom'];
 $dirb = "sqlite:$root/db/$file.sql";
 $dbh = new PDO($dirb) or die("cannot open database");
 
-query($max,$query);
+//query($max,$query);
+$query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
 
 foreach ($dbh->query($query) as $row) {
     $line=[$row[0]*1000 . "," . $row[1]];
