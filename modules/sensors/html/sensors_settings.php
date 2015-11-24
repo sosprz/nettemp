@@ -62,6 +62,7 @@ $row = $rows->fetchAll();
 <thead>
 <tr>
 <th>Name</th>
+<th>Utime</th>
 <th>id</th>
 <th>Size</th>
 <th>Status</th>
@@ -90,6 +91,9 @@ $row = $rows->fetchAll();
 	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="id_name2" value="id_name3"/>
     </form>
+    </td>
+    <td>
+	<?php echo $a["time"]; ?>
     </td>
     <td>
 	<?php 

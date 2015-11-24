@@ -118,26 +118,6 @@ CREATE TABLE recipient (
   sms_alarm TEXT
   );
 CREATE TABLE relays (id INTEGER PRIMARY KEY,list UNIQUE, name type TEXT, ip type TEXT, delay type TEXT, rom type TEXT, type type TEXT);
-CREATE TABLE sensors (
-  id INTEGER PRIMARY KEY,
-  name UNIQUE,
-  rom UNIQUE,
-  tmp REAL,
-  tmp_min REAL,
-  tmp_max REAL,
-  alarm TEXT,
-  hour TEXT,
-  day TEXT,
-  week TEXT,
-  month TEXT,
-  year TEXT,
-  color TEXT,
-  type TEXT,
-  gpio TEXT, 
-  ip type TEXT, 
-  device type TEXT,
-  lcd type TEXT,
-  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT);
 CREATE TABLE settings (
    id INTEGER PRIMARY KEY,
    mail TEXT,
@@ -171,3 +151,25 @@ CREATE TABLE vpn (
     id INTEGER PRIMARY KEY, 
     users UNIQUE 
     );
+CREATE TABLE sensors (
+  id INTEGER PRIMARY KEY,
+  time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  tmp INTEEGER,
+  name UNIQUE,
+  rom UNIQUE,
+  tmp_min REAL,
+  tmp_max REAL,
+  alarm TEXT,
+  hour TEXT,
+  day TEXT,
+  week TEXT,
+  month TEXT,
+  year TEXT,
+  color TEXT,
+  type TEXT,
+  gpio TEXT, 
+  ip type TEXT, 
+  device type TEXT,
+  lcd type TEXT,
+  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT);
+CREATE TRIGGER update_time_trigger AFTER UPDATE ON sensors FOR EACH ROW BEGIN UPDATE sensors SET time = current_timestamp WHERE time = old.time; END;
