@@ -47,11 +47,9 @@ if [ -n "${!diff_temp}" ]; then
 	if [ -n "${!temp_hyst}" ]; then
 	    temp_temp=$temp_hyst_sum
 	fi
-read
-
 fi
 
-if [ -n "${!temp_temp}" ]; then
+if [ -n "${!temp_temp}" ] && [[ ${!sensor_temp} != "error" ]] && ! [[ ${!sensor_temp} =~ ^[0-9]+$ ]]; then
 
 if [ "${!temp_op}" = "gt" ]; then
 gt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print 0 }')
