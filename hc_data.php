@@ -8,22 +8,22 @@ $max=$_GET["max"];
 
 function query($max,&$query) {
 if ($max == hour) {
-    $query = "select strftime('%s', time),value from def ORDER BY time ASC limit 60";
+    $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 hour') AND datetime('now')";
     } 
 if ($max == day) {
-    $query = "select strftime('%s', time),value from def ORDER BY time ASC limit 1440";
+    $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 day') AND datetime('now')";
     } 
 if ($max == week) {
-    $query = "select strftime('%s', time),value from def ORDER BY time ASC limit 10080";
+    $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-7 day') AND datetime('now')";
     } 
 if ($max == month) {
-    $query = "select strftime('%s', time),value from def ORDER BY time ASC limit 50080";
+    $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 months') AND datetime('now')";
     } 
 if ($max == months) {
-    $query = "select strftime('%s', time),value from def where time >= date('now','-6 months')";
+    $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-6 months') AND datetime('now')";
     } 
 if ($max == year) {
-    $query = "select strftime('%s', time),value from def where time >= date('now','start of year')";
+    $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 year') AND datetime('now')";
     } 
 if ($max == all) {
     $query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
@@ -77,8 +77,8 @@ $file=$a['rom'];
 $dirb = "sqlite:$root/db/$file.sql";
 $dbh = new PDO($dirb) or die("cannot open database");
 
-//query($max,$query);
-$query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
+query($max,$query);
+//$query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
 
 foreach ($dbh->query($query) as $row) {
     $line=[$row[0]*1000 . "," . $row[1]];
