@@ -106,7 +106,7 @@ function check(&$val,$type) {
 
 
 
-function db($rom,$val,$type) {
+function db($rom,$val,$type,$chmin) {
 	$file = "$rom.sql";
     	$db = new PDO('sqlite:dbf/nettemp.db');
         $rows = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
@@ -115,8 +115,15 @@ function db($rom,$val,$type) {
         if ( $c >= "1") {
 	    if (is_numeric($val)) {
 		check($val,$type);
-		$db = new PDO("sqlite:db/$file");
-		$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
+
+		if ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
+		    $db = new PDO("sqlite:db/$file");
+		    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
+		    echo "$rom ok ";
+		} 
+		else   {
+		echo "Not writed interval is $chmin ";
+		}
 
 		$dbn = new PDO("sqlite:dbf/nettemp.db");
 		$dbn->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status" );
@@ -129,9 +136,8 @@ function db($rom,$val,$type) {
 	    else {
 		$dbn = new PDO("sqlite:dbf/nettemp.db");
 		$dbn->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert to status" );
+		echo "$rom not numieric! $val ";
 		}
-		
-	echo "$rom ok";
 	}
 	else {
 	    $dbnew = new PDO("sqlite:dbf/nettemp.db");
@@ -144,11 +150,12 @@ function db($rom,$val,$type) {
 
 
 $db = new PDO("sqlite:dbf/nettemp.db") or die ("cannot open database");
-$sth = $db->prepare("select server_key from settings WHERE id='1'");
+$sth = $db->prepare("select * from settings WHERE id='1'");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ( $result as $a) {
 $skey=$a['server_key'];
+$chmin=$a['charts_min'];
 }
 
 if ("$key" != "$skey"){
@@ -157,7 +164,7 @@ if ("$key" != "$skey"){
 
 // main
 if  (isset($val) && isset($rom) && isset($type)) {
-    	db($rom,$val,$type);
+    	db($rom,$val,$type,$chmin);
     }
 elseif (isset($val) && isset($type)) {
 
@@ -187,7 +194,7 @@ elseif (isset($val) && isset($type)) {
 	}
 
 	$file = "$rom.sql";
-	db($rom,$val,$type);
+	db($rom,$val,$type,$chmin);
 
 }
 else {

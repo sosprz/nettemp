@@ -119,6 +119,7 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD charts type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD charts_system type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD charts_hosts type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD charts_gpio type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD charts_min type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD server_key type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD client_key type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD client_ip type TEXT";
@@ -135,6 +136,7 @@ sqlite3 $dir/dbf/nettemp.db "UPDATE mail_settings SET tlscheck='off' WHERE id='1
 sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET charts_system='on' WHERE charts_system is null"
 sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET charts_hosts='on' WHERE charts_hosts is null"
 sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET charts_gpio='on' WHERE charts_gpio is null"
+sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET charts_min='10' WHERE charts_gpio is null"
 sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET charts='on' WHERE charts is null"
 sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET adj='0' WHERE adj='' OR adj=' ' OR adj is null"
 sqlite3 $dir/dbf/nettemp.db "UPDATE users SET perms='adm' WHERE login='admin' AND perms is null" 
@@ -165,3 +167,5 @@ sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,wireless) VALUES (
 sqlite3 $dir/dbf/nettemp.db "drop trigger aupdate_time_trigger;"
 #sqlite3 $dir/dbf/nettemp.db "CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = current_timestamp WHERE tmp = old.tmp; END;"
 sqlite3 $dir/dbf/nettemp.db "CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE tmp = old.tmp; END;"
+
+

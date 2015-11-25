@@ -46,7 +46,7 @@ $hcs=$a["charts_system"];
 $hcg=$a["charts_gpio"];
 $hch=$a["charts_hosts"];
 $hc=$a["highcharts"];
-
+$hch=$a["charts_min"];
 
 }
 ?>
@@ -54,6 +54,7 @@ $hc=$a["highcharts"];
 <div class="panel panel-default">
   <div class="panel-heading">Charts settings</div>
   <div class="panel-body">
+<!--
     <table>
     <tr>
     <td>Highcharts </td>
@@ -101,6 +102,55 @@ $hc=$a["highcharts"];
 ?> 
 
     </table>
+-->
+
+
+<?php
+    $chmin = isset($_POST['chmin']) ? $_POST['chmin'] : '';
+    $set_chmin = isset($_POST['set_chmin']) ? $_POST['set_chmin'] : '';
+    if  ($set_chmin == "set_chmin") {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE settings SET charts_min='$chmin' WHERE id='1'");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
+
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $sth = $db->prepare("select * from settings ");
+    $sth->execute();
+    $result = $sth->fetchAll();
+    foreach ($result as $a) {
+?>
+
+<form class="form-horizontal" action="" method="post">
+<fieldset>
+<div class="form-group">
+  <label class="col-md-2 control-label" for="selectbasic">Sensors base update interval</label>
+  <div class="col-md-1">
+    <select id="selectbasic" name="chmin" onchange="this.form.submit()" class="form-control input-sm">
+    <?php $ar=array("1","5","10", "15");
+     foreach ($ar as $num) { ?>
+        <option <?php echo $a['charts_min'] == "$num" ? 'selected="selected"' : ''; ?> value="<?php echo $num; ?>"><?php echo $num ." "; ?> min</option>   
+    <?php } ?>
+    </select>
+  </div>
+</div>
+</fieldset>
+<input type="hidden" name="set_chmin" value="set_chmin" />
+</form>
+
+
+
+
+
+<?php
+}
+?>
+
+
+
+
 </div></div>
 
 
