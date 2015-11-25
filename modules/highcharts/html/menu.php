@@ -1,6 +1,6 @@
 <div id="container" style="height: 400 ; min-width: 310px"></div>
 <script type="text/javascript">
-
+var start = +new Date();
 function getUrlVars() {
         var vars = {};
 	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -28,6 +28,7 @@ if (type=='hosts') { var xval = " ms"}
 $(function () {
     var seriesOptions = [],
         seriesCounter = 0,
+
 <?php
 parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $url);
 $type=$url[type];
@@ -71,6 +72,18 @@ echo "names = ". $js_array . ";\n";
 		chart: {
 	        spacingBottom: 0,
 		zoomType: 'x',
+
+		events: {
+                    load: function () {
+                        if (!window.isComparing) {
+                            this.setTitle(null, {
+                                text: 'Built chart in ' + (new Date() - start) + 'ms'
+                            });
+                        }
+                    }
+                },
+
+
 		},
 
 		legend: {
