@@ -49,7 +49,7 @@ if (in_array('altitude', $type))  {?>
 <a href="index.php?id=view&type=altitude&max=hour" ><button class="btn btn-default <?php echo $art == 'altitude' ? ' active' : ''; ?>">Altitude view</button></a>
 <?php }
 if (glob('tmp/kwh/*.json')) {?>
-<a href="index.php?id=view&type=kwh&max=hour" ><button class="btn btn-default <?php echo $art == 'kwh' ? ' active' : ''; ?>">kWh</button></a>
+<a href="index.php?id=view&type=kwh" ><button class="btn btn-default <?php echo $art == 'kwh' ? ' active' : ''; ?>">kWh</button></a>
 <?php }
 if (in_array('elex', $type))  {?>
 <a href="index.php?id=view&type=elec&max=hour" ><button class="btn btn-default <?php echo $art == 'elec' ? ' active' : ''; ?>">Electricity</button></a>
@@ -63,7 +63,7 @@ if (in_array('gas', $type))  {?>
 if (in_array('lux', $type))  {?>
 <a href="index.php?id=view&type=lux&max=hour" ><button class="btn btn-default <?php echo $art == 'lux' ? ' active' : ''; ?>">Light</button></a>
 <?php } 
-if (in_array('gonoff', $type))  {?>
+if (glob('db/gonoff*')) {?>
 <a href="index.php?id=view&type=gonoff&max=hour" ><button class="btn btn-default <?php echo $art == 'gonoff' ? ' active' : ''; ?>">GPIO</button></a>
 <?php } 
 if ( $hostc >= "1")  {?>

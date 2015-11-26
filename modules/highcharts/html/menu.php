@@ -9,7 +9,7 @@ function getUrlVars() {
     return vars;
     }
     var type = getUrlVars()["type"];
-    var maz = getUrlVars()["max"];
+    var max = getUrlVars()["max"];
 
 if (type=='temp') { var xval = " °C"}
 if (type=='humid') { var xval = " %"}
@@ -47,7 +47,14 @@ elseif ($type == 'hosts') {
 	$array[]=$row[0];
     }
 }
-
+elseif ($type == 'gonoff') {
+    $root = "/var/www/nettemp";
+    $dir = "$root/db";
+    $lg=glob($dir.'/gonoff*');
+    foreach($lg as $li) {
+	$array[]=basename($li, ".sql");
+    }
+}
 else {
 // sensors
 $dirb = "sqlite:dbf/nettemp.db";
@@ -154,7 +161,7 @@ echo "names = ". $js_array . ";\n";
 
     $.each(names, function (i, name) {
 
-        $.getJSON('hc_data.php?type='+type+'&name='+name+'&max='+maz,  function (data) {
+        $.getJSON('hc_data.php?type='+type+'&name='+name+'&max='+max,  function (data) {
 
             seriesOptions[i] = {
                 name: name,
