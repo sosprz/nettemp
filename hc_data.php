@@ -58,7 +58,7 @@ elseif ($type == 'hosts') {
     //$query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
 
     foreach ($dbh->query($query) as $row) {
-	$array[]=[$row[0]*1000+3600 . "," . $row[1]];
+	$array[]=[($row[0]+3600)*1000 . "," . $row[1]];
     }
     print str_replace('"', "",json_encode($array));
     exit();
@@ -74,7 +74,7 @@ elseif ($type == 'gonoff') {
     //$query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
 
     foreach ($dbh->query($query) as $row) {
-	$array[]=[$row[0]*1000+3600 . "," . $row[1]];
+	$array[]=[($row[0]+3600)*1000 . "," . $row[1]];
     }
     print str_replace('"', "",json_encode($array));
     exit();
@@ -97,7 +97,7 @@ else {
     //$query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
 
     foreach ($dbh->query($query) as $row) {
-	$line=[$row[0]*1000+3600 . "," . $row[1]];
+	$line=[($row[0]+3600)*1000 . "," . $row[1]];
 	$array[]=$line;
     }
     print str_replace('"', "",json_encode($array));
