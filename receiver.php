@@ -121,7 +121,7 @@ function db($rom,$val,$type,$chmin) {
 		    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
 		    echo "$rom ok ";
 		} 
-		elseif ($type == 'gas' || 'water' || 'elec')  {
+		elseif ($type == 'gas' || $type == 'water' || $type == 'elec')  {
 		    $db = new PDO("sqlite:db/$file");
 		    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
 		    echo "$rom ok ";

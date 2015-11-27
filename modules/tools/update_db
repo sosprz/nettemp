@@ -55,6 +55,7 @@ if [ ! -s $dir/dbf/kwh.db ]
     echo kwh.db exist
 fi
 sqlite3 $dir/dbf/kwh.db "CREATE INDEX time_index ON kwh(time)";
+
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD error type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE device ADD wireless type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD ip type TEXT";
@@ -165,7 +166,7 @@ sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO device (id,wireless) VALUES (
 # 20151110
 
 sqlite3 $dir/dbf/nettemp.db "drop trigger aupdate_time_trigger;"
-#sqlite3 $dir/dbf/nettemp.db "CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = current_timestamp WHERE tmp = old.tmp; END;"
 sqlite3 $dir/dbf/nettemp.db "CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE tmp = old.tmp; END;"
 
+sqlite3 $dir/dbf/kwh.db "ALTER TABLE kwh ADD currrent TYPE INTEEGER";
 

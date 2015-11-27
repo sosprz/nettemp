@@ -101,7 +101,7 @@ echo "names = ". $js_array . ";\n";
         	},
 		
 		title: {
-            	    text: 'Temperature by day'
+            	    text: type+' by '+max
         	},
 
         	subtitle: {

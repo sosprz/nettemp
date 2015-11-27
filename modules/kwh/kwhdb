@@ -10,7 +10,7 @@ if [ ! -s $dir/dbf/kwh.db ]
 	sudo chmod 775 $dir/dbf/kwh.db
 	sudo chown root.www-data $dir/dbf/kwh.db
 	sqlite3 $dir/dbf/kwh.db "PRAGMA journal_mode=WAL;"
-	sqlite3 $dir/dbf/kwh.db  "CREATE TABLE kwh ( time DATE DEFAULT (datetime('now','localtime')), pulse INTEEGER );"
+	sqlite3 $dir/dbf/kwh.db  "CREATE TABLE kwh ( time DATE DEFAULT (datetime('now','localtime')), pulse INTEEGER, current INTEEGER );"
     else 
 	echo kwh.db exist
 fi
