@@ -1,2 +1,6 @@
-CREATE TABLE kwh ( time DATE DEFAULT (datetime('now','localtime')), pulse INTEEGER );
+#old Dise
+#CREATE TABLE kwh ( time DATE DEFAULT (datetime('now','localtime')), pulse INTEEGER );
+#CREATE INDEX time_index ON kwh(time);
+
+CREATE TABLE kwh ( time DATETIME DEFAULT CURRENT_TIMESTAMP, pulse INTEEGER , current INTEEGER); 
 CREATE INDEX time_index ON kwh(time);

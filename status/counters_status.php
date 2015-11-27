@@ -1,12 +1,15 @@
 <div id="sensor_status">
 <div class="grid-item">
-<div class="panel panel-default">
-<div class="panel-heading">Counters</div>
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $rows = $db->query("SELECT * FROM sensors WHERE type='gas' OR type='elec' OR type='water'");
-$result = $rows->fetchAll(); ?>
+$result = $rows->fetchAll();
+$numRows = count($result);
+if ( $numRows > '0' ) { ?>
+<div class="panel panel-default">
+<div class="panel-heading">Counters</div>
+
 <table class="table table-hover">
 <tbody>
 <?php       
@@ -45,3 +48,7 @@ $result = $rows->fetchAll(); ?>
 </div>
 </div>
 </div>
+
+<?php 
+    }
+?>

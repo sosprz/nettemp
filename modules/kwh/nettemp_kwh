@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 #
-#  Skrypt stworzony na pogrzeby nettemp.
+#  Skrypt stworzony na potrzeby nettemp.
 #  Autor dise - dise@o2.pl
-
+#  update zapis Current bardziej dokladnego 
+ 
 import RPi.GPIO as GPIO
 import datetime
 import sys
@@ -11,11 +12,17 @@ import time
 import os
 import sqlite3
 import threading
+from datetime import datetime
+from datetime import timedelta
+
+import pytz
 
 ############################################################################################################
 
 pulseValue = 0
+currentWatt = 0
 dbWriteSleep = 60 # zapis do bazy co 60 sekund
+start_time = datetime.now()
 
 def signal_handler(signal, frame): # cos nie dziala ctr+c no ale moze kiedys zaczenie
         print('You pressed Ctrl+C, so exiting')
@@ -47,7 +54,7 @@ except:
 signal.signal(signal.SIGINT, signal_handler)
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(gpiopin, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+GPIO.setup(gpiopin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 if rev == 'on' :  # ustawiamy detekcje odpowiednio z tym co w bazie
         gpioEvent1 = GPIO.FALLING
@@ -56,9 +63,15 @@ else:
         gpioEvent1 = GPIO.RISING
         gpioEvent2 = GPIO.FALLING
 
+def millis():
+   dt = datetime.now() - start_time
+   ms = (dt.days * 24 * 60 * 60 + dt.seconds) * 1000 + dt.microseconds / 1000.0
+   return ms
+
 def dbwrite():
     # czekamy dbWriteSleep sekund i zapisujemy do bazy , po zapisie resetujemy licznik
     global pulseValue # operujemy na globalnej zmiennej ilosci pulsow
+    global currentWatt
 
     threading.Timer(dbWriteSleep, dbwrite).start()
     threading.Timer(dbWriteSleep, dbwrite).setDaemon(True)
@@ -66,13 +79,15 @@ def dbwrite():
     # jesli puls ma wartosc inna niz  0 to  zapisujemy do bazy jesli 0 pomijamy zapis
 
     if pulseValue >=1:
-        #now = datetime.datetime.now() # use sqlite auto timestamp
-
+        #tz = pytz.timezone("Europe/Warsaw")
+        now = datetime.now().replace(microsecond=0)  # use sqlite auto timestamp
+        #nowlocal = tz.localize(now)
+        
         # podpinamy sie do bazy i zapisujemy dane
 
         db = sqlite3.connect('/var/www/nettemp/dbf/kwh.db')
         c = db.cursor()
-        c.execute("INSERT INTO kwh( pulse ) VALUES(?)", (pulseValue,))
+        c.execute("INSERT INTO kwh( time, pulse , current ) VALUES(?,?,?)", (now,pulseValue,currentWatt,))
         db.commit()
         db.close()
 
@@ -91,8 +106,12 @@ while True:
         # Czekamy na zmiane stanu pinu...
         GPIO.wait_for_edge(gpiopin, gpioEvent1)
 
-        # inkrementujemy wartosc pulsu zawsze przy zdarzeniu
+        # inkrementujemy wartosc pulsu zawsze przy zdarzeniu i zaczynamy zliczac czas pomiedzy pulsami
         pulseValue += 1
+
+        deltaPulseMillis = millis()
+        start_time = datetime.now()
+        currentWatt = int((( 3600 * 1000 ) / deltaPulseMillis ))
 
         # .... i znowu az pin powroci
         GPIO.wait_for_edge(gpiopin, gpioEvent2)

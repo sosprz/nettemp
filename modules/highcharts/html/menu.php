@@ -79,6 +79,7 @@ echo "names = ". $js_array . ";\n";
 		chart: {
 	        spacingBottom: 0,
 		zoomType: 'x',
+    
 
 		events: {
                     load: function () {
@@ -90,8 +91,22 @@ echo "names = ". $js_array . ";\n";
                     }
                 },
 
-
 		},
+
+		rangeSelector : {
+                enabled: false
+		},
+        	navigator: {
+            	    enabled: true
+        	},
+		
+		title: {
+            	    text: 'Temperature by day'
+        	},
+
+        	subtitle: {
+            	    text: 'nettemp jest spoko lol'
+        	},
 
 		legend: {
 		enabled: true,
@@ -103,39 +118,6 @@ echo "names = ". $js_array . ";\n";
                     return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + xval +'</b> </n>';
         	    }
 		},
-
-		rangeSelector: {
-	inputEnabled: $('#container').width() > 480,
-	selected: 0,
-	buttons: [{
-	type: 'hour',
-	count: 1,
-	text: '1H'
-	},
-	{
-	type: 'day',
-	count: 1,
-	text: '1D'
-	}, {
-	type: 'day',
-	count: 7,
-	text: '7D'
-	}, {
-	type: 'month',
-	count: 1,
-	text: '1M'
-	}, {
-	type: 'ytd',
-	text: 'YTD'
-	}, {
-	type: 'year',
-	count: 1,
-	text: '1Y'
-	}, {
-	type: 'all',
-	text: 'All'
-	}]
-	},
 
                 yAxis: {
                 },
