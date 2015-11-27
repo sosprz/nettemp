@@ -130,12 +130,12 @@ function db($rom,$val,$type,$chmin) {
 		
 		$min=intval(date('i'));
 		if ((strpos($min,'0') !== false) || (strpos($min,'5') !== false)) {
-		    $dbn->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to status" );
+		    $dbn->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to 5ago" );
 		}
 	    }
 	    else {
 		$dbn = new PDO("sqlite:dbf/nettemp.db");
-		$dbn->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert to status" );
+		$dbn->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert error to status" );
 		echo "$rom not numieric! $val ";
 		}
 	}
