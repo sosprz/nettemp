@@ -51,7 +51,9 @@
     <div id="ow3"><?php 
 	include_once('status/ownwidget3.php'); 
     ?></div>
-
+    <div id="co"><?php 
+	include_once('status/counters_status.php'); 
+    ?></div>
     <div id="gs"><?php 
 	include_once('status/gpio_status.php'); 
     ?></div>
@@ -69,6 +71,7 @@
 <script type="text/javascript">
     setInterval( function() {
     $("#ss").load("status/sensor_status.php");
+    $('#co').load("status/counters_status.php");
     $('#gs').load("status/gpio_status.php");
     $('#hs').load("status/hosts_status.php");
     $('#rs').load("status/relays_status.php");

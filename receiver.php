@@ -121,8 +121,13 @@ function db($rom,$val,$type,$chmin) {
 		    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
 		    echo "$rom ok ";
 		} 
-		else   {
-		echo "Not writed interval is $chmin ";
+		elseif ($type == 'gas' || 'water' || 'elec')  {
+		    $db = new PDO("sqlite:db/$file");
+		    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
+		    echo "$rom ok ";
+		}
+		else {
+		    echo "Not writed interval is $chmin min";
 		}
 
 		$dbn = new PDO("sqlite:dbf/nettemp.db");
