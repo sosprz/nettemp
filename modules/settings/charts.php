@@ -129,7 +129,7 @@ $hch=$a["charts_min"];
   <label class="col-md-2 control-label" for="selectbasic">Sensors base update interval</label>
   <div class="col-md-1">
     <select id="selectbasic" name="chmin" onchange="this.form.submit()" class="form-control input-sm">
-    <?php $ar=array("1","5","10", "15");
+    <?php $ar=array("1","2","5","10", "15");
      foreach ($ar as $num) { ?>
         <option <?php echo $a['charts_min'] == "$num" ? 'selected="selected"' : ''; ?> value="<?php echo $num; ?>"><?php echo $num ." "; ?> min</option>   
     <?php } ?>
