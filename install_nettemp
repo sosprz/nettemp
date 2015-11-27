@@ -175,6 +175,7 @@ fi
 function www-server {
 #lighttpd
 $dir/install/lighttpd
+$dir/install/php5-fpm
 
 }
 
