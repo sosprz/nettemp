@@ -156,30 +156,25 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 
 
 <div class="panel panel-default">
-<div class="panel-heading">Users</div>
+<div class="panel-heading">Perms</div>
 
 <div class="table-responsive">
 <table class="table table-striped table-condensed small">
 <thead><tr>
 <th>Name</th>
-<th>Password</th>
-<th>Mail</th>
-<th>Telephone</th>
-<th>SMS pin</th>
+<th>Receive Mail</th>
+<th>Receive SMS</th>
+<th>Admin</th>
+<th>IP Cam access</th>
+<th>SMS to script</th>
+<th>Access time</th>
+<th>Call to relay</th>
+<th>Simple</th>
+<th>Moment</th>
+<th>Trigger</th>
 <th></th>
 </tr></thead>
 
-    <tr>	
-	<form action="" method="post">
-	<td><input type="text" name="login" value="" class="form-control" required=""/></td>
-	<td><input type="password" name="pass" value="" class="form-control" required=""/></td>
-	<td><input type="email" name="mail" value="" class="form-control" required=""/></td>
-	<td><input type="text" name="tel" value="" class="form-control" required=""/></td>
-	<td><input type="text" name="smspin" value="" class="form-control" required=""/></td>
-	<input type="hidden" name="add1" value="add2" />
-	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
-	</form>
-    </tr> 
 <?php
 
 $db = new PDO('sqlite:dbf/nettemp.db');
@@ -190,12 +185,139 @@ foreach ($result as $a) {
 ?>
 	<tr>
 	<td><?php echo $a["login"];?></td>
-	<td></td>
-	<td><?php echo $a["mail"];?></td>
-	<td><?php echo $a["tel"]; ?></td>
-	<td><?php echo $a["smspin"]; ?></td>
-	<?php if ($a['login'] != 'admin') { ?>
 	<td>
+	<form action="" method="post">
+	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
+	<input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="update_maila" value="yes" <?php echo $a["maila"] == 'yes' ? 'checked="checked"' : ''; ?> />
+	<input type="hidden" name="up_mail" value="up_mail" />
+	</form>
+	</td>
+	<td>
+	<form action="" method="post">
+	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
+	<input data-toggle="toggle"  data-size="mini" onchange="this.form.submit()" type="checkbox" name="update_smsa" value="yes" <?php echo $a["smsa"] == 'yes' ? 'checked="checked"' : ''; ?> />
+	<input type="hidden" name="up_sms" value="up_sms" />
+	</form>
+	</td>
+	<td>
+	<?php if ($a['login'] != 'admin') { ?>
+	<form action="" method="post">
+	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
+	<input data-toggle="toggle"  data-size="mini" onchange="this.form.submit()" type="checkbox" name="update_perms" value="adm" <?php echo $a["perms"] == 'adm' ? 'checked="checked"' : ''; ?> />
+	<input type="hidden" name="up_perms" value="up_perms" />
+	</form>
+	<?php } ?>
+	</td>
+
+	<td>
+	<form action="" method="post">
+	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
+	<input data-toggle="toggle"  data-size="mini" onchange="this.form.submit()" type="checkbox" name="update_cam" value="yes" <?php echo $a["cam"] == 'yes' ? 'checked="checked"' : ''; ?> />
+	<input type="hidden" name="up_cam" value="up_cam" />
+	</form>
+	</td>
+
+	<td>
+	<form action="" method="post">
+	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
+	<input data-toggle="toggle"  data-size="mini" onchange="this.form.submit()" type="checkbox" name="update_smsts" value="yes" <?php echo $a["smsts"] == 'yes' ? 'checked="checked"' : ''; ?> />
+	<input type="hidden" name="up_smsts" value="up_smsts" />
+	</form>
+	</td>
+
+	<td>
+	
+	<form action="" method="post"> 
+	<select name="update_at" class="form-control input-sm" onchange="this.form.submit()" <?php if ($a['login'] == 'admin') { ?>disabled<?php }?> >
+	<?php $sth = $db->prepare("SELECT * FROM access_time");
+	$sth->execute();
+	$result = $sth->fetchAll();
+	foreach ($result as $select) { ?>
+	<option <?php echo $a['at'] == $select['name'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['name']; ?>"><?php echo $select['name']; ?></option>
+	<?php 
+	    } 
+	?>
+	<!-- <option <?php echo $a['at'] == any ? 'selected="selected"' : ''; ?> value="any">OFF</option> -->
+	</select>
+	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
+	<input type="hidden" name="up_at" value="up_at" />
+	</form>
+	</td>
+
+	<td>
+	<form action="" method="post"> 
+	<select name="update_ctr" class="form-control input-sm" onchange="this.form.submit()">
+	<?php $sth = $db->prepare("SELECT * FROM gpio where mode='call'");
+	$sth->execute();
+	$result = $sth->fetchAll();
+	foreach ($result as $select) { ?>
+	<option <?php echo $a['ctr'] == $select['gpio'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['gpio']; ?>"><?php echo $select['name']; ?></option>
+	<?php 
+	    } 
+	?>
+	<option <?php echo $a['ctr'] == OFF ? 'selected="selected"' : ''; ?> value="OFF">OFF</option>
+	</select>
+	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
+	<input type="hidden" name="up_ctr" value="up_ctr" />
+	</form>
+	</td>
+
+	<td>
+	<form action="" method="post"> 
+	<select name="update_simple" class="form-control input-sm" onchange="this.form.submit()">
+	<?php $sth = $db->prepare("SELECT * FROM gpio where mode='simple'");
+	$sth->execute();
+	$result = $sth->fetchAll();
+	foreach ($result as $select) { ?>
+	<option <?php echo $a['simple'] == $select['gpio'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['gpio']; ?>"><?php echo $select['name']; ?></option>
+	<?php 
+	    } 
+	?>
+	<option <?php echo $a['simple'] == OFF ? 'selected="selected"' : ''; ?> value="OFF">OFF</option>
+	</select>
+	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
+	<input type="hidden" name="up_simple" value="up_simple" />
+	</form>
+	</td>
+
+	<td>
+	<form action="" method="post"> 
+	<select name="update_moment" class="form-control input-sm" onchange="this.form.submit()">
+	<?php $sth = $db->prepare("SELECT * FROM gpio where mode='moment'");
+	$sth->execute();
+	$result = $sth->fetchAll();
+	foreach ($result as $select) { ?>
+	<option <?php echo $a['moment'] == $select['gpio'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['gpio']; ?>"><?php echo $select['name']; ?></option>
+	<?php 
+	    } 
+	?>
+	<option <?php echo $a['moment'] == OFF ? 'selected="selected"' : ''; ?> value="OFF">OFF</option>
+	</select>
+	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
+	<input type="hidden" name="up_moment" value="up_moment" />
+	</form>
+	</td>
+	
+	<td>
+	<form action="" method="post"> 
+	<select name="update_trigger" class="form-control input-sm" onchange="this.form.submit()">
+	<?php $sth = $db->prepare("SELECT * FROM gpio where mode='trigger'");
+	$sth->execute();
+	$result = $sth->fetchAll();
+	foreach ($result as $select) { ?>
+	<option <?php echo $a['trigger'] == $select['gpio'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['gpio']; ?>"><?php echo $select['name']; ?></option>
+	<?php 
+	    } 
+	?>
+	<option <?php echo $a['trigger'] == OFF ? 'selected="selected"' : ''; ?> value="OFF">OFF</option>
+	</select>
+	<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
+	<input type="hidden" name="up_trigger" value="up_trigger" />
+	</form>
+	</td>
+
+	<td>
+	<?php if ($a['login'] != 'admin') { ?>
     	<form action="" method="post"> 	
 	    <input type="hidden" name="del" value="<?php echo $a["id"]; ?>" />
 	    <input type="hidden" type="submit" name="del1" value="del2" />
@@ -212,4 +334,3 @@ foreach ($result as $a) {
 
 
 
-<?php include('perms.php');?>
