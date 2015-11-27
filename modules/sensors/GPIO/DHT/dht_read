@@ -12,9 +12,10 @@ if [ -n "$gpio_list_0" ]; then
     type=`sqlite3 $dir/dbf/nettemp.db "SELECT humid_type FROM gpio where gpio='$gpio_list'"`
     sleep 1
     if [[ "$type" == "22" ]]; then 
-        arr=($($dir/modules/sensors/GPIO/DHT/AdafruitDHT.py $type $gpio_list))
+    	    arr=($($dir/modules/sensors/GPIO/DHT/AdafruitDHT.py $type $gpio_list))
 	else
-	    arr=($($dir/modules/sensors/GPIO/DHT/dhtlib/example/dhtsensor DHT$type $gpio_list))
+	    arr=($($dir/modules/sensors/GPIO/DHT/AdafruitDHT.py $type $gpio_list))
+	    #arr=($($dir/modules/sensors/GPIO/DHT/dhtlib/example/dhtsensor DHT$type $gpio_list))
     fi
     dht=${arr[0]}
 
