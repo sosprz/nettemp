@@ -51,7 +51,7 @@ function check(&$val,$type) {
 			    
 		}
 		elseif ($type == 'temp') {
-		    if (( -50 <= $val) && ($val <= 200)) {
+		    if (( -50 <= $val) && ($val <= 200) && ($val != 85)) {
 			$val=$val;
 		    }
 		    else {
