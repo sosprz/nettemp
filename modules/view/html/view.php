@@ -1,6 +1,18 @@
+<?php 
+$db = new PDO('sqlite:dbf/nettemp.db');
+$rows1 = $db->query("SELECT charts_theme FROM settings WHERE id='1'");
+$row1 = $rows1->fetchAll();
+foreach($row1 as $t){
+$theme=$t['charts_theme'];
+}
+?>
 <script type="text/javascript" src="html/highcharts/highstock.js"></script>
 <script type="text/javascript" src="html/highcharts/exporting.js"></script>
+<?php if ($theme == 'black') { ?>
 <script type="text/javascript" src="html/highcharts/dark-unica.js"></script>
+<?php 
+    }
+?>
 <script type="text/javascript" src="html/highcharts/no-data-to-display.js"></script>
 <script src="https://rawgit.com/highslide-software/highcharts.com/master/js/modules/boost.src.js"></script>
 
@@ -18,8 +30,7 @@ function timedRefresh(timeoutPeriod) {
 $art = isset($_GET['type']) ? $_GET['type'] : '';
 $max = isset($_GET['max']) ? $_GET['max'] : '';
 
-$db1 = new PDO('sqlite:dbf/nettemp.db');
-$rows1 = $db1->query("SELECT type FROM sensors WHERE charts='on'");
+$rows1 = $db->query("SELECT type FROM sensors WHERE charts='on'");
 $row1 = $rows1->fetchAll();
 foreach($row1 as $hi){
 $type[]=$hi['type'];

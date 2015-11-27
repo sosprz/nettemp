@@ -121,6 +121,8 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD charts_system type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD charts_hosts type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD charts_gpio type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD charts_min type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD charts_theme type TEXT";
+
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD server_key type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD client_key type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD client_ip type TEXT";

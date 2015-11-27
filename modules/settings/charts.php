@@ -115,6 +115,15 @@ $hch=$a["charts_min"];
     exit();
     }
 
+    $chtheme = isset($_POST['chtheme']) ? $_POST['chtheme'] : '';
+    $set_chtheme = isset($_POST['set_chtheme']) ? $_POST['set_chtheme'] : '';
+    if  ($set_chtheme == "set_chtheme") {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE settings SET charts_theme='$chtheme' WHERE id='1'");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
 
     $db = new PDO('sqlite:dbf/nettemp.db');
     $sth = $db->prepare("select * from settings ");
@@ -127,8 +136,8 @@ $hch=$a["charts_min"];
 <fieldset>
 <div class="form-group">
   <label class="col-md-2 control-label" for="selectbasic">Sensors base update interval</label>
-  <div class="col-md-1">
-    <select id="selectbasic" name="chmin" onchange="this.form.submit()" class="form-control input-sm">
+  <div class="col-md-2">
+    <select id="selectbasic" name="chmin" onchange="this.form.submit()" class="form-control">
     <?php $ar=array("1","2","5","10", "15");
      foreach ($ar as $num) { ?>
         <option <?php echo $a['charts_min'] == "$num" ? 'selected="selected"' : ''; ?> value="<?php echo $num; ?>"><?php echo $num ." "; ?> min</option>   
@@ -140,6 +149,22 @@ $hch=$a["charts_min"];
 <input type="hidden" name="set_chmin" value="set_chmin" />
 </form>
 
+<form class="form-horizontal" action="" method="post">
+<fieldset>
+<div class="form-group">
+  <label class="col-md-2 control-label" for="selectbasic">Theme</label>
+  <div class="col-md-2">
+    <select id="selectbasic" name="chtheme" onchange="this.form.submit()" class="form-control">
+    <?php $ar=array("white","black");
+     foreach ($ar as $num) { ?>
+        <option <?php echo $a['charts_theme'] == "black" ? 'selected="selected"' : ''; ?> value="<?php echo $num; ?>"><?php echo $num ." "; ?></option>   
+    <?php } ?>
+    </select>
+  </div>
+</div>
+</fieldset>
+<input type="hidden" name="set_chtheme" value="set_chtheme" />
+</form>
 
 
 
