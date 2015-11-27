@@ -12,6 +12,8 @@
 
 // |sed 's/.sql//g'|awk -F0x '{print $2"-"$8$7$6$5$4$3}' |tr A-Z a-z
 
+
+
 if (isset($_GET['key'])) {
 	    $key = $_GET['key'];
     }
@@ -100,6 +102,15 @@ function check(&$val,$type) {
 			$val='range';
 		    }
 		}
+		elseif ($type == 'host') {
+    		    if ((0 <= $val) && ($val <= 10000)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}
+		
 
 }
 
@@ -108,14 +119,20 @@ function check(&$val,$type) {
 
 function db($rom,$val,$type,$chmin) {
 	$file = "$rom.sql";
-    	$db = new PDO('sqlite:dbf/nettemp.db');
-        $rows = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
+	if ($type != 'host') {
+	    $db = new PDO('sqlite:dbf/nettemp.db');
+    	    $rows = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
+	}
+	elseif ($type == 'host') {
+    	    $db = new PDO('sqlite:dbf/hosts.db');
+    	    $rows = $db->query("SELECT rom FROM hosts WHERE rom='$rom'");
+	}
         $row = $rows->fetchAll();
         $c = count($row);
         if ( $c >= "1") {
 	    if (is_numeric($val)) {
 		check($val,$type);
-
+		//base
 		if ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
 		    $db = new PDO("sqlite:db/$file");
 		    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
@@ -129,18 +146,33 @@ function db($rom,$val,$type,$chmin) {
 		else {
 		    echo "Not writed interval is $chmin min";
 		}
-
-		$dbn = new PDO("sqlite:dbf/nettemp.db");
-		$dbn->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status" );
-		
-		$min=intval(date('i'));
-		if ((strpos($min,'0') !== false) || (strpos($min,'5') !== false)) {
-		    $dbn->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to 5ago" );
+		//status
+		//hosts
+		if ($type == 'host') {
+		    $dbn = new PDO("sqlite:dbf/hosts.db");
+		    $dbn->exec("UPDATE hosts SET last='$val', status='ok' WHERE rom='$rom'")or die ("cannot insert to hosts status");
+		}
+		//sensors
+		else {
+		    $dbn = new PDO("sqlite:dbf/nettemp.db");
+		    $dbn->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status" );
+		    
+		    $min=intval(date('i'));
+		    if ((strpos($min,'0') !== false) || (strpos($min,'5') !== false)) {
+			$dbn->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to 5ago" );
+		    }
 		}
 	    }
 	    else {
-		$dbn = new PDO("sqlite:dbf/nettemp.db");
-		$dbn->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert error to status" );
+		if ($type == 'host') {
+		    $dbn = new PDO("sqlite:dbf/hosts.db");
+		    $dbn->exec("UPDATE hosts SET last='0', status='error' WHERE rom='$rom'")or die ("cannot insert to hosts status");
+		}
+		//sensors
+		else {
+		    $dbn = new PDO("sqlite:dbf/nettemp.db");
+		    $dbn->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert error to status" );
+		}
 		echo "$rom not numieric! $val ";
 		}
 	}

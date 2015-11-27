@@ -5,19 +5,12 @@ date=`date +%y%m%d-%H%M`
 
 if ip=$(sqlite3 $dir/dbf/hosts.db "SELECT ip FROM hosts WHERE type='httpping'")
     then
+    skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
     for i in $ip; do 
 	rom=$(sqlite3 $dir/dbf/hosts.db "SELECT rom FROM hosts WHERE ip='$i'")
 	name=$(sqlite3 $dir/dbf/hosts.db "SELECT rom FROM hosts WHERE ip='$i'")
 	wynik=$(httping -m -c 1 $i|grep .[0-9]*)
-	if [ "$wynik" != "-1" ] && [ -n "$wynik" ]
-	    then 
-		sqlite3 $dir/db/$rom.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-		sqlite3 $dir/dbf/hosts.db "UPDATE hosts SET last='$wynik', status='OK' WHERE ip='$i'"
-		$dir/modules/
-	else
-	    sqlite3 $dir/dbf/hosts.db "UPDATE hosts SET last='0', status='error' WHERE ip='$i'"
-	    echo fail
-	fi
+	php-cgi -f $dir/receiver.php key=$skey rom=$rom type=host value=$wynik
 	echo Httping $name: $wynik
      done
 fi
@@ -27,18 +20,12 @@ unset wynik
 
 if ip=$(sqlite3 $dir/dbf/hosts.db "SELECT ip FROM hosts WHERE type='ping'")
     then
+    skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
     for i in $ip; do 
 	name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts WHERE ip='$i'")
 	rom=$(sqlite3 $dir/dbf/hosts.db "SELECT rom FROM hosts WHERE ip='$i'")
 	wynik=$(fping $i -e | awk -F"(" '{ print $2}' |sed 's/.\{3\}$//'|grep .[0-9]*)
-	if [[ -n "$wynik" ]]
-	    then
-		sqlite3 $dir/db/$rom.sql "INSERT OR IGNORE INTO def (value) VALUES ('$wynik');"
-		sqlite3 $dir/dbf/hosts.db "UPDATE hosts SET last='$wynik', status='OK' WHERE ip='$i'"
-	else
-	    sqlite3 $dir/dbf/hosts.db "UPDATE hosts SET last='0', status='error' WHERE ip='$i'"
-	    echo fail
-	fi
+	php-cgi -f $dir/receiver.php key=$skey rom=$rom type=host value=$wynik
 	echo ping $name: $wynik
      done
 fi
