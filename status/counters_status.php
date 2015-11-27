@@ -27,13 +27,31 @@ if ( $numRows > '0' ) { ?>
     </td>
     <td><?php echo $a['name'] ?> </td>
     <?php if($a['type'] == 'gas') { ?>
-	<td><?php echo $a['tmp']." m3" ?> </td>
+	<td><?php
+	$rom=$a['rom'];
+	$dbs = new PDO("sqlite:$root/db/$rom.sql") or die('lol');
+	$rows = $dbs->query("SELECT sum(value) AS sums FROM def") or die('lol');
+	$i = $rows->fetch(); 
+	echo $i['sums']." m3";
+	?> </td>
     <?php } ?>
     <?php if($a['type'] == 'water') { ?>
-	<td><?php echo $a['tmp']." m3" ?> </td>
+	<td><?php 
+	$rom=$a['rom'];
+	$dbs = new PDO("sqlite:$root/db/$rom.sql") or die('lol');
+	$rows = $dbs->query("SELECT sum(value) AS sums FROM def") or die('lol');
+	$i = $rows->fetch(); 
+	echo $i['sums']." m3";
+	?> </td>
     <?php } ?>
     <?php if($a['type'] == 'elec') { ?>
-	<td><?php echo $a['tmp']." kWh" ?> </td>
+	<td><?php 
+	$rom=$a['rom'];
+	$dbs = new PDO("sqlite:$root/db/$rom.sql") or die('lol');
+	$rows = $dbs->query("SELECT sum(value) AS sums FROM def") or die('lol');
+	$i = $rows->fetch(); 
+	echo $i['sums']." kWh";
+	?> </td>
     <?php } ?>
     
     
