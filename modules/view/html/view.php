@@ -69,9 +69,10 @@ if ( $hostc >= "1")  {?>
 ?>
 <a href="index.php?id=view&type=system&max=hour" ><button class="btn btn-default <?php echo $art == 'system' ? ' active' : ''; ?>">System stats</button></a>
 </p>
-
+<?php
+if ($art != 'kwh') {
+    ?>
 <p>
-
 <a href="index.php?id=view&type=<?php echo $art; ?>&max=hour" ><button class="btn btn-default btn-xs <?php echo $max == 'hour' ? ' active' : ''; ?>">Hour</button></a>
 <a href="index.php?id=view&type=<?php echo $art; ?>&max=day" ><button class="btn btn-default btn-xs <?php echo $max == 'day' ? ' active' : ''; ?>">Day</button></a>
 <a href="index.php?id=view&type=<?php echo $art; ?>&max=week" ><button class="btn btn-default btn-xs <?php echo $max == 'week' ? ' active' : ''; ?>">Week</button></a>
@@ -79,8 +80,10 @@ if ( $hostc >= "1")  {?>
 <a href="index.php?id=view&type=<?php echo $art; ?>&max=months" ><button class="btn btn-default btn-xs <?php echo $max == 'months' ? ' active' : ''; ?>">6Month</button></a>
 <a href="index.php?id=view&type=<?php echo $art; ?>&max=year" ><button class="btn btn-default btn-xs <?php echo $max == 'year' ? ' active' : ''; ?>">Year</button></a>
 <a href="index.php?id=view&type=<?php echo $art; ?>&max=all" ><button class="btn btn-default btn-xs <?php echo $max == 'all' ? ' active' : ''; ?>">All</button></a> 
-
 </p>
+<?php
+    }
+?>
 
 <?php  
 switch ($art)
