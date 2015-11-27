@@ -131,7 +131,7 @@ CREATE TABLE settings (
    kwh TEXT,
    lcd TEXT,
    authmod TEXT
-  , radius type TEXT, lcdmode type TEXT, lcd4 type TEXT, call type TEXT, logger type TEXT, charts_system type TEXT, charts_hosts type TEXT, charts_gpio type TEXT, server_key type TEXT, client_key type TEXT, client_ip type TEXT, client_on type TEXT);
+  , radius type TEXT, lcdmode type TEXT, lcd4 type TEXT, call type TEXT, logger type TEXT, charts_system type TEXT, charts_hosts type TEXT, charts_gpio type TEXT, server_key type TEXT, client_key type TEXT, client_ip type TEXT, client_on type TEXT, charts_min type TEXT, charts_theme type TEXT);
 CREATE TABLE sms_settings (
   id INTEGER PRIMARY KEY,
   name TEXT,
@@ -172,4 +172,4 @@ CREATE TABLE sensors (
   device type TEXT,
   lcd type TEXT,
   method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT, i2c type TEXT);
-CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = current_timestamp WHERE tmp = old.tmp; END;
+CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE tmp = old.tmp; END;
