@@ -42,7 +42,7 @@ if (file_exists($wp)) {
     }
     elseif (!empty($bone[0]))
     {
-        $gpiolist = array(4,17,27,22,18,23,24,25);
+        $gpiolist = array(4,17,21,22,18,23,24,25);
     }
     else
     {

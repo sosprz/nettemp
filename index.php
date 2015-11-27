@@ -64,17 +64,9 @@ $row1 = $rows1->fetchAll();
 $row2 = $rows2->fetchAll();
 $numsimple = count($row1);
 $numsimple2 = count($row2);
-
-$stmt = $db1->query("SELECT highcharts FROM settings WHERE id=1"); 
-$row = $stmt->fetchAll();
-foreach($row as $hi){
-$hi=$hi[highcharts];
-}
 ?>
 <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status">Status</a></li>
-    <?php if ($hi == 'on')  { ?>
 <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp&max=hour">Charts </a></li>
-    <?php } ?>
 <?php if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { ?>
     <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls">Controls</a></li>
 <?php } ?>
