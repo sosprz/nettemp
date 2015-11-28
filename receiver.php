@@ -13,7 +13,6 @@
 // |sed 's/.sql//g'|awk -F0x '{print $2"-"$8$7$6$5$4$3}' |tr A-Z a-z
 
 
-
 if (isset($_GET['key'])) {
 	    $key = $_GET['key'];
     }
@@ -53,7 +52,7 @@ function check(&$val,$type) {
 			    
 		}
 		elseif ($type == 'temp') {
-		    if (( -50 <= $val) && ($val <= 200) && ($val != 85)) {
+		    if (( -50 <= $val) && ($val <= 200) && ($val != 85) && ($val != 127.9)) {
 			$val=$val;
 		    }
 		    else {
@@ -132,41 +131,48 @@ function db($rom,$val,$type,$chmin) {
         if ( $c >= "1") {
 	    if (is_numeric($val)) {
 		check($val,$type);
-		//base
-		if ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
-		    $db = new PDO("sqlite:db/$file");
-		    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
-		    echo "$rom ok ";
-		} 
-		elseif ($type == 'gas' || $type == 'water' || $type == 'elec')  {
-		    $db = new PDO("sqlite:db/$file");
-		    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
-		    echo "$rom ok ";
-		}
-		else {
-		    echo "Not writed interval is $chmin min";
-		}
-		//status
-		//hosts
-		if ($type == 'host') {
-		    $dbn = new PDO("sqlite:dbf/hosts.db");
-		    $dbn->exec("UPDATE hosts SET last='$val', status='ok' WHERE rom='$rom'")or die ("cannot insert to hosts status");
-		}
-		//sensors
-		else {
-		    $dbn = new PDO("sqlite:dbf/nettemp.db");
-		    $dbn->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status" );
-		    
+		if ($val != 'range'){
+		    //base
+		    if ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
+			$db = new PDO("sqlite:db/$file");
+			$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
+			echo "$rom ok ";
+		    } 
+		    elseif ($type == 'gas' || $type == 'water' || $type == 'elec')  {
+			$db = new PDO("sqlite:db/$file");
+			$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
+			echo "$rom ok ";
+		    }
+		    else {
+			echo "Not writed interval is $chmin min";
+		    }
+		    // 5ago arrow
 		    $min=intval(date('i'));
 		    if ((strpos($min,'0') !== false) || (strpos($min,'5') !== false)) {
+			$dbn = new PDO("sqlite:dbf/nettemp.db");
 			$dbn->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to 5ago" );
 		    }
 		}
+		else {
+		    echo "$rom $val not in range";
+		}
+		//status
+		//hosts status
+		if ($type == 'host') {
+		    $dbh = new PDO("sqlite:dbf/hosts.db");
+		    $dbh->exec("UPDATE hosts SET last='$val', status='ok' WHERE rom='$rom'")or die ("cannot insert to hosts status");
+		}
+		//sensors status
+		else {
+		    $dbn = new PDO("sqlite:dbf/nettemp.db");
+		    $dbn->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status" );
+		}
 	    }
+	    // if not numeric
 	    else {
 		if ($type == 'host') {
-		    $dbn = new PDO("sqlite:dbf/hosts.db");
-		    $dbn->exec("UPDATE hosts SET last='0', status='error' WHERE rom='$rom'")or die ("cannot insert to hosts status");
+		    $dbh = new PDO("sqlite:dbf/hosts.db");
+		    $dbh->exec("UPDATE hosts SET last='0', status='error' WHERE rom='$rom'")or die ("cannot insert to hosts status");
 		}
 		//sensors
 		else {
@@ -176,10 +182,11 @@ function db($rom,$val,$type,$chmin) {
 		echo "$rom not numieric! $val ";
 		}
 	}
+	//if not exist on base
 	else {
-	    $dbnew = new PDO("sqlite:dbf/nettemp.db");
-	    $dbnew->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')");
-	    $dbnew==NULL;
+	    $dbn = new PDO("sqlite:dbf/nettemp.db");
+	    $dbn->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')");
+	    $dbn==NULL;
 	    echo "Added $rom to new sensors";
 	}
 } 

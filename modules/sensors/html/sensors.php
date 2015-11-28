@@ -78,6 +78,9 @@ $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
 	}
 	elseif (strpos($id_rom_new,'gpio') !== false) {
 	    $device='gpio';
+	    $rest1=str_replace("_humid", "", "$id_rom_new");
+	    $rest2=str_replace("_temp", "", "$rest1");
+	    $gpio=str_replace("gpio_", "", "$rest2");    
 	}
 	elseif (strpos($id_rom_new,'i2c') !== false) {
 	    $device='i2c';
