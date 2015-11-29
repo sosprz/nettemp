@@ -82,7 +82,7 @@ $row = $rows->fetchAll();
 <th>Min/Max</th>
 <th>LCD</th>
 <th>Charts</th>
-<th>Remote</th>
+<th>Node</th>
 <th>MinMax</th>
 <th></th>
 </tr>

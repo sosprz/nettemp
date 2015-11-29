@@ -46,7 +46,7 @@ $con=$a["client_on"];
 
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">Client</h3>
+<h3 class="panel-title">Node</h3>
 </div>
 <div class="panel-body">
 
