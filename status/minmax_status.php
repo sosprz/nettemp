@@ -8,7 +8,7 @@ if ( $numRows > '0' ) { ?>
 
 <div class="grid-item">
 <div class="panel panel-default">
-<div class="panel-heading">Min Max</div>
+<div class="panel-heading">Sensors Min Max</div>
 
 <table class="table table-hover">
 <tbody>
