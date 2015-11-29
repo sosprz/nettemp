@@ -152,21 +152,22 @@ function db($rom,$val,$type,$chmin) {
 			$dbn = new PDO("sqlite:dbf/nettemp.db");
 			$dbn->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to 5ago" );
 		    }
-		}
+		    //status
+		    //hosts status
+		    if ($type == 'host') {
+			$dbh = new PDO("sqlite:dbf/hosts.db");
+			$dbh->exec("UPDATE hosts SET last='$val', status='ok' WHERE rom='$rom'")or die ("cannot insert to hosts status");
+		    }
+		    //sensors status
+		    else {
+			$dbn = new PDO("sqlite:dbf/nettemp.db");
+			$dbn->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status" );
+		    }
+		}		
 		else {
 		    echo "$rom $val not in range";
 		}
-		//status
-		//hosts status
-		if ($type == 'host') {
-		    $dbh = new PDO("sqlite:dbf/hosts.db");
-		    $dbh->exec("UPDATE hosts SET last='$val', status='ok' WHERE rom='$rom'")or die ("cannot insert to hosts status");
-		}
-		//sensors status
-		else {
-		    $dbn = new PDO("sqlite:dbf/nettemp.db");
-		    $dbn->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status" );
-		}
+		
 	    }
 	    // if not numeric
 	    else {
