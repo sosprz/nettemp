@@ -12,15 +12,16 @@
     exit();
     } 
 
+    $alarmonoff= isset($_POST['alarmonoff']) ? $_POST['alarmonoff'] : '';
     $alarm = isset($_POST['alarm']) ? $_POST['alarm'] : '';
     $rom = isset($_POST['rom']) ? $_POST['rom'] : '';
-    if ( !empty($alarm) && ($_POST['alarmonoff'] == "onoff")){
+    if ( !empty($alarm) && ($alarmonoff == "onoff")){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE sensors SET alarm='$alarm' WHERE rom='$rom'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     } 
-    elseif (empty($alarm) && ($_POST['alarmonoff'] == "onoff")){
+    elseif (empty($alarm) && ($alarmonoff == "onoff")){
     $db->exec("UPDATE sensors SET alarm='' WHERE rom='$rom'") or die ($db->lastErrorMsg());
     unlink("tmp/mail/$rom.mail");
     unlink("tmp/mail/hour/$rom.mail");
@@ -31,7 +32,7 @@
     $charts = isset($_POST['charts']) ? $_POST['charts'] : '';
     $chartsonoff = isset($_POST['chartsonoff']) ? $_POST['chartsonoff'] : '';
     $chartson = isset($_POST['chartson']) ? $_POST['chartson'] : '';
-    if (($_POST['chartsonoff'] == "onoff")){
+    if ($chartsonoff == "onoff"){
     $db->exec("UPDATE sensors SET charts='$chartson' WHERE id='$charts'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -40,7 +41,7 @@
     $remote = isset($_POST['remote']) ? $_POST['remote'] : '';
     $remoteonoff = isset($_POST['remoteonoff']) ? $_POST['remoteonoff'] : '';
     $remoteon = isset($_POST['remoteon']) ? $_POST['remoteon'] : '';
-    if (($_POST['remoteonoff'] == "onoff")){
+    if (($remoteonoff == "onoff")){
     $db->exec("UPDATE sensors SET remote='$remoteon' WHERE id='$remote'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();

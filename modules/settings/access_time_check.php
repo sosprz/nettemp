@@ -1,5 +1,13 @@
 <?php 
 $user = $_SESSION["user"];
+$accesstime=null;
+$mon=null;
+$tue=null;
+$wed=null;
+$thu=null;
+$fri=null;
+$sat=null;
+$sun=null;
 
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT at FROM users WHERE login='$user'");

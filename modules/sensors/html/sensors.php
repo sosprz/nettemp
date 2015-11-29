@@ -175,7 +175,7 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 	?> 
 
 <?php	
-	if ($_POST['adj1'] == "adj2"){
+	if ($adj1 == 'adj2'){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE sensors SET adj='$adj' WHERE id='$name_id'") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);

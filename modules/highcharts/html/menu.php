@@ -31,7 +31,7 @@ $(function () {
 
 <?php
 parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $url);
-$type=$url[type];
+$type=$url['type'];
 
 if ($type == 'system') {
     $array[]=cpu;

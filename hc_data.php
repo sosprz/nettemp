@@ -5,27 +5,28 @@ $dst = "$root/tmp/highcharts";
 $name=$_GET["name"];
 $type=$_GET["type"];
 $max=$_GET["max"];
+$array=null;
 
 function query($max,&$query) {
-if ($max == hour) {
+if ($max == 'hour') {
     $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 hour') AND datetime('now')";
     } 
-if ($max == day) {
+if ($max == 'day') {
     $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 day') AND datetime('now')";
     } 
-if ($max == week) {
+if ($max == 'week') {
     $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-7 day') AND datetime('now')";
     } 
-if ($max == month) {
+if ($max == 'month') {
     $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 months') AND datetime('now')";
     } 
-if ($max == months) {
+if ($max == 'months') {
     $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-6 months') AND datetime('now')";
     } 
-if ($max == year) {
+if ($max == 'year') {
     $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 year') AND datetime('now')";
     } 
-if ($max == all) {
+if ($max == 'all') {
     $query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
     }
 
