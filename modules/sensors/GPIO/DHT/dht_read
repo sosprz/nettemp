@@ -4,7 +4,7 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
-gpio=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='humid' OR mode='temp'")
+gpio=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio WHERE mode='humid' OR mode='temp' ")
 skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
 
 if [ -n "$gpio" ]; then 
@@ -26,13 +26,20 @@ if [ -n "$gpio" ]; then
     dht_temp=var1_$list
     dht_humi=var2_$list
 
-    rom=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$list' AND type='humid'"`
-    php-cgi -f $dir/receiver.php key=$skey rom=$rom type=humid value=${!dht_humi}
-    echo DHT humid: ${!dht_humi} %
+    rom=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='gpio' AND gpio='$list' AND type='humid'"`
+    if [[ -n $rom ]]
+	then
+	php-cgi -f $dir/receiver.php key=$skey rom=$rom type=humid value=${!dht_humi}
+	echo DHT humid: ${!dht_humi} %
+    fi
 
-    rom2=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors where gpio='$list' AND type='temp'"`
-    php-cgi -f $dir/receiver.php key=$skey rom=$rom2 type=temp value=${!dht_temp}
-    echo DHT temp: ${!dht_temp} %
+    rom2=`sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='gpio' AND gpio='$list' AND type='temp'"`
+    if [[ -n $rom2 ]]
+	then
+	php-cgi -f $dir/receiver.php key=$skey rom=$rom2 type=temp value=${!dht_temp}
+	echo DHT temp: ${!dht_temp} %
+    fi
+    
 
  done
 fi
