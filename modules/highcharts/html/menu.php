@@ -119,8 +119,12 @@ echo "names = ". $js_array . ";\n";
         	    }
 		},
 
-                yAxis: {
-                },
+	    
+		yAxis: {
+        	title: {
+            	    text: '('+xval+')'
+        	}
+    		},
 
 		plotOptions: {
     		series: {
