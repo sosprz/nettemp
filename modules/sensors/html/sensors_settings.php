@@ -46,6 +46,15 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+    
+    $minmax = isset($_POST['minmax']) ? $_POST['minmax'] : '';
+    $minmaxonoff = isset($_POST['minmaxonoff']) ? $_POST['minmaxonoff'] : '';
+    $minmaxon = isset($_POST['minmaxon']) ? $_POST['minmaxon'] : '';
+    if (($minmaxonoff == "onoff")){
+    $db->exec("UPDATE sensors SET minmax='$minmaxon' WHERE id='$minmax'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 ?> 
 
 
@@ -74,6 +83,7 @@ $row = $rows->fetchAll();
 <th>LCD</th>
 <th>Charts</th>
 <th>Remote</th>
+<th>MinMax</th>
 <th></th>
 </tr>
 </thead>
@@ -190,7 +200,14 @@ else { ?>
     <?php
     } 
     ?>
-
+    <td >
+    <form action="" method="post" style="display:inline!important;"> 	
+	<input type="hidden" name="minmax" value="<?php echo $a["id"]; ?>" />
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="minmaxon" value="on" <?php echo $a["minmax"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+	<input type="hidden" name="minmaxonoff" value="onoff" />
+    </form>
+    </td>
+    
     <td>
     <form action="" method="post" style="display:inline!important;">
 	<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />

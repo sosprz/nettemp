@@ -171,4 +171,4 @@ sqlite3 $dir/dbf/nettemp.db "drop trigger aupdate_time_trigger;"
 sqlite3 $dir/dbf/nettemp.db "CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE tmp = old.tmp; END;"
 
 sqlite3 $dir/dbf/kwh.db "ALTER TABLE kwh ADD currrent TYPE INTEEGER";
-
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD minmax type TEXT";

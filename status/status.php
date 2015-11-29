@@ -66,6 +66,9 @@
     <div id="cam"><?php 
 	include('status/ipcam_status.php'); 
     ?></div>
+    <div id="mm"><?php 
+	include('status/minmax_status.php'); 
+    ?></div>
 </div>
 
 <script type="text/javascript">

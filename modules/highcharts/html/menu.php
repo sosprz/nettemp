@@ -115,6 +115,11 @@ echo "names = ". $js_array . ";\n";
 		y: 0,
         	labelFormatter: function() {
                 var lastVal = this.yData[this.yData.length - 1];
+		var extremes = this.yData.getExtremes();
+        //return('Min: ' + extremes.min + ', Max: ' + extremes.max 
+        //      + ', dataMin: ' + extremes.dataMin + ', dataMax: ' + extremes.dataMax 
+        //      + ', userMin: ' + extremes.userMin + ', userMax: ' + extremes.userMax);
+
                     return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + xval +'</b> </n>';
         	    }
 		},
