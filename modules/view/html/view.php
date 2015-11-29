@@ -14,7 +14,6 @@ $theme=$t['charts_theme'];
     }
 ?>
 <script type="text/javascript" src="html/highcharts/no-data-to-display.js"></script>
-<script src="https://rawgit.com/highslide-software/highcharts.com/master/js/modules/boost.src.js"></script>
 
 
 
