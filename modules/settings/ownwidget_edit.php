@@ -42,7 +42,6 @@ $text3 = file_get_contents($file3);
 <div class="panel panel-default">
 <div class="panel-heading">Widget example</div>
     <div class="panel-body">
-<code>
 <pre>
     &lt;div class="panel-heading"&gt;Widget&lt;/div&gt;
     &lt;div class="panel-body"&gt;
@@ -51,7 +50,6 @@ $text3 = file_get_contents($file3);
     ?&gt;
     &lt;/div&gt;
 </pre>
-</code>
 </div>
 </div>
 
