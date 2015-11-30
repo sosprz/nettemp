@@ -13,7 +13,7 @@ if ( $numRows > '0' ) { ?>
 <table class="table table-hover">
 <tbody>
 <tr>
-   <th>Name</th>
+   <th></th>
    <th>Hour</th>
     <th>Day</th>
     <th>Week</th>
