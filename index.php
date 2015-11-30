@@ -90,13 +90,13 @@ $numsimple2 = count($row2);
               <input type="password" name="password" placeholder="Password" class="form-control input-sm" required="">
             </div>
 	    <input type="hidden" name="form_login" value="log">
-            <button type="submit" class="btn-xs btn-primary">Sign in</button>
+            <button type="submit" class="btn btn-xs btn-primary">Sign in</button>
           </form>        
     <?php } ?>
     <?php if(isset($_SESSION["user"])) {?>
 	<form action="" method="post" class="navbar-form navbar-right" >
 	    <?php echo $_SESSION["user"];?>
-	    <a href="logout"><button type="button" class="btn-xs btn-success">Log Out</button></a>
+	    <a href="logout"><button type="button" class="btn btn-xs btn-success">Log Out</button></a>
 	</form>        
     <?php } ?>
     	</div><!--/.nav-collapse -->
