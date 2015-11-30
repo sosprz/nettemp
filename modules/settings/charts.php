@@ -155,9 +155,9 @@ $hch=$a["charts_min"];
   <label class="col-md-2 control-label" for="selectbasic">Theme</label>
   <div class="col-md-2">
     <select id="selectbasic" name="chtheme" onchange="this.form.submit()" class="form-control">
-    <?php $ar=array("white","black");
+    <?php $ar=array("white","black","sand","grid");
      foreach ($ar as $num) { ?>
-        <option <?php echo $a['charts_theme'] == "black" ? 'selected="selected"' : ''; ?> value="<?php echo $num; ?>"><?php echo $num ." "; ?></option>   
+        <option <?php echo $a['charts_theme'] == "$num" ? 'selected="selected"' : ''; ?> value="<?php echo $num; ?>"><?php echo $num ." "; ?></option>   
     <?php } ?>
     </select>
   </div>

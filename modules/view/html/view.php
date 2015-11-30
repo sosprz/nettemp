@@ -12,7 +12,16 @@ $theme=$t['charts_theme'];
 <script type="text/javascript" src="html/highcharts/dark-unica.js"></script>
 <?php 
     }
+if ($theme == 'sand') { ?>
+<script type="text/javascript" src="html/highcharts/sand-signika.js"></script>
+<?php 
+    }
+if ($theme == 'grid') { ?>
+<script type="text/javascript" src="html/highcharts/grid-light.js"></script>
+<?php 
+    }
 ?>
+
 <script type="text/javascript" src="html/highcharts/no-data-to-display.js"></script>
 
 

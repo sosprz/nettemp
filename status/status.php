@@ -33,8 +33,6 @@
     <div id="ss"> <?php 
 	include_once('status/sensor_status.php'); 
     ?></div>
-    
-    
     <div id="hs"><?php 
 	include_once('status/hosts_status.php'); 
     ?></div>
