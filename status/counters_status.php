@@ -31,7 +31,7 @@ if ( $numRows > '0' ) { ?>
 	<td><?php
 	$rom=$a['rom'];
 	$dbs = new PDO("sqlite:$root/db/$rom.sql") or die('lol');
-	$rows = $dbs->query("SELECT sum(value) AS sums FROM def") or die('lol');
+	$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def") or die('lol');
 	$i = $rows->fetch(); 
 	echo $i['sums']." m3";
 	?> </td>
@@ -40,7 +40,7 @@ if ( $numRows > '0' ) { ?>
 	<td><?php 
 	$rom=$a['rom'];
 	$dbs = new PDO("sqlite:$root/db/$rom.sql") or die('lol');
-	$rows = $dbs->query("SELECT sum(value) AS sums FROM def") or die('lol');
+	$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def") or die('lol');
 	$i = $rows->fetch(); 
 	echo $i['sums']." m3";
 	?> </td>
@@ -49,7 +49,7 @@ if ( $numRows > '0' ) { ?>
 	<td><?php 
 	$rom=$a['rom'];
 	$dbs = new PDO("sqlite:$root/db/$rom.sql") or die('lol');
-	$rows = $dbs->query("SELECT sum(value) AS sums FROM def") or die('lol');
+	$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def") or die('lol');
 	$i = $rows->fetch(); 
 	echo $i['sums']." kWh";
 	?> </td>
