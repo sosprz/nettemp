@@ -67,7 +67,7 @@ if (in_array('altitude', $type))  {?>
 if (glob('tmp/kwh/*.json')) {?>
 <a href="index.php?id=view&type=kwh" ><button class="btn btn-default <?php echo $art == 'kwh' ? ' active' : ''; ?>">kWh</button></a>
 <?php }
-if (in_array('elex', $type))  {?>
+if (in_array('elec', $type))  {?>
 <a href="index.php?id=view&type=elec&max=hour" ><button class="btn btn-default <?php echo $art == 'elec' ? ' active' : ''; ?>">Electricity</button></a>
 <?php } 
 if (in_array('water', $type))  {?>
