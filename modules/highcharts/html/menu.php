@@ -23,8 +23,6 @@ if (type=='gas') { var xval = " m3"}
 if (type=='elec') { var xval = " kWh"}
 if (type=='hosts') { var xval = " ms"}
 
-
-
 $(function () {
     var seriesOptions = [],
         seriesCounter = 0,
@@ -79,7 +77,6 @@ echo "names = ". $js_array . ";\n";
 		chart: {
 	        spacingBottom: 0,
 		zoomType: 'x',
-    
 
 		events: {
                     load: function () {
@@ -149,10 +146,29 @@ echo "names = ". $js_array . ";\n";
 
         $.getJSON('hc_data.php?type='+type+'&name='+name+'&max='+max,  function (data) {
 
+	if (max=="hour") { var xhour = "hour" }
+	if (max=="day") { var xhour = "hour" }
+	if (max=="week") { var xhour = "day" }
+	if (max=="month") { var xhour = "week" }
+
+	if (type=="gas"|| type=="water"|| type=="elec") { 
             seriesOptions[i] = {
                 name: name,
-                data: data
+                data: data,
+        	type: 'column',
+        	dataGrouping: {
+    		enabled: true,
+    		forced: true,
+		units: [[xhour,[1]]] 
+		}
 	    };
+	} else {
+		seriesOptions[i] = {
+                name: name,
+                data: data,
+		type: 'spline'
+    		};
+        }
 	    
 
             // As we're loading the data asynchronously, we don't know what order it will arrive. So
