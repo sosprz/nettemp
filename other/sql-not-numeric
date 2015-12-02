@@ -1,0 +1,20 @@
+#! /bin/bash
+
+if [[ $1 == 'check' ]]
+    then
+    for i in $(ls /var/www/nettemp/db/)
+	do
+	sqlite3 /var/www/nettemp/db/$i "SELECT * FROM def WHERE substr(value,1,1) between 'a' and 'z'"
+    done
+
+fi
+
+if [[ $1 == 'del' ]]
+    then
+    for i in $(ls /var/www/nettemp/db/)
+	do
+	sqlite3 /var/www/nettemp/db/$i "DELETE FROM def WHERE substr(value,1,1) between 'a' and 'z'"
+    done
+
+fi
+
