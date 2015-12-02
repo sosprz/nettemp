@@ -31,7 +31,7 @@ fi
 
 unset name
 
-if name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='OK'")
+if name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='ok'")
     then
 	for name in $name
 	do
@@ -40,7 +40,7 @@ if name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='OK'")
 	    if [ -f "$hour" ]
 		then
 		    file "<td>$name</td><td></td><td>$date</td><td bgcolor="#00FF00">RECOVERY</td>" $minute
-	    fi	    
+	    fi
 	done
 	
 fi
