@@ -53,7 +53,6 @@ id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$
 
 for id in $id; do
     if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
-	#if all=$($dir/modules/sensors/i2c/TSL2561/TSL2561_i2c_$(echo $onoff | sed 's/i2c-//')); then
 	all=$($dir/modules/sensors/i2c/TSL2561/TSL2561_i2c_$(echo $onoff | sed 's/i2c-//') 2>/dev/null)
 	    l=i2c_${id}_lux.sql
 	    if [ -s "$l" ]; then
@@ -65,9 +64,30 @@ for id in $id; do
 	    else
     		echo $v main error
 	    fi
-	#fi
     fi
 done
+
+###########
+v=bh1750
+id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$v'")
+###########
+
+for id in $id; do
+    if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
+	all=($($dir/modules/sensors/i2c/BH1750/bh1750.py $bus 2>/dev/null))
+	    l=i2c_${id}_lux.sql
+	    if [ -s "$l" ]; then
+		name=$(echo $l |awk 'sub("....$", "")')
+		lux=${all[0]}
+		if [[ ! -n $lux ]]; then lux="error"; fi
+		checkwrite $lux $name lux
+		echo $v $lux
+	    else
+    		echo $v main error
+	    fi
+    fi
+done
+
 
 ###########
 v=htu21d

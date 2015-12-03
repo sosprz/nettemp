@@ -34,7 +34,7 @@ fi
 #MPL3115A2="60"
 #HIH6130="27"
 #TMP102="48"
-
+#bh1750="23"
 
 press=_press
 temp=_temp
@@ -50,6 +50,11 @@ for i in ${det[@]}
 	done
 
         for s in $(sqlite3 $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='tsl2561' AND addr='$i'")
+	    do
+		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$lux')"
+        done
+
+	for s in $(sqlite3 $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='db1750' AND addr='$i'")
 	    do
 		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$lux')"
         done
