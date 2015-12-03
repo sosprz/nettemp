@@ -150,6 +150,9 @@ echo "names = ". $js_array . ";\n";
 	if (max=="day") { var xhour = "hour" }
 	if (max=="week") { var xhour = "day" }
 	if (max=="month") { var xhour = "week" }
+	if (max=="months") { var xhour = "month" }
+	if (max=="year") { var xhour = "month" }
+	if (max=="all") { var xhour = "year" }
 
 	if (type=="gas"|| type=="water"|| type=="elec") { 
             seriesOptions[i] = {
