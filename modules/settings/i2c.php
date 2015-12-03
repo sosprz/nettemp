@@ -31,6 +31,7 @@ $add = isset($_POST['add']) ? $_POST['add'] : '';
     $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('mpl3115a2','60')") or header("Location: html/errors/db_error.php");
     $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('hih6130','27')") or header("Location: html/errors/db_error.php");
     $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('tmp102','48')") or header("Location: html/errors/db_error.php");
+    $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('bh1750','23')") or header("Location: html/errors/db_error.php");
 
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
