@@ -38,6 +38,11 @@ if (isset($_GET['device'])) {
 if (isset($_GET['i2c'])) {
             $i2c = $_GET['i2c'];
     }
+if (isset($_GET['current'])) {
+            $current = $_GET['current'];
+    } else $current='';
+
+
 
 
 function check(&$val,$type) {
@@ -116,7 +121,7 @@ function check(&$val,$type) {
 
 
 
-function db($rom,$val,$type,$chmin) {
+function db($rom,$val,$type,$chmin,$current) {
 	$file = "$rom.sql";
 	if ($type != 'host') {
 	    $db = new PDO('sqlite:dbf/nettemp.db');
@@ -135,12 +140,12 @@ function db($rom,$val,$type,$chmin) {
 		    //base
 		    if ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
 			$db = new PDO("sqlite:db/$file");
-			$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
+			$db->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql" );
 			echo "$rom ok ";
 		    } 
 		    elseif ($type == 'gas' || $type == 'water' || $type == 'elec')  {
 			$db = new PDO("sqlite:db/$file");
-			$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
+			$db->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql" );
 			echo "$rom ok ";
 		    }
 		    else {
@@ -209,7 +214,7 @@ if ("$key" != "$skey"){
 
 // main
 if  (isset($val) && isset($rom) && isset($type)) {
-    	db($rom,$val,$type,$chmin);
+    	db($rom,$val,$type,$chmin,$current);
     }
 elseif (isset($val) && isset($type)) {
 
@@ -239,7 +244,7 @@ elseif (isset($val) && isset($type)) {
 	}
 
 	$file = "$rom.sql";
-	db($rom,$val,$type,$chmin);
+	db($rom,$val,$type,$chmin,$current);
 
 }
 else {
