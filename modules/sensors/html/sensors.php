@@ -87,26 +87,31 @@ $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
 	}
 
 	//DB    
-	    if ( $type != "relay" ) {
+	    if ($type != "relay" ) {
 		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip, adj, charts) VALUES ('$name','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip', '0', 'on' )") or die ("cannot insert to DB" );
 	    }
-	    if ( $type == "relay" ) {
+	    if ($type == "relay" ) {
 		//relays
 		$db->exec("INSERT OR IGNORE INTO relays (name, rom, ip, type) VALUES ('wifi_relay_$name','$id_rom_new','$ip', '$type'  )") or die ("cannot insert relays to DB" );
 	    }
-	    if ( $device == "wireless"  ) {
+
+    	    if ($device == "wireless"  ) {
 		//host for monitoring
 		$name='host_wifi_' . $type . '_' . $name;
 		$dbhost = new PDO("sqlite:dbf/hosts.db");	
 		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping')") or die ("cannot insert host to DB" );	
 		$dbnew = new PDO("sqlite:db/host_$id_rom_new.sql");
     		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
-    		$dbnew==NULL;
 	    }
-	
-	    $dbnew = new PDO("sqlite:db/$id_rom_new.sql");
-	    $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER, current INTEEGER)");
-            $dbnew==NULL;
+	    if ($type=='elec' || $type=='water' || $type=='gas') {
+		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");
+		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER, current INTEEGER)");
+	    }
+	    else {
+		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");
+		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
+	    }
+	    $dbnew==NULL;
 
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	 

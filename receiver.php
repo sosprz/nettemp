@@ -140,12 +140,16 @@ function db($rom,$val,$type,$chmin,$current) {
 		    //base
 		    if ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
 			$db = new PDO("sqlite:db/$file");
-			$db->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql" );
+			$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
 			echo "$rom ok ";
 		    } 
 		    elseif ($type == 'gas' || $type == 'water' || $type == 'elec')  {
 			$db = new PDO("sqlite:db/$file");
-			$db->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql" );
+			if (isset($current)) {
+			    $db->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql current" );
+			} else {
+			    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
+			}
 			echo "$rom ok ";
 		    }
 		    else {
