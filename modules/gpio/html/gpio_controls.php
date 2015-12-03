@@ -25,9 +25,9 @@ if (($onoff == "onoff")){
 $bi = isset($_POST['bi']) ? $_POST['bi'] : '';
 if ($bi == "bi")  {
     if ($a['rev'] == 'on') {
-    exec("/usr/local/bin/gpio -g write $gpio_post 0 && sleep 0.5 &&  /usr/local/bin/gpio -g write $gpio_post 1");
+    exec("/usr/local/bin/gpio -g mode $gpio_post output && /usr/local/bin/gpio -g write $gpio_post 0 && sleep 0.5 &&  /usr/local/bin/gpio -g write $gpio_post 1");
     } else {
-    exec("/usr/local/bin/gpio -g write $gpio_post 1 && sleep 0.5 && /usr/local/bin/gpio -g write $gpio_post 0");
+    exec("/usr/local/bin/gpio -g mode $gpio_post output && /usr/local/bin/gpio -g write $gpio_post 1 && sleep 0.5 && /usr/local/bin/gpio -g write $gpio_post 0");
     }
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
