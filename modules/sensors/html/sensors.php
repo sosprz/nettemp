@@ -105,7 +105,7 @@ $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
 	    }
 	
 	    $dbnew = new PDO("sqlite:db/$id_rom_new.sql");
-	    $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
+	    $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER, current INTEEGER)");
             $dbnew==NULL;
 
 	header("location: " . $_SERVER['REQUEST_URI']);
