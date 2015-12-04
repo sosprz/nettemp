@@ -7,13 +7,12 @@ date=`date +%y%m%d-%H%M`
 
 skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
 
-val=$(( ( RANDOM % 100 )  + 1 ))
+val=$(( ( RANDOM % 10 )  + 1 ))
 php-cgi -f $dir/receiver.php key=$skey type=water value=$val device=wireless ip=172.18.10.101
 
-
-val=$(( ( RANDOM % 100 )  + 1 ))
+val=$(( ( RANDOM % 10 )  + 1 ))
 php-cgi -f $dir/receiver.php key=$skey type=gas value=$val device=wireless ip=172.18.10.101
 
 
-val=$(( ( RANDOM % 100 )  + 1 ))
+val=$(( ( RANDOM % 10 )  + 1 ))
 php-cgi -f $dir/receiver.php key=$skey type=elec value=$val device=wireless ip=172.18.10.101
