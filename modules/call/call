@@ -1,13 +1,14 @@
 #!/usr/bin/expect -f
 
+log_file -a /var/www/nettemp/tmp/call.txt
 set timeout -1
 set dev [lindex $argv 0]
 
 spawn socat -s - $dev,raw,echo=0,crlf,nonblock
 
+sleep 10
 send "AT\r"
 send "AT+CLIP=1\r"
-
 
 expect {
     -re {"([^"])*"} {
