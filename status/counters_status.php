@@ -38,14 +38,14 @@ if ( $numRows > '0' ) { ?>
 	</td>
 	<td>
 	<?php
-	$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def WHERE time BETWEEN datetime('now','-1 day') AND datetime('now')") or die('lol');
+	$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def WHERE time >= date('now','start of day')") or die('lol');
 	$i = $rows->fetch(); 
 	echo $i['sums'];
 	?>
 	</td>
 	<td>
 	<?php
-	$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def WHERE time BETWEEN datetime('now','-1 months') AND datetime('now')") or die('lol');
+	$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def WHERE time >= date('now','start of month')") or die('lol');
 	$i = $rows->fetch(); 
 	echo $i['sums'];
 	?>

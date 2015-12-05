@@ -14,8 +14,7 @@ import sqlite3
 import threading
 from datetime import datetime
 from datetime import timedelta
-
-#import pytz
+import subprocess
 
 ############################################################################################################
 
@@ -23,6 +22,8 @@ pulseValue = 0
 currentWatt = 0
 dbWriteSleep = 60 # zapis do bazy co 60 sekund
 start_time = datetime.now()
+
+
 
 def signal_handler(signal, frame): # cos nie dziala ctr+c no ale moze kiedys zaczenie
         print('You pressed Ctrl+C, so exiting')
@@ -41,6 +42,16 @@ try:
         array=[r[0] for r in c.fetchall()]
         rev = str(array[0]) # rev = 'on' - High to Low - FALLING
                             # rev = ' '  - Low  to High - RISING
+		
+	c.execute("SELECT server_key from settings WHERE id='1'")
+        array=[r[0] for r in c.fetchall()]
+        key = str(array[0]) # server key
+		
+	c.execute("SELECT kwh_divider FROM gpio WHERE kwh_run='on'")
+        array=[r[0] for r in c.fetchall()]
+        divider = float(array[0]) # divider
+				
+							
         db.close()
 
 except:
@@ -72,6 +83,10 @@ def dbwrite():
     # czekamy dbWriteSleep sekund i zapisujemy do bazy , po zapisie resetujemy licznik
     global pulseValue # operujemy na globalnej zmiennej ilosci pulsow
     global currentWatt
+    global gpiopinstr
+    global key
+    global divider
+
 
     threading.Timer(dbWriteSleep, dbwrite).start()
     threading.Timer(dbWriteSleep, dbwrite).setDaemon(True)
@@ -79,9 +94,7 @@ def dbwrite():
     # jesli puls ma wartosc inna niz  0 to  zapisujemy do bazy jesli 0 pomijamy zapis
 
     if pulseValue >=1:
-        #tz = pytz.timezone("Europe/Warsaw")
         now = datetime.now().replace(microsecond=0)  # use sqlite auto timestamp
-        #nowlocal = tz.localize(now)
         
         # podpinamy sie do bazy i zapisujemy dane
 
@@ -90,9 +103,14 @@ def dbwrite():
         c.execute("INSERT INTO kwh( time, pulse , current ) VALUES(?,?,?)", (now,pulseValue,currentWatt,))
         db.commit()
         db.close()
+		
+	# zapis  po php-cgi	
+	value = 'value='+str((float(pulseValue)/divider)) # floatujemy wynik 
+        gpiopinstr = 'gpio='+str(gpiopin)
+        keystring = 'key='+str(key)
 
-        #print ('Timestamp : ', now)
-        #print ('Puls : ', pulseValue)
+	subprocess.call(['/usr/bin/php-cgi','-f','/var/www/nettemp/receiver.php',keystring,' type=elec',value,' device=gpio', gpiopinstr])
+    
         pulseValue = 0  # jesli zapis pomyslny to zerujemy licznik pulsow
 
 # Startujemy z watkiem zapisywania do bazy

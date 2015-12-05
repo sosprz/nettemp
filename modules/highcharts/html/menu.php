@@ -160,8 +160,8 @@ echo "names = ". $js_array . ";\n";
                 data: data,
         	type: 'column',
         	dataGrouping: {
-    		enabled: true,
-    		forced: true,
+    		//enabled: true,
+    		//forced: true,
 		units: [[xhour,[1]]] 
 		}
 	    };
