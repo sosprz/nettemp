@@ -1,8 +1,8 @@
 <?php
 // name:
-// type: temp, humid, relay, lux, press, humid, gas, water, elec
+// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amper
 // gpio:
-// device: wireless, remote, gpio, i2c
+// device: wireless, remote, gpio, i2c, usb
 // method: OLD
 // ip:
 
@@ -114,6 +114,23 @@ function check(&$val,$type) {
 			$val='range';
 		    }
 		}
+		elseif ($type == 'volt') {
+    		    if ((0 <= $val) && ($val <= 10000)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}
+		elseif ($type == 'amper') {
+    		    if ((0 <= $val) && ($val <= 10000)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}
+		
 		
 
 }

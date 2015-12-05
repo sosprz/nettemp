@@ -57,6 +57,12 @@ $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
 	elseif (strpos($id_rom_new,'humid') !== false) {
 	    $type='humid';
 	}
+	elseif (strpos($id_rom_new,'volt') !== false) {
+	    $type='volt';
+	}
+	elseif (strpos($id_rom_new,'amper') !== false) {
+	    $type='amper';
+	}
 	else {
 	    $type='temp';
         }
@@ -84,6 +90,9 @@ $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
 	}
 	elseif (strpos($id_rom_new,'i2c') !== false) {
 	    $device='i2c';
+	}
+	elseif (strpos($id_rom_new,'usb') !== false) {
+	    $device='usb';
 	}
 
 	//DB    

@@ -79,6 +79,12 @@ if (in_array('gas', $type))  {?>
 if (in_array('lux', $type))  {?>
 <a href="index.php?id=view&type=lux&max=hour" ><button class="btn btn-default <?php echo $art == 'lux' ? ' active' : ''; ?>">Light</button></a>
 <?php } 
+if (in_array('volt', $type))  {?>
+<a href="index.php?id=view&type=volt&max=hour" ><button class="btn btn-default <?php echo $art == 'volt' ? ' active' : ''; ?>">Volt</button></a>
+<?php } 
+if (in_array('amper', $type))  {?>
+<a href="index.php?id=view&type=amper&max=hour" ><button class="btn btn-default <?php echo $art == 'amper' ? ' active' : ''; ?>">Amper</button></a>
+<?php } 
 if (glob('db/gonoff*')) {?>
 <a href="index.php?id=view&type=gonoff&max=hour" ><button class="btn btn-default <?php echo $art == 'gonoff' ? ' active' : ''; ?>">GPIO</button></a>
 <?php } 

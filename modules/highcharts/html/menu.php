@@ -22,6 +22,8 @@ if (type=='water') { var xval = " m3"}
 if (type=='gas') { var xval = " m3"}
 if (type=='elec') { var xval = " kWh"}
 if (type=='hosts') { var xval = " ms"}
+if (type=='volt') { var xval = " V"}
+if (type=='amper') { var xval = " A"}
 
 $(function () {
     var seriesOptions = [],
