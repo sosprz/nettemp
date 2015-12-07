@@ -46,6 +46,10 @@ if (isset($_GET['current'])) {
 
 
 function check(&$val,$type) {
+
+		if ($val == '0.0') {
+		    $val=0;
+		}
     
 		if ($type == 'lux') {
 		    if ((0 <= $val) && ($val <= 1000)) {
