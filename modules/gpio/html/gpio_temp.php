@@ -60,7 +60,7 @@ $result = $sth->fetchAll();
 //}
 }
 ?>
-Status:<?php echo $a['status'];?>
+<?php echo "Status: ".$a['status'];?>
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <button type="submit" class="btn btn-xs btn-danger">Exit</button>

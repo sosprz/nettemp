@@ -3,10 +3,13 @@
 function hyst() {
     if [[ $h == "1" ]]; then
 	onoff=off
-	echo "max temp reached"
-	exit 0
+	echo "MAX temp reached OFF"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='MAX temp reached OFF' WHERE gpio='$gpio'"
+	continue
     elif [[ "$h" == "0" &&  "$le" == "0" ]]; then
-	echo "wait for lower or max temp"
+	echo "Wait for lower or max temp"
+	echo "EXIT from script"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='Wait for lower or max temp' WHERE gpio='$gpio'"
 	exit 0
     fi
 }
