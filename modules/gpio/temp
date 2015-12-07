@@ -3,7 +3,7 @@
 # version 1
 
 function hyst() {
-if [[ -n "$hyst" ]]; then
+if [[ -z "${!hyst}" ]]; then
     if [[ $h == "1" ]]; then
 	onoff=off
 	echo "MAX temp reached OFF"
@@ -16,7 +16,7 @@ if [[ -n "$hyst" ]]; then
 	exit 0
     fi
 else
-    continue
+    echo "Histeresis OFF"
 fi
 }
 
