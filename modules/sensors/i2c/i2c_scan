@@ -54,7 +54,7 @@ for i in ${det[@]}
 		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$lux')"
         done
 
-	for s in $(sqlite3 $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='db1750' AND addr='$i'")
+	for s in $(sqlite3 $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='bh1750' AND addr='$i'")
 	    do
 		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$lux')"
         done
