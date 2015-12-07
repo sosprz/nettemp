@@ -1,12 +1,12 @@
 <script type="text/JavaScript">
 	    function showtemp(n) {
-	    if (document.getElementById('state' + n).value == '') {
+	    if (document.getElementById('state' + n).value == 'temp') {
     	    document.getElementById('inputtemp' + n).style.display = 'block';
-	    document.getElementById('inputhyst' + n).style.display = 'none';
+	    document.getElementById('sensor2' + n).style.display = 'none';
 	    
 	    } else {
-    		document.getElementById('inputtemp' + n).style.display = 'none';
-		document.getElementById('inputhyst' + n).style.display = 'block';
+    		document.getElementById('sensor2' + n).style.display = 'block';
+		document.getElementById('inputtemp' + n).style.display = 'none';
 		}
 	    }
 	    </script>
@@ -28,6 +28,8 @@ $temp_sensor_diff='temp_sensor_diff' . $ta;
 $temp_onoff='temp_onoff' . $ta;
 $temp_op='temp_op' . $ta;
 $temp_hyst='temp_hyst' . $ta;
+$temp_source='temp_source' . $ta;
+
 
 $$temp_sensor= isset($_POST["temp_sensor".$ta]) ? $_POST["temp_sensor".$ta] : '';
 $$temp_sensor_diff= isset($_POST["temp_sensor_diff".$ta]) ? $_POST["temp_sensor_diff".$ta] : '';
@@ -35,22 +37,30 @@ $$temp_onoff= isset($_POST["temp_onoff".$ta]) ? $_POST["temp_onoff".$ta] : '';
 $$temp_op= isset($_POST["temp_op".$ta]) ? $_POST["temp_op".$ta] : '';
 $$temp_temp=isset($_POST["temp_temp".$ta]) ? $_POST["temp_temp".$ta] : '';
 $$temp_hyst=isset($_POST["temp_hyst".$ta]) ? $_POST["temp_hyst".$ta] : '';
+$$temp_source=isset($_POST["temp_source".$ta]) ? $_POST["temp_source".$ta] : '';
 }
 
 $tempset = isset($_POST['tempset']) ? $_POST['tempset'] : '';
-
 if ($tempset == "on") {
 foreach (range(1, $tempnum) as $up) {
-    $temp_temp=${'temp_temp' . $up};
+    if (${'temp_source'.$up} == 'temp') {
+	    $temp_temp=${'temp_temp' . $up};
+	    $temp_sensor_diff=NULL;
+    } elseif (${'temp_source'.$up} == 'sensor2') {
+	    $temp_temp=NULL;
+	    $temp_sensor_diff=${'temp_sensor_diff' . $up};
+    }
     $temp_onoff=${'temp_onoff' . $up};
     $temp_sensor=${'temp_sensor' . $up};
-    $temp_sensor_diff=${'temp_sensor_diff' . $up};
+    //$temp_sensor_diff=${'temp_sensor_diff' . $up};
     $temp_op=${'temp_op' . $up};
     $temp_hyst=${'temp_hyst' . $up};
+    $temp_source=${'temp_source' . $up};
     
-    $db->exec("UPDATE gpio SET temp_op$up='$temp_op',temp_sensor$up='$temp_sensor',temp_sensor_diff$up='$temp_sensor_diff',temp_onoff$up='$temp_onoff',temp_temp$up='$temp_temp',temp_hyst$up='$temp_hyst' WHERE gpio='$gpio_post'") or die("exec 1");
+    $db->exec("UPDATE gpio SET temp_source$up='$temp_source',temp_op$up='$temp_op',temp_sensor$up='$temp_sensor',temp_sensor_diff$up='$temp_sensor_diff',temp_onoff$up='$temp_onoff',temp_temp$up='$temp_temp',temp_hyst$up='$temp_hyst' WHERE gpio='$gpio_post'") or die("exec 1");
     }
     $db = null;
+
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
 }
@@ -64,7 +74,7 @@ foreach (range(1, $tempnum) as $up) {
 <!-- Form Name -->
 <div class="table-responsive">
 <table class="table">
-<thead><tr><th>Sensor</th><th>State</th><th>Temp</th><th>Sensor</th><th>Hysteresis</th><th>on/off</th></tr></thead>
+<thead><tr><th>Sensor1</th><th>State</th><th>Source</th><th>Temp</th><th>Hysteresis</th><th>on/off</th></tr></thead>
 <div class="form-group">
 <?php
     foreach (range(1, $tempnum) as $v) {
@@ -94,23 +104,32 @@ foreach (range(1, $tempnum) as $up) {
 </td>
 
 <td class="col-md-1">
-<input id="<?php echo inputtemp.$v; ?>" style="display: none"  type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" class="form-control input-sm" >
+    <select name="<?php echo temp_source . $v; ?>" class="form-control input-sm" id="<?php echo state . $v; ?>" onclick='showtemp(<?php echo $v; ?>)'>
+	<option <?php echo !empty($a['temp_temp'.$v]) ? 'selected="selected"' : ''; ?> value="temp">Temp</option>
+	<option <?php echo !empty($a['temp_sensor_diff'.$v]) ? 'selected="selected"' : ''; ?> value="sensor2">Sensor2</option>
+    </select>
 </td>
 
 <td class="col-md-2">
-<select name="<?php echo temp_sensor_diff . $v; ?>" id="<?php echo state . $v; ?>" onclick='showtemp(<?php echo $v; ?>)' class="form-control input-sm">
-<?php $sth = $db->prepare("SELECT * FROM sensors");
-    $sth->execute();
-    $result = $sth->fetchAll();
-    foreach ($result as $select) { ?>
-	<option <?php echo $a['temp_sensor_diff'.$v] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']}  {$select['tmp']} {$a['temp_hyst'.$v]}" ?></option>
-<?php } ?>
-	<option <?php echo $a['temp_sensor_diff'.$v] == '' ? 'selected="selected"' : ''; ?> value="">custom <?php echo $a['temp_temp'.$v]; ?></option>
-</select>
+<?php 
+	$sth = $db->prepare("SELECT * FROM sensors");
+	    $sth->execute();
+	    $result = $sth->fetchAll();
+	    $sensor2c = count($result);
+	?>
+    
+    <select id="<?php echo sensor2.$v; ?>" name="<?php echo temp_sensor_diff . $v; ?>" class="form-control input-sm" <?php echo $a['temp_source'.$v] == 'sensor2' ? 'style="display: block"' : 'style="display: none"' ?> >
+	<?php
+	    foreach ($result as $select) { ?>
+		<option <?php echo $a['temp_sensor_diff'.$v] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo $select['name']." ".$select['tmp'] ?></option>
+	    <?php } ?>
+    </select>
+    
+    <input id="<?php echo inputtemp.$v; ?>"  type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" class="form-control input-sm" <?php echo $a['temp_source'.$v] == 'temp' || empty($a['temp_source'.$v])  ? 'style="display: block"' : 'style="display: none"' ?> >
 </td>
 
 <td class="col-md-1">
-<input id="<?php echo inputhyst.$v; ?>" style="display: none" type="text" name="<?php echo temp_hyst . $v ?>" value="<?php echo $a['temp_hyst'.$v]; ?>" class="form-control input-sm" >
+    <input id="<?php echo inputhyst.$v; ?>" type="text" name="<?php echo temp_hyst . $v ?>" value="<?php echo $a['temp_hyst'.$v]; ?>" class="form-control input-sm"  >
 </td>
 
 <td class="col-md-1">

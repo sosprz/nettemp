@@ -38,22 +38,27 @@ temp_op=temp_op$i
 
 declare temp_hyst$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_hyst$i FROM gpio WHERE gpio='$gpio'"`
 temp_hyst=temp_hyst$i
-
-declare temp_hyst_sum$i=$(echo ${!diff_temp} ${!temp_hyst} |awk '{ sum = $1 + $2; print sum }')
-temp_hyst_sum=temp_hyst_sum$i
-
+# hyst temp1 
+declare t1h$i=$(echo ${!temp_temp} ${!temp_hyst} |awk '{ sum = $1 + $2; print sum }')
+hyst=t1h$i
+# hyst sensor2
+declare s2h$i=$(echo ${!diff_temp} ${!temp_hyst} |awk '{ sum = $1 + $2; print sum }')
 if [ -n "${!diff_temp}" ]; then
     temp_temp=$diff_temp
-	if [ -n "${!temp_hyst}" ]; then
-	    temp_temp=$temp_hyst_sum
-	fi
+    hyst=s2h$i
 fi
 
-if [ -n "${!temp_temp}" ] && [[ ${!sensor_temp} != "error" ]] && ! [[ ${!sensor_temp} =~ ^[0-9]+$ ]]; then
+
+if [ -n "${!temp_temp}" ] ; then
+#&& [[ ${!sensor_temp} != "error" ]] && ! [[ ${!sensor_temp} =~ ^[0-9]+$ ]]; then
 
 if [ "${!temp_op}" = "gt" ]; then
 gt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print 0 }')
-    if [ "$gt" = "1" ];then
+h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
+    if [[ $h == "1" ]]; then
+	onoff=off
+	echo "hyst 1"
+    elif [ "$gt" = "1" ];then
         if [ "${!temp_onoff}" = "on" ];then
             onoff=on
 	    echo "${!sensor_name} ${!sensor_temp} C > ${!temp_temp} C - gpio ON debug 1"
@@ -61,6 +66,9 @@ gt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print
             onoff=off
 	    echo "${!sensor_name} ${!sensor_temp} C > ${!temp_temp} C - gpio OFF debug 2"
         fi
+    elif [ "$h" == "0" ]; then
+	echo "wait for lower temp"
+	exit 0
     else
         if [ "${!temp_onoff}" = "on" ];then
             onoff=off
@@ -74,7 +82,11 @@ gt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print
 fi
 if [ "${!temp_op}" = "ge" ]; then
 ge=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 >= $2) print 1; else print 0 }') 
-    if [ "$ge" = "1" ];then
+h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
+    if [[ $h == "1" ]]; then
+	onoff=off
+	echo "hyst 2"
+    elif [ "$ge" = "1" ];then
         if [ "${!temp_onoff}" = "on" ];then
             onoff=on
 	    echo "${!sensor_name} ${!sensor_temp} C >= ${!temp_temp} C - gpio ON debug 5"
@@ -82,10 +94,13 @@ ge=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 >= $2) print 1; else prin
             onoff=off
 	    echo "${!sensor_name} ${!sensor_temp} C >= ${!temp_temp} C - gpio OFF debug 6"
         fi
+    elif [ "$h" == "0" ]; then
+	echo "wait for lower temp"
+	exit 0
     else
         if [ "${!temp_onoff}" = "on" ];then
             onoff=off
-            echo "${!sensor_name} ${sensor_temp} C <= ${!temp_temp} C - gpio OFF  debug 7"
+            echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio OFF  debug 7"
         else
             onoff=on
 	    echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio ON  debug 8"
@@ -94,7 +109,11 @@ ge=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 >= $2) print 1; else prin
         fi
 if [ "${!temp_op}" = "le" ]; then
 le=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 <= $2) print 1; else print 0 }') 
-    if [ "$le" = "1" ];then
+h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
+    if [[ $h == "1" ]]; then
+	onoff=off
+	echo "hyst 3"
+    elif [ "$le" = "1" ];then
         if [ "${!temp_onoff}" = "on" ];then
             onoff=on
 	echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio ON  debug 9"
@@ -102,6 +121,9 @@ le=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 <= $2) print 1; else prin
             onoff=off
 	    echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio OFF debug 10"
         fi
+    elif [ "$h" == "0" ]; then
+	echo "wait for lower temp"
+	exit 0
     else
         if [ "${!temp_onoff}" = "on" ];then
             onoff=off
@@ -114,8 +136,12 @@ le=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 <= $2) print 1; else prin
 fi
 
 if [ "${!temp_op}" = "lt" ]; then
-lt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 < $2) print 1; else print 0 }') 
-    if [ "$lt" = "1" ];then
+lt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 < $2) print 1; else print 0 }')
+h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
+    if [[ $h == "1" ]]; then
+	onoff=off
+	echo "hyst 4"
+    elif [ "$lt" = "1" ];then
         if [ "${!temp_onoff}" = "on" ];then
             onoff=on
 	echo "${!sensor_name} ${!sensor_temp} C < ${!temp_temp} C - gpio ON debug 13"
@@ -123,6 +149,9 @@ lt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 < $2) print 1; else print
             onoff=off
 	    echo "${!sensor_name} ${!sensor_temp} C < ${!temp_temp} C - gpio OFF debug 14"
         fi
+    elif [ "$h" == "0" ]; then
+	echo "wait for lower temp"
+	exit  0
     else
         if [ "${!temp_onoff}" = "on" ];then
             onoff=off
@@ -141,6 +170,7 @@ unset sensor_temp
 unset sensor_name
 unset temp_op
 unset temp_hyst
+unset hyst
 
 else
     echo "error: no input temp"
