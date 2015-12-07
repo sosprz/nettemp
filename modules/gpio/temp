@@ -1,6 +1,9 @@
 #! /bin/bash
 
+# version 1
+
 function hyst() {
+if [[ -n "$hyst" ]]; then
     if [[ $h == "1" ]]; then
 	onoff=off
 	echo "MAX temp reached OFF"
@@ -12,6 +15,9 @@ function hyst() {
 	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='Wait for lower or max temp' WHERE gpio='$gpio'"
 	exit 0
     fi
+else
+    continue
+fi
 }
 
 
