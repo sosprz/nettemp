@@ -119,7 +119,7 @@ function check(&$val,$type) {
 		    }
 		}
 		elseif ($type == 'volt') {
-    		    if ((0 <= $val) && ($val <= 10000)) {
+    		    if ((-10000 <= $val) && ($val <= 10000)) {
 			$val=$val;
 		    }
 		    else {
