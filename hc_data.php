@@ -28,7 +28,7 @@ if ($max == 'year') {
     $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 year') AND datetime('now')";
     } 
 if ($max == 'all') {
-    $query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
+    $query = "select strftime('%s', time),value FROM def WHERE time BETWEEN datetime('now','-10 year') AND datetime('now')";
     }
 
 }
