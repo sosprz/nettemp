@@ -53,7 +53,7 @@ function check(&$val,$type) {
 		//}
     
 		if ($type == 'lux') {
-		    if ((0 <= $val) && ($val <= 1000)) {
+		    if ((-1 <= $val) && ($val <= 1000)) {
 			$val=$val;
 		    }
 		    else {
