@@ -22,19 +22,25 @@ function triggerout_gpio {
 		g=$(echo $i|awk -F"|" '{ print $1}')
 		r=$(echo $i|awk -F"|" '{ print $2}')
 		/usr/local/bin/gpio -g mode $g out
+		if [[ $1 = "on" ]]; then
 		    if [ "$r" = "on" ]; then
 			/usr/local/bin/gpio -g write $g 0
+			echo reverse ON
 		    else
 			/usr/local/bin/gpio -g write $g 1
-		    fi
-		if [[ $con = "on" ]]; then
-		    sleep 0.1
-		    if [ "$r" = "on" ]; then
-			/usr/local/bin/gpio -g write $g 1
-		    else
-			/usr/local/bin/gpio -g write $g 0
+			echo normal ON
 		    fi
 		fi
+		if [[ $1 = "off" ]]; then
+		    if [ "$r" = "on" ]; then
+			/usr/local/bin/gpio -g write $g 1
+			echo reverse OFF
+		    else
+			/usr/local/bin/gpio -g write $g 0
+			echo normal OFF
+		    fi
+		fi
+		
 	    done
 }
 
@@ -85,13 +91,14 @@ done
     /usr/local/bin/gpio -g write $led 1
 
 
+start=$(/usr/local/bin/gpio -g read $gpio)
 while :
 do
-    status=$(/usr/local/bin/gpio -g read $gpio)
-    if [[ "$status" = "0" &&  "$rev" = "on" ]] || [[ "$status" = "1" &&  "$rev" = "" ]]
+    new=$(/usr/local/bin/gpio -g read $gpio)
+    if [[ "$start" != "$new" ]]
         then
 	    trigger="on"
-	    triggerout_gpio
+	    triggerout_gpio on
     
 	    if [[ -n "$led" ]]; then
 		ledalarm &
@@ -99,9 +106,19 @@ do
 
 	    mail &
 	    
-	    $dir/modules/gpio/timestamp $gpio
+	    $dir/modules/gpio/timestamp $gpio &
 
 	    if [[ $con = "on" ]]; then
+		while :
+		    do
+			check=$(/usr/local/bin/gpio -g read $gpio)
+			if [[ $start == "$check" ]]; then
+			    triggerout_gpio off
+			    break
+			fi
+			sleep 0.5
+		    done
+	    
 		continue
 	    else
 		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
