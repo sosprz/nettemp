@@ -17,11 +17,6 @@ if ( $add == "ADD") {
 	exit();
 }
 ?>
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Free GPIO</h3>
-</div>
-<div class="panel-body">
 <?php
 
 $wp = '/usr/local/bin/gpio';
@@ -49,12 +44,19 @@ if (file_exists($wp)) {
     {
 	$gpiolist = array(4,17,21,22,18,23,24,25);
     } 
+    
+    
 }
 else { ?>
 <span class="label label-warning">Warning: No wirinPI package</span>
-<?php }
-
+<?php 
+    }
 ?>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Free GPIO </h3>
+</div>
+<div class="panel-body">
 
 <?php
 foreach ($gpiolist as $value1) {
@@ -73,5 +75,8 @@ foreach ($gpiolist as $value1) {
 </form>
 <?php  } }?>
     
-<span id="helpBlock" class="help-block">Note: Do not use GPIO4 when use 1wire sensors connected to GPIO4 </span>
+<span id="helpBlock" class="help-block">Note: Do not use GPIO4 when use 1wire sensors connected to GPIO4 
+<br/>
+<?php echo $bplus[0].$btwo[0].$bone[0].$two[0]; ?>
+</span>
 </div></div>
