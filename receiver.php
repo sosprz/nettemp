@@ -1,10 +1,8 @@
 <?php
 // name:
 // type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amper
-// gpio:
 // device: wireless, remote, gpio, i2c, usb
-// method: OLD
-// ip:
+// definied source (middle part): tty, ip, gpio number
 
 // curl --connect-timeout 3 -G "http://172.18.10.10/receiver.php" -d "value=1&key=123456&device=wireless&type=gas&ip=172.18.10.9"
 // curl --connect-timeout 3 -G "http://172.18.10.10/receiver.php" -d "value=20&key=123456&device=wireless&type=elec&ip=172.18.10.9"
@@ -47,9 +45,9 @@ if (isset($_GET['current'])) {
 
 function check(&$val,$type) {
 
-		if ($val == '0.0') {
-		    $val=0;
-		}
+		//if ($val == '0.0') {
+		//    $val=0;
+		//}
     
 		if ($type == 'lux') {
 		    if ((0 <= $val) && ($val <= 1000)) {
@@ -134,7 +132,14 @@ function check(&$val,$type) {
 			$val='range';
 		    }
 		}
-		
+		elseif ($type == 'wat') {
+    		    if ((-10000 <= $val) && ($val <= 10000)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}
 		
 
 }
@@ -264,6 +269,14 @@ elseif (isset($val) && isset($type)) {
 		$rom=$device.'_'.$ip.'_'.$type; 
 	    } else {
 		echo "Missing type or IP";
+		exit();
+	    }
+	}
+	if ( $device == "usb" ) {
+	    if (!empty($type) && !empty($tty)) {
+		$rom=$device.'_'.$tty.'_'.$type; 
+	    } else {
+		echo "Missing type or tty";
 		exit();
 	    }
 	}
