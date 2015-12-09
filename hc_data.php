@@ -9,7 +9,7 @@ $array=null;
 
 function query($max,&$query) {
 if ($max == 'hour') {
-    $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 hour') AND datetime('now')";
+    $query = "select strftime('%s', time),value from def WHERE time >= datetime('now','-1 hour')";
     } 
 if ($max == 'day') {
     $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 day') AND datetime('now')";
