@@ -43,8 +43,8 @@ if ($type == 'system') {
     //$query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
              
     foreach ($dbh->query($query) as $row) {
-    $line=[$row[0]*1000+3600 . "," . $row[1]];
-    $array[]=$line;
+	$line=[($row[0])*1000 . "," . $row[1]];
+	$array[]=$line;
     }
     print str_replace('"', "",json_encode($array));
     exit();
