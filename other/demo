@@ -3,7 +3,7 @@
 dir=$( cd "$( dirname "$0" )" && cd ../ && pwd )
 date=`date +%y%m%d-%H%M`
 
-
+dev=ttyACM0
 
 skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
 
@@ -16,3 +16,12 @@ php-cgi -f $dir/receiver.php key=$skey type=gas value=$val device=wireless ip=17
 
 val=$(( ( RANDOM % 10 )  + 1 ))
 php-cgi -f $dir/receiver.php key=$skey type=elec value=$val device=wireless ip=172.18.10.101
+
+val=$(( ( RANDOM % 10 )  + 1 ))
+php-cgi -f $dir/receiver.php key=$skey type=watt value=$val device=usb tty=$dev
+
+val=$(( ( RANDOM % 10 )  + 1 ))
+php-cgi -f $dir/receiver.php key=$skey rom=usb_$dev\_volt value=$val type=volt
+
+val=$(( ( RANDOM % 10 )  + 1 ))
+php-cgi -f $dir/receiver.php key=$skey rom=usb_$dev\_amper value=$val type=amper

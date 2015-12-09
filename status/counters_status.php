@@ -1,7 +1,7 @@
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
-$rows = $db->query("SELECT * FROM sensors WHERE type='gas' OR type='elec' OR type='water' OR type='wat'");
+$rows = $db->query("SELECT * FROM sensors WHERE type='gas' OR type='elec' OR type='water' OR type='watt'");
 $result = $rows->fetchAll();
 $numRows = count($result);
 if ( $numRows > '0' ) { ?>
@@ -25,7 +25,7 @@ if ( $numRows > '0' ) { ?>
 	<?php if($a['type'] == 'gas'){ ?><img src="media/ico/gas-icon.png" /><?php $units='m3'; } ?>
 	<?php if($a['type'] == 'water'){ ?><img src="media/ico/water-icon.png" /><?php $units='m3'; } ?>
 	<?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" /><?php $units='kWh' ;} ?>
-	<?php if($a['type'] == 'wat'){ ?><img src="media/ico/Lamp-icon.png" /><?php $units='W' ;} ?>
+	<?php if($a['type'] == 'watt'){ ?><img src="media/ico/Lamp-icon.png" /><?php $units='W' ;} ?>
     </td>
     <td><?php echo $a['name'] ?> </td>
 	<td>

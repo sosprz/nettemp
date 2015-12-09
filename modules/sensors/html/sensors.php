@@ -63,8 +63,8 @@ $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
 	elseif (strpos($id_rom_new,'amper') !== false) {
 	    $type='amper';
 	}
-	elseif (strpos($id_rom_new,'wat') !== false) {
-	    $type='wat';
+	elseif (strpos($id_rom_new,'watt') !== false) {
+	    $type='watt';
 	}
 	else {
 	    $type='temp';
@@ -115,7 +115,7 @@ $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
 		$dbnew = new PDO("sqlite:db/host_$id_rom_new.sql");
     		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
 	    }
-	    if ($type=='elec' || $type=='water' || $type=='gas') {
+	    if ($type=='elec' || $type=='water' || $type=='gas' || $type=='watt') {
 		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");
 		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER, current INTEEGER)");
 	    }

@@ -39,6 +39,9 @@ if (isset($_GET['i2c'])) {
 if (isset($_GET['current'])) {
             $current = $_GET['current'];
     } else $current='';
+if (isset($_GET['tty'])) {
+            $tty = $_GET['tty'];
+    }
 
 
 
@@ -132,7 +135,7 @@ function check(&$val,$type) {
 			$val='range';
 		    }
 		}
-		elseif ($type == 'wat') {
+		elseif ($type == 'watt') {
     		    if ((-10000 <= $val) && ($val <= 10000)) {
 			$val=$val;
 		    }
