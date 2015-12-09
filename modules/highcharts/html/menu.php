@@ -157,7 +157,7 @@ echo "names = ". $js_array . ";\n";
 	if (max=="year") { var xhour = "month" }
 	if (max=="all") { var xhour = "year" }
 
-	if (type=="gas"|| type=="water"|| type=="elec" || type="watt") { 
+	if (type=="gas"|| type=="water"|| type=="elec" || type=="watt") { 
             seriesOptions[i] = {
                 name: name,
                 data: data,
