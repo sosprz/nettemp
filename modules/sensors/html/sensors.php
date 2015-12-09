@@ -63,6 +63,9 @@ $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
 	elseif (strpos($id_rom_new,'amper') !== false) {
 	    $type='amper';
 	}
+	elseif (strpos($id_rom_new,'wat') !== false) {
+	    $type='wat';
+	}
 	else {
 	    $type='temp';
         }
