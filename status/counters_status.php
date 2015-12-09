@@ -25,6 +25,7 @@ if ( $numRows > '0' ) { ?>
 	<?php if($a['type'] == 'gas'){ ?><img src="media/ico/gas-icon.png" /><?php $units='m3'; } ?>
 	<?php if($a['type'] == 'water'){ ?><img src="media/ico/water-icon.png" /><?php $units='m3'; } ?>
 	<?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" /><?php $units='kWh' ;} ?>
+	<?php if($a['type'] == 'wat'){ ?><img src="media/ico/Lamp-icon.png" /><?php $units='W' ;} ?>
     </td>
     <td><?php echo $a['name'] ?> </td>
 	<td>

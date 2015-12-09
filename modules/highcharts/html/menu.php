@@ -24,6 +24,7 @@ if (type=='elec') { var xval = " kWh"}
 if (type=='hosts') { var xval = " ms"}
 if (type=='volt') { var xval = " V"}
 if (type=='amper') { var xval = " A"}
+if (type=='wat') { var xval = " W"}
 
 $(function () {
     var seriesOptions = [],
@@ -156,7 +157,7 @@ echo "names = ". $js_array . ";\n";
 	if (max=="year") { var xhour = "month" }
 	if (max=="all") { var xhour = "year" }
 
-	if (type=="gas"|| type=="water"|| type=="elec") { 
+	if (type=="gas"|| type=="water"|| type=="elec" || type="wat") { 
             seriesOptions[i] = {
                 name: name,
                 data: data,
