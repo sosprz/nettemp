@@ -1,4 +1,3 @@
-<div id="hosts_status">
 <?php 
 $root=$_SERVER["DOCUMENT_ROOT"];
 $dir="modules/gpio/";
@@ -9,7 +8,7 @@ $result = $sth->fetchAll();
 $numRows = count($result);
 ?>
 <?php if ( $numRows > '0' ) { ?>
-<div class="grid-item">
+<div class="grid-item hs">
 <div class="panel panel-default">
 <div class="panel-heading">Monitoring</div>
 <table class="table table-hover">
@@ -41,4 +40,3 @@ foreach ( $result as $a) {
 </div>
 </div>
 <?php }  ?>
-</div>

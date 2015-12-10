@@ -1,4 +1,3 @@
-<div id="gpio_status">
 <?php 
 $root=$_SERVER["DOCUMENT_ROOT"];
 $dir="modules/gpio/";
@@ -9,7 +8,7 @@ $result = $sth->fetchAll();
 $numRows = count($result);
 ?>
 <?php if ( $numRows > '0' ) { ?>
-<div class="grid-item">
+<div class="grid-item gs">
 <div class="panel panel-default">
             <div class="panel-heading">GPIO</div>
 <table class="table table-hover table-condensed">
@@ -33,4 +32,3 @@ $gpio=$a['gpio'];
 </div>
 </div>
 <?php }  ?>
-</div>

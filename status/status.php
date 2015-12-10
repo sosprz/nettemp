@@ -24,12 +24,12 @@
 /* ---- grid-item ---- */
 
 .grid-item {
-  width: 370px;
+  width: 360px;
   float: left;
   //background: #D26;
   //border: 2px solid #333;
   //border-color: hsla(0, 0%, 0%, 0.5);
-  border-radius: 10px;
+  border-radius: 5px;
     //padding: 10px;
 }
 
@@ -38,12 +38,12 @@
 
 
 <div id="grid" class="grid">
-    <div id="ss"> <?php 
+    <?php 
 	include_once('status/sensor_status.php'); 
-    ?></div>
-    <div id="hs"><?php 
+    ?>
+    <?php 
 	include_once('status/hosts_status.php'); 
-    ?></div>
+    ?>
     <div id="rs"><?php 
 	include_once('status/relays_status.php'); 
     ?></div>
@@ -76,15 +76,14 @@
 
 <script type="text/javascript">
     setInterval( function() {
-    $("#ss").load("status/sensor_status.php");
-    $('#co').load("status/counters_status.php");
-    $('#gs').load("status/gpio_status.php");
-    $('#hs').load("status/hosts_status.php");
-    $('#rs').load("status/relays_status.php");
-    $('#ms').load("status/meteo_status.php");
-    $('#kwh').load("status/kwh_status.php");
-    $('#ow2').load("status/ownwidget2.php");
-    $('#ow3').load("status/ownwidget3.php");
+    $(".ss").load("status/sensor_status.php");
+    $('.co').load("status/counters_status.php");
+    $('.gs').load("status/gpio_status.php");
+    $('.hs').load("status/hosts_status.php");
+    $('.rs').load("status/relays_status.php");
+    $('.ms').load("status/meteo_status.php");
+    $('.ow2').load("status/ownwidget2.php");
+    $('.ow3').load("status/ownwidget3.php");
 }, 60000);
 
 $(document).ready( function() {

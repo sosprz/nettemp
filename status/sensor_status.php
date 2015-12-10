@@ -1,5 +1,4 @@
-<div id="sensor_status">
-<div class="grid-item">
+<div class="grid-item ss" >
 <div class="panel panel-default">
 <div class="panel-heading">Sensors</div>
 <?php
@@ -81,6 +80,5 @@ Go to device scan!
     </tbody>
     </table> <?php
 ?>
-</div>
 </div>
 </div>

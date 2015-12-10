@@ -1,4 +1,3 @@
-<div id="meteo_status">
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die("cannot open the database");
@@ -44,7 +43,7 @@ foreach ($result as $a) {
 $wilgotnosc=$a['tmp'];
 }
 ?>
-<div class="grid-item">
+<div class="grid-item ms">
 <div class="panel panel-default">
   <div class="panel-heading">Meteo</div>
 <table class="table stripped table-condensed">
@@ -99,4 +98,3 @@ $wilgotnosc=$a['tmp'];
 <?php
 }
 ?>
-</div>
