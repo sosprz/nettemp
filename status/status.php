@@ -57,9 +57,6 @@
     <div id="gs"><?php 
 	include_once('status/gpio_status.php'); 
     ?></div>
-    <div id="kwh"><?php 
-	include_once('status/kwh_status.php'); 
-    ?></div>
     <div id="ms"><?php 
 	include_once('status/meteo_status.php'); 
     ?></div>
