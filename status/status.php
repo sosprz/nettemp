@@ -1,32 +1,38 @@
 <style type="text/css">
-.grid-item { 
-    width: 370px; 
-    //width: auto; 
-    
-    }
-.grid-item {
-  padding: 0px 5px 0px 0px;
-  float: left;
-}
-*, *:before, *:after {box-sizing:  border-box !important;}
 
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+//body { font-family: sans-serif; }
+
+/* ---- grid ---- */
 
 .grid {
- -moz-column-width: 21em;
- -webkit-column-width: 21em;
- -moz-column-gap: 0em;
- -webkit-column-gap:0em; 
+  //background: #EEE;
+  //max-width: 1200px;
 }
 
-#ss,#ow1,#ow2,#ow3,#gs,#hs,#rs,#kwh,#ms,#cam {
- display: inline-block;
- padding:  1px;
+/* clearfix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
 }
+
+/* ---- grid-item ---- */
 
 .grid-item {
- position:relative;
- display: block;
+  width: 370px;
+  float: left;
+  //background: #D26;
+  //border: 2px solid #333;
+  //border-color: hsla(0, 0%, 0%, 0.5);
+  border-radius: 10px;
+    //padding: 10px;
 }
+
 </style>
 
 
@@ -80,7 +86,17 @@
     $('#ow2').load("status/ownwidget2.php");
     $('#ow3').load("status/ownwidget3.php");
 }, 60000);
+
+$(document).ready( function() {
+
+  $('.grid').masonry({
+    itemSelector: '.grid-item',
+    columnWidth: 380
+  });
+  
+});
 </script>
+<script src="html/masonry/masonry.pkgd.min.js"></script>
 
 
 
