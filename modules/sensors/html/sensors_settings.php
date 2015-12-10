@@ -55,6 +55,26 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+
+    $adj = isset($_POST['adj']) ? $_POST['adj'] : '';
+    $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
+    if ($adj1 == 'adj2'){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET adj='$adj' WHERE id='$name_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
+
+    $sum = isset($_POST['sum']) ? $_POST['sum'] : '';
+    $sum1 = isset($_POST['sum1']) ? $_POST['sum1'] : '';
+    if ($sum1 == 'sum2'){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET sum='$sum' WHERE id='$name_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
+
+
 ?> 
 
 
@@ -65,6 +85,7 @@
 <table class="table table-hover table-condensed small" border="0">
 
 <?php
+$counters=array("gas","water","elec");
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
@@ -72,12 +93,13 @@ $row = $rows->fetchAll();
 <thead>
 <tr>
 <th>Name</th>
-<th>Utime</th>
-<th>id</th>
+<th>Rom</th>
 <th>Size</th>
+<th>Time</th>
 <th>Status</th>
 <th>Value</th>
 <th>Adjust</th>
+<th>Counters</th>
 <th>Alarm</th>
 <th>Min/Max</th>
 <th>LCD</th>
@@ -97,24 +119,27 @@ $row = $rows->fetchAll();
     <td class="col-md-2">
 	<img src="media/ico/TO-220-icon.png"/>
     <form action="" method="post" style="display:inline!important;">
-	<input type="text" name="name_new" size="12" maxlength="30" value="<?php echo $a["name"]; ?>" />
+	<input type="text" name="name_new" size="5" maxlength="30" value="<?php echo $a["name"]; ?>" />
 	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="id_name2" value="id_name3"/>
     </form>
     </td>
-    <td>
-	<?php echo $a["time"]; ?>
-    </td>
-    <td>
+    <td class="col-md-2">
 	<?php 
 	    $rom=$a["rom"];
 	    if (strpos($rom,'0x') !== false) {
-		$part = explode("0x", $rom);
-		echo strtolower($part[1].'-'.$part[7].''.$part[6].''.$part[5].''.$part[4].''.$part[3].''.$part[2]);
+		$part = explode("0x", $rom); ?>
+		<span class="label label-default">
+		<?php echo strtolower($part[1].'-'.$part[7].''.$part[6].''.$part[5].''.$part[4].''.$part[3].''.$part[2]); ?>
+		</span>
+	    <?php
 	    } 
-	    else {
-		echo $rom;
+	    else { ?>
+		<span class="label label-default">
+		    <?php echo $rom; ?>
+		</span>
+	    <?php
 	    }
 	?>
     </td>
@@ -125,17 +150,32 @@ $row = $rows->fetchAll();
 	if (file_exists($file3) && ( 0 != filesize($file3)))
 	{
 ?>
-<td ><?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3) ?>MB</td>
-<td ><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-ok"></span> </button></td>
+<td >
+    <span class="label label-default">
+    <?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3)."MB" ?>
+    </span>
+</td>
+<td class="col-md-1">
+    <span class="label label-default">
+	<?php echo $a["time"]; ?>
+    </span>
+</td>
+<td class="col-md-1">
+    <span class="label label-success">
+    ok
+    </span>
+</td>
 
 <?php   }
 else { ?> 
 <td class="col-md-1">Error - no sql base</td>
 <?php } ?>
 
-    <td >
+<td >
+    <span class="label label-default">    
 	<?php echo  $a["tmp"];?>
-    </td>
+    </span>    
+</td>
 
     <td class="col-md-1"">
     <form action="" method="post" style="display:inline!important;">
@@ -145,6 +185,16 @@ else { ?>
 	<input type="hidden" name="adj1" value="adj2"/>
     </form>
     </td>
+
+    <td class="col-md-1"">
+    <form action="" method="post" style="display:inline!important;">
+	<input type="text" name="sum" size="2" maxlength="30" value="<?php echo $a["sum"]; ?>" required="" <?php echo in_array($a['type'], $counters) ? '' : 'disabled'; ?> />
+	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
+	<input type="hidden" name="sum1" value="sum2"/>
+    </form>
+    </td>
+
 
     <td >
     <form action="" method="post" style="display:inline!important;">

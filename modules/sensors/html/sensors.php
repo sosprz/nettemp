@@ -13,9 +13,6 @@ $del_graf = isset($_POST['del_graf']) ? $_POST['del_graf'] : '';
 $name_new2 = isset($_POST['name_new']) ? $_POST['name_new'] : '';
 $name_new=trim($name_new2);
 
-$adj = isset($_POST['adj']) ? $_POST['adj'] : '';
-$adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
-
 ?>
 
 <?php // SQLite3 - sekcja dodawania do bazy && tworzenie baz rrd
@@ -188,15 +185,6 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}
-	} 
-	?> 
-
-<?php	
-	if ($adj1 == 'adj2'){
-	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE sensors SET adj='$adj' WHERE id='$name_id'") or die ($db->lastErrorMsg());
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit();
 	} 
 	?> 
 
