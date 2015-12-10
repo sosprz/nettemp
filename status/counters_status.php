@@ -9,9 +9,18 @@ if ( $numRows > '0' ) { ?>
 <div class="grid-item">
 
 <div class="panel panel-default">
-<div class="panel-heading">Counters - hour day month all</div>
+<div class="panel-heading">Counters </div>
 
 <table class="table table-hover">
+<thead>
+<th></th>
+<th></th>
+<th></th>
+<th>Hour</th>
+<th>Day</th>
+<th>Month</th>
+<th>All</th>
+</thead>
 <tbody>
 <?php       
     foreach ($result as $a) { 
