@@ -17,8 +17,8 @@ if ( $numRows > '0' ) { ?>
 <th></th>
 <th></th>
 <th>Hour</th>
-<th>Day</th>
-<th>Month</th>
+<!-- <th>Day</th>
+<th>Month</th> -->
 <th>All</th>
 </thead>
 <tbody>
@@ -36,6 +36,7 @@ if ( $numRows > '0' ) { ?>
 	<?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" /><?php $units='kWh' ;} ?>
     </td>
     <td><?php echo $a['name'] ?> </td>
+	
 	<td>
 	<?php
 	$rom=$a['rom'];
@@ -45,20 +46,21 @@ if ( $numRows > '0' ) { ?>
 	echo $i['sums'];
 	?>
 	</td>
-	<td>
+	<!-- <td>
 	<?php
-	$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def WHERE time >= date('now','start of day')") or die('lol');
-	$i = $rows->fetch(); 
-	echo $i['sums'];
+	//$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def WHERE time >= date('now','start of day')") or die('lol');
+	//$i = $rows->fetch(); 
+	//echo $i['sums'];
 	?>
 	</td>
 	<td>
 	<?php
-	$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def WHERE time >= date('now','start of month')") or die('lol');
-	$i = $rows->fetch(); 
-	echo $i['sums'];
+	//$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def WHERE time >= date('now','start of month')") or die('lol');
+	//$i = $rows->fetch(); 
+	//echo $i['sums'];
 	?>
 	</td>
+	-->
 	<td>
 	<?php
 	//$rows = $dbs->query("SELECT sum AS sums FROM def WHERE id=1") or die('lol');
