@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash -x
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 day=$(LC_ALL=en_EN.utf8 date '+%a')
@@ -20,7 +20,7 @@ if [ "$day_run" = "on" ]; then
 	    etime=$(sqlite3 $dir/dbf/nettemp.db "SELECT etime FROM day_plan WHERE name='$i'")
 	    stimec=$(echo $stime | sed 's/://g')
 	    etimec=$(echo $etime | sed 's/://g')
-	    if (("$date2" >= "$stimec")) &&  (("$date2" <= "$etimec")); then
+	    if (("$date2" >= "$stimec")) && (("$date2" < "$etimec")); then
 		onoff="on"
 		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON - Profile $i' WHERE gpio='$gpio'"
 		break

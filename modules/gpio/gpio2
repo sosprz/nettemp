@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash -x
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=$(date +%y%m%d-%H%M)

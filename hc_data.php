@@ -9,8 +9,8 @@ $array=null;
 
 function query($max,&$query) {
 if ($max == 'hour') {
-    //$query = "select strftime('%s', time),value from def WHERE time >= datetime('now','-1 hour')";
-    $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 hour') AND datetime('now')";
+    $query = "select strftime('%s', time),value from def WHERE time >= datetime('now','-1 hour')";
+    //$query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 hour') AND datetime('now')";
     } 
 if ($max == 'day') {
     $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 day') AND datetime('now')";
@@ -99,7 +99,7 @@ else {
     //$query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
 
     foreach ($dbh->query($query) as $row) {
-	$line=[($row[0]+3600)*1000 . "," . $row[1]];
+	$line=[($row[0])*1000 . "," . $row[1]];
 	$array[]=$line;
     }
     print str_replace('"', "",json_encode($array));
