@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash -x
 
 # version 1
 
@@ -10,7 +10,7 @@ if [[ -n "${!temp_hyst}" ]]; then
 	echo "MAX temp reached OFF"
 	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='MAX temp reached OFF' WHERE gpio='$gpio'"
 	continue
-    elif [[ "$h" == "0" &&  "$le" == "0" ]]; then
+    elif [[ "$h" == "0" &&  "$gt" == "0" || $ge == "0" || $le == "0" || $lt == "0" ]]; then
 	echo "Wait for lower or max temp"
 	echo "EXIT from script"
 	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='Wait for lower or max temp' WHERE gpio='$gpio'"
@@ -72,8 +72,10 @@ if [ -n "${!diff_temp}" ]; then
     hyst=s2h$i
 fi
 
+echo Temp ${!temp_temp}
+echo Sensor1 ${!sensor_temp}
 
-if [ -n "${!temp_temp}" ] && [[ ${!sensor_temp} != "error" ]] && ! [[ ${!sensor_temp} =~ ^[0-9]+$ ]]; then
+if [ -n "${!temp_temp}" ] && [[ "${!sensor_temp}" != "error" ]] &&  echo ${!sensor_temp} | grep -o -q '[0-9]*'; then
 
 if [ "${!temp_op}" = "gt" ]; then
 gt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print 0 }')
@@ -183,6 +185,7 @@ unset hyst
 
 else
     echo "error: no input temp"
+    exit 0
 fi
 done
 
@@ -212,21 +215,6 @@ fi
 
 ###main
 
-#if [ "$week_run" == "on" ]
-#	then
-#	week=$($dir/modules/gpio/week $gpio)
-#	if [ "$week" == "on" ]
-#	    then
-#	    echo week on
-#	    day #function
-#	else
-#	    gpio_off $gpio
-#	    echo Not in week range
-#	fi
-#else
-#    echo week off
-    day #function
-#fi
-
+day
 
 fi #last 
