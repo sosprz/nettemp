@@ -212,21 +212,21 @@ fi
 
 ###main
 
-if [ "$week_run" == "on" ]
-	then
-	week=$($dir/modules/gpio/week $gpio)
-	if [ "$week" == "on" ]
-	    then
-	    echo week on
-	    day #function
-	else
-	    gpio_off $gpio
-	    echo Not in week range
-	fi
-else
-    echo week off
+#if [ "$week_run" == "on" ]
+#	then
+#	week=$($dir/modules/gpio/week $gpio)
+#	if [ "$week" == "on" ]
+#	    then
+#	    echo week on
+#	    day #function
+#	else
+#	    gpio_off $gpio
+#	    echo Not in week range
+#	fi
+#else
+#    echo week off
     day #function
-fi
+#fi
 
 
 fi #last 

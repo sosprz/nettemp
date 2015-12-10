@@ -167,14 +167,8 @@ function db($rom,$val,$type,$chmin,$current) {
 		check($val,$type);
 		if ($val != 'range'){
 		    //// base
-		    // time when you can put into base
-		    if ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
-			$db = new PDO("sqlite:db/$file");
-			$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
-			echo "$rom ok ";
-		    }
 		    // counters can always put to base
-		    elseif ($type == 'gas' || $type == 'water' || $type == 'elec')  {
+		    if ($type == 'gas' || $type == 'water' || $type == 'elec')  {
 			$db = new PDO("sqlite:db/$file");
 			if (isset($current)) {
 			    $db->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql current" );
@@ -184,6 +178,12 @@ function db($rom,$val,$type,$chmin,$current) {
 			//sum for counters
 			$dbn = new PDO("sqlite:dbf/nettemp.db");
 			$dbn->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status" );
+			echo "$rom ok";
+		    }
+		    // time when you can put into base
+		    elseif ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
+			$db = new PDO("sqlite:db/$file");
+			$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
 			echo "$rom ok ";
 		    }
 		    else {
