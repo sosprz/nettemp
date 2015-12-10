@@ -41,7 +41,7 @@ def readLight(addr=DEVICE):
  
 def main():
  
-     print '{0:0.2f}'.format(str(readLight()))
+     print '{0:0.2f}'.format(readLight())
 
    
 if __name__=="__main__":
