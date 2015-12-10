@@ -125,7 +125,7 @@ foreach (range(1, $tempnum) as $up) {
 	    <?php } ?>
     </select>
     
-    <input id="<?php echo inputtemp.$v; ?>"  type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" class="form-control input-sm" <?php echo $a['temp_source'.$v] == 'temp' || empty($a['temp_source'.$v])  ? 'style="display: block"' : 'style="display: none"' ?> >
+    <input required="" id="<?php echo inputtemp.$v; ?>"  type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" class="form-control input-sm" <?php echo $a['temp_source'.$v] == 'temp' || empty($a['temp_source'.$v])  ? 'style="display: block"' : 'style="display: none"' ?> >
 </td>
 
 <td class="col-md-1">
