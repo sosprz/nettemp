@@ -8,20 +8,19 @@ dev=ttyACM0
 skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
 
 val=$(( ( RANDOM % 10 )  + 1 ))
-php-cgi -f $dir/receiver.php key=$skey type=water value=$val device=wireless ip=172.18.10.101
+php-cgi -f $dir/receiver.php key=$skey type=water value=$val device=wireless ip=172.18.10.101 current=$val
 
 val=$(( ( RANDOM % 10 )  + 1 ))
-php-cgi -f $dir/receiver.php key=$skey type=gas value=$val device=wireless ip=172.18.10.101
-
-
-val=$(( ( RANDOM % 10 )  + 1 ))
-php-cgi -f $dir/receiver.php key=$skey type=elec value=$val device=wireless ip=172.18.10.101
+php-cgi -f $dir/receiver.php key=$skey type=gas value=$val device=wireless ip=172.18.10.101  current=$val
 
 val=$(( ( RANDOM % 10 )  + 1 ))
-php-cgi -f $dir/receiver.php key=$skey type=watt value=$val device=usb tty=$dev
+php-cgi -f $dir/receiver.php key=$skey type=elec value=$val device=wireless ip=172.18.10.101  current=$val
 
 val=$(( ( RANDOM % 10 )  + 1 ))
-php-cgi -f $dir/receiver.php key=$skey rom=usb_$dev\_volt value=$val type=volt
+php-cgi -f $dir/receiver.php key=$skey type=watt value=$val device=usb tty=$dev  current=$val
 
 val=$(( ( RANDOM % 10 )  + 1 ))
-php-cgi -f $dir/receiver.php key=$skey rom=usb_$dev\_amper value=$val type=amper
+php-cgi -f $dir/receiver.php key=$skey rom=usb_$dev\_volt value=$val type=volt  current=$val
+
+val=$(( ( RANDOM % 10 )  + 1 ))
+php-cgi -f $dir/receiver.php key=$skey rom=usb_$dev\_amper value=$val type=amper  current=$val

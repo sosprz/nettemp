@@ -37,7 +37,7 @@ $file=$rom .".sql";
     $m = $m->fetch(); 
 
     echo "<tr>
-	<td><span class=\"label label-primary\">".$a['name'] ."</span></td>
+	<td>".$a['name'] ."</td>
 	<td><span class=\"label label-info\">".$h['hmin']."</span><span class=\"label label-warning\">".$h['hmax']."</span></td>
 	<td><span class=\"label label-info\">".$d['dmin']."</span><span class=\"label label-warning\">".$d['dmax']."</span></td>
 	<td><span class=\"label label-info\">".$w['wmin']."</span><span class=\"label label-warning\">".$w['wmax']."</span></td>

@@ -20,6 +20,7 @@ if ( $numRows > '0' ) { ?>
 <th>Day</th>
 <th>Month</th>
 <th>All</th>
+<th>Current</th>
 </thead>
 <tbody>
 <?php       
@@ -36,9 +37,7 @@ if ( $numRows > '0' ) { ?>
 	<?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" /><?php $units='kWh' ;} ?>
     </td>
     <td>
-	<span class="label label-primary">
 	<?php echo $a['name'] ?> 
-	</span>
     </td>
 	
 	<td>
@@ -75,8 +74,17 @@ if ( $numRows > '0' ) { ?>
 		<?php
 		//$rows = $dbs->query("SELECT sum AS sums FROM def WHERE id=1") or die('lol');
 		//$i = $rows->fetch(); 
-		//echo $i['sums']." ".$units;
+		//echo $i['sums']." ";
 		echo $a[sum];
+		?>
+	    </span>
+	</td>
+	<td>
+	    <span class="label label-warning">
+		<?php
+		$rows = $dbs->query("SELECT current AS sums from def where time = (select max(time) from def)") or die('lol');
+		$i = $rows->fetch(); 
+		echo $i['sums'];
 		?>
 	    </span>
 	</td>

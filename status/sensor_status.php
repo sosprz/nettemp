@@ -60,9 +60,7 @@ Go to device scan!
 			<td>
 			    <?php echo $type;?>
 			<td>
-			    <span class="label label-primary">
 				<?php echo $name;?>
-			    </span>
 			</td>
 			<td>
 			    <?php echo $a['tmp'] == 'error' ? '<span class="label label-danger">' : '<span class="label label-success">' ?>

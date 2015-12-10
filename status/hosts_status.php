@@ -19,12 +19,18 @@ foreach ( $result as $a) {
     <tr <?php echo $a['status'] == 'error' ? 'class="danger"' : '' ?>>
     <td ><img type="image" src="media/ico/Computer-icon.png" /></td>
     <td >
-	<span class="label label-primary">
-	    <?php echo str_replace("host_","",$a["name"]);?></td>
+	    <?php echo str_replace("host_","",$a["name"]);?>
 	</span>
-    <td ><?php echo $a['last']; ?> ms</td>
-    <td ></td>
-    <td ><?php echo $a['status']; ?></td>
+    </td>
+
+    <td >
+	<?php echo $a['last']; ?> ms
+    </td>
+
+    <td >
+	<?php echo $a['status'] == 'error' ? '<span class="label label-danger">' : '<span class="label label-success">' ?>
+	    <?php echo $a['status']; ?></td>
+	</span>
     </tr>
 
 <?php

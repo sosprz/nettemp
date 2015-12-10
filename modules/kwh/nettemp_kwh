@@ -108,8 +108,9 @@ def dbwrite():
 	value = 'value='+str((float(pulseValue)/divider)) # floatujemy wynik 
         gpiopinstr = 'gpio='+str(gpiopin)
         keystring = 'key='+str(key)
-
-	subprocess.call(['/usr/bin/php-cgi','-f','/var/www/nettemp/receiver.php',keystring,' type=elec',value,' device=gpio', gpiopinstr])
+	currentstring = 'current='+str(currentWatt)
+ 
+        subprocess.call(['/usr/bin/php-cgi','-f','/var/www/nettemp/receiver.php',keystring,' type=elec',value,' device=gpio', gpiopinstr, currentstring]) 
     
         pulseValue = 0  # jesli zapis pomyslny to zerujemy licznik pulsow
 
