@@ -200,6 +200,7 @@ function db($rom,$val,$type,$chmin,$current) {
 		    else {
 			$dbn = new PDO("sqlite:dbf/nettemp.db");
 			$dbn->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status" );
+			$dbn->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status" );
 		    }
 		}		
 		else {

@@ -176,3 +176,6 @@ sqlite3 $dir/dbf/nettemp.db "CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON
 
 sqlite3 $dir/dbf/kwh.db "ALTER TABLE kwh ADD current TYPE INTEEGER";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD minmax type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD sum type TEXT";
+sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET sum='0' WHERE sum='' OR sum=' ' OR sum is null"
+

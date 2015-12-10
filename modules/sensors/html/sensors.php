@@ -100,7 +100,7 @@ $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
 
 	//DB    
 	    if ($type != "relay" ) {
-		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip, adj, charts) VALUES ('$name','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip', '0', 'on' )") or die ("cannot insert to DB" );
+		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip, adj, charts, sum) VALUES ('$name','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip', '0', 'on', '0')") or die ("cannot insert to DB" );
 	    }
 	    if ($type == "relay" ) {
 		//relays

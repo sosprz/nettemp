@@ -52,9 +52,10 @@ if ( $numRows > '0' ) { ?>
 	</td>
 	<td>
 	<?php
-	$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def") or die('lol');
-	$i = $rows->fetch(); 
-	echo $i['sums']." ".$units;
+	//$rows = $dbs->query("SELECT sum AS sums FROM def WHERE id=1") or die('lol');
+	//$i = $rows->fetch(); 
+	//echo $i['sums']." ".$units;
+	    echo $a[sum];
 	?>
 	</td>
 	
