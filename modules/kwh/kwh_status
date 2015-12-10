@@ -5,9 +5,9 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 gpio=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio WHERE mode='kwh'")
 divider0=$(sqlite3 $dir/dbf/nettemp.db "SELECT kwh_divider FROM gpio WHERE $gpio")
 divider=$( echo $divider0/1 |bc -l )
-kwh_month=$(sqlite3 $dir/dbf/kwh.db "select round((sum(pulse)/$divider),3) from kwh where time >= date((datetime('now','localtime')),'start of month')")
-kwh_day=$(sqlite3 $dir/dbf/kwh.db "select round((sum(pulse)/$divider),3) from kwh where time >= date((datetime('now','localtime')),'start of day')")
+#kwh_month=$(sqlite3 $dir/dbf/kwh.db "select round((sum(pulse)/$divider),3) from kwh where time >= date((datetime('now','localtime')),'start of month')")
+#kwh_day=$(sqlite3 $dir/dbf/kwh.db "select round((sum(pulse)/$divider),3) from kwh where time >= date((datetime('now','localtime')),'start of day')")
 kwh_current=$(sqlite3 $dir/dbf/kwh.db "select current from kwh where time = (select max(time) from kwh)")
 echo " Current : $kwh_current Watt"
-echo " Today kWh : $kwh_day kWh"
-echo " Month kWh : $kwh_month kWh"
+#echo " Today kWh : $kwh_day kWh"
+#echo " Month kWh : $kwh_month kWh"
