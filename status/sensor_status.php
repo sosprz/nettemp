@@ -19,7 +19,7 @@ Go to device scan!
     $sth = $db->prepare("select * from sensors");
     $sth->execute();
     $result = $sth->fetchAll(); ?>
-    <table class="table table-hover">
+    <table class="table table-hover table-condensed">
     <tbody>
 <?php       
     foreach ($result as $a) {
@@ -60,10 +60,15 @@ Go to device scan!
 			<td>
 			    <?php echo $type;?>
 			<td>
-			    <?php echo $name;?>
+			    <span class="label label-primary">
+				<?php echo $name;?>
+			    </span>
 			</td>
 			<td>
-			    <?php echo $a['tmp']." ".$unit." ".$max.$min;?>
+			    <?php echo $a['tmp'] == 'error' ? '<span class="label label-danger">' : '<span class="label label-success">' ?>
+			    
+				<?php echo $a['tmp']." ".$unit." ".$max.$min;?>
+			    </span>
 			</td>
 			<td>
 		    	    <?php echo $updo; ?>

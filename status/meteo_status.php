@@ -47,7 +47,7 @@ $wilgotnosc=$a['tmp'];
 <div class="grid-item">
 <div class="panel panel-default">
   <div class="panel-heading">Meteo</div>
-<table class="table stripped">
+<table class="table stripped table-condensed">
 
 <tr>
     <td>sila grawitacji [m/s^2]"</td>

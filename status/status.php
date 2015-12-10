@@ -1,6 +1,8 @@
 <style type="text/css">
 .grid-item { 
-    width: 330px; 
+    width: 370px; 
+    //width: auto; 
+    
     }
 .grid-item {
   padding: 0px 5px 0px 0px;

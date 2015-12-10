@@ -12,7 +12,7 @@ $numRows = count($result);
 <div class="grid-item">
 <div class="panel panel-default">
             <div class="panel-heading">WiFi Relays</div>
-<table class="table table-hover">
+<table class="table table-hover table-condensed">
 <?php
 foreach ( $result as $a) {
 $ip=$a['ip'];
