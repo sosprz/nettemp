@@ -177,22 +177,30 @@ else { ?>
     </span>    
 </td>
 
-    <td class="col-md-1"">
+    <td class="col-md-1">
+    <?php if ($a["device"] != 'remote') { ?>
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="adj" size="2" maxlength="30" value="<?php echo $a["adj"]; ?>" required="" <?php echo $a["device"] == 'remote' ? 'disabled' : ''; ?> />
 	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="adj1" value="adj2"/>
     </form>
+    <?php
+	}
+    ?>
     </td>
 
     <td class="col-md-1"">
+    <?php if (in_array($a['type'], $counters)) { ?>
     <form action="" method="post" style="display:inline!important;">
-	<input type="text" name="sum" size="2" maxlength="30" value="<?php echo $a["sum"]; ?>" required="" <?php echo in_array($a['type'], $counters) ? '' : 'disabled'; ?> />
+	<input type="text" name="sum" size="2" maxlength="30" value="<?php echo $a["sum"]; ?>" required=""/>
 	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="sum1" value="sum2"/>
     </form>
+    <?php
+	}
+    ?>
     </td>
 
 
@@ -229,18 +237,26 @@ else { ?>
     </form>
     </td>
     <td >
+    <?php if ($a["device"] != 'remote') { ?>
     <form action="" method="post" style="display:inline!important;"> 	
 	<input type="hidden" name="remote" value="<?php echo $a["id"]; ?>" />
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="remoteon" value="on" <?php echo $a["remote"] == 'on' ? 'checked="checked"' : ''; ?> <?php echo $a["device"] == 'remote' ? 'disabled' : ''; ?> onchange="this.form.submit()" /></td>
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="remoteon" value="on" <?php echo $a["remote"] == 'on' ? 'checked="checked"' : ''; ?>   onchange="this.form.submit()" />
 	<input type="hidden" name="remoteonoff" value="onoff" />
     </form>
+    <?php 
+	}
+    ?>
     </td>
     <td >
+    <?php if ($a["device"] != 'remote') { ?>
     <form action="" method="post" style="display:inline!important;"> 	
 	<input type="hidden" name="minmax" value="<?php echo $a["id"]; ?>" />
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="minmaxon" value="on" <?php echo $a["minmax"] == 'on' ? 'checked="checked"' : ''; ?> <?php echo $a["device"] == 'remote' ? 'disabled' : ''; ?> onchange="this.form.submit()" /></td>
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="minmaxon" value="on" <?php echo $a["minmax"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="minmaxonoff" value="onoff" />
     </form>
+    <?php 
+	}
+    ?>
     </td>
     
     <td>

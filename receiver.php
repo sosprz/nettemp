@@ -166,12 +166,14 @@ function db($rom,$val,$type,$chmin,$current) {
 	    if (is_numeric($val)) {
 		check($val,$type);
 		if ($val != 'range'){
-		    //base
+		    //// base
+		    // time when you can put into base
 		    if ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
 			$db = new PDO("sqlite:db/$file");
 			$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
 			echo "$rom ok ";
-		    } 
+		    }
+		    // counters can always put to base
 		    elseif ($type == 'gas' || $type == 'water' || $type == 'elec')  {
 			$db = new PDO("sqlite:db/$file");
 			if (isset($current)) {
@@ -179,6 +181,9 @@ function db($rom,$val,$type,$chmin,$current) {
 			} else {
 			    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );
 			}
+			//sum for counters
+			$dbn = new PDO("sqlite:dbf/nettemp.db");
+			$dbn->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status" );
 			echo "$rom ok ";
 		    }
 		    else {
@@ -190,7 +195,7 @@ function db($rom,$val,$type,$chmin,$current) {
 			$dbn = new PDO("sqlite:dbf/nettemp.db");
 			$dbn->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to 5ago" );
 		    }
-		    //status
+		    ////status for all
 		    //hosts status
 		    if ($type == 'host') {
 			$dbh = new PDO("sqlite:dbf/hosts.db");
@@ -200,7 +205,6 @@ function db($rom,$val,$type,$chmin,$current) {
 		    else {
 			$dbn = new PDO("sqlite:dbf/nettemp.db");
 			$dbn->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status" );
-			$dbn->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status" );
 		    }
 		}		
 		else {
