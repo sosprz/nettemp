@@ -30,7 +30,7 @@ Go to device scan!
 		if($a['device'] == 'usb'){ $device='<img src="media/ico/usb-icon.png" />';}
 
 		if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png"/>';} 
-		if($a['type'] == 'temp'){ $unit='C'; $type='<img src="media/ico/temp2-icon.png"/>';}
+		if($a['type'] == 'temp'){ $unit='&#8451'; $type='<img src="media/ico/temp2-icon.png"/>';}
 		if($a['type'] == 'humid'){ $unit='%'; $type='<img src="media/ico/rain-icon.png"/>';}
 		if($a['type'] == 'press'){ $unit='Pa'; $type='<img src="media/ico/Science-Pressure-icon.png"/>';}		
 		if($a['type'] == 'water'){ $unit='m3'; $type='<img src="media/ico/water-icon.png"/>';}		
