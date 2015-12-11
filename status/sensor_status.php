@@ -28,6 +28,11 @@ Go to device scan!
 		if($a['device'] == 'wireless'){ $device='<img src="media/ico/wifi-circle-icon.png"/>';}
 		if($a['device'] == 'remote'){ $device='<img src="media/ico/remote.png" />';}
 		if($a['device'] == 'usb'){ $device='<img src="media/ico/usb-icon.png" />';}
+		if($a['device'] == 'rpi'){ $device='<img src="media/ico/raspberry-icon.png" />';}
+		if($a['device'] == 'banana'){ $device='<img src="media/ico/banana-icon.png" />';}
+		if($a['device'] == 'gpio'){ $device='gpio';}
+		if($a['device'] == 'i2c'){ $device='i2c';}
+		if(empty($a['device'])) { $device='';}
 
 		if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png"/>';} 
 		if($a['type'] == 'temp'){ $unit='&#8451'; $type='<img src="media/ico/temp2-icon.png"/>';}

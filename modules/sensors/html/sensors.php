@@ -94,7 +94,15 @@ $name_new=trim($name_new2);
 	elseif (strpos($id_rom_new,'usb') !== false) {
 	    $device='usb';
 	}
+	elseif (strpos($id_rom_new,'Raspberry_Pi') !== false) {
+	    $device='rpi';
+	}
+	elseif (strpos($id_rom_new,'Banana_Pi') !== false) {
+	    $device='banana';
+	}
 
+
+	
 	//DB    
 	    if ($type != "relay" ) {
 		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip, adj, charts, sum) VALUES ('$name','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip', '0', 'on', '0')") or die ("cannot insert to DB" );

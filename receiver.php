@@ -39,8 +39,8 @@ if (isset($_GET['i2c'])) {
 if (isset($_GET['current'])) {
             $current = $_GET['current'];
     } else $current='';
-if (isset($_GET['tty'])) {
-            $tty = $_GET['tty'];
+if (isset($_GET['usb'])) {
+            $usb = $_GET['usb'];
     }
 
 
@@ -281,10 +281,10 @@ elseif (isset($val) && isset($type)) {
 	    }
 	}
 	if ( $device == "usb" ) {
-	    if (!empty($type) && !empty($tty)) {
-		$rom=$device.'_'.$tty.'_'.$type; 
+	    if (!empty($type) && !empty($usb)) {
+		$rom=$device.'_'.$usb.'_'.$type; 
 	    } else {
-		echo "Missing type or tty";
+		echo "Missing type or USB";
 		exit();
 	    }
 	}

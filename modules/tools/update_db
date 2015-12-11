@@ -179,3 +179,11 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD minmax type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE sensors ADD sum type TEXT";
 sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET sum='0' WHERE sum='' OR sum=' ' OR sum is null"
 
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE newdev ADD type type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE newdev ADD device type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE newdev ADD i2c type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE newdev ADD usb type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE newdev ADD gpio type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE newdev ADD ip type TEXT";
+
+
