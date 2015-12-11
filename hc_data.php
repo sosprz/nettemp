@@ -30,11 +30,11 @@ if ($max == 'months') {
     $query = "select strftime('%s', time),value from def WHERE time >= datetime('now','-6 months')";
     } 
 if ($max == 'year') {
-    $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 year') AND datetime('now')";
+    //$query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 year') AND datetime('now')";
     $query = "select strftime('%s', time),value from def WHERE time >= datetime('now','-1 year')";
     } 
 if ($max == 'all') {
-    $query = "select strftime('%s', time),value FROM def WHERE time BETWEEN datetime('now','-10 year') AND datetime('now')";
+    //$query = "select strftime('%s', time),value FROM def WHERE time BETWEEN datetime('now','-10 year') AND datetime('now')";
     $query = "select strftime('%s', time),value FROM def";
     }
 
