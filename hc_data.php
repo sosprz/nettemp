@@ -13,22 +13,29 @@ if ($max == 'hour') {
     //$query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 hour') AND datetime('now')";
     } 
 if ($max == 'day') {
-    $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 day') AND datetime('now')";
+    //$query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 day') AND datetime('now')";
+      $query = "select strftime('%s', time),value from def WHERE time >= datetime('now','-1 day')";
+	
     } 
 if ($max == 'week') {
-    $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-7 day') AND datetime('now')";
+    //$query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-7 day') AND datetime('now')";
+    $query = "select strftime('%s', time),value from def WHERE time >= datetime('now','-7 day')";
     } 
 if ($max == 'month') {
-    $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 months') AND datetime('now')";
+    //$query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 months') AND datetime('now')";
+    $query = "select strftime('%s', time),value from def WHERE time >= datetime('now','-1 months')";
     } 
 if ($max == 'months') {
-    $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-6 months') AND datetime('now')";
+    //$query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-6 months') AND datetime('now')";
+    $query = "select strftime('%s', time),value from def WHERE time >= datetime('now','-6 months')";
     } 
 if ($max == 'year') {
     $query = "select strftime('%s', time),value from def WHERE time BETWEEN datetime('now','-1 year') AND datetime('now')";
+    $query = "select strftime('%s', time),value from def WHERE time >= datetime('now','-1 year')";
     } 
 if ($max == 'all') {
     $query = "select strftime('%s', time),value FROM def WHERE time BETWEEN datetime('now','-10 year') AND datetime('now')";
+    $query = "select strftime('%s', time),value FROM def";
     }
 
 }

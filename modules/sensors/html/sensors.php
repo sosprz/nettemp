@@ -57,8 +57,8 @@ $name_new=trim($name_new2);
 	elseif (strpos($id_rom_new,'volt') !== false) {
 	    $type='volt';
 	}
-	elseif (strpos($id_rom_new,'amper') !== false) {
-	    $type='amper';
+	elseif (strpos($id_rom_new,'amps') !== false) {
+	    $type='amps';
 	}
 	elseif (strpos($id_rom_new,'watt') !== false) {
 	    $type='watt';

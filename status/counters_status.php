@@ -29,6 +29,7 @@ if ( $numRows > '0' ) { ?>
     <td>
     <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?>
     <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
+    <?php if($a['device'] == 'usb'){ ?><img src="media/ico/usb-icon.png" /><?php } ?>
     </td>
     <td>
 	<?php if($a['type'] == 'gas'){ ?><img src="media/ico/gas-icon.png" /><?php $units='m3'; } ?>

@@ -27,6 +27,7 @@ Go to device scan!
 
 		if($a['device'] == 'wireless'){ $device='<img src="media/ico/wifi-circle-icon.png"/>';}
 		if($a['device'] == 'remote'){ $device='<img src="media/ico/remote.png" />';}
+		if($a['device'] == 'usb'){ $device='<img src="media/ico/usb-icon.png" />';}
 
 		if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png"/>';} 
 		if($a['type'] == 'temp'){ $unit='C'; $type='<img src="media/ico/temp2-icon.png"/>';}
@@ -35,7 +36,9 @@ Go to device scan!
 		if($a['type'] == 'water'){ $unit='m3'; $type='<img src="media/ico/water-icon.png"/>';}		
 		if($a['type'] == 'gas'){ $unit='m3'; $type='<img src="media/ico/gas-icon.png"/>';}		
 		if($a['type'] == 'elec'){ $unit='kWh'; $type='<img src="media/ico/Lamp-icon.png"/>';}		
-		if($a['type'] == 'watt'){ $unit='W'; $type='<img src="media/ico/Lamp-icon.png"/>';}		
+		if($a['type'] == 'watt'){ $unit='W'; $type='<img src="media/ico/database-lightning-icon.png"/>';}		
+		if($a['type'] == 'volt'){ $unit='V'; $type='<img src="media/ico/lightning-icon.png"/>';}		
+		if($a['type'] == 'amps'){ $unit='A'; $type='A';}		
 		
 		if($a['tmp'] > $a['tmp_5ago']) { $updo='<img src="media/ico/Up-3-icon.png"/>';}
 		if($a['tmp'] < $a['tmp_5ago']) { $updo='<img src="media/ico/Down-3-icon.png" />';}

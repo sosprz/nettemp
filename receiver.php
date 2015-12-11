@@ -1,6 +1,6 @@
 <?php
 // name:
-// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amper
+// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps
 // device: wireless, remote, gpio, i2c, usb
 // definied source (middle part): tty, ip, gpio number
 
@@ -127,7 +127,7 @@ function check(&$val,$type) {
 			$val='range';
 		    }
 		}
-		elseif ($type == 'amper') {
+		elseif ($type == 'amps') {
     		    if ((0 <= $val) && ($val <= 10000)) {
 			$val=$val;
 		    }

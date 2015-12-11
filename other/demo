@@ -23,4 +23,4 @@ val=$(( ( RANDOM % 10 )  + 1 ))
 php-cgi -f $dir/receiver.php key=$skey rom=usb_$dev\_volt value=$val type=volt  current=$val
 
 val=$(( ( RANDOM % 10 )  + 1 ))
-php-cgi -f $dir/receiver.php key=$skey rom=usb_$dev\_amper value=$val type=amper  current=$val
+php-cgi -f $dir/receiver.php key=$skey rom=usb_$dev\_amps value=$val type=amps  current=$val
