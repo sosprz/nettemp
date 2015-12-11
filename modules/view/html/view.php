@@ -83,7 +83,7 @@ if (in_array('volt', $type))  {?>
 <a href="index.php?id=view&type=volt&max=hour" ><button class="btn btn-default <?php echo $art == 'volt' ? ' active' : ''; ?>">Volt</button></a>
 <?php } 
 if (in_array('amps', $type))  {?>
-<a href="index.php?id=view&type=amps&max=hour" ><button class="btn btn-default <?php echo $art == 'amps' ? ' active' : ''; ?>">amps</button></a>
+<a href="index.php?id=view&type=amps&max=hour" ><button class="btn btn-default <?php echo $art == 'amps' ? ' active' : ''; ?>">Amps</button></a>
 <?php } 
 if (in_array('watt', $type))  {?>
 <a href="index.php?id=view&type=watt&max=hour" ><button class="btn btn-default <?php echo $art == 'watt' ? ' active' : ''; ?>">Watt</button></a>

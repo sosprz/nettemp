@@ -30,8 +30,8 @@ Go to device scan!
 		if($a['device'] == 'usb'){ $device='<img src="media/ico/usb-icon.png" />';}
 		if($a['device'] == 'rpi'){ $device='<img src="media/ico/raspberry-icon.png" />';}
 		if($a['device'] == 'banana'){ $device='<img src="media/ico/banana-icon.png" />';}
-		if($a['device'] == 'gpio'){ $device='gpio';}
-		if($a['device'] == 'i2c'){ $device='i2c';}
+		if($a['device'] == 'gpio'){ $device='<img src="media/ico/gpio2.png" />';}
+		if($a['device'] == 'i2c'){ $device='<img src="media/ico/i2c.gif" />';}
 		if(empty($a['device'])) { $device='';}
 
 		if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png"/>';} 
@@ -41,9 +41,9 @@ Go to device scan!
 		if($a['type'] == 'water'){ $unit='m3'; $type='<img src="media/ico/water-icon.png"/>';}		
 		if($a['type'] == 'gas'){ $unit='m3'; $type='<img src="media/ico/gas-icon.png"/>';}		
 		if($a['type'] == 'elec'){ $unit='kWh'; $type='<img src="media/ico/Lamp-icon.png"/>';}		
-		if($a['type'] == 'watt'){ $unit='W'; $type='<img src="media/ico/database-lightning-icon.png"/>';}		
-		if($a['type'] == 'volt'){ $unit='V'; $type='<img src="media/ico/lightning-icon.png"/>';}		
-		if($a['type'] == 'amps'){ $unit='A'; $type='A';}		
+		if($a['type'] == 'watt'){ $unit='W'; $type='<img src="media/ico/database-lightning-icon.png" alt="Watt"/>';}		
+		if($a['type'] == 'volt'){ $unit='V'; $type='<img src="media/ico/volt.png" alt="Volt" /> ';}		
+		if($a['type'] == 'amps'){ $unit='A'; $type='<img src="media/ico/amper.png" alt="Amps"/> ';}		
 		
 		if($a['tmp'] > $a['tmp_5ago']) { $updo='<img src="media/ico/Up-3-icon.png"/>';}
 		if($a['tmp'] < $a['tmp_5ago']) { $updo='<img src="media/ico/Down-3-icon.png" />';}
