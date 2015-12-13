@@ -75,8 +75,8 @@ if [ -n "$rpi" ]; then
     else
 	sed -i '$ai2c-bcm2708' /etc/modules
     fi
-    sed -i 's/blacklist spi-bcm2708/#blacklist spi-bcm2708/g' /etc/modprobe.d/raspi-blacklist.conf
-    sed -i 's/blacklist i2c-bcm2708/#blacklist i2c-bcm2708/g' /etc/modprobe.d/raspi-blacklist.conf
+#    sed -i 's/blacklist spi-bcm2708/#blacklist spi-bcm2708/g' /etc/modprobe.d/raspi-blacklist.conf
+#    sed -i 's/blacklist i2c-bcm2708/#blacklist i2c-bcm2708/g' /etc/modprobe.d/raspi-blacklist.conf
 fi
 
     if cat /etc/modules |grep i2c-dev 1> /dev/null; then
@@ -84,11 +84,11 @@ fi
     else
 	sed -i '$ai2c-dev' /etc/modules
     fi
-    if cat /etc/modules |grep ds2482 1> /dev/null; then
-	echo -e "[ ${GREEN}ok${R} ] ds2482 allready added"
-    else
-	sed -i '$ads2482' /etc/modules
-    fi
+#    if cat /etc/modules |grep ds2482 1> /dev/null; then
+#	echo -e "[ ${GREEN}ok${R} ] ds2482 allready added"
+#    else
+#	sed -i '$ads2482' /etc/modules
+#    fi
 }
 
 function ups {
