@@ -108,7 +108,7 @@ CREATE TABLE mail_settings (
   tls type TEXT,
   tlscheck type TEXT);
 CREATE TABLE meteo (id INTEGER PRIMARY KEY, temp TEXT, latitude TEXT, height TEXT, pressure TEXT, humid TEXT, onoff TEXT);
-CREATE TABLE newdev (id INTEGER PRIMARY KEY,list UNIQUE);
+CREATE TABLE newdev (id INTEGER PRIMARY KEY,list UNIQUE, type type TEXT, device type TEXT, i2c type TEXT, usb type TEXT, gpio type TEXT, ip type TEXT);
 CREATE TABLE recipient (
   id INTEGER PRIMARY KEY,
   name TEXT,
@@ -171,5 +171,5 @@ CREATE TABLE sensors (
   ip type TEXT, 
   device type TEXT,
   lcd type TEXT,
-  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT, i2c type TEXT, minmax type TEXT);
+  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT, i2c type TEXT, minmax type TEXT, sum type TEXT);
 CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE tmp = old.tmp; END;

@@ -61,16 +61,15 @@ for i in ${det[@]}
         
 	for s in $(sqlite3 $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='ds2482' AND addr='$i'")
 	    do
-	    echo ds2482 0x$s > /sys/bus/i2c/devices/i2c-$i2c/new_device
+	    ddir=$dir/tmp/ds2482
+	    sudo echo "modprobe ds2482" > $ddir
+            sudo echo "modprobe w1-therm strong_pullup=0" >> $ddir
+            sudo echo "echo ds2482 0x$s > /sys/bus/i2c/devices/i2c-$i2c/new_device" >> $ddir
+	    sudo echo "exit 0" >> $ddir
+	    sudo chmod +x $ddir
+	    cp $dir/install/init.d/nettemp.ds2482 /etc/init.d/
+	    update-rc.d nettemp.ds2482 defaults
 	    sudo touch $dir/tmp/reboot
-		    if [ ! -f $dir/tmp/cronr ]; then
-			touch $dir/tmp/cronr
-		    fi    
-		    if ! grep -q 0x$s $dir/tmp/cronr
-			then
-			    echo "echo ds2482 0x$s > /sys/bus/i2c/devices/i2c-$(echo $i2c)/new_device" >> $dir/tmp/cronr
-			    sudo /bin/chmod +x $dir/tmp/cronr
-		    fi
         done
 
 	for s in $(sqlite3 $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='htu21d' AND addr='$i'")
