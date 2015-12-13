@@ -72,7 +72,7 @@ $dtgpio='';
    
 Pullup - this settings must be set when uses only DATA,GND in 1-wire
 <table class="table">
-    <tr>
+    <!-- <tr>
 	<td class="col-md-2">
 	    1-wire Nettemp module (DS2482) and other USB modules
 	</td>
@@ -83,6 +83,7 @@ Pullup - this settings must be set when uses only DATA,GND in 1-wire
     	    </form>
 	</td>
     </tr>
+    -->
     <tr>
 	<td class="col-md-2">
 	    1-wire Raspberry Pi (GPIO4)
