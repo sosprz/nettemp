@@ -15,6 +15,8 @@ do
         wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.1f\n", $11/1000 } ' /sys/bus/w1/devices/$name/w1_slave;`
         echo 1-wire: $wynik C
         php-cgi -f $dir/receiver.php key=$skey rom=$name value=$wynik type=temp
+    else 
+	php-cgi -f $dir/receiver.php key=$skey rom=$name value=error type=temp
     fi
 done
 fi
