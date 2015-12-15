@@ -3,11 +3,14 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 
 # IPTABLES FORWARD
-if cat /etc/network/interfaces | grep 'iptables' 1>/dev/null; then
-echo "IPtables restore exist"
+if cat /etc/network/if-pre-up.d/iptables | grep 'iptables' 1>/dev/null; then
+    echo "IPtables restore exist"
 else
-echo "Add IPtables restore"
-sed -i '/iface eth0/a pre-up iptables-restore < /etc/network/iptables' /etc/network/interfaces
+    echo "Add IPtables restore"
+touch /etc/network/if-pre-up.d/iptables
+chmod +x /etc/network/if-pre-up.d/iptables
+echo "#! /bin/bash" > /etc/network/if-pre-up.d/iptables
+echo "/sbin/iptables-restore < /etc/network/iptables" >> /etc/network/if-pre-up.d/iptables
 fi
 #FORWARD
 forward=$(cat /proc/sys/net/ipv4/ip_forward)
