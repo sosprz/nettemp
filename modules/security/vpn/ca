@@ -1,13 +1,15 @@
 #! /bin/bash
 
+easy=/usr/share/easy-rsa/
+
 #CREATE CA
-cd /usr/share/doc/openvpn/examples/easy-rsa/2.0/keys/
+cd $easy/keys/
 rm -rf ca.crt server.crt server.key dh1024.pem
 cd /etc/openvpn
 rm ca.crt server.crt server.key dh1024.pem
 
-cd /usr/share/doc/openvpn/examples/easy-rsa/2.0
-chmod +x /usr/share/doc/openvpn/examples/easy-rsa/2.0/vars
+cd $easy
+chmod +x $easy/vars
 . ./vars
 #cd .. 
 ./clean-all 
@@ -17,8 +19,8 @@ export KEY_PROVINCE="PL"
 export KEY_CITY="GD"
 export KEY_ORG="techfreak.pl"
 export KEY_EMAIL="admin@techfreak.pl"
-export KEY_CN=nettemp
-export KEY_NAME=nettemp
+#export KEY_CN=techfreak.pl
+export KEY_NAME=techfreak
 export KEY_OU=IT
 
 export EASY_RSA="${EASY_RSA:-.}"
@@ -28,5 +30,5 @@ export EASY_RSA="${EASY_RSA:-.}"
 ./build-dh > /dev/null
 
 #COPY ca
-cd /usr/share/doc/openvpn/examples/easy-rsa/2.0/keys/
+cd $easy/keys/
 cp ca.crt server.crt server.key dh1024.pem /etc/openvpn/
