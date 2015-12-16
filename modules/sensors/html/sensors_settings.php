@@ -248,15 +248,11 @@ else { ?>
     ?>
     </td>
     <td >
-    <?php if ($a["device"] != 'remote') { ?>
     <form action="" method="post" style="display:inline!important;"> 	
 	<input type="hidden" name="minmax" value="<?php echo $a["id"]; ?>" />
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="minmaxon" value="on" <?php echo $a["minmax"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="minmaxonoff" value="onoff" />
     </form>
-    <?php 
-	}
-    ?>
     </td>
     
     <td>

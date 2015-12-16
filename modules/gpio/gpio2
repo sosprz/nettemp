@@ -1,4 +1,4 @@
-#! /bin/bash -x
+#! /bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=$(date +%y%m%d-%H%M)
@@ -12,25 +12,35 @@ if [ -n "$buzzer" ]
 }
 
 gpio_on(){
-    rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$1'")
-    $dir/modules/gpio/timestamp $1 1
-    /usr/local/bin/gpio -g mode $1 output
+    /usr/local/bin/gpio -g mode $gpio output
+    check=$(/usr/local/bin/gpio -g read $gpio)
     if [ "$rev" = "on" ]; then
-	/usr/local/bin/gpio -g write $1 0
-	buzzer	
+	if [[ "$check" == "1" ]]; then 
+	    /usr/local/bin/gpio -g write $gpio 0
+	    $dir/modules/gpio/timestamp $gpio 0
+	    buzzer	
+	fi
     elif [ "$rev" = "" ]; then
-        /usr/local/bin/gpio -g write $1 1
-	buzzer
+	if [[ "$check" == "0" ]]; then 
+    	    /usr/local/bin/gpio -g write $gpio 1
+	    $dir/modules/gpio/timestamp $gpio 1
+	    buzzer
+	fi
     fi
 }
 gpio_off(){
-    rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$1'")
-    $dir/modules/gpio/timestamp $1 0
-    /usr/local/bin/gpio -g mode $1 output
-    if [ "$rev" = "on" ]; then 
-        /usr/local/bin/gpio -g write $1 1
-    elif [ "$rev" = "" ]; then 
-	/usr/local/bin/gpio -g write $1 0
+    /usr/local/bin/gpio -g mode $gpio output
+    check=$(/usr/local/bin/gpio -g read $gpio)
+    if [ "$rev" = "on" ]; then
+	if [[ "$check" == "0" ]]; then 
+    	    /usr/local/bin/gpio -g write $gpio 1
+	    $dir/modules/gpio/timestamp $gpio 1
+	fi
+    elif [ "$rev" = "" ]; then
+	if [[ "$check" == "1" ]]; then
+	    /usr/local/bin/gpio -g write $gpio 0
+	    $dir/modules/gpio/timestamp $gpio 0
+	fi
     fi
 }
 
@@ -41,11 +51,12 @@ fi
 
 for gpio in $gpio_list; do 
 	mode=$(sqlite3 $dir/dbf/nettemp.db "SELECT mode FROM gpio WHERE gpio='$gpio'")
+	rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$1'")
 
 if [ "$mode" = "time" ]; then
     source $(dirname $0)/time
 elif [ "$mode" = "temp" ]; then
-    source $(dirname $0)/temp
+    source $(dirname $0)/temp >> $dir/tmp/gpio_temp_log.txt
 elif [ "$mode" = "simple" ]; then
     source $(dirname $0)/simple
 elif [ "$mode" = "trigger" ]; then

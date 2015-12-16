@@ -7,4 +7,7 @@ sudo chmod -R 775 $dir
 sudo chmod g+s -R $dir/tmp
 sudo chmod g+s -R $dir/db
 sudo chmod g+s -R $dir/dbf
+
+sudo chmod a+w -R /var/spool/sms/outgoing
+
 sudo gpasswd -a www-data dialout 1>/dev/null

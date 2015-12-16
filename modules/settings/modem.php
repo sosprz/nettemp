@@ -76,7 +76,6 @@ if  ($_POST['sms_test1'] == "sms_test1") {
     $current .= " \n";
     $current .= "Test from nettemp\n";
     file_put_contents($file, $current);
-    shell_exec($cmd); 
     }
 
 ?>

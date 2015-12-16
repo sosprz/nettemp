@@ -24,8 +24,8 @@ etime=$(sqlite3 $dir/dbf/nettemp.db "SELECT etime FROM access_time WHERE name='$
 if [[ "$day" == "$date1" && "$date2" > "$stime" && "$date2" < "$etime" && "$smsts" == "yes" ]]; then
 
     if [[ $(cat "$i" |grep "$pin") ]]; then 
-	/bin/bash $dir/tmp/sms_script
 	sudo rm -rf $i
+	/bin/bash $dir/tmp/sms_script
     fi
 
     echo "${DATE} SMS Allow $number" >> ${LOG}
