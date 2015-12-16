@@ -31,4 +31,4 @@ export EASY_RSA="${EASY_RSA:-.}"
 
 #COPY ca
 cd $easy/keys/
-cp ca.crt server.crt server.key dh1024.pem /etc/openvpn/
+cp ca.crt server.crt server.key dh2048.pem /etc/openvpn/

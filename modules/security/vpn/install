@@ -18,7 +18,7 @@ dev tun
 ca ca.crt
 cert server.crt
 key server.key 
-dh dh1024.pem
+dh dh2048.pem
 server 10.8.0.0 255.255.255.0
 ifconfig-pool-persist ipp.txt
 push "route $(ifconfig eth0 |grep -m 1 inet |awk -F":" '{print $2 $4}' | sed 's/Bcast/ /g' | awk -F '.' '{printf("%d.%d.%d.%d", $1, $2, $3, 0)} {print " "255"."$5"."$6"."$7}')"
@@ -29,7 +29,8 @@ persist-tun
 status openvpn-status.log
 log-append /var/log/openvpn.log
 verb 3
-plugin /usr/lib/openvpn/openvpn-auth-pam.so login
+#plugin /usr/lib/openvpn/openvpn-auth-pam.so login
+plugin /usr/lib/openvpn/openvpn-plugin-auth-pam.so login
 client-cert-not-required
 username-as-common-name
 EOT
@@ -55,12 +56,12 @@ echo "Add NAT"
 iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -j MASQUERADE
 iptables-save > /etc/network/iptables
 fi
-if cat /etc/network/interfaces | grep 'iptables' 1>/dev/null; then
-echo "IPtables restore exist"
-else
-echo "Add IPtables restore"
-sed -i '/iface eth0/a pre-up iptables-restore < /etc/network/iptables' /etc/network/interfaces
-fi
+#if cat /etc/network/interfaces | grep 'iptables' 1>/dev/null; then
+#echo "IPtables restore exist"
+#else
+#echo "Add IPtables restore"
+#sed -i '/iface eth0/a pre-up iptables-restore < /etc/network/iptables' /etc/network/interfaces
+#fi
 
 
 
