@@ -62,21 +62,30 @@ Go to device scan!
 
 		    <tr <?php echo !empty($mm) ? 'class="danger"' : ''?>>
 			<td>
+			    <small>
 			    <?php echo $device;?>
+			    </small>
 			</td>
 			<td>
+			    <small>
 			    <?php echo $type;?>
+			    </small>
 			<td>
+			    <small>
 				<?php echo $name;?>
+			    </small>
 			</td>
 			<td>
+			    <small>
 			    <?php echo $a['tmp'] == 'error' ? '<span class="label label-danger">' : '<span class="label label-success">' ?>
-			    
 				<?php echo $a['tmp']." ".$unit." ".$max.$min;?>
 			    </span>
+			    </small>
 			</td>
 			<td>
+			    <small>
 		    	    <?php echo $updo; ?>
+			    </small>
 			</td>
 		    </tr>
 <?php

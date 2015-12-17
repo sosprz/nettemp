@@ -12,12 +12,12 @@ if ( $numRows > '0' ) { ?>
 
 <table class="table table-hover table-condensed">
 <tbody>
-<tr>
+<tr><small>
    <th></th>
-   <th>Hour</th>
-    <th>Day</th>
-    <th>Week</th>
-    <th>Month</th>
+   <th><small>Hour</small></th>
+    <th><small>Day</small></th>
+    <th><small>Week</small></th>
+    <th><small>Month</small></th>
 </tr>
 <?php
 foreach ($result as $a) {
@@ -37,11 +37,11 @@ $file=$rom .".sql";
     $m = $m->fetch(); 
 
     echo "<tr>
-	<td>".$a['name'] ."</td>
-	<td><span class=\"label label-info\">".$h['hmin']."</span><span class=\"label label-warning\">".$h['hmax']."</span></td>
-	<td><span class=\"label label-info\">".$d['dmin']."</span><span class=\"label label-warning\">".$d['dmax']."</span></td>
-	<td><span class=\"label label-info\">".$w['wmin']."</span><span class=\"label label-warning\">".$w['wmax']."</span></td>
-	<td><span class=\"label label-info\">".$m['mmin']."</span><span class=\"label label-warning\">".$m['mmax']."</span></td>
+	<td><small>".$a['name'] ."</small></td>
+	<td><small><span class=\"label label-info\">".$h['hmin']."</span><span class=\"label label-warning\">".$h['hmax']."</span></small></td>
+	<td><small><span class=\"label label-info\">".$d['dmin']."</span><span class=\"label label-warning\">".$d['dmax']."</span></small></td>
+	<td><small><span class=\"label label-info\">".$w['wmin']."</span><span class=\"label label-warning\">".$w['wmax']."</span></small></td>
+	<td><small><span class=\"label label-info\">".$m['mmin']."</span><span class=\"label label-warning\">".$m['mmax']."</span></small></td>
 	</tr>";
 }
 ?>

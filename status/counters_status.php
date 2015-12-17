@@ -15,11 +15,11 @@ if ( $numRows > '0' ) { ?>
 <th></th>
 <th></th>
 <th></th>
-<th>Hour</th>
-<th>Day</th>
-<th>Month</th>
-<th>All</th>
-<th>Current</th>
+<th><small>Hour</small></th>
+<th><small>Day</small></th>
+<th><small>Month</small></th>
+<th><small>All</small></th>
+<th><small>Current</small></th>
 </thead>
 <tbody>
 <?php       
@@ -38,10 +38,13 @@ if ( $numRows > '0' ) { ?>
 	<?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" /><?php $units='kWh' ;} ?>
     </td>
     <td>
+	<small>
 	<?php echo $a['name'] ?> 
+	</small>
     </td>
 	
 	<td>
+	    <small>
 	    <span class="label label-info">
 		<?php
 		$rom=$a['rom'];
@@ -51,8 +54,10 @@ if ( $numRows > '0' ) { ?>
 		echo $i['sums'];
 		?>
 	    </span>
+	    </small>
 	</td>
 	<td>
+	    <small>
 	    <span class="label label-info">
 		<?php
 		$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def WHERE time >= date('now','start of day')") or die('lol');
@@ -60,8 +65,10 @@ if ( $numRows > '0' ) { ?>
 		echo $i['sums'];
 		?>
 	    </span>
+	    </small>
 	</td>
 	<td>
+	    <small>
 	    <span class="label label-info">
 		<?php
 		$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def WHERE time >= date('now','start of month')") or die('lol');
@@ -69,8 +76,10 @@ if ( $numRows > '0' ) { ?>
 		echo $i['sums'];
 		?>
 	    </span>
+	    </small>
 	</td>
 	<td>
+	    <small>
 	    <span class="label label-danger">
 		<?php
 		//$rows = $dbs->query("SELECT sum AS sums FROM def WHERE id=1") or die('lol');
@@ -79,8 +88,10 @@ if ( $numRows > '0' ) { ?>
 		echo $a[sum];
 		?>
 	    </span>
+	    </small>
 	</td>
 	<td>
+	    <small>
 	    <span class="label label-warning">
 		<?php
 		$rows = $dbs->query("SELECT current AS sums from def where time = (select max(time) from def)") or die('lol');
@@ -88,6 +99,7 @@ if ( $numRows > '0' ) { ?>
 		echo $i['sums'];
 		?>
 	    </span>
+	    </small>
 	</td>
 	
 </tr>

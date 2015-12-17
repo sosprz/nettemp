@@ -17,12 +17,24 @@ foreach ( $result as $a) {
 $gpio=$a['gpio'];
 ?>
     <tr <?php echo $a['status'] == 'ALARM' ? 'class="danger"' : '' ?>>
-    <td ><img type="image" src="media/ico/SMD-64-pin-icon_24.png" /></td>
-    <td >
-	    <?php echo $a['name']; ?>
-    </td>
-    <td ><?php echo $a['mode']; ?></td>
-    <td ><?php echo $a['status']; ?></td>
+	<td >
+	    <img type="image" src="media/ico/SMD-64-pin-icon_24.png" />
+	</td>
+	<td >
+	    <small>
+		<?php echo $a['name']; ?>
+	    <small>
+	</td>
+	<td >
+	    <small>
+		<?php echo $a['mode']; ?>
+	    </small>
+	</td>
+	<td >
+	    <small>
+		<?php echo $a['status']; ?>
+	    </small>
+	</td>
     </tr>
 <?php
 }

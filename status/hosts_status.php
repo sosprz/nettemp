@@ -16,27 +16,39 @@ $numRows = count($result);
 foreach ( $result as $a) {
 ?>
     <tr <?php echo $a['status'] == 'error' ? 'class="danger"' : '' ?>>
-    <td ><img type="image" src="media/ico/Computer-icon.png" /></td>
-    <td >
-	    <?php echo str_replace("host_","",$a["name"]);?>
-	</span>
-    </td>
+	<td >
+	    <small>
+		<img type="image" src="media/ico/Computer-icon.png" />
+	    </small>
+	</td>
+	<td >
+	    <small>
+		<?php echo str_replace("host_","",$a["name"]); ?>
+	    </small>
+	</td>
 
-    <td >
-	<?php echo $a['last']; ?> ms
-    </td>
+	<td >
+	    <small>
+		<?php echo $a['last']." ms"; ?>
+	    </small>
+	</td>
 
-    <td >
-	<?php echo $a['status'] == 'error' ? '<span class="label label-danger">' : '<span class="label label-success">' ?>
-	    <?php echo $a['status']; ?></td>
-	</span>
+	<td >
+	    <small>
+		<?php echo $a['status'] == 'error' ? '<span class="label label-danger">' : '<span class="label label-success">' ?>
+		    <?php echo $a['status']; ?>
+		</span>
+	    </small>
+	</td>
+	    
     </tr>
 
 <?php
-}
-
+    }
 ?>
     </table>
 </div>
 </div>
-<?php }  ?>
+<?php 
+    }  
+?>
