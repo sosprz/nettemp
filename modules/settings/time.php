@@ -54,7 +54,7 @@ if (exec("cat /etc/modules | grep 'ds1307'") &&  exec("cat tmp/cronr | grep 'ds1
 }
 
 
-if (exec("sudo service ntp status |grep 'is running'")) {
+if (exec("sudo service ntp status |grep 'running'")) {
 $ntp='on';
 }
 else {
