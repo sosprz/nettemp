@@ -4,21 +4,17 @@
 
 function hyst() {
 if [[ -n "${!temp_hyst}" ]]; then
-    echo "Histeresis ON value: ${!temp_hyst}"
     if [[ $h == "1" ]]; then
 	gpio_off
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='MAX temp reached OFF' WHERE gpio='$gpio'"
-	echo "Max ${!hyst} reached wait for <= ${!temp_temp} - off"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!hyst} reached, status off' WHERE gpio='$gpio'"
+	echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, Hyst:${!temp_hyst}, Max ${!hyst} reached wait for <= ${!temp_temp}, status off, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio)"
 	continue
     elif [[ "$h" == "0" &&  "$gt" == "0" || $ge == "0" || $le == "0" || $lt == "0" ]]; then
-	echo "Min ${!temp_temp} reached wait for ${!hyst}"
-	echo "GPIO $gpio $(/usr/local/bin/gpio -g read $gpio)"
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='Wait for lower' WHERE gpio='$gpio'"
-	echo "EXIT from script"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='Wait for ${!hyst}' WHERE gpio='$gpio'"
+	echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, Hyst:${!temp_hyst}, Min ${!temp_temp} reached wait for ${!hyst}, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio)"
+	echo "EXIT"
 	exit 0
     fi
-else
-    echo "Histeresis OFF"
 fi
 }
 
@@ -73,8 +69,8 @@ if [ -n "${!diff_temp}" ]; then
     hyst=s2h$i
 fi
 
-echo Temp ${!temp_temp}
-echo Sensor1 ${!sensor_temp}
+#echo Temp ${!temp_temp}
+#echo Sensor1 ${!sensor_temp}
 
 
 if [ -n "${!temp_temp}" ] && [[ "${!sensor_temp}" != "error" ]] &&  echo ${!sensor_temp} | grep -o -q '[0-9]*'; then
@@ -203,14 +199,14 @@ if [ "$day_run" == "on" ]
     day=$($dir/modules/gpio/day $gpio)
 	if [ "$day" == "on" ]
 	    then 
-	    echo day on
+	    day=on
 	    temp #function
 	else
 	    gpio_off
-	    echo Not in day range
+	    day=off
 	fi
 else
-    echo day off
+    day=off
     temp #function
 fi
 }
