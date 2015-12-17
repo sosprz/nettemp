@@ -1,99 +1,23 @@
-<?php	
-$dir = '';
-$log_del = isset($_POST['log_del']) ? $_POST['log_del'] : '';
-	if ($log_del == "Clear"){
-	exec("echo log cleared > tmp/log.txt");	
-	echo $dir; 
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit();
-	 } 
-
-$call_log_del = isset($_POST['call_log_del']) ? $_POST['call_log_del'] : '';
-	if ($call_log_del == "Clear"){
-	exec("echo log cleared > tmp/incoming_calls.txt");	
-	echo $dir; 
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit();
-	 } 
-
-$sms_log_del = isset($_POST['sms_log_del']) ? $_POST['sms_log_del'] : '';
-	if ($sms_log_del == "Clear"){
-	exec("echo log cleared > tmp/incoming_sms.txt");	
-	echo $dir; 
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit();
-	 } 
-
-
-	 ?>	
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Logs form nettemp</h3>
-</div>
-<div class="panel-body">
-
-<form action="index.php?id=tools&type=log" method="post">
-    <input type="submit" name="log_del" value="Clear" class="btn btn-danger" />
-</form>
-<br />
-<div style="height:300px;overflow:auto;padding:5px;">
-<pre>
-<?php
-$filearray = file("tmp/log.txt");
-$last = array_slice($filearray,-100);
-    foreach($last as $f){
-    	echo $f;
-    }
+<?php 
+if(!isset($_SESSION['user'])){ header("Location: denied"); } 
+$log=isset($_GET['log']) ? $_GET['log'] : '';
 ?>
-</pre>
-</div>
-</div>
-</div>
 
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Call logs</h3>
-</div>
-<div class="panel-body">
-<form action="index.php?id=tools&type=log" method="post">
-    <input type="submit" name="call_log_del" value="Clear" class="btn btn-danger" />
-</form>
-
-<br />
-<div style="height:300px;overflow:auto;padding:5px;">
-<pre>
-<?php
-$filearray = file("tmp/incoming_calls.txt");
-$last = array_slice($filearray,-100);
-    foreach($last as $f){
-    	echo $f;
-    }
+<p>
+<a href="index.php?id=tools&type=log&log=nettemp" ><button class="btn <?php echo $log == 'nettemp' ? 'btn-info' : 'btn-default'; ?>">Nettemp</button></a>
+<a href="index.php?id=tools&type=log&log=call" ><button class="btn <?php echo $log == 'call' ? 'btn-info' : 'btn-default'; ?>">Call</button></a>
+<a href="index.php?id=tools&type=log&log=sms" ><button class="btn <?php echo $log == 'sms' ? 'btn-info' : 'btn-default'; ?>">SMS</button></a>
+</p>
+<?php  
+switch ($log)
+{ 
+default: case '$log': include('modules/tools/html/log/log_nettemp.php'); break;
+case 'call': include('modules/tools/html/log/log_call.php'); break;
+case 'sms': include('modules/tools/html/log/log_sms.php'); break;
+case 'nettemp': include('modules/tools/html/log/log_nettemp.php'); break;
+}
 ?>
-</pre>
-</div>
-</div>
-</div>
 
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">SMS logs</h3>
-</div>
-<div class="panel-body">
-<form action="index.php?id=tools&type=log" method="post">
-    <input type="submit" name="sms_log_del" value="Clear" class="btn btn-danger" />
-</form>
 
-<br />
-<div style="height:300px;overflow:auto;padding:5px;">
-<pre>
-<?php
-$filearray = file("tmp/incoming_sms.txt");
-$last = array_slice($filearray,-100);
-    foreach($last as $f){
-    	echo $f;
-    }
-?>
-</pre>
-</div>
-</div>
-</div>
+
+
