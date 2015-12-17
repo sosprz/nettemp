@@ -38,7 +38,7 @@
                 
 
 
-if (exec("sudo service snmpd status |grep 'is running'")) {
+if (exec("sudo service snmpd status |grep 'running'")) {
 $snmpd='on';
 }
 else {
