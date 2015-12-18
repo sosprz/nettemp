@@ -185,5 +185,5 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE newdev ADD i2c type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE newdev ADD usb type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE newdev ADD gpio type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE newdev ADD ip type TEXT";
-
-
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD meteogram type TEXT";
+sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET meteogram='Poland/Pomerania/Gdansk' WHERE id='1'"

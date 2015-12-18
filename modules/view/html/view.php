@@ -96,9 +96,10 @@ if ( $hostc >= "1")  {?>
 <?php } 
 ?>
 <a href="index.php?id=view&type=system&max=hour" ><button class="btn btn-default <?php echo $art == 'system' ? ' active' : ''; ?>">System stats</button></a>
+<a href="index.php?id=view&type=meteogram" ><button class="btn btn-default <?php echo $art == 'meteogram' ? ' active' : ''; ?>">Meteogram</button></a>
 </p>
 <?php
-if ($art != 'kwh') {
+if ($art != 'kwh' && $art!=meteogram) {
     ?>
 <p>
 <a href="index.php?id=view&type=<?php echo $art; ?>&max=hour" ><button class="btn btn-default btn-xs <?php echo $max == 'hour' ? ' active' : ''; ?>">Hour</button></a>
@@ -118,6 +119,7 @@ switch ($art)
 { 
 default: case '$art': include('modules/highcharts/html/menu.php'); break;
 case 'kwh': include('modules/kwh/html/kwh_charts.php'); break;
+case 'meteogram': include('modules/view/html/meteogram.php'); break;
 }
 ?>
 
