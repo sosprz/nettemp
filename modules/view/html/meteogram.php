@@ -1,6 +1,6 @@
 <?php
-
-$set = isset($_POST['set']) ? $_POST['set'] : '';
+    $place = isset($_POST['place']) ? $_POST['place'] : '';
+    $set = isset($_POST['set']) ? $_POST['set'] : '';
     if  ($set == "set") {
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE settings SET meteogram='$place'") or die ($db->lastErrorMsg());
@@ -18,7 +18,7 @@ $set = isset($_POST['set']) ? $_POST['set'] : '';
 <form action="" method="post" class="form-inline">
   <div class="form-group">
     <label for="exampleInputName2">Location from <a href="http://www.yr.no" target="_blank">www.yr.no</a> </label>  
-    <input type="text" class="form-control" name="place" placeholder="Poland/Pomerania/Gdańsk">
+    <input type="text" class="form-control" name="place" value="<?php echo $a['meteogram']; ?>" placeholder="Poland/Pomerania/Gdańsk">
     <input type="hidden" name="set" value="set" />
   </div>
   <button type="submit" class="btn btn-default">Save</button>
@@ -38,7 +38,6 @@ $set = isset($_POST['set']) ? $_POST['set'] : '';
 <div id="container" ></div>
 
 <script>
-
 /**
  * This is a complex demo of how to set up a Highcharts chart, coupled to a
  * dynamic source and extended by drawing image sprites, wind arrow paths
@@ -473,7 +472,7 @@ Meteogram.prototype.getChartOptions = function () {
             marginRight: 40,
             marginTop: 50,
             plotBorderWidth: 1,
-            width: 1000,
+            width: 800,
             height: 310
         },
 
@@ -776,7 +775,6 @@ $(function () { // On DOM ready...
 
     // Set the hash to the yr.no URL we want to parse
     if (!location.hash) {
-
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows1 = $db->query("SELECT meteogram  FROM settings WHERE id='1'");
@@ -787,7 +785,7 @@ $meteogram=$a['meteogram'];
     echo "var place = '$meteogram';\n";
 ?>
 
-        //var place = loc;
+        //var place = 'United_Kingdom/England/London';
         //place = 'France/Rhône-Alpes/Val_d\'Isère~2971074';
         //place = 'Norway/Sogn_og_Fjordane/Vik/Målset';
         //place = 'United_States/California/San_Francisco';
@@ -808,5 +806,3 @@ $meteogram=$a['meteogram'];
 
 });
 </script>
-
-
