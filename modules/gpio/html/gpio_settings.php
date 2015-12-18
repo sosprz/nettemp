@@ -114,6 +114,18 @@ elseif ($mode == 'kwh')
 {
     include('gpio_kwh.php');
 } 
+elseif ($mode == 'elec') 
+{
+    include('gpio_elec.php');
+} 
+elseif ($mode == 'water') 
+{
+    include('gpio_water.php');
+} 
+elseif ($mode == 'gas') 
+{
+    include('gpio_gas.php');
+} 
 elseif ($mode == 'buzzer') 
 {
     include('gpio_buzzer.php');

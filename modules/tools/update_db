@@ -186,4 +186,13 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE newdev ADD usb type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE newdev ADD gpio type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE newdev ADD ip type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE settings ADD meteogram type TEXT";
-sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET meteogram='Poland/Pomerania/Gdansk' WHERE id='1'"
+sqlite3 $dir/dbf/nettemp.db "UPDATE settings SET meteogram='Poland/Pomerania/Gdansk' WHERE id='1' AND meteogram is null"
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD elec_divider type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD water_divider type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD gas_divider type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD elec_run type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD water_run type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD gas_run type TEXT";
+
+
+

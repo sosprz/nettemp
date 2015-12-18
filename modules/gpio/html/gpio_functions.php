@@ -72,12 +72,36 @@
 //kwh
     $kwhon = isset($_POST['kwhon']) ? $_POST['kwhon'] : '';
     if ($kwhon == "kwhon")  {
-//	$db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 	$db->exec("UPDATE gpio SET mode='kwh' WHERE gpio='$gpio_post'") or die("exec error");
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
     }
+
+    $elecon = isset($_POST['elecon']) ? $_POST['elecon'] : '';
+    if ($elecon == "elecon")  {
+	$db->exec("UPDATE gpio SET mode='elec' WHERE gpio='$gpio_post'") or die("exec error");
+	$db = null;
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
+
+    $wateron = isset($_POST['wateron']) ? $_POST['wateron'] : '';
+    if ($wateron == "wateron")  {
+	$db->exec("UPDATE gpio SET mode='water' WHERE gpio='$gpio_post'") or die("exec error");
+	$db = null;
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
+
+    $gason = isset($_POST['gason']) ? $_POST['gason'] : '';
+    if ($gason == "gason")  {
+	$db->exec("UPDATE gpio SET mode='gas' WHERE gpio='$gpio_post'") or die("exec error");
+	$db = null;
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
+
 //simple
     $simpleon = isset($_POST['simpleon']) ? $_POST['simpleon'] : '';
     if ($simpleon == "simpleon")  {
@@ -240,6 +264,21 @@ if (empty($mode2)) { ?>
 <?php 
 }
 ?>
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">Electricity counter</button>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="elecon" value="elecon" />
+    </form>
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">Water counter</button>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="wateron" value="wateron" />
+    </form>
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary">Gas counter</button>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="gason" value="gason" />
+    </form>
 
 <!--    <form action="" method="post" style="display:inline!important;">
         <input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />

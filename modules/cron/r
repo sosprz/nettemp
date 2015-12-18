@@ -4,7 +4,10 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 echo "$(date +\%y\%m\%d-\%H\%M) RPI rebooted" >> $dir/tmp/log.txt
 $dir/modules/tools/restart
 $dir/modules/kwh/reset
-$dir/tmp/cronr
+$dir/modules/counters/reset_water
+$dir/modules/counters/reset_gas
+$dir/modules/counters/reset_elec
+#$dir/tmp/cronr
 nohup $dir/modules/lcd/lcd &
 nohup $dir/modules/call/call_proc &
 
