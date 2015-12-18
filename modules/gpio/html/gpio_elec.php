@@ -46,6 +46,26 @@ else
     }
 }
 
+$elec_debouncing = isset($_POST['elec_debouncing']) ? $_POST['elec_debouncing'] : '';
+$elec_debouncing1 = isset($_POST['elec_debouncing1']) ? $_POST['elec_debouncing1'] : '';
+if ($elec_debouncing1 == "elec_debouncing2"){
+    if (!empty($elec_debouncing)){
+	$elec_debouncingt = trim($elec_debouncing); 
+	$db->exec("UPDATE gpio SET elec_debouncing='$elec_debouncingt' WHERE gpio='$gpio'") or die ($db->lastErrorMsg());
+	$db = NULL;
+	$reset="/bin/bash modules/counters/reset_elec";
+	shell_exec("$reset");
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+     } 
+else 
+    { 
+    ?> 
+	<font color="red">debouncing cannot be empty!</font> 
+    <?php 
+    }
+}
+
   // $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
   // $sth = $db->prepare("select * from gpio where gpio='$gpio'");
   // $sth->execute();
@@ -69,10 +89,16 @@ else
 elec status: <?php echo $a['status']; ?>
 <form action="" method="post" style=" display:inline!important;">
 	Divider
-	<input type="text" name="elec_divider" size="2" value="<?php echo $a["elec_divider"]; ?>"  />
+	<input type="text" name="elec_divider" size="4" value="<?php echo $a["elec_divider"]; ?>"  />
 	<input type="hidden" name="elec_divider1" value="elec_divider2" />
 	<button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
-    </form>
+</form>
+<form action="" method="post" style=" display:inline!important;">
+	Debouncing time
+	<input type="text" name="elec_debouncing" size="4" value="<?php echo $a["elec_debouncing"]; ?>"  />
+	<input type="hidden" name="elec_debouncing1" value="elec_debouncing2" />
+	<button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+</form>
 <form action="" method="post" style=" display:inline!important;">
     <button type="submit" class="btn btn-xs btn-primary">ON</button>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>

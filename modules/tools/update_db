@@ -193,6 +193,9 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD gas_divider type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD elec_run type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD water_run type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD gas_run type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD elec_debouncing type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD water_debouncing type TEXT";
+sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD gas_debouncing type TEXT";
 
 
 
