@@ -26,7 +26,7 @@
 
 import Adafruit_BMP.BMP085 as BMP085
 import sys
-import os.patch
+import os.path
 # Default constructor will pick a default I2C bus.
 #
 # For the Raspberry Pi this means you should hook up to the only exposed I2C bus

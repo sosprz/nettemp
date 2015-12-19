@@ -4,7 +4,7 @@
 
 from smbus import SMBus
 import time
-import os.patch
+import os.path
 
 # Special Chars
 deg = u'\N{DEGREE SIGN}'

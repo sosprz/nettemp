@@ -2,7 +2,7 @@
 
 import smbus
 import time
-import os.patch
+import os.path
 
 if  os.path.exists("/dev/i2c-0"):
     bus = "0"

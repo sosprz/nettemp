@@ -1,5 +1,5 @@
 import smbus
-import os.patch
+import os.path
 from datetime import datetime
 
 __all__ = ['HIH6130']

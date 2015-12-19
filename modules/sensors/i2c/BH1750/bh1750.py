@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import smbus
 import time
-import os.patch
+import os.path
 
 # Define some constants from the datasheet
  
