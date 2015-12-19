@@ -22,7 +22,7 @@ pulseValue = 0
 currentWatt = 0
 dbWriteSleep = 60 # zapis do bazy co 60 sekund
 start_time = datetime.now()
-
+debouncetime = 450 # 450 dla mojego licznika bo impuls trwa max 90ms przy 450  mamy 8kw
 
 
 def signal_handler(signal, frame): # cos nie dziala ctr+c no ale moze kiedys zaczenie
@@ -116,6 +116,7 @@ def dbwrite():
 
 # Startujemy z watkiem zapisywania do bazy
 
+debstarttime = millis() 
 dbwrite()
 
 ######    Glowna petla programu
@@ -124,15 +125,22 @@ while True:
 
         # Czekamy na zmiane stanu pinu...
         GPIO.wait_for_edge(gpiopin, gpioEvent1)
+        
+        debstoptime = millis()
 
-        # inkrementujemy wartosc pulsu zawsze przy zdarzeniu i zaczynamy zliczac czas pomiedzy pulsami
-        pulseValue += 1
+        if debstoptime - debstarttime > debouncetime :
 
-        deltaPulseMillis = millis()
-        start_time = datetime.now()
-        currentWatt = int((( 3600 * 1000 ) / deltaPulseMillis ))
+        	# inkrementujemy wartosc pulsu zawsze przy zdarzeniu i zaczynamy zliczac czas pomiedzy pulsami
+        	pulseValue += 1
 
-        # .... i znowu az pin powroci
+
+	        deltaPulseMillis = millis()
+        	start_time = datetime.now()
+        	currentWatt = int((( 3600 * 1000 ) / deltaPulseMillis ))
+
+        	debstarttime = millis()
+
+	# .... i znowu az pin powroci
         GPIO.wait_for_edge(gpiopin, gpioEvent2)
 
 ############################################################################################################
