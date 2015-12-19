@@ -22,7 +22,8 @@ pulseValue = 0
 currentWatt = 0
 dbWriteSleep = 60 # zapis do bazy co 60 sekund
 start_time = datetime.now()
-
+debouncing = 0
+lastPulseValue = 0
 
 
 def signal_handler(signal, frame): # cos nie dziala ctr+c no ale moze kiedys zaczenie
@@ -50,7 +51,10 @@ try:
 	c.execute("SELECT gas_divider FROM gpio WHERE gas_run='on'")
         array=[r[0] for r in c.fetchall()]
         divider = float(array[0]) # divider
-				
+		
+        c.execute("SELECT gas_debouncing FROM gpio WHERE gpio like ? ", (gpiopin,)) 
+        array=[r[0] for r in c.fetchall()] 
+        debouncing = int(array[0]) # debouncing
 							
         db.close()
 
@@ -86,6 +90,8 @@ def dbwrite():
     global gpiopinstr
     global key
     global divider
+    global debouncing
+    global lastPulseValue
 
 
     threading.Timer(dbWriteSleep, dbwrite).start()
@@ -93,22 +99,23 @@ def dbwrite():
 
     # jesli puls ma wartosc inna niz  0 to  zapisujemy do bazy jesli 0 pomijamy zapis
 
-    if pulseValue >=1:
+    if pulseValue > lastPulseValue:
         now = datetime.now().replace(microsecond=0)  # use sqlite auto timestamp
         		
 	# zapis  po php-cgi	
-	value = 'value='+str((float(pulseValue)/divider)) # floatujemy wynik 
+	value = 'value='+str((float(pulseValue - lastPulseValue)/divider)) # floatujemy wynik  
         gpiopinstr = 'gpio='+str(gpiopin)
         keystring = 'key='+str(key)
 	currentstring = 'current='+str(currentWatt)
  
         subprocess.call(['/usr/bin/php-cgi','-f','/var/www/nettemp/receiver.php',keystring,' type=gas',value,' device=gpio', gpiopinstr, currentstring]) 
     
-        pulseValue = 0  # jesli zapis pomyslny to zerujemy licznik pulsow
+        lastPulseValue = pulseValue # jesli zapis pomyslny ustawiamy lastpulsevalue na pulsevalue
 
 # Startujemy z watkiem zapisywania do bazy
 
 dbwrite()
+debstarttime = millis()
 
 ######    Glowna petla programu
 
@@ -116,13 +123,19 @@ while True:
 
         # Czekamy na zmiane stanu pinu...
         GPIO.wait_for_edge(gpiopin, gpioEvent1)
+        
+        debstoptime = millis()
+        
+        if debstoptime - debstarttime > debouncing :
 
-        # inkrementujemy wartosc pulsu zawsze przy zdarzeniu i zaczynamy zliczac czas pomiedzy pulsami
-        pulseValue += 1
+	        # inkrementujemy wartosc pulsu zawsze przy zdarzeniu i zaczynamy zliczac czas pomiedzy pulsami
+        	pulseValue += 1
 
-        deltaPulseMillis = millis()
-        start_time = datetime.now()
-        currentWatt = int((( 3600 * 1000 ) / deltaPulseMillis ))
+        	deltaPulseMillis = millis()
+        	start_time = datetime.now()
+        	currentWatt = int((( 3600 * 1000 ) / deltaPulseMillis ))
+
+		debstarttime = millis()
 
         # .... i znowu az pin powroci
         GPIO.wait_for_edge(gpiopin, gpioEvent2)
