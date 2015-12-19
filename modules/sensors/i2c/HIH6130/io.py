@@ -15,14 +15,14 @@ class HIH6130:
 		self._buffer = None
 		self.timestamp = None
 
-               if  os.path.exists("/dev/i2c-0"):
-                   bus = "0"
-               elif os.path.exists("/dev/i2c-1"):
-                   bus = "1"
-               elif os.path.exists("/dev/i2c-2"):
-                   bus = "2"
-	       elif os.path.exists("/dev/i2c-3"):
-                   bus = "3"
+                if  os.path.exists("/dev/i2c-0"):
+		    bus = "0"
+                elif os.path.exists("/dev/i2c-1"):
+		    bus = "1"
+                elif os.path.exists("/dev/i2c-2"):
+		    bus = "2"
+	        elif os.path.exists("/dev/i2c-3"):
+                    bus = "3"
 					
     
                 try:
