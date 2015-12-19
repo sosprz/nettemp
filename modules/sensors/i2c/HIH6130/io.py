@@ -1,4 +1,5 @@
 import smbus
+import os.patch
 from datetime import datetime
 
 __all__ = ['HIH6130']
@@ -13,9 +14,21 @@ class HIH6130:
 		self.t = None
 		self._buffer = None
 		self.timestamp = None
+
+               if  os.path.exists("/dev/i2c-0"):
+                   bus = "0"
+               elif os.path.exists("/dev/i2c-1"):
+                   bus = "1"
+               elif os.path.exists("/dev/i2c-2"):
+                   bus = "2"
+	       elif os.path.exists("/dev/i2c-3"):
+                   bus = "3"
+					
+    
+                try:
+                       
+                       self.i2c = smbus.SMBus(int(bus))
 		
-		try:
-			self.i2c = smbus.SMBus(1)
 		except:
 			raise IOError("Could not find i2c device.")
 

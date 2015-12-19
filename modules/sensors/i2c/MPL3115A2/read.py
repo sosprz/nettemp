@@ -4,7 +4,7 @@
 
 from smbus import SMBus
 import time
-import sys
+import os.patch
 
 # Special Chars
 deg = u'\N{DEGREE SIGN}'
@@ -14,8 +14,16 @@ ADDR = 0x60
 CTRL_REG1 = 0x26
 PT_DATA_CFG = 0x13
 
-nbus = sys.argv[1]
-bus = SMBus(int(nbus))
+if  os.path.exists("/dev/i2c-0"):
+    bus = "0"
+elif os.path.exists("/dev/i2c-1"):
+    bus = "1"
+elif os.path.exists("/dev/i2c-2"):
+     bus = "2"
+elif os.path.exists("/dev/i2c-3"):
+     bus = "3"
+
+bus = SMBus(int(bus))
 
 who_am_i = bus.read_byte_data(ADDR, 0x0C)
 #print hex(who_am_i)

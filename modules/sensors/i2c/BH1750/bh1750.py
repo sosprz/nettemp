@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import smbus
 import time
-import sys
+import os.patch
 
 # Define some constants from the datasheet
  
@@ -27,8 +27,16 @@ ONE_TIME_HIGH_RES_MODE_2 = 0x21
 # Device is automatically set to Power Down after measurement.
 ONE_TIME_LOW_RES_MODE = 0x23
 
-busn = sys.argv[1]
-bus = smbus.SMBus(int(busn))
+if  os.path.exists("/dev/i2c-0"):
+    bus = "0"
+elif os.path.exists("/dev/i2c-1"):
+    bus = "1"
+elif os.path.exists("/dev/i2c-2"):
+    bus = "2"
+elif os.path.exists("/dev/i2c-2"):
+    bus = "3"
+
+bus = smbus.SMBus(int(bus))
  
 def convertToNumber(data):
   # Simple function to convert 2 bytes of data

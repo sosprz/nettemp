@@ -26,7 +26,7 @@
 
 import Adafruit_BMP.BMP085 as BMP085
 import sys
-
+import os.patch
 # Default constructor will pick a default I2C bus.
 #
 # For the Raspberry Pi this means you should hook up to the only exposed I2C bus
@@ -36,7 +36,15 @@ import sys
 # For the Beaglebone Black the library will assume bus 1 by default, which is
 # exposed with SCL = P9_19 and SDA = P9_20.
 
-bus = sys.argv[1]
+if  os.path.exists("/dev/i2c-0"):
+    bus = "0"
+elif os.path.exists("/dev/i2c-1"):
+    bus = "1"
+elif os.path.exists("/dev/i2c-2"):
+    bus = "2"
+elif os.path.exists("/dev/i2c-3"):
+    bus = "3"
+
 sensor = BMP085.BMP085(busnum=int(bus))
 
 # Optionally you can override the bus number:

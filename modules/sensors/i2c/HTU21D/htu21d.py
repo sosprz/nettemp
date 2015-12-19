@@ -24,6 +24,8 @@ elif os.path.exists("/dev/i2c-1"):
     BUS = "1"
 elif os.path.exists("/dev/i2c-2"):
     BUS = "2"
+elif os.path.exists("/dev/i2c-3"):
+    BUS = "3"
 
 
 class i2c(object):
