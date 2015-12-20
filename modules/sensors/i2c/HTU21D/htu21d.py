@@ -27,7 +27,7 @@ elif os.path.exists("/dev/i2c-2"):
     bus = "2"
 elif os.path.exists("/dev/i2c-3"):
     bus = "3"
-else
+else:
     bus = sys.argv[1]
 
 class i2c(object):
@@ -53,7 +53,7 @@ class i2c(object):
 
 class HTU21D(object):
    def __init__(self):
-      self.dev = i2c(HTU21D_ADDR, BUS) #HTU21D 0x40, bus 1
+      self.dev = i2c(HTU21D_ADDR, bus) #HTU21D 0x40, bus 1
       self.dev.write(CMD_SOFT_RESET) #soft reset
       time.sleep(.1)
 
