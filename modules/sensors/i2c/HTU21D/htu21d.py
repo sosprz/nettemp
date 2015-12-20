@@ -6,6 +6,7 @@
 
 import struct, array, time, io, fcntl
 import os.path
+import sys
 
 
 I2C_SLAVE=0x0703
@@ -19,14 +20,15 @@ CMD_READ_USER_REG = "\xE7"
 CMD_SOFT_RESET= "\xFE"
 
 if  os.path.exists("/dev/i2c-0"):
-    BUS = "0"
+    bus = "0"
 elif os.path.exists("/dev/i2c-1"):
-    BUS = "1"
+    bus = "1"
 elif os.path.exists("/dev/i2c-2"):
-    BUS = "2"
+    bus = "2"
 elif os.path.exists("/dev/i2c-3"):
-    BUS = "3"
-
+    bus = "3"
+else
+    bus = sys.argv[1]
 
 class i2c(object):
    def __init__(self, device, bus):
