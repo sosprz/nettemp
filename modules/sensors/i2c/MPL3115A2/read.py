@@ -5,6 +5,7 @@
 from smbus import SMBus
 import time
 import os.path
+import sys
 
 # Special Chars
 deg = u'\N{DEGREE SIGN}'
@@ -14,16 +15,18 @@ ADDR = 0x60
 CTRL_REG1 = 0x26
 PT_DATA_CFG = 0x13
 
-if  os.path.exists("/dev/i2c-0"):
-    bus = "0"
+if len(sys.argv) > 1:
+    nbus = sys.argv[1]
+elif  os.path.exists("/dev/i2c-0"):
+    nbus = "0"
 elif os.path.exists("/dev/i2c-1"):
-    bus = "1"
+    nbus = "1"
 elif os.path.exists("/dev/i2c-2"):
-     bus = "2"
+    nbus = "2"
 elif os.path.exists("/dev/i2c-3"):
-     bus = "3"
+    nbus = "3"
 
-bus = SMBus(int(bus))
+bus = SMBus(int(nbus))
 
 who_am_i = bus.read_byte_data(ADDR, 0x0C)
 #print hex(who_am_i)

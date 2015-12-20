@@ -20,22 +20,22 @@ CMD_READ_USER_REG = "\xE7"
 CMD_SOFT_RESET= "\xFE"
 
 if len(sys.argv) > 1:
-    BUS = sys.argv[1]
+    nbus = sys.argv[1]
 elif  os.path.exists("/dev/i2c-0"):
-    BUS = "0"
+    nbus = "0"
 elif os.path.exists("/dev/i2c-1"):
-    BUS = "1"
+    nbus = "1"
 elif os.path.exists("/dev/i2c-2"):
-    BUS = "2"
+    nbus = "2"
 elif os.path.exists("/dev/i2c-3"):
-    BUS = "3"
+    nbus = "3"
 
 
 class i2c(object):
-   def __init__(self, device, bus):
+   def __init__(self, device, nbus):
 
-      self.fr = io.open("/dev/i2c-"+str(bus), "rb", buffering=0)
-      self.fw = io.open("/dev/i2c-"+str(bus), "wb", buffering=0)
+      self.fr = io.open("/dev/i2c-"+str(nbus), "rb", buffering=0)
+      self.fw = io.open("/dev/i2c-"+str(nbus), "wb", buffering=0)
 
       # set device address
 
@@ -54,7 +54,7 @@ class i2c(object):
 
 class HTU21D(object):
    def __init__(self):
-      self.dev = i2c(HTU21D_ADDR, BUS) #HTU21D 0x40, bus 1
+      self.dev = i2c(HTU21D_ADDR, nbus) #HTU21D 0x40, bus 1
       self.dev.write(CMD_SOFT_RESET) #soft reset
       time.sleep(.1)
 

@@ -36,19 +36,21 @@ import os.path
 # For the Beaglebone Black the library will assume bus 1 by default, which is
 # exposed with SCL = P9_19 and SDA = P9_20.
 
-if  os.path.exists("/dev/i2c-0"):
-    bus = "0"
+if len(sys.argv) > 1:
+    nbus = sys.argv[1]
+elif  os.path.exists("/dev/i2c-0"):
+    nbus = "0"
 elif os.path.exists("/dev/i2c-1"):
-    bus = "1"
+    nbus = "1"
 elif os.path.exists("/dev/i2c-2"):
-    bus = "2"
+    nbus = "2"
 elif os.path.exists("/dev/i2c-3"):
-    bus = "3"
+    nbus = "3"
 
-sensor = BMP085.BMP085(busnum=int(bus))
+sensor = BMP085.BMP085(busnum=int(nbus))
 
-# Optionally you can override the bus number:
-#sensor = BMP085.BMP085(busnum=2)
+# Optionally you can override the nbus number:
+#sensor = BMP085.BMP085(nbusnum=2)
 
 # You can also optionally change the BMP085 mode to one of BMP085_ULTRALOWPOWER, 
 # BMP085_STANDARD, BMP085_HIGHRES, or BMP085_ULTRAHIGHRES.  See the BMP085
