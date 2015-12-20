@@ -19,16 +19,17 @@ CMD_WRITE_USER_REG = "\xE6"
 CMD_READ_USER_REG = "\xE7"
 CMD_SOFT_RESET= "\xFE"
 
-if  os.path.exists("/dev/i2c-0"):
-    bus = "0"
+if len(sys.argv) > 1:
+    BUS = sys.argv[1]
+elif  os.path.exists("/dev/i2c-0"):
+    BUS = "0"
 elif os.path.exists("/dev/i2c-1"):
-    bus = "1"
+    BUS = "1"
 elif os.path.exists("/dev/i2c-2"):
-    bus = "2"
+    BUS = "2"
 elif os.path.exists("/dev/i2c-3"):
-    bus = "3"
-else:
-    bus = sys.argv[1]
+    BUS = "3"
+
 
 class i2c(object):
    def __init__(self, device, bus):
@@ -53,7 +54,7 @@ class i2c(object):
 
 class HTU21D(object):
    def __init__(self):
-      self.dev = i2c(HTU21D_ADDR, bus) #HTU21D 0x40, bus 1
+      self.dev = i2c(HTU21D_ADDR, BUS) #HTU21D 0x40, bus 1
       self.dev.write(CMD_SOFT_RESET) #soft reset
       time.sleep(.1)
 
