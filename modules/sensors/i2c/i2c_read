@@ -22,7 +22,7 @@ id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$
 
 for id in $id; do
     if sqlite3 $dir/dbf/nettemp.db "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
-	all=($($dir/modules/sensors/i2c/BMP180/bmp180.py 2>/dev/null))
+	all=($($dir/modules/sensors/i2c/BMP180/bmp180.py $bus 2>/dev/null))
 	    t=i2c_${id}_temp.sql
 	    p=i2c_${id}_press.sql
 	    if [ -s "$t" ]; then
@@ -73,7 +73,7 @@ id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$
 
 for id in $id; do
     if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
-	all=($($dir/modules/sensors/i2c/BH1750/bh1750.py 2>/dev/null))
+	all=($($dir/modules/sensors/i2c/BH1750/bh1750.py $bus 2>/dev/null))
 	    l=i2c_${id}_lux.sql
 	    if [ -s "$l" ]; then
 		name=$(echo $l |awk 'sub("....$", "")')
@@ -157,7 +157,7 @@ id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$
 
 for id in $id; do
     if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
-	 all=$(cd $dir && $dir/modules/sensors/i2c/HIH6130/read.py 2>/dev/null && cd -);
+	 all=$(cd $dir && $dir/modules/sensors/i2c/HIH6130/read.py $bus 2>/dev/null && cd -);
 	    t=i2c_${id}_temp.sql
 	    h=i2c_${id}_humid.sql
 	    if [ -s "$t" ]; then
@@ -184,7 +184,7 @@ id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$
 
 for id in $id; do
     if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
-	all=$($dir/modules/sensors/i2c/TMP102/read.py 2>/dev/null)
+	all=$($dir/modules/sensors/i2c/TMP102/read.py $bus 2>/dev/null)
 	    t=i2c_${id}_temp.sql
 	    if [ -s "$t" ]; then
 		temp=$(echo $all |awk 'sub("..$", "")')
