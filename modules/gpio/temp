@@ -82,18 +82,26 @@ hyst
     if [ "$gt" = "1" ];then
         if [ "${!temp_onoff}" = "on" ];then
             gpio_on
-	    echo "${!sensor_name} ${!sensor_temp} C > ${!temp_temp} C - gpio ON debug 1"
+	    #echo "${!sensor_name} ${!sensor_temp} C > ${!temp_temp} C - gpio ON debug 1"
+    	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status on, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 1"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} > ${!temp_temp} on' WHERE gpio='$gpio'"
         else
             gpio_off
-	    echo "${!sensor_name} ${!sensor_temp} C > ${!temp_temp} C - gpio OFF debug 2"
+	    #echo "${!sensor_name} ${!sensor_temp} C > ${!temp_temp} C - gpio OFF debug 2"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status off, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 2"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} > ${!temp_temp} off' WHERE gpio='$gpio'"
         fi
     else
         if [ "${!temp_onoff}" = "on" ];then
             gpio_off
-            echo "${!sensor_name} ${!sensor_temp} C < ${!temp_temp} C - gpio OFF debug 3"
+            #echo "${!sensor_name} ${!sensor_temp} C < ${!temp_temp} C - gpio OFF debug 3"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status off, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 3"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} < ${!temp_temp} off' WHERE gpio='$gpio'"
         else
             gpio_on
-	    echo "${!sensor_name} ${!sensor_temp} C < ${!temp_temp} C - gpio ON debug 4"
+	    #echo "${!sensor_name} ${!sensor_temp} C < ${!temp_temp} C - gpio ON debug 4"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status on, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 4"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} < ${!temp_temp} on' WHERE gpio='$gpio'"
         fi
     fi
     
@@ -106,21 +114,26 @@ hyst
     if [ "$ge" = "1" ];then
         if [ "${!temp_onoff}" = "on" ];then
             gpio_on
-	    echo "${!sensor_name} ${!sensor_temp} C >= ${!temp_temp} C - gpio ON debug 5"
+	    #echo "${!sensor_name} ${!sensor_temp} C >= ${!temp_temp} C - gpio ON debug 5"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status on, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 6"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} >= ${!temp_temp} on' WHERE gpio='$gpio'"
         else
             gpio_off
-	    echo "${!sensor_name} ${!sensor_temp} C >= ${!temp_temp} C - gpio OFF debug 6"
+	    #echo "${!sensor_name} ${!sensor_temp} C >= ${!temp_temp} C - gpio OFF debug 6"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status off, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 6"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} >= ${!temp_temp} off' WHERE gpio='$gpio'"
         fi
-    elif [ "$h" == "0" ]; then
-	echo "wait for lower temp"
-	exit 0
     else
         if [ "${!temp_onoff}" = "on" ];then
             gpio_off
-            echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio OFF  debug 7"
+            #echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio OFF  debug 7"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status off, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 7"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} <= ${!temp_temp} off' WHERE gpio='$gpio'"
         else
             gpio_on
-	    echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio ON  debug 8"
+	    #echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio ON  debug 8"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status on, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 8"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} <= ${!temp_temp} on' WHERE gpio='$gpio'"
         fi
     fi
         fi
@@ -132,18 +145,26 @@ hyst
     if [ "$le" = "1" ];then
         if [ "${!temp_onoff}" = "on" ];then
             gpio_on
-	echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio ON  debug 9"
+	    #echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio ON  debug 9"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status on, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 9"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} <= ${!temp_temp} on' WHERE gpio='$gpio'"
         else
             gpio_off
-	    echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio OFF debug 10"
+	    #echo "${!sensor_name} ${!sensor_temp} C <= ${!temp_temp} C - gpio OFF debug 10"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status off, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 10"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} <= ${!temp_temp} off' WHERE gpio='$gpio'"
         fi
     else
         if [ "${!temp_onoff}" = "on" ];then
             gpio_off
-            echo "${!sensor_name} ${!sensor_temp} C >= ${!temp_temp} C - gpio OFF debug 11"
+            #echo "${!sensor_name} ${!sensor_temp} C >= ${!temp_temp} C - gpio OFF debug 11"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status off, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 11"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} <= ${!temp_temp} off' WHERE gpio='$gpio'"
         else
             gpio_on
-	    echo "${!sensor_name} ${!sensor_temp} C >= to ${temp_temp} C - gpio ON debug 12"
+	    #echo "${!sensor_name} ${!sensor_temp} C >= to ${temp_temp} C - gpio ON debug 12"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status on, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 12"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} >= ${!temp_temp} on' WHERE gpio='$gpio'"
         fi
     fi
 fi
@@ -156,18 +177,26 @@ hyst
     if [ "$lt" = "1" ];then
         if [ "${!temp_onoff}" = "on" ];then
             gpio_on
-	echo "${!sensor_name} ${!sensor_temp} C < ${!temp_temp} C - gpio ON debug 13"
+	    #echo "${!sensor_name} ${!sensor_temp} C < ${!temp_temp} C - gpio ON debug 13"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status on, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 13"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} < ${!temp_temp} on' WHERE gpio='$gpio'"
         else
             gpio_off
-	    echo "${!sensor_name} ${!sensor_temp} C < ${!temp_temp} C - gpio OFF debug 14"
+	    #echo "${!sensor_name} ${!sensor_temp} C < ${!temp_temp} C - gpio OFF debug 14"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status off, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 14"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} < ${!temp_temp} off' WHERE gpio='$gpio'"
         fi
     else
         if [ "${!temp_onoff}" = "on" ];then
             gpio_off
-            echo "${!sensor_name} ${!sensor_temp} C > ${!temp_temp} C - gpio OFF debug 15"
+            #echo "${!sensor_name} ${!sensor_temp} C > ${!temp_temp} C - gpio OFF debug 15"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status off, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 15"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} > ${!temp_temp} off' WHERE gpio='$gpio'"
         else
             gpio_on
-	    echo "${!sensor_name} ${!sensor_temp} C > ${!temp_temp} C - gpio ON debug 16"
+	    #echo "${!sensor_name} ${!sensor_temp} C > ${!temp_temp} C - gpio ON debug 16"
+	    echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, status on, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), debug 16"
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} > ${!temp_temp} on' WHERE gpio='$gpio'"
         fi
     fi
 fi
@@ -186,10 +215,6 @@ else
     exit 0
 fi
 done
-
-#gpio_$onoff $gpio
-#sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='$onoff' WHERE gpio='$gpio'"
-#echo GPIO: $gpio $onoff
 }
 
 
