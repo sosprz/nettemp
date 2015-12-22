@@ -63,7 +63,7 @@ $name=$a['name'];
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">GPIO <?php echo $gpio ?> - <?php echo $name ?>
+<h3 class="panel-title">GPIO <?php echo $gpio." ".$name ?>
 <?php if (empty($mode)) { ?>
 <form action="" method="post" style="display:inline!important;" class="pull-right">
         <input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />

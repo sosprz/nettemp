@@ -7,7 +7,7 @@ $check = '';
 if ( $add == "ADD") {
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	if (!empty($gpioad)) { 
-	    $db->exec("INSERT INTO gpio (gpio, name, status) VALUES ('$gpio','new_$gpio','OFF')") or exit(header("Location: html/errors/db_error.php"));
+	    $db->exec("INSERT INTO gpio (gpio, name, status, fnum) VALUES ('$gpio','new_$gpio','OFF','3')") or exit(header("Location: html/errors/db_error.php"));
 	}
 	else {
 	    $db->exec("DELETE FROM gpio WHERE gpio='$gpio'") or exit(header("Location: html/errors/db_error.php"));

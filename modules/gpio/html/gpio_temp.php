@@ -76,9 +76,6 @@ $result = $sth->fetchAll();
 	include('gpio_day_plan.php');
 	
     } 
-    if ($a['week_run'] == 'on') { 
-	include('gpio_week_forms.php');
-    }
 	include('gpio_temp_forms.php');
 	
 ?>
@@ -107,7 +104,7 @@ $result = $sth->fetchAll();
 
 
 <?php
-include('gpio_function_num.php');
+//include('gpio_function_num.php');
 
 }
 ?>
