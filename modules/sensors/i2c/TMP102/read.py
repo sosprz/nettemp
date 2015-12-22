@@ -16,7 +16,7 @@ elif os.path.exists("/dev/i2c-2"):
 elif os.path.exists("/dev/i2c-3"):
     nbus = "3"
 
-bus = smbus.SMbus(int(nbus))
+bus = smbus.SMBus(int(nbus))
 data = bus.read_i2c_block_data(0x48, 0)
 msb = data[0]
 lsb = data[1]
