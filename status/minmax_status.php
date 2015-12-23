@@ -27,13 +27,13 @@ $file=$rom .".sql";
 
 
     $db1 = new PDO("sqlite:$root/db/$file");
-    $h = $db1->query("select min(value) AS hmin, max(value) AS hmax from def WHERE time BETWEEN datetime('now','-1 hour') AND datetime('now')") or die('hour');
+    $h = $db1->query("select min(value) AS hmin, max(value) AS hmax from def WHERE time BETWEEN datetime('now','localtime','-1 hour') AND datetime('now','localtime')") or die('hour');
     $h = $h->fetch(); 
-    $d = $db1->query("select min(value) AS dmin, max(value) AS dmax from def WHERE time BETWEEN datetime('now','-1 day') AND datetime('now')") or die('day');
+    $d = $db1->query("select min(value) AS dmin, max(value) AS dmax from def WHERE time BETWEEN datetime('now','localtime','-1 day') AND datetime('now','localtime')") or die('day');
     $d = $d->fetch(); 
-    $w = $db1->query("select min(value) AS wmin, max(value) AS wmax from def WHERE time BETWEEN datetime('now','-7 day') AND datetime('now')") or die('week');
+    $w = $db1->query("select min(value) AS wmin, max(value) AS wmax from def WHERE time BETWEEN datetime('now','localtime','-7 day') AND datetime('now','localtime')") or die('week');
     $w = $w->fetch(); 
-    $m = $db1->query("select min(value) AS mmin, max(value) AS mmax from def WHERE time BETWEEN datetime('now','-1 months') AND datetime('now')") or die('week');
+    $m = $db1->query("select min(value) AS mmin, max(value) AS mmax from def WHERE time BETWEEN datetime('now','localtime','-1 months') AND datetime('now','localtime')") or die('week');
     $m = $m->fetch(); 
 
     echo "<tr>
