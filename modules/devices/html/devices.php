@@ -19,6 +19,7 @@
 <a href="index.php?id=devices&type=ups" ><button class="btn <?php echo $art == 'ups' ? 'btn-info' : 'btn-default'; ?>">UPS</button></a>
 <a href="index.php?id=devices&type=hosts" ><button class="btn <?php echo $art == 'hosts' ? 'btn-info' : 'btn-default'; ?>">Host monitoring</button></a>
 <a href="index.php?id=devices&type=ipcam" ><button class="btn <?php echo $art == 'ipcam' ? 'btn-info' : 'btn-default'; ?>">IP Cam</button></a>
+<a href="index.php?id=devices&type=usb" ><button class="btn <?php echo $art == 'usb' ? 'btn-info' : 'btn-default'; ?>">USB</button></a>
 </[>
 
 
@@ -33,6 +34,7 @@ case 'sensors': include('modules/sensors/html/sensors.php'); break;
 case 'ups': include('modules/ups/html/ups.php'); break;
 case 'hosts': include('modules/hosts/html/hosts.php'); break;
 case 'ipcam' : include('modules/ipcam/ipcam.php'); break;
+case 'usb' : include('modules/devices/html/usb.php'); break;
 }
 ?>
 
