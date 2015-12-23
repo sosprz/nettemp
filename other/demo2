@@ -1,0 +1,18 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../ && pwd )
+
+sqlite3 -header $dir/dbf/nettemp.db  "UPDATE sensors SET lcd='on'"
+sqlite3 -header $dir/dbf/nettemp.db  "UPDATE sensors SET minmax='on'"
+sqlite3 -header $dir/dbf/nettemp.db  "UPDATE sensors SET charts='on'"
+sqlite3 -header $dir/dbf/nettemp.db  "UPDATE gpio SET mode='simple'"
+
+a=(simple temp time moment )
+
+for i in $(seq 100 110);
+    do
+    mode="${a[RANDOM%${#a[@]}]}"
+    sqlite3 $dir/dbf/nettemp.db "INSERT INTO gpio (gpio, name, status, fnum, mode) VALUES ('$i','new_$i','OFF','3','$(echo $mode)')"
+    unset $mode
+done
+
