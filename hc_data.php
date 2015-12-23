@@ -97,6 +97,7 @@ else {
     $row = $rows->fetchAll();
     foreach($row as $a) {
 	$file=$a['rom'];
+	$adj=$a['adj'];
     }
 
     $dirb = "sqlite:$root/db/$file.sql";
@@ -106,7 +107,7 @@ else {
     //$query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
 
     foreach ($dbh->query($query) as $row) {
-	$line=[($row[0])*1000 . "," . $row[1]];
+	$line=[($row[0])*1000 . "," . ($row[1]+$adj)];
 	$array[]=$line;
     }
     print str_replace('"', "",json_encode($array));
