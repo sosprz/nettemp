@@ -9,7 +9,7 @@ if ( $numRows > '0' ) { ?>
 <div class="grid-item">
 <div class="panel panel-default">
 <div class="panel-heading">Sensors Min Max</div>
-
+<div class="table-responsive">
 <table class="table table-hover table-condensed">
 <tbody>
 <tr><small>
@@ -47,6 +47,7 @@ $file=$rom .".sql";
 ?>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 <?php 
