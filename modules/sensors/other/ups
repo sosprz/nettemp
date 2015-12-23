@@ -3,11 +3,11 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
-dev=ttyAMA0
-PORT=/dev/$dev
+dev=$(sqlite3 $dir/dbf/nettemp.db  "SELECT dev FROM usb WHERE device='UPS Pimowo'"|sed 's/\/dev\///g')
+if [[ "$dev" != "none" ]]; then
+echo UPS Pimowo ON
 
-
-va=($(exec 3</dev/ttyAMA0 && echo "S" >/dev/ttyAMA0 && head -1 <&3 ; exec 3<&-))
+va=($(exec 3</dev/$dev && echo "S" >/dev/$dev && head -1 <&3 ; exec 3<&-))
 
 
   if [ -n "$va" ]; then
@@ -22,4 +22,7 @@ va=($(exec 3</dev/ttyAMA0 && echo "S" >/dev/ttyAMA0 && head -1 <&3 ; exec 3<&-))
 
   fi
 
+else
+    echo "UPS Pimowo OFF"
+fi
 
