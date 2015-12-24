@@ -18,11 +18,11 @@ if ($setusb == "setusb") {
 $row = exec('ls /dev/ttyU* & ls /dev/ttyA*',$output,$error);
     while(list(,$row) = each($output)){
 	    exec("udevadm info -q all --name=$row 2> /dev/null |grep -m1 ID_MODEL |cut -c 13-",$info);
-	    $devs[$row][]=$info[0];
-	    $devs[$row][]=$row;
+		$devs[$row][]=$info[0];
+		unset($info);
     }
 
-//print_r($devs);
+print_r($devs);
 
 $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("SELECT * FROM usb");
@@ -41,11 +41,11 @@ foreach ($result as $a) {
     <form action="" method="post">
 	<select name="usb" class="form-control input-sm" onchange="this.form.submit()">
 	    <?php foreach($devs as $key => $de) { ?>
-		    <option value="<?php echo $de[1] ?>"  <?php echo $a['dev'] == $de[1] ? 'selected="selected"' : ''; ?>  ><?php echo $de[0]." ".$de[1] ?></option>
+		    <option value="<?php echo $key ?>"  <?php echo $a['dev'] == $key ? 'selected="selected"' : ''; ?>  ><?php echo $key." ".$de[0] ?></option>
 		<?php
 		    }
 		?>
-		    <option value="off" <?php echo $a['dev'] == 'none' ? 'selected="selected"' : ''; ?>  >none</option>
+		    <option value="none" <?php echo $a['dev'] == 'none' ? 'selected="selected"' : ''; ?>  >none</option>
 	</select>
 	<input type="hidden" name="setusb" value="setusb"/>
 	<input type="hidden" name="device" value="<?php echo $a['device'] ?>"/>

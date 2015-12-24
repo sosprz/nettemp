@@ -198,11 +198,11 @@ sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD water_debouncing type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD gas_debouncing type TEXT";
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD fnum type TEXT";
 
-sqlite3 $dir/dbf/nettemp.db "CREATE TABLE usb (id INTEGER PRIMARY KEY, dev TEXT, device TEXT);"
+#sqlite3 $dir/dbf/nettemp.db "DROP TABLE usb";
+sqlite3 $dir/dbf/nettemp.db "CREATE TABLE usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE);"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('SDM120','none');"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('1wire','none');"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem Call','none');"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem SMS','none');"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('UPS Pimowo','none');"
 
-"
