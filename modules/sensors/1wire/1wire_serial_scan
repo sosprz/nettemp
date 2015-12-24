@@ -5,12 +5,18 @@ date=`date +%y%m%d-%H%M`
 
 # DS9097 - serial 
 if [ ! -e $dir/tmp/.digitemprcs ]; then 
-    for i in 0 1 2 3 4
-    do
-        if [ `ls /dev/ttyS$i 2> /dev/null` ]; then 
-        /usr/bin/digitemp_DS9097 -i -c $dir/tmp/.digitemprcs -s/dev/ttyS$i &> /dev/null
-        fi
-    done
+    dev=$(sqlite3 $dir/dbf/nettemp.db  "SELECT dev FROM usb WHERE device='1wire Serial'"|sed 's/\/dev\///g')
+    if [[ "$dev" == "none" ]]; then
+        for i in 0 1 2 3 4
+	do
+    	    if [ `ls /dev/ttyS$i 2> /dev/null` ]; then 
+    	    /usr/bin/digitemp_DS9097 -i -c $dir/tmp/.digitemprcs -s/dev/ttyS$i &> /dev/null
+    	    fi
+	done
+    else
+	/usr/bin/digitemp_DS9097 -i -c $dir/tmp/.digitemprcs -s/dev/$dev &> /dev/null
+    fi
+
     if [ -e $dir/tmp/.digitemprcs ]; then 
     sqlite3 $dir/dbf/nettemp.db "UPDATE device SET serial='DS9097' WHERE id='1'"
     echo Serial: DS9097 found
