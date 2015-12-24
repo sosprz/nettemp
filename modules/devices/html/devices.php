@@ -19,7 +19,7 @@
 <a href="index.php?id=devices&type=ups" ><button class="btn <?php echo $art == 'ups' ? 'btn-info' : 'btn-default'; ?>">UPS</button></a>
 <a href="index.php?id=devices&type=hosts" ><button class="btn <?php echo $art == 'hosts' ? 'btn-info' : 'btn-default'; ?>">Host monitoring</button></a>
 <a href="index.php?id=devices&type=ipcam" ><button class="btn <?php echo $art == 'ipcam' ? 'btn-info' : 'btn-default'; ?>">IP Cam</button></a>
-<a href="index.php?id=devices&type=usb" ><button class="btn <?php echo $art == 'usb' ? 'btn-info' : 'btn-default'; ?>">USB</button></a>
+<a href="index.php?id=devices&type=usb" ><button class="btn <?php echo $art == 'usb' ? 'btn-info' : 'btn-default'; ?>">USB/Serial</button></a>
 </[>
 
 

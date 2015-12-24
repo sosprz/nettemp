@@ -17,7 +17,7 @@ if ($setusb == "setusb") {
 
 $row = exec('ls /dev/ttyU* & ls /dev/ttyA*',$output,$error);
     while(list(,$row) = each($output)){
-	    exec("udevadm info -q all --name=$row 2> /dev/null |grep -m1 ID_MODEL |cut -c 13-",$info);
+	    exec("udevadm info -q all --name=$row 2> /dev/null |grep -m1 ID_MODEL_FROM_DATABASE |cut -c 27-",$info);
 		$devs[$row][]=$info[0];
 		unset($info);
     }
@@ -37,7 +37,7 @@ foreach ($result as $a) {
 	echo $a['device']; 
     ?>
 </td>
-<td class="col-md-1">
+<td class="col-md-2">
     <form action="" method="post">
 	<select name="usb" class="form-control input-sm" onchange="this.form.submit()">
 	    <?php foreach($devs as $key => $de) { ?>
