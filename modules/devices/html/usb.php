@@ -22,7 +22,7 @@ $row = exec('ls /dev/ttyU* & ls /dev/ttyA*',$output,$error);
 		unset($info);
     }
 
-print_r($devs);
+//print_r($devs);
 
 $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("SELECT * FROM usb");
