@@ -38,7 +38,7 @@ $dir/modules/sensors/i2c/i2c_read
 # wireless
 $dir/modules/sensors/wireless/esp8266_read
 #ups
-#$dir/modules/sensors/other/ups
+$dir/modules/sensors/other/ups
 #sdm120/sdm120c
 $dir/modules/sensors/other/sdm120
 
