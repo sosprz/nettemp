@@ -9,7 +9,8 @@ echo SDM120 ON
 
 skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
 
-val=$(/usr/local/bin/sdm120c /dev/$dev -p |awk '{print $2}' |sed 's/-//g')
+#val=$(/usr/local/bin/sdm120c /dev/$dev -p |awk '{print $2}' |sed 's/-//g')
+val=$(/usr/local/bin/sdm120c /dev/$dev -p |awk '{print $2}')
 php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=$val type=watt current=$val
 
 val=$(/usr/local/bin/sdm120c /dev/$dev -v |awk '{print $2}' |sed 's/-//g')
