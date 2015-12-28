@@ -52,7 +52,7 @@ $wilgotnosc=$a['tmp'];
     <td>sila grawitacji [m/s^2]"</td>
     <td><?php 
 	    $sila_grawitacji=9.780313*(pow(1+0.005324*SIN($szerokosc),2)-0.0000058*pow(SIN(2*$szerokosc),2)-0.000003085*$wysokosc);
-	    echo number_format($sila_grawitacji, 2, '.', ',');
+	    echo number_format($sila_grawitacji, 2, '.', '');
 	?>
     </td>
 </tr>
@@ -62,7 +62,7 @@ $wilgotnosc=$a['tmp'];
     <td>
 	<?php 
 	    $temp_znormalizowana=((2*($temperatura+273.15))+((0.6*$wysokosc)/100))/2;
-	    echo number_format($temp_znormalizowana, 2, '.', ',');
+	    echo number_format($temp_znormalizowana, 2, '.', '');
 	?>
     </td>
 </tr>
@@ -72,7 +72,7 @@ $wilgotnosc=$a['tmp'];
     <td>
 	<?php 
 	    $tz=$temp_znormalizowana-273.15;
-	    echo number_format($tz, 2, '.', ',');
+	    echo number_format($tz, 2, '.', '');
 	?>
     </td>
 </tr>
@@ -82,7 +82,7 @@ $wilgotnosc=$a['tmp'];
     <td>
 	<?php 
 	    $cz=($cisnienie*(EXP(($sila_grawitacji*$wysokosc)/(287.05*$temp_znormalizowana)))*10)/10;
-	    echo number_format($cz, 2, '.', ',');
+	    echo number_format($cz, 2, '.', '');
 	?>
     </td>
 </tr>
@@ -93,7 +93,7 @@ $wilgotnosc=$a['tmp'];
     <td>
 	<?php 
 	    $tpr=243.12*(((LOG10($wilgotnosc)-2)/0.4343)+(17.5*$temperatura)/(243.12+$temperatura))/(17.62-(((LOG10($wilgotnosc)-2)/0.4343)+(17.5*$temperatura)/(243.12+$temperatura)));
-	    echo number_format($tpr, 2, '.', ',');
+	    echo number_format($tpr, 2, '.', '');
 	?>
     </td>
 </tr>
@@ -104,7 +104,7 @@ $wilgotnosc=$a['tmp'];
     <td>
 	<?php 
 	    $cisnienie_pary_nasyconej=6.112*EXP((17.67*$temperatura)/($temperatura+243.5));
-	    echo number_format($cisnienie_pary_nasyconej, 2, '.', ',');
+	    echo number_format($cisnienie_pary_nasyconej, 2, '.', '');
 	?>
     </td>
 </tr>
@@ -114,7 +114,7 @@ $wilgotnosc=$a['tmp'];
     <td>
 	<?php 
 	    $cisnienie_pary=$wilgotnosc/(1/$cisnienie_pary_nasyconej)/100;
-	    echo number_format($cisnienie_pary, 2, '.', ',');
+	    echo number_format($cisnienie_pary, 2, '.', '');
 	?>
     </td>
 </tr>
@@ -123,7 +123,7 @@ $wilgotnosc=$a['tmp'];
     <td>
 	<?php 
 	    $wb=2165*(($cisnienie_pary/10)/(273.15+$temperatura));
-	    echo number_format($wb, 2, '.', ',');
+	    echo number_format($wb, 2, '.', '');
 	?>
     </td>
 </tr>
