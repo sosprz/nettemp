@@ -31,7 +31,7 @@ Go to device scan!
 		if($a['device'] == 'rpi'){ $device='<img src="media/ico/raspberry-icon.png" />';}
 		if($a['device'] == 'banana'){ $device='<img src="media/ico/banana-icon.png" />';}
 		if($a['device'] == 'gpio'){ $device='<img src="media/ico/gpio2.png" />';}
-		if($a['device'] == 'i2c'){ $device='i2c';}
+		if($a['device'] == 'i2c'){ $device='<img src="media/ico/i2c_1.png" />';}
 		if(empty($a['device'])) { $device='<img src="media/ico/1wire.png" />';}
 
 		if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png"/>';} 
