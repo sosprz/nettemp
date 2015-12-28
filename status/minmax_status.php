@@ -38,10 +38,10 @@ $file=$rom .".sql";
 
     echo "<tr>
 	<td>".$a['name'] ."</td>
-<!--	<td><span class=\"label label-info\">".$h['hmin']."</span><span class=\"label label-warning\">".$h['hmax']."</span></td> -->
-	<td><span class=\"label label-info\">".$d['dmin']."</span><span class=\"label label-warning\">".$d['dmax']."</span></td>
-	<td><span class=\"label label-info\">".$w['wmin']."</span><span class=\"label label-warning\">".$w['wmax']."</span></td>
-	<td><span class=\"label label-info\">".$m['mmin']."</span><span class=\"label label-warning\">".$m['mmax']."</span></td>
+<!--	<td><span class=\"label label-info\">".number_format($h['hmin'], 1, '.', ',')."</span><span class=\"label label-warning\">".$h['hmax']."</span></td> -->
+	<td><span class=\"label label-info\">".number_format($d['dmin'], 1, '.', ',')."</span><span class=\"label label-warning\">".$d['dmax']."</span></td>
+	<td><span class=\"label label-info\">".number_format($w['wmin'], 1, '.', ',')."</span><span class=\"label label-warning\">".$w['wmax']."</span></td>
+	<td><span class=\"label label-info\">".number_format($m['mmin'], 1, '.', ',')."</span><span class=\"label label-warning\">".$m['mmax']."</span></td>
 	</tr>";
 }
 ?>

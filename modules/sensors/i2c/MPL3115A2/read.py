@@ -73,6 +73,7 @@ fahrenheit = (celsius * 9)/5 + 32
 
 #print "Pressure and Temperature at "+time.strftime('%m/%d/%Y %H:%M:%S%z')
 print str(pressure/100+p_decimal)
+print format(celsius, '.2f')
 #print str(pressure)
-print str(celsius)
+#print format(celsius, '.2f')
 #print str(fahrenheit)+deg+"F"
