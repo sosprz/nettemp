@@ -222,13 +222,14 @@ function smstools {
 }
 
 function drivers {
+if [ -n "$rpi" ];then
     echo -e "[ ${GREEN}ok${R} ] Installing drivers. Please wait.."
     {
     chmod +x $dir/install/drivers
     $dir/install/drivers
     } >> install_log.txt 2>&1
+fi
 }
-
 
 
 
