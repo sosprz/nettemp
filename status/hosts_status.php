@@ -17,28 +17,28 @@ foreach ( $result as $a) {
 ?>
     <tr <?php echo $a['status'] == 'error' ? 'class="danger"' : '' ?>>
 	<td >
-	    <small>
+	    
 		<img type="image" src="media/ico/Computer-icon.png" />
-	    </small>
+	    
 	</td>
 	<td >
-	    <small>
+	    
 		<?php echo str_replace("host_","",$a["name"]); ?>
-	    </small>
+	    
 	</td>
 
 	<td >
-	    <small>
+	    
 		<?php echo $a['last']." ms"; ?>
-	    </small>
+	    
 	</td>
 
 	<td >
-	    <small>
+	    
 		<?php echo $a['status'] == 'error' ? '<span class="label label-danger">' : '<span class="label label-success">' ?>
 		    <?php echo $a['status']; ?>
 		</span>
-	    </small>
+	    
 	</td>
 	    
     </tr>
