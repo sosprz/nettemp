@@ -83,10 +83,13 @@ if ( $numRows > '0' ) { ?>
 	    <span class="label label-danger">
 		<?php
 		$rows = $dbs->query("SELECT last AS sums FROM def ORDER BY last DESC LIMIT 1") or die('lol');
-		$i = $rows->fetch(); 
-		//echo $i['sums']." ";
-		echo number_format($i['sums'], 0, '.', ',')." ";
-		//echo $a['sum'];
+		$i = $rows->fetch();
+		if (!empty($i['sums'])){
+		    echo number_format($i['sums'], 2, '.', ',')." ";
+		}
+		else {
+		    echo number_format($a['sum'], 2, '.', ',')." ";
+		}
 		?>
 	    </span>
 	    </small>
