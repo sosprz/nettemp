@@ -82,10 +82,10 @@ if ( $numRows > '0' ) { ?>
 	    <small>
 	    <span class="label label-danger">
 		<?php
-		//$rows = $dbs->query("SELECT sum AS sums FROM def WHERE id=1") or die('lol');
-		//$i = $rows->fetch(); 
-		//echo $i['sums']." ";
-		echo $a[sum];
+		$rows = $dbs->query("SELECT last AS sums FROM def ORDER BY last DESC LIMIT 1") or die('lol');
+		$i = $rows->fetch(); 
+		echo $i['sums']." ";
+		//echo $a['sum'];
 		?>
 	    </span>
 	    </small>

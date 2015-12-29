@@ -206,4 +206,3 @@ sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('1wi
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem Call','none');"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem SMS','none');"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('UPS Pimowo','none');"
-

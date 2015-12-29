@@ -122,7 +122,7 @@ $name_new=trim($name_new2);
 	    }
 	    if ($type=='elec' || $type=='water' || $type=='gas' || $type=='watt') {
 		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");
-		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER, current INTEEGER)");
+		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER, current INTEEGER, last INTEEGER)");
 	    }
 	    else {
 		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");

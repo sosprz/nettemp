@@ -104,7 +104,7 @@ function check(&$val,$type) {
 		    }
 		}
 		elseif ($type == 'elec') {
-    		    if ((0 <= $val) && ($val <= 100)) {
+    		    if ((0 <= $val) && ($val <= 99999999)) {
 			$val=$val;
 		    }
 		    else {
