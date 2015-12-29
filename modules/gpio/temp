@@ -7,12 +7,11 @@ if [[ -n "${!temp_hyst}" ]]; then
     if [[ $h == "1" ]]; then
 	gpio_off
 	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!hyst} reached, status off' WHERE gpio='$gpio'"
-	echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, Hyst:${!temp_hyst}, Max ${!hyst} reached wait for <= ${!temp_temp}, status off, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio)"
+	echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, Hyst:${!temp_hyst}, Max ${!hyst} reached wait for <= ${!temp_temp}, status off, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), CONTINUE."
 	continue
     elif [[ "$h" == "0" &&  "$gt" == "0" || $ge == "0" || $le == "0" || $lt == "0" ]]; then
 	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='Wait for ${!hyst}' WHERE gpio='$gpio'"
-	echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, Hyst:${!temp_hyst}, Min ${!temp_temp} reached wait for ${!hyst}, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio)"
-	echo "EXIT"
+	echo "$date day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}, Hyst:${!temp_hyst}, Min ${!temp_temp} reached wait for ${!hyst}, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), EXIT."
 	exit 0
     fi
 fi
@@ -73,7 +72,7 @@ fi
 #echo Sensor1 ${!sensor_temp}
 
 
-if [ -n "${!temp_temp}" ] && [[ "${!sensor_temp}" != "error" ]] &&  echo ${!sensor_temp} | grep -o -q '[0-9]*'; then
+if [ -n "${!temp_temp}" ] || [[ "${!sensor_temp}" != "error" ]] &&  echo ${!sensor_temp} | grep -o -q '[0-9]*'; then
 
 if [ "${!temp_op}" = "gt" ]; then
 gt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print 0 }')
