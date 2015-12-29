@@ -82,7 +82,7 @@ if ( $numRows > '0' ) { ?>
 	    <small>
 	    <span class="label label-danger">
 		<?php
-		$rows = $dbs->query("SELECT last AS sums FROM def ORDER BY last DESC LIMIT 1") or die('lol');
+		$rows = $dbs->query("SELECT last AS sums FROM def ORDER BY last DESC LIMIT 1");
 		$i = $rows->fetch();
 		if (!empty($i['sums'])){
 		    echo number_format($i['sums'], 2, '.', ',')." ";
