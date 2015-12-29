@@ -23,18 +23,20 @@ php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=$val type=amps 
 cur=$(/usr/local/bin/sdm120c /dev/$dev -i |head -1|awk '{print $4/1000}')
 all=$(/usr/local/bin/sdm120c /dev/$dev -t |head -1|awk '{print $4}')
 
-last=$(sqlite3 $dir/db/usb_$dev\_elec.sql "SELECT last FROM def ORDER BY last DESC LIMIT 1")
+#last=$(sqlite3 $dir/db/usb_$dev\_elec.sql "SELECT last FROM def ORDER BY last DESC LIMIT 1")
+last=$(sqlite3 $dir/dbf/nettemp.db "SELECT sum FROM sensors WHERE rom='usb_$dev\_elec'")
+
 echo $start
 if [[ ! -n "$last" ]]; then
     val=0
     last=0
-    sqlite3 $dir/db/usb_$dev\_elec.sql "UPDATE def SET last='$all'"
+    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev)_elec'"
 else
     val1=$(echo $all - $last |bc)
     #echo $val1
     val=$(echo $val1 | awk '{print $1/1000}')
     #echo $val
-    sqlite3 $dir/db/usb_$dev\_elec.sql "UPDATE def SET last='$all'"
+    sqlite3 $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev)_elec'"
 fi
 echo "LAST $last"
 echo "VAL $val"
