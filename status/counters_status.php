@@ -49,7 +49,7 @@ if ( $numRows > '0' ) { ?>
 		<?php
 		$rom=$a['rom'];
 		$dbs = new PDO("sqlite:$root/db/$rom.sql") or die('lol');
-		$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def WHERE time >= datetime('now','localtime','-1 hour')") or die('lol');
+		$rows = $dbs->query("SELECT round(sum(value),2) AS sums FROM def WHERE time >= datetime('now','localtime','-1 hour')") or die('lol');
 		$i = $rows->fetch(); 
 		echo $i['sums'];
 		?>
@@ -60,7 +60,7 @@ if ( $numRows > '0' ) { ?>
 	    <small>
 	    <span class="label label-info">
 		<?php
-		$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def WHERE time >= datetime('now','localtime','start of day')") or die('lol');
+		$rows = $dbs->query("SELECT round(sum(value),2) AS sums FROM def WHERE time >= datetime('now','localtime','start of day')") or die('lol');
 		$i = $rows->fetch(); 
 		echo $i['sums'];
 		?>
@@ -71,7 +71,7 @@ if ( $numRows > '0' ) { ?>
 	    <small>
 	    <span class="label label-info">
 		<?php
-		$rows = $dbs->query("SELECT round(sum(value),1) AS sums FROM def WHERE time >= datetime('now','localtime','start of month')") or die('lol');
+		$rows = $dbs->query("SELECT round(sum(value),2) AS sums FROM def WHERE time >= datetime('now','localtime','start of month')") or die('lol');
 		$i = $rows->fetch(); 
 		echo $i['sums'];
 		?>
@@ -84,7 +84,8 @@ if ( $numRows > '0' ) { ?>
 		<?php
 		$rows = $dbs->query("SELECT last AS sums FROM def ORDER BY last DESC LIMIT 1") or die('lol');
 		$i = $rows->fetch(); 
-		echo $i['sums']." ";
+		//echo $i['sums']." ";
+		echo number_format($i['sums'], 0, '.', ',')." ";
 		//echo $a['sum'];
 		?>
 	    </span>
