@@ -32,7 +32,13 @@ $gpio=$a['gpio'];
 	</td>
 	<td >
 	    
-		<?php echo strpos($a['status'], 'on') ? '<span class="label label-success">' : '<span class="label label-danger">' ?>
+		<?php 
+		    if (strpos($a['status'],'ON') !== false) { 
+			echo '<span class="label label-success">';
+		    } else {
+			echo '<span class="label label-danger">';
+		    }
+		    ?>
 		    <?php echo $a['status']; ?>
 		</span>
 	    
