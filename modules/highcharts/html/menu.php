@@ -158,6 +158,7 @@ echo "names = ". $js_array . ";\n";
 	if (max=="all") { var xhour = "year" }
 
 	if (type=="gas"|| type=="water"|| type=="elec") { 
+	    
             seriesOptions[i] = {
                 name: name,
                 data: data,
@@ -165,9 +166,15 @@ echo "names = ". $js_array . ";\n";
         	dataGrouping: {
     		enabled: true,
     		forced: true,
-		units: [[xhour,[1]]] 
-		}
+		units: [[xhour,[1]]]
+		},
+		tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} '+ xval +'</b><br/>',
+                    valueDecimals: 3
+                }
+
 	    };
+	    
 	} else {
 		seriesOptions[i] = {
                 name: name,
