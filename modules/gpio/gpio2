@@ -52,7 +52,7 @@ fi
 for gpio in $gpio_list; do 
 	mode=$(sqlite3 $dir/dbf/nettemp.db "SELECT mode FROM gpio WHERE gpio='$gpio'")
 	rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$1'")
-
+	echo GPIO $gpio
 if [ "$mode" = "time" ]; then
     source $(dirname $0)/time
 elif [ "$mode" = "temp" ]; then
