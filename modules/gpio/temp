@@ -19,7 +19,8 @@ if [[ -n "${!temp_hyst}" ]]; then
     elif [[ "$h" == "0" &&  "$gt" == "0" || $ge == "0" || $le == "0" || $lt == "0" ]]; then
 	gpio_on
 	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON, wait for ${!hyst}' WHERE gpio='$gpio'"
-	echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), status ON, day: $day, Sensor1:${!sensor_temp}, Set value ${!temp_temp}, Hyst:${!temp_hyst}, Min ${!temp_temp} reached wait for ${!hyst}"
+	echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), status ON, day: $day, Sensor1:${!sensor_temp}, Set value ${!temp_temp}, Hyst:${!temp_hyst}, Min ${!temp_temp} reached wait for ${!hyst}, EXIT"
+	exit 0
     fi
 fi
 }
