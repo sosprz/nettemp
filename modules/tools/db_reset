@@ -32,6 +32,12 @@ sqlite3 $dir/dbf/nettemp.db "INSERT INTO i2c (name, addr) VALUES ('hih6130','27'
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO i2c (name, addr) VALUES ('tmp102','48')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO i2c (name, addr) VALUES ('bh1750','23')"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO meteo (id, temp, latitude, height, pressure, humid, onoff ) VALUES (1,'0','0','0','0','0','off');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('SDM120','none');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('1wire','none');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('1wire Serial','none');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem Call','none');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem SMS','none');"
+sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('UPS Pimowo','none');"
 
 
 
