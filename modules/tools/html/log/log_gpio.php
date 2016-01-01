@@ -26,7 +26,8 @@ $log_del = isset($_POST['log_del']) ? $_POST['log_del'] : '';
 <?php
 $filearray = file("$file");
 $filearray = array_reverse($filearray);
-$last = array_slice($filearray,-100);
+//$last = array_slice($filearray,-100);
+$last = $filearray;
     foreach($last as $f){
     	echo $f;
     }
