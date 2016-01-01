@@ -44,7 +44,7 @@ if [[ -n ${!temp_hyst} ]]; then
 	logstatus="ON go up"
 	echo "debug 2"
   elif [[ "$h" == "1" ]] && [[ $l == "0" ]] && [[ "${!status}" == 'ON go up' || "${!status}" == "OFF max" || "${!status}" == "wait" || "${!status}" == "ON" || "${!status}" == "OFF" ]]; then
-	of=on
+	of=off
 	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF max' WHERE gpio='$gpio'"
 	logstatus="OFF max"
 	echo "debug 3"
