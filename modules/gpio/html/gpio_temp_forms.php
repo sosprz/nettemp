@@ -92,7 +92,7 @@ var_dump($_POST);
 
 
 <div class="panel panel-default">
-<div class="panel-heading">Temperature functions</div>
+<div class="panel-heading">Temperature functions <?php echo $fnum ?></div>
 <div class="table-responsive">
 <table class="table">
 <thead><tr><th>Sensor1</th><th>State</th><th>Source</th><th>Temp</th><th>Hysteresis</th><th>on/off</th></tr></thead>

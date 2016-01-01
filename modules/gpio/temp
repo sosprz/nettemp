@@ -1,43 +1,70 @@
 #! /bin/bash
 
-# version 1
-
-function logon(){
-    echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), status ON, day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}"
+function log(){
+    echo "$date, F: $i, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}"
 }
-function logoff(){
-    echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), status OFF, day: $day, Sensor1:${!sensor_temp}, Set temp ${!temp_temp}"
+
+function check(){
+if [[ -z "${!temp_hyst}" ]]; then
+    if [[ "$l" = "1" ]]; then
+        if [[ "${!temp_onoff}" = "on" ]]; then
+            of=on
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
+	    logstatus="ON"
+        else
+            of=off
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
+	    logstatus="OFF"
+        fi
+    elif [[ "$l" = "0" ]]; then
+        if [ "${!temp_onoff}" = "on" ];then
+            of=off
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
+	    logstatus="OFF"
+        else
+            of=on
+	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
+	    logstatus="ON"
+        fi
+    fi
+fi
 }
 
 
 function hyst() {
-if [[ -n "${!temp_hyst}" ]]; then
-    if [[ $h == "1" ]]; then
-	gpio_off
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF, ${!hyst} reached' WHERE gpio='$gpio'"
-	echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), status OFF, day: $day, Sensor1:${!sensor_temp}, Set value ${!temp_temp}, Hyst:${!temp_hyst}, Max ${!hyst} reached wait for <= ${!temp_temp}"
-    elif [[ "$h" == "0" &&  "$gt" == "0" || $ge == "0" || $le == "0" || $lt == "0" ]]; then
-	gpio_on
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON, wait for ${!hyst}' WHERE gpio='$gpio'"
-	echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), status ON, day: $day, Sensor1:${!sensor_temp}, Set value ${!temp_temp}, Hyst:${!temp_hyst}, Min ${!temp_temp} reached wait for ${!hyst}, EXIT"
+if [[ -n ${!temp_hyst} ]]; then
+    if [[ "$h" == "0" &&  $l == "1" ]]; then
+	of=on
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON before' WHERE gpio='$gpio'"
+	logstatus="ON before"
+  elif [[ "$h" == "0" &&  $l == "0" || "${!status}" == "ON before" || "${!status}" == "ON go up" ]]; then
+	of=on
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON go up' WHERE gpio='$gpio'"
+	logstatus="ON go up"
+  elif [[ "$h" == "1" &&  $l == "0" || "${!status}" == "ON go up" || "${!status}" == "OFF max" ]]; then
+	of=off
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF max' WHERE gpio='$gpio'"
+	logstatus="OFF max"
+  elif [[ "$h" == "0" &&  $l == "0" || "${!status}" == "OFF max" || "${!status}" == "OFF go down" ]]; then
+	of=off
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF go down' WHERE gpio='$gpio'"
+	logstatus="OFF go down"
     fi
-break
 fi
 }
-
 
 
 
 temp_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT temp_run FROM gpio WHERE gpio='$gpio'")
 day_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio'")
 #week_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT week_run FROM gpio WHERE gpio='$gpio'")
-tempnum=$(sqlite3 $dir/dbf/nettemp.db "SELECT tempnum FROM settings");
+fnum=$(sqlite3 $dir/dbf/nettemp.db "SELECT fnum FROM gpio WHERE gpio='$gpio'");
 
 if [ "$temp_run" = "on" ]
     then
 
 function temp {
-for i in $(seq 1 $tempnum);
+for i in $(seq 1 $fnum);
     do 
 
 declare temp_onoff$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_onoff$i FROM gpio WHERE gpio='$gpio'"`
@@ -64,6 +91,10 @@ sensor_name=sensor_name$i
 declare temp_op$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_op$i FROM gpio WHERE gpio='$gpio'"`
 temp_op=temp_op$i
 
+declare status$i=`sqlite3 $dir/dbf/nettemp.db "SELECT status FROM gpio WHERE gpio='$gpio'"`
+status=status$i
+
+
 declare temp_hyst$i=`sqlite3 $dir/dbf/nettemp.db "SELECT temp_hyst$i FROM gpio WHERE gpio='$gpio'"`
 temp_hyst=temp_hyst$i
 # hyst temp1 
@@ -76,121 +107,41 @@ if [ -n "${!diff_temp}" ]; then
     hyst=s2h$i
 fi
 
-#echo Temp ${!temp_temp}
-#echo Sensor1 ${!sensor_temp}
+
+
 
 
 if [ -n "${!temp_temp}" ] || [[ "${!sensor_temp}" != "error" ]] &&  echo ${!sensor_temp} | grep -o -q '[0-9]*'; then
 
-if [ "${!temp_op}" = "gt" ]; then
-gt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print 0 }')
-h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
-hyst
-    if [ "$gt" = "1" ];then
-        if [ "${!temp_onoff}" = "on" ];then
-            gpio_on
-	    logon
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} > ${!temp_temp} on' WHERE gpio='$gpio'"
-        else
-            gpio_off
-	    logoff
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} > ${!temp_temp} off' WHERE gpio='$gpio'"
-        fi
-    else
-        if [ "${!temp_onoff}" = "on" ];then
-            gpio_off
-	    logoff
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} < ${!temp_temp} off' WHERE gpio='$gpio'"
-        else
-            gpio_on
-	    logon
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} < ${!temp_temp} on' WHERE gpio='$gpio'"
-        fi
-    fi
-    
-fi
-if [ "${!temp_op}" = "ge" ]; then
-ge=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 >= $2) print 1; else print 0 }') 
-h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
-hyst
-
-    if [ "$ge" = "1" ];then
-        if [ "${!temp_onoff}" = "on" ];then
-            gpio_on
-	    logon
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} >= ${!temp_temp} on' WHERE gpio='$gpio'"
-        else
-            gpio_off
-	    logoff
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} >= ${!temp_temp} off' WHERE gpio='$gpio'"
-        fi
-    else
-        if [ "${!temp_onoff}" = "on" ];then
-            gpio_off
-	    logoff
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} <= ${!temp_temp} off' WHERE gpio='$gpio'"
-        else
-            gpio_on
-	    logon
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} <= ${!temp_temp} on' WHERE gpio='$gpio'"
-        fi
-    fi
-        fi
-if [ "${!temp_op}" = "le" ]; then
-le=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 <= $2) print 1; else print 0 }') 
-h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
-hyst
-
-    if [ "$le" = "1" ];then
-        if [ "${!temp_onoff}" = "on" ];then
-            gpio_on
-	    logon
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} <= ${!temp_temp} on' WHERE gpio='$gpio'"
-        else
-            gpio_off
-	    logoff
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} <= ${!temp_temp} off' WHERE gpio='$gpio'"
-        fi
-    else
-        if [ "${!temp_onoff}" = "on" ];then
-            gpio_off
-	    logoff
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} <= ${!temp_temp} off' WHERE gpio='$gpio'"
-        else
-            gpio_on
-	    logon
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} >= ${!temp_temp} on' WHERE gpio='$gpio'"
-        fi
-    fi
+if [[ "${!temp_op}" = "gt" ]]; then
+    l=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print 0 }')
+    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
+    hyst
+    check
 fi
 
-if [ "${!temp_op}" = "lt" ]; then
-lt=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 < $2) print 1; else print 0 }')
-h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
-hyst
-
-    if [ "$lt" = "1" ];then
-        if [ "${!temp_onoff}" = "on" ];then
-            gpio_on
-	    logon
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} < ${!temp_temp} on' WHERE gpio='$gpio'"
-        else
-            gpio_off
-	    logoff
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} < ${!temp_temp} off' WHERE gpio='$gpio'"
-        fi
-    else
-        if [ "${!temp_onoff}" = "on" ];then
-            gpio_off
-	    logoff
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} > ${!temp_temp} off' WHERE gpio='$gpio'"
-        else
-            gpio_on
-	    logon
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='${!sensor_name} ${!sensor_temp} > ${!temp_temp} on' WHERE gpio='$gpio'"
-        fi
-    fi
+if [[ "${!temp_op}" = "ge" ]]; then
+    l=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 >= $2) print 1; else print 0 }') 
+    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
+    hyst
+    check
 fi
+
+if [[ "${!temp_op}" = "le" ]]; then
+    l=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 <= $2) print 1; else print 0 }') 
+    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
+    hyst
+    check
+fi
+
+if [[ "${!temp_op}" = "lt" ]]; then
+    l=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 < $2) print 1; else print 0 }')
+    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
+    hyst
+    check
+fi
+
+log
 
 unset temp_onoff
 unset temp_temp
@@ -200,6 +151,7 @@ unset sensor_name
 unset temp_op
 unset temp_hyst
 unset hyst
+unset status
 
 else
     echo "error: no input temp"
@@ -218,15 +170,16 @@ if [ "$day_run" == "on" ]
 	    day=on
 	    temp #function
 	else
-	    gpio_off
+	    of=off
 	    day=off
 	fi
 else
     day=off
-    temp #function
+    temp
 fi
 }
 
-###main
-day
-fi #last 
+### main
+    day
+    gpio_$of
+fi
