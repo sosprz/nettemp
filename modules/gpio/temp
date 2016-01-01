@@ -1,7 +1,7 @@
 #! /bin/bash
 
 function log(){
-    echo "$date, F: $i, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio), status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}" >> $dir/tmp/gpio_log.txt
+    echo "$date, F: $i, GPIO $gpio, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}" >> $dir/tmp/gpio_log.txt
 }
 
 function check(){
@@ -35,23 +35,21 @@ function hyst() {
 if [[ -n ${!temp_hyst} ]]; then
     if [[ "$h" == "0" ]] && [[ $l == "1" ]]; then
 	of=on
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON before' WHERE gpio='$gpio'"
-	logstatus="ON before"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
+	logstatus="ON start"
 	echo "debug 1"
-  elif [[ "$h" == "0" ]] && [[ $l == "0" ]]  && [[ "${!status}" == "ON before" || "${!status}" == "ON go up" || "${!status}" == "wait" || "${!status}" == "ON" || "${!status}" == "OFF" ]]; then
+  elif [[ "$h" == "0" ]] && [[ $l == "0" ]] && [[ "${!status}" != "OFF" ]]; then
 	of=on
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON go up' WHERE gpio='$gpio'"
-	logstatus="ON go up"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
+	logstatus="ON running"
 	echo "debug 2"
-  elif [[ "$h" == "1" ]] && [[ $l == "0" ]] && [[ "${!status}" == 'ON go up' || "${!status}" == "OFF max" || "${!status}" == "wait" || "${!status}" == "ON" || "${!status}" == "OFF" ]]; then
+  elif [[ "$h" == "1" ]] && [[ $l == "0" ]]; then
 	of=off
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF max' WHERE gpio='$gpio'"
-	logstatus="OFF max"
-	echo "debug 3"
-  elif [[ "$h" == "0" ]] && [[ $l == "0" ]] && [[ "${!status}" == "OFF max" || "${!status}" == "OFF go down" || "${!status}" == "wait" || "${!status}" == "ON" || "${!status}" == "OFF" ]]; then
-	of=off
-	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF go down' WHERE gpio='$gpio'"
+	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
 	logstatus="OFF go down"
+	echo "debug 3"
+  elif [[ "$h" == "0" ]] && [[ $l == "0" ]] && [[ "${!status}" == "OFF" ]]; then
+	logstatus="OFF still ging down"
 	echo "debug 4"
     fi
 fi
@@ -115,7 +113,7 @@ fi
 
 
 
-if [ -n "${!temp_temp}" ] || [[ "${!sensor_temp}" != "error" ]] &&  echo ${!sensor_temp} | grep -o -q '[0-9]*'; then
+if [ -n "${!temp_temp}" ] && [[ "${!sensor_temp}" != "error" ]] && [[ -n "${!sensor_temp}" ]] &&  echo ${!sensor_temp} | grep -o -q '[0-9]*'; then
 
 if [[ "${!temp_op}" = "gt" ]]; then
     l=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print 0 }')
@@ -186,4 +184,5 @@ fi
 ### main
     day
     gpio_$of
+    echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio)" >> $dir/tmp/gpio_log.txt
 fi
