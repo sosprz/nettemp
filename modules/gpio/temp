@@ -37,15 +37,15 @@ if [[ -n ${!temp_hyst} ]]; then
 	of=on
 	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON before' WHERE gpio='$gpio'"
 	logstatus="ON before"
-  elif [[ "$h" == "0" &&  $l == "0" && "${!status}" == "ON before" || "${!status}" == "ON go up" ]]; then
+  elif [[ "$h" == "0" &&  $l == "0" && "${!status}" == "ON before" || "${!status}" == "ON go up" || "${!status}" == "wait" || "${!status}" == "ON" || "${!status}" == "OFF" ]]; then
 	of=on
 	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON go up' WHERE gpio='$gpio'"
 	logstatus="ON go up"
-  elif [[ "$h" == "1" &&  $l == "0" && "${!status}" == "ON go up" || "${!status}" == "OFF max" ]]; then
-	of=off
+  elif [[ "$h" == "1" &&  $l == "0" && "${!status}" == "ON go up" || "${!status}" == "OFF max" || "${!status}" == "wait" || "${!status}" == "ON" || "${!status}" == "OFF" ]]; then
+	of=on
 	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF max' WHERE gpio='$gpio'"
 	logstatus="OFF max"
-  elif [[ "$h" == "0" &&  $l == "0" && "${!status}" == "OFF max" || "${!status}" == "OFF go down" ]]; then
+  elif [[ "$h" == "0" &&  $l == "0" && "${!status}" == "OFF max" || "${!status}" == "OFF go down" || "${!status}" == "wait" || "${!status}" == "ON" || "${!status}" == "OFF" ]]; then
 	of=off
 	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF go down' WHERE gpio='$gpio'"
 	logstatus="OFF go down"
