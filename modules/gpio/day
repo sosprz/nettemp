@@ -22,10 +22,10 @@ if [ "$day_run" = "on" ]; then
 	    etimec=$(echo $etime | sed 's/://g'|sed 's/^\0//g')
 	    if (("$date2" >= "$stimec")) && (("$date2" < "$etimec")); then
 		onoff="on"
-		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON - Profile $i' WHERE gpio='$gpio'"
+		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ON DAY $i' WHERE gpio='$gpio'"
 		break
 	    else
-	    	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='off' WHERE gpio='$gpio'"
+	    	sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF DAY' WHERE gpio='$gpio'"
 	    	onoff="off"
 	    fi
 	done
