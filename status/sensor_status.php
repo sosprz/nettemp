@@ -50,16 +50,17 @@ Go to device scan!
 		if($a['tmp'] > $a['tmp_5ago']) { $updo='<img src="media/ico/increase-icon.png"/>';}
 		if($a['tmp'] < $a['tmp_5ago']) { $updo='<img src="media/ico/decrease-icon.png" />';}
 		
-
 		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == on ) { 
 		    $mm='e'; 
 		    $max=max." ".$a['tmp_max'];
 		    if($a['type'] == 'temp'){ $type='<img src="media/ico/temp_high.png"/>';}
+		    $label='danger';
 		}
 		if($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min']) && $a['alarm'] == on ) { 
 		    $mm='e'; 
 		    $min=min." ".$a['tmp_min'];
 		    if($a['type'] == 'temp'){ $type='<img src="media/ico/temp_low.png"/>';}
+		    $label='danger';
 		}
 ?>
 
@@ -73,7 +74,13 @@ Go to device scan!
 				<?php echo $name;?>
 			</td>
 			<td>
-			    <?php echo $a['tmp'] == 'error' ? '<span class="label label-danger">' : '<span class="label label-success">' ?>
+			    <?php if(($a['tmp'] == 'error') || ($label=='danger')) {
+				    echo '<span class="label label-danger">';
+				    } 
+				    else {
+					echo '<span class="label label-success">';
+				    }
+			    ?>
 				<?php echo $a['tmp']." ".$unit." ".$max.$min;?>
 			    </span>
 			</td>
@@ -85,6 +92,7 @@ Go to device scan!
     unset($mm);
     unset($max);
     unset($min);
+    unset($label);
      } 
 ?>
     </tbody>
