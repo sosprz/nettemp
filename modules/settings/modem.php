@@ -66,18 +66,22 @@ $smsdev=$a['dev'];
 <div class="panel panel-default"><div class="panel-heading">SMS modem <?php echo $smsdev." "?></div>
 <div class="panel-body">
 
+
+<form class="form-inline" action="" method="post">
 <?php 
 $smscff=shell_exec("sudo cat /etc/smsd.conf |grep ^smsc |awk '{print $3}'");
 $devf=shell_exec("sudo cat /etc/smsd.conf |grep -w ^device |awk '{print $3}'");
-if (strcmp($smsdev, $devf) !== 0 ) { ?>
-<span class="label label-warning">Dev <?php echo $smsdev ?> not configured in config file <?php echo $devf?> Press save</span>
+
+if (strcmp(trim($smsdev),trim($devf)) != 0 ) { ?>
+<span class="label label-warning">Dev <?php echo $smsdev ?> not configured in config file <?php echo $devf?> Press Reload</span>
+<br>
+<br>
+<button name="smsc1"  value="smsc2" class="btn btn-warning">Reload</button>
 <br>
 <br>
 <?php 
 }
 ?>
-
-<form class="form-inline" action="" method="post">
     
     <label class="col-md-2 control-label" for="smsc">SMS center number</label>
     <input id="smsc" name="smsc" placeholder="" required="" type="text" value="<?php echo $smscff; ?>">
