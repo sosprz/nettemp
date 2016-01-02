@@ -17,14 +17,14 @@ gpio_on(){
     if [ "$rev" = "on" ]; then
 	if [[ "$check" == "1" ]]; then 
 	    /usr/local/bin/gpio -g write $gpio 0
-	    $dir/modules/gpio/timestamp $gpio 1
+	    #$dir/modules/gpio/timestamp $gpio 1
 	    $dir/modules/gpio/timestamp $gpio 0
 	    buzzer	
 	fi
     elif [ "$rev" = "" ]; then
 	if [[ "$check" == "0" ]]; then 
     	    /usr/local/bin/gpio -g write $gpio 1
-	    $dir/modules/gpio/timestamp $gpio 0
+	    #$dir/modules/gpio/timestamp $gpio 0
 	    $dir/modules/gpio/timestamp $gpio 1
 	    buzzer
 	fi
@@ -36,13 +36,13 @@ gpio_off(){
     if [ "$rev" = "on" ]; then
 	if [[ "$check" == "0" ]]; then 
     	    /usr/local/bin/gpio -g write $gpio 1
-	    $dir/modules/gpio/timestamp $gpio 0
+	    #$dir/modules/gpio/timestamp $gpio 0
 	    $dir/modules/gpio/timestamp $gpio 1
 	fi
     elif [ "$rev" = "" ]; then
 	if [[ "$check" == "1" ]]; then
 	    /usr/local/bin/gpio -g write $gpio 0
-	    $dir/modules/gpio/timestamp $gpio 1
+	    #$dir/modules/gpio/timestamp $gpio 1
 	    $dir/modules/gpio/timestamp $gpio 0
 	fi
     fi

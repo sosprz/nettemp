@@ -175,6 +175,13 @@ echo "names = ". $js_array . ";\n";
 
 	    };
 	    
+	} else if (type=='gonoff'){
+		seriesOptions[i] = {
+                name: name,
+                data: data,
+		step: true
+		};
+	
 	} else {
 		seriesOptions[i] = {
                 name: name,
