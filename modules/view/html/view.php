@@ -64,9 +64,10 @@ if (in_array('press', $type))  {?>
 if (in_array('altitude', $type))  {?>
 <a href="index.php?id=view&type=altitude&max=hour" ><button class="btn btn-default <?php echo $art == 'altitude' ? ' active' : ''; ?>">Altitude view</button></a>
 <?php }
-if (glob('tmp/kwh/*.json')) {?>
-<a href="index.php?id=view&type=kwh" ><button class="btn btn-default <?php echo $art == 'kwh' ? ' active' : ''; ?>">kWh</button></a>
-<?php }
+//if (glob('tmp/kwh/*.json')) {?>
+<-- <a href="index.php?id=view&type=kwh" ><button class="btn btn-default <?php echo $art == 'kwh' ? ' active' : ''; ?>">kWh</button></a> -->
+<?php 
+//}
 if (in_array('elec', $type))  {?>
 <a href="index.php?id=view&type=elec&max=hour" ><button class="btn btn-default <?php echo $art == 'elec' ? ' active' : ''; ?>">Electricity</button></a>
 <?php } 
