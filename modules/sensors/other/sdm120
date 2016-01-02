@@ -19,9 +19,8 @@ php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=$val type=volt 
 val=$(/usr/local/bin/sdm120c /dev/$dev -c |head -1|awk '{print $2}' |sed 's/-//g')
 php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=$val type=amps current=$val
 
-
-#cur=$(/usr/local/bin/sdm120c /dev/$dev -i |head -1|awk '{print $4/1000}')
-all=$(/usr/local/bin/sdm120c /dev/$dev -t |head -1|awk '{print $4}')
+#all=$(/usr/local/bin/sdm120c /dev/$dev -t |head -1|awk '{print $4}')
+all=$(/usr/local/bin/sdm120c /dev/$dev -i |head -1|awk '{print $4}')
 
 #last=$(sqlite3 $dir/db/usb_$dev\_elec.sql "SELECT last FROM def ORDER BY last DESC LIMIT 1")
 last=$(sqlite3 $dir/dbf/nettemp.db "SELECT sum FROM sensors WHERE rom='usb_$(echo $dev)_elec'")

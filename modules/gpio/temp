@@ -1,7 +1,7 @@
 #! /bin/bash
 
 function log(){
-    echo "$date, F: $i, GPIO $gpio, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}" >> $dir/tmp/gpio_log.txt
+    echo "$date, F: $i, GPIO $gpio, rev:$rev, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}" >> $dir/tmp/gpio_log.txt
 }
 
 function check(){
