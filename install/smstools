@@ -10,3 +10,5 @@ mkdir -p /var/spool/sms/sent
 
 chmod 775 /var/spool/sms/outgoing
 chmod 775 /var/spool/sms/incoming
+
+update-rc.d smstools enable
