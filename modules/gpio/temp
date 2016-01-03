@@ -169,20 +169,20 @@ if [ "$day_run" == "on" ]
     day=$($dir/modules/gpio/day $gpio)
 	if [ "$day" == "on" ]
 	    then 
-	    day=on
-	    temp #function
+		day=on #logs
+		temp #function
 	else
-	    of=off
-	    day=off
+	    of=off #off because day=off
+	    day=off #logs
 	fi
 else
-    day=off
+    day=off #logs
     temp
 fi
 }
 
 ### main
     day
-    gpio_$of
+    gpio_$of #set state after check all function
     echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio)" >> $dir/tmp/gpio_log.txt
 fi
