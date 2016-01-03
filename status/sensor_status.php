@@ -93,6 +93,7 @@ Go to device scan!
     unset($max);
     unset($min);
     unset($label);
+    unset($updo);
      } 
 ?>
     </tbody>
