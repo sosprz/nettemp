@@ -47,8 +47,8 @@ Go to device scan!
 		
 		//if($a['tmp'] > $a['tmp_5ago']) { $updo='<img src="media/ico/Up-3-icon.png"/>';}
 		//if($a['tmp'] < $a['tmp_5ago']) { $updo='<img src="media/ico/Down-3-icon.png" />';}
-		if($a['tmp'] > $a['tmp_5ago']) { $updo='<img src="media/ico/increase-icon.png" alt="up"/>';}
-		if($a['tmp'] < $a['tmp_5ago']) { $updo='<img src="media/ico/decrease-icon.png" alt="down"/>';}
+		if($a['tmp'] > $a['tmp_5ago']) { $updo='<span class="label label-danger"><span class="glyphicon glyphicon-arrow-up"</span></span>';}
+		if($a['tmp'] < $a['tmp_5ago']) { $updo='<span class="label label-info"><span class="glyphicon glyphicon-arrow-down"</span></span>';}
 		
 		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == on ) { 
 		    $mm='e'; 
