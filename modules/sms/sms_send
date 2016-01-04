@@ -8,15 +8,15 @@ nr=`sqlite3 $dir/dbf/nettemp.db "SELECT tel FROM users WHERE smsa='yes'" | awk '
 mkdir -p $dir/tmp/sms
 
 check_alarm() {
-for line in `sqlite3 $dir/dbf/nettemp.db "SELECT * FROM sensors WHERE alarm='on'"| sed 's/ /_/g'`; 
+for line in `sqlite3 $dir/dbf/nettemp.db "SELECT name,tmp,tmp_min,tmp_max FROM sensors WHERE alarm='on'"| sed 's/ /_/g'`; 
     do
 	for line2 in $nr
 	    do
 		line2=$(echo $line2 |sed 's/ //g')
-		name=`echo $line | awk 'BEGIN {FS="|"}{print $2}'`
-		tmp=`echo $line | awk 'BEGIN {FS="|"}{print $4}'`
-		tmp_min=`echo $line | awk 'BEGIN {FS="|"}{print $5}'`
-		tmp_max=`echo $line | awk 'BEGIN {FS="|"}{print $6}'`
+		name=`echo $line | awk 'BEGIN {FS="|"}{print $1}'`
+		tmp=`echo $line | awk 'BEGIN {FS="|"}{print $2}'`
+		tmp_min=`echo $line | awk 'BEGIN {FS="|"}{print $3}'`
+		tmp_max=`echo $line | awk 'BEGIN {FS="|"}{print $4}'`
 		plik=/var/spool/sms/outgoing/sms-$name-$line2
 	
 		if [ -n "$tmp_max" ]; then
