@@ -5,7 +5,7 @@ echo "From: Nettemp Device <$user>" > $2
 echo "To: $get_mail" >> $2
 echo "Subject: Notification from nettemp" >> $2
 sed -i '$aContent-Type: text/html' $2
-sed -i '' $2
+echo -e " " >> $2
 sed -i '$aMIME-Version: 1.0' $2
 sed -i '$a<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">' $2
 sed -i '$a<html>' $2
