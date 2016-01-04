@@ -66,7 +66,6 @@ $$temp_set=isset($_POST[$temp_set]) ? $_POST[$temp_set] : '';
 
 
 if ($$temp_set == "on") {
-var_dump($_POST);
 
     if ($$temp_source == 'temp') {
 	    $temp_temp=$$temp_temp;

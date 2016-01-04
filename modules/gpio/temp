@@ -1,8 +1,8 @@
 #! /bin/bash
 
 function log(){
-    echo "$date, F: $i, GPIO $gpio, rev:$rev, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}" >> $dir/tmp/gpio_log.txt
-    echo "$date, F: $i, GPIO $gpio, rev:$rev, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}"
+    echo "$date, F: $i, GPIO $gpio, rev:$rev, state: ${!state}, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}" >> $dir/tmp/gpio_log.txt
+    echo "$date, F: $i, GPIO $gpio, rev:$rev, state: ${!state}, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}"
 }
 
 function check(){
@@ -37,19 +37,25 @@ if [[ -n ${!temp_hyst} ]]; then
     if [[ "$h" == "0" ]] && [[ $l == "1" ]]; then
 	of=on
 	sqlite3 $dbn "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
+	sqlite3 $dbn "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
+	sqlite3 $dbg "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
 	logstatus="ON start"
 	echo "debug 1"
-  elif [[ "$h" == "0" ]] && [[ $l == "0" ]] && [[ "${!status}" != "OFF" ]]; then
+  elif [[ "$h" == "0" ]] && [[ $l == "0" ]] && [[ "${!state}" != "OFF" ]]; then
 	of=on
 	sqlite3 $dbn "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
+	sqlite3 $dbn "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
+	sqlite3 $dbg "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
 	logstatus="ON running"
 	echo "debug 2"
   elif [[ "$h" == "1" ]] && [[ $l == "0" ]]; then
 	of=off
 	sqlite3 $dbn "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
+	sqlite3 $dbn "UPDATE gpio SET state='OFF' WHERE gpio='$gpio'"
+	sqlite3 $dbg "UPDATE gpio SET state='OFF' WHERE gpio='$gpio'"
 	logstatus="OFF go down"
 	echo "debug 3"
-  elif [[ "$h" == "0" ]] && [[ $l == "0" ]] && [[ "${!status}" == "OFF" ]]; then
+  elif [[ "$h" == "0" ]] && [[ $l == "0" ]] && [[ "${!state}" == "OFF" ]]; then
 	logstatus="OFF still ging down"
 	echo "debug 4"
     fi
@@ -96,6 +102,9 @@ temp_op=temp_op$i
 
 declare status$i=`sqlite3 $dbg "SELECT status FROM gpio WHERE gpio='$gpio'"`
 status=status$i
+
+declare state$i=`sqlite3 $dbg "SELECT state FROM gpio WHERE gpio='$gpio'"`
+state=state$i
 
 
 declare temp_hyst$i=`sqlite3 $dbg "SELECT temp_hyst$i FROM gpio WHERE gpio='$gpio'"`
@@ -155,6 +164,8 @@ unset temp_op
 unset temp_hyst
 unset hyst
 unset status
+unset state
+unset logstatus
 
 else
     echo "$date, ERROR in value or Sensor1" >> $dir/tmp/gpio_log.txt
