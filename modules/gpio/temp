@@ -1,7 +1,7 @@
 #! /bin/bash
 
 function log(){
-    echo "$date, F: $i, GPIO $gpio, rev:$rev, state: ${!state}, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}" >> $dir/tmp/gpio_log.txt
+    echo "$date, F: $i, GPIO $gpio, rev:$rev, state: ${!state}, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}" >> $dir/tmp/gpio_$gpio\_log.txt
     echo "$date, F: $i, GPIO $gpio, rev:$rev, state: ${!state}, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}"
 }
 
@@ -168,9 +168,9 @@ unset state
 unset logstatus
 
 else
-    echo "$date, ERROR in value or Sensor1" >> $dir/tmp/gpio_log.txt
+    echo "$date, ERROR in value or Sensor1" >> $dir/tmp/gpio_$gpio\_log.txt
     echo "$date, ERROR in value or Sensor1"
-    exit 0
+    break
 fi
 done
 }
@@ -197,6 +197,6 @@ fi
 ### main
     day
     gpio_$of #set state after check all function
-    echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio)" >> $dir/tmp/gpio_log.txt
+    echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio)" >> $dir/tmp/gpio_$gpio\_log.txt
     echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio)"
 fi
