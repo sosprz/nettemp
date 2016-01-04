@@ -1,5 +1,5 @@
 #!/bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
-#(time $dir/modules/sms/sms_send) 2> $dir/tmp/debug/time/sms_send && \
+(time $dir/modules/sms/sms_send) 2> $dir/tmp/debug/time/sms_send && \
 #(time $dir/modules/kwh/highcharts) 2> $dir/tmp/debug/time/kwh
