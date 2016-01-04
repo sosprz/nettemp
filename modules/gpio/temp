@@ -9,21 +9,21 @@ function check(){
 if [[ -z "${!temp_hyst}" ]]; then
     if [[ "$l" = "1" ]]; then
         if [[ "${!temp_onoff}" = "on" ]]; then
-            of=on
+            offon=on
 	    sqlite3 $dbn "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
 	    logstatus="ON"
         else
-            of=off
+            offon=off
 	    sqlite3 $dbn "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
 	    logstatus="OFF"
         fi
     elif [[ "$l" = "0" ]]; then
         if [ "${!temp_onoff}" = "on" ];then
-            of=off
+            offon=off
 	    sqlite3 $dbn "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
 	    logstatus="OFF"
         else
-            of=on
+            offon=on
 	    sqlite3 $dbn "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
 	    logstatus="ON"
         fi
@@ -35,21 +35,21 @@ fi
 function hyst() {
 if [[ -n ${!temp_hyst} ]]; then
     if [[ "$h" == "0" ]] && [[ $l == "1" ]]; then
-	of=on
+	offon=on
 	sqlite3 $dbn "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
 	sqlite3 $dbn "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
 	sqlite3 $dbg "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
 	logstatus="ON start"
 	echo "debug 1"
   elif [[ "$h" == "0" ]] && [[ $l == "0" ]] && [[ "${!state}" != "OFF" ]]; then
-	of=on
+	offon=on
 	sqlite3 $dbn "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
 	sqlite3 $dbn "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
 	sqlite3 $dbg "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
 	logstatus="ON running"
 	echo "debug 2"
   elif [[ "$h" == "1" ]] && [[ $l == "0" ]]; then
-	of=off
+	offon=off
 	sqlite3 $dbn "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
 	sqlite3 $dbn "UPDATE gpio SET state='OFF' WHERE gpio='$gpio'"
 	sqlite3 $dbg "UPDATE gpio SET state='OFF' WHERE gpio='$gpio'"
@@ -181,11 +181,12 @@ if [ "$day_run" == "on" ]
     then
     day=$($dir/modules/gpio/day $gpio)
 	if [ "$day" == "on" ]
-	    then 
+	    then
 		day=on #logs
 		temp #function
 	else
-	    of=off #off because day=off
+	    sqlite3 $dbn "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
+	    offon=off #off because day=off
 	    day=off #logs
 	fi
 else
@@ -196,7 +197,7 @@ fi
 
 ### main
     day
-    gpio_$of #set state after check all function
+    gpio_$offon #set state after check all function
     echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio)" >> $dir/tmp/gpio_$gpio\_log.txt
     echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio)"
 fi
