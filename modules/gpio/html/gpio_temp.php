@@ -63,7 +63,7 @@ $result = $sth->fetchAll();
 <?php echo "Status: ".$a['status'];?>
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    <button type="submit" class="btn btn-xs btn-danger">Exit</button>
+    <button type="submit" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> OFF</button>
     <input type="hidden" name="tempon" value="off" />
     <input type="hidden" name="off" value="off" />
 </form>
