@@ -81,24 +81,20 @@ $result = $sth->fetchAll();
 ?>
 
 <form action="" method="post" style=" display:inline!important;">
-	    <button type="submit" name="dayrun" value="<?php echo $a["day_run"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["day_run"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-primary"'; ?>  >Day/Week</button>
 	    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	    <input type="hidden" name="dayrunon" value="on" /> 
+	    <button type="submit" name="dayrun" value="<?php echo $a["day_run"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["day_run"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-primary"'; ?> >
+	    <?php echo $a["day_run"] == 'on' ? '<span class="glyphicon glyphicon-off" aria-hidden="true"></span>' : '<span class="glyphicon glyphicon-play" aria-hidden="true"></span>'; ?> Day/Week</button>
 </form>
-<!-- <form action="" method="post" style=" display:inline!important;">
-	    <button type="submit" name="weekrun"  value="<?php echo $a["week_run"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["week_run"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-primary"'; ?>  >Week</button>
-	    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	    <input type="hidden" name="weekrunon" value="on" /> 
-</form> -->
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="tempon" value="on" />
-    <button type="submit" class="btn btn-xs btn-primary">ON</button>
+    <button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Start</button>
 </form>
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="tempexit" value="tempexit"/>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    <button type="submit" class="btn btn-xs btn-danger">Exit</button>
+    <button type="submit" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Exit</button>
 </form>
 
 

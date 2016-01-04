@@ -22,15 +22,17 @@ $$fd = isset($_POST["fd".$gpio]) ? $_POST["fd".$gpio] : '';
 if ($$fa == "fa") {
     $asum=($fnum + 1);
     $db->exec("UPDATE gpio SET fnum='$asum' WHERE gpio='$gpio_post'") or die("exec fa");
-    //echo $asum;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
 
 if ($$fd == "fd") {
+    if ($fnum == '1') {
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
     $dsum=($fnum - 1);
     $db->exec("UPDATE gpio SET fnum='$dsum' WHERE gpio='$gpio_post'") or die("exec fd");
-    //echo $dsum;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
@@ -163,11 +165,11 @@ var_dump($_POST);
 <td class="col-md-1">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="<?php echo temp_set.$v ?>" value="on" />
-	<button type="submit" class="btn btn-xs btn-primary">SAVE</button>
+	<button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-save"></span> Save</button>
 </form>
 
-<?php if ($v == '1' && $fnum <= '10') { ?>
-    <form action="" method="post" style=" display:inline!important;"> 	
+<?php if ($v == '1' && $fnum <= '9') { ?>
+    <form action="" method="post" style=" display:inline!important;">
         <input type="hidden" name="<?php echo fa.$a['gpio'] ?>" value="fa" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
         <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button>
@@ -175,7 +177,7 @@ var_dump($_POST);
 <?php 
     }
 if ($v == $a['fnum'] && $v != '1') { ?>
-    <form action="" method="post" style=" display:inline!important;"> 	
+    <form action="" method="post" style=" display:inline!important;">
         <input type="hidden" name="<?php echo fd.$a['gpio'] ?>" value="fd" />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
         <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>

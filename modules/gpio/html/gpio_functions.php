@@ -247,14 +247,6 @@ if (empty($mode4)){ ?>
     </form>
 <?php 
 }
-if (empty($mode3)){ ?>
-    <form action="" method="post" style=" display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary">kWh</button>
-	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="hidden" name="kwhon" value="kwhon" />
-    </form>
-<?php 
-}
 if (empty($mode2)) { ?>
     <form action="" method="post" style="display:inline!important;">
 	<button type="submit" class="btn btn-xs btn-primary">Buzzer</button>
@@ -280,11 +272,5 @@ if (empty($mode2)) { ?>
 	<input type="hidden" name="gason" value="gason" />
     </form>
 
-<!--    <form action="" method="post" style="display:inline!important;">
-        <input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
-        <input type="hidden" type="submit" name="gpiodel" value="gpiodel" />
-        <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
-    </form>
--->
 
 
