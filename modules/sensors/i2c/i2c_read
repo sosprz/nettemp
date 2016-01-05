@@ -1,13 +1,15 @@
 #! /bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
+dbn=$(echo sqlite3 -init <(echo .timeout 2000) $dir/dbf/nettemp.db)
+#sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db
 
-if onoff=$(sqlite3 $dir/dbf/nettemp.db "SELECT i2c FROM device WHERE id='1'")
+if onoff=$($dbn "SELECT i2c FROM device WHERE id='1'")
 then
 if [ "$onoff" == "i2c-1" ] || [ "$onoff" == "i2c-0" ] || [ "$onoff" == "i2c-2" ] || [ "$onoff" == "i2c-3" ] ; then 
 ####################################################################################
 bus=$(echo $onoff|sed 's/i2c-//g')
-skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
+skey=$( $dbn "select server_key from settings WHERE id='1'")
 
 function checkwrite {
 php-cgi -f $dir/receiver.php key=$skey rom=$2 value=$1 type=$3
@@ -17,11 +19,11 @@ cd $dir/db
 
 ###########
 v=bmp180
-id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$v'")
+id=$( $dbn "SELECT addr FROM i2c where name='$v'")
 ###########
 
 for id in $id; do
-    if sqlite3 $dir/dbf/nettemp.db "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
+    if  $dbn "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
 	all=($($dir/modules/sensors/i2c/BMP180/bmp180.py $bus 2>/dev/null))
 	    t=i2c_${id}_temp.sql
 	    p=i2c_${id}_press.sql
@@ -47,11 +49,11 @@ done
 
 ###########
 v=tsl2561
-id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$v'")
+id=$( $dbn "SELECT addr FROM i2c where name='$v'")
 ###########
 
 for id in $id; do
-    if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
+    if  $dbn  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
 	all=$($dir/modules/sensors/i2c/TSL2561/TSL2561_i2c_$(echo $onoff | sed 's/i2c-//') 2>/dev/null)
 	    l=i2c_${id}_lux.sql
 	    if [ -s "$l" ]; then
@@ -68,11 +70,11 @@ done
 
 ###########
 v=bh1750
-id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$v'")
+id=$( $dbn "SELECT addr FROM i2c where name='$v'")
 ###########
 
 for id in $id; do
-    if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
+    if  $dbn  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
 	all=($($dir/modules/sensors/i2c/BH1750/bh1750.py $bus 2>/dev/null))
 	    l=i2c_${id}_lux.sql
 	    if [ -s "$l" ]; then
@@ -90,11 +92,11 @@ done
 
 ###########
 v=htu21d
-id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$v'")
+id=$( $dbn "SELECT addr FROM i2c where name='$v'")
 ###########
 
 for id in $id; do
-    if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
+    if  $dbn  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
 	all=($($dir/modules/sensors/i2c/HTU21D/htu21d.py $bus 2>/dev/null))
 	    t=i2c_${id}_temp.sql
 	    h=i2c_${id}_humid.sql
@@ -121,11 +123,11 @@ done
 
 ###########
 v=mpl3115a2
-id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$v'")
+id=$( $dbn "SELECT addr FROM i2c where name='$v'")
 ###########
 
 for id in $id; do
-    if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
+    if  $dbn  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
 	echo 1 > /sys/module/i2c_bcm2708/parameters/combined
 	all=($($dir/modules/sensors/i2c/MPL3115A2/read.py $bus 2>/dev/null))
 	    t=i2c_${id}_temp.sql
@@ -152,11 +154,11 @@ done
 
 ###########
 v=hih6130
-id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$v'")
+id=$( $dbn "SELECT addr FROM i2c where name='$v'")
 ###########
 
 for id in $id; do
-    if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
+    if  $dbn  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
 	 all=$(cd $dir && $dir/modules/sensors/i2c/HIH6130/read.py $bus 2>/dev/null && cd -);
 	    t=i2c_${id}_temp.sql
 	    h=i2c_${id}_humid.sql
@@ -179,11 +181,11 @@ done
 
 ###########
 v=tmp102
-id=$(sqlite3 /var/www/nettemp/dbf/nettemp.db "SELECT addr FROM i2c where name='$v'")
+id=$( $dbn "SELECT addr FROM i2c where name='$v'")
 ###########
 
 for id in $id; do
-    if sqlite3 $dir/dbf/nettemp.db  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
+    if  $dbn  "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then 
 	all=$($dir/modules/sensors/i2c/TMP102/read.py $bus 2>/dev/null)
 	    t=i2c_${id}_temp.sql
 	    if [ -s "$t" ]; then
