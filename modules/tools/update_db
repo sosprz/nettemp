@@ -207,3 +207,8 @@ sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Mod
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem SMS','none');"
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('UPS Pimowo','none');"
 sqlite3 $dir/dbf/nettemp.db "ALTER TABLE gpio ADD state type TEXT";
+
+sqlite3 $dir/dbf/nettemp.db "PRAGMA journal_mode=WAL";
+
+
+

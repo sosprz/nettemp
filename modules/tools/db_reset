@@ -16,7 +16,7 @@ for i in snmp hosts kwh nettemp; do
     chown root.www-data $dir/dbf/$i.db
 done
 
-
+sqlite3 $dir/dbf/nettemp.db "PRAGMA journal_mode=WAL";
 sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO device (usb, onewire, serial, i2c, lmsensors, wireless ) VALUES ('off','off','off','off','off','off')"
 sqlite3 $dir/dbf/nettemp.db "INSERT INTO settings (mail, sms, rrd, highcharts, fw, vpn, gpio, authmod, tempnum, charts_system, charts_hosts, charts_gpio, charts_min) VALUES ('off','off', 'off', 'on', 'off', 'off', 'on', 'on', '3', 'on', 'on', 'on', '10')"
