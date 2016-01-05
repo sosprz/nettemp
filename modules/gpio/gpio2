@@ -3,10 +3,8 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=$(date +%y%m%d-%H%M)
 
-dbn=$dir/dbf/nettemp.db
-
 function buzzer {
-buzzer=$(sqlite3 -cmd ".timeout 2000" $dbn "SELECT gpio FROM gpio where mode='buzzer'")
+buzzer=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='buzzer'")
 if [ -n "$buzzer" ]
 	    then
 		/usr/local/bin/gpio -g write $buzzer 1 &&  /usr/local/bin/gpio -g write $buzzer 0
@@ -51,13 +49,13 @@ gpio_off(){
 }
 
 if [ -z "$gpio_list" ]; then
-	gpio_list=$(sqlite3 -cmd ".timeout 2000" $dbn "SELECT gpio FROM gpio")
+	gpio_list=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT gpio FROM gpio")
 fi
 
 
 for gpio in $gpio_list; do 
-	mode=$(sqlite3 -cmd ".timeout 2000" $dbn "SELECT mode FROM gpio WHERE gpio='$gpio'")
-	rev=$(sqlite3 -cmd ".timeout 2000" $dbn "SELECT rev FROM gpio WHERE gpio='$gpio'")
+	mode=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mode FROM gpio WHERE gpio='$gpio'")
+	rev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
 if [ "$mode" = "time" ]; then
     source $(dirname $0)/time
 elif [ "$mode" = "temp" ]; then
