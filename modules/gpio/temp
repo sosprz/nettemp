@@ -10,21 +10,21 @@ if [[ -z "${!temp_hyst}" ]]; then
     if [[ "$l" = "1" ]]; then
         if [[ "${!temp_onoff}" = "on" ]]; then
             offon=on
-	    sqlite3 $dbn "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
+	    sqlite3 -cmd ".timeout 2000" $dbn "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
 	    logstatus="ON"
         else
             offon=off
-	    sqlite3 $dbn "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
+	    sqlite3 -cmd ".timeout 2000" $dbn "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
 	    logstatus="OFF"
         fi
     elif [[ "$l" = "0" ]]; then
         if [ "${!temp_onoff}" = "on" ];then
             offon=off
-	    sqlite3 $dbn "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
+	    sqlite3 -cmd ".timeout 2000" $dbn "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
 	    logstatus="OFF"
         else
             offon=on
-	    sqlite3 $dbn "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
+	    sqlite3 -cmd ".timeout 2000" $dbn "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
 	    logstatus="ON"
         fi
     fi
@@ -36,23 +36,23 @@ function hyst() {
 if [[ -n ${!temp_hyst} ]]; then
     if [[ "$h" == "0" ]] && [[ $l == "1" ]]; then
 	offon=on
-	sqlite3 $dbn "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
-	sqlite3 $dbn "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
-	sqlite3 $dbg "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
+	sqlite3 -cmd ".timeout 2000" $dbn "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
+	sqlite3 -cmd ".timeout 2000" $dbn "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
+	sqlite3 -cmd ".timeout 2000" $dbg "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
 	logstatus="ON start"
 	echo "debug 1"
   elif [[ "$h" == "0" ]] && [[ $l == "0" ]] && [[ "${!state}" != "OFF" ]]; then
 	offon=on
-	sqlite3 $dbn "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
-	sqlite3 $dbn "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
-	sqlite3 $dbg "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
+	sqlite3 -cmd ".timeout 2000" $dbn "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
+	sqlite3 -cmd ".timeout 2000" $dbn "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
+	sqlite3 -cmd ".timeout 2000" $dbg "UPDATE gpio SET state='ON' WHERE gpio='$gpio'"
 	logstatus="ON running"
 	echo "debug 2"
   elif [[ "$h" == "1" ]] && [[ $l == "0" ]]; then
 	offon=off
-	sqlite3 $dbn "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
-	sqlite3 $dbn "UPDATE gpio SET state='OFF' WHERE gpio='$gpio'"
-	sqlite3 $dbg "UPDATE gpio SET state='OFF' WHERE gpio='$gpio'"
+	sqlite3 -cmd ".timeout 2000" $dbn "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
+	sqlite3 -cmd ".timeout 2000" $dbn "UPDATE gpio SET state='OFF' WHERE gpio='$gpio'"
+	sqlite3 -cmd ".timeout 2000" $dbg "UPDATE gpio SET state='OFF' WHERE gpio='$gpio'"
 	logstatus="OFF go down"
 	echo "debug 3"
   elif [[ "$h" == "0" ]] && [[ $l == "0" ]] && [[ "${!state}" == "OFF" ]]; then
@@ -64,10 +64,10 @@ fi
 
 
 
-temp_run=$(sqlite3 $dbg "SELECT temp_run FROM gpio WHERE gpio='$gpio'")
-day_run=$(sqlite3 $dbg "SELECT day_run FROM gpio WHERE gpio='$gpio'")
-#week_run=$(sqlite3 $dbg "SELECT week_run FROM gpio WHERE gpio='$gpio'")
-fnum=$(sqlite3 $dbg "SELECT fnum FROM gpio WHERE gpio='$gpio'");
+temp_run=$(sqlite3 -cmd ".timeout 2000" $dbg "SELECT temp_run FROM gpio WHERE gpio='$gpio'")
+day_run=$(sqlite3 -cmd ".timeout 2000" $dbg "SELECT day_run FROM gpio WHERE gpio='$gpio'")
+#week_run=$(sqlite3 -cmd ".timeout 2000" $dbg "SELECT week_run FROM gpio WHERE gpio='$gpio'")
+fnum=$(sqlite3 -cmd ".timeout 2000" $dbg "SELECT fnum FROM gpio WHERE gpio='$gpio'");
 
 if [ "$temp_run" = "on" ]
     then
@@ -76,38 +76,38 @@ function temp {
 for i in $(seq 1 $fnum);
     do 
 
-declare temp_onoff$i=`sqlite3 $dbg "SELECT temp_onoff$i FROM gpio WHERE gpio='$gpio'"`
+declare temp_onoff$i=`sqlite3 -cmd ".timeout 2000" $dbg "SELECT temp_onoff$i FROM gpio WHERE gpio='$gpio'"`
 temp_onoff=temp_onoff$i
 
-declare temp_temp$i=`sqlite3 $dbg "SELECT temp_temp$i FROM gpio WHERE gpio='$gpio'"`
+declare temp_temp$i=`sqlite3 -cmd ".timeout 2000" $dbg "SELECT temp_temp$i FROM gpio WHERE gpio='$gpio'"`
 temp_temp=temp_temp$i
 
-declare temp_sensor$i=`sqlite3 $dbg "SELECT temp_sensor$i FROM gpio WHERE gpio='$gpio'"`
+declare temp_sensor$i=`sqlite3 -cmd ".timeout 2000" $dbg "SELECT temp_sensor$i FROM gpio WHERE gpio='$gpio'"`
 temp_sensor=temp_sensor$i
 
-declare sensor_temp$i=`sqlite3 $dbg "SELECT tmp+adj FROM sensors WHERE id='${!temp_sensor}'"`
+declare sensor_temp$i=`sqlite3 -cmd ".timeout 2000" $dbg "SELECT tmp+adj FROM sensors WHERE id='${!temp_sensor}'"`
 sensor_temp=sensor_temp$i
 
-declare temp_sensor_diff$i=`sqlite3 $dbg "SELECT temp_sensor_diff$i FROM gpio WHERE gpio='$gpio'"`
+declare temp_sensor_diff$i=`sqlite3 -cmd ".timeout 2000" $dbg "SELECT temp_sensor_diff$i FROM gpio WHERE gpio='$gpio'"`
 temp_sensor_diff=temp_sensor_diff$i
 
-declare diff_temp$i=`sqlite3 $dbg "SELECT tmp FROM sensors WHERE id='${!temp_sensor_diff}'"`
+declare diff_temp$i=`sqlite3 -cmd ".timeout 2000" $dbg "SELECT tmp FROM sensors WHERE id='${!temp_sensor_diff}'"`
 diff_temp=diff_temp$i
 
-declare sensor_name$i=`sqlite3 $dbg "SELECT name FROM sensors WHERE id='${!temp_sensor}'"`
+declare sensor_name$i=`sqlite3 -cmd ".timeout 2000" $dbg "SELECT name FROM sensors WHERE id='${!temp_sensor}'"`
 sensor_name=sensor_name$i
 
-declare temp_op$i=`sqlite3 $dbg "SELECT temp_op$i FROM gpio WHERE gpio='$gpio'"`
+declare temp_op$i=`sqlite3 -cmd ".timeout 2000" $dbg "SELECT temp_op$i FROM gpio WHERE gpio='$gpio'"`
 temp_op=temp_op$i
 
-declare status$i=`sqlite3 $dbg "SELECT status FROM gpio WHERE gpio='$gpio'"`
+declare status$i=`sqlite3 -cmd ".timeout 2000" $dbg "SELECT status FROM gpio WHERE gpio='$gpio'"`
 status=status$i
 
-declare state$i=`sqlite3 $dbg "SELECT state FROM gpio WHERE gpio='$gpio'"`
+declare state$i=`sqlite3 -cmd ".timeout 2000" $dbg "SELECT state FROM gpio WHERE gpio='$gpio'"`
 state=state$i
 
 
-declare temp_hyst$i=`sqlite3 $dbg "SELECT temp_hyst$i FROM gpio WHERE gpio='$gpio'"`
+declare temp_hyst$i=`sqlite3 -cmd ".timeout 2000" $dbg "SELECT temp_hyst$i FROM gpio WHERE gpio='$gpio'"`
 temp_hyst=temp_hyst$i
 # hyst temp1 
 declare t1h$i=$(echo ${!temp_temp} ${!temp_hyst} |awk '{ sum = $1 + $2; print sum }')
@@ -185,7 +185,7 @@ if [ "$day_run" == "on" ]
 		day=on #logs
 		temp #function
 	else
-	    sqlite3 $dbn "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
+	    sqlite3 -cmd ".timeout 2000" $dbn "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
 	    offon=off #off because day=off
 	    day=off #logs
 	fi
