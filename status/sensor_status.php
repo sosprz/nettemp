@@ -4,6 +4,8 @@
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
+
+
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
 $numRows = count($row);
@@ -24,6 +26,11 @@ Go to device scan!
     foreach ($result as $a) {
 	$name1=$a['name'];
 	$name = str_replace("_", " ", $name1);
+	$min='';
+	$max='';
+	$label='';
+	$updo='';
+	$mm='';
 
 		if($a['device'] == 'wireless'){ $device='<img src="media/ico/wifi-circle-icon.png"/>';}
 		if($a['device'] == 'remote'){ $device='<img src="media/ico/remote.png" />';}
@@ -50,15 +57,15 @@ Go to device scan!
 		if($a['tmp'] > $a['tmp_5ago']) { $updo='<span class="label label-danger"><span class="glyphicon glyphicon-arrow-up"</span></span>';}
 		if($a['tmp'] < $a['tmp_5ago']) { $updo='<span class="label label-info"><span class="glyphicon glyphicon-arrow-down"</span></span>';}
 		
-		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == on ) { 
+		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == 'on' ) { 
 		    $mm='e'; 
-		    $max=max." ".$a['tmp_max'];
+		    $max="max ".$a['tmp_max'];
 		    if($a['type'] == 'temp'){ $type='<img src="media/ico/temp_high.png"/>';}
 		    $label='danger';
 		}
 		if($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min']) && $a['alarm'] == on ) { 
 		    $mm='e'; 
-		    $min=min." ".$a['tmp_min'];
+		    $min="min ".$a['tmp_min'];
 		    if($a['type'] == 'temp'){ $type='<img src="media/ico/temp_low.png"/>';}
 		    $label='danger';
 		}

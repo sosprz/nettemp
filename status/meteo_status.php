@@ -2,6 +2,10 @@
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die("cannot open the database");
 
+$temperatura='';
+$wilgotnosc='';
+$cisnienie='';
+
 $rows = $db->query("SELECT onoff FROM meteo where id='1'");
 $row = $rows->fetchAll();
 foreach ($row as $a) {

@@ -100,7 +100,7 @@ if ( $hostc >= "1")  {?>
 <a href="index.php?id=view&type=meteogram" ><button class="btn btn-default <?php echo $art == 'meteogram' ? ' active' : ''; ?>">Meteogram</button></a>
 </p>
 <?php
-if ($art != 'kwh' && $art!=meteogram) {
+if ($art != 'kwh' && $art!='meteogram') {
     ?>
 <p>
 <a href="index.php?id=view&type=<?php echo $art; ?>&max=hour" ><button class="btn btn-default btn-xs <?php echo $max == 'hour' ? ' active' : ''; ?>">Hour</button></a>
