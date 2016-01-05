@@ -4,9 +4,6 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=$(date +%y%m%d-%H%M)
 
 dbn=$dir/dbf/nettemp.db
-dbg=$dir/dbf/nettemp.dbg
-
-cp $dbn $dbg
 
 function buzzer {
 buzzer=$(sqlite3 -cmd ".timeout 2000" $dbn "SELECT gpio FROM gpio where mode='buzzer'")
@@ -79,6 +76,4 @@ fi
 
 
 done
-
-rm -rf $dbg
 
