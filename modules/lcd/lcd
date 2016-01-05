@@ -3,8 +3,8 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 file=$dir/tmp/lcd
 
-lcd=$(sqlite3 $dir/dbf/nettemp.db  "SELECT lcd FROM settings WHERE id='1'")
-lcd4=$(sqlite3 $dir/dbf/nettemp.db  "SELECT lcd4 FROM settings WHERE id='1'")
+lcd=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT lcd FROM settings WHERE id='1'")
+lcd4=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT lcd4 FROM settings WHERE id='1'")
 
 if [[ "$lcd" == "on" ]]
 then

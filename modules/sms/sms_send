@@ -3,12 +3,12 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M%S`
 
-nr=`sqlite3 $dir/dbf/nettemp.db "SELECT tel FROM users WHERE smsa='yes'" | awk '{ printf " "$1 }'`
+nr=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tel FROM users WHERE smsa='yes'" | awk '{ printf " "$1 }'`
 
 mkdir -p $dir/tmp/sms
 
 check_alarm() {
-for line in `sqlite3 $dir/dbf/nettemp.db "SELECT name,tmp,tmp_min,tmp_max FROM sensors WHERE alarm='on'"| sed 's/ /_/g'`; 
+for line in `sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name,tmp,tmp_min,tmp_max FROM sensors WHERE alarm='on'"| sed 's/ /_/g'`; 
     do
 	for line2 in $nr
 	    do

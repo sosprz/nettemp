@@ -1,6 +1,6 @@
 #! /bin/bash -x
 
-simple_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT simple FROM gpio WHERE gpio='$gpio'")
+simple_run=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT simple FROM gpio WHERE gpio='$gpio'")
 if [ "$simple_run" = "on" ]
     then
 	gpio_on $gpio

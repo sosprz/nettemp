@@ -2,14 +2,14 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
-if name=$(sqlite3 $dir/dbf/snmp.db "SELECT rom FROM snmp")
-    skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
+if name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "SELECT rom FROM snmp")
+    skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
     then
     for rom in $name; do 
-	community=$(sqlite3 $dir/dbf/snmp.db "SELECT community FROM snmp WHERE rom='$rom'")
-	host=$(sqlite3 $dir/dbf/snmp.db "SELECT host FROM snmp WHERE rom='$rom'")
-	oid=$(sqlite3 $dir/dbf/snmp.db "SELECT oid FROM snmp WHERE rom='$rom'")
-	divider=$(sqlite3 $dir/dbf/snmp.db "SELECT divider FROM snmp WHERE rom='$rom'")
+	community=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "SELECT community FROM snmp WHERE rom='$rom'")
+	host=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "SELECT host FROM snmp WHERE rom='$rom'")
+	oid=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "SELECT oid FROM snmp WHERE rom='$rom'")
+	divider=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "SELECT divider FROM snmp WHERE rom='$rom'")
 	walk=$(snmpget -v 2c -c $community $host $oid -O v)
         val=`echo $walk | tr -d \" | awk '{printf "%3.1f\n", $2/'$divider' }'`  
 	php-cgi -f $dir/receiver.php key=$skey rom=$rom value=$val type=temp

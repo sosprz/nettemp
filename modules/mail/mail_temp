@@ -4,14 +4,14 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
 
-onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM settings"`
+onoff=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mail FROM settings"`
 
 if [ "$onoff" == "on" ]; then
 
 dirs=$dir/tmp/mail
 mkdir -p $dirs/hour
 date2=`date +%Y%m%d-%H:%M`
-user=`sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
+user=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
 
 function file {
     source $(dirname $0)/mail_body
@@ -20,7 +20,7 @@ function file {
 
 names=() #array for remove old files
 
-if alarms=$(sqlite3 $dir/dbf/nettemp.db "SELECT name,rom,tmp,tmp_min,tmp_max FROM sensors WHERE alarm='on'"| sed 's/ /_/g')
+if alarms=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name,rom,tmp,tmp_min,tmp_max FROM sensors WHERE alarm='on'"| sed 's/ /_/g')
     then
     for line in $alarms
     do
@@ -32,7 +32,7 @@ if alarms=$(sqlite3 $dir/dbf/nettemp.db "SELECT name,rom,tmp,tmp_min,tmp_max FRO
 	plik=$dirs/$rom.mail
 	plik2=$dirs/hour/$rom.mail
 	
-	if [ "$tmp" == "error" ] &&  error=$(sqlite3 $dir/dbf/nettemp.db "SELECT error FROM mail_settings WHERE id='1'")
+	if [ "$tmp" == "error" ] &&  error=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT error FROM mail_settings WHERE id='1'")
 	    then
 		if [ ! -f "$plik2" ] && [ "$error" == "on" ]
 		    then

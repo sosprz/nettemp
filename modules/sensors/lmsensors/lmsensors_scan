@@ -17,7 +17,7 @@ for i in $temp
          if [ -n "$t" ] &&  echo $t | grep -q [0-9]
         then 
 	    rom=lmsensors_$i$end
-	    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')"
+	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')"
         fi
     done
 
@@ -30,7 +30,7 @@ for i in $core
          if [ -n "$c" ] &&  echo $c | grep -q [0-9]
         then
 		rom=lmsensors_Core$i$end 
-		sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')"
         fi
     done
 
@@ -38,9 +38,9 @@ for i in $core
 if [ -n "$temp" ] || [ -n "$core" ]
     then
         echo lm-sensors: Sensors found
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET lmsensors='on' WHERE id='1'"
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET lmsensors='on' WHERE id='1'"
     else
-    sqlite3 $dir/dbf/nettemp.db "UPDATE device SET lmsensors='off' WHERE id='1'"
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET lmsensors='off' WHERE id='1'"
 fi
 
 fi

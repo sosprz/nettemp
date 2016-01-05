@@ -44,9 +44,9 @@ $dir/modules/sensors/other/sdm120
 
 
 #snmp server
-sqlite3 $dir/dbf/nettemp.db "SELECT tmp FROM sensors" | sed 's/$/:/' | sed '$s/.$//' |tr -d "\n" > $dir/tmp/results
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tmp FROM sensors" | sed 's/$/:/' | sed '$s/.$//' |tr -d "\n" > $dir/tmp/results
 #lcd
-sqlite3 $dir/dbf/nettemp.db "SELECT name,tmp,type FROM sensors WHERE lcd='on'" | sed 's/|/ /g' > $dir/tmp/lcd
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name,tmp,type FROM sensors WHERE lcd='on'" | sed 's/|/ /g' > $dir/tmp/lcd
 #node
 $dir/modules/sensors/node
 

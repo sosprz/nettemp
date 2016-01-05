@@ -4,10 +4,10 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
 src=$(hostname)
 
-array=($(sqlite3 $dir/dbf/nettemp.db "SELECT rom,tmp,type FROM sensors WHERE remote='on'"))
-cip=$(sqlite3 $dir/dbf/nettemp.db "SELECT client_ip FROM settings WHERE id='1'")
-ckey=$(sqlite3 $dir/dbf/nettemp.db "SELECT client_key FROM settings WHERE id='1'")
-onoff=$(sqlite3 $dir/dbf/nettemp.db "SELECT client_on FROM settings WHERE id='1'")
+array=($(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rom,tmp,type FROM sensors WHERE remote='on'"))
+cip=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT client_ip FROM settings WHERE id='1'")
+ckey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT client_key FROM settings WHERE id='1'")
+onoff=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT client_on FROM settings WHERE id='1'")
 
 if [[ -n "$onoff" ]]; then
 

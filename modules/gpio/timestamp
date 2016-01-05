@@ -7,8 +7,8 @@ gpio="$1"
 onoff="$2"
 
 if [ -e $dir/db/gonoff_$gpio.sql ]; then
-    sqlite3 $dir/db/gonoff_$gpio.sql "INSERT OR IGNORE INTO def (value) VALUES ('$2');"
+    sqlite3 -cmd ".timeout 2000" $dir/db/gonoff_$gpio.sql "INSERT OR IGNORE INTO def (value) VALUES ('$2');"
 else
-    sqlite3 $dir/db/gonoff_$gpio.sql "CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER);"
-    sqlite3 $dir/db/gonoff_$gpio.sql "INSERT OR IGNORE INTO def (value) VALUES ('$2');"
+    sqlite3 -cmd ".timeout 2000" $dir/db/gonoff_$gpio.sql "CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER);"
+    sqlite3 -cmd ".timeout 2000" $dir/db/gonoff_$gpio.sql "INSERT OR IGNORE INTO def (value) VALUES ('$2');"
 fi

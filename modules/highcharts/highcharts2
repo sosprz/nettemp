@@ -6,7 +6,7 @@ date=`date +%y%m%d-%H%M`
 mkdir -p $dir/tmp/highcharts
 rm -rf $dir/tmp/highcharts/*
 
-hc_onoff=`sqlite3 $dir/dbf/nettemp.db "SELECT highcharts FROM settings"`
+hc_onoff=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT highcharts FROM settings"`
 
 if [ "$hc_onoff" == "on" ]; then
 
@@ -21,12 +21,12 @@ fi
 cp $dir/dbf/nettemp.db $dir/tmp/highcharts
 
 # hosts
-charts_hosts=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT charts_hosts FROM settings WHERE id='1'")
+charts_hosts=$(sqlite3 -cmd ".timeout 2000" $dir/tmp/highcharts/nettemp.db "SELECT charts_hosts FROM settings WHERE id='1'")
 if [[ "$charts_hosts" = "on" ]]; then
-name="$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts")"
+name="$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT name FROM hosts")"
 for i in $name; do
-    rom=$(sqlite3 $dir/dbf/hosts.db "SELECT rom FROM hosts WHERE name='$i'")
-    if base=$(sqlite3 $dir/db/$rom.sql "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
+    rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT rom FROM hosts WHERE name='$i'")
+    if base=$(sqlite3 -cmd ".timeout 2000" $dir/db/$rom.sql "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
 	then
 	    #middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1+3600)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
 	    #middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
@@ -42,10 +42,10 @@ fi
 
 # sensors
 for n in temp press lux humid elec water gas; do
-    name=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT name FROM sensors WHERE type='$n' AND charts='on'")
+    name=$(sqlite3 -cmd ".timeout 2000" $dir/tmp/highcharts/nettemp.db "SELECT name FROM sensors WHERE type='$n' AND charts='on'")
     for i in $name; do
-	rom=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT rom FROM sensors WHERE name='$i'")
-	    if base=$(sqlite3 $dir/db/$rom.sql "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
+	rom=$(sqlite3 -cmd ".timeout 2000" $dir/tmp/highcharts/nettemp.db "SELECT rom FROM sensors WHERE name='$i'")
+	    if base=$(sqlite3 -cmd ".timeout 2000" $dir/db/$rom.sql "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
 		then
 		    #middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1+3600)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
 		    middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
@@ -58,12 +58,12 @@ done
 
 # gpio on/off, system
 
-charts_gpio=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT charts_gpio FROM settings WHERE id='1'")
+charts_gpio=$(sqlite3 -cmd ".timeout 2000" $dir/tmp/highcharts/nettemp.db "SELECT charts_gpio FROM settings WHERE id='1'")
 if [[ "$charts_gpio" = "on" ]]; then
 name=$(ls $dir/db/ |grep  -e gonoff )
 #echo $name
 for i in $name; do
-    if base=$(sqlite3 $dir/db/$i "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
+    if base=$(sqlite3 -cmd ".timeout 2000" $dir/db/$i "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
 	then
 	    middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
 	    last=$(echo $i |sed '$s/....$//')
@@ -76,12 +76,12 @@ else
     echo "gpio off"
 fi
 
-charts_system=$(sqlite3 $dir/tmp/highcharts/nettemp.db "SELECT charts_system FROM settings WHERE id='1'")
+charts_system=$(sqlite3 -cmd ".timeout 2000" $dir/tmp/highcharts/nettemp.db "SELECT charts_system FROM settings WHERE id='1'")
 if [[ "$charts_system" = "on" ]]; then
 name=$(ls $dir/db/ |grep -e system )
 #echo $name
 for i in $name; do
-    if base=$(sqlite3 $dir/db/$i "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
+    if base=$(sqlite3 -cmd ".timeout 2000" $dir/db/$i "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
 	then
 	    middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')
 	    last=$(echo $i |sed '$s/....$//')

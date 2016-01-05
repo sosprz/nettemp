@@ -6,14 +6,14 @@ if [ -z "$gpio" ]
 	gpio="$1"
 	mode="simgle"
 fi
-day_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio'")
+day_run=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio'")
 if [ "$day_run" = "on" ]; then
-	day_zone1s=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone1s FROM gpio WHERE gpio='$gpio'")
-	day_zone1e=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone1e FROM gpio WHERE gpio='$gpio'")
-	day_zone2s=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone2s FROM gpio WHERE gpio='$gpio'")
-	day_zone2e=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone2e FROM gpio WHERE gpio='$gpio'")
-	day_zone3s=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone3s FROM gpio WHERE gpio='$gpio'")
-	day_zone3e=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_zone3e FROM gpio WHERE gpio='$gpio'")
+	day_zone1s=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT day_zone1s FROM gpio WHERE gpio='$gpio'")
+	day_zone1e=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT day_zone1e FROM gpio WHERE gpio='$gpio'")
+	day_zone2s=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT day_zone2s FROM gpio WHERE gpio='$gpio'")
+	day_zone2e=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT day_zone2e FROM gpio WHERE gpio='$gpio'")
+	day_zone3s=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT day_zone3s FROM gpio WHERE gpio='$gpio'")
+	day_zone3e=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT day_zone3e FROM gpio WHERE gpio='$gpio'")
 	
 	day_zone1s_cut=`echo $day_zone1s | sed 's/://g'`
 	day_zone1e_cut=`echo $day_zone1e | sed 's/://g'`
@@ -25,16 +25,16 @@ if [ "$day_run" = "on" ]; then
 	date2=$(date +%H%M)
 
 	if [[ "$date2" > "$day_zone1s_cut" && "$date2" < "$day_zone1e_cut" ]]; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='on - day range 1' WHERE gpio='$gpio'"
+	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='on - day range 1' WHERE gpio='$gpio'"
 	    onoff="on"
         elif  [[ "$date2" > "$day_zone2s_cut" && "$date2" < "$day_zone2e_cut" ]]; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='on - day range 2' WHERE gpio='$gpio'"
+	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='on - day range 2' WHERE gpio='$gpio'"
 	    onoff="on"
 	elif [[ "$date2" > "$day_zone3s_cut" && "$date2" < "$day_zone3e_cut" ]]; then
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='on - range 3' WHERE gpio='$gpio'"
+	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='on - range 3' WHERE gpio='$gpio'"
 	    onoff="on"
         else
-	    sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='off - not in day range' WHERE gpio='$gpio'"
+	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='off - not in day range' WHERE gpio='$gpio'"
 	    onoff="off"
 	fi
 

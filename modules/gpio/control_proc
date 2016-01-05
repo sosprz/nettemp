@@ -9,14 +9,14 @@ if [ ! -n "$gpio" ]; then echo "no gpio input" && exit; fi
 
 function control {
     if [ "$cf" == "trigger" ]; then
-	r=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_run FROM gpio where gpio='$cgpio'")
+	r=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT trigger_run FROM gpio where gpio='$cgpio'")
 	    /usr/local/bin/gpio -g mode $led out
 	    if [ "$r" != "on" ]; then
-		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET trigger_run='on' WHERE gpio='$cgpio'"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET trigger_run='on' WHERE gpio='$cgpio'"
 		$dir/modules/gpio/trigger_proc $cgpio &
 		/usr/local/bin/gpio -g write $led 1
 	    else
-		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET trigger_run='' WHERE gpio='$cgpio'"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET trigger_run='' WHERE gpio='$cgpio'"
 		$dir/modules/gpio/trigger_close $cgpio &
 		/usr/local/bin/gpio -g write $led 0
 	    fi
@@ -24,11 +24,11 @@ function control {
 }
 
 
-cgpio=$(sqlite3 $dir/dbf/nettemp.db "SELECT control FROM gpio where gpio='$gpio'")
-cf=$(sqlite3 $dir/dbf/nettemp.db "SELECT mode FROM gpio where gpio='$cgpio'")
-rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
-name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio WHERE gpio='$gpio'")
-led=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='led'")
+cgpio=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT control FROM gpio where gpio='$gpio'")
+cf=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mode FROM gpio where gpio='$cgpio'")
+rev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
+name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name FROM gpio WHERE gpio='$gpio'")
+led=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='led'")
 
 while :
 do

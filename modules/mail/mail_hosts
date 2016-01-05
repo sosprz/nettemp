@@ -8,15 +8,15 @@ dirs=$dir/tmp/mail
 mkdir -p $dirs/hour
 dirs2=$dirs/hour
 date2=`date +%Y%m%d-%H:%M`
-get_mail=`sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM users WHERE maila='yes'" | awk '{ printf " "$1 }'`
-user=`sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
+get_mail=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mail FROM users WHERE maila='yes'" | awk '{ printf " "$1 }'`
+user=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
 
 function file {
 source $(dirname $0)/mail_body
 chmod 777 $2
 }
 
-if name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='error'")
+if name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='error'")
     then
 	for name in $name
 	do  
@@ -31,7 +31,7 @@ fi
 
 unset name
 
-if name=$(sqlite3 $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='ok'")
+if name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='ok'")
     then
 	for name in $name
 	do

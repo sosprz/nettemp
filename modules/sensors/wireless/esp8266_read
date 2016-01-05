@@ -2,9 +2,9 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
-if rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='wireless' AND type='temp' OR type='humid'")
+if rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='wireless' AND type='temp' OR type='humid'")
     then
-    skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
+    skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
     for all in $rom
     do 
 	ip=$(echo $all |awk -F_ '{print $2}')

@@ -7,15 +7,15 @@ gpio="$1"
 
 if [ ! -n "$gpio" ]; then echo "no gpio input" && exit; fi 
 
-name=$(sqlite3 $dir/dbf/nettemp.db "SELECT name FROM gpio where gpio='$gpio'")
-out=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND tout$gpio='on'")
-rev=$(sqlite3 $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
-trigger_notice=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
-get_mail=$(sqlite3 $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
-user=$(sqlite3 $dir/dbf/nettemp.db "SELECT user FROM mail_settings")
-led=$(sqlite3 $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='led'")
-delay=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_delay FROM gpio where gpio='$gpio'")
-con=$(sqlite3 $dir/dbf/nettemp.db "SELECT trigger_con FROM gpio where gpio='$gpio'")
+name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name FROM gpio where gpio='$gpio'")
+out=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND tout$gpio='on'")
+rev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
+trigger_notice=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
+get_mail=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
+user=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT user FROM mail_settings")
+led=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='led'")
+delay=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT trigger_delay FROM gpio where gpio='$gpio'")
+con=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT trigger_con FROM gpio where gpio='$gpio'")
 
 function triggerout_gpio {
 	    for i in $out; do
@@ -121,7 +121,7 @@ do
 	    
 		continue
 	    else
-		sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
 		break
 	    fi
     fi

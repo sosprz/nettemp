@@ -12,7 +12,7 @@ a=(simple temp time moment )
 for i in $(seq 100 110);
     do
     mode="${a[RANDOM%${#a[@]}]}"
-    sqlite3 $dir/dbf/nettemp.db "INSERT INTO gpio (gpio, name, status, fnum, mode) VALUES ('$i','new_$i','OFF','3','$(echo $mode)')"
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO gpio (gpio, name, status, fnum, mode) VALUES ('$i','new_$i','OFF','3','$(echo $mode)')"
     unset $mode
 done
 

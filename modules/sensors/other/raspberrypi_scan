@@ -7,7 +7,7 @@ date=`date +%y%m%d-%H%M`
 rpi=$(cat /proc/cmdline | awk -v RS=" " -F= '/boardrev/ { print $2 }')
 if [ -e /opt/vc/bin/vcgencmd ] && [ -n "$rpi" ]; then
     #echo "Raspberry_Pi" >> $dir/tmp/onewire
-    sqlite3 $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('Raspberry_Pi')"
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('Raspberry_Pi')"
     echo "Raspberry Pi: Internal sensor found"
 fi
 

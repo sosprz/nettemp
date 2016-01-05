@@ -19,16 +19,16 @@ memory=$(free | grep cache: | awk '{printf "%3.1f", ($3/'$max') * 100.0}')
 
 if [ ! -e $dir/db/system_cpu.sql ]; then
     for i in cpu memory memory_cached; do
-	sqlite3 $dir/db/system\_$i.sql < $dir/modules/tools/system.schema
+	sqlite3 -cmd ".timeout 2000" $dir/db/system\_$i.sql < $dir/modules/tools/system.schema
 	chmod 775 $dir/db/$i.sql
 	chown root.www-data $dir/db/$i.sql
     done
 fi
 rm -rf $dir/db/system*.rrd
 
-sqlite3 $dir/db/system_cpu.sql "INSERT OR IGNORE INTO def (value) VALUES ('$cpu');"
-sqlite3 $dir/db/system_memory_cached.sql "INSERT OR IGNORE INTO def (value) VALUES ('$memoryc');"
-sqlite3 $dir/db/system_memory.sql "INSERT OR IGNORE INTO def (value) VALUES ('$memory');"
+sqlite3 -cmd ".timeout 2000" $dir/db/system_cpu.sql "INSERT OR IGNORE INTO def (value) VALUES ('$cpu');"
+sqlite3 -cmd ".timeout 2000" $dir/db/system_memory_cached.sql "INSERT OR IGNORE INTO def (value) VALUES ('$memoryc');"
+sqlite3 -cmd ".timeout 2000" $dir/db/system_memory.sql "INSERT OR IGNORE INTO def (value) VALUES ('$memory');"
 
 
 

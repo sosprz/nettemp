@@ -4,10 +4,10 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
-onewire=`sqlite3 $dir/dbf/nettemp.db "SELECT onewire FROM device"`
+onewire=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT onewire FROM device"`
 if [ "$onewire" == "on" ]; then
-rom=$(sqlite3 $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE rom LIKE '28-%' OR rom LIKE '10-%'")
-skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
+rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE rom LIKE '28-%' OR rom LIKE '10-%'")
+skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
 
 for name in $rom
 do

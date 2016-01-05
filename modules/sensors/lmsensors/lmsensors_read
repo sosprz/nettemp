@@ -4,10 +4,10 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
-lmsensors=$(sqlite3 $dir/dbf/nettemp.db "SELECT lmsensors FROM device where id='1'")
+lmsensors=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT lmsensors FROM device where id='1'")
 if [ "$lmsensors" == "on" ] 
     then
-skey=$(sqlite3 $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
+skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
 php-cgi -f $dir/receiver.php key=$skey rom=Banana_Pi value=$bpi type=temp
 
 fortemp=$(sensors |grep temp[0-9] | awk '{print $1}' | sed 's/://g')

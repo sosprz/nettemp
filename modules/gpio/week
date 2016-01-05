@@ -6,11 +6,11 @@ if [ -z "$gpio" ]
 	gpio="$1"
 	mode="single"
 fi
-if week_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT week_run FROM gpio WHERE gpio='$gpio'")
+if week_run=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT week_run FROM gpio WHERE gpio='$gpio'")
 then    
 if [ "$week_run" = "on" ]; then
 	date2=$(LC_ALL=en_EN.utf8 date '+%a')
-	if i=$(sqlite3 $dir/dbf/nettemp.db "SELECT week_$date2 FROM gpio WHERE gpio='$gpio'")
+	if i=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT week_$date2 FROM gpio WHERE gpio='$gpio'")
     then
 	   if [ "$i" == "on" ]
 	    then
@@ -24,7 +24,7 @@ if [ "$week_run" = "on" ]; then
 	then
 	    echo $onoff
     else
-       if day_run=$(sqlite3 $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio'")
+       if day_run=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio'")
         then
 	       if [ "$day_run" == "on" ]
 	       then
@@ -33,16 +33,16 @@ if [ "$week_run" = "on" ]; then
 		          then
                      gpio_$onoff $gpio
 			         echo $onoff
-			         sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='$onoff - week' WHERE gpio='$gpio'"
+			         sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='$onoff - week' WHERE gpio='$gpio'"
                    else
 		             gpio_off $gpio
 		             echo off
-		             sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='off - week' WHERE gpio='$gpio'"
+		             sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='off - week' WHERE gpio='$gpio'"
 		          fi
 	       else
 	           gpio_$onoff $gpio
 	           echo $onoff
-	           sqlite3 $dir/dbf/nettemp.db "UPDATE gpio SET status='$onoff - week' WHERE gpio='$gpio'"
+	           sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='$onoff - week' WHERE gpio='$gpio'"
 	       fi
         fi
     fi
