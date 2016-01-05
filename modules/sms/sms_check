@@ -1,10 +1,10 @@
 #!/bin/bash
 
 DATE=`date +%y%m%d-%H%M`
-LOG="/var/www/nettemp/tmp/incoming_sms.txt"
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=$(date +%y%m%d-%H%)
+LOG="$dir/tmp/incoming_sms.txt"
 
 cd /var/spool/sms/incoming
 

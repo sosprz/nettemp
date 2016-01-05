@@ -9,7 +9,7 @@ while :
     figlet nettemp
     echo -n "version "; echo -n "$(cd $dir && /usr/bin/git branch |grep [*]|awk '{print $2}') "; awk '/Changelog/{y=1;next}y' $dir/readme.md |head -2 |grep -v '^$'
     echo ""
-    cat /var/www/nettemp/tmp/lcd | sed 's/temp/'$(echo -e $CEL)'/g' | sed 's/humid/%/g' | sed 's/press/Pa/g' | sed 's/humid/%/g' | column -t
+    cat $dir/tmp/lcd | sed 's/temp/'$(echo -e $CEL)'/g' | sed 's/humid/%/g' | sed 's/press/Pa/g' | sed 's/humid/%/g' | column -t
     echo ""
     echo ""
     sleep 60
