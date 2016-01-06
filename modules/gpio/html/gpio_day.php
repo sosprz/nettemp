@@ -17,6 +17,7 @@ if ($dayrun == "on")  {
     }
 
 if ($dayrun == "off")  {
+    include('gpio_off.php');
     $db->exec("UPDATE gpio SET day_run='', status='OFF' WHERE gpio='$gpio_post'") or die("dayrun off error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);

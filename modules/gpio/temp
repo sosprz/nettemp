@@ -1,10 +1,5 @@
 #! /bin/bash
 
-function log(){
-    echo "$date, F: $i, GPIO $gpio, rev:$rev, state: ${!state}, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Sensor2: ${!temp_sensor2}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}" >> $dir/tmp/gpio_$gpio\_log.txt
-    echo "$date, F: $i, GPIO $gpio, rev:$rev, state: ${!state}, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Sensor2: ${!temp_sensor2}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}"
-}
-
 function check(){
 if [[ -z "${!temp_hyst}" ]]; then
     if [[ "$l" = "1" ]]; then
@@ -33,6 +28,8 @@ if [[ -z "${!temp_hyst}" ]]; then
             offon=off
 	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
 	    logstatus="OFF"
+	else 
+	    logstatus="NOTHING"
         fi
     fi
 fi
@@ -185,18 +182,15 @@ done
 function day {
 if [ "$day_run" == "on" ]
     then
-    day=$($dir/modules/gpio/day $gpio)
-	if [ "$day" == "on" ]
+    source $dir/modules/gpio/day $gpio
+	if [ "$day_status" == "on" ]
 	    then
-		day=on #logs
 		temp #function
 	else
 	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
 	    offon=off #off because day=off
-	    day=off #logs
 	fi
 else
-    day=off #logs
     temp
 fi
 }
@@ -204,6 +198,4 @@ fi
 ### main
     day
     gpio_$offon #set state after check all function
-    echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio)" >> $dir/tmp/gpio_$gpio\_log.txt
-    echo "$date, GPIO $gpio $(/usr/local/bin/gpio -g read $gpio)"
 fi
