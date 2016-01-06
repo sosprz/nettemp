@@ -1,8 +1,8 @@
 #! /bin/bash
 
 function log(){
-    echo "$date, F: $i, GPIO $gpio, rev:$rev, state: ${!state}, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}" >> $dir/tmp/gpio_$gpio\_log.txt
-    echo "$date, F: $i, GPIO $gpio, rev:$rev, state: ${!state}, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}"
+    echo "$date, F: $i, GPIO $gpio, rev:$rev, state: ${!state}, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Sensor2: ${!temp_sensor2}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}" >> $dir/tmp/gpio_$gpio\_log.txt
+    echo "$date, F: $i, GPIO $gpio, rev:$rev, state: ${!state}, status: $logstatus, day: $day, Sensor1: ${!sensor_temp}, Sensor2: ${!temp_sensor2}, Set value: ${!temp_temp}, Hyst: ${!temp_hyst}, Max: ${!hyst}, OP: ${!temp_op}"
 }
 
 function check(){
@@ -88,8 +88,8 @@ sensor_temp=sensor_temp$i
 declare temp_sensor_diff$i=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT temp_sensor_diff$i FROM gpio WHERE gpio='$gpio'"`
 temp_sensor_diff=temp_sensor_diff$i
 
-declare diff_temp$i=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id='${!temp_sensor_diff}'"`
-diff_temp=diff_temp$i
+declare temp_sensor2$i=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id='${!temp_sensor_diff}'"`
+temp_sensor2=temp_sensor2$i
 
 declare sensor_name$i=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name FROM sensors WHERE id='${!temp_sensor}'"`
 sensor_name=sensor_name$i
@@ -110,9 +110,10 @@ temp_hyst=temp_hyst$i
 declare t1h$i=$(echo ${!temp_temp} ${!temp_hyst} |awk '{ sum = $1 + $2; print sum }')
 hyst=t1h$i
 # hyst sensor2
-declare s2h$i=$(echo ${!diff_temp} ${!temp_hyst} |awk '{ sum = $1 + $2; print sum }')
-if [ -n "${!diff_temp}" ]; then
-    temp_temp=$diff_temp
+declare s2h$i=$(echo ${!temp_sensor2} ${!temp_hyst} |awk '{ sum = $1 + $2; print sum }')
+
+if [ -n "${!temp_sensor2}" ]; then
+    temp_temp=$temp_sensor2
     hyst=s2h$i
 fi
 

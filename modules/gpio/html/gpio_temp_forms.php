@@ -1,12 +1,34 @@
 <script type="text/JavaScript">
 	    function showtemp<?php echo $gpio ?>(n) {
-	    if (document.getElementById('state<?php echo $gpio ?>' + n).value == 'temp') {
-    	    document.getElementById('inputtemp<?php echo $gpio ?>' + n).style.display = 'block';
-	    document.getElementById('sensor2<?php echo $gpio ?>' + n).style.display = 'none';
-	    
-	    } else {
-    		document.getElementById('sensor2<?php echo $gpio ?>' + n).style.display = 'block';
-		document.getElementById('inputtemp<?php echo $gpio ?>' + n).style.display = 'none';
+		if (document.getElementById('state<?php echo $gpio ?>' + n).value == 'temp') {
+		    document.getElementById('inputtemp<?php echo $gpio ?>' + n).style.display = 'block';
+		    
+		    document.getElementById('sensor2<?php echo $gpio ?>' + n).style.display = 'none';
+		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).style.display = 'none';
+	
+		    document.getElementById('inputtemp<?php echo $gpio ?>' + n).required = true;
+		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).required = false;
+		}
+		if (document.getElementById('state<?php echo $gpio ?>' + n).value == 'sensor2') {
+		    document.getElementById('inputtemp<?php echo $gpio ?>' + n).style.display = 'none';
+		    document.getElementById('sensor2<?php echo $gpio ?>' + n).style.display = 'block';
+		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).style.display = 'none';
+
+		    document.getElementById('inputtemp<?php echo $gpio ?>' + n).required = false;
+		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).required = false;
+		}
+		if (document.getElementById('state<?php echo $gpio ?>' + n).value == 'temphyst') {
+		    document.getElementById('inputtemp<?php echo $gpio ?>' + n).style.display = 'block';
+		    document.getElementById('inputtemp<?php echo $gpio ?>' + n).required = true;
+		    document.getElementById('sensor2<?php echo $gpio ?>' + n).style.display = 'none';
+		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).style.display = 'block';
+		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).required = true;
+		}
+		if (document.getElementById('state<?php echo $gpio ?>' + n).value == 'sensor2hyst') {
+		    document.getElementById('inputtemp<?php echo $gpio ?>' + n).style.display = 'none';
+		    document.getElementById('sensor2<?php echo $gpio ?>' + n).style.display = 'block';
+		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).style.display = 'block';
+		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).required = true;
 		}
 	    }
 	    </script>
@@ -70,15 +92,23 @@ if ($$temp_set == "on") {
     if ($$temp_source == 'temp') {
 	    $temp_temp=$$temp_temp;
 	    $temp_sensor_diff=NULL;
+	    $temp_hyst=NULL;
     } elseif ($$temp_source == 'sensor2') {
 	    $temp_temp=NULL;
 	    $temp_sensor_diff=$$temp_sensor_diff;
+	    $temp_hyst=NULL;
+    } elseif ($$temp_source == 'temphyst') {
+	    $temp_temp=$$temp_temp;
+	    $temp_sensor_diff=NULL;
+	    $temp_hyst=$$temp_hyst;
+    } elseif ($$temp_source == 'sensor2hyst') {
+	    $temp_temp=NULL;
+	    $temp_sensor_diff=$$temp_sensor_diff;
+	    $temp_hyst=$$temp_hyst;
     }
     $temp_onoff=$$temp_onoff;
     $temp_sensor=$$temp_sensor;
-    //$temp_sensor_diff=${'temp_sensor_diff' . $ta};
     $temp_op=$$temp_op;
-    $temp_hyst=$$temp_hyst;
     $temp_source=$$temp_source;
     
     $db->exec("UPDATE gpio SET temp_source$ta='$temp_source',temp_op$ta='$temp_op',temp_sensor$ta='$temp_sensor',temp_sensor_diff$ta='$temp_sensor_diff',temp_onoff$ta='$temp_onoff',temp_temp$ta='$temp_temp',temp_hyst$ta='$temp_hyst' WHERE gpio='$gpio_post'") or die("exec 1");
@@ -96,7 +126,7 @@ if ($$temp_set == "on") {
 <div class="panel-heading">Temperature functions <?php echo $fnum ?></div>
 <div class="table-responsive">
 <table class="table">
-<thead><tr><th>Sensor1</th><th>State</th><th>Source</th><th>Temp</th><th>Hysteresis</th><th>on/off</th></tr></thead>
+<thead><tr><th>Sensor1</th><th>State</th><th>Source</th><th>Value</th><th>Hysteresis</th><th>on/off</th></tr></thead>
 <div class="form-group">
 <?php
     foreach (range(1, $fnum) as $v) {
@@ -104,7 +134,7 @@ if ($$temp_set == "on") {
 <tr>
 <form class="form-horizontal" action="" method="post">
 <td class="col-md-1">
-<select name="<?php echo temp_sensor . $v; ?>" class="form-control input-sm" required="">
+<select name="<?php echo temp_sensor . $v; ?>" class="form-control input-sm">
 <?php $sth = $db->prepare("SELECT * FROM sensors");
     $sth->execute();
     $result = $sth->fetchAll();
@@ -127,8 +157,10 @@ if ($$temp_set == "on") {
 
 <td class="col-md-1">
     <select name="<?php echo temp_source . $v; ?>" class="form-control input-sm" id="<?php echo state.$gpio.$v; ?>" onclick='showtemp<?php echo $gpio ?>(<?php echo $v; ?>)'>
-	<option <?php echo !empty($a['temp_temp'.$v]) ? 'selected="selected"' : ''; ?> value="temp">Temp</option>
-	<option <?php echo !empty($a['temp_sensor_diff'.$v]) ? 'selected="selected"' : ''; ?> value="sensor2">Sensor2</option>
+	<option <?php if ((!empty($a['temp_hyst'.$v])) && (!empty($a['temp_hyst'.$v]))) { echo 'selected="selected"';} ?> value="temphyst">Temp+Histeresis</option>
+	<option <?php if ((!empty($a['temp_temp'.$v])) && (empty($a['temp_hyst'.$v]))) { echo 'selected="selected"';} ?> value="temp">Temp</option>
+	<option <?php if ((!empty($a['temp_sensor_diff'.$v])) && (empty($a['temp_hyst'.$v]))) { echo 'selected="selected"';} ?> value="sensor2">Sensor2</option>
+	<option <?php if ((!empty($a['temp_sensor_diff'.$v])) && (!empty($a['temp_hyst'.$v]))) { echo 'selected="selected"';} ?> value="sensor2hyst">Sensor2+Histeresis</option>
     </select>
 </td>
 
@@ -140,18 +172,18 @@ if ($$temp_set == "on") {
 	    $sensor2c = count($result);
 	?>
     
-    <select id="<?php echo sensor2.$gpio.$v; ?>" name="<?php echo temp_sensor_diff . $v; ?>" class="form-control input-sm" <?php echo $a['temp_source'.$v] == 'sensor2' ? 'style="display: block"' : 'style="display: none"' ?> >
+    <select id="<?php echo sensor2.$gpio.$v; ?>" name="<?php echo temp_sensor_diff.$v; ?>" class="form-control input-sm" <?php if (($a['temp_source'.$v] == 'sensor2') || ($a['temp_source'.$v] == 'sensor2hyst')) { echo 'style="display: block"'; } else { echo 'style="display: none"'; } ?> >
 	<?php
 	    foreach ($result as $select) { ?>
 		<option <?php echo $a['temp_sensor_diff'.$v] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo $select['name']." ".$select['tmp'] ?></option>
 	    <?php } ?>
     </select>
     
-    <input id="<?php echo inputtemp.$gpio.$v; ?>"  type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" class="form-control input-sm" <?php echo $a['temp_source'.$v] == 'temp' || empty($a['temp_source'.$v])  ? 'style="display: block"' : 'style="display: none"' ?> >
+    <input id="<?php echo inputtemp.$gpio.$v; ?>"  type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" class="form-control input-sm" <?php if (($a['temp_source'.$v] == 'temp') || ($a['temp_source'.$v] == 'temphyst') || (empty($a['temp_source'.$v]))) { echo 'style="display: block" required=""'; } else { echo 'style="display: none"'; } ?> >
 </td>
 
 <td class="col-md-1">
-    <input id="<?php echo inputhyst.$v; ?>" type="text" name="<?php echo temp_hyst . $v ?>" value="<?php echo $a['temp_hyst'.$v]; ?>" class="form-control input-sm"  >
+    <input id="<?php echo inputhyst.$gpio.$v; ?>" type="text" name="<?php echo temp_hyst . $v ?>" value="<?php echo $a['temp_hyst'.$v]; ?>" class="form-control input-sm" <?php if (($a['temp_source'.$v] == 'temphyst') || ($a['temp_source'.$v] == 'sensor2hyst') || (empty($a['temp_source'.$v]))) { echo 'style="display: block" required=""'; } else { echo 'style="display: none"'; } ?> >
 </td>
 
 <td class="col-md-1">
