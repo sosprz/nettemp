@@ -14,7 +14,6 @@ if [[ -z "${!temp_hyst}" ]]; then
 	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
 	    logstatus="ON"
         fi
-
 	#on
 	if [[ "${!temp_onoff}" = "on" ]]; then
             offon=on
@@ -61,6 +60,7 @@ if [[ -n ${!temp_hyst} ]]; then
 	logstatus="OFF go down"
 	echo "debug 3"
   elif [[ "$h" == "0" ]] && [[ $l == "0" ]] && [[ "${!state}" == "OFF" ]]; then
+	sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
 	offon=off
 	logstatus="OFF still ging down"
 	echo "debug 4"
