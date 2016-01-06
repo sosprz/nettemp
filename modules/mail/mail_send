@@ -16,7 +16,7 @@ tlscheck=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tlscheck FROM
 
 function send {
 cat $1 | msmtp -f $address --host=$host --port=$port --auth=$auth --user=$user \
-		--passwordeval="sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
+		--passwordeval="sqlite3 -cmd \".timeout 2000\" $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
 		--tls=$tls --tls-starttls=$tls --tls-certcheck=$tlscheck \
 		--timeout=10 -t $get_mail 
 }
