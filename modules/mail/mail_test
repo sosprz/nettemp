@@ -24,7 +24,7 @@ body=$3
 (echo "From: nettemp device <$address> "; echo "To: <$reci>"; echo "Subject: $subject"; echo ""; echo -e "$body"; uuencode  $4 $4 && uuencode $5 $5) | msmtp \
 -f $address \
 --host=$host --port=$port --auth=$auth --user=$user \
---passwordeval="sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
+--passwordeval="sqlite3 -cmd \".timeout 2000\" $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
 --tls=$tls --tls-starttls=$tls --tls-certcheck=$tlscheck \
 --timeout=10 -t $reci 
 
