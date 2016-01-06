@@ -67,6 +67,7 @@ $numsimple2 = count($row2);
 ?>
 <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status">Status</a></li>
 <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp&max=hour">Charts </a></li>
+<li <?php echo $id == 'map' ? ' class="active"' : ''; ?>><a href="index.php?id=map">Map </a></li>
 <?php if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { ?>
     <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls">Controls</a></li>
 <?php } ?>
@@ -117,6 +118,7 @@ switch ($id)
 { 
 default: case '$id': include('status/status.php'); break;
 case 'view': include('modules/view/html/view.php'); break;
+case 'map': include('modules/view/html/map.php'); break;
 case 'devices': include('modules/devices/html/devices.php'); break;
 case 'security': include('modules/security/html/security.php'); break;
 case 'settings': include('modules/settings/settings.php'); break;
