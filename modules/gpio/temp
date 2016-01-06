@@ -8,24 +8,32 @@ function log(){
 function check(){
 if [[ -z "${!temp_hyst}" ]]; then
     if [[ "$l" = "1" ]]; then
-        if [[ "${!temp_onoff}" = "on" ]]; then
+	#onoff
+        if [[ "${!temp_onoff}" = "onoff" ]]; then
             offon=on
 	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
 	    logstatus="ON"
-        else
-            offon=off
-	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
-	    logstatus="OFF"
         fi
-    elif [[ "$l" = "0" ]]; then
-        if [ "${!temp_onoff}" = "on" ];then
-            offon=off
-	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
-	    logstatus="OFF"
-        else
+
+	#on
+	if [[ "${!temp_onoff}" = "on" ]]; then
             offon=on
 	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
 	    logstatus="ON"
+	fi
+	#off
+	if [[ "${!temp_onoff}" = "off" ]]; then
+            offon=off
+	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
+	    logstatus="OFF"
+	fi
+
+    elif [[ "$l" = "0" ]]; then
+	#onoff
+        if [ "${!temp_onoff}" = "onoff" ];then
+            offon=off
+	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
+	    logstatus="OFF"
         fi
     fi
 fi

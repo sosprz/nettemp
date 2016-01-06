@@ -93,20 +93,24 @@ if ($$temp_set == "on") {
 	    $temp_temp=$$temp_temp;
 	    $temp_sensor_diff=NULL;
 	    $temp_hyst=NULL;
+	    $temp_onoff=$$temp_onoff;
     } elseif ($$temp_source == 'sensor2') {
 	    $temp_temp=NULL;
 	    $temp_sensor_diff=$$temp_sensor_diff;
 	    $temp_hyst=NULL;
+	    $temp_onoff=$$temp_onoff;
     } elseif ($$temp_source == 'temphyst') {
 	    $temp_temp=$$temp_temp;
 	    $temp_sensor_diff=NULL;
 	    $temp_hyst=$$temp_hyst;
+	    $temp_onoff='on';
     } elseif ($$temp_source == 'sensor2hyst') {
 	    $temp_temp=NULL;
 	    $temp_sensor_diff=$$temp_sensor_diff;
 	    $temp_hyst=$$temp_hyst;
+	    $temp_onoff='on';
     }
-    $temp_onoff=$$temp_onoff;
+    
     $temp_sensor=$$temp_sensor;
     $temp_op=$$temp_op;
     $temp_source=$$temp_source;
@@ -126,7 +130,7 @@ if ($$temp_set == "on") {
 <div class="panel-heading">Temperature functions <?php echo $fnum ?></div>
 <div class="table-responsive">
 <table class="table">
-<thead><tr><th>Sensor1</th><th>State</th><th>Source</th><th>Value</th><th>Hysteresis</th><th>on/off</th></tr></thead>
+<thead><tr><th>Sensor1</th><th>State</th><th>Source</th><th>Value</th><th>Hysteresis</th><th>On/Off</th></tr></thead>
 <div class="form-group">
 <?php
     foreach (range(1, $fnum) as $v) {
@@ -188,8 +192,9 @@ if ($$temp_set == "on") {
 
 <td class="col-md-1">
 <select name="<?php echo temp_onoff . $v ?>" class="form-control input-sm">
-    <option <?php echo $a['temp_onoff'.$v] == 'on' ? 'selected="selected"' : ''; ?> value="on">On</option>   
-    <option <?php echo $a['temp_onoff'.$v] == 'off' ? 'selected="selected"' : ''; ?> value="off">Off</option>     
+    <option <?php echo $a['temp_onoff'.$v] == 'on' ? 'selected="selected"' : ''; ?> value="on">ON</option>
+    <option <?php echo $a['temp_onoff'.$v] == 'off' ? 'selected="selected"' : ''; ?> value="off">OFF</option>
+    <option <?php echo $a['temp_onoff'.$v] == 'onoff' ? 'selected="selected"' : ''; ?> value="onoff">ON/OFF</option>
 </select>
 </td>
 
