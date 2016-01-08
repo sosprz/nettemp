@@ -8,7 +8,7 @@ $result = $sth->fetchAll();
 $numRows = count($result);
 ?>
 <?php if ( $numRows > '0' ) { ?>
-<div class="grid-item gs">
+<div class="grid-item grid-item2 gs">
 <div class="panel panel-default">
             <div class="panel-heading">GPIO</div>
 <table class="table table-hover table-condensed">
@@ -16,22 +16,8 @@ $numRows = count($result);
 foreach ( $result as $a) {
 $gpio=$a['gpio'];
 ?>
-    <tr <?php echo $a['status'] == 'ALARM' ? 'class="danger"' : '' ?>>
-	<td >
-	    <img type="image" src="media/ico/SMD-64-pin-icon_24.png" />
-	</td>
-	<td >
-	    
-		<?php echo $a['name']; ?>
-	    
-	</td>
-	<td >
-	    
-		<?php echo $a['mode']; ?>
-	    
-	</td>
-	<td >
-	    
+<tr <?php echo $a['status'] == 'ALARM' ? 'class="danger"' : '' ?>>
+    <td>
 		<?php 
 		    if (strpos($a['status'],'ON') !== false) { 
 			echo '<span class="label label-success">';
@@ -39,16 +25,48 @@ $gpio=$a['gpio'];
 			echo '<span class="label label-danger">';
 		    }
 		    ?>
-		    <?php echo $a['status']; ?>
+		    <img type="image" src="media/ico/SMD-64-pin-icon_24.png" />
+		    <?php echo $a['name']." ".$a['status']; ?>
+		    
 		</span>
-	    
-	</td>
-    </tr>
-<?php
-}
+    </td>
+</tr>
 
+<?php
+if (($a['mode']=='day') || ($a['mode']=='temp') && ($a['day_run']=='on')) {
 ?>
+<tr>
+    <td>
+<?php
+$db = new PDO('sqlite:dbf/nettemp.db');
+$sth = $db->prepare("select * from day_plan where gpio='$gpio'");
+$sth->execute();
+$result = $sth->fetchAll();
+foreach ($result as $dp) { 
+?>
+    <?php echo $dp["name"];?>
+    <?php echo $dp["Mon"];?>
+    <?php echo $dp["Tue"];?>
+    <?php echo $dp["Wed"];?>
+    <?php echo $dp["Thu"];?>
+    <?php echo $dp["Fri"];?>
+    <?php echo $dp["Sat"];?>
+    <?php echo $dp["Sun"];?>
+    <?php echo $dp["stime"];?>
+    <?php echo $dp["etime"]."</br>";?>
+<?php 
+    }
+?>
+    </td>
+</tr>
+<?php
+    }
+}
+?>
+
 </table>
 </div>
 </div>
-<?php }  ?>
+<?php 
+    }  
+?>
