@@ -211,14 +211,17 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD state typ
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "PRAGMA journal_mode=WAL";
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD map_pos type NUM";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD map_num type NUM";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET map_num=ABS(300 + RANDOM() % 3600) WHERE map_num is null";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET map_pos='{left:0,top:0}' WHERE map_pos is null";
 
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD map_pos type NUM";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD map_num type NUM";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET map_num=ABS(300 + RANDOM() % 3600) WHERE map_num is null";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET map_pos='{left:0,top:0}' WHERE map_pos is null";
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD map_pos type NUM";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD map_num type NUM";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "UPDATE hosts SET map_num=ABS(300 + RANDOM() % 3600) WHERE map_num is null";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "UPDATE hosts SET map_pos='{left:0,top:0}' WHERE map_pos is null";
 
