@@ -5,7 +5,7 @@ $x = isset($_POST['x']) ? $_POST['x'] : '';
 $y = isset($_POST['y']) ? $_POST['y'] : '';
 if (!empty($need_id)){
 $db = new PDO('sqlite:dbf/nettemp.db');
-$db->exec("UPDATE sensors SET map_pos='$y:$x' WHERE id='$need_id'");
+$db->exec("UPDATE sensors SET map_pos='$x:$y' WHERE id='$need_id'");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 }
@@ -17,11 +17,11 @@ exit();
 
 <style type="text/css">
   .draggable {
-      width: 200px;
-      height: 200px;
+      width: auto;
+      height: auto;
       padding: 0.5em;
       float: left;
-      margin: 0 10px 10px 0;
+      margin: 0px;
       cursor:move;
   }
   .draggable, a {
@@ -34,10 +34,10 @@ exit();
   #draggable {
       cursor: move;
   }
-  #draggable2 {
+  #draggable {
       cursor: e-resize;
   }
-  #containment-wrapper {
+  #content {
       width: 800px;
       height:800px;
       border:2px solid #ccc;
@@ -85,9 +85,13 @@ $.each(positions, function (id, pos) {
     })
 
 
-  $( "#set div" ).draggable({ 
-    stack: "#set div",
+$( "#content div" ).draggable({
+    containment: '#content',
+    stack: "#content div",
+    scroll: false,
+
       stop: function(event, ui) {
+
           var pos_x = ui.offset.left;
           var pos_y = ui.offset.top;
           var need = ui.helper.data("need");
@@ -95,15 +99,21 @@ $.each(positions, function (id, pos) {
               type: "POST",
               url: "",
               data: { x: pos_x, y: pos_y, need_id: need}
-            }); 
-      }
-  });
+            });
+var offsetXPos = parseInt( ui.offset.left );
+  var offsetYPos = parseInt( ui.offset.top );
+  alert( "Drag stopped!\n\nOffset: (" + offsetXPos + ", " + offsetYPos + ")\n");
+
+        }
+    });
 });
 
 
-</script>
 
-<div id="set">
+
+
+</script>
+<div id="content">
 <?php
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
