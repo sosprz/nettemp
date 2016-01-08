@@ -4,8 +4,9 @@ $need_id = isset($_POST['need_id']) ? $_POST['need_id'] : '';
 $x = isset($_POST['x']) ? $_POST['x'] : '';
 $y = isset($_POST['y']) ? $_POST['y'] : '';
 if (!empty($need_id)){
+$pos="{left:".$x.", top:".$y."}";
 $db = new PDO('sqlite:dbf/nettemp.db');
-$db->exec("UPDATE sensors SET map_pos='$x:$y' WHERE id='$need_id'");
+$db->exec("UPDATE sensors SET map_pos='$pos' WHERE id='$need_id'");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 }
@@ -19,7 +20,7 @@ exit();
   .draggable {
       width: auto;
       height: auto;
-      padding: 0.5em;
+      //padding: 0.5em;
       float: left;
       margin: 0px;
       cursor:move;
@@ -27,7 +28,7 @@ exit();
   .draggable, a {
       cursor:move;
   }
-  #draggable, #draggable2 {
+  #draggable, .draggable2 {
       margin-bottom:20px;
       cursor:move;
   }
@@ -46,12 +47,13 @@ exit();
   h3 {
       clear: left;
   }
+  .draggable.ui-draggable-dragging { background: green; }
 
 
 
-  #set div { width: 90px; height: 90px; padding: 0.5em; float: left; margin: 0 10px 10px 0; background: black;}
-  #set { clear:both; float:left; width: 368px;}
-  p { clear:both; margin:0; padding:1em 0; }
+  //#set div { width: 90px; height: 90px; padding: 0.5em; float: left; margin: 0 10px 10px 0; background: black;}
+  //#set { clear:both; float:left; width: 368px;}
+  //p { clear:both; margin:0; padding:1em 0; }
 </style>
 
 
@@ -63,8 +65,9 @@ $dbh = new PDO($dirb) or die("cannot open database");
 $query = "select id,map_pos FROM sensors";
 $dbh->query($query);
 foreach ($dbh->query($query) as $row) {
-    $pos = explode(":", $row[1]);
-    $array[$row[0]]='{top: '.$pos[0].', left: '.$pos[1].'}';
+    //$pos = explode("|", $row[1]);
+    //$array[$row[0]]='{left: '.$pos[0].', top: '.$pos[1].'}';
+	$array[$row[0]]=$row[1];
     }
 $js_array = json_encode($array);
 $js_array = str_replace('"','', $js_array);
@@ -92,17 +95,16 @@ $( "#content div" ).draggable({
 
       stop: function(event, ui) {
 
-          var pos_x = ui.offset.left;
-          var pos_y = ui.offset.top;
+        //var pos_x = ui.offset.left;
+         //var pos_y = ui.offset.top;  
+	var pos_x = ui.position.left;
+        var pos_y = ui.position.top;
           var need = ui.helper.data("need");
           $.ajax({
               type: "POST",
               url: "",
               data: { x: pos_x, y: pos_y, need_id: need}
             });
-var offsetXPos = parseInt( ui.offset.left );
-  var offsetYPos = parseInt( ui.offset.top );
-  alert( "Drag stopped!\n\nOffset: (" + offsetXPos + ", " + offsetYPos + ")\n");
 
         }
     });
