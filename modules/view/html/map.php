@@ -1,3 +1,10 @@
+<script type="text/JavaScript">
+function timedRefresh(timeoutPeriod) {
+    setTimeout("location.reload(true);",timeoutPeriod);
+    }
+</script>
+<body onload="JavaScript:timedRefresh(60000);">
+
 <?php
 $label='';
 $need_id = isset($_POST['need_id']) ? $_POST['need_id'] : '';
