@@ -17,7 +17,7 @@ foreach ( $result as $a) {
 $gpio=$a['gpio'];
 ?>
 <tr <?php echo $a['status'] == 'ALARM' ? 'class="danger"' : '' ?>>
-    <td>
+    <td colspan=3>
 		<?php 
 		    if (strpos($a['status'],'ON') !== false) { 
 			echo '<span class="label label-success">';
@@ -35,8 +35,6 @@ $gpio=$a['gpio'];
 <?php
 if (($a['mode']=='day') || ($a['mode']=='temp') && ($a['day_run']=='on')) {
 ?>
-<tr>
-    <td>
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("select * from day_plan where gpio='$gpio'");
@@ -44,7 +42,14 @@ $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $dp) { 
 ?>
-    <?php echo $dp["name"];?>
+<tr>
+    <td>
+	<span class="label label-info">
+	    <?php echo $dp["name"];?>
+	</span>
+    </td>
+    <td>
+    <span class="label label-default">
     <?php echo $dp["Mon"];?>
     <?php echo $dp["Tue"];?>
     <?php echo $dp["Wed"];?>
@@ -52,13 +57,19 @@ foreach ($result as $dp) {
     <?php echo $dp["Fri"];?>
     <?php echo $dp["Sat"];?>
     <?php echo $dp["Sun"];?>
+    </span>
+    </td>
+    <td>
+    <span class="label label-warning">
     <?php echo $dp["stime"];?>
-    <?php echo $dp["etime"]."</br>";?>
+    <?php echo $dp["etime"];?>
+    </span>
+    </td>
+</tr>
 <?php 
     }
 ?>
-    </td>
-</tr>
+
 <?php
     }
 }
