@@ -13,9 +13,10 @@ $name_del = isset($_POST['name_del']) ? $_POST['name_del'] : '';
 	$fi = explode("/",$link);
 	$link = explode(":",$fi[2]);
 	$ip=$link[0];
+	$map_num=substr(rand(), 0, 4);
 		
         $dbhost = new PDO("sqlite:dbf/hosts.db");	
-	$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type) VALUES ('host_cam_$name', '$ip', 'host_$name', 'ping')") or die ("cannot insert host to DB" );	
+	$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_num, map_pos) VALUES ('host_cam_$name', '$ip', 'host_$name', 'ping', '$map_num', '{left:0,top:0}')") or die ("cannot insert host to DB" );	
 	$dbnew = new PDO("sqlite:db/host_$name.sql");
         $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
         $dbnew==NULL;

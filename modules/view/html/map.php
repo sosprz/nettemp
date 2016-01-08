@@ -58,7 +58,7 @@ exit();
       border:2px solid #ccc;
       padding: 2px;
       background: url("map.jpg") left top;
-      background-size: cover;
+      //background-size: cover;
       background-repeat: no-repeat;
   }
   h3 {
