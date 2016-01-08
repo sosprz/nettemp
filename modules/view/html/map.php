@@ -1,12 +1,18 @@
 <?php
 $label='';
 $need_id = isset($_POST['need_id']) ? $_POST['need_id'] : '';
+$need_dst = isset($_POST['need_dst']) ? $_POST['need_dst'] : '';
 $x = isset($_POST['x']) ? $_POST['x'] : '';
 $y = isset($_POST['y']) ? $_POST['y'] : '';
 if (!empty($need_id)){
 $pos="{left:".$x.", top:".$y."}";
-$db = new PDO('sqlite:dbf/nettemp.db');
-$db->exec("UPDATE sensors SET map_pos='$pos' WHERE id='$need_id'");
+if ($need_dst=='hosts') {
+    $dbs = new PDO('sqlite:dbf/hosts.db');
+}
+else {
+    $dbs = new PDO('sqlite:dbf/nettemp.db');
+}
+$dbs->exec("UPDATE $need_dst SET map_pos='$pos' WHERE map_num='$need_id'");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 }
@@ -23,7 +29,8 @@ exit();
       //padding: 0.5em;
       float: left;
       margin: 0px;
-      cursor:move;
+      cursor: move;
+      border: 0px;
   }
   .draggable, a {
       cursor:move;
@@ -39,54 +46,100 @@ exit();
       cursor: e-resize;
   }
   #content {
-      width: 800px;
-      height:800px;
+      width: 1000px;
+      height: 600px;
       border:2px solid #ccc;
-      padding: 10px;
+      padding: 2px;
+      background: url("map.jpg") left top;
+      background-size: cover;
+      background-repeat: no-repeat;
   }
   h3 {
       clear: left;
   }
-  .draggable.ui-draggable-dragging { background: green; }
-
-
-
-  //#set div { width: 90px; height: 90px; padding: 0.5em; float: left; margin: 0 10px 10px 0; background: black;}
-  //#set { clear:both; float:left; width: 368px;}
-  //p { clear:both; margin:0; padding:1em 0; }
+  .draggable.ui-draggable-dragging { 
+	//padding: 2px;
+	
+    }
 </style>
 
 
 <script>
 <?php
 $array = array();
-$dirb = "sqlite:dbf/nettemp.db";
-$dbh = new PDO($dirb) or die("cannot open database");
-$query = "select id,map_pos FROM sensors";
-$dbh->query($query);
-foreach ($dbh->query($query) as $row) {
-    //$pos = explode("|", $row[1]);
-    //$array[$row[0]]='{left: '.$pos[0].', top: '.$pos[1].'}';
+$dirn = "sqlite:dbf/nettemp.db";
+$dbn = new PDO($dirn) or die("cannot open database");
+$dirh = "sqlite:dbf/hosts.db";
+$dbh = new PDO($dirh) or die("cannot open database");
+
+$query = "select map_num,map_pos FROM sensors";
+$dbn->query($query);
+foreach ($dbn->query($query) as $row) {
 	$array[$row[0]]=$row[1];
     }
 $js_array = json_encode($array);
 $js_array = str_replace('"','', $js_array);
-echo "var positions = ".$js_array.";\n";
+echo "var sensors = ".$js_array.";\n";
+
+unset($query);
+unset($js_array);
+unset($array);
+
+$query = "select map_num,map_pos FROM gpio";
+$dbn->query($query);
+foreach ($dbn->query($query) as $row) {
+	$array[$row[0]]=$row[1];
+    }
+$js_array = json_encode($array);
+$js_array = str_replace('"','', $js_array);
+echo "var gpio = ".$js_array.";\n";
+
+unset($query);
+unset($js_array);
+unset($array);
+
+$query = "select map_num,map_pos FROM hosts";
+$dbh->query($query);
+foreach ($dbh->query($query) as $row) {
+	$array[$row[0]]=$row[1];
+    }
+$js_array = json_encode($array);
+$js_array = str_replace('"','', $js_array);
+echo "var hosts = ".$js_array.";\n";
+
+
 ?>
 
-var positions = JSON.stringify(positions);
-var positions = JSON.parse(positions);
+var sensors = JSON.stringify(sensors);
+var sensors = JSON.parse(sensors);
+
+var gpio = JSON.stringify(gpio);
+var gpio = JSON.parse(gpio);
+
+var hosts = JSON.stringify(hosts);
+var hosts = JSON.parse(hosts);
+
 var id = 0
 //alert(JSON.stringify(positions, null, 4));
 $(function() {
 
-
-$.each(positions, function (id, pos) {
+if (sensors != null) {
+$.each(sensors, function (id, pos) {
         $("#data-need" + id).css(pos)
-	//alert(JSON.stringify(id, null, 4));
-	//alert(JSON.stringify(pos, null, 4));
     })
+}
 
+if (gpio != null) {
+$.each(gpio, function (id, pos) {
+        $("#data-need" + id).css(pos)
+    })
+}
+
+if (hosts != null) {
+$.each(hosts, function (id, pos) {
+        $("#data-need" + id).css(pos)
+    })
+}
 
 $( "#content div" ).draggable({
     containment: '#content',
@@ -95,15 +148,14 @@ $( "#content div" ).draggable({
 
       stop: function(event, ui) {
 
-        //var pos_x = ui.offset.left;
-         //var pos_y = ui.offset.top;  
 	var pos_x = ui.position.left;
         var pos_y = ui.position.top;
           var need = ui.helper.data("need");
+	  var dst = ui.helper.data("dst");
           $.ajax({
               type: "POST",
               url: "",
-              data: { x: pos_x, y: pos_y, need_id: need}
+              data: { x: pos_x, y: pos_y, need_id: need, need_dst: dst }
             });
 
         }
@@ -117,7 +169,7 @@ $( "#content div" ).draggable({
 </script>
 <div id="content">
 <?php
-$rows = $db->query("SELECT * FROM sensors");
+$rows = $dbn->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
 foreach ($row as $a) {
 	if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png"/>';} 
@@ -131,7 +183,7 @@ foreach ($row as $a) {
 	if($a['type'] == 'volt'){ $unit='V'; $type='<img src="media/ico/volt.png" alt="Volt" /> ';}
 	if($a['type'] == 'amps'){ $unit='A'; $type='<img src="media/ico/amper.png" alt="Amps"/> ';}
 ?>
-<div data-need="<?php echo $a['id']?>" id="<?php echo "data-need".$a['id']?>" class="ui-widget-content draggable">
+<div data-need="<?php echo $a['map_num']?>" id="<?php echo "data-need".$a['map_num']?>" data-dst="sensors" class="ui-widget-content draggable">
     <?php if(($a['tmp'] == 'error') || ($label=='danger')) {
 		    echo '<span class="label label-danger">';
 		    } 
@@ -140,10 +192,61 @@ foreach ($row as $a) {
 		    }
 	        ?>
 
-    <?php echo $type." ".$a['id']." ".$a['tmp']." ".$unit ?>
+    <?php echo $type." ".$a['name']." ".$a['tmp']." ".$unit ?>
     </span>
 </div>
 <?php 
     }
+unset($a);
 ?>
+
+<?php
+$rows = $dbn->query("SELECT * FROM gpio");
+$row = $rows->fetchAll();
+foreach ($row as $a) {
+    $device='<img src="media/ico/SMD-64-pin-icon_24.png" />';
+?>
+<div data-need="<?php echo $a['map_num']?>" id="<?php echo "data-need".$a['map_num']?>" data-dst="gpio" class="ui-widget-content draggable">
+    <?php if(($a['status'] == 'error') || ($a['status'] == 'OFF') || ($label=='danger')) {
+		    echo '<span class="label label-danger">';
+		    } 
+		    else {
+		    echo '<span class="label label-success">';
+		    }
+	        ?>
+
+    <?php echo $device." ".$a['name']." ".$a['status']?>
+    </span>
+</div>
+<?php 
+    }
+unset($a);
+?>
+
+<?php
+$dbh = new PDO("sqlite:dbf/hosts.db");
+$rows = $dbh->query("SELECT * FROM hosts");
+$row = $rows->fetchAll();
+foreach ($row as $h) {
+    $device='<img src="media/ico/Computer-icon.png" />';
+?>
+<div data-need="<?php echo $h['map_num']?>" id="<?php echo "data-need".$h['map_num']?>" data-dst="hosts" class="ui-widget-content draggable">
+    <?php if(($h['status'] == 'error') || ($h['status'] == 'OFF') || ($label=='danger')) {
+		    echo '<span class="label label-danger">';
+		    } 
+		    else {
+		    echo '<span class="label label-success">';
+		    }
+	        ?>
+
+    <?php echo $device." ".$h['name']." ".$h['status']?>
+    </span>
+</div>
+<?php 
+    }
+unset($h);
+?>
+
+
+
 </div>

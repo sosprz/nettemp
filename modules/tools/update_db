@@ -210,5 +210,11 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD state typ
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "PRAGMA journal_mode=WAL";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD map_pos type NUM";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD map_num type NUM";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD map_pos type NUM";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD map_num type NUM";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD map_pos type NUM";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD map_num type NUM";
+
 
 

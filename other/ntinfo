@@ -21,7 +21,7 @@ df -h
 echo "-----apache"
 dpkg --get-selections |grep apache && /etc/init.d/apache status
 echo "-----cron"
-/etc/init.d/cron status
+service cron status
 echo "-----perms"
 cd /var/www/nettemp
 ls -la
@@ -42,7 +42,12 @@ echo "----- highchats"
 du -sh /var/www/nettemp/modules/highcharts/
 echo "----- highchats data count"
 cat /var/www/nettemp/tmp/highcharts/* |grep -c .
-
+echo "----- sql sensors"
+sudo sudo sqlite3 -header /var/www/nettemp/dbf/nettemp.db  "SELECT * FROM sensors"
+echo "----- sql gpio"
+sudo sudo sqlite3 -header /var/www/nettemp/dbf/nettemp.db  "SELECT * FROM gpio"
+echo "----- git status"
+cd /var/www/nettemp/ && git status
 echo "----- END -----"
 
 
