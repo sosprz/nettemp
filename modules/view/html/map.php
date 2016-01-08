@@ -17,9 +17,9 @@ header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 }
 ?>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+  <link rel="stylesheet" href="html/jquery/jquery-ui.css">
+  <script src="html/jquery/jquery-ui.js"></script>
 
 
 <style type="text/css">
@@ -46,7 +46,7 @@ exit();
       cursor: e-resize;
   }
   #content {
-      width: 1000px;
+      width: 1140px;
       height: 600px;
       border:2px solid #ccc;
       padding: 2px;
@@ -246,7 +246,8 @@ foreach ($row as $h) {
     }
 unset($h);
 ?>
-
-
-
 </div>
+
+<?php
+    include('map_upload.php');
+?>
