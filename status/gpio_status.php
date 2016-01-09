@@ -36,7 +36,7 @@ $gpio=$a['gpio'];
 if (($a['mode']=='day') || ($a['mode']=='temp') && ($a['day_run']=='on')) {
 ?>
 <?php
-$db = new PDO('sqlite:dbf/nettemp.db');
+//$db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("select * from day_plan where gpio='$gpio'");
 $sth->execute();
 $result = $sth->fetchAll();
@@ -68,6 +68,25 @@ foreach ($result as $dp) {
 </tr>
 <?php 
     }
+?>
+
+<?php
+foreach (range(1, $a['fnum']) as $v) {
+if (!empty($a['temp_temp'.$v])) {
+?>
+<tr>
+    <td colspan=3>
+    <?php $max=$a['temp_temp'.$v] + $a['temp_hyst1'.$v]; ?>
+	<span class="label label-info"><?php echo $v ?></span>
+	<span class="label label-default"><?php echo "Start: ".$a['temp_temp'.$v]; ?></span>
+	<span class="label label-default"><?php echo "Stop: ".$max; ?></span>
+	<span class="label label-warning"><?php echo $a['temp_onoff'.$v]; ?></span>
+
+    </td>
+</tr>
+<?php 
+    }
+}
 ?>
 
 <?php
