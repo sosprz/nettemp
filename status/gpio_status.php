@@ -76,7 +76,7 @@ if (!empty($a['temp_temp'.$v])) {
 ?>
 <tr>
     <td colspan=3>
-    <?php $max=$a['temp_temp'.$v] + $a['temp_hyst1'.$v]; ?>
+    <?php $max=$a['temp_temp'.$v] + $a['temp_hyst'.$v]; ?>
 	<span class="label label-info"><?php echo $v ?></span>
 	<span class="label label-default"><?php echo "Start: ".$a['temp_temp'.$v]; ?></span>
 	<span class="label label-default"><?php echo "Stop: ".$max; ?></span>
@@ -84,7 +84,8 @@ if (!empty($a['temp_temp'.$v])) {
 
     </td>
 </tr>
-<?php 
+<?php
+unset($max); 
     }
 }
 ?>
