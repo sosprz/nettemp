@@ -1,4 +1,15 @@
-<?php	
+<?php
+
+    $position = isset($_POST['position']) ? $_POST['position'] : '';
+    $position_id = isset($_POST['position_id']) ? $_POST['position_id'] : '';
+    if (!empty($position_id) && ($_POST['positionok'] == "ok")){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET position='$position' WHERE id='$position_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
+   
+	
     $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
     $tmp_min_new = isset($_POST['tmp_min_new']) ? $_POST['tmp_min_new'] : '';
     $tmp_max_new = isset($_POST['tmp_max_new']) ? $_POST['tmp_max_new'] : '';
@@ -87,17 +98,17 @@
 <?php
 $counters=array("gas","water","elec");
 $db = new PDO('sqlite:dbf/nettemp.db');
-$rows = $db->query("SELECT * FROM sensors");
+$rows = $db->query("SELECT * FROM sensors ORDER BY position ASC");
 $row = $rows->fetchAll();
 ?>
 <thead>
 <tr>
+<th>Pos</th>	
 <th>Name</th>
-<th>Rom</th>
-<th>Size</th>
-<th>Time</th>
-<th>Status</th>
-<th>Value</th>
+<!-- <th>Rom</th>
+<th>U.Time</th> -->
+<th>DB</th>
+<!-- <th>Value</th> -->
 <th>Adjust</th>
 <th>Counters</th>
 <th>Alarm</th>
@@ -116,32 +127,25 @@ $row = $rows->fetchAll();
     foreach ($row as $a) { 	
 ?>
 <tr>
-    <td class="col-md-2">
-	<img src="media/ico/TO-220-icon.png"/>
+	
+	<td class="col-md-1">
     <form action="" method="post" style="display:inline!important;">
-	<input type="text" name="name_new" size="5" maxlength="30" value="<?php echo $a["name"]; ?>" />
+	<input type="hidden" name="position_id" value="<?php echo $a["id"]; ?>" />
+	<input type="text" name="position" size="1" maxlength="3" value="<?php echo $a['position']; ?>" />
+	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<input type="hidden" name="positionok" value="ok" />
+    </form>
+    </td>
+    
+	
+    <td class="col-md-2">
+<!-- 	<img src="media/ico/TO-220-icon.png"/> -->
+    <form action="" method="post" style="display:inline!important;">
+	<input type="text" name="name_new" size="6" maxlength="30" value="<?php echo $a["name"]; ?>" />
 	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="id_name2" value="id_name3"/>
     </form>
-    </td>
-    <td class="col-md-2">
-	<?php 
-	    $rom=$a["rom"];
-	    if (strpos($rom,'0x') !== false) {
-		$part = explode("0x", $rom); ?>
-		<span class="label label-default">
-		<?php echo strtolower($part[1].'-'.$part[7].''.$part[6].''.$part[5].''.$part[4].''.$part[3].''.$part[2]); ?>
-		</span>
-	    <?php
-	    } 
-	    else { ?>
-		<span class="label label-default">
-		    <?php echo $rom; ?>
-		</span>
-	    <?php
-	    }
-	?>
     </td>
 <?php
 	$id_rom3 = str_replace(" ", "_", $a["rom"]);
@@ -150,32 +154,33 @@ $row = $rows->fetchAll();
 	if (file_exists($file3) && ( 0 != filesize($file3)))
 	{
 ?>
-<td >
+<td class="col-md-4">
+    <span class="label label-success">ok</span>
+    <span class="label label-default"><?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3)."MB" ?></span>
+    <span class="label label-default"><?php echo str_replace("-", "", $a["time"]); ?></span>
     <span class="label label-default">
-    <?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3)."MB" ?>
-    </span>
-</td>
-<td class="col-md-1">
-    <span class="label label-default">
-	<?php echo $a["time"]; ?>
-    </span>
-</td>
-<td class="col-md-1">
-    <span class="label label-success">
-    ok
+	<?php 
+	    $rom=$a["rom"];
+	    if (strpos($rom,'0x') !== false) {
+		$part = explode("0x", $rom);
+		 echo strtolower($part[1].'-'.$part[7].''.$part[6].''.$part[5].''.$part[4].''.$part[3].''.$part[2]);
+	    } else {
+		echo $rom; 
+	    }
+	?>
     </span>
 </td>
 
-<?php   }
+<?php  }
 else { ?> 
 <td class="col-md-1">Error - no sql base</td>
 <?php } ?>
 
-<td >
+<!-- <td class="col-md-1">
     <span class="label label-default">    
 	<?php echo  $a["tmp"];?>
     </span>    
-</td>
+</td> -->
 
     <td class="col-md-1">
     <?php if ($a["device"] != 'remote') { ?>

@@ -17,7 +17,7 @@ Go to device scan!
 <?php
     }
 
-    $sth = $db->prepare("select * from sensors");
+    $sth = $db->prepare("SELECT * FROM sensors WHERE position !=0  ORDER BY position ASC");
     $sth->execute();
     $result = $sth->fetchAll(); ?>
     <table class="table table-hover table-condensed">

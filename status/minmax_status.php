@@ -1,7 +1,7 @@
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
-$rows = $db->query("SELECT * FROM sensors WHERE minmax='on'");
+$rows = $db->query("SELECT * FROM sensors WHERE minmax='on' ORDER BY position ASC");
 $result = $rows->fetchAll();
 $numRows = count($result);
 if ( $numRows > '0' ) { ?>
