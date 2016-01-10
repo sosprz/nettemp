@@ -86,6 +86,7 @@ foreach (range(1, $a['fnum']) as $v) {
 	</td>
 	<td>
 	<span class="label label-warning"><?php echo $a['temp_onoff'.$v]; ?></span>
+	<span class="label label-info"><?php echo $a['temp_week_plan'.$v]; ?></span>
 	</td>
     </tr>
     <?php
@@ -133,6 +134,7 @@ foreach (range(1, $a['fnum']) as $v) {
 	</td>
 	<td>
 	<span class="label label-warning"><?php echo $a['temp_onoff'.$v]; ?></span>
+	<span class="label label-info"><?php echo $a['temp_week_plan'.$v]; ?></span>
 	</td>
     </tr>
     <?php
@@ -172,6 +174,7 @@ foreach (range(1, $a['fnum']) as $v) {
 	</td>
 	<td>
 	    <span class="label label-warning"><?php echo $a['temp_onoff'.$v]; ?></span>
+	    <span class="label label-info"><?php echo $a['temp_week_plan'.$v]; ?></span>
 	</td>
     </tr>
     <?php
