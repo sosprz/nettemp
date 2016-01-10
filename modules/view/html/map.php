@@ -31,8 +31,8 @@ exit();
 
 <style type="text/css">
   .draggable {
-      width: auto;
-      height: auto;
+      width: 1px;
+      height: 1px;
       //padding: 0.5em;
       float: left;
       margin: 0px;
@@ -238,7 +238,8 @@ foreach ($row as $h) {
     $device='<img src="media/ico/Computer-icon.png" />';
 ?>
 <div data-need="<?php echo $h['map_num']?>" id="<?php echo "data-need".$h['map_num']?>" data-dst="hosts" class="ui-widget-content draggable">
-    <?php if(($h['status'] == 'error') || ($h['status'] == 'OFF') || ($label=='danger')) {
+    <?php 
+	if(($h['status'] == 'error') || ($h['status'] == 'OFF') || ($label=='danger')) {
 		    echo '<span class="label label-danger">';
 		    } 
 		    else {
@@ -247,7 +248,7 @@ foreach ($row as $h) {
 	        ?>
 
     <?php echo $device." ".$h['name']." ".$h['status']?>
-    </span>
+     </span>
 </div>
 <?php 
     }
