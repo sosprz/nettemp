@@ -177,6 +177,7 @@ unset hyst
 unset status
 unset state
 unset logstatus
+unset temp_week_plan
 
 else
     echo "$date, ERROR in value or Sensor1" >> $dir/tmp/gpio_$gpio\_log.txt
