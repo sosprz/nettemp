@@ -94,7 +94,7 @@ if ! grep -q -E "^(device_tree_param|dtparam)=([^,]*,)*i2c(_arm)?=[^,]*" /boot/c
     printf "dtparam=i2c_arm=on\n" >> /boot/config.txt
 fi
     modprobe i2c-bcm2708
-    modporbe i2c-dev
+    modprobe i2c-dev
 }
 
 function ups {
