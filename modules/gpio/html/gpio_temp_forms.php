@@ -70,6 +70,7 @@ $temp_op='temp_op'.$ta;
 $temp_hyst='temp_hyst'.$ta;
 $temp_source='temp_source'.$ta;
 $temp_set='temp_set'.$ta;
+$temp_week_plan='temp_week_plan'.$ta;
 
 $$temp_sensor=isset($_POST[$temp_sensor]) ? $_POST[$temp_sensor] : '';
 $$temp_sensor_diff=isset($_POST[$temp_sensor_diff]) ? $_POST[$temp_sensor_diff] : '';
@@ -79,6 +80,7 @@ $$temp_temp=isset($_POST[$temp_temp]) ? $_POST[$temp_temp] : '';
 $$temp_hyst=isset($_POST[$temp_hyst]) ? $_POST[$temp_hyst] : '';
 $$temp_source=isset($_POST[$temp_source]) ? $_POST[$temp_source] : '';
 $$temp_set=isset($_POST[$temp_set]) ? $_POST[$temp_set] : '';
+$$temp_week_plan=isset($_POST[$temp_week_plan]) ? $_POST[$temp_week_plan] : '';
 
 
 //var_dump($_POST);
@@ -114,8 +116,9 @@ if ($$temp_set == "on") {
     $temp_sensor=$$temp_sensor;
     $temp_op=$$temp_op;
     $temp_source=$$temp_source;
+    $temp_week_plan=$$temp_week_plan;
     
-    $db->exec("UPDATE gpio SET temp_source$ta='$temp_source',temp_op$ta='$temp_op',temp_sensor$ta='$temp_sensor',temp_sensor_diff$ta='$temp_sensor_diff',temp_onoff$ta='$temp_onoff',temp_temp$ta='$temp_temp',temp_hyst$ta='$temp_hyst' WHERE gpio='$gpio_post'") or die("exec 1");
+    $db->exec("UPDATE gpio SET temp_source$ta='$temp_source',temp_op$ta='$temp_op',temp_sensor$ta='$temp_sensor',temp_sensor_diff$ta='$temp_sensor_diff',temp_onoff$ta='$temp_onoff',temp_temp$ta='$temp_temp',temp_hyst$ta='$temp_hyst',temp_week_plan$ta='$temp_week_plan' WHERE gpio='$gpio_post'") or die("exec 1");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -130,7 +133,7 @@ if ($$temp_set == "on") {
 <div class="panel-heading">Temperature functions <?php echo $fnum ?></div>
 <div class="table-responsive">
 <table class="table">
-<thead><tr><th>Sensor1</th><th>State</th><th>Source</th><th>Value</th><th>Hysteresis</th><th>On/Off</th></tr></thead>
+<thead><tr><th>Sensor1</th><th>State</th><th>Source</th><th>Value</th><th>Hysteresis</th><th>On/Off</th><th>Week Profile</th></tr></thead>
 <div class="form-group">
 <?php
     foreach (range(1, $fnum) as $v) {
@@ -196,6 +199,21 @@ if ($$temp_set == "on") {
     <option <?php echo $a['temp_onoff'.$v] == 'off' ? 'selected="selected"' : ''; ?> value="off">OFF</option>
     <option <?php echo $a['temp_onoff'.$v] == 'onoff' ? 'selected="selected"' : ''; ?> value="onoff">ON/OFF</option>
 </select>
+</td>
+
+<td class="col-md-1">
+<?php
+	$sth = $db->prepare("SELECT name FROM day_plan WHERE gpio=$gpio");
+	    $sth->execute();
+	    $result = $sth->fetchAll();
+	    $sensor2c = count($result);
+	?>
+    <select id="" name="<?php echo temp_week_plan.$v; ?>" class="form-control input-sm" <?php echo $a['day_run'] != 'on' ? 'disabled="disabled"' : ''; ?>>
+	<?php 
+	    foreach ($result as $wp) { ?>
+		<option <?php echo $a['temp_week_plan'.$v] == $wp['name'] ? 'selected="selected"' : ''; ?> value="<?php echo $wp['name']; ?>"><?php echo $wp['name']?></option>
+	<?php } ?>
+    </select>
 </td>
 
 <td class="col-md-1">

@@ -20,9 +20,9 @@ if [ "$day_run" = "on" ]; then
 	    etime=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT etime FROM day_plan WHERE name='$i'")
 	    stimec=$(echo $stime | sed 's/://g'|sed 's/^\0//g')
 	    etimec=$(echo $etime | sed 's/://g'|sed 's/^\0//g')
-	    dayplan=$i
 	    if (("$date2" >= "$stimec")) && (("$date2" < "$etimec")); then
 		onoff="on"
+		dayplan=$i
 		if [ $mode != "temp" ]; then
 		    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='ON DAY $i' WHERE gpio='$gpio'"
 		    day_status=$onoff

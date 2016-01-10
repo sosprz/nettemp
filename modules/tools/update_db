@@ -45,6 +45,7 @@ for i in $(seq 1 10);
     sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op$i type TEXT";
     sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_hyst$i type TEXT";
     sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_source$i type TEXT";
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_week_plan$i type TEXT";
     
 done
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD status type TEXT";

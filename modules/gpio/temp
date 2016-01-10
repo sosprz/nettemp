@@ -78,6 +78,15 @@ function temp {
 for i in $(seq 1 $fnum);
     do 
 
+declare temp_week_plan$i=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT temp_week_plan$i FROM gpio WHERE gpio='$gpio'"`
+temp_week_plan=temp_week_plan$i
+
+if [[ "$day_run" == "on" ]] && [[ "${!temp_week_plan}" != "$dayplan" ]]; then
+    offon=off
+    echo "Function != week plan"
+    continue
+fi
+
 declare temp_onoff$i=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT temp_onoff$i FROM gpio WHERE gpio='$gpio'"`
 temp_onoff=temp_onoff$i
 
@@ -108,9 +117,9 @@ status=status$i
 declare state$i=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT state FROM gpio WHERE gpio='$gpio'"`
 state=state$i
 
-
 declare temp_hyst$i=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT temp_hyst$i FROM gpio WHERE gpio='$gpio'"`
 temp_hyst=temp_hyst$i
+
 # hyst temp1 
 declare t1h$i=$(echo ${!temp_temp} ${!temp_hyst} |awk '{ sum = $1 + $2; print sum }')
 hyst=t1h$i
@@ -197,5 +206,7 @@ fi
 
 ### main
     day
-    gpio_$offon #set state after check all function
+    if [[ -n "$offon" ]]; then
+	gpio_$offon #set state after check all function
+    fi
 fi

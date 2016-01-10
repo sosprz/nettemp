@@ -49,15 +49,6 @@ foreach (range(1, $tempnum) as $v) {
 $sth = $db->prepare("SELECT * FROM sensors");
 $sth->execute();
 $result = $sth->fetchAll();
-//foreach ($result as $select) {
-//    if (($a['temp_sensor'.$v] == $select['id']) && (!empty($a['temp_temp'.$v]))) {
-//    echo $select['name'];
-//    echo $select['tmp'];
-//    echo $a['temp_op'.$v];
-//    echo $a['temp_temp'.$v];
-//    echo $a['temp_onoff'.$v];
-//    }
-//}
 }
 ?>
 <?php echo "Status: ".$a['status'];?>
@@ -100,8 +91,6 @@ $result = $sth->fetchAll();
 
 
 <?php
-//include('gpio_function_num.php');
-
 }
 ?>
 
