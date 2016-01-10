@@ -208,7 +208,7 @@ unset($a);
 ?>
 
 <?php
-$rows = $dbn->query("SELECT * FROM gpio");
+$rows = $dbn->query("SELECT * FROM gpio WHERE mode NOT LIKE 'humid'");
 $row = $rows->fetchAll();
 foreach ($row as $a) {
     $device='<img src="media/ico/SMD-64-pin-icon_24.png" />';
