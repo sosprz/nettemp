@@ -71,12 +71,10 @@ Go to device scan!
 		}
 ?>
 
-		    <tr <?php echo !empty($mm) ? 'class="danger"' : ''?>>
+		    <tr>
 			<td>
-			    <?php echo $device;?>
+			    <?php echo $device;?><?php echo $type;?>
 			</td>
-			<td>
-			    <?php echo $type;?>
 			<td>
 				<?php echo $name;?>
 			</td>
