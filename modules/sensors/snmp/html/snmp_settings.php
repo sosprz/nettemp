@@ -4,6 +4,7 @@ $snmp_community = isset($_POST['snmp_community']) ? $_POST['snmp_community'] : '
 $snmp_host = isset($_POST['snmp_host']) ? $_POST['snmp_host'] : '';
 $snmp_oid = isset($_POST['snmp_oid']) ? $_POST['snmp_oid'] : '';
 $snmp_id = isset($_POST['snmp_id']) ? $_POST['snmp_id'] : '';
+$snmp_type = isset($_POST['snmp_type']) ? $_POST['snmp_type'] : '';
 $snmp_divider = isset($_POST['snmp_divider']) ? $_POST['snmp_divider'] : '';
 $snmpid = isset($_POST['snmpid']) ? $_POST['snmpid'] : '';
 $rom = isset($_POST['rom']) ? $_POST['rom'] : '';
@@ -19,10 +20,11 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	if (empty($snmp_divider)) {
 	    $snmp_divider='1';
 	}
-	$rom=snmp_ . $snmp_name . _temp;
-	$db->exec("INSERT OR IGNORE INTO snmp (name, rom, community, host, oid, divider) VALUES ('$snmp_name','$rom','$snmp_community', '$snmp_host', '$snmp_oid', '$snmp_divider')") or die ("cannot insert to DB 1" );
+	$rom="snmp_".$snmp_name."_".$snmp_type;
+	$map_num=substr(rand(), 0, 4);
+	$db->exec("INSERT OR IGNORE INTO snmp (name, rom, community, host, oid, divider, type ) VALUES ('$snmp_name','$rom','$snmp_community', '$snmp_host', '$snmp_oid', '$snmp_divider', '$snmp_type')") or die ("cannot insert to DB 1" );
 	$dbn->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')");
-        $dbn->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio) VALUES ('$snmp_name','$rom','temp', 'off', 'wait', '$gpio_post' )") or die ("cannot insert to DB 2" );
+        $dbn->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, device, map_pos, map_num, adj, charts) VALUES ('$snmp_name','$rom','$snmp_type', 'off', 'wait', 'snmp', '{left:0,top:0}', '$map_num', 0, 'on')") or die ("cannot insert to DB 2" );
 
 	$dbnew = new PDO("sqlite:db/$rom.sql");
 	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
@@ -61,17 +63,26 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 
 <div class="table-responsive">
 <table class="table">
-<thead><tr><th></th><th>Name</th><th>Community</th><th>Host</th><th>OID</th><th>Divider</th><th>Add/Rem</th></tr></thead>
+<thead><tr><th></th><th>Name</th><th>Community</th><th>Host</th><th>OID</th><th>Divider</th><th>Type</th><th>Add/Rem</th></tr></thead>
     <form action="" method="post" class="form-horizontal">
 	<tr>
 	<td></td>
-	<td class="col-md-2"><input type="text" name="snmp_name" value="" class="form-control input-md" required=""/></td>
-	<td class="col-md-2"><input type="text" name="snmp_community"  value="" class="form-control input-md" required=""/></td>
-	<td class="col-md-2"><input type="text" name="snmp_host"  value="" class="form-control input-md" required=""/></td>
-	<td class="col-md-5"><input type="text" name="snmp_oid" value="" class="form-control input-md" required=""/></td>
-	<td class="col-md-1"><input type="text" name="snmp_divider" value="" class="form-control input-md"/></td>
-	<input type="hidden" name="snmp_add1" value="snmp_add2" />
-	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button></td>
+	<td class="col-md-1"><input type="text" name="snmp_name" value="" class="form-control input-sm" required=""/></td>
+	<td class="col-md-2"><input type="text" name="snmp_community"  value="" class="form-control input-sm" required=""/></td>
+	<td class="col-md-2"><input type="text" name="snmp_host"  value="" class="form-control input-sm" required=""/></td>
+	<td class="col-md-5"><input type="text" name="snmp_oid" value="" class="form-control input-sm" required=""/></td>
+	<td class="col-md-1"><input type="text" name="snmp_divider" value="" class="form-control input-sm"/></td>
+	<input type="hidden" name="snmp_add1" value="snmp_add2" class="form-control input-sm"/>
+	<td class="col-md-2">
+	<select name="snmp_type" class="form-control input-sm">
+	    <option value="temp">Temp</option>
+	    <option value="humid">Humid</option>
+	    <option value="press">Pressure</option>
+	    <option value="volt">Volt</option>
+	    <option value="amps">Amps</option>
+	</select>
+	</td>
+	<td class="col-md-1"><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button></td>
     </tr>
     </form>
 
@@ -90,6 +101,8 @@ foreach ($result as $a) {
 	<td><?php echo $a["host"]; ?></td>
 	<td><?php echo $a["oid"]; ?></td>
 	<td><?php echo $a["divider"]; ?></td>
+	<td><?php echo $a["type"]; ?></td>
+	
 
 	<form action="" method="post">
 	<input type="hidden" name="snmp_id" value="<?php echo $a["id"]; ?>"/>
