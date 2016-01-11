@@ -8,7 +8,7 @@ $map_num=substr(rand(), 0, 4);
 if ( $add == "ADD") {
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	if (!empty($gpioad)) { 
-	    $db->exec("INSERT INTO gpio (gpio, name, status, fnum, map_pos, map_num) VALUES ('$gpio','new_$gpio','OFF','1', '{left:0,top:0}', '$map_num' )") or exit(header("Location: html/errors/db_error.php"));
+	    $db->exec("INSERT INTO gpio (gpio, name, status, fnum, map_pos, map_num, map) VALUES ('$gpio','new_$gpio','OFF','1', '{left:0,top:0}', '$map_num', 'on' )") or exit(header("Location: html/errors/db_error.php"));
 	}
 	else {
 	    $db->exec("DELETE FROM gpio WHERE gpio='$gpio'") or exit(header("Location: html/errors/db_error.php"));

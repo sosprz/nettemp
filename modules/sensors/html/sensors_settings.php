@@ -83,8 +83,16 @@
     $db->exec("UPDATE sensors SET sum='$sum' WHERE id='$name_id'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
-    } 
+    }
 
+    $map = isset($_POST['map']) ? $_POST['map'] : '';
+    $maponoff = isset($_POST['maponoff']) ? $_POST['maponoff'] : '';
+    $mapon = isset($_POST['mapon']) ? $_POST['mapon'] : '';
+    if (($maponoff == "onoff")){
+    $db->exec("UPDATE sensors SET map='$mapon' WHERE id='$map'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 
 ?> 
 
@@ -117,6 +125,7 @@ $row = $rows->fetchAll();
 <th>Charts</th>
 <th>Node</th>
 <th>MinMax</th>
+<th>Map</th>
 <th></th>
 </tr>
 </thead>
@@ -259,7 +268,13 @@ else { ?>
 	<input type="hidden" name="minmaxonoff" value="onoff" />
     </form>
     </td>
-    
+    <td >
+    <form action="" method="post" style="display:inline!important;"> 	
+	<input type="hidden" name="map" value="<?php echo $a["id"]; ?>" />
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="mapon" value="on" <?php echo $a["map"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+	<input type="hidden" name="maponoff" value="onoff" />
+    </form>
+    </td>
     <td>
     <form action="" method="post" style="display:inline!important;">
 	<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />

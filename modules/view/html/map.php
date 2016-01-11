@@ -176,7 +176,7 @@ $( "#content div" ).draggable({
 </script>
 <div id="content">
 <?php
-$rows = $dbn->query("SELECT * FROM sensors");
+$rows = $dbn->query("SELECT * FROM sensors WHERE map='on'");
 $row = $rows->fetchAll();
 foreach ($row as $a) {
 	if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png"/>';} 

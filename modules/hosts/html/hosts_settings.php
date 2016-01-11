@@ -17,7 +17,7 @@ $map_num=substr(rand(), 0, 4);
 	$db = new PDO('sqlite:dbf/hosts.db');
 	$host_name=host_ . $host_name;
 	$host_name=str_replace(".","",$host_name);
-	$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num) VALUES ('$host_name', '$host_ip', '$host_name', '$host_type', '{left:0,top:0}', '$map_num')") or die ("cannot insert to DB" );
+	$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map) VALUES ('$host_name', '$host_ip', '$host_name', '$host_type', '{left:0,top:0}', '$map_num', 'on')") or die ("cannot insert to DB" );
 	    $dbnew = new PDO("sqlite:db/$host_name.sql");
 	    $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
 	    $dbnew==NULL;
