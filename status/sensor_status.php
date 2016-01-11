@@ -57,13 +57,13 @@ Go to device scan!
 		if($a['tmp'] > $a['tmp_5ago']) { $updo='<span class="label label-danger"><span class="glyphicon glyphicon-arrow-up"</span></span>';}
 		if($a['tmp'] < $a['tmp_5ago']) { $updo='<span class="label label-info"><span class="glyphicon glyphicon-arrow-down"</span></span>';}
 		
-		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max']) && $a['alarm'] == 'on' ) { 
+		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max'])) { 
 		    $mm='e'; 
 		    $max="max ".$a['tmp_max'];
 		    if($a['type'] == 'temp'){ $type='<img src="media/ico/temp_high.png"/>';}
 		    $label='danger';
 		}
-		if($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min']) && $a['alarm'] == on ) { 
+		if($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min'])) { 
 		    $mm='e'; 
 		    $min="min ".$a['tmp_min'];
 		    if($a['type'] == 'temp'){ $type='<img src="media/ico/temp_low.png"/>';}
