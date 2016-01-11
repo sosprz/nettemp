@@ -13,13 +13,15 @@
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE settings SET lcd='$lcdon' WHERE id='1'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE settings SET lcd4='off' WHERE id='1'") or die ($db->lastErrorMsg());
+    shell_exec("sudo touch tmp/reboot");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
     if (($lcd4 == "lcd4") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE settings SET lcd4='$lcdon4' WHERE id='1'") or die ($db->lastErrorMsg());
-        $db->exec("UPDATE settings SET lcd='off' WHERE id='1'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE settings SET lcd='off' WHERE id='1'") or die ($db->lastErrorMsg());
+    shell_exec("sudo touch tmp/reboot");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
