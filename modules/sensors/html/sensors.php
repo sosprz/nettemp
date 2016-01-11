@@ -24,6 +24,8 @@ $name_new=trim($name_new2);
 	$method='';
 	$ip='';
 	$map_num=substr(rand(), 0, 4);
+	$map_num2=substr(rand(), 0, 4);
+	
 	    
 	    
 	//type
@@ -117,7 +119,7 @@ $name_new=trim($name_new2);
 		//host for monitoring
 		$name='host_wifi_' . $type . '_' . $name;
 		$dbhost = new PDO("sqlite:dbf/hosts.db");	
-		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping')") or die ("cannot insert host to DB" );	
+		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping', '{left:0,top:0}', '$map_num2')") or die ("cannot insert host to DB" );	
 		$dbnew = new PDO("sqlite:db/host_$id_rom_new.sql");
     		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
 	    }
