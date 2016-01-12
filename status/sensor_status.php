@@ -87,9 +87,13 @@ Go to device scan!
 				    }
 			    ?>
 				<?php
-				    if (is_numeric($a['tmp'])) {
+				    if ((is_numeric($a['tmp']) && (($a['type'])=='elec')))  {
+					echo 	number_format($a['tmp'], 3, '.', ',')." ".$unit." ".$max.$min;
+				    } 
+				    elseif (is_numeric($a['tmp'])) { 
 					echo 	number_format($a['tmp'], 1, '.', ',')." ".$unit." ".$max.$min;
-				    } else {
+				    }
+				    else {
 					echo $a['tmp']." ".$unit." ".$max.$min;
 				    }
 		

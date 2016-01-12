@@ -39,7 +39,7 @@ if ( $numRows > '0' ) { ?>
     </td>
     <td>
 	<small>
-	<?php echo $a['name'] ?> 
+	<?php echo str_replace("_"," ","$a[name]"); ?>
 	</small>
     </td>
 	
