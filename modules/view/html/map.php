@@ -196,10 +196,19 @@ foreach ($row as $a) {
 		    } 
 		    else {
 		    echo '<span class="label label-success">';
-		    }
-	        ?>
+		    } 
 
-    <?php echo $type." ".$a['name']." ".$a['tmp']." ".$unit ?>
+		    if ((is_numeric($a['tmp']) && (($a['type'])=='elec')))  {
+			echo 	$type." ".$a['name']." ".number_format($a['tmp'], 3, '.', ',')." ".$unit;
+		    } 
+		    elseif (is_numeric($a['tmp'])) { 
+			echo 	$type." ".$a['name']." ".number_format($a['tmp'], 1, '.', ',')." ".$unit;
+		    }
+		    else {
+			echo $a['tmp']." ".$unit;
+		    }
+
+	?>
     </span>
 </div>
 <?php 
