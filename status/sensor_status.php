@@ -86,7 +86,15 @@ Go to device scan!
 					echo '<span class="label label-success">';
 				    }
 			    ?>
-				<?php echo $a['tmp']." ".$unit." ".$max.$min;?>
+				<?php
+				    if (is_numeric($a['tmp'])) {
+					echo 	number_format($a['tmp'], 1, '.', ',')." ".$unit." ".$max.$min;
+				    } else {
+					echo $a['tmp']." ".$unit." ".$max.$min;
+				    }
+		
+				?>
+
 			    </span>
 			</td>
 			<td>
