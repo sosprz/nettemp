@@ -163,7 +163,7 @@ $row = $rows->fetchAll();
 	if (file_exists($file3) && ( 0 != filesize($file3)))
 	{
 ?>
-<td class="col-md-4">
+<td class="col-md-5">
     <span class="label label-success">ok</span>
     <span class="label label-default"><?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3)."MB" ?></span>
     <span class="label label-default"><?php echo str_replace("-", "", $a["time"]); ?></span>
