@@ -10,9 +10,10 @@ if name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "SELECT rom FROM snmp")
 	host=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "SELECT host FROM snmp WHERE rom='$rom'")
 	oid=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "SELECT oid FROM snmp WHERE rom='$rom'")
 	divider=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "SELECT divider FROM snmp WHERE rom='$rom'")
+	type=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "SELECT type FROM snmp WHERE rom='$rom'")
 	walk=$(snmpget -v 2c -c $community $host $oid -O v)
         val=`echo $walk | tr -d \" | awk '{printf "%3.1f\n", $2/'$divider' }'`  
-	php-cgi -f $dir/receiver.php key=$skey rom=$rom value=$val type=temp
+	php-cgi -f $dir/receiver.php key=$skey rom=$rom value=$val type=$type
 	echo SNMP: $val C
      done
 fi
