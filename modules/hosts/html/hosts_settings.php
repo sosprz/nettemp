@@ -12,8 +12,8 @@ $map_num=substr(rand(), 0, 4);
 <div class="panel-heading">Monitoring</div>
 
 <?php // SQlite
-	$host_add1 = isset($_POST['host_add1']) ? $_POST['host_add1'] : '';
-	if (!empty($host_name)  && !empty($host_ip) && ($host_add1 == "host_add2") ){
+    $host_add1 = isset($_POST['host_add1']) ? $_POST['host_add1'] : '';
+    if (!empty($host_name)  && !empty($host_ip) && ($host_add1 == "host_add2") ){
 	$db = new PDO('sqlite:dbf/hosts.db');
 	$host_name=host_ . $host_name;
 	$host_name=str_replace(".","",$host_name);
@@ -23,24 +23,33 @@ $map_num=substr(rand(), 0, 4);
 	    $dbnew==NULL;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
-	}	
-?>
-	
+    }	
 
-<?php // SQLite - del
-	if (!empty($host_name) && ($_POST['host_del1'] == "host_del2") ){
+    if (!empty($host_name) && ($_POST['host_del1'] == "host_del2") ){
 	$db = new PDO('sqlite:dbf/hosts.db');
 	$db->exec("DELETE FROM hosts WHERE name='$host_name'") or die ($db->lastErrorMsg());
 	unlink("db/$host_name.sql");
 	unlink("tmp/mail/$host_name.mail");
-	unlink("tmp/mail/hour/$host_name.mail");
+        unlink("tmp/mail/hour/$host_name.mail");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
-	}
-	?>
+    }
+
+    $map = isset($_POST['map']) ? $_POST['map'] : '';
+    $maponoff = isset($_POST['maponoff']) ? $_POST['maponoff'] : '';
+    $mapon = isset($_POST['mapon']) ? $_POST['mapon'] : '';
+    if (($maponoff == "onoff")){
+	$db = new PDO('sqlite:dbf/hosts.db');
+	$db->exec("UPDATE hosts SET map='$mapon' WHERE id='$map'") or die ($db->lastErrorMsg());
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
+?>
+
+
 <div class="table-responsive">
 <table class="table table-striped">
-<thead><tr><th>Name</th><th>IP / Name</th><th>Type</th><th></th></tr></thead>
+<thead><tr><th>Name</th><th>IP / Name</th><th>Type</th><th>Map</th><th></th></tr></thead>
 <tr>	
 	<form action="" method="post" class="form-horizontal">
 	<div class="form-group">
@@ -52,6 +61,7 @@ $map_num=substr(rand(), 0, 4);
 	    <option value="httpping">http ping</option>
         </select>
 	</td>
+	<td class="col-md-1"></td>
 	<input type="hidden" name="host_add1" value="host_add2" class="form-control"/>
 	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button></td>
 	</div>
@@ -71,12 +81,23 @@ foreach ($result as $a) {
 	<td><?php echo str_replace("host_","",$a["name"]);?></td>
 	<td><?php echo $a["ip"];?></td>
 	<td><?php echo $a["type"];?></td>
-	
-	<form action="" method="post" class="form-horizontal">
-	<input type="hidden" name="host_name" value="<?php echo $a["name"]; ?>" />
-	<input type="hidden" type="submit" name="host_del1" value="host_del2" />
-	<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
+	<td >
+	<form action="" method="post" style="display:inline!important;"> 	
+	    <input type="hidden" name="map" value="<?php echo $a["id"]; ?>" />
+	    <input type="checkbox" data-toggle="toggle" data-size="mini"  name="mapon" value="on" <?php echo $a["map"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+	    <input type="hidden" name="maponoff" value="onoff" />
 	</form>
+	</td>
+	<td>
+	<form action="" method="post" class="form-horizontal">
+	    <input type="hidden" name="host_name" value="<?php echo $a["name"]; ?>" />
+	    <input type="hidden" type="submit" name="host_del1" value="host_del2" />
+	    <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+	</form>
+	</td>
+	
+
+	
 </tr>
 	
 <?php 

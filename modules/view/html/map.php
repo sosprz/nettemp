@@ -241,7 +241,7 @@ unset($a);
 
 <?php
 $dbh = new PDO("sqlite:dbf/hosts.db");
-$rows = $dbh->query("SELECT * FROM hosts");
+$rows = $dbh->query("SELECT * FROM hosts WHERE map='on'");
 $row = $rows->fetchAll();
 foreach ($row as $h) {
     $device='<img src="media/ico/Computer-icon.png" />';

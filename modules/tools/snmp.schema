@@ -5,6 +5,5 @@ CREATE TABLE snmp (
   community TEXT,
   host TEXT,
   oid TEXT,
-  divider TEXT,
-  type TEXT
-  );
+  divider TEXT
+  , type type TEXT);
