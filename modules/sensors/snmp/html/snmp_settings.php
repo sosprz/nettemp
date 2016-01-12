@@ -80,6 +80,7 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	    <option value="press">Pressure</option>
 	    <option value="volt">Volt</option>
 	    <option value="amps">Amps</option>
+	    <option value="Watt">Watt</option>
 	    <option value="elec">Electricity</option>
 	</select>
 	</td>
