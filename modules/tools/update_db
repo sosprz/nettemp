@@ -235,4 +235,4 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "UPDATE hosts SET map='on' WHERE 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD COLUMN position INTEGER DEFAULT 1"
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "ALTER TABLE snmp ADD type type TEXT";
-
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD MCP23017 type TEXT";

@@ -46,7 +46,16 @@ if (file_exists($wp)) {
     {
 	$gpiolist = array(4,17,21,22,18,23,24,25);
     } 
-    
+
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$rows = $db->query("SELECT * FROM settings WHERE id='1'") or exit(header("Location: html/errors/db_error.php"));
+	$row = $rows->fetchAll();
+	foreach ($row as $result) { 
+   	    $MCP23017 = $result['MCP23017'];
+	}
+	if ($MCP23017 == 'on') {
+	    array_push($gpiolist,100,101,102,103,104,105,106,107);
+	}
     
 }
 else { ?>
