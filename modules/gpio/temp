@@ -82,7 +82,8 @@ declare temp_week_plan$i=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELE
 temp_week_plan=temp_week_plan$i
 
 if [[ "$day_run" == "on" ]] && [[ "${!temp_week_plan}" != "$dayplan" ]]; then
-    echo "Function != week plan"
+    logstatus="${!temp_week_plan} != $dayplan"
+    log
     continue
 fi
 

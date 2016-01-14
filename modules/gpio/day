@@ -43,7 +43,8 @@ if [ "$day_run" = "on" ]; then
     if [[ -z $onoff ]]; then
 	onoff=off
 	day_status=$onoff
-	logstatus="OFF DAY"
+	logstatus="OFF not in day range"
+	log
 	if [ $mode != "temp" ]; then
 	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF DAY' WHERE gpio='$gpio'"
 	fi
