@@ -47,7 +47,7 @@ $MCP23017=$a["MCP23017"];
 </form>
 </div>
 </div>
-<!--
+
 <div class="panel panel-default">
 <div class="panel-heading">
 <h3 class="panel-title">GPIO MCP23017</h3>
@@ -59,5 +59,4 @@ $MCP23017=$a["MCP23017"];
 </form>
 </div>
 </div>
--->
 
