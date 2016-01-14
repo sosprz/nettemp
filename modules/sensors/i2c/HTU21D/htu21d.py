@@ -10,7 +10,6 @@ import sys
 
 
 I2C_SLAVE=0x0703
-HTU21D_ADDR = 0x40
 CMD_READ_TEMP_HOLD = "\xE3"
 CMD_READ_HUM_HOLD = "\xE5"
 CMD_READ_TEMP_NOHOLD = "\xF3"
@@ -21,6 +20,16 @@ CMD_SOFT_RESET= "\xFE"
 
 if len(sys.argv) > 1:
     nbus = sys.argv[1]
+    if int(sys.argv[2]) == 40:
+	HTU21D_ADDR = 0x40
+    elif int(sys.argv[2]) == 41:
+	HTU21D_ADDR = 0x41
+    elif int(sys.argv[2]) == 42:
+	HTU21D_ADDR = 0x42
+    elif int(sys.argv[2]) == 43:
+	HTU21D_ADDR = 0x43
+    elif int(sys.argv[2]) == 44:
+	HTU21D_ADDR = 0x44
 elif  os.path.exists("/dev/i2c-0"):
     nbus = "0"
 elif os.path.exists("/dev/i2c-1"):
