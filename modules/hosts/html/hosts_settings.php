@@ -44,12 +44,22 @@ $map_num=substr(rand(), 0, 4);
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
     }
+    $alarm = isset($_POST['alarm']) ? $_POST['alarm'] : '';
+    $alarmonoff = isset($_POST['alarmonoff']) ? $_POST['alarmonoff'] : '';
+    $alarmon = isset($_POST['alarmon']) ? $_POST['alarmon'] : '';
+    if (($alarmonoff == "onoff")){
+	$db = new PDO('sqlite:dbf/hosts.db');
+	$db->exec("UPDATE hosts SET alarm='$alarmon' WHERE id='$alarm'") or die ($db->lastErrorMsg());
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
+
 ?>
 
 
 <div class="table-responsive">
 <table class="table table-striped">
-<thead><tr><th>Name</th><th>IP / Name</th><th>Type</th><th>Map</th><th></th></tr></thead>
+<thead><tr><th>Name</th><th>IP / Name</th><th>Type</th><th>Map</th><th>Alarm</th><th></th></tr></thead>
 <tr>	
 	<form action="" method="post" class="form-horizontal">
 	<div class="form-group">
@@ -61,6 +71,7 @@ $map_num=substr(rand(), 0, 4);
 	    <option value="httpping">http ping</option>
         </select>
 	</td>
+	<td class="col-md-1"></td>
 	<td class="col-md-1"></td>
 	<input type="hidden" name="host_add1" value="host_add2" class="form-control"/>
 	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button></td>
@@ -86,6 +97,13 @@ foreach ($result as $a) {
 	    <input type="hidden" name="map" value="<?php echo $a["id"]; ?>" />
 	    <input type="checkbox" data-toggle="toggle" data-size="mini"  name="mapon" value="on" <?php echo $a["map"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	    <input type="hidden" name="maponoff" value="onoff" />
+	</form>
+	</td>
+	<td >
+	<form action="" method="post" style="display:inline!important;"> 	
+	    <input type="hidden" name="alarm" value="<?php echo $a["id"]; ?>" />
+	    <input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarmon" value="on" <?php echo $a["alarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+	    <input type="hidden" name="alarmonoff" value="onoff" />
 	</form>
 	</td>
 	<td>

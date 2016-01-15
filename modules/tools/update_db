@@ -90,6 +90,7 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE relays ADD delay t
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE relays ADD rom type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE relays ADD type type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD rom type TEXT";
+
 for i in $(seq 1 30);
     do
     sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD tout$i type TEXT";
@@ -236,3 +237,5 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD COLUMN
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "ALTER TABLE snmp ADD type type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD MCP23017 type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD alarm type TEXT";
+
