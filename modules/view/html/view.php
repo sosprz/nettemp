@@ -81,10 +81,10 @@ if (in_array('lux', $type))  {?>
 <a href="index.php?id=view&type=lux&max=hour" ><button class="btn btn-default <?php echo $art == 'lux' ? ' active' : ''; ?>">Light</button></a>
 <?php } 
 if (in_array('volt', $type))  {?>
-<a href="index.php?id=view&type=volt&max=hour" ><button class="btn btn-default <?php echo $art == 'volt' ? ' active' : ''; ?>">Volt</button></a>
+<a href="index.php?id=view&type=volt&max=hour" ><button class="btn btn-default <?php echo $art == 'volt' ? ' active' : ''; ?>">Voltage</button></a>
 <?php } 
 if (in_array('amps', $type))  {?>
-<a href="index.php?id=view&type=amps&max=hour" ><button class="btn btn-default <?php echo $art == 'amps' ? ' active' : ''; ?>">Amps</button></a>
+<a href="index.php?id=view&type=amps&max=hour" ><button class="btn btn-default <?php echo $art == 'amps' ? ' active' : ''; ?>">Ampere</button></a>
 <?php } 
 if (in_array('watt', $type))  {?>
 <a href="index.php?id=view&type=watt&max=hour" ><button class="btn btn-default <?php echo $art == 'watt' ? ' active' : ''; ?>">Watt</button></a>

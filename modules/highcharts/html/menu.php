@@ -101,8 +101,8 @@ echo "names = ". $js_array . ";\n";
         	},
 		
 		title: {
-            	    text: type+' by '+max
-        	},
+    		    text: 'by '+max
+    		},
 
         	subtitle: {
             	    text: 'nettemp jest spoko ale nie ma wykresów'
