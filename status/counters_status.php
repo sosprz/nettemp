@@ -13,8 +13,6 @@ if ( $numRows > '0' ) { ?>
 <table class="table table-responsive table-hover table-condensed">
 <thead>
 <th></th>
-<th></th>
-<th></th>
 <th><small>Hour</small></th>
 <th><small>Day</small></th>
 <th><small>Month</small></th>
@@ -31,16 +29,12 @@ if ( $numRows > '0' ) { ?>
     <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
     <?php if($a['device'] == 'usb'){ ?><img src="media/ico/usb-icon.png" /><?php } ?>
     <?php if($a['device'] == 'gpio'){ ?><img src="media/ico/gpio2.png" /><?php } ?>
-    </td>
-    <td>
-	<?php if($a['type'] == 'gas'){ ?><img src="media/ico/gas-icon.png" /><?php $units='m3'; } ?>
-	<?php if($a['type'] == 'water'){ ?><img src="media/ico/water-icon.png" /><?php $units='m3'; } ?>
-	<?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" /><?php $units='kWh' ;} ?>
-    </td>
-    <td>
-	<small>
+    <?php if($a['type'] == 'gas'){ ?><img src="media/ico/gas-icon.png" /><?php $units='m3'; } ?>
+    <?php if($a['type'] == 'water'){ ?><img src="media/ico/water-icon.png" /><?php $units='m3'; } ?>
+    <?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" /><?php $units='kWh' ;} ?>
+    <small>
 	<?php echo str_replace("_"," ","$a[name]"); ?>
-	</small>
+    </small>
     </td>
 	
 	<td>

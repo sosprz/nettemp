@@ -88,8 +88,11 @@ Go to device scan!
 				    }
 			    ?>
 				<?php
-				    if ((is_numeric($a['tmp']) && (($a['type'])=='elec')))  {
+				    if (is_numeric($a['tmp']) && $a['type']=='elec' || $a['type']=='gas' || $a['type']=='water' )  {
 					echo 	number_format($a['tmp'], 3, '.', ',')." ".$unit." ".$max.$min;
+				    } 
+				    elseif (is_numeric($a['tmp']) && $a['type']=='volt' || $a['type']=='amps' || $a['type']=='watt' )  {
+					echo 	number_format($a['tmp'], 2, '.', ',')." ".$unit." ".$max.$min;
 				    } 
 				    elseif (is_numeric($a['tmp'])) { 
 					echo 	number_format($a['tmp'], 1, '.', ',')." ".$unit." ".$max.$min;
