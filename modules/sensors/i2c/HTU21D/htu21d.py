@@ -30,6 +30,18 @@ if len(sys.argv) > 1:
 	HTU21D_ADDR = 0x43
     elif int(sys.argv[2]) == 44:
 	HTU21D_ADDR = 0x44
+    elif int(sys.argv[2]) == 45:
+	HTU21D_ADDR = 0x45
+    elif int(sys.argv[2]) == 46:
+	HTU21D_ADDR = 0x46
+    elif int(sys.argv[2]) == 47:
+	HTU21D_ADDR = 0x47
+    elif int(sys.argv[2]) == 48:
+	HTU21D_ADDR = 0x48
+    elif int(sys.argv[2]) == 49:
+	HTU21D_ADDR = 0x49
+    elif int(sys.argv[2]) == 50:
+	HTU21D_ADDR = 0x50
 elif  os.path.exists("/dev/i2c-0"):
     nbus = "0"
 elif os.path.exists("/dev/i2c-1"):
