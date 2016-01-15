@@ -25,6 +25,10 @@ then
 	    sleep 2
 	    f=$(expr $f + 1)
 	    s=$(expr $s + 1)
+	    if [[ "$max" == "2" ]]; then
+		break	
+	    fi
+	    
 	done
 	done
 
@@ -49,6 +53,9 @@ then
     	    f=$(expr $f + 1)
     	    s=$(expr $s + 1)
     	    t=$(expr $t + 1)
+	    if [[ "$max" == "4" ]]; then
+		break	
+	    fi
 	done
 	done
 
