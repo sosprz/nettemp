@@ -49,11 +49,11 @@ elseif ($type == 'hosts') {
     }
 }
 elseif ($type == 'gpio') {
-    $root = "/var/www/nettemp";
-    $dir = "$root/db";
-    $lg=glob($dir.'/gpio_stats_*');
-    foreach($lg as $li) {
-	$array[]=basename($li, ".sql");
+$dirb = "sqlite:dbf/nettemp.db";
+$dbh = new PDO($dirb) or die("cannot open database");
+$query = "select name FROM gpio";
+foreach ($dbh->query($query) as $row) {
+    $array[]=$row[0];
     }
 }
 else {

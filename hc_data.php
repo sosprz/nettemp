@@ -39,7 +39,6 @@ if ($type == 'system') {
     $dbh = new PDO($dirb) or die("cannot open database");
 
     query($max,$query);
-    //$query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
              
     foreach ($dbh->query($query) as $row) {
 	$line=[($row[0])*1000 . "," . $row[1]];
@@ -58,7 +57,6 @@ elseif ($type == 'hosts') {
     query($max,$query);
 
     foreach ($dbh->query($query) as $row) {
-	//$array[]=[($row[0]+3600)*1000 . "," . $row[1]];
 	$array[]=[($row[0])*1000 . "," . $row[1]];
 	    
     }
@@ -68,17 +66,24 @@ elseif ($type == 'hosts') {
 
 elseif ($type == 'gpio') {
 
-    $file=$name;
-    $dirb = "sqlite:$root/db/$file.sql";
+    $db = new PDO("sqlite:$root/dbf/nettemp.db");
+    $rows = $db->query("SELECT * FROM gpio WHERE name='$name'");
+    $row = $rows->fetchAll();
+    foreach($row as $a) {
+	$gpio=$a['gpio'];
+    }
+
+    $dirb = "sqlite:$root/db/gpio_stats_$gpio.sql";
     $dbh = new PDO($dirb) or die("cannot open database");
 
     query($max,$query);
 
     foreach ($dbh->query($query) as $row) {
-	$array[]=[($row[0])*1000 . "," . $row[1]];
+	$line=[($row[0])*1000 . "," . ($row[1]+$adj)];
+	$array[]=$line;
     }
     print str_replace('"', "",json_encode($array));
-    exit();
+
 }
 
 
@@ -96,7 +101,6 @@ else {
     $dbh = new PDO($dirb) or die("cannot open database");
 
     query($max,$query);
-    //$query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
 
     foreach ($dbh->query($query) as $row) {
 	$line=[($row[0])*1000 . "," . ($row[1]+$adj)];
