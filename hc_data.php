@@ -66,7 +66,7 @@ elseif ($type == 'hosts') {
     exit();
 }
 
-elseif ($type == 'gonoff') {
+elseif ($type == 'gpio') {
 
     $file=$name;
     $dirb = "sqlite:$root/db/$file.sql";

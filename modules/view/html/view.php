@@ -89,8 +89,8 @@ if (in_array('amps', $type))  {?>
 if (in_array('watt', $type))  {?>
 <a href="index.php?id=view&type=watt&max=hour" ><button class="btn btn-default <?php echo $art == 'watt' ? ' active' : ''; ?>">Watt</button></a>
 <?php } 
-if (glob('db/gonoff*')) {?>
-<a href="index.php?id=view&type=gonoff&max=hour" ><button class="btn btn-default <?php echo $art == 'gonoff' ? ' active' : ''; ?>">GPIO</button></a>
+if (glob('db/gpio_stats_*')) {?>
+<a href="index.php?id=view&type=gpio&max=hour" ><button class="btn btn-default <?php echo $art == 'gpio' ? ' active' : ''; ?>">GPIO</button></a>
 <?php } 
 if ( $hostc >= "1")  {?>
 <a href="index.php?id=view&type=hosts&max=hour" ><button class="btn btn-default <?php echo $art == 'hosts' ? ' active' : ''; ?>">Hosts</button></a>

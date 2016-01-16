@@ -14,7 +14,7 @@ function getUrlVars() {
 if (type=='temp') { var xval = " °C"}
 if (type=='humid') { var xval = " %"}
 if (type=='press') { var xval = " hPa"}
-if (type=='gonoff') { var xval = " H/L"}
+if (type=='gpio') { var xval = " H/L"}
 if (type=='host') { var xval = " ms"}
 if (type=='system') { var xval = " %"}
 if (type=='lux') { var xval = " lux"}
@@ -48,10 +48,10 @@ elseif ($type == 'hosts') {
 	$array[]=$row[0];
     }
 }
-elseif ($type == 'gonoff') {
+elseif ($type == 'gpio') {
     $root = "/var/www/nettemp";
     $dir = "$root/db";
-    $lg=glob($dir.'/gonoff*');
+    $lg=glob($dir.'/gpio_stats_*');
     foreach($lg as $li) {
 	$array[]=basename($li, ".sql");
     }
@@ -175,7 +175,7 @@ echo "names = ". $js_array . ";\n";
 
 	    };
 	    
-	} else if (type=='gonoff'){
+	} else if (type=='gpio'){
 		seriesOptions[i] = {
                 name: name,
                 data: data,
