@@ -51,7 +51,7 @@ elseif ($type == 'hosts') {
 elseif ($type == 'gpio') {
 $dirb = "sqlite:dbf/nettemp.db";
 $dbh = new PDO($dirb) or die("cannot open database");
-$query = "select name FROM gpio";
+$query = "select name FROM gpio WHERE mode!='humid'";
 foreach ($dbh->query($query) as $row) {
     $array[]=$row[0];
     }
