@@ -35,6 +35,8 @@ if ($re == "re") {
 <input  type="submit" value="Make backup" class="btn btn-primary" />
 </form>
 
+<table class="table table-striped">
+<thead><tr><th>file</th><th>Size</th><th>Restore</th><th></th></tr></thead>
 
 <?php
 $dir = 'tmp/backup/';
@@ -44,8 +46,6 @@ foreach($files AS $file) {
  $fileinfo = pathinfo($file);
  if(is_file($dir.'/'.$file) AND in_array($fileinfo['extension'], $fileExtensions)) { 
 ?>
-<table class="table table-striped">
-<thead><tr><th>file</th><th>Size</th><th>Restore</th><th>Remove</th></tr></thead>
 <tr>
 <td><a href="<?php echo "$dir$file";?>"><?php echo $file; ?></a></td>
 <td><?php $filesize = (filesize("$dir$file") * .0009765625) * .0009765625; echo round($filesize, 2) ?>MB</td>
@@ -60,10 +60,11 @@ foreach($files AS $file) {
 <td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
 </form>
 </tr>
-</table>
+
 <?php
  }}
 ?>
+</table>
 <p>
   <form enctype="multipart/form-data" action="upload" method="post" >
     <input type="hidden" name="MAX_FILE_SIZE" value="1000000000" />
