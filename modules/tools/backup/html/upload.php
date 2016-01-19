@@ -14,7 +14,7 @@ if((!empty($_FILES["uploaded_file"])) && ($_FILES['uploaded_file']['error'] == 0
   $ext = substr($filename, strrpos($filename, '.') + 1);
   if (($ext == "gz") && ($_FILES["uploaded_file"]["size"] < 3500000000)) {
     //Determine the path to which we want to save this file
-      $newname = "modules/tools/backup/files/$filename";
+      $newname = "tmp/backup/$filename";
       //Check if the file with the same name is already exists on the server
       if (!file_exists($newname)) {
         //Attempt to move the uploaded file to it's new place

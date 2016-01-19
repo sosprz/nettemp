@@ -10,7 +10,7 @@ if ($backup == "backup") {
 $backup_file = isset($_POST['backup_file']) ? $_POST['backup_file'] : '';
 $rm = isset($_POST['rm']) ? $_POST['rm'] : '';
 if ($rm == "rm") {
-    unlink("modules/tools/backup/files/$backup_file");
+    unlink("tmp/backup/$backup_file");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     } 
@@ -19,7 +19,7 @@ if ($rm == "rm") {
 $restore_file = isset($_POST['restore_file']) ? $_POST['restore_file'] : '';
 $re = isset($_POST['re']) ? $_POST['re'] : '';
 if ($re == "re") {   
-    passthru("modules/tools/backup/backup r modules/tools/backup/files/$restore_file");
+    passthru("modules/tools/backup/backup r tmp/backup/$restore_file");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     } 
@@ -37,7 +37,7 @@ if ($re == "re") {
 
 
 <?php
-$dir = 'modules/tools/backup/files/';
+$dir = 'tmp/backup/';
 $fileExtensions = array('gz');
 $files = scandir($dir);
 foreach($files AS $file) {
@@ -75,7 +75,7 @@ foreach($files AS $file) {
 
     <font color="grey">Note: If You want upload image, You must change upload_max_filezise in php.ini<br />
         Now Your value is:
-        <?php passthru('grep upload_max_filesize /etc/php5/cgi/php.ini');  ?></font>
+        <?php passthru('grep upload_max_filesize /etc/php5/fpm/php.ini');  ?></font>
 
 </div>
 </div>
