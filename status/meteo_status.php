@@ -49,11 +49,11 @@ $wilgotnosc=$a['tmp'];
 ?>
 <div class="grid-item ms">
 <div class="panel panel-default">
-  <div class="panel-heading">Meteo</div>
+  <div class="panel-heading">Meteo (lang pl)</div>
 <table class="table stripped table-condensed">
 
 <tr>
-    <td>sila grawitacji [m/s^2]"</td>
+    <td>Sila grawitacji [m/s^2]"</td>
     <td><?php 
 	    $sila_grawitacji=9.780313*(pow(1+0.005324*SIN($szerokosc),2)-0.0000058*pow(SIN(2*$szerokosc),2)-0.000003085*$wysokosc);
 	    echo number_format($sila_grawitacji, 2, '.', '');
@@ -62,7 +62,7 @@ $wilgotnosc=$a['tmp'];
 </tr>
 
 <tr>
-    <td>temp znormalizowana [K]
+    <td>Temperatura znormalizowana [K]
     <td>
 	<?php 
 	    $temp_znormalizowana=((2*($temperatura+273.15))+((0.6*$wysokosc)/100))/2;
@@ -72,7 +72,7 @@ $wilgotnosc=$a['tmp'];
 </tr>
 
 <tr>
-    <td>temp znormalizowana [C]
+    <td>Temperatura znormalizowana [C]
     <td>
 	<?php 
 	    $tz=$temp_znormalizowana-273.15;
@@ -82,7 +82,7 @@ $wilgotnosc=$a['tmp'];
 </tr>
 
 <tr>
-    <td>cisnienie znormalizowane [hPa]
+    <td>Cisnienie znormalizowane [hPa]
     <td>
 	<?php 
 	    $cz=($cisnienie*(EXP(($sila_grawitacji*$wysokosc)/(287.05*$temp_znormalizowana)))*10)/10;
@@ -93,7 +93,7 @@ $wilgotnosc=$a['tmp'];
 
 
 <tr>
-    <td>temperatura punktu rosy [°C]
+    <td>Temperatura punktu rosy [°C]
     <td>
 	<?php 
 	    $tpr=243.12*(((LOG10($wilgotnosc)-2)/0.4343)+(17.5*$temperatura)/(243.12+$temperatura))/(17.62-(((LOG10($wilgotnosc)-2)/0.4343)+(17.5*$temperatura)/(243.12+$temperatura)));
@@ -104,7 +104,7 @@ $wilgotnosc=$a['tmp'];
 
 
 <tr>
-    <td>cisnienie pary wodnej nasyconej [hPa]
+    <td>Cisnienie pary wodnej nasyconej [hPa]
     <td>
 	<?php 
 	    $cisnienie_pary_nasyconej=6.112*EXP((17.67*$temperatura)/($temperatura+243.5));
@@ -114,7 +114,7 @@ $wilgotnosc=$a['tmp'];
 </tr>
 
 <tr>
-    <td>cisnienie pary wodnej [hPa]
+    <td>Cisnienie pary wodnej [hPa]
     <td>
 	<?php 
 	    $cisnienie_pary=$wilgotnosc/(1/$cisnienie_pary_nasyconej)/100;
@@ -123,7 +123,7 @@ $wilgotnosc=$a['tmp'];
     </td>
 </tr>
 <tr>
-    <td>wilgotnosc bezwzgledna [g/m^3]
+    <td>Wilgotnosc bezwzgledna [g/m^3]
     <td>
 	<?php 
 	    $wb=2165*(($cisnienie_pary/10)/(273.15+$temperatura));
