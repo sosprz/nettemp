@@ -5,6 +5,7 @@ date=`date +%y%m%d-%H%M%S`
 action="$1"
 file="$2"
 mkdir -p $dir/tmp/backup > /dev/null
+mkdir -p $dir/tmp/restore > /dev/null
 
 if [ -n "$1" ] || [ -n "$2" ]
     then
@@ -12,22 +13,23 @@ if [ -n "$1" ] || [ -n "$2" ]
 if [ $action = "b" ]
     then
 	git log |head -1 |awk '{print $2}' > $dir/tmp/backup/commit
-	cd $dir/modules/tools/backup/files
+	cd $dir/tmp/backup
 	tar -rpvf nettemp-$date.tar.gz -C $dir/db/ .
-        tar -rpvf nettemp-$date.tar.gz -C $dir/dbf/ .  
+        tar -rpvf nettemp-$date.tar.gz -C $dir/dbf/ .
+	tar -rpvf nettemp-$date.tar.gz commit
 	chmod 775 nettemp-$date.tar.gz
-	rm -rf $dir/tmp/backup/*
+	rm -rf $dir/tmp/bbackup/commit
 fi
 if [ $action = "r" ] && [ -n "$file" ]
     then
-	tar -xpvf $file -C $dir/tmp/backup
+	tar -xpvf $file -C $dir/tmp/restore
 	rm -rf $dir/db/*
 	rm -rf $dir/dbf/*
-	mv -f $dir/tmp/backup/*.sql $dir/db/
-	mv -f $dir/tmp/backup/*.db $dir/dbf/
+	mv -f $dir/tmp/restore/*.sql $dir/db/
+	mv -f $dir/tmp/restore/*.db $dir/dbf/
 	chmod 775 $dir/dbf/nettemp.db
-	git reset --hard $(cat $dir/tmp/backup/commit)
-	rm -rf $dir/tmp/backup/* 
+	git reset --hard $(cat $dir/tmp/restore/commit)
+	rm -rf $dir/tmp/restore/* 
 fi
 else
     echo "no option: b or r"
