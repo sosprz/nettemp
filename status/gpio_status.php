@@ -8,7 +8,6 @@ $result = $sth->fetchAll();
 $numRows = count($result);
 ?>
 <?php if ( $numRows > '0' ) { ?>
-<div class="grid-item grid-item2 gs">
 <div class="panel panel-default">
             <div class="panel-heading">GPIO</div>
 <table class="table table-hover table-condensed">
@@ -192,7 +191,6 @@ foreach (range(1, $a['fnum']) as $v) {
 ?>
 
 </table>
-</div>
 </div>
 <?php 
     } // first foreach

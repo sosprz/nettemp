@@ -5,8 +5,6 @@ $rows = $db->query("SELECT * FROM sensors WHERE type='gas' OR type='elec' OR typ
 $result = $rows->fetchAll();
 $numRows = count($result);
 if ( $numRows > '0' ) { ?>
-<div class="grid-item co">
-
 <div class="panel panel-default">
 <div class="panel-heading">Counters </div>
 
@@ -102,8 +100,6 @@ if ( $numRows > '0' ) { ?>
 </tbody>
 </table> 
 </div>
-</div>
-
 <?php 
     }
 ?>

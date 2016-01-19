@@ -9,7 +9,6 @@ foreach ($row as $a) {
 $name=$a['name'];
 $link=$a['link'];
 ?>
-<div class="grid-item">
     <div class="panel panel-default">
 	<div class="panel-heading"><?php echo $name; ?></div>
 	    <div class="panel-body">
@@ -33,7 +32,6 @@ if(($accesstime == 'yes' && $_SESSION['accesscam'] == 'yes') || ($_SESSION['user
 
 	</div>
     </div>
-</div>
 <?php 
     }
 ?>

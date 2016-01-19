@@ -24,12 +24,16 @@
 /* ---- grid-item ---- */
 
 .grid-item {
-  width: 360px;
-  float: left;
-  //background: #D26;
-  //border: 2px solid #333;
-  //border-color: hsla(0, 0%, 0%, 0.5);
-  border-radius: 5px;
+    width: 360px;
+    float: left;
+    border-radius: 5px;
+    //padding: 10px;
+}
+
+.grid-item2 {
+    width: 360px;
+    float: left;
+    border-radius: 5px;
     //padding: 10px;
 }
 
@@ -38,40 +42,17 @@
 
 
 <div id="grid" class="grid">
-    <?php 
-	include_once('status/sensor_status.php'); 
-    ?>
-    <?php 
-	include_once('status/hosts_status.php'); 
-    ?>
-    <div id="rs"><?php 
-	include_once('status/relays_status.php'); 
-    ?></div>
-    
-    <div id="ow1"><?php 
-	include_once('status/ownwidget1.php'); 
-    ?></div>
-    <div id="ow2"><?php 
-	include_once('status/ownwidget2.php'); 
-    ?></div>
-    <div id="ow3"><?php 
-	include_once('status/ownwidget3.php'); 
-    ?></div>
-    <div id="co"><?php 
-	include_once('status/counters_status.php'); 
-    ?></div>
-    <div id="gs"><?php 
-	include_once('status/gpio_status.php'); 
-    ?></div>
-    <div id="ms"><?php 
-	include_once('status/meteo_status.php'); 
-    ?></div>
-    <div id="cam"><?php 
-	include('status/ipcam_status.php'); 
-    ?></div>
-    <div id="mm"><?php 
-	include('status/minmax_status.php'); 
-    ?></div>
+    <div class="grid-item grid-item2 ss" ><?php include_once('status/sensor_status.php')?></div>
+    <div class="grid-item grid-item2 hs" ><?php include_once('status/hosts_status.php')?></div>
+    <div class="grid-item rs"><?php include_once('status/relays_status.php')?></div>
+    <div class="grid-item"><?php include_once('status/ownwidget1.php')?></div>
+    <div class="grid-item ow2"><?php include_once('status/ownwidget2.php')?></div>
+    <div class="grid-item ow3"><?php include_once('status/ownwidget3.php')?></div>
+    <div class="grid-item co"><?php include_once('status/counters_status.php')?></div>
+    <div class="grid-item gs"><?php include_once('status/gpio_status.php')?></div>
+    <div class="grid-item ms"><?php include_once('status/meteo_status.php')?></div>
+    <div class="grid-item"><?php	include('status/ipcam_status.php')?></div>
+    <div class="grid-item"><?php include('status/minmax_status.php')?></div>
 </div>
 
 <script type="text/javascript">
