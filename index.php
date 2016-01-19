@@ -72,7 +72,7 @@ $numsimple2 = count($row2);
     <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls"><span class="glyphicon glyphicon-picture" aria-hidden="true"> Controls</span></a></li>
 <?php } ?>
 <?php if(($_SESSION["perms"] == 'adm') && (isset($_SESSION["user"])))  {?>
-<li<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><a href="devices"><span class="glyphicon glyphicon-cog" aria-hidden="true"> Device</span>s</a></li>
+<li<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><a href="devices"><span class="glyphicon glyphicon-cog" aria-hidden="true"> Device</span></a></li>
 <li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security"><span class="glyphicon glyphicon-tower" aria-hidden="true"> Security</span></a></li>
 <li <?php echo $id == 'settings' ? ' class="active"' : ''; ?>><a href="settings"><span class="glyphicon glyphicon-tasks" aria-hidden="true"> Settings</span></a></li>
 <li <?php echo $id == 'tools' ? ' class="active"' : ''; ?>><a href="tools"><span class="glyphicon glyphicon-wrench" aria-hidden="true"> Tools</span></a></li>
