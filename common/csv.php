@@ -1,11 +1,13 @@
 <?php
+ob_clean();
+ob_start();
+
 $file = isset($_POST['file']) ? $_POST['file'] : '';
 // Set headers to make the browser download the results as a csv file
 header("Content-type: text/csv");
 header("Content-Disposition: attachment; filename=$file.csv");
 header("Pragma: no-cache");
 header("Expires: 0");
-
 
 
 // Connect to DB
@@ -37,6 +39,5 @@ while ($row != false) {
 function print_titles($row){
     echo implode(array_keys($row), ",") . "\n";
 }
-//header("location: " . $_SERVER['REQUEST_URI']);
-//exit();
+exit();
 ?>

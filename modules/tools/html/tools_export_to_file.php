@@ -23,7 +23,7 @@ $row = $rows->fetchAll();
     <td class="col-md-1"><?php echo $a['name']?></td>
     <td class="col-md-1"><?php echo $a['rom']?></td>
     <td class="col-md-5">
-    <form action="csv.php" method="post" style="display:inline!important;">
+    <form action="csv" method="post" style="display:inline!important;">
     <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
     <button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-save"></span> CSV</button>
     <input type="hidden" name="csv" value="get" />
