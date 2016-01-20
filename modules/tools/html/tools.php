@@ -20,6 +20,7 @@
 <?php } ?>
 <a href="index.php?id=tools&type=backup" ><button class="btn <?php echo $art == 'backup' ? 'btn-info' : 'btn-default'; ?>">Backup/Restore</button></a>
 <a href="index.php?id=tools&type=espupload" ><button class="btn <?php echo $art == 'espupload' ? 'btn-info' : 'btn-default'; ?>">ESPupload</button></a>
+<a href="index.php?id=tools&type=export" ><button class="btn <?php echo $art == 'export' ? 'btn-info' : 'btn-default'; ?>">Export</button></a>
 </p>
 <?php  
 switch ($art)
@@ -34,6 +35,7 @@ case 'log': include('modules/tools/html/tools_log.php'); break;
 case 'gpio': include('modules/tools/html/tools_gpio_readall.php'); break;
 case 'backup': include('modules/tools/backup/html/backup.php'); break;
 case 'espupload': include('modules/sensors/wireless/espupload/espupload.php'); break;
+case 'export': include('modules/tools/html/tools_export_to_file.php'); break;
 }
 ?>
 
