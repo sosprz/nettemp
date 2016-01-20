@@ -147,7 +147,7 @@ echo "names = ". $js_array . ";\n";
 
     $.each(names, function (i, name) {
 
-        $.getJSON('hc_data.php?type='+type+'&name='+name+'&max='+max,  function (data) {
+        $.getJSON('common/hc_data.php?type='+type+'&name='+name+'&max='+max,  function (data) {
 
 	if (max=="hour") { var xhour = "hour" }
 	if (max=="day") { var xhour = "hour" }
