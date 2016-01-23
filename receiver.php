@@ -1,6 +1,6 @@
 <?php
 // name:
-// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps
+// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps, watt
 // device: wireless, remote, gpio, i2c, usb
 // definied source (middle part): tty, ip, gpio number
 
@@ -32,7 +32,7 @@ if (isset($_GET['gpio'])) {
     }
 if (isset($_GET['device'])) {
             $device = $_GET['device'];
-    }
+    } else $device='';
 if (isset($_GET['i2c'])) {
             $i2c = $_GET['i2c'];
     }
@@ -150,7 +150,8 @@ function check(&$val,$type) {
 
 
 
-function db($rom,$val,$type,$chmin,$current) {
+function db($rom,$val,$type,$device,$current) {
+	global $chmin;
 	$file = "$rom.sql";
 	if ($type != 'host') {
 	    $db = new PDO('sqlite:dbf/nettemp.db');
@@ -168,7 +169,11 @@ function db($rom,$val,$type,$chmin,$current) {
 		if ($val != 'range'){
 		    //// base
 		    // counters can always put to base
-		    if ($type == 'gas' || $type == 'water' || $type == 'elec')  {
+		    //if ($device == 'wireless' || $device == 'gpio')  {
+		    //if ($type == 'gas' || $type == 'water' || $type == 'elec') {
+		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt");
+		    $arrayd = array("wireless", "gpio");
+		    if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
 			$db = new PDO("sqlite:db/$file");
 			if (isset($current)) {
 			    $db->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql current" );
@@ -243,6 +248,7 @@ $sth->execute();
 $result = $sth->fetchAll();
 foreach ( $result as $a) {
 $skey=$a['server_key'];
+global $chmin;
 $chmin=$a['charts_min'];
 }
 
@@ -252,7 +258,7 @@ if ("$key" != "$skey"){
 
 // main
 if  (isset($val) && isset($rom) && isset($type)) {
-    	db($rom,$val,$type,$chmin,$current);
+    	db($rom,$val,$type,$device,$current);
     }
 elseif (isset($val) && isset($type)) {
 
@@ -290,7 +296,7 @@ elseif (isset($val) && isset($type)) {
 	}
 
 	$file = "$rom.sql";
-	db($rom,$val,$type,$chmin,$current);
+	db($rom,$val,$type,$device,$current);
 
 }
 else {
