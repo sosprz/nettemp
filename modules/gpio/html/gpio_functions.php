@@ -103,6 +103,14 @@ $map_num=substr(rand(), 0, 4);
 	exit();
     }
 
+    $readon = isset($_POST['readon']) ? $_POST['readon'] : '';
+    if ($readon == "readon")  {
+	$db->exec("UPDATE gpio SET mode='read' WHERE gpio='$gpio_post'") or die("exec error");
+	$db = null;
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
+
 //simple
     $simpleon = isset($_POST['simpleon']) ? $_POST['simpleon'] : '';
     if ($simpleon == "simpleon")  {
@@ -272,6 +280,12 @@ if (empty($mode2)) { ?>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="gason" value="gason" />
     </form>
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-primary"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Read status</button>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="readon" value="readon" />
+    </form>
+
 
 
 

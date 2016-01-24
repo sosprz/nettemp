@@ -146,6 +146,11 @@ elseif ($mode == 'call')
 {
     include('gpio_call.php');
 } 
+elseif ($mode == 'read') 
+{
+    include('gpio_led.php');
+} 
+
 else 
 { 
 include('gpio_functions.php');

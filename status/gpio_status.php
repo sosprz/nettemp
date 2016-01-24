@@ -2,7 +2,7 @@
 $root=$_SERVER["DOCUMENT_ROOT"];
 $dir="modules/gpio/";
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
-$sth = $db->prepare("select * from gpio where mode='trigger' or mode='simple' or mode='day' or mode='week' or mode='temp' or mode='call' ");
+$sth = $db->prepare("select * from gpio where mode='trigger' or mode='simple' or mode='day' or mode='week' or mode='temp' or mode='call' or mode='read'");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);
@@ -15,6 +15,8 @@ $numRows = count($result);
 <?php
 foreach ( $result as $a) {
 $gpio=$a['gpio'];
+
+if ($a['mode'] != 'read') {
 ?>
 <tr <?php echo $a['status'] == 'ALARM' ? 'class="danger"' : '' ?>>
     <td colspan=3>
@@ -33,13 +35,20 @@ $gpio=$a['gpio'];
 </tr>
 
 <?php
-include('status/gpio_status_day_temp.php');
+}
+
+if ($a['mode'] == 'read') {
+    include('status/gpio_status_read.php');
+}
+if ($a['mode'] != 'read') {
+    include('status/gpio_status_day_temp.php');
+}
 ?>
 
-</table>
-</div>
-</div>
 <?php 
     } // first foreach
 }
 ?>
+</table>
+</div>
+</div>
