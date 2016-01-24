@@ -22,7 +22,9 @@ FEATURES:
     Firewall function
     System stats
 
-
+UPDATE:
+    
+    If You update from master or nettemp2 please make fresh installation.
 
 Debian, RaspberryPi:
 
