@@ -31,8 +31,9 @@ Debian, RaspberryPi:
 	download and run like root, script will install all requirements like php, www.
 
 	mkdir -p /var/www/nettemp && cd /var/www
+	sudo apt-get install git
 	git clone https://github.com/sosprz/nettemp
-	cd nettemp && git checkout nettemp2 && ./install_nettemp
+	cd nettemp && ./install_nettemp
 
 	Go to  http://your_ip
 
