@@ -57,7 +57,15 @@ exit();
       height: 600px;
       border:2px solid #ccc;
       padding: 2px;
+<?php 
+    if (file_exists("map.jpg")) { ?>
       background: url("map.jpg") left top;
+<?php 
+    } else { ?>
+    background: url("map_example.jpg") left top;
+<?php
+    }
+?>
       //background-size: cover;
       background-repeat: no-repeat;
   }
