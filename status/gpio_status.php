@@ -19,7 +19,7 @@ $gpio=$a['gpio'];
 if ($a['mode'] != 'read') {
 ?>
 <tr <?php echo $a['status'] == 'ALARM' ? 'class="danger"' : '' ?>>
-    <td colspan=3>
+    <td colspan="3">
 		<?php 
 		    if (strpos($a['status'],'ON') !== false) { 
 		?>

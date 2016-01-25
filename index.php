@@ -95,9 +95,9 @@ $numsimple2 = count($row2);
           </form>        
     <?php } ?>
     <?php if(isset($_SESSION["user"])) {?>
-	<form method="post" class="navbar-form navbar-right" >
+	<form method="post" action="logout" class="navbar-form navbar-right" >
 	    <?php echo $_SESSION["user"];?>
-	    <a href="logout"><button type="button" class="btn btn-xs btn-success">Log Out</button></a>
+	    <button type="submit" class="btn btn-xs btn-success">Log Out</button>
 	</form>        
     <?php } ?>
     	</div><!--/.nav-collapse -->

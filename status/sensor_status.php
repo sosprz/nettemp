@@ -43,7 +43,7 @@ Go to device scan!
 		if(empty($a['device'])) { $device='<img src="media/ico/1wire.png" alt=""/>';}
 
 		if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png" alt=""/>';} 
-		if($a['type'] == 'temp'){ $unit='&#8451'; $type='<img src="media/ico/temp2-icon.png" alt=""/>';}
+		if($a['type'] == 'temp'){ $unit='&deg;C'; $type='<img src="media/ico/temp2-icon.png" alt=""/>';}
 		if($a['type'] == 'humid'){ $unit='%'; $type='<img src="media/ico/rain-icon.png" alt=""/>';}
 		if($a['type'] == 'press'){ $unit='Pa'; $type='<img src="media/ico/Science-Pressure-icon.png" alt=""/>';}		
 		if($a['type'] == 'water'){ $unit='m3'; $type='<img src="media/ico/water-icon.png" alt=""/>';}		

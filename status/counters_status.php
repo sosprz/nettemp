@@ -11,12 +11,14 @@ if ( $numRows > '0' ) { ?>
 
 <table class="table table-responsive table-hover table-condensed">
 <thead>
+<tr>
 <th></th>
 <th><small>Hour</small></th>
 <th><small>Day</small></th>
 <th><small>Month</small></th>
 <th><small>All</small></th>
 <th><small>Current</small></th>
+</tr>
 </thead>
 <tbody>
 <?php       
