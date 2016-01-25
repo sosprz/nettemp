@@ -74,8 +74,7 @@ Go to device scan!
 
 		    <tr>
 			<td>
-			    <?php echo $device;?><?php echo $type;?>
-				<?php echo $name;?>
+			    <?php echo $device." ".$type." ".$name;?>
 			</td>
 			<td>
 			    <?php if(($a['tmp'] == 'error') || ($label=='danger')) {
