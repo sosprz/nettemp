@@ -45,7 +45,7 @@ else {
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-		<a href="http://nettemp.pl" target="_blank"><img src="media/png/nettemp.pl.png" height="50"></a>
+		<a href="http://nettemp.pl" target="_blank"><img src="media/png/nettemp.pl.png" height="50" alt="nettemp.pl"></a>
 
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
               <span class="sr-only">Toggle navigation</span>
@@ -83,7 +83,7 @@ $numsimple2 = count($row2);
 </ul>
 
     <?php if(!isset($_SESSION["user"])) {?>
-	    <form action="" method="post" class="navbar-form navbar-right" >
+	    <form method="post" class="navbar-form navbar-right" >
             <div class="form-group">
               <input type="text" name="username" placeholder="User" class="form-control input-sm" required="">
             </div>
@@ -95,7 +95,7 @@ $numsimple2 = count($row2);
           </form>        
     <?php } ?>
     <?php if(isset($_SESSION["user"])) {?>
-	<form action="" method="post" class="navbar-form navbar-right" >
+	<form method="post" class="navbar-form navbar-right" >
 	    <?php echo $_SESSION["user"];?>
 	    <a href="logout"><button type="button" class="btn btn-xs btn-success">Log Out</button></a>
 	</form>        
