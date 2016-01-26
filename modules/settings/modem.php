@@ -54,13 +54,23 @@ function submitform()
 
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("SELECT *  FROM usb WHERE device='Modem SMS'");
+$sth = $db->prepare("SELECT dev  FROM usb WHERE device='Modem SMS'");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) {
 $smsdev=$a['dev'];
 }
 
+if (empty($smsdev) || $smsdev == 'none') { ?>
+<div class="panel panel-default">
+    <div class="panel-heading">SMS modem</div>
+	<div class="panel-body">
+	    No SMS modem set
+  <a href="index.php?id=devices&type=usb" class="btn btn-info btn-sm" role="button">Go to USB/Serial</a>
+	</div>
+</div>
+<?php
+} else {
 ?>
 
 <div class="panel panel-default"><div class="panel-heading">SMS modem <?php echo $smsdev." "?></div>
@@ -98,11 +108,9 @@ if (strcmp(trim($smsdev),trim($devf)) != 0 ) { ?>
 
 </div>
 </div>
-
-
-
-
 <?php
+}
+
 $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("SELECT dev FROM usb WHERE device='Modem Call'");
 $sth->execute();
@@ -110,6 +118,16 @@ $result = $sth->fetchAll();
 foreach ($result as $a) {
 $dev=$a['dev'];
 }
+
+if (empty($dev) || $dev == 'none') { ?>
+<div class="panel panel-default">
+    <div class="panel-heading">Call modem</div>
+	<div class="panel-body">
+	    No Call modem set <a href="index.php?id=devices&type=usb" class="btn btn-info btn-sm" role="button">Go to USB/Serial</a>
+	</div>
+</div>
+<?php
+} else {
 ?>
 
 <div class="panel panel-default"><div class="panel-heading">Call modem <?php echo $dev ?></div>
@@ -127,7 +145,7 @@ $dev=$a['dev'];
     }
 ?>
 <?php 
-    //} 
+} 
 ?>
 </div>
 </div>
