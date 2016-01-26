@@ -67,7 +67,12 @@ $name_new=trim($name_new2);
 	    $type='watt';
 	}
 	else {
-	    $type='temp';
+	    if (substr($id_rom_new, 0, 4 ) === "0x26") {
+		$type='humid';
+	    } 
+	    else {
+		$type='temp';
+	    }
         }
 
 	//method
