@@ -95,6 +95,9 @@ if (glob('db/gpio_stats_*')) {?>
 if ( $hostc >= "1")  {?>
 <a href="index.php?id=view&type=hosts&max=hour" ><button class="btn btn-default <?php echo $art == 'hosts' ? ' active' : ''; ?>">Hosts</button></a>
 <?php } 
+if (in_array('dist', $type))  {?>
+<a href="index.php?id=view&type=dist&max=hour" ><button class="btn btn-default <?php echo $art == 'dist' ? ' active' : ''; ?>">Distance</button></a>
+<?php } 
 ?>
 <a href="index.php?id=view&type=system&max=hour" ><button class="btn btn-default <?php echo $art == 'system' ? ' active' : ''; ?>">System stats</button></a>
 <a href="index.php?id=view&type=meteogram" ><button class="btn btn-default <?php echo $art == 'meteogram' ? ' active' : ''; ?>">Meteogram</button></a>

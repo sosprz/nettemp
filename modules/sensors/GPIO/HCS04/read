@@ -1,0 +1,16 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../../../ && pwd )
+date=`date +%y%m%d-%H%M`
+
+count=$(sqlite3 -cmd ".timeout 2000" /var/www/nettemp/dbf/nettemp.db "select mode from gpio WHERE gpio='23' or gpio='24'" |grep -c dist)
+
+if [[ $count == "2" ]]; then
+    dist=$($dir/modules/sensors/GPIO/HCS04/hcs04.py)
+    skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
+    rom=gpio_2324_dist
+    php-cgi -f $dir/receiver.php key=$skey rom=$rom type=dist device=gpio value=$dist
+else
+    echo off
+fi
+

@@ -143,6 +143,15 @@ function check(&$val,$type) {
 			$val='range';
 		    }
 		}
+		elseif ($type == 'dist') {
+    		    if ((0 <= $val) && ($val <= 100000)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}
+		
 		
 
 }
