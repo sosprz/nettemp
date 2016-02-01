@@ -25,6 +25,7 @@ if (type=='hosts') { var xval = " ms"}
 if (type=='volt') { var xval = " V"}
 if (type=='amps') { var xval = " A"}
 if (type=='watt') { var xval = " W"}
+if (type=='dist') { var xval = " cm"}
 
 $(function () {
     var seriesOptions = [],

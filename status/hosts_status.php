@@ -17,7 +17,7 @@ foreach ( $result as $a) {
 ?>
     <tr <?php echo $a['status'] == 'error' ? 'class="danger"' : '' ?>>
 	<td >
-		<img type="image" src="media/ico/Computer-icon.png" />
+		<img src="media/ico/Computer-icon.png" alt="" />
 		<?php echo str_replace("host_","",$a["name"]); ?>
 	</td>
 	<td>

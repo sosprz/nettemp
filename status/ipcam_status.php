@@ -15,7 +15,7 @@ $link=$a['link'];
 	    <div class="panel-body">
 
 <?php 
-if(($accesstime == 'yes' && $_SESSION['accesscam'] == 'yes') || ($_SESSION['user'] == 'admin' )){
+if(($accesstime == 'yes' && $_SESSION['accesscam'] == 'yes') || ($_SESSION['user'] == 'admin') || ($a['access_all'] == 'on')){
     if (strpos($link,'http') !== false) { ?>
 	<img width="300" height="300" src="<?php echo $link;?>">
     <?php

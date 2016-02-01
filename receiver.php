@@ -143,6 +143,15 @@ function check(&$val,$type) {
 			$val='range';
 		    }
 		}
+		elseif ($type == 'dist') {
+    		    if ((0 <= $val) && ($val <= 100000)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}
+		
 		
 
 }
@@ -171,11 +180,11 @@ function db($rom,$val,$type,$device,$current) {
 		    // counters can always put to base
 		    //if ($device == 'wireless' || $device == 'gpio')  {
 		    //if ($type == 'gas' || $type == 'water' || $type == 'elec') {
-		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt");
+		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid");
 		    $arrayd = array("wireless", "gpio");
 		    if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
 			$db = new PDO("sqlite:db/$file");
-			if (isset($current)) {
+			if (isset($current) && is_numeric($current)) {
 			    $db->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql current" );
 			} else {
 			    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql" );

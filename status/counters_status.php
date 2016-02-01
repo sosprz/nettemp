@@ -11,12 +11,14 @@ if ( $numRows > '0' ) { ?>
 
 <table class="table table-responsive table-hover table-condensed">
 <thead>
+<tr>
 <th></th>
 <th><small>Hour</small></th>
 <th><small>Day</small></th>
 <th><small>Month</small></th>
 <th><small>All</small></th>
 <th><small>Current</small></th>
+</tr>
 </thead>
 <tbody>
 <?php       
@@ -24,13 +26,13 @@ if ( $numRows > '0' ) { ?>
 ?>
 <tr>
     <td>
-    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" /><?php } ?>
-    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" /><?php } ?>
-    <?php if($a['device'] == 'usb'){ ?><img src="media/ico/usb-icon.png" /><?php } ?>
-    <?php if($a['device'] == 'gpio'){ ?><img src="media/ico/gpio2.png" /><?php } ?>
-    <?php if($a['type'] == 'gas'){ ?><img src="media/ico/gas-icon.png" /><?php $units='m3'; } ?>
-    <?php if($a['type'] == 'water'){ ?><img src="media/ico/water-icon.png" /><?php $units='m3'; } ?>
-    <?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" /><?php $units='kWh' ;} ?>
+    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" alt=""/><?php } ?>
+    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" alt=""/><?php } ?>
+    <?php if($a['device'] == 'usb'){ ?><img src="media/ico/usb-icon.png" alt=""/><?php } ?>
+    <?php if($a['device'] == 'gpio'){ ?><img src="media/ico/gpio2.png" alt=""/><?php } ?>
+    <?php if($a['type'] == 'gas'){ ?><img src="media/ico/gas-icon.png" alt=""/><?php $units='m3'; } ?>
+    <?php if($a['type'] == 'water'){ ?><img src="media/ico/water-icon.png" alt=""/><?php $units='m3'; } ?>
+    <?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" alt=""/><?php $units='kWh' ;} ?>
     <small>
 	<?php echo str_replace("_"," ","$a[name]"); ?>
     </small>
