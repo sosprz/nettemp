@@ -176,7 +176,7 @@ echo "names = ". $js_array . ";\n";
 
 	    };
 	    
-	} else if (type=='gpio'){
+	} else if (type=='gpio' || type=='hosts'){
 		seriesOptions[i] = {
                 name: name,
                 data: data,
