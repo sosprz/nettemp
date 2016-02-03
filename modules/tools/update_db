@@ -243,3 +243,6 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "ALTER TABLE snmp ADD version type
 sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "UPDATE snmp SET version='2c' WHERE version is null";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD ups_status type TEXT";
 
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL";
+
+
