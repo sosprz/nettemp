@@ -30,7 +30,8 @@ if (file_exists($wp)) {
     exec("$wp -v |grep 'Model B, Revision: 1'", $bone );
     exec("$wp -v |grep 'Model 2, Revision:'", $two );
     exec("$wp -v |grep 'Pi 2, Revision:'", $two );
-    if ((!empty($bplus[0])) || (!empty($two[0])))
+    exec("$wp -v |grep 'Pi Zero, Revision:'", $zero );
+    if ((!empty($bplus[0])) || (!empty($two[0])) || (!empty($zero[0])))
     {
         $gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
     }
