@@ -213,7 +213,7 @@ function db($rom,$val,$type,$device,$current) {
 		    //hosts status
 		    if ($type == 'host') {
 			$dbh = new PDO("sqlite:dbf/hosts.db");
-			$dbh->exec("UPDATE hosts SET last='$val', status='ok' WHERE rom='$rom'")or die ("cannot insert to hosts status");
+			$dbh->exec("UPDATE hosts SET last='$val', status='OK' WHERE rom='$rom'")or die ("cannot insert to hosts status");
 		    }
 		    //sensors status
 		    else {

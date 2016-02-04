@@ -20,6 +20,8 @@ fi
 
 unset name
 unset wynik
+unset rom
+unset ip
 
 if ip=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT ip FROM hosts WHERE type='ping'")
     then
