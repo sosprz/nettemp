@@ -25,6 +25,7 @@ if (type=='hosts') { var xval = " ms"}
 if (type=='volt') { var xval = " V"}
 if (type=='amps') { var xval = " A"}
 if (type=='watt') { var xval = " W"}
+if (type=='dist') { var xval = " cm"}
 
 $(function () {
     var seriesOptions = [],
@@ -175,7 +176,7 @@ echo "names = ". $js_array . ";\n";
 
 	    };
 	    
-	} else if (type=='gpio'){
+	} else if (type=='gpio' || type=='hosts'){
 		seriesOptions[i] = {
                 name: name,
                 data: data,

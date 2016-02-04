@@ -19,18 +19,23 @@ $gpio=$a['gpio'];
 if ($a['mode'] != 'read') {
 ?>
 <tr <?php echo $a['status'] == 'ALARM' ? 'class="danger"' : '' ?>>
-    <td colspan=3>
+    <td colspan="3">
 		<?php 
 		    if (strpos($a['status'],'ON') !== false) { 
-			echo '<span class="label label-success">';
+		?>
+		    <span class="label label-success">
+		<?php
 		    } else {
-			echo '<span class="label label-danger">';
+		?>
+		    <span class="label label-danger">
+		<?php
 		    }
-		    ?>
-		    <img type="image" src="media/ico/SMD-64-pin-icon_24.png" />
-		    <?php echo $a['name']." ".$a['status']; ?>
-		    
-		</span>
+		?>
+		    <img src="media/ico/SMD-64-pin-icon_24.png" alt="" />
+		<?php 
+		    echo $a['name']." ".$a['status']; 
+		?>
+		    </span>
     </td>
 </tr>
 
@@ -43,12 +48,12 @@ if ($a['mode'] == 'read') {
 if ($a['mode'] != 'read') {
     include('status/gpio_status_day_temp.php');
 }
-?>
 
-<?php 
     } // first foreach
-}
 ?>
 </table>
 </div>
 </div>
+<?php
+} //if
+?>

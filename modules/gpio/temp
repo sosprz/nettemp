@@ -139,14 +139,14 @@ if [ -n "${!temp_temp}" ] && [[ "${!sensor_temp}" != "0" ]] && [[ -n "${!sensor_
 
 if [[ "${!temp_op}" = "gt" ]]; then
     l=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print 0 }')
-    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
+    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 < $2) print 1; else print 0 }')
     hyst
     check
 fi
 
 if [[ "${!temp_op}" = "ge" ]]; then
     l=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 >= $2) print 1; else print 0 }') 
-    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
+    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 <= $2) print 1; else print 0 }')
     hyst
     check
 fi
@@ -160,7 +160,7 @@ fi
 
 if [[ "${!temp_op}" = "lt" ]]; then
     l=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 < $2) print 1; else print 0 }')
-    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
+    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 > $2) print 1; else print 0 }')
     hyst
     check
 fi

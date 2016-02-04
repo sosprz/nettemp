@@ -10,6 +10,9 @@ if ip=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT ip FROM hosts WHE
 	rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT rom FROM hosts WHERE ip='$i'")
 	name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT rom FROM hosts WHERE ip='$i'")
 	wynik=$(httping -m -c 1 $i|grep .[0-9]*)
+	if [[ ! -n $wynik ]]; then
+	    wynik="0"
+	fi
 	php-cgi -f $dir/receiver.php key=$skey rom=$rom type=host value=$wynik
 	echo Httping $name: $wynik
      done
@@ -25,6 +28,9 @@ if ip=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT ip FROM hosts WHE
 	name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT name FROM hosts WHERE ip='$i'")
 	rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT rom FROM hosts WHERE ip='$i'")
 	wynik=$(fping $i -e | awk -F"(" '{ print $2}' |sed 's/.\{3\}$//'|grep .[0-9]*)
+	if [[ ! -n $wynik ]]; then
+	    wynik="0"
+	fi
 	php-cgi -f $dir/receiver.php key=$skey rom=$rom type=host value=$wynik
 	echo ping $name: $wynik
      done

@@ -41,7 +41,8 @@ $dir/modules/sensors/wireless/esp8266_read
 $dir/modules/sensors/other/ups
 #sdm120/sdm120c
 $dir/modules/sensors/other/sdm120
-
+#HCS04
+$dir/modules/sensors/GPIO/HCS04/read
 
 #snmp server
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tmp FROM sensors" | sed 's/$/:/' | sed '$s/.$//' |tr -d "\n" > $dir/tmp/results

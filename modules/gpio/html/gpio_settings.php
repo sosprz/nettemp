@@ -150,6 +150,10 @@ elseif ($mode == 'read')
 {
     include('gpio_led.php');
 } 
+elseif ($mode == 'dist') 
+{
+    include('gpio_distance.php');
+} 
 
 else 
 { 

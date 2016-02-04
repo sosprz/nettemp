@@ -11,11 +11,13 @@ $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 $simple = isset($_POST['simple']) ? $_POST['simple'] : '';
 $onoff = isset($_POST['onoff']) ? $_POST['onoff'] : '';
 if (($onoff == "onoff")){
-    $db->exec("UPDATE gpio SET simple='$simple', status='$simple' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+    
     if ($simple == 'on'){
 	include('modules/gpio/html/gpio_on.php');
+	$db->exec("UPDATE gpio SET simple='$simple', status='ON' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
     } else { 
 	include('modules/gpio/html/gpio_off.php');
+	$db->exec("UPDATE gpio SET simple='$simple', status='OFF' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
     }
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
