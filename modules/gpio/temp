@@ -135,7 +135,7 @@ fi
 
 
 
-if [ -n "${!temp_temp}" ] && [[ "${!sensor_temp}" != "0" ]] && [[ -n "${!sensor_temp}" ]]; then
+if [[ -n "${!temp_temp}" ]] && [[ -n "${!sensor_temp}" ]]; then
 
 if [[ "${!temp_op}" = "gt" ]]; then
     l=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print 0 }')
