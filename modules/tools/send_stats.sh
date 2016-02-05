@@ -1,15 +1,19 @@
 #! /bin/bash
 
 DIR=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+
+## DATE
 DATE=$(date "+%Y%m%d%H%M%S")
 
+## RPI VER
 cd $DIR
 VER1=$(/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$')
-VER=$(echo $VER1|sed 's/ //g')
+VER=$(echo $VER1|sed 's/ /%20/g')
 
+## ID
 ETH=$(cat /sys/class/net/eth0/address)
 WLAN=$(cat /sys/class/net/wlan0/address)
-RPI=`gpio -v |grep Type: |awk '{print $3}'|sed 's/,//g'`
+RPI=$(gpio -v |grep Type: | awk -F"," '{print $1" "$2" "$3}' |sed 's/Type://g' |sed 's/ /%20/g')
 
 if [[ -n $ETH ]]; then
     NID=$(echo $ETH| md5sum |cut -c 1-32)
@@ -17,10 +21,15 @@ elif [[ -n $WLAN ]]; then
     NID=$(echo $WLAN| md5sum |cut -c 1-32)
 fi
 
-#echo $VER
-#echo $NID
-#echo $RPI
+## OS
 source /etc/os-release
 #echo $PRETTY_NAME
 
-curl --connect-timeout 5 -G "http://stats.nettemp.pl/get.php" -d "ver=$VER&nid=$NID&rpi=$RPI&os=$ID&time=$DATE"
+## CPUN
+CPUN=$(cat /proc/cpuinfo |grep -c processor)
+
+##UPTIME
+UPTIME=$(uptime | awk {'print $3'} |sed 's/,//g'|sed 's/:/%3A/g')
+
+## MAIN
+curl --connect-timeout 10 -G "http://stats.nettemp.pl/get.php" -d "ver=$VER&nid=$NID&rpi=$RPI&os=$ID&time=$DATE&uptime=$UPTIME&cpu=$CPUN"
