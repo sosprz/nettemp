@@ -47,7 +47,8 @@ then
 	t="2"
 	l="3"
 	while [ "$s" -le "$max" ] ; do
-            $dir/modules/lcd/lcdi2c4 -l -b 1 -r 0  "$(printf "%-19s %-19s %-19s %-19s" "$(echo ${lines[$f]} | cut -c 1-19)" "$(echo ${lines[$s]} | cut -c 1-19)" "$(echo ${lines[$t]} | cut -c 1-19)" "$(echo ${lines[$l]} | cut -c 1-19)")"
+	    $dir/modules/lcd/lcdi2c4 -l -b 1 -r 4  "$(printf "%-20s%-20s%-20s%-20s" "$(echo ${lines[$f]} | cut -c 1-20)" "$(echo ${lines[$t]} | cut -c 1-20)" "$(echo ${lines[$s]} | cut -c 1-20)" "$(echo ${lines[$l]} | cut -c 1-20)")"
+            #$dir/modules/lcd/lcdi2c4 -l -b 1 -r 0  "$(printf "%-19s %-19s %-19s %-19s" "$(echo ${lines[$f]} | cut -c 1-19)" "$(echo ${lines[$s]} | cut -c 1-19)" "$(echo ${lines[$t]} | cut -c 1-19)" "$(echo ${lines[$l]} | cut -c 1-19)")"
         				     echo  "$(printf "%-19s %-19s %-19s %-19s" "$(echo ${lines[$f]} | cut -c 1-19)" "$(echo ${lines[$s]} | cut -c 1-19)" "$(echo ${lines[$t]} | cut -c 1-19)" "$(echo ${lines[$l]} | cut -c 1-19)")"
     	    sleep 3
     	    f=$(expr $f + 1)
