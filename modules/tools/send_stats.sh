@@ -32,4 +32,4 @@ CPUN=$(cat /proc/cpuinfo |grep -c processor)
 UPTIME=$(uptime | awk {'print $3'} |sed 's/,//g'|sed 's/:/%3A/g')
 
 ## MAIN
-curl --connect-timeout 10 -G "http://stats.nettemp.pl/get.php" -d "ver=$VER&nid=$NID&rpi=$RPI&os=$ID&time=$DATE&uptime=$UPTIME&cpu=$CPUN"
+curl --connect-timeout 20 -G "http://stats.nettemp.pl/get.php" -d "ver=$VER&nid=$NID&rpi=$RPI&os=$ID&time=$DATE&uptime=$UPTIME&cpu=$CPUN"
