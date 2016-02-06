@@ -2,16 +2,6 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 
-# IPTABLES FORWARD
-if cat /etc/network/if-pre-up.d/iptables | grep 'iptables' 1>/dev/null; then
-    echo "IPtables restore exist"
-else
-    echo "Add IPtables restore"
-touch /etc/network/if-pre-up.d/iptables
-chmod +x /etc/network/if-pre-up.d/iptables
-echo "#! /bin/bash" > /etc/network/if-pre-up.d/iptables
-echo "/sbin/iptables-restore < /etc/network/iptables" >> /etc/network/if-pre-up.d/iptables
-fi
 #FORWARD
 forward=$(cat /proc/sys/net/ipv4/ip_forward)
 if [ $forward == "0" ]; then
@@ -21,7 +11,7 @@ sysctl -p
 else 
 echo "Forward exist"
 fi
-#perms for ip tables save
-touch /etc/network/iptables
-chgrp www-data /etc/network/iptables
-chmod 664 /etc/network/iptables
+#PERMS FOR SAVE
+touch /etc/iptables/rules.v4
+chgrp www-data /etc/iptables/rules.v4
+chmod 664 /etc/iptables/rules.v4
