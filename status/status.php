@@ -43,9 +43,10 @@
     include_once('status/counters_status.php');
     include_once('status/relays_status.php');
     include_once('status/meteo_status.php');
-    include_once('status/ownwidget1.php');
-    include_once('status/ownwidget2.php');
-    include_once('status/ownwidget3.php');
+    foreach (range(1, 10) as $v) {
+	$ow=$v;
+	include('status/ownwidget.php');
+    }
     include('status/ipcam_status.php');
     include_once('status/ups_status.php');
     ?>
