@@ -18,7 +18,7 @@ WLAN=$(cat /sys/class/net/wlan0/address)
 if [[ -e /usr/local/bin/gpio ]]; then
     RPI=$(gpio -v |grep Type: | awk -F"," '{print $1" "$2" "$3}' |sed 's/Type://g' |sed 's/ /%20/g')
 else
-    RPI=$(dmidecode -t baseboard |grep Manufacturer |awk -F: '{print $2}'|sed 's/ /%20/g')
+    RPI=$(dmidecode -t system |grep 'Product Name' |awk -F: '{print $2}'|sed 's/ /%20/g')
 fi
 
 if [[ -n $ETH ]]; then
