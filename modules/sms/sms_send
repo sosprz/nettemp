@@ -19,22 +19,26 @@ for line in `sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name,tmp,t
 		tmp_max=`echo $line | awk 'BEGIN {FS="|"}{print $4}'`
 		type=$(echo $line | awk 'BEGIN {FS="|"}{print $5}' | sed 's/|/ /g' | sed 's/press/hPa/g' | sed 's/temp/C/g' | sed 's/humid/%/g' | sed 's/volt/V/g' | sed 's/amps/A/g' | sed 's/watt/W/g' | sed 's/water/m3/g' | sed 's/gas/m3/g' | sed 's/elec/kWh/g')
 		plik=/var/spool/sms/outgoing/sms-$name-$line2
-	
-		if [ -n "$tmp_max" ]; then
-		    cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
-		    if [ $cr_ge == 1 ]; then
-			echo "To: $line2" > $plik; 
-			echo "" >> $plik; 
-			echo "high $name $tmp $type" >> $plik; 
+		sent=/var/spool/sms/sent/sms-$name-$line2
+		if [[ ! -f $sent ]]; then
+		    if [ -n "$tmp_max" ]; then
+			cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
+			if [ $cr_ge == 1 ]; then
+			    echo "To: $line2" > $plik; 
+			    echo "" >> $plik; 
+			    echo "high $name $tmp $type" >> $plik; 
+			fi
 		    fi
-		fi
-		if [ -n "$tmp_min" ]; then
-		    cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
-		    if [ $cr_le == 1 ]; then  
-			echo "To: $line2" > $plik; 
-			echo "" >> $plik; 
-			echo "low $name $tmp $type" >> $plik; 
+		    if [ -n "$tmp_min" ]; then
+			cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
+			if [ $cr_le == 1 ]; then  
+			    echo "To: $line2" > $plik; 
+			    echo "" >> $plik; 
+			    echo "low $name $tmp $type" >> $plik; 
+			fi
 		    fi
+		else
+		    echo "SMS already sent $sent"
 		fi
 	    done
 done 
