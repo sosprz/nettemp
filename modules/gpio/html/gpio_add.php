@@ -17,6 +17,15 @@ if ( $add == "ADD") {
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 }
+
+$gpiodel = isset($_POST['gpiodel']) ? $_POST['gpiodel'] : '';
+    if ($gpiodel == "gpiodel")  {
+    $db->exec("DELETE FROM gpio WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+    $db = null;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
 ?>
 <?php
 
@@ -66,7 +75,7 @@ else { ?>
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">Free GPIO </h3>
+<h3 class="panel-title">Free</h3>
 </div>
 <div class="panel-body">
 
@@ -79,13 +88,24 @@ foreach ($gpiolist as $value1) {
    	    $added[] = $result['gpio'];
 	}
        if (!in_array($value1, $added)){ ?>
-    	 
-<form action="" method="post" style=" display:inline!important;">
-    <button type="submit" name="gpioad"  value="on" class="btn btn-xs btn-primary" onchange="this.form.submit()" >GPIO <?php echo $value1; ?></button>
-    <input type="hidden" name="gpio" value="<?php echo $value1 ?>" />
-    <input type="hidden" name="add" value="ADD" />
-</form>
-<?php  } }?>
+	<form action="" method="post" style=" display:inline!important;">
+	    <button type="submit" name="gpioad"  value="on" class="btn btn-xs btn-primary" onchange="this.form.submit()" ><span class="glyphicon glyphicon-play" aria-hidden="true"></span> GPIO <?php echo $value1; ?></button>
+	    <input type="hidden" name="gpio" value="<?php echo $value1 ?>" />
+	    <input type="hidden" name="add" value="ADD" />
+	</form>
+	<?php
+	    }
+
+       if (in_array($value1, $added)){ ?>
+	<form action="" method="post" style=" display:inline!important;">
+	    <button type="submit" name="gpiodel"  value="gpiodel" class="btn btn-xs btn-danger" onchange="this.form.submit()" ><span class="glyphicon glyphicon-stop" aria-hidden="true"></span> GPIO <?php echo $value1; ?></button>
+	    <input type="hidden" name="gpio" value="<?php echo $value1 ?>" />
+	    <input type="hidden" name="add" value="ADD" />
+	</form>
+	<?php
+	    }
+}
+?>
     
 <span id="helpBlock" class="help-block">Note: Do not use GPIO4 when use 1wire sensors connected to GPIO4 
 <br/>
