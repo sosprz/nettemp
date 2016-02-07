@@ -29,13 +29,13 @@ fi
 
 ## OS
 source /etc/os-release
-#echo $PRETTY_NAME
+OS=$(echo $PRETTY_NAME|sed 's/ /%20/g')
 
 ## CPUN
-CPUN=$(cat /proc/cpuinfo |grep -c processor)
+#CPUN=$(cat /proc/cpuinfo |grep -c processor)
 
 ##UPTIME
-UPTIME=$(uptime -s | awk '{print $1}')
+#UPTIME=$(uptime -s | awk '{print $1}')
 
 ## MAIN
-curl --connect-timeout 20 -G "http://stats.nettemp.pl/get.php" -d "ver=$VER&nid=$NID&rpi=$RPI&os=$ID&time=$DATE&uptime=$UPTIME&cpu=$CPUN"
+curl --connect-timeout 20 -G "http://stats.nettemp.pl/get.php" -d "ver=$VER&nid=$NID&rpi=$RPI&os=$OS&time=$DATE"
