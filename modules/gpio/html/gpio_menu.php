@@ -27,8 +27,8 @@ $row = $rows->fetchAll();
 
 <thead>
 <tr>
-<th></th>
-<th>Position</th>
+<th>Pos</th>
+<th>GPIO</th>
 <th>Name</th>
 <th>Function</th>
 <th>Status</th>
@@ -39,9 +39,7 @@ $row = $rows->fetchAll();
 
 <tr>
 
-	<td class="col-md-1">
-		<a href="index.php?id=devices&type=gpio&gpios=<?php echo $b['gpio']?>" class="btn btn-primary btn-xs">GPIO <?php echo $b['gpio']?></a>
-	</td>
+	
 	<td class="col-md-1">
     		<form action="" method="post" style="display:inline!important;">
         	<input type="hidden" name="position_id" value="<?php echo $b["id"]; ?>" />
@@ -49,6 +47,9 @@ $row = $rows->fetchAll();
         	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
         	<input type="hidden" name="positionok" value="ok" />
     		</form>
+	</td>
+	<td class="col-md-1">
+		<a href="index.php?id=devices&type=gpio&gpios=<?php echo $b['gpio']?>" class="btn btn-primary btn-xs">GPIO <?php echo $b['gpio']?></a>
 	</td>
 	<td class="col-md-1">
                 <span class="label label-default"><?php echo $b["name"]; ?></span>
