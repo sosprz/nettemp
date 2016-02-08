@@ -248,3 +248,6 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD time t
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD position type NUM";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET position='1' WHERE position is null";
 
+sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD position type NUM";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "UPDATE hosts SET position='1' WHERE position is null";
+

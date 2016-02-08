@@ -7,11 +7,17 @@ $host_id = isset($_POST['host_id']) ? $_POST['host_id'] : '';
 $host_type = isset($_POST['host_type']) ? $_POST['host_type'] : '';
 $map_num=substr(rand(), 0, 4);
 
-?>
-<div class="panel panel-default">
-<div class="panel-heading">Monitoring</div>
+    $position = isset($_POST['position']) ? $_POST['position'] : '';
+    $position_id = isset($_POST['position_id']) ? $_POST['position_id'] : '';
+    if (!empty($position_id) && ($_POST['positionok'] == "ok")){
+    $db = new PDO('sqlite:dbf/hosts.db');
+    $db->exec("UPDATE hosts SET position='$position' WHERE id='$position_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
+ 
 
-<?php // SQlite
+
     $host_add1 = isset($_POST['host_add1']) ? $_POST['host_add1'] : '';
     if (!empty($host_name)  && !empty($host_ip) && ($host_add1 == "host_add2") ){
 	$db = new PDO('sqlite:dbf/hosts.db');
@@ -56,26 +62,35 @@ $map_num=substr(rand(), 0, 4);
 
 ?>
 
-
+<div class="panel panel-default">
+<div class="panel-heading">Monitoring</div>
 <div class="table-responsive">
 <table class="table table-striped">
-<thead><tr><th>Name</th><th>IP / Name</th><th>Type</th><th>Map</th><th>Alarm</th><th></th></tr></thead>
-<tr>	
-	<form action="" method="post" class="form-horizontal">
-	<div class="form-group">
-	<td class="col-md-2"><input type="text" name="host_name" value="" class="form-control" required=""/></td>
-	<td class="col-md-2"><input type="text" name="host_ip" value="" class="form-control" required=""/></td>
-	<td class="col-md-1">
-	<select name="host_type" class="form-control">
-	    <option value="ping">ping</option>
-	    <option value="httpping">http ping</option>
-        </select>
+<thead><tr><th>Pos</th><th>Name</th><th>IP / Name</th><th>Type</th><th>Map</th><th>Alarm</th><th></th></tr></thead>
+<tr>
+    <td>
+    </td>
+	<td>
+	    <form action="" method="post" class="form-horizontal">
+		<input type="text" name="host_name" value="" class="form-control" required=""/>
 	</td>
-	<td class="col-md-1"></td>
-	<td class="col-md-1"></td>
-	<input type="hidden" name="host_add1" value="host_add2" class="form-control"/>
-	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button></td>
-	</div>
+	<td>
+		<input type="text" name="host_ip" value="" class="form-control" required=""/>
+	</td>
+	<td>
+	    <select name="host_type" class="form-control">
+		<option value="ping">ping</option>
+		<option value="httpping">http ping</option>
+    	    </select>
+	</td>
+	    <input type="hidden" name="host_add1" value="host_add2" class="form-control"/>
+	<td>
+	</td>
+	<td>
+	</td>
+	<td>
+	    <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+	</td>
 	</form>
 </tr>
 
@@ -89,6 +104,14 @@ $result = $sth->fetchAll();
 foreach ($result as $a) { 
 ?>
 <tr>
+        <td>
+	<form action="" method="post" style="display:inline!important;">
+	    <input type="hidden" name="position_id" value="<?php echo $a["id"]; ?>" />
+    	    <input type="text" name="position" size="1" maxlength="3" value="<?php echo $a['position']; ?>" />
+    	    <button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	    <input type="hidden" name="positionok" value="ok" />
+	</form>
+	</td>
 	<td><?php echo str_replace("host_","",$a["name"]);?></td>
 	<td><?php echo $a["ip"];?></td>
 	<td><?php echo $a["type"];?></td>
