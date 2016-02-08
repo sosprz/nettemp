@@ -304,6 +304,12 @@ if (empty($mode2)) { ?>
 <?php 
     }
 ?>
+<form action="" method="post" style="display:inline!important;">
+        <input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
+        <input type="hidden" type="submit" name="gpiodel" value="gpiodel" />
+        <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-stop"></span> Remove</button>
+</form>
+
 
 
 

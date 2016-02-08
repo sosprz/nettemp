@@ -96,15 +96,17 @@ foreach ($gpiolist as $value1) {
 	<?php
 	    }
 
-       if (in_array($value1, $added)){ ?>
-<!--	<form action="" method="post" style=" display:inline!important;">
+       //if (in_array($value1, $added)){ 
+	?>
+	<!-- <form action="" method="post" style=" display:inline!important;">
 	    <button type="submit" name="gpiodel"  value="gpiodel" class="btn btn-xs btn-danger" onchange="this.form.submit()" ><span class="glyphicon glyphicon-stop" aria-hidden="true"></span> GPIO <?php echo $value1; ?></button>
 	    <input type="hidden" name="gpio" value="<?php echo $value1 ?>" />
 	    <input type="hidden" name="add" value="ADD" />
 	</form>
-->
+	-->
+
 	<?php
-	    }
+	//    }
 }
 ?>
     
