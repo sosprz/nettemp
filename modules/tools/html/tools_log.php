@@ -4,10 +4,10 @@ $log=isset($_GET['log']) ? $_GET['log'] : '';
 ?>
 
 <p>
-<a href="index.php?id=tools&type=log&log=nettemp" ><button class="btn <?php echo $log == 'nettemp' ? 'btn-info' : 'btn-default'; ?>">Nettemp</button></a>
-<a href="index.php?id=tools&type=log&log=call" ><button class="btn <?php echo $log == 'call' ? 'btn-info' : 'btn-default'; ?>">Call</button></a>
-<a href="index.php?id=tools&type=log&log=sms" ><button class="btn <?php echo $log == 'sms' ? 'btn-info' : 'btn-default'; ?>">SMS</button></a>
-<a href="index.php?id=tools&type=log&log=gpio" ><button class="btn <?php echo $log == 'gpio' ? 'btn-info' : 'btn-default'; ?>">GPIO</button></a>
+<a href="index.php?id=tools&type=log&log=nettemp" ><button class="btn btn-xs btn-primary <?php echo $log == 'nettemp' ? 'active' : ''; ?>">Nettemp</button></a>
+<a href="index.php?id=tools&type=log&log=call" ><button class="btn btn-xs btn-primary <?php echo $log == 'call' ? 'active' : ''; ?>">Call</button></a>
+<a href="index.php?id=tools&type=log&log=sms" ><button class="btn btn-xs btn-primary <?php echo $log == 'sms' ? 'active' : ''; ?>">SMS</button></a>
+<a href="index.php?id=tools&type=log&log=gpio" ><button class="btn btn-xs btn-primary <?php echo $log == 'gpio' ? 'active' : ''; ?>">GPIO</button></a>
 </p>
 <?php  
 switch ($log)

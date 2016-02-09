@@ -1,7 +1,5 @@
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">GPIO readall</h3>
-</div>
+<div class="panel panel-primary">
+<div class="panel-heading">GPIO readall</div>
 <div class="panel-body">
 <pre>
 <?php
