@@ -166,8 +166,6 @@ $row = $rows->fetchAll();
 <td class="col-md-5">
     <span class="label label-success" title="Last update: <?php echo $a["time"] ?>">ok</span>
     <span class="label label-default"><?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3)."MB" ?></span>
-    <!-- <span class="label label-default"><?php echo str_replace("-", "", $a["time"]); ?></span> -->
-    
     <span class="label label-default">
 	<?php 
 	    $rom=$a["rom"];

@@ -67,10 +67,11 @@ $numsimple2 = count($row2);
 ?>
 <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status"><span class="glyphicon glyphicon-th-large" aria-hidden="true"> Status</span></a></li>
 <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp&max=day"><span class="glyphicon glyphicon-stats" aria-hidden="true"> Charts</span></a></li>
-<?php if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { ?>
+<?php 
+if(($_SESSION["perms"] == 'adm') && (isset($_SESSION["user"])))  {
+    if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { ?>
     <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls"><span class="glyphicon glyphicon-record" aria-hidden="true"> Controls</span></a></li>
-<?php } ?>
-<?php if(($_SESSION["perms"] == 'adm') && (isset($_SESSION["user"])))  {?>
+    <?php } ?>
 <li <?php echo $id == 'map' ? ' class="active"' : ''; ?>><a href="index.php?id=map"><span class="glyphicon glyphicon-picture" aria-hidden="true"> Map</span> </a></li>
 <li<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><a href="devices"><span class="glyphicon glyphicon-cog" aria-hidden="true"> Device</span></a></li>
 <li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security"><span class="glyphicon glyphicon-tower" aria-hidden="true"> Security</span></a></li>
