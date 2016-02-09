@@ -108,7 +108,7 @@ exit();
 ?>
 <form action="" method="post">
     <input type="hidden" name="ntsync" value="ntsync">
-    <input  type="submit" value="Time sync"  class="btn btn-xs btn-default"/>
+    <input  type="submit" value="Time sync"  class="btn btn-xs btn-success"/>
 </form>
 <?php echo "Hwclock date: "; passthru("sudo /sbin/hwclock --show");?>
 <?php
@@ -121,7 +121,7 @@ exit();
 ?>
 <form action="" method="post">
 <input type="hidden" name="hwsync" value="hwsync">
-<input  type="submit" value="RTC sync" class="btn btn-xs btn-default" />
+<input  type="submit" value="RTC sync" class="btn btn-xs btn-success" />
 </form>
 <?php 
 }

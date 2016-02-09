@@ -81,7 +81,7 @@ if ($con == 'on'){
 <div class="form-group">
   <label class="col-md-4 control-label" for="singlebutton"></label>
   <div class="col-md-4">
-    <button id="singlebutton" name="singlebutton" class="btn btn-default">Save</button>
+    <button id="singlebutton" name="singlebutton" class="btn btn-success">Save</button>
   </div>
 </div>
 
@@ -115,7 +115,7 @@ if ($con == 'on'){
 <div class="form-group">
   <label class="col-md-4 control-label" for="singlebutton"></label>
   <div class="col-md-4">
-    <button id="singlebutton" name="singlebutton" class="btn btn-default">Save</button>
+    <button id="singlebutton" name="singlebutton" class="btn btn-xs btn-success">Save</button>
   </div>
 </div>
 

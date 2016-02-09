@@ -91,7 +91,7 @@ $numsimple2 = count($row2);
               <input type="password" name="password" placeholder="Password" class="form-control input-sm" required="">
             </div>
 	    <input type="hidden" name="form_login" value="log">
-            <button type="submit" class="btn btn-xs btn-default">Sign in</button>
+            <button type="submit" class="btn btn-xs btn-success">Sign in</button>
           </form>        
     <?php } ?>
     <?php if(isset($_SESSION["user"])) {?>

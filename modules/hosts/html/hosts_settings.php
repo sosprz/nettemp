@@ -108,7 +108,7 @@ foreach ($result as $a) {
 	<form action="" method="post" style="display:inline!important;">
 	    <input type="hidden" name="position_id" value="<?php echo $a["id"]; ?>" />
     	    <input type="text" name="position" size="1" maxlength="3" value="<?php echo $a['position']; ?>" />
-    	    <button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span> </button>
+    	    <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 	    <input type="hidden" name="positionok" value="ok" />
 	</form>
 	</td>

@@ -43,7 +43,7 @@ if (isset($_POST['text'.$v]))
     <div style="height:300px;overflow:auto;padding:5px;">
 	<textarea name="<?php echo text.$v?>"><?php echo htmlspecialchars($text) ?></textarea><br />
     </div>
-   <button class="btn btn-xs btn-default" type="submit">Save</button>
+   <button class="btn btn-xs btn-success" type="submit">Save</button>
   </form>
 </div>
 </div>

@@ -59,7 +59,7 @@ $radius=$a["radius"];
 		</p>
 		<input type="hidden" name="fw_apply" value="fw_apply" />
 		<br>
-	        <input type="submit" name="submit" value="Save" class="btn btn-default" />
+	        <input type="submit" name="submit" value="Save" class="btn btn-xs btn-success" />
 		</form>
 </div>
 </div>

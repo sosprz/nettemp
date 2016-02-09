@@ -129,7 +129,7 @@ $lcd=$c['lcd'];
 <div class="form-group">
   <div class="col-md-1">
     <input type="hidden" name="default" value="default">
-    <button id="singlebutton" name="singlebutton" class="btn btn-xs btn-default">Reset to default</button>
+    <button id="singlebutton" name="singlebutton" class="btn btn-xs btn-success">Reset to default</button>
   </div>
 </div>
 </fieldset>

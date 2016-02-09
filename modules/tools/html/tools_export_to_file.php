@@ -25,7 +25,7 @@ $row = $rows->fetchAll();
     <td class="col-md-5">
     <form action="csv" method="post" style="display:inline!important;">
     <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
-    <button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-save"></span> CSV</button>
+    <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-save"></span> CSV</button>
     <input type="hidden" name="csv" value="get" />
     </form>
     </td>

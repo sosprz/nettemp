@@ -66,7 +66,7 @@ if (empty($smsdev) || $smsdev == 'none') { ?>
     <div class="panel-heading">SMS modem</div>
 	<div class="panel-body">
 	    No SMS modem set
-  <a href="index.php?id=devices&type=usb" class="btn btn-xs btn-default" role="button">Go to USB/Serial</a>
+  <a href="index.php?id=devices&type=usb" class="btn btn-xs btn-success" role="button">Go to USB/Serial</a>
 	</div>
 </div>
 <?php
@@ -96,13 +96,13 @@ if (strcmp(trim($smsdev),trim($devf)) != 0 ) { ?>
     <label class="col-md-2 control-label" for="smsc">SMS center number</label>
     <input id="smsc" name="smsc" placeholder="" required="" type="text" value="<?php echo $smscff; ?>">
     <input type="hidden" name="smsdev" value="<?php echo $smsdev ?>" />
-    <button id="smsc1" name="smsc1"  value="smsc2" class="btn btn-xs btn-default">Save </button>
+    <button id="smsc1" name="smsc1"  value="smsc2" class="btn btn-xs btn-success">Save </button>
 </form>
 <br>
 <form class="form-inline" action="" method="post">
     <label class="col-md-2 control-label" for="sms_test">Number</label>  
     <input id="sms_test" name="sms_test" placeholder="" class="form-control input-md" required="" type="text" value="">
-    <button id="sms_test1" name="sms_test1" value="sms_test1" class="btn btn-xs btn-default">Send test </button>
+    <button id="sms_test1" name="sms_test1" value="sms_test1" class="btn btn-xs btn-success">Send test </button>
 </form>
 
 
@@ -123,7 +123,7 @@ if (empty($dev) || $dev == 'none') { ?>
 <div class="panel panel-default">
     <div class="panel-heading">Call modem</div>
 	<div class="panel-body">
-	    No Call modem set <a href="index.php?id=devices&type=usb" class="btn btn-xs btn-default" role="button">Go to USB/Serial</a>
+	    No Call modem set <a href="index.php?id=devices&type=usb" class="btn btn-xs btn-success" role="button">Go to USB/Serial</a>
 	</div>
 </div>
 <?php

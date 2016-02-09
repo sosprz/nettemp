@@ -23,7 +23,7 @@ if ($update == "Update") {
     }
 ?>
     <form action="" method="post">
-    <button type="submit" name="update" value="Update" class="btn btn-xs btn-default"  />Update</button>
+    <button type="submit" name="update" value="Update" class="btn btn-xs btn-success"  />Update</button>
     </form>
 
 </div></div>

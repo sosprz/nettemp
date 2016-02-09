@@ -198,7 +198,7 @@ print_r($name);
 <div class="form-group">
   <label class="col-md-4 control-label" for="run"></label>
   <div class="col-md-4">
-    <button id="run" name="run" value="Upload" class="btn btn-xs btn-default">Upload</button>
+    <button id="run" name="run" value="Upload" class="btn btn-xs btn-success">Upload</button>
   </div>
 </div>
 

@@ -41,7 +41,7 @@ if (($simpleexit == "simpleexit") ){
     ?>
 
 <form action="" method="post" style=" display:inline!important;">
-    <button type="submit" class="btn btn-xs btn-default">ON</button>
+    <button type="submit" class="btn btn-xs btn-success">ON</button>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="simpleon" value="on" />
 </form>

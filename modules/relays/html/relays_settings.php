@@ -54,7 +54,7 @@ $row = $sth2->fetchAll();
 	<input type="text" name="rname" size="12" maxlength="30" value="<?php echo $a["name"]; ?>" />
 	<input type="hidden" name="rid" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="rchg" value="rchg"/>
-	<button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
     </td>
     <td class="col-md-2">

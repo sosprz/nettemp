@@ -23,7 +23,7 @@ foreach($glf as $gpiof) {
     $gpiof=str_replace("_log.txt", "", $gf1);
 ?>
     
-    <a href="index.php?id=tools&type=log&log=gpio&gpio=<?php echo $gpiof ?>" ><button class="btn btn-default btn-xs"><?php echo "GPIO ".$gpiof ?></button></a>
+    <a href="index.php?id=tools&type=log&log=gpio&gpio=<?php echo $gpiof ?>" ><button class="btn btn-success btn-xs"><?php echo "GPIO ".$gpiof ?></button></a>
 <?php 
     }
 ?>

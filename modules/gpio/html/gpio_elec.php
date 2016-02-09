@@ -91,16 +91,16 @@ elec status: <?php echo $a['status']; ?>
 	Divider
 	<input type="text" name="elec_divider" size="4" value="<?php echo $a["elec_divider"]; ?>"  />
 	<input type="hidden" name="elec_divider1" value="elec_divider2" />
-	<button type="submit" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
+	<button type="submit" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
 </form>
 <form action="" method="post" style=" display:inline!important;">
 	Debouncing time
 	<input type="text" name="elec_debouncing" size="4" value="<?php echo $a["elec_debouncing"]; ?>"  />
 	<input type="hidden" name="elec_debouncing1" value="elec_debouncing2" />
-	<button type="submit" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
+	<button type="submit" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
 </form>
 <form action="" method="post" style=" display:inline!important;">
-    <button type="submit" class="btn btn-xs btn-default">ON</button>
+    <button type="submit" class="btn btn-xs btn-success">ON</button>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="elecrun" value="on" />
 </form>
