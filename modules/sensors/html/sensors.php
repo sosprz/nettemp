@@ -183,7 +183,7 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 	<div class="panel panel-warning">
 	    <div class="panel-heading">Name <?php echo $rep; ?> already exist in database.</div>
 	    <div class="panel-body">
-		<button type="button" class="btn btn-info" onclick="goBack()">Back</button>
+		<button type="button" class="btn btn-default" onclick="goBack()">Back</button>
 	    </div>
 	    
 	</div>

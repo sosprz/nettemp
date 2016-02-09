@@ -8,7 +8,7 @@
     exit();
     }
 ?>
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">Other</div>
 <div class="panel-body">
 

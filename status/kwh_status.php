@@ -13,7 +13,7 @@
 
 <?php if ( $kwh == 'on' ) { ?>
 <div class="grid-item">
-    <div class="panel panel-info">
+    <div class="panel panel-default">
 	<div class="panel-heading"><h3 class="panel-title">kWh status</h3></div>
 	    <div class="panel-body">
 <pre>

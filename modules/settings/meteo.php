@@ -26,7 +26,7 @@ if ($onoff == "onoff") {
 
 }
 ?>
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">Meteo settings</div>
 <div class="panel-body">
 
@@ -118,7 +118,7 @@ foreach ($resultmet as $m) {
 <div class="form-group">
   <label class="col-md-4 control-label" for="singlebutton"></label>
   <div class="col-md-4">
-    <button id="singlebutton" name="singlebutton" class="btn btn-xs btn-info">Save</button>
+    <button id="singlebutton" name="singlebutton" class="btn btn-xs btn-default">Save</button>
     <input type="hidden" name="save" value="save" />
   </div>
 </div>

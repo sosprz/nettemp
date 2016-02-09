@@ -38,7 +38,7 @@ $radius=$a["radius"];
 
 }
 ?>
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">Settings</div>
 <div class="panel-body">
 		<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" class="form-horizontal">
@@ -59,7 +59,7 @@ $radius=$a["radius"];
 		</p>
 		<input type="hidden" name="fw_apply" value="fw_apply" />
 		<br>
-	        <input type="submit" name="submit" value="Save" class="btn btn-info" />
+	        <input type="submit" name="submit" value="Save" class="btn btn-default" />
 		</form>
 </div>
 </div>

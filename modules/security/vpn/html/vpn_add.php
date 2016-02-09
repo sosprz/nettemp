@@ -33,7 +33,7 @@ $user_pass = isset($_POST['user_pass']) ? $_POST['user_pass'] : '';
 	exit();
 	}
 ?>
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">OpenVPN settings</div>
 <div class="panel-body">
 <p>Port: 1194</p>
@@ -42,7 +42,7 @@ $user_pass = isset($_POST['user_pass']) ? $_POST['user_pass'] : '';
 </div>
 </div>
 
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">VPN Users</div>
 <div class="table-responsive">
 <table class="table table-striped">

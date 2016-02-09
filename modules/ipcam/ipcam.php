@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">Camera</div>
 <?php
 $link = isset($_POST['link']) ? $_POST['link'] : '';

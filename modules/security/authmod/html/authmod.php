@@ -27,7 +27,7 @@ $am=$a["authmod"];
 
 }
 ?>
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">WWW Authmod</div>
 <div class="panel-body">
     <form action="" method="post">

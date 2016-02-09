@@ -71,10 +71,10 @@ kWh status: <?php echo $a['status']; ?>
 	Divider
 	<input type="text" name="kwh_divider" size="2" value="<?php echo $a["kwh_divider"]; ?>"  />
 	<input type="hidden" name="kwh_divider1" value="kwh_divider2" />
-	<button type="submit" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"></span></button>
+	<button type="submit" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
     </form>
 <form action="" method="post" style=" display:inline!important;">
-    <button type="submit" class="btn btn-xs btn-info">ON</button>
+    <button type="submit" class="btn btn-xs btn-default">ON</button>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="kwhrun" value="on" />
 </form>

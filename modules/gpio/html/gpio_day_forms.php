@@ -37,7 +37,7 @@ if ($dayset == "on")  {
     <div class="form-group">
       <div class="col-sm-6">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<button type="submit" class="btn btn-xs btn-info">SAVE</button>
+	<button type="submit" class="btn btn-xs btn-default">SAVE</button>
 	<input type="hidden" name="dayset" value="on" />
       </div>
     </div>

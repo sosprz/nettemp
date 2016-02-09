@@ -18,7 +18,7 @@ else {
 
 
 <div class="grid-item ups">
-    <div class="panel panel-info">
+    <div class="panel panel-default">
     <div class="panel-heading">UPS Status</div>
         <div class="panel-body">
 <?php

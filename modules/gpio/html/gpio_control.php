@@ -77,7 +77,7 @@ else
 
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-    <button type="submit" class="btn btn-xs btn-info">ON</button>
+    <button type="submit" class="btn btn-xs btn-default">ON</button>
     <input type="hidden" name="controlrun" value="on" />
 </form>
 

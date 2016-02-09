@@ -25,12 +25,12 @@ if ($re == "re") {
     } 
 ?> 
 
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">Backup/restore</div>
 <div class="panel-body">
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 <input type="hidden" name="backup" value="backup">
-<input  type="submit" value="Make backup" class="btn btn-xs btn-info" />
+<input  type="submit" value="Make backup" class="btn btn-xs btn-default" />
 </form>
 
 <table class="table table-striped">
@@ -50,7 +50,7 @@ foreach($files AS $file) {
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 <input type="hidden" name="restore_file" value="<?php echo $file; ?>" />
 <input type="hidden" name="re" value="re" />
-<td><button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-play"></span> </button></td>
+<td><button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-play"></span> </button></td>
 </form>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 <input type="hidden" name="backup_file" value="<?php echo $file; ?>" />

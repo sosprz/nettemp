@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">New devices</div>
 <div class="table-responsive">
 <table class="table table-hover table-condensed small"><tr>	
@@ -45,7 +45,7 @@
 
 
 
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">Not detected</div>
 
 <table class="table table-striped table-condensed small">

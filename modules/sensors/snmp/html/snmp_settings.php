@@ -59,7 +59,7 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	}
 	?>
 
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">Add sensor over SNMP</div>
 
 <div class="table-responsive">

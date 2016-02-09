@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">ESPupload</div>
 <center><span class="label label-warning text-center">WARNING: Push Upload quickly after power ON ESP module</span></center>
 <div class="panel-body">
@@ -198,7 +198,7 @@ print_r($name);
 <div class="form-group">
   <label class="col-md-4 control-label" for="run"></label>
   <div class="col-md-4">
-    <button id="run" name="run" value="Upload" class="btn btn-xs btn-info">Upload</button>
+    <button id="run" name="run" value="Upload" class="btn btn-xs btn-default">Upload</button>
   </div>
 </div>
 

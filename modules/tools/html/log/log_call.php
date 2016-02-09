@@ -10,7 +10,7 @@ $call_log_del = isset($_POST['call_log_del']) ? $_POST['call_log_del'] : '';
 
 
 	 ?>	
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">
 <h3 class="panel-title">Call logs</h3>
 </div>

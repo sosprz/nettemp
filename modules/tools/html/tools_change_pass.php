@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">Change password</div>
 <div class="panel-body">
 
@@ -28,7 +28,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="save"></label>
   <div class="col-md-4">
-    <button type="submit" id="save" name="save" class="btn btn-xs btn-info">Save</button>
+    <button type="submit" id="save" name="save" class="btn btn-xs btn-default">Save</button>
     	  <input type="hidden" name="login_change" value="login_change1">
   </div>
 </div>

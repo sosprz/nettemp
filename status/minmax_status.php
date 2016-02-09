@@ -6,7 +6,7 @@ $result = $rows->fetchAll();
 $numRows = count($result);
 if ( $numRows > '0' ) { ?>
 <div class="grid-item mm">
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">Sensors Min Max</div>
 <div class="table-responsive">
 <table class="table table-hover table-condensed small">

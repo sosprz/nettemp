@@ -31,7 +31,7 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	?>
 
 
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">Access time profil</div>
 
 <div class="table-responsive">

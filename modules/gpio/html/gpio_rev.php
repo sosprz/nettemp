@@ -16,7 +16,7 @@ if (($gpio_rev1 == "gpio_rev1") ){
 
 <form action="" method="post" style=" display:inline!important;">
     <?php if ( $a['rev'] === "on"){ ?>
-    <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> LOW</button>
+    <button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> LOW</button>
     <input type="hidden" name="gpio_rev" value="" />
     <?php } else { ?>
     <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> HIGH</button>

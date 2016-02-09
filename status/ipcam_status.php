@@ -10,7 +10,7 @@ $name=$a['name'];
 $link=$a['link'];
 ?>
 <div class="grid-item">
-    <div class="panel panel-info">
+    <div class="panel panel-default">
 	<div class="panel-heading"><?php echo $name; ?></div>
 	    <div class="panel-body">
 

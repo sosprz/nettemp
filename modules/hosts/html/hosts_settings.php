@@ -62,7 +62,7 @@ $map_num=substr(rand(), 0, 4);
 
 ?>
 
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">Host monitoring</div>
 <div class="table-responsive">
 <table class="table table-hover table-condensed small"">
@@ -108,7 +108,7 @@ foreach ($result as $a) {
 	<form action="" method="post" style="display:inline!important;">
 	    <input type="hidden" name="position_id" value="<?php echo $a["id"]; ?>" />
     	    <input type="text" name="position" size="1" maxlength="3" value="<?php echo $a['position']; ?>" />
-    	    <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"></span> </button>
+    	    <button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span> </button>
 	    <input type="hidden" name="positionok" value="ok" />
 	</form>
 	</td>

@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">Reboot system</div>
 <div class="panel-body">
 <?php

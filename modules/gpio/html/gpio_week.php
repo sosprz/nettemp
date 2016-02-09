@@ -69,14 +69,14 @@ include('modules/gpio/html/gpio_week_forms.php');
 
 
 <form action="" method="post" style=" display:inline!important;">
-    <button type="submit" name="dayrun" value="<?php echo $a["day_run"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["day_run"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-info"'; ?>  >Day</button>
+    <button type="submit" name="dayrun" value="<?php echo $a["day_run"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["day_run"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-default"'; ?>  >Day</button>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="dayrunon" value="on" /> 
 </form>
 
 <form action="" method="post" style=" display:inline!important;">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<button type="submit" class="btn btn-xs btn-info">ON</button>
+	<button type="submit" class="btn btn-xs btn-default">ON</button>
 	<input type="hidden" name="weekrun" value="on" />
 </form>
 

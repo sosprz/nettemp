@@ -29,7 +29,7 @@ if ($rmc == "rmc"){
 ?>
 
 
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading"><h3 class="panel-title">Clients </h3></div>
 
 <div class="table-responsive">

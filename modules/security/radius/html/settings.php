@@ -24,7 +24,7 @@ $rad=$a['radius'];
 }
 ?>
 
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">Radius</div>
 <div class="panel-body">
 <form action="" method="post">

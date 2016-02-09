@@ -36,7 +36,7 @@ $db->exec("UPDATE mail_settings SET test_mail='$test_mail'") or die ($db->lastEr
 <div class="form-group">
   <label class="col-md-4 control-label" for="mail_test"></label>
   <div class="col-md-4">
-    <button id="send" name="send" value="send" class="btn btn-xs btn-info">Send test</button>
+    <button id="send" name="send" value="send" class="btn btn-xs btn-default">Send test</button>
   </div>
 </div>
 
