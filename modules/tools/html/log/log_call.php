@@ -16,7 +16,7 @@ $call_log_del = isset($_POST['call_log_del']) ? $_POST['call_log_del'] : '';
 </div>
 <div class="panel-body">
 <form action="" method="post">
-    <input type="submit" name="call_log_del" value="Clear" class="btn btn-danger" />
+    <input type="submit" name="call_log_del" value="Clear" class="btn btn-xs btn-danger" />
 </form>
 
 <br />

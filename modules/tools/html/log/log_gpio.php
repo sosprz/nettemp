@@ -23,7 +23,7 @@ foreach($glf as $gpiof) {
     $gpiof=str_replace("_log.txt", "", $gf1);
 ?>
     
-    <a href="index.php?id=tools&type=log&log=gpio&gpio=<?php echo $gpiof ?>" ><button class="btn btn-success btn-xs"><?php echo "GPIO ".$gpiof ?></button></a>
+    <a href="index.php?id=tools&type=log&log=gpio&gpio=<?php echo $gpiof ?>" ><button class="btn btn-default btn-xs"><?php echo "GPIO ".$gpiof ?></button></a>
 <?php 
     }
 ?>
@@ -37,8 +37,8 @@ if (!empty($ggpio)) { ?>
 </div>
 <div class="panel-body">
 <form action="" method="post">
-    <input type="submit" name="log_del" value="Clear" class="btn btn-danger" />
-    <input type="hidden" name="pgpio" value="<?php echo $ggpio?>" class="btn btn-danger" />
+    <input type="submit" name="log_del" value="Clear" class="btn btn-xs btn-danger" />
+    <input type="hidden" name="pgpio" value="<?php echo $ggpio?>" class="btn btn-xs btn-danger" />
 </form>
 
 <br />
