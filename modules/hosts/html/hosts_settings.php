@@ -98,7 +98,7 @@ $map_num=substr(rand(), 0, 4);
 <?php
 
 $db = new PDO('sqlite:dbf/hosts.db');
-$sth = $db->prepare("select * from hosts ");
+$sth = $db->prepare("select * from hosts ORDER BY position ASC ");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { 
