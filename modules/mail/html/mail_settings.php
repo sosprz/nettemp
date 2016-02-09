@@ -126,7 +126,7 @@ Check</label>
   <label class="col-md-4 control-label" for="mailsave"></label>
   <div class="col-md-4">
     <input type="hidden" name="change_password1" value="change_password2" />
-    <button id="mailsave" name="mailsave" class="btn btn-xs btn-primary">Save</button>
+    <button id="mailsave" name="mailsave" class="btn btn-xs btn-info">Save</button>
   </div>
 </div>
 

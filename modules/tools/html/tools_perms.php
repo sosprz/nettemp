@@ -1,4 +1,4 @@
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">
 <h3 class="panel-title">Perms repair</h3>
 </div>
@@ -17,7 +17,7 @@ exit();
 ?>
 <form action="" method="post">
 <input type="hidden" name="perms" value="perms">
-<input  type="submit" value="Fix" class="btn btn-xs btn-primary"  />
+<input  type="submit" value="Fix" class="btn btn-xs btn-info"  />
 </form>
 
 </div></div>

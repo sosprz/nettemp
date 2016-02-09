@@ -1,4 +1,4 @@
-<div class="panel panel-primary">
+<div class="panel panel-info">
   <div class="panel-heading">Edit file in tmp/sms_script</div>
   <div class="panel-body">
 

@@ -29,7 +29,7 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
         <div class="panel panel-warning">
         <div class="panel-heading">Name <?php echo $login." or address ".$mail." or tel ".$tel ?> already exist in database.</div>
         <div class="panel-body">
-	<button type="button" class="btn btn-primary" onclick="goBack()">Back</button>
+	<button type="button" class="btn btn-info" onclick="goBack()">Back</button>
         </div>
         </div>
 	<script>
@@ -155,7 +155,7 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	?>
 
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Perms</div>
 
 <div class="table-responsive">

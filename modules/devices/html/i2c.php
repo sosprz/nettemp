@@ -41,7 +41,7 @@ $add = isset($_POST['add']) ? $_POST['add'] : '';
 
 
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">I2C address</div>
 
 <div class="table-responsive">
@@ -129,7 +129,7 @@ $lcd=$c['lcd'];
 <div class="form-group">
   <div class="col-md-1">
     <input type="hidden" name="default" value="default">
-    <button id="singlebutton" name="singlebutton" class="btn btn-xs btn-primary">Reset to default</button>
+    <button id="singlebutton" name="singlebutton" class="btn btn-xs btn-info">Reset to default</button>
   </div>
 </div>
 </fieldset>

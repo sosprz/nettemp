@@ -12,7 +12,7 @@ $sms_log_del = isset($_POST['sms_log_del']) ? $_POST['sms_log_del'] : '';
 
 	 ?>	
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">
 <h3 class="panel-title">SMS logs</h3>
 </div>

@@ -33,7 +33,7 @@ $del_alarm1 = isset($_POST['del_alarm1']) ? $_POST['del_alarm1'] : '';
     exit();
      } 
 ?>
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Set the temperature range</div>
 
 <table class="table table-condensed table-hover">
@@ -54,7 +54,7 @@ $del_alarm1 = isset($_POST['del_alarm1']) ? $_POST['del_alarm1'] : '';
 	<input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" />
 	<input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" />
 	<input type="hidden" name="ok" value="ok" />
-	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
     <form action="" method="post" style="display:inline!important;"> 
 	<input type="hidden" name="del_alarm1" value="del_alarm2" />

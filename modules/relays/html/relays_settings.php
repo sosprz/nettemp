@@ -1,4 +1,4 @@
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Relays</div>
 <div class="table-responsive">
 <table class="table table-striped table-condensed small">
@@ -54,7 +54,7 @@ $row = $sth2->fetchAll();
 	<input type="text" name="rname" size="12" maxlength="30" value="<?php echo $a["name"]; ?>" />
 	<input type="hidden" name="rid" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="rchg" value="rchg"/>
-	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
     </td>
     <td class="col-md-2">

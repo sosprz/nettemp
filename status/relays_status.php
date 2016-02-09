@@ -9,7 +9,7 @@ $numRows = count($result);
 ?>
 <?php if ( $numRows > '0' ) { ?>
 <div class="grid-item rs">
-<div class="panel panel-primary">
+<div class="panel panel-info">
             <div class="panel-heading">WiFi Relays</div>
 <table class="table table-hover table-condensed">
 <?php

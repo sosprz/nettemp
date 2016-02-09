@@ -51,7 +51,7 @@ $hch=$a["charts_min"];
 }
 ?>
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
   <div class="panel-heading">Charts settings</div>
   <div class="panel-body">
 <!--

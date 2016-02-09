@@ -1,5 +1,5 @@
 <div class="grid-item ss" >
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Sensors</div>
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];

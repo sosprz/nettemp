@@ -48,7 +48,7 @@ $wilgotnosc=$a['tmp'];
 }
 ?>
 <div class="grid-item ms">
-<div class="panel panel-primary">
+<div class="panel panel-info">
   <div class="panel-heading">Meteo (lang pl)</div>
 <table class="table stripped table-condensed small">
 

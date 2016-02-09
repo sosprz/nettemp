@@ -129,7 +129,7 @@ if ($$temp_set == "on") {
 ?>
 
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Temperature functions <?php echo $fnum ?></div>
 <div class="table-responsive">
 <table class="table">
@@ -219,7 +219,7 @@ if ($$temp_set == "on") {
 <td class="col-md-1">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="<?php echo temp_set.$v ?>" value="on" />
-	<button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-save"></span> Save</button>
+	<button type="submit" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-save"></span> Save</button>
 </form>
 
 <?php if ($v == '1' && $fnum <= '9') { ?>

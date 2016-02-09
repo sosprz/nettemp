@@ -1,4 +1,4 @@
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Info</div>
 <div class="panel-body">
 <center><a href="http://nettemp.pl" target="_blank">nettemp.pl</a></center>

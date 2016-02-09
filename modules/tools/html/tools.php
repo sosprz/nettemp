@@ -9,18 +9,18 @@
     }
 ?>
 <p>
-<a href="index.php?id=tools&type=file_check" ><button class="btn btn-xs btn-primary <?php echo $art == 'file_check' ? 'active' : ''; ?>">File check</button></a>
-<a href="index.php?id=tools&type=password" ><button class="btn btn-xs btn-primary <?php echo $art == 'password' ? 'active' : ''; ?>">Password</button></a>
-<a href="index.php?id=tools&type=update" ><button class="btn btn-xs btn-primary <?php echo $art == 'update' ? 'active' : ''; ?>">Update</button></a>
-<a href="index.php?id=tools&type=reset" ><button class="btn btn-xs btn-primary <?php echo $art == 'reset' ? 'active' : ''; ?>">Reset to default</button></a>
-<a href="index.php?id=tools&type=reboot" ><button class="btn btn-xs btn-primary <?php echo $art == 'reboot' ? 'active' : ''; ?>">Reboot</button></a>
-<a href="index.php?id=tools&type=log" ><button class="btn btn-xs btn-primary <?php echo $art == 'log' ? 'active' : ''; ?>">Logging</button></a>
+<a href="index.php?id=tools&type=file_check" ><button class="btn btn-xs btn-info <?php echo $art == 'file_check' ? 'active' : ''; ?>">File check</button></a>
+<a href="index.php?id=tools&type=password" ><button class="btn btn-xs btn-info <?php echo $art == 'password' ? 'active' : ''; ?>">Password</button></a>
+<a href="index.php?id=tools&type=update" ><button class="btn btn-xs btn-info <?php echo $art == 'update' ? 'active' : ''; ?>">Update</button></a>
+<a href="index.php?id=tools&type=reset" ><button class="btn btn-xs btn-info <?php echo $art == 'reset' ? 'active' : ''; ?>">Reset to default</button></a>
+<a href="index.php?id=tools&type=reboot" ><button class="btn btn-xs btn-info <?php echo $art == 'reboot' ? 'active' : ''; ?>">Reboot</button></a>
+<a href="index.php?id=tools&type=log" ><button class="btn btn-xs btn-info <?php echo $art == 'log' ? 'active' : ''; ?>">Logging</button></a>
 <?php if ( $gpio == 'on' ) { ?>
-<a href="index.php?id=tools&type=gpio" ><button class="btn btn-xs btn-primary <?php echo $art == 'gpio' ? 'active' : ''; ?>">GPIO</button></a>
+<a href="index.php?id=tools&type=gpio" ><button class="btn btn-xs btn-info <?php echo $art == 'gpio' ? 'active' : ''; ?>">GPIO</button></a>
 <?php } ?>
-<a href="index.php?id=tools&type=backup" ><button class="btn btn-xs btn-primary <?php echo $art == 'backup' ? 'active' : ''; ?>">Backup/Restore</button></a>
-<a href="index.php?id=tools&type=espupload" ><button class="btn btn-xs btn-primary <?php echo $art == 'espupload' ? 'active' : ''; ?>">ESPupload</button></a>
-<a href="index.php?id=tools&type=export" ><button class="btn btn-xs btn-primary <?php echo $art == 'export' ? 'active' : ''; ?>">Export</button></a>
+<a href="index.php?id=tools&type=backup" ><button class="btn btn-xs btn-info <?php echo $art == 'backup' ? 'active' : ''; ?>">Backup/Restore</button></a>
+<a href="index.php?id=tools&type=espupload" ><button class="btn btn-xs btn-info <?php echo $art == 'espupload' ? 'active' : ''; ?>">ESPupload</button></a>
+<a href="index.php?id=tools&type=export" ><button class="btn btn-xs btn-info <?php echo $art == 'export' ? 'active' : ''; ?>">Export</button></a>
 </p>
 <?php  
 switch ($art)

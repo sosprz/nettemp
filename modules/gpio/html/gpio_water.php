@@ -90,17 +90,17 @@ water status: <?php echo $a['status']; ?>
 	Divider
 	<input type="text" name="water_divider" size="4" value="<?php echo $a["water_divider"]; ?>"  />
 	<input type="hidden" name="water_divider1" value="water_divider2" />
-	<button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+	<button type="submit" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"></span></button>
 </form>
 <form action="" method="post" style=" display:inline!important;">
 	Debouncing time
 	<input type="text" name="water_debouncing" size="4" value="<?php echo $a["water_debouncing"]; ?>"  />
 	<input type="hidden" name="water_debouncing1" value="water_debouncing2" />
-	<button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+	<button type="submit" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"></span></button>
     </form>
 
 <form action="" method="post" style=" display:inline!important;">
-    <button type="submit" class="btn btn-xs btn-primary">ON</button>
+    <button type="submit" class="btn btn-xs btn-info">ON</button>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="waterrun" value="on" />
 </form>

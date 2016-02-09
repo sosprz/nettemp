@@ -1,4 +1,4 @@
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Export db to file</div>
 
 <?php
@@ -25,7 +25,7 @@ $row = $rows->fetchAll();
     <td class="col-md-5">
     <form action="csv" method="post" style="display:inline!important;">
     <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
-    <button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-save"></span> CSV</button>
+    <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-save"></span> CSV</button>
     <input type="hidden" name="csv" value="get" />
     </form>
     </td>

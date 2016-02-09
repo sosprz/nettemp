@@ -13,7 +13,7 @@ $add_alarm1 = isset($_POST['add_alarm1']) ? $_POST['add_alarm1'] : '';
      } 
  ?> 
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Free sensors</div>
 
 <table class="table table-hover">

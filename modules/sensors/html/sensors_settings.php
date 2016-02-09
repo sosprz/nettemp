@@ -97,7 +97,7 @@
 ?> 
 
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Sensors</div>
 
 <div class="table-responsive">
@@ -141,7 +141,7 @@ $row = $rows->fetchAll();
     <form action="" method="post" style="display:inline!important;">
 	<input type="hidden" name="position_id" value="<?php echo $a["id"]; ?>" />
 	<input type="text" name="position" size="1" maxlength="3" value="<?php echo $a['position']; ?>" />
-	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="positionok" value="ok" />
     </form>
     </td>
@@ -151,7 +151,7 @@ $row = $rows->fetchAll();
 <!-- 	<img src="media/ico/TO-220-icon.png"/> -->
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="name_new" size="6" maxlength="30" value="<?php echo $a["name"]; ?>" />
-	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="id_name2" value="id_name3"/>
     </form>
@@ -195,7 +195,7 @@ else { ?>
     <?php if ($a["device"] != 'remote') { ?>
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="adj" size="2" maxlength="30" value="<?php echo $a["adj"]; ?>" required="" <?php echo $a["device"] == 'remote' ? 'disabled' : ''; ?> />
-	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="adj1" value="adj2"/>
     </form>
@@ -208,7 +208,7 @@ else { ?>
     <?php if (in_array($a['type'], $counters)) { ?>
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="sum" size="2" maxlength="30" value="<?php echo $a["sum"]; ?>" required=""/>
-	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="sum1" value="sum2"/>
     </form>
@@ -231,7 +231,7 @@ else { ?>
 	<input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" />
 	<input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" />
 	<input type="hidden" name="ok" value="ok" />
-	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
     </td>
 

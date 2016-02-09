@@ -29,7 +29,7 @@ if (empty($mode)) {
     <input type="text" name="name" value="<?php echo $a['name']; ?>" size="6">
     <input type="hidden" name="name1" value="name2">
     <input type="hidden" name="id" value="<?php echo $a['id']; ?>" >
-<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"></span> </button>
 </form>
 <?php 
     }

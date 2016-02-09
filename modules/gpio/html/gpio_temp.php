@@ -74,13 +74,13 @@ $result = $sth->fetchAll();
 <form action="" method="post" style=" display:inline!important;">
 	    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	    <input type="hidden" name="dayrunon" value="on" /> 
-	    <button type="submit" name="dayrun" value="<?php echo $a["day_run"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["day_run"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-primary"'; ?> >
+	    <button type="submit" name="dayrun" value="<?php echo $a["day_run"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["day_run"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-info"'; ?> >
 	    <?php echo $a["day_run"] == 'on' ? '<span class="glyphicon glyphicon-off" aria-hidden="true"></span>' : '<span class="glyphicon glyphicon-play" aria-hidden="true"></span>'; ?> Day/Week</button>
 </form>
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="tempon" value="on" />
-    <button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Start</button>
+    <button type="submit" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Start</button>
 </form>
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="tempexit" value="tempexit"/>

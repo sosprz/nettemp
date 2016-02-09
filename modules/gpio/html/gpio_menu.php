@@ -13,7 +13,7 @@ $position = isset($_POST['position']) ? $_POST['position'] : '';
     } 
 ?>
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Status</div>
 <div class="table-responsive">
 <table class="table table-hover table-condensed small" border="0">
@@ -44,12 +44,12 @@ $row = $rows->fetchAll();
     		<form action="" method="post" style="display:inline!important;">
         	<input type="hidden" name="position_id" value="<?php echo $b["id"]; ?>" />
         	<input type="text" name="position" size="1" maxlength="3" value="<?php echo $b['position']; ?>" />
-        	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+        	<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-pencil"></span> </button>
         	<input type="hidden" name="positionok" value="ok" />
     		</form>
 	</td>
 	<td class="col-md-1">
-		<a href="index.php?id=devices&type=gpio&gpios=<?php echo $b['gpio']?>" class="btn btn-xs btn-primary ">GPIO <?php echo $b['gpio']?></a>
+		<a href="index.php?id=devices&type=gpio&gpios=<?php echo $b['gpio']?>" class="btn btn-xs btn-info ">GPIO <?php echo $b['gpio']?></a>
 	</td>
 	<td class="col-md-1">
                 <span class="label label-default"><?php echo $b["name"]; ?></span>

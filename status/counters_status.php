@@ -6,7 +6,7 @@ $result = $rows->fetchAll();
 $numRows = count($result);
 if ( $numRows > '0' ) { ?>
 <div class="grid-item co">
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Counters </div>
 
 <table class="table table-responsive table-hover table-condensed">

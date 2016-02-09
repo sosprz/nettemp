@@ -9,7 +9,7 @@ $log_del = isset($_POST['log_del']) ? $_POST['log_del'] : '';
 	 } 
 
 	 ?>	
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Logs</div>
 <div class="panel-body">
 

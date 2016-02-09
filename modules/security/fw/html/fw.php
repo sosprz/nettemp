@@ -22,7 +22,7 @@ $fw=$a["fw"];
 }
 ?>
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Firewall</div>
 <div class="panel-body">
 

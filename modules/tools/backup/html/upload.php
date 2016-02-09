@@ -1,7 +1,7 @@
 <?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
 
 <!-- http://webcheatsheet.com/php/file_upload.php -->
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">
 <h3 class="panel-title">Upload</h3>
 </div>
@@ -33,6 +33,6 @@ if((!empty($_FILES["uploaded_file"])) && ($_FILES['uploaded_file']['error'] == 0
  echo "Error: No file uploaded";
 }
 ?>
-<FORM><INPUT Type="button" VALUE="Back" onClick="history.go(-1);return true;" class="btn btn-primary"></FORM>
+<FORM><INPUT Type="button" VALUE="Back" onClick="history.go(-1);return true;" class="btn btn-info"></FORM>
 </div>
 </div>

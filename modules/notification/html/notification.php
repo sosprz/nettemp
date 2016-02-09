@@ -1,9 +1,9 @@
 <?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
 <p>
-<!-- <a href="index.php?id=notification&type=users" ><button class="btn <?php echo $art == 'users' ? 'btn-info' : 'btn-primary'; ?>">Users</button></a> -->
-<a href="index.php?id=notification&type=sensors" ><button class="btn <?php echo $art == 'sensors' ? 'btn-info' : 'btn-primary'; ?>">Alarms</button></a>
-<a href="index.php?id=notification&type=triggers" ><button class="btn <?php echo $art == 'triggers' ? 'btn-info' : 'btn-primary'; ?>">Triggers</button></a>
-<a href="index.php?id=notification&type=other" ><button class="btn <?php echo $art == 'other' ? 'btn-info' : 'btn-primary'; ?>">Other</button></a>
+<!-- <a href="index.php?id=notification&type=users" ><button class="btn <?php echo $art == 'users' ? 'btn-info' : 'btn-info'; ?>">Users</button></a> -->
+<a href="index.php?id=notification&type=sensors" ><button class="btn <?php echo $art == 'sensors' ? 'btn-info' : 'btn-info'; ?>">Alarms</button></a>
+<a href="index.php?id=notification&type=triggers" ><button class="btn <?php echo $art == 'triggers' ? 'btn-info' : 'btn-info'; ?>">Triggers</button></a>
+<a href="index.php?id=notification&type=other" ><button class="btn <?php echo $art == 'other' ? 'btn-info' : 'btn-info'; ?>">Other</button></a>
 
 </p>
 <?php  

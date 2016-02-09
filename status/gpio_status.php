@@ -9,7 +9,7 @@ $numRows = count($result);
 ?>
 <?php if ( $numRows > '0' ) { ?>
 <div class="grid-item gs">
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">GPIO</div>
 <table class="table table-hover table-condensed small">
 <?php

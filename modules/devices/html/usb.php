@@ -1,4 +1,4 @@
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Bind USB to devices</div>
 <table class="table table-hover table-condensed small">
 <thead><tr><th>Device</th><th>Function</th></tr></thead>

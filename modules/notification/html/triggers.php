@@ -11,7 +11,7 @@ if ($xtriggernoticeon == "xtriggernoticeON")  {
 }
 ?>
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">
 <h3 class="panel-title">Trigger alarms</h3>
 </div>

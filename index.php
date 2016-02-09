@@ -91,7 +91,7 @@ $numsimple2 = count($row2);
               <input type="password" name="password" placeholder="Password" class="form-control input-sm" required="">
             </div>
 	    <input type="hidden" name="form_login" value="log">
-            <button type="submit" class="btn btn-xs btn-primary">Sign in</button>
+            <button type="submit" class="btn btn-xs btn-info">Sign in</button>
           </form>        
     <?php } ?>
     <?php if(isset($_SESSION["user"])) {?>
@@ -136,9 +136,9 @@ case 'controls': include('modules/relays/html/relays_controls.php'); include('mo
 
 <footer class="footer">
       <div class="container text-center">
-	    <a href="https://techfreak.pl/forum/viewtopic.php?f=20&t=587" target="_blank" class="btn btn-xs btn-primary"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </a>
+	    <a href="https://techfreak.pl/forum/viewtopic.php?f=20&t=587" target="_blank" class="btn btn-xs btn-info"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </a>
 	    <?php include('html/info/paypal.php');?>
-	    <button class="btn btn-xs btn-primary">System time <?php passthru("date +%H:%M:%S");?></button>
+	    <button class="btn btn-xs btn-info">System time <?php passthru("date +%H:%M:%S");?></button>
 
 	    
       </div>

@@ -28,7 +28,7 @@ $vpn=$a["vpn"];
 }
 ?>
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">VPN</div>
 <div class="panel-body">
     <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">

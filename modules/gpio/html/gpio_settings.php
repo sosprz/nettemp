@@ -53,7 +53,7 @@ $gpio=$a['gpio'];
 $mode=$a['mode'];
 $name=$a['name'];
 ?>
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">
 <h3 class="panel-title">GPIO <?php echo $gpio." ".$name ?></h3></div>
 <div class="panel-body">

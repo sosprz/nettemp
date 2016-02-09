@@ -1,4 +1,4 @@
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Update nettemp</div>
 <div class="panel-body">
 
@@ -23,7 +23,7 @@ if ($update == "Update") {
     }
 ?>
     <form action="" method="post">
-    <button type="submit" name="update" value="Update" class="btn btn-xs btn-primary"  />Update</button>
+    <button type="submit" name="update" value="Update" class="btn btn-xs btn-info"  />Update</button>
     </form>
 
 </div></div>

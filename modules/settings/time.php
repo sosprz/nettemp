@@ -1,4 +1,4 @@
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">
 <h3 class="panel-title">NTP service sync</h3>
 </div>
@@ -78,7 +78,7 @@ if(empty($pids)) { ?>
 
 
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">
 <h3 class="panel-title">RTC i2c</h3>
 </div>
@@ -108,7 +108,7 @@ exit();
 ?>
 <form action="" method="post">
     <input type="hidden" name="ntsync" value="ntsync">
-    <input  type="submit" value="Time sync"  class="btn btn-xs btn-primary"/>
+    <input  type="submit" value="Time sync"  class="btn btn-xs btn-info"/>
 </form>
 <?php echo "Hwclock date: "; passthru("sudo /sbin/hwclock --show");?>
 <?php
@@ -121,7 +121,7 @@ exit();
 ?>
 <form action="" method="post">
 <input type="hidden" name="hwsync" value="hwsync">
-<input  type="submit" value="RTC sync" class="btn btn-xs btn-primary" />
+<input  type="submit" value="RTC sync" class="btn btn-xs btn-info" />
 </form>
 <?php 
 }

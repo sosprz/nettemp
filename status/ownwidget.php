@@ -4,7 +4,7 @@ $root=$_SERVER["DOCUMENT_ROOT"];
 if ( 0 != filesize("$root/tmp/ownwidget".$ow.".php") )
 { ?>
 <div class="grid-item">
-    <div class="panel panel-primary">
+    <div class="panel panel-info">
 	<?php include("$root/tmp/ownwidget".$ow.".php"); ?>
     </div>
 </div>

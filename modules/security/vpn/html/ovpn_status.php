@@ -1,4 +1,4 @@
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">Connection status</div>
 <div class="panel-body">
 <pre>

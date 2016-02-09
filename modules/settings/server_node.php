@@ -44,7 +44,7 @@ $con=$a["client_on"];
 ?>
 
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">
 <h3 class="panel-title">Node</h3>
 </div>
@@ -81,7 +81,7 @@ if ($con == 'on'){
 <div class="form-group">
   <label class="col-md-4 control-label" for="singlebutton"></label>
   <div class="col-md-4">
-    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Save</button>
+    <button id="singlebutton" name="singlebutton" class="btn btn-info">Save</button>
   </div>
 </div>
 
@@ -95,7 +95,7 @@ if ($con == 'on'){
 </div>
 </div>
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
 <div class="panel-heading">
 <h3 class="panel-title">Server</h3>
 </div>
@@ -115,7 +115,7 @@ if ($con == 'on'){
 <div class="form-group">
   <label class="col-md-4 control-label" for="singlebutton"></label>
   <div class="col-md-4">
-    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Save</button>
+    <button id="singlebutton" name="singlebutton" class="btn btn-info">Save</button>
   </div>
 </div>
 

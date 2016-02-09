@@ -1,10 +1,10 @@
 <?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
 
 <p>
-<a href="index.php?id=security&type=fw" ><button class="btn btn-xs btn-primary <?php echo $art == 'fw' ? 'active' : ''; ?>">Firewall</button></a>
-<a href="index.php?id=security&type=vpn" ><button class="btn btn-xs btn-primary <?php echo $art == 'vpn' ? 'active' : ''; ?>">VPN</button></a>
-<a href="index.php?id=security&type=authmod" ><button class="btn btn-xs btn-primary <?php echo $art == 'authmod' ? 'active' : ''; ?>">WWW authmod</button></a>
-<a href="index.php?id=security&type=radius" ><button class="btn btn-xs btn-primary <?php echo $art == 'radius' ? 'active' : ''; ?>">RADIUS</button></a>
+<a href="index.php?id=security&type=fw" ><button class="btn btn-xs btn-info <?php echo $art == 'fw' ? 'active' : ''; ?>">Firewall</button></a>
+<a href="index.php?id=security&type=vpn" ><button class="btn btn-xs btn-info <?php echo $art == 'vpn' ? 'active' : ''; ?>">VPN</button></a>
+<a href="index.php?id=security&type=authmod" ><button class="btn btn-xs btn-info <?php echo $art == 'authmod' ? 'active' : ''; ?>">WWW authmod</button></a>
+<a href="index.php?id=security&type=radius" ><button class="btn btn-xs btn-info <?php echo $art == 'radius' ? 'active' : ''; ?>">RADIUS</button></a>
 </p>
 <?php  
 switch ($art)
