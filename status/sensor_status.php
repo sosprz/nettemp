@@ -78,13 +78,15 @@ Go to device scan!
 			    <?php echo $device." ".$type." ".$name;?>
 			</td>
 			<td>
-			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=day&single=<?php echo $a['name']?>">
+			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=day&single=<?php echo $a['name']?>" title="Last update: <?php echo $a['time']?>"
 			    <?php if(($a['tmp'] == 'error') || ($label=='danger')) {
-				    echo '<span class="label label-danger">';
+				    echo 'class="label label-danger"';
 				    } 
 				    else {
-					echo '<span class="label label-success">';
-				    }
+					echo 'class="label label-success"';
+				    } ?>
+				>
+				<?php
 				    if (is_numeric($a['tmp']) && $a['type']=='elec' || $a['type']=='gas' || $a['type']=='water' )  {
 					echo 	number_format($a['tmp'], 3, '.', ',')." ".$unit." ".$max." ".$min;
 				    } 
