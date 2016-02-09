@@ -31,7 +31,7 @@ foreach($glf as $gpiof) {
 
 <?php
 if (!empty($ggpio)) { ?>
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">
 <h3 class="panel-title">GPIO <?php echo $ggpio ?> logs</h3>
 </div>

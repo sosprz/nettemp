@@ -1,12 +1,12 @@
-<div class="panel panel-default">
-<div class="panel-heading"><h3 class="panel-title">Export db to file</h3></div>
+<div class="panel panel-primary">
+<div class="panel-heading">Export db to file</div>
 
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
 ?>
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover small">
 <thead>
 <tr>
 <th>Name</th>

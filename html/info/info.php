@@ -1,7 +1,5 @@
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Info</h3>
-</div>
+<div class="panel panel-primary">
+<div class="panel-heading">Info</div>
 <div class="panel-body">
 <center><a href="http://nettemp.pl" target="_blank">nettemp.pl</a></center>
 <center><a href="http://techfreak.pl/nettemp" target="_blank">techfreak.pl/nettemp</a></center>

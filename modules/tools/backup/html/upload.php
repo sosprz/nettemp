@@ -1,7 +1,7 @@
 <?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
 
 <!-- http://webcheatsheet.com/php/file_upload.php -->
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">
 <h3 class="panel-title">Upload</h3>
 </div>
