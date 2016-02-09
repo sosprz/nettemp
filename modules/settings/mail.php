@@ -22,7 +22,7 @@ $lcd=$a["lcd"];
 
 ?>
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">
 <h3 class="panel-title">Mail</h3>
 </div>

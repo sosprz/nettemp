@@ -51,7 +51,7 @@ $hch=$a["charts_min"];
 }
 ?>
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
   <div class="panel-heading">Charts settings</div>
   <div class="panel-body">
 <!--
@@ -137,7 +137,7 @@ $hch=$a["charts_min"];
 <div class="form-group">
   <label class="col-md-2 control-label" for="selectbasic">Sensors base update interval</label>
   <div class="col-md-2">
-    <select id="selectbasic" name="chmin" onchange="this.form.submit()" class="form-control">
+    <select id="selectbasic" name="chmin" onchange="this.form.submit()" class="form-control input-sm">
     <?php $ar=array("1","2","5","10", "15");
      foreach ($ar as $num) { ?>
         <option <?php echo $a['charts_min'] == "$num" ? 'selected="selected"' : ''; ?> value="<?php echo $num; ?>"><?php echo $num ." "; ?> min</option>   
@@ -154,7 +154,7 @@ $hch=$a["charts_min"];
 <div class="form-group">
   <label class="col-md-2 control-label" for="selectbasic">Theme</label>
   <div class="col-md-2">
-    <select id="selectbasic" name="chtheme" onchange="this.form.submit()" class="form-control">
+    <select id="selectbasic" name="chtheme" onchange="this.form.submit()" class="form-control input-sm">
     <?php $ar=array("white","black","sand","grid");
      foreach ($ar as $num) { ?>
         <option <?php echo $a['charts_theme'] == "$num" ? 'selected="selected"' : ''; ?> value="<?php echo $num; ?>"><?php echo $num ." "; ?></option>   

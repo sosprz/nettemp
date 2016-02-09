@@ -44,7 +44,7 @@ $con=$a["client_on"];
 ?>
 
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">
 <h3 class="panel-title">Node</h3>
 </div>
@@ -95,7 +95,7 @@ if ($con == 'on'){
 </div>
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">
 <h3 class="panel-title">Server</h3>
 </div>

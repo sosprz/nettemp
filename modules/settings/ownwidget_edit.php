@@ -2,7 +2,7 @@
    textarea { width: 100%; height: 100%; }
 </style>
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">Widget example</div>
     <div class="panel-body">
 <pre>
@@ -35,7 +35,7 @@ if (isset($_POST['text'.$v]))
 
 ?>
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
   <div class="panel-heading"><?php echo "Widget ".$v;?></div>
   <div class="panel-body">
 
@@ -43,7 +43,7 @@ if (isset($_POST['text'.$v]))
     <div style="height:300px;overflow:auto;padding:5px;">
 	<textarea name="<?php echo text.$v?>"><?php echo htmlspecialchars($text) ?></textarea><br />
     </div>
-   <button class="btn btn-primary" type="submit">Save</button>
+   <button class="btn btn-xs btn-primary" type="submit">Save</button>
   </form>
 </div>
 </div>

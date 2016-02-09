@@ -155,7 +155,7 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	?>
 
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">Perms</div>
 
 <div class="table-responsive">

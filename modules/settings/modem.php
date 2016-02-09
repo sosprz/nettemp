@@ -62,18 +62,18 @@ $smsdev=$a['dev'];
 }
 
 if (empty($smsdev) || $smsdev == 'none') { ?>
-<div class="panel panel-default">
+<div class="panel panel-primary">
     <div class="panel-heading">SMS modem</div>
 	<div class="panel-body">
 	    No SMS modem set
-  <a href="index.php?id=devices&type=usb" class="btn btn-info btn-sm" role="button">Go to USB/Serial</a>
+  <a href="index.php?id=devices&type=usb" class="btn btn-xs btn-primary" role="button">Go to USB/Serial</a>
 	</div>
 </div>
 <?php
 } else {
 ?>
 
-<div class="panel panel-default"><div class="panel-heading">SMS modem <?php echo $smsdev." "?></div>
+<div class="panel panel-primary"><div class="panel-heading">SMS modem <?php echo $smsdev." "?></div>
 <div class="panel-body">
 
 
@@ -96,13 +96,13 @@ if (strcmp(trim($smsdev),trim($devf)) != 0 ) { ?>
     <label class="col-md-2 control-label" for="smsc">SMS center number</label>
     <input id="smsc" name="smsc" placeholder="" required="" type="text" value="<?php echo $smscff; ?>">
     <input type="hidden" name="smsdev" value="<?php echo $smsdev ?>" />
-    <button id="smsc1" name="smsc1"  value="smsc2" class="btn btn-primary">Save </button>
+    <button id="smsc1" name="smsc1"  value="smsc2" class="btn btn-xs btn-primary">Save </button>
 </form>
 <br>
 <form class="form-inline" action="" method="post">
     <label class="col-md-2 control-label" for="sms_test">Number</label>  
     <input id="sms_test" name="sms_test" placeholder="" class="form-control input-md" required="" type="text" value="">
-    <button id="sms_test1" name="sms_test1" value="sms_test1" class="btn btn-primary">Send test </button>
+    <button id="sms_test1" name="sms_test1" value="sms_test1" class="btn btn-xs btn-primary">Send test </button>
 </form>
 
 
@@ -120,17 +120,17 @@ $dev=$a['dev'];
 }
 
 if (empty($dev) || $dev == 'none') { ?>
-<div class="panel panel-default">
+<div class="panel panel-primary">
     <div class="panel-heading">Call modem</div>
 	<div class="panel-body">
-	    No Call modem set <a href="index.php?id=devices&type=usb" class="btn btn-info btn-sm" role="button">Go to USB/Serial</a>
+	    No Call modem set <a href="index.php?id=devices&type=usb" class="btn btn-xs btn-primary" role="button">Go to USB/Serial</a>
 	</div>
 </div>
 <?php
 } else {
 ?>
 
-<div class="panel panel-default"><div class="panel-heading">Call modem <?php echo $dev ?></div>
+<div class="panel panel-primary"><div class="panel-heading">Call modem <?php echo $dev ?></div>
 <div class="panel-body">
 	    <form action="" method="post">
 	    <input type="hidden" name="call1" value="call2" />
