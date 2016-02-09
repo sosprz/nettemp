@@ -36,7 +36,7 @@ $o=str_replace(' ', '', $os);
 ?>
 
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">
 <h3 class="panel-title"><?php echo $r['name']; ?></h3>
 </div>

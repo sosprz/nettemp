@@ -129,7 +129,7 @@ if ($$temp_set == "on") {
 ?>
 
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">Temperature functions <?php echo $fnum ?></div>
 <div class="table-responsive">
 <table class="table">

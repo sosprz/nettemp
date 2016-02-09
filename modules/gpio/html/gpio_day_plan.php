@@ -32,7 +32,7 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 	?>
 
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">Day/Week plan profiles</div>
 
 <div class="table-responsive">

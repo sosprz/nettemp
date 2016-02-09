@@ -56,7 +56,7 @@ $notif_del = isset($_POST['notif_del']) ? $_POST['notif_del'] : '';
 	?>
 
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">Users</div>
 
 <div class="table-responsive">

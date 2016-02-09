@@ -49,7 +49,7 @@ if ($uploadOk == 0) {
     }
 }
 ?>
-<div class="panel panel-default">
+<div class="panel panel-primary">
   <div class="panel-body">
     <form action="" method="post" enctype="multipart/form-data">
     Select image to upload:

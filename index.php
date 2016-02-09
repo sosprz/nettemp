@@ -108,7 +108,7 @@ $numsimple2 = count($row2);
 <div class="container">
 <?php 
 if (file_exists("tmp/reboot")) {  ?>
-<div class="alert alert-warning" role="alert"><a href="index.php?id=tools&type=reboot" class="btn btn-warning">Reboot required</a></div>
+<div class="alert alert-warning" role="alert"><a href="index.php?id=tools&type=reboot" class="btn btn-xs btn-warning">Reboot required</a></div>
 <?php
 }
 ?>
@@ -136,9 +136,9 @@ case 'controls': include('modules/relays/html/relays_controls.php'); include('mo
 
 <footer class="footer">
       <div class="container text-center">
-	    <a href="https://techfreak.pl/forum/viewtopic.php?f=20&t=587" target="_blank" class="btn btn-info btn-xs"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </a>
+	    <a href="https://techfreak.pl/forum/viewtopic.php?f=20&t=587" target="_blank" class="btn btn-xs btn-primary"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </a>
 	    <?php include('html/info/paypal.php');?>
-	    <button class="btn btn-info btn-xs">System time <?php passthru("date +%H:%M:%S");?></button>
+	    <button class="btn btn-xs btn-primary">System time <?php passthru("date +%H:%M:%S");?></button>
 
 	    
       </div>

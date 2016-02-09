@@ -33,7 +33,7 @@ $del_alarm1 = isset($_POST['del_alarm1']) ? $_POST['del_alarm1'] : '';
     exit();
      } 
 ?>
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">Set the temperature range</div>
 
 <table class="table table-condensed table-hover">

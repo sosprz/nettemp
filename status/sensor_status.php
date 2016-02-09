@@ -1,5 +1,5 @@
 <div class="grid-item ss" >
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">Sensors</div>
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
@@ -20,7 +20,7 @@ Go to device scan!
     $sth = $db->prepare("SELECT * FROM sensors WHERE position !=0  ORDER BY position ASC");
     $sth->execute();
     $result = $sth->fetchAll(); ?>
-    <table class="table table-hover table-condensed">
+    <table class="table table-hover table-condensed small">
     <tbody>
 <?php       
     foreach ($result as $a) {

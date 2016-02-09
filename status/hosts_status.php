@@ -9,9 +9,9 @@ $numRows = count($result);
 ?>
 <?php if ( $numRows > '0' ) { ?>
 <div class="grid-item hs" >
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">Monitoring</div>
-<table class="table table-hover">
+<table class="table table-hover condensed small">
 <?php
 foreach ( $result as $a) {
 ?>

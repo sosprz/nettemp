@@ -99,7 +99,7 @@ foreach ( $results as $a) {
 ?>
 
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">
 <h3 class="panel-title"><?php echo $a['name']; ?></h3>
 </div>
@@ -115,7 +115,7 @@ foreach ( $results as $a) {
 
 foreach ( $resultm as $a) {
 ?>
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">
 <h3 class="panel-title"><?php echo $a['name']; ?></h3>
 </div>
@@ -134,7 +134,7 @@ foreach ( $resultm as $a) {
 
 foreach ( $resultt as $a) {
 ?>
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">
 <h3 class="panel-title"><?php echo $a['name']; ?></h3>
 </div>
@@ -153,7 +153,7 @@ foreach ( $resultt as $a) {
 
 foreach ( $resultc as $a) {
 ?>
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">
 <h3 class="panel-title"><?php echo $a['name']; ?></h3>
 </div>

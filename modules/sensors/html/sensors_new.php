@@ -45,7 +45,7 @@
 
 
 
-<div class="panel panel-primary small">
+<div class="panel panel-primary">
 <div class="panel-heading">Not detected</div>
 
 <table class="table table-striped table-condensed small">
