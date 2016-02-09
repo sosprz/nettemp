@@ -21,8 +21,8 @@ foreach ( $result as $a) {
 		<?php echo str_replace("host_","",$a["name"]); ?>
 	</td>
 	<td>
-		<?php echo $a['status'] == 'error' || $a['last'] == 0  ? '<span class="label label-danger">' : '<span class="label label-success">' ?>
-		    <?php echo $a['last']." ms"; ?>
+		    <?php echo $a['status'] == 'error' || $a['last'] == 0 ? '<span class="label label-danger">' : '<span class="label label-success">' ?>
+		    <?php echo $a['status'] == 'error' || $a['last'] == 0 ? 'offline' : $a[last]." ms"?>
 		</span>
 	</td>
     </tr>
