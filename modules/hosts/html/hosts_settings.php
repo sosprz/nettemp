@@ -23,7 +23,7 @@ $map_num=substr(rand(), 0, 4);
 	$db = new PDO('sqlite:dbf/hosts.db');
 	$host_name=host_ . $host_name;
 	$host_name=str_replace(".","",$host_name);
-	$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map) VALUES ('$host_name', '$host_ip', '$host_name', '$host_type', '{left:0,top:0}', '$map_num', 'on')") or die ("cannot insert to DB" );
+	$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$host_name', '$host_ip', '$host_name', '$host_type', '{left:0,top:0}', '$map_num', 'on', '1')") or die ("cannot insert to DB" );
 	    $dbnew = new PDO("sqlite:db/$host_name.sql");
 	    $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
 	    $dbnew==NULL;
@@ -62,23 +62,23 @@ $map_num=substr(rand(), 0, 4);
 
 ?>
 
-<div class="panel panel-default">
-<div class="panel-heading">Monitoring</div>
+<div class="panel panel-primary">
+<div class="panel-heading">Host monitoring</div>
 <div class="table-responsive">
-<table class="table table-striped">
+<table class="table table-hover table-condensed small"">
 <thead><tr><th>Pos</th><th>Name</th><th>IP / Name</th><th>Type</th><th>Map</th><th>Alarm</th><th></th></tr></thead>
 <tr>
     <td>
     </td>
 	<td>
 	    <form action="" method="post" class="form-horizontal">
-		<input type="text" name="host_name" value="" class="form-control" required=""/>
+		<input type="text" name="host_name" value="" class="form-control input-sm" required=""/>
 	</td>
 	<td>
-		<input type="text" name="host_ip" value="" class="form-control" required=""/>
+		<input type="text" name="host_ip" value="" class="form-control input-sm" required=""/>
 	</td>
 	<td>
-	    <select name="host_type" class="form-control">
+	    <select name="host_type" class="form-control input-sm">
 		<option value="ping">ping</option>
 		<option value="httpping">http ping</option>
     	    </select>

@@ -41,11 +41,11 @@ $add = isset($_POST['add']) ? $_POST['add'] : '';
 
 
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">I2C address</div>
 
 <div class="table-responsive">
-<table class="table table-hover">
+<table class="table table-hover table-condensed small">
 
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db');
@@ -72,7 +72,7 @@ $lcd=$c['lcd'];
     <form action="" method="post" class="form-horizontal">
     <div class="form-group">
     <td class="col-md-2">
-    <select name="name" class="form-control">
+    <select name="name" class="form-control input-sm">
         <option value="ds2482">ds2482</option>
         <option value="bmp180">bmp180</option>
 	<option value="tsl2561">tsl2561</option>
@@ -83,7 +83,7 @@ $lcd=$c['lcd'];
     </select>
     </td>
     <td class="col-md-2">
-	<input type="text" name="addr" value="" class="form-control" required=""/>
+	<input type="text" name="addr" value="" class="form-control input-sm" required=""/>
     </td>
 	<input type="hidden" name="add" value="add" class="form-control"/>
     <td class="col-md-8">
@@ -129,7 +129,7 @@ $lcd=$c['lcd'];
 <div class="form-group">
   <div class="col-md-1">
     <input type="hidden" name="default" value="default">
-    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Reset to default</button>
+    <button id="singlebutton" name="singlebutton" class="btn btn-xs btn-primary">Reset to default</button>
   </div>
 </div>
 </fieldset>

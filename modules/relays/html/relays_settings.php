@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-primary small">
 <div class="panel-heading">Relays</div>
 <div class="table-responsive">
 <table class="table table-striped table-condensed small">

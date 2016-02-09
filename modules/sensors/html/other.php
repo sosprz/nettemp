@@ -8,8 +8,8 @@
     exit();
     }
 ?>
-<div class="panel panel-default">
-<div class="panel-heading"><h3 class="panel-title">Other</h3></div>
+<div class="panel panel-primary small">
+<div class="panel-heading">Other</div>
 <div class="panel-body">
 
 <?php

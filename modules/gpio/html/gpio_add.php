@@ -73,10 +73,8 @@ else { ?>
 <?php 
     }
 ?>
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Free</h3>
-</div>
+<div class="panel panel-primary">
+<div class="panel-heading">Free</div>
 <div class="panel-body">
 
 <?php

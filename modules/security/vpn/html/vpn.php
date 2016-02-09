@@ -28,10 +28,8 @@ $vpn=$a["vpn"];
 }
 ?>
 
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">VPN</h3>
-</div>
+<div class="panel panel-primary">
+<div class="panel-heading">VPN</div>
 <div class="panel-body">
     <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
     <input type="checkbox" name="vpn_onoff" value="on" <?php echo $vpn == 'on' ? 'checked="checked"' : ''; ?> data-toggle="toggle" data-size="mini" onchange="this.form.submit()" />

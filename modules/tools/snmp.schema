@@ -6,4 +6,4 @@ CREATE TABLE snmp (
   host TEXT,
   oid TEXT,
   divider TEXT
-  , type type TEXT);
+  , type type TEXT, version type TEXT);

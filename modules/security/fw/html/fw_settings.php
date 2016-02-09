@@ -38,15 +38,13 @@ $radius=$a["radius"];
 
 }
 ?>
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Settings</h3>
-</div>
+<div class="panel panel-primary">
+<div class="panel-heading">Settings</div>
 <div class="panel-body">
 		<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" class="form-horizontal">
 		<div class="col-md-4">
     		<label>Management IP</label>
-		<input name="ext" type="text" maxlength="50" value="<?php echo $ext;?>" class="form-control input-md" required=""/> 
+		<input name="ext" type="text" maxlength="50" value="<?php echo $ext;?>" class="form-control input-sm" required=""/> 
 		<span id="helpBlock" class="help-block">Example: Single IP 84.84.84.84/32, All ip 0.0.0.0/0</span>
 		</div>
 		 <span class="label label-primary">Allow services for all IP:</span><br>

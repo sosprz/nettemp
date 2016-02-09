@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">Camera</div>
 <?php
 $link = isset($_POST['link']) ? $_POST['link'] : '';
@@ -41,13 +41,13 @@ if (($access_allonoff == "onoff")){
 ?>
 
 <div class="table-responsive">
-<table class="table table-striped">
+<table class="table table-hover table-condensed small">
 <thead><tr><th>Name</th><th>Link</th><th>Access all</th><th></th></tr></thead>
 <tbody>
     <tr>
 	<form action="" method="post">
-	    <td class="col-md-2"><input type="text" name="name" size="20" value="" class="form-control" required=""/></td>
-	    <td class="col-md-4"><input type="text" name="link" size="30" value="" class="form-control" required=""/></td>
+	    <td class="col-md-2"><input type="text" name="name" size="20" value="" class="form-control input-sm" required=""/></td>
+	    <td class="col-md-4"><input type="text" name="link" size="30" value="" class="form-control input-sm" required=""/></td>
 	    <input type="hidden" name="add" value="add" />
 	    <td class="col-md-1"></td>
 	    <td class="col-md-4"><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>

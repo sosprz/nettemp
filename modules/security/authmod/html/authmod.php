@@ -27,10 +27,8 @@ $am=$a["authmod"];
 
 }
 ?>
-<div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">WWW Authmod</h3>
-</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WWW Authmod</div>
 <div class="panel-body">
     <form action="" method="post">
     <td><input type="checkbox" name="am_onoff" value="on" <?php echo $am == 'on' ? 'checked="checked"' : ''; ?> data-toggle="toggle" data-size="mini" onchange="this.form.submit()" /></td>

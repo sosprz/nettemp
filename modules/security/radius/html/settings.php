@@ -24,11 +24,8 @@ $rad=$a['radius'];
 }
 ?>
 
-<div class="panel panel-default">
-
-<div class="panel-heading">
-<h3 class="panel-title">Radius</h3>
-</div>
+<div class="panel panel-primary">
+<div class="panel-heading">Radius</div>
 <div class="panel-body">
 <form action="" method="post">
 <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="rad_onoff" value="on" <?php echo $rad == 'on' ? 'checked="checked"' : ''; ?> />

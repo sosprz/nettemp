@@ -11,5 +11,4 @@
 #sqlite3 /var/www/nettemp/dbf/nettemp.db "UPDATE sensors SET tmp='41' WHERE rom='Raspberry_Pi'"
 #find /var/www/nettemp/tmp/debug/time/ -type f -print -exec cat {} \;
 #find . -type f -print0 | xargs -0 sed -i 's/sqlite3 $dir/sqlite3 -cmd ".timeout 2000" $dir/g'
-sqlite3 /var/www/nettemp/dbf/nettemp.db ".schema" > /var/www/nettemp/modules/tools/nettemp.schema
 sudo update-alternatives --config editor

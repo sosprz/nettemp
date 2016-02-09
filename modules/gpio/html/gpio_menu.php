@@ -13,7 +13,7 @@ $position = isset($_POST['position']) ? $_POST['position'] : '';
     } 
 ?>
 
-<div class="panel panel-info">
+<div class="panel panel-primary">
 <div class="panel-heading">Status</div>
 <div class="table-responsive">
 <table class="table table-hover table-condensed small" border="0">
@@ -28,7 +28,7 @@ $row = $rows->fetchAll();
 <thead>
 <tr>
 <th>Pos</th>
-<th>GPIO</th>
+<th>Settings</th>
 <th>Name</th>
 <th>Function</th>
 <th>Status</th>
@@ -49,7 +49,7 @@ $row = $rows->fetchAll();
     		</form>
 	</td>
 	<td class="col-md-1">
-		<a href="index.php?id=devices&type=gpio&gpios=<?php echo $b['gpio']?>" class="btn btn-primary btn-xs">GPIO <?php echo $b['gpio']?></a>
+		<a href="index.php?id=devices&type=gpio&gpios=<?php echo $b['gpio']?>" class="btn btn-xs btn-primary ">GPIO <?php echo $b['gpio']?></a>
 	</td>
 	<td class="col-md-1">
                 <span class="label label-default"><?php echo $b["name"]; ?></span>
