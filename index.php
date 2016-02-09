@@ -42,7 +42,7 @@ else {
 <body>
 
  <!-- Static navbar -->
-      <nav class="navbar navbar-primary">
+      <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
 		<a href="http://nettemp.pl" target="_blank"><img src="media/png/nettemp.pl.png" height="50" alt="nettemp.pl"></a>
