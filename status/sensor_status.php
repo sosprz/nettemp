@@ -78,14 +78,13 @@ Go to device scan!
 			    <?php echo $device." ".$type." ".$name;?>
 			</td>
 			<td>
+			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=hour&single=<?php echo $a['name']?>">
 			    <?php if(($a['tmp'] == 'error') || ($label=='danger')) {
 				    echo '<span class="label label-danger">';
 				    } 
 				    else {
 					echo '<span class="label label-success">';
 				    }
-			    ?>
-				<?php
 				    if (is_numeric($a['tmp']) && $a['type']=='elec' || $a['type']=='gas' || $a['type']=='water' )  {
 					echo 	number_format($a['tmp'], 3, '.', ',')." ".$unit." ".$max." ".$min;
 				    } 
@@ -96,12 +95,11 @@ Go to device scan!
 					echo 	number_format($a['tmp'], 1, '.', ',')." ".$unit." ".$max." ".$min;
 				    }
 				    else {
-					echo $a['tmp']." ".$unit." ".$max." ".$min;
+					 echo $a['tmp']." ".$unit." ".$max." ".$min;
 				    }
-		
-				?>
-
+				?>	
 			    </span>
+			    </a>
 			</td>
 			<td>
 		    	    <?php echo $updo; ?>
