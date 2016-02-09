@@ -78,7 +78,7 @@ Go to device scan!
 			    <?php echo $device." ".$type." ".$name;?>
 			</td>
 			<td>
-			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=hour&single=<?php echo $a['name']?>">
+			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=day&single=<?php echo $a['name']?>">
 			    <?php if(($a['tmp'] == 'error') || ($label=='danger')) {
 				    echo '<span class="label label-danger">';
 				    } 
