@@ -2,7 +2,7 @@
 $root=$_SERVER["DOCUMENT_ROOT"];
 $dir="modules/gpio/";
 $db = new PDO("sqlite:$root/dbf/hosts.db") or die ("cannot open database");
-$sth = $db->prepare("select * from hosts WHERE position!=0");
+$sth = $db->prepare("select * from hosts WHERE position!=0 ORDER BY position ASC");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);
