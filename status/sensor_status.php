@@ -45,7 +45,7 @@ Go to device scan!
 		if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png" alt=""/>';} 
 		if($a['type'] == 'temp'){ $unit='&deg;C'; $type='<img src="media/ico/temp2-icon.png" alt=""/>';}
 		if($a['type'] == 'humid'){ $unit='%'; $type='<img src="media/ico/rain-icon.png" alt=""/>';}
-		if($a['type'] == 'press'){ $unit='Pa'; $type='<img src="media/ico/Science-Pressure-icon.png" alt=""/>';}		
+		if($a['type'] == 'press'){ $unit='hPa'; $type='<img src="media/ico/Science-Pressure-icon.png" alt=""/>';}		
 		if($a['type'] == 'water'){ $unit='m3'; $type='<img src="media/ico/water-icon.png" alt=""/>';}		
 		if($a['type'] == 'gas'){ $unit='m3'; $type='<img src="media/ico/gas-icon.png" alt=""/>';}		
 		if($a['type'] == 'elec'){ $unit='kWh'; $type='<img src="media/ico/Lamp-icon.png" alt=""/>';}		
