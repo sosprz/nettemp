@@ -38,6 +38,7 @@ function timedRefresh(timeoutPeriod) {
 $art = isset($_GET['type']) ? $_GET['type'] : '';
 $max = isset($_GET['max']) ? $_GET['max'] : '';
 $group = isset($_GET['group']) ? $_GET['group'] : '';
+$mode = isset($_GET['mode']) ? $_GET['mode'] : '';
 
 $rows1 = $db->query("SELECT type FROM sensors WHERE charts='on'");
 $row1 = $rows1->fetchAll();
@@ -80,7 +81,8 @@ if (in_array('altitude', $type))  {?>
 <?php 
 //}
 if (in_array('elec', $type))  {?>
-<a href="index.php?id=view&type=elec&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'elec' ? ' active' : ''; ?>">Electricity</button></a>
+<a href="index.php?id=view&type=elec&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'elec' && empty($mode) ? ' active' : ''; ?>">Electricity kWh</button></a>
+<a href="index.php?id=view&type=elec&max=day&mode=2" ><button class="btn btn-xs btn-default <?php echo $art == 'elec' && $mode == '2' ? ' active' : ''; ?>">Electricity Wh</button></a>
 <?php } 
 if (in_array('water', $type))  {?>
 <a href="index.php?id=view&type=water&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'water' ? ' active' : ''; ?>">Water</button></a>
@@ -123,16 +125,16 @@ if ( $gre3 >= "1") { ?>
 <a href="index.php?id=view&type=meteogram" ><button class="btn btn-xs btn-default <?php echo $art == 'meteogram' ? ' active' : ''; ?>">Meteogram</button></a>
 </p>
 <?php
-if ($art != 'kwh' && $art!='meteogram') {
+if ($art!='meteogram') {
     ?>
 <p>
-<a href="index.php?id=view&type=<?php echo $art; ?>&max=hour" ><button class="btn btn-xs btn-default <?php echo $max == 'hour' ? ' active' : ''; ?>">Hour</button></a>
-<a href="index.php?id=view&type=<?php echo $art; ?>&max=day" ><button class="btn btn-xs btn-default <?php echo $max == 'day' ? ' active' : ''; ?>">Day</button></a>
-<a href="index.php?id=view&type=<?php echo $art; ?>&max=week" ><button class="btn btn-xs btn-default <?php echo $max == 'week' ? ' active' : ''; ?>">Week</button></a>
-<a href="index.php?id=view&type=<?php echo $art; ?>&max=month" ><button class="btn btn-xs btn-default <?php echo $max == 'month' ? ' active' : ''; ?>">Month</button></a>
-<a href="index.php?id=view&type=<?php echo $art; ?>&max=months" ><button class="btn btn-xs btn-default <?php echo $max == 'months' ? ' active' : ''; ?>">6Month</button></a>
-<a href="index.php?id=view&type=<?php echo $art; ?>&max=year" ><button class="btn btn-xs btn-default <?php echo $max == 'year' ? ' active' : ''; ?>">Year</button></a>
-<a href="index.php?id=view&type=<?php echo $art; ?>&max=all" ><button class="btn btn-xs btn-default <?php echo $max == 'all' ? ' active' : ''; ?>">All</button></a> 
+<a href="index.php?id=view&type=<?php echo $art; ?>&max=hour&mode=<?php echo $mode; ?>" ><button class="btn btn-xs btn-default <?php echo $max == 'hour' ? ' active' : ''; ?>">Hour</button></a>
+<a href="index.php?id=view&type=<?php echo $art; ?>&max=day&mode=<?php echo $mode; ?>" ><button class="btn btn-xs btn-default <?php echo $max == 'day' ? ' active' : ''; ?>">Day</button></a>
+<a href="index.php?id=view&type=<?php echo $art; ?>&max=week&mode=<?php echo $mode; ?>" ><button class="btn btn-xs btn-default <?php echo $max == 'week' ? ' active' : ''; ?>">Week</button></a>
+<a href="index.php?id=view&type=<?php echo $art; ?>&max=month&mode=<?php echo $mode; ?>" ><button class="btn btn-xs btn-default <?php echo $max == 'month' ? ' active' : ''; ?>">Month</button></a>
+<a href="index.php?id=view&type=<?php echo $art; ?>&max=months&mode=<?php echo $mode; ?>" ><button class="btn btn-xs btn-default <?php echo $max == 'months' ? ' active' : ''; ?>">6Month</button></a>
+<a href="index.php?id=view&type=<?php echo $art; ?>&max=year&mode=<?php echo $mode; ?>" ><button class="btn btn-xs btn-default <?php echo $max == 'year' ? ' active' : ''; ?>">Year</button></a>
+<a href="index.php?id=view&type=<?php echo $art; ?>&max=all&mode=<?php echo $mode; ?>" ><button class="btn btn-xs btn-default <?php echo $max == 'all' ? ' active' : ''; ?>">All</button></a> 
 </p>
 <?php
     }

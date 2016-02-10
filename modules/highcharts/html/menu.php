@@ -12,6 +12,7 @@ function getUrlVars() {
     var max = getUrlVars()["max"];
     var single = getUrlVars()["single"];
     var group = getUrlVars()["group"];
+    var mode = getUrlVars()["mode"];
 
 if (type=='temp') { var xval = " °C"}
 if (type=='humid') { var xval = " %"}
@@ -23,6 +24,7 @@ if (type=='lux') { var xval = " lux"}
 if (type=='water') { var xval = " m3"}
 if (type=='gas') { var xval = " m3"}
 if (type=='elec') { var xval = " kWh"}
+if (type=='elec' && mode=='2') { var xval = " Wh"}
 if (type=='hosts') { var xval = " ms"}
 if (type=='volt') { var xval = " V"}
 if (type=='amps') { var xval = " A"}
@@ -40,6 +42,7 @@ parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $url);
 $type=$url['type'];
 $single=$url['single'];
 $group=$url['group'];
+
 
 if ($type == 'system') {
     $array[]=cpu;
@@ -169,7 +172,7 @@ echo "names = ". $js_array . ";\n";
 
     $.each(names, function (i, name) {
 
-        $.getJSON('common/hc_data.php?type='+type+'&name='+name+'&max='+max,  function (data) {
+        $.getJSON('common/hc_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mode,  function (data) {
 
 	if (max=="hour") { var xhour = "hour" }
 	if (max=="day") { var xhour = "hour" }
@@ -179,7 +182,7 @@ echo "names = ". $js_array . ";\n";
 	if (max=="year") { var xhour = "month" }
 	if (max=="all") { var xhour = "year" }
 
-	if (type=="gas"|| type=="water"|| type=="elec") { 
+	if (type=="gas"|| type=="water"|| type=="elec" && mode != 2) {
 	    
             seriesOptions[i] = {
                 name: name,
@@ -194,7 +197,6 @@ echo "names = ". $js_array . ";\n";
                     pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} '+ xval +'</b><br/>',
                     valueDecimals: 3
                 }
-
 	    };
 	    
 	} else if (type=='gpio' || type=='hosts'){
