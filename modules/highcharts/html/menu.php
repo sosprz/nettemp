@@ -28,7 +28,7 @@ if (type=='volt') { var xval = " V"}
 if (type=='amps') { var xval = " A"}
 if (type=='watt') { var xval = " W"}
 if (type=='dist') { var xval = " cm"}
-if (!!type) { var xval = ""}
+//if (!!type) { var xval = ""}
 
 
 $(function () {
