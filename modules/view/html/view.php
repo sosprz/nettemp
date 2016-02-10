@@ -37,6 +37,7 @@ function timedRefresh(timeoutPeriod) {
 <?php 
 $art = isset($_GET['type']) ? $_GET['type'] : '';
 $max = isset($_GET['max']) ? $_GET['max'] : '';
+$group = isset($_GET['group']) ? $_GET['group'] : '';
 
 $rows1 = $db->query("SELECT type FROM sensors WHERE charts='on'");
 $row1 = $rows1->fetchAll();
@@ -44,10 +45,20 @@ foreach($row1 as $hi){
 $type[]=$hi['type'];
 }
 
-$db1 = new PDO('sqlite:dbf/hosts.db');
-$rows1 = $db1->query("SELECT name FROM hosts");
+$dbh = new PDO('sqlite:dbf/hosts.db');
+$rows1 = $dbh->query("SELECT name FROM hosts");
 $row1 = $rows1->fetchAll();
 $hostc = count($row1);
+
+$gr1 = $db->query("SELECT * FROM sensors WHERE ch_group='1'");
+$grp1 = $gr1->fetchAll();
+$gre1 = count($grp1);
+$gr2 = $db->query("SELECT * FROM sensors WHERE ch_group='2'");
+$grp2 = $gr2->fetchAll();
+$gre2 = count($grp2);
+$gr3 = $db->query("SELECT * FROM sensors WHERE ch_group='3'");
+$grp3 = $gr3->fetchAll();
+$gre3 = count($grp3);
 
 
 //print_r($type);
@@ -98,7 +109,16 @@ if ( $hostc >= "1")  {?>
 if (in_array('dist', $type))  {?>
 <a href="index.php?id=view&type=dist&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'dist' ? ' active' : ''; ?>">Distance</button></a>
 <?php } 
-?>
+if ( $gre1 >= "1") { ?>
+<a href="index.php?id=view&type=group&group=1&max=day" ><button class="btn btn-xs btn-default <?php echo $group == '1' ? ' active' : ''; ?>">Group 1</button></a>
+<?php } 
+if ( $gre2 >= "1") { ?>
+<a href="index.php?id=view&type=group&group=2&max=day" ><button class="btn btn-xs btn-default <?php echo $group == '2' ? ' active' : ''; ?>">Group 2</button></a>
+<?php } 
+if ( $gre3 >= "1") { ?>
+<a href="index.php?id=view&type=group&group=3&max=day" ><button class="btn btn-xs btn-default <?php echo $group == '3' ? ' active' : ''; ?>">Group 3</button></a>
+<?php } ?>
+
 <a href="index.php?id=view&type=system&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'system' ? ' active' : ''; ?>">System stats</button></a>
 <a href="index.php?id=view&type=meteogram" ><button class="btn btn-xs btn-default <?php echo $art == 'meteogram' ? ' active' : ''; ?>">Meteogram</button></a>
 </p>

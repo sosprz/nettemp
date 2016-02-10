@@ -11,6 +11,7 @@ function getUrlVars() {
     var type = getUrlVars()["type"];
     var max = getUrlVars()["max"];
     var single = getUrlVars()["single"];
+    var group = getUrlVars()["group"];
 
 if (type=='temp') { var xval = " °C"}
 if (type=='humid') { var xval = " %"}
@@ -36,6 +37,7 @@ $(function () {
 parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $url);
 $type=$url['type'];
 $single=$url['single'];
+$group=$url['group'];
 
 if ($type == 'system') {
     $array[]=cpu;
@@ -63,6 +65,14 @@ elseif ($single) {
 $dirb = "sqlite:dbf/nettemp.db";
 $dbh = new PDO($dirb) or die("cannot open database");
 $query = "select name FROM sensors WHERE type='$type' AND charts='on' AND name='$single'";
+foreach ($dbh->query($query) as $row) {
+    $array[]=$row[0];
+    }
+}
+elseif ($group) {
+$dirb = "sqlite:dbf/nettemp.db";
+$dbh = new PDO($dirb) or die("cannot open database");
+$query = "select name FROM sensors WHERE ch_group='$group' AND charts='on'";
 foreach ($dbh->query($query) as $row) {
     $array[]=$row[0];
     }

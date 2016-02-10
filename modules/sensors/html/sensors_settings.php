@@ -93,6 +93,14 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+    $ch_group = isset($_POST['ch_group']) ? $_POST['ch_group'] : '';
+    $ch_grouponoff = isset($_POST['ch_grouponoff']) ? $_POST['ch_grouponoff'] : '';
+    $ch_groupon = isset($_POST['ch_groupon']) ? $_POST['ch_groupon'] : '';
+    if (($ch_grouponoff == "onoff")){
+    $db->exec("UPDATE sensors SET ch_group='$ch_groupon' WHERE id='$ch_group'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 
 ?> 
 
@@ -113,14 +121,12 @@ $row = $rows->fetchAll();
 <tr>
 <th>Pos</th>	
 <th>Name</th>
-<!-- <th>Rom</th>
-<th>U.Time</th> -->
 <th>DB</th>
-<!-- <th>Value</th> -->
 <th>Adjust</th>
 <th>Counters</th>
 <th>Alarm</th>
 <th>Min/Max</th>
+<th>Group</th>
 <th>LCD</th>
 <th>Charts</th>
 <th>Node</th>
@@ -163,7 +169,7 @@ $row = $rows->fetchAll();
 	if (file_exists($file3) && ( 0 != filesize($file3)))
 	{
 ?>
-<td class="col-md-5">
+<td class="col-md-4">
     <span class="label label-success" title="Last update: <?php echo $a["time"] ?>">ok</span>
     <span class="label label-default"><?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3)."MB" ?></span>
     <span class="label label-default">
@@ -202,7 +208,6 @@ else { ?>
 	}
     ?>
     </td>
-
     <td class="col-md-1"">
     <?php if (in_array($a['type'], $counters)) { ?>
     <form action="" method="post" style="display:inline!important;">
@@ -233,7 +238,18 @@ else { ?>
 	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
     </td>
-
+    <td class="col-md-1">
+    <form action="" method="post">
+    <select name="ch_groupon" class="form-control input-sm small" onchange="this.form.submit()">
+	    <option value="1"  <?php echo $a['ch_group'] == 1 ? 'selected="selected"' : ''; ?>  >1</option>
+	    <option value="2"  <?php echo $a['ch_group'] == 2 ? 'selected="selected"' : ''; ?>  >2</option>
+	    <option value="3"  <?php echo $a['ch_group'] == 3 ? 'selected="selected"' : ''; ?>  >3</option>
+	    <option value="0"  <?php echo $a['ch_group'] == 0 ? 'selected="selected"' : ''; ?>  >none</option>
+    </select>
+    <input type="hidden" name="ch_grouponoff" value="onoff" />
+    <input type="hidden" name="ch_group" value="<?php echo $a['id']; ?>" />
+    </form>
+    </td>
     <td >
     <form action="" method="post" style="display:inline!important;"> 	
 	<input type="hidden" name="lcdid" value="<?php echo $a["id"]; ?>" />

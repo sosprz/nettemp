@@ -86,6 +86,27 @@ elseif ($type == 'gpio') {
 
 }
 
+elseif ($type == 'group'){
+//sensors
+    $db = new PDO("sqlite:$root/dbf/nettemp.db");
+    $rows = $db->query("SELECT * FROM sensors WHERE name='$name'");
+    $row = $rows->fetchAll();
+    foreach($row as $a) {
+	$file=$a['rom'];
+	$adj=$a['adj'];
+    }
+
+    $dirb = "sqlite:$root/db/$file.sql";
+    $dbh = new PDO($dirb) or die("cannot open database");
+
+    query($max,$query);
+
+    foreach ($dbh->query($query) as $row) {
+	$line=[($row[0])*1000 . "," . ($row[1]+$adj)];
+	$array[]=$line;
+    }
+    print str_replace('"', "",json_encode($array));
+}
 
 else {
 //sensors
