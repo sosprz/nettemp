@@ -20,22 +20,25 @@ if ($a['mode'] != 'read') {
 ?>
 <tr <?php echo $a['status'] == 'ALARM' ? 'class="danger"' : '' ?>>
     <td colspan="3">
+		<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $a['name']?>" title="Last update: <?php echo $a['status']?>"
 		<?php 
 		    if (strpos($a['status'],'ON') !== false) { 
-		?>
-		    <span class="label label-success">
+		?>  
+		    class="label label-success"
 		<?php
 		    } else {
 		?>
-		    <span class="label label-danger">
+		    class="label label-danger"
 		<?php
 		    }
 		?>
+		>
 		    <img src="media/ico/SMD-64-pin-icon_24.png" alt="" />
-		<?php 
+		<?php
 		    echo $a['name']." ".$a['status']; 
 		?>
 		    </span>
+		</a>
     </td>
 </tr>
 

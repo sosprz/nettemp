@@ -75,22 +75,22 @@ if ( $numRows > '0' ) { ?>
 	</td>
 	<td>
 	    <small>
-	    <span class="label label-danger">
+	    <a href="index.php?id=view&type=elec&max=day&single=<?php echo $a['name']?>" class="label label-danger">
 		<?php
 		    echo number_format($a['sum'], 2, '.', ',')." ";
 		?>
-	    </span>
+	    </a>
 	    </small>
 	</td>
 	<td>
 	    <small>
-	    <span class="label label-warning">
+	    <a href="index.php?id=view&type=elec&max=day&single=<?php echo $a['name']?>&mode=2" class="label label-warning">
 		<?php
 		$rows = $dbs->query("SELECT current AS sums from def where time = (select max(time) from def)") or die('lol');
 		$i = $rows->fetch(); 
 		echo number_format($i['sums'], 3, '.', ',')." ";
 		?>
-	    </span>
+	    </a>
 	    </small>
 	</td>
 	

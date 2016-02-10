@@ -50,7 +50,7 @@ if ($type == 'system') {
     $array[]=memory_cached;
 }
 
-elseif ($type == 'hosts') {
+elseif ($type == 'hosts' && empty($single)) {
     $dirb = "sqlite:dbf/hosts.db";
     $dbh = new PDO($dirb) or die("cannot open database");
     $query = "SELECT name FROM hosts";
@@ -58,7 +58,16 @@ elseif ($type == 'hosts') {
 	$array[]=$row[0];
     }
 }
-elseif ($type == 'gpio') {
+elseif ($type == 'hosts' && $single) {
+    $dirb = "sqlite:dbf/hosts.db";
+    $dbh = new PDO($dirb) or die("cannot open database");
+    $query = "SELECT name FROM hosts WHERE name='$single'";
+    foreach ($dbh->query($query) as $row) {
+	$array[]=$row[0];
+    }
+}
+
+elseif ($type == 'gpio' && empty($single)) {
 $dirb = "sqlite:dbf/nettemp.db";
 $dbh = new PDO($dirb) or die("cannot open database");
 $query = "select name FROM gpio WHERE mode!='humid'";
@@ -66,10 +75,18 @@ foreach ($dbh->query($query) as $row) {
     $array[]=$row[0];
     }
 }
+elseif ($type == 'gpio' && $single) {
+$dirb = "sqlite:dbf/nettemp.db";
+$dbh = new PDO($dirb) or die("cannot open database");
+$query = "select name FROM gpio WHERE mode!='humid' AND name='$single'";
+foreach ($dbh->query($query) as $row) {
+    $array[]=$row[0];
+    }
+}
 elseif ($single) {
 $dirb = "sqlite:dbf/nettemp.db";
 $dbh = new PDO($dirb) or die("cannot open database");
-$query = "select name FROM sensors WHERE type='$type' AND charts='on' AND name='$single'";
+$query = "select name FROM sensors WHERE type='$type' AND name='$single'";
 foreach ($dbh->query($query) as $row) {
     $array[]=$row[0];
     }
