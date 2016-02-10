@@ -24,7 +24,7 @@ if (type=='lux') { var xval = " lux"}
 if (type=='water') { var xval = " m3"}
 if (type=='gas') { var xval = " m3"}
 if (type=='elec') { var xval = " kWh"}
-if (type=='elec' && mode=='2') { var xval = " Wh"}
+if (type=='elec' && mode=='2') { var xval = " W"}
 if (type=='hosts') { var xval = " ms"}
 if (type=='volt') { var xval = " V"}
 if (type=='amps') { var xval = " A"}
