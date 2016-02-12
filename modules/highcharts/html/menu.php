@@ -30,8 +30,6 @@ if (type=='volt') { var xval = " V"}
 if (type=='amps') { var xval = " A"}
 if (type=='watt') { var xval = " W"}
 if (type=='dist') { var xval = " cm"}
-//if (!!type) { var xval = ""}
-
 
 $(function () {
     var seriesOptions = [],
@@ -48,6 +46,9 @@ if ($type == 'system') {
     $array[]=cpu;
     $array[]=memory;
     $array[]=memory_cached;
+    foreach($array as $row) {
+	$types[$row]='system';
+    }
 }
 
 elseif ($type == 'hosts' && empty($single)) {
@@ -56,6 +57,7 @@ elseif ($type == 'hosts' && empty($single)) {
     $query = "SELECT name FROM hosts";
     foreach ($dbh->query($query) as $row) {
 	$array[]=$row[0];
+	$types[$row[0]]='hosts';
     }
 }
 elseif ($type == 'hosts' && $single) {
@@ -64,6 +66,7 @@ elseif ($type == 'hosts' && $single) {
     $query = "SELECT name FROM hosts WHERE name='$single'";
     foreach ($dbh->query($query) as $row) {
 	$array[]=$row[0];
+	$types[$row[0]]='hosts';
     }
 }
 
@@ -73,6 +76,7 @@ $dbh = new PDO($dirb) or die("cannot open database");
 $query = "select name FROM gpio WHERE mode!='humid'";
 foreach ($dbh->query($query) as $row) {
     $array[]=$row[0];
+    $types[$row[0]]="gpio";
     }
 }
 elseif ($type == 'gpio' && $single) {
@@ -81,37 +85,41 @@ $dbh = new PDO($dirb) or die("cannot open database");
 $query = "select name FROM gpio WHERE mode!='humid' AND name='$single'";
 foreach ($dbh->query($query) as $row) {
     $array[]=$row[0];
+    $types[$row[0]]="gpio";
     }
 }
 elseif ($single) {
 $dirb = "sqlite:dbf/nettemp.db";
 $dbh = new PDO($dirb) or die("cannot open database");
-$query = "select name FROM sensors WHERE type='$type' AND name='$single'";
+$query = "select name,type FROM sensors WHERE type='$type' AND name='$single'";
 foreach ($dbh->query($query) as $row) {
     $array[]=$row[0];
+    $types[$row[0]]=$row[1];
     }
 }
 elseif ($group) {
 $dirb = "sqlite:dbf/nettemp.db";
 $dbh = new PDO($dirb) or die("cannot open database");
-$query = "select name FROM sensors WHERE ch_group='$group' AND charts='on'";
+$query = "select name,type FROM sensors WHERE ch_group='$group' AND charts='on'";
 foreach ($dbh->query($query) as $row) {
     $array[]=$row[0];
+    $types[$row[0]]=$row[1];
     }
 }
 else {
 $dirb = "sqlite:dbf/nettemp.db";
 $dbh = new PDO($dirb) or die("cannot open database");
-$query = "select name FROM sensors WHERE type='$type' AND charts='on'";
+$query = "select name,type FROM sensors WHERE type='$type' AND charts='on'";
 foreach ($dbh->query($query) as $row) {
     $array[]=$row[0];
+    $types[$row[0]]=$row[1];
     }
 }
 
-
-
 $js_array = json_encode($array);
-echo "names = ". $js_array . ";\n";
+echo "names = ". $js_array .";\n";
+$types = json_encode($types);
+echo "types = ". $types .";\n";
 ?>
 	
 
@@ -143,12 +151,8 @@ echo "names = ". $js_array . ";\n";
         	},
 		
 		title: {
-    		    text: 'by '+max
+    		    text: max
     		},
-
-        	subtitle: {
-            	    text: 'nettemp jest spoko ale nie ma wykresów'
-        	},
 
 		legend: {
 		enabled: true,
@@ -156,17 +160,33 @@ echo "names = ". $js_array . ";\n";
 		align: 'center',
 		y: 0,
         	labelFormatter: function() {
-                var lastVal = this.yData[this.yData.length - 1];
-                    return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + xval +'</b> </n>';
+            	    var lastVal = this.yData[this.yData.length - 1];
+		    if (types[this.name]=='temp') { var xvall = " °C"};
+		    if (types[this.name]=='humid') { var xvall = " %"};
+		    if (types[this.name]=='press') { var xvall = " hPa"};
+		    if (types[this.name]=='gpio') { var xvall = " H/L"};
+		    if (types[this.name]=='host') { var xvall = " ms"};
+		    if (types[this.name]=='system') { var xvall = " %"};
+		    if (types[this.name]=='lux') { var xvall = " lux"};
+		    if (types[this.name]=='water') { var xvall = " m3"};
+		    if (types[this.name]=='gas') { var xvall = " m3"};
+	    	    if (types[this.name]=='elec') { var xvall = " kWh"};
+		    if (types[this.name]=='elec' && mode=='2') { var xvall = " W"};
+		    if (types[this.name]=='hosts') { var xvall = " ms"};
+		    if (types[this.name]=='volt') { var xvall = " V"};
+		    if (types[this.name]=='amps') { var xvall = " A"};
+		    if (types[this.name]=='watt') { var xvall = " W"};
+		    if (types[this.name]=='dist') { var xvall = " cm"};
+
+		    return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + xvall +'</b> </n>';
         	    }
 		},
 
-	    
-		yAxis: {
-        	title: {
-            	    text: '('+xval+')'
-        	}
-    		},
+		//yAxis: {
+        	//title: {
+            	//    text: '('+xval+')'
+        	//}
+    		//},
 
 		plotOptions: {
     		series: {
@@ -174,11 +194,6 @@ echo "names = ". $js_array . ";\n";
                 
     		}
 		},
-
-                tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} '+ xval +'</b><br/>',
-                    valueDecimals: 2
-                },
 
                 series: seriesOptions
 
@@ -188,6 +203,23 @@ echo "names = ". $js_array . ";\n";
         };
 
     $.each(names, function (i, name) {
+
+    if (types[name]=='temp') { var xvall = " °C"}
+    if (types[name]=='humid') { var xvall = " %"}
+    if (types[name]=='press') { var xvall = " hPa"}
+    if (types[name]=='gpio') { var xvall = " H/L"}
+    if (types[name]=='host') { var xvall = " ms"}
+    if (types[name]=='system') { var xvall = " %"}
+    if (types[name]=='lux') { var xvall = " lux"}
+    if (types[name]=='water') { var xvall = " m3"}
+    if (types[name]=='gas') { var xvall = " m3"}
+    if (types[name]=='elec') { var xvall = " kWh"}
+    if (types[name]=='elec' && mode=='2') { var xvall = " W"}
+    if (types[name]=='hosts') { var xvall = " ms"}
+    if (types[name]=='volt') { var xvall = " V"}
+    if (types[name]=='amps') { var xvall = " A"}
+    if (types[name]=='watt') { var xvall = " W"}
+    if (types[name]=='dist') { var xvall = " cm"}
 
         $.getJSON('common/hc_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mode,  function (data) {
 
@@ -211,7 +243,7 @@ echo "names = ". $js_array . ";\n";
 		units: [[xhour,[1]]]
 		},
 		tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} '+ xval +'</b><br/>',
+		    valueSuffix: xvall, 
                     valueDecimals: 3
                 }
 	    };
@@ -220,15 +252,25 @@ echo "names = ". $js_array . ";\n";
 		seriesOptions[i] = {
                 name: name,
                 data: data,
-		step: true
-		};
+		step: true,
+		tooltip: {
+		    valueSuffix: xvall, 
+                    valueDecimals: 2
+                }
+	    };
 	
 	} else {
 		seriesOptions[i] = {
                 name: name,
                 data: data,
-		type: 'spline'
-    		};
+		type: 'spline',
+		tooltip: { 
+		    valueSuffix: xvall, 
+		    valueDecimals: 2
+		},
+    	    };
+		
+		
         }
 	    
 
@@ -237,7 +279,7 @@ echo "names = ". $js_array . ";\n";
             seriesCounter += 1;
 	    
             if (seriesCounter === names.length) {
-               createChart();
+               createChart(xvall);
 	    
             }
         });
