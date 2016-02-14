@@ -11,7 +11,7 @@ sysctl -p
 else 
 echo "Forward exist"
 fi
-#PERMS FOR SAVE
+mkdir -p /etc/iptables
 touch /etc/iptables/rules.v4
 chgrp www-data /etc/iptables/rules.v4
 chmod 664 /etc/iptables/rules.v4
