@@ -4,6 +4,7 @@ aptitude -y install php5-fpm
 mv /etc/lighttpd/conf-available/15-fastcgi-php.conf /etc/lighttpd/conf-available/15-fastcgi-php.conf.old
 cp /var/www/nettemp/install/conf/15-fastcgi-php.conf /etc/lighttpd/conf-available/
 sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 300M/g' /etc/php5/fpm/php.ini
+sed -i 's/post_max_size = 8M/post_max_size = 300M/g' /etc/php5/fpm/php.ini
 /etc/init.d/php5-fpm restart
 /etc/init.d/lighttpd stop
 /etc/init.d/lighttpd start

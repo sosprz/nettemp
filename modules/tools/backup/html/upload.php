@@ -9,6 +9,7 @@
 <?php
 //Сheck that we have a file
 if((!empty($_FILES["uploaded_file"])) && ($_FILES['uploaded_file']['error'] == 0)) {
+    mkdir("tmp/backup", 0775);
   //Check if the file is JPEG image and it's size is less than 350Kb
   $filename = basename($_FILES['uploaded_file']['name']);
   $ext = substr($filename, strrpos($filename, '.') + 1);

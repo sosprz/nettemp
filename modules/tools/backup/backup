@@ -4,8 +4,8 @@ dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M%S`
 action="$1"
 file="$2"
-mkdir -p $dir/tmp/backup > /dev/null
-mkdir -p $dir/tmp/restore > /dev/null
+mkdir -p $dir/tmp/backup 
+mkdir -p $dir/tmp/restore 
 
 if [ -n "$1" ] || [ -n "$2" ]
     then
@@ -18,7 +18,7 @@ if [ $action = "b" ]
         tar -rpvf nettemp-$date.tar.gz -C $dir/dbf/ .
 	tar -rpvf nettemp-$date.tar.gz commit
 	chmod 775 nettemp-$date.tar.gz
-	rm -rf $dir/tmp/bbackup/commit
+	rm -rf $dir/tmp/backup/commit
 fi
 if [ $action = "r" ] && [ -n "$file" ]
     then
