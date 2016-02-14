@@ -17,6 +17,7 @@ if [ $action = "b" ]
 	tar -rpvf nettemp-$date.tar.gz -C $dir/db/ .
         tar -rpvf nettemp-$date.tar.gz -C $dir/dbf/ .
 	tar -rpvf nettemp-$date.tar.gz commit
+	tar -rpvf nettemp-$date.tar.gz -C $dir/tmp/ownwidget* .
 	chmod 775 nettemp-$date.tar.gz
 	rm -rf $dir/tmp/backup/commit
 fi
@@ -27,6 +28,7 @@ if [ $action = "r" ] && [ -n "$file" ]
 	rm -rf $dir/dbf/*
 	mv -f $dir/tmp/restore/*.sql $dir/db/
 	mv -f $dir/tmp/restore/*.db $dir/dbf/
+	mv -f $dir/tmp/restore/ownwidget* $dir/tmp/
 	chmod 775 $dir/dbf/nettemp.db
 	git reset --hard $(cat $dir/tmp/restore/commit)
 	rm -rf $dir/tmp/restore/* 
