@@ -113,6 +113,8 @@ Go to device scan!
     unset($min);
     unset($label);
     unset($updo);
+    unset($device);
+    unset($unit);
      } 
 ?>
     </tbody>
