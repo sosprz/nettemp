@@ -93,11 +93,19 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+    $ch_group = isset($_POST['ch_group']) ? $_POST['ch_group'] : '';
+    $ch_grouponoff = isset($_POST['ch_grouponoff']) ? $_POST['ch_grouponoff'] : '';
+    $ch_groupon = isset($_POST['ch_groupon']) ? $_POST['ch_groupon'] : '';
+    if (($ch_grouponoff == "onoff")){
+    $db->exec("UPDATE sensors SET ch_group='$ch_groupon' WHERE id='$ch_group'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 
 ?> 
 
 
-<div class="panel panel-info">
+<div class="panel panel-default">
 <div class="panel-heading">Sensors</div>
 
 <div class="table-responsive">
@@ -113,14 +121,12 @@ $row = $rows->fetchAll();
 <tr>
 <th>Pos</th>	
 <th>Name</th>
-<!-- <th>Rom</th>
-<th>U.Time</th> -->
 <th>DB</th>
-<!-- <th>Value</th> -->
 <th>Adjust</th>
 <th>Counters</th>
 <th>Alarm</th>
 <th>Min/Max</th>
+<th>Group</th>
 <th>LCD</th>
 <th>Charts</th>
 <th>Node</th>
@@ -141,7 +147,7 @@ $row = $rows->fetchAll();
     <form action="" method="post" style="display:inline!important;">
 	<input type="hidden" name="position_id" value="<?php echo $a["id"]; ?>" />
 	<input type="text" name="position" size="1" maxlength="3" value="<?php echo $a['position']; ?>" />
-	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="positionok" value="ok" />
     </form>
     </td>
@@ -151,7 +157,7 @@ $row = $rows->fetchAll();
 <!-- 	<img src="media/ico/TO-220-icon.png"/> -->
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="name_new" size="6" maxlength="30" value="<?php echo $a["name"]; ?>" />
-	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="id_name2" value="id_name3"/>
     </form>
@@ -163,10 +169,9 @@ $row = $rows->fetchAll();
 	if (file_exists($file3) && ( 0 != filesize($file3)))
 	{
 ?>
-<td class="col-md-5">
-    <span class="label label-success">ok</span>
+<td class="col-md-4">
+    <span class="label label-success" title="Last update: <?php echo $a["time"] ?>">ok</span>
     <span class="label label-default"><?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3)."MB" ?></span>
-    <span class="label label-default"><?php echo str_replace("-", "", $a["time"]); ?></span>
     <span class="label label-default">
 	<?php 
 	    $rom=$a["rom"];
@@ -195,7 +200,7 @@ else { ?>
     <?php if ($a["device"] != 'remote') { ?>
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="adj" size="2" maxlength="30" value="<?php echo $a["adj"]; ?>" required="" <?php echo $a["device"] == 'remote' ? 'disabled' : ''; ?> />
-	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="adj1" value="adj2"/>
     </form>
@@ -203,12 +208,11 @@ else { ?>
 	}
     ?>
     </td>
-
     <td class="col-md-1"">
     <?php if (in_array($a['type'], $counters)) { ?>
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="sum" size="2" maxlength="30" value="<?php echo $a["sum"]; ?>" required=""/>
-	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="sum1" value="sum2"/>
     </form>
@@ -231,10 +235,21 @@ else { ?>
 	<input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" />
 	<input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" />
 	<input type="hidden" name="ok" value="ok" />
-	<button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
     </td>
-
+    <td class="col-md-1">
+    <form action="" method="post">
+    <select name="ch_groupon" class="form-control input-sm small" onchange="this.form.submit()">
+	    <option value="1"  <?php echo $a['ch_group'] == 1 ? 'selected="selected"' : ''; ?>  >1</option>
+	    <option value="2"  <?php echo $a['ch_group'] == 2 ? 'selected="selected"' : ''; ?>  >2</option>
+	    <option value="3"  <?php echo $a['ch_group'] == 3 ? 'selected="selected"' : ''; ?>  >3</option>
+	    <option value="0"  <?php echo $a['ch_group'] == 0 ? 'selected="selected"' : ''; ?>  >none</option>
+    </select>
+    <input type="hidden" name="ch_grouponoff" value="onoff" />
+    <input type="hidden" name="ch_group" value="<?php echo $a['id']; ?>" />
+    </form>
+    </td>
     <td >
     <form action="" method="post" style="display:inline!important;"> 	
 	<input type="hidden" name="lcdid" value="<?php echo $a["id"]; ?>" />

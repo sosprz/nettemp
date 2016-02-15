@@ -219,7 +219,7 @@ if ($$temp_set == "on") {
 <td class="col-md-1">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="<?php echo temp_set.$v ?>" value="on" />
-	<button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-save"></span> Save</button>
+	<button type="submit" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-save"></span> Save</button>
 </form>
 
 <?php if ($v == '1' && $fnum <= '9') { ?>

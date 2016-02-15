@@ -10,6 +10,12 @@ if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/1h'
 	sudo sed -i '$a0 * * * * '$dir'/modules/cron/1h' /var/spool/cron/crontabs/root
 fi
 
+if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/00h'
+    then
+    sudo sed -i '$a00 00 * * * '$dir'/modules/cron/00h' /var/spool/cron/crontabs/root
+fi
+
+
 touch $dir/tmp/cronr
 
 if [ ! -f /usr/local/lib/python2.7/dist-packages/Adafruit_BMP-*.egg ]; then 

@@ -4,8 +4,8 @@ dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M%S`
 action="$1"
 file="$2"
-mkdir -p $dir/tmp/backup > /dev/null
-mkdir -p $dir/tmp/restore > /dev/null
+mkdir -p $dir/tmp/backup 
+mkdir -p $dir/tmp/restore 
 
 if [ -n "$1" ] || [ -n "$2" ]
     then
@@ -16,9 +16,12 @@ if [ $action = "b" ]
 	cd $dir/tmp/backup
 	tar -rpvf nettemp-$date.tar.gz -C $dir/db/ .
         tar -rpvf nettemp-$date.tar.gz -C $dir/dbf/ .
-	tar -rpvf nettemp-$date.tar.gz commit
+	tar -rpvf nettemp-$date.tar.gz commit 
+	cd $dir/tmp
+	tar -rpvf $dir/tmp/backup/nettemp-$date.tar.gz ownwidget*
+	cd -
 	chmod 775 nettemp-$date.tar.gz
-	rm -rf $dir/tmp/bbackup/commit
+	rm -rf $dir/tmp/backup/commit
 fi
 if [ $action = "r" ] && [ -n "$file" ]
     then
@@ -27,6 +30,7 @@ if [ $action = "r" ] && [ -n "$file" ]
 	rm -rf $dir/dbf/*
 	mv -f $dir/tmp/restore/*.sql $dir/db/
 	mv -f $dir/tmp/restore/*.db $dir/dbf/
+	mv -f $dir/tmp/restore/ownwidget* $dir/tmp/
 	chmod 775 $dir/dbf/nettemp.db
 	git reset --hard $(cat $dir/tmp/restore/commit)
 	rm -rf $dir/tmp/restore/* 

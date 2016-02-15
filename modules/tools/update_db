@@ -238,4 +238,19 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD COLUMN
 sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "ALTER TABLE snmp ADD type type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD MCP23017 type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD alarm type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE camera ADD access_all type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "ALTER TABLE snmp ADD version type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "UPDATE snmp SET version='2c' WHERE version is null";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD ups_status type TEXT";
+
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL";
+
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD position type NUM";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET position='1' WHERE position is null";
+
+sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD position type NUM";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "UPDATE hosts SET position='1' WHERE position is null";
+
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD ch_group type NUM";
+
 

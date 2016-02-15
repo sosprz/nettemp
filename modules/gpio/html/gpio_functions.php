@@ -111,6 +111,14 @@ $map_num=substr(rand(), 0, 4);
 	exit();
     }
 
+    $diston = isset($_POST['diston']) ? $_POST['diston'] : '';
+    if ($diston == "diston")  {
+	$db->exec("UPDATE gpio SET mode='dist' WHERE gpio='$gpio_post'") or die("exec error");
+	$db = null;
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+    }
+
 //simple
     $simpleon = isset($_POST['simpleon']) ? $_POST['simpleon'] : '';
     if ($simpleon == "simpleon")  {
@@ -186,54 +194,54 @@ $map_num=substr(rand(), 0, 4);
 include('gpio_rev.php');
 ?>
     <form action="" method="post" style=" display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary">Simple on/off</button>
+	<button type="submit" class="btn btn-xs btn-success">Simple on/off</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="simpleon" value="simpleon" />
     </form>
     <form action="" method="post" style=" display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Moment on/off</button>
+	<button type="submit" class="btn btn-xs btn-success"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Moment on/off</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="momenton" value="momenton" />
     </form>
 
     <form action="" method="post" style=" display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Time</button>
+	<button type="submit" class="btn btn-xs btn-success"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Time</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="timeon" value="timeon" />   
    </form>
     <form action="" method="post" style=" display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Day-Week plan</button>
+	<button type="submit" class="btn btn-xs btn-success"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Day-Week plan</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="dayon" value="dayon" />
     </form>
 <!--    <form action="" method="post" style=" display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Week plan</button>
+	<button type="submit" class="btn btn-xs btn-success"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Week plan</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="weekon" value="weekon" />
     </form>
 -->
     <form action="" method="post" style=" display:inline!important;">
-	<button class="btn btn-xs btn-primary"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Temperature</button>
+	<button class="btn btn-xs btn-success"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Temperature</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="tempon" value="tempon" />
     </form>
     <form action="" method="post" style=" display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>DHT11/22</button>
+	<button type="submit" class="btn btn-xs btn-success"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>DHT11/22</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio'];?>"/>
 	<input type="hidden" name="humidon" value="humidon" />
     </form> 
     <form action="" method="post" style=" display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Trigger</button>
+	<button type="submit" class="btn btn-xs btn-success"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Trigger</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="triggeron" value="triggeron" />
     </form>
     <form action="" method="post" style="display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Trigger out</button>
+	<button type="submit" class="btn btn-xs btn-success"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Trigger out</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="triggerout" value="triggerout" />
     </form>
     <form action="" method="post" style="display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Control</button>
+	<button type="submit" class="btn btn-xs btn-success"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Control</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="control" value="on" />
 	
@@ -241,7 +249,7 @@ include('gpio_rev.php');
 <?php
 //if (empty($mode5)){ ?>
     <form action="" method="post" style="display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>On/Off on 2sec over call</button>
+	<button type="submit" class="btn btn-xs btn-success"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>On/Off on 2sec over call</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="call" value="on" />
     </form>
@@ -249,7 +257,7 @@ include('gpio_rev.php');
 //}
 if (empty($mode4)){ ?>
     <form action="" method="post" style="display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>LED</button>
+	<button type="submit" class="btn btn-xs btn-success"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>LED</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="led" value="on" />
 	
@@ -258,7 +266,7 @@ if (empty($mode4)){ ?>
 }
 if (empty($mode2)) { ?>
     <form action="" method="post" style="display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary" <?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Buzzer</button>
+	<button type="submit" class="btn btn-xs btn-success" <?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Buzzer</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="buzzeron" value="buzzeron" />
     </form>
@@ -266,25 +274,42 @@ if (empty($mode2)) { ?>
 }
 ?>
     <form action="" method="post" style=" display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary" <?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Electricity counter</button>
+	<button type="submit" class="btn btn-xs btn-success" <?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Electricity counter</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="elecon" value="elecon" />
     </form>
     <form action="" method="post" style=" display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary" <?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Water counter</button>
+	<button type="submit" class="btn btn-xs btn-success" <?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Water counter</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="wateron" value="wateron" />
     </form>
     <form action="" method="post" style=" display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Gas counter</button>
+	<button type="submit" class="btn btn-xs btn-success"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Gas counter</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="gason" value="gason" />
     </form>
     <form action="" method="post" style=" display:inline!important;">
-	<button type="submit" class="btn btn-xs btn-primary"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Read status</button>
+	<button type="submit" class="btn btn-xs btn-success"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Read status</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="readon" value="readon" />
     </form>
+<?php 
+    if ($a['gpio']=='23' || $a['gpio']=='24') { 
+?>  
+    <form action="" method="post" style=" display:inline!important;">
+	<button type="submit" class="btn btn-xs btn-success"<?php echo $a['gpio']>='100' ? 'disabled': '' ?>>Distance</button>
+	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="diston" value="diston" />
+    </form>
+<?php 
+    }
+?>
+<form action="" method="post" style="display:inline!important;">
+        <input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
+        <input type="hidden" type="submit" name="gpiodel" value="gpiodel" />
+        <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-stop"></span> Remove</button>
+</form>
+
 
 
 

@@ -10,13 +10,11 @@ $log_del = isset($_POST['log_del']) ? $_POST['log_del'] : '';
 
 	 ?>	
 <div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Logs form nettemp</h3>
-</div>
+<div class="panel-heading">Logs</div>
 <div class="panel-body">
 
 <form action="index.php?id=tools&type=log" method="post">
-    <input type="submit" name="log_del" value="Clear" class="btn btn-danger" />
+    <input type="submit" name="log_del" value="Clear" class="btn btn-xs btn-danger" />
 </form>
 <br />
 <div style="height:300px;overflow:auto;padding:5px;">

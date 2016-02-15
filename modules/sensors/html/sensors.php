@@ -66,8 +66,16 @@ $name_new=trim($name_new2);
 	elseif (strpos($id_rom_new,'watt') !== false) {
 	    $type='watt';
 	}
+	elseif (strpos($id_rom_new,'dist') !== false) {
+	    $type='dist';
+	}
 	else {
-	    $type='temp';
+	    if (substr($id_rom_new, 0, 4 ) === "0x26") {
+		$type='humid';
+	    } 
+	    else {
+		$type='temp';
+	    }
         }
 
 	//method
@@ -175,7 +183,7 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 	<div class="panel panel-warning">
 	    <div class="panel-heading">Name <?php echo $rep; ?> already exist in database.</div>
 	    <div class="panel-body">
-		<button type="button" class="btn btn-primary" onclick="goBack()">Back</button>
+		<button type="button" class="btn btn-success" onclick="goBack()">Back</button>
 	    </div>
 	    
 	</div>

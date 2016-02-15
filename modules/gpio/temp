@@ -99,6 +99,9 @@ temp_sensor=temp_sensor$i
 declare sensor_temp$i=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tmp+adj FROM sensors WHERE id='${!temp_sensor}'"`
 sensor_temp=sensor_temp$i
 
+declare sensor_temp_nonadj$i=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id='${!temp_sensor}'"`
+sensor_temp_nonadj=sensor_temp_nonadj$i
+
 declare temp_sensor_diff$i=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT temp_sensor_diff$i FROM gpio WHERE gpio='$gpio'"`
 temp_sensor_diff=temp_sensor_diff$i
 
@@ -135,18 +138,18 @@ fi
 
 
 
-if [ -n "${!temp_temp}" ] && [[ "${!sensor_temp}" != "0" ]] && [[ -n "${!sensor_temp}" ]]; then
+if [[ -n "${!temp_temp}" ]] && [[ -n "${!sensor_temp}" ]] && [[ "${!sensor_temp_nonadj}" != "error" ]]; then
 
 if [[ "${!temp_op}" = "gt" ]]; then
     l=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 > $2) print 1; else print 0 }')
-    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
+    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 < $2) print 1; else print 0 }')
     hyst
     check
 fi
 
 if [[ "${!temp_op}" = "ge" ]]; then
     l=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 >= $2) print 1; else print 0 }') 
-    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
+    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 <= $2) print 1; else print 0 }')
     hyst
     check
 fi
@@ -160,7 +163,7 @@ fi
 
 if [[ "${!temp_op}" = "lt" ]]; then
     l=$(echo ${!sensor_temp} ${!temp_temp} | awk '{if ($1 < $2) print 1; else print 0 }')
-    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 >= $2) print 1; else print 0 }')
+    h=$(echo ${!sensor_temp} ${!hyst} | awk '{if ($1 > $2) print 1; else print 0 }')
     hyst
     check
 fi
@@ -183,6 +186,8 @@ unset temp_week_plan
 else
     echo "$date, ERROR in value or Sensor1" >> $dir/tmp/gpio_$gpio\_log.txt
     echo "$date, ERROR in value or Sensor1"
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='error' WHERE gpio='$gpio'"
+    offon=off
     break
 fi
 done

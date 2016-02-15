@@ -1,7 +1,5 @@
 <div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">ESPupload</h3>
-</div>
+<div class="panel-heading">ESPupload</div>
 <center><span class="label label-warning text-center">WARNING: Push Upload quickly after power ON ESP module</span></center>
 <div class="panel-body">
 
@@ -117,7 +115,7 @@ exec($cmd, $i);
 <div class="form-group">
   <label class="col-md-4 control-label" for="usb">Select USB</label>
   <div class="col-md-5">
-    <select id="usb" name="usb" class="form-control">
+    <select id="usb" name="usb" class="form-control input-sm">
 <?php
 $n=0;
 foreach($i as $o ) {
@@ -171,7 +169,7 @@ print_r($name);
 <div class="form-group">
   <label class="col-md-4 control-label" for="ssid">SSID</label>  
   <div class="col-md-4">
-  <input id="ssid" name="ssid" placeholder="" class="form-control input-md" required="" type="text">
+  <input id="ssid" name="ssid" placeholder="" class="form-control input-sm" required="" type="text">
     
   </div>
 </div>
@@ -180,7 +178,7 @@ print_r($name);
 <div class="form-group">
   <label class="col-md-4 control-label" for="pass">Password</label>
   <div class="col-md-4">
-    <input id="pass" name="pass" placeholder="" class="form-control input-md" required="" type="password">
+    <input id="pass" name="pass" placeholder="" class="form-control input-sm" required="" type="password">
     
   </div>
 </div>
@@ -200,7 +198,7 @@ print_r($name);
 <div class="form-group">
   <label class="col-md-4 control-label" for="run"></label>
   <div class="col-md-4">
-    <button id="run" name="run" value="Upload" class="btn btn-primary">Upload</button>
+    <button id="run" name="run" value="Upload" class="btn btn-xs btn-success">Upload</button>
   </div>
 </div>
 

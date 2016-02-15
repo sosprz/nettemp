@@ -52,7 +52,7 @@ if ($timerun == "off") {
     <form action="" method="post" style=" display:inline!important;">
 	<input type="text" name="time_offset" value="<?php echo $a['time_offset']; ?>" size="4"  >min 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<button type="submit" class="btn btn-xs btn-primary">ON</button>
+	<button type="submit" class="btn btn-xs btn-success">ON</button>
 	<input type="hidden" name="timerun" value="timerun" />
     </form>
     <form action="" method="post" style=" display:inline!important;">

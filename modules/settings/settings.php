@@ -1,22 +1,22 @@
 <?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
 
 <p>
-<a href="index.php?id=settings&type=users" ><button class="btn <?php echo $art == 'users' ? 'btn-info' : 'btn-default'; ?>">Users</button></a>
-<a href="index.php?id=settings&type=mail" ><button class="btn <?php echo $art == 'mail' ? 'btn-info' : 'btn-default'; ?>">Mail</button></a>
-<a href="index.php?id=settings&type=accesstime" ><button class="btn <?php echo $art == 'accesstime' ? 'btn-info' : 'btn-default'; ?>">Access time</button></a>
-<a href="index.php?id=settings&type=modem" ><button class="btn <?php echo $art == 'modem' ? 'btn-info' : 'btn-default'; ?>">Modem</button></a>
-<a href="index.php?id=settings&type=gpio" ><button class="btn <?php echo $art == 'gpio' ? 'btn-info' : 'btn-default'; ?>">GPIO</button></a>
-<!-- <a href="index.php?id=settings&type=1wire" ><button class="btn <?php echo $art == '1wire' ? 'btn-info' : 'btn-default'; ?>">1wire</button></a> 
-<a href="index.php?id=settings&type=i2c" ><button class="btn <?php echo $art == 'i2c' ? 'btn-info' : 'btn-default'; ?>">i2c</button></a>
-<a href="index.php?id=settings&type=lcd" ><button class="btn <?php echo $art == 'lcd' ? 'btn-info' : 'btn-default'; ?>">LCD</button></a>
+<a href="index.php?id=settings&type=users" ><button class="btn btn-xs btn-default <?php echo $art == 'users' ? 'active' : ''; ?>">Users</button></a>
+<a href="index.php?id=settings&type=mail" ><button class="btn btn-xs btn-default <?php echo $art == 'mail' ? 'active' : ''; ?>">Mail</button></a>
+<a href="index.php?id=settings&type=accesstime" ><button class="btn btn-xs btn-default <?php echo $art == 'accesstime' ? 'active' : ''; ?>">Access time</button></a>
+<a href="index.php?id=settings&type=modem" ><button class="btn btn-xs btn-default <?php echo $art == 'modem' ? 'active' : ''; ?>">Modem</button></a>
+<a href="index.php?id=settings&type=gpio" ><button class="btn btn-xs btn-default <?php echo $art == 'gpio' ? 'active' : ''; ?>">GPIO</button></a>
+<!-- <a href="index.php?id=settings&type=1wire" ><button class="btn btn-xs btn-default <?php echo $art == '1wire' ? 'active' : ''; ?>">1wire</button></a> 
+<a href="index.php?id=settings&type=i2c" ><button class="btn btn-xs btn-default <?php echo $art == 'i2c' ? 'active' : ''; ?>">i2c</button></a>
+<a href="index.php?id=settings&type=lcd" ><button class="btn btn-xs btn-default <?php echo $art == 'lcd' ? 'active' : ''; ?>">LCD</button></a>
 -->
-<a href="index.php?id=settings&type=time" ><button class="btn <?php echo $art == 'time' ? 'btn-info' : 'btn-default'; ?>">Time</button></a>
-<a href="index.php?id=settings&type=snmpd" ><button class="btn <?php echo $art == 'snmpd' ? 'btn-info' : 'btn-default'; ?>">SNMPD</button></a>
-<a href="index.php?id=settings&type=meteo" ><button class="btn <?php echo $art == 'meteo' ? 'btn-info' : 'btn-default'; ?>">Meteo</button></a>
-<a href="index.php?id=settings&type=smsscript" ><button class="btn <?php echo $art == 'smsscript' ? 'btn-info' : 'btn-default'; ?>">SMS script</button></a>
-<a href="index.php?id=settings&type=charts" ><button class="btn <?php echo $art == 'charts' ? 'btn-info' : 'btn-default'; ?>">Charts</button></a>
-<a href="index.php?id=settings&type=ownwidget" ><button class="btn <?php echo $art == 'ownwidget' ? 'btn-info' : 'btn-default'; ?>">OwnWidget</button></a>
-<a href="index.php?id=settings&type=server_node" ><button class="btn <?php echo $art == 'server_node' ? 'btn-info' : 'btn-default'; ?>">Server - Node</button></a>
+<a href="index.php?id=settings&type=time" ><button class="btn btn-xs btn-default <?php echo $art == 'time' ? 'active' : ''; ?>">Time</button></a>
+<a href="index.php?id=settings&type=snmpd" ><button class="btn btn-xs btn-default <?php echo $art == 'snmpd' ? 'active' : ''; ?>">SNMPD</button></a>
+<a href="index.php?id=settings&type=meteo" ><button class="btn btn-xs btn-default <?php echo $art == 'meteo' ? 'active' : ''; ?>">Meteo</button></a>
+<a href="index.php?id=settings&type=smsscript" ><button class="btn btn-xs btn-default <?php echo $art == 'smsscript' ? 'active' : ''; ?>">SMS script</button></a>
+<a href="index.php?id=settings&type=charts" ><button class="btn btn-xs btn-default <?php echo $art == 'charts' ? 'active' : ''; ?>">Charts</button></a>
+<a href="index.php?id=settings&type=ownwidget" ><button class="btn btn-xs btn-default <?php echo $art == 'ownwidget' ? 'active' : ''; ?>">OwnWidget</button></a>
+<a href="index.php?id=settings&type=server_node" ><button class="btn btn-xs btn-default <?php echo $art == 'server_node' ? 'active' : ''; ?>">Server - Node</button></a>
 </p>
 <?php  
 switch ($art)

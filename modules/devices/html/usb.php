@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 <div class="panel-heading">Bind USB to devices</div>
-<table class="table table-striped">
+<table class="table table-hover table-condensed small">
 <thead><tr><th>Device</th><th>Function</th></tr></thead>
 <?php
 $dir=$_SERVER["DOCUMENT_ROOT"];

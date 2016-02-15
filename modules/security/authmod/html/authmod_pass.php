@@ -33,7 +33,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="save"></label>
   <div class="col-md-4">
-    <button id="save" name="save" class="btn btn-primary">Save</button>
+    <button id="save" name="save" class="btn btn-xs btn-success">Save</button>
     <input type="hidden"  name="chg" value="chg2"/>
     <input type="hidden" name="login_change" value="login_change1">
   </div>

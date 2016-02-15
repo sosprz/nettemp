@@ -1,7 +1,5 @@
 <div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Change password</h3>
-</div>
+<div class="panel-heading">Change password</div>
 <div class="panel-body">
 
 <form class="form-horizontal" action="" method="post">
@@ -12,7 +10,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="passwordinput">Password</label>
   <div class="col-md-4">
-    <input id="passwordinput" name="pas1" placeholder="" class="form-control input-md" required="" type="password">
+    <input id="passwordinput" name="pas1" placeholder="" class="form-control input-sm" required="" type="password">
     
   </div>
 </div>
@@ -21,7 +19,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="passwordinput">Repeat</label>
   <div class="col-md-4">
-    <input id="passwordinput" name="pas2" placeholder="" class="form-control input-md" required="" type="password">
+    <input id="passwordinput" name="pas2" placeholder="" class="form-control input-sm" required="" type="password">
     
   </div>
 </div>
@@ -30,7 +28,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="save"></label>
   <div class="col-md-4">
-    <button type="submit" id="save" name="save" class="btn btn-primary">Save</button>
+    <button type="submit" id="save" name="save" class="btn btn-xs btn-success">Save</button>
     	  <input type="hidden" name="login_change" value="login_change1">
   </div>
 </div>

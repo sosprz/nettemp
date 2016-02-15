@@ -1,4 +1,5 @@
 #! /bin/bash 
+
 aptitude install -y smstools
 
 mkdir -p /var/spool/sms/outgoing

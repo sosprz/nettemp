@@ -46,7 +46,7 @@ if [ "$onoff" == "on" ] && [ -n "$2" ] && [ -n "$3" ] && [ -n "$4" ] && [ -n "$5
 	sudo iptables -A INPUT -p udp --dport 1813 -j ACCEPT
     fi
 
-    sudo iptables-save > /etc/network/iptables    
+    sudo /sbin/iptables-save > /etc/iptables/rules.v4    
 fi
 
 if [ "$onoff" == "off" ]; then
@@ -57,8 +57,8 @@ if [ "$onoff" == "off" ]; then
     sudo iptables -P INPUT ACCEPT
     sudo iptables -P OUTPUT ACCEPT
     sudo iptables -P FORWARD ACCEPT	
-    sudo iptables-save > /etc/network/iptables
-fi    
+    sudo /sbin/iptables-save > /etc/iptables/rules.v4
+fi
 
 
 

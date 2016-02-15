@@ -1,3 +1,4 @@
+<?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
 <script type="text/JavaScript">
 function timedRefresh(timeoutPeriod) {
     setTimeout("location.reload(true);",timeoutPeriod);
@@ -256,7 +257,7 @@ foreach ($row as $h) {
 ?>
 <div data-need="<?php echo $h['map_num']?>" id="<?php echo "data-need".$h['map_num']?>" data-dst="hosts" class="ui-widget-content draggable">
     <?php 
-	if(($h['status'] == 'error') || ($h['status'] == 'OFF') || ($label=='danger')) {
+	if(($h['status'] == 'error') || ($h['last']== 0)) {
 		    echo '<span class="label label-danger">';
 		    } 
 		    else {
@@ -264,7 +265,7 @@ foreach ($row as $h) {
 		    }
 	        ?>
 
-    <?php echo $device." ".$h['name']." ".$h['status']?>
+    <?php echo $device." ".$h['name']?>
      </span>
 </div>
 <?php 

@@ -18,10 +18,10 @@
 <form action="" method="post" class="form-inline">
   <div class="form-group">
     <label for="exampleInputName2">Location from <a href="http://www.yr.no" target="_blank">www.yr.no</a> </label>  
-    <input type="text" class="form-control" name="place" value="<?php echo $a['meteogram']; ?>" placeholder="Poland/Pomerania/Gdańsk">
+    <input type="text" class="form-control input-sm" name="place" value="<?php echo $a['meteogram']; ?>" placeholder="Poland/Pomerania/Gdańsk">
     <input type="hidden" name="set" value="set" />
   </div>
-  <button type="submit" class="btn btn-default">Save</button>
+  <button type="submit" class="btn btn-xs btn-success">Save</button>
 </form>
 </br>
 

@@ -118,7 +118,7 @@ foreach ($resultmet as $m) {
 <div class="form-group">
   <label class="col-md-4 control-label" for="singlebutton"></label>
   <div class="col-md-4">
-    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Save</button>
+    <button id="singlebutton" name="singlebutton" class="btn btn-xs btn-success">Save</button>
     <input type="hidden" name="save" value="save" />
   </div>
 </div>

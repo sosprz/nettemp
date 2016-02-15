@@ -1,7 +1,5 @@
 <div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Reset system to default</h3>
-</div>
+<div class="panel-heading">Reset system to default</div>
 <div class="panel-body">
 <?php
 $dir=$_SERVER['DOCUMENT_ROOT'];
@@ -14,7 +12,7 @@ exit();
 ?>
 <form action="" method="post">
 <input type="hidden" name="admin_db_reset" value="admin_db_reset1">
-<input  type="submit" value="Reset" class="btn btn-danger" />
+<input  type="submit" value="Reset" class="btn btn-xs btn-danger" />
 </form>
 </div>
 </div>

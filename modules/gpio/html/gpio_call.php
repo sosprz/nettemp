@@ -51,7 +51,7 @@ $savenum = isset($_POST['savenum']) ? $_POST['savenum'] : '';
 <table>
 
 <form action="" method="post" style=" display:inline!important;">
-    <button type="submit" name="tel_any"  <?php echo $a['tel_any'] == 'on' ? 'class="btn btn-xs btn-danger" value="off"' : 'class="btn btn-xs btn-primary" value="on"'; ?> onchange="this.form.submit()" >Any number</button>
+    <button type="submit" name="tel_any"  <?php echo $a['tel_any'] == 'on' ? 'class="btn btn-xs btn-danger" value="off"' : 'class="btn btn-xs btn-success" value="on"'; ?> onchange="this.form.submit()" >Any number</button>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio'] ?>" />
     <input type="hidden" name="tel_anyonoff" value="onoff" />
 </form>

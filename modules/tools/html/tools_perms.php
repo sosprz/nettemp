@@ -17,7 +17,7 @@ exit();
 ?>
 <form action="" method="post">
 <input type="hidden" name="perms" value="perms">
-<input  type="submit" value="Fix" class="btn btn-primary"  />
+<input  type="submit" value="Fix" class="btn btn-xs btn-success"  />
 </form>
 
 </div></div>

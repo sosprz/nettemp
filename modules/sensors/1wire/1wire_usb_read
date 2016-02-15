@@ -18,7 +18,16 @@ if [ "$usb" != "off" ]; then
     	    wynik=`/usr/bin/digitemp_$usb -c $dir/tmp/.digitemprc -t $num -q -o%.1C`
 	fi
 	php-cgi -f $dir/receiver.php key=$skey rom=$name value=$wynik type=temp
-done
+    done
+
+    rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE rom LIKE '0x26%'")
+    for name in $rom; do
+        name_1=$(echo $name |sed 's/..../& /g;s/+$//')
+	num=`cat $dir/tmp/.digitemprc |grep "$name_1" |awk 'BEGIN {FS=" "} {print $2}'`
+
+	    wynik=`/usr/bin/digitemp_$usb -c $dir/tmp/.digitemprc -t $num -q -H%h`
+	    php-cgi -f $dir/receiver.php key=$skey rom=$name value=$wynik type=temp
+    done
 fi
 
 unset wynik

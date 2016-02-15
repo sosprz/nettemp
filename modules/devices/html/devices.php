@@ -10,18 +10,18 @@
 	}
 	?>
 <p>
-<a href="index.php?id=devices&type=scan" ><button class="btn   <?php if (!file_exists('tmp/scan')) { echo "btn-danger"; } else { echo $art == 'scan' ? 'btn-info' : 'btn-default'; } ?> ">Scan</button></a>
-<a href="index.php?id=devices&type=sensors" ><button class="btn  <?php echo $art == 'sensors' ? 'btn-info' : 'btn-default'; ?>">Devices</button></a>
+<a href="index.php?id=devices&type=scan" ><button class="btn btn-xs btn-default <?php if (!file_exists('tmp/scan')) { echo "btn-danger"; } else { echo $art == 'scan' ? 'active ' : ''; } ?> ">Scan</button></a>
+<a href="index.php?id=devices&type=sensors" ><button class="btn btn-xs btn-default <?php echo $art == 'sensors' ? 'active' : ''; ?>">Devices</button></a>
 <?php if ( $gpio == 'on' ) { ?>
-<a href="index.php?id=devices&type=gpio" ><button class="btn <?php echo $art == 'gpio' ? 'btn-info' : 'btn-default'; ?>">GPIO</button></a>
+<a href="index.php?id=devices&type=gpio" ><button class="btn btn-xs btn-default <?php echo $art == 'gpio' ? 'active' : ''; ?>">GPIO</button></a>
 	<?php } ?>
-<a href="index.php?id=devices&type=snmp" ><button class="btn <?php echo $art == 'snmp' ? 'btn-info' : 'btn-default'; ?>">SNMP</button></a>
-<a href="index.php?id=devices&type=ups" ><button class="btn <?php echo $art == 'ups' ? 'btn-info' : 'btn-default'; ?>">UPS</button></a>
-<a href="index.php?id=devices&type=hosts" ><button class="btn <?php echo $art == 'hosts' ? 'btn-info' : 'btn-default'; ?>">Host monitoring</button></a>
-<a href="index.php?id=devices&type=ipcam" ><button class="btn <?php echo $art == 'ipcam' ? 'btn-info' : 'btn-default'; ?>">IP Cam</button></a>
-<a href="index.php?id=devices&type=usb" ><button class="btn <?php echo $art == 'usb' ? 'btn-info' : 'btn-default'; ?>">USB/Serial</button></a>
-<a href="index.php?id=devices&type=lcd" ><button class="btn <?php echo $art == 'lcd' ? 'btn-info' : 'btn-default'; ?>">LCD</button></a>
-<a href="index.php?id=devices&type=i2c" ><button class="btn <?php echo $art == 'i2c' ? 'btn-info' : 'btn-default'; ?>">I2C</button></a>
+<a href="index.php?id=devices&type=snmp" ><button class="btn btn-xs btn-default <?php echo $art == 'snmp' ? 'active' : ''; ?>">SNMP</button></a>
+<a href="index.php?id=devices&type=ups" ><button class="btn btn-xs btn-default <?php echo $art == 'ups' ? 'active' : ''; ?>">UPS</button></a>
+<a href="index.php?id=devices&type=hosts" ><button class="btn btn-xs btn-default <?php echo $art == 'hosts' ? 'active' : ''; ?>">Host monitoring</button></a>
+<a href="index.php?id=devices&type=ipcam" ><button class="btn btn-xs btn-default <?php echo $art == 'ipcam' ? 'active' : ''; ?>">IP Cam</button></a>
+<a href="index.php?id=devices&type=usb" ><button class="btn btn-xs btn-default <?php echo $art == 'usb' ? 'active' : ''; ?>">USB/Serial</button></a>
+<a href="index.php?id=devices&type=lcd" ><button class="btn btn-xs btn-default <?php echo $art == 'lcd' ? 'active' : ''; ?>">LCD</button></a>
+<a href="index.php?id=devices&type=i2c" ><button class="btn btn-xs btn-default <?php echo $art == 'i2c' ? 'active' : ''; ?>">I2C</button></a>
 </[>
 
 
@@ -29,7 +29,7 @@
 switch ($art)
 { 
 default: case '$art': include('modules/sensors/html/sensors.php'); break;
-case 'scan': include('modules/sensors/html/sensors_device.php'); break;
+case 'scan': include('modules/devices/html/scan.php'); break;
 case 'gpio': include('modules/gpio/html/gpio.php'); break;
 case 'snmp': include('modules/sensors/snmp/html/snmp.php'); break;
 case 'sensors': include('modules/sensors/html/sensors.php'); break;

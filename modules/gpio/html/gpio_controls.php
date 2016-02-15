@@ -10,12 +10,15 @@ $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 
 $simple = isset($_POST['simple']) ? $_POST['simple'] : '';
 $onoff = isset($_POST['onoff']) ? $_POST['onoff'] : '';
+$rev = isset($_POST['rev']) ? $_POST['rev'] : '';
 if (($onoff == "onoff")){
-    $db->exec("UPDATE gpio SET simple='$simple', status='$simple' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+    
     if ($simple == 'on'){
 	include('modules/gpio/html/gpio_on.php');
+	$db->exec("UPDATE gpio SET simple='$simple', status='ON' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
     } else { 
 	include('modules/gpio/html/gpio_off.php');
+	$db->exec("UPDATE gpio SET simple='$simple', status='OFF' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
     }
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -96,7 +99,6 @@ $resultc = $call->fetchAll();
 foreach ( $results as $a) {
 ?>
 
-
 <div class="panel panel-default">
 <div class="panel-heading">
 <h3 class="panel-title"><?php echo $a['name']; ?></h3>
@@ -105,6 +107,7 @@ foreach ( $results as $a) {
     <form action="" method="post">
     <input type="checkbox" title="Simple on/off" data-toggle="toggle"  onchange="this.form.submit()" name="simple"  value="on" <?php echo $a['simple'] == 'on' ? 'checked="checked"' : ''; ?>  />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="rev" value="<?php echo $a['rev']; ?>"/>
     <input type="hidden" name="onoff" value="onoff" />
 </form>
 </div></div>
@@ -122,6 +125,7 @@ foreach ( $resultm as $a) {
 <form action="" method="post">
     <td><input data-onstyle="warning" type="checkbox" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" /><td>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="rev" value="<?php echo $a['rev']; ?>"/>
     <input type="hidden" name="bi" value="bi" />
 </form>
 

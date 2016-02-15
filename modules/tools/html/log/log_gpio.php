@@ -37,8 +37,8 @@ if (!empty($ggpio)) { ?>
 </div>
 <div class="panel-body">
 <form action="" method="post">
-    <input type="submit" name="log_del" value="Clear" class="btn btn-danger" />
-    <input type="hidden" name="pgpio" value="<?php echo $ggpio?>" class="btn btn-danger" />
+    <input type="submit" name="log_del" value="Clear" class="btn btn-xs btn-danger" />
+    <input type="hidden" name="pgpio" value="<?php echo $ggpio?>" class="btn btn-xs btn-danger" />
 </form>
 
 <br />

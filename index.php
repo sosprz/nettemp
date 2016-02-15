@@ -45,7 +45,7 @@ else {
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-		<a href="http://nettemp.pl" target="_blank"><img src="media/png/nettemp.pl.png" height="50"></a>
+		<a href="http://nettemp.pl" target="_blank"><img src="media/png/nettemp.pl.png" height="50" alt="nettemp.pl"></a>
 
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
               <span class="sr-only">Toggle navigation</span>
@@ -66,12 +66,13 @@ $numsimple = count($row1);
 $numsimple2 = count($row2);
 ?>
 <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status"><span class="glyphicon glyphicon-th-large" aria-hidden="true"> Status</span></a></li>
-<li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp&max=hour"><span class="glyphicon glyphicon-stats" aria-hidden="true"> Charts</span></a></li>
-<li <?php echo $id == 'map' ? ' class="active"' : ''; ?>><a href="index.php?id=map"><span class="glyphicon glyphicon-picture" aria-hidden="true"> Map</span> </a></li>
-<?php if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { ?>
+<li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp&max=day"><span class="glyphicon glyphicon-stats" aria-hidden="true"> Charts</span></a></li>
+<?php 
+if(($_SESSION["perms"] == 'adm') && (isset($_SESSION["user"])))  {
+    if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { ?>
     <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls"><span class="glyphicon glyphicon-record" aria-hidden="true"> Controls</span></a></li>
-<?php } ?>
-<?php if(($_SESSION["perms"] == 'adm') && (isset($_SESSION["user"])))  {?>
+    <?php } ?>
+<li <?php echo $id == 'map' ? ' class="active"' : ''; ?>><a href="index.php?id=map"><span class="glyphicon glyphicon-picture" aria-hidden="true"> Map</span> </a></li>
 <li<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><a href="devices"><span class="glyphicon glyphicon-cog" aria-hidden="true"> Device</span></a></li>
 <li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security"><span class="glyphicon glyphicon-tower" aria-hidden="true"> Security</span></a></li>
 <li <?php echo $id == 'settings' ? ' class="active"' : ''; ?>><a href="settings"><span class="glyphicon glyphicon-tasks" aria-hidden="true"> Settings</span></a></li>
@@ -83,7 +84,7 @@ $numsimple2 = count($row2);
 </ul>
 
     <?php if(!isset($_SESSION["user"])) {?>
-	    <form action="" method="post" class="navbar-form navbar-right" >
+	    <form method="post" class="navbar-form navbar-right" >
             <div class="form-group">
               <input type="text" name="username" placeholder="User" class="form-control input-sm" required="">
             </div>
@@ -91,13 +92,13 @@ $numsimple2 = count($row2);
               <input type="password" name="password" placeholder="Password" class="form-control input-sm" required="">
             </div>
 	    <input type="hidden" name="form_login" value="log">
-            <button type="submit" class="btn btn-xs btn-primary">Sign in</button>
+            <button type="submit" class="btn btn-xs btn-success">Sign in</button>
           </form>        
     <?php } ?>
     <?php if(isset($_SESSION["user"])) {?>
-	<form action="" method="post" class="navbar-form navbar-right" >
+	<form method="post" action="logout" class="navbar-form navbar-right" >
 	    <?php echo $_SESSION["user"];?>
-	    <a href="logout"><button type="button" class="btn btn-xs btn-success">Log Out</button></a>
+	    <button type="submit" class="btn btn-xs btn-success">Log Out</button>
 	</form>        
     <?php } ?>
     	</div><!--/.nav-collapse -->
@@ -108,7 +109,7 @@ $numsimple2 = count($row2);
 <div class="container">
 <?php 
 if (file_exists("tmp/reboot")) {  ?>
-<div class="alert alert-warning" role="alert"><a href="index.php?id=tools&type=reboot" class="btn btn-warning">Reboot required</a></div>
+<div class="alert alert-warning" role="alert"><a href="index.php?id=tools&type=reboot" class="btn btn-xs btn-warning">Reboot required</a></div>
 <?php
 }
 ?>
@@ -136,9 +137,9 @@ case 'controls': include('modules/relays/html/relays_controls.php'); include('mo
 
 <footer class="footer">
       <div class="container text-center">
-	    <a href="https://techfreak.pl/forum/viewtopic.php?f=20&t=587" target="_blank" class="btn btn-info btn-xs"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </a>
+	    <a href="https://techfreak.pl/forum/viewtopic.php?f=20&t=587" target="_blank" class="btn btn-xs btn-primary"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </a>
 	    <?php include('html/info/paypal.php');?>
-	    <button class="btn btn-info btn-xs">System time <?php passthru("date +%H:%M:%S");?></button>
+	    <button class="btn btn-xs btn-primary">System time <?php passthru("date +%H:%M:%S");?></button>
 
 	    
       </div>

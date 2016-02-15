@@ -90,7 +90,7 @@ else
     $to="tout$sec";
 ?>    
 <form action="" method="post" style=" display:inline!important;">
-    <button type="submit" name="<?php echo $to; ?>"  <?php echo $b["$to"] == 'on' ? 'class="btn btn-xs btn-danger" value="off"' : 'class="btn btn-xs btn-primary" value="on"'; ?> onchange="this.form.submit()" ><?php echo $b['name']; ?></button>
+    <button type="submit" name="<?php echo $to; ?>"  <?php echo $b["$to"] == 'on' ? 'class="btn btn-xs btn-danger" value="off"' : 'class="btn btn-xs btn-success" value="on"'; ?> onchange="this.form.submit()" ><?php echo $b['name']; ?></button>
     <input type="hidden" name="gpio" value="<?php echo $b['gpio'] ?>" />
     <input type="hidden" name="toutonoff" value="onoff" />
 </form>
@@ -112,13 +112,13 @@ else
     </form>
 
 <form action="" method="post" style=" display:inline!important;">
-    <button type="submit" name="con"  <?php echo $a['trigger_con'] == 'on' ? 'class="btn btn-xs btn-danger" value="off"' : 'class="btn btn-xs btn-primary" value="on"'; ?> onchange="this.form.submit()" >Continous mode</button>
+    <button type="submit" name="con"  <?php echo $a['trigger_con'] == 'on' ? 'class="btn btn-xs btn-danger" value="off"' : 'class="btn btn-xs btn-success" value="on"'; ?> onchange="this.form.submit()" >Continous mode</button>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio'] ?>" />
     <input type="hidden" name="cononoff" value="onoff" />
 </form>
 
 <form method="post" type="submit" style=" display:inline!important;">
-    <button type="submit" name="triggernotice_checkbox"  <?php echo $a['trigger_notice'] == 'on' ? 'class="btn btn-xs btn-danger" value=""' : 'class="btn btn-xs btn-primary" value="on"'; ?> onchange="this.form.submit()" >Send mail</button>
+    <button type="submit" name="triggernotice_checkbox"  <?php echo $a['trigger_notice'] == 'on' ? 'class="btn btn-xs btn-danger" value=""' : 'class="btn btn-xs btn-success" value="on"'; ?> onchange="this.form.submit()" >Send mail</button>
     <!-- <input type="checkbox" name="triggernotice_checkbox" value="on" <?php echo $a["trigger_notice"] == 'on' ? 'checked="checked"' : ''; ?> data-toggle="toggle" data-size="mini" onchange="this.form.submit()" /></div> -->
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="xtriggernoticeon" value="xtriggernoticeON" />
@@ -126,7 +126,7 @@ else
 
 <form action="" method="post" style=" display:inline!important;">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<button type="submit" class="btn btn-xs btn-primary">ON</button>
+	<button type="submit" class="btn btn-xs btn-success">ON</button>
 	<input type="hidden" name="triggerrun" value="on" />
 </form>
 

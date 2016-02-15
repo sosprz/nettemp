@@ -1,7 +1,5 @@
 <div class="panel panel-default">
-<div class="panel-heading">
-<h3 class="panel-title">Update nettemp</h3>
-</div>
+<div class="panel-heading">Update nettemp</div>
 <div class="panel-body">
 
 <?php
@@ -25,7 +23,7 @@ if ($update == "Update") {
     }
 ?>
     <form action="" method="post">
-    <button type="submit" name="update" value="Update" class="btn btn-primary"  />Update</button>
+    <button type="submit" name="update" value="Update" class="btn btn-xs btn-success"  />Update</button>
     </form>
 
 </div></div>
