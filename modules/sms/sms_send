@@ -38,6 +38,7 @@ for line in `sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name,tmp,t
 			    echo "low $name $tmp $type" >> $plik; 
 			fi
 		    fi
+		    rm $failed
 		else
 		    echo "SMS already sent $sent"
 		fi
