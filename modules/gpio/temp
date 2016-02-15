@@ -186,6 +186,7 @@ unset temp_week_plan
 else
     echo "$date, ERROR in value or Sensor1" >> $dir/tmp/gpio_$gpio\_log.txt
     echo "$date, ERROR in value or Sensor1"
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='error' WHERE gpio='$gpio'"
     offon=off
     break
 fi
