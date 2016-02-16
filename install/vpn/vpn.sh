@@ -1,5 +1,10 @@
 #!/bin/bash 
 
+
+if [[ $OVCA == 'yes' ]]; then
+    echo "Please wait certificate generating......."
+fi
+
 {
 #INSTALL
 if [ $USER != 'root' ]; then
