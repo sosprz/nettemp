@@ -2,7 +2,7 @@
 
 > $dir/install_log.txt
 
-#source install/apt/apt.sh
+source install/apt/apt.sh
 
 source install/rpi/rpi.sh
 source install/1w/1w.sh
