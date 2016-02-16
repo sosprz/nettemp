@@ -6,9 +6,9 @@ if [ $USER != 'root' ]; then
     exit
 fi
 
-if [ $OVCA = 'yes' ]; then
+if [[ $OVCA == 'yes' ]]; then
     $dir/install/vpn/ca
-}
+fi
 
 #CREATE openvpn.conf
 cat <<EOT > /etc/openvpn/openvpn.conf

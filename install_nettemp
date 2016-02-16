@@ -49,7 +49,7 @@ fi
 
 function run {
 source $dir/install/run.sh
-} >> install_log.txt 2>&1
+} #>> install_log.txt 2>&1
 
 
 function start {
