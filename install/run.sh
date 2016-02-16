@@ -1,5 +1,7 @@
 #! /bin/bash
 
+> $dir/install_log.txt
+
 #source install/apt/apt.sh
 
 source install/rpi/rpi.sh

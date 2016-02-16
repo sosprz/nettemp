@@ -1,5 +1,6 @@
 #!/bin/bash 
 
+{
 #INSTALL
 if [ $USER != 'root' ]; then
     echo "Sorry, you need to run this as root"
@@ -35,10 +36,6 @@ client-cert-not-required
 username-as-common-name
 EOT
 
-#ADD TO AUTOSTART AND START
-#update-rc.d openvpn enable
-#service openvpn start
-
 #FORWARD
 forward=$(cat /proc/sys/net/ipv4/ip_forward)
 if [ $forward == "0" ]; then
@@ -56,12 +53,16 @@ echo "Add NAT"
 iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -j MASQUERADE
 iptables-save > /etc/network/iptables
 fi
-#if cat /etc/network/interfaces | grep 'iptables' 1>/dev/null; then
-#echo "IPtables restore exist"
-#else
-#echo "Add IPtables restore"
-#sed -i '/iface eth0/a pre-up iptables-restore < /etc/network/iptables' /etc/network/interfaces
-#fi
+} >> $dir/install_log.txt 2>&1
+
+exitstatus=$?
+if [ $exitstatus = 1 ]; then
+    echo -e "[ ${RED}error${R} ] VPN"
+    exit 1
+else 
+    echo -e "[ ${GREEN}ok${R} ] VPN"
+fi
+
 
 
 

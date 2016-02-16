@@ -1,6 +1,6 @@
 #! /bin/bash 
 
-
+{
 if [ -n "$rpi" ]; then
     if cat /etc/modules |grep i2c-bcm2708 1> /dev/null; then
 	echo -e "[ ${GREEN}ok${R} ] i2c-bcm2708  allready added"
@@ -21,4 +21,14 @@ fi
     
 modprobe i2c-bcm2708
 modprobe i2c-dev
+} >> $dir/install_log.txt 2>&1
+
+exitstatus=$?
+if [ $exitstatus = 1 ]; then
+    echo -e "[ ${RED}error${R} ] I2C"
+    exit 1
+else 
+    echo -e "[ ${GREEN}ok${R} ] I2C"
+fi
+
 
