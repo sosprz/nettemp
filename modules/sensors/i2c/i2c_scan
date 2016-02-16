@@ -67,7 +67,7 @@ for i in ${det[@]}
             sudo echo "echo ds2482 0x$s > /sys/bus/i2c/devices/i2c-$i2c/new_device" >> $ddir
 	    sudo echo "exit 0" >> $ddir
 	    sudo chmod +x $ddir
-	    sudo cp $dir/install/init.d/nettemp.ds2482 /etc/init.d/
+	    sudo cp $dir/install/1w/nettemp.ds2482 /etc/init.d/
 	    sudo update-rc.d nettemp.ds2482 defaults
 	    sudo service nettemp.ds2482 start
 	    #sudo touch $dir/tmp/reboot

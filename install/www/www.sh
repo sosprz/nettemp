@@ -1,5 +1,12 @@
 #! /bin/bash
 
+#check other www server
+if dpkg --get-selections | grep apache; then
+service apache2 stop
+update-rc.d apache2 disable
+echo -e "[ ${GREEN}ok${R} ] Looks like You have Apache, service was stoped, until reboot."
+fi
+
 # enable fastcgi
 lighty-enable-mod fastcgi-php 1>/dev/null
 # enable modrewrite
@@ -40,3 +47,11 @@ fi
 # php.ini upload file max size
 sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 300M/g' /etc/php5/cgi/php.ini
 sed -i 's/post_max_size = 8M/post_max_size = 300M/g' /etc/php5/cgi/php.ini
+
+#PHP5-FPM
+mv /etc/lighttpd/conf-available/15-fastcgi-php.conf /etc/lighttpd/conf-available/15-fastcgi-php.conf.old
+cp $dir/install/www/15-fastcgi-php.conf /etc/lighttpd/conf-available/
+sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 300M/g' /etc/php5/fpm/php.ini
+sed -i 's/post_max_size = 8M/post_max_size = 300M/g' /etc/php5/fpm/php.ini
+
+

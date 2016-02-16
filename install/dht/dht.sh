@@ -8,7 +8,5 @@ sudo python setup.py install
 git clone https://github.com/adafruit/Adafruit_Python_DHT.git
 cd Adafruit_Python_DHT
 sudo python setup.py install
+cd $dir
 
-cd /var/www/nettemp/install/sdm120
-make install
-cd -
