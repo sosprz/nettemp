@@ -57,8 +57,14 @@ whiptail  --backtitle "Nettemp.pl" --title "Nettemp installer" --yesno "Do You w
 exitstatus=$?
 if [ $exitstatus = 1 ]; then
     echo "bye.."
-    exit 1
+    exit 1s
 fi
+whiptail  --backtitle "Nettemp.pl" --title "Nettemp installer" --yesno "Do You want generate OpenVPN certificate? (Long installation)" 8 78
+exitstatus2=$?
+if [ $exitstatus2 = 1 ]; then
+    OVCA=yes
+fi
+
 }
 
 start
