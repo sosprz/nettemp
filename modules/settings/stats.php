@@ -36,7 +36,7 @@
 <div class="panel-body">
 
 If You want send anonymous info about Your nettemp write in agreement: <span class="label label-success">yes</span><br>
-Your nettemp will send ID (md5sum from mac-addres), os name, hardware type, nick, location and value form sensor if set.<br>
+Your nettemp will send ID (md5sum from mac-addres), os name, hardware type, nick, location and value from sensor if set.<br>
 Go to <a href="http://stats.nettemp.pl" class="label label-info">stats.nettemp.pl</a> and check what looks statistic. <br>
 <br>
 
@@ -54,7 +54,7 @@ Go to <a href="http://stats.nettemp.pl" class="label label-info">stats.nettemp.p
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Version:</label>  
   <div class="col-md-4">
-  <input id="textinput"  placeholder="" class="form-control input-md" required="" type="text" value="<?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'") ?>" disabled>
+  <input id="textinput"  placeholder="" class="form-control input-md" required="" type="text" value="<?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2\" \"}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?>" disabled>
   </div>
 </div>
 
@@ -69,7 +69,7 @@ Go to <a href="http://stats.nettemp.pl" class="label label-info">stats.nettemp.p
 	<?php
 	    }
 	?>
-		    <option value="none" <?php echo $a['sensor_temp'] == 'none' ? 'selected="selected"' : ''; ?>  >none</option>
+		    <option value="none" <?php echo $sensor_temp == 'none' ? 'selected="selected"' : ''; ?>  >none</option>
     </select>
   </div>
 </div>
