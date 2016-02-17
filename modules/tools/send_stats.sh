@@ -2,6 +2,10 @@
 
 DIR=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 
+ON=$(sqlite3 -cmd ".timeout 2000" $DIR/dbf/nettemp.db "SELECT agreement FROM statistics WHERE id='1'")
+
+if [[ "$ON" == 'yes' ]]; then
+
 ## DATE
 DATE=$(date "+%Y%m%d%H%M%S")
 
@@ -31,11 +35,14 @@ fi
 source /etc/os-release
 OS=$(echo $PRETTY_NAME|sed 's/ /%20/g')
 
-## CPUN
-#CPUN=$(cat /proc/cpuinfo |grep -c processor)
-
-##UPTIME
-#UPTIME=$(uptime -s | awk '{print $1}')
+NICK=$(sqlite3 -cmd ".timeout 2000" $DIR/dbf/nettemp.db "SELECT nick FROM statistics WHERE id='1'")
+LOCATION=$(sqlite3 -cmd ".timeout 2000" $DIR/dbf/nettemp.db "SELECT location FROM statistics WHERE id='1'")
+SID=$(sqlite3 -cmd ".timeout 2000" $DIR/dbf/nettemp.db "SELECT sensor_temp FROM statistics WHERE id='1'")
+SENSOR_TEMP=$(sqlite3 -cmd ".timeout 2000" $DIR/dbf/nettemp.db "SELECT tmp FROM sensors WHERE id='$SID'")
 
 ## MAIN
-curl --connect-timeout 20 -G "http://stats.nettemp.pl/get.php" -d "ver=$VER&nid=$NID&rpi=$RPI&os=$OS&time=$DATE"
+curl --connect-timeout 20 -G "http://stats.nettemp.pl/get.php" -d "ver=$VER&nid=$NID&rpi=$RPI&os=$OS&time=$DATE&nick=$NICK&location=$LOCATION&sensor_temp=$SENSOR_TEMP"
+
+else
+    echo "stats off"
+fi
