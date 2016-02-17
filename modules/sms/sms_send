@@ -1,5 +1,6 @@
 #!/bin/bash 
 
+
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M%S`
 
@@ -21,35 +22,50 @@ for line in `sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name,tmp,t
 		plik=/var/spool/sms/outgoing/sms-$name-$line2
 		sent=/var/spool/sms/sent/sms-$name-$line2
 		failed=/var/spool/sms/failed/sms-$name-$line2
-		if [[ ! -f $sent ]] || [[ -f $failed ]]; then
-		    if [ -n "$tmp_max" ]; then
+		if [ -n "$tmp_max" ]; then
 			cr_ge=$(echo $tmp $tmp_max | awk '{if ($1 > $2) print 1; else print 0 }')
-			if [ $cr_ge == 1 ]; then
-			    echo "To: $line2" > $plik; 
-			    echo "" >> $plik; 
-			    echo "high $name $tmp $type" >> $plik; 
-			fi
-		    fi
-		    if [ -n "$tmp_min" ]; then
-			cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
-			if [ $cr_le == 1 ]; then  
-			    echo "To: $line2" > $plik; 
-			    echo "" >> $plik; 
-			    echo "low $name $tmp $type" >> $plik; 
-			fi
-		    fi
-		    rm $failed
 		else
-		    echo "SMS already sent $sent"
+		    if grep -q -s HIGH $sent; then
+			rm -f $sent
+			echo "clear HIGH $sent"
+		    fi
+		fi
+		if [ -n "$tmp_min" ]; then
+			cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
+		else
+		    if  grep -q -s LOW $sent; then
+			rm -f $sent
+			echo "clear LOW $sent"
+		    fi
+		fi
+		if [[ ! -f $sent ]] || [[ -f $failed ]] || grep -q -s RECOVERY $sent; then
+			if [[ $cr_ge == 1 ]]; then
+			    echo "To: $line2" > $plik; 
+			    echo "" >> $plik; 
+			    echo "HIGH $name $tmp $type" >> $plik;
+			    echo "Send HIGH $sent"
+			fi
+			if [[ $cr_le == 1 ]]; then  
+			    echo "To: $line2" > $plik; 
+			    echo "" >> $plik; 
+			    echo "LOW $name $tmp $type" >> $plik; 
+			    echo "Send LOW $sent"
+			fi
+		    rm -f $failed
+		elif  ! grep -q -s RECOVERY  $sent && [[ $cr_ge == 0 ]] || [[ cr_le == 0 ]]; then
+			    echo "To: $line2" > $plik; 
+			    echo "" >> $plik; 
+			    echo "RECOVERY $name $tmp $type" >> $plik; 
+			    rm -f $sent
+			    echo "Send RECOVERY $sent"
+		else
+		    echo "Already sent $sent"
 		fi
 	    done
-done 
+done
 }
 
-send_sms()
-{
-echo "$date sms_test - send sms to $1 $(cat $plik | gammu -c $dir/tmp/gammurc  --sendsms TEXT $1 )" >> $dir/tmp/log.txt
-}
+
 
 
 check_alarm
