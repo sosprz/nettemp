@@ -58,8 +58,7 @@ Go to <a href="http://stats.nettemp.pl" class="label label-info">stats.nettemp.p
   </div>
 </div>
 
-<div class="form-group">   <label class="col-md-4 control-label" for="textinput">OS:</label>   <div class="col-md-4">   <inputid="textinput"  placeholder="" class="form-control input-md" required="" type="text" value="<?php passthru('/bin/bash source /etc/os-release'); echo $ip = getenv('PRETTY_NAME');?>" disabled>   </div> </div>
-
+<div class="form-group">   <label class="col-md-4 control-label" for="textinput">OS:</label>   <div class="col-md-4">   <input id="textinput"  placeholder="" class="form-control input-md" required="" type="text" value="<?php passthru('cat /etc/os-release | grep PRETT | sed \'s/^.*=\"\\(.*\\)\".*/\\1/g\'');?>" disabled>   </div> </div>
 <div class="form-group">
   <label class="col-md-4 control-label" for="selectbasic">Seensor:</label>
   <div class="col-md-4">
