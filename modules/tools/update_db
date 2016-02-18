@@ -253,4 +253,5 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "UPDATE hosts SET position='1' WH
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD ch_group type NUM";
 
-
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE statistics (id INTEGER PRIMARY KEY, agreement TEXT, nick TEXT, location TEXT, sensor_temp TEXT);"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO statistics (agreement) VALUES ('no');"

@@ -1,7 +1,5 @@
 #! /bin/bash 
 
-dir=$( cd "$( dirname "$0" )" && cd ../ && pwd )
-
 dtgpio="$1"
 ds="$2"
 modgpio="$3"

@@ -2,14 +2,17 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
-cd $dir && git reset --hard && cd -
+
+if [[ "$1" == git ]]; then 
+    cd $dir && git reset --hard && cd -
+fi
 
 rm -rf $dir/dbf/*.db
 #rm -rf $dir/db/*.rrd #uncomment will delete all stored data
 rm -rf $dir/tmp
 mkdir $dir/tmp
 
-for i in snmp hosts kwh nettemp; do 
+for i in snmp hosts nettemp; do 
     rm -rf $dir/dbf/$i.db
     sqlite3 -cmd ".timeout 2000" $dir/dbf/$i.db < $dir/modules/tools/$i.schema
     chmod 775 $dir/dbf/$i.db
@@ -39,7 +42,8 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (dev
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem SMS','none');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('UPS Pimowo','none');"
 
-
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE settings SET meteogram='Poland/Pomerania/Gdansk' WHERE id='1' AND meteogram is null"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE OR IGNORE settings SET server_key='$(date +%s | sha256sum | base64 | head -c 10 ; echo)' where id='1' AND server_key is null"
 
 
 

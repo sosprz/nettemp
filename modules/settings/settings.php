@@ -17,6 +17,7 @@
 <a href="index.php?id=settings&type=charts" ><button class="btn btn-xs btn-default <?php echo $art == 'charts' ? 'active' : ''; ?>">Charts</button></a>
 <a href="index.php?id=settings&type=ownwidget" ><button class="btn btn-xs btn-default <?php echo $art == 'ownwidget' ? 'active' : ''; ?>">OwnWidget</button></a>
 <a href="index.php?id=settings&type=server_node" ><button class="btn btn-xs btn-default <?php echo $art == 'server_node' ? 'active' : ''; ?>">Server - Node</button></a>
+<a href="index.php?id=settings&type=stats" ><button class="btn btn-xs btn-default <?php echo $art == 'stats' ? 'active' : ''; ?>">Stats</button></a>
 </p>
 <?php  
 switch ($art)
@@ -36,5 +37,6 @@ case 'users': include('modules/settings/users.php'); break;
 case 'charts': include('modules/settings/charts.php'); break;
 case 'ownwidget': include('modules/settings/ownwidget_edit.php'); break;
 case 'server_node': include('modules/settings/server_node.php'); break;
+case 'stats': include('modules/settings/stats.php'); break;
 }
 ?>

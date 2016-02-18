@@ -1,6 +1,13 @@
-#! /bin/bash
+#! /bin/bash 
 
-
+apt-get install libssl-dev  libgnutls28-dev  gcc python2.7-dev libldap2-dev libacl1-dev libtalloc-dev libsasl2-dev
+cd /tmp
+wget ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-3.0.9.tar.gz 
+tar -xzf freeradius-server-3.0.9.tar.gz 
+cd freeradius-server-3.0.9
+./configure
+make
+make install
 
 cd /usr/local/etc/raddb/certs/
 
@@ -82,3 +89,5 @@ gpasswd -a www-data staff
 chmod o+rx -R /usr/local/etc/raddb/certs/
 sed -i '214,241 s/^/#/' /usr/local/etc/raddb/sites-enabled/default
 sed -i -e 's/.*allow_vulnerable_openssl = no.*/allow_vulnerable_openssl = yes/' /usr/local/etc/raddb/radiusd.conf
+
+

@@ -1,7 +1,5 @@
 #! /bin/bash 
 
-aptitude install -y smstools
-
 mkdir -p /var/spool/sms/outgoing
 mkdir -p /var/spool/sms/checked
 mkdir -p /var/spool/sms/failed
@@ -12,4 +10,3 @@ mkdir -p /var/spool/sms/sent
 chmod 775 /var/spool/sms/outgoing
 chmod 775 /var/spool/sms/incoming
 
-update-rc.d smstools enable

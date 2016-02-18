@@ -5,7 +5,7 @@ $smsdev = $_POST["smsdev"];
 $smsc = $_POST["smsc"];
 if ($_POST['smsc1'] == "smsc2") {
     $out = preg_replace('/\//',"\/", $smsdev);
-    $cmd0="sudo cp -f '$dir'/install/conf/smsd.conf /etc/smsd.conf && sudo sed -i s/changedevice/'$out'/g /etc/smsd.conf";
+    $cmd0="sudo cp -f '$dir'/install/sms/smsd.conf /etc/smsd.conf && sudo sed -i s/changedevice/'$out'/g /etc/smsd.conf";
     passthru($cmd0);
     $cmd1="sudo sed -i s/changesmsc/'$smsc'/g /etc/smsd.conf";
     passthru($cmd1);

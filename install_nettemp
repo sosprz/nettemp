@@ -23,10 +23,10 @@ $1
 exitstatus=$?
 if [ $exitstatus = 1 ]; then
     whiptail --clear  --title "Nettemp installer" --msgbox "Error $1" 8 78
-    echo -e "[ ${red}error${R} ] Error in $1"
+    echo -e "[ ${red}error${R} ] Error in $2"
     exit 1
 else
-    echo -e "[ ${GREEN}ok${R} ] $1"
+    echo -e "[ ${GREEN}ok${R} ] $2"
 fi
 }
 
@@ -46,162 +46,10 @@ if [ $exitstatus = 0 ]; then
 fi
 }
 
-function checkifrpi {
-rpi=$(cat /proc/cmdline | awk -v RS=" " -F= '/boardrev/ { print $2 }')
-if [ -n "$rpi" ]; then
-    echo -e "[ ${GREEN}ok${R} ] Raspberry Pi detected"
-else
-    echo -e "[ ${GREEN}ok${R} ] no Raspberry Pi detected"
-fi
-}
 
-function services {
-service ntp start
-service lighttpd restart
-} >> install_log.txt 2>&1
-
-function perms {
-$dir/modules/tools/update_su
-$dir/modules/tools/update_perms
-umask 002 $dir/tmp
-umask 002 $dir/db
-umask 002 $dir/dbf
-}
-
-function i2c {
-if [ -n "$rpi" ]; then
-    if cat /etc/modules |grep i2c-bcm2708 1> /dev/null; then
-	echo -e "[ ${GREEN}ok${R} ] i2c-bcm2708  allready added"
-    else
-	sed -i '$ai2c-bcm2708' /etc/modules
-    fi
-#    sed -i 's/blacklist spi-bcm2708/#blacklist spi-bcm2708/g' /etc/modprobe.d/raspi-blacklist.conf
-#    sed -i 's/blacklist i2c-bcm2708/#blacklist i2c-bcm2708/g' /etc/modprobe.d/raspi-blacklist.conf
-fi
-
-    if cat /etc/modules |grep i2c-dev 1> /dev/null; then
-	echo -e "[ ${GREEN}ok${R} ] i2c-dev allready added"
-    else
-	sed -i '$ai2c-dev' /etc/modules
-    fi
-#    if cat /etc/modules |grep ds2482 1> /dev/null; then
-#	echo -e "[ ${GREEN}ok${R} ] ds2482 allready added"
-#    else
-#	sed -i '$ads2482' /etc/modules
-#    fi
-
-if ! grep -q -E "^(device_tree_param|dtparam)=([^,]*,)*i2c(_arm)?=[^,]*" /boot/config.txt; then
-    printf "dtparam=i2c_arm=on\n" >> /boot/config.txt
-fi
-    modprobe i2c-bcm2708
-    modprobe i2c-dev
-}
-
-function ups {
-if dpkg --get-selections | grep -q apcupsd; then
-    echo -e "[ ${GREEN}ok${R} ] ups function already installed"
-    else
-    $dir/modules/ups/install
-fi
-} >> install_log.txt 2>&1
-
-function vpn {
-    echo -e "[ ${GREEN}ok${R} ] Generating certs for OpenVPN. Please wait.."
-    {
-    $dir/modules/security/vpn/install
-    } 
-}
-
-function firewall {
-    $dir/modules/security/fw/install
-} >> install_log.txt 2>&1
-
-
-
-function sensors {
-#1wire
-$dir/install/1wire on off off
-#dht 11/22
-cd $dir/modules/sensors/GPIO/DHT/dhtlib/
-./install
-cd -
-
-#dht 11/22
-cd $dir/modules/sensors/GPIO/DHT/dhtlib/
-./install
-cd -
-
-}
-
-
-function wiringpi {
-if [ -n "$rpi" ];then
-        git clone git://git.drogon.net/wiringPi 
-	cd wiringPi
-	./build
-fi 
-} >> install_log.txt 2>&1
-# echo -e "${GREEN}Add watchdog${R}"
-# update-rc.d watchdog defaults
-# if cat /etc/modules |grep bcm2708_wdog 1> /dev/null
-# then
-# echo "bcm2708_wdog exist in file"
-# else
-# echo "bcm2708_wdog" | sudo tee -a /etc/modules
-# fi
-# sed -i -e '10s/#max-load-1/max-load-1/' /etc/watchdog.conf
-# sed -i -e '23s/#watchdog-device/watchdog-device/' /etc/watchdog.conf
-# /etc/init.d/watchdog start
-#fi
-#}
-
-function cron {
-if crontab -l |grep nettemp 1> /dev/null; then
-echo -e "[ ${GREEN}ok${R} ] Cron lines already exist"
-else
-echo "*/1 * * * * $dir/modules/cron/1" > /var/spool/cron/crontabs/root
-echo "*/5 * * * * $dir/modules/cron/5" >> /var/spool/cron/crontabs/root
-echo "0 * * * * $dir/modules/cron/1h" >> /var/spool/cron/crontabs/root
-echo "@reboot $dir/modules/cron/r" >> /var/spool/cron/crontabs/root
-chmod 600 /var/spool/cron/crontabs/root
-fi
-}
-function database {
-$dir/modules/tools/db_reset
-} >> install_log.txt 2>&1 
-
-function check-other-www-servers {
-if dpkg --get-selections | grep apache; then
-service apache2 stop
-update-rc.d apache2 disable
-echo -e "[ ${GREEN}ok${R} ] Looks like You have Apache, service was stoped, until reboot.$old"
-fi
-} >> install_log.txt 2>&1
-
-function www-server {
-#lighttpd
-$dir/install/lighttpd
-$dir/install/php5-fpm
-
-}
-
-function packages { 
-echo -e "[ ${GREEN}ok${R} ] Installing packages. Please wait.."
-{
-package="lighttpd php5-cgi php5-sqlite rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat \
-	sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables rcconf \
-	arp-scan snmpd httping fping make gcc lynx expect socat build-essential python-dev figlet \
-	libmodbus5 netfilter-persistent"
-    apt-get -y install $package
-} 
-} >> install_log.txt 2>&1
-
-function update {
-    echo -e "[ ${GREEN}ok${R} ] apt-get repo updating. Please wait.."
-    {
-    apt-get -y update
-    } >> install_log.txt 2>&1
-}
+function run {
+source $dir/install/run.sh
+} #>> install_log.txt 2>&1
 
 
 function start {
@@ -209,49 +57,24 @@ whiptail  --backtitle "Nettemp.pl" --title "Nettemp installer" --yesno "Do You w
 exitstatus=$?
 if [ $exitstatus = 1 ]; then
     echo "bye.."
-    exit 1
+    exit 1s
 fi
-}
 
-function smstools {
-    echo -e "[ ${GREEN}ok${R} ] Installing SMStools. Please wait.."
-    {
-    chmod +x $dir/install/smstools
-    $dir/install/smstools
-    } >> install_log.txt 2>&1
-}
-
-function drivers {
-if [ -n "$rpi" ];then
-    echo -e "[ ${GREEN}ok${R} ] Installing drivers. Please wait.."
-    {
-    chmod +x $dir/install/drivers
-    $dir/install/drivers
-    } >> install_log.txt 2>&1
+whiptail  --backtitle "Nettemp.pl" --title "Nettemp installer" --yesno "Do You want generate OpenVPN certificate? (Long installation)" 8 78
+exitstatus2=$?
+if [ $exitstatus2 = 0 ]; then
+    OVCA=yes
 fi
+
+whiptail  --backtitle "Nettemp.pl" --title "Nettemp installer" --yesno "Do You want start APC UPS?" 8 78
+exitstatus2=$?
+if [ $exitstatus2 = 0 ]; then
+    APCUPS=yes
+fi
+
 }
-
-
 
 start
-fexit checkifrpi
-fexit update
-fexit packages
-fexit smstools
-fexit check-other-www-servers
-fexit www-server
-fexit database
-fexit cron
-fexit wiringpi
-fexit sensors
-fexit ups
-fexit vpn
-fexit firewall
-fexit i2c
-fexit perms
-fexit services
-fexit drivers
+fexit run Installation
 end
-
-#echo "(Exit status was $exitstatus)"
 
