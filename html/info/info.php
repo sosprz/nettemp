@@ -2,9 +2,8 @@
 <div class="panel-heading">Info</div>
 <div class="panel-body">
 <center><a href="http://nettemp.pl" target="_blank">nettemp.pl</a></center>
-<center><a href="http://techfreak.pl/nettemp" target="_blank">techfreak.pl/nettemp</a></center>
 <center><h3>Support</h3></center>
-<center><a href="http://forum.techfreak.pl" target="_blank">forum.techfreak.pl</a></center>
+<center><a href="http://nettemp.pl/forum" target="_blank">nettemp.pl/forum</a></center>
 <center><a href="mailto:techfreak.pL@gmail.com">techfreak.pl@gmail.com</a></center>
 <center><h3>Credits</h3>
 RRDtool<br />
