@@ -52,7 +52,7 @@ for line in `sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name,tmp,t
 			    echo "Send LOW $sent"
 			fi
 		    rm -f $failed
-		elif  ! grep -q -s RECOVERY  $sent && [[ $cr_ge == 0 ]] || [[ cr_le == 0 ]]; then
+		elif  ! grep -q -s RECOVERY  $sent && [[ $cr_ge == 0 ]] && [[ $cr_le == 0 ]]; then
 			    echo "To: $line2" > $plik; 
 			    echo "" >> $plik; 
 			    echo "RECOVERY $name $tmp $type" >> $plik; 
