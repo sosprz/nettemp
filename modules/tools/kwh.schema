@@ -1,2 +1,0 @@
-CREATE TABLE kwh ( time DATETIME DEFAULT CURRENT_TIMESTAMP, pulse INTEEGER , current INTEEGER); 
-CREATE INDEX time_index ON kwh(time);

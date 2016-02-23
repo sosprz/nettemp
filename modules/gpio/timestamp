@@ -8,6 +8,6 @@ onoff="$2"
 if [ -e $dir/db/gpio_stats_$gpio.sql ]; then
     sqlite3 -cmd ".timeout 2000" $dir/db/gpio_stats_$gpio.sql "INSERT OR IGNORE INTO def (value) VALUES ('$2');"
 else
-    sqlite3 -cmd ".timeout 2000" $dir/db/gpio_stats_$gpio.sql "CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER);"
+    sqlite3 -cmd ".timeout 2000" $dir/db/gpio_stats_$gpio.sql "CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER);"
     sqlite3 -cmd ".timeout 2000" $dir/db/gpio_stats_$gpio.sql "INSERT OR IGNORE INTO def (value) VALUES ('$2');"
 fi

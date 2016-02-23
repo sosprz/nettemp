@@ -129,15 +129,15 @@ $name_new=trim($name_new2);
 		$dbhost = new PDO("sqlite:dbf/hosts.db");	
 		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping', '{left:0,top:0}', '$map_num2', 'on')") or die ("cannot insert host to DB" );	
 		$dbnew = new PDO("sqlite:db/host_$id_rom_new.sql");
-    		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
+    		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
 	    }
 	    if ($type=='elec' || $type=='water' || $type=='gas' || $type=='watt') {
 		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");
-		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER, current INTEEGER, last INTEEGER)");
+		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER, current INTEGER, last INTEGER)");
 	    }
 	    else {
 		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");
-		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
+		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
 	    }
 	    $dbnew==NULL;
 
