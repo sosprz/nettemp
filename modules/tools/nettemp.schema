@@ -154,7 +154,7 @@ CREATE TABLE vpn (
 CREATE TABLE sensors (
   id INTEGER PRIMARY KEY,
   time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  tmp INTEGER,
+  tmp INTEEGER,
   name UNIQUE,
   rom UNIQUE,
   tmp_min REAL,
@@ -171,7 +171,7 @@ CREATE TABLE sensors (
   ip type TEXT, 
   device type TEXT,
   lcd type TEXT,
-  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT, i2c type TEXT, minmax type TEXT, sum type TEXT, map_pos NUMERIC, position INTEGER DEFAULT 1, map_num type NUM, map type NUM, ch_group type NUM);
-CREATE TABLE usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE, status type TEXT);
-CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE tmp = old.tmp; END;
+  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT, i2c type TEXT, minmax type TEXT, sum type TEXT, map_pos type NUM, map_num type NUM, position INTEGER DEFAULT 1, map type NUM, ch_group type NUM);
+CREATE TABLE usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE);
 CREATE TABLE statistics (id INTEGER PRIMARY KEY, agreement TEXT, nick TEXT, location TEXT, sensor_temp TEXT);
+CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE tmp = old.tmp; END;
