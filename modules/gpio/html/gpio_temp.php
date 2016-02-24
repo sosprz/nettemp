@@ -45,13 +45,7 @@ if ($weekrunon == "on")  {
 
 if ( $a['temp_run'] == "on") {
 
-foreach (range(1, $tempnum) as $v) {
-$sth = $db->prepare("SELECT * FROM sensors");
-$sth->execute();
-$result = $sth->fetchAll();
-}
-?>
-<?php echo "Status: ".$a['status'];?>
+echo "Status: ".$a['status'];?>
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <button type="submit" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> OFF</button>
@@ -64,7 +58,7 @@ $result = $sth->fetchAll();
 ?>
 <?php 
     if ($a['day_run'] == 'on') { 
-	include('gpio_day_plan.php');
+		include('gpio_day_plan.php');
 	
     } 
 	include('gpio_temp_forms.php');

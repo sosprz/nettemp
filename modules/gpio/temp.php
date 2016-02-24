@@ -1,13 +1,17 @@
 <?php
-$db = new PDO('sqlite:../../dbf/nettemp.db');
-$rows = $db->query("SELECT * FROM gpio WHERE gpio='4'");
+$db = new PDO('sqlite:dbf/nettemp.db');
+$rows = $db->query("SELECT * FROM gpio");
 $row = $rows->fetchAll();
-foreach ($row as $s) {
-    $fnum=$s['fnum'];
-    echo $fnum."<br>";
+foreach ($row as $a) {
+		$list[]=$a['gpio'];
 }
 
-foreach ($row as $a) {
-    echo $a['temp_sensor1'];
+foreach ($list as $a) {
+	$rows = $db->query("SELECT * FROM g_func WHERE gpio='$a'");
+	$gf = $rows->fetchAll();
+	foreach ($gf as $a) {
+		echo $a['gpio'];
+	}
+
 }
 ?>
