@@ -40,7 +40,7 @@ function ch_source() {
 	$hyst=isset($_POST['hyst']) ? $_POST['hyst'] : '';
 	$onoff=isset($_POST['onoff']) ? $_POST['onoff'] : '';
 	$op=isset($_POST['op']) ? $_POST['op'] : '';
-	$day_plan=isset($_POST['day_plan']) ? $_POST['day_plan'] : '';
+	$day_plan=isset($_POST['day_plan']) ? $_POST['day_plan'] : 'allways';
 	
 	$fadd=isset($_POST['fadd']) ? $_POST['fadd'] : '';
 	$fdel=isset($_POST['fdel']) ? $_POST['fdel'] : '';
@@ -173,7 +173,7 @@ function ch_source() {
 <?php 
 	} 
 	?>
-	<option value="" selected="selected">none</option>
+	<option value="allways" selected="selected">allways</option>
 	</select>
 </td>
 
