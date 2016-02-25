@@ -25,8 +25,8 @@ function ch_source() {
 		    document.getElementById("value").style.display = 'none';
 		    document.getElementById("sensor2").style.display = 'block';
 		    document.getElementById("hyst").style.display = 'block';
-		    //document.getElementById("sensor2").required = true;
-		    //document.getElementById("hyst").required = true;
+		    document.getElementById("sensor2").required = true;
+		    document.getElementById("hyst").required = true;
 		}
 }
 	    </script>
@@ -160,7 +160,7 @@ function ch_source() {
 <select name="onoff" class="form-control input-sm">
     <option value="on">ON</option>
     <option value="off">OFF</option>
-    <option value="onoff">ON/OFF</option>
+  <!--  <option value="onoff">ON/OFF</option> -->
 </select>
 </td>
 
@@ -222,7 +222,7 @@ function ch_source() {
 </td>
 
 <td class="col-md-1" onclick='ch_source()'>
-	<?php //echo $func['source']
+	<?php echo $func['source']
 		?>
 </td>
 
