@@ -1,4 +1,4 @@
-! /bin/bash
+#! /bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 
