@@ -92,13 +92,13 @@ function ch_source() {
    $sth->execute();
    $result = $sth->fetchAll(); 
 
-	$sth = $db->prepare("SELECT * FROM day_plan WHERE gpio='$gpio'");
-	$sth->execute();
-	$dp = $sth->fetchAll();
+	$sth1 = $db->prepare("SELECT * FROM day_plan WHERE gpio='$gpio'");
+	$sth1->execute();
+	$dp = $sth1->fetchAll();
 	
-	$sth = $db->prepare("SELECT * FROM g_func WHERE gpio='$gpio' ORDER BY position ASC");
-	$sth->execute();
-	$func = $sth->fetchAll();
+	$sth2 = $db->prepare("SELECT * FROM g_func WHERE gpio='$gpio' ORDER BY position ASC");
+	$sth2->execute();
+	$func = $sth2->fetchAll();
 	?>
 <div class="panel panel-default">
 <div class="panel-heading">Value functions</div>
@@ -169,7 +169,7 @@ function ch_source() {
 <?php
 	foreach ($dp as $dp) {
 	?>
-	<option value="<?php echo $dp['name']?>"><?php echo $dp['name']?></option>
+	<option value="<?php echo $dpl['name']?>"><?php echo $dp['name']?></option>
 <?php 
 	} 
 	?>
