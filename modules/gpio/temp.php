@@ -1,5 +1,6 @@
 <?php
 //gpio, czas, rownasie, metoda
+// week list
 
 $db = new PDO('sqlite:../../dbf/nettemp.db');
 $debug = isset($_GET['debug']) ? $_GET['debug'] : '';
