@@ -25,7 +25,9 @@ function ch_source() {
 		    document.getElementById("value").style.display = 'none';
 		    document.getElementById("sensor2").style.display = 'block';
 		    document.getElementById("hyst").style.display = 'block';
-		    document.getElementById("sensor2").required = true;
+		    
+		    document.getElementById("value").required = false;
+		    document.getElementById("sensor2").required = false;
 		    document.getElementById("hyst").required = true;
 		}
 }
@@ -153,7 +155,7 @@ function ch_source() {
 </td>
 
 <td class="col-md-1">
-    <input type="text" name="hyst" class="form-control input-sm" id="hyst" style="display: none" required="">
+    <input type="text" name="hyst" class="form-control input-sm" id="hyst" style="display: none">
 </td>
 
 <td class="col-md-1">
