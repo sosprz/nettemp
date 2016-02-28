@@ -2,6 +2,8 @@
 //gpio, czas, rownasie, metoda
 // week list
 // hit po week w temp
+// on off
+// exit
 
 $db = new PDO('sqlite:../../dbf/nettemp.db');
 $debug = isset($_GET['debug']) ? $_GET['debug'] : '';
@@ -49,6 +51,7 @@ function w_profile_check($gpio,$w_profile) {
 }
 
 function action_on($op,$sensor_name,$gpio,$rev) {
+	$db = new PDO('sqlite:../../dbf/nettemp.db');
 	$out="/usr/local/bin/gpio -g mode $gpio output";
 	$read="/usr/local/bin/gpio -g read $gpio";
 	$on="/usr/local/bin/gpio -g write $gpio 1";
@@ -65,11 +68,13 @@ function action_on($op,$sensor_name,$gpio,$rev) {
 	 		}
 		}
 	}	
+	$db->exec("UPDATE gpio SET status='ON',state='ON' WHERE gpio='$gpio'");
   	echo "GPIO ".$gpio." ".$rev." TRUN ON\n";
   	$onoff='1';
   	timestamp($gpio,$onoff);
 }
 function action_off($op,$sensor_name,$gpio,$rev) {
+	$db = new PDO('sqlite:../../dbf/nettemp.db');
 	$out="/usr/local/bin/gpio -g mode $gpio output";
 	$read="/usr/local/bin/gpio -g read $gpio";
 	$on="/usr/local/bin/gpio -g write $gpio 1";
@@ -85,163 +90,17 @@ function action_off($op,$sensor_name,$gpio,$rev) {
 	    	system($off);
 	 		}
 		}
-	}	
+	}
+	$db->exec("UPDATE gpio SET status='ON',state='ON' WHERE gpio='$gpio'");
 	echo "GPIO ".$gpio." ".$rev." TRUN OFF\n";
 	$onoff='0';
 	timestamp($gpio,$onoff);
+
 }
 
-function temp($op,$sensor_tmpadj,$value,$sensor_name,$op,$gpio,$rev) {
-	$db = new PDO('sqlite:../../dbf/nettemp.db');
-	if ($op=='gt') {
-			if ($sensor_tmpadj > $value){
-				action_on($op,$sensor_name,$gpio,$rev);
-				$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");				
-			}
-			else {
-				action_off($op,$sensor_name,$gpio,$rev);	
-				$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
-			}
-		} 
-		elseif ($op=='ge') {
-			if ($sensor_tmpadj >= $value){
-				action_on($op,$sensor_name,$gpio,$rev);	
-				$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
-			}
-			else {
-				 action_off($op,$sensor_name,$gpio,$rev);
-				 $db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
-			}
-		} 
-		elseif ($op=='le') {
-			if ($sensor_tmpadj <= $value){
-				action_on($op,$sensor_name,$gpio,$rev);
-				$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");	
-			}
-			else {
-				action_off($op,$sensor_name,$gpio,$rev);
-				$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
-			}
-		} 
-		elseif ($op=='lt') {
-			if ($sensor_tmpadj < $value){
-				action_on($op,$sensor_name,$gpio,$rev);	
-				$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
-			}
-			else {
-				 action_off($op,$sensor_name,$gpio,$rev);
-				 $db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
-			}
-		}
-}
 
-function hyst($op,$sensor_tmpadj,$value,$sensor_name,$op,$gpio,$rev,$hyst,$value_max,$state) {
-	$db = new PDO('sqlite:../../dbf/nettemp.db');
+function hyst($op,$sensor_tmpadj,$value,$sensor_name,$op,$gpio,$rev,$hyst,$value_max,$state,$onoff) {
 	
-	if ($op=='gt') {
-			if ($sensor_tmpadj > $value){
-					echo "gt 1 on\n";
-					echo "state on\n";
-					action_on($op,$sensor_name,$gpio,$rev);
-					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
-			}
-			elseif($sensor_tmpadj < $value && $state == 'on' ) {
-					echo "gt 2 on running\n";
-					echo "state on\n";	
-					action_on($op,$sensor_name,$gpio,$rev);	
-					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
-			}
-			elseif($sensor_tmpadj < $value && $sensor_tmpadj < $value_max) {
-					echo "gt 3 off\n";
-					echo "state off\n";	
-					action_off($op,$sensor_name,$gpio,$rev);	
-					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
-			}
-			elseif($sensor_tmpadj < $value && $state == 'off') {
-					echo "gt 4 off going down\n";
-					echo "state off\n";
-					action_off($op,$sensor_name,$gpio,$rev);	
-					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
-			}
-		} 
-		elseif ($op=='ge') {
-			if ($sensor_tmpadj >= $value){
-					echo "ge 1 on\n";
-					echo "state on\n";
-					action_on($op,$sensor_name,$gpio,$rev);
-					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
-			}
-			elseif($sensor_tmpadj <= $value && $state == 'on' ) {
-					echo "ge 2 on running\n";
-					echo "state on\n";	
-					action_on($op,$sensor_name,$gpio,$rev);	
-					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
-			}
-			elseif($sensor_tmpadj <= $value && $sensor_tmpadj < $value_max) {
-					echo "ge 3 off\n";
-					echo "state off\n";	
-					action_off($op,$sensor_name,$gpio,$rev);	
-					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
-			}
-			elseif($sensor_tmpadj <= $value && $state == 'off') {
-					echo "ge 4 off going down\n";
-					echo "state off\n";
-					action_off($op,$sensor_name,$gpio,$rev);	
-					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
-			}
-		} 
-		elseif ($op=='le') {
-			if ($sensor_tmpadj <= $value){
-					echo "le 1 on\n";
-					echo "state on\n";
-					action_on($op,$sensor_name,$gpio,$rev);
-					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
-			}
-			elseif($sensor_tmpadj >= $value && $state == 'on' ) {
-					echo "le 2 on running\n";
-					echo "state on\n";	
-					action_on($op,$sensor_name,$gpio,$rev);	
-					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
-			}
-			elseif($sensor_tmpadj >= $value && $sensor_tmpadj > $value_max) {
-					echo "le 3 off\n";
-					echo "state off\n";	
-					action_off($op,$sensor_name,$gpio,$rev);	
-					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
-			}
-			elseif($sensor_tmpadj >= $value && $state == 'off') {
-					echo "le 4 off going down\n";
-					echo "state off\n";
-					action_off($op,$sensor_name,$gpio,$rev);	
-					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
-			}
-		} 
-		elseif ($op=='lt') {
-			if ($sensor_tmpadj < $value){
-					echo "lt 1 on\n";
-					echo "state on\n";
-					action_on($op,$sensor_name,$gpio,$rev);
-					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
-			}
-			elseif($sensor_tmpadj > $value && $state == 'on' ) {
-					echo "lt 2 on running\n";
-					echo "state on\n";	
-					action_on($op,$sensor_name,$gpio,$rev);	
-					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
-			}
-			elseif($sensor_tmpadj > $value && $sensor_tmpadj > $value_max) {
-					echo "lt 3 off\n";
-					echo "state off\n";	
-					action_off($op,$sensor_name,$gpio,$rev);	
-					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
-			}
-			elseif($sensor_tmpadj > $value && $state == 'off') {
-					echo "lt 4 off going down\n";
-					echo "state off\n";
-					action_off($op,$sensor_name,$gpio,$rev);	
-					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
-			}
-		}
 }
 
 
@@ -320,14 +179,128 @@ foreach ($row as $a) {
 			if($debug=='yes') {
 				echo $gpio." ".$sensor_name." ".$sensor_tmpadj." ".$op." ".$sensor2_name." ".$value." ".$hyst." ".$value_max." ".$onoff." ".$w_profile."\n";
 			}
-		
-	
+			//////// temp function
 			if($source=='temp' || $source=='sensor2') {
-				temp($op,$sensor_tmpadj,$value,$sensor_name,$op,$gpio,$rev);		
+				$func = 'action_' . $onoff;
+				if ($op=='gt') {
+					if ($sensor_tmpadj > $value){
+						print $func($op,$sensor_name,$gpio,$rev);
+						break;
+					}
+				} 
+				elseif ($op=='ge') {
+					if ($sensor_tmpadj >= $value){
+						print $func($op,$sensor_name,$gpio,$rev);	
+						break;
+					}
+				}		 
+				elseif ($op=='le') {
+					if ($sensor_tmpadj <= $value){
+						print $func($op,$sensor_name,$gpio,$rev);
+						break;
+					}
+				} 
+				elseif ($op=='lt') {
+					if ($sensor_tmpadj < $value){
+						print $func($op,$sensor_name,$gpio,$rev);	
+						break;
+					}
+				}
 			} 
+			////////// hyst function
 			elseif($source=='temphyst' || $source=='sensor2hyst') {
-				hyst($op,$sensor_tmpadj,$value,$sensor_name,$op,$gpio,$rev,$hyst,$value_max,$state);	
+				if ($op=='gt') {
+					if ($sensor_tmpadj > $value){
+						echo "gt 1 on\n";
+						action_on($op,$sensor_name,$gpio,$rev);
+						break;
+					}
+					elseif($sensor_tmpadj < $value && $state == 'on' ) {
+						echo "gt 2 on running\n";
+						action_on($op,$sensor_name,$gpio,$rev);
+						break;
+					}
+					elseif($sensor_tmpadj < $value && $sensor_tmpadj < $value_max) {
+						echo "gt 3 off\n";
+						action_off($op,$sensor_name,$gpio,$rev);	
+						break;
+					}
+					elseif($sensor_tmpadj < $value && $state == 'off') {
+						echo "gt 4 off going down\n";
+						action_off($op,$sensor_name,$gpio,$rev);	
+						break;
+					}
+				} 
+				elseif ($op=='ge') {
+				if ($sensor_tmpadj >= $value){
+						echo "ge 1 on\n";
+						echo "state on\n";
+						action_on($op,$sensor_name,$gpio,$rev);
+						break;
+					}
+					elseif($sensor_tmpadj <= $value && $state == 'on' ) {
+						echo "ge 2 on running\n";
+						echo "state on\n";	
+						action_on($op,$sensor_name,$gpio,$rev);	
+						break;
+					}
+					elseif($sensor_tmpadj <= $value && $sensor_tmpadj < $value_max) {
+						echo "ge 3 off\n";
+						action_off($op,$sensor_name,$gpio,$rev);
+						break;
+					}
+					elseif($sensor_tmpadj <= $value && $state == 'off') {
+						echo "ge 4 off going down\n";
+						action_off($op,$sensor_name,$gpio,$rev);	
+						break;
+					}
+				} 
+				elseif ($op=='le') {
+					if ($sensor_tmpadj <= $value){
+						echo "le 1 on\n";
+						action_on($op,$sensor_name,$gpio,$rev);
+						break;
+					}
+					elseif($sensor_tmpadj >= $value && $state == 'on' ) {
+						echo "le 2 on running\n";
+						action_on($op,$sensor_name,$gpio,$rev);	
+						break;
+					}
+					elseif($sensor_tmpadj >= $value && $sensor_tmpadj > $value_max) {
+						echo "le 3 off\n";
+						action_off($op,$sensor_name,$gpio,$rev);	
+						break;
+					}
+					elseif($sensor_tmpadj >= $value && $state == 'off') {
+						echo "le 4 off going down\n";
+						action_off($op,$sensor_name,$gpio,$rev);	
+						break;
+					}
+			} 
+				elseif ($op=='lt') {
+					if ($sensor_tmpadj < $value){
+						echo "lt 1 on\n";
+						action_on($op,$sensor_name,$gpio,$rev);
+						break;
+					}
+					elseif($sensor_tmpadj > $value && $state == 'on' ) {
+						echo "lt 2 on running\n";
+						action_on($op,$sensor_name,$gpio,$rev);	
+						break;
+					}
+					elseif($sensor_tmpadj > $value && $sensor_tmpadj > $value_max) {
+						echo "lt 3 off\n";
+						action_off($op,$sensor_name,$gpio,$rev);	
+						break;
+					}
+					elseif($sensor_tmpadj > $value && $state == 'off') {
+						echo "lt 4 off going down\n";
+						action_off($op,$sensor_name,$gpio,$rev);	
+						break;
+					}
+				}
 			}
+
 	
 	} //function
 	unset($rev);
