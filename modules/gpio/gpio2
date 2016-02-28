@@ -64,8 +64,8 @@ for gpio in $gpio_list; do
 	rev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
 if [ "$mode" = "time" ]; then
     source $(dirname $0)/time
-elif [ "$mode" = "temp" ]; then
-    source $(dirname $0)/temp
+#elif [ "$mode" = "temp" ]; then
+#    source $(dirname $0)/temp
 elif [ "$mode" = "simple" ]; then
     source $(dirname $0)/simple
 elif [ "$mode" = "trigger" ]; then
@@ -80,4 +80,7 @@ fi
 
 
 done
+
+php-cgi -f $dir/modules/gpio/temp.php
+
 

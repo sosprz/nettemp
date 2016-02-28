@@ -1,6 +1,7 @@
 <?php
 //gpio, czas, rownasie, metoda
 // week list
+// hit po week w temp
 
 $db = new PDO('sqlite:../../dbf/nettemp.db');
 $debug = isset($_GET['debug']) ? $_GET['debug'] : '';
@@ -8,6 +9,20 @@ $debug = isset($_GET['debug']) ? $_GET['debug'] : '';
 
 ////////////////////////////////////////////////////////
 // functions
+
+
+function timestamp($gpio,$onoff) {
+	
+	if (file_exists("../../db/gpio_stats_$gpio.sql")) {
+		$db = new PDO("sqlite:../../db/gpio_stats_$gpio.sql") or die ("ts 1\n" );
+	   $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("ts 2\n" );
+  	}
+	else {
+		$db = new PDO("sqlite:../../db/gpio_stats_$gpio.sql");
+   	$db->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)") or die ("ts 3\n" );
+    	$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("ts 4\n" );
+	}
+}
 
 function w_profile_check($gpio,$w_profile) {
 	$day=date("D");
@@ -33,50 +48,201 @@ function w_profile_check($gpio,$w_profile) {
 		}
 }
 
-function action_on($op,$sensor_name,$gpio) {
-	echo "GPIO ".$gpio." TRUN ON\n";
-	exit();
+function action_on($op,$sensor_name,$gpio,$rev) {
+	$out="/usr/local/bin/gpio -g mode $gpio output";
+	$read="/usr/local/bin/gpio -g read $gpio";
+	$on="/usr/local/bin/gpio -g write $gpio 1";
+	$off="/usr/local/bin/gpio -g write $gpio 0";
+	system($out);
+	system($read, $check);
+	if ($rev == 'on') {
+	 if ($check == "1"){ 
+	    system($off);
+	 }
+		else {
+	 		if ($check == '0'){ 
+	    	system($on);
+	 		}
+		}
+	}	
+  	echo "GPIO ".$gpio." ".$rev." TRUN ON\n";
+  	$onoff='1';
+  	timestamp($gpio,$onoff);
 }
-function action_off($op,$sensor_name,$gpio) {
-	echo "GPIO TRUN OFF\n";
-	exit();
+function action_off($op,$sensor_name,$gpio,$rev) {
+	$out="/usr/local/bin/gpio -g mode $gpio output";
+	$read="/usr/local/bin/gpio -g read $gpio";
+	$on="/usr/local/bin/gpio -g write $gpio 1";
+	$off="/usr/local/bin/gpio -g write $gpio 0";
+	system($out);
+	system($read, $check);
+	if ($rev == 'on') {
+	 if ($check == "0"){ 
+	    system($on);
+	 }
+		else {
+	 		if ($check == '1'){ 
+	    	system($off);
+	 		}
+		}
+	}	
+	echo "GPIO ".$gpio." ".$rev." TRUN OFF\n";
+	$onoff='0';
+	timestamp($gpio,$onoff);
 }
 
-function temp($op,$sensor_tmpadj,$value,$sensor_name,$op,$gpio) {
+function temp($op,$sensor_tmpadj,$value,$sensor_name,$op,$gpio,$rev) {
+	$db = new PDO('sqlite:../../dbf/nettemp.db');
 	if ($op=='gt') {
 			if ($sensor_tmpadj > $value){
-				action_on($op,$sensor_name,$gpio);				
+				action_on($op,$sensor_name,$gpio,$rev);
+				$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");				
 			}
 			else {
-				action_off($op,$sensor_name,$gpio);	
+				action_off($op,$sensor_name,$gpio,$rev);	
+				$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
 			}
 		} 
 		elseif ($op=='ge') {
 			if ($sensor_tmpadj >= $value){
-				action_on($op,$sensor_name,$gpio);	
+				action_on($op,$sensor_name,$gpio,$rev);	
+				$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
 			}
 			else {
-				 action_off($op,$sensor_name,$gpio);
+				 action_off($op,$sensor_name,$gpio,$rev);
+				 $db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
 			}
 		} 
 		elseif ($op=='le') {
 			if ($sensor_tmpadj <= $value){
-				action_on($op,$sensor_name,$gpio);	
+				action_on($op,$sensor_name,$gpio,$rev);
+				$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");	
 			}
 			else {
-				 action_off($op,$sensor_name,$gpio);
+				action_off($op,$sensor_name,$gpio,$rev);
+				$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
 			}
 		} 
 		elseif ($op=='lt') {
 			if ($sensor_tmpadj < $value){
-				action_on($op,$sensor_name,$gpio);	
+				action_on($op,$sensor_name,$gpio,$rev);	
+				$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
 			}
 			else {
-				 action_off($op,$sensor_name,$gpio);
+				 action_off($op,$sensor_name,$gpio,$rev);
+				 $db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
 			}
 		}
 }
 
+function hyst($op,$sensor_tmpadj,$value,$sensor_name,$op,$gpio,$rev,$hyst,$value_max,$state) {
+	$db = new PDO('sqlite:../../dbf/nettemp.db');
+	
+	if ($op=='gt') {
+			if ($sensor_tmpadj > $value){
+					echo "gt 1 on\n";
+					echo "state on\n";
+					action_on($op,$sensor_name,$gpio,$rev);
+					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
+			}
+			elseif($sensor_tmpadj < $value && $state == 'on' ) {
+					echo "gt 2 on running\n";
+					echo "state on\n";	
+					action_on($op,$sensor_name,$gpio,$rev);	
+					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
+			}
+			elseif($sensor_tmpadj < $value && $sensor_tmpadj < $value_max) {
+					echo "gt 3 off\n";
+					echo "state off\n";	
+					action_off($op,$sensor_name,$gpio,$rev);	
+					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
+			}
+			elseif($sensor_tmpadj < $value && $state == 'off') {
+					echo "gt 4 off going down\n";
+					echo "state off\n";
+					action_off($op,$sensor_name,$gpio,$rev);	
+					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
+			}
+		} 
+		elseif ($op=='ge') {
+			if ($sensor_tmpadj >= $value){
+					echo "ge 1 on\n";
+					echo "state on\n";
+					action_on($op,$sensor_name,$gpio,$rev);
+					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
+			}
+			elseif($sensor_tmpadj <= $value && $state == 'on' ) {
+					echo "ge 2 on running\n";
+					echo "state on\n";	
+					action_on($op,$sensor_name,$gpio,$rev);	
+					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
+			}
+			elseif($sensor_tmpadj <= $value && $sensor_tmpadj < $value_max) {
+					echo "ge 3 off\n";
+					echo "state off\n";	
+					action_off($op,$sensor_name,$gpio,$rev);	
+					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
+			}
+			elseif($sensor_tmpadj <= $value && $state == 'off') {
+					echo "ge 4 off going down\n";
+					echo "state off\n";
+					action_off($op,$sensor_name,$gpio,$rev);	
+					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
+			}
+		} 
+		elseif ($op=='le') {
+			if ($sensor_tmpadj <= $value){
+					echo "le 1 on\n";
+					echo "state on\n";
+					action_on($op,$sensor_name,$gpio,$rev);
+					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
+			}
+			elseif($sensor_tmpadj >= $value && $state == 'on' ) {
+					echo "le 2 on running\n";
+					echo "state on\n";	
+					action_on($op,$sensor_name,$gpio,$rev);	
+					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
+			}
+			elseif($sensor_tmpadj >= $value && $sensor_tmpadj > $value_max) {
+					echo "le 3 off\n";
+					echo "state off\n";	
+					action_off($op,$sensor_name,$gpio,$rev);	
+					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
+			}
+			elseif($sensor_tmpadj >= $value && $state == 'off') {
+					echo "le 4 off going down\n";
+					echo "state off\n";
+					action_off($op,$sensor_name,$gpio,$rev);	
+					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
+			}
+		} 
+		elseif ($op=='lt') {
+			if ($sensor_tmpadj < $value){
+					echo "lt 1 on\n";
+					echo "state on\n";
+					action_on($op,$sensor_name,$gpio,$rev);
+					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
+			}
+			elseif($sensor_tmpadj > $value && $state == 'on' ) {
+					echo "lt 2 on running\n";
+					echo "state on\n";	
+					action_on($op,$sensor_name,$gpio,$rev);	
+					$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
+			}
+			elseif($sensor_tmpadj > $value && $sensor_tmpadj > $value_max) {
+					echo "lt 3 off\n";
+					echo "state off\n";	
+					action_off($op,$sensor_name,$gpio,$rev);	
+					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
+			}
+			elseif($sensor_tmpadj > $value && $state == 'off') {
+					echo "lt 4 off going down\n";
+					echo "state off\n";
+					action_off($op,$sensor_name,$gpio,$rev);	
+					$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
+			}
+		}
+}
 
 
 		
@@ -85,9 +251,10 @@ $rows = $db->query("SELECT * FROM gpio WHERE mode='temp'");
 $row = $rows->fetchAll();
 foreach ($row as $a) {
 	$gpio=$a['gpio'];
-	$rev=$a['rev']; //////////////////////reverse
-		if($rev=='on') {$mode='LOW';} else {$mode='HIGH';}
-	$day_run=$a['day_run'];	
+	$rev=$a['rev']; 
+		if($rev=='on') {$mode='LOW';} else {$mode='HIGH'; $rev=null;}
+	$day_run=$a['day_run'];
+	$state=$a['state'];
 	echo "GPIO ".$gpio.", Mode=".$mode.", ".date('l jS \of F Y H:i:s')."\n";
 		
 	$rows = $db->query("SELECT * FROM g_func WHERE gpio='$gpio' ORDER BY position ASC");
@@ -101,7 +268,7 @@ foreach ($row as $a) {
 			$onoff=$func['onoff'];
 			$source=$func['source'];
 			$hyst=$func['hyst'];
-			$w_profile=$func['w_profile'];
+			$w_profile=$func['w_profile'];			
 			
 			//check if in week profile, if not exit, if empty or in range go forward
 			if(($day_run=='on') && ($w_profile!='any')) {
@@ -156,13 +323,13 @@ foreach ($row as $a) {
 		
 	
 			if($source=='temp' || $source=='sensor2') {
-				temp($op,$sensor_tmpadj,$value,$sensor_name,$op,$gpio);		
+				temp($op,$sensor_tmpadj,$value,$sensor_name,$op,$gpio,$rev);		
 			} 
 			elseif($source=='temphyst' || $source=='sensor2hyst') {
-				// dkonczyc
-				echo "";
+				hyst($op,$sensor_tmpadj,$value,$sensor_name,$op,$gpio,$rev,$hyst,$value_max,$state);	
 			}
-			
+	
 	} //function
+	unset($rev);
 }  //main
 ?>
