@@ -1,9 +1,9 @@
 <?php
 //gpio, czas, rownasie, metoda
-// week list
+
 // hit po week w temp
-// on off
-// exit
+// on off w hyst
+
 
 $db = new PDO('sqlite:../../dbf/nettemp.db');
 $debug = isset($_GET['debug']) ? $_GET['debug'] : '';
@@ -58,19 +58,18 @@ function action_on($op,$sensor_name,$gpio,$rev) {
 	$off="/usr/local/bin/gpio -g write $gpio 0";
 	system($out);
 	system($read, $check);
-	echo $check;
 	if ($rev == 'on') {
-	 if ($check == "1"){ 
-	    system($off);
-	 }
-		else {
-	 		if ($check == '0'){ 
-	    	system($on);
-	 		}
-		}
+	    if ($check == '1'){ 
+		system($off);
+	    }
+	}
+	else {
+	    if ($check == '0'){ 
+	        system($on);
+	    }
 	}	
 	$db->exec("UPDATE gpio SET status='ON',state='ON' WHERE gpio='$gpio'");
-  	echo "GPIO ".$gpio." ".$rev." TRUN ON\n";
+  	echo "GPIO ".$gpio." TRUN ON\n";
   	$onoff='1';
   	timestamp($gpio,$onoff);
 }
@@ -83,17 +82,17 @@ function action_off($op,$sensor_name,$gpio,$rev) {
 	system($out);
 	system($read, $check);
 	if ($rev == 'on') {
-	 if ($check == "0"){ 
-	    system($on);
-	 }
-		else {
-	 		if ($check == '1'){ 
-	    	system($off);
-	 		}
-		}
+	    if ($check == '0'){ 
+		system($on);
+	    }
+	}
+	else {
+	    if ($check == '1'){ 
+	        system($off);
+	    }
 	}
 	$db->exec("UPDATE gpio SET status='ON',state='ON' WHERE gpio='$gpio'");
-	echo "GPIO ".$gpio." ".$rev." TRUN OFF\n";
+	echo "GPIO ".$gpio." TRUN OFF\n";
 	$onoff='0';
 	timestamp($gpio,$onoff);
 
