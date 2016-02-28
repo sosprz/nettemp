@@ -58,6 +58,7 @@ function action_on($op,$sensor_name,$gpio,$rev) {
 	$off="/usr/local/bin/gpio -g write $gpio 0";
 	system($out);
 	system($read, $check);
+	echo $check;
 	if ($rev == 'on') {
 	 if ($check == "1"){ 
 	    system($off);
