@@ -175,3 +175,4 @@ CREATE TABLE sensors (
 CREATE TABLE usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE);
 CREATE TABLE statistics (id INTEGER PRIMARY KEY, agreement TEXT, nick TEXT, location TEXT, sensor_temp TEXT);
 CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE tmp = old.tmp; END;
+CREATE TABLE g_func (id INTEGER PRIMARY KEY, position INTEGER DEFAULT 1, sensor TEXT, sensor2 TEXT, onoff TEXT, value TEXT, op TEXT, hyst TEXT, source TEXT, gpio TEXT, w_profile TEXT);
