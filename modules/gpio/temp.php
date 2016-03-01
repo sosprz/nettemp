@@ -57,22 +57,23 @@ function action_on($op,$sensor_name,$gpio,$rev) {
 	$read="/usr/local/bin/gpio -g read $gpio";
 	$on="/usr/local/bin/gpio -g write $gpio 1";
 	$off="/usr/local/bin/gpio -g write $gpio 0";
-	system($out);
-	system($read, $check);
+	exec($out);
+	exec($read, $check);
 	if ($rev == 'on') {
-	    if ($check == '1'){ 
-		system($off);
+	    if ($check['0'] == '1'){ 
+		exec($off);
 	    }
 	}
 	else {
-	    if ($check == '0'){ 
-	        system($on);
+	    if ($check['0'] == '0'){ 
+	        exec($on);
 	    }
 	}	
 	global $return_action;
 	$return_action='1';
 	echo $return_action;
 	$db->exec("UPDATE gpio SET status='ON',state='ON' WHERE gpio='$gpio'");
+	echo "GPIO ".$gpio." C ".$check['0']." TRUN ON\n";
   	$onoff='1';
   	timestamp($gpio,$onoff);
 }
@@ -82,20 +83,20 @@ function action_off($op,$sensor_name,$gpio,$rev) {
 	$read="/usr/local/bin/gpio -g read $gpio";
 	$on="/usr/local/bin/gpio -g write $gpio 1";
 	$off="/usr/local/bin/gpio -g write $gpio 0";
-	system($out);
-	system($read, $check);
+	exec($out);
+	exec($read, $check);
 	if ($rev == 'on') {
-	    if ($check == '0'){ 
-		system($on);
+	    if ($check['0'] == '0'){ 
+		exec($on);
 	    }
 	}
 	else {
-	    if ($check == '1'){ 
-	        system($off);
+	    if ($check['0'] == '1'){ 
+	    exec($off);
 	    }
 	}
 	$db->exec("UPDATE gpio SET status='ON',state='ON' WHERE gpio='$gpio'");
-	echo "GPIO ".$gpio." TRUN OFF\n";
+	echo "GPIO ".$gpio." C ".$check['0']." TRUN OFF\n";
 	$onoff='0';
 	timestamp($gpio,$onoff);
 
