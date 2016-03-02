@@ -105,11 +105,13 @@ function ch_source() {
 <div class="panel panel-default">
 <div class="panel-heading">Value functions</div>
 <table class="table table-condensed table-hover table-striped">
-<thead><tr><th>Pos</th><th>Sensor1</th><th>State</th><th>Source</th><th>Value</th><th>Hysteresis</th><th>Action</th><th>Week Profile</th><th></th></tr></thead>
+<thead><tr><th>Nr</th><th>Pos</th><th>Sensor1</th><th>State</th><th>Source</th><th>Value</th><th>Hysteresis</th><th>Action</th><th>Week Profile</th><th></th></tr></thead>
 <div class="form-group">
 <tr>
 
 <form class="form-horizontal" action="" method="post">
+<td class="col-md-1">
+</td>
 <td class="col-md-1">
 </td>
 <td class="col-md-1">
@@ -191,6 +193,9 @@ function ch_source() {
 <?php 
     foreach ($func as $func) { ?>
 <tr>
+<td class="col-md-1">
+<?php echo $func['id']." ".$func['position']; ?>
+</td>
 <td class="col-md-1">
 	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 		<input type="hidden" name="fid" value="<?php echo $func['id']; ?>"/>
