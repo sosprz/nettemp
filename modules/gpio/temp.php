@@ -71,10 +71,10 @@ function action_on($op,$sensor_name,$gpio,$rev) {
 	else {
 	    if ($check['0'] == '0'){ 
 	        exec($on);
-	        echo date('Y H:i:s')." GPIO ".$gpio." CHECK" .$check['0'].", SET ON\n";
+	        echo date('Y H:i:s')." GPIO ".$gpio." CHECK " .$check['0'].", SET ON\n";
 	    }
 	    else {
-	    	echo date('Y H:i:s')." GPIO ".$gpio." CHECK" .$check['0'].", ALREADY ON\n";
+	    	echo date('Y H:i:s')." GPIO ".$gpio." CHECK " .$check['0'].", ALREADY ON\n";
 	    }
 	}	
 	$db->exec("UPDATE gpio SET status='ON',state='ON' WHERE gpio='$gpio'");
@@ -101,10 +101,10 @@ function action_off($op,$sensor_name,$gpio,$rev) {
 	else {
 	    if ($check['0'] == '1'){ 
 	    	exec($off);
-	    	echo date('Y H:i:s')." GPIO ".$gpio." CHECK" .$check['0'].", SET OFF\n";
+	    	echo date('Y H:i:s')." GPIO ".$gpio." CHECK  " .$check['0'].", SET OFF\n";
 	    }
 	    else {
-	    	echo date('Y H:i:s')." GPIO ".$gpio." CHECK" .$check['0'].", ALREADY OFF\n";
+	    	echo date('Y H:i:s')." GPIO ".$gpio." CHECK " .$check['0'].", ALREADY OFF\n";
 	    }
 	}
 	$db->exec("UPDATE gpio SET status='ON',state='ON' WHERE gpio='$gpio'");
@@ -205,18 +205,18 @@ foreach ($row as $a) {
 						break;
 					}
 					else {
-						echo date('Y H:i:s')." GPIO ".$gpio." NO hit condition '>' in function ".$func['id']."\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." NO hit condition '>' in function ".$func['id']."\n\n";
 					}
 					
 				} 
 				elseif ($op=='ge') {
 					if ($sensor_tmpadj >= $value){
-						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>=' in function ".$func['id']."\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>=' in function ".$func['id']."\n\n";
 						print $funcion_p($op,$sensor_name,$gpio,$rev);
 						break;
 					}
 					else {
-						echo date('Y H:i:s')." GPIO ".$gpio." NO hit condition '>=' in function ".$func['id']."\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." NO hit condition '>=' in function ".$func['id']."\n\n";
 					}
 				}		 
 				elseif ($op=='le') {
@@ -226,7 +226,7 @@ foreach ($row as $a) {
 						break;
 					}
 					else {
-						echo date('Y H:i:s')." GPIO ".$gpio." NO hit condition '<=' in function ".$func['id']."\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." NO hit condition '<=' in function ".$func['id']."\n\n";
 					}
 				} 
 				elseif ($op=='lt') {
@@ -236,7 +236,7 @@ foreach ($row as $a) {
 						break;	
 					}
 					else {
-						echo date('Y H:i:s')." GPIO ".$gpio." No hit condition '<' in function ".$func['id']."\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." No hit condition '<' in function ".$func['id']."\n\n";
 					}
 				}
 				
@@ -244,156 +244,191 @@ foreach ($row as $a) {
 		elseif($source=='temphyst' || $source=='sensor2hyst') {
 				if ($op=='gt') {
 					if ($sensor_tmpadj > $value){
-						echo "gt 1 on\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 1 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_on($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_off($op,$sensor_name,$gpio,$rev);
 							}
+							break;
 					}
+						
 					elseif($sensor_tmpadj < $value && $state == 'on' ) {
-						echo "gt 2 on running\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 2 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_on($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_off($op,$sensor_name,$gpio,$rev);
 							}
+							break;
 					}
+										
 					elseif($sensor_tmpadj < $value && $sensor_tmpadj < $value_max) {
-						echo "gt 3 off\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 3 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_on($op,$sensor_name,$gpio,$rev);
 							}
+							break;
 					}
+					
 					elseif($sensor_tmpadj < $value && $state == 'off') {
-						echo "gt 4 off going down\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 4 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_on($op,$sensor_name,$gpio,$rev);
 							}
+							break;
 					}
-				} 
+				}
 				elseif ($op=='ge') {
 				if ($sensor_tmpadj >= $value){
-						echo "ge 1 on\n";
-						echo "state on\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 1 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>=' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_on($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_off($op,$sensor_name,$gpio,$rev);
 							}
+							break;
+							
 					}
 					elseif($sensor_tmpadj <= $value && $state == 'on' ) {
-						echo "ge 2 on running\n";
-						echo "state on\n";	
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 2 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<=' in function ".$func['id']."\n";
+						
 						if($onoff=='on') {
 							action_on($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_off($op,$sensor_name,$gpio,$rev);
 							}
+							break;
 					}
 					elseif($sensor_tmpadj <= $value && $sensor_tmpadj < $value_max) {
-						echo "ge 3 off\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 3 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<=' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_on($op,$sensor_name,$gpio,$rev);
 							}
+						break;
 					}
 					elseif($sensor_tmpadj <= $value && $state == 'off') {
-						echo "ge 4 off going down\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 4 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<=' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_on($op,$sensor_name,$gpio,$rev);
 							}
+						break;
 					}
 				} 
 				elseif ($op=='le') {
 					if ($sensor_tmpadj <= $value){
-						echo "le 1 on\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 1 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<=' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_on($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_off($op,$sensor_name,$gpio,$rev);
 							}
+						break;
 					}
 					elseif($sensor_tmpadj >= $value && $state == 'on' ) {
-						echo "le 2 on running\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 2 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>=' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_on($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_off($op,$sensor_name,$gpio,$rev);
 							}
+						break;
 					}
 					elseif($sensor_tmpadj >= $value && $sensor_tmpadj > $value_max) {
-						echo "le 3 off\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 3 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>=' in function ".$func['id']."\n";						echo "le 3 off\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_on($op,$sensor_name,$gpio,$rev);
 							}
+						break;
 					}
 					elseif($sensor_tmpadj >= $value && $state == 'off') {
-						echo "le 4 off going down\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 4 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>=' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_on($op,$sensor_name,$gpio,$rev);
 							}	
+						break;
 					}
 			} 
 				elseif ($op=='lt') {
 					if ($sensor_tmpadj < $value){
-						echo "lt 1 on\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 1 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_on($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_off($op,$sensor_name,$gpio,$rev);
 							}
+						break;
 					}
 					elseif($sensor_tmpadj > $value && $state == 'on' ) {
-						echo "lt 2 on running\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 2 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_on($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_off($op,$sensor_name,$gpio,$rev);
 							}
+						break;
 					}
 					elseif($sensor_tmpadj > $value && $sensor_tmpadj > $value_max) {
-						echo "lt 3 off\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 3 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_on($op,$sensor_name,$gpio,$rev);
 							}	
+						break;
 					}
 					elseif($sensor_tmpadj > $value && $state == 'off') {
-						echo "lt 4 off going down\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 4 ON\n";
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
 							} 
 							else {
 								action_on($op,$sensor_name,$gpio,$rev);
 							}
+						break;
 					}
 				}
 		}			
