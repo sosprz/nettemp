@@ -77,7 +77,7 @@ function action_on($op,$sensor_name,$gpio,$rev) {
 	    	echo date('Y H:i:s')." GPIO ".$gpio." CHECK " .$check['0'].", ALREADY ON\n";
 	    }
 	}	
-	$db->exec("UPDATE gpio SET status='ON',state='ON' WHERE gpio='$gpio'");
+	$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
   	$onoff='1';
   	timestamp($gpio,$onoff);
  }
@@ -107,7 +107,7 @@ function action_off($op,$sensor_name,$gpio,$rev) {
 	    	echo date('Y H:i:s')." GPIO ".$gpio." CHECK " .$check['0'].", ALREADY OFF\n";
 	    }
 	}
-	$db->exec("UPDATE gpio SET status='OFF',state='OFF' WHERE gpio='$gpio'");
+	$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
 	$onoff='0';
 	timestamp($gpio,$onoff);
 }
@@ -244,6 +244,7 @@ foreach ($row as $a) {
 		elseif($source=='temphyst' || $source=='sensor2hyst') {
 				if ($op=='gt') {
 					if ($sensor_tmpadj > $value){
+						$db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio'");
 						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 1 ON\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>' in function ".$func['id']."\n";
 						if($onoff=='on') {
@@ -256,6 +257,7 @@ foreach ($row as $a) {
 					}
 						
 					elseif($sensor_tmpadj < $value && $state == 'ON' ) {
+						$db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio'");
 						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 2 ON\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<' in function ".$func['id']."\n";
 						if($onoff=='on') {
@@ -268,7 +270,8 @@ foreach ($row as $a) {
 					}
 										
 					elseif($sensor_tmpadj < $value && $sensor_tmpadj < $value_max) {
-						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 3 ON\n";
+						$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio'");
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 3 OFF\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
@@ -280,7 +283,8 @@ foreach ($row as $a) {
 					}
 					
 					elseif($sensor_tmpadj < $value && $state == 'OFF') {
-						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 4 ON\n";
+						$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio'");
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 4 OFF\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
@@ -293,6 +297,7 @@ foreach ($row as $a) {
 				}
 				elseif ($op=='ge') {
 				if ($sensor_tmpadj >= $value){
+					   $db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio'");
 						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 1 ON\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>=' in function ".$func['id']."\n";
 						if($onoff=='on') {
@@ -305,6 +310,7 @@ foreach ($row as $a) {
 							
 					}
 					elseif($sensor_tmpadj <= $value && $state == 'ON' ) {
+						$db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio'");
 						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 2 ON\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<=' in function ".$func['id']."\n";
 						
@@ -317,7 +323,8 @@ foreach ($row as $a) {
 							break;
 					}
 					elseif($sensor_tmpadj <= $value && $sensor_tmpadj < $value_max) {
-						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 3 ON\n";
+						$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio'");
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 3 OFF\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<=' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
@@ -328,7 +335,8 @@ foreach ($row as $a) {
 						break;
 					}
 					elseif($sensor_tmpadj <= $value && $state == 'OFF') {
-						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 4 ON\n";
+						$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio'");					
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 4 OFF\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<=' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
@@ -341,6 +349,7 @@ foreach ($row as $a) {
 				} 
 				elseif ($op=='le') {
 					if ($sensor_tmpadj <= $value){
+						$db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio'");						
 						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 1 ON\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<=' in function ".$func['id']."\n";
 						if($onoff=='on') {
@@ -352,6 +361,7 @@ foreach ($row as $a) {
 						break;
 					}
 					elseif($sensor_tmpadj >= $value && $state == 'ON' ) {
+						$db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio'");
 						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 2 ON\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>=' in function ".$func['id']."\n";
 						if($onoff=='on') {
@@ -361,9 +371,10 @@ foreach ($row as $a) {
 								action_off($op,$sensor_name,$gpio,$rev);
 							}
 						break;
-					}
+					}						
 					elseif($sensor_tmpadj >= $value && $sensor_tmpadj > $value_max) {
-						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 3 ON\n";
+						$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio'");
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 3 OFF\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>=' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
@@ -374,7 +385,8 @@ foreach ($row as $a) {
 						break;
 					}
 					elseif($sensor_tmpadj >= $value && $state == 'OFF') {
-						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 4 ON\n";
+						$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio'");
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 4 OFF\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>=' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
@@ -390,6 +402,7 @@ foreach ($row as $a) {
 			} 
 				elseif ($op=='lt') {
 					if ($sensor_tmpadj < $value){
+						$db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio'");
 						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 1 ON\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<' in function ".$func['id']."\n";
 						if($onoff=='on') {
@@ -401,6 +414,7 @@ foreach ($row as $a) {
 						break;
 					}
 					elseif($sensor_tmpadj > $value && $state == 'ON' ) {
+						$db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio'");
 						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 2 ON\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>' in function ".$func['id']."\n";
 						if($onoff=='on') {
@@ -412,7 +426,8 @@ foreach ($row as $a) {
 						break;
 					}
 					elseif($sensor_tmpadj > $value && $sensor_tmpadj > $value_max) {
-						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 3 ON\n";
+						$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio'");
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 3 OFF\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
@@ -423,7 +438,8 @@ foreach ($row as $a) {
 						break;
 					}
 					elseif($sensor_tmpadj > $value && $state == 'OFF') {
-						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 4 ON\n";
+						$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio'");
+						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 4 OFF\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>' in function ".$func['id']."\n";
 						if($onoff=='on') {
 							action_off($op,$sensor_name,$gpio,$rev);
