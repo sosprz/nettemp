@@ -205,7 +205,7 @@ function isNumeric( obj ){
 </td>
 
 <td class="col-md-2">
-	<select name="day_plan" class="form-control input-sm" <?php echo $a['day_run'] != 'on' ? 'disabled="disabled"' : ''; ?>
+	<select name="day_plan" class="form-control input-sm" <?php echo $a['day_run'] != 'on' ? 'disabled="disabled"' : ''; ?>>
 <?php
 	foreach ($dp as $dp) {
 	?>

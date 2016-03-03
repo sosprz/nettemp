@@ -13,10 +13,11 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 ?>
 
-<?php // SQLite - ADD RECIPIENT
+<?php 
 	$dpdd1 = isset($_POST['add1']) ? $_POST['add1'] : '';
 	if ($_POST['add1'] == "add2"){
 	$db = new PDO('sqlite:dbf/nettemp.db');
+	$name=str_replace(' ', '_', $name);
 	$db->exec("INSERT OR IGNORE INTO day_plan (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime, gpio) VALUES ('$name','$mon', '$tue', '$wed', '$thu', '$fri', '$sat', '$sun', '$stime', '$etime', '$dpgpio')") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
@@ -77,7 +78,7 @@ $result = $sth->fetchAll();
 foreach ($result as $dp) { 
 ?>
 	<tr>
-	<td><?php echo $dp["name"];?></td>
+	<td><?php echo str_replace('_', ' ', $dp["name"])?></td>
 	<td><?php echo $dp["Mon"];?></td>
 	<td><?php echo $dp["Tue"];?></td>
 	<td><?php echo $dp["Wed"];?></td>
