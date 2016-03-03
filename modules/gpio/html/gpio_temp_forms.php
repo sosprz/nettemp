@@ -141,7 +141,7 @@ function isNumeric( obj ){
 <div class="panel panel-default">
 <div class="panel-heading">Value functions</div>
 <table class="table table-condensed table-hover table-striped">
-<thead><tr><th>Nr</th><th>Pos</th><th>Source</th><th>State</th><th>Mode</th><th>Value</th><th>Hysteresis</th><th>Action</th><th>Week Profile</th><th></th></tr></thead>
+<thead><tr><th>ID</th><th>Pos</th><th>Source</th><th>State</th><th>Mode</th><th>Value</th><th>Hysteresis</th><th>Action</th><th>Week Profile</th><th></th></tr></thead>
 <div class="form-group">
 <tr>
 
@@ -224,15 +224,18 @@ function isNumeric( obj ){
 </td>
 
 </form>
-<!-- lista funkcji -->
+
 </tr>
+
+<!-- lista funkcji -->
 <?php 
     foreach ($func as $func) { ?>
 <tr>
 <td class="col-md-1">
-<?php echo $func['id']." ".$func['position']; ?>
+<?php echo $func['id']; ?>
 </td>
 <td class="col-md-1">
+<?php echo $func['position'];?>
 	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 		<input type="hidden" name="fid" value="<?php echo $func['id']; ?>"/>
 		<input type="hidden" name="up" value="up" />
@@ -296,7 +299,9 @@ if ($func['source'] == 'sensor2' || $func['source'] == 'sensor2hyst') {
 </td>
 
 <td class="col-md-2">
-	<?php echo $func['w_profile']?>
+	<?php 
+		echo $name=str_replace('_', ' ', $func['w_profile']);
+		?>
 	</td>
 
 <td class="col-md-1">
