@@ -209,7 +209,7 @@ function isNumeric( obj ){
 <?php
 	foreach ($dp as $dp) {
 	?>
-	<option value="<?php echo $dpl['name']?>"><?php echo $dp['name']?></option>
+	<option value="<?php echo $dp['name']?>"><?php echo $dp['name']?></option>
 <?php 
 	} 
 	?>

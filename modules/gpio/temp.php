@@ -35,8 +35,12 @@ function w_profile_check($gpio,$w_profile) {
 	$numRows = count($row);
  	if ( $numRows > '0' ) { 
 		foreach ($row as $b) {
+			
 			$stime=$b['stime'];
+			$stime=str_replace(':', '', $stime);
 			$etime=$b['etime'];
+			$etime=str_replace(':', '', $etime);
+			
 		}
 		if($time >= $stime && $time < $etime) {
 				 return true;
@@ -151,20 +155,20 @@ foreach ($row as $a) {
 			//check if in week profile, if not exit, if empty or in range go forward
 			if(($day_run=='on') && ($w_profile!='any')) {
 				if (w_profile_check($gpio,$w_profile)===false){
-					echo date('Y H:i:s')." GPIO ".$gpio." Function ".$f_id." with profile '".$w_profile."' not in range.\n";
+					echo date('Y H:i:s')." GPIO ".$gpio." Function ".$f_id." with profile ".$w_profile." not in range.\n";
 					continue;
 				} 
 				else {
-					echo date('Y H:i:s')." GPIO ".$gpio." Function ".$f_id." with profile '".$w_profile."' hit.\n";
+					echo date('Y H:i:s')." GPIO ".$gpio." Function ".$f_id." with profile ".$w_profile." hit.\n";
 				}
 			}
 			//hit in any
 			elseif($w_profile!='any') {
-					echo date('Y H:i:s')." GPIO ".$gpio." Function ".$f_id." with profile '".$w_profile."' not in range. Day off.\n";
+					echo date('Y H:i:s')." GPIO ".$gpio." Function ".$f_id." with profile ".$w_profile." not in range. Day off.\n";
 					continue;
 				}
 				else {
-					echo date('Y H:i:s')." GPIO ".$gpio." Function ".$f_id." with profile '".$w_profile."' hit.\n";
+					echo date('Y H:i:s')." GPIO ".$gpio." Function ".$f_id." with profile ".$w_profile." hit.\n";
 				}
 			
 						
