@@ -62,8 +62,8 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 	<td><input type="checkbox" name="fri" value="Fri" /></td>        
 	<td><input type="checkbox" name="sat" value="Sat" /></td>        
 	<td><input type="checkbox" name="sun" value="Sun" /></td>
-	<td><input type="text" name="stime" value="" class="form-control" required="" placeholder="07:00"/></td>
-	<td><input type="text" name="etime" value="" class="form-control" required="" placeholder="19:00"/></td>
+	<td><input type="time" name="stime" value="" class="form-control" required="" placeholder="07:00"/></td>
+	<td><input type="time" name="etime" value="" class="form-control" required="" placeholder="19:00"/></td>
 	<input type="hidden" name="add1" value="add2" />
 	<input type="hidden" name="dpgpio" value="<?php echo $gpio; ?>" />
 	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>

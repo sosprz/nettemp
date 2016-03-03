@@ -33,21 +33,6 @@ function ch_source() {
 		}
 }
 
-function validate() {
-var value = document.getElementById('value').value;
-
-
-if (!value > 0) {
-    alert("ujemny");
-}
-
-
-
-    
-function isNumeric( obj ){
-    return !isNaN( parseFloat(obj) ) && isFinite( obj )
-}   
-}
     </script>
 
 <?php
@@ -141,7 +126,21 @@ function isNumeric( obj ){
 <div class="panel panel-default">
 <div class="panel-heading">Value functions</div>
 <table class="table table-condensed table-hover table-striped">
-<thead><tr><th>ID</th><th>Pos</th><th>Source</th><th>State</th><th>Mode</th><th>Value</th><th>Hysteresis</th><th>Action</th><th>Week Profile</th><th></th></tr></thead>
+<thead><tr>
+
+<th>ID</th>
+<th>Pos</th>
+<th>Source</th>
+<th>State</th>
+<th>Mode</th>
+<th>Value</th>
+<th>Histeresis</th>
+<th>Action</th>
+<th>Week Profile</th>
+<th></th>
+
+</tr></thead>
+
 <div class="form-group">
 <tr>
 
@@ -189,11 +188,11 @@ function isNumeric( obj ){
 	} 
 	?>
     </select>
-    <input type="text" name="value" class="form-control input-sm" id="value" required="">
+    <input type="number" name="value" class="form-control input-sm" id="value" required="">
 </td>
 
 <td class="col-md-1">
-    <input type="text" name="hyst" class="form-control input-sm" id="hyst" style="display: none">
+    <input type="number" name="hyst" class="form-control input-sm" id="hyst" style="display: none">
 </td>
 
 <td class="col-md-1">
@@ -220,7 +219,7 @@ function isNumeric( obj ){
 <td class="col-md-1">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="fadd" value="add" />
-	<button type="submit" class="btn btn-xs btn-success" onclick="return validate()"><span class="glyphicon glyphicon-plus"></span></button>
+	<button type="submit" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button>
 </td>
 
 </form>
