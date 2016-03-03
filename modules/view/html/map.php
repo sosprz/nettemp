@@ -198,6 +198,7 @@ foreach ($row as $a) {
 	if($a['type'] == 'watt'){ $unit='W'; $type='<img src="media/ico/watt.png" alt="Watt"/>';}
 	if($a['type'] == 'volt'){ $unit='V'; $type='<img src="media/ico/volt.png" alt="Volt" /> ';}
 	if($a['type'] == 'amps'){ $unit='A'; $type='<img src="media/ico/amper.png" alt="Amps"/> ';}
+	if($a['type'] == 'dist'){ $unit='cm'; $type='<img src="media/ico/Distance-icon.png"/>';}
 ?>
 <div data-need="<?php echo $a['map_num']?>" id="<?php echo "data-need".$a['map_num']?>" data-dst="sensors" class="ui-widget-content draggable">
     <?php if(($a['tmp'] == 'error') || ($label=='danger')) {
@@ -226,7 +227,7 @@ unset($a);
 ?>
 
 <?php
-$rows = $dbn->query("SELECT * FROM gpio WHERE mode NOT LIKE 'humid'");
+$rows = $dbn->query("SELECT * FROM gpio WHERE mode NOT LIKE 'humid' AND NOT LIKE 'dist'");
 $row = $rows->fetchAll();
 foreach ($row as $a) {
     $device='<img src="media/ico/SMD-64-pin-icon_24.png" />';
