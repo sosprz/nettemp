@@ -141,7 +141,7 @@ function isNumeric( obj ){
 <div class="panel panel-default">
 <div class="panel-heading">Value functions</div>
 <table class="table table-condensed table-hover table-striped">
-<thead><tr><th>Nr</th><th>Pos</th><th>Sensor1</th><th>State</th><th>Source</th><th>Value</th><th>Hysteresis</th><th>Action</th><th>Week Profile</th><th></th></tr></thead>
+<thead><tr><th>Nr</th><th>Pos</th><th>Source</th><th>State</th><th>Mode</th><th>Value</th><th>Hysteresis</th><th>Action</th><th>Week Profile</th><th></th></tr></thead>
 <div class="form-group">
 <tr>
 
@@ -265,7 +265,11 @@ function isNumeric( obj ){
 </td>
 
 <td class="col-md-1" onclick='ch_source()'>
-	<?php echo $func['source']
+	<?php 
+	if($func['source']=="value") { echo "value"; }
+	elseif($func['source']=="valuehyst") { echo "val + hist"; }
+	elseif($func['source']=="sensor2hyst") { echo "sensor2 + hist"; }
+	elseif($func['source']=="sensor2") { echo "sensor2"; }
 		?>
 </td>
 
