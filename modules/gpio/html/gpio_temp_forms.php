@@ -1,6 +1,6 @@
 <script type="text/JavaScript">
 function ch_source() {
-		if (document.getElementById("source").value == 'temp') {
+		if (document.getElementById("source").value == 'value') {
 		    document.getElementById("value").style.display = 'block';
 		    document.getElementById("sensor2").style.display = 'none';
 		    document.getElementById("hyst").style.display = 'none';
@@ -14,12 +14,13 @@ function ch_source() {
 		    document.getElementById("value").required = false;
 		    document.getElementById("hyst").required = false;
 		}
-		if (document.getElementById("source").value == 'temphyst') {
+		if (document.getElementById("source").value == 'valuehyst') {
 		    document.getElementById("value").style.display = 'block';
 		    document.getElementById("sensor2").style.display = 'none';
 		    document.getElementById("hyst").style.display = 'block';
 		    document.getElementById("value").required = true;
 		    document.getElementById("hyst").required = true;
+		    
 		}
 		if (document.getElementById("source").value == 'sensor2hyst') {
 		    document.getElementById("value").style.display = 'none';
@@ -31,7 +32,23 @@ function ch_source() {
 		    document.getElementById("hyst").required = true;
 		}
 }
-	    </script>
+
+function validate() {
+var value = document.getElementById('value').value;
+
+
+if (!value > 0) {
+    alert("ujemny");
+}
+
+
+
+    
+function isNumeric( obj ){
+    return !isNaN( parseFloat(obj) ) && isFinite( obj )
+}   
+}
+    </script>
 
 <?php
 	//update
@@ -50,13 +67,13 @@ function ch_source() {
 	$down=isset($_POST['down']) ? $_POST['down'] : '';
 	$up=isset($_POST['up']) ? $_POST['up'] : '';
 	
-	 if ($source == 'temp') {
+	 if ($source == 'value') {
 	    $sensor2=NULL;
 	    $hyst=NULL;
     } elseif ($source == 'sensor2') {
 	    $value=NULL;
 	    $hyst=NULL;
-    } elseif ($source == 'temphyst') {
+    } elseif ($source == 'valuehyst') {
 	    $sensor2=NULL;
 	    $onoff='on';
     } elseif ($source == 'sensor2hyst') {
@@ -66,7 +83,19 @@ function ch_source() {
 	
 	if ($fadd == "add"){
 		$db = new PDO('sqlite:dbf/nettemp.db');
-		$db->exec("INSERT OR IGNORE INTO g_func (sensor, sensor2, onoff, value, op, hyst, source, gpio, w_profile) VALUES ('$sensor1','$sensor2', '$onoff', '$value', '$op', '$hyst', '$source', '$gpio', '$day_plan')") or die ($db->lastErrorMsg());
+		$sth3 = $db->prepare("SELECT position FROM g_func WHERE position = (SELECT MAX(position) FROM g_func)");
+		$sth3->execute();
+		$last = $sth3->fetchAll();
+		 foreach ($last as $l) {
+		 	$position=$l['position'];
+		 }
+		 if($position=='0' || $position==null) {
+						 $position='1';	
+		 	} else {
+		 		$position=$position+2;
+		 }
+		
+		$db->exec("INSERT OR IGNORE INTO g_func (position,sensor, sensor2, onoff, value, op, hyst, source, gpio, w_profile) VALUES ('$position','$sensor1','$sensor2', '$onoff', '$value', '$op', '$hyst', '$source', '$gpio', '$day_plan')") or die ($db->lastErrorMsg());
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 	}
@@ -78,13 +107,20 @@ function ch_source() {
 	}
 	if ($up == "up"){
 		$db = new PDO('sqlite:dbf/nettemp.db');
-		$db->exec("UPDATE g_func SET position=position-1 WHERE id='$fid'");
+		$sth3 = $db->prepare("SELECT position FROM g_func WHERE position = (SELECT MIN(position) FROM g_func)");
+		$sth3->execute();
+		$last = $sth3->fetchAll();
+		 foreach ($last as $l) {
+		 	$positionOLD=$l['position'];
+		 }
+		
+		$db->exec("UPDATE g_func SET position=position-3   WHERE id='$fid'");
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 	}
 	if ($down == "down"){
 		$db = new PDO('sqlite:dbf/nettemp.db');
-		$db->exec("UPDATE g_func SET position=position+1 WHERE id='$fid'");
+		$db->exec("UPDATE g_func SET position=position+3 WHERE id='$fid'");
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 	}
@@ -136,8 +172,8 @@ function ch_source() {
 
 <td class="col-md-1" onclick='ch_source()'>
     <select name="source" class="form-control input-sm" id="source">
-	<option value="temphyst">Temp+Histeresis</option>
-	<option value="temp" selected="selected">Temp</option>
+	<option value="valuehyst">Value+Histeresis</option>
+	<option value="value" selected="selected">Value</option>
 	<option value="sensor2">Sensor2</option>
 	<option value="sensor2hyst">Sensor2+Histeresis</option>
     </select>
@@ -184,7 +220,7 @@ function ch_source() {
 <td class="col-md-1">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="fadd" value="add" />
-	<button type="submit" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+	<button type="submit" class="btn btn-xs btn-success" onclick="return validate()"><span class="glyphicon glyphicon-plus"></span></button>
 </td>
 
 </form>

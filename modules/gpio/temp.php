@@ -176,7 +176,7 @@ foreach ($row as $a) {
 				$sensor_tmpadj=$sens['tmp']+$sens['adj'];
 					}
 			// define what is value
-			if($source == 'temp' || $source == 'temphyst') {
+			if($source == 'value' || $source == 'valuehyst') {
 					$value=$func['value'];
 					$value_max=$func['value']+$func['hyst'];
 					$sensor2_name=null;
@@ -196,7 +196,7 @@ foreach ($row as $a) {
 			}
 			echo date('Y H:i:s')." GPIO ".$gpio." ".$mode.", ".$sensor_name." ".$sensor_tmpadj.", ".$op.", ".$sensor2_name." ".$value.", ".$hyst.", ".$value_max.", ".$onoff.", ".$w_profile."\n";
 			
-		if($source=='temp' || $source=='sensor2') {
+		if($source=='value' || $source=='sensor2') {
 				$funcion_p = 'action_' . $onoff;
 				if ($op=='gt') {
 					if ($sensor_tmpadj > $value){
@@ -241,7 +241,7 @@ foreach ($row as $a) {
 				}
 				
 		} 
-		elseif($source=='temphyst' || $source=='sensor2hyst') {
+		elseif($source=='valuehyst' || $source=='sensor2hyst') {
 				if ($op=='gt') {
 					if ($sensor_tmpadj > $value){
 						$db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio'");
