@@ -1,6 +1,6 @@
 #! /bin/bash 
 
-#sqlite3 dbx.sql "CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)"
+#sqlite3 dbx.sql "CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)"
 
 
 for i in {0..50000}

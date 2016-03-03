@@ -16,7 +16,7 @@ if (!empty($name)  && !empty($link) && ($_POST['add'] == "add")){
         $dbhost = new PDO("sqlite:dbf/hosts.db");	
 	$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_num, map_pos, position) VALUES ('host_cam_$name', '$ip', 'host_$name', 'ping', '$map_num', '{left:0,top:0}', '1')") or die ("cannot insert host to DB" );	
 	$dbnew = new PDO("sqlite:db/host_$name.sql");
-        $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEEGER)");
+        $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
         $dbnew==NULL;
 
 	header("location: " . $_SERVER['REQUEST_URI']);

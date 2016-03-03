@@ -40,6 +40,12 @@ Your nettemp will send ID (md5sum from mac-addres), os name, hardware type, nick
 Go to <a href="http://stats.nettemp.pl" class="label label-info">stats.nettemp.pl</a> and check what looks statistic. <br>
 <br>
 
+
+<div id="map-canvas" class="center" style="float: none; margin-left: auto; margin-right: auto;"></div>
+
+<!-- <p>Lat: <input type="text" id="latitude" /> Lng: <input type="text" id="longitude" /></p> -->
+
+</br>
 <form action="" method="post" class="form-horizontal">
 <fieldset>
 
@@ -74,9 +80,9 @@ Go to <a href="http://stats.nettemp.pl" class="label label-info">stats.nettemp.p
 </div>
 
 <div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Location:</label>  
+  <label class="col-md-4 control-label" for="latitude">Location:</label>  
   <div class="col-md-4">
-  <input id="textinput" name="location" placeholder="" class="form-control input-md"  type="text" value="<?php echo $location; ?>">
+  <input id="latitude" name="location" placeholder="" class="form-control input-md"  type="text" value="<?php echo $location; ?>">
   </div>
 </div>
 
@@ -107,4 +113,88 @@ Go to <a href="http://stats.nettemp.pl" class="label label-info">stats.nettemp.p
 
 </div>
 </div>
+
+<style>
+#map-canvas {
+    height:400px;
+    width:400px;
+}
+#iwContent {
+    height: 40px;
+    width: 150px;
+}
+</style>
+
+
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry"></script>
+
+<script>
+ var map;
+    var marker;
+    var infowindowPhoto = new google.maps.InfoWindow();
+    var latPosition;
+    var longPosition;
+    
+    function initialize() {
+    
+        var mapOptions = {
+            zoom: 8,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: new google.maps.LatLng(10,10)
+        };
+    
+        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+        
+        initializeMarker();
+    }
+    
+    function initializeMarker() {
+    
+        if (navigator.geolocation) {
+            
+            navigator.geolocation.getCurrentPosition(function (position) {
+                
+                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    
+                latPosition = position.coords.latitude;
+                longPosition = position.coords.longitude;
+		//console.log(longPosition);
+    
+                marker = new google.maps.Marker({
+                    position: pos,
+                    draggable: true,
+                    animation: google.maps.Animation.DROP,
+                    map: map
+                });
+                
+                map.setCenter(pos);
+                updatePosition();
+    
+                google.maps.event.addListener(marker, 'click', function (event) {
+                    updatePosition();
+                });
+    
+                google.maps.event.addListener(marker, 'dragend', function (event) {
+                    updatePosition();
+                });
+            });
+        }
+    }
+    
+    function updatePosition() {
+    
+        latPosition = marker.getPosition().lat();
+        longPosition = marker.getPosition().lng();
+    
+        contentString = '<div id="iwContent">Lat: <span id="latbox">' + latPosition + '</span><br />Lng: <span id="lngbox">' + longPosition + '</span></div>';
+        
+        document.getElementById('latitude').value = latPosition + ',' + longPosition ;
+        //document.getElementById('longitude').value = longPosition;
+        
+        infowindowPhoto.setContent(contentString);
+        infowindowPhoto.open(map, marker);
+    }
+    
+    initialize();
+</script>
 
