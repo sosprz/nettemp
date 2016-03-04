@@ -51,6 +51,7 @@ function ch_source() {
 	$fid=isset($_POST['fid']) ? $_POST['fid'] : '';
 	$down=isset($_POST['down']) ? $_POST['down'] : '';
 	$up=isset($_POST['up']) ? $_POST['up'] : '';
+	$fpos=isset($_POST['fpos']) ? $_POST['fpos'] : '';
 	
 	 if ($source == 'value') {
 	    $sensor2=NULL;
@@ -77,7 +78,7 @@ function ch_source() {
 		 if($position=='0' || $position==null) {
 						 $position='1';	
 		 	} else {
-		 		$position=$position+2;
+		 		$position=$position+1;
 		 }
 		
 		$db->exec("INSERT OR IGNORE INTO g_func (position,sensor, sensor2, onoff, value, op, hyst, source, gpio, w_profile) VALUES ('$position','$sensor1','$sensor2', '$onoff', '$value', '$op', '$hyst', '$source', '$gpio', '$day_plan')") or die ($db->lastErrorMsg());
@@ -90,24 +91,48 @@ function ch_source() {
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 	}
-	if ($up == "up"){
-		$db = new PDO('sqlite:dbf/nettemp.db');
+	if ($up == "up") {
 		$sth3 = $db->prepare("SELECT position FROM g_func WHERE position = (SELECT MIN(position) FROM g_func)");
-		$sth3->execute();
-		$last = $sth3->fetchAll();
-		 foreach ($last as $l) {
-		 	$positionOLD=$l['position'];
-		 }
-		
-		$db->exec("UPDATE g_func SET position=position-3   WHERE id='$fid'");
-		header("location: " . $_SERVER['REQUEST_URI']);
-		exit();
+			$sth3->execute();
+			$last = $sth3->fetchAll();
+		 	foreach ($last as $l) {
+		 		$min=$l['position'];
+		 	}
+		 	$sth3 = $db->prepare("SELECT id FROM g_func WHERE position <= $fpos-1 ORDER BY position DESC LIMIT 1");
+			$sth3->execute();
+			$last = $sth3->fetchAll();
+		 	foreach ($last as $l) {
+		 		$already=$l['id'];
+		 	}
+		if ($fpos != $min){
+			$db = new PDO('sqlite:dbf/nettemp.db');
+			$db->exec("UPDATE g_func SET position=$fpos WHERE id='$already'");
+			$db->exec("UPDATE g_func SET position=$fpos-1 WHERE id='$fid'");
+			header("location: " . $_SERVER['REQUEST_URI']);
+			exit();
+		}
 	}
 	if ($down == "down"){
 		$db = new PDO('sqlite:dbf/nettemp.db');
-		$db->exec("UPDATE g_func SET position=position+3 WHERE id='$fid'");
-		header("location: " . $_SERVER['REQUEST_URI']);
-		exit();
+			$sth3 = $db->prepare("SELECT position FROM g_func WHERE position = (SELECT MAX(position) FROM g_func)");
+			$sth3->execute();
+			$last = $sth3->fetchAll();
+		 	foreach ($last as $l) {
+		 		$max=$l['position'];
+		 	}
+		 	$sth3 = $db->prepare("SELECT id FROM g_func WHERE position >= $fpos+1 ORDER BY position ASC LIMIT 1");
+			$sth3->execute();
+			$last = $sth3->fetchAll();
+		 	foreach ($last as $l) {
+		 		$already=$l['id'];
+		 	}
+		if ($fpos != $max){
+			$db = new PDO('sqlite:dbf/nettemp.db');
+			$db->exec("UPDATE g_func SET position=$fpos WHERE id='$already'");
+			$db->exec("UPDATE g_func SET position=$fpos+1 WHERE id='$fid'");
+			header("location: " . $_SERVER['REQUEST_URI']);
+			exit();
+		}
 	}
 
 	//loops
@@ -234,14 +259,18 @@ function ch_source() {
 <?php echo $func['id']; ?>
 </td>
 <td class="col-md-1">
-<?php echo $func['position'];?>
+<?php 
+	//echo $func['position'];
+?>
 	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 		<input type="hidden" name="fid" value="<?php echo $func['id']; ?>"/>
+		<input type="hidden" name="fpos" value="<?php echo $func['position']; ?>"/>
 		<input type="hidden" name="up" value="up" />
 		<button type="submit" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-arrow-up"></span></button>
 	</form>
 	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 		<input type="hidden" name="fid" value="<?php echo $func['id']; ?>"/>
+		<input type="hidden" name="fpos" value="<?php echo $func['position']; ?>"/>
 		<input type="hidden" name="down" value="down" />
 		<button type="submit" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-arrow-down"></span></button>
 	</form>
