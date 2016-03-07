@@ -215,7 +215,7 @@ foreach ($row as $a) {
 							}
 						}
 					// jest AND i nie spelnionym
-					elseif($sensor_tmpadj < $value && $onoff=='and') {
+					elseif($value > $sensor_tmpadj && $onoff=='and') {
 							echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '>' in function ".$func['id']." AND not OK, NEXT\n\n";
 							$and='nie';
 						}
@@ -226,7 +226,7 @@ foreach ($row as $a) {
 						break;
 					} 
 					// ENDY ok i nie jest spelniona
-					elseif ($sensor_tmpadj < $value && $onoff!='and' && $and=='tak'){					
+					elseif ($value > $sensor_tmpadj && $onoff!='and' && $and=='tak'){					
 						echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '>' in function ".$func['id']." AND not OK, EXIT\n\n";
 						$and='';
 					} 
@@ -236,7 +236,7 @@ foreach ($row as $a) {
 						$and='';
 					} 
 					// ENDY nie ok i nie jest spelniona
-					elseif($sensor_tmpadj < $value && $onoff!='and' && $and==true && $and_val==false) {
+					elseif($value > $sensor_tmpadj && $onoff!='and' && $and==true && $and_val==false) {
 						echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '>' in function ".$func['id']." prev END not OK, EXIT\n\n";
 						$and='';
 					}			
