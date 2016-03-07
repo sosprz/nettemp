@@ -202,122 +202,97 @@ foreach ($row as $a) {
 			
 		if($source=='value' || $source=='sensor2') {
 				$funcion_p = 'action_' . $onoff; 
+	
 				if ($op=='gt') {
-					
+					$op='>';
+					$comparison = '>';
+					$comparison2 = '<';
+					$map = array(
+   					 ">" => $sensor_tmpadj > $value,
+   					 "<" => $value < $sensor_tmpadj
+					);
+				}
+				elseif ($op=='ge') {
+					$op='>=';
+					$comparison = '>=';
+					$comparison2 = '<=';
+					$map = array(
+   					 ">=" => $sensor_tmpadj >= $value,
+   					 "<=" => $value <= $sensor_tmpadj
+					);
+				}
+				elseif ($op=='le') {
+					$op='<=';
+					$comparison = '<=';
+					$comparison2 = '>=';
+					$map = array(
+   					 "<=" => $sensor_tmpadj <= $value,
+   					 ">=" => $value >= $sensor_tmpadj
+					);
+				}
+				elseif ($op=='lt') {
+					$op='<';
+					$comparison = '<';
+					$comparison2 = '>';
+					$map = array(
+   					 "<" => $sensor_tmpadj < $value,
+   					 ">" => $value > $sensor_tmpadj
+					);
+				}
+		
 					// jest AND spelnionym
-					if($sensor_tmpadj > $value && $onoff=='and') {
+					if($map[$comparison] && $onoff=='and') {
 							if ($and == 'nie') {
-								echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>' in function ".$func['id']." AND not OK, NEXT\n\n";
+								echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '".$op."' in function ".$func['id']." AND not OK, NEXT\n\n";
 								$and='nie';
 							} else {
-								echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>' in function ".$func['id']." AND OK, NEXT\n\n";
+								echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '".$op."' in function ".$func['id']." AND OK, NEXT\n\n";
 								$and='tak';
 							}
 						}
 					// jest AND i nie spelnionym
-					elseif($value > $sensor_tmpadj && $onoff=='and') {
-							echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '>' in function ".$func['id']." AND not OK, NEXT\n\n";
+						elseif($map[$comparison2] && $onoff=='and') {
+							echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '".$op."' in function ".$func['id']." AND not OK, NEXT\n\n";
 							$and='nie';
 						}
 					// ENDY ok i jest spelniona
-					elseif ($sensor_tmpadj > $value && $onoff!='and' && $and=='tak'){					
-						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>' in function ".$func['id']." AND OK, EXIT\n\n";
+					elseif ($map[$comparison] && $onoff!='and' && $and=='tak'){					
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '".$op."' in function ".$func['id']." AND OK, EXIT\n\n";
 						print $funcion_p($op,$sensor_name,$gpio,$rev);
 						break;
 					} 
 					// ENDY ok i nie jest spelniona
-					elseif ($value > $sensor_tmpadj && $onoff!='and' && $and=='tak'){					
-						echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '>' in function ".$func['id']." AND not OK, EXIT\n\n";
+					elseif ($map[$comparison2] && $onoff!='and' && $and=='tak'){
+						echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '".$op."' in function ".$func['id']." AND not OK, EXIT\n\n";
 						$and='';
 					} 
 					// ENDY nie ok i jest spelniona
-					elseif ($sensor_tmpadj > $value && $onoff!='and' && $and=='nie' ){					
-						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>' in function ".$func['id']." prev END not OK, EXIT\n\n";
+					elseif ($map[$comparison] && $onoff!='and' && $and=='nie' ){					
+						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '".$op."' in function ".$func['id']." prev END not OK, EXIT\n\n";
 						$and='';
 					} 
 					// ENDY nie ok i nie jest spelniona
-					elseif($value > $sensor_tmpadj && $onoff!='and' && $and==true && $and_val==false) {
-						echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '>' in function ".$func['id']." prev END not OK, EXIT\n\n";
+					elseif($map[$comparison2] && $onoff!='and' && $and==true && $and_val==false) {
+						echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '".$op."' in function ".$func['id']." prev END not OK, EXIT\n\n";
 						$and='';
 					}			
 
 					/// normalna funckja
 					// nie jest AND i jest spelniona
 					elseif($onoff!='and') {
-						if ($sensor_tmpadj > $value ){
-							echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>' in function ".$func['id']."\n\n";
+						if ($map[$comparison]){
+							echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '".$op."' in function ".$func['id']."\n\n";
 							print $funcion_p($op,$sensor_name,$gpio,$rev);
 							break;
 						}
 						// nie jest AND i nie jest spelniona
 						else {
-							echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '>' in function ".$func['id']."\n\n";
+							echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '".$op."' in function ".$func['id']."\n\n";
 						}
-					}
-				} 
-				elseif ($op=='ge') {
-					if (($sensor_tmpadj >= $value && $onoff!='and') || ($sensor_tmpadj >= $value && $onoff!='and' && $and==true)){
-						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '>=' in function ".$func['id']."\n\n";
-						print $funcion_p($op,$sensor_name,$gpio,$rev);
-						break;
-					}
-					elseif($sensor_tmpadj >= $value && $onoff=='and' && $and!=false) {
-						echo date('Y H:i:s')." GPIO ".$gpio." HIT hit condition '>=' in function ".$func['id']." AND CHECK NEXT\n\n";
-						$and=true;
-					}
-					else {
-						if($and==true) {
-							echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '>=' in function ".$func['id']." AND RESET\n\n";
-							$and=false;
-							
-						} 
-						else {
-							echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '>=' in function ".$func['id']."\n\n";
-						}
-					}
-				}		 
-				elseif ($op=='le') {
-					if (($sensor_tmpadj <= $value && $onoff!='and') || ($sensor_tmpadj <= $value && $onoff!='and' && $and==true)){
-						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<=' in function ".$func['id']."\n";
-						print $funcion_p($op,$sensor_name,$gpio,$rev);
-						break;
-					}
-					elseif($sensor_tmpadj <= $value && $onoff=='and' && $and!=false) {
-						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<=' in function ".$func['id']." AND CHECK NEXT\n\n";
-						$and=true;
-					}
-					else {
-						if($and==true) {
-							echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '<=' in function ".$func['id']." AND RESET\n\n";
-							$and=false;							
-						} 
-						else {
-							echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '<=' in function ".$func['id']."\n\n";
-						}
-					}
-				} 
-				elseif ($op=='lt') {
-					if (($sensor_tmpadj < $value && $onoff!='and') || ($sensor_tmpadj < $value && $onoff!='and' && $and==true)){
-						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<' in function ".$func['id']."\n";
-						print $funcion_p($op,$sensor_name,$gpio,$rev);
-						break;	
-					}
-					elseif($sensor_tmpadj <= $value && $onoff=='and' && $and!=false) {
-						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '<' in function ".$func['id']." AND CHECK NEXT\n\n";
-						$and=true;
-					}
-					else {
-						if($and==true) {
-							echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '<' in function ".$func['id']." AND RESET\n\n";
-							$and=false;
-						} 
-						else {
-							echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '<' in function ".$func['id']."\n\n";
-						}
-					}
-				}
-				
+					}					
+
 		} 
+
 		//// next function
 		elseif($source=='valuehyst' || $source=='sensor2hyst') {
 				if ($op=='gt') {
