@@ -6,6 +6,7 @@ function ch_source() {
 		    document.getElementById("hyst").style.display = 'none';
 		    document.getElementById("value").required = true;
 		    document.getElementById("hyst").required = false;
+		    document.getElementById("actionand").style.display = 'block';
 		}
 		if (document.getElementById("source").value == 'sensor2') {
 		    document.getElementById("value").style.display = 'none';
@@ -13,6 +14,7 @@ function ch_source() {
 		    document.getElementById("hyst").style.display = 'none';
 		    document.getElementById("value").required = false;
 		    document.getElementById("hyst").required = false;
+		    document.getElementById("actionand").style.display = 'block';
 		}
 		if (document.getElementById("source").value == 'valuehyst') {
 		    document.getElementById("value").style.display = 'block';
@@ -20,16 +22,17 @@ function ch_source() {
 		    document.getElementById("hyst").style.display = 'block';
 		    document.getElementById("value").required = true;
 		    document.getElementById("hyst").required = true;
+		    document.getElementById("actionand").style.display = 'none';
 		    
 		}
 		if (document.getElementById("source").value == 'sensor2hyst') {
 		    document.getElementById("value").style.display = 'none';
 		    document.getElementById("sensor2").style.display = 'block';
 		    document.getElementById("hyst").style.display = 'block';
-		    
 		    document.getElementById("value").required = false;
 		    document.getElementById("sensor2").required = false;
 		    document.getElementById("hyst").required = true;
+		    document.getElementById("actionand").style.display = 'none';
 		}
 }
 
@@ -224,7 +227,7 @@ function ch_source() {
 <select name="onoff" class="form-control input-sm">
     <option value="on">ON</option>
     <option value="off">OFF</option>
-    <option value="and">AND</option>
+    <option value="and" id="actionand">AND</option>
   <!--  <option value="onoff">ON/OFF</option> -->
 </select>
 </td>

@@ -181,18 +181,29 @@ $map_num=substr(rand(), 0, 4);
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
     }
+	$gpiodel = isset($_POST['gpiodel']) ? $_POST['gpiodel'] : '';
+	if ($gpiodel == "gpiodel")  {
+			$db->exec("DELETE FROM gpio WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+			$db = null;
+			header("location: " . $_SERVER['REQUEST_URI']);
+			exit();
+			}
 
-    $gpiodel = isset($_POST['gpiodel']) ? $_POST['gpiodel'] : '';
-    if ($gpiodel == "gpiodel")  {
-	$db->exec("DELETE FROM gpio WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
-	$db = null;
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit();
-    }
 
 
+
+?>
+<table>
+<td class="col-md-2">
+<?php
+include('gpio_name.php');
+?>
+</td>
+<td class="col-md-1">
+<?php
 include('gpio_rev.php');
 ?>
+<td>
     <form action="" method="post" style=" display:inline!important;">
 	<button type="submit" class="btn btn-xs btn-success">Simple on/off</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
@@ -304,11 +315,15 @@ if (empty($mode2)) { ?>
 <?php 
     }
 ?>
+</td>
+<td class="col-md-1">
 <form action="" method="post" style="display:inline!important;">
         <input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
         <input type="hidden" type="submit" name="gpiodel" value="gpiodel" />
         <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-stop"></span> Remove</button>
 </form>
+</td>
+</table>
 
 
 
