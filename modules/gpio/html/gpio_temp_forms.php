@@ -213,11 +213,11 @@ function ch_source() {
 	} 
 	?>
     </select>
-    <input type="number" name="value" class="form-control input-sm" id="value" required="">
+    <input type="text" name="value" class="form-control input-sm" id="value" required="">
 </td>
 
 <td class="col-md-1">
-    <input type="number" name="hyst" class="form-control input-sm" id="hyst" style="display: none">
+    <input type="text" name="hyst" class="form-control input-sm" id="hyst" style="display: none">
 </td>
 
 <td class="col-md-1">
