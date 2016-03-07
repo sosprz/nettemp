@@ -9,7 +9,7 @@ cip=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT client_ip FROM se
 ckey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT client_key FROM settings WHERE id='1'")
 onoff=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT client_on FROM settings WHERE id='1'")
 
-if [[ -n "$onoff" ]]; then
+if [[ -n "$onoff" && -n "$cip" && -n "$ckey" ]]; then
 
 for i in ${array[*]}
 do

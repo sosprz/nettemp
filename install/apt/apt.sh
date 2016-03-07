@@ -12,9 +12,10 @@ apt-get -y install $package
 } >> $dir/install_log.txt 2>&1
 
 for i in $package; do
-    dpkg-query -W -f='${Status}' $i 
+    #dpkg-query -W -f='${Status}' $i 
     if [[ $? = 1 ]]; then
     echo no package $i >> $dir/install_log.txt 2>&1
+    echo no package $i
     exit 1
     fi
 done
