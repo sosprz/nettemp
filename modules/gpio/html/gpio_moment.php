@@ -32,9 +32,12 @@ if (($mexit == "mexit") ){
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="bi" value="bi" />
 </form>
+<!-- wy³¹czamy exit dla mapy -->
+<?php if ($_GET['id'] != 'map'): ?>
 <form action="" method="post" style=" display:inline!important;">
     <button type="submit" class="btn btn-xs btn-danger">Exit</button>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="mexit" value="mexit" />
 </form>
+<?php endif; ?>
 

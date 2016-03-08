@@ -45,13 +45,15 @@ if (($simpleexit == "simpleexit") ){
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="simpleon" value="on" />
 </form>
+<!-- //dodany warunek ¿eby na mapie nie wyœwietlaæ EXIT -->
+<?php if ($_GET['id'] != 'map' ): ?>
 <form action="" method="post" style=" display:inline!important;">
     <button type="submit" class="btn btn-xs btn-danger">Exit</button>
     <input type="hidden" name="simpleexit" value="exit" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="simpleexit" value="simpleexit" />
 </form>
-
+<?php endif; ?>
     <?php 
     } 
 //}

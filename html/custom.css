@@ -19,3 +19,34 @@ body {
   //background-color: #f5f5f5;
 }
 
+.label-sensors
+{
+	background: #5cb85c;
+	/*
+	color: navy;
+	font-size: 16px;
+	border:none 1px white;
+	*/
+}
+
+.label-to-high
+{
+	background: red;
+	color:black;
+}
+
+.label-to-low
+{
+	background: blue;
+	color:white;
+}
+.sensor_settings_header
+{
+	width: 100%;
+	text-align: center;
+}
+
+.transparent-background
+{
+	background: rgba(0,0,0,0) !important; 
+}

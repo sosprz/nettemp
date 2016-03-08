@@ -191,27 +191,45 @@ foreach ($row as $a) {
 	if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png"/>';} 
 	if($a['type'] == 'temp'){ $unit='&#8451'; $type='<img src="media/ico/temp2-icon.png"/>';}
 	if($a['type'] == 'humid'){ $unit='%'; $type='<img src="media/ico/rain-icon.png"/>';}
-	if($a['type'] == 'press'){ $unit='Pa'; $type='<img src="media/ico/Science-Pressure-icon.png"/>';}
+	if($a['type'] == 'press'){ $unit='hPa'; $type='<img src="media/ico/Science-Pressure-icon.png"/>';}
 	if($a['type'] == 'water'){ $unit='m3'; $type='<img src="media/ico/water-icon.png"/>';}
 	if($a['type'] == 'gas'){ $unit='m3'; $type='<img src="media/ico/gas-icon.png"/>';}
 	if($a['type'] == 'elec'){ $unit='kWh'; $type='<img src="media/ico/Lamp-icon.png"/>';}
 	if($a['type'] == 'watt'){ $unit='W'; $type='<img src="media/ico/watt.png" alt="Watt"/>';}
 	if($a['type'] == 'volt'){ $unit='V'; $type='<img src="media/ico/volt.png" alt="Volt" /> ';}
 	if($a['type'] == 'amps'){ $unit='A'; $type='<img src="media/ico/amper.png" alt="Amps"/> ';}
+	if($a['type'] == 'dist'){ $unit='cm'; $type='<img src="media/ico/Distance-icon.png" alt="cm"/> ';}
+	
+	//Jesli w³¹czone to wyœwietlamy nazwê inaczej pusty ci¹g
+	$sensor_name='';
+	$transparent_bkg='';
+	if($a['display_name'] == 'on')	$sensor_name=$a['name'];
+	if($a['transparent_bkg'] == 'on') $transparent_bkg='transparent-background';
 ?>
-<div data-need="<?php echo $a['map_num']?>" id="<?php echo "data-need".$a['map_num']?>" data-dst="sensors" class="ui-widget-content draggable">
+<div data-need="<?php echo $a['map_num']?>" id="<?php echo "data-need".$a['map_num']?>" data-dst="sensors" 
+											class="ui-widget-content draggable" 
+											title="<?php echo $a['name'].' - Last update'.$a['time']; ?>" 
+											ondblclick="location.href='index.php?id=view&type=temp&max=day&single=<?php echo $a['name']; ?>'">
     <?php if(($a['tmp'] == 'error') || ($label=='danger')) {
-		    echo '<span class="label label-danger">';
+		    echo '<span class="label label-danger label-sensors">';
 		    } 
+			elseif (($a['alarm'] == 'on') && ($a['tmp']  < $a['tmp_min']))
+			{
+				echo '<span class="label label-to-low label-sensors">';
+			}
+			elseif (($a['alarm'] == 'on') && ($a['tmp']  > $a['tmp_max']))
+			{
+				echo '<span class="label label-to-high label-sensors">';
+			}
 		    else {
-		    echo '<span class="label label-success">';
+		    echo '<span class="'.$transparent_bkg.' label label-success">';
 		    } 
 
 		    if ((is_numeric($a['tmp']) && (($a['type'])=='elec')))  {
-			echo 	$type." ".$a['name']." ".number_format($a['tmp'], 3, '.', ',')." ".$unit;
+			echo 	$type." ".$sensor_name." ".number_format($a['tmp'], 3, '.', ',')." ".$unit;
 		    } 
 		    elseif (is_numeric($a['tmp'])) { 
-			echo 	$type." ".$a['name']." ".number_format($a['tmp'], 1, '.', ',')." ".$unit;
+			echo 	$type." ".$sensor_name." ".number_format($a['tmp'], 1, '.', ',')." ".$unit;
 		    }
 		    else {
 			echo $a['tmp']." ".$unit;
@@ -226,12 +244,12 @@ unset($a);
 ?>
 
 <?php
-$rows = $dbn->query("SELECT * FROM gpio WHERE mode NOT LIKE 'humid'");
+$rows = $dbn->query("SELECT * FROM gpio WHERE mode NOT LIKE 'humid' AND mode NOT LIKE 'dist'");
 $row = $rows->fetchAll();
 foreach ($row as $a) {
     $device='<img src="media/ico/SMD-64-pin-icon_24.png" />';
 ?>
-<div data-need="<?php echo $a['map_num']?>" id="<?php echo "data-need".$a['map_num']?>" data-dst="gpio" class="ui-widget-content draggable">
+<div data-need="<?php echo $a['map_num']?>" id="<?php echo "data-need".$a['map_num']?>" data-dst="gpio" class="ui-widget-content draggable"title="<?php echo $a['name']; ?>">
     <?php if(($a['status'] == 'error') || ($a['status'] == 'OFF') || ($label=='danger')) {
 		    echo '<span class="label label-danger">';
 		    } 
@@ -240,7 +258,30 @@ foreach ($row as $a) {
 		    }
 	        ?>
 
-    <?php echo $device." ".$a['name']." ".$a['status']?>
+    <?php 
+		//Jeœli w³¹czone to wyœwietlamy nazwê i status przeciwnie tylko status
+		if ($a['display_name'] == 'on') {
+		echo $device." ".$a['name']." ".$a['status'];
+		}
+		else
+		{
+			echo $device." ".$a['status'];
+		}
+		?>
+	<?php
+		if ($a['mode'] == 'simple' && $a['control_on_map'] == 'on'){
+			 $gpio_post= $_POST['gpio'];
+			 include('modules/gpio/html/gpio_simple.php');
+		}
+		elseif ($a['mode'] == 'time' && $a['control_on_map'] == 'on'){
+			$gpio_post= $_POST['gpio'];
+			include('modules/gpio/html/gpio_time.php');
+		}
+		elseif ($a['mode'] == 'moment' && $a['control_on_map'] == 'on'){
+			$gpio_post= $_POST['gpio'];
+			include('modules/gpio/html/gpio_moment.php');
+		}
+	?>
     </span>
 </div>
 <?php 

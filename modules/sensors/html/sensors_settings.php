@@ -101,7 +101,24 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
-
+	//display name on map
+	$name_on_map = isset($_POST['name_on_map']) ? $_POST['name_on_map'] : '';
+    $name_on_maponoff = isset($_POST['name_on_maponoff']) ? $_POST['name_on_maponoff'] : '';
+    $name_on_mapon = isset($_POST['name_on_mapon']) ? $_POST['name_on_mapon'] : '';
+    if (($name_on_maponoff == "onoff")){
+    $db->exec("UPDATE sensors SET display_name='$name_on_mapon' WHERE id='$name_on_map'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	//transparent background
+	$transparent_name_on_map = isset($_POST['transparent_name_on_map']) ? $_POST['transparent_name_on_map'] : '';
+    $transparent_name_on_maponoff = isset($_POST['transparent_name_on_maponoff']) ? $_POST['transparent_name_on_maponoff'] : '';
+    $transparent_name_on_mapon = isset($_POST['transparent_name_on_mapon']) ? $_POST['transparent_name_on_mapon'] : '';
+    if (($transparent_name_on_maponoff == "onoff")){
+    $db->exec("UPDATE sensors SET transparent_bkg='$transparent_name_on_mapon' WHERE id='$transparent_name_on_map'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 ?> 
 
 
@@ -131,7 +148,9 @@ $row = $rows->fetchAll();
 <th>Charts</th>
 <th>Node</th>
 <th>MinMax</th>
-<th>Map</th>
+<th>
+	<table><tr><th colspan="1" class="sensor_settings_header">Map</th></tr>
+	<tr><th title='View name on map'>View</th><th title='Transparent background'>Tran</th></tr></table></th>
 <th></th>
 </tr>
 </thead>
@@ -283,13 +302,32 @@ else { ?>
 	<input type="hidden" name="minmaxonoff" value="onoff" />
     </form>
     </td>
-    <td >
+    <td>
+	<table><tr>
+    <td colspan="2">
     <form action="" method="post" style="display:inline!important;"> 	
 	<input type="hidden" name="map" value="<?php echo $a["id"]; ?>" />
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="mapon" value="on" <?php echo $a["map"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="maponoff" value="onoff" />
     </form>
     </td>
+	<!-- display name on map -->
+	</tr><tr>
+	<td>
+    <form action="" method="post" style="display:inline!important;"> 	
+	<input type="hidden" name="name_on_map" value="<?php echo $a["id"]; ?>" />
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="name_on_mapon" value="on" <?php echo $a["display_name"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+	<input type="hidden" name="name_on_maponoff" value="onoff" />
+    </form>
+	</td><td><!-- transparent background only for sensors-->
+		<form action="" method="post" style="display:inline!important;"> 	
+		<input type="hidden" name="transparent_name_on_map" value="<?php echo $a["id"]; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="transparent_name_on_mapon" value="on" <?php echo $a["transparent_bkg"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+		<input type="hidden" name="transparent_name_on_maponoff" value="onoff" />
+		</form>
+	</tr></table>
+    </td>
+	<!-- koniec -->
     <td>
     <form action="" method="post" style="display:inline!important;">
 	<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />

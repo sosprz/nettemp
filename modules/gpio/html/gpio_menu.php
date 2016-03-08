@@ -11,6 +11,24 @@ $position = isset($_POST['position']) ? $_POST['position'] : '';
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     } 
+	//display name on map
+	$name_on_map = isset($_POST['name_on_map']) ? $_POST['name_on_map'] : '';
+    $name_on_maponoff = isset($_POST['name_on_maponoff']) ? $_POST['name_on_maponoff'] : '';
+    $name_on_mapon = isset($_POST['name_on_mapon']) ? $_POST['name_on_mapon'] : '';
+    if (($name_on_maponoff == "onoff")){
+    $db->exec("UPDATE gpio SET display_name='$name_on_mapon' WHERE gpio='$name_on_map'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	//control on map
+	$control_on_map = isset($_POST['control_on_map']) ? $_POST['control_on_map'] : '';
+    $control_on_maponoff = isset($_POST['control_on_maponoff']) ? $_POST['control_on_maponoff'] : '';
+    $control_on_mapon = isset($_POST['control_on_mapon']) ? $_POST['control_on_mapon'] : '';
+    if (($control_on_maponoff == "onoff")){
+    $db->exec("UPDATE gpio SET control_on_map='$control_on_mapon' WHERE gpio='$control_on_map'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 ?>
 
 <div class="panel panel-default">
@@ -32,6 +50,8 @@ $row = $rows->fetchAll();
 <th>Name</th>
 <th>Function</th>
 <th>Status</th>
+<th title='View name on map'>Name on map</th>
+<th title='Control on map'>Control</th>
 </tr>
 </thead>
 
@@ -72,6 +92,25 @@ $row = $rows->fetchAll();
  		<?php }?>
 			<?php
 			echo $b['status']; ?> </span>
+	</td>
+	<!-- name on map  !!!not valid for humid and dist -->
+	<td class="col-md-1">
+		<?php if($b['mode'] != 'dist' && $b['mode'] != 'humid') : ?>
+    	<form action="" method="post" style="display:inline!important;"> 	
+		<input type="hidden" name="name_on_map" value="<?php echo $b["gpio"]; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="name_on_mapon" value="on" <?php echo $b["display_name"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+		<input type="hidden" name="name_on_maponoff" value="onoff" />
+		</form>
+		<?php endif; ?>
+	</td>
+	<td class="col-md-1">
+		<?php if($b['mode'] != 'dist' && $b['mode'] != 'humid') : ?>
+    	<form action="" method="post" style="display:inline!important;"> 	
+		<input type="hidden" name="control_on_map" value="<?php echo $b["gpio"]; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="control_on_mapon" value="on" <?php echo $b["control_on_map"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+		<input type="hidden" name="control_on_maponoff" value="onoff" />
+		</form>
+		<?php endif; ?>
 	</td>
 
 <?php } ?>
