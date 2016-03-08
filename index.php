@@ -106,7 +106,7 @@ if(($_SESSION["perms"] == 'adm') && (isset($_SESSION["user"])))  {
         </nav>
  
 
-<div class="container">
+<div class="container-nettemp">
 <?php 
 if (file_exists("tmp/reboot")) {  ?>
 <div class="alert alert-warning" role="alert"><a href="index.php?id=tools&type=reboot" class="btn btn-xs btn-warning">Reboot required</a></div>

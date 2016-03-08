@@ -50,3 +50,8 @@ body {
 {
 	background: rgba(0,0,0,0) !important; 
 }
+
+.container-nettemp { 
+  padding-left: 100px;
+  padding-right: 100px;
+}
