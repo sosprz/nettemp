@@ -203,29 +203,50 @@ foreach ($row as $a) {
 	//Jesli w³¹czone to wyœwietlamy nazwê inaczej pusty ci¹g
 	$sensor_name='';
 	$transparent_bkg='';
+	$background_color='';
+	$background_low='';
+	$background_high='';
+	$font_color='';
+	$font_size='';
+	$label_class='';
 	if($a['display_name'] == 'on')	$sensor_name=$a['name'];
 	if($a['transparent_bkg'] == 'on') $transparent_bkg='transparent-background';
+	if($a['background_color'] != '') $background_color="background:".$a['background_color'];
+	if($a['background_low'] != '') $background_low="background:".$a['background_low'];
+	if($a['background_high'] != '') $background_high="background:".$a['background_high'];
+	if($a['font_color'] != '') $font_color="color:".$a['font_color'];
+	if($a['font_size'] != '') $font_size="font-size:".$a['font_size']."%";
 ?>
 <div data-need="<?php echo $a['map_num']?>" id="<?php echo "data-need".$a['map_num']?>" data-dst="sensors" 
 											class="ui-widget-content draggable" 
 											title="<?php echo $a['name'].' - Last update'.$a['time']; ?>" 
 											ondblclick="location.href='index.php?id=view&type=temp&max=day&single=<?php echo $a['name']; ?>'">
-    <?php if(($a['tmp'] == 'error') || ($label=='danger')) {
-		    echo '<span class="label label-danger label-sensors">';
+    <?php 
+			$display_style='style=""';
+			if(($a['tmp'] == 'error') || ($label=='danger')) {
+		    //echo '<span class="label label-danger label-sensors">';
+			$label_class="label-danger";
 		    } 
 			elseif (($a['alarm'] == 'on') && ($a['tmp']  < $a['tmp_min']))
 			{
-				echo '<span class="label label-to-low label-sensors">';
+				$label_class="label-to-low";
+				$background_color=$background_low;
+				//echo '<span class="label label-to-low label-sensors">';
 			}
 			elseif (($a['alarm'] == 'on') && ($a['tmp']  > $a['tmp_max']))
 			{
-				echo '<span class="label label-to-high label-sensors">';
+				$label_class="label-to-high";
+				$background_color=$background_high;
+				//echo '<span class="label label-to-high label-sensors">';
 			}
-		    else {
-		    echo '<span class="'.$transparent_bkg.' label label-success">';
+		    else 
+			{
+				$label_class=$transparent_bkg;
+				//$background_color='';
+				//echo '<span class="'.$transparent_bkg.' label label-success">';
 		    } 
-
-		    if ((is_numeric($a['tmp']) && (($a['type'])=='elec')))  {
+			echo '<span class="label '.$label_class.' label-sensors" style="'.$background_color.';'.$font_size.';'.$font_color.'">';
+			if ((is_numeric($a['tmp']) && (($a['type'])=='elec')))  {
 			echo 	$type." ".$sensor_name." ".number_format($a['tmp'], 3, '.', ',')." ".$unit;
 		    } 
 		    elseif (is_numeric($a['tmp'])) { 

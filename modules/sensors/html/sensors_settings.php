@@ -119,6 +119,66 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+	//background_color
+	$background_color = isset($_POST['background_color']) ? $_POST['background_color'] : '';
+    $background_color_value = isset($_POST['background_color_value']) ? $_POST['background_color_value'] : '';
+    $background_color_set = isset($_POST['background_color_set']) ? $_POST['background_color_set'] : '';
+    if (($background_color_set == "set")){
+    $db->exec("UPDATE sensors SET background_color='$background_color_value' WHERE id='$background_color'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	//background_low
+	$low_color = isset($_POST['low_color']) ? $_POST['low_color'] : '';
+    $low_color_value = isset($_POST['low_color_value']) ? $_POST['low_color_value'] : '';
+    $low_color_set = isset($_POST['low_color_set']) ? $_POST['low_color_set'] : '';
+    if (($low_color_set == "set")){
+    $db->exec("UPDATE sensors SET background_low='$low_color_value' WHERE id='$low_color'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	//background_high
+	$high_color = isset($_POST['high_color']) ? $_POST['high_color'] : '';
+    $high_color_value = isset($_POST['high_color_value']) ? $_POST['high_color_value'] : '';
+    $high_color_set = isset($_POST['high_color_set']) ? $_POST['high_color_set'] : '';
+    if (($high_color_set == "set")){
+    $db->exec("UPDATE sensors SET background_high='$high_color_value' WHERE id='$high_color'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	//font_color
+	$font_color = isset($_POST['font_color']) ? $_POST['font_color'] : '';
+    $font_color_value = isset($_POST['font_color_value']) ? $_POST['font_color_value'] : '';
+    $font_color_set = isset($_POST['font_color_set']) ? $_POST['font_color_set'] : '';
+    if (($font_color_set == "set")){
+    $db->exec("UPDATE sensors SET font_color='$font_color_value' WHERE id='$font_color'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	//font_size
+	$font_size = isset($_POST['font_size']) ? $_POST['font_size'] : '';
+    $font_size_value = isset($_POST['font_size_value']) ? $_POST['font_size_value'] : '';
+    $font_size_set = isset($_POST['font_size_set']) ? $_POST['font_size_set'] : '';
+    if (($font_size_set == "set")){
+    $db->exec("UPDATE sensors SET font_size='$font_size_value' WHERE id='$font_size'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	$reset_map_id=isset($_POST['reset_map_id']) ? $_POST['reset_map_id'] : '';
+	$reset_map_settings=isset($_POST['reset_map_settings']) ? $_POST['reset_map_settings'] : '';
+	$reset_map_settings_default=isset($_POST['reset_map_settings_default']) ? $_POST['reset_map_settings_default'] : '';
+	if (($reset_map_settings == "reset") && ($reset_map_settings_default=='default'))
+	{
+		$db->exec("UPDATE sensors SET display_name='on' WHERE id='$reset_map_id'") or die ($db->lastErrorMsg());
+		$db->exec("UPDATE sensors SET transparent_bkg='' WHERE id='$reset_map_id'") or die ($db->lastErrorMsg());
+		$db->exec("UPDATE sensors SET background_color='' WHERE id='$reset_map_id'") or die ($db->lastErrorMsg());
+		$db->exec("UPDATE sensors SET background_low='' WHERE id='$reset_map_id'") or die ($db->lastErrorMsg());
+		$db->exec("UPDATE sensors SET background_high='' WHERE id='$reset_map_id'") or die ($db->lastErrorMsg());
+		$db->exec("UPDATE sensors SET font_color='' WHERE id='$reset_map_id'") or die ($db->lastErrorMsg());
+		$db->exec("UPDATE sensors SET font_size='' WHERE id='$reset_map_id'") or die ($db->lastErrorMsg());
+	header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 ?> 
 
 
@@ -126,6 +186,11 @@
 <div class="panel-heading">Sensors</div>
 
 <div class="table-responsive">
+<script>
+	$(document).ready(function(){
+		$("button").click(function(event){$("#" + event.target.id + "-row").toggle();});
+	});
+</script>
 <table class="table table-hover table-condensed small" border="0">
 
 <?php
@@ -148,9 +213,7 @@ $row = $rows->fetchAll();
 <th>Charts</th>
 <th>Node</th>
 <th>MinMax</th>
-<th >Map</th>
-<th title='View name on map'>View</th>
-<th title='Transparent background'>Tran</th>
+<th>Map</th>
 <th></th>
 </tr>
 </thead>
@@ -188,7 +251,7 @@ $row = $rows->fetchAll();
 	if (file_exists($file3) && ( 0 != filesize($file3)))
 	{
 ?>
-<td class="col-md-2">
+<td class="col-md-4">
     <span class="label label-success" title="Last update: <?php echo $a["time"] ?>">ok</span>
     <span class="label label-default"><?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3)."MB" ?></span>
     <span class="label label-default">
@@ -227,7 +290,7 @@ else { ?>
 	}
     ?>
     </td>
-    <td class="col-md-1">
+    <td class="col-md-1"">
     <?php if (in_array($a['type'], $counters)) { ?>
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="sum" size="2" maxlength="30" value="<?php echo $a["sum"]; ?>" required=""/>
@@ -241,7 +304,7 @@ else { ?>
     </td>
 
 
-    <td class="col-md-1">
+    <td >
     <form action="" method="post" style="display:inline!important;">
 	<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarm" value="on" <?php echo $a["alarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
@@ -269,7 +332,7 @@ else { ?>
     <input type="hidden" name="ch_group" value="<?php echo $a['id']; ?>" />
     </form>
     </td>
-    <td class="col-md-1">
+    <td >
     <form action="" method="post" style="display:inline!important;"> 	
 	<input type="hidden" name="lcdid" value="<?php echo $a["id"]; ?>" />
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="lcdon" value="on" <?php echo $a["lcd"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
@@ -277,14 +340,14 @@ else { ?>
     </form>
     </td>
 
-    <td class="col-md-1">
+    <td >
     <form action="" method="post" style="display:inline!important;"> 	
 	<input type="hidden" name="charts" value="<?php echo $a["id"]; ?>" />
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="chartson" value="on" <?php echo $a["charts"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="chartsonoff" value="onoff" />
     </form>
     </td>
-    <td class="col-md-1">
+    <td >
     <?php if ($a["device"] != 'remote') { ?>
     <form action="" method="post" style="display:inline!important;"> 	
 	<input type="hidden" name="remote" value="<?php echo $a["id"]; ?>" />
@@ -295,43 +358,107 @@ else { ?>
 	}
     ?>
     </td>
-    <td class="col-md-1">
+    <td >
     <form action="" method="post" style="display:inline!important;"> 	
 	<input type="hidden" name="minmax" value="<?php echo $a["id"]; ?>" />
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="minmaxon" value="on" <?php echo $a["minmax"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="minmaxonoff" value="onoff" />
     </form>
     </td>
-    <td class="col-md-1">
-    <form action="" method="post" style="display:inline!important;"> 	
-	<input type="hidden" name="map" value="<?php echo $a["id"]; ?>" />
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="mapon" value="on" <?php echo $a["map"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
-	<input type="hidden" name="maponoff" value="onoff" />
-    </form>
-    </td>
-    <td class="col-md-1">
-    <form action="" method="post" style="display:inline!important;"> 	
-	<input type="hidden" name="name_on_map" value="<?php echo $a["id"]; ?>" />
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="name_on_mapon" value="on" <?php echo $a["display_name"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
-	<input type="hidden" name="name_on_maponoff" value="onoff" />
-    </form>
-    </td>
-    <td class="col-md-1">
-		<form action="" method="post" style="display:inline!important;"> 	
-		<input type="hidden" name="transparent_name_on_map" value="<?php echo $a["id"]; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="transparent_name_on_mapon" value="on" <?php echo $a["transparent_bkg"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
-		<input type="hidden" name="transparent_name_on_maponoff" value="onoff" />
-		</form>
-    </td>
-	<!-- koniec -->
-    <td class="col-md-1">
+    
+	<td>
+	<button class="btn btn-xs btn-success" id="settings-on-map-<?php echo $a['id']; ?>">
+		<span class="glypicon glyphicon-plus"></span>
+	</button>
+	</td>
+	<td>
     <form action="" method="post" style="display:inline!important;">
 	<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />
 	<input type="hidden" name="usun2" value="usun3" />
 	<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
     </form>
     </td>
+	</tr>
+	<!-- display name on map -->
+	<tr id="settings-on-map-<?php echo $a['id']; ?>-row" style="display:none">
+	<td colspan="15">
+	<table>
+	<tr>
+		<th class="col-md-1 map-settings">Name on map</th>
+		<th class="col-md-1">Transparent</th>
+		<th class="col-md-1">Background</th>
+		<th class="col-md-1">Low</th>
+		<th class="col-md-1">High</th>
+		<th class="col-md-1">Font</th>
+		<th class="col-md-1">Font[%]</th>
+		<th class="col-md-1"></th>
+		<th class="col-md-4"></th>
+	</tr>
+	<tr>
+	<td>
+		<form action="" method="post" style="display:inline!important;"> 	
+		<input type="hidden" name="name_on_map" value="<?php echo $a["id"]; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="name_on_mapon" value="on" <?php echo $a["display_name"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="name_on_maponoff" value="onoff" />
+		</form>
+	</td>
+	<td><!-- transparent background only for sensors-->
+		<form action="" method="post" style="display:inline!important;"> 	
+		<input type="hidden" name="transparent_name_on_map" value="<?php echo $a["id"]; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="transparent_name_on_mapon" value="on" <?php echo $a["transparent_bkg"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="transparent_name_on_maponoff" value="onoff" />
+		</form>
+	</td>
+	<td><!-- Background color-->
+		<form action="" method="post" style="display:inline!important;"> 	
+		<input type="hidden" name="background_color" value="<?php echo $a["id"]; ?>" />
+		<input type="color" data-size="mini"  name="background_color_value" value="<?php echo $a['background_color']?  $a['background_color']: '#5cb85c'; ?>" onchange="this.form.submit()" />
+		<input type="hidden" name="background_color_set" value="set" />
+		</form>
+	</td>
+	<td><!-- Low color-->
+		<form action="" method="post" style="display:inline!important;"> 	
+		<input type="hidden" name="low_color" value="<?php echo $a["id"]; ?>" />
+		<input type="color" data-size="mini"  name="low_color_value" value="<?php echo $a['background_low'] ?  $a['background_low']: '#337ab7'; ?>" onchange="this.form.submit()" />
+		<input type="hidden" name="low_color_set" value="set" />
+		</form>
+	</td>
+	<td><!-- High color-->
+		<form action="" method="post" style="display:inline!important;"> 	
+		<input type="hidden" name="high_color" value="<?php echo $a["id"]; ?>" />
+		<input type="color" data-size="mini"  name="high_color_value" value="<?php echo $a['background_high'] ? $a['background_high']: '#d9534f'; ?>" onchange="this.form.submit()" />
+		<input type="hidden" name="high_color_set" value="set" />
+		</form>
+	</td>
+	<td><!-- Font color-->
+		<form action="" method="post" style="display:inline!important;"> 	
+		<input type="hidden" name="font_color" value="<?php echo $a["id"]; ?>" />
+		<input type="color" data-size="mini"  name="font_color_value" value="<?php echo $a['font_color'] ? $a['font_color']: '#ffffff'; ?>" onchange="this.form.submit()" />
+		<input type="hidden" name="font_color_set" value="set" />
+		</form>
+	</td>
+	<td><!-- Font size-->
+		<form action="" method="post" style="display:inline!important;"> 	
+		<input type="hidden" name="font_size" value="<?php echo $a["id"]; ?>" />
+		<input type="text" size="3"  name="font_size_value" value="<?php echo $a['font_size'] ? $a['font_size']: '75'; ?>" onchange="this.form.submit()" />
+		<input type="hidden" name="font_size_set" value="set" />
+		</form>
+	</td>
+	<td><!-- Reset to default -->
+		<form action="" method="post" style="display:inline!important;"> 	
+		<input type="hidden" name="reset_map_id" value="<?php echo $a["id"]; ?>" />
+		<button class="btn btn-xs btn-danger"  name="reset_map_settings" value="reset" onchange="this.form.submit()">
+		<span class="glyphicon glyphicon-pencil"></span>Reset</button>
+		<input type="hidden" name="reset_map_settings_default" value="default" />
+		</form>
+	</td>
+	<td></td>
+	</tr>
+	</table>
+    </td>
+	<!-- koniec -->
 </tr>
+
 <?php 
 
 }  

@@ -31,13 +31,13 @@ body {
 
 .label-to-high
 {
-	background: red;
-	color:black;
+	background: #d9534f;
+	color:white;
 }
 
 .label-to-low
 {
-	background: blue;
+	background: #337ab7;
 	color:white;
 }
 .sensor_settings_header
@@ -54,4 +54,14 @@ body {
 .container-nettemp { 
   padding-left: 100px;
   padding-right: 100px;
+}
+
+.container-controls {
+	width: 100px;
+}
+
+
+.map-settings
+{
+	text-align:left;
 }

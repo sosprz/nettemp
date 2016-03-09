@@ -261,3 +261,8 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD control_o
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD display_name type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD transparent_bkg type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD background_color TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD background_low TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD background_high TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD font_color TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD font_size TEXT"

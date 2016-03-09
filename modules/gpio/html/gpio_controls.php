@@ -98,7 +98,7 @@ $resultc = $call->fetchAll();
 
 foreach ( $results as $a) {
 ?>
-
+<div class="container-controls">
 <div class="panel panel-default">
 <div class="panel-heading">
 <h3 class="panel-title"><?php echo $a['name']; ?></h3>
@@ -168,6 +168,7 @@ foreach ( $resultc as $a) {
 </form>
 
 </div></div>
+</div>
 <?php 
 }
 ?>
