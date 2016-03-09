@@ -206,11 +206,11 @@ foreach ($row as $a) {
 					$comparison2 = '<';
 					$map = array(
    					 ">" => $sensor_tmpadj > $value,
-   					 "<" => $value < $sensor_tmpadj
+   					 "<" => $sensor_tmpadj < $value
 					);
-					$map2 = array(
+					$max = array(
    					 ">" => $sensor_tmpadj > $value_max,
-   					 "<" => $value_max < $sensor_tmpadj
+   					 "<" => $sensor_tmpadj < $value_max
 					);
 					
 				}
@@ -220,11 +220,11 @@ foreach ($row as $a) {
 					$comparison2 = '<=';
 					$map = array(
    					 ">=" => $sensor_tmpadj >= $value,
-   					 "<=" => $value <= $sensor_tmpadj
+   					 "<=" => $sensor_tmpadj <= $value
 					);
-					$map2 = array(
+					$max = array(
    					 ">=" => $sensor_tmpadj >= $value_max,
-   					 "<=" => $value_max <= $sensor_tmpadj
+   					 "<=" => $sensor_tmpadj <= $value_max
 					);
 				}
 				elseif ($op=='le') {
@@ -233,11 +233,11 @@ foreach ($row as $a) {
 					$comparison2 = '>=';
 					$map = array(
    					 "<=" => $sensor_tmpadj <= $value,
-   					 ">=" => $value >= $sensor_tmpadj
+   					 ">=" => $sensor_tmpadj >= $value
 					);
-					$map2 = array(
+					$max = array(
    					 "<=" => $sensor_tmpadj <= $value_max,
-   					 ">=" => $value_max >= $sensor_tmpadj
+   					 ">=" => $sensor_tmpadj >= $value_max
 					);
 				}
 				elseif ($op=='lt') {
@@ -246,11 +246,11 @@ foreach ($row as $a) {
 					$comparison2 = '>';
 					$map = array(
    					 "<" => $sensor_tmpadj < $value,
-   					 ">" => $value > $sensor_tmpadj
+   					 ">" => $sensor_tmpadj > $value
 					);
-					$map2 = array(
+					$max = array(
    					 "<" => $sensor_tmpadj < $value_max,
-   					 ">" => $value_max > $sensor_tmpadj
+   					 ">" => $sensor_tmpadj > $value_max
 					);
 				}			
 			
@@ -290,7 +290,7 @@ foreach ($row as $a) {
 						$and='';
 					} 
 					// ENDY nie ok i nie jest spelniona
-					elseif($map[$comparison2] && $onoff!='and' && $and==true && $and_val==false) {
+					elseif($map[$comparison2] && $onoff!='and' && $and=='nie') {
 						echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '".$comparison2."' in function ".$func['id']." prev END not OK, EXIT\n\n";
 						$and='';
 					}			
@@ -327,7 +327,7 @@ foreach ($row as $a) {
 							break;
 					}
 						
-					elseif($map[$comparison2] && $state == 'ON' ) {
+					elseif($map[$comparison2] && $max[$comparison] && $state == 'ON' ) {
 						$db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio'");
 						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 2 ON\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '".$comparison2."' in function ".$func['id']."\n";
@@ -340,7 +340,7 @@ foreach ($row as $a) {
 							break;
 					}
 										
-					elseif($map[$comparison2] && $map2[$comparison2]) {
+					elseif($map[$comparison2] && $max[$comparison2]) {
 						$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio'");
 						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 3 OFF\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '".$comparison2."' in function ".$func['id']."\n";
@@ -365,6 +365,10 @@ foreach ($row as $a) {
 							}
 							break;
 					}
+					else {
+						echo "error\n";
+					}
+					
 				}
 		
 			
