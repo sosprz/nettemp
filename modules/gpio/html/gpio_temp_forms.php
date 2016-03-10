@@ -69,6 +69,12 @@ function ch_source() {
 	    $value=NULL;
 	    $onoff='on';
     }
+    
+    if(($op=='gt' || $op=='ge') && ($source=='sensor2hyst' || $source=='valuehyst')) {
+    	if ($hyst > 0) {
+			$hyst=$hyst*-1;    	
+    	}    	
+    }
 	
 	if ($fadd == "add"){
 		$db = new PDO('sqlite:dbf/nettemp.db');
