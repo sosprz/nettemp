@@ -64,10 +64,10 @@ function ch_source() {
 	    $hyst=NULL;
     } elseif ($source == 'valuehyst') {
 	    $sensor2=NULL;
-	    $onoff='on';
+	    //$onoff='on';
     } elseif ($source == 'sensor2hyst') {
 	    $value=NULL;
-	    $onoff='on';
+	    //$onoff='on';
     }
     
     if(($op=='gt' || $op=='ge') && ($source=='sensor2hyst' || $source=='valuehyst')) {
