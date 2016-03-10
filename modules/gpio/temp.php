@@ -8,7 +8,6 @@ $db = new PDO('sqlite:../../dbf/nettemp.db');
 $debug = isset($_GET['debug']) ? $_GET['debug'] : '';
 
 
-
 ////////////////////////////////////////////////////////
 // functions
 
@@ -16,13 +15,13 @@ $debug = isset($_GET['debug']) ? $_GET['debug'] : '';
 function timestamp($gpio,$onoff) {
 	
 	if (file_exists("../../db/gpio_stats_$gpio.sql")) {
-		$db = new PDO("sqlite:../../db/gpio_stats_$gpio.sql") or die ("ts 1\n" );
-	   $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("ts 2\n" );
+		$db = new PDO("sqlite:../../db/gpio_stats_$gpio.sql") or die ("WARNING timestamp 1\n" );
+	   $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("WARNING timestamp 2\n" );
   	}
 	else {
 		$db = new PDO("sqlite:../../db/gpio_stats_$gpio.sql");
-   	$db->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)") or die ("ts 3\n" );
-    	$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("ts 4\n" );
+   	$db->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)") or die ("WARNING timestamp 3\n" );
+    	$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("WARNING timestamp 4\n" );
 	}
 }
 
