@@ -69,6 +69,10 @@ $name_new=trim($name_new2);
 	elseif (strpos($id_rom_new,'dist') !== false) {
 	    $type='dist';
 	}
+	elseif (strpos($id_rom_new,'trigger') !== false) {
+	    $type='trigger';
+	}
+	
 	else {
 	    if (substr($id_rom_new, 0, 4 ) === "0x26") {
 		$type='humid';
