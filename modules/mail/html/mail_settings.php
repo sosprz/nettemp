@@ -29,7 +29,7 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
 $change_password1 = isset($_POST['change_password1']) ? $_POST['change_password1'] : '';
 if  ($change_password1 == "change_password2") {
 	if (!file_exists($cfile)) {
-		$cmd = "sudo touch $cfile && sudo chown www-data $cfile && sudo chmod 771 $cfile";
+		$cmd = "sudo touch $cfile && sudo chown www-data $cfile && sudo chmod 600 $cfile";
 		shell_exec($cmd);
 	
 	}

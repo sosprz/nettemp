@@ -32,5 +32,5 @@ if [ ! -f /usr/local/lib/python2.7/dist-packages/Adafruit_DHT-*.egg ]; then
     sudo python setup.py install
 fi
 
-
+sudo sed -i 's/;sendmail_path = /sendmail_path = '\''\/usr\/bin\/msmtp -t'\''/g' /etc/php5/fpm/php.ini
 

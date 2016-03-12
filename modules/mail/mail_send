@@ -5,20 +5,9 @@ date=$(date +%y%m%d-%H%M)
 dirs=$dir/tmp/mail
 
 get_mail=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mail FROM users WHERE maila='yes'" | awk '{ printf " "$1 }'`
-host=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT host FROM mail_settings"`
-port=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT port FROM mail_settings"`
-user=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
-#password=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT password FROM mail_settings"`
-address=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT address FROM mail_settings"`
-auth=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT auth FROM mail_settings"`
-tls=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tls FROM mail_settings"`
-tlscheck=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tlscheck FROM mail_settings"`
 
 function send {
-cat $1 | msmtp -f $address --host=$host --port=$port --auth=$auth --user=$user \
-		--passwordeval="sqlite3 -cmd \".timeout 2000\" $dir/dbf/nettemp.db 'SELECT password FROM mail_settings'"  \
-		--tls=$tls --tls-starttls=$tls --tls-certcheck=$tlscheck \
-		--timeout=10 -t $get_mail 
+    cat $1 | msmtp --timeout=10 -t $get_mail 
 }
 
 function minute {
@@ -37,6 +26,8 @@ for file in $(ls $dirs |grep mail)
 		    fi
 		    mv $dirs/$file $dirs/hour
 		fi
+	else
+	    echo error
 	fi
 done
 }
