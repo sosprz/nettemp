@@ -43,8 +43,31 @@ if (isset($_GET['usb'])) {
             $usb = $_GET['usb'];
     }
 
+function trigger($rom) {
+$dbn = new PDO("sqlite:dbf/nettemp.db");
+   $rows = $dbn->query("SELECT mail FROM users WHERE maila='yes'");
+   $row = $rows->fetchAll();
+   foreach($row as $row) {
+	$to[]=$row['mail'];   
+   }
+   
+   $rows = $dbn->query("SELECT gpio, name FROM sensor WHERE rom='$rom'");
+   $row = $rows->fetchAll();
+   foreach($row as $row) {
+	$name[]=$row['name'];   
+	$gpio[]=$row['gpio'];  
+   }
+   
+   
+   
+   $to = implode(', ', $to);
+   if(mail("$to", 'ALARM', "ALARM $name $gpio" )) {
+	echo "ok\n";
+   } else {
+    echo "error\n";
+   }
 
-
+}
 
 function check(&$val,$type) {
 
@@ -219,7 +242,7 @@ function db($rom,$val,$type,$device,$current) {
 		    }
 		    elseif ($type == 'trigger') {
 					$dbn->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to trigger status2\n");
-		
+					trigger($rom);
 		    }
 		    //sensors status
 		    else {
