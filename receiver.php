@@ -51,17 +51,14 @@ $dbn = new PDO("sqlite:dbf/nettemp.db");
 	$to[]=$row['mail'];   
    }
    
-   $rows = $dbn->query("SELECT gpio, name FROM sensor WHERE rom='$rom'");
+   $rows = $dbn->query("SELECT name FROM sensors WHERE rom='$rom'");
    $row = $rows->fetchAll();
    foreach($row as $row) {
-	$name[]=$row['name'];   
-	$gpio[]=$row['gpio'];  
+	$name=$row['name'];   
    }
    
-   
-   
    $to = implode(', ', $to);
-   if(mail("$to", 'ALARM', "ALARM $name $gpio" )) {
+   if(mail("$to", 'ALARM from nettemp device', "Trigger ALARM $name" )) {
 	echo "ok\n";
    } else {
     echo "error\n";
