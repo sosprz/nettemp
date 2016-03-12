@@ -24,6 +24,14 @@ $map_num=substr(rand(), 0, 4);
 	$host_name=host_ . $host_name;
 	$host_name=str_replace(".","",$host_name);
 	$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$host_name', '$host_ip', '$host_name', '$host_type', '{left:0,top:0}', '$map_num', 'on', '1')") or die ("cannot insert to DB" );
+	//maps settings
+	$inserted=$db->query("SELECT id FROM hosts WHERE name='$host_name'");
+	$inserted_id=$inserted->fetchAll();
+	$inserted_id=$inserted_id[0];
+	$dbmaps = new PDO('sqlite:dbf/maps.db');
+	$dbmaps->exec("INSERT OR IGNORE INTO maps (element_id, type, map_pos, map_num, map_on) VALUES ('$inserted_id[id]','hosts','{left:0,top:0}','$map_num','on')");
+	
+	
 	    $dbnew = new PDO("sqlite:db/$host_name.sql");
 	    $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
 	    $dbnew==NULL;
@@ -33,10 +41,17 @@ $map_num=substr(rand(), 0, 4);
 
     if (!empty($host_name) && ($_POST['host_del1'] == "host_del2") ){
 	$db = new PDO('sqlite:dbf/hosts.db');
+	//maps settings
+	$to_delete=$db->query("SELECT id FROM hosts WHERE name='$host_name'");
+	$to_delete_id=$to_delete->fetchAll();
+	$to_delete_id=$to_delete_id[0];
+	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
+	$dbmaps->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='hosts'");// or die ($db->lastErrorMsg());
+	
 	$db->exec("DELETE FROM hosts WHERE name='$host_name'") or die ($db->lastErrorMsg());
 	unlink("db/$host_name.sql");
 	unlink("tmp/mail/$host_name.mail");
-        unlink("tmp/mail/hour/$host_name.mail");
+    unlink("tmp/mail/hour/$host_name.mail");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
     }

@@ -49,6 +49,8 @@ if ($controlrun == "off")  {
 }
 else
 {
+	//hide option for maps
+	if($_GET['id'] != 'map'){
 ?>
 <form class="form-horizontal" action="" method="post">
 <fieldset>
@@ -74,19 +76,21 @@ else
 <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 </fieldset>
 </form>
-
+	<?php } ?>
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <button type="submit" class="btn btn-xs btn-success">ON</button>
     <input type="hidden" name="controlrun" value="on" />
 </form>
-
+<?php //hide option on maps
+	if($_GET['id'] != 'map'): ?>
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="exit" value="control_exit" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <button type="submit" class="btn btn-xs btn-danger">Exit</button>
 </form>
 <?php
+	endif;
 }
 ?>
 

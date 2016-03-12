@@ -14,13 +14,13 @@ $x = isset($_POST['x']) ? $_POST['x'] : '';
 $y = isset($_POST['y']) ? $_POST['y'] : '';
 if (!empty($need_id)){
 $pos="{left:".$x.", top:".$y."}";
-if ($need_dst=='hosts') {
+/*if ($need_dst=='hosts') {
     $dbs = new PDO('sqlite:dbf/hosts.db');
 }
-else {
-    $dbs = new PDO('sqlite:dbf/nettemp.db');
-}
-$dbs->exec("UPDATE $need_dst SET map_pos='$pos' WHERE map_num='$need_id'");
+else {*/
+    $dbmaps = new PDO('sqlite:dbf/maps.db');
+//}
+$dbmaps->exec("UPDATE maps SET map_pos='$pos' WHERE map_num='$need_id'");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 }
@@ -85,77 +85,37 @@ exit();
 $array = array();
 $dirn = "sqlite:dbf/nettemp.db";
 $dbn = new PDO($dirn) or die("cannot open database");
-$dirh = "sqlite:dbf/hosts.db";
-$dbh = new PDO($dirh) or die("cannot open database");
+$dbmaps = new PDO('sqlite:dbf/maps.db');
 
-$query = "select map_num,map_pos FROM sensors";
+$query = "select map_num,map_pos FROM maps";//sensors";
 $dbn->query($query);
-foreach ($dbn->query($query) as $row) {
+foreach ($dbmaps->query($query) as $row) {
 	$array[$row[0]]=$row[1];
     }
 $js_array = json_encode($array);
 $js_array = str_replace('"','', $js_array);
-echo "var sensors = ".$js_array.";\n";
+echo "var elements = ".$js_array.";\n";
 
 unset($query);
 unset($js_array);
 unset($array);
-
-$query = "select map_num,map_pos FROM gpio";
-$dbn->query($query);
-foreach ($dbn->query($query) as $row) {
-	$array[$row[0]]=$row[1];
-    }
-$js_array = json_encode($array);
-$js_array = str_replace('"','', $js_array);
-echo "var gpio = ".$js_array.";\n";
-
-unset($query);
-unset($js_array);
-unset($array);
-
-$query = "select map_num,map_pos FROM hosts";
-$dbh->query($query);
-foreach ($dbh->query($query) as $row) {
-	$array[$row[0]]=$row[1];
-    }
-$js_array = json_encode($array);
-$js_array = str_replace('"','', $js_array);
-echo "var hosts = ".$js_array.";\n";
-
 
 ?>
 
-var sensors = JSON.stringify(sensors);
+var sensors = JSON.stringify(elements);
 var sensors = JSON.parse(sensors);
 
-var gpio = JSON.stringify(gpio);
-var gpio = JSON.parse(gpio);
-
-var hosts = JSON.stringify(hosts);
-var hosts = JSON.parse(hosts);
 
 var id = 0
 //alert(JSON.stringify(positions, null, 4));
 $(function() {
 
-if (sensors != null) {
-$.each(sensors, function (id, pos) {
+if (elements != null) {
+$.each(elements, function (id, pos) {
         $("#data-need" + id).css(pos)
     })
 }
 
-if (gpio != null) {
-$.each(gpio, function (id, pos) {
-        $("#data-need" + id).css(pos)
-    })
-}
-
-if (hosts != null) {
-$.each(hosts, function (id, pos) {
-        $("#data-need" + id).css(pos)
-    })
-}
 
 $( "#content div" ).draggable({
     containment: '#content',
@@ -178,16 +138,16 @@ $( "#content div" ).draggable({
     });
 });
 
-
-
-
-
 </script>
 <div id="content">
 <?php
-$rows = $dbn->query("SELECT * FROM sensors WHERE map='on'");
+$rows = $dbmaps->query("SELECT * FROM maps WHERE map_on='on' AND type='sensors'");
 $row = $rows->fetchAll();
-foreach ($row as $a) {
+foreach ($row as $b) {
+	$rows=$dbn->query("SELECT * FROM sensors WHERE id='$b[element_id]'");//always one record
+	$a=$rows->fetchAll();
+	$a=$a[0];//extracting from array
+	
 	if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png"/>';} 
 	if($a['type'] == 'temp'){ $unit='&#8451'; $type='<img src="media/ico/temp2-icon.png"/>';}
 	if($a['type'] == 'humid'){ $unit='%'; $type='<img src="media/ico/rain-icon.png"/>';}
@@ -209,32 +169,34 @@ foreach ($row as $a) {
 	$font_color='';
 	$font_size='';
 	$label_class='';
-	if($a['display_name'] == 'on')	$sensor_name=$a['name'];
-	if($a['transparent_bkg'] == 'on') $transparent_bkg='transparent-background';
-	if($a['background_color'] != '') $background_color="background:".$a['background_color'];
-	if($a['background_low'] != '') $background_low="background:".$a['background_low'];
-	if($a['background_high'] != '') $background_high="background:".$a['background_high'];
-	if($a['font_color'] != '') $font_color="color:".$a['font_color'];
-	if($a['font_size'] != '') $font_size="font-size:".$a['font_size']."%";
+	if($b['display_name'] == 'on')	$sensor_name=$a['name'];
+	if($b['transparent_bkg'] == 'on') $transparent_bkg='transparent-background';
+	if($b['background_color'] != '') $background_color="background:".$b['background_color'];
+	if($b['background_low'] != '') $background_low="background:".$b['background_low'];
+	if($b['background_high'] != '') $background_high="background:".$b['background_high'];
+	if($b['font_color'] != '') $font_color="color:".$b['font_color'];
+	if($b['font_size'] != '') $font_size="font-size:".$b['font_size']."%";
 ?>
-<div data-need="<?php echo $a['map_num']?>" id="<?php echo "data-need".$a['map_num']?>" data-dst="sensors" 
+<div data-need="<?php echo $b['map_num']?>" id="<?php echo "data-need".$b['map_num']?>" data-dst="sensors" 
 											class="ui-widget-content draggable" 
 											title="<?php echo $a['name'].' - Last update'.$a['time']; ?>" 
 											ondblclick="location.href='index.php?id=view&type=temp&max=day&single=<?php echo $a['name']; ?>'">
     <?php 
 			$display_style='style=""';
-			if(($a['tmp'] == 'error') || ($label=='danger')) {
-		    //echo '<span class="label label-danger label-sensors">';
-			$label_class="label-danger";
+			if(($a['tmp'] == 'error') || ($label=='danger') || ($a['tmp'] == 'wait')) {
+				//echo '<span class="label label-danger label-sensors">';
+				$label_class="label-danger";
 		    } 
-			elseif (($a['alarm'] == 'on') && ($a['tmp']  < $a['tmp_min']))
+			elseif (($a['type'] == 'temp') && ($a['alarm'] == 'on') && ($a['tmp']  < $a['tmp_min']))
 			{
+				$type='<img src="media/ico/temp_low.png"/>';
 				$label_class="label-to-low";
 				$background_color=$background_low;
 				//echo '<span class="label label-to-low label-sensors">';
 			}
-			elseif (($a['alarm'] == 'on') && ($a['tmp']  > $a['tmp_max']))
+			elseif (($a['type'] == 'temp') && ($a['alarm'] == 'on') && ($a['tmp']  > $a['tmp_max']))
 			{
+				$type='<img src="media/ico/temp_high.png"/>';
 				$label_class="label-to-high";
 				$background_color=$background_high;
 				//echo '<span class="label label-to-high label-sensors">';
@@ -253,7 +215,7 @@ foreach ($row as $a) {
 			echo 	$type." ".$sensor_name." ".number_format($a['tmp'], 1, '.', ',')." ".$unit;
 		    }
 		    else {
-			echo $a['tmp']." ".$unit;
+			echo $type." ".$sensor_name." ".$a['tmp']." ".$unit;
 		    }
 
 	?>
@@ -262,15 +224,38 @@ foreach ($row as $a) {
 <?php 
     }
 unset($a);
+unset($row);
+unset($rows);
 ?>
 
 <?php
-$rows = $dbn->query("SELECT * FROM gpio WHERE mode NOT LIKE 'humid' AND mode NOT LIKE 'dist'");
+$rows = $dbmaps->query("SELECT * FROM maps WHERE type='gpio' AND map_on='on'");
 $row = $rows->fetchAll();
-foreach ($row as $a) {
-    $device='<img src="media/ico/SMD-64-pin-icon_24.png" />';
+foreach ($row as $b) {
+	$rows=$dbn->query("SELECT * FROM gpio WHERE id='$b[element_id]'");//always one record
+	$a=$rows->fetchAll();
+	$a=$a[0];//extracting from array
+	$icon='';
+	if($b['icon'] != '')
+	{
+		$icon=$b['icon'];
+	}
+	switch ($icon){
+		case 'Light':
+			$device='<img src="media/ico/Lamp-icon.png" />';
+			break;
+		case 'Socket':
+			$device='<img src="media/ico/Socket-icon.png" />';
+			break;
+		case 'Switch':
+			$device='<img src="media/ico/Switch-icon.png" />';
+			break;
+		default:
+			$device='<img src="media/ico/SMD-64-pin-icon_24.png" />';
+	}
+	if (($a['mode'] != 'dist') && ($a['mode'] != 'humid')) {
 ?>
-<div data-need="<?php echo $a['map_num']?>" id="<?php echo "data-need".$a['map_num']?>" data-dst="gpio" class="ui-widget-content draggable"title="<?php echo $a['name']; ?>">
+<div data-need="<?php echo $b['map_num']?>" id="<?php echo "data-need".$b['map_num']?>" data-dst="gpio" class="ui-widget-content draggable"title="<?php echo $a['name']; ?>">
     <?php if(($a['status'] == 'error') || ($a['status'] == 'OFF') || ($label=='danger')) {
 		    echo '<span class="label label-danger">';
 		    } 
@@ -281,7 +266,7 @@ foreach ($row as $a) {
 
     <?php 
 		//Jeœli w³¹czone to wyœwietlamy nazwê i status przeciwnie tylko status
-		if ($a['display_name'] == 'on') {
+		if ($b['display_name'] == 'on') {
 		echo $device." ".$a['name']." ".$a['status'];
 		}
 		else
@@ -290,31 +275,39 @@ foreach ($row as $a) {
 		}
 		?>
 	<?php
-		if ($a['mode'] == 'simple' && $a['control_on_map'] == 'on'){
+		if ($a['mode'] == 'simple' && $b['control_on_map'] == 'on'){
 			 $gpio_post= $_POST['gpio'];
 			 include('modules/gpio/html/gpio_simple.php');
 		}
-		elseif ($a['mode'] == 'time' && $a['control_on_map'] == 'on'){
+		elseif ($a['mode'] == 'time' && $b['control_on_map'] == 'on'){
 			$gpio_post= $_POST['gpio'];
 			include('modules/gpio/html/gpio_time.php');
 		}
-		elseif ($a['mode'] == 'moment' && $a['control_on_map'] == 'on'){
+		elseif ($a['mode'] == 'moment' && $b['control_on_map'] == 'on'){
 			$gpio_post= $_POST['gpio'];
 			include('modules/gpio/html/gpio_moment.php');
+		}
+		elseif ($a['mode'] == 'control' && $b['control_on_map'] == 'on'){
+			$gpio_post= $_POST['gpio'];
+			include('modules/gpio/html/gpio_control.php');
 		}
 	?>
     </span>
 </div>
 <?php 
+	}//end if
     }
 unset($a);
 ?>
 
 <?php
 $dbh = new PDO("sqlite:dbf/hosts.db");
-$rows = $dbh->query("SELECT * FROM hosts WHERE map='on'");
+$rows = $dbmaps->query("SELECT * FROM maps WHERE map_on='on' AND type='hosts'");
 $row = $rows->fetchAll();
-foreach ($row as $h) {
+foreach ($row as $b) {
+	$rows=$dbh->query("SELECT * FROM hosts WHERE id='$b[element_id]'");//always one record
+	$h=$rows->fetchAll();
+	$h=$h[0];//extracting from array
     $device='<img src="media/ico/Computer-icon.png" />';
 ?>
 <div data-need="<?php echo $h['map_num']?>" id="<?php echo "data-need".$h['map_num']?>" data-dst="hosts" class="ui-widget-content draggable">

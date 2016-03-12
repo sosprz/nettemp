@@ -7,10 +7,16 @@ $map_num=substr(rand(), 0, 4);
 
 if ( $add == "ADD") {
 	$db = new PDO('sqlite:dbf/nettemp.db');
+	$dbmaps = new PDO('sqlite:dbf/maps.db');
 	if (!empty($gpioad)) { 
 	    $db->exec("INSERT INTO gpio (gpio, name, status, fnum, map_pos, map_num, map, position) VALUES ('$gpio','new_$gpio','OFF','1', '{left:0,top:0}', '$map_num', 'on', '1' )") or exit(header("Location: html/errors/db_error.php"));
+		$inserted=$db->query("SELECT id FROM gpio WHERE gpio='$gpio'");
+		$inserted_id=$inserted->fetchAll();
+		$inserted_id=$inserted_id[0];
+		//maps settings
+		$dbmaps->exec("INSERT INTO maps (type,element_id,map_num,map_pos, map_on) VALUES ('gpio', '$inserted_id[id]', '$map_num', '{left:0,top:0}', 'on')");
 	}
-	else {
+	else {	
 	    $db->exec("DELETE FROM gpio WHERE gpio='$gpio'") or exit(header("Location: html/errors/db_error.php"));
 	}
 	$db = NULL;
@@ -20,6 +26,12 @@ if ( $add == "ADD") {
 
 $gpiodel = isset($_POST['gpiodel']) ? $_POST['gpiodel'] : '';
     if ($gpiodel == "gpiodel")  {
+	//maps settings
+	$to_delete=$db->query("SELECT id FROM gpio WHERE gpio='$gpio_post'");
+	$to_delete_id=$to_delete->fetchAll();
+	$to_delete_id=$to_delete_id[0];
+	$dbmaps->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='gpio'") or die ($db->lastErrorMsg());
+	
     $db->exec("DELETE FROM gpio WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);

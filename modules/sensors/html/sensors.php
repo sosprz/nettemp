@@ -116,11 +116,16 @@ $name_new=trim($name_new2);
 	    $device='banana';
 	}
 
-
 	
 	//DB    
+	$dbmaps = new PDO('sqlite:dbf/maps.db');
 	    if ($type != "relay" ) {
 		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip, adj, charts, sum, map_pos, map_num, position, map) VALUES ('$name','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip', '0', 'on', '0', '{left:0,top:0}', '$map_num', '1', 'on')") or die ("cannot insert to DB" );
+		//maps settings
+		$inserted=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_new'");
+		$inserted_id=$inserted->fetchAll();
+		$inserted_id=$inserted_id[0];
+		$dbmaps->exec("INSERT OR IGNORE INTO maps (type, map_pos, map_num,map_on,element_id) VALUES ('sensors','{left:0,top:0}','$map_num','on','$inserted_id[id]')");
 	    }
 	    if ($type == "relay" ) {
 		//relays
@@ -154,6 +159,12 @@ $name_new=trim($name_new2);
 	$usun2 = isset($_POST['usun2']) ? $_POST['usun2'] : '';
 	if(!empty($rom) && ($usun2 == "usun3")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
+	//maps settings - first delete
+	$to_delete=$db->query("SELECT id FROM sensors WHERE rom='$rom'");
+	$to_delete_id=$to_delete->fetchAll();
+	$to_delete_id=$to_delete_id[0];
+	$dbmaps->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='sensors'") or die ($db->lastErrorMsg());
+	
 	$db->exec("DELETE FROM sensors WHERE rom='$rom'") or die ($db->lastErrorMsg()); 
 	unlink("db/$rom.sql");
 	unlink("tmp/mail/$rom.mail");

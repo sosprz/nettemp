@@ -183,6 +183,14 @@ $map_num=substr(rand(), 0, 4);
     }
 	$gpiodel = isset($_POST['gpiodel']) ? $_POST['gpiodel'] : '';
 	if ($gpiodel == "gpiodel")  {
+			$dbmaps = new PDO('sqlite:dbf/maps.db')
+			//maps settings
+			$to_delete=$db->query("SELECT id FROM gpio WHERE gpio='$gpio_post'");
+			$to_delete_id=$to_delete->fetchAll();
+			$to_delete_id=$to_delete_id[0];
+			if ($to_delete_id['id'] != '') {
+			$dbmaps->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='gpio'");// or exit(header("Location: html/errors/db_error.php"));
+			}
 			$db->exec("DELETE FROM gpio WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
 			$db = null;
 			header("location: " . $_SERVER['REQUEST_URI']);

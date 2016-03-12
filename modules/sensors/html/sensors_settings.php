@@ -89,7 +89,8 @@
     $maponoff = isset($_POST['maponoff']) ? $_POST['maponoff'] : '';
     $mapon = isset($_POST['mapon']) ? $_POST['mapon'] : '';
     if (($maponoff == "onoff")){
-    $db->exec("UPDATE sensors SET map='$mapon' WHERE id='$map'") or die ($db->lastErrorMsg());
+	$dbmaps = new PDO('sqlite:dbf/maps.db');
+    $dbmaps->exec("UPDATE maps SET map_on='$mapon' WHERE element_id='$map' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -106,7 +107,8 @@
     $name_on_maponoff = isset($_POST['name_on_maponoff']) ? $_POST['name_on_maponoff'] : '';
     $name_on_mapon = isset($_POST['name_on_mapon']) ? $_POST['name_on_mapon'] : '';
     if (($name_on_maponoff == "onoff")){
-    $db->exec("UPDATE sensors SET display_name='$name_on_mapon' WHERE id='$name_on_map'") or die ($db->lastErrorMsg());
+	$dbmaps = new PDO('sqlite:dbf/maps.db');
+    $dbmaps->exec("UPDATE maps SET display_name='$name_on_mapon' WHERE element_id='$name_on_map' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -115,7 +117,8 @@
     $transparent_name_on_maponoff = isset($_POST['transparent_name_on_maponoff']) ? $_POST['transparent_name_on_maponoff'] : '';
     $transparent_name_on_mapon = isset($_POST['transparent_name_on_mapon']) ? $_POST['transparent_name_on_mapon'] : '';
     if (($transparent_name_on_maponoff == "onoff")){
-    $db->exec("UPDATE sensors SET transparent_bkg='$transparent_name_on_mapon' WHERE id='$transparent_name_on_map'") or die ($db->lastErrorMsg());
+	$dbmaps = new PDO('sqlite:dbf/maps.db');
+    $dbmaps->exec("UPDATE maps SET transparent_bkg='$transparent_name_on_mapon' WHERE element_id='$transparent_name_on_map' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -124,7 +127,8 @@
     $background_color_value = isset($_POST['background_color_value']) ? $_POST['background_color_value'] : '';
     $background_color_set = isset($_POST['background_color_set']) ? $_POST['background_color_set'] : '';
     if (($background_color_set == "set")){
-    $db->exec("UPDATE sensors SET background_color='$background_color_value' WHERE id='$background_color'") or die ($db->lastErrorMsg());
+	$dbmaps = new PDO('sqlite:dbf/maps.db');
+    $dbmaps->exec("UPDATE maps SET background_color='$background_color_value' WHERE element_id='$background_color' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -133,7 +137,8 @@
     $low_color_value = isset($_POST['low_color_value']) ? $_POST['low_color_value'] : '';
     $low_color_set = isset($_POST['low_color_set']) ? $_POST['low_color_set'] : '';
     if (($low_color_set == "set")){
-    $db->exec("UPDATE sensors SET background_low='$low_color_value' WHERE id='$low_color'") or die ($db->lastErrorMsg());
+	$dbmaps = new PDO('sqlite:dbf/maps.db');
+    $dbmaps->exec("UPDATE maps SET background_low='$low_color_value' WHERE element_id='$low_color' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -142,7 +147,8 @@
     $high_color_value = isset($_POST['high_color_value']) ? $_POST['high_color_value'] : '';
     $high_color_set = isset($_POST['high_color_set']) ? $_POST['high_color_set'] : '';
     if (($high_color_set == "set")){
-    $db->exec("UPDATE sensors SET background_high='$high_color_value' WHERE id='$high_color'") or die ($db->lastErrorMsg());
+	$dbmaps = new PDO('sqlite:dbf/maps.db');
+    $dbmaps->exec("UPDATE maps SET background_high='$high_color_value' WHERE element_id='$high_color' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -151,7 +157,8 @@
     $font_color_value = isset($_POST['font_color_value']) ? $_POST['font_color_value'] : '';
     $font_color_set = isset($_POST['font_color_set']) ? $_POST['font_color_set'] : '';
     if (($font_color_set == "set")){
-    $db->exec("UPDATE sensors SET font_color='$font_color_value' WHERE id='$font_color'") or die ($db->lastErrorMsg());
+	$dbmaps = new PDO('sqlite:dbf/maps.db');
+    $dbmaps->exec("UPDATE maps SET font_color='$font_color_value' WHERE element_id='$font_color' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -160,7 +167,8 @@
     $font_size_value = isset($_POST['font_size_value']) ? $_POST['font_size_value'] : '';
     $font_size_set = isset($_POST['font_size_set']) ? $_POST['font_size_set'] : '';
     if (($font_size_set == "set")){
-    $db->exec("UPDATE sensors SET font_size='$font_size_value' WHERE id='$font_size'") or die ($db->lastErrorMsg());
+	$dbmaps = new PDO('sqlite:dbf/maps.db');
+    $dbmaps->exec("UPDATE maps SET font_size='$font_size_value' WHERE element_id='$font_size' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -169,13 +177,14 @@
 	$reset_map_settings_default=isset($_POST['reset_map_settings_default']) ? $_POST['reset_map_settings_default'] : '';
 	if (($reset_map_settings == "reset") && ($reset_map_settings_default=='default'))
 	{
-		$db->exec("UPDATE sensors SET display_name='on' WHERE id='$reset_map_id'") or die ($db->lastErrorMsg());
-		$db->exec("UPDATE sensors SET transparent_bkg='' WHERE id='$reset_map_id'") or die ($db->lastErrorMsg());
-		$db->exec("UPDATE sensors SET background_color='' WHERE id='$reset_map_id'") or die ($db->lastErrorMsg());
-		$db->exec("UPDATE sensors SET background_low='' WHERE id='$reset_map_id'") or die ($db->lastErrorMsg());
-		$db->exec("UPDATE sensors SET background_high='' WHERE id='$reset_map_id'") or die ($db->lastErrorMsg());
-		$db->exec("UPDATE sensors SET font_color='' WHERE id='$reset_map_id'") or die ($db->lastErrorMsg());
-		$db->exec("UPDATE sensors SET font_size='' WHERE id='$reset_map_id'") or die ($db->lastErrorMsg());
+		$dbmaps = new PDO('sqlite:dbf/maps.db');
+		$dbmaps->exec("UPDATE maps SET display_name='on' WHERE element_id='$reset_map_id' AND type='sensors'") or die ($db->lastErrorMsg());
+		$dbmaps->exec("UPDATE maps SET transparent_bkg='' WHERE element_id='$reset_map_id' AND type='sensors'") or die ($db->lastErrorMsg());
+		$dbmaps->exec("UPDATE maps SET background_color='' WHERE element_id='$reset_map_id' AND type='sensors'") or die ($db->lastErrorMsg());
+		$dbmaps->exec("UPDATE maps SET background_low='' WHERE element_id='$reset_map_id' AND type='sensors'") or die ($db->lastErrorMsg());
+		$dbmaps->exec("UPDATE maps SET background_high='' WHERE element_id='$reset_map_id' AND type='sensors'") or die ($db->lastErrorMsg());
+		$dbmaps->exec("UPDATE maps SET font_color='' WHERE element_id='$reset_map_id' AND type='sensors'") or die ($db->lastErrorMsg());
+		$dbmaps->exec("UPDATE maps SET font_size='' WHERE element_id='$reset_map_id' AND type='sensors'") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -196,6 +205,7 @@
 <?php
 $counters=array("gas","water","elec");
 $db = new PDO('sqlite:dbf/nettemp.db');
+$dbmaps = new PDO('sqlite:dbf/maps.db');
 $rows = $db->query("SELECT * FROM sensors ORDER BY position ASC");
 $row = $rows->fetchAll();
 ?>
@@ -222,6 +232,9 @@ $row = $rows->fetchAll();
 
 <?php 
     foreach ($row as $a) { 	
+		$rows_maps = $dbmaps->query("SELECT * FROM maps WHERE element_id='$a[id]' AND type='sensors'");
+		$row_maps=$rows_maps->fetchAll();
+		$row_maps=$row_maps[0];
 ?>
 <tr>
 	
@@ -384,71 +397,79 @@ else { ?>
 	<td colspan="15">
 	<table>
 	<tr>
-		<th class="col-md-1 map-settings">Name on map</th>
-		<th class="col-md-1">Transparent</th>
-		<th class="col-md-1">Background</th>
-		<th class="col-md-1">Low</th>
-		<th class="col-md-1">High</th>
-		<th class="col-md-1">Font</th>
-		<th class="col-md-1">Font[%]</th>
-		<th class="col-md-1"></th>
-		<th class="col-md-4"></th>
+		<th class="col-md-1 map-settings">View</th>
+		<th class="col-md-1 map-settings">Name view</th>
+		<th class="col-md-1 map-settings">Transparent</th>
+		<th class="col-md-1 map-settings">Background</th>
+		<th class="col-md-1 map-settings">Low</th>
+		<th class="col-md-1 map-settings">High</th>
+		<th class="col-md-1 map-settings">Font</th>
+		<th class="col-md-1 map-settings">Font[%]</th>
+		<th class="col-md-1 map-settings"></th>
+		<th class="col-md-3 map-settings"></th>
 	</tr>
 	<tr>
 	<td>
+    <form action="" method="post" style="display:inline!important;"> 	
+	<input type="hidden" name="map" value="<?php echo $row_maps["element_id"]; ?>" />
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="mapon" value="on" <?php echo $row_maps["map_on"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+	<input type="hidden" name="maponoff" value="onoff" />
+    </form>
+    </td>
+	<td>
 		<form action="" method="post" style="display:inline!important;"> 	
-		<input type="hidden" name="name_on_map" value="<?php echo $a["id"]; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="name_on_mapon" value="on" <?php echo $a["display_name"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="name_on_map" value="<?php echo $row_maps["element_id"]; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="name_on_mapon" value="on" <?php echo $row_maps["display_name"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
 		<input type="hidden" name="name_on_maponoff" value="onoff" />
 		</form>
 	</td>
 	<td><!-- transparent background only for sensors-->
 		<form action="" method="post" style="display:inline!important;"> 	
-		<input type="hidden" name="transparent_name_on_map" value="<?php echo $a["id"]; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="transparent_name_on_mapon" value="on" <?php echo $a["transparent_bkg"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="transparent_name_on_map" value="<?php echo $row_maps["element_id"]; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="transparent_name_on_mapon" value="on" <?php echo $row_maps["transparent_bkg"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
 		<input type="hidden" name="transparent_name_on_maponoff" value="onoff" />
 		</form>
 	</td>
 	<td><!-- Background color-->
 		<form action="" method="post" style="display:inline!important;"> 	
-		<input type="hidden" name="background_color" value="<?php echo $a["id"]; ?>" />
-		<input type="color" data-size="mini"  name="background_color_value" value="<?php echo $a['background_color']?  $a['background_color']: '#5cb85c'; ?>" onchange="this.form.submit()" />
+		<input type="hidden" name="background_color" value="<?php echo $row_maps["element_id"]; ?>" />
+		<input type="color" data-size="mini"  name="background_color_value" value="<?php echo $row_maps['background_color']?  $row_maps['background_color']: '#5cb85c'; ?>" onchange="this.form.submit()" />
 		<input type="hidden" name="background_color_set" value="set" />
 		</form>
 	</td>
 	<td><!-- Low color-->
 		<form action="" method="post" style="display:inline!important;"> 	
-		<input type="hidden" name="low_color" value="<?php echo $a["id"]; ?>" />
-		<input type="color" data-size="mini"  name="low_color_value" value="<?php echo $a['background_low'] ?  $a['background_low']: '#337ab7'; ?>" onchange="this.form.submit()" />
+		<input type="hidden" name="low_color" value="<?php echo $row_maps["element_id"]; ?>" />
+		<input type="color" data-size="mini"  name="low_color_value" value="<?php echo $row_maps['background_low'] ?  $row_maps['background_low']: '#337ab7'; ?>" onchange="this.form.submit()" />
 		<input type="hidden" name="low_color_set" value="set" />
 		</form>
 	</td>
 	<td><!-- High color-->
 		<form action="" method="post" style="display:inline!important;"> 	
-		<input type="hidden" name="high_color" value="<?php echo $a["id"]; ?>" />
-		<input type="color" data-size="mini"  name="high_color_value" value="<?php echo $a['background_high'] ? $a['background_high']: '#d9534f'; ?>" onchange="this.form.submit()" />
+		<input type="hidden" name="high_color" value="<?php echo $row_maps["element_id"]; ?>" />
+		<input type="color" data-size="mini"  name="high_color_value" value="<?php echo $row_maps['background_high'] ? $row_maps['background_high']: '#d9534f'; ?>" onchange="this.form.submit()" />
 		<input type="hidden" name="high_color_set" value="set" />
 		</form>
 	</td>
 	<td><!-- Font color-->
 		<form action="" method="post" style="display:inline!important;"> 	
-		<input type="hidden" name="font_color" value="<?php echo $a["id"]; ?>" />
-		<input type="color" data-size="mini"  name="font_color_value" value="<?php echo $a['font_color'] ? $a['font_color']: '#ffffff'; ?>" onchange="this.form.submit()" />
+		<input type="hidden" name="font_color" value="<?php echo $row_maps["element_id"]; ?>" />
+		<input type="color" data-size="mini"  name="font_color_value" value="<?php echo $row_maps['font_color'] ? $row_maps['font_color']: '#ffffff'; ?>" onchange="this.form.submit()" />
 		<input type="hidden" name="font_color_set" value="set" />
 		</form>
 	</td>
 	<td><!-- Font size-->
 		<form action="" method="post" style="display:inline!important;"> 	
-		<input type="hidden" name="font_size" value="<?php echo $a["id"]; ?>" />
-		<input type="text" size="3"  name="font_size_value" value="<?php echo $a['font_size'] ? $a['font_size']: '75'; ?>" onchange="this.form.submit()" />
+		<input type="hidden" name="font_size" value="<?php echo $row_maps["element_id"]; ?>" />
+		<input type="text" size="3"  name="font_size_value" value="<?php echo $row_maps['font_size'] ? $row_maps['font_size']: '75'; ?>" onchange="this.form.submit()" />
 		<input type="hidden" name="font_size_set" value="set" />
 		</form>
 	</td>
 	<td><!-- Reset to default -->
 		<form action="" method="post" style="display:inline!important;"> 	
-		<input type="hidden" name="reset_map_id" value="<?php echo $a["id"]; ?>" />
+		<input type="hidden" name="reset_map_id" value="<?php echo $row_maps["element_id"]; ?>" />
 		<button class="btn btn-xs btn-danger"  name="reset_map_settings" value="reset" onchange="this.form.submit()">
-		<span class="glyphicon glyphicon-pencil"></span>Reset</button>
+		<span class="glyphicon glyphicon-refresh"></span> Reset</button>
 		<input type="hidden" name="reset_map_settings_default" value="default" />
 		</form>
 	</td>

@@ -266,3 +266,18 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD backgr
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD background_high TEXT"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD font_color TEXT"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD font_size TEXT"
+
+#maps settings separate database
+sqlite3 -cmd ".timeout 2000" $dir/dbf/maps.db "CREATE TABLE maps (id INTEGER PRIMARY KEY,type TEXT,element_id INTEGER,map_num type NUM, map_pos NUMERIC, position INTEGER DEFAULT 1);"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/maps.db "ALTER TABLE maps ADD map_on type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/maps.db "ALTER TABLE maps ADD transparent type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/maps.db "ALTER TABLE maps ADD control_on_map type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/maps.db "ALTER TABLE maps ADD display_name type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/maps.db "ALTER TABLE maps ADD transparent_bkg type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/maps.db "ALTER TABLE maps ADD background_color TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/maps.db "ALTER TABLE maps ADD background_low TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/maps.db "ALTER TABLE maps ADD background_high TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/maps.db "ALTER TABLE maps ADD font_color TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/maps.db "ALTER TABLE maps ADD font_size TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/maps.db "ALTER TABLE maps ADD icon TEXT"
+
