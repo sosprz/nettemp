@@ -189,7 +189,7 @@ $map_num=substr(rand(), 0, 4);
 			$to_delete_id=$to_delete->fetchAll();
 			$to_delete_id=$to_delete_id[0];
 			if ($to_delete_id['id'] != '') {
-			$dbmaps->exec("DELETE FROM maps WHERE element_id='$to_delete_id['id']' AND type='gpio'");// or exit(header("Location: html/errors/db_error.php"));
+			$dbmaps->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='gpio'");// or exit(header("Location: html/errors/db_error.php"));
 			}
 			$db->exec("DELETE FROM gpio WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
 			$db = null;
