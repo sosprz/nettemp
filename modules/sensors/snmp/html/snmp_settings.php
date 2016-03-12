@@ -9,7 +9,7 @@ $snmp_divider = isset($_POST['snmp_divider']) ? $_POST['snmp_divider'] : '';
 $snmp_version = isset($_POST['snmp_version']) ? $_POST['snmp_version'] : '';
 $snmpid = isset($_POST['snmpid']) ? $_POST['snmpid'] : '';
 $rom = isset($_POST['rom']) ? $_POST['rom'] : '';
-	$db = new PDO('sqlite:dbf/snmp.db');
+	$db = new PDO('sqlite:dbf/nettemp.db');
 	$dbn = new PDO('sqlite:dbf/nettemp.db');
 
 
@@ -40,7 +40,7 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	$notif_update1 = isset($_POST['notif_update1']) ? $_POST['notif_update1'] : '';
 	// SQLite - update 
 	if ( $notif_update1 == "notif_update2"){
-	$db = new PDO('sqlite:dbf/snmp.db');
+	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE recipient SET sms_alarm='$notif_update_sms' WHERE id='$notif_update'") or die ($db->lastErrorMsg());
 	$db->exec("UPDATE recipient SET mail_alarm='$notif_update_mail' WHERE id='$notif_update'") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
@@ -97,7 +97,7 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 
 <?php
 
-$db = new PDO('sqlite:dbf/snmp.db');
+$db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("select * from snmp ");
 $sth->execute();
 $result = $sth->fetchAll();

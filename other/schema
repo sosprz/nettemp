@@ -1,5 +1,5 @@
 #! /bin/bash
 
 sqlite3 /var/www/nettemp/dbf/nettemp.db ".schema" > /var/www/nettemp/modules/tools/nettemp.schema
-sqlite3 /var/www/nettemp/dbf/hosts.db ".schema" > /var/www/nettemp/modules/tools/hosts.schema
-sqlite3 /var/www/nettemp/dbf/snmp.db ".schema" > /var/www/nettemp/modules/tools/snmp.schema
+sqlite3 /var/www/nettemp/dbf/nettemp.db ".schema" > /var/www/nettemp/modules/tools/hosts.schema
+sqlite3 /var/www/nettemp/dbf/nettemp.db ".schema" > /var/www/nettemp/modules/tools/snmp.schema

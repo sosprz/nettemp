@@ -167,7 +167,7 @@ function db($rom,$val,$type,$device,$current) {
 	global $chmin;
 	$file = "$rom.sql";
 	$dbn = new PDO("sqlite:dbf/nettemp.db");
-	 $dbh = new PDO('sqlite:dbf/hosts.db');
+	 $dbh = new PDO('sqlite:dbf/nettemp.db');
 	 $db = new PDO("sqlite:db/$file");
 
 	if ($type == 'host') {
@@ -236,7 +236,7 @@ function db($rom,$val,$type,$device,$current) {
 	    // if not numeric
 	    else {
 		if ($type == 'host') {
-		    $dbh = new PDO("sqlite:dbf/hosts.db");
+		    $dbh = new PDO("sqlite:dbf/nettemp.db");
 		    $dbh->exec("UPDATE hosts SET last='0', status='error' WHERE rom='$rom'")or die ("cannot insert to hosts status\n");
 		}
 		//sensors

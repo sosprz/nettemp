@@ -52,7 +52,7 @@ if ($type == 'system') {
 }
 
 elseif ($type == 'hosts' && empty($single)) {
-    $dirb = "sqlite:dbf/hosts.db";
+    $dirb = "sqlite:dbf/nettemp.db";
     $dbh = new PDO($dirb) or die("cannot open database");
     $query = "SELECT name FROM hosts";
     foreach ($dbh->query($query) as $row) {
@@ -61,7 +61,7 @@ elseif ($type == 'hosts' && empty($single)) {
     }
 }
 elseif ($type == 'hosts' && $single) {
-    $dirb = "sqlite:dbf/hosts.db";
+    $dirb = "sqlite:dbf/nettemp.db";
     $dbh = new PDO($dirb) or die("cannot open database");
     $query = "SELECT name FROM hosts WHERE name='$single'";
     foreach ($dbh->query($query) as $row) {

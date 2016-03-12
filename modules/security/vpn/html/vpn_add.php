@@ -17,7 +17,7 @@ $user_pass = isset($_POST['user_pass']) ? $_POST['user_pass'] : '';
 	// SQLite - update 
 	$notif_update1 = isset($_POST['notif_update1']) ? $_POST['notif_update1'] : '';
 	if ( $notif_update1 == "notif_update2"){
-	$db = new PDO('sqlite:dbf/snmp.db');
+	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE recipient SET sms_alarm='$notif_update_sms' WHERE id='$notif_update'") or die ($db->lastErrorMsg());
 	$db->exec("UPDATE recipient SET mail_alarm='$notif_update_mail' WHERE id='$notif_update'") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);

@@ -89,7 +89,7 @@
     $maponoff = isset($_POST['maponoff']) ? $_POST['maponoff'] : '';
     $mapon = isset($_POST['mapon']) ? $_POST['mapon'] : '';
     if (($maponoff == "onoff")){
-	$dbmaps = new PDO('sqlite:dbf/maps.db');
+	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
     $dbmaps->exec("UPDATE maps SET map_on='$mapon' WHERE element_id='$map' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -107,7 +107,7 @@
     $name_on_maponoff = isset($_POST['name_on_maponoff']) ? $_POST['name_on_maponoff'] : '';
     $name_on_mapon = isset($_POST['name_on_mapon']) ? $_POST['name_on_mapon'] : '';
     if (($name_on_maponoff == "onoff")){
-	$dbmaps = new PDO('sqlite:dbf/maps.db');
+	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
     $dbmaps->exec("UPDATE maps SET display_name='$name_on_mapon' WHERE element_id='$name_on_map' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -117,7 +117,7 @@
     $transparent_name_on_maponoff = isset($_POST['transparent_name_on_maponoff']) ? $_POST['transparent_name_on_maponoff'] : '';
     $transparent_name_on_mapon = isset($_POST['transparent_name_on_mapon']) ? $_POST['transparent_name_on_mapon'] : '';
     if (($transparent_name_on_maponoff == "onoff")){
-	$dbmaps = new PDO('sqlite:dbf/maps.db');
+	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
     $dbmaps->exec("UPDATE maps SET transparent_bkg='$transparent_name_on_mapon' WHERE element_id='$transparent_name_on_map' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -127,7 +127,7 @@
     $background_color_value = isset($_POST['background_color_value']) ? $_POST['background_color_value'] : '';
     $background_color_set = isset($_POST['background_color_set']) ? $_POST['background_color_set'] : '';
     if (($background_color_set == "set")){
-	$dbmaps = new PDO('sqlite:dbf/maps.db');
+	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
     $dbmaps->exec("UPDATE maps SET background_color='$background_color_value' WHERE element_id='$background_color' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -137,7 +137,7 @@
     $low_color_value = isset($_POST['low_color_value']) ? $_POST['low_color_value'] : '';
     $low_color_set = isset($_POST['low_color_set']) ? $_POST['low_color_set'] : '';
     if (($low_color_set == "set")){
-	$dbmaps = new PDO('sqlite:dbf/maps.db');
+	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
     $dbmaps->exec("UPDATE maps SET background_low='$low_color_value' WHERE element_id='$low_color' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -147,7 +147,7 @@
     $high_color_value = isset($_POST['high_color_value']) ? $_POST['high_color_value'] : '';
     $high_color_set = isset($_POST['high_color_set']) ? $_POST['high_color_set'] : '';
     if (($high_color_set == "set")){
-	$dbmaps = new PDO('sqlite:dbf/maps.db');
+	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
     $dbmaps->exec("UPDATE maps SET background_high='$high_color_value' WHERE element_id='$high_color' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -157,7 +157,7 @@
     $font_color_value = isset($_POST['font_color_value']) ? $_POST['font_color_value'] : '';
     $font_color_set = isset($_POST['font_color_set']) ? $_POST['font_color_set'] : '';
     if (($font_color_set == "set")){
-	$dbmaps = new PDO('sqlite:dbf/maps.db');
+	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
     $dbmaps->exec("UPDATE maps SET font_color='$font_color_value' WHERE element_id='$font_color' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -167,7 +167,7 @@
     $font_size_value = isset($_POST['font_size_value']) ? $_POST['font_size_value'] : '';
     $font_size_set = isset($_POST['font_size_set']) ? $_POST['font_size_set'] : '';
     if (($font_size_set == "set")){
-	$dbmaps = new PDO('sqlite:dbf/maps.db');
+	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
     $dbmaps->exec("UPDATE maps SET font_size='$font_size_value' WHERE element_id='$font_size' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -177,7 +177,7 @@
 	$reset_map_settings_default=isset($_POST['reset_map_settings_default']) ? $_POST['reset_map_settings_default'] : '';
 	if (($reset_map_settings == "reset") && ($reset_map_settings_default=='default'))
 	{
-		$dbmaps = new PDO('sqlite:dbf/maps.db');
+		$dbmaps = new PDO('sqlite:dbf/nettemp.db');
 		$dbmaps->exec("UPDATE maps SET display_name='on' WHERE element_id='$reset_map_id' AND type='sensors'") or die ($db->lastErrorMsg());
 		$dbmaps->exec("UPDATE maps SET transparent_bkg='' WHERE element_id='$reset_map_id' AND type='sensors'") or die ($db->lastErrorMsg());
 		$dbmaps->exec("UPDATE maps SET background_color='' WHERE element_id='$reset_map_id' AND type='sensors'") or die ($db->lastErrorMsg());
@@ -205,7 +205,7 @@
 <?php
 $counters=array("gas","water","elec");
 $db = new PDO('sqlite:dbf/nettemp.db');
-$dbmaps = new PDO('sqlite:dbf/maps.db');
+$dbmaps = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors ORDER BY position ASC");
 $row = $rows->fetchAll();
 ?>

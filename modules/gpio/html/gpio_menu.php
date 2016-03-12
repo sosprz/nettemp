@@ -1,6 +1,6 @@
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-$dbmaps = new PDO('sqlite:dbf/maps.db') or die("cannot open the database");
+$dbmaps = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 $dir="modules/gpio/";
 $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 
@@ -17,7 +17,7 @@ $position = isset($_POST['position']) ? $_POST['position'] : '';
     $maponoff = isset($_POST['maponoff']) ? $_POST['maponoff'] : '';
     $mapon = isset($_POST['mapon']) ? $_POST['mapon'] : '';
     if (($maponoff == "onoff")){
-	$dbmaps = new PDO('sqlite:dbf/maps.db');
+	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
     $dbmaps->exec("UPDATE maps SET map_on='$mapon' WHERE element_id='$map' AND type='gpio'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -73,7 +73,7 @@ $position = isset($_POST['position']) ? $_POST['position'] : '';
 
 <?php 
 $db = new PDO('sqlite:dbf/nettemp.db'); 
-$dbmaps = new PDO('sqlite:dbf/maps.db') or die("cannot open the database");
+$dbmaps = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 $rows = $db->query("SELECT * FROM gpio ORDER BY position ASC"); 
 $row = $rows->fetchAll();
 

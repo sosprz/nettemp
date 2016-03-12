@@ -39,7 +39,7 @@ $query = "select strftime('%s', time),value FROM def ORDER BY time ASC";
 }
 
 //hosts
-$db = new PDO("sqlite:$root/dbf/hosts.db");
+$db = new PDO("sqlite:$root/dbf/nettemp.db");
 $rows = $db->query("SELECT * FROM hosts");
 $row = $rows->fetchAll();
 foreach($row as $a) {

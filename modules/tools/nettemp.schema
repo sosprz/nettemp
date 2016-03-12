@@ -176,3 +176,47 @@ CREATE TABLE usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE);
 CREATE TABLE statistics (id INTEGER PRIMARY KEY, agreement TEXT, nick TEXT, location TEXT, sensor_temp TEXT);
 CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE tmp = old.tmp; END;
 CREATE TABLE g_func (id INTEGER PRIMARY KEY, position INTEGER DEFAULT 1, sensor TEXT, sensor2 TEXT, onoff TEXT, value TEXT, op TEXT, hyst TEXT, source TEXT, gpio TEXT, w_profile TEXT);
+
+CREATE TABLE hosts (
+id INTEGER PRIMARY KEY,
+name UNIQUE,
+ip TEXT, 
+type TEXT,
+last TEXT, 
+status TEXT, 
+rom type TEXT, 
+map_pos type NUM, 
+map_num type NUM, 
+map type NUM, 
+alarm type TEXT, 
+position type NUM
+);
+
+
+CREATE TABLE snmp (
+  id INTEGER PRIMARY KEY,
+  name UNIQUE,
+  rom UNIQUE,
+  community TEXT,
+  host TEXT,
+  oid TEXT,
+  divider TEXT,
+  type type TEXT,
+  version type TEXT
+);
+
+CREATE TABLE maps (
+	id INTEGER PRIMARY KEY,
+	type TEXT,
+	element_id INTEGER,
+	map_num type NUM,
+	map_pos NUMERIC, 
+	position INTEGER DEFAULT 1
+);
+
+
+
+
+
+
+

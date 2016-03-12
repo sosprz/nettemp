@@ -15,10 +15,10 @@ $y = isset($_POST['y']) ? $_POST['y'] : '';
 if (!empty($need_id)){
 $pos="{left:".$x.", top:".$y."}";
 /*if ($need_dst=='hosts') {
-    $dbs = new PDO('sqlite:dbf/hosts.db');
+    $dbs = new PDO('sqlite:dbf/nettemp.db');
 }
 else {*/
-    $dbmaps = new PDO('sqlite:dbf/maps.db');
+    $dbmaps = new PDO('sqlite:dbf/nettemp.db');
 //}
 $dbmaps->exec("UPDATE maps SET map_pos='$pos' WHERE map_num='$need_id'");
 header("location: " . $_SERVER['REQUEST_URI']);
@@ -85,7 +85,7 @@ exit();
 $array = array();
 $dirn = "sqlite:dbf/nettemp.db";
 $dbn = new PDO($dirn) or die("cannot open database");
-$dbmaps = new PDO('sqlite:dbf/maps.db');
+$dbmaps = new PDO('sqlite:dbf/nettemp.db');
 
 $query = "select map_num,map_pos FROM maps";//sensors";
 $dbn->query($query);
@@ -301,7 +301,7 @@ unset($a);
 ?>
 
 <?php
-$dbh = new PDO("sqlite:dbf/hosts.db");
+$dbh = new PDO("sqlite:dbf/nettemp.db");
 $rows = $dbmaps->query("SELECT * FROM maps WHERE map_on='on' AND type='hosts'");
 $row = $rows->fetchAll();
 foreach ($row as $b) {

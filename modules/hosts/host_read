@@ -3,12 +3,12 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
-if ip=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT ip FROM hosts WHERE type='httpping'")
+if ip=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT ip FROM hosts WHERE type='httpping'")
     then
     skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
     for i in $ip; do 
-	rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT rom FROM hosts WHERE ip='$i'")
-	name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT rom FROM hosts WHERE ip='$i'")
+	rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rom FROM hosts WHERE ip='$i'")
+	name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rom FROM hosts WHERE ip='$i'")
 	wynik=$(httping -m -c 1 $i|grep .[0-9]*)
 	if [[ ! -n $wynik ]]; then
 	    wynik="0"
@@ -23,12 +23,12 @@ unset wynik
 unset rom
 unset ip
 
-if ip=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT ip FROM hosts WHERE type='ping'")
+if ip=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT ip FROM hosts WHERE type='ping'")
     then
     skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
     for i in $ip; do 
-	name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT name FROM hosts WHERE ip='$i'")
-	rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT rom FROM hosts WHERE ip='$i'")
+	name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name FROM hosts WHERE ip='$i'")
+	rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rom FROM hosts WHERE ip='$i'")
 	wynik=$(fping $i -e | awk -F"(" '{ print $2}' |sed 's/.\{3\}$//'|grep .[0-9]*)
 	if [[ ! -n $wynik ]]; then
 	    wynik="0"

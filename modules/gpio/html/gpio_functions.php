@@ -183,7 +183,7 @@ $map_num=substr(rand(), 0, 4);
     }
 	$gpiodel = isset($_POST['gpiodel']) ? $_POST['gpiodel'] : '';
 	if ($gpiodel == "gpiodel")  {
-			$dbmaps = new PDO('sqlite:dbf/maps.db')
+			$dbmaps = new PDO('sqlite:dbf/nettemp.db')
 			//maps settings
 			$to_delete=$db->query("SELECT id FROM gpio WHERE gpio='$gpio_post'");
 			$to_delete_id=$to_delete->fetchAll();

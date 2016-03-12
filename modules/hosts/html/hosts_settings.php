@@ -10,7 +10,7 @@ $map_num=substr(rand(), 0, 4);
     $position = isset($_POST['position']) ? $_POST['position'] : '';
     $position_id = isset($_POST['position_id']) ? $_POST['position_id'] : '';
     if (!empty($position_id) && ($_POST['positionok'] == "ok")){
-    $db = new PDO('sqlite:dbf/hosts.db');
+    $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE hosts SET position='$position' WHERE id='$position_id'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -20,7 +20,7 @@ $map_num=substr(rand(), 0, 4);
 
     $host_add1 = isset($_POST['host_add1']) ? $_POST['host_add1'] : '';
     if (!empty($host_name)  && !empty($host_ip) && ($host_add1 == "host_add2") ){
-	$db = new PDO('sqlite:dbf/hosts.db');
+	$db = new PDO('sqlite:dbf/nettemp.db');
 	$host_name=host_ . $host_name;
 	$host_name=str_replace(".","",$host_name);
 	$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$host_name', '$host_ip', '$host_name', '$host_type', '{left:0,top:0}', '$map_num', 'on', '1')") or die ("cannot insert to DB" );
@@ -28,7 +28,7 @@ $map_num=substr(rand(), 0, 4);
 	$inserted=$db->query("SELECT id FROM hosts WHERE name='$host_name'");
 	$inserted_id=$inserted->fetchAll();
 	$inserted_id=$inserted_id[0];
-	$dbmaps = new PDO('sqlite:dbf/maps.db');
+	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
 	$dbmaps->exec("INSERT OR IGNORE INTO maps (element_id, type, map_pos, map_num, map_on) VALUES ('$inserted_id[id]','hosts','{left:0,top:0}','$map_num','on')");
 	
 	
@@ -40,7 +40,7 @@ $map_num=substr(rand(), 0, 4);
     }	
 
     if (!empty($host_name) && ($_POST['host_del1'] == "host_del2") ){
-	$db = new PDO('sqlite:dbf/hosts.db');
+	$db = new PDO('sqlite:dbf/nettemp.db');
 	//maps settings
 	$to_delete=$db->query("SELECT id FROM hosts WHERE name='$host_name'");
 	$to_delete_id=$to_delete->fetchAll();
@@ -60,7 +60,7 @@ $map_num=substr(rand(), 0, 4);
     $maponoff = isset($_POST['maponoff']) ? $_POST['maponoff'] : '';
     $mapon = isset($_POST['mapon']) ? $_POST['mapon'] : '';
     if (($maponoff == "onoff")){
-	$db = new PDO('sqlite:dbf/hosts.db');
+	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE hosts SET map='$mapon' WHERE id='$map'") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
@@ -69,7 +69,7 @@ $map_num=substr(rand(), 0, 4);
     $alarmonoff = isset($_POST['alarmonoff']) ? $_POST['alarmonoff'] : '';
     $alarmon = isset($_POST['alarmon']) ? $_POST['alarmon'] : '';
     if (($alarmonoff == "onoff")){
-	$db = new PDO('sqlite:dbf/hosts.db');
+	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE hosts SET alarm='$alarmon' WHERE id='$alarm'") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
@@ -112,7 +112,7 @@ $map_num=substr(rand(), 0, 4);
 
 <?php
 
-$db = new PDO('sqlite:dbf/hosts.db');
+$db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("select * from hosts ORDER BY position ASC ");
 $sth->execute();
 $result = $sth->fetchAll();

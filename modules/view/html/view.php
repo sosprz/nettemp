@@ -47,7 +47,7 @@ foreach($row1 as $hi){
 $type[]=$hi['type'];
 }
 
-$dbh = new PDO('sqlite:dbf/hosts.db');
+$dbh = new PDO('sqlite:dbf/nettemp.db');
 $rows1 = $dbh->query("SELECT name FROM hosts");
 $row1 = $rows1->fetchAll();
 $hostc = count($row1);
