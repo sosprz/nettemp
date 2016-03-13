@@ -41,11 +41,6 @@ temp=_temp
 lux=_lux
 humid=_humid
 
-#DS2482
-	    ddir=$dir/tmp/ds2482
-	    sudo echo "modprobe ds2482" > $ddir
-            sudo echo "modprobe w1-therm strong_pullup=0" >> $ddir
-#end DS2482        
 
 for i in ${det[@]}
     do
@@ -65,11 +60,7 @@ for i in ${det[@]}
 		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$lux')"
         done
         
-	for s in $(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='ds2482' AND addr='$i'")
-	    do
-	    sudo echo "echo ds2482 0x$s > /sys/bus/i2c/devices/i2c-$i2c/new_device" >> $ddir
-	    
-        done
+	
 
 	for s in $(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='htu21d' AND addr='$i'")
 	    do
@@ -95,7 +86,19 @@ for i in ${det[@]}
         done
 done
 
+
+
 #DS2482
+    ddir=$dir/tmp/ds2482
+    sudo echo "modprobe ds2482" > $ddir
+    sudo echo "modprobe w1-therm strong_pullup=0" >> $ddir
+
+    for s in $(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='ds2482'")
+    do
+	sudo echo "echo ds2482 0x$s > /sys/bus/i2c/devices/i2c-$i2c/new_device" >> $ddir
+	echo I2C: Found DS2482 0x$s
+    done
+
     sudo echo "exit 0" >> $ddir
     sudo chmod +x $ddir
     sudo cp $dir/install/1w/nettemp.ds2482 /etc/init.d/
