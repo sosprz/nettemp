@@ -203,11 +203,11 @@ foreach ($row as $b) {
 			}
 		    else 
 			{
-				$label_class=$transparent_bkg;
+				$label_class=$transparent_bkg.' label-sensors';
 				//$background_color='';
 				//echo '<span class="'.$transparent_bkg.' label label-success">';
 		    } 
-			echo '<span class="label '.$label_class.' label-sensors" style="'.$background_color.';'.$font_size.';'.$font_color.'">';
+			echo '<span class="label '.$label_class.'" style="'.$background_color.';'.$font_size.';'.$font_color.'">';
 			if ((is_numeric($a['tmp']) && (($a['type'])=='elec')))  {
 			echo 	$type." ".$sensor_name." ".number_format($a['tmp'], 3, '.', ',')." ".$unit;
 		    } 
