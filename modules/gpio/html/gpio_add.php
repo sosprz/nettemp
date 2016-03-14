@@ -80,7 +80,12 @@ if (file_exists($wp)) {
 	}
     
 }
-else { ?>
+
+
+else { 
+    $gpiolist = array(1,2,3);
+?>
+
 <span class="label label-warning">Warning: No wirinPI package</span>
 <?php 
     }
