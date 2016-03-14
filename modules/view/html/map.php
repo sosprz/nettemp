@@ -329,6 +329,3 @@ unset($h);
 ?>
 </div>
 
-<?php
-    include('map_upload.php');
-?>

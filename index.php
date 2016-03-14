@@ -119,7 +119,7 @@ switch ($id)
 { 
 default: case '$id': include('status/status.php'); break;
 case 'view': include('modules/view/html/view.php'); break;
-case 'map': include('modules/view/html/map.php'); break;
+case 'map': include('modules/view/html/map_main.php'); break;
 case 'devices': include('modules/devices/html/devices.php'); break;
 case 'security': include('modules/security/html/security.php'); break;
 case 'settings': include('modules/settings/settings.php'); break;
