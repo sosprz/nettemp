@@ -209,9 +209,3 @@ CREATE TABLE maps (
 	position INTEGER DEFAULT 1
 , map_on type TEXT, transparent type TEXT, control_on_map type TEXT, display_name type TEXT, transparent_bkg type TEXT, background_color TEXT, background_low TEXT, background_high TEXT, font_color TEXT, font_size TEXT, icon TEXT);
 CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE tmp = old.tmp; END;
-
-
-
-
-
-
