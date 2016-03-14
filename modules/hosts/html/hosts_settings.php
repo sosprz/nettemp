@@ -56,15 +56,7 @@ $map_num=substr(rand(), 0, 4);
 	exit();
     }
 
-    $map = isset($_POST['map']) ? $_POST['map'] : '';
-    $maponoff = isset($_POST['maponoff']) ? $_POST['maponoff'] : '';
-    $mapon = isset($_POST['mapon']) ? $_POST['mapon'] : '';
-    if (($maponoff == "onoff")){
-	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE hosts SET map='$mapon' WHERE id='$map'") or die ($db->lastErrorMsg());
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit();
-    }
+  
     $alarm = isset($_POST['alarm']) ? $_POST['alarm'] : '';
     $alarmonoff = isset($_POST['alarmonoff']) ? $_POST['alarmonoff'] : '';
     $alarmon = isset($_POST['alarmon']) ? $_POST['alarmon'] : '';
@@ -81,10 +73,18 @@ $map_num=substr(rand(), 0, 4);
 <div class="panel-heading">Host monitoring</div>
 <div class="table-responsive">
 <table class="table table-hover table-condensed small"">
-<thead><tr><th>Pos</th><th>Name</th><th>IP / Name</th><th>Type</th><th>Map</th><th>Alarm</th><th></th></tr></thead>
+<thead>
 <tr>
-    <td>
-    </td>
+<th>Pos</th>
+<th>Name</th>
+<th>IP / Name</th>
+<th>Type</th>
+<th>Alarm</th>
+<th></th>
+</tr>
+</thead>
+<tr>
+	<td></td>
 	<td>
 	    <form action="" method="post" class="form-horizontal">
 		<input type="text" name="host_name" value="" class="form-control input-sm" required=""/>
@@ -99,8 +99,6 @@ $map_num=substr(rand(), 0, 4);
     	    </select>
 	</td>
 	    <input type="hidden" name="host_add1" value="host_add2" class="form-control"/>
-	<td>
-	</td>
 	<td>
 	</td>
 	<td>
@@ -130,13 +128,6 @@ foreach ($result as $a) {
 	<td><?php echo str_replace("host_","",$a["name"]);?></td>
 	<td><?php echo $a["ip"];?></td>
 	<td><?php echo $a["type"];?></td>
-	<td >
-	<form action="" method="post" style="display:inline!important;"> 	
-	    <input type="hidden" name="map" value="<?php echo $a["id"]; ?>" />
-	    <input type="checkbox" data-toggle="toggle" data-size="mini"  name="mapon" value="on" <?php echo $a["map"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
-	    <input type="hidden" name="maponoff" value="onoff" />
-	</form>
-	</td>
 	<td >
 	<form action="" method="post" style="display:inline!important;"> 	
 	    <input type="hidden" name="alarm" value="<?php echo $a["id"]; ?>" />
