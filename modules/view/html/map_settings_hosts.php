@@ -47,16 +47,16 @@ foreach ($result as $a) {
 	$h=$h[0];//extracting from array
 ?>
 <tr>
- 	<td><?php echo str_replace("host_", "",$a["name"]);?>
+ 	<td class="col-md-1"><?php echo str_replace("host_", "",$a["name"]);?>
  	</td>
-	<td>
+	<td class="col-md-3">
 	<form action="" method="post" style="display:inline!important;"> 	
 	    <input type="hidden" name="h_map" value="<?php echo $a["id"]; ?>" />
 	    <input type="checkbox" data-toggle="toggle" data-size="mini"  name="h_mapon" value="on" <?php echo $h["map_on"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	    <input type="hidden" name="h_maponoff" value="onoff" />
 	</form>
 	</td>
-	<td>
+	<td class="col-md-8">
 	<form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="h_icon_on_map" value="<?php echo $a["id"]; ?>" />
 		<input type="hidden" name="h_icon_on_map_set" value="set" />

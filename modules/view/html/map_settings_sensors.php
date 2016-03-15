@@ -144,68 +144,68 @@ $row = $rows->fetchAll();
 ?>
 <tr>
 	
-    <td class="col-md-2">
+    <td class="col-md-1">
 		<?php echo $a["name"]; ?>
     </td>
 
     
-	<td>
+	<td class="col-md-1">
     <form action="" method="post" style="display:inline!important;"> 	
 	<input type="hidden" name="map" value="<?php echo $row_maps["element_id"]; ?>" />
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="mapon" value="on" <?php echo $row_maps["map_on"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="maponoff" value="onoff" />
     </form>
     </td>
-	<td>
+	<td class="col-md-1">
 		<form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="name_on_map" value="<?php echo $row_maps["element_id"]; ?>" />
 		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="name_on_mapon" value="on" <?php echo $row_maps["display_name"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
 		<input type="hidden" name="name_on_maponoff" value="onoff" />
 		</form>
 	</td>
-	<td><!-- transparent background only for sensors-->
+	<td class="col-md-1"><!-- transparent background only for sensors-->
 		<form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="transparent_name_on_map" value="<?php echo $row_maps["element_id"]; ?>" />
 		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="transparent_name_on_mapon" value="on" <?php echo $row_maps["transparent_bkg"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
 		<input type="hidden" name="transparent_name_on_maponoff" value="onoff" />
 		</form>
 	</td>
-	<td><!-- Background color-->
+	<td class="col-md-1"><!-- Background color-->
 		<form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="background_color" value="<?php echo $row_maps["element_id"]; ?>" />
 		<input type="color" data-size="mini"  name="background_color_value" value="<?php echo $row_maps['background_color']?  $row_maps['background_color']: '#5cb85c'; ?>" onchange="this.form.submit()" />
 		<input type="hidden" name="background_color_set" value="set" />
 		</form>
 	</td>
-	<td><!-- Low color-->
+	<td class="col-md-1"><!-- Low color-->
 		<form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="low_color" value="<?php echo $row_maps["element_id"]; ?>" />
 		<input type="color" data-size="mini"  name="low_color_value" value="<?php echo $row_maps['background_low'] ?  $row_maps['background_low']: '#337ab7'; ?>" onchange="this.form.submit()" />
 		<input type="hidden" name="low_color_set" value="set" />
 		</form>
 	</td>
-	<td><!-- High color-->
+	<td class="col-md-1"><!-- High color-->
 		<form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="high_color" value="<?php echo $row_maps["element_id"]; ?>" />
 		<input type="color" data-size="mini"  name="high_color_value" value="<?php echo $row_maps['background_high'] ? $row_maps['background_high']: '#d9534f'; ?>" onchange="this.form.submit()" />
 		<input type="hidden" name="high_color_set" value="set" />
 		</form>
 	</td>
-	<td><!-- Font color-->
+	<td class="col-md-1"><!-- Font color-->
 		<form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="font_color" value="<?php echo $row_maps["element_id"]; ?>" />
 		<input type="color" data-size="mini"  name="font_color_value" value="<?php echo $row_maps['font_color'] ? $row_maps['font_color']: '#ffffff'; ?>" onchange="this.form.submit()" />
 		<input type="hidden" name="font_color_set" value="set" />
 		</form>
 	</td>
-	<td><!-- Font size-->
+	<td class="col-md-1"><!-- Font size-->
 		<form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="font_size" value="<?php echo $row_maps["element_id"]; ?>" />
 		<input type="text" size="3"  name="font_size_value" value="<?php echo $row_maps['font_size'] ? $row_maps['font_size']: '75'; ?>" onchange="this.form.submit()" />
 		<input type="hidden" name="font_size_set" value="set" />
 		</form>
 	</td>
-	<td><!-- Reset to default -->
+	<td class="col-md-1"><!-- Reset to default -->
 		<form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="reset_map_id" value="<?php echo $row_maps["element_id"]; ?>" />
 		<button class="btn btn-xs btn-danger"  name="reset_map_settings" value="reset" onchange="this.form.submit()">
@@ -213,7 +213,7 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="reset_map_settings_default" value="default" />
 		</form>
 	</td>
-	<td></td>
+	<td class="col-md-2"></td>
 
 </tr>
 

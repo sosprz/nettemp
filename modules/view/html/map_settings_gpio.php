@@ -68,7 +68,7 @@ $row = $rows->fetchAll();
 <tr>
 <th>Name</th>
 <th class="col-md-1 map-settings">View</th>
-<th class="col-md-1 map-settings" title='View name on map'>Name on map</th>
+<th class="col-md-1 map-settings" title='View name on map'>Name view</th>
 <th class="col-md-1 map-settings" title='Control on map'>Control</th>
 <th class="col-md-1 map-settings">Icon</th>
 </tr>
@@ -85,7 +85,7 @@ $row = $rows->fetchAll();
 	<td class="col-md-1">
 		<?php echo $b["name"]." (".$b['gpio'].")" ?>
 	</td>
-	<td>
+	<td class="col-md-1">
 		<form action="" method="post" style="display:inline!important;"> 	
 			<input type="hidden" name="g_map" value="<?php echo $a["element_id"]; ?>" />
 			<input type="checkbox" data-toggle="toggle" data-size="mini"  name="g_mapon" value="on" <?php echo $a["map_on"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
@@ -113,7 +113,7 @@ $row = $rows->fetchAll();
 					<?php endif; ?>
 				</td>
 				<!-- icons for gpio -->
-	<td class="col-md-1">
+	<td class="col-md-8">
 		<?php //if($b['mode'] == 'simple' || $b['mode'] == 'time' || $b['mode'] == 'moment' || $b['mode'] == 'control') : ?>
 		<form action="" method="post" style="display:inline!important;"> 	
 			<input type="hidden" name="icon_on_map" value="<?php echo $b["gpio"]; ?>" />
