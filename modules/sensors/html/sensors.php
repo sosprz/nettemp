@@ -135,7 +135,7 @@ $name_new=trim($name_new2);
 		//host for monitoring
 		$name='host_wifi_' . $type . '_' . $name;
 		$dbhost = new PDO("sqlite:dbf/nettemp.db");	
-		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping', '{left:0,top:0}', '$map_num2', 'on')") or die ("cannot insert host to DB" );	
+		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping', '{left:0,top:0}', '$map_num2', 'on', '1')") or die ("cannot insert host to DB" );	
 		$dbnew = new PDO("sqlite:db/host_$id_rom_new.sql");
     		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
 	    }
