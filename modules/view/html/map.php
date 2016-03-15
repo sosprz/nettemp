@@ -309,6 +309,26 @@ foreach ($row as $b) {
 	$h=$rows->fetchAll();
 	$h=$h[0];//extracting from array
     $device='<img src="media/ico/Computer-icon.png" />';
+	if($b['icon'] != '')
+	{
+		$icon=$b['icon'];
+	}
+	switch ($icon){
+		case 'Host':
+			$device='<img src="media/ico/Computer-icon.png" />';
+			break;
+		case 'Camera':
+			$device='<img src="media/ico/Eye-icon.png" />';
+			break;
+		case 'Printer':
+			$device='<img src="media/ico/Mail-icon.png" />';
+			break;
+		case 'Raspberry':
+			$device='<img src="media/ico/raspberry-icon.png" />';
+			break;
+		default:
+			$device='<img src="media/ico/SMD-64-pin-icon_24.png" />';
+	}
 ?>
 <div data-need="<?php echo $h['map_num']?>" id="<?php echo "data-need".$h['map_num']?>" data-dst="hosts" class="ui-widget-content draggable">
     <?php 
