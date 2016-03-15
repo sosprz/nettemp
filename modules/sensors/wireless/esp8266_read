@@ -2,7 +2,7 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
-if rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='wireless' AND type='temp' OR type='humid'")
+if rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rom FROM sensors WHERE device='wireless' AND type='temp' OR type='humid' OR type='dist'")
     then
     skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
     for all in $rom
@@ -18,6 +18,10 @@ if rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rom FROM senso
 	    if [ "$type" == "temp" ]; then
 		wynik=$(curl $ip |sed -e 's/<[^>]*>/\n/g'  |grep Temp | awk '{ print $2}')
 		php-cgi -f $dir/receiver.php key=$skey rom=$all value=$wynik type=temp
+	    fi
+	    if [ "$type" == "dist" ]; then
+		wynik=$(curl $ip |sed -e 's/<[^>]*>/\n/g'  |grep Dist | awk '{ print $2}')
+		php-cgi -f $dir/receiver.php key=$skey rom=$all value=$wynik type=dist
 	    fi
      done
 fi
