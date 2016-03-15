@@ -35,6 +35,7 @@ done
 temp=_temp
 humid=_humid
 relay=_relay
+dist=_dist
 wiv=wireless_
 
 if [ -n "$rom" ]
@@ -54,6 +55,10 @@ if [ -n "$rom" ]
 			elif [ "$type" == "relay" ]; then
 			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$relay')"
 			    echo Wireless: ESP6288 relay found on $ip
+			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET wireless='on' WHERE id='1'"
+			elif [ "$type" == "dist" ]; then
+			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$dist')"
+			    echo Wireless: ESP6288 distance found on $ip
 			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET wireless='on' WHERE id='1'"
 			fi
 	done
