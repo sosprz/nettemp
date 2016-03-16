@@ -1,4 +1,5 @@
 www.nettemp.pl
+www.nettemp.pl/forum
 
 [![nettemp.pl](http://img.youtube.com/vi/BSCJAicMaFY/0.jpg)](http://www.youtube.com/watch?v=BSCJAicMaFY)
 
@@ -29,11 +30,9 @@ Debian, RaspberryPi:
 	download and run like root, script will install all requirements like php, www.
 
 	mkdir -p /var/www/nettemp && cd /var/www
-	sudo apt-get install git
+	sudo apt-get -y install git
 	git clone https://github.com/sosprz/nettemp
 	cd nettemp && ./install_nettemp
-
-	Go to  http://your_ip
 
 BETA:
 
@@ -49,10 +48,6 @@ OpenWRT, beta version:
 	wget --no-check-certificate https://raw.githubusercontent.com/sosprz/nettemp/beta/other/nettemp_install_on_openwrt.sh
 	chmod 755 nettemp_install_on_openwrt.shy
 	./nettemp_install_on_openwrt.sh
-
-USERS:
-
-	admin admin - access for all
 
 
 Changelog:
