@@ -115,18 +115,6 @@ function action_off($op,$sensor_name,$gpio,$rev) {
 	timestamp($gpio,$onoff);
 }
 
-		//////// temp function
-		function temp($op,$sensor_tmpadj,$value,$sensor_name,$op,$gpio,$rev,$onoff) {
-		
-				
-		} 
-			
-			
-		////////// hyst function
-		function hyst($op,$sensor_tmpadj,$value,$sensor_name,$op,$gpio,$rev,$hyst,$value_max,$state,$onoff) {
-	
-		}
-
 	
 // main loop
 $rows = $db->query("SELECT * FROM gpio WHERE mode='temp'");
@@ -140,7 +128,8 @@ foreach ($row as $a) {
 			
 	$rows = $db->query("SELECT * FROM g_func WHERE gpio='$gpio' ORDER BY position ASC");
 	$func = $rows->fetchAll();
-	//get data function for gpio
+	
+	//get data function for SINGLE gpio
 	foreach ($func as $func) {
 		   $f_id=$func['id'];
 			$sens_id=$func['sensor'];
@@ -155,6 +144,7 @@ foreach ($row as $a) {
 			if(($day_run=='on') && ($w_profile!='any')) {
 				if (w_profile_check($gpio,$w_profile)===false){
 					echo date('Y H:i:s')." GPIO ".$gpio." Function ".$f_id." with profile ".$w_profile." not in range.\n";
+					$CHECK_OVER='tak';
 					continue;
 				} 
 				else {
@@ -164,6 +154,7 @@ foreach ($row as $a) {
 			//hit in any
 			elseif($w_profile!='any') {
 					echo date('Y H:i:s')." GPIO ".$gpio." Function ".$f_id." with profile ".$w_profile." not in range. Day off.\n";
+					$CHECK_OVER='tak';
 					continue;
 				}
 				else {
@@ -197,8 +188,11 @@ foreach ($row as $a) {
 					$value=$sensor2_tmpadj;
 					$value_max=$sensor2_tmpadj+$func['hyst'];
 			}
+			
+			//LOG
 			echo date('Y H:i:s')." GPIO ".$gpio." ".$mode.", ".$sensor_name." ".$sensor_tmpadj.", ".$op.", ".$sensor2_name." ".$value.", ".$hyst.", ".$value_max.", ".$onoff.", ".$w_profile."\n";
 			
+			// MAP for condition
 				if ($op=='gt') {
 					$op='>';
 					$comparison = '>';
@@ -251,10 +245,12 @@ foreach ($row as $a) {
    					 "<" => $sensor_tmpadj < $value_max,
    					 ">" => $sensor_tmpadj > $value_max
 					);
-				}			
+				}
+		// END MAP FOR CONDITION			
 			
 
 		if($source=='value' || $source=='sensor2') {
+			$CHECK_OVER='nie';
 				$funcion_p = 'action_' . $onoff; 
 		
 					// jest AND spelnionym
@@ -312,6 +308,7 @@ foreach ($row as $a) {
 
 		//// next function
 		elseif($source=='valuehyst' || $source=='sensor2hyst') {
+			$CHECK_OVER='nie';
 			
 					if ($map[$comparison]){
 						$db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio'");
@@ -372,6 +369,13 @@ foreach ($row as $a) {
 		
 			
 	} //function
+	
+	if(($CHECK_OVER=='tak') && ($state=='ON')) {
+		$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio'");
+		echo date('Y H:i:s')." GPIO ".$gpio." FORCE CLOSE HIST\n";
+		action_off($op,$sensor_name,$gpio,$rev);
+	}
+
 	
 }  //main
 ?>
