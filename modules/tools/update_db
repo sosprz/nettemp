@@ -275,3 +275,4 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE maps ADD font_colo
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE maps ADD font_size TEXT"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE maps ADD icon TEXT"
 
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE hosts ADD element_id type TEXT";

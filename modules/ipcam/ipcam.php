@@ -3,7 +3,7 @@
 <?php
 $link = isset($_POST['link']) ? $_POST['link'] : '';
 $name = isset($_POST['name']) ? $_POST['name'] : '';
-$name_del = isset($_POST['name_del']) ? $_POST['name_del'] : '';
+$id = isset($_POST['id']) ? $_POST['id'] : '';
 
 if (!empty($name)  && !empty($link) && ($_POST['add'] == "add")){
 	$db = new PDO('sqlite:dbf/nettemp.db');
@@ -12,20 +12,24 @@ if (!empty($name)  && !empty($link) && ($_POST['add'] == "add")){
 	$link = explode(":",$fi[2]);
 	$ip=$link[0];
 	$map_num=substr(rand(), 0, 4);
-		
-        $dbhost = new PDO("sqlite:dbf/nettemp.db");	
-	$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_num, map_pos, position) VALUES ('host_cam_$name', '$ip', 'host_$name', 'ping', '$map_num', '{left:0,top:0}', '1')") or die ("cannot insert host to DB" );	
+	
+	$inserted=$db->query("SELECT id FROM camera WHERE name='$name'");
+	$inserted_id=$inserted->fetchAll();
+	$inserted_id=$inserted_id[0];
+
+	$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_num, map_pos, position, element_id) VALUES ('host_cam_$name', '$ip', 'host_$name', 'ping', '$map_num', '{left:0,top:0}', '1', '$inserted_id[id]')") or die ("cannot insert host to DB" );	
 	$dbnew = new PDO("sqlite:db/host_$name.sql");
-        $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
-        $dbnew==NULL;
+   $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
+   $dbnew==NULL;
 
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 }
 
-if (!empty($name_del) && ($_POST['del'] == "del") ){
+if ($_POST['del'] == "del"){
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("DELETE FROM camera WHERE name='$name_del'") or die ($db->lastErrorMsg());
+	$db->exec("DELETE FROM camera WHERE id='$id'") or die ($db->lastErrorMsg());
+	$db->exec("DELETE FROM hosts WHERE element_id='$id'") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 }
@@ -80,7 +84,7 @@ $link=$a['link'];
 	</td>
 	<td class="col-md-4">
 	    <form action="" method="post">
-		<input type="hidden" name="name_del" value="<?php echo $a["name"]; ?>" />
+		<input type="hidden" name="id" value="<?php echo $a['id']; ?>" />
 		<input type="hidden" type="submit" name="del" value="del" />
 		<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
 	    </form>
