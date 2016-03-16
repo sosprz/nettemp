@@ -69,7 +69,7 @@ $dbn = new PDO("sqlite:dbf/nettemp.db");
 function check(&$val,$type) {
 
 		if ($type == 'lux') {
-		    if ((-1 <= $val) && ($val <= 10000)) {
+		    if ((-1 <= $val) && ($val <= 80000)) {
 			$val=$val;
 		    }
 		    else {
