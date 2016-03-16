@@ -188,7 +188,7 @@ map_num type NUM,
 map type NUM, 
 alarm type TEXT, 
 position type NUM
-);
+, element_id type TEXT);
 CREATE TABLE snmp (
   id INTEGER PRIMARY KEY,
   name UNIQUE,
