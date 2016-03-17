@@ -15,15 +15,16 @@ $a=$cread;
 $a=str_replace("'", "",$a);
 $a=str_replace(";", "",$a);
 
-print_r($a);
+//print_r($a);
 
 
 
-
+$ip = isset($_POST['ip']) ? $_POST['ip'] : '';
 $db = isset($_POST['db']) ? $_POST['db'] : '';
 $user = isset($_POST['user']) ? $_POST['user'] : '';
 $pass = isset($_POST['pass']) ? $_POST['pass'] : '';
-$host = isset($_POST['host']) ? $_POST['host'] : '';
+$port = isset($_POST['port']) ? $_POST['port'] : '';
+
 
 
 
@@ -41,13 +42,16 @@ $conf = array (
 	 '$IP' => "$ip",
 	 '$USER' => "$user",
 	 '$PASS' => "$pass",
-	 '$DB' => "$db"
+	 '$DB' => "$db",
+	 '$PORT' => "$port"
     );
   
-
-		foreach ($conf as $index => $string) {
-    		fwrite($fh, $index."='".$string."';\n");
-		}
+	fwrite($fh, "<?php\n");
+	foreach ($conf as $index => $string) {
+		fwrite($fh, $index."='".$string."';\n");
+	}
+	fwrite($fh, "?>\n");
+	
 		header("location: " . $_SERVER['REQUEST_URI']);
     	exit();
 }
@@ -84,7 +88,7 @@ $conf = array (
 <div class="form-group">
   <label class="col-md-4 control-label" for="password">Password</label>
   <div class="col-md-4">
-    <input id="password" name="password" placeholder="" class="form-control input-md" required="" type="password" value="<?php echo $a['$PASS']; ?>">
+    <input id="pass" name="pass" placeholder="" class="form-control input-md" required="" type="password" value="<?php echo $a['$PASS']; ?>">
     
   </div>
 </div>
@@ -93,7 +97,15 @@ $conf = array (
 <div class="form-group">
   <label class="col-md-4 control-label" for="smtp">DB</label>  
   <div class="col-md-4">
-  <input id="host" name="host" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a['$DB']; ?>">
+  <input id="db" name="db" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a['$DB']; ?>">
+    
+  </div>
+</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="smtp">Port</label>  
+  <div class="col-md-4">
+  <input id="db" name="port" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a['$PORT']; ?>">
     
   </div>
 </div>

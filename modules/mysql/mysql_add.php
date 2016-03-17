@@ -1,7 +1,7 @@
 <?php
 
 include_once('modules/mysql/mysql_conf.php');
-$conn = new mysqli($IP, $USER, $PASS, $DB);
+$conn = new mysqli($IP, $USER, $PASS, $DB, $PORT);
 
  $add = isset($_POST['add']) ? $_POST['add'] : '';
  $name = isset($_POST['name']) ? $_POST['name'] : '';

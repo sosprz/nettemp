@@ -5,7 +5,7 @@
 <?php
 
 include_once('modules/mysql/mysql_conf.php');
-$conn = mysql_connect($IP, $USER, $PASS);
+$conn = mysql_connect($IP, $USER, $PASS,$DB,$PORT);
 
 if (!$conn) {
     die('Could not connect: ' . mysql_error());
