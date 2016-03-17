@@ -1,6 +1,7 @@
 <?php
 
-$conn = new mysqli('172.18.10.10', 'root', 'q1w2e3r4', 'nettemp');
+include_once('../../modules/mysql/mysql_conf.php');
+$conn = new mysqli($IP, $USER, $PASS, $DB, $PORT);
 
 $db = new PDO('sqlite:../../dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors");

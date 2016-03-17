@@ -10,7 +10,7 @@ $conn = new mysqli($IP, $USER, $PASS, $DB, $PORT);
     die("Connection failed: " . $conn->connect_error);
 	} 
 
-	$sql = "CREATE TABLE $name (
+	$sql = "CREATE TABLE `".$name."` (
 	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	value INTEGER
@@ -35,7 +35,7 @@ $conn = new mysqli($IP, $USER, $PASS, $DB, $PORT);
     die("Connection failed: " . $conn->connect_error);
 	} 
 
-	$sql = "DROP TABLE $name";
+	$sql = "DROP TABLE `".$name."`";
 
 	if ($conn->query($sql) === TRUE) {
     	echo "Table $name removed successfully";

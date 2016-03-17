@@ -70,7 +70,7 @@ $conf = array (
 <div class="form-group">
   <label class="col-md-4 control-label" for="user">IP</label>  
   <div class="col-md-4">
-  <input id="user" name="ip" placeholder="192.168.10.1:3306" class="form-control input-md" type="text" value="<?php echo $a['$IP']; ?>">
+  <input id="user" name="ip" placeholder="192.168.10.1" class="form-control input-md" type="text" value="<?php echo $a['$IP']; ?>">
     
   </div>
 </div>
@@ -105,7 +105,7 @@ $conf = array (
 <div class="form-group">
   <label class="col-md-4 control-label" for="smtp">Port</label>  
   <div class="col-md-4">
-  <input id="db" name="port" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a['$PORT']; ?>">
+  <input id="db" name="port" placeholder="3306" class="form-control input-md" required="" type="text" value="<?php echo $a['$PORT']; ?>">
     
   </div>
 </div>
