@@ -69,7 +69,7 @@ $row = $rows->fetchAll();
 <thead>
 <tr>
 <th>Name</th>
-<th>SQL</th>
+<th>Remote SQL server</th>
 <th>Create table</th>
 <th>Delete table</th>
 </tr>
@@ -91,11 +91,15 @@ $row = $rows->fetchAll();
 	$rom=$a['rom'];
 	$check_exists = $conn->query("SHOW TABLES LIKE '$rom'");
 	$table_exists = $check_exists->num_rows;
-	if ($table_exists > 0) {
-   	echo "Table $rom exist";
+	if ($table_exists > 0) { 
+	?>
+	<span class="label label-success">Table exist</span>
+<?php
 	} 
-	else {
-  		echo "Table $rom not exist: " . $conn->error;
+	else { 
+	?>
+	<span class="label label-danger">Table not exist</span>
+<?php
 	}	
 
 
