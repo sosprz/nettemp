@@ -12,7 +12,7 @@ $rom=$a['rom'];
 $tmp=$a['tmp'];
 $name=$a['name'];
 
-$sql="INSERT INTO $rom (value) VALUES ('$tmp')";
+$sql="INSERT INTO `".$rom."` (value) VALUES ('$tmp')";
 
 
 if ($conn->query($sql) === TRUE) {
