@@ -13,7 +13,7 @@ $conn = new mysqli($IP, $USER, $PASS, $DB, $PORT);
 	$sql = "CREATE TABLE `".$name."` (
 	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	value INTEGER
+	value FLOAT
 	)";
 
 	if ($conn->query($sql) === TRUE) {
