@@ -41,6 +41,8 @@ $dir/modules/sensors/wireless/esp8266_read
 $dir/modules/sensors/other/ups
 #sdm120/sdm120c
 $dir/modules/sensors/other/sdm120
+#sdm630
+$dir/modules/sensors/other/sdm630
 #HCS04
 $dir/modules/sensors/GPIO/HCS04/read
 
