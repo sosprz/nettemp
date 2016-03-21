@@ -78,7 +78,7 @@ function check(&$val,$type) {
 			    
 		}
 		elseif ($type == 'temp') {
-		    if (( -50 <= $val) && ($val <= 200) && ($val != 85) && ($val != 127.9)) {
+		    if (( -150 <= $val) && ($val <= 300) && ($val != 85) && ($val != 127.9)) {
 			$val=$val;
 		    }
 		    else {
@@ -285,11 +285,17 @@ foreach ( $result as $a) {
 	$skey=$a['server_key'];
 	global $chmin;
 	$chmin=$a['charts_min'];
+	$scale=$a['temp_scale'];
 	}
 
 if ("$key" != "$skey"){
     echo "wrong key\n";
 } else {
+
+// scale F->C
+if($scale=='F' && $type=='temp') {
+    $val=$val*1.8+32;
+}
 
 // main
 if  (isset($val) && isset($rom) && isset($type)) {

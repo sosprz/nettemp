@@ -46,6 +46,6 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (dev
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE settings SET meteogram='Poland/Pomerania/Gdansk' WHERE id='1' AND meteogram is null"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE OR IGNORE settings SET server_key='$(date +%s | sha256sum | base64 | head -c 10 ; echo)' where id='1' AND server_key is null"
-
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE setings SET temp_scale='' WHERE id='1'";
 
 

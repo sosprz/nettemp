@@ -67,6 +67,15 @@
     exit();
     }
 
+    $temp_scale = isset($_POST['temp_scale']) ? $_POST['temp_scale'] : '';
+    $temp_scaleonoff = isset($_POST['temp_scaleonoff']) ? $_POST['temp_scaleonoff'] : '';
+    $temp_scaleon = isset($_POST['temp_scaleon']) ? $_POST['temp_scaleon'] : '';
+    if (($temp_scaleonoff == "onoff")){
+    $db->exec("UPDATE settings SET temp_scale='$temp_scaleon' WHERE id='1'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
     $adj = isset($_POST['adj']) ? $_POST['adj'] : '';
     $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
     if ($adj1 == 'adj2'){
@@ -107,7 +116,22 @@
 
 
 <div class="panel panel-default">
-<div class="panel-heading">Sensors</div>
+<div class="panel-heading">Sensors
+<?php
+$db = new PDO('sqlite:dbf/nettemp.db');
+$rows = $db->query("SELECT * FROM settings WHERE id='1'");
+$row = $rows->fetchAll();
+foreach ($row as $a) { 	
+    $temp_scale=$a['temp_scale'];
+}
+?>
+
+<form action="" method="post" style="display:inline!important;"> 	
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="temp_scaleon" data-on="&deg;F" data-off="&deg;C"  value="F" <?php echo $temp_scale == 'F' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+	<input type="hidden" name="temp_scaleonoff" value="onoff" />
+</form>
+
+</div>
 
 <div class="table-responsive">
 <script>

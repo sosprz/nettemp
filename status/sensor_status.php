@@ -5,6 +5,11 @@
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 
+$rows = $db->query("SELECT * FROM settings WHERE id='1'");
+$row = $rows->fetchAll();
+foreach ($row as $a) {
+    $temp_scale=$a['temp_scale'];
+}
 
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
@@ -43,7 +48,8 @@ Go to device scan!
 		if(empty($a['device'])) { $device='<img src="media/ico/1wire.png" alt="" title="1wire"/>';}
 
 		if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png" alt="" title="Lux"/>';} 
-		if($a['type'] == 'temp'){ $unit='&deg;C'; $type='<img src="media/ico/temp2-icon.png" alt="" title="Temperture"/>';}
+		if($a['type'] == 'temp' && $temp_scale == ''){ $unit='&deg;C'; $type='<img src="media/ico/temp2-icon.png" alt="" title="Temperature"/>';}
+		if($a['type'] == 'temp' && $temp_scale == 'F'){ $unit='&deg;F'; $type='<img src="media/ico/temp2-icon.png" alt="" title="Temperature"/>';}
 		if($a['type'] == 'humid'){ $unit='%'; $type='<img src="media/ico/rain-icon.png" alt="" title="Humidity"/>';}
 		if($a['type'] == 'press'){ $unit='hPa'; $type='<img src="media/ico/Science-Pressure-icon.png" alt="" title="Pressure"/>';}		
 		if($a['type'] == 'water'){ $unit='m3'; $type='<img src="media/ico/water-icon.png" alt="" title="Water"/>';}		
