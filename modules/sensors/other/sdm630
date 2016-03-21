@@ -1,0 +1,39 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
+date=`date +%y%m%d-%H%M`
+
+dev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT dev FROM usb WHERE device='SDM630'"|sed 's/\/dev\///g')
+if [[ "$dev" != "none" ]]; then
+echo SDM630ON
+
+skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
+
+
+ARRAY=($($dir/modules/sensors/other/sdm630_get.sh /dev/$dev))
+echo ${ARRAY[*]}
+
+L1=L1
+L2=L2
+L3=L3
+
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[0]} type=volt current=$val
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[1]} type=amps current=$val
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[2]} type=watt current=$val
+
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[3]} type=volt current=$val
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[4]} type=amps current=$val
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[5]} type=watt current=$val
+
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[6]} type=volt current=$val
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[7]} type=amps current=$val
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[8]} type=watt current=$val
+
+
+else
+    echo SDM120 OFF
+fi
+
+
+
+
