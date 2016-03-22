@@ -109,27 +109,23 @@ $types = json_encode($types);
 echo "types = ". $types .";\n";
 ?>
 
-    if (type=='temp' && temp_scale=='F') { 
-		    		var xvall = " °F"
-		    		}
-		    		else {
-		    			var xvall = " °C"
-		    		}
-if (type=='humid') { var xval = " %"}
-if (type=='press') { var xval = " hPa"}
-if (type=='gpio') { var xval = " H/L"}
-if (type=='host') { var xval = " ms"}
-if (type=='system') { var xval = " %"}
-if (type=='lux') { var xval = " lux"}
-if (type=='water') { var xval = " m3"}
-if (type=='gas') { var xval = " m3"}
-if (type=='elec') { var xval = " kWh"}
-if (type=='elec' && mode=='2') { var xval = " W"}
-if (type=='hosts') { var xval = " ms"}
-if (type=='volt') { var xval = " V"}
-if (type=='amps') { var xval = " A"}
-if (type=='watt') { var xval = " W"}
-if (type=='dist') { var xval = " cm"}
+if (type=='temp' && temp_scale=='F') {var xvall = " °F"}
+else if (type=='temp' && temp_scale=='') {var xvall = " °C" }
+if (type=='humid') { var xvall = " %"}
+if (type=='press') { var xvall = " hPa"}
+if (type=='gpio') { var xvall = " H/L"}
+if (type=='host') { var xvall = " ms"}
+if (type=='system') { var xvall = " %"}
+if (type=='lux') { var xvall = " lux"}
+if (type=='water') { var xvall = " m3"}
+if (type=='gas') { var xvall = " m3"}
+if (type=='elec') { var xvall = " kWh"}
+if (type=='elec' && mode=='2') { var xvall = " W"}
+if (type=='hosts') { var xvall = " ms"}
+if (type=='volt') { var xvall = " V"}
+if (type=='amps') { var xvall = " A"}
+if (type=='watt') { var xvall = " W"}
+if (type=='dist') { var xvall = " cm"}
 
 
 
@@ -260,7 +256,7 @@ $(function () {
             seriesCounter += 1;
 	    
             if (seriesCounter === names.length) {
-               createChart(xvall);
+               createChart();
 	    
             }
         });

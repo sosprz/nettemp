@@ -49,15 +49,6 @@ for i in $(seq 1 10);
     
 done
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD status type TEXT";
-if [ ! -s $dir/dbf/kwh.db ]
-    then
-    sqlite3 -cmd ".timeout 2000" $dir/dbf/kwh.db < $dir/modules/tools/kwh.schema
-    sudo chmod 775 $dir/dbf/kwh.db
-    sudo chown root.www-data $dir/dbf/kwh.db
-    else 
-    echo kwh.db exist
-fi
-sqlite3 -cmd ".timeout 2000" $dir/dbf/kwh.db "CREATE INDEX time_index ON kwh(time)";
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD error type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE device ADD wireless type TEXT";

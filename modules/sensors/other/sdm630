@@ -31,7 +31,7 @@ php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[8]} 
 
 
 else
-    echo SDM120 OFF
+    echo SDM630 OFF
 fi
 
 
