@@ -271,5 +271,12 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE hosts ADD element_
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD temp_scale TEXT"
 
-
+for i in hosts snmp; do
+if [ -e $dir/dbf/$i.db ]
+	sqlite3 $dir/dbf/$i.db .dump > $dir/dbf/$i.dump
+	sqlite3 $dir/dbf/nettemp.db .dump > $dir/dbf/nettemp.dump
+	sqlite3 $dir/dbf/nettemp.db < $dir/dbf/$i.dump
+	rm $dir/dbf/$i.db
+fi
+done
 
