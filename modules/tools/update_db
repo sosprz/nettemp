@@ -5,6 +5,18 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 sudo chmod -R 775 $dir
 sudo chown -R root.www-data $dir
 
+
+for i in hosts snmp; do
+if [ -e $dir/dbf/$i.db ]; 
+    then
+	sqlite3 $dir/dbf/$i.db .dump > $dir/dbf/$i.dump
+	sqlite3 $dir/dbf/nettemp.db .dump > $dir/dbf/nettemp.dump
+	sqlite3 $dir/dbf/nettemp.db < $dir/dbf/$i.dump
+	rm $dir/dbf/$i.db
+fi
+done
+
+
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD vpn type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE vpn (id INTEGER PRIMARY KEY,users UNIQUE);"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD fw type TEXT";
@@ -271,12 +283,4 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE hosts ADD element_
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD temp_scale TEXT"
 
-for i in hosts snmp; do
-if [ -e $dir/dbf/$i.db ]
-	sqlite3 $dir/dbf/$i.db .dump > $dir/dbf/$i.dump
-	sqlite3 $dir/dbf/nettemp.db .dump > $dir/dbf/nettemp.dump
-	sqlite3 $dir/dbf/nettemp.db < $dir/dbf/$i.dump
-	rm $dir/dbf/$i.db
-fi
-done
 
