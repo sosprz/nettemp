@@ -155,8 +155,8 @@ $(function () {
 		y: 0,
         	labelFormatter: function() {
           var lastVal = this.yData[this.yData.length - 1];
-           if (type[this.name]=='temp' && temp_scale=='F') {var xvall = " °F"}
-			 else if (type[this.name]=='temp' && temp_scale=='') {var xvall = " °C" }
+           if (types[this.name]=='temp' && temp_scale=='F') {var xvall = " °F"}
+			 else if (types[this.name]=='temp' && temp_scale=='') {var xvall = " °C" }
 		    if (types[this.name]=='humid') { var xvall = " %"};
 		    if (types[this.name]=='press') { var xvall = " hPa"};
 		    if (types[this.name]=='gpio') { var xvall = " H/L"};
@@ -201,8 +201,8 @@ $(function () {
     $.each(names, function (i, name) {
     	
     	
-	 if (type[name]=='temp' && temp_scale=='F') {var xvall = " °F"}
-	 else if (type[name]=='temp' && temp_scale=='') {var xvall = " °C" }
+	 if (types[name]=='temp' && temp_scale=='F') {var xvall = " °F"}
+	 else if (types[name]=='temp' && temp_scale=='') {var xvall = " °C" }
     if (types[name]=='humid') { var xvall = " %"}
     if (types[name]=='press') { var xvall = " hPa"}
     if (types[name]=='gpio') { var xvall = " H/L"}
