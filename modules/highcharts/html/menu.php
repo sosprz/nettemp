@@ -155,23 +155,23 @@ $(function () {
 		y: 0,
         	labelFormatter: function() {
           var lastVal = this.yData[this.yData.length - 1];
-           if (types[this.name]=='temp' && temp_scale=='F') {var legend = " °F"}
-			 else if (types[this.name]=='temp' && temp_scale=='') {var legend = " °C" }
-		    if (types[this.name]=='humid') { var legend = " %"};
-		    if (types[this.name]=='press') { var legend = " hPa"};
-		    if (types[this.name]=='gpio') { var legend = " H/L"};
-		    if (types[this.name]=='host') { var legend = " ms"};
-		    if (types[this.name]=='system') { var legend = " %"};
-		    if (types[this.name]=='lux') { var legend = " lux"};
-		    if (types[this.name]=='water') { var legend = " m3"};
-		    if (types[this.name]=='gas') { var legend = " m3"};
-	    	 if (types[this.name]=='elec') { var legend = " kWh"};
-		    if (types[this.name]=='elec' && mode=='2') { var legend = " W"};
-		    if (types[this.name]=='hosts') { var legend = " ms"};
-		    if (types[this.name]=='volt') { var legend = " V"};
-		    if (types[this.name]=='amps') { var legend = " A"};
-		    if (types[this.name]=='watt') { var legend = " W"};
-		    if (types[this.name]=='dist') { var legend = " cm"};
+           if (types[this.name]=='temp' && temp_scale=='F') {legend = " °F"}
+			 else if (types[this.name]=='temp' && temp_scale=='') {legend = " °C" }
+		    if (types[this.name]=='humid') {legend = " %"};
+		    if (types[this.name]=='press') {legend = " hPa"};
+		    if (types[this.name]=='gpio') {legend = " H/L"};
+		    if (types[this.name]=='host') {legend = " ms"};
+		    if (types[this.name]=='system') {legend = " %"};
+		    if (types[this.name]=='lux') {legend = " lux"};
+		    if (types[this.name]=='water') {legend = " m3"};
+		    if (types[this.name]=='gas') {legend = " m3"};
+	    	 if (types[this.name]=='elec') {legend = " kWh"};
+		    if (types[this.name]=='elec' && mode=='2') {legend = " W"};
+		    if (types[this.name]=='hosts') {legend = " ms"};
+		    if (types[this.name]=='volt') {legend = " V"};
+		    if (types[this.name]=='amps') {legend = " A"};
+		    if (types[this.name]=='watt') {legend = " W"};
+		    if (types[this.name]=='dist') {legend = " cm"};
             	    
             	    
 		    			 return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + legend +'</b> </n>';
@@ -201,23 +201,23 @@ $(function () {
     $.each(names, function (i, name) {
     	
     	
-	 if (types[name]=='temp' && temp_scale=='F') {var tooltip = " °F"}
-	 else if (types[name]=='temp' && temp_scale=='') {var tooltip = " °C" }
-    if (types[name]=='humid') { var tooltip = " %"}
-    if (types[name]=='press') { var tooltip = " hPa"}
-    if (types[name]=='gpio') { var tooltip = " H/L"}
-    if (types[name]=='host') { var tooltip = " ms"}
-    if (types[name]=='system') { var tooltip = " %"}
-    if (types[name]=='lux') { var tooltip = " lux"}
-    if (types[name]=='water') { var tooltip = " m3"}
-    if (types[name]=='gas') { var tooltip = " m3"}
-    if (types[name]=='elec') { var tooltip = " kWh"}
-    if (types[name]=='elec' && mode=='2') { var tooltip = " W"}
-    if (types[name]=='hosts') { var tooltip = " ms"}
-    if (types[name]=='volt') { var tooltip = " V"}
-    if (types[name]=='amps') { var tooltip = " A"}
-    if (types[name]=='watt') { var tooltip = " W"}
-    if (types[name]=='dist') { var tooltip = " cm"}
+	 if (types[name]=='temp' && temp_scale=='F') {tooltip = " °F"}
+	 else if (types[name]=='temp' && temp_scale=='') {tooltip = " °C" }
+    if (types[name]=='humid') {tooltip = " %"}
+    if (types[name]=='press') {tooltip = " hPa"}
+    if (types[name]=='gpio') {tooltip = " H/L"}
+    if (types[name]=='host') {tooltip = " ms"}
+    if (types[name]=='system') {tooltip = " %"}
+    if (types[name]=='lux') {tooltip = " lux"}
+    if (types[name]=='water') {tooltip = " m3"}
+    if (types[name]=='gas') {tooltip = " m3"}
+    if (types[name]=='elec') {tooltip = " kWh"}
+    if (types[name]=='elec' && mode=='2') {tooltip = " W"}
+    if (types[name]=='hosts') {tooltip = " ms"}
+    if (types[name]=='volt') {tooltip = " V"}
+    if (types[name]=='amps') {tooltip = " A"}
+    if (types[name]=='watt') {tooltip = " W"}
+    if (types[name]=='dist') {tooltip = " cm"}
 
         $.getJSON('common/hc_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mode,  function (data) {
 
