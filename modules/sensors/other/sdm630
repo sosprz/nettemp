@@ -16,6 +16,8 @@ echo ${ARRAY[*]}
 L1=L1
 L2=L2
 L3=L3
+sum=sum
+valsum=$(echo "${ARRAY[2]} + ${ARRAY[5]} + ${ARRAY[8]}" |bc)
 
 php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[0]} type=volt current=$val
 php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[1]} type=amps current=$val
@@ -29,6 +31,7 @@ php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[6]} 
 php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[7]} type=amps current=$val
 php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[8]} type=watt current=$val
 
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$sum device=usb value=$valsum type=watt current=$val
 
 else
     echo SDM630 OFF
