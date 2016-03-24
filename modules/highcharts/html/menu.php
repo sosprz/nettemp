@@ -155,26 +155,26 @@ $(function () {
 		y: 0,
         	labelFormatter: function() {
           var lastVal = this.yData[this.yData.length - 1];
-           if (types[this.name]=='temp' && temp_scale=='F') {legend = " °F"}
-			 else if (types[this.name]=='temp' && temp_scale=='') {legend = " °C" }
-		    if (types[this.name]=='humid') {legend = " %"};
-		    if (types[this.name]=='press') {legend = " hPa"};
-		    if (types[this.name]=='gpio') {legend = " H/L"};
-		    if (types[this.name]=='host') {legend = " ms"};
-		    if (types[this.name]=='system') {legend = " %"};
-		    if (types[this.name]=='lux') {legend = " lux"};
-		    if (types[this.name]=='water') {legend = " m3"};
-		    if (types[this.name]=='gas') {legend = " m3"};
-	    	 if (types[this.name]=='elec') {legend = " kWh"};
-		    if (types[this.name]=='elec' && mode=='2') {legend = " W"};
-		    if (types[this.name]=='hosts') {legend = " ms"};
-		    if (types[this.name]=='volt') {legend = " V"};
-		    if (types[this.name]=='amps') {legend = " A"};
-		    if (types[this.name]=='watt') {legend = " W"};
-		    if (types[this.name]=='dist') {legend = " cm"};
+           if (types[this.name]=='temp' && temp_scale=='F') {n_units = " °F"}
+			 else if (types[this.name]=='temp' && temp_scale=='') {n_units = " °C" }
+		    if (types[this.name]=='humid') {n_units = " %"};
+		    if (types[this.name]=='press') {n_units = " hPa"};
+		    if (types[this.name]=='gpio') {n_units = " H/L"};
+		    if (types[this.name]=='host') {n_units = " ms"};
+		    if (types[this.name]=='system') {n_units = " %"};
+		    if (types[this.name]=='lux') {n_units = " lux"};
+		    if (types[this.name]=='water') {n_units = " m3"};
+		    if (types[this.name]=='gas') {n_units = " m3"};
+	    	 if (types[this.name]=='elec') {n_units = " kWh"};
+		    if (types[this.name]=='elec' && mode=='2') {n_units = " W"};
+		    if (types[this.name]=='hosts') {n_units = " ms"};
+		    if (types[this.name]=='volt') {n_units = " V"};
+		    if (types[this.name]=='amps') {n_units = " A"};
+		    if (types[this.name]=='watt') {n_units = " W"};
+		    if (types[this.name]=='dist') {n_units = " cm"};
             	    
             	    
-		    			 return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + legend +'</b> </n>';
+		    			 return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + n_units +'</b> </n>';
         	    }
 		},
 
@@ -201,23 +201,23 @@ $(function () {
     $.each(names, function (i, name) {
     	
     	
-	 if (types[name]=='temp' && temp_scale=='F') {tooltip = " °F"}
-	 else if (types[name]=='temp' && temp_scale=='') {tooltip = " °C" }
-    if (types[name]=='humid') {tooltip = " %"}
-    if (types[name]=='press') {tooltip = " hPa"}
-    if (types[name]=='gpio') {tooltip = " H/L"}
-    if (types[name]=='host') {tooltip = " ms"}
-    if (types[name]=='system') {tooltip = " %"}
-    if (types[name]=='lux') {tooltip = " lux"}
-    if (types[name]=='water') {tooltip = " m3"}
-    if (types[name]=='gas') {tooltip = " m3"}
-    if (types[name]=='elec') {tooltip = " kWh"}
-    if (types[name]=='elec' && mode=='2') {tooltip = " W"}
-    if (types[name]=='hosts') {tooltip = " ms"}
-    if (types[name]=='volt') {tooltip = " V"}
-    if (types[name]=='amps') {tooltip = " A"}
-    if (types[name]=='watt') {tooltip = " W"}
-    if (types[name]=='dist') {tooltip = " cm"}
+	 if (types[name]=='temp' && temp_scale=='F') {n_units = " °F"}
+	 else if (types[name]=='temp' && temp_scale=='') {var n_units = " °C" }
+    if (types[name]=='humid') { var n_units = " %"}
+    if (types[name]=='press') { var n_units = " hPa"}
+    if (types[name]=='gpio') { var n_units = " H/L"}
+    if (types[name]=='host') { var n_units = " ms"}
+    if (types[name]=='system') { var n_units = " %"}
+    if (types[name]=='lux') { var n_units = " lux"}
+    if (types[name]=='water') { var n_units = " m3"}
+    if (types[name]=='gas') { var n_units = " m3"}
+    if (types[name]=='elec') { var n_units = " kWh"}
+    if (types[name]=='elec' && mode=='2') { var n_units = " W"}
+    if (types[name]=='hosts') { var n_units = " ms"}
+    if (types[name]=='volt') { var n_units = " V"}
+    if (types[name]=='amps') { var n_units = " A"}
+    if (types[name]=='watt') { var n_units = " W"}
+    if (types[name]=='dist') { var n_units = " cm"}
 
         $.getJSON('common/hc_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mode,  function (data) {
 
@@ -241,7 +241,7 @@ $(function () {
 		units: [[xhour,[1]]]
 		},
 		tooltip: {
-		    valueSuffix: tooltip, 
+		    valueSuffix: n_units, 
                     valueDecimals: 3
                 }
 	    };
@@ -252,7 +252,7 @@ $(function () {
                 data: data,
 		step: true,
 		tooltip: {
-		    valueSuffix: tooltip, 
+		    valueSuffix: n_units, 
                     valueDecimals: 2
                 }
 	    };
@@ -263,7 +263,7 @@ $(function () {
                 data: data,
 		type: 'spline',
 		tooltip: { 
-		    valueSuffix: tooltip, 
+		    valueSuffix: n_units, 
 		    valueDecimals: 2
 		},
     	    };
