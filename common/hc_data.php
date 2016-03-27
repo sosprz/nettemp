@@ -8,6 +8,12 @@ $max=$_GET["max"];
 $mode=$_GET["mode"];
 $array=null;
 
+$db = new PDO("sqlite:$root/dbf/nettemp.db");
+$rows = $db->query("SELECT * FROM highcharts WHERE id='1'");
+$row = $rows->fetchAll();
+foreach($row as $a) {
+$charts_fast=$a['charts_fast'];
+}
 
 function query($max,&$query) {
 if ($max == 'hour') {
@@ -88,8 +94,13 @@ if ($type == 'system') {
     $file='system_'.$name;
     $dirb = "sqlite:$root/db/$file.sql";
     $dbh = new PDO($dirb) or die("cannot open database");
-
-    query($max,$query);
+    
+    if($charts_fast=='on') {
+    	querymod($max,$query);
+    }
+		else {
+    		query($max,$query);
+    	}
              
     foreach ($dbh->query($query) as $row) {
 	$line=[($row[0])*1000 . "," . $row[1]];
@@ -105,7 +116,12 @@ elseif ($type == 'hosts') {
     $dirb = "sqlite:$root/db/$file.sql";
     $dbh = new PDO($dirb) or die("cannot open database");
 
-    query($max,$query);
+    if($charts_fast=='on') {
+    	querymod($max,$query);
+    }
+		else {
+    		query($max,$query);
+    	}
 
     foreach ($dbh->query($query) as $row) {
 	$array[]=[($row[0])*1000 . "," . $row[1]];
@@ -127,7 +143,12 @@ elseif ($type == 'gpio') {
     $dirb = "sqlite:$root/db/gpio_stats_$gpio.sql";
     $dbh = new PDO($dirb) or die("cannot open database");
 
-    query($max,$query);
+    if($charts_fast=='on') {
+    	querymod($max,$query);
+    }
+		else {
+    		query($max,$query);
+    	};
 
     foreach ($dbh->query($query) as $row) {
 	$line=[($row[0])*1000 . "," . ($row[1]+$adj)];
@@ -150,7 +171,12 @@ elseif ($type == 'group'){
     $dirb = "sqlite:$root/db/$file.sql";
     $dbh = new PDO($dirb) or die("cannot open database");
 
-    query($max,$query);
+    if($charts_fast=='on') {
+    	querymod($max,$query);
+    }
+		else {
+    		query($max,$query);
+    };
 
     foreach ($dbh->query($query) as $row) {
 	$line=[($row[0])*1000 . "," . ($row[1]+$adj)];
@@ -172,7 +198,12 @@ elseif ($type == 'elec' && $mode == 2) {
     $dirb = "sqlite:$root/db/$file.sql";
     $dbh = new PDO($dirb) or die("cannot open database");
 
-    queryc($max,$query);
+        if($charts_fast=='on') {
+    	querymod($max,$query);
+    }
+		else {
+    		queryc($max,$query);
+    	};
 
     foreach ($dbh->query($query) as $row) {
 	$line=[($row[0])*1000 . "," . ($row[1]+$adj)];
@@ -194,7 +225,12 @@ else {
     $dirb = "sqlite:$root/db/$file.sql";
     $dbh = new PDO($dirb) or die("cannot open database");
 
-    query($max,$query);
+    if($charts_fast=='on') {
+    	querymod($max,$query);
+    }
+		else {
+    		query($max,$query);
+    }
 
     foreach ($dbh->query($query) as $row) {
 	$line=[($row[0])*1000 . "," . ($row[1]+$adj)];

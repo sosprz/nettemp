@@ -283,9 +283,15 @@ $sth->execute();
 $result = $sth->fetchAll();
 foreach ( $result as $a) {
 	$skey=$a['server_key'];
+	$scale=$a['temp_scale'];
+	}
+
+$sth = $db->prepare("select * from highcharts WHERE id='1'");
+$sth->execute();
+$result = $sth->fetchAll();
+foreach ( $result as $a) {
 	global $chmin;
 	$chmin=$a['charts_min'];
-	$scale=$a['temp_scale'];
 	}
 
 if ("$key" != "$skey"){

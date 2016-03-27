@@ -1,6 +1,6 @@
 <?php 
 $db = new PDO('sqlite:dbf/nettemp.db');
-$rows1 = $db->query("SELECT charts_theme FROM settings WHERE id='1'");
+$rows1 = $db->query("SELECT charts_theme FROM highcharts WHERE id='1'");
 $row1 = $rows1->fetchAll();
 foreach($row1 as $t){
 $theme=$t['charts_theme'];

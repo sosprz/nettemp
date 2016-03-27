@@ -23,9 +23,9 @@ done
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "PRAGMA journal_mode=WAL";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO device (usb, onewire, serial, i2c, lmsensors, wireless ) VALUES ('off','off','off','off','off','off')"
-sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO settings (mail, sms, rrd, highcharts, fw, vpn, gpio, authmod, tempnum, charts_system, charts_hosts, charts_gpio, charts_min, temp_scale) VALUES ('off','off', 'off', 'on', 'off', 'off', 'on', 'on', '3', 'on', 'on', 'on', '10', 'null')"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO settings (mail, sms, rrd, fw, vpn, gpio, authmod, temp_scale) VALUES ('off','off', 'off', 'off', 'off', 'on', 'on', 'null')"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO fw (id, ssh, icmp, ext, openvpn, radius ) VALUES (1,'off','off', '0.0.0.0/0', 'off', 'off');"
-sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user, auth, tls, tlscheck ) VALUES ('smtp.gmail.com', '587', 'yourmail@gmail.com', 'on', 'on', 'off' )"
+#sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user, auth, tls, tlscheck ) VALUES ('smtp.gmail.com', '587', 'yourmail@gmail.com', 'on', 'on', 'off' )"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO access_time (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime) VALUES  ('any', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', '00:00', '23:59')"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO i2c (name, addr) VALUES ('bmp180','77')"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO i2c (name, addr) VALUES ('tsl2561','39')"
@@ -39,12 +39,12 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO meteo (i
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('SDM120','none');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('SDM630','none');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('1wire','none');"
-sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('1wire Serial','none');"
-sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem Call','none');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('1wire Serial','none');"sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem Call','none');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem SMS','none');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('UPS Pimowo','none');"
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE settings SET meteogram='Poland/Pomerania/Gdansk' WHERE id='1' AND meteogram is null"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE OR IGNORE settings SET server_key='$(date +%s | sha256sum | base64 | head -c 10 ; echo)' where id='1' AND server_key is null"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO highchars (charts_min, charts_theme, charts_fast) VALUES ('1', 'black', 'on')"
 
 
