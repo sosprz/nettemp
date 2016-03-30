@@ -5,7 +5,7 @@ echo "Please wait installing packages"
 package="lighttpd php5-cgi php5-sqlite php5-fpm rrdtool sqlite3 msmtp digitemp gammu git-core mc sysstat \
     sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables rcconf \
     arp-scan snmpd httping fping make gcc lynx expect socat build-essential python-dev figlet \
-    libmodbus5 netfilter-persistent apcupsd smstools"
+    libmodbus5 netfilter-persistent apcupsd smstools mysql mysql-client"
 
 apt-get -y update
 apt-get -y install $package

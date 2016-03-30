@@ -26,6 +26,17 @@ if ($_POST['run'] == "Upload") {
 			passthru($cmd2);
 			echo '</pre>';
 		    }
+		    if ( $prog == 'dht11V' ) {
+
+			$cmd0="cp '$dir'/modules/sensors/wireless/DHT11V/init.lua '$dir'/tmp && sed -i s/pass/'$pass'/g '$dir'/tmp/init.lua && sed -i s/ssid/'$ssid'/g '$dir'/tmp/init.lua";
+			$cmd1="'$dir'/modules/sensors/wireless/espupload/luatool.py -p '$usb' -f '$dir'/tmp/init.lua -t init.lua 2>&1";
+			$cmd2="'$dir'/modules/sensors/wireless/espupload/luatool.py -r -p '$usb' -f '$dir'/modules/sensors/wireless/DHT11/dht.lua -t dht.lua -r 2>&1";
+			echo '<pre>';
+			passthru($cmd0); 
+			passthru($cmd1); 
+			passthru($cmd2);
+			echo '</pre>';
+		    }
 		    if ($prog == 'dht22') {
 
 			$cmd0="cp '$dir'/modules/sensors/wireless/DHT22/init.lua '$dir'/tmp && sed -i s/pass/'$pass'/g '$dir'/tmp/init.lua && sed -i s/ssid/'$ssid'/g '$dir'/tmp/init.lua";
@@ -109,7 +120,7 @@ exec($cmd, $i);
 ?>
 
 <form class="form-horizontal" action="" method="post">
-<fieldset>
+ <fieldset>
 
 <!-- Select Basic -->
 <div class="form-group">
@@ -142,6 +153,12 @@ print_r($name);
     <label for="radios-0">
       <input name="prog" id="radios-0" value="dht11" type="radio">
       DHT11
+    </label>
+    </div>
+  <div class="radio">
+    <label for="radios-0">
+      <input name="prog" id="radios-0" value="dht11V" type="radio">
+      DHT11 + Voltage (pin7,gpio13)
     </label>
     </div>
   <div class="radio">

@@ -1,5 +1,6 @@
 <?php
 $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+$dbmaps = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 $dir="modules/gpio/";
 $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 
@@ -11,6 +12,7 @@ $position = isset($_POST['position']) ? $_POST['position'] : '';
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     } 
+
 ?>
 
 <div class="panel panel-default">
@@ -21,8 +23,10 @@ $position = isset($_POST['position']) ? $_POST['position'] : '';
 
 <?php 
 $db = new PDO('sqlite:dbf/nettemp.db'); 
+$dbmaps = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 $rows = $db->query("SELECT * FROM gpio ORDER BY position ASC"); 
 $row = $rows->fetchAll();
+
 ?>
 
 <thead>
@@ -35,12 +39,11 @@ $row = $rows->fetchAll();
 </tr>
 </thead>
 
-<?php foreach ($row as $b) {?>
+<?php foreach ($row as $b) {
+	?>
 
 <tr>
-
-	
-	<td class="col-md-1">
+	<td class="col-md-2">
     		<form action="" method="post" style="display:inline!important;">
         	<input type="hidden" name="position_id" value="<?php echo $b["id"]; ?>" />
         	<input type="text" name="position" size="1" maxlength="3" value="<?php echo $b['position']; ?>" />
@@ -48,19 +51,19 @@ $row = $rows->fetchAll();
         	<input type="hidden" name="positionok" value="ok" />
     		</form>
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-2">
 		<a href="index.php?id=devices&type=gpio&gpios=<?php echo $b['gpio']?>" class="btn btn-xs btn-success ">GPIO <?php echo $b['gpio']?></a>
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-2">
                 <span class="label label-default"><?php echo $b["name"]; ?></span>
         </td>
 
 
-	<td class="col-md-1">
+	<td class="col-md-2">
                 <span class="label label-default"><?php echo $b["mode"]; ?></span>
         </td>
 
-	<td class="col-md-1"> 
+	<td class="col-md-2"> 
 		<?php
 		    if (strpos($b['status'],'ON') !== false) {
 		?>
@@ -73,9 +76,9 @@ $row = $rows->fetchAll();
 			<?php
 			echo $b['status']; ?> </span>
 	</td>
+</tr>
 
 <?php } ?>
 
-</tr>
 </table> </div> </div>
 

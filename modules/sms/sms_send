@@ -29,6 +29,7 @@ for line in `sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name,tmp,t
 			rm -f $sent
 			echo "clear HIGH $sent"
 		    fi
+		    cr_ge=0;
 		fi
 		if [ -n "$tmp_min" ]; then
 			cr_le=$(echo $tmp $tmp_min | awk '{if ($1 < $2) print 1; else print 0 }')
@@ -37,6 +38,7 @@ for line in `sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name,tmp,t
 			rm -f $sent
 			echo "clear LOW $sent"
 		    fi
+		    cr_le=0
 		fi
 		if [[ ! -f $sent ]] || [[ -f $failed ]] || grep -q -s RECOVERY $sent; then
 			if [[ $cr_ge == 1 ]]; then

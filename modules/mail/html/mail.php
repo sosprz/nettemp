@@ -15,3 +15,4 @@ $mail=$a["mail"];
     include("mail_test.php"); 
     } 
 ?>
+

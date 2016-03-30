@@ -96,7 +96,11 @@ Go to <a href="http://stats.nettemp.pl" class="label label-info">stats.nettemp.p
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Agreement:</label>  
   <div class="col-md-4">
-  <input id="textinput" name="agreement" placeholder="write yes or no" class="form-control input-md" type="text" value="<?php echo $agreement; ?>">
+  	<select name="agreement" class="form-control">
+			    <option value="yes" <?php echo $agreement=='yes' ? 'selected="selected"' : '' ?> >yes</option>
+			    <option value="no" <?php echo $agreement=='no' ? 'selected="selected"' : '' ?> >no</option>
+    </select>  
+  
     <input type="hidden" name="save" value="save" />
   </div>
 </div>

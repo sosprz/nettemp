@@ -57,11 +57,8 @@ $name=$a['name'];
 <div class="panel-heading">
 <h3 class="panel-title">GPIO <?php echo $gpio." ".$name ?></h3></div>
 <div class="panel-body">
-<table">
-<tr>   
-<?php 
-include('gpio_name.php');
 
+<?php
 if  ($mode == 'humid') 
 { 
     include('gpio_humid.php');
@@ -144,8 +141,7 @@ else
 include('gpio_functions.php');
 } 
 ?>
-</tr>
-</table>
+
 </div>
 </div>
 <?php 

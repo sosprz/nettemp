@@ -19,3 +19,56 @@ body {
   //background-color: #f5f5f5;
 }
 
+.label-sensors
+{
+	background: #5cb85c;
+	/*color: navy;
+	font-size: 16px;
+	border:none 1px white;
+	*/
+}
+
+.label-to-high
+{
+	background: #d9534f;
+	color:white;
+}
+
+.label-to-low
+{
+	background: #337ab7;
+	color:white;
+}
+.sensor_settings_header
+{
+	width: 100%;
+	text-align: center;
+}
+
+.transparent-background
+{
+	background: rgba(0,0,0,0) !important; 
+}
+
+.container-nettemp { 
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.container-controls {
+	width: 100px;
+}
+
+
+.map-settings
+{
+	text-align:left;
+	padding: 5px;
+}
+
+/* on map default white color is invisible on white background */
+input[name='time_offset']
+{
+	color: black;
+}
+

@@ -36,7 +36,9 @@ if ($timerun == "off") {
 ?>
 
     <form action="" method="post" style=" display:inline!important;">
+	<?php if($_GET['id'] != 'map'): ?>
 	Status: <?php echo $a['status']; ?> 
+	<?php endif; ?>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<button type="submit" class="btn btn-xs btn-danger">OFF </button>
 	<input type="hidden" name="timerun" value="off" />
@@ -55,13 +57,15 @@ if ($timerun == "off") {
 	<button type="submit" class="btn btn-xs btn-success">ON</button>
 	<input type="hidden" name="timerun" value="timerun" />
     </form>
+	<!-- //wy³¹czamy EXIT dla mapy -->
+	<?php if ($_GET['id'] != 'map') : ?>
     <form action="" method="post" style=" display:inline!important;">
 	<button type="submit" class="btn btn-xs btn-danger">Exit</button>
 	<input type="hidden" name="time_checkbox" value="off"  />
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="timeexit" value="timeexit" />
-   </form>
-
+	</form>
+	<?php endif; ?>
 <?php 
     }
 //    }

@@ -5,6 +5,18 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 sudo chmod -R 775 $dir
 sudo chown -R root.www-data $dir
 
+
+for i in hosts snmp; do
+if [ -e $dir/dbf/$i.db ]; 
+    then
+	sqlite3 $dir/dbf/$i.db .dump > $dir/dbf/$i.dump
+	sqlite3 $dir/dbf/nettemp.db .dump > $dir/dbf/nettemp.dump
+	sqlite3 $dir/dbf/nettemp.db < $dir/dbf/$i.dump
+	rm $dir/dbf/$i.db
+fi
+done
+
+
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD vpn type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE vpn (id INTEGER PRIMARY KEY,users UNIQUE);"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD fw type TEXT";
@@ -36,41 +48,24 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone2
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone3s type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD day_zone3e type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD tempnum type TEXT";
-for i in $(seq 1 10);
-    do
-    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_sensor$i type TEXT";
-    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_sensor_diff$i type TEXT";
-    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_onoff$i type TEXT";
-    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_temp$i type TEXT";
-    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op$i type TEXT";
-    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_hyst$i type TEXT";
-    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_source$i type TEXT";
-    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_week_plan$i type TEXT";
-    
-done
-sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD status type TEXT";
-if [ ! -s $dir/dbf/kwh.db ]
-    then
-    sqlite3 -cmd ".timeout 2000" $dir/dbf/kwh.db < $dir/modules/tools/kwh.schema
-    sudo chmod 775 $dir/dbf/kwh.db
-    sudo chown root.www-data $dir/dbf/kwh.db
-    else 
-    echo kwh.db exist
-fi
-sqlite3 -cmd ".timeout 2000" $dir/dbf/kwh.db "CREATE INDEX time_index ON kwh(time)";
 
+#for i in $(seq 1 10);
+ #   do
+  #  sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_sensor$i type TEXT";
+   # sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_sensor_diff$i type TEXT";
+    #sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_onoff$i type TEXT";
+    #sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_temp$i type TEXT";
+    #sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_op$i type TEXT";
+    #sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_hyst$i type TEXT";
+    #sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_source$i type TEXT";
+    #sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD temp_week_plan$i type TEXT";
+#done
+
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD status type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE mail_settings ADD error type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE device ADD wireless type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD ip type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD device type TEXT";
-if [ ! -s $dir/dbf/hosts.db ]
-    then
-    sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db < $dir/modules/tools/hosts.schema
-    sudo chmod 775 $dir/dbf/hosts.db
-    sudo chown root.www-data $dir/dbf/hosts.db
-    else 
-    echo hosts.db exist
-fi
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD lcd type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD method type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD lcd4 type TEXT";
@@ -89,18 +84,19 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE relays ADD ip type
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE relays ADD delay type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE relays ADD rom type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE relays ADD type type TEXT";
-sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD rom type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE hosts ADD rom type TEXT";
 
 for i in $(seq 1 30);
     do
     sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD tout$i type TEXT";
 done
+
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD control type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD control_run type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD trigger_delay type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD radius type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE i2c (id INTEGER PRIMARY KEY,name TEXT, addr UNIQUE);"
-sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "ALTER TABLE snmp ADD rom type UNIQUE";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE snmp ADD rom type UNIQUE";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD trigger_con type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE meteo ADD COLUMN onoff TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD tel_any type TEXT";
@@ -144,6 +140,7 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE settings SET charts_sys
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE settings SET charts_hosts='on' WHERE charts_hosts is null"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE settings SET charts_gpio='on' WHERE charts_gpio is null"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE settings SET charts_min='10' WHERE charts_gpio is null"
+
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET charts='on' WHERE charts is null"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET adj='0' WHERE adj='' OR adj=' ' OR adj is null"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE users SET perms='adm' WHERE login='admin' AND perms is null" 
@@ -208,6 +205,7 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (dev
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem Call','none');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem SMS','none');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('UPS Pimowo','none');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('SDM630','none');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD state type TEXT";
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "PRAGMA journal_mode=WAL";
@@ -226,21 +224,21 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET map_num=ABS(30
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET map_pos='{left:0,top:0}' WHERE map_pos is null";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET map='on' WHERE map is null";
 
-sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD map_pos type NUM";
-sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD map_num type NUM";
-sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD map type NUM";
-sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "UPDATE hosts SET map_num=ABS(300 + RANDOM() % 3600) WHERE map_num is null";
-sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "UPDATE hosts SET map_pos='{left:0,top:0}' WHERE map_pos is null";
-sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "UPDATE hosts SET map='on' WHERE map is null";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE hosts ADD map_pos type NUM";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE hosts ADD map_num type NUM";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE hosts ADD map type NUM";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE hosts SET map_num=ABS(300 + RANDOM() % 3600) WHERE map_num is null";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE hosts SET map_pos='{left:0,top:0}' WHERE map_pos is null";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE hosts SET map='on' WHERE map is null";
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD COLUMN position INTEGER DEFAULT 1"
 
-sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "ALTER TABLE snmp ADD type type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE snmp ADD type type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD MCP23017 type TEXT";
-sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD alarm type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE hosts ADD alarm type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE camera ADD access_all type TEXT";
-sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "ALTER TABLE snmp ADD version type TEXT";
-sqlite3 -cmd ".timeout 2000" $dir/dbf/snmp.db "UPDATE snmp SET version='2c' WHERE version is null";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE snmp ADD version type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE snmp SET version='2c' WHERE version is null";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD ups_status type TEXT";
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL";
@@ -248,15 +246,48 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD time t
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD position type NUM";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET position='1' WHERE position is null";
 
-sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "ALTER TABLE hosts ADD position type NUM";
-sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "UPDATE hosts SET position='1' WHERE position is null";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE hosts ADD position type NUM";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE hosts SET position='1' WHERE position is null";
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD ch_group type NUM";
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE statistics (id INTEGER PRIMARY KEY, agreement TEXT, nick TEXT, location TEXT, sensor_temp TEXT);"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO statistics (agreement) VALUES ('no');"
 
+#sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD display_name type TEXT";
+#sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD control_on_map type TEXT";
+#sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD display_name type TEXT";
+#sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD transparent_bkg type TEXT";
+#sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD background_color TEXT"
+#sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD background_low TEXT"
+#sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD background_high TEXT"
+#sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD font_color TEXT"
+#sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD font_size TEXT"
 
-sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD display_name type TEXT";
-sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD display_name type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE g_func (id INTEGER PRIMARY KEY, position INTEGER DEFAULT 0, sensor TEXT, sensor2 TEXT, onoff TEXT, value TEXT, op TEXT, hyst TEXT, source TEXT, gpio TEXT, w_profile TEXT);"
+
+#maps settings separate database
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE maps (id INTEGER PRIMARY KEY,type TEXT,element_id INTEGER,map_num type NUM, map_pos NUMERIC, position INTEGER DEFAULT 1);"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE maps ADD map_on type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE maps ADD transparent type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE maps ADD control_on_map type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE maps ADD display_name type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE maps ADD transparent_bkg type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE maps ADD background_color TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE maps ADD background_low TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE maps ADD background_high TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE maps ADD font_color TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE maps ADD font_size TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE maps ADD icon TEXT"
+
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE hosts ADD element_id type TEXT";
+#sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD font_size TEXT"
+
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE settings ADD temp_scale TEXT"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO settings (id, temp_scale) VALUES (1, '');"
+
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE highcharts (id INTEGER PRIMARY KEY,charts_min TEXT, charts_theme TEXT, charts_fast TEXT);"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO highcharts (id, charts_min, charts_theme, charts_fast) VALUES (1, '1', 'black', 'on');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD moment_time type TEXT";
+
 

@@ -2,11 +2,15 @@
 
 
 $bi = isset($_POST['bi']) ? $_POST['bi'] : '';
+$moment_time = isset($_POST['moment_time']) ? $_POST['moment_time'] : '';
+
 if ($bi == "bi")  {
+	 $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
+    $db->exec("UPDATE gpio SET moment_time='$moment_time' where gpio='$gpio_post' ") or die("simple off db error");
     if ($a['rev'] == 'on') {
-    exec("/usr/local/bin/gpio -g mode $gpio_post output && /usr/local/bin/gpio -g write $gpio_post 0 && sleep 0.5 &&  /usr/local/bin/gpio -g write $gpio_post 1");
+    exec("/usr/local/bin/gpio -g mode $gpio_post output && /usr/local/bin/gpio -g write $gpio_post 0 && sleep $moment_time &&  /usr/local/bin/gpio -g write $gpio_post 1");
     } else {
-    exec("/usr/local/bin/gpio -g mode $gpio_post output && /usr/local/bin/gpio -g write $gpio_post 1 && sleep 0.5 && /usr/local/bin/gpio -g write $gpio_post 0");
+    exec("/usr/local/bin/gpio -g mode $gpio_post output && /usr/local/bin/gpio -g write $gpio_post 1 && sleep $moment_time && /usr/local/bin/gpio -g write $gpio_post 0");
     }
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -27,14 +31,18 @@ if (($mexit == "mexit") ){
 ?>
 
 <form action="" method="post" style=" display:inline!important;">
-    <button type="submit" class="btn btn-xs btn-warning">ON 1s OFF</button>
+ 	 <input type="number" name="moment_time" size="2" value="<?php echo $a['moment_time']; ?>" style="width: 4em;"/>
+    <button type="submit" class="btn btn-xs btn-warning">ON <?php echo $a['moment_time']; ?>s OFF</button>
     <input type="hidden" name="bi" value="on" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="bi" value="bi" />
 </form>
+<!-- wy³¹czamy exit dla mapy -->
+<?php if ($_GET['id'] != 'map'): ?>
 <form action="" method="post" style=" display:inline!important;">
     <button type="submit" class="btn btn-xs btn-danger">Exit</button>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="mexit" value="mexit" />
 </form>
+<?php endif; ?>
 

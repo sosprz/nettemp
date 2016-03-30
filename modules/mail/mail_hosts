@@ -16,7 +16,7 @@ source $(dirname $0)/mail_body
 chmod 777 $2
 }
 
-if name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='error' AND alarm='on'")
+if name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name FROM hosts WHERE status='error' AND alarm='on'")
     then
 	for name in $name
 	do  
@@ -31,7 +31,7 @@ fi
 
 unset name
 
-if name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT name FROM hosts WHERE status='ok'")
+if name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name FROM hosts WHERE status='ok'")
     then
 	for name in $name
 	do

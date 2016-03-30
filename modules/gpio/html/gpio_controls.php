@@ -26,11 +26,12 @@ if (($onoff == "onoff")){
 
 
 $bi = isset($_POST['bi']) ? $_POST['bi'] : '';
+$moment_time = isset($_POST['moment_time']) ? $_POST['moment_time'] : '';
 if ($bi == "bi")  {
     if ($a['rev'] == 'on') {
-    exec("/usr/local/bin/gpio -g mode $gpio_post output && /usr/local/bin/gpio -g write $gpio_post 0 && sleep 0.5 &&  /usr/local/bin/gpio -g write $gpio_post 1");
+    exec("/usr/local/bin/gpio -g mode $gpio_post output && /usr/local/bin/gpio -g write $gpio_post 0 && sleep $moment_time &&  /usr/local/bin/gpio -g write $gpio_post 1");
     } else {
-    exec("/usr/local/bin/gpio -g mode $gpio_post output && /usr/local/bin/gpio -g write $gpio_post 1 && sleep 0.5 && /usr/local/bin/gpio -g write $gpio_post 0");
+    exec("/usr/local/bin/gpio -g mode $gpio_post output && /usr/local/bin/gpio -g write $gpio_post 1 && sleep $moment_time && /usr/local/bin/gpio -g write $gpio_post 0");
     }
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -98,7 +99,7 @@ $resultc = $call->fetchAll();
 
 foreach ( $results as $a) {
 ?>
-
+<div class="container-controls">
 <div class="panel panel-default">
 <div class="panel-heading">
 <h3 class="panel-title"><?php echo $a['name']; ?></h3>
@@ -127,6 +128,7 @@ foreach ( $resultm as $a) {
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="rev" value="<?php echo $a['rev']; ?>"/>
     <input type="hidden" name="bi" value="bi" />
+    <input type="hidden" name="moment_time" value="<?php echo $a['moment_time']; ?>" />    
 </form>
 
 </div></div>
@@ -165,9 +167,11 @@ foreach ( $resultc as $a) {
     <td><input data-onstyle="warning" type="checkbox" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()"  title="Turn on wait 1s and off"   onclick="this.form.submit()" /><td>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
     <input type="hidden" name="bi" value="bi" />
+    <input type="hidden" name="moment_time" value="<?php echo $a['moment_time']; ?>" />
 </form>
 
 </div></div>
+</div>
 <?php 
 }
 ?>

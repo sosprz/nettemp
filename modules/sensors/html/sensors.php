@@ -69,6 +69,10 @@ $name_new=trim($name_new2);
 	elseif (strpos($id_rom_new,'dist') !== false) {
 	    $type='dist';
 	}
+	elseif (strpos($id_rom_new,'trigger') !== false) {
+	    $type='trigger';
+	}
+	
 	else {
 	    if (substr($id_rom_new, 0, 4 ) === "0x26") {
 		$type='humid';
@@ -112,11 +116,15 @@ $name_new=trim($name_new2);
 	    $device='banana';
 	}
 
-
 	
 	//DB    
 	    if ($type != "relay" ) {
 		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip, adj, charts, sum, map_pos, map_num, position, map) VALUES ('$name','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip', '0', 'on', '0', '{left:0,top:0}', '$map_num', '1', 'on')") or die ("cannot insert to DB" );
+		//maps settings
+		$inserted=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_new'");
+		$inserted_id=$inserted->fetchAll();
+		$inserted_id=$inserted_id[0];
+		$db->exec("INSERT OR IGNORE INTO maps (type, map_pos, map_num,map_on,element_id) VALUES ('sensors','{left:0,top:0}','$map_num','on','$inserted_id[id]')");
 	    }
 	    if ($type == "relay" ) {
 		//relays
@@ -126,8 +134,8 @@ $name_new=trim($name_new2);
     	    if ($device == "wireless"  ) {
 		//host for monitoring
 		$name='host_wifi_' . $type . '_' . $name;
-		$dbhost = new PDO("sqlite:dbf/hosts.db");	
-		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping', '{left:0,top:0}', '$map_num2', 'on')") or die ("cannot insert host to DB" );	
+		$dbhost = new PDO("sqlite:dbf/nettemp.db");	
+		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping', '{left:0,top:0}', '$map_num2', 'on', '1')") or die ("cannot insert host to DB" );	
 		$dbnew = new PDO("sqlite:db/host_$id_rom_new.sql");
     		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
 	    }
@@ -150,6 +158,12 @@ $name_new=trim($name_new2);
 	$usun2 = isset($_POST['usun2']) ? $_POST['usun2'] : '';
 	if(!empty($rom) && ($usun2 == "usun3")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
+	//maps settings - first delete
+	$to_delete=$db->query("SELECT id FROM sensors WHERE rom='$rom'");
+	$to_delete_id=$to_delete->fetchAll();
+	$to_delete_id=$to_delete_id[0];
+	$db->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='sensors'");// or die ($db->lastErrorMsg());
+	
 	$db->exec("DELETE FROM sensors WHERE rom='$rom'") or die ($db->lastErrorMsg()); 
 	unlink("db/$rom.sql");
 	unlink("tmp/mail/$rom.mail");

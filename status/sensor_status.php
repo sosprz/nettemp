@@ -5,6 +5,11 @@
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 
+$rows = $db->query("SELECT * FROM settings WHERE id='1'");
+$row = $rows->fetchAll();
+foreach ($row as $a) {
+    $temp_scale=$a['temp_scale'];
+}
 
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
@@ -32,27 +37,31 @@ Go to device scan!
 	$updo='';
 	$mm='';
 
-		if($a['device'] == 'wireless'){ $device='<img src="media/ico/wifi-circle-icon.png" alt=""/>';}
-		if($a['device'] == 'remote'){ $device='<img src="media/ico/remote.png" alt=""/>';}
-		if($a['device'] == 'usb'){ $device='<img src="media/ico/usb-icon.png" alt=""/>';}
-		if($a['device'] == 'rpi'){ $device='<img src="media/ico/raspberry-icon.png" alt=""/>';}
-		if($a['device'] == 'banana'){ $device='<img src="media/ico/banana-icon.png" alt=""/>';}
-		if($a['device'] == 'gpio'){ $device='<img src="media/ico/gpio2.png" alt=""/>';}
-		if($a['device'] == 'i2c'){ $device='<img src="media/ico/i2c_1.png" alt=""/>';}
-		if($a['device'] == 'snmp'){ $device='<img src="media/ico/snmp-icon.png" alt=""/>';}
-		if(empty($a['device'])) { $device='<img src="media/ico/1wire.png" alt=""/>';}
+		if($a['device'] == 'wireless'){ $device='<img src="media/ico/wifi-circle-icon.png" alt="" title="Wireless"/>';}
+		if($a['device'] == 'remote'){ $device='<img src="media/ico/remote.png" alt="" title="Remote NODE"/>';}
+		if($a['device'] == 'usb'){ $device='<img src="media/ico/usb-icon.png" alt="" title="USB"/>';}
+		if($a['device'] == 'rpi'){ $device='<img src="media/ico/raspberry-icon.png" alt="" title="Raspberry Pi"/>';}
+		if($a['device'] == 'banana'){ $device='<img src="media/ico/banana-icon.png" alt="" title="Banana Pi"/>';}
+		if($a['device'] == 'gpio'){ $device='<img src="media/ico/gpio2.png" alt="" title="GPIO"/>';}
+		if($a['device'] == 'i2c'){ $device='<img src="media/ico/i2c_1.png" alt="" title="I2C"/>';}
+		if($a['device'] == 'snmp'){ $device='<img src="media/ico/snmp-icon.png" alt="" title=SNMP"/>';}
+		if(empty($a['device'])) { $device='<img src="media/ico/1wire.png" alt="" title="1wire"/>';}
 
-		if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png" alt=""/>';} 
-		if($a['type'] == 'temp'){ $unit='&deg;C'; $type='<img src="media/ico/temp2-icon.png" alt=""/>';}
-		if($a['type'] == 'humid'){ $unit='%'; $type='<img src="media/ico/rain-icon.png" alt=""/>';}
-		if($a['type'] == 'press'){ $unit='hPa'; $type='<img src="media/ico/Science-Pressure-icon.png" alt=""/>';}		
-		if($a['type'] == 'water'){ $unit='m3'; $type='<img src="media/ico/water-icon.png" alt=""/>';}		
-		if($a['type'] == 'gas'){ $unit='m3'; $type='<img src="media/ico/gas-icon.png" alt=""/>';}		
-		if($a['type'] == 'elec'){ $unit='kWh'; $type='<img src="media/ico/Lamp-icon.png" alt=""/>';}		
-		if($a['type'] == 'watt'){ $unit='W'; $type='<img src="media/ico/watt.png" alt="Watt" />';}		
-		if($a['type'] == 'volt'){ $unit='V'; $type='<img src="media/ico/volt.png" alt="Volt" /> ';}		
-		if($a['type'] == 'amps'){ $unit='A'; $type='<img src="media/ico/amper.png" alt="Amps" /> ';}		
-		if($a['type'] == 'dist'){ $unit='cm'; $type='';}		
+		if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png" alt="" title="Lux"/>';} 
+		if($a['type'] == 'temp' && $temp_scale == ''){ $unit='&deg;C'; $type='<img src="media/ico/temp2-icon.png" alt="" title="Temperature"/>';}
+		if($a['type'] == 'temp' && $temp_scale == 'F'){ $unit='&deg;F'; $type='<img src="media/ico/temp2-icon.png" alt="" title="Temperature"/>';}
+		if($a['type'] == 'humid'){ $unit='%'; $type='<img src="media/ico/rain-icon.png" alt="" title="Humidity"/>';}
+		if($a['type'] == 'press'){ $unit='hPa'; $type='<img src="media/ico/Science-Pressure-icon.png" alt="" title="Pressure"/>';}		
+		if($a['type'] == 'water'){ $unit='m3'; $type='<img src="media/ico/water-icon.png" alt="" title="Water"/>';}		
+		if($a['type'] == 'gas'){ $unit='m3'; $type='<img src="media/ico/gas-icon.png" alt="" title="Gas"/>';}		
+		if($a['type'] == 'elec'){ $unit='kWh'; $type='<img src="media/ico/Lamp-icon.png" alt="" title="Electricity"/>';}		
+		if($a['type'] == 'watt'){ $unit='W'; $type='<img src="media/ico/watt.png" alt="Watt" title="Watt"/>';}		
+		if($a['type'] == 'volt'){ $unit='V'; $type='<img src="media/ico/volt.png" alt="Volt" title="Volt"/> ';}		
+		if($a['type'] == 'amps'){ $unit='A'; $type='<img src="media/ico/amper.png" alt="Amps" title="Amps"/> ';}		
+		if($a['type'] == 'dist'){ $unit='cm'; $type='';}	
+		if($a['type'] == 'trigger'){ $unit=''; $type='<img src="media/ico/alarm-icon.png" alt="Trigger" title="Trigger"/>';}	
+		
+		//glyphicon glyphicon-exclamation-sign	
 		
 		//if($a['tmp'] > $a['tmp_5ago']) { $updo='<img src="media/ico/Up-3-icon.png"/>';}
 		//if($a['tmp'] < $a['tmp_5ago']) { $updo='<img src="media/ico/Down-3-icon.png" />';}

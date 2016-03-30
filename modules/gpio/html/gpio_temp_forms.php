@@ -1,152 +1,193 @@
 <script type="text/JavaScript">
-	    function showtemp<?php echo $gpio ?>(n) {
-		if (document.getElementById('state<?php echo $gpio ?>' + n).value == 'temp') {
-		    document.getElementById('inputtemp<?php echo $gpio ?>' + n).style.display = 'block';
+function ch_source() {
+		if (document.getElementById("source").value == 'value') {
+		    document.getElementById("value").style.display = 'block';
+		    document.getElementById("sensor2").style.display = 'none';
+		    document.getElementById("hyst").style.display = 'none';
+		    document.getElementById("value").required = true;
+		    document.getElementById("hyst").required = false;
+		    document.getElementById("actionand").style.display = 'block';
+		}
+		if (document.getElementById("source").value == 'sensor2') {
+		    document.getElementById("value").style.display = 'none';
+		    document.getElementById("sensor2").style.display = 'block';
+		    document.getElementById("hyst").style.display = 'none';
+		    document.getElementById("value").required = false;
+		    document.getElementById("hyst").required = false;
+		    document.getElementById("actionand").style.display = 'block';
+		}
+		if (document.getElementById("source").value == 'valuehyst') {
+		    document.getElementById("value").style.display = 'block';
+		    document.getElementById("sensor2").style.display = 'none';
+		    document.getElementById("hyst").style.display = 'block';
+		    document.getElementById("value").required = true;
+		    document.getElementById("hyst").required = true;
+		    document.getElementById("actionand").style.display = 'none';
 		    
-		    document.getElementById('sensor2<?php echo $gpio ?>' + n).style.display = 'none';
-		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).style.display = 'none';
+		}
+		if (document.getElementById("source").value == 'sensor2hyst') {
+		    document.getElementById("value").style.display = 'none';
+		    document.getElementById("sensor2").style.display = 'block';
+		    document.getElementById("hyst").style.display = 'block';
+		    document.getElementById("value").required = false;
+		    document.getElementById("sensor2").required = false;
+		    document.getElementById("hyst").required = true;
+		    document.getElementById("actionand").style.display = 'none';
+		}
+}
+
+    </script>
+
+<?php
+	//update
+	$sensor1=isset($_POST['sensor1']) ? $_POST['sensor1'] : '';
+	$sensor2=isset($_POST['sensor2']) ? $_POST['sensor2'] : '';
+	$source=isset($_POST['source']) ? $_POST['source'] : '';
+	$value=isset($_POST['value']) ? $_POST['value'] : '';
+	$hyst=isset($_POST['hyst']) ? $_POST['hyst'] : '';
+	$onoff=isset($_POST['onoff']) ? $_POST['onoff'] : '';
+	$op=isset($_POST['op']) ? $_POST['op'] : '';
+	$day_plan=isset($_POST['day_plan']) ? $_POST['day_plan'] : 'any';
 	
-		    document.getElementById('inputtemp<?php echo $gpio ?>' + n).required = true;
-		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).required = false;
-		}
-		if (document.getElementById('state<?php echo $gpio ?>' + n).value == 'sensor2') {
-		    document.getElementById('inputtemp<?php echo $gpio ?>' + n).style.display = 'none';
-		    document.getElementById('sensor2<?php echo $gpio ?>' + n).style.display = 'block';
-		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).style.display = 'none';
-
-		    document.getElementById('inputtemp<?php echo $gpio ?>' + n).required = false;
-		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).required = false;
-		}
-		if (document.getElementById('state<?php echo $gpio ?>' + n).value == 'temphyst') {
-		    document.getElementById('inputtemp<?php echo $gpio ?>' + n).style.display = 'block';
-		    document.getElementById('inputtemp<?php echo $gpio ?>' + n).required = true;
-		    document.getElementById('sensor2<?php echo $gpio ?>' + n).style.display = 'none';
-		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).style.display = 'block';
-		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).required = true;
-		}
-		if (document.getElementById('state<?php echo $gpio ?>' + n).value == 'sensor2hyst') {
-		    document.getElementById('inputtemp<?php echo $gpio ?>' + n).style.display = 'none';
-		    document.getElementById('sensor2<?php echo $gpio ?>' + n).style.display = 'block';
-		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).style.display = 'block';
-		    document.getElementById('inputhyst<?php echo $gpio ?>' + n).required = true;
-		}
-	    }
-	    </script>
-<?php
-
-$fnum=$a['fnum'];
-
-$fa='fa'.$gpio;
-$fd='fd'.$gpio;
-$$fa = isset($_POST["fa".$gpio]) ? $_POST["fa".$gpio] : '';
-$$fd = isset($_POST["fd".$gpio]) ? $_POST["fd".$gpio] : '';
-
-if ($$fa == "fa") {
-    $asum=($fnum + 1);
-    $db->exec("UPDATE gpio SET fnum='$asum' WHERE gpio='$gpio_post'") or die("exec fa");
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-}
-
-if ($$fd == "fd") {
-    if ($fnum == '1') {
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit();
-    }
-    $dsum=($fnum - 1);
-    $db->exec("UPDATE gpio SET fnum='$dsum' WHERE gpio='$gpio_post'") or die("exec fd");
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-}
-
-
-// zmienne isset
-foreach (range(1, $fnum) as $ta) {
-$temp_temp='temp_temp'.$ta;
-$temp_sensor='temp_sensor'.$ta;
-$temp_sensor_diff='temp_sensor_diff'.$ta;
-$temp_onoff='temp_onoff'.$ta;
-$temp_op='temp_op'.$ta;
-$temp_hyst='temp_hyst'.$ta;
-$temp_source='temp_source'.$ta;
-$temp_set='temp_set'.$ta;
-$temp_week_plan='temp_week_plan'.$ta;
-
-$$temp_sensor=isset($_POST[$temp_sensor]) ? $_POST[$temp_sensor] : '';
-$$temp_sensor_diff=isset($_POST[$temp_sensor_diff]) ? $_POST[$temp_sensor_diff] : '';
-$$temp_onoff=isset($_POST[$temp_onoff]) ? $_POST[$temp_onoff] : '';
-$$temp_op=isset($_POST[$temp_op]) ? $_POST[$temp_op] : '';
-$$temp_temp=isset($_POST[$temp_temp]) ? $_POST[$temp_temp] : '';
-$$temp_hyst=isset($_POST[$temp_hyst]) ? $_POST[$temp_hyst] : '';
-$$temp_source=isset($_POST[$temp_source]) ? $_POST[$temp_source] : '';
-$$temp_set=isset($_POST[$temp_set]) ? $_POST[$temp_set] : '';
-$$temp_week_plan=isset($_POST[$temp_week_plan]) ? $_POST[$temp_week_plan] : '';
-
-
-//var_dump($_POST);
-//print_r($$temp_set.$ta);
-//echo $ta;
-//echo $fnum;
-
-
-if ($$temp_set == "on") {
-
-    if ($$temp_source == 'temp') {
-	    $temp_temp=$$temp_temp;
-	    $temp_sensor_diff=NULL;
-	    $temp_hyst=NULL;
-	    $temp_onoff=$$temp_onoff;
-    } elseif ($$temp_source == 'sensor2') {
-	    $temp_temp=NULL;
-	    $temp_sensor_diff=$$temp_sensor_diff;
-	    $temp_hyst=NULL;
-	    $temp_onoff=$$temp_onoff;
-    } elseif ($$temp_source == 'temphyst') {
-	    $temp_temp=$$temp_temp;
-	    $temp_sensor_diff=NULL;
-	    $temp_hyst=$$temp_hyst;
-	    $temp_onoff='on';
-    } elseif ($$temp_source == 'sensor2hyst') {
-	    $temp_temp=NULL;
-	    $temp_sensor_diff=$$temp_sensor_diff;
-	    $temp_hyst=$$temp_hyst;
-	    $temp_onoff='on';
+	$fadd=isset($_POST['fadd']) ? $_POST['fadd'] : '';
+	$fdel=isset($_POST['fdel']) ? $_POST['fdel'] : '';
+	$fid=isset($_POST['fid']) ? $_POST['fid'] : '';
+	$down=isset($_POST['down']) ? $_POST['down'] : '';
+	$up=isset($_POST['up']) ? $_POST['up'] : '';
+	$fpos=isset($_POST['fpos']) ? $_POST['fpos'] : '';
+	
+	 if ($source == 'value') {
+	    $sensor2=NULL;
+	    $hyst=NULL;
+    } elseif ($source == 'sensor2') {
+	    $value=NULL;
+	    $hyst=NULL;
+    } elseif ($source == 'valuehyst') {
+	    $sensor2=NULL;
+	    //$onoff='on';
+    } elseif ($source == 'sensor2hyst') {
+	    $value=NULL;
+	    //$onoff='on';
     }
     
-    $temp_sensor=$$temp_sensor;
-    $temp_op=$$temp_op;
-    $temp_source=$$temp_source;
-    $temp_week_plan=$$temp_week_plan;
-    
-    $db->exec("UPDATE gpio SET temp_source$ta='$temp_source',temp_op$ta='$temp_op',temp_sensor$ta='$temp_sensor',temp_sensor_diff$ta='$temp_sensor_diff',temp_onoff$ta='$temp_onoff',temp_temp$ta='$temp_temp',temp_hyst$ta='$temp_hyst',temp_week_plan$ta='$temp_week_plan' WHERE gpio='$gpio_post'") or die("exec 1");
-    $db = null;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-}
+    if(($op=='gt' || $op=='ge') && ($source=='sensor2hyst' || $source=='valuehyst')) {
+    	if ($hyst > 0) {
+			$hyst=$hyst*-1;    	
+    	}    	
+    }
+	
+	if ($fadd == "add"){
+		$db = new PDO('sqlite:dbf/nettemp.db');
+		$sth3 = $db->prepare("SELECT position FROM g_func WHERE position = (SELECT MAX(position) FROM g_func)");
+		$sth3->execute();
+		$last = $sth3->fetchAll();
+		 foreach ($last as $l) {
+		 	$position=$l['position'];
+		 }
+		 if($position=='0' || $position==null) {
+						 $position='1';	
+		 	} else {
+		 		$position=$position+1;
+		 }
+		
+		$db->exec("INSERT OR IGNORE INTO g_func (position,sensor, sensor2, onoff, value, op, hyst, source, gpio, w_profile) VALUES ('$position','$sensor1','$sensor2', '$onoff', '$value', '$op', '$hyst', '$source', '$gpio', '$day_plan')") or die ($db->lastErrorMsg());
+		header("location: " . $_SERVER['REQUEST_URI']);
+		exit();
+	}
+	if ($fdel == "del"){
+		$db = new PDO('sqlite:dbf/nettemp.db');
+		$db->exec("DELETE FROM g_func WHERE id='$fid'");
+		header("location: " . $_SERVER['REQUEST_URI']);
+		exit();
+	}
+	if ($up == "up") {
+		$sth3 = $db->prepare("SELECT position FROM g_func WHERE position = (SELECT MIN(position) FROM g_func)");
+			$sth3->execute();
+			$last = $sth3->fetchAll();
+		 	foreach ($last as $l) {
+		 		$min=$l['position'];
+		 	}
+		 	$sth3 = $db->prepare("SELECT id FROM g_func WHERE position <= $fpos-1 ORDER BY position DESC LIMIT 1");
+			$sth3->execute();
+			$last = $sth3->fetchAll();
+		 	foreach ($last as $l) {
+		 		$already=$l['id'];
+		 	}
+		if ($fpos != $min){
+			$db = new PDO('sqlite:dbf/nettemp.db');
+			$db->exec("UPDATE g_func SET position=$fpos WHERE id='$already'");
+			$db->exec("UPDATE g_func SET position=$fpos-1 WHERE id='$fid'");
+			header("location: " . $_SERVER['REQUEST_URI']);
+			exit();
+		}
+	}
+	if ($down == "down"){
+		$db = new PDO('sqlite:dbf/nettemp.db');
+			$sth3 = $db->prepare("SELECT position FROM g_func WHERE position = (SELECT MAX(position) FROM g_func)");
+			$sth3->execute();
+			$last = $sth3->fetchAll();
+		 	foreach ($last as $l) {
+		 		$max=$l['position'];
+		 	}
+		 	$sth3 = $db->prepare("SELECT id FROM g_func WHERE position >= $fpos+1 ORDER BY position ASC LIMIT 1");
+			$sth3->execute();
+			$last = $sth3->fetchAll();
+		 	foreach ($last as $l) {
+		 		$already=$l['id'];
+		 	}
+		if ($fpos != $max){
+			$db = new PDO('sqlite:dbf/nettemp.db');
+			$db->exec("UPDATE g_func SET position=$fpos WHERE id='$already'");
+			$db->exec("UPDATE g_func SET position=$fpos+1 WHERE id='$fid'");
+			header("location: " . $_SERVER['REQUEST_URI']);
+			exit();
+		}
+	}
 
-}
+	//loops
+	$sth = $db->prepare("SELECT * FROM sensors");
+   $sth->execute();
+   $result = $sth->fetchAll(); 
 
-?>
-
-
+	$sth1 = $db->prepare("SELECT * FROM day_plan WHERE gpio='$gpio'");
+	$sth1->execute();
+	$dp = $sth1->fetchAll();
+	
+	$sth2 = $db->prepare("SELECT * FROM g_func WHERE gpio='$gpio' ORDER BY position ASC");
+	$sth2->execute();
+	$func = $sth2->fetchAll();
+	?>
 <div class="panel panel-default">
-<div class="panel-heading">Temperature functions <?php echo $fnum ?></div>
-<div class="table-responsive">
-<table class="table">
-<thead><tr><th>Sensor1</th><th>State</th><th>Source</th><th>Value</th><th>Hysteresis</th><th>On/Off</th><th>Week Profile</th></tr></thead>
+<div class="panel-heading">Value functions</div>
+<table class="table table-condensed table-hover table-striped">
+<thead><tr>
+
+<th>ID</th>
+<th>Pos</th>
+<th>Source</th>
+<th>State</th>
+<th>Mode</th>
+<th>Value</th>
+<th>Histeresis</th>
+<th>Action</th>
+<th>Week Profile</th>
+<th></th>
+
+</tr></thead>
+
 <div class="form-group">
-<?php
-    foreach (range(1, $fnum) as $v) {
-?>
 <tr>
+
 <form class="form-horizontal" action="" method="post">
 <td class="col-md-1">
-<select name="<?php echo temp_sensor . $v; ?>" class="form-control input-sm">
-<?php $sth = $db->prepare("SELECT * FROM sensors");
-    $sth->execute();
-    $result = $sth->fetchAll();
+</td>
+<td class="col-md-1">
+</td>
+<td class="col-md-1">
+<select name="sensor1" class="form-control input-sm">
+<?php 
     foreach ($result as $select) { ?>
-	<option <?php echo $a['temp_sensor'.$v] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo "{$select['name']} {$select['tmp']}" ?></option>
+	<option value="<?php echo $select['id']; ?>"><?php echo $select['name']." ".$select['tmp'] ?></option>
 <?php 
     } 
 ?>
@@ -154,104 +195,168 @@ if ($$temp_set == "on") {
 </td>
 
 <td class="col-md-1">
-<select name="<?php echo temp_op . $v ?>" class="form-control input-sm">
-    <option <?php echo $a['temp_op'.$v] == 'lt' ? 'selected="selected"' : ''; ?> value="lt">&lt;</option>   
-    <option <?php echo $a['temp_op'.$v] == 'le' ? 'selected="selected"' : ''; ?> value="le">&lt;&#61;</option>     
-    <option <?php echo $a['temp_op'.$v] == 'gt' ? 'selected="selected"' : ''; ?> value="gt">&gt;</option>   
-    <option <?php echo $a['temp_op'.$v] == 'ge' ? 'selected="selected"' : ''; ?> value="ge">&gt;&#61;</option>   
+<select name="op" class="form-control input-sm">
+    <option  value="lt">&lt;</option>   
+    <option  value="le">&lt;&#61;</option>     
+    <option  value="gt">&gt;</option>   
+    <option  value="ge">&gt;&#61;</option>   
 </select>
 </td>
 
-<td class="col-md-1">
-    <select name="<?php echo temp_source . $v; ?>" class="form-control input-sm" id="<?php echo state.$gpio.$v; ?>" onclick='showtemp<?php echo $gpio ?>(<?php echo $v; ?>)'>
-	<option <?php if ((!empty($a['temp_hyst'.$v])) && (!empty($a['temp_hyst'.$v]))) { echo 'selected="selected"';} ?> value="temphyst">Temp+Histeresis</option>
-	<option <?php if ((!empty($a['temp_temp'.$v])) && (empty($a['temp_hyst'.$v]))) { echo 'selected="selected"';} ?> value="temp">Temp</option>
-	<option <?php if ((!empty($a['temp_sensor_diff'.$v])) && (empty($a['temp_hyst'.$v]))) { echo 'selected="selected"';} ?> value="sensor2">Sensor2</option>
-	<option <?php if ((!empty($a['temp_sensor_diff'.$v])) && (!empty($a['temp_hyst'.$v]))) { echo 'selected="selected"';} ?> value="sensor2hyst">Sensor2+Histeresis</option>
+<td class="col-md-1" onclick='ch_source()'>
+    <select name="source" class="form-control input-sm" id="source">
+	<option value="valuehyst">Value+Histeresis</option>
+	<option value="value" selected="selected">Value</option>
+	<option value="sensor2">Sensor2</option>
+	<option value="sensor2hyst">Sensor2+Histeresis</option>
     </select>
 </td>
 
 <td class="col-md-1">
-<?php 
-	$sth = $db->prepare("SELECT * FROM sensors");
-	    $sth->execute();
-	    $result = $sth->fetchAll();
-	    $sensor2c = count($result);
-	?>
-    
-    <select id="<?php echo sensor2.$gpio.$v; ?>" name="<?php echo temp_sensor_diff.$v; ?>" class="form-control input-sm" <?php if (($a['temp_source'.$v] == 'sensor2') || ($a['temp_source'.$v] == 'sensor2hyst')) { echo 'style="display: block"'; } else { echo 'style="display: none"'; } ?> >
-	<?php
-	    foreach ($result as $select) { ?>
-		<option <?php echo $a['temp_sensor_diff'.$v] == $select['id'] ? 'selected="selected"' : ''; ?> value="<?php echo $select['id']; ?>"><?php echo $select['name']." ".$select['tmp'] ?></option>
-	    <?php } ?>
-    </select>
-    
-    <input id="<?php echo inputtemp.$gpio.$v; ?>"  type="text" name="<?php echo temp_temp . $v ?>" value="<?php echo $a['temp_temp'.$v]; ?>" class="form-control input-sm" <?php if (($a['temp_source'.$v] == 'temp') || ($a['temp_source'.$v] == 'temphyst') || (empty($a['temp_source'.$v]))) { echo 'style="display: block" required=""'; } else { echo 'style="display: none"'; } ?> >
-</td>
-
-<td class="col-md-1">
-    <input id="<?php echo inputhyst.$gpio.$v; ?>" type="text" name="<?php echo temp_hyst . $v ?>" value="<?php echo $a['temp_hyst'.$v]; ?>" class="form-control input-sm" <?php if (($a['temp_source'.$v] == 'temphyst') || ($a['temp_source'.$v] == 'sensor2hyst') || (empty($a['temp_source'.$v]))) { echo 'style="display: block" required=""'; } else { echo 'style="display: none"'; } ?> >
-</td>
-
-<td class="col-md-1">
-<select name="<?php echo temp_onoff . $v ?>" class="form-control input-sm">
-    <option <?php echo $a['temp_onoff'.$v] == 'on' ? 'selected="selected"' : ''; ?> value="on">ON</option>
-    <option <?php echo $a['temp_onoff'.$v] == 'off' ? 'selected="selected"' : ''; ?> value="off">OFF</option>
-    <option <?php echo $a['temp_onoff'.$v] == 'onoff' ? 'selected="selected"' : ''; ?> value="onoff">ON/OFF</option>
-</select>
-</td>
-
-<td class="col-md-1">
+   <select name="sensor2" class="form-control input-sm" id="sensor2" style="display: none">
 <?php
-	$sth = $db->prepare("SELECT name FROM day_plan WHERE gpio=$gpio");
-	    $sth->execute();
-	    $result = $sth->fetchAll();
-	    $sensor2c = count($result);
+   foreach ($result as $select) { 
+   ?>
+	<option value="<?php echo $select['id']; ?>"><?php echo $select['name']." ".$select['tmp'] ?></option>
+<?php 
+	} 
 	?>
-    <select id="" name="<?php echo temp_week_plan.$v; ?>" class="form-control input-sm" <?php echo $a['day_run'] != 'on' ? 'disabled="disabled"' : ''; ?>>
-	<?php 
-	    foreach ($result as $wp) { ?>
-		<option <?php echo $a['temp_week_plan'.$v] == $wp['name'] ? 'selected="selected"' : ''; ?> value="<?php echo $wp['name']; ?>"><?php echo $wp['name']?></option>
-	<?php } ?>
     </select>
+    <input type="text" name="value" class="form-control input-sm" id="value" required="">
+</td>
+
+<td class="col-md-1">
+    <input type="text" name="hyst" class="form-control input-sm" id="hyst" style="display: none">
+</td>
+
+<td class="col-md-1">
+<select name="onoff" class="form-control input-sm">
+    <option value="on">ON</option>
+    <option value="off">OFF</option>
+    <option value="and" id="actionand">AND</option>
+  <!--  <option value="onoff">ON/OFF</option> -->
+</select>
+</td>
+
+<td class="col-md-2">
+	<select name="day_plan" class="form-control input-sm" <?php echo $a['day_run'] != 'on' ? 'disabled="disabled"' : ''; ?>>
+<?php
+	foreach ($dp as $dp) {
+	?>
+	<option value="<?php echo $dp['name']?>"><?php echo $dp['name']?></option>
+<?php 
+	} 
+	?>
+	<option value="any" selected="selected">any</option>
+	</select>
 </td>
 
 <td class="col-md-1">
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-	<input type="hidden" name="<?php echo temp_set.$v ?>" value="on" />
-	<button type="submit" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-save"></span> Save</button>
+	<input type="hidden" name="fadd" value="add" />
+	<button type="submit" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+</td>
+
 </form>
-
-<?php if ($v == '1' && $fnum <= '9') { ?>
-    <form action="" method="post" style=" display:inline!important;">
-        <input type="hidden" name="<?php echo fa.$a['gpio'] ?>" value="fa" />
-	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-        <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button>
-    </form>
-<?php 
-    }
-if ($v == $a['fnum'] && $v != '1') { ?>
-    <form action="" method="post" style=" display:inline!important;">
-        <input type="hidden" name="<?php echo fd.$a['gpio'] ?>" value="fd" />
-	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
-        <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
-    </form>
-<?php
-    }
-?>
-</td>
 
 </tr>
 
-
-<?php
-    }
+<!-- lista funkcji -->
+<?php 
+    foreach ($func as $func) { ?>
+<tr>
+<td class="col-md-1">
+<?php echo $func['id']; ?>
+</td>
+<td class="col-md-1">
+<?php 
+	//echo $func['position'];
 ?>
-</div>
-</table>
-</div>
+	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+		<input type="hidden" name="fid" value="<?php echo $func['id']; ?>"/>
+		<input type="hidden" name="fpos" value="<?php echo $func['position']; ?>"/>
+		<input type="hidden" name="up" value="up" />
+		<button type="submit" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-arrow-up"></span></button>
+	</form>
+	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+		<input type="hidden" name="fid" value="<?php echo $func['id']; ?>"/>
+		<input type="hidden" name="fpos" value="<?php echo $func['position']; ?>"/>
+		<input type="hidden" name="down" value="down" />
+		<button type="submit" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-arrow-down"></span></button>
+	</form>
+</td>
+
+<td class="col-md-1">
+<?php
+  foreach ($result as $select) {
+	if($select['id'] == $func['sensor']) {
+			echo $select['name']." (".$select['tmp'].")";
+		}	
+	}
+?>
+</td>
+
+<td class="col-md-1">
+	<?php
+		if($func['op']=="lt") { echo "&lt"; }  
+		if($func['op']=="le") { echo "&lt;&#61;"; }
+		if($func['op']=="gt") { echo "&gt"; }
+		if($func['op']=="ge") { echo "&gt;&#61"; }
+	?>
+</td>
+
+<td class="col-md-1" onclick='ch_source()'>
+	<?php 
+	if($func['source']=="value") { echo "value"; }
+	elseif($func['source']=="valuehyst") { echo "val + hist"; }
+	elseif($func['source']=="sensor2hyst") { echo "sensor2 + hist"; }
+	elseif($func['source']=="sensor2") { echo "sensor2"; }
+		?>
+</td>
+
+<td class="col-md-1">
+<?php
+if ($func['source'] == 'sensor2' || $func['source'] == 'sensor2hyst') {
+ foreach ($result as $select) {
+	if($select['id'] == $func['sensor2']) {
+			echo $select['name']." (".$select['tmp'].")";
+		}	
+	}
+} else {
+	echo $func['value'];
+}
+?>
+</td>
+
+<td class="col-md-1">
+    <?php echo $func['hyst']?>
+</td>
+
+<td class="col-md-1">
+	<?php echo $func['onoff']?>
+</td>
+
+<td class="col-md-2">
+	<?php 
+		echo $name=str_replace('_', ' ', $func['w_profile']);
+		?>
+	</td>
+
+<td class="col-md-1">
+	<form class="form-horizontal" action="" method="post">
+		<input type="hidden" name="fid" value="<?php echo $func['id']; ?>"/>
+		<input type="hidden" name="fdel" value="del" />
+		<button type="submit" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+	</form>
+</td>
 
 
+</tr>
+<?php
+	}
+	?>
+
+</div>
 </table>
 </div>
 

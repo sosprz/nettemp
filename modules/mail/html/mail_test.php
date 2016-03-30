@@ -1,24 +1,4 @@
-<?php
-$test_mail = isset($_POST['test_mail']) ? $_POST['test_mail'] : '';
-$send = isset($_POST['send']) ? $_POST['send'] : '';
-if  ($send == "send") {
-	 $test_mail1=escapeshellarg($test_mail);
-    $cmd="nohup modules/mail/mail_test $test_mail1 'Test from your nettemp device' 'Test mail from Your nettemp device.'";
-    shell_exec($cmd . "> /dev/null 2>/dev/null &" ); 
-    
-$db = new PDO('sqlite:dbf/nettemp.db');
-$db->exec("UPDATE mail_settings SET test_mail='$test_mail'") or die ($db->lastErrorMsg());
-}
 
-?>
-
-<?php
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $sth = $db->prepare("select * from mail_settings ");
-    $sth->execute();
-    $result = $sth->fetchAll();
-    foreach ($result as $a) {
-?>
 
 <form class="form-horizontal" action="" method="post">
 <fieldset>
@@ -27,7 +7,7 @@ $db->exec("UPDATE mail_settings SET test_mail='$test_mail'") or die ($db->lastEr
 <div class="form-group">
   <label class="col-md-4 control-label" for="user">@</label>  
   <div class="col-md-4">
-  <input id="mail_test" name="test_mail" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a['test_mail'];?>">
+  <input id="mail_test" name="test_mail" placeholder="" class="form-control input-md" required="" type="text" value="" placeholder="test@nettemp.pl">
     
   </div>
 </div>
@@ -43,4 +23,27 @@ $db->exec("UPDATE mail_settings SET test_mail='$test_mail'") or die ($db->lastEr
 </fieldset>
 </form>
 
-<?php  }	?>
+<?php
+$test_mail = isset($_POST['test_mail']) ? $_POST['test_mail'] : '';
+$send = isset($_POST['send']) ? $_POST['send'] : '';
+if  ($send == "send") {
+	 $test_mail1=escapeshellarg($test_mail);
+	 if ( mail ($test_mail, 'Test mail from nettemp device', 'Working Fine.' ) ) {
+?>
+
+    		<center><span class="label label-success">Mail send ok</span></center>
+    		<br>
+<?php
+	 } else { 
+?>
+
+			<center><span class="label label-alert">Cannot send mail</span></center>
+			<br>
+
+<?php
+	 }
+
+}
+
+?>
+

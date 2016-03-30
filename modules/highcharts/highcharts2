@@ -23,9 +23,9 @@ cp $dir/dbf/nettemp.db $dir/tmp/highcharts
 # hosts
 charts_hosts=$(sqlite3 -cmd ".timeout 2000" $dir/tmp/highcharts/nettemp.db "SELECT charts_hosts FROM settings WHERE id='1'")
 if [[ "$charts_hosts" = "on" ]]; then
-name="$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT name FROM hosts")"
+name="$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name FROM hosts")"
 for i in $name; do
-    rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/hosts.db "SELECT rom FROM hosts WHERE name='$i'")
+    rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rom FROM hosts WHERE name='$i'")
     if base=$(sqlite3 -cmd ".timeout 2000" $dir/db/$rom.sql "select strftime('%s', time),value FROM def ORDER BY time ASC;") ;
 	then
 	    #middle=$(printf "$base %s\n" | awk -F "|" '{printf "["}{ printf "%3.0f",($1+3600)*1000}{printf ","}{printf "%3.3f", $2}{print "]," }')

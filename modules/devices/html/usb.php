@@ -29,6 +29,16 @@ $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("SELECT * FROM usb");
 $sth->execute();
 $result = $sth->fetchAll();
+
+
+foreach ($result as $a) {
+    if ($a['dev']!='none') {
+	$usbarr[]=$a['dev']; 
+    }
+}
+//print_r($usbarr);
+
+
 foreach ($result as $a) {
 
 ?>
@@ -41,9 +51,18 @@ foreach ($result as $a) {
 <td class="col-md-2">
     <form action="" method="post">
 	<select name="usb" class="form-control input-sm" onchange="this.form.submit()">
-	    <?php foreach($devs as $key => $de) { ?>
-		    <option value="<?php echo $key ?>"  <?php echo $a['dev'] == $key ? 'selected="selected"' : ''; ?>  ><?php echo $key." ".$de[0] ?></option>
-		<?php
+	    <?php foreach($devs as $key => $de) {
+		    if(in_array($key, $usbarr) && $a['dev'] == $key) {
+		    ?>
+			<option value="<?php echo $key ?>"  <?php echo $a['dev'] == $key ? 'selected="selected"' : ''; ?>  ><?php echo $key." ".$de[0] ?></option>
+		    <?php
+		    }
+		    elseif(!in_array($key, $usbarr)) {
+		    ?>
+			<option value="<?php echo $key ?>"  <?php echo $a['dev'] == $key ? '' : ''; ?>  ><?php echo $key." ".$de[0] ?></option>
+		    <?php
+		    }
+		    
 		    }
 		?>
 		    <option value="none" <?php echo $a['dev'] == 'none' ? 'selected="selected"' : ''; ?>  >none</option>

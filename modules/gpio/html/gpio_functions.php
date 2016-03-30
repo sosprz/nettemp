@@ -30,8 +30,18 @@ $map_num2=substr(rand(), 0, 6);
 	$id_rom_t='gpio_'.$gpio_post.'_temp.sql';
 	$rand=substr(rand(), 0, 4);
 	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj, charts, device, map_pos, map_num, map) VALUES ('$rand','$id_rom_newh', 'humid', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', '{left:0,top:0}', '$map_num', 'on')") or die ("cannot insert to DB humi" );
+	//maps
+	$inserted=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_newh'");
+	$inserted_id=$inserted->fetchAll();
+	$inserted_id=$inserted_id[0];
+	$db->exec("INSERT OR IGNORE INTO maps (type, element_id, map_pos, map_num) VALUES ('sensors', '$inserted_id[id]','{left:0,top:0}', '$map_num')");
 	$rand=substr(rand(), 0, 4);
 	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj, charts, device, map_pos, map_num, map) VALUES ('$rand','$id_rom_newt', 'temp', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', '{left:0,top:0}', '$map_num2', 'on')") or die ("cannot insert to DB temp" );
+	//maps
+	$inserted=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_newt'");
+	$inserted_id=$inserted->fetchAll();
+	$inserted_id=$inserted_id[0];
+	$db->exec("INSERT OR IGNORE INTO maps (type, element_id, map_pos, map_num) VALUES ('sensors', '$inserted_id[id]','{left:0,top:0}', '$map_num')");
 	$dbnew = new PDO("sqlite:db/$id_rom_h");
 	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
 	$dbnew = new PDO("sqlite:db/$id_rom_t");
@@ -182,18 +192,37 @@ $map_num2=substr(rand(), 0, 6);
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
     }
+	$gpiodel = isset($_POST['gpiodel']) ? $_POST['gpiodel'] : '';
+	if ($gpiodel == "gpiodel")  {
+			$dbmaps = new PDO('sqlite:dbf/nettemp.db');
+			//maps settings
+			$to_delete=$db->query("SELECT id FROM gpio WHERE gpio='$gpio_post'");
+			$to_delete_id=$to_delete->fetchAll();
+			$to_delete_id=$to_delete_id[0];
+			if ($to_delete_id['id'] != '') {
+			$dbmaps->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='gpio'");// or exit(header("Location: html/errors/db_error.php"));
+			}
+			$db->exec("DELETE FROM gpio WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
+			$db = null;
+			header("location: " . $_SERVER['REQUEST_URI']);
+			exit();
+			}
 
-    $gpiodel = isset($_POST['gpiodel']) ? $_POST['gpiodel'] : '';
-    if ($gpiodel == "gpiodel")  {
-	$db->exec("DELETE FROM gpio WHERE gpio='$gpio_post'") or die ($db->lastErrorMsg());
-	$db = null;
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit();
-    }
 
 
+
+?>
+<table>
+<td class="col-md-2">
+<?php
+include('gpio_name.php');
+?>
+</td>
+<td class="col-md-1">
+<?php
 include('gpio_rev.php');
 ?>
+<td>
     <form action="" method="post" style=" display:inline!important;">
 	<button type="submit" class="btn btn-xs btn-success">Simple on/off</button>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
@@ -305,11 +334,15 @@ if (empty($mode2)) { ?>
 <?php 
     }
 ?>
+</td>
+<td class="col-md-1">
 <form action="" method="post" style="display:inline!important;">
         <input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
         <input type="hidden" type="submit" name="gpiodel" value="gpiodel" />
         <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-stop"></span> Remove</button>
 </form>
+</td>
+</table>
 
 
 

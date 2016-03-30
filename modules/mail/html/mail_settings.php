@@ -1,4 +1,21 @@
 <?php
+$cfile = '/etc/msmtprc';
+
+$fh = fopen($cfile, 'r');
+$theData = fread($fh, filesize($cfile));
+$cread = array();
+$my_array = explode(PHP_EOL, $theData);
+foreach($my_array as $line)
+{
+    $tmp = explode(" ", $line);
+    $cread[$tmp[0]] = $tmp[1];
+}
+fclose($fh);
+$a=$cread;
+
+
+
+
 $address = isset($_POST['address']) ? $_POST['address'] : '';
 $user = isset($_POST['user']) ? $_POST['user'] : '';
 $host = isset($_POST['host']) ? $_POST['host'] : '';
@@ -9,32 +26,47 @@ $tls = isset($_POST['tls']) ? $_POST['tls'] : '';
 $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
 
 
-    $change_password1 = isset($_POST['change_password1']) ? $_POST['change_password1'] : '';
-    if  ($change_password1 == "change_password2") {
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE mail_settings SET port='$port'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE mail_settings SET host='$host'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE mail_settings SET user='$user'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE mail_settings SET address='$address'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE mail_settings SET password='$password'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE mail_settings SET auth='$auth'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE mail_settings SET tls='$tls'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE mail_settings SET tlscheck='$tlscheck'") or die ($db->lastErrorMsg());
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
+$change_password1 = isset($_POST['change_password1']) ? $_POST['change_password1'] : '';
+if  ($change_password1 == "change_password2") {
+	if (!file_exists($cfile)) {
+		$cmd = "sudo touch $cfile && sudo chown www-data $cfile && sudo chmod 600 $cfile";
+		shell_exec($cmd);
+	
+	}
+		$fh = fopen($cfile, 'w');
+
+		if(empty($address)){
+			$address='default';
+		}
+
+$conf = array (
+    'defaults' => '', 
+    'tls' => "on", 
+    'tls_starttls' => "on",
+    'tls_trust_file' => '/etc/ssl/certs/ca-certificates.crt',
+    'tls_certcheck' => "on",
+    'account' => 'default',
+	 'host' => "$host",
+	 'port' => "$port",
+	 'auth' => "$auth",
+	 'user' => "$user",
+	 'password' => "$password",
+	 'from' => "$address",
+	 'logfile' => '/var/log/msmtp.log'
+    );
+  
+
+		foreach ($conf as $index => $string) {
+    		fwrite($fh, $index." ".$string."\n");
+		}
+		header("location: " . $_SERVER['REQUEST_URI']);
+    	exit();
+}
 
 ?>
 
 
 
-<?php
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $sth = $db->prepare("select * from mail_settings ");
-    $sth->execute();
-    $result = $sth->fetchAll();
-	foreach ($result as $a) {
-?>
 
 <form class="form-horizontal" action="" method="post">
 <fieldset>
@@ -43,9 +75,9 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="user">Address</label>  
+  <label class="col-md-4 control-label" for="user">From</label>  
   <div class="col-md-4">
-  <input id="user" name="address" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a["address"]; ?>">
+  <input id="user" name="address" placeholder="not required" class="form-control input-md" type="text" value="<?php echo $a['from']; ?>">
     
   </div>
 </div>
@@ -54,7 +86,7 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
 <div class="form-group">
   <label class="col-md-4 control-label" for="user">Username</label>  
   <div class="col-md-4">
-  <input id="user" name="user" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a["user"]; ?>">
+  <input id="user" name="user" placeholder="ex. nettemp@nettemp.pl" class="form-control input-md" required="" type="text" value="<?php echo $a['user']; ?>">
     
   </div>
 </div>
@@ -63,7 +95,7 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
 <div class="form-group">
   <label class="col-md-4 control-label" for="password">Password</label>
   <div class="col-md-4">
-    <input id="password" name="password" placeholder="" class="form-control input-md" required="" type="password" value="<?php echo $a["password"]; ?>">
+    <input id="password" name="password" placeholder="" class="form-control input-md" required="" type="password" value="<?php echo $a['password']; ?>">
     
   </div>
 </div>
@@ -72,7 +104,7 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
 <div class="form-group">
   <label class="col-md-4 control-label" for="smtp">Server SMTP</label>  
   <div class="col-md-4">
-  <input id="host" name="host" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a["host"]; ?>">
+  <input id="host" name="host" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a['host']; ?>">
     
   </div>
 </div>
@@ -81,7 +113,7 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
 <div class="form-group">
   <label class="col-md-4 control-label" for="port">Port</label>  
   <div class="col-md-2">
-  <input id="port" name="port" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a["port"]; ?>">
+  <input id="port" name="port" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a['port']; ?>">
     
   </div>
 </div>
@@ -98,7 +130,7 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
   </div>
 </div>
 
-<!-- Select Basic -->
+<!--
 <div class="form-group">
   <label class="col-md-4 control-label" for="tls">TLS</label>
   <div class="col-md-4">
@@ -109,7 +141,7 @@ $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
   </div>
 </div>
 
-<!-- Select Basic -->
+
 <div class="form-group">
   <label class="col-md-4 control-label" for="tlscheck">TLS 
 Check</label>
@@ -120,6 +152,7 @@ Check</label>
     </select>
   </div>
 </div>
+-->
 
 <!-- Button -->
 <div class="form-group">
@@ -135,7 +168,6 @@ Check</label>
 
 </div>
 
-<?php }	?>
 
     
 

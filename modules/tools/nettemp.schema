@@ -33,14 +33,8 @@ CREATE TABLE gpio (
   time_offset TEXT,
   time_start TEXT,
   humid_type TEXT,
-  day_zone1s TEXT,
-  day_zone1e TEXT,
-  day_zone2s TEXT,
-  day_zone2e TEXT,
-  day_zone3s TEXT,
-  day_zone3e TEXT,
   day_run TEXT,
-  week_run TEXT,
+  week_run TEXT,CREATE TABL
   week_status TEXT,
   week_Mon TEXT,
   week_Tue TEXT,
@@ -54,69 +48,10 @@ CREATE TABLE gpio (
   kwh_run TEXT,
   kwh_divider TEXT,
   temp_run TEXT,
-  temp_sensor1 TEXT,
-  temp_onoff1 TEXT,
-  temp_temp1 REAL,
-  temp_op1 TEXT,
-  temp_sensor2 TEXT,
-  temp_onoff2 TEXT,
-  temp_temp2 REAL,
-  temp_op2 TEXT,
-  temp_sensor3 TEXT,
-  temp_onoff3 TEXT,
-  temp_temp3 TEXT,
-  temp_op3 TEXT, 
-  temp_sensor4 type TEXT, 
-  temp_onoff4 type TEXT, 
-  temp_temp4 type TEXT, 
-  temp_op4 type TEXT, 
-  temp_sensor5 type TEXT, 
-  temp_onoff5 type TEXT, 
-  temp_temp5 type TEXT, 
-  temp_op5 type TEXT, 
-  temp_sensor6 type TEXT, 
-  temp_onoff6 type TEXT, 
-  temp_temp6 type TEXT, 
-  temp_op6 type TEXT, 
-  temp_sensor7 type TEXT, 
-  temp_onoff7 type TEXT, 
-  temp_temp7 type TEXT, 
-  temp_op7 type TEXT, 
-  temp_sensor8 type TEXT, 
-  temp_onoff8 type TEXT, 
-  temp_temp8 type TEXT, 
-  temp_op8 type TEXT, 
-  temp_sensor9 type TEXT, 
-  temp_onoff9 type TEXT, 
-  temp_temp9 type TEXT, 
-  temp_op9 type TEXT, 
-  temp_sensor10 type TEXT, 
-  temp_onoff10 type TEXT, 
-  temp_temp10 type TEXT, 
-  temp_op10 type TEXT, temp_sensor_diff1 type TEXT, temp_sensor_diff2 type TEXT, temp_sensor_diff3 type TEXT, temp_sensor_diff4 type TEXT, temp_sensor_diff5 type TEXT, temp_sensor_diff6 type TEXT, temp_sensor_diff7 type TEXT, temp_sensor_diff8 type TEXT, temp_sensor_diff9 type TEXT, temp_sensor_diff10 type TEXT, temp_hyst1 type TEXT, temp_hyst2 type TEXT, temp_hyst3 type TEXT, temp_hyst4 type TEXT, temp_hyst5 type TEXT, temp_hyst6 type TEXT, temp_hyst7 type TEXT, temp_hyst8 type TEXT, temp_hyst9 type TEXT, temp_hyst10 type TEXT, trigger_source type TEXT, tout1 type TEXT, tout2 type TEXT, tout3 type TEXT, tout4 type TEXT, tout5 type TEXT, tout6 type TEXT, tout7 type TEXT, tout8 type TEXT, tout9 type TEXT, tout10 type TEXT, tout11 type TEXT, tout12 type TEXT, tout13 type TEXT, tout14 type TEXT, tout15 type TEXT, tout16 type TEXT, tout17 type TEXT, tout18 type TEXT, tout19 type TEXT, tout20 type TEXT, tout21 type TEXT, tout22 type TEXT, tout23 type TEXT, tout24 type TEXT, tout25 type TEXT, tout26 type TEXT, tout27 type TEXT, tout28 type TEXT, tout29 type TEXT, tout30 type TEXT, control type TEXT, control_run type TEXT, trigger_delay type TEXT, trigger_con type TEXT, tel_num1 type TEXT, tel_num2 type TEXT, tel_num3 type TEXT, tel_any type TEXT, tel_at type TEXT, temp_source1 type TEXT, temp_source2 type TEXT, temp_source3 type TEXT, temp_source4 type TEXT, temp_source5 type TEXT, temp_source6 type TEXT, temp_source7 type TEXT, temp_source8 type TEXT, temp_source9 type TEXT, temp_source10 type TEXT, elec_divider type TEXT, water_divider type TEXT, gas_divider type TEXT, elec_run type TEXT, water_run type TEXT, gas_run type TEXT, elec_debouncing type TEXT, water_debouncing type TEXT, gas_debouncing type TEXT, fnum type TEXT, state type TEXT, map_pos type NUM, map_num type NUM, temp_week_plan1 type TEXT, temp_week_plan2 type TEXT, temp_week_plan3 type TEXT, temp_week_plan4 type TEXT, temp_week_plan5 type TEXT, temp_week_plan6 type TEXT, temp_week_plan7 type TEXT, temp_week_plan8 type TEXT, temp_week_plan9 type TEXT, temp_week_plan10 type TEXT, map type NUM, position type NUM);
+  trigger_source type TEXT, tout1 type TEXT, tout2 type TEXT, tout3 type TEXT, tout4 type TEXT, tout5 type TEXT, tout6 type TEXT, tout7 type TEXT, tout8 type TEXT, tout9 type TEXT, tout10 type TEXT, tout11 type TEXT, tout12 type TEXT, tout13 type TEXT, tout14 type TEXT, tout15 type TEXT, tout16 type TEXT, tout17 type TEXT, tout18 type TEXT, tout19 type TEXT, tout20 type TEXT, tout21 type TEXT, tout22 type TEXT, tout23 type TEXT, tout24 type TEXT, tout25 type TEXT, tout26 type TEXT, tout27 type TEXT, tout28 type TEXT, tout29 type TEXT, tout30 type TEXT, control type TEXT, control_run type TEXT, trigger_delay type TEXT, trigger_con type TEXT, tel_num1 type TEXT, tel_num2 type TEXT, tel_num3 type TEXT, tel_any type TEXT, tel_at type TEXT, temp_source1 type TEXT, temp_source2 type TEXT, temp_source3 type TEXT, temp_source4 type TEXT, temp_source5 type TEXT, temp_source6 type TEXT, temp_source7 type TEXT, temp_source8 type TEXT, temp_source9 type TEXT, temp_source10 type TEXT, elec_divider type TEXT, water_divider type TEXT, gas_divider type TEXT, elec_run type TEXT, water_run type TEXT, gas_run type TEXT, elec_debouncing type TEXT, water_debouncing type TEXT, gas_debouncing type TEXT, fnum type TEXT, state type TEXT, map_pos type NUM, map_num type NUM, map type NUM, position type NUM, display_name type TEXT, control_on_map type TEXT);
 CREATE TABLE i2c (id INTEGER PRIMARY KEY,name TEXT, addr UNIQUE);
-CREATE TABLE mail_settings (
-  id INTEGER PRIMARY KEY,
-  host TEXT,
-  port TEXT,
-  user TEXT,
-  password TEXT,
-  address TEXT,
-  test_mail TEXT,
-  error type TEXT,
-  auth type TEXT,
-  tls type TEXT,
-  tlscheck type TEXT);
 CREATE TABLE meteo (id INTEGER PRIMARY KEY, temp TEXT, latitude TEXT, height TEXT, pressure TEXT, humid TEXT, onoff TEXT);
 CREATE TABLE newdev (id INTEGER PRIMARY KEY,list UNIQUE, type type TEXT, device type TEXT, i2c type TEXT, usb type TEXT, gpio type TEXT, ip type TEXT);
-CREATE TABLE recipient (
-  id INTEGER PRIMARY KEY,
-  name TEXT,
-  mail TEXT,
-  tel NUMERIC,
-  mail_alarm TEXT,
-  sms_alarm TEXT
-  );
 CREATE TABLE relays (id INTEGER PRIMARY KEY,list UNIQUE, name type TEXT, ip type TEXT, delay type TEXT, rom type TEXT, type type TEXT);
 CREATE TABLE settings (
    id INTEGER PRIMARY KEY,
@@ -131,7 +66,7 @@ CREATE TABLE settings (
    kwh TEXT,
    lcd TEXT,
    authmod TEXT
-  , radius type TEXT, lcdmode type TEXT, lcd4 type TEXT, call type TEXT, logger type TEXT, charts_system type TEXT, charts_hosts type TEXT, charts_gpio type TEXT, server_key type TEXT, client_key type TEXT, client_ip type TEXT, client_on type TEXT, charts_min type TEXT, charts_theme type TEXT, meteogram type TEXT, MCP23017 type TEXT, ups_status type TEXT);
+  , radius type TEXT, lcdmode type TEXT, lcd4 type TEXT, call type TEXT, logger type TEXT, charts_system type TEXT, charts_hosts type TEXT, charts_gpio type TEXT, server_key type TEXT, client_key type TEXT, client_ip type TEXT, client_on type TEXT, charts_min type TEXT, charts_theme type TEXT, meteogram type TEXT, MCP23017 type TEXT, ups_status type TEXT, temp_scale TEXT);
 CREATE TABLE sms_settings (
   id INTEGER PRIMARY KEY,
   name TEXT,
@@ -171,7 +106,42 @@ CREATE TABLE sensors (
   ip type TEXT, 
   device type TEXT,
   lcd type TEXT,
-  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT, i2c type TEXT, minmax type TEXT, sum type TEXT, map_pos type NUM, map_num type NUM, position INTEGER DEFAULT 1, map type NUM, ch_group type NUM);
+  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT, i2c type TEXT, minmax type TEXT, sum type TEXT, map_pos type NUM, map_num type NUM, position INTEGER DEFAULT 1, map type NUM, ch_group type NUM, display_name type TEXT, transparent_bkg type TEXT, background_color TEXT, background_low TEXT, background_high TEXT, font_color TEXT, font_size TEXT);
 CREATE TABLE usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE);
 CREATE TABLE statistics (id INTEGER PRIMARY KEY, agreement TEXT, nick TEXT, location TEXT, sensor_temp TEXT);
+CREATE TABLE g_func (id INTEGER PRIMARY KEY, position INTEGER DEFAULT 1, sensor TEXT, sensor2 TEXT, onoff TEXT, value TEXT, op TEXT, hyst TEXT, source TEXT, gpio TEXT, w_profile TEXT);
+CREATE TABLE hosts (
+id INTEGER PRIMARY KEY,
+name UNIQUE,
+ip TEXT, 
+type TEXT,
+last TEXT, 
+status TEXT, 
+rom type TEXT, 
+map_pos type NUM, 
+map_num type NUM, 
+map type NUM, 
+alarm type TEXT, 
+position type NUM
+, element_id type TEXT);
+CREATE TABLE snmp (
+  id INTEGER PRIMARY KEY,
+  name UNIQUE,
+  rom UNIQUE,
+  community TEXT,
+  host TEXT,
+  oid TEXT,
+  divider TEXT,
+  type type TEXT,
+  version type TEXT
+);
+CREATE TABLE maps (
+	id INTEGER PRIMARY KEY,
+	type TEXT,
+	element_id INTEGER,
+	map_num type NUM,
+	map_pos NUMERIC, 
+	position INTEGER DEFAULT 1
+, map_on type TEXT, transparent type TEXT, control_on_map type TEXT, display_name type TEXT, transparent_bkg type TEXT, background_color TEXT, background_low TEXT, background_high TEXT, font_color TEXT, font_size TEXT, icon TEXT);
+CREATE TABLE highcharts (id INTEGER PRIMARY KEY,charts_min TEXT, charts_theme TEXT, charts_fast TEXT);
 CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE tmp = old.tmp; END;

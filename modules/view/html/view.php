@@ -1,6 +1,6 @@
 <?php 
 $db = new PDO('sqlite:dbf/nettemp.db');
-$rows1 = $db->query("SELECT charts_theme FROM settings WHERE id='1'");
+$rows1 = $db->query("SELECT charts_theme FROM highcharts WHERE id='1'");
 $row1 = $rows1->fetchAll();
 foreach($row1 as $t){
 $theme=$t['charts_theme'];
@@ -47,7 +47,7 @@ foreach($row1 as $hi){
 $type[]=$hi['type'];
 }
 
-$dbh = new PDO('sqlite:dbf/hosts.db');
+$dbh = new PDO('sqlite:dbf/nettemp.db');
 $rows1 = $dbh->query("SELECT name FROM hosts");
 $row1 = $rows1->fetchAll();
 $hostc = count($row1);
