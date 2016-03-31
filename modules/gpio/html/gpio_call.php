@@ -33,6 +33,15 @@ $savenum = isset($_POST['savenum']) ? $_POST['savenum'] : '';
     $cmd=("nohup modules/gpio/call_proc");
     shell_exec( $cmd . "> /dev/null 2>/dev/null &" );
     }
+    
+$bi = isset($_POST['bi']) ? $_POST['bi'] : '';
+$moment_time = isset($_POST['moment_time']) ? $_POST['moment_time'] : '';
+
+if ($bi == "bi")  {
+	 $db->exec("UPDATE gpio SET moment_time='$moment_time' where gpio='$gpio_post' ") or die("simple off db error");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 ?>
 
 <table class="table table-striped">
@@ -82,6 +91,14 @@ if ($a['tel_any'] == 'on') {
    }
 ?>
 
+Delay
+<form action="" method="post" style=" display:inline!important;">
+ 	 <input type="number" name="moment_time" size="2" value="<?php echo $a['moment_time']; ?>" style="width: 4em;"/>
+    <button type="submit" class="btn btn-xs btn-warning">Save</button>
+    <input type="hidden" name="bi" value="on" />
+    <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+    <input type="hidden" name="bi" value="bi" />
+</form>
 
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="simpleexit" value="exit" />

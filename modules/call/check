@@ -15,25 +15,29 @@ LOG="$dir/tmp/incoming_calls.txt"
     day=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT $date1 FROM access_time WHERE name='$name'")
     stime=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT stime FROM access_time WHERE name='$name'")
     etime=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT etime FROM access_time WHERE name='$name'")
+    
+    
 
 if [[ "$day" == "$date1" && "$date2" > "$stime" && "$date2" < "$etime" ]]; then
     gpio=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT ctr FROM users WHERE tel='$number'")
+    moment_time=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT moment_time FROM gpio WHERE gpio='$gpio'")
     /usr/local/bin/gpio -g mode $gpio output
     /usr/local/bin/gpio -g write $gpio 1
-    sleep 2
+    sleep $moment_time
     /usr/local/bin/gpio -g write $gpio 0
     echo "${DATE} Call Allow $number" >> ${LOG}
 
 else 
     tel_any=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT gpio FROM gpio WHERE tel_any='on'")
     profil=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tel_at FROM gpio WHERE gpio='$tel_any'")
+    moment_time=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT moment_time FROM gpio WHERE gpio='$tel_any'")
     day=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT $date1 FROM access_time WHERE name='$profil'")
     stime=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT stime FROM access_time WHERE name='$profil'")
     etime=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT etime FROM access_time WHERE name='$profil'")
     if [ -n "$tel_any" ]; then
 	/usr/local/bin/gpio -g mode $tel_any output
 	/usr/local/bin/gpio -g write $tel_any 1
-	sleep 2
+	sleep $moment_time
 	/usr/local/bin/gpio -g write $tel_any 0
 	echo "${DATE} Call Allow $number - Any rule" >> ${LOG}    
     else
