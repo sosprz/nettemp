@@ -40,6 +40,7 @@ $savenum = isset($_POST['savenum']) ? $_POST['savenum'] : '';
 <th>Name</th><th>Tel</th>
 </tbody>
 <?php 
+if ($a['tel_any'] != 'on') {
     $db = new PDO("sqlite:dbf/nettemp.db");
     $urows = $db->query("SELECT * FROM users where ctr='$gpio'");
     $uresult = $urows->fetchAll();
@@ -47,6 +48,7 @@ $savenum = isset($_POST['savenum']) ? $_POST['savenum'] : '';
     <tr><td><?php echo $ua['login'];?></td> <td><?php echo $ua['tel'];?></td></tr>
 <?php
     }
+ }
 ?>
 <table>
 
