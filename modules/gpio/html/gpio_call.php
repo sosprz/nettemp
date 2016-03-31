@@ -41,10 +41,10 @@ $savenum = isset($_POST['savenum']) ? $_POST['savenum'] : '';
 </tbody>
 <?php 
     $db = new PDO("sqlite:dbf/nettemp.db");
-    $rows = $db->query("SELECT * FROM users where ctr='$gpio'");
-    $result = $rows->fetchAll();
-    foreach ($result as $a) { ?>
-    <tr><td><?php echo $a['login'];?></td> <td><?php echo $a['tel'];?></td></tr>
+    $urows = $db->query("SELECT * FROM users where ctr='$gpio'");
+    $uresult = $urows->fetchAll();
+    foreach ($uresult as $ua) { ?>
+    <tr><td><?php echo $ua['login'];?></td> <td><?php echo $ua['tel'];?></td></tr>
 <?php
     }
 ?>
