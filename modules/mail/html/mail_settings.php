@@ -76,7 +76,7 @@ $conf = array (
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="user">From</label>  
-  <div class="col-md-4">
+  <div class="col-md-2">
   <input id="user" name="address" placeholder="not required" class="form-control input-md" type="text" value="<?php echo $a['from']; ?>">
     
   </div>
@@ -85,7 +85,7 @@ $conf = array (
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="user">Username</label>  
-  <div class="col-md-4">
+  <div class="col-md-2">
   <input id="user" name="user" placeholder="ex. nettemp@nettemp.pl" class="form-control input-md" required="" type="text" value="<?php echo $a['user']; ?>">
     
   </div>
@@ -94,7 +94,7 @@ $conf = array (
 <!-- Password input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="password">Password</label>
-  <div class="col-md-4">
+  <div class="col-md-2">
     <input id="password" name="password" placeholder="" class="form-control input-md" required="" type="password" value="<?php echo $a['password']; ?>">
     
   </div>
@@ -103,7 +103,7 @@ $conf = array (
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="smtp">Server SMTP</label>  
-  <div class="col-md-4">
+  <div class="col-md-2">
   <input id="host" name="host" placeholder="smtp.gmail.com" class="form-control input-md" required="" type="text" value="<?php echo $a['host']; ?>">
     
   </div>
@@ -112,7 +112,7 @@ $conf = array (
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="port">Port</label>  
-  <div class="col-md-2">
+  <div class="col-md-1">
   <input id="port" name="port" placeholder="587" class="form-control input-md" required="" type="text" value="<?php echo $a['port']; ?>">
     
   </div>
@@ -121,7 +121,7 @@ $conf = array (
 <!-- Select Basic -->
 <div class="form-group">
   <label class="col-md-4 control-label" for="auth">Auth</label>
-  <div class="col-md-2">
+  <div class="col-md-1">
     <select id="auth" name="auth" class="form-control">
       <option value="on" <?php echo $a['auth'] == 'on' ? 'selected="selected"' : ''; ?>>on</option>
       <option value="off" <?php echo $a['auth'] == 'off' ? 'selected="selected"' : ''; ?>>off</option>
@@ -133,7 +133,7 @@ $conf = array (
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="tls">TLS</label>
-  <div class="col-md-4">
+  <div class="col-md-1">
     <select id="tls" name="tls" class="form-control">
     <option value="on" <?php echo $a['tls'] == 'on' ? 'selected="selected"' : 'selected="selected"'; ?>>on</option>
     <option value="off" <?php echo $a['tls'] == 'off' ? 'selected="selected"' : ''; ?>>off</option>
@@ -144,7 +144,7 @@ $conf = array (
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="tlscheck">TLS Check</label>
-  <div class="col-md-4">
+  <div class="col-md-1">
     <select id="tlscheck" name="tlscheck" class="form-control">
       <option value="on" <?php echo $a['tlscheck'] == 'on' ? 'selected="selected"' : ''; ?>>on</option>
       <option value="off" <?php echo $a['tlscheck'] == 'off' ? 'selected="selected"' : 'selected="selected"'; ?> >off</option>

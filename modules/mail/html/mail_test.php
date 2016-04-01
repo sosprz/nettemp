@@ -6,7 +6,7 @@
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="user">@</label>  
-  <div class="col-md-4">
+  <div class="col-md-2">
   <input id="mail_test" name="test_mail" placeholder="" class="form-control input-md" required="" type="text" value="" placeholder="test@nettemp.pl">
     
   </div>
