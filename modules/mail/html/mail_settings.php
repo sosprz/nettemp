@@ -41,10 +41,10 @@ if  ($change_password1 == "change_password2") {
 
 $conf = array (
     'defaults' => '', 
-    'tls' => "on", 
-    'tls_starttls' => "on",
-    'tls_trust_file' => '/etc/ssl/certs/ca-certificates.crt',
-    'tls_certcheck' => "on",
+    'tls' => "$tls",
+ //   'tls_starttls' => "on",
+ // 'tls_trust_file' => '/etc/ssl/certs/ca-certificates.crt',
+    'tls_certcheck' => "$tlscheck",
     'account' => 'default',
 	 'host' => "$host",
 	 'port' => "$port",
@@ -104,7 +104,7 @@ $conf = array (
 <div class="form-group">
   <label class="col-md-4 control-label" for="smtp">Server SMTP</label>  
   <div class="col-md-4">
-  <input id="host" name="host" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a['host']; ?>">
+  <input id="host" name="host" placeholder="smtp.gmail.com" class="form-control input-md" required="" type="text" value="<?php echo $a['host']; ?>">
     
   </div>
 </div>
@@ -113,7 +113,7 @@ $conf = array (
 <div class="form-group">
   <label class="col-md-4 control-label" for="port">Port</label>  
   <div class="col-md-2">
-  <input id="port" name="port" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $a['port']; ?>">
+  <input id="port" name="port" placeholder="587" class="form-control input-md" required="" type="text" value="<?php echo $a['port']; ?>">
     
   </div>
 </div>
@@ -130,12 +130,12 @@ $conf = array (
   </div>
 </div>
 
-<!--
+
 <div class="form-group">
   <label class="col-md-4 control-label" for="tls">TLS</label>
   <div class="col-md-4">
     <select id="tls" name="tls" class="form-control">
-    <option value="on" <?php echo $a['tls'] == 'on' ? 'selected="selected"' : ''; ?>>on</option>
+    <option value="on" <?php echo $a['tls'] == 'on' ? 'selected="selected"' : 'selected="selected"'; ?>>on</option>
     <option value="off" <?php echo $a['tls'] == 'off' ? 'selected="selected"' : ''; ?>>off</option>
     </select>
   </div>
@@ -143,16 +143,15 @@ $conf = array (
 
 
 <div class="form-group">
-  <label class="col-md-4 control-label" for="tlscheck">TLS 
-Check</label>
+  <label class="col-md-4 control-label" for="tlscheck">TLS Check</label>
   <div class="col-md-4">
     <select id="tlscheck" name="tlscheck" class="form-control">
       <option value="on" <?php echo $a['tlscheck'] == 'on' ? 'selected="selected"' : ''; ?>>on</option>
-      <option value="off" <?php echo $a['tlscheck'] == 'off' ? 'selected="selected"' : ''; ?> >off</option>
+      <option value="off" <?php echo $a['tlscheck'] == 'off' ? 'selected="selected"' : 'selected="selected"'; ?> >off</option>
     </select>
   </div>
 </div>
--->
+
 
 <!-- Button -->
 <div class="form-group">
