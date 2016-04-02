@@ -42,7 +42,7 @@ if  ($change_password1 == "change_password2") {
 $conf = array (
     'defaults' => '', 
     'tls' => "$tls",
- //   'tls_starttls' => "on",
+    'tls_starttls' => "$tls",
  // 'tls_trust_file' => '/etc/ssl/certs/ca-certificates.crt',
     'tls_certcheck' => "$tlscheck",
     'account' => 'default',
