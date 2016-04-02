@@ -71,6 +71,9 @@
     $temp_scaleonoff = isset($_POST['temp_scaleonoff']) ? $_POST['temp_scaleonoff'] : '';
     $temp_scaleon = isset($_POST['temp_scaleon']) ? $_POST['temp_scaleon'] : '';
     if (($temp_scaleonoff == "onoff")){
+    	if(empty($temp_scaleon) {
+    		$temp_scaleon='C';
+    	}
     $db->exec("UPDATE settings SET temp_scale='$temp_scaleon' WHERE id='1'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
