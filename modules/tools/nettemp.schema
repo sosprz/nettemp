@@ -34,7 +34,7 @@ CREATE TABLE gpio (
   time_start TEXT,
   humid_type TEXT,
   day_run TEXT,
-  week_run TEXT,CREATE TABL
+  week_run TEXT,
   week_status TEXT,
   week_Mon TEXT,
   week_Tue TEXT,
