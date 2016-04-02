@@ -36,7 +36,7 @@ if  ($change_password1 == "change_password2") {
 		$fh = fopen($cfile, 'w');
 
 		if(empty($address)){
-			$address='default';
+			$address=$user;
 		}
 
 $conf = array (
