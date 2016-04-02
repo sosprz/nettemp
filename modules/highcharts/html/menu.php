@@ -156,7 +156,7 @@ $(function () {
         	labelFormatter: function() {
           var lastVal = this.yData[this.yData.length - 1];
            if (types[this.name]=='temp' && temp_scale=='F') {n_units = " °F"}
-			 else if (types[this.name]=='temp' && temp_scale=='') {n_units = " °C" }
+			 else if (types[this.name]=='temp' && temp_scale=='C') {n_units = " °C" }
 		    if (types[this.name]=='humid') {n_units = " %"};
 		    if (types[this.name]=='press') {n_units = " hPa"};
 		    if (types[this.name]=='gpio') {n_units = " H/L"};
@@ -202,7 +202,7 @@ $(function () {
     	
     	
 	 if (types[name]=='temp' && temp_scale=='F') {n_units = " °F"}
-	 else if (types[name]=='temp' && temp_scale=='') {var n_units = " °C" }
+	 else if (types[name]=='temp' && temp_scale=='C') {var n_units = " °C" }
     if (types[name]=='humid') { var n_units = " %"}
     if (types[name]=='press') { var n_units = " hPa"}
     if (types[name]=='gpio') { var n_units = " H/L"}
