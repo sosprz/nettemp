@@ -39,6 +39,7 @@ Debian, RaspberryPi:
 BETA:
 
 	mkdir -p /var/www/nettemp && cd /var/www
+	apt-get instal -y git
 	git clone https://github.com/sosprz/nettemp
 	cd nettemp && git checkout beta && ./install_nettemp
 
