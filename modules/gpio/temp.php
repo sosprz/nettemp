@@ -189,6 +189,13 @@ foreach ($row as $a) {
 					$value_max=$sensor2_tmpadj+$func['hyst'];
 			}
 			
+			if($sensor_tmp=='error') {
+				action_off($op,$sensor_name,$gpio,$rev);
+				echo date('Y H:i:s')." GPIO ".$gpio." sensor ".$sensor_name." ERROR, GOING OFF\n";
+				echo date('Y H:i:s')." GPIO ".$gpio." ".$mode.", ".$sensor_name." ".$sensor_tmp.", ".$op.", ".$sensor2_name." ".$value.", ".$hyst.", ".$value_max.", ".$onoff.", ".$w_profile."\n";
+				continue;
+			}			
+				
 			//LOG
 			echo date('Y H:i:s')." GPIO ".$gpio." ".$mode.", ".$sensor_name." ".$sensor_tmpadj.", ".$op.", ".$sensor2_name." ".$value.", ".$hyst.", ".$value_max.", ".$onoff.", ".$w_profile."\n";
 			
