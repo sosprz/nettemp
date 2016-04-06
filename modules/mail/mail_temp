@@ -11,7 +11,7 @@ if [ "$onoff" == "on" ]; then
 dirs=$dir/tmp/mail
 mkdir -p $dirs/hour
 date2=`date +%Y%m%d-%H:%M`
-user=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT user FROM mail_settings"`
+user=$(sudo cat /etc/msmtprc |grep user | awk '{ print $2 }')
 
 function file {
     source $(dirname $0)/mail_body
