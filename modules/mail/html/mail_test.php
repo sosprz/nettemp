@@ -14,7 +14,7 @@
 
 <!-- Button -->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="mail_test"></label>
+  <label class="col-md-4 control-label" for="send"></label>
   <div class="col-md-4">
     <button id="send" name="send" value="send" class="btn btn-xs btn-success">Send test</button>
   </div>
