@@ -11,6 +11,9 @@ date2=`date +%Y%m%d-%H:%M`
 get_mail=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mail FROM users WHERE maila='yes'" | awk '{ printf " "$1 }'`
 user=$(sudo cat /etc/msmtprc |grep user | awk '{ print $2 }')
 
+minute=$dirs/$name.mail
+hour=$dirs2/$name.mail
+
 function file {
 source $(dirname $0)/mail_body
 chmod 777 $2
@@ -20,12 +23,13 @@ if name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name FROM hos
     then
 	for name in $name
 	do  
-	    minute=$dirs/$name.mail
-	    hour=$dirs2/$name.mail
 	    if [ ! -f $hour ]
 		then
 		    file "<td>$name</td><td>0</td><td>$date</td><td bgcolor="#FF0000">Lost connection</td>" $minute
+	    else
+		    file "<td>$name</td><td>0</td><td>$date</td><td bgcolor="#FF0000">Lost connection</td>" $hour
 	    fi
+
 	done
 fi
 
@@ -35,8 +39,6 @@ if name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name FROM hos
     then
 	for name in $name
 	do
-	    minute=$dirs/$name.mail
-	    hour=$dirs2/$name.mail
 	    if [ -f "$hour" ]
 		then
 		    file "<td>$name</td><td></td><td>$date</td><td bgcolor="#00FF00">RECOVERY</td>" $minute
