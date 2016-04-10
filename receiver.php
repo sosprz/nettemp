@@ -235,7 +235,12 @@ function db($rom,$val,$type,$device,$current) {
 		    ////status for all
 		    //hosts status
 		    if ($type == 'host') {
-					$dbh->exec("UPDATE hosts SET last='$val', status='OK' WHERE rom='$rom'")or die ("cannot insert to hosts status\n");
+		    		if($val==0) {
+		    			$dbh->exec("UPDATE hosts SET last='0', status='error' WHERE rom='$rom'")or die ("cannot insert to hosts status\n");
+		    		} 
+		    		else {   			
+						$dbh->exec("UPDATE hosts SET last='$val', status='ok' WHERE rom='$rom'")or die ("cannot insert to hosts status\n");
+					}
 		    }
 		    elseif ($type == 'trigger') {
 					$dbn->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to trigger status2\n");
