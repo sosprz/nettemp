@@ -12,6 +12,7 @@ dirs=$dir/tmp/mail
 mkdir -p $dirs/hour
 date2=`date +%Y%m%d-%H:%M`
 user=$(sudo cat /etc/msmtprc |grep user | awk '{ print $2 }')
+get_mail=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mail FROM users WHERE maila='yes'" | awk '{ printf " "$1 }'`
 
 function file {
     source $(dirname $0)/mail_body
