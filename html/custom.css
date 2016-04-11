@@ -50,10 +50,19 @@ body {
 	background: rgba(0,0,0,0) !important; 
 }
 
-.container-nettemp { 
-  padding-left: 100px;
-  padding-right: 100px;
+@media screen and (max-width: 680px) {
+.container-nettemp {
+padding: 10px;
 }
+.grid-item { width: calc(100% - 10px) !important }
+}
+@media screen and (min-width: 680px) {
+.container-nettemp {
+padding: 0px 100px;
+}
+.grid-item { width:350px; }
+}
+
 
 .container-controls {
 	width: 100px;
