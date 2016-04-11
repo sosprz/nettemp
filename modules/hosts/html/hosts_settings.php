@@ -51,7 +51,7 @@ $map_num=substr(rand(), 0, 4);
 	$db->exec("DELETE FROM hosts WHERE name='$host_name'") or die ($db->lastErrorMsg());
 	unlink("db/$host_name.sql");
 	unlink("tmp/mail/$host_name.mail");
-    unlink("tmp/mail/hour/$host_name.mail");
+   unlink("tmp/mail/hour/$host_name.mail");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
     }
@@ -61,10 +61,14 @@ $map_num=substr(rand(), 0, 4);
     $alarmonoff = isset($_POST['alarmonoff']) ? $_POST['alarmonoff'] : '';
     $alarmon = isset($_POST['alarmon']) ? $_POST['alarmon'] : '';
     if (($alarmonoff == "onoff")){
-	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE hosts SET alarm='$alarmon' WHERE id='$alarm'") or die ($db->lastErrorMsg());
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit();
+		$db = new PDO('sqlite:dbf/nettemp.db');
+		$db->exec("UPDATE hosts SET alarm='$alarmon' WHERE id='$alarm'") or die ($db->lastErrorMsg());
+		if($alarmon!='on') {
+			unlink("tmp/mail/$host_name.mail");
+   		unlink("tmp/mail/hour/$host_name.mail");
+   	}
+		header("location: " . $_SERVER['REQUEST_URI']);
+		exit();
     }
 
 ?>
@@ -129,7 +133,8 @@ foreach ($result as $a) {
 	<td><?php echo $a["ip"];?></td>
 	<td><?php echo $a["type"];?></td>
 	<td >
-	<form action="" method="post" style="display:inline!important;"> 	
+	<form action="" method="post" style="display:inline!important;">
+	    <input type="hidden" name="host_name" value="<?php echo $a["name"]; ?>" />
 	    <input type="hidden" name="alarm" value="<?php echo $a["id"]; ?>" />
 	    <input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarmon" value="on" <?php echo $a["alarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	    <input type="hidden" name="alarmonoff" value="onoff" />
