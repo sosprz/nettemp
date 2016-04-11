@@ -45,7 +45,8 @@ $fw=$a["fw"];
 <?php
     if ($fw == "on" ) { ?>
     <?php include('fw_settings.php'); ?>
-    <?php include('fw_status.php'); ?>
+   
 <?php	 } ?>
+ <?php include('fw_status.php'); ?>
 
 

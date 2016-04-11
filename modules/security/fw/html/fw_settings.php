@@ -6,20 +6,20 @@
     $ext = isset($_POST['ext']) ? $_POST['ext'] : '';
     $fw_apply = isset($_POST['fw_apply']) ? $_POST['fw_apply'] : '';
     if (($fw_apply == "fw_apply") ){
-	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE fw SET ssh='$ssh'") or die ("exec error");
-	$db->exec("UPDATE fw SET icmp='$icmp'") or die ("exec error");
-	$db->exec("UPDATE fw SET openvpn='$openvpn'") or die ("exec error");
-	$db->exec("UPDATE fw SET ext='$ext'") or die ("exec error");
-	$db->exec("UPDATE fw SET radius='$radius'") or die ("exec error");
-	if (empty($ssh)) { $ssh="off"; }
-	if (empty($icmp)) { $icmp="off"; }
-	if (empty($openvpn)) { $openvpn="off"; }
-	if (empty($ext)) { $ext="off"; }
-	if (empty($radius)) { $radius="off"; }
-	shell_exec("/bin/bash modules/security/fw/fw on $icmp $ssh $ext $openvpn $radius");
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit();
+		$db = new PDO('sqlite:dbf/nettemp.db');
+		$db->exec("UPDATE fw SET ssh='$ssh'") or die ("exec error");
+		$db->exec("UPDATE fw SET icmp='$icmp'") or die ("exec error");
+		$db->exec("UPDATE fw SET openvpn='$openvpn'") or die ("exec error");
+		$db->exec("UPDATE fw SET ext='$ext'") or die ("exec error");
+		$db->exec("UPDATE fw SET radius='$radius'") or die ("exec error");
+		if (empty($ssh)) { $ssh="off"; }
+		if (empty($icmp)) { $icmp="off"; }
+		if (empty($openvpn)) { $openvpn="off"; }
+		if (empty($ext)) { $ext="off"; }
+		if (empty($radius)) { $radius="off"; }
+		shell_exec("/bin/bash modules/security/fw/fw on $icmp $ssh $ext $openvpn $radius");
+		header("location: " . $_SERVER['REQUEST_URI']);
+		exit();
     }
 ?>
 

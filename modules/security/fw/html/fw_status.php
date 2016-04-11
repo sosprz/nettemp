@@ -3,11 +3,11 @@
 <div class="panel-body">
 IP
 <pre>
-<?php passthru('sudo iptables -L -n'); ?>
+<?php passthru('sudo iptables -L -n --line-numbers'); ?>
 </pre>
 NAT
 <pre>
-<?php passthru('sudo iptables -L -n -t nat'); ?>
+<?php passthru('sudo iptables -L -n -t nat --line-numbers'); ?>
 </pre>
 </div>
 </div>
