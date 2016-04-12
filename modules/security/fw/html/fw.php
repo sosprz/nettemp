@@ -5,7 +5,9 @@
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE settings SET fw='$fw_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
     if ($fw_onoff != "on") {
-    shell_exec("/bin/bash modules/security/fw/fw off");
+    	shell_exec("/bin/bash modules/security/fw/fw off");
+    } else {
+    	shell_exec("/bin/bash modules/security/fw/fw on");
     }
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
