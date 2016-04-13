@@ -8,10 +8,10 @@
 <?php  
 switch ($art)
 { 
-default: case '$art': include('modules/view/html/map.php'); break;
-case 'settings': include('modules/view/html/map_settings.php'); break;
-case 'map': include('modules/view/html/map.php'); break;
-case 'upload': include('modules/view/html/map_upload.php'); break;
+default: case '$art': include('modules/map/map.php'); break;
+case 'settings': include('modules/map//map_settings.php'); break;
+case 'map': include('modules/map/map.php'); break;
+case 'upload': include('modules/map/map_upload.php'); break;
 
 }
 
