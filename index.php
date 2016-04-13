@@ -125,7 +125,7 @@ if (file_exists("tmp/reboot")) {  ?>
 switch ($id)
 { 
 default: case '$id': include('status/status.php'); break;
-case 'view': include('modules/view/html/view.php'); break;
+case 'view': include('modules/charts/menu.php'); break;
 case 'map': include('modules/map/map_main.php'); break;
 case 'devices': include('modules/devices/html/devices.php'); break;
 case 'security': include('modules/security/html/security.php'); break;
