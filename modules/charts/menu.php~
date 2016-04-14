@@ -39,16 +39,16 @@ $gre3 = count($grp3);
 //print_r($type);
 ?>
 <p>
-<a href="index.php?id=view&type=temp&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'temp' ? ' active' : ''; ?>">Temperature</button></a>
+<a href="index.php?id=view&type=temp&max=day&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php echo $art == 'temp' ? ' active' : ''; ?>">Temperature</button></a>
 <?php 
 if (in_array('humid', $type))  {?>
-<a href="index.php?id=view&type=humid&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'humid' ? ' active' : ''; ?>">Humidity</button></a>
+<a href="index.php?id=view&type=humid&max=day&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php echo $art == 'humid' ? ' active' : ''; ?>">Humidity</button></a>
 <?php }
 if (in_array('press', $type))  {?>
-<a href="index.php?id=view&type=press&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'press' ? ' active' : ''; ?>">Pressure</button></a>
+<a href="index.php?id=view&type=press&max=day&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php echo $art == 'press' ? ' active' : ''; ?>">Pressure</button></a>
 <?php }
 if (in_array('altitude', $type))  {?>
-<a href="index.php?id=view&type=altitude&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'altitude' ? ' active' : ''; ?>">Altitude view</button></a>
+<a href="index.php?id=view&type=altitude&max=day&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php echo $art == 'altitude' ? ' active' : ''; ?>">Altitude view</button></a>
 <?php }
 //if (glob('tmp/kwh/*.json')) {?>
 <!-- <a href="index.php?id=view&type=kwh" ><button class="btn btn-xs btn-default <?php echo $art == 'kwh' ? ' active' : ''; ?>">kWh</button></a> -->
@@ -117,8 +117,8 @@ if ($art!='meteogram') {
 <?php  
 switch ($art)
 { 
-//default: case '$art': include('modules/charts/highcharts/highcharts.php'); break;
-default: case '$art': include('modules/charts/rickshaw/rickshaw.php'); break;
+default: case '$art': include('modules/charts/highcharts/highcharts.php'); break;
+default: case '$art': include('modules/charts/nvd3/nvd3.php'); break;
 case 'meteogram': include('modules/charts/meteogram.php'); break;
 }
 ?>
