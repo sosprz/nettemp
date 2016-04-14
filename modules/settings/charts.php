@@ -5,6 +5,15 @@
 
 
 <?php
+    $charts = isset($_POST['charts']) ? $_POST['charts'] : '';
+    $set_charts = isset($_POST['set_charts']) ? $_POST['set_charts'] : '';
+    if  ($set_charts == "set_charts") {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE charts SET charts='$charts' WHERE id='1'");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
     $chmin = isset($_POST['chmin']) ? $_POST['chmin'] : '';
     $set_chmin = isset($_POST['set_chmin']) ? $_POST['set_chmin'] : '';
     if  ($set_chmin == "set_chmin") {
@@ -32,14 +41,39 @@
     exit();
     }
 
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $sth = $db->prepare("select * from charts");
+    $sth->execute();
+    $result = $sth->fetchAll();
+    foreach ($result as $a) {
+    	$charts=$a['charts'];
+    }
+    	?>
 
+<form class="form-horizontal" action="" method="post">
+<fieldset>
+<div class="form-group">
+  <label class="col-md-2 control-label" for="selectbasic">Charts</label>
+  <div class="col-md-2">
+    <select id="selectbasic" name="charts" onchange="this.form.submit()" class="form-control input-sm">
+    <?php $ar=array("Highcharts","NVD3");
+     foreach ($ar as $num) { ?>
+        <option <?php echo $charts == "$num" ? 'selected="selected"' : ''; ?> value="<?php echo $num; ?>"><?php echo $num ." "; ?></option>   
+    <?php } ?>
+    </select>
+  </div>
+</div>
+</fieldset>
+<input type="hidden" name="set_charts" value="set_charts" />
+</form>
+
+<?php
     $db = new PDO('sqlite:dbf/nettemp.db');
     $sth = $db->prepare("select * from highcharts ");
     $sth->execute();
     $result = $sth->fetchAll();
     foreach ($result as $a) {
 ?>
-
 <form class="form-horizontal" action="" method="post">
 <fieldset>
 <div class="form-group">
@@ -60,7 +94,7 @@
 <form class="form-horizontal" action="" method="post">
 <fieldset>
 <div class="form-group">
-  <label class="col-md-2 control-label" for="selectbasic">Theme</label>
+  <label class="col-md-2 control-label" for="selectbasic">Highcharts theme</label>
   <div class="col-md-2">
     <select id="selectbasic" name="chtheme" onchange="this.form.submit()" class="form-control input-sm">
     <?php $ar=array("white","black","sand","grid");

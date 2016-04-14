@@ -290,5 +290,8 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE settings SET temp_scale
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE highcharts (id INTEGER PRIMARY KEY,charts_min TEXT, charts_theme TEXT, charts_fast TEXT);"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO highcharts (id, charts_min, charts_theme, charts_fast) VALUES (1, '1', 'black', 'on');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD moment_time type TEXT";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE charts (id INTEGER PRIMARY KEY,charts TEXT);"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO charts (id, charts) VALUES (1, 'highcharts');"
+
 
 
