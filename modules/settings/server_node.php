@@ -28,6 +28,24 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+    
+    $cauth_onoff = isset($_POST['cauth_onoff']) ? $_POST['cauth_onoff'] : '';
+    $cauth_on = isset($_POST['cauth_on']) ? $_POST['cauth_on'] : '';
+    if (($cauth_onoff == "cauth_onoff") ){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE settings SET cauth_on='$cauth_on' WHERE id='1'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+    
+    $cauth_save = isset($_POST['cauth_save']) ? $_POST['cauth_save'] : '';
+    $cauth_pass = isset($_POST['cauth_pass']) ? $_POST['cauth_pass'] : '';
+    if ($cauth_save == "cauth_save"){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE settings SET cauth_pass='$cauth_pass' WHERE id='1'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 
 
 $db = new PDO('sqlite:dbf/nettemp.db');
@@ -39,7 +57,9 @@ $cip=$a["client_ip"];
 $ckey=$a["client_key"];
 $skey=$a["server_key"];
 $con=$a["client_on"];
-
+$cauth_on=$a["cauth_on"];
+$cauth_login=$a["cauth_login"];
+$cauth_pass=$a["cauth_pass"];
 }
 ?>
 
@@ -81,7 +101,44 @@ if ($con == 'on'){
 <div class="form-group">
   <label class="col-md-4 control-label" for="singlebutton"></label>
   <div class="col-md-4">
-    <button id="singlebutton" name="singlebutton" class="btn btn-success">Save</button>
+    <button id="singlebutton" name="singlebutton" class="btn btn-xs btn-success">Save</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+<form action="" method="post">
+    <input data-on="AUTH" data-off="AUTH" data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="cauth_on" value="on" <?php echo $cauth_on == 'on' ? 'checked="checked"' : ''; ?>  />
+    <input type="hidden" name="cauth_onoff" value="cauth_onoff" />
+</form>
+
+<?php
+if ($cauth_on == 'on'){
+?>
+
+<form action="" method="post" class="form-horizontal">
+<fieldset>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">User:</label>  
+  <div class="col-md-4">
+  <input id="textinput" name="cauth_login" placeholder="" class="form-control input-md" required="" type="text" value="admin" disabled>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Password:</label>  
+  <div class="col-md-4">
+  <input id="textinput" name="cauth_pass" placeholder="" class="form-control input-md" required="" type="password" value="<?php echo $cauth_pass; ?>">
+     <input type="hidden" name="cauth_save" value="cauth_save" />
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+    <button id="singlebutton" name="singlebutton" class="btn btn-xs btn-success">Save</button>
   </div>
 </div>
 
@@ -89,6 +146,7 @@ if ($con == 'on'){
 </form>
 
 <?php
+	}
 }
 ?>
 
