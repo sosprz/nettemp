@@ -230,6 +230,7 @@ else {
 		$file=$a['rom'];
 		$name=$a['name'];
 		$adj=$a['adj'];
+		$type=$a['type'];
 
     	$dirb = "sqlite:$root/db/$file.sql";
     	$dbh = new PDO($dirb) or die("cannot open database");
@@ -244,6 +245,7 @@ else {
 		}
     		$array[key]=$name;
     		$array[values]=$data;
+    		//$array[units]=$type;
      		$all[]=$array;
   			unset($data);
     		unset($array);

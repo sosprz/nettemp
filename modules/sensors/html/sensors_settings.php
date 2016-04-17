@@ -158,14 +158,12 @@ $row = $rows->fetchAll();
 <th>DB</th>
 <th>Adjust</th>
 <th>Counters</th>
-<th>Alarm</th>
-<th>Min/Max</th>
+<th>Alarm / Min / Max</th>
+<th>Charts</th>
 <th>Group</th>
 <th>LCD</th>
-<th>Charts</th>
 <th>Node</th>
 <th>MinMax</th>
-<th></th>
 <th></th>
 </tr>
 </thead>
@@ -180,7 +178,7 @@ $row = $rows->fetchAll();
 ?>
 <tr>
 	
-	<td class="col-md-1">
+	<td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
 	<input type="hidden" name="position_id" value="<?php echo $a["id"]; ?>" />
 	<input type="text" name="position" size="1" maxlength="3" value="<?php echo $a['position']; ?>" />
@@ -188,12 +186,10 @@ $row = $rows->fetchAll();
 	<input type="hidden" name="positionok" value="ok" />
     </form>
     </td>
-    
 	
-    <td class="col-md-1">
-<!-- 	<img src="media/ico/TO-220-icon.png"/> -->
+    <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
-	<input type="text" name="name_new" size="6" maxlength="30" value="<?php echo $a["name"]; ?>" />
+	<input type="text" name="name_new" size="10" maxlength="30" value="<?php echo $a["name"]; ?>" />
 	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="id_name2" value="id_name3"/>
@@ -206,7 +202,7 @@ $row = $rows->fetchAll();
 	if (file_exists($file3) && ( 0 != filesize($file3)))
 	{
 ?>
-<td class="col-md-2">
+<td class="col-md-0">
     <span class="label label-success" title="Last update: <?php echo $a["time"] ?>">ok</span>
     <span class="label label-default"><?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3)."MB" ?></span>
     <span class="label label-default">
@@ -224,7 +220,7 @@ $row = $rows->fetchAll();
 
 <?php  }
 else { ?> 
-<td class="col-md-1">Error - no sql base</td>
+<td class="col-md-0">Error - no sql base</td>
 <?php } ?>
 
 <!-- <td class="col-md-1">
@@ -233,7 +229,7 @@ else { ?>
     </span>    
 </td> -->
 
-    <td class="col-md-1">
+    <td class="col-md-0">
     <?php if ($a["device"] != 'remote') { ?>
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="adj" size="2" maxlength="30" value="<?php echo $a["adj"]; ?>" required="" <?php echo $a["device"] == 'remote' ? 'disabled' : ''; ?> />
@@ -245,7 +241,7 @@ else { ?>
 	}
     ?>
     </td>
-    <td class="col-md-1">
+    <td class="col-md-0">
     <?php if (in_array($a['type'], $counters)) { ?>
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="sum" size="2" maxlength="30" value="<?php echo $a["sum"]; ?>" required=""/>
@@ -259,25 +255,32 @@ else { ?>
     </td>
 
 
-    <td class="col-md-1">
+    <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
-	<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarm" value="on" <?php echo $a["alarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
-	<input type="hidden" name="alarmonoff" value="onoff" />
+		<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarm" value="on" <?php echo $a["alarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="alarmonoff" value="onoff" />
     </form>
-    </td>
-    <td class="col-md-2">
+
     <form action="" method="post" style="display:inline!important;"> 
-	<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
-	<input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" />
-	<input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" />
-	<input type="hidden" name="ok" value="ok" />
-	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+		<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
+		<input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" />
+		<input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" />
+		<input type="hidden" name="ok" value="ok" />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
     </td>
-    <td class="col-md-1">
-    <form action="" method="post">
-    <select name="ch_groupon" class="form-control input-sm small" onchange="this.form.submit()">
+    
+    <td class="col-md-0">
+    <form action="" method="post" style="display:inline!important;" > 	
+		<input type="hidden" name="charts" value="<?php echo $a["id"]; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="chartson" value="on" <?php echo $a["charts"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="chartsonoff" value="onoff" />
+    </form>
+    </td>
+    <td class="col-md-0">
+    <form action="" method="post"  class="form-inline">
+    <select name="ch_groupon" class="form-control input-sm small" onchange="this.form.submit()" style="width: 100px;" >
 	    <option value="1"  <?php echo $a['ch_group'] == 1 ? 'selected="selected"' : ''; ?>  >1</option>
 	    <option value="2"  <?php echo $a['ch_group'] == 2 ? 'selected="selected"' : ''; ?>  >2</option>
 	    <option value="3"  <?php echo $a['ch_group'] == 3 ? 'selected="selected"' : ''; ?>  >3</option>
@@ -287,46 +290,45 @@ else { ?>
     <input type="hidden" name="ch_group" value="<?php echo $a['id']; ?>" />
     </form>
     </td>
-    <td class="col-md-1">
-    <form action="" method="post" style="display:inline!important;"> 	
-	<input type="hidden" name="lcdid" value="<?php echo $a["id"]; ?>" />
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="lcdon" value="on" <?php echo $a["lcd"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
-	<input type="hidden" name="lcd" value="lcd" />
-    </form>
-    </td>
 
-    <td class="col-md-1">
-    <form action="" method="post" style="display:inline!important;"> 	
-	<input type="hidden" name="charts" value="<?php echo $a["id"]; ?>" />
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="chartson" value="on" <?php echo $a["charts"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
-	<input type="hidden" name="chartsonoff" value="onoff" />
-    </form>
-    </td>
-    <td class="col-md-1">
+
+    
+    <td class="col-md-0">
     <?php if ($a["device"] != 'remote') { ?>
     <form action="" method="post" style="display:inline!important;"> 	
-	<input type="hidden" name="remote" value="<?php echo $a["id"]; ?>" />
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="remoteon" value="on" <?php echo $a["remote"] == 'on' ? 'checked="checked"' : ''; ?>   onchange="this.form.submit()" />
-	<input type="hidden" name="remoteonoff" value="onoff" />
+		<input type="hidden" name="remote" value="<?php echo $a["id"]; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="remoteon" value="on" <?php echo $a["remote"] == 'on' ? 'checked="checked"' : ''; ?>   onchange="this.form.submit()" />
+		<input type="hidden" name="remoteonoff" value="onoff" />
     </form>
     <?php 
 	}
     ?>
     </td>
-    <td class="col-md-1">
+    
+    <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;"> 	
-	<input type="hidden" name="minmax" value="<?php echo $a["id"]; ?>" />
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="minmaxon" value="on" <?php echo $a["minmax"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
-	<input type="hidden" name="minmaxonoff" value="onoff" />
+		<input type="hidden" name="minmax" value="<?php echo $a["id"]; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="minmaxon" value="on" <?php echo $a["minmax"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="minmaxonoff" value="onoff" />
     </form>
     </td>
-	<td class="col-md-1">
+
+    <td class="col-md-0">
+    <form action="" method="post" style="display:inline!important;"> 	
+		<input type="hidden" name="lcdid" value="<?php echo $a["id"]; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="lcdon" value="on" <?php echo $a["lcd"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="lcd" value="lcd" />
+    </form>
+    </td>    
+    
+	<td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
-	<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />
-	<input type="hidden" name="usun2" value="usun3" />
-	<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+		<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />
+		<input type="hidden" name="usun2" value="usun3" />
+		<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
     </form>
     </td>
+    
 	</tr>
 
 </tr>
