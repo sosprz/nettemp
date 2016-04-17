@@ -16,8 +16,12 @@ if (($save == "save")){
 <div class="panel-heading">Edit: <?php echo $file.".sql" ?></div>
 
 <?php
+if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; }; 
+$pstop=100;
+$pstart = ($page-1) * $pstop; 
+
 $db = new PDO("sqlite:db/$file.sql");
-$rows = $db->query("SELECT rowid,* FROM def");
+$rows = $db->query("SELECT rowid,* FROM def Limit $pstart, $pstop");
 $row = $rows->fetchAll();
 ?>
 <table class="table table-striped table-hover small">
@@ -49,5 +53,22 @@ $row = $rows->fetchAll();
 <?php 
     }
 ?>
+
 </table>
+<?php
+	echo "<a href='index.php?id=tools&type=dbedit2&file=$file&page=1'>".'|<'."</a> ";
+	
+	$rows = $db->query("SELECT * FROM def");
+	$row = $rows->fetchAll();
+	$total_records = count($row);
+	
+	$total_pages = ceil($total_records / $pstop); 
+	
+	for ($i=1; $i<=$total_pages; $i++) { 
+            echo "<a href='index.php?id=tools&type=dbedit2&file=$file&page=".$i."'>".$i."</a> "; 
+	}; 	
+	
+	echo "<a href='index.php?id=tools&type=dbedit2&file=$file&page=$total_pages'>".'>|'."</a> "; 
+	
+	?>
 </div>
