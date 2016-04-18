@@ -89,8 +89,6 @@ function getUrlVars() {
 d3.json('common/nvd3_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mode+'&group='+group+'&single='+single, function(data) {
   nv.addGraph(function() {
   	var chart = nv.models.lineWithFocusChart()
-        .x(function(d) { return d.label })
-        .y(function(d) { return d.value })
         .margin({top: 30, right: 20, bottom: 50, left: 60})
         .useInteractiveGuideline(true)
        
