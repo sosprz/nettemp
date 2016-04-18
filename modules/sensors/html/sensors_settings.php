@@ -161,9 +161,9 @@ $row = $rows->fetchAll();
 <th>Alarm / Min / Max</th>
 <th>Charts</th>
 <th>Group</th>
-<th>LCD</th>
 <th>Node</th>
-<th>MinMax</th>
+<th>Status Min/Max</th>
+<th>LCD</th>
 <th></th>
 </tr>
 </thead>
