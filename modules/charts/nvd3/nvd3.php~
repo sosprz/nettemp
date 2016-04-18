@@ -121,7 +121,7 @@ d3.json('common/nvd3_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mod
         });
         
        chart.interactiveLayer.tooltip.contentGenerator(function (d) {
-         var html = "<b><h5>"+d3.time.format('%m/%d %X')(new Date(d.value))+"</h5></b>";
+         var html = "<h5><b>"+d3.time.format('%m/%d %X')(new Date(d.value))+"</b></h5>";
 
           d.series.forEach(function(elem){
             html += "<h5 style='color:"+elem.color+"'>"+elem.key+" : <b>"+elem.value+' '+n_units+"</b></h5>";

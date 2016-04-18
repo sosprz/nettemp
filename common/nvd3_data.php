@@ -241,7 +241,7 @@ else {
     		query($max,$query);
     	}
 	   foreach ($dbh->query($query) as $row) {
-			$data[]=array(label => $row[0]*1000, value => (int)$row[1]+$adj);
+			$data[]=array(label => $row[0]*1000, value => $row[1]+$adj);
 		}
     		$array[key]=$name;
     		$array[values]=$data;
