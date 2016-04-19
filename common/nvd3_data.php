@@ -219,7 +219,46 @@ elseif ($type == 'group'){
 	}
    print json_encode($all);
 }
+
+elseif ($type == 'elec' && $mode == 2) {
+
+		$db = new PDO("sqlite:$root/dbf/nettemp.db");
+     if(empty($single)) {
+     		$rows = $db->query("SELECT * FROM sensors WHERE type='$type' AND charts='on'");
+     	} 
+     	else {
+     		$rows = $db->query("SELECT * FROM sensors WHERE type='$type' AND name='$single'");
+     	}
+     		
+    $row = $rows->fetchAll();
     
+    foreach($row as $a) {
+		$file=$a['rom'];
+		$name=$a['name'];
+		$adj=$a['adj'];
+		$type=$a['type'];
+
+    	$dirb = "sqlite:$root/db/$file.sql";
+    	$dbh = new PDO($dirb) or die("cannot open database");
+    	if($charts_fast=='on') {
+    		queryc($max,$charts_min,$query);
+    	}
+		else {
+    		queryc($max,$query);
+    	}
+	   foreach ($dbh->query($query) as $row) {
+			$data[]=array(x => $row[0]*1000, y => $row[1]+$adj);
+		}
+    		$array[key]=$name;
+    		$array[values]=$data;
+    		//$array[units]=$type;
+     		$all[]=$array;
+  			unset($data);
+    		unset($array);
+	}
+   print json_encode($all);
+}
+
 else {
     
     $db = new PDO("sqlite:$root/dbf/nettemp.db");
