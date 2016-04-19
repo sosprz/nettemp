@@ -6,7 +6,7 @@
 </pre>
 <?php
 $service=isset($_GET['service']) ? $_GET['service'] : '';
-switch ($log)
+switch ($service)
 { 
 default: case '$service': include('/var/log/msmtp.log'); break;
 case 'msmtp': include('/var/log/msmtp.log'); break;
