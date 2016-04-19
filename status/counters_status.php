@@ -40,7 +40,7 @@ if ( $numRows > '0' ) { ?>
 	
 	<td>
 	    <small>
-	    <span class="label label-info">
+	    <a href="index.php?id=view&type=elec&max=day&single=<?php echo $a['name']?>" class="label label-info" title="kWh">
 		<?php
 		$rom=$a['rom'];
 		$dbs = new PDO("sqlite:$root/db/$rom.sql") or die('lol');
@@ -48,34 +48,34 @@ if ( $numRows > '0' ) { ?>
 		$i = $rows->fetch(); 
 		echo $i['sums'];
 		?>
-	    </span>
+	    </a>
 	    </small>
 	</td>
 	<td>
 	    <small>
-	    <span class="label label-info">
+	    <a href="index.php?id=view&type=elec&max=week&single=<?php echo $a['name']?>" class="label label-info" title="kWh">
 		<?php
 		$rows = $dbs->query("SELECT round(sum(value),4) AS sums FROM def WHERE time >= datetime('now','localtime','start of day')") or die('lol');
 		$i = $rows->fetch(); 
 		echo $i['sums'];
 		?>
-	    </span>
+	    </a>
 	    </small>
 	</td>
 	<td>
 	    <small>
-	    <span class="label label-info">
+	    <a href="index.php?id=view&type=elec&max=month&single=<?php echo $a['name']?>" class="label label-info" title="kWh">
 		<?php
 		$rows = $dbs->query("SELECT round(sum(value),4) AS sums FROM def WHERE time >= datetime('now','localtime','start of month')") or die('lol');
 		$i = $rows->fetch(); 
 		echo $i['sums'];
 		?>
-	    </span>
+	    </a>
 	    </small>
 	</td>
 	<td>
 	    <small>
-	    <a href="index.php?id=view&type=elec&max=day&single=<?php echo $a['name']?>" class="label label-danger">
+	    <a href="index.php?id=view&type=elec&max=day&single=<?php echo $a['name']?>" class="label label-danger" title="kWh">
 		<?php
 		    echo number_format($a['sum'], 2, '.', ',')." ";
 		?>
@@ -84,7 +84,7 @@ if ( $numRows > '0' ) { ?>
 	</td>
 	<td>
 	    <small>
-	    <a href="index.php?id=view&type=elec&max=day&single=<?php echo $a['name']?>&mode=2" class="label label-warning">
+	    <a href="index.php?id=view&type=elec&max=day&single=<?php echo $a['name']?>&mode=2" class="label label-warning" title="W">
 		<?php
 		$rows = $dbs->query("SELECT current AS sums from def where time = (select max(time) from def)") or die('lol');
 		$i = $rows->fetch(); 

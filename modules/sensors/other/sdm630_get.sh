@@ -86,6 +86,10 @@ result  = client.read_input_registers(0x10, 2)
 decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
 print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
 
+result  = client.read_input_registers(0x48, 2)
+decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
+print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
+
 
 #---------------------------------------------------------------------------# 
 # close the client

@@ -17,21 +17,41 @@ L1=L1
 L2=L2
 L3=L3
 sum=sum
-valsum=$(echo "${ARRAY[2]} + ${ARRAY[5]} + ${ARRAY[8]}" |bc)
+WATsum=$(echo "${ARRAY[2]} + ${ARRAY[5]} + ${ARRAY[8]}" |bc)
+all=${ARRAY[9]}
 
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[0]} type=volt current=$val
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[1]} type=amps current=$val
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[2]} type=watt current=$val
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[0]} type=volt
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[1]} type=amps
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[2]} type=watt
 
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[3]} type=volt current=$val
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[4]} type=amps current=$val
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[5]} type=watt current=$val
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[3]} type=volt
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[4]} type=amps
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[5]} type=watt
 
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[6]} type=volt current=$val
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[7]} type=amps current=$val
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[8]} type=watt current=$val
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[6]} type=volt
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[7]} type=amps
+php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[8]} type=watt
 
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$sum device=usb value=$valsum type=watt current=$val
+last=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT sum FROM sensors WHERE rom='usb_$(echo $dev)_elec'")
+
+if [[ -n "$last" ]] && [[ "$last" != "0" ]]; then
+    val=$(echo $all - $last |bc)
+    echo "LAST $last"
+    echo "VAL $val"
+    echo "ALL $all"
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=$val type=elec current=$WATsum
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev)_elec'"
+else
+    val=$all
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev)_elec'"
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=0 type=elec
+fi
+
+
+
+
+
+
 
 else
     echo SDM630 OFF

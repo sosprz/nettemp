@@ -206,7 +206,7 @@ function db($rom,$val,$type,$device,$current) {
 		    //// base
 		    // counters can always put to base
 		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger");
-		    $arrayd = array("wireless", "gpio");
+		    $arrayd = array("wireless", "gpio", "usb");
 		    if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
 					if (isset($current) && is_numeric($current)) {
 			    		$db->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql current\n" );
