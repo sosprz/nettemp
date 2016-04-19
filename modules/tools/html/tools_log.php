@@ -8,6 +8,7 @@ $log=isset($_GET['log']) ? $_GET['log'] : '';
 <a href="index.php?id=tools&type=log&log=call" ><button class="btn btn-xs btn-default <?php echo $log == 'call' ? 'active' : ''; ?>">Call</button></a>
 <a href="index.php?id=tools&type=log&log=sms" ><button class="btn btn-xs btn-default <?php echo $log == 'sms' ? 'active' : ''; ?>">SMS</button></a>
 <a href="index.php?id=tools&type=log&log=gpio" ><button class="btn btn-xs btn-default <?php echo $log == 'gpio' ? 'active' : ''; ?>">GPIO</button></a>
+<a href="index.php?id=tools&type=log&log=services" ><button class="btn btn-xs btn-default <?php echo $log == 'services' ? 'active' : ''; ?>">Services</button></a>
 </p>
 <?php  
 switch ($log)
@@ -17,6 +18,7 @@ case 'call': include('modules/tools/html/log/log_call.php'); break;
 case 'sms': include('modules/tools/html/log/log_sms.php'); break;
 case 'nettemp': include('modules/tools/html/log/log_nettemp.php'); break;
 case 'gpio': include('modules/tools/html/log/log_gpio.php'); break;
+case 'services': include('modules/tools/html/log/log_services.php'); break;
 }
 ?>
 
