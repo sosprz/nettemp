@@ -8,6 +8,10 @@ $mode=$_GET["mode"];
 $group=$_GET["group"];
 $single=$_GET["single"];
 
+$data='';
+$adj='';
+
+
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $rows = $db->query("SELECT * FROM highcharts WHERE id='1'");
 $row = $rows->fetchAll();
@@ -110,10 +114,10 @@ if ($type == 'system') {
     	}
     	
   		foreach ($dbh->query($query) as $row) {
-			$data[]=array(x => $row[0]*1000, y => $row[1]);
+			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]);
 		}
-    		$array[key]=$file;
-    		$array[values]=$data;
+    		$array['key']=$file;
+    		$array['values']=$data;
      		$all[]=$array;
   			unset($data);
     		unset($array);
@@ -145,10 +149,10 @@ elseif ($type == 'hosts') {
     		query($max,$query);
     	}
 	   foreach ($dbh->query($query) as $row) {
-			$data[]=array(x => $row[0]*1000, y => $row[1]+$adj);
+			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]+$adj);
 		}
-    		$array[key]=$name;
-    		$array[values]=$data;
+    		$array['key']=$name;
+    		$array['values']=$data;
      		$all[]=$array;
   			unset($data);
     		unset($array);
@@ -179,10 +183,10 @@ elseif ($type == 'gpio') {
     		query($max,$query);
     	}
 	   foreach ($dbh->query($query) as $row) {
-			$data[]=array(x => $row[0]*1000, y => $row[1]+$adj);
+			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]+$adj);
 		}
-    		$array[key]=$name;
-    		$array[values]=$data;
+    		$array['key']=$name;
+    		$array['values']=$data;
     		if(!empty($data)) {
      			$all[]=$array;
      		}
@@ -209,10 +213,10 @@ elseif ($type == 'group'){
     		query($max,$query);
     	}
 	   foreach ($dbh->query($query) as $row) {
-			$data[]=array(x => $row[0]*1000, y => $row[1]+$adj);
+			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]+$adj);
 		}
-    		$array[key]=$name;
-    		$array[values]=$data;
+    		$array['key']=$name;
+    		$array['values']=$data;
      		$all[]=$array;
   			unset($data);
     		unset($array);
@@ -247,11 +251,11 @@ elseif ($type == 'elec' && $mode == 2) {
     		queryc($max,$query);
     	}
 	   foreach ($dbh->query($query) as $row) {
-			$data[]=array(x => $row[0]*1000, y => $row[1]+$adj);
+			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]+$adj);
 		}
-    		$array[key]=$name;
-    		$array[values]=$data;
-    		//$array[units]=$type;
+    		$array['key']=$name;
+    		$array['values']=$data;
+    		//$array['units']=$type;
      		$all[]=$array;
   			unset($data);
     		unset($array);
@@ -286,11 +290,11 @@ else {
     		query($max,$query);
     	}
 	   foreach ($dbh->query($query) as $row) {
-			$data[]=array(x => $row[0]*1000, y => $row[1]+$adj);
+			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]+$adj);
 		}
-    		$array[key]=$name;
-    		$array[values]=$data;
-    		//$array[units]=$type;
+    		$array['key']=$name;
+    		$array['values']=$data;
+    		//$array['units']=$type;
      		$all[]=$array;
   			unset($data);
     		unset($array);
