@@ -9,5 +9,6 @@ sudo chmod g+s -R $dir/db
 sudo chmod g+s -R $dir/dbf
 
 sudo chmod a+w -R /var/spool/sms/outgoing
+sudo chmod -R 644 /var/log/smstools/smsd.log
 
 sudo gpasswd -a www-data dialout 1>/dev/null
