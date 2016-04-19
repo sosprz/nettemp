@@ -3,7 +3,7 @@
     <a href="index.php?id=tools&type=log&log=services&service=msmtp"><button class="btn btn-default btn-xs">msmtp </button></a>
 </p>
 
-</pre>
+<pre>
 <?php
 $service=isset($_GET['service']) ? $_GET['service'] : '';
 switch ($service)
