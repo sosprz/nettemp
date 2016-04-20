@@ -15,10 +15,10 @@ switch ($service)
 { 
 default: case '$service': include('/var/log/msmtp.log'); break;
 //case 'msmtp': include('/var/log/msmtp.log'); break;
-case 'msmtp': $filearray = file("/var/log/msmtp.log"); $last = array_slice($filearray,-50); foreach($last as $f){ echo $f; }; break;
+case 'msmtp': $filearray = file("/var/log/msmtp.log"); $last = array_slice($filearray,-20); foreach($last as $f){ echo $f; }; break;
 //case 'smstools': include('/var/log/smstools/smsd.log'); break;
-case 'smstools': $filearray = file("/var/log/smstools/smsd.log"); $last = array_slice($filearray,-50); foreach($last as $f){ echo $f; }; break;
-case 'lighttpd': $filearray = file("/var/log/lighttpd/error.log"); $last = array_slice($filearray,-50); foreach($last as $f){ echo $f; }; break;
+case 'smstools': $filearray = file("/var/log/smstools/smsd.log"); $last = array_slice($filearray,-20); foreach($last as $f){ echo $f; }; break;
+case 'lighttpd': $filearray = file("/var/log/lighttpd/error.log"); $last = array_slice($filearray,-20); foreach($last as $f){ echo $f; }; break;
 //case 'lighttpd': include('/var/log/lighttpd/error.log'); break;
 
 }
