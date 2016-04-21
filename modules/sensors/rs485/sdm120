@@ -3,24 +3,24 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
-dev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT dev FROM usb WHERE device='rs485'"|sed 's/\/dev\///g')
+dev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT dev FROM usb WHERE device='RS485'"|sed 's/\/dev\///g')
 if [[ "$dev" != "none" ]]; then
 	echo USB selected
 	skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
 
-	addr=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT addr FROM rs485 WHERE device='sdm120'")
+	addr=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT addr FROM rs485 WHERE dev='SDM120'")
 
 	for i in $addr; do
 		
 		rs=a$i
 		val=$(/usr/local/bin/sdm120c /dev/$dev -a $i -p |head -1|awk '{print $2}')
-		php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=$val type=watt current=$val
+		php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=$val type=watt
 
 		val=$(/usr/local/bin/sdm120c /dev/$dev -a $i -v |head -1|awk '{print $2}' |sed 's/-//g')
-		php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=$val type=volt current=$val
+		php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=$val type=volt
 
 		val=$(/usr/local/bin/sdm120c /dev/$dev -a $i -c |head -1|awk '{print $2}' |sed 's/-//g')
-		php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=$val type=amps current=$val
+		php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=$val type=amps
 
 		all=$(/usr/local/bin/sdm120c /dev/$dev -a $i -i |head -1|awk '{print $4}')
 

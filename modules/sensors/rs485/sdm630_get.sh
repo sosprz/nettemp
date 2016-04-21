@@ -6,7 +6,7 @@ import sys
 
 if len(sys.argv) > 1:
     getusb = sys.argv[1]
-
+    addr = int(sys.argv[2], 16)
 #---------------------------------------------------------------------------# 
 # loading pymodbus modules
 #---------------------------------------------------------------------------# 
@@ -26,7 +26,7 @@ log.setLevel(logging.INFO)
 #---------------------------------------------------------------------------# 
 # Connect info KW/H meter
 #---------------------------------------------------------------------------# 
-client = ModbusClient(method='rtu', port=getusb, baudrate=9600, timeout=2)
+client = ModbusClient(method='rtu', port=getusb, baudrate=9600, timeout=3)
 #client = ModbusClient(method='rtu', port='/dev/ttyUSB0', baudrate=9600, timeout=0.5)
 client.connect()
 
@@ -40,7 +40,8 @@ builder.add_16bit_uint(0x1234)
 builder.add_8bit_int(0x12)
 builder.add_bits([0,1,0,1,1,0,1,0])
 payload = builder.build()
-address = 0x01
+#address = 0x01
+address = addr
 result  = client.write_registers(address, payload, skip_encode=True)
 
 #---------------------------------------------------------------------------# 

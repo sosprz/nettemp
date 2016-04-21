@@ -3,52 +3,57 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
-dev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT dev FROM usb WHERE device='SDM630'"|sed 's/\/dev\///g')
+dev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT dev FROM usb WHERE device='RS485'"|sed 's/\/dev\///g')
 if [[ "$dev" != "none" ]]; then
 echo SDM630ON
 
 skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
+addr=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT addr FROM rs485 WHERE dev='SDM630'")
 
 
-ARRAY=($($dir/modules/sensors/other/sdm630_get.sh /dev/$dev))
-echo ${ARRAY[*]}
+for i in $addr; do 
 
-L1=L1
-L2=L2
-L3=L3
-sum=sum
-WATsum=$(echo "${ARRAY[2]} + ${ARRAY[5]} + ${ARRAY[8]}" |bc)
-all=${ARRAY[9]}
+    ARRAY=($($dir/modules/sensors/rs485/sdm630_get.sh /dev/$dev $i))
+    echo ${ARRAY[*]}
 
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[0]} type=volt
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[1]} type=amps
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[2]} type=watt
+    rs=a$i
+    L1=L1a$i
+    L2=L2a$i
+    L3=L3a$i
+    sum=sum
+    WATsum=$(echo "${ARRAY[2]} + ${ARRAY[5]} + ${ARRAY[8]}" |bc)
+    all=${ARRAY[9]}
 
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[3]} type=volt
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[4]} type=amps
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[5]} type=watt
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[0]} type=volt
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[1]} type=amps
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev$L1 device=usb value=${ARRAY[2]} type=watt
 
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[6]} type=volt
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[7]} type=amps
-php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[8]} type=watt
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[3]} type=volt
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[4]} type=amps
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev$L2 device=usb value=${ARRAY[5]} type=watt
 
-last=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT sum FROM sensors WHERE rom='usb_$(echo $dev)_elec'")
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[6]} type=volt
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[7]} type=amps
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev$L3 device=usb value=${ARRAY[8]} type=watt
 
-if [[ -n "$last" ]] && [[ "$last" != "0" ]]; then
-    val=$(echo $all - $last |bc)
-    echo "LAST $last"
-    echo "VAL $val"
-    echo "ALL $all"
-    php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=$val type=elec current=$WATsum
-    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev)_elec'"
-else
-    val=$all
-    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev)_elec'"
-    php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=0 type=elec
-fi
+    last=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT sum FROM sensors WHERE rom='usb_$(echo $dev$rs)_elec'")
 
+    if [[ -n "$last" ]] && [[ "$last" != "0" ]]; then
+	val=$(echo $all - $last |bc)
+	echo "LAST $last"
+	echo "VAL $val"
+	echo "ALL $all"
+	php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=$val type=elec current=$WATsum
+	sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev$rs)_elec'"
+    else
+	val=$all
+	sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev$rs)_elec'"
+	php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=0 type=elec
+    fi
 
+    unset $ARRAY
 
+done
 
 
 
