@@ -204,13 +204,12 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD fnum type
 
 #sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "DROP TABLE usb";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE);"
-sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('SDM120','none');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('RS485','none');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('1wire','none');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('1wire Serial','none');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem Call','none');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem SMS','none');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('UPS Pimowo','none');"
-sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO usb (device,dev) VALUES ('SDM630','none');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD state type TEXT";
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "PRAGMA journal_mode=WAL";
@@ -297,6 +296,8 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO highchar
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE gpio ADD moment_time type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE charts (id INTEGER PRIMARY KEY,charts TEXT);"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO charts (id, charts) VALUES (1, 'Highcharts');"
+
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE rs485 (id INTEGER PRIMARY KEY,dev,addr TEXT);"
 
 
 
