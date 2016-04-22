@@ -11,6 +11,7 @@ $debug = isset($_GET['debug']) ? $_GET['debug'] : '';
 ////////////////////////////////////////////////////////
 // functions
 
+ob_start();
 
 function timestamp($gpio,$onoff) {
 	
@@ -383,6 +384,11 @@ foreach ($row as $a) {
 		action_off($op,$sensor_name,$gpio,$rev);
 	}
 
-	
+$content = ob_get_contents();
+$f = fopen("../../tmp/gpio_".$gpio."_log.txt", "a");
+fwrite($f, $content);
+fclose($f); 
 }  //main
+
+
 ?>
