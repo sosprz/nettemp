@@ -298,6 +298,6 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE charts (id INTEGE
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO charts (id, charts) VALUES (1, 'Highcharts');"
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE rs485 (id INTEGER PRIMARY KEY,dev,addr TEXT);"
-
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD jg TEXT"
 
 

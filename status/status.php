@@ -49,6 +49,7 @@
     }
     include('status/ipcam_status.php');
     include_once('status/ups_status.php');
+    include_once('status/justage_status.php');
     ?>
 </div>
 
@@ -64,6 +65,7 @@
     $('.ow3').load("status/ownwidget3.php");
     $('.mm').load("status/minmax_status.php");
     $('.ups').load("status/ups_status.php");
+    $('.justgage').load("status/justgage_status.php");
     
 }, 60000);
 

@@ -106,11 +106,21 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+    
     $ch_group = isset($_POST['ch_group']) ? $_POST['ch_group'] : '';
     $ch_grouponoff = isset($_POST['ch_grouponoff']) ? $_POST['ch_grouponoff'] : '';
     $ch_groupon = isset($_POST['ch_groupon']) ? $_POST['ch_groupon'] : '';
     if (($ch_grouponoff == "onoff")){
     $db->exec("UPDATE sensors SET ch_group='$ch_groupon' WHERE id='$ch_group'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+    
+    $jg = isset($_POST['jg']) ? $_POST['jg'] : '';
+    $jgid = isset($_POST['jgid']) ? $_POST['jgid'] : '';
+    $jgon = isset($_POST['jgon']) ? $_POST['jgon'] : '';
+    if (($jg == "jg")){
+    $db->exec("UPDATE sensors SET jg='$jgon' WHERE id='$jgid'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -164,6 +174,7 @@ $row = $rows->fetchAll();
 <th>Node</th>
 <th>Status Min/Max</th>
 <th>LCD</th>
+<th>JustGage</th>
 <th></th>
 </tr>
 </thead>
@@ -319,7 +330,15 @@ else { ?>
 		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="lcdon" value="on" <?php echo $a["lcd"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
 		<input type="hidden" name="lcd" value="lcd" />
     </form>
-    </td>    
+    </td>
+    
+    <td class="col-md-0">
+    <form action="" method="post" style="display:inline!important;"> 	
+		<input type="hidden" name="jgid" value="<?php echo $a["id"]; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="jgon" value="on" <?php echo $a["jg"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="jg" value="jg" />
+    </form>
+    </td>  
     
 	<td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
