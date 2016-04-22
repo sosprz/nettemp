@@ -18,7 +18,7 @@ $rows = $db->query("SELECT * FROM sensors WHERE jg='on' ORDER BY position ASC");
 $row = $rows->fetchAll();
 foreach ($row as $a) { 	
 ?>
-<div id="<?php echo $a['name']?>" style="width:100px; height:100px;display:inline-block;"></div>
+<div id="<?php echo $a['name']?>" style="width:100px; height:100px;display-block;"></div>
    
 <script>
 <?php
@@ -41,7 +41,6 @@ if (types=='lux') {n_units = " lux"};
 if (types=='water') {n_units = " m3"};
 if (types=='gas') {n_units = " m3"};
 if (types=='elec') {n_units = " kWh"};
-if (types=='elec' && mode=='2') {n_units = " W"};
 if (types=='hosts') {n_units = " ms"};
 if (types=='volt') {n_units = " V"};
 if (types=='amps') {n_units = " A"};
