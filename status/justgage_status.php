@@ -18,7 +18,7 @@ $rows = $db->query("SELECT * FROM sensors WHERE jg='on' ORDER BY position ASC");
 $row = $rows->fetchAll();
 foreach ($row as $a) { 	
 ?>
-<div id="<?php echo $a['name']?>" style="width:100px; height:100px;display-block;"></div>
+<div id="<?php echo $a['name']?>" style="width:100px; height:100px;display:inline-block;"></div>
    
 <script>
 <?php
