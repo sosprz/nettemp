@@ -100,12 +100,12 @@ d3.json('common/nvd3_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mod
     chart.xAxis
     .axisLabel("Time")
     .tickFormat(function(d) {
-      return d3.time.format('%m/%d %X')(new Date(d))
+      return d3.time.format.utc('%m/%d %X')(new Date(d))
     });
     
     chart.x2Axis
     .tickFormat(function(d) {
-      return d3.time.format('%m/%d ')(new Date(d))
+      return d3.time.format.utc('%m/%d')(new Date(d))
     });
 
     d3.select('#chart1 svg')
@@ -114,12 +114,12 @@ d3.json('common/nvd3_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mod
 
     nv.utils.windowResize(chart.update);
         
-          chart.xAxis.tickFormat(function(d) {
+          chart.xAxis.tickFormat.utc(function(d) {
             return d3.time.format('%m/%d/%y')(new Date(d))
         });
         
        chart.interactiveLayer.tooltip.contentGenerator(function (d) {
-         var html = "<h5><b>"+d3.time.format('%m/%d %X')(new Date(d.value))+"</b></h5>";
+         var html = "<h5><b>"+d3.time.format.utc('%m/%d %X')(new Date(d.value))+"</b></h5>";
 
           d.series.forEach(function(elem){
             html += "<h5 style='color:"+elem.color+"'>"+elem.key+" : <b>"+elem.value+' '+n_units+"</b></h5>";
