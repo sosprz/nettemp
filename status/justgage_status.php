@@ -54,7 +54,7 @@ if (types=='dist') {n_units = " cm"};
         					$dbs = new PDO("sqlite:$root/db/".$a['rom'].".sql");
         					$rows = $dbs->query("SELECT current AS sums from def where time = (select max(time) from def)");
 							$i = $rows->fetch(); 
-							echo number_format($i['sums'], 3, '.', ',')." ";
+							echo $i['sums'];
         				}
         				else if($a['tmp']=='error') { 
         						echo '0'; 
