@@ -49,7 +49,7 @@
     }
     include('status/ipcam_status.php');
     include_once('status/ups_status.php');
-    include_once('status/justage_status.php');
+    include_once('status/justgage_status.php');
     ?>
 </div>
 

@@ -1,14 +1,12 @@
 <?php 
-$dir="modules/gpio/";
-$root=$_SERVER["DOCUMENT_ROOT"];
-$db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
+$db = new PDO("sqlite:dbf/nettemp.db") or die ("cannot open database");
 $sth = $db->prepare("select * from sensors where jg='on'");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);
-?>
-<?php if ( $numRows > '0' ) { ?>
-<div class="grid-item rs">
+if ( $numRows > '0' ) { ?>
+<div class="grid-item justgage">
+<div class="panel panel-default">
 <div class="panel-heading">JustGage</div>
 <div class="panel-body">
 <script src="html/justgage/raphael-2.1.4.min.js"></script>
@@ -20,7 +18,7 @@ $rows = $db->query("SELECT * FROM sensors WHERE jg='on' ORDER BY position ASC");
 $row = $rows->fetchAll();
 foreach ($row as $a) { 	
 ?>
-<div id="<?php echo $a['name']?>" class="text-center" style="width:100px; height:100px;"></div>
+<div id="<?php echo $a['name']?>" style="width:100px; height:100px;display:inline-block;"></div>
    
 <script>
 <?php
