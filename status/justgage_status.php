@@ -40,7 +40,7 @@ if (types=='system') {n_units = " %"};
 if (types=='lux') {n_units = " lux"};
 if (types=='water') {n_units = " m3"};
 if (types=='gas') {n_units = " m3"};
-if (types=='elec') {n_units = " kWh"};
+if (types=='elec') {n_units = " W"};
 if (types=='hosts') {n_units = " ms"};
 if (types=='volt') {n_units = " V"};
 if (types=='amps') {n_units = " A"};
@@ -49,7 +49,20 @@ if (types=='dist') {n_units = " cm"};
 
       var g = new JustGage({
         id: "<?php echo $a['name']?>",
-        value: <?php if($a['tmp']=='error') { echo '0'; } else {echo $a['tmp'];}?>,
+        value: <?php 
+        				if($a['type']=='elec') {
+        					$dbs = new PDO("sqlite:$root/db/$a['rom'].sql");
+        					$rows = $dbs->query("SELECT current AS sums from def where time = (select max(time) from def)");
+							$i = $rows->fetch(); 
+							echo number_format($i['sums'], 3, '.', ',')." ";
+        				}
+        				else if($a['tmp']=='error') { 
+        						echo '0'; 
+        					} 
+        						else {
+        								echo $a['tmp'];
+        								}
+        			?>,
         <?php if(!empty($a['tmp_min']) && !empty($a['tmp_max'])) {
         	echo "min:".$a['tmp_min'].", max:".$a['tmp_max'].",";
         	} ?>
