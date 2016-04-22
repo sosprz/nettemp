@@ -51,7 +51,7 @@ if (types=='dist') {n_units = " cm"};
         id: "<?php echo $a['name']?>",
         value: <?php 
         				if($a['type']=='elec') {
-        					$dbs = new PDO("sqlite:$root/db/$a['rom'].sql");
+        					$dbs = new PDO("sqlite:$root/db/".$a['rom'].".sql");
         					$rows = $dbs->query("SELECT current AS sums from def where time = (select max(time) from def)");
 							$i = $rows->fetch(); 
 							echo number_format($i['sums'], 3, '.', ',')." ";
