@@ -1,5 +1,4 @@
 
-
 <form class="form-horizontal" action="" method="post">
 <fieldset>
 
@@ -26,9 +25,13 @@
 <?php
 $test_mail = isset($_POST['test_mail']) ? $_POST['test_mail'] : '';
 $send = isset($_POST['send']) ? $_POST['send'] : '';
+
+$headers = "From: ".$a['user']."\r\n";
+
+
 if  ($send == "send") {
 	 $test_mail1=escapeshellarg($test_mail);
-	 if ( mail ($test_mail, 'Test mail from nettemp device', 'Working Fine.' ) ) {
+	 if ( mail ($test_mail, 'Test mail from nettemp device', 'Working Fine.', $headers ) ) {
 ?>
 
     		<center><span class="label label-success">Mail send ok</span></center>

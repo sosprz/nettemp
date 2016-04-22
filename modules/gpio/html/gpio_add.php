@@ -92,7 +92,7 @@ else {
     $gpiolist = array(1,2,3);
 ?>
 
-<span class="label label-warning">Warning: No wirinPI package</span>
+<span class="label label-warning">Warning: No wiringPI package</span>
 <?php 
     }
 ?>
