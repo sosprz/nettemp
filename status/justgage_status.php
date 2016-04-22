@@ -75,4 +75,5 @@ if (types=='dist') {n_units = " cm"};
 ?>
 </div>
 </div>
+</div>
 <?php }  ?>

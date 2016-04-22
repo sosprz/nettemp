@@ -37,6 +37,7 @@
     <div class="grid-sizer"></div>
     <?php
     include_once('status/sensor_status.php');
+    include_once('status/justgage_status.php');
     include_once('status/minmax_status.php');
     include_once('status/hosts_status.php');
     include_once('status/gpio_status.php');
@@ -49,7 +50,6 @@
     }
     include('status/ipcam_status.php');
     include_once('status/ups_status.php');
-    include_once('status/justgage_status.php');
     ?>
 </div>
 
