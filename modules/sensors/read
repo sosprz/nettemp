@@ -43,6 +43,8 @@ $dir/modules/sensors/other/ups
 $dir/modules/sensors/rs485/sdm120
 #sdm630
 $dir/modules/sensors/rs485/sdm630
+#orwe
+$dir/modules/sensors/rs485/orwe
 #HCS04
 $dir/modules/sensors/GPIO/HCS04/read
 

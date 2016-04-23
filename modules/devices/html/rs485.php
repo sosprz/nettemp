@@ -68,8 +68,9 @@ $lcd=$c['lcd'];
     <div class="form-group">
     <td class="col-md-2">
     <select name="name" class="form-control input-sm">
-        <option value="SDM120">sdm120</option>
-        <option value="SDM630">sdm630</option>
+        <option value="SDM120">SDM120</option>
+        <option value="SDM630">SDM630</option>
+         <option value="OR-WE">OR-WE</option>
     </select>
     </td>
     <td class="col-md-2">

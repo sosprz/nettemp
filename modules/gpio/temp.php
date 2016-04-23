@@ -193,7 +193,7 @@ foreach ($row as $a) {
 			if($sensor_tmp=='error') {
 				action_off($op,$sensor_name,$gpio,$rev);
 				echo date('Y H:i:s')." GPIO ".$gpio." sensor ".$sensor_name." ERROR, GOING OFF\n";
-				echo date('Y H:i:s')." GPIO ".$gpio." ".$mode.", ".$sensor_name." ".$sensor_tmp.", ".$op.", ".$sensor2_name." ".$value.", ".$hyst.", ".$value_max.", ".$onoff.", ".$w_profile."\n";
+				echo date('Y H:i:s')." GPIO ".$gpio." ".$mode.", ".$sensor_name." ".$sensor_tmp.", ".$op.", ".$sensor2_name." Start:".$value.", Hyst:".$hyst.", End:".$value_max.", Action:".$onoff.", Profile:".$w_profile."\n";
 				continue;
 			}			
 				
