@@ -86,9 +86,9 @@ if ( $numRows > '0' ) { ?>
 	    <small>
 	    <a href="index.php?id=view&type=elec&max=day&single=<?php echo $a['name']?>&mode=2" class="label label-warning" title="W">
 		<?php
-		$rows = $dbs->query("SELECT current AS sums from def where time = (select max(time) from def)") or die('lol');
-		$i = $rows->fetch(); 
-		echo number_format($i['sums'], 3, '.', ',')." ";
+		//$rows = $dbs->query("SELECT current AS sums from def where time = (select max(time) from def)") or die('lol');
+		//$i = $rows->fetch(); 
+		echo number_format($a['current'], 3, '.', ',')." ";
 		?>
 	    </a>
 	    </small>
