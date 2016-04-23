@@ -22,7 +22,7 @@ orno_watts=float(value[3])
 orno_var=float(value[4])
 orno_va=float(value[5])
 orno_cosfi=float(value[6])/1000
-orno_kwh=float(value[8]/1000)
+orno_kwh=float(value[7]*65555/1000+value[8]/1000)
 orno_varh=float(value[10]/1000)
 client.close()
 
