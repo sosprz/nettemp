@@ -1,5 +1,6 @@
 <?php 
-$db = new PDO("sqlite:dbf/nettemp.db") or die ("cannot open database");
+$root=$_SERVER["DOCUMENT_ROOT"];
+$db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
 $sth = $db->prepare("select * from sensors where jg='on'");
 $sth->execute();
 $result = $sth->fetchAll();
