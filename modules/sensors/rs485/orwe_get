@@ -16,14 +16,14 @@ client.connect()
 rr = client.read_holding_registers(0,15, unit=addr)
 value=rr.registers
 orno_volts=float(value[0])/10
-orno_amps=float(value[1])/10
-nas_hertz=float(value[2])/10
+orno_amps =float(value[1])/10
+orno_hertz=float(value[2])/10
 orno_watts=float(value[3])
-orno_var=float(value[4])
-orno_va=float(value[5])
+orno_var  =float(value[4])
+orno_va   =float(value[5])
 orno_cosfi=float(value[6])/1000
-orno_kwh=float(value[7]*65555/1000+value[8]/1000)
-orno_varh=float(value[10]/1000)
+orno_kwh  =float((value[7]<<16)+value[8])/1000
+orno_varh =float((value[9]<<16)+value[10])/1000
 client.close()
 
 print orno_volts
