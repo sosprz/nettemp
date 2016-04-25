@@ -1,6 +1,7 @@
 <?php 
-$db = new PDO("sqlite:dbf/nettemp.db") or die ("cannot open database");
-$sth = $db->prepare("select * from sensors where jg='on'");
+$root=$_SERVER["DOCUMENT_ROOT"];
+$db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
+$sth = $db->prepare("select * from sensors where jg='on' ORDER BY position ASC");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);
@@ -13,10 +14,7 @@ if ( $numRows > '0' ) { ?>
 <script src="html/justgage/justgage.js"></script>
 
 <?php
-$db = new PDO('sqlite:dbf/nettemp.db');
-$rows = $db->query("SELECT * FROM sensors WHERE jg='on' ORDER BY position ASC");
-$row = $rows->fetchAll();
-foreach ($row as $a) { 	
+foreach ($result as $a) { 	
 ?>
 <div id="<?php echo $a['name']?>" style="width:100px; height:100px;display:inline-block;"></div>
    
