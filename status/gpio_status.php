@@ -1,6 +1,5 @@
 <?php 
 $root=$_SERVER["DOCUMENT_ROOT"];
-$dir="modules/gpio/";
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
 $sth = $db->prepare("SELECT * FROM gpio WHERE position !=0 and ( mode='trigger' or mode='simple' or mode='day' or mode='week' or mode='temp' or mode='call' or mode='read') ORDER BY position ASC");
 $sth->execute();
@@ -46,10 +45,10 @@ if ($a['mode'] != 'read') {
 }
 
 if ($a['mode'] == 'read') {
-    include('status/gpio_status_read.php');
+    include("$root/status/gpio_status_read.php");
 }
 if ($a['mode'] != 'read') {
-    include('status/gpio_status_day_temp.php');
+    include("$root/status/gpio_status_day_temp.php");
 }
 
     } // first foreach

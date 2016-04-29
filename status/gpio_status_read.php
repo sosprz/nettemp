@@ -2,7 +2,10 @@
     <td colspan=3>
 	<?php
 	exec('/usr/local/bin/gpio -g read '.$gpio, $state);
-	    if ($state[0] == '1'){ 
+		 if (!isset($state['0'])) {
+   		$state['0'] = null;
+		 }
+	    if ($state['0'] == '1'){ 
 	    echo '<span class="label label-success">';
 	    } else {
 	    echo '<span class="label label-danger">';

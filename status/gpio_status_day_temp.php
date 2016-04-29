@@ -1,6 +1,6 @@
 <?php
 if (($a['mode']=='day') || ($a['mode']=='temp') && ($a['day_run']=='on')) {
-//$db = new PDO('sqlite:dbf/nettemp.db');
+$db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("select * from day_plan where gpio='$gpio'");
 $sth->execute();
 $result = $sth->fetchAll();
