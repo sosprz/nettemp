@@ -65,8 +65,7 @@
     $('.ow3').load("status/ownwidget3.php");
     $('.mm').load("status/minmax_status.php");
     $('.ups').load("status/ups_status.php");
-    $('.justgage').load("status/justgage_status.php");
-    
+    $('#justgage_refresh').load("status/justgage_refresh.php");
 }, 60000);
 
 $(document).ready( function() {
@@ -79,7 +78,7 @@ $(document).ready( function() {
 });
 </script>
 <script src="html/masonry/masonry.pkgd.min.js"></script>
-
+<div id="justgage_refresh"></div>
 
 
 

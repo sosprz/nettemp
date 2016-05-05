@@ -14,6 +14,7 @@ if ( $numRows > '0' ) { ?>
 <script src="html/justgage/justgage.js"></script>
 
 <?php
+$KtoryWidget = 0;
 foreach ($result as $a) { 	
 ?>
 <div id="<?php echo $a['name']?>" style="width:100px; height:100px;display:inline-block;"></div>
@@ -45,7 +46,7 @@ if (types=='amps') {n_units = " A"};
 if (types=='watt') {n_units = " W"};
 if (types=='dist') {n_units = " cm"};
 
-      var g = new JustGage({
+var g<?=$KtoryWidget++?> = new JustGage({
         id: "<?php echo $a['name']?>",
         value: <?php 
         				if($a['type']=='elec') {
