@@ -14,7 +14,7 @@ if ( $numRows > '0' ) { ?>
 <script src="html/justgage/justgage.js"></script>
 
 <?php
-$KtoryWidget = 0;
+$KtoryWidget = 1;
 foreach ($result as $a) { 	
 ?>
 <div id="<?php echo $a['name']?>" style="width:100px; height:100px;display:inline-block;"></div>
