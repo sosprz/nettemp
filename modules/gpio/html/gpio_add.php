@@ -147,7 +147,7 @@ foreach ($gpiolist as $value1) {
 <span id="helpBlock" class="help-block">Note: Do not use GPIO4 when use 1wire sensors connected to GPIO4 
 <br/>
 <?php if (!empty($wpout)) {
-	echo $wpout;
+	echo $wpout[0];
 }
 ?>
 </span>
