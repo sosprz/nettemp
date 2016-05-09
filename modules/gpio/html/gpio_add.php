@@ -46,8 +46,6 @@ $wp = '/usr/local/bin/gpio';
 if (file_exists($wp)) {
 	exec("$wp -v |grep Type:", $wpout );
 	
-	print_r($wpout);
-	
    if(strpos($wpout, 'B+') !== false) {
 		$bplus='found';   
    } elseif(strpos($wpout, 'Model B, Revision: 2') !== false) {
@@ -148,15 +146,9 @@ foreach ($gpiolist as $value1) {
     
 <span id="helpBlock" class="help-block">Note: Do not use GPIO4 when use 1wire sensors connected to GPIO4 
 <br/>
-<?php if (!empty($bplus[0])) {
-	echo $bplus[0];
-	} elseif (!empty($btwo[0])) {
-	    echo $btwo[0];
-	} elseif (!empty($bone[0])) {
-	    echo $bone[0];
-	} elseif (!empty($two[0])) {
-	    echo $two[0];
-	}
+<?php if (!empty($wpout)) {
+	echo $wpout;
+}
 ?>
 </span>
 </div></div>
