@@ -44,16 +44,31 @@ $gpiodel = isset($_POST['gpiodel']) ? $_POST['gpiodel'] : '';
 $wp = '/usr/local/bin/gpio';
 
 if (file_exists($wp)) {
-
-
-    exec("$wp -v |grep B+", $bplus );
-    exec("$wp -v |grep 'Model B, Revision: 2'", $btwo );
-    exec("$wp -v |grep 'Model B, Revision: 1'", $bone );
-    exec("$wp -v |grep 'Model 2, Revision:'", $two );
-    exec("$wp -v |grep 'Pi 2, Revision:'", $two );
-    exec("$wp -v |grep 'Pi Zero, Revision:'", $zero );
-    exec("$wp -v |grep 'Pi 3, Revision'", $three );
-    exec("$wp -v |grep 'ODROID-C1/C1+, Revision: 1'", $cplus );
+	exec("$wp -v |grep Type:", $wpout );
+	
+	print_r($wpout);
+	
+   if(strpos($wpout, 'B+') !== false) {
+		$bplus='found';   
+   } elseif(strpos($wpout, 'Model B, Revision: 2') !== false) {
+   	$btwo='found';
+   } elseif(strpos($wpout, 'Model B, Revision: 1') !== false) {
+   	$bone='found';
+   } elseif(strpos($wpout, 'Model B, Revision: 03') !== false) {
+   	$btwo='found';
+	} elseif(strpos($wpout, 'Model 2, Revision:') !== false) {
+   	$two='found';
+   } elseif(strpos($wpout, 'Pi 2, Revision:') !== false) {
+   	$two='found';
+ 	} elseif(strpos($wpout, 'Pi Zero, Revision:') !== false) {
+   	$zero='found';
+   } elseif(strpos($wpout, 'Pi 3, Revision') !== false) {
+   	$three='found';
+   } elseif(strpos($wpout, 'ODROID-C1/C1+, Revision: 1') !== false) {
+   	$three='found';
+   }
+ 
+   
     if ((!empty($bplus[0])) || (!empty($two[0])) || (!empty($zero[0])) || (!empty($three[0])) )
     {
         $gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
@@ -72,7 +87,7 @@ if (file_exists($wp)) {
     }
     else
     {
-	$gpiolist = array(4,17,21,22,18,23,24,25);
+			$gpiolist = array(4,17,21,22,18,23,24,25);
     } 
 
 	$db = new PDO('sqlite:dbf/nettemp.db');
