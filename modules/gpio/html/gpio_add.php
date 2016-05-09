@@ -47,46 +47,27 @@ if (file_exists($wp)) {
 	exec("$wp -v |grep Type:", $wpout );
 	
    if(strpos($wpout, 'B+') !== false) {
-		$bplus='found';   
+		$gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);  
    } elseif(strpos($wpout, 'Model B, Revision: 2') !== false) {
-   	$btwo='found';
+   	$gpiolist = array(4,17,27,22,18,23,24,25,28,29,30,31);
    } elseif(strpos($wpout, 'Model B, Revision: 1') !== false) {
-   	$bone='found';
+   	$gpiolist = array(4,17,21,22,18,23,24,25);
    } elseif(strpos($wpout, 'Model B, Revision: 03') !== false) {
-   	$btwo='found';
+   	$gpiolist = array(4,17,27,22,18,23,24,25,28,29,30,31);
 	} elseif(strpos($wpout, 'Model 2, Revision:') !== false) {
-   	$two='found';
+   	$gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
    } elseif(strpos($wpout, 'Pi 2, Revision:') !== false) {
-   	$two='found';
+   	$gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
  	} elseif(strpos($wpout, 'Pi Zero, Revision:') !== false) {
-   	$zero='found';
+   	$gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
    } elseif(strpos($wpout, 'Pi 3, Revision') !== false) {
-   	$three='found';
+   	$gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
    } elseif(strpos($wpout, 'ODROID-C1/C1+, Revision: 1') !== false) {
-   	$three='found';
-   }
- 
-   
-    if ((!empty($bplus[0])) || (!empty($two[0])) || (!empty($zero[0])) || (!empty($three[0])) )
-    {
-        $gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
-    }
-    elseif (!empty($btwo[0]))
-    {
-        $gpiolist = array(4,17,27,22,18,23,24,25,28,29,30,31);
-    }
-    elseif (!empty($bone[0]))
-    {
-        $gpiolist = array(4,17,21,22,18,23,24,25);
-    }
-    elseif (!empty($cplus[0]))
-    {
-   		$gpiolist = array(83,88,116,115,101,100,108,97,87,104,102,103,118,99,98);
-    }
-    else
-    {
-			$gpiolist = array(4,17,21,22,18,23,24,25);
-    } 
+   	$gpiolist = array(83,88,116,115,101,100,108,97,87,104,102,103,118,99,98);
+   } else {
+		$gpiolist = array(4,17,21,22,18,23,24,25);
+   } 
+    
 
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$rows = $db->query("SELECT * FROM settings WHERE id='1'") or exit(header("Location: html/errors/db_error.php"));
@@ -129,18 +110,6 @@ foreach ($gpiolist as $value1) {
 	</form>
 	<?php
 	    }
-
-       //if (in_array($value1, $added)){ 
-	?>
-	<!-- <form action="" method="post" style=" display:inline!important;">
-	    <button type="submit" name="gpiodel"  value="gpiodel" class="btn btn-xs btn-danger" onchange="this.form.submit()" ><span class="glyphicon glyphicon-stop" aria-hidden="true"></span> GPIO <?php echo $value1; ?></button>
-	    <input type="hidden" name="gpio" value="<?php echo $value1 ?>" />
-	    <input type="hidden" name="add" value="ADD" />
-	</form>
-	-->
-
-	<?php
-	//    }
 }
 ?>
     
