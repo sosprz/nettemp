@@ -24,7 +24,7 @@ if ($theme == 'grid') { ?>
 
 <script type="text/javascript" src="html/highcharts/no-data-to-display.js"></script>
 
-<div id="container" style="height: 400 ; min-width: 310px"></div>
+<div id="container" style="height: 700px; min-width: 310px"></div>
 <script type="text/javascript"> 	 
 var start = +new Date();
 function getUrlVars() {
