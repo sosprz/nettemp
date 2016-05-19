@@ -18,8 +18,9 @@ if ($update == "Update") {
 </pre>
 <?php
     shell_exec("$dir/modules/tools/update_su");
-    shell_exec("$dir/modules/tools/update_db");
+    //shell_exec("$dir/modules/tools/update_db");
     shell_exec("$dir/modules/tools/update_fi");
+    include("modules/tools/html/update_db.php");
     }
 ?>
     <form action="" method="post">
