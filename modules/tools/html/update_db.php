@@ -1,5 +1,6 @@
+<pre>
 <?php
-echo "nettemp DB\n";
+echo "nettemp database update \n";
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
 
@@ -264,4 +265,4 @@ $db->exec("ALTER TABLE meteo ADD normalized TEXT");
 echo "ok";
 
 ?>
-
+</pre>
