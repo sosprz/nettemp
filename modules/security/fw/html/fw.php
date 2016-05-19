@@ -8,6 +8,7 @@
     	shell_exec("/bin/bash modules/security/fw/fw off");
     } else {
     	shell_exec("/bin/bash modules/security/fw/fw on");
+    	shell_exec("/bin/bash modules/security/fw/fw add 0.0.0.0/0 vpn");
     }
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
