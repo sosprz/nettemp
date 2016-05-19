@@ -14,7 +14,7 @@ foreach ($row as $a) {
 
 if ( $onoff == "on") { 
 
-//require("Meteo.class.php"); ->requested class loaded in sensors_status.php !!!
+require("status/Meteo.class.php"); 
 $meteo=new Meteo();
 $sila_grawitacji=$meteo->getSilaGrawitacji();//9.780313*(pow(1+0.005324*SIN($szerokosc),2)-0.0000058*pow(SIN(2*$szerokosc),2)-0.000003085*$wysokosc);
 $temp_znormalizowana=$meteo->getTemperaturaZnormalizowana();//((2*($temperatura+273.15))+((0.6*$wysokosc)/100))/2;
