@@ -1,6 +1,6 @@
 <pre>
 <?php
-echo "nettemp database update \n";
+echo "nettemp database update: \n";
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
 
