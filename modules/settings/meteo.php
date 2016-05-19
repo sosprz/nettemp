@@ -8,6 +8,8 @@ $pre = isset($_POST['pre']) ? $_POST['pre'] : '';
 $hum = isset($_POST['hum']) ? $_POST['hum'] : '';
 $status = isset($_POST['status']) ? $_POST['status'] : '';
 $onoff = isset($_POST['onoff']) ? $_POST['onoff'] : '';
+$status_norm = isset($_POST['status_norm']) ? $_POST['status_norm'] : '';
+$onoff_norm = isset($_POST['onoff_norm']) ? $_POST['onoff_norm'] : '';
 
 
 if ($save == "save") {
@@ -20,6 +22,14 @@ if ($save == "save") {
 
 if ($onoff == "onoff") {
     $db->exec("UPDATE meteo SET onoff='$status' WHERE id='1'") or die("exec 1");
+    $db = null;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();	
+
+}
+
+if ($onoff_norm == "onoff_norm") {
+    $db->exec("UPDATE meteo SET normalized='$status_norm' WHERE id='1'") or die("exec 1");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
@@ -125,11 +135,15 @@ foreach ($resultmet as $m) {
 </fieldset>
 </form>
 <form action="" method="post">
-    <label>Meteo status</label>
+    <label style="width:150px">Meteo status</label>
     <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="status" value="on" <?php echo $m['onoff'] == 'on' ? 'checked="checked"' : ''; ?> /></td>
     <input type="hidden" name="onoff" value="onoff" />
     </form>
-
+<form action="" method="post">
+    <label style="width:150px">Normalized pressure</label>
+    <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="status_norm" value="on" <?php echo $m['normalized'] == 'on' ? 'checked="checked"' : ''; ?> /></td>
+    <input type="hidden" name="onoff_norm" value="onoff_norm" />
+    </form>
 <?php }
 ?>
 </div>

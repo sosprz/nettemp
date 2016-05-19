@@ -1,4 +1,4 @@
-<div class="grid-item ss" >
+<div class="grid-item ss">
 <div class="panel panel-default">
 <div class="panel-heading">Sensors</div>
 <?php
@@ -9,6 +9,12 @@ $rows = $db->query("SELECT * FROM settings WHERE id='1'");
 $row = $rows->fetchAll();
 foreach ($row as $a) {
     $temp_scale=$a['temp_scale'];
+}
+$rows_meteo = $db->query("SELECT normalized,pressure FROM meteo WHERE id='1'");
+$row_meteo = $rows_meteo->fetchAll();
+foreach ($row_meteo as $a) {
+    $normalized=$a['normalized'];
+	$pressure=$a['pressure'];
 }
 
 $rows = $db->query("SELECT * FROM sensors");
@@ -116,6 +122,29 @@ Go to device scan!
 		    	    <?php echo $updo; ?>
 			</td>
 		    </tr>
+			<?php if ($normalized == "on" && $pressure == $a['id']): ?>
+				<tr>
+					<td></td>
+					<td><span 
+				<?php if(($a['tmp'] == 'error') || ($label=='danger')) {
+				    echo 'class="label label-danger"';
+				    } 
+				    else {
+					echo 'class="label label-success"';
+				    } 
+					?>
+					>
+					<?php require('Meteo.class.php');
+						$m=new Meteo();
+						echo number_format($m->getCisnienieZnormalizowane(),2,'.','').' hPa npm';
+						?>
+					</span>
+					</td>
+					<td>
+		    	    <?php echo $updo; ?>
+					</td>
+				</tr>
+			<?php endif; ?>
 <?php
     unset($mm);
     unset($max);

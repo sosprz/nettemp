@@ -301,4 +301,5 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE rs485 (id INTEGER
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD jg TEXT"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE sensors ADD current TEXT"
 
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE meteo ADD normalized TEXT"
 
