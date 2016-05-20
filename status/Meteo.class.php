@@ -92,7 +92,7 @@ class Meteo
 	
 	function getTemperaturaZnormalizowana()
 	{
-		return $this->tz;
+		return $this->temp_znormalizowana;
 	}
 	
 	function getCisnienieZnormalizowane()

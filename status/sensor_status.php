@@ -135,6 +135,7 @@ Go to device scan!
 					?>
 					>
 					<?php
+						require_once("Meteo.class.php");
 						$m=new Meteo();
 						echo number_format($m->getCisnienieZnormalizowane(),2,'.','').' hPa npm';
 						?>
