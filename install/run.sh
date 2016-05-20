@@ -23,3 +23,6 @@ source install/perms/perms.sh
 source install/crontab/crontab.sh
 source install/services/services.sh
 
+if [[ "$SENDSTATS" == "yes" ]]; then
+	php-cgi -q install/stats/stats.php
+fi
