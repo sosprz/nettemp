@@ -148,9 +148,6 @@ foreach ($resultmet as $m) {
 ?>
 </div>
 </div>
-<?php
-include('meteo_status.php');
-?>
 
 
 
