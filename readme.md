@@ -55,6 +55,6 @@ OpenWRT, beta version:
 
 Changelog:
 
-RC1
+RC2
 
 
