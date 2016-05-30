@@ -1,7 +1,16 @@
 <?php 
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
-$sth = $db->prepare("select * from sensors where jg='on' ORDER BY position ASC");
+//check if display normalized in jg
+$normalized=-1;
+$sth_norma = $db->prepare("select * from meteo");
+$sth_norma->execute();
+$result_norma = $sth_norma->fetchAll();	
+if ($result_norma[0]['jg']=='on')
+{
+	$normalized=$result_norma[0]['pressure'];
+}
+$sth = $db->prepare("select *,'off' as 'normalized' from sensors where jg='on' UNION ALL select *,'on' as 'normalized' from sensors WHERE id=$normalized ORDER BY position ASC,id");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);
@@ -16,6 +25,14 @@ if ( $numRows > '0' ) { ?>
 <?php
 $KtoryWidget = 1;
 foreach ($result as $a) { 	
+if ($a['normalized']=='on')
+{
+	$a['name']=$a['name'].' npm';
+	$a['type']='normalized';
+	require_once('Meteo.class.php');
+	$meteo=new Meteo();
+	$a['tmp']=number_format($meteo->getCisnienieZnormalizowane(),2,'.','');
+}
 ?>
 <div id="<?php echo $a['name']?>" style="width:100px; height:100px;display:inline-block;"></div>
    
@@ -45,6 +62,7 @@ if (types=='volt') {n_units = " V"};
 if (types=='amps') {n_units = " A"};
 if (types=='watt') {n_units = " W"};
 if (types=='dist') {n_units = " cm"};
+if (types=='normalized') {n_units = " hPa\nnpm"};
 
 var g<?=$KtoryWidget++?> = new JustGage({
         id: "<?php echo $a['name']?>",
