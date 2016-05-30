@@ -260,6 +260,8 @@ $db->exec("CREATE TABLE rs485 (id INTEGER PRIMARY KEY,dev,addr TEXT)");
 $db->exec("ALTER TABLE sensors ADD jg TEXT");
 $db->exec("ALTER TABLE sensors ADD current TEXT");
 $db->exec("ALTER TABLE meteo ADD normalized TEXT");
+$db->exec("ALTER TABLE meteo ADD jg TEXT");
+
 
 
 echo "ok";
