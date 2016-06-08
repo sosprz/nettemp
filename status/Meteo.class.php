@@ -73,7 +73,7 @@ class Meteo
 		//$display = $this->getOnOff(array('id' => 1))[0]->onoff;
 		//if ($display == "on") {
 
-		$this->sila_grawitacji=9.780313*(pow(1+0.005324*SIN($this->szerokosc),2)-0.0000058*pow(SIN(2*$this->szerokosc),2)-0.000003085*$this->wysokosc);
+		$this->sila_grawitacji=9.780313*(pow(1+0.005324*SIN(1*$this->szerokosc),2)-0.0000058*pow(SIN(2*$this->szerokosc),2)-0.000003085*$this->wysokosc);
 		$this->temp_znormalizowana=((2*($this->temperatura+273.15))+((0.6*$this->wysokosc)/100))/2;
 		$this->tz=$this->temp_znormalizowana-273.15;
 		$this->cz=($this->cisnienie*(EXP(($this->sila_grawitacji*$this->wysokosc)/(287.05*$this->temp_znormalizowana)))*10)/10;
@@ -102,7 +102,7 @@ class Meteo
 	
 	function getTpr()
 	{
-		return$this->tpr;
+		return $this->tpr;
 	}
 	
 	function getCisnienieParyNasyconej()
