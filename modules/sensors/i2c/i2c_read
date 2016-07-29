@@ -4,7 +4,7 @@ dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 
 if onoff=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT i2c FROM device WHERE id='1'")
 then
-if [ "$onoff" == "i2c-1" ] || [ "$onoff" == "i2c-0" ] || [ "$onoff" == "i2c-2" ] || [ "$onoff" == "i2c-3" ] ; then 
+if [ "$onoff" == "i2c-1" ] || [ "$onoff" == "i2c-0" ] || [ "$onoff" == "i2c-2" ] || [ "$onoff" == "i2c-3" ] ; then
 ####################################################################################
 bus=$(echo $onoff|sed 's/i2c-//g')
 skey=$( sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
@@ -44,6 +44,45 @@ for id in $id; do
 	#fi
     fi
 done
+
+###########
+v=bme280
+id=$( sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT addr FROM i2c where name='$v'")
+###########
+
+for id in $id; do
+    if  sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT id FROM sensors WHERE rom LIKE 'i2c_$id%'"|grep -q [0-9]; then
+   all=($($dir/modules/sensors/i2c/BME280/bme280.py 2>/dev/null))
+       t=i2c_${id}_temp.sql
+       p=i2c_${id}_press.sql
+       h=i2c_${id}_humid.sql
+       if [ -s "$t" ]; then
+      name=$(echo $t |awk 'sub("....$", "")')
+      temp=${all[0]}
+      if [[ ! -n $temp ]]; then temp="error"; fi
+      checkwrite $temp $name temp
+      echo $v Temp $temp
+       fi
+       if [ -s "$p" ]; then
+      name=$(echo $p |awk 'sub("....$", "")')
+      press=${all[1]}
+      if [[ ! -n $press ]]; then press="error"; fi
+      checkwrite $press $name press
+      echo $v Pressure $press
+       fi
+       if [ -s "$h" ]; then
+      humid=${all[2]}
+      if [[ ! -n $humid ]]; then humid="error"; fi
+      name=$(echo $h |awk 'sub("....$", "")')
+      checkwrite $humid $name humid
+      echo $v Humid: $humid
+       fi
+   #else
+   #    echo $v main error
+   #fi
+    fi
+done
+
 
 ###########
 v=tsl2561
@@ -201,7 +240,7 @@ done
 
 
 #####################
-else 
+else
     echo "i2c OFF"
 fi
 

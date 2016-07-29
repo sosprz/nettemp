@@ -26,12 +26,13 @@ $add = isset($_POST['add']) ? $_POST['add'] : '';
     $db->exec("DELETE from i2c") or header("Location: html/errors/db_error.php");
     $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('bmp180','77')") or header("Location: html/errors/db_error.php");
     $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('tsl2561','39')") or header("Location: html/errors/db_error.php");
-    $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('ds2482','18')") or header("Location: html/errors/db_error.php");	
+    $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('ds2482','18')") or header("Location: html/errors/db_error.php");
     $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('htu21d','40')") or header("Location: html/errors/db_error.php");
     $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('mpl3115a2','60')") or header("Location: html/errors/db_error.php");
     $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('hih6130','27')") or header("Location: html/errors/db_error.php");
     $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('tmp102','48')") or header("Location: html/errors/db_error.php");
     $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('bh1750','23')") or header("Location: html/errors/db_error.php");
+    $db->exec("INSERT OR IGNORE INTO i2c (name, addr) VALUES ('bme280','76')") or header("Location: html/errors/db_error.php");
 
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
@@ -75,6 +76,7 @@ $lcd=$c['lcd'];
     <select name="name" class="form-control input-sm">
         <option value="ds2482">ds2482</option>
         <option value="bmp180">bmp180</option>
+	 <option value="bme280">bme280</option>
 	<option value="tsl2561">tsl2561</option>
 	<option value="htu21d">htu21d</option>
 	<option value="mpl3115a2">mpl3115a2</option>
