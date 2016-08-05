@@ -103,7 +103,7 @@ done
     for s in $(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='ds2482'")
     do
 	sudo echo "echo ds2482 0x$s > /sys/bus/i2c/devices/i2c-$i2c/new_device" >> $ddir
-	echo I2C: Found DS2482 0x$s
+	#echo I2C: Found DS2482 0x$s
     done
 
     sudo echo "exit 0" >> $ddir
