@@ -64,7 +64,7 @@ Go to device scan!
 		if($a['type'] == 'watt'){ $unit='W'; $type='<img src="media/ico/watt.png" alt="Watt" title="Watt"/>';}		
 		if($a['type'] == 'volt'){ $unit='V'; $type='<img src="media/ico/volt.png" alt="Volt" title="Volt"/> ';}		
 		if($a['type'] == 'amps'){ $unit='A'; $type='<img src="media/ico/amper.png" alt="Amps" title="Amps"/> ';}		
-		if($a['type'] == 'dist'){ $unit='cm'; $type='';}	
+		if($a['type'] == 'dist'){ $unit='cm'; $type='<img src="media/ico/Distance-icon.png" alt="cm" title="Distance"/> ';}	
 		if($a['type'] == 'trigger'){ $unit=''; $type='<img src="media/ico/alarm-icon.png" alt="Trigger" title="Trigger"/>';}	
 		
 		//glyphicon glyphicon-exclamation-sign	
