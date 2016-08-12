@@ -69,9 +69,10 @@ Go to device scan!
 		
 		if($a['type'] == 'rainfall'){ $unit='mm/m2'; $type='';}	
 		if($a['type'] == 'speed'){ $unit='km/h'; $type='';}	
-		if($a['type'] == 'wind'){ $unit='km/h'; $type='';}	
-		if($a['type'] == 'uv'){ $unit='uv'; $type='';}	
-		if($a['type'] == 'storm'){ $unit='km'; $type='';}	
+		if($a['type'] == 'wind'){ $unit='°'; $type='';}	
+		if($a['type'] == 'uv'){ $unit='index'; $type='';}	
+		if($a['type'] == 'storm'){ $unit='km'; $type='';}
+		if($a['type'] == 'lighting'){ $unit=''; $type='';}	
 		
 		//glyphicon glyphicon-exclamation-sign	
 		

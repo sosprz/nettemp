@@ -50,10 +50,6 @@ if (in_array('press', $type))  {?>
 if (in_array('altitude', $type))  {?>
 <a href="index.php?id=view&type=altitude&max=day&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php echo $art == 'altitude' ? ' active' : ''; ?>">Altitude view</button></a>
 <?php }
-//if (glob('tmp/kwh/*.json')) {?>
-<!-- <a href="index.php?id=view&type=kwh" ><button class="btn btn-xs btn-default <?php echo $art == 'kwh' ? ' active' : ''; ?>">kWh</button></a> -->
-<?php 
-//}
 if (in_array('elec', $type))  {?>
 <a href="index.php?id=view&type=elec&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'elec' && empty($mode) ? ' active' : ''; ?>">Electricity kWh</button></a>
 <a href="index.php?id=view&type=elec&max=day&mode=2" ><button class="btn btn-xs btn-default <?php echo $art == 'elec' && $mode == '2' ? ' active' : ''; ?>">Electricity Wh</button></a>
@@ -93,7 +89,25 @@ if ( $gre2 >= "1") { ?>
 <?php } 
 if ( $gre3 >= "1") { ?>
 <a href="index.php?id=view&type=group&group=3&max=day" ><button class="btn btn-xs btn-default <?php echo $group == '3' ? ' active' : ''; ?>">Group 3</button></a>
-<?php } ?>
+<?php } 
+if (in_array('rainfall', $type))  {?>
+<a href="index.php?id=view&type=rainfall&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'rainfall' ? ' active' : ''; ?>">Rainfall</button></a>
+<?php } 
+if (in_array('speed', $type))  {?>
+<a href="index.php?id=view&type=speed&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'speed' ? ' active' : ''; ?>">Speed</button></a>
+<?php } 
+if (in_array('wind', $type))  {?>
+<a href="index.php?id=view&type=wind&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'wind' ? ' active' : ''; ?>">Wind</button></a>
+<?php } 
+if (in_array('uv', $type))  {?>
+<a href="index.php?id=view&type=uv&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'uv' ? ' active' : ''; ?>">UV</button></a>
+<?php } 
+if (in_array('storm', $type))  {?>
+<a href="index.php?id=view&type=storm&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'storm' ? ' active' : ''; ?>">Storm</button></a>
+<?php } 
+
+
+?>
 
 <a href="index.php?id=view&type=system&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'system' ? ' active' : ''; ?>">System stats</button></a>
 <a href="index.php?id=view&type=meteogram" ><button class="btn btn-xs btn-default <?php echo $art == 'meteogram' ? ' active' : ''; ?>">Meteogram</button></a>

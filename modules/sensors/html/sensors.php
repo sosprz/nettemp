@@ -87,6 +87,9 @@ $name_new=trim($name_new2);
 	elseif (strpos($id_rom_new,'storm') !== false) {
 	    $type='storm';
 	}
+	elseif (strpos($id_rom_new,'lighting') !== false) {
+	    $type='lighting';
+	}
 	
 	else {
 	    if (substr($id_rom_new, 0, 4 ) === "0x26") {

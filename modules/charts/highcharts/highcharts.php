@@ -198,6 +198,12 @@ $(function () {
 		    if (types[this.name]=='amps') {n_units = " A"};
 		    if (types[this.name]=='watt') {n_units = " W"};
 		    if (types[this.name]=='dist') {n_units = " cm"};
+		    if (types[this.name]=='rainfall') {n_units = " mm/m2"};
+		    if (types[this.name]=='speed') {n_units = " km/h"};
+			 if (types[this.name]=='wind') {n_units = " °"};
+			 if (types[this.name]=='uv') {n_units = " "};
+			 if (types[this.name]=='storm') {n_units = " km"};
+			 if (types[this.name]=='lighting') {n_units = " "};
             	    
             	    
 		    			 return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + n_units +'</b> </n>';
@@ -244,6 +250,12 @@ $(function () {
     if (types[name]=='amps') { var n_units = " A"}
     if (types[name]=='watt') { var n_units = " W"}
     if (types[name]=='dist') { var n_units = " cm"}
+    if (types[name]=='rainfall') { var n_units = " mm/m2"}
+	 if (types[name]=='speed') { var n_units = " km/h"}
+	 if (types[name]=='wind') { var n_units = " °"}
+	 if (types[name]=='uv') { var n_units = " "}
+	 if (types[name]=='storm') { var n_units = " km"}
+	 if (types[name]=='lighting') { var n_units = " "}
 
         $.getJSON('common/hc_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mode,  function (data) {
 
