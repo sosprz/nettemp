@@ -8,7 +8,7 @@ date=`date +%y%m%d-%H%M`
 if [ -e /sys/bus/w1/devices/w1_bus_master1/w1_master_slaves ]
     then 
     sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET onewire='on' WHERE id='1'"
-    w1_count=$(cat /sys/bus/w1/devices/w1_bus_master*/w1_master_slaves |grep -e '28-' -e '10-' -e '22-' -e '3b-')
+    w1_count=$(cat /sys/bus/w1/devices/w1_bus_master*/w1_master_slaves |grep -e '28-' -e '10-' -e '22-' -e '3b-' | grep -c '-')
     if [ $w1_count != "0" ]
         then
         echo "1-wire: $w1_count sensors found"
