@@ -112,14 +112,6 @@ if ($art!='meteogram') {
 </p>
 <?php
     }
-?>
-
-<?php
-$rows1 = $db->query("SELECT charts FROM charts WHERE id='1'");
-$row1 = $rows1->fetchAll();
-foreach($row1 as $hi){
-$charts=$hi['charts'];
-}
 
 	switch ($art)
 	{ 

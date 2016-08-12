@@ -67,6 +67,12 @@ Go to device scan!
 		if($a['type'] == 'dist'){ $unit='cm'; $type='<img src="media/ico/Distance-icon.png" alt="cm" title="Distance"/> ';}	
 		if($a['type'] == 'trigger'){ $unit=''; $type='<img src="media/ico/alarm-icon.png" alt="Trigger" title="Trigger"/>';}	
 		
+		if($a['type'] == 'rainfall'){ $unit='mm/m2'; $type='';}	
+		if($a['type'] == 'speed'){ $unit='km/h'; $type='';}	
+		if($a['type'] == 'wind'){ $unit='km/h'; $type='';}	
+		if($a['type'] == 'uv'){ $unit='uv'; $type='';}	
+		if($a['type'] == 'storm'){ $unit='km'; $type='';}	
+		
 		//glyphicon glyphicon-exclamation-sign	
 		
 		//if($a['tmp'] > $a['tmp_5ago']) { $updo='<img src="media/ico/Up-3-icon.png"/>';}
