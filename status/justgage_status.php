@@ -68,7 +68,7 @@ if (types=='speed') {n_units = " km/h"};
 if (types=='wind') {n_units = " °"};
 if (types=='uv') {n_units = " "};
 if (types=='storm') {n_units = " km"};
-if (types=='lighting') {n_units = " "};
+if (types=='lightning') {n_units = " "};
 
 var g<?=$KtoryWidget++?> = new JustGage({
         id: "<?php echo $a['name']?>",

@@ -214,7 +214,7 @@ function check(&$val,$type) {
 			$val='range';
 		    }
 		}
-		elseif ($type == 'lighting') {
+		elseif ($type == 'lightning') {
     		    if ((0 <= $val) && ($val <= 100000)) {
 			$val=$val;
 		    }

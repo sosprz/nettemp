@@ -88,7 +88,7 @@ $name_new=trim($name_new2);
 	    $type='storm';
 	}
 	elseif (strpos($id_rom_new,'lighting') !== false) {
-	    $type='lighting';
+	    $type='lightning';
 	}
 	
 	else {

@@ -203,7 +203,7 @@ $(function () {
 			 if (types[this.name]=='wind') {n_units = " °"};
 			 if (types[this.name]=='uv') {n_units = " "};
 			 if (types[this.name]=='storm') {n_units = " km"};
-			 if (types[this.name]=='lighting') {n_units = " "};
+			 if (types[this.name]=='lightning') {n_units = " "};
             	    
             	    
 		    			 return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + n_units +'</b> </n>';
@@ -255,7 +255,7 @@ $(function () {
 	 if (types[name]=='wind') { var n_units = " °"}
 	 if (types[name]=='uv') { var n_units = " "}
 	 if (types[name]=='storm') { var n_units = " km"}
-	 if (types[name]=='lighting') { var n_units = " "}
+	 if (types[name]=='lightning') { var n_units = " "}
 
         $.getJSON('common/hc_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mode,  function (data) {
 

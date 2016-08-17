@@ -105,8 +105,8 @@ if (in_array('uv', $type))  {?>
 if (in_array('storm', $type))  {?>
 <a href="index.php?id=view&type=storm&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'storm' ? ' active' : ''; ?>">Storm</button></a>
 <?php } 
-if (in_array('lighting', $type))  {?>
-<a href="index.php?id=view&type=lighting&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'storm' ? ' active' : ''; ?>">Lighting</button></a>
+if (in_array('lightning', $type))  {?>
+<a href="index.php?id=view&type=lightning&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'lightning' ? ' active' : ''; ?>">Lightning</button></a>
 <?php } 
 
 ?>
