@@ -175,6 +175,54 @@ function check(&$val,$type) {
 			$val='range';
 		    }
 		}
+		elseif ($type == 'rainfall') {
+    		    if ((0 <= $val) && ($val <= 100000)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}elseif ($type == 'speed') {
+    		    if ((0 <= $val) && ($val <= 100000)) {
+			$val=$val;
+		    }
+		    else {
+			$val='speed';
+		    }
+		}
+		elseif ($type == 'wind') {
+    		    if ((0 <= $val) && ($val <= 100000)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}
+		elseif ($type == 'uv') {
+    		    if ((0 <= $val) && ($val <= 100000)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}
+		elseif ($type == 'storm') {
+    		    if ((0 <= $val) && ($val <= 100000)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}
+		elseif ($type == 'lighting') {
+    		    if ((0 <= $val) && ($val <= 100000)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }
+		}
+		
 		
 		
 
@@ -205,7 +253,7 @@ function db($rom,$val,$type,$device,$current) {
 		if ($val != 'range'){
 		    //// base
 		    // counters can always put to base
-		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger");
+		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting");
 		    $arrayd = array("wireless", "gpio", "usb");
 		    if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
 					if (isset($current) && is_numeric($current)) {

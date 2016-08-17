@@ -63,6 +63,12 @@ if (types=='amps') {n_units = " A"};
 if (types=='watt') {n_units = " W"};
 if (types=='dist') {n_units = " cm"};
 if (types=='normalized') {n_units = " hPa\nnpm"};
+if (types=='rainfall') {n_units = " mm/m2"};
+if (types=='speed') {n_units = " km/h"};
+if (types=='wind') {n_units = " °"};
+if (types=='uv') {n_units = " "};
+if (types=='storm') {n_units = " km"};
+if (types=='lighting') {n_units = " "};
 
 var g<?=$KtoryWidget++?> = new JustGage({
         id: "<?php echo $a['name']?>",
