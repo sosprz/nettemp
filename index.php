@@ -40,6 +40,9 @@ else {
  </head>
 <body>
 
+<?php
+if($id != 'screen') { 
+	?>
  <!-- Static navbar -->
       <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -66,6 +69,7 @@ $numsimple2 = count($row2);
 ?>
 <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status"><span class="glyphicon glyphicon-th-large" aria-hidden="true"> Status</span></a></li>
 <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp&max=day"><span class="glyphicon glyphicon-stats" aria-hidden="true"> Charts</span></a></li>
+<li <?php echo $id == 'screen' ? ' class="active"' : ''; ?>><a href="index.php?id=screen&type=temp&max=day"><span class="glyphicon glyphicon-modal-window" aria-hidden="true"> Screen</span></a></li>
 <?php 
 if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
     if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { 
@@ -109,8 +113,10 @@ if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
     <?php } ?>
     	</div><!--/.nav-collapse -->
 	</div><!--/.container-fluid -->
-        </nav>
- 
+</nav>
+<?php 
+	}
+	?> 
 
 <div class="container-nettemp">
 <?php 
@@ -137,19 +143,11 @@ case 'upload': include('modules/tools/backup/html/upload.php'); break;
 case 'csv': include('common/csv.php'); break;
 case 'receiver': include('modules/sensors/html/receiver.php'); break;
 case 'controls': include('modules/relays/html/relays_controls.php'); include('modules/gpio/html/gpio_controls.php'); break;
+case 'screen': include('modules/screen/index.php'); break;
 }
 ?>
 </div>
 
-<footer class="footer">
-      <div class="container text-center">
-	    <a href="https://nettemp.pl/forum/viewtopic.php?f=20&t=765&p=11209" target="_blank" class="btn btn-xs btn-primary"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </a>
-	    <?php include('html/info/paypal.php');?>
-	    <button class="btn btn-xs btn-primary">System time <?php passthru("date +%H:%M:%S");?></button>
-
-	    
-      </div>
-</footer>
 
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
