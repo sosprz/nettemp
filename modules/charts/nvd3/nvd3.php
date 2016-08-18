@@ -18,7 +18,11 @@
        #chart1, svg {
             margin: 0px;
             padding: 0px;
-            height: 500px;
+	    <?php if($id == 'screen') { ?>
+        	height: 300px;
+	    <?php } else { ?>
+		height: 500px;
+	    <?php } ?>
             width: 100%;
         }
     </style>
