@@ -39,6 +39,13 @@ function getUrlVars() {
     var single = getUrlVars()["single"];
     var group = getUrlVars()["group"];
     var mode = getUrlVars()["mode"];
+    if(!type) {
+		var type = "temp";    
+    }
+    if(!max) {
+		var max = "day";    
+    }
+    
     
 <?php
 $dirb = "sqlite:dbf/nettemp.db";
@@ -50,7 +57,11 @@ foreach ($dbh->query($query) as $row) {
 echo "temp_scale = '". $temp_scale ."';\n";
 
 parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $url);
-$type=$url['type'];
+if(!empty($url['type'])) {
+	$type=$url['type'];
+} else {
+	$type="temp";
+}
 $single=$url['single'];
 $group=$url['group'];
 

@@ -55,6 +55,12 @@ function getUrlVars() {
     var single = getUrlVars()["single"];
     var group = getUrlVars()["group"];
     var mode = getUrlVars()["mode"];
+    if(!type) {
+		var type = "temp";    
+    }
+    if(!max) {
+		var max = "day";    
+    }
     
     if (typeof group === 'undefined') {
 		var group = "";
