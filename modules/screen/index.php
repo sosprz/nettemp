@@ -34,6 +34,7 @@ article {
     margin-left: 25%;
     padding: 1em;
     overflow: hidden;
+    float: right;
 }
 </style>
 </head>
