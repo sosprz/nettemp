@@ -9,6 +9,14 @@ if ( '' == file_get_contents( $dbfile ) ) {
 header("Location: html/errors/no_db.php");
 }
 else {
+$html = $db->query("SELECT * FROM html");
+$html1 = $html->fetchAll();
+foreach($html1 as $hp){
+       echo $hp['info'];
+}
+print_r($hp);
+
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">
