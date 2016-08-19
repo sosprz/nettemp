@@ -1,4 +1,5 @@
 <?php
+$db = new PDO('sqlite:dbf/nettemp.db');
 include("modules/login/login.php");
 ob_start();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -59,9 +60,8 @@ if($id != 'screen') {
 <div id="navbar" class="navbar-collapse collapse">
 <ul class="nav navbar-nav">
 <?php
-$db1 = new PDO('sqlite:dbf/nettemp.db');
-$rows1 = $db1->query("SELECT * FROM gpio WHERE mode='simple' OR mode='moment' OR mode='trigger' OR mode='call'") or header("Location: html/errors/db_error.php");
-$rows2 = $db1->query("SELECT * FROM relays WHERE type='relay'") or header("Location: html/errors/db_error.php");
+$rows1 = $db->query("SELECT * FROM gpio WHERE mode='simple' OR mode='moment' OR mode='trigger' OR mode='call'") or header("Location: html/errors/db_error.php");
+$rows2 = $db->query("SELECT * FROM relays WHERE type='relay'") or header("Location: html/errors/db_error.php");
 $row1 = $rows1->fetchAll();
 $row2 = $rows2->fetchAll();
 $numsimple = count($row1);

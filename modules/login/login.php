@@ -4,7 +4,6 @@ $form_login = isset($_POST['form_login']) ? $_POST['form_login'] : '';
 if ($form_login == "log") { /// do after login form is submitted  
 	$user=$_POST["username"];
 	$pass=sha1($_POST["password"]);
-	$db = new PDO('sqlite:dbf/nettemp.db');
 	$rows = $db->query("SELECT * FROM users WHERE login='$user' AND password='$pass' ");
 	$row = $rows->fetchAll();
 	foreach($row as $a) {
