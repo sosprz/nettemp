@@ -86,7 +86,7 @@ $numsimple2 = count($row2);
 <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status"><span class="glyphicon glyphicon-th-large" aria-hidden="true"> Status</span></a></li>
 <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp&max=day"><span class="glyphicon glyphicon-stats" aria-hidden="true"> Charts</span></a></li>
 <?php
-	if($html_info=='on') 
+	if($html_screen=='on') 
 	{ 
 	?>
 	<li <?php echo $id == 'screen' ? ' class="active"' : ''; ?>><a href="index.php?id=screen&type=temp&max=day"><span class="glyphicon glyphicon-modal-window" aria-hidden="true"> Screen</span></a></li>
