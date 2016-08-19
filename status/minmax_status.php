@@ -19,7 +19,7 @@ if ( $numRows > '0' ) { ?>
     <th>Month</th>
 </tr>
 <?php
-$mm = $db->query("SELECT * FROM html");
+$mm = $db->query("SELECT * FROM minmax");
 $mm1 = $mm->fetchAll();
 foreach($mm1 as $ms){
        if($ms[name]=='mode') {
