@@ -12,9 +12,14 @@ else {
 $html = $db->query("SELECT * FROM html");
 $html1 = $html->fetchAll();
 foreach($html1 as $hp){
-       echo $hp['info'];
+       if($hp[name]=='info') {
+       	$html_info=$hp[state];
+       }
+       if($hp[name]=='footer') {
+       	$html_footer=$hp[state];
+       }
 }
-print_r($hp);
+
 
 	
 ?>
@@ -95,8 +100,12 @@ if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 <?php 
 	} 
 }
+if($html_info=='on') {
 ?>
 <li <?php echo $id == 'info' ? ' class="active"' : ''; ?>><a href="info"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"> Info</span></a></li>
+<?php
+	}
+	?>
 <li> <?php include('modules/settings/access_time_check.php'); ?></li>
 
 </ul>
@@ -155,8 +164,20 @@ case 'screen': include('modules/screen/index.php'); break;
 }
 ?>
 </div>
+<?php 
+	if($html_footer=='on') { ?>
+<footer class="footer">
+      <div class="container text-center">
+	    <a href="https://nettemp.pl/forum/viewtopic.php?f=20&t=765&p=11209" target="_blank" class="btn btn-xs btn-primary"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </a>
+	    <?php include('html/info/paypal.php');?>
+	    <button class="btn btn-xs btn-primary">System time <?php passthru("date +%H:%M:%S");?></button>
 
-
+	    
+      </div>
+</footer>
+<?php 
+	}
+	?>
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
