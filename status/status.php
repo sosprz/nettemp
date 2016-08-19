@@ -9,8 +9,9 @@
 /* ---- grid ---- */
 
 .grid {
-  //background: #EEE;
-  //max-width: 1200px;
+	<?php if($id=='screen') { ?>
+   	width: 800px;
+   <?php } ?>
 }
 
 /* clearfix */

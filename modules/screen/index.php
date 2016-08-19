@@ -14,24 +14,14 @@ footer {
 }
 
 nav {
+    max-width:50%;
     float: left;
-    max-width: 160px;
-    margin: 0;
     padding: 1em;
     
 }
 
-nav ul {
-    list-style-type: none;
-    padding: 0;
-}
-   
-nav ul a {
-    text-decoration: none;
-}
 
 article {
-    margin-left: 25%;
     padding: 1em;
     overflow: hidden;
     float: right;
