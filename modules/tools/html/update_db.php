@@ -265,6 +265,8 @@ $db->exec("ALTER TABLE meteo ADD jg TEXT");
 $db->exec("CREATE TABLE html (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT)");
 $db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('info', 'on')");
 $db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('footer', 'on')");
+$db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('screen', 'on')");
+
 
 
 
