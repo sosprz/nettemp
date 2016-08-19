@@ -19,8 +19,9 @@ $single = isset($_GET['single']) ? $_GET['single'] : '';
 
 $rows1 = $db->query("SELECT type FROM sensors WHERE charts='on'");
 $row1 = $rows1->fetchAll();
+$typearr[] = array(); 
 foreach($row1 as $hi){
-$typearr=$hi['type'];
+$typearr[]=$hi['type'];
 }
 
 
