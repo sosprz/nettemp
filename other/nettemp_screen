@@ -5,8 +5,12 @@ echo "deb http://dl.bintray.com/kusti8/chromium-rpi jessie main" | sudo tee -a /
 sudo apt-get update
 sudo apt-get install chromium-browser  -y
 
+@chromium-browser --kiosk --incognito http://localhost/index.php?id=screen
+@xset s off
+@xset -dpms
+@xset s noblank
 
-chromium-browser --app http://localhost/index.php?id=screen
+
 
 /home/pi/.config/lxsession/LXDE-pi/autostart
 

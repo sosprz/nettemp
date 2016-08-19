@@ -1,4 +1,5 @@
-<?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
+<?php if(!isset($_SESSION['user']) && $id!='screen'){ header("Location: denied"); } ?>
+
 <script type="text/JavaScript">
 function timedRefresh(timeoutPeriod) {
     setTimeout("location.reload(true);",timeoutPeriod);
