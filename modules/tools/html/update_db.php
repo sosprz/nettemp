@@ -271,8 +271,6 @@ $db->exec("INSERT OR IGNORE INTO minmax (name, state) VALUES ('mode', '1')");
 
 
 
-
-
 echo "ok";
 
 ?>
