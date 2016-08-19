@@ -14,3 +14,8 @@ sudo apt-get install chromium-browser  -y
 
 /home/pi/.config/lxsession/LXDE-pi/autostart
 
+
+sqlite3 /var/www/nettemp/dbf/nettemp.db "UPDATE html SET state='off' WHERE name='info'"
+sqlite3 /var/www/nettemp/dbf/nettemp.db "UPDATE html SET state='on' WHERE name='screen'"
+sqlite3 /var/www/nettemp/dbf/nettemp.db "UPDATE html SET state='off' WHERE name='footer'"
+
