@@ -1,4 +1,5 @@
 <?php
+$root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO('sqlite:dbf/nettemp.db');
 include("modules/login/login.php");
 ob_start();

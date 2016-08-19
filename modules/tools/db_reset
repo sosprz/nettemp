@@ -48,4 +48,10 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE settings SET meteogram=
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE OR IGNORE settings SET server_key='$(date +%s | sha256sum | base64 | head -c 10 ; echo)' where id='1' AND server_key is null"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO highcharts (charts_min, charts_theme, charts_fast) VALUES ('1', 'black', 'on')"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO charts (id, charts) VALUES (1, 'Highcharts');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO html (name, state) VALUES ('info', 'on');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO html (name, state) VALUES ('footer', 'on');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO html (name, state) VALUES ('screen', 'on');"
+
+
+
 
