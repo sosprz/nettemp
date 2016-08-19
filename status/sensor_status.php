@@ -2,8 +2,8 @@
 <div class="panel panel-default">
 <div class="panel-heading">Sensors</div>
 <?php
-//$db = new PDO("sqlite:$root/dbf/nettemp.db");
-
+$root=$_SERVER["DOCUMENT_ROOT"];
+$db = new PDO("sqlite:$root/dbf/nettemp.db");
 $rows = $db->query("SELECT * FROM settings WHERE id='1'");
 $row = $rows->fetchAll();
 foreach ($row as $a) {
