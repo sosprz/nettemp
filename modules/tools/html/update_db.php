@@ -139,6 +139,7 @@ $db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('mpl3115a2','60')");
 $db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('hih6130','27')");
 $db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tmp102','48')");
 $db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('bh1750','23')");
+$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('bme280','76')");
 $db->exec("INSERT OR IGNORE INTO fw (id, ssh, icmp, ext, openvpn, radius ) VALUES (1,'off','off', '0.0.0.0/0', 'off', 'off')");
 $db->exec("INSERT OR IGNORE INTO meteo (id, temp, latitude, height, pressure, humid, onoff ) VALUES (1,'0','0','0','0','0','off')");
 $db->exec("INSERT OR IGNORE INTO settings (id,gpio) VALUES (1,'on')");
@@ -260,6 +261,8 @@ $db->exec("CREATE TABLE rs485 (id INTEGER PRIMARY KEY,dev,addr TEXT)");
 $db->exec("ALTER TABLE sensors ADD jg TEXT");
 $db->exec("ALTER TABLE sensors ADD current TEXT");
 $db->exec("ALTER TABLE meteo ADD normalized TEXT");
+$db->exec("ALTER TABLE meteo ADD jg TEXT");
+
 
 
 echo "ok";

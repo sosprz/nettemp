@@ -7,3 +7,4 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET name='Sypia
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET name='Kuchnia' WHERE rom='0x280x6C0x580x250x030x000x000x1E' OR rom='28-00000325586c'"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET name='Dziewczyny' WHERE rom='0x280xDE0x6E0x250x030x000x000x6F' OR rom='28-000003256ede'"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET name='Salon' WHERE rom='0x280x890x360x250x030x000x000x6F' OR rom='28-000003253689'"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET name='Liczniki' WHERE rom='0x280x890x360x250x030x000x000x6F' OR rom='28-000005fc511c'"

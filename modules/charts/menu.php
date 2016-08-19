@@ -93,7 +93,27 @@ if ( $gre2 >= "1") { ?>
 <?php } 
 if ( $gre3 >= "1") { ?>
 <a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&group=3&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $group == '3' ? ' active' : ''; ?>">Group 3</button></a>
-<?php } ?>
+<?php } 
+if (in_array('rainfall', $type))  {?>
+<a href="index.php?id=view&type=rainfall&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'rainfall' ? ' active' : ''; ?>">Rainfall</button></a>
+<?php } 
+if (in_array('speed', $type))  {?>
+<a href="index.php?id=view&type=speed&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'speed' ? ' active' : ''; ?>">Speed</button></a>
+<?php } 
+if (in_array('wind', $type))  {?>
+<a href="index.php?id=view&type=wind&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'wind' ? ' active' : ''; ?>">Wind</button></a>
+<?php } 
+if (in_array('uv', $type))  {?>
+<a href="index.php?id=view&type=uv&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'uv' ? ' active' : ''; ?>">UV</button></a>
+<?php } 
+if (in_array('storm', $type))  {?>
+<a href="index.php?id=view&type=storm&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'storm' ? ' active' : ''; ?>">Storm</button></a>
+<?php } 
+if (in_array('lightning', $type))  {?>
+<a href="index.php?id=view&type=lightning&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'lightning' ? ' active' : ''; ?>">Lightning</button></a>
+<?php } 
+
+?>
 
 <a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'system' ? ' active' : ''; ?>">System stats</button></a>
 <a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'meteogram' ? ' active' : ''; ?>">Meteogram</button></a>

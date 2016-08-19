@@ -28,6 +28,7 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO fw (id, ssh, icmp,
 #sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO mail_settings (host, port, user, auth, tls, tlscheck ) VALUES ('smtp.gmail.com', '587', 'yourmail@gmail.com', 'on', 'on', 'off' )"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO access_time (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime) VALUES  ('any', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', '00:00', '23:59')"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO i2c (name, addr) VALUES ('bmp180','77')"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO i2c (name, addr) VALUES ('bme280','76')"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO i2c (name, addr) VALUES ('tsl2561','39')"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO i2c (name, addr) VALUES ('ds2482','18')"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT INTO i2c (name, addr) VALUES ('htu21d','40')"

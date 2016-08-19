@@ -61,7 +61,6 @@ $dir/modules/sensors/node
 #mysql
 php-cgi -f $dir/modules/mysql/mysql_send.php
 
-
 #owfs
 $dir/modules/sensors/1wire/owfs
 

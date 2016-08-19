@@ -72,6 +72,24 @@ $name_new=trim($name_new2);
 	elseif (strpos($id_rom_new,'trigger') !== false) {
 	    $type='trigger';
 	}
+	elseif (strpos($id_rom_new,'rainfall') !== false) {
+	    $type='rainfall';
+	}
+	elseif (strpos($id_rom_new,'speed') !== false) {
+	    $type='speed';
+	}
+	elseif (strpos($id_rom_new,'wind') !== false) {
+	    $type='wind';
+	}
+	elseif (strpos($id_rom_new,'uv') !== false) {
+	    $type='uv';
+	}
+	elseif (strpos($id_rom_new,'storm') !== false) {
+	    $type='storm';
+	}
+	elseif (strpos($id_rom_new,'lighting') !== false) {
+	    $type='lightning';
+	}
 	
 	else {
 	    if (substr($id_rom_new, 0, 4 ) === "0x26") {
@@ -91,8 +109,8 @@ $name_new=trim($name_new2);
 	}
 
 	//dev
-        if (strpos($id_rom_new,'wireless') !== false) {
-    	    $device='wireless';
+   if (strpos($id_rom_new,'wireless') !== false) {
+		 $device='wireless';
 	}
 	if (strpos($id_rom_new,'remote_') !== false) {
     	    $device='remote';
@@ -118,41 +136,44 @@ $name_new=trim($name_new2);
 
 	
 	//DB    
-	    if ($type != "relay" ) {
+	if ($type != "relay" ) {
 		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip, adj, charts, sum, map_pos, map_num, position, map) VALUES ('$name','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip', '0', 'on', '0', '{left:0,top:0}', '$map_num', '1', 'on')") or die ("cannot insert to DB" );
 		//maps settings
 		$inserted=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_new'");
 		$inserted_id=$inserted->fetchAll();
 		$inserted_id=$inserted_id[0];
 		$db->exec("INSERT OR IGNORE INTO maps (type, map_pos, map_num,map_on,element_id) VALUES ('sensors','{left:0,top:0}','$map_num','on','$inserted_id[id]')");
-	    }
-	    if ($type == "relay" ) {
+	}
+	if ($type == "relay" ) {
 		//relays
 		$db->exec("INSERT OR IGNORE INTO relays (name, rom, ip, type) VALUES ('wifi_relay_$name','$id_rom_new','$ip', '$type'  )") or die ("cannot insert relays to DB" );
-	    }
-
-    	    if ($device == "wireless"  ) {
+	}
+	// ADD DB
+   if ($device == "wireless"  ) {
 		//host for monitoring
 		$name='host_wifi_' . $type . '_' . $name;
 		$dbhost = new PDO("sqlite:dbf/nettemp.db");	
 		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping', '{left:0,top:0}', '$map_num2', 'on', '1')") or die ("cannot insert host to DB" );	
 		$dbnew = new PDO("sqlite:db/host_$id_rom_new.sql");
-    		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
-	    }
-	    if ($type=='elec' || $type=='water' || $type=='gas' || $type=='watt') {
+   	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
+   	$dbnew->exec("CCREATE INDEX time_index ON def(time)");
+	}
+	if ($type=='elec' || $type=='water' || $type=='gas' || $type=='watt') {
 		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");
 		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER, current INTEGER, last INTEGER)");
-	    }
-	    else {
+		$dbnew->exec("CCREATE INDEX time_index ON def(time)");
+	}
+	else {
 		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");
 		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
-	    }
-	    $dbnew==NULL;
+		$dbnew->exec("CCREATE INDEX time_index ON def(time)");
+	}
+	   $dbnew==NULL;
 
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit();	 
-	} ?>
-<?php // SQLite3 - sekcja usuwania czujników
+		header("location: " . $_SERVER['REQUEST_URI']);
+		exit();
+	}
+
 	//z bazy
 	$rom = isset($_POST['rom']) ? $_POST['rom'] : '';
 	$usun2 = isset($_POST['usun2']) ? $_POST['usun2'] : '';
