@@ -10,6 +10,9 @@ function timedRefresh(timeoutPeriod) {
 <?php 
 $art = isset($_GET['type']) ? $_GET['type'] : 'temp';
 $max = isset($_GET['max']) ? $_GET['max'] : 'day';
+if($id=='screen') {
+       $max='hour';
+       }
 $group = isset($_GET['group']) ? $_GET['group'] : '';
 $mode = isset($_GET['mode']) ? $_GET['mode'] : '';
 $single = isset($_GET['single']) ? $_GET['single'] : '';
@@ -113,6 +116,7 @@ if (in_array('lightning', $type))  {?>
 <a href="index.php?id=view&type=lightning&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'lightning' ? ' active' : ''; ?>">Lightning</button></a>
 <?php } 
 
+if($id!='screen') {
 ?>
 
 <a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'system' ? ' active' : ''; ?>">System stats</button></a>
@@ -132,7 +136,7 @@ if ($art!='meteogram') {
 </p>
 <?php
     }
-
+ }
 	switch ($art)
 	{ 
 	default: case '$art': include('modules/charts/router.php'); break;
