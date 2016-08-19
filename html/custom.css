@@ -58,7 +58,7 @@ padding: 10px;
 }
 @media screen and (min-width: 680px) {
 .container-nettemp {
-padding: 0px 100px;
+padding: 0px 15px;
 }
 .grid-item { width:350px; }
 }

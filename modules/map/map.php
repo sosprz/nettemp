@@ -54,8 +54,8 @@ exit();
       cursor: e-resize;
   }
   #content {
-      width: 1140px;
-      height: 600px;
+      width: 800px;
+      height: 400px;
       border:2px solid #ccc;
       padding: 2px;
 <?php 
