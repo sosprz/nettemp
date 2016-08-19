@@ -266,6 +266,8 @@ $db->exec("CREATE TABLE html (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,valu
 $db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('info', 'on')");
 $db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('footer', 'on')");
 $db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('screen', 'off')");
+$db->exec("CREATE TABLE minmax (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT)");
+$db->exec("INSERT OR IGNORE INTO minmax (name, state) VALUES ('mode', '1')");
 
 
 
