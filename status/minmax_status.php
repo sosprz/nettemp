@@ -13,11 +13,6 @@ if ( $numRows > '0' ) { ?>
 <tbody>
 <tr>
    <th></th>
-    <th>Hour</th>
-    <th>Day</th>
-    <th>Week</th>
-    <th>Month</th>
-</tr>
 <?php
 $mm = $db->query("SELECT * FROM minmax");
 $mm1 = $mm->fetchAll();
@@ -26,6 +21,17 @@ foreach($mm1 as $ms){
        	$mm_mode=$ms[state];
        }   
 }
+ if($mm_mode != '1') {
+     ?>
+    <th>Hour</th>
+    <?php
+ }
+ ?>
+    <th>Day</th>
+    <th>Week</th>
+    <th>Month</th>
+</tr>
+<?php
 foreach ($result as $a) {
 
 $rom=$a['rom'];
