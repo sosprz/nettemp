@@ -262,7 +262,7 @@ $db->exec("ALTER TABLE sensors ADD jg TEXT");
 $db->exec("ALTER TABLE sensors ADD current TEXT");
 $db->exec("ALTER TABLE meteo ADD normalized TEXT");
 $db->exec("ALTER TABLE meteo ADD jg TEXT");
-$db->exec("CREATE TABLE html (id INTEGER PRIMARY KEY,name TEXT,state TEXT,value TEXT)");
+$db->exec("CREATE TABLE html (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT)");
 $db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('info', 'on')");
 
 
