@@ -51,10 +51,20 @@ Go to device scan!
 		if($a['device'] == 'i2c'){ $device='<img src="media/ico/i2c_1.png" alt="" title="I2C"/>';}
 		if($a['device'] == 'snmp'){ $device='<img src="media/ico/snmp-icon.png" alt="" title=SNMP"/>';}
 		if(empty($a['device'])) { $device='<img src="media/ico/1wire.png" alt="" title="1wire"/>';}
+		
+		$query = $db->query("SELECT * FROM types");
+		$result = $query->fetchAll();
+		foreach($result as $ty){
+       	if($ty[type]==$a['type']) {
+       		$unit=$ty['unit'];
+       		$type="<img src=\"".$ty[ico]."\" alt=\"\" title=\"".$ty['title']."\"/>";
+       	}   
+		}
+		
 
 		if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png" alt="" title="Lux"/>';} 
-		if($a['type'] == 'temp' && $temp_scale == 'C'){ $unit='&deg;C'; $type='<img src="media/ico/temp2-icon.png" alt="" title="Temperature"/>';}
-		if($a['type'] == 'temp' && $temp_scale == 'F'){ $unit='&deg;F'; $type='<img src="media/ico/temp2-icon.png" alt="" title="Temperature"/>';}
+		//if($a['type'] == 'temp' && $temp_scale == 'C'){ $unit='&deg;C'; $type='<img src="media/ico/temp2-icon.png" alt="" title="Temperature"/>';}
+		//if($a['type'] == 'temp' && $temp_scale == 'F'){ $unit='&deg;F'; $type='<img src="media/ico/temp2-icon.png" alt="" title="Temperature"/>';}
 		if($a['type'] == 'humid'){ $unit='%'; $type='<img src="media/ico/rain-icon.png" alt="" title="Humidity"/>';}
 		if($a['type'] == 'press'){ $unit='hPa'; $type='<img src="media/ico/Science-Pressure-icon.png" alt="" title="Pressure"/>';}		
 		if($a['type'] == 'water'){ $unit='m3'; $type='<img src="media/ico/water-icon.png" alt="" title="Water"/>';}		
