@@ -4,6 +4,10 @@
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
+
+$query = $db->query("SELECT * FROM types");
+$result_t = $query->fetchAll();
+
 $rows = $db->query("SELECT * FROM settings WHERE id='1'");
 $row = $rows->fetchAll();
 foreach ($row as $a) {
@@ -32,8 +36,9 @@ Go to device scan!
     $result = $sth->fetchAll(); ?>
     <table class="table table-hover table-condensed small">
     <tbody>
-<?php       
-    foreach ($result as $a) {
+<?php
+	
+   foreach ($result as $a) {
 	$name1=$a['name'];
 	$name = str_replace("_", " ", $name1);
 	$min='';
@@ -52,9 +57,8 @@ Go to device scan!
 		if($a['device'] == 'snmp'){ $device='<img src="media/ico/snmp-icon.png" alt="" title=SNMP"/>';}
 		if(empty($a['device'])) { $device='<img src="media/ico/1wire.png" alt="" title="1wire"/>';}
 		
-		$query = $db->query("SELECT * FROM types");
-		$result = $query->fetchAll();
-		foreach($result as $ty){
+		
+		foreach($result_t as $ty){
        	if($ty[type]==$a['type']) {
        		if($temp_scale == 'C'){
        			$unit=$ty['unit'];
