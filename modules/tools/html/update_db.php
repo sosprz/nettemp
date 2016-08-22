@@ -269,7 +269,7 @@ $db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('screen', 'off')");
 $db->exec("CREATE TABLE minmax (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT)");
 $db->exec("INSERT OR IGNORE INTO minmax (name, state) VALUES ('mode', '1')");
 
-$db->exec("CREATE TABLE types (id INTEGER PRIMARY KEY,type UNIQUE, unit TEXT, ico TEXT, title TEXT)");l
+$db->exec("CREATE TABLE types (id INTEGER PRIMARY KEY,type UNIQUE, unit TEXT, unit2 TEXT, ico TEXT, title TEXT)");l
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('temp', '&deg;C', '&deg;F', 'media/ico/temp2-icon.png' ,'Temperature')");
 
 
