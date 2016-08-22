@@ -75,8 +75,6 @@ Go to device scan!
 		
 		//glyphicon glyphicon-exclamation-sign	
 		
-		//if($a['tmp'] > $a['tmp_5ago']) { $updo='<img src="media/ico/Up-3-icon.png"/>';}
-		//if($a['tmp'] < $a['tmp_5ago']) { $updo='<img src="media/ico/Down-3-icon.png" />';}
 		if($a['tmp'] > $a['tmp_5ago']) { $updo='<span class="label label-danger" title='.$a['tmp_5ago'].'><span class="glyphicon glyphicon-arrow-up"></span></span>';}
 		if($a['tmp'] < $a['tmp_5ago']) { $updo='<span class="label label-info" title='.$a['tmp_5ago'].'><span class="glyphicon glyphicon-arrow-down"></span></span>';}
 		
