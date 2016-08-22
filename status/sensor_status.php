@@ -56,33 +56,16 @@ Go to device scan!
 		$result = $query->fetchAll();
 		foreach($result as $ty){
        	if($ty[type]==$a['type']) {
-       		$unit=$ty['unit'];
+       		if($temp_scale == 'C'){
+       			$unit=$ty['unit'];
+       		} else {
+       			$unit=$ty['unit2'];
+       		}
        		$type="<img src=\"".$ty[ico]."\" alt=\"\" title=\"".$ty['title']."\"/>";
        	}   
 		}
 		
 
-		if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png" alt="" title="Lux"/>';} 
-		//if($a['type'] == 'temp' && $temp_scale == 'C'){ $unit='&deg;C'; $type='<img src="media/ico/temp2-icon.png" alt="" title="Temperature"/>';}
-		//if($a['type'] == 'temp' && $temp_scale == 'F'){ $unit='&deg;F'; $type='<img src="media/ico/temp2-icon.png" alt="" title="Temperature"/>';}
-		if($a['type'] == 'humid'){ $unit='%'; $type='<img src="media/ico/rain-icon.png" alt="" title="Humidity"/>';}
-		if($a['type'] == 'press'){ $unit='hPa'; $type='<img src="media/ico/Science-Pressure-icon.png" alt="" title="Pressure"/>';}		
-		if($a['type'] == 'water'){ $unit='m3'; $type='<img src="media/ico/water-icon.png" alt="" title="Water"/>';}		
-		if($a['type'] == 'gas'){ $unit='m3'; $type='<img src="media/ico/gas-icon.png" alt="" title="Gas"/>';}		
-		if($a['type'] == 'elec'){ $unit='kWh'; $type='<img src="media/ico/Lamp-icon.png" alt="" title="Electricity"/>';}		
-		if($a['type'] == 'watt'){ $unit='W'; $type='<img src="media/ico/watt.png" alt="Watt" title="Watt"/>';}		
-		if($a['type'] == 'volt'){ $unit='V'; $type='<img src="media/ico/volt.png" alt="Volt" title="Volt"/> ';}		
-		if($a['type'] == 'amps'){ $unit='A'; $type='<img src="media/ico/amper.png" alt="Amps" title="Amps"/> ';}		
-		if($a['type'] == 'dist'){ $unit='cm'; $type='<img src="media/ico/Distance-icon.png" alt="cm" title="Distance"/> ';}	
-		if($a['type'] == 'trigger'){ $unit=''; $type='<img src="media/ico/alarm-icon.png" alt="Trigger" title="Trigger"/>';}	
-		
-		if($a['type'] == 'rainfall'){ $unit='mm/m2'; $type='';}	
-		if($a['type'] == 'speed'){ $unit='km/h'; $type='';}	
-		if($a['type'] == 'wind'){ $unit='°'; $type='';}	
-		if($a['type'] == 'uv'){ $unit='index'; $type='';}	
-		if($a['type'] == 'storm'){ $unit='km'; $type='';}
-		if($a['type'] == 'lighting'){ $unit=''; $type='';}	
-		
 		//glyphicon glyphicon-exclamation-sign	
 		
 		if($a['tmp'] > $a['tmp_5ago']) { $updo='<span class="label label-danger" title='.$a['tmp_5ago'].'><span class="glyphicon glyphicon-arrow-up"></span></span>';}
