@@ -181,7 +181,7 @@ case 'screen': include('modules/screen/index.php'); break;
 ?>
 </div>
 <?php 
-	if($html_footer=='on') { ?>
+	if(($html_footer=='on')&&($id!='screen')){ ?>
 <footer class="footer">
       <div class="container text-center">
 	    <a href="https://nettemp.pl/forum/viewtopic.php?f=20&t=765&p=11209" target="_blank" class="btn btn-xs btn-primary"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </a>
