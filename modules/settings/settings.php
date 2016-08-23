@@ -6,10 +6,6 @@
 <a href="index.php?id=settings&type=accesstime" ><button class="btn btn-xs btn-default <?php echo $art == 'accesstime' ? 'active' : ''; ?>">Access time</button></a>
 <a href="index.php?id=settings&type=modem" ><button class="btn btn-xs btn-default <?php echo $art == 'modem' ? 'active' : ''; ?>">Modem</button></a>
 <a href="index.php?id=settings&type=gpio" ><button class="btn btn-xs btn-default <?php echo $art == 'gpio' ? 'active' : ''; ?>">GPIO</button></a>
-<!-- <a href="index.php?id=settings&type=1wire" ><button class="btn btn-xs btn-default <?php echo $art == '1wire' ? 'active' : ''; ?>">1wire</button></a> 
-<a href="index.php?id=settings&type=i2c" ><button class="btn btn-xs btn-default <?php echo $art == 'i2c' ? 'active' : ''; ?>">i2c</button></a>
-<a href="index.php?id=settings&type=lcd" ><button class="btn btn-xs btn-default <?php echo $art == 'lcd' ? 'active' : ''; ?>">LCD</button></a>
--->
 <a href="index.php?id=settings&type=time" ><button class="btn btn-xs btn-default <?php echo $art == 'time' ? 'active' : ''; ?>">Time</button></a>
 <a href="index.php?id=settings&type=snmpd" ><button class="btn btn-xs btn-default <?php echo $art == 'snmpd' ? 'active' : ''; ?>">SNMPD</button></a>
 <a href="index.php?id=settings&type=meteo" ><button class="btn btn-xs btn-default <?php echo $art == 'meteo' ? 'active' : ''; ?>">Meteo</button></a>
@@ -19,6 +15,7 @@
 <a href="index.php?id=settings&type=server_node" ><button class="btn btn-xs btn-default <?php echo $art == 'server_node' ? 'active' : ''; ?>">Server - Node</button></a>
 <a href="index.php?id=settings&type=stats" ><button class="btn btn-xs btn-default <?php echo $art == 'stats' ? 'active' : ''; ?>">Stats</button></a>
 <a href="index.php?id=settings&type=mysql" ><button class="btn btn-xs btn-default <?php echo $art == 'mysql' ? 'active' : ''; ?>">MySQL</button></a>
+<a href="index.php?id=settings&type=screen" ><button class="btn btn-xs btn-default <?php echo $art == 'screen' ? 'active' : ''; ?>">Screen</button></a>
 </p>
 <?php  
 switch ($art)
@@ -40,5 +37,6 @@ case 'ownwidget': include('modules/settings/ownwidget_edit.php'); break;
 case 'server_node': include('modules/settings/server_node.php'); break;
 case 'stats': include('modules/settings/stats.php'); break;
 case 'mysql': include('modules/mysql/mysql.php'); break;
+case 'screen': include('modules/settings/screen.php'); break;
 }
 ?>
