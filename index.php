@@ -12,14 +12,14 @@ else {
 $html = $db->query("SELECT * FROM html");
 $html1 = $html->fetchAll();
 foreach($html1 as $hp){
-       if($hp[name]=='info') {
-       	$html_info=$hp[state];
+       if($hp['name']=='info') {
+       	$html_info=$hp['state'];
        }
-       if($hp[name]=='footer') {
-       	$html_footer=$hp[state];
+       if($hp['name']=='footer') {
+       	$html_footer=$hp['state'];
        }
-        if($hp[name]=='screen') {
-       	$html_screen=$hp[state];
+        if($hp['name']=='screen') {
+       	$html_screen=$hp['state'];
        }
 }
 

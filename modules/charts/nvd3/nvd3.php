@@ -75,25 +75,26 @@ function getUrlVars() {
 	 if (typeof single === 'undefined') {
 		var single = "";
 	 }
-
-			 if (type=='temp' && temp_scale=='F') {n_units = " °F"}
-			 else if (type=='temp' && temp_scale=='C') {n_units = " °C" }
-		    if (type=='humid') {n_units = " %"};
-		    if (type=='press') {n_units = " hPa"};
-		    if (type=='gpio') {n_units = " H/L"};
-		    if (type=='host') {n_units = " ms"};
-		    if (type=='system') {n_units = " %"};
-		    if (type=='lux') {n_units = " lux"};
-		    if (type=='water') {n_units = " m3"};
-		    if (type=='gas') {n_units = " m3"};
-	    	 if (type=='elec') {n_units = " kWh"};
-		    if (type=='elec' && mode=='2') {n_units = " W"};
-		    if (type=='hosts') {n_units = " ms"};
-		    if (type=='volt') {n_units = " V"};
-		    if (type=='amps') {n_units = " A"};
-		    if (type=='watt') {n_units = " W"};
-		    if (type=='dist') {n_units = " cm"};
-		    if (type=='group') {n_units = " "};
+	 
+<?php
+parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $url);
+if(!empty($url['type'])) {
+	$type=$url['type'];
+} else {
+	$type="temp";
+}
+$query = $db->query("SELECT * FROM types");
+$result_t = $query->fetchAll();
+foreach($result_t as $ty){
+       	if($ty['type']==$type) {
+       		if(($temp_scale != 'C')&&($ty['type']=='temp')){
+       			echo "var n_units = '". $ty['unit2'] ."';\n"; 
+        		} else {
+					echo "var n_units = '". $ty['unit'] ."';\n"; 
+       		}
+        	}  
+		}
+?>
             	    
 
 d3.json('common/nvd3_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mode+'&group='+group+'&single='+single, function(data) {
