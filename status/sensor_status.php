@@ -60,7 +60,7 @@ Go to device scan!
        		} else {
        			$unit=$ty['unit2'];
        		}
-       		$type="<img src=\"".$ty[ico]."\" alt=\"\" title=\"".$ty['title']."\"/>";
+       		$type="<img src=\"".$ty['ico']."\" alt=\"\" title=\"".$ty['title']."\"/>";
        	}   
 		}
 		
