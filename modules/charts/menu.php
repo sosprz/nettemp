@@ -22,7 +22,13 @@ $rows1 = $db->query("SELECT type FROM sensors WHERE charts='on'");
 $row1 = $rows1->fetchAll();
 $typearr[] = array(); 
 foreach($row1 as $hi){
-$typearr[]=$hi['type'];
+	$typearr[]=$hi['type'];
+}
+
+$rows = $db->query("SELECT * FROM settings WHERE id='1'");
+$row = $rows->fetchAll();
+foreach ($row as $a) {
+    $temp_scale=$a['temp_scale'];
 }
 
 

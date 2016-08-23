@@ -23,14 +23,6 @@ foreach($html1 as $hp){
        	$html_screen=$hp['state'];
        }
 }
-$rows = $db->query("SELECT * FROM settings WHERE id='1'");
-$row = $rows->fetchAll();
-foreach ($row as $a) {
-    $temp_scale=$a['temp_scale'];
-}
-
-
-
 	
 ?>
 <!DOCTYPE html>

@@ -14,6 +14,11 @@ foreach ($row_meteo as $a) {
     $normalized=$a['normalized'];
 	$pressure=$a['pressure'];
 }
+$rows = $db->query("SELECT * FROM settings WHERE id='1'");
+$row = $rows->fetchAll();
+foreach ($row as $a) {
+    $temp_scale=$a['temp_scale'];
+}
 
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
