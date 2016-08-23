@@ -10,7 +10,6 @@
 
 // |sed 's/.sql//g'|awk -F0x '{print $2"-"$8$7$6$5$4$3}' |tr A-Z a-z
 
-
 if (isset($_GET['key'])) {
 	    $key = $_GET['key'];
     }
@@ -44,7 +43,7 @@ if (isset($_GET['usb'])) {
     }
 
 function trigger($rom) {
-	$db = new PDO("sqlite:dbf/nettemp.db");
+	$db = new PDO("sqlite:dbf/nettemp.db") or die ("cannot open database");
    $rows = $db->query("SELECT mail FROM users WHERE maila='yes'");
    $row = $rows->fetchAll();
    foreach($row as $row) {
@@ -233,8 +232,8 @@ function check(&$val,$type) {
 
 function db($rom,$val,$type,$device,$current) {
 	global $chmin;
+	$db = new PDO("sqlite:dbf/nettemp.db") or die ("cannot open database");
 	$file = "$rom.sql";
-	$db = new PDO("sqlite:dbf/nettemp.db");
 	$dbf = new PDO("sqlite:db/$file");
 
 	if ($type == 'host') {
@@ -309,12 +308,10 @@ function db($rom,$val,$type,$device,$current) {
 	    // if not numeric
 	    else {
 		if ($type == 'host') {
-		    $db = new PDO("sqlite:dbf/nettemp.db");
 		    $db->exec("UPDATE hosts SET last='0', status='error' WHERE rom='$rom'")or die ("cannot insert to hosts status\n");
 		}
 		//sensors
 		else {
-		    $db = new PDO("sqlite:dbf/nettemp.db");
 		    $db->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert error to status\n" );
 		}
 		echo "$rom not numieric! $val \n";

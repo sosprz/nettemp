@@ -55,10 +55,10 @@ Go to device scan!
 		
 		foreach($result_t as $ty){
        	if($ty['type']==$a['type']) {
-       		if($temp_scale == 'C'){
-       			$unit=$ty['unit'];
-       		} else {
+       		if($temp_scale == 'F'){
        			$unit=$ty['unit2'];
+       		} else {
+       			$unit=$ty['unit'];
        		}
        		$type="<img src=\"".$ty['ico']."\" alt=\"\" title=\"".$ty['title']."\"/>";
        	}   
