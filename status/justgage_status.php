@@ -47,8 +47,6 @@ $query = "SELECT temp_scale FROM settings WHERE id='1'";
 foreach ($db->query($query) as $row) {
 	$temp_scale=$row['temp_scale'];
 }
-echo "var types = '". $a['type'] ."';\n"; 
-echo "var temp_scale = '". $temp_scale ."';\n";
 
 foreach($result_t as $ty){
        	if($ty[type]==$a['type']) {

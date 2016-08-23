@@ -48,10 +48,8 @@ function getUrlVars() {
     
     
 <?php
-$dirb = "sqlite:dbf/nettemp.db";
-$dbh = new PDO($dirb) or die("cannot open database");
 $query = "SELECT temp_scale FROM settings WHERE id='1'";
-foreach ($dbh->query($query) as $row) {
+foreach ($db->query($query) as $row) {
 	$temp_scale=$row['temp_scale'];
 }
 echo "temp_scale = '". $temp_scale ."';\n";
@@ -77,18 +75,18 @@ if ($type == 'system') {
 
 elseif ($type == 'hosts' && empty($single)) {
     $dirb = "sqlite:dbf/nettemp.db";
-    $dbh = new PDO($dirb) or die("cannot open database");
+    $db = new PDO($dirb) or die("cannot open database");
     $query = "SELECT name FROM hosts";
-    foreach ($dbh->query($query) as $row) {
+    foreach ($db->query($query) as $row) {
 	$array[]=$row[0];
 	$types[$row[0]]='hosts';
     }
 }
 elseif ($type == 'hosts' && $single) {
     $dirb = "sqlite:dbf/nettemp.db";
-    $dbh = new PDO($dirb) or die("cannot open database");
+    $db = new PDO($dirb) or die("cannot open database");
     $query = "SELECT name FROM hosts WHERE name='$single'";
-    foreach ($dbh->query($query) as $row) {
+    foreach ($db->query($query) as $row) {
 	$array[]=$row[0];
 	$types[$row[0]]='hosts';
     }
@@ -96,45 +94,45 @@ elseif ($type == 'hosts' && $single) {
 
 elseif ($type == 'gpio' && empty($single)) {
 $dirb = "sqlite:dbf/nettemp.db";
-$dbh = new PDO($dirb) or die("cannot open database");
+$db = new PDO($dirb) or die("cannot open database");
 $query = "select name FROM gpio WHERE mode!='humid'";
-foreach ($dbh->query($query) as $row) {
+foreach ($db->query($query) as $row) {
     $array[]=$row[0];
     $types[$row[0]]="gpio";
     }
 }
 elseif ($type == 'gpio' && $single) {
 $dirb = "sqlite:dbf/nettemp.db";
-$dbh = new PDO($dirb) or die("cannot open database");
+$db = new PDO($dirb) or die("cannot open database");
 $query = "select name FROM gpio WHERE mode!='humid' AND name='$single'";
-foreach ($dbh->query($query) as $row) {
+foreach ($db->query($query) as $row) {
     $array[]=$row[0];
     $types[$row[0]]="gpio";
     }
 }
 elseif ($single) {
 $dirb = "sqlite:dbf/nettemp.db";
-$dbh = new PDO($dirb) or die("cannot open database");
+$db = new PDO($dirb) or die("cannot open database");
 $query = "select name,type FROM sensors WHERE type='$type' AND name='$single'";
-foreach ($dbh->query($query) as $row) {
+foreach ($db->query($query) as $row) {
     $array[]=$row[0];
     $types[$row[0]]=$row[1];
     }
 }
 elseif ($group) {
 $dirb = "sqlite:dbf/nettemp.db";
-$dbh = new PDO($dirb) or die("cannot open database");
+$db = new PDO($dirb) or die("cannot open database");
 $query = "select name,type FROM sensors WHERE ch_group='$group' AND charts='on'";
-foreach ($dbh->query($query) as $row) {
+foreach ($db->query($query) as $row) {
     $array[]=$row[0];
     $types[$row[0]]=$row[1];
     }
 }
 else {
 $dirb = "sqlite:dbf/nettemp.db";
-$dbh = new PDO($dirb) or die("cannot open database");
+$db = new PDO($dirb) or die("cannot open database");
 $query = "select name,type FROM sensors WHERE type='$type' AND charts='on'";
-foreach ($dbh->query($query) as $row) {
+foreach ($db->query($query) as $row) {
     $array[]=$row[0];
     $types[$row[0]]=$row[1];
     }
@@ -144,6 +142,19 @@ $js_array = json_encode($array);
 echo "names = ". $js_array .";\n";
 $types = json_encode($types);
 echo "types = ". $types .";\n";
+
+$query = $db->query("SELECT * FROM types");
+$result_t = $query->fetchAll();
+foreach($result_t as $ty){
+       	if($ty['type']==$type) {
+       		if(($temp_scale != 'C')&&($ty['type']=='temp')){
+       			echo "n_units = '". $ty['unit2'] ."';\n"; 
+        		} else {
+					echo "n_units = '". $ty['unit'] ."';\n"; 
+       		}
+        	}  
+		}
+
 ?>
 
 
@@ -192,31 +203,6 @@ $(function () {
 		y: 0,
         	labelFormatter: function() {
           var lastVal = this.yData[this.yData.length - 1];
-           if (types[this.name]=='temp' && temp_scale=='F') {n_units = " °F"}
-			 else if (types[this.name]=='temp' && temp_scale=='C') {n_units = " °C" }
-		    if (types[this.name]=='humid') {n_units = " %"};
-		    if (types[this.name]=='press') {n_units = " hPa"};
-		    if (types[this.name]=='gpio') {n_units = " H/L"};
-		    if (types[this.name]=='host') {n_units = " ms"};
-		    if (types[this.name]=='system') {n_units = " %"};
-		    if (types[this.name]=='lux') {n_units = " lux"};
-		    if (types[this.name]=='water') {n_units = " m3"};
-		    if (types[this.name]=='gas') {n_units = " m3"};
-	    	 if (types[this.name]=='elec') {n_units = " kWh"};
-		    if (types[this.name]=='elec' && mode=='2') {n_units = " W"};
-		    if (types[this.name]=='hosts') {n_units = " ms"};
-		    if (types[this.name]=='volt') {n_units = " V"};
-		    if (types[this.name]=='amps') {n_units = " A"};
-		    if (types[this.name]=='watt') {n_units = " W"};
-		    if (types[this.name]=='dist') {n_units = " cm"};
-            	    if (types[this.name]=='rainfall') {n_units = " mm/m2"};
-                    if (types[this.name]=='speed') {n_units = " km/h"};
-                         if (types[this.name]=='wind') {n_units = " °"};
-                         if (types[this.name]=='uv') {n_units = " "};
-                         if (types[this.name]=='storm') {n_units = " km"};
-                         if (types[this.name]=='lightning') {n_units = " "};
-    
-            	    
 		    			 return '<span style="color:' + this.color + '">' + this.name + ': </span> <b>' + lastVal + n_units +'</b> </n>';
         	    }
 		},
@@ -243,33 +229,12 @@ $(function () {
 
     $.each(names, function (i, name) {
     	
-    	
-	 if (types[name]=='temp' && temp_scale=='F') {n_units = " °F"}
-	 else if (types[name]=='temp' && temp_scale=='C') {var n_units = " °C" }
-    if (types[name]=='humid') { var n_units = " %"}
-    if (types[name]=='press') { var n_units = " hPa"}
-    if (types[name]=='gpio') { var n_units = " H/L"}
-    if (types[name]=='host') { var n_units = " ms"}
-    if (types[name]=='system') { var n_units = " %"}
-    if (types[name]=='lux') { var n_units = " lux"}
-    if (types[name]=='water') { var n_units = " m3"}
-    if (types[name]=='gas') { var n_units = " m3"}
-    if (types[name]=='elec') { var n_units = " kWh"}
-    if (types[name]=='elec' && mode=='2') { var n_units = " W"}
-    if (types[name]=='hosts') { var n_units = " ms"}
-    if (types[name]=='volt') { var n_units = " V"}
-    if (types[name]=='amps') { var n_units = " A"}
-    if (types[name]=='watt') { var n_units = " W"}
-    if (types[name]=='dist') { var n_units = " cm"}
-    if (types[name]=='rainfall') { var n_units = " mm/m2"}
-         if (types[name]=='speed') { var n_units = " km/h"}
-         if (types[name]=='wind') { var n_units = " °"}
-         if (types[name]=='uv') { var n_units = " "}
-         if (types[name]=='storm') { var n_units = " km"}
-         if (types[name]=='lightning') { var n_units = " "}
+	//OLD UNITS
+	//
+	//END
 
 
-        $.getJSON('common/hc_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mode,  function (data) {
+    $.getJSON('common/hc_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mode,  function (data) {
 
 	if (max=="hour") { var xhour = "hour" }
 	if (max=="day") { var xhour = "hour" }

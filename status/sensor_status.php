@@ -59,7 +59,7 @@ Go to device scan!
 		
 		
 		foreach($result_t as $ty){
-       	if($ty[type]==$a['type']) {
+       	if($ty['type']==$a['type']) {
        		if($temp_scale == 'C'){
        			$unit=$ty['unit'];
        		} else {

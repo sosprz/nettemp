@@ -8,8 +8,9 @@ function timedRefresh(timeoutPeriod) {
 <!-- <body onload="JavaScript:timedRefresh(60000);"> -->
 
 <?php 
-$art = isset($_GET['type']) ? $_GET['type'] : 'temp';
-$max = isset($_GET['max']) ? $_GET['max'] : 'day';
+$art = isset($_GET['type']) ? $_GET['type'] : '';
+
+$max = isset($_GET['max']) ? $_GET['max'] : '';
 if($id=='screen') {
        $max='hour';
        }
@@ -43,85 +44,44 @@ $gre3 = count($grp3);
 //print_r($type);
 ?>
 <p>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=day&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php echo $art == 'temp' ? ' active' : ''; ?>">Temperature</button></a>
-<?php 
-if (in_array('humid', $typearr))  {?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?><?php echo $art ?>&max=day&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php echo $art == 'humid' ? ' active' : ''; ?>">Humidity</button></a>
+<?php
+
+$query = $db->query("SELECT * FROM types");
+$result_t = $query->fetchAll();
+foreach($result_t as $ty){
+	if(in_array($ty['type'], $typearr)) { 
+	?>
+     <a href="index.php?id=<?php echo $id ?>&type=<?php echo $ty['type'] ?>&max=day&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php echo $art == $ty['type'] ? ' active' : ''; ?>"><?php echo $ty['title']?></button></a>
+	<?php
+	}
+}
+
+
+if ( $gre1 >= "1") { ?>
+<a href="index.php?id=<?php echo $id ?>&type=group&group=1&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $group == '1' ? ' active' : ''; ?>">Group 1</button></a>
+<?php } 
+if ( $gre2 >= "1") { ?>
+<a href="index.php?id=<?php echo $id ?>&type=group&group=2&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $group == '2' ? ' active' : ''; ?>">Group 2</button></a>
+<?php } 
+if ( $gre3 >= "1") { ?>
+<a href="index.php?id=<?php echo $id ?>&type=group&group=3&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $group == '3' ? ' active' : ''; ?>">Group 3</button></a>
 <?php }
-if (in_array('press', $typearr))  {?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=day&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php echo $art == 'press' ? ' active' : ''; ?>">Pressure</button></a>
-<?php }
-if (in_array('altitude', $typearr))  {?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=day&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php echo $art == 'altitude' ? ' active' : ''; ?>">Altitude view</button></a>
-<?php }
-//if (glob('tmp/kwh/*.json')) {?>
-<!-- <a href="index.php?id=view&type=<?php echo $art ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'kwh' ? ' active' : ''; ?>">kWh</button></a> -->
-<?php 
-//}
+if ( $hostc >= "1")  {?>
+<a href="index.php?id=<?php echo $id ?>&type=hosts&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'hosts' ? ' active' : ''; ?>">Hosts</button></a>
+<?php } 
 if (in_array('elec', $typearr))  {?>
 <a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'elec' && empty($mode) ? ' active' : ''; ?>">Electricity kWh</button></a>
 <a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=day&mode=2" ><button class="btn btn-xs btn-default <?php echo $art == 'elec' && $mode == '2' ? ' active' : ''; ?>">Electricity Wh</button></a>
 <?php } 
-if (in_array('water', $typearr))  {?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'water' ? ' active' : ''; ?>">Water</button></a>
-<?php } 
-if (in_array('gas', $typearr))  {?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'gas' ? ' active' : ''; ?>">Gas</button></a>
-<?php } 
-if (in_array('lux', $typearr))  {?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'lux' ? ' active' : ''; ?>">Light</button></a>
-<?php } 
-if (in_array('volt', $typearr))  {?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'volt' ? ' active' : ''; ?>">Voltage</button></a>
-<?php } 
-if (in_array('amps', $typearr))  {?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'amps' ? ' active' : ''; ?>">Ampere</button></a>
-<?php } 
-if (in_array('watt', $typearr))  {?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'watt' ? ' active' : ''; ?>">Watt</button></a>
-<?php } 
 if (glob('db/gpio_stats_*')) {?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'gpio' ? ' active' : ''; ?>">GPIO</button></a>
-<?php } 
-if ( $hostc >= "1")  {?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'hosts' ? ' active' : ''; ?>">Hosts</button></a>
-<?php } 
-if (in_array('dist', $typearr))  {?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'dist' ? ' active' : ''; ?>">Distance</button></a>
-<?php } 
-if ( $gre1 >= "1") { ?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&group=1&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $group == '1' ? ' active' : ''; ?>">Group 1</button></a>
-<?php } 
-if ( $gre2 >= "1") { ?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&group=2&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $group == '2' ? ' active' : ''; ?>">Group 2</button></a>
-<?php } 
-if ( $gre3 >= "1") { ?>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&group=3&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $group == '3' ? ' active' : ''; ?>">Group 3</button></a>
-<?php } 
-if (in_array('rainfall', $type))  {?>
-<a href="index.php?id=view&type=rainfall&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'rainfall' ? ' active' : ''; ?>">Rainfall</button></a>
-<?php } 
-if (in_array('speed', $type))  {?>
-<a href="index.php?id=view&type=speed&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'speed' ? ' active' : ''; ?>">Speed</button></a>
-<?php } 
-if (in_array('wind', $type))  {?>
-<a href="index.php?id=view&type=wind&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'wind' ? ' active' : ''; ?>">Wind</button></a>
-<?php } 
-if (in_array('uv', $type))  {?>
-<a href="index.php?id=view&type=uv&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'uv' ? ' active' : ''; ?>">UV</button></a>
-<?php } 
-if (in_array('storm', $type))  {?>
-<a href="index.php?id=view&type=storm&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'storm' ? ' active' : ''; ?>">Storm</button></a>
-<?php } 
-if (in_array('lightning', $type))  {?>
-<a href="index.php?id=view&type=lightning&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'lightning' ? ' active' : ''; ?>">Lightning</button></a>
+<a href="index.php?id=<?php echo $id ?>&type=gpio&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'gpio' ? ' active' : ''; ?>">GPIO</button></a>
 <?php } 
 
 if($id!='screen') {
 ?>
 
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'system' ? ' active' : ''; ?>">System stats</button></a>
-<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'meteogram' ? ' active' : ''; ?>">Meteogram</button></a>
+<a href="index.php?id=<?php echo $id ?>&type=system&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'system' ? ' active' : ''; ?>">System stats</button></a>
+<a href="index.php?id=<?php echo $id ?>&type=meteogram" ><button class="btn btn-xs btn-default <?php echo $art == 'meteogram' ? ' active' : ''; ?>">Meteogram</button></a>
 </p>
 <?php
 if ($art!='meteogram') {
