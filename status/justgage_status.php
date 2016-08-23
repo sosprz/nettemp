@@ -23,6 +23,9 @@ if ( $numRows > '0' ) { ?>
 <script src="html/justgage/justgage.js"></script>
 
 <?php
+$query = $db->query("SELECT * FROM types");
+$result_t = $query->fetchAll();
+
 $KtoryWidget = 1;
 foreach ($result as $a) { 	
 if ($a['normalized']=='on')
@@ -33,6 +36,8 @@ if ($a['normalized']=='on')
 	$meteo=new Meteo();
 	$a['tmp']=number_format($meteo->getCisnienieZnormalizowane(),2,'.','');
 }
+
+
 ?>
 <div id="<?php echo $a['name']?>" style="width:100px; height:100px;display:inline-block;"></div>
    
@@ -44,31 +49,18 @@ foreach ($db->query($query) as $row) {
 }
 echo "var types = '". $a['type'] ."';\n"; 
 echo "var temp_scale = '". $temp_scale ."';\n";
+
+foreach($result_t as $ty){
+       	if($ty[type]==$a['type']) {
+       		if(($temp_scale != 'C')&&($a['type']=='temp')){
+       			echo "var n_units = '". $ty['unit2'] ."';\n"; 
+       		} else {
+					echo "var n_units = '". $ty['unit'] ."';\n"; 
+       		}
+        	}   
+		}
+
 ?>
- 
-if (types=='temp' && temp_scale=='F') {n_units = " °F"}
-else if (types=='temp' && temp_scale=='C') {n_units = " °C" }
-if (types=='humid') {n_units = " %"};
-if (types=='press') {n_units = " hPa"};
-if (types=='gpio') {n_units = " H/L"};
-if (types=='host') {n_units = " ms"};
-if (types=='system') {n_units = " %"};
-if (types=='lux') {n_units = " lux"};
-if (types=='water') {n_units = " m3"};
-if (types=='gas') {n_units = " m3"};
-if (types=='elec') {n_units = " W"};
-if (types=='hosts') {n_units = " ms"};
-if (types=='volt') {n_units = " V"};
-if (types=='amps') {n_units = " A"};
-if (types=='watt') {n_units = " W"};
-if (types=='dist') {n_units = " cm"};
-if (types=='normalized') {n_units = " hPa\nnpm"};
-if (types=='rainfall') {n_units = " mm/m2"};
-if (types=='speed') {n_units = " km/h"};
-if (types=='wind') {n_units = " °"};
-if (types=='uv') {n_units = " "};
-if (types=='storm') {n_units = " km"};
-if (types=='lightning') {n_units = " "};
 
 var g<?=$KtoryWidget++?> = new JustGage({
         id: "<?php echo $a['name']?>",
