@@ -83,11 +83,6 @@ exit();
 
 <script>
 
-<?php
-//$array = array();
-//$dirn = "sqlite:dbf/nettemp.db";
-//$dbn = new PDO($dirn) or die("cannot open database");
-//$dbmaps = new PDO('sqlite:dbf/nettemp.db');
 
 $query = "select map_num,map_pos FROM maps";//sensors";
 $db->query($query);
@@ -143,6 +138,9 @@ $( "#content div" ).draggable({
 </script>
 <div id="content">
 <?php
+$query = $db->query("SELECT * FROM types");
+$result_t = $query->fetchAll();
+
 $rows = $db->query("SELECT * FROM maps WHERE map_on='on' AND type='sensors'");
 $row = $rows->fetchAll();
 foreach ($row as $b) {
@@ -150,17 +148,18 @@ foreach ($row as $b) {
 	$a=$rows->fetchAll();
 	$a=$a[0];//extracting from array
 	
-	if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png"/>';} 
-	if($a['type'] == 'temp'){ $unit='&#8451'; $type='<img src="media/ico/temp2-icon.png"/>';}
-	if($a['type'] == 'humid'){ $unit='%'; $type='<img src="media/ico/rain-icon.png"/>';}
-	if($a['type'] == 'press'){ $unit='hPa'; $type='<img src="media/ico/Science-Pressure-icon.png"/>';}
-	if($a['type'] == 'water'){ $unit='m3'; $type='<img src="media/ico/water-icon.png"/>';}
-	if($a['type'] == 'gas'){ $unit='m3'; $type='<img src="media/ico/gas-icon.png"/>';}
-	if($a['type'] == 'elec'){ $unit='kWh'; $type='<img src="media/ico/Lamp-icon.png"/>';}
-	if($a['type'] == 'watt'){ $unit='W'; $type='<img src="media/ico/watt.png" alt="Watt"/>';}
-	if($a['type'] == 'volt'){ $unit='V'; $type='<img src="media/ico/volt.png" alt="Volt" /> ';}
-	if($a['type'] == 'amps'){ $unit='A'; $type='<img src="media/ico/amper.png" alt="Amps"/> ';}
-	if($a['type'] == 'dist'){ $unit='cm'; $type='<img src="media/ico/Distance-icon.png" alt="cm"/> ';}
+
+	foreach($result_t as $ty){
+       	if($ty['type']==$a['type']) {
+       		if($temp_scale == 'C'){
+       			$unit=$ty['unit'];
+       		} else {
+       			$unit=$ty['unit2'];
+       		}
+       		$type="<img src=\"".$ty[ico]."\" alt=\"\" title=\"".$ty['title']."\"/>";
+       	}   
+		}
+
 	
 	//Jesli w³¹czone to wyœwietlamy nazwê inaczej pusty ci¹g
 	$sensor_name='';

@@ -8,11 +8,6 @@ $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $query = $db->query("SELECT * FROM types");
 $result_t = $query->fetchAll();
 
-$rows = $db->query("SELECT * FROM settings WHERE id='1'");
-$row = $rows->fetchAll();
-foreach ($row as $a) {
-    $temp_scale=$a['temp_scale'];
-}
 $rows_meteo = $db->query("SELECT normalized,pressure FROM meteo WHERE id='1'");
 $row_meteo = $rows_meteo->fetchAll();
 foreach ($row_meteo as $a) {

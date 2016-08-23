@@ -9,6 +9,7 @@ if ( '' == file_get_contents( $dbfile ) ) {
 header("Location: html/errors/no_db.php");
 }
 else {
+// globals
 $html = $db->query("SELECT * FROM html");
 $html1 = $html->fetchAll();
 foreach($html1 as $hp){
@@ -21,6 +22,11 @@ foreach($html1 as $hp){
         if($hp['name']=='screen') {
        	$html_screen=$hp['state'];
        }
+}
+$rows = $db->query("SELECT * FROM settings WHERE id='1'");
+$row = $rows->fetchAll();
+foreach ($row as $a) {
+    $temp_scale=$a['temp_scale'];
 }
 
 

@@ -37,12 +37,8 @@
 
 <?php
 $dirb = "sqlite:dbf/nettemp.db";
-$dbh = new PDO($dirb) or die("cannot open database");
-$query = "SELECT temp_scale FROM settings WHERE id='1'";
-foreach ($dbh->query($query) as $row) {
-	$temp_scale=$row['temp_scale'];
-}
-echo "temp_scale = '". $temp_scale ."';\n";
+
+
 ?>
 
 var start = +new Date();

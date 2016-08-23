@@ -48,11 +48,6 @@ function getUrlVars() {
     
     
 <?php
-$query = "SELECT temp_scale FROM settings WHERE id='1'";
-foreach ($db->query($query) as $row) {
-	$temp_scale=$row['temp_scale'];
-}
-echo "temp_scale = '". $temp_scale ."';\n";
 
 parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $url);
 if(!empty($url['type'])) {

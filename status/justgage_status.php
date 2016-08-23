@@ -43,10 +43,6 @@ if ($a['normalized']=='on')
    
 <script>
 <?php
-$query = "SELECT temp_scale FROM settings WHERE id='1'";
-foreach ($db->query($query) as $row) {
-	$temp_scale=$row['temp_scale'];
-}
 
 foreach($result_t as $ty){
        	if($ty[type]==$a['type']) {
