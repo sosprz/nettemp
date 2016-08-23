@@ -136,8 +136,9 @@ if($html_info=='on') {
 	    <input type="hidden" name="form_login" value="log">
             <button type="submit" class="btn btn-xs btn-success">Sign in</button>
           </form>        
-    <?php } ?>
-    <?php if(isset($_SESSION["user"])) {?>
+    <?php 
+    }
+		if(isset($_SESSION["user"])) {?>
 	<form method="post" action="logout" class="navbar-form navbar-right" >
 	    <?php echo $_SESSION["user"];?>
 	    <button type="submit" class="btn btn-xs btn-success">Log Out</button>
