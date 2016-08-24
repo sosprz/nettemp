@@ -10,13 +10,13 @@
    	 
     if ($save == 'save1'){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE types SET title='$title',unit2='$unit2',unit='$unit',type='$type',ico='$ico' WHERE id='$save_id'") or die ("cannot update to DB" );
+    $db->exec("UPDATE types SET title='$title',unit2='$unit2',unit='$unit',type='$type',ico='$ico' WHERE id='$save_id'") or header("Location: html/errors/db_error.php");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
     if ($add == 'add1'){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('$type','$unit','$unit2','$ico','$title')") or die ("cannot insert to DB");
+    $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('$type','$unit','$unit2','$ico','$title')") or header("Location: html/errors/db_error.php");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -25,6 +25,32 @@
 	 $db->exec("DELETE FROM types WHERE id='$save_id'") or die ("cannot insert to DB");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
+    }
+    if ($add == "default") { 
+    $db = new PDO("sqlite:dbf/nettemp.db");	
+    $db->exec("DELETE from types") or header("Location: html/errors/db_error.php");
+    $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('temp', '°C', '°F', 'media/ico/temp2-icon.png' ,'Temperature')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('lux', 'lux', 'lux', 'media/ico/sun-icon.png' ,'Lux')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('humid', '%', '%', 'media/ico/rain-icon.png' ,'Humidity')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('press', 'hPa', 'hPa', 'media/ico/Science-Pressure-icon.png' ,'Pressure')");
+    $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('water', 'm3', 'm3', 'media/ico/water-icon.png' ,'Water')");
+    $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('gas', 'm3', 'm3', 'media/ico/gas-icon.png' ,'Gas')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('elec', 'kWh', 'kWh', 'media/ico/Lamp-icon.png' ,'Electricity')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('watt', 'W', 'W', 'media/ico/watt.png' ,'Watt')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('volt', 'V', 'V', 'media/ico/volt.png' ,'Volt')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('amps', 'A', 'A', 'media/ico/amper.png' ,'Amps')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('dist', 'cm', 'cm', 'media/ico/Distance-icon.png' ,'Distance')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('trigger', '', '', 'media/ico/alarm-icon.png' ,'Trigger')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('rainfall', 'mm/m2', 'mm/m2', '' ,'Rainfall')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('speed', 'km/h', 'km/h', '' ,'Speed')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('wind', '°', '°', '' ,'Wind')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('uv', 'index', 'index', '' ,'UV')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('storm', 'km', 'km', '' ,'Storm')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('lightining', '', '', '' ,'Lightining')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('host', 'ms', 'ms', '' ,'Host')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('system', '%', 'm%', '' ,'System')");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();	
     }
 ?>
 
@@ -120,7 +146,26 @@ $row = $rows->fetchAll();
 <?php
 	}
 	?>
-
+<tr>
+    <td class="col-md-0">
+    </td>
+    <td class="col-md-0">
+    </td>
+	 <td class="col-md-0">
+    </td>
+    <td class="col-md-0">
+    </td>
+    <td class="col-md-0">
+    </td>
+    <td class="col-md-0">
+    </td>
+    <td colspan="2" class="col-md-6">
+	 <form action="" method="post" style="display:inline!important;">
+		<button class="btn btn-xs btn-info">Reset to defaults <span class="glyphicon glyphicon-refresh"></span> </button>
+		<input type="hidden" name="add" value="default"/>
+    </form>
+	 </td>
+</tr>
 
 
 </table>

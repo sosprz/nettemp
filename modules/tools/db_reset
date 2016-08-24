@@ -52,7 +52,26 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO html (na
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO html (name, state) VALUES ('footer', 'on');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO html (name, state) VALUES ('screen', 'off');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO minmax (name, state) VALUES ('mode', '1');"
-
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('temp', '°C', '°F', 'media/ico/temp2-icon.png' ,'Temperature');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('lux', 'lux', 'lux', 'media/ico/sun-icon.png' ,'Lux');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('humid', '%', '%', 'media/ico/rain-icon.png' ,'Humidity');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('press', 'hPa', 'hPa', 'media/ico/Science-Pressure-icon.png' ,'Pressure');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('water', 'm3', 'm3', 'media/ico/water-icon.png' ,'Water');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('gas', 'm3', 'm3', 'media/ico/gas-icon.png' ,'Gas');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('elec', 'kWh', 'kWh', 'media/ico/Lamp-icon.png' ,'Electricity');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('watt', 'W', 'W', 'media/ico/watt.png' ,'Watt');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('volt', 'V', 'V', 'media/ico/volt.png' ,'Volt');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('amps', 'A', 'A', 'media/ico/amper.png' ,'Amps');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('dist', 'cm', 'cm', 'media/ico/Distance-icon.png' ,'Distance');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('trigger', '', '', 'media/ico/alarm-icon.png' ,'Trigger');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('rainfall', 'mm/m2', 'mm/m2', '' ,'Rainfall');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('speed', 'km/h', 'km/h', '' ,'Speed');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('wind', '°', '°', '' ,'Wind');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('uv', 'index', 'index', '' ,'UV');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('storm', 'km', 'km', '' ,'Storm');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('lightining', '', '', '' ,'Lightining');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('host', 'ms', 'ms', '' ,'Host');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('system', '%', 'm%', '' ,'System');"
 
 
 
