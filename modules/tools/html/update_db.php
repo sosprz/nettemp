@@ -288,7 +288,7 @@ $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('storm', 'km', 'km', '' ,'Storm')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('lightining', '', '', '' ,'Lightining')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('host', 'ms', 'ms', '' ,'Host')");
-$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('system', '%', 'm%', '' ,'System')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('system', '%', '%', '' ,'System')");
 
 
 

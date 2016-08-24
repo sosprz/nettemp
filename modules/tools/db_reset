@@ -71,7 +71,7 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (t
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('storm', 'km', 'km', '' ,'Storm');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('lightining', '', '', '' ,'Lightining');"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('host', 'ms', 'ms', '' ,'Host');"
-sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('system', '%', 'm%', '' ,'System');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('system', '%', '%', '' ,'System');"
 
 
 
