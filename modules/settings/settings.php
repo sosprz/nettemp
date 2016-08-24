@@ -16,6 +16,7 @@
 <a href="index.php?id=settings&type=stats" ><button class="btn btn-xs btn-default <?php echo $art == 'stats' ? 'active' : ''; ?>">Stats</button></a>
 <a href="index.php?id=settings&type=mysql" ><button class="btn btn-xs btn-default <?php echo $art == 'mysql' ? 'active' : ''; ?>">MySQL</button></a>
 <a href="index.php?id=settings&type=screen" ><button class="btn btn-xs btn-default <?php echo $art == 'screen' ? 'active' : ''; ?>">Screen</button></a>
+<a href="index.php?id=settings&type=types" ><button class="btn btn-xs btn-default <?php echo $art == 'types' ? 'active' : ''; ?>">Types</button></a>
 </p>
 <?php  
 switch ($art)
@@ -38,5 +39,6 @@ case 'server_node': include('modules/settings/server_node.php'); break;
 case 'stats': include('modules/settings/stats.php'); break;
 case 'mysql': include('modules/mysql/mysql.php'); break;
 case 'screen': include('modules/settings/screen.php'); break;
+case 'types': include('modules/settings/types.php'); break;
 }
 ?>

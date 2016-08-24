@@ -272,7 +272,7 @@ $db->exec("CREATE TABLE types (id INTEGER PRIMARY KEY,type UNIQUE, unit TEXT, un
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('temp', '°C', '°F', 'media/ico/temp2-icon.png' ,'Temperature')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('lux', 'lux', 'lux', 'media/ico/sun-icon.png' ,'Lux')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('humid', '%', '%', 'media/ico/rain-icon.png' ,'Humidity')");
-$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('pressgg', 'hPa', 'hPa', 'media/ico/Science-Pressure-icon.png' ,'Pressure')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('press', 'hPa', 'hPa', 'media/ico/Science-Pressure-icon.png' ,'Pressure')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('water', 'm3', 'm3', 'media/ico/water-icon.png' ,'Water')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('gas', 'm3', 'm3', 'media/ico/gas-icon.png' ,'Gas')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('elec', 'kWh', 'kWh', 'media/ico/Lamp-icon.png' ,'Electricity')");
@@ -285,7 +285,7 @@ $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('speed', 'km/h', 'km/h', '' ,'Speed')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('wind', '°', '°', '' ,'Wind')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('uv', 'index', 'index', '' ,'UV')");
-$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('storm', 'km', 'km', '' ,'Temperature')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('storm', 'km', 'km', '' ,'Storm')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('lightining', '', '', '' ,'Lightining')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('host', 'ms', 'ms', '' ,'Host')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('system', '%', 'm%', '' ,'System')");
