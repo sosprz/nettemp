@@ -275,7 +275,7 @@ $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('press', 'hPa', 'hPa', 'media/ico/Science-Pressure-icon.png' ,'Pressure')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('water', 'm3', 'm3', 'media/ico/water-icon.png' ,'Water')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('gas', 'm3', 'm3', 'media/ico/gas-icon.png' ,'Gas')");
-$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('elec', 'kWh', 'kWh', 'media/ico/Lamp-icon.png' ,'Electricity')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('elec', 'kWh', 'W', 'media/ico/Lamp-icon.png' ,'Electricity')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('watt', 'W', 'W', 'media/ico/watt.png' ,'Watt')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('volt', 'V', 'V', 'media/ico/volt.png' ,'Volt')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('amps', 'A', 'A', 'media/ico/amper.png' ,'Amps')");
@@ -287,8 +287,9 @@ $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('uv', 'index', 'index', '' ,'UV')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('storm', 'km', 'km', '' ,'Storm')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('lightining', '', '', '' ,'Lightining')");
-$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('host', 'ms', 'ms', '' ,'Host')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('hosts', 'ms', 'ms', '' ,'Host')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('system', '%', '%', '' ,'System')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('gpio', 'H/L', 'H/L', '' ,'GPIO')");
 
 
 
