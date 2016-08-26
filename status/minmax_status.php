@@ -77,11 +77,11 @@ $file=$rom .".sql";
  	 } else {
 
 	//option2    
-    
+   
      if ($a['type'] == 'elec' || $a['type'] == 'water' || $a['type'] == 'gas') { ?>
     <tr>
 	<td><?php echo $a['name'] ?></td>
-	<td><span class="label label-info"><?php echo number_format(($d['hmax']-$d['hmin']), 3, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($h['hmax']-$h['hmin']), 3, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($d['dmax']-$d['dmin']), 3, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($w['wmin']-$d['wmin']), 3, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($m['mmin']-$d['mmin']), 3, '.', '')?></span></td>
@@ -90,7 +90,7 @@ $file=$rom .".sql";
     } elseif ($a['type'] == 'volt' || $a['type'] == 'watt' || $a['type'] == 'amps' ) { ?>
     <tr>
 	<td><?php echo $a['name'] ?></td>
-	<td><span class="label label-info"><?php echo number_format(($d['hmax']-$d['hmin']), 2, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($h['hmax']-$h['hmin']), 2, '.', '')?></span></td>
    <td><span class="label label-info"><?php echo number_format(($d['dmax']-$d['dmin']), 2, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($w['wmin']-$d['wmin']), 2, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($m['mmin']-$d['mmin']), 2, '.', '')?></span></td>
@@ -98,7 +98,7 @@ $file=$rom .".sql";
      } else { ?>
     <tr>
 	<td><?php echo $a['name'] ?></td>
-	<td><span class="label label-info"><?php echo number_format(($d['hmax']-$d['hmin']), 1, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($h['hmax']-$h['hmin']), 1, '.', '')?> </span></td>
    <td><span class="label label-info"><?php echo number_format(($d['dmax']-$d['dmin']), 1, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($w['wmin']-$d['wmin']), 1, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($m['mmin']-$d['mmin']), 1, '.', '')?></span></td>
