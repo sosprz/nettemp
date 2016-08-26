@@ -1,2 +1,3 @@
 
-after ferfresh C changed to F
+
+if (types[this.name]=='elec' && mode=='2') {n_units = " W"};
