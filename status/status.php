@@ -9,8 +9,9 @@
 /* ---- grid ---- */
 
 .grid {
-  //background: #EEE;
-  //max-width: 1200px;
+	<?php if($id=='screen') { ?>
+   	width: 800px;
+   <?php } ?>
 }
 
 /* clearfix */
@@ -36,20 +37,20 @@
 <div class="grid">
     <div class="grid-sizer"></div>
     <?php
-    include_once('status/sensor_status.php');
-    include_once('status/justgage_status.php');
-    include_once('status/minmax_status.php');
-    include_once('status/hosts_status.php');
-    include_once('status/gpio_status.php');
-    include_once('status/counters_status.php');
-    include_once('status/relays_status.php');
-    include_once('status/meteo_status.php');
+    include('status/sensor_status.php');
+    include('status/justgage_status.php');
+    include('status/minmax_status.php');
+    include('status/hosts_status.php');
+    include('status/gpio_status.php');
+    include('status/counters_status.php');
+    include('status/relays_status.php');
+    include('status/meteo_status.php');
     foreach (range(1, 10) as $v) {
 	$ow=$v;
 	include('status/ownwidget.php');
     }
     include('status/ipcam_status.php');
-    include_once('status/ups_status.php');
+    include('status/ups_status.php');
     ?>
 </div>
 
@@ -79,7 +80,4 @@ $(document).ready( function() {
 </script>
 <script src="html/masonry/masonry.pkgd.min.js"></script>
 <div id="justgage_refresh"></div>
-
-
-
 

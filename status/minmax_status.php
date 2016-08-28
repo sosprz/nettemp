@@ -13,7 +13,20 @@ if ( $numRows > '0' ) { ?>
 <tbody>
 <tr>
    <th></th>
-<!--  <th>Hour</th> -->
+<?php
+$mm = $db->query("SELECT * FROM minmax");
+$mm1 = $mm->fetchAll();
+foreach($mm1 as $ms){
+       if($ms['name']=='mode') {
+       	$mm_mode=$ms['state'];
+       }   
+}
+ if($mm_mode != '1') {
+     ?>
+    <th>Hour</th>
+    <?php
+ }
+ ?>
     <th>Day</th>
     <th>Week</th>
     <th>Month</th>
@@ -26,15 +39,16 @@ $file=$rom .".sql";
 
 
     $db1 = new PDO("sqlite:$root/db/$file");
-//    $h = $db1->query("select min(value) AS hmin, max(value) AS hmax from def WHERE time BETWEEN datetime('now','localtime','-1 hour') AND datetime('now','localtime')") or die('hour');
-//    $h = $h->fetch(); 
+    $h = $db1->query("select min(value) AS hmin, max(value) AS hmax from def WHERE time BETWEEN datetime('now','localtime','-1 hour') AND datetime('now','localtime')") or die('hour');
+    $h = $h->fetch(); 
     $d = $db1->query("select min(value) AS dmin, max(value) AS dmax from def WHERE time BETWEEN datetime('now','localtime','-1 day') AND datetime('now','localtime') AND rowid % 60=0") or die('day');
     $d = $d->fetch(); 
     $w = $db1->query("select min(value) AS wmin, max(value) AS wmax from def WHERE time BETWEEN datetime('now','localtime','-7 day') AND datetime('now','localtime') AND rowid % 240=0") or die('week');
     $w = $w->fetch(); 
     $m = $db1->query("select min(value) AS mmin, max(value) AS mmax from def WHERE time BETWEEN datetime('now','localtime','-1 months') AND datetime('now','localtime') AND rowid % 480=0") or die('month');
-    $m = $m->fetch(); 
+    $m = $m->fetch();
     
+    if($mm_mode == '1') { 
     if ($a['type'] == 'elec' || $a['type'] == 'water' || $a['type'] == 'gas') { ?>
     <tr>
 	<td><?php echo $a['name'] ?></td>
@@ -60,6 +74,39 @@ $file=$rom .".sql";
     </tr>
     <?php
     }
+ 	 } else {
+
+	//option2    
+   
+     if ($a['type'] == 'elec' || $a['type'] == 'water' || $a['type'] == 'gas') { ?>
+    <tr>
+	<td><?php echo $a['name'] ?></td>
+	<td><span class="label label-info"><?php echo number_format(($h['hmax']-$h['hmin']), 3, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($d['dmax']-$d['dmin']), 3, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($w['wmax']-$w['wmin']), 3, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($m['mmax']-$m['mmin']), 3, '.', '')?></span></td>
+    </tr>
+    <?php
+    } elseif ($a['type'] == 'volt' || $a['type'] == 'watt' || $a['type'] == 'amps' ) { ?>
+    <tr>
+	<td><?php echo $a['name'] ?></td>
+	<td><span class="label label-info"><?php echo number_format(($h['hmax']-$h['hmin']), 2, '.', '')?></span></td>
+   <td><span class="label label-info"><?php echo number_format(($d['dmax']-$d['dmin']), 2, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($w['wmax']-$w['wmin']), 2, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($m['mmax']-$m['mmin']), 2, '.', '')?></span></td>
+    <?php
+     } else { ?>
+    <tr>
+	<td><?php echo $a['name'] ?></td>
+	<td><span class="label label-info"><?php echo number_format(($h['hmax']-$h['hmin']), 1, '.', '')?> </span></td>
+   <td><span class="label label-info"><?php echo number_format(($d['dmax']-$d['dmin']), 1, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($w['wmax']-$w['wmin']), 1, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($m['mmax']-$m['mmin']), 1, '.', '')?></span></td>
+    </tr>
+    <?php
+    }
+	}    
+    
 }
 ?>
 </tbody>
