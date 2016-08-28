@@ -38,7 +38,7 @@ include('status/status.php');
 ?> 
 </nav>
 
-<article>
+<article class="mapstatus">
 <?php
 include('status/map_status.php');
 ?> 
@@ -54,4 +54,11 @@ include('status/charts_status.php');
 
 </body>
 </html>
+
+
+<script type="text/javascript">
+    setInterval( function() {
+    $(".mapstatus").load("status/map_status.php");
+    }, 60000);
+</script>
 

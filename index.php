@@ -1,5 +1,6 @@
 <?php
-$db = new PDO("sqlite:dbf/nettemp.db");
+$root=$_SERVER["DOCUMENT_ROOT"];
+$db = new PDO("sqlite:$root/dbf/nettemp.db");
 include("modules/login/login.php");
 ob_start();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -88,7 +89,7 @@ $numsimple2 = count($row2);
 	if($html_screen=='on') 
 	{ 
 	?>
-	<li <?php echo $id == 'screen' ? ' class="active"' : ''; ?>><a href="index.php?id=screen&type=temp&max=day"><span class="glyphicon glyphicon-modal-window" aria-hidden="true"> Screen</span></a></li>
+	<li <?php echo $id == 'screen' ? ' class="active"' : ''; ?>><a href="index.php?id=screen&type=temp&max=hour"><span class="glyphicon glyphicon-modal-window" aria-hidden="true"> Screen</span></a></li>
 <?php 
 	} 
 	if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
@@ -168,7 +169,7 @@ case 'upload': include('modules/tools/backup/html/upload.php'); break;
 case 'csv': include('common/csv.php'); break;
 case 'receiver': include('modules/sensors/html/receiver.php'); break;
 case 'controls': include('modules/relays/html/relays_controls.php'); include('modules/gpio/html/gpio_controls.php'); break;
-case 'screen': include('modules/screen/index.php'); break;
+case 'screen': include('modules/screen/screen.php'); break;
 }
 ?>
 </div>

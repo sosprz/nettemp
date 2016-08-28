@@ -153,7 +153,7 @@ foreach($result_t as $ty){
 ?>
 
 
-$(function () {
+var hc = function () {
     var seriesOptions = [],
         seriesCounter = 0,
 
@@ -290,6 +290,12 @@ $(function () {
             }
         });
     });
-});
+}
+
+
+hc();
+setInterval(function() {
+	hc();
+}, 60000);
 </script>
 

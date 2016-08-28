@@ -17,8 +17,8 @@ if ( $numRows > '0' ) { ?>
 $mm = $db->query("SELECT * FROM minmax");
 $mm1 = $mm->fetchAll();
 foreach($mm1 as $ms){
-       if($ms[name]=='mode') {
-       	$mm_mode=$ms[state];
+       if($ms['name']=='mode') {
+       	$mm_mode=$ms['state'];
        }   
 }
  if($mm_mode != '1') {
@@ -83,8 +83,8 @@ $file=$rom .".sql";
 	<td><?php echo $a['name'] ?></td>
 	<td><span class="label label-info"><?php echo number_format(($h['hmax']-$h['hmin']), 3, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($d['dmax']-$d['dmin']), 3, '.', '')?></span></td>
-	<td><span class="label label-info"><?php echo number_format(($w['wmin']-$d['wmin']), 3, '.', '')?></span></td>
-	<td><span class="label label-info"><?php echo number_format(($m['mmin']-$d['mmin']), 3, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($w['wmax']-$w['wmin']), 3, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($m['mmax']-$m['mmin']), 3, '.', '')?></span></td>
     </tr>
     <?php
     } elseif ($a['type'] == 'volt' || $a['type'] == 'watt' || $a['type'] == 'amps' ) { ?>
@@ -92,16 +92,16 @@ $file=$rom .".sql";
 	<td><?php echo $a['name'] ?></td>
 	<td><span class="label label-info"><?php echo number_format(($h['hmax']-$h['hmin']), 2, '.', '')?></span></td>
    <td><span class="label label-info"><?php echo number_format(($d['dmax']-$d['dmin']), 2, '.', '')?></span></td>
-	<td><span class="label label-info"><?php echo number_format(($w['wmin']-$d['wmin']), 2, '.', '')?></span></td>
-	<td><span class="label label-info"><?php echo number_format(($m['mmin']-$d['mmin']), 2, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($w['wmax']-$w['wmin']), 2, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($m['mmax']-$m['mmin']), 2, '.', '')?></span></td>
     <?php
      } else { ?>
     <tr>
 	<td><?php echo $a['name'] ?></td>
 	<td><span class="label label-info"><?php echo number_format(($h['hmax']-$h['hmin']), 1, '.', '')?> </span></td>
    <td><span class="label label-info"><?php echo number_format(($d['dmax']-$d['dmin']), 1, '.', '')?></span></td>
-	<td><span class="label label-info"><?php echo number_format(($w['wmin']-$d['wmin']), 1, '.', '')?></span></td>
-	<td><span class="label label-info"><?php echo number_format(($m['mmin']-$d['mmin']), 1, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($w['wmax']-$w['wmin']), 1, '.', '')?></span></td>
+	<td><span class="label label-info"><?php echo number_format(($m['mmax']-$m['mmin']), 1, '.', '')?></span></td>
     </tr>
     <?php
     }

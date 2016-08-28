@@ -1,12 +1,3 @@
-
-
-<script type="text/JavaScript">
-function timedRefresh(timeoutPeriod) {
-    setTimeout("location.reload(true);",timeoutPeriod);
-    }
-</script>
-<!-- <body onload="JavaScript:timedRefresh(60000);"> -->
-
 <?php 
 $art = isset($_GET['type']) ? $_GET['type'] : '';
 

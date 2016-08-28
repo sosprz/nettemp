@@ -81,6 +81,3 @@ $(document).ready( function() {
 <script src="html/masonry/masonry.pkgd.min.js"></script>
 <div id="justgage_refresh"></div>
 
-
-
-

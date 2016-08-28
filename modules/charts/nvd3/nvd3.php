@@ -34,11 +34,10 @@
 </div>
 
 <script type="text/javascript"> 	 
+var nvd3 = function () {
 
 <?php
-$dirb = "sqlite:dbf/nettemp.db";
-
-
+	$dirb = "sqlite:dbf/nettemp.db";
 ?>
 
 var start = +new Date();
@@ -91,8 +90,7 @@ foreach($result_t as $ty){
         	}  
 		}
 ?>
-            	    
-
+          
 d3.json('common/nvd3_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mode+'&group='+group+'&single='+single, function(data) {
   nv.addGraph(function() {
   	var chart = nv.models.lineWithFocusChart()
@@ -121,9 +119,10 @@ d3.json('common/nvd3_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mod
 
     nv.utils.windowResize(chart.update);
         
-          chart.xAxis.tickFormat.utc(function(d) {
-            return d3.time.format('%m/%d/%y')(new Date(d))
-        });
+     //     chart.xAxis
+     //     .tickFormat.utc(function(d) {
+     //       return d3.time.format('%m/%d/%y')(new Date(d))
+     //   });
         
        chart.interactiveLayer.tooltip.contentGenerator(function (d) {
          var html = "<h5><b>"+d3.time.format.utc('%m/%d %X')(new Date(d.value))+"</b></h5>";
@@ -140,6 +139,13 @@ d3.json('common/nvd3_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mod
   });
 });
 
+}
+
+
+nvd3();
+setInterval(function() {
+	nvd3();
+}, 60000);
 </script>
 </body>
 </html>
