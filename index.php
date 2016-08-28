@@ -64,7 +64,7 @@ if($id != 'screen') {
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-		<a href="http://nettemp.pl" target="_blank"><img src="media/png/nettemp.pl.png" height="50" alt="nettemp.pl"></a>
+		<a href="#" target="_blank"><img src="media/png/logger3d.png" height="50" alt="#"></a>
 
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
               <span class="sr-only">Toggle navigation</span>
