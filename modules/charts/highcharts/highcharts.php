@@ -43,7 +43,7 @@ function getUrlVars() {
 		var type = "temp";    
     }
     if(!max) {
-		var max = "day";    
+		var max = "hour";    
     }
     
     

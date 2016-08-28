@@ -2,3 +2,5 @@
 
 if (types[this.name]=='elec' && mode=='2') {n_units = " W"};
 justgauge poprawka interval
+custom max charts
+
