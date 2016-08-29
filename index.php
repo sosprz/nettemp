@@ -35,6 +35,13 @@ foreach($html1 as $hp){
        if($hp['name']=='charts_max') {
        	$html_charts_max=$hp['value'];
        }
+       if($hp['name']=='map_width') {
+       	$html_map_width=$hp['value'];
+       }
+       if($hp['name']=='map_height') {
+       	$html_map_height=$hp['value'];
+       }
+       echo $html_map_height;
 }
 	
 ?>
