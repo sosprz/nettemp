@@ -41,7 +41,6 @@ foreach($html1 as $hp){
        if($hp['name']=='map_height') {
        	$html_map_height=$hp['value'];
        }
-       echo $html_map_height;
 }
 	
 ?>
