@@ -32,6 +32,9 @@ foreach($html1 as $hp){
        if($hp['name']=='nettemp_link') {
        	$html_nettemp_link=$hp['value'];
        }
+       if($hp['name']=='charts_max') {
+       	$html_charts_max=$hp['value'];
+       }
 }
 	
 ?>
