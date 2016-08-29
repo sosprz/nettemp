@@ -58,8 +58,8 @@ exit();
       cursor: e-resize;
   }
   #content {
-      width: 1140px;
-      height: 600px;
+      width: <php echo $html_map_width?>px;
+      height: <php echo $html_map_height?>px;
       border:2px solid #ccc;
       padding: 2px;
 <?php 

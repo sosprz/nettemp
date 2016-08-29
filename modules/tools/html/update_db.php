@@ -270,6 +270,8 @@ $db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('nettemp_logo', ' me
 $db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('nettemp_link', '#')");
 $db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('nettemp_alt', '#')");
 $db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('charts_max', 'hour)");
+$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('map_width', '800)");
+$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('map_height', '600)");
 $db->exec("CREATE TABLE minmax (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT)");
 $db->exec("INSERT OR IGNORE INTO minmax (name, state) VALUES ('mode', '1')");
 $db->exec("CREATE TABLE types (id INTEGER PRIMARY KEY,type UNIQUE, unit TEXT, unit2 TEXT, ico TEXT, title TEXT)");
