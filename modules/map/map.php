@@ -8,9 +8,9 @@ $row = $rows->fetchAll();
 foreach ($row as $a) {
     $temp_scale=$a['temp_scale'];
 }
-?>
 
-<?php
+include("$root/html/htmlconf.php");
+
 $label='';
 $need_id = isset($_POST['need_id']) ? $_POST['need_id'] : '';
 $need_dst = isset($_POST['need_dst']) ? $_POST['need_dst'] : '';
