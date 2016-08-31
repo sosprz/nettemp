@@ -379,6 +379,21 @@ else { ?>
 }  
 
 ?>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Charts</td>
+<td></td>
+<td>Node all</td>
+<td>MinMax all</td>
+<td>LCD all</td>
+<td>JustGage all</td>
+<td></td>
+</tr>
 </table>
 </div>
 </div>
