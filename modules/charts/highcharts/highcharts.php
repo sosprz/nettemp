@@ -43,7 +43,7 @@ function getUrlVars() {
 		var type = "temp";    
     }
     if(!max) {
-		var max = "hour";    
+		var max = "<?php echo $html_charts_max?>";    
     }
     
     

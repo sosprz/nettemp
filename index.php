@@ -10,29 +10,7 @@ if ( '' == file_get_contents( $dbfile ) ) {
 header("Location: html/errors/no_db.php");
 }
 else {
-// globals
-$html = $db->query("SELECT * FROM html");
-$html1 = $html->fetchAll();
-foreach($html1 as $hp){
-       if($hp['name']=='info') {
-       	$html_info=$hp['state'];
-       }
-       if($hp['name']=='footer') {
-       	$html_footer=$hp['state'];
-       }
-        if($hp['name']=='screen') {
-       	$html_screen=$hp['state'];
-       }
-       if($hp['name']=='nettemp_alt') {
-       	$html_nettemp_alt=$hp['value'];
-       }
-       if($hp['name']=='nettemp_logo') {
-       	$html_nettemp_logo=$hp['value'];
-       }
-       if($hp['name']=='nettemp_link') {
-       	$html_nettemp_link=$hp['value'];
-       }
-}
+include("html/htmlconf.php");
 	
 ?>
 <!DOCTYPE html>
@@ -93,7 +71,7 @@ $numsimple = count($row1);
 $numsimple2 = count($row2);
 ?>
 <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status"><span class="glyphicon glyphicon-th-large" aria-hidden="true"> Status</span></a></li>
-<li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp&max=day"><span class="glyphicon glyphicon-stats" aria-hidden="true"> Charts</span></a></li>
+<li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp&max=<?php echo $html_charts_max?>"><span class="glyphicon glyphicon-stats" aria-hidden="true"> Charts</span></a></li>
 <?php
 	if($html_screen=='on') 
 	{ 

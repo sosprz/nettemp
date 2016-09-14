@@ -8,9 +8,9 @@ $row = $rows->fetchAll();
 foreach ($row as $a) {
     $temp_scale=$a['temp_scale'];
 }
-?>
 
-<?php
+include("$root/html/htmlconf.php");
+
 $label='';
 $need_id = isset($_POST['need_id']) ? $_POST['need_id'] : '';
 $need_dst = isset($_POST['need_dst']) ? $_POST['need_dst'] : '';
@@ -58,8 +58,8 @@ exit();
       cursor: e-resize;
   }
   #content {
-      width: 1140px;
-      height: 600px;
+      width: <?php echo $html_map_width ?>px;
+      height: <?php echo $html_map_height ?>px;
       border:2px solid #ccc;
       padding: 2px;
 <?php 

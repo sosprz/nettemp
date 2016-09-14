@@ -58,7 +58,7 @@ function getUrlVars() {
 		var type = "temp";    
     }
     if(!max) {
-		var max = "day";    
+		var max = "<?php echo $html_charts_max?>";    
     }
     
     if (typeof group === 'undefined') {

@@ -40,6 +40,15 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+    
+    $chmax = isset($_POST['chmax']) ? $_POST['chmax'] : '';
+    $set_chmax = isset($_POST['set_chmax']) ? $_POST['set_chmax'] : '';
+    if  ($set_chmax == "set_chmax") {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE html SET value='$chmax' WHERE name='charts_max'");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 
     $db = new PDO('sqlite:dbf/nettemp.db');
     $sth = $db->prepare("select * from charts");
@@ -123,6 +132,23 @@
 </div>
 </fieldset>
 <input type="hidden" name="set_chfast" value="set_chfast" />
+</form>
+
+<form class="form-horizontal" action="" method="post">
+<fieldset>
+<div class="form-group">
+  <label class="col-md-2 control-label" for="selectbasic">Set default chart MAX</label>
+  <div class="col-md-2">
+    <select id="selectbasic" name="chmax" onchange="this.form.submit()" class="form-control input-sm">
+    <?php $ar=array("hour","day", "week", "month");
+     foreach ($ar as $num) { ?>
+        <option <?php echo $html_charts_max == "$num" ? 'selected="selected"' : ''; ?> value="<?php echo $num; ?>"><?php echo $num ." "; ?></option>   
+    <?php } ?>
+    </select>
+  </div>
+</div>
+</fieldset>
+<input type="hidden" name="set_chmax" value="set_chmax" />
 </form>
 
 

@@ -48,7 +48,7 @@ $result_t = $query->fetchAll();
 foreach($result_t as $ty){
 	if(in_array($ty['type'], $typearr)) { 
 	?>
-     <a href="index.php?id=<?php echo $id ?>&type=<?php echo $ty['type'] ?>&max=day&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php echo $art == $ty['type'] ? ' active' : ''; ?>"><?php echo $ty['title']?></button></a>
+     <a href="index.php?id=<?php echo $id ?>&type=<?php echo $ty['type']?>&max=<?php echo $html_charts_max?>&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php echo $art == $ty['type'] ? ' active' : ''; ?>"><?php echo $ty['title']?></button></a>
 	<?php
 	}
 }
