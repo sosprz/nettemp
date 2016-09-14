@@ -1,5 +1,27 @@
 <?php
 
+	 $del_all = isset($_POST['del_all']) ? $_POST['del_all'] : '';
+	 $add_all = isset($_POST['add_all']) ? $_POST['add_all'] : '';
+	 
+    if (!empty($add_all)) {
+    	$db = new PDO('sqlite:dbf/nettemp.db');
+    	$db->exec("UPDATE sensors SET '$add_all'='on'") or die ($db->lastErrorMsg());
+    	header("location: " . $_SERVER['REQUEST_URI']);
+    	exit();
+    } 
+    
+    if (!empty($del_all)){
+    	$db = new PDO('sqlite:dbf/nettemp.db');
+    	$db->exec("UPDATE sensors SET '$del_all'=''") or die ($db->lastErrorMsg());
+    	header("location: " . $_SERVER['REQUEST_URI']);
+    	exit();
+    }
+    
+    
+    
+   
+	 
+
     $position = isset($_POST['position']) ? $_POST['position'] : '';
     $position_id = isset($_POST['position_id']) ? $_POST['position_id'] : '';
     if (!empty($position_id) && ($_POST['positionok'] == "ok")){
@@ -200,7 +222,76 @@ $row = $rows->fetchAll();
 <th></th>
 </tr>
 </thead>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>
 
+	 <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="add_all" value="charts" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="del_all" value="charts" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+    
+</td>
+<td></td>
+<td>
+
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="add_all" value="remote" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="del_all" value="remote" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+
+</td>
+<td>
+	
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="add_all" value="minmax" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="del_all" value="minmax" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+
+</td>
+<td>
+
+ 	 <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="add_all" value="lcd" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="del_all" value="lcd" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+
+</td>
+<td>
+
+	 <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="add_all" value="jg" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="del_all" value="jg" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+
+</td>
+<td></td>
+</tr>
 
 
 <?php 
@@ -379,21 +470,7 @@ else { ?>
 }  
 
 ?>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>Charts</td>
-<td></td>
-<td>Node all</td>
-<td>MinMax all</td>
-<td>LCD all</td>
-<td>JustGage all</td>
-<td></td>
-</tr>
+
 </table>
 </div>
 </div>
