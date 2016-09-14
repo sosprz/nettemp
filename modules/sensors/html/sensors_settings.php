@@ -17,11 +17,6 @@
     	exit();
     }
     
-    
-    
-   
-	 
-
     $position = isset($_POST['position']) ? $_POST['position'] : '';
     $position_id = isset($_POST['position_id']) ? $_POST['position_id'] : '';
     if (!empty($position_id) && ($_POST['positionok'] == "ok")){
