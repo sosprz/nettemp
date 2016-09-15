@@ -208,23 +208,7 @@ $row = $rows->fetchAll();
 <th>Adjust</th>
 <th>Counters</th>
 <th>Alarm / Min / Max</th>
-<th>Charts</th>
-<th>Group</th>
-<th>Node</th>
-<th>Status Min/Max</th>
-<th>LCD</th>
-<th>JustGage</th>
-<th></th>
-</tr>
-</thead>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>
+<th>Charts
 
 	 <form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="charts" />
@@ -234,10 +218,10 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="del_all" value="charts" />
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
     </form>
-    
-</td>
-<td></td>
-<td>
+
+</th>
+<th>Group</th>
+<th>Node
 
     <form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="remote" />
@@ -248,9 +232,10 @@ $row = $rows->fetchAll();
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
     </form>
 
-</td>
-<td>
-	
+
+</th>
+<th>Status Min/Max
+
     <form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="minmax" />
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
@@ -260,10 +245,12 @@ $row = $rows->fetchAll();
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
     </form>
 
-</td>
-<td>
 
- 	 <form action="" method="post" style="display:inline!important;">
+
+</th>
+<th>LCD
+
+ 	<form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="lcd" />
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
     </form>
@@ -272,10 +259,11 @@ $row = $rows->fetchAll();
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
     </form>
 
-</td>
-<td>
 
-	 <form action="" method="post" style="display:inline!important;">
+</th>
+<th>JustGage
+
+ 	<form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="jg" />
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
     </form>
@@ -284,9 +272,11 @@ $row = $rows->fetchAll();
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
     </form>
 
-</td>
-<td></td>
+</th>
+<th></th>
 </tr>
+</thead>
+
 
 
 <?php 

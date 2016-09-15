@@ -83,19 +83,19 @@ $row = $rows->fetchAll();
 	 </td>
 	 <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
-		<input type="text" name="type" size="10" maxlength="30" value="" />
+		<input type="text" name="type" size="10" maxlength="30" value="" class="form-control input-sm"/>
     </td>
      <td class="col-md-0">
-		<input type="text" name="unit" size="10" maxlength="30" value="" />
+		<input type="text" name="unit" size="10" maxlength="30" value="" class="form-control input-sm"/>
     </td>
      <td class="col-md-0">
-		<input type="text" name="unit2" size="10" maxlength="30" value="" />
+		<input type="text" name="unit2" size="10" maxlength="30" value="" class="form-control input-sm"/>
     </td>
     <td class="col-md-0">
-		<input type="text" name="ico" size="25" maxlength="30" value="" />
+		<input type="text" name="ico" size="25" maxlength="30" value="" class="form-control input-sm"/>
     </td>
 	<td class="col-md-0">
-		<input type="text" name="title" size="10" maxlength="30" value="" />
+		<input type="text" name="title" size="10" maxlength="30" value="" class="form-control input-sm"/>
     </td>
     <td class="col-md-0">
 	
@@ -115,19 +115,19 @@ $row = $rows->fetchAll();
 	 </td>
 	 <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
-		<input type="text" name="type" size="10" maxlength="30" value="<?php echo $a['type']; ?>" />
+		<input type="text" name="type" size="10" maxlength="30" value="<?php echo $a['type']; ?>" class="form-control input-sm"/>
     </td>
      <td class="col-md-0">
-		<input type="text" name="unit" size="10" maxlength="30" value="<?php echo $a['unit']; ?>" />
+		<input type="text" name="unit" size="10" maxlength="30" value="<?php echo $a['unit']; ?>" class="form-control input-sm"/>
     </td>
      <td class="col-md-0">
-		<input type="text" name="unit2" size="10" maxlength="30" value="<?php echo $a['unit2']; ?>" />
+		<input type="text" name="unit2" size="10" maxlength="30" value="<?php echo $a['unit2']; ?>" class="form-control input-sm"/>
     </td>
     <td class="col-md-0">
-		<input type="text" name="ico" size="25" maxlength="30" value="<?php echo $a['ico']; ?>" />
+		<input type="text" name="ico" size="25" maxlength="30" value="<?php echo $a['ico']; ?>" class="form-control input-sm"/>
     </td>
 	<td class="col-md-0">
-		<input type="text" name="title" size="10" maxlength="30" value="<?php echo $a['title']; ?>" />
+		<input type="text" name="title" size="10" maxlength="30" value="<?php echo $a['title']; ?>" class="form-control input-sm"/>
     </td>
     <td class="col-md-0">
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-save"></span> </button>
