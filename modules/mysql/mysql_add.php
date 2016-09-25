@@ -88,7 +88,7 @@ $row = $rows->fetchAll();
 	</td>
 	<td class="col-md-1">
 	<?php
-	$rom=$a['rom'];
+	$rom=$a['name']."_".$a['rom'];
 	$check_exists = $conn->query("SHOW TABLES LIKE '$rom'");
 	$table_exists = $check_exists->num_rows;
 	if ($table_exists > 0) { 
@@ -109,7 +109,7 @@ $row = $rows->fetchAll();
 
     <td class="col-md-1">
     <form action="" method="post" style="display:inline!important;"> 	
-	<input type="hidden" name="name" value="<?php echo $a["rom"]; ?>" />
+	<input type="hidden" name="name" value="<?php echo $a['name']."_".$a['rom']; ?>" />
 	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button>
 	<input type="hidden" name="add" value="add" />
     </form>
