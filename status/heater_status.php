@@ -11,7 +11,20 @@ $numRows = count($result);
 <div class="grid-item rs">
 <div class="panel panel-default">
             <div class="panel-heading">WiFi Heaters</div>
-<table class="table table-hover table-condensed">
+<table class="table table-responsive table-hover table-condensed">
+
+<thead>
+<tr>
+<th></th>
+<th><small>Name</small></th>
+<th><small>Temp.</small></th>
+<th><small>Set Temp.</small></th>
+<th><small>Mode</small></th>
+<th><small>Status</small></th>
+</tr>
+</thead>
+
+<tbody>
 <?php
 foreach ( $result as $a) {
 $ip=$a['ip'];
@@ -30,8 +43,8 @@ if ( $o == 'off') { $rs='OFF'; }
     <td><?php echo $a['name']; ?></td>
 	<td><?php echo $a['temp_actual']; ?></td>
 	<td><?php echo $a['temp_set']; ?></td>
-    <td><?php echo $a['status']; ?></td>
-	<td><?php echo $a['work_mode']; ?></td>
+    <td><?php echo $a['work_mode']; ?></td>
+	<td><?php echo $a['status']; ?></td>
     <td><?php echo $rs; ?></td>
     
     </tr>
@@ -39,6 +52,7 @@ if ( $o == 'off') { $rs='OFF'; }
 }
 
 ?>
+</tbody>
 </table>
 </div>
 </div>
