@@ -2,7 +2,7 @@
 $dir="modules/gpio/";
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
-$sth = $db->prepare("select * from relays");
+$sth = $db->prepare("select * from heaters");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);
@@ -10,7 +10,7 @@ $numRows = count($result);
 <?php if ( $numRows > '0' ) { ?>
 <div class="grid-item rs">
 <div class="panel panel-default">
-            <div class="panel-heading">WiFi Relays</div>
+            <div class="panel-heading">WiFi HEATERS</div>
 <table class="table table-hover table-condensed">
 <?php
 foreach ( $result as $a) {
