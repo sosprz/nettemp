@@ -44,6 +44,7 @@
     include_once('status/counters_status.php');
     include_once('status/relays_status.php');
     include_once('status/meteo_status.php');
+	include_once('status/heater_status.php');
     foreach (range(1, 10) as $v) {
 	$ow=$v;
 	include('status/ownwidget.php');
@@ -65,6 +66,7 @@
     $('.ow3').load("status/ownwidget3.php");
     $('.mm').load("status/minmax_status.php");
     $('.ups').load("status/ups_status.php");
+	$('.heat').load("status/heater_status.php");
     $('#justgage_refresh').load("status/justgage_refresh.php");
 }, 60000);
 
