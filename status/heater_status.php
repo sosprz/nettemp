@@ -8,7 +8,7 @@ $result = $sth->fetchAll();
 $numRows = count($result);
 ?>
 <?php if ( $numRows > '0' ) { ?>
-<div class="grid-item rs">
+<div class="grid-item heat">
 <div class="panel panel-default">
             <div class="panel-heading">WiFi Heaters</div>
 <table class="table table-responsive table-hover table-condensed">
