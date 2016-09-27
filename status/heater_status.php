@@ -2,7 +2,7 @@
 $dir="modules/gpio/";
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
-$sth = $db->prepare("select * from relays");
+$sth = $db->prepare("select * from heaters");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);
