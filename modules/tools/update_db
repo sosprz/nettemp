@@ -306,4 +306,4 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE meteo ADD normaliz
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "CREATE TABLE heaters (id INTEGER PRIMARY KEY,temp_actual type TEXT,temp_set type TEXT,work_mode type TEXT,position INTEGER DEFAULT 1);"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE heaters ADD ip type TEXT";
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE heaters ADD name type TEXT";
-sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO heaters (name) VALUES (Akwarium)";
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO heaters (name) VALUES (Akwarium);"
