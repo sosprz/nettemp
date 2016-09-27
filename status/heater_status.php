@@ -10,7 +10,7 @@ $numRows = count($result);
 <?php if ( $numRows > '0' ) { ?>
 <div class="grid-item rs">
 <div class="panel panel-default">
-            <div class="panel-heading">WiFi Heaters</div>
+            <div class="panel-heading">WiFi HeatersWiFi HeatersWiFi HeatersWiFi HeatersWiFi HeatersWiFi HeatersWiFi HeatersWiFi HeatersWiFi HeatersWiFi HeatersWiFi HeatersWiFi HeatersWiFi HeatersWiFi HeatersWiFi HeatersWiFi Heaters</div>
 <table class="table table-hover table-condensed">
 <?php
 

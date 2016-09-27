@@ -264,7 +264,7 @@ $db->exec("ALTER TABLE meteo ADD normalized TEXT");
 $db->exec("CREATE TABLE heaters (id INTEGER PRIMARY KEY,temp_actual type TEXT,temp_set type TEXT,work_mode type TEXT,position INTEGER DEFAULT 1)");
 $db->exec("ALTER TABLE heaters ADD ip type TEXT");
 $db->exec("ALTER TABLE heaters ADD name type TEXT");
-$db->exec("INSERT OR IGNORE INTO heaters name VALUES 'Akwarium'");
+$db->exec("INSERT OR IGNORE INTO heaters (id,name) Values (1,'Akwarium')");
 
 
 
