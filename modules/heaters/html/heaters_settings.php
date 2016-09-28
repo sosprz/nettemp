@@ -52,8 +52,8 @@ $row = $sth2->fetchAll();
     <td class="col-md-3"><img src="media/ico/TO-220-icon.png" />
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="rname" size="12" maxlength="30" value="<?php echo $a["name"]; ?>" />
-	<input type="hidden" name="rid" value="<?php echo $a["id"]; ?>" />
-	<input type="hidden" name="rchg" value="rchg"/>
+	<input type="hidden" name="hid" value="<?php echo $a["id"]; ?>" />
+	<input type="hidden" name="hchg" value="hchg"/>
 	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
     </td>
@@ -62,8 +62,8 @@ $row = $sth2->fetchAll();
     </td>
     <td class="col-md-8">
     <form action="" method="post" style="display:inline!important;" >
-	<input type="hidden" name="rrom" value="<?php echo $a["rom"]; ?>" />
-	<input type="hidden" name="rrm" value="rrm" />
+	<input type="hidden" name="hrom" value="<?php echo $a["rom"]; ?>" />
+	<input type="hidden" name="hrm" value="hrm" />
 	<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
     </form>
     </td>
