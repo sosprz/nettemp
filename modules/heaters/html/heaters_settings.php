@@ -39,7 +39,9 @@ $row = $sth2->fetchAll();
 <tr>
 <th>Name</th>
 <th>id</th>
-<th></th>
+<th>Set Temp.</th>
+<th>Mode</th>
+<th>Status</th>
 </tr>
 </thead>
 
