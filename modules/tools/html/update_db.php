@@ -267,7 +267,6 @@ $db->exec("ALTER TABLE heaters ADD name type TEXT");
 $db->exec("ALTER TABLE heaters ADD status type TEXT");
 $db->exec("INSERT OR IGNORE INTO heaters (id,name,temp_actual,temp_set, work_mode,status ) VALUES (5, 'Salon2', '21.5', '23', 'AUTO', 'OFF')");
 $db->exec("ALTER TABLE heaters ADD rom type TEXT");
-$db->exec("UPDATE heaters SET rom='rom'  WHERE rom is null");
 
 
 

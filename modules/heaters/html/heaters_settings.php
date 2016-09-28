@@ -4,24 +4,24 @@
 <table class="table table-striped table-condensed small">
 
 <?php
-$rname = isset($_POST['rname']) ? $_POST['rname'] : '';
-$rid = isset($_POST['rid']) ? $_POST['rid'] : '';
-$rchg = isset($_POST['rchg']) ? $_POST['rchg'] : '';
-$rrom = isset($_POST['rrom']) ? $_POST['rrom'] : '';
-$rrm = isset($_POST['rrm']) ? $_POST['rrm'] : '';
+$rname = isset($_POST['hname']) ? $_POST['hname'] : '';
+$rid = isset($_POST['hid']) ? $_POST['hid'] : '';
+$rchg = isset($_POST['hchg']) ? $_POST['hchg'] : '';
+$rrom = isset($_POST['hrom']) ? $_POST['hrom'] : '';
+$rrm = isset($_POST['hrm']) ? $_POST['hrm'] : '';
 
 
-if(!empty($rrom) && ($rrm == "rrm")) { 
+if(!empty($rrom) && ($rrm == "hrm")) { 
 $db = new PDO('sqlite:dbf/nettemp.db');
-$db->exec("DELETE FROM heaters WHERE rom='$rrom'") or die ($db->lastErrorMsg()); 
+$db->exec("DELETE FROM heaters WHERE rom='$hrom'") or die ($db->lastErrorMsg()); 
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 }	
 
-if (!empty($rname) && !empty($rid) && ( $rchg == "rchg") ){
-$rep = str_replace(" ", "_", $rname);
+if (!empty($rname) && !empty($rid) && ( $rchg == "hchg") ){
+$rep = str_replace(" ", "_", $hname);
 $db = new PDO('sqlite:dbf/nettemp.db');
-$db->exec("UPDATE heaters SET name='$rep' WHERE id='$rid'") or die ($db->lastErrorMsg());
+$db->exec("UPDATE heaters SET name='$rep' WHERE id='$hid'") or die ($db->lastErrorMsg());
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 }
