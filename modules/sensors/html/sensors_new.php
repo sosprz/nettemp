@@ -73,7 +73,7 @@
 	
 	$sth = $db->prepare("SELECT rom FROM heaters");
     $sth3->execute();
-    $result2 = $sth->fetchAll();
+    $result3 = $sth->fetchAll();
     foreach ($result3 as $a) { 		
     $array20[]=$a["rom"];
     }	 
