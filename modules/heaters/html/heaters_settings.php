@@ -4,7 +4,7 @@
 <table class="table table-striped table-condensed small">
 
 <?php
-$rname = isset($_POST['hname']) ? $_POST['hname'] : '';
+$hname = isset($_POST['hname']) ? $_POST['hname'] : '';
 $hid = isset($_POST['hid']) ? $_POST['hid'] : '';
 $hchg = isset($_POST['hchg']) ? $_POST['hchg'] : '';
 $hrom = isset($_POST['hrom']) ? $_POST['hrom'] : '';
@@ -18,7 +18,7 @@ header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 }	
 
-if (!empty($hname) && !empty($hid) && ( $rchg == "hchg") ){
+if (!empty($hname) && !empty($hid) && ( $hchg == "hchg") ){
 $rep = str_replace(" ", "_", $hname);
 $db = new PDO('sqlite:dbf/nettemp.db');
 $db->exec("UPDATE heaters SET name='$rep' WHERE id='$hid'") or die ($db->lastErrorMsg());
