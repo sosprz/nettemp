@@ -11,7 +11,7 @@ $hrom = isset($_POST['hrom']) ? $_POST['hrom'] : '';
 $hrm = isset($_POST['hrm']) ? $_POST['hrm'] : '';
 
 
-if(!empty($rrom) && ($rrm == "hrm")) { 
+if(!empty($hrom) && ($hrm == "hrm")) { 
 $db = new PDO('sqlite:dbf/nettemp.db');
 $db->exec("DELETE FROM heaters WHERE rom='$hrom'") or die ($db->lastErrorMsg()); 
 header("location: " . $_SERVER['REQUEST_URI']);
