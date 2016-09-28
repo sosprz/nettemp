@@ -18,7 +18,7 @@ header("location: " . $_SERVER['REQUEST_URI']);
 exit();
 }	
 
-if (!empty($rname) && !empty($rid) && ( $rchg == "hchg") ){
+if (!empty($hname) && !empty($hid) && ( $rchg == "hchg") ){
 $rep = str_replace(" ", "_", $hname);
 $db = new PDO('sqlite:dbf/nettemp.db');
 $db->exec("UPDATE heaters SET name='$rep' WHERE id='$hid'") or die ($db->lastErrorMsg());
