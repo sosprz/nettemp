@@ -74,8 +74,8 @@ $row = $sth2->fetchAll();
     </td>
 	<td class="col-md-0">
 	<form action="" method="post" style="display:inline!important;"> 
-		<input type="hidden" name="hrom" value="<?php echo $a["rom"]; ?>" />
-		<input type="text" name="tempset" size="3" value="<?php echo $a["temp_set"]; ?>" />
+		<input type="hidden" name="hrom" value="<?php echo $a['rom']; ?>" />
+		<input type="text" name="tempset" size="3" value="<?php echo $a['temp_set']; ?>" />
 		
 		<input type="hidden" name="ok" value="ok" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
