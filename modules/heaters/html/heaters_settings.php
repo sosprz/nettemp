@@ -8,12 +8,13 @@ $hname = isset($_POST['hname']) ? $_POST['hname'] : '';
 $hid = isset($_POST['hid']) ? $_POST['hid'] : '';
 $hchg = isset($_POST['hchg']) ? $_POST['hchg'] : '';
 $hrom = isset($_POST['hrom']) ? $_POST['hrom'] : '';
+$h2rom = isset($_POST['h2rom']) ? $_POST['h2rom'] : '';
 $hrm = isset($_POST['hrm']) ? $_POST['hrm'] : '';
 $tempset = isset($_POST['tempset']) ? $_POST['tempset'] : '';
 
-   if (!empty($tempset) && !empty($hrom) && ( $hchg == "hchg") ){
+   if (!empty($tempset) && !empty($h2rom) && ( $hchg == "hchg") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE heaters SET temp_set='$tempset' WHERE rom='$hrom'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE heaters SET temp_set='$tempset' WHERE rom='$h2rom'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
    }
@@ -71,7 +72,7 @@ $row = $sth2->fetchAll();
     </td>
 	<td class="col-md-0">
 	<form action="" method="post" style="display:inline!important;"> 
-		<input type="hidden" name="hrom" value="<?php echo $a["rom"]; ?>" />
+		<input type="hidden" name="h2rom" value="<?php echo $a["rom"]; ?>" />
 		<input type="text" name="tempset" size="3" value="<?php echo $a["temp_set"]; ?>" /
 		<input type="hidden" name="hchg" value="hchg" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
