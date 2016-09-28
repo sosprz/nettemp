@@ -15,7 +15,7 @@ $hrm = isset($_POST['hrm']) ? $_POST['hrm'] : '';
     $tempset1 = isset($_POST['tempset1']) ? $_POST['tempset1'] : '';
     if ($tempset1 == 'tempset2'){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE heaters SET tempset='$tempset' WHERE rom='$rom'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE heaters SET temp_set='$tempset' WHERE rom='$rom'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     } 
