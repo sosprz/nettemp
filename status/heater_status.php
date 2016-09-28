@@ -16,7 +16,7 @@ $numRows = count($result);
 <thead>
 <tr>
 <th></th>
-<th><small>Name</small></th>
+<th><small></small></th>
 <th><small>Temp</small></th>
 <th><small>Set</small></th>
 <th><small>Mode</small></th>
