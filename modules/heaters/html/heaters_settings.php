@@ -5,10 +5,10 @@
 
 <?php
 $rname = isset($_POST['hname']) ? $_POST['hname'] : '';
-$rid = isset($_POST['hid']) ? $_POST['hid'] : '';
-$rchg = isset($_POST['hchg']) ? $_POST['hchg'] : '';
-$rrom = isset($_POST['hrom']) ? $_POST['hrom'] : '';
-$rrm = isset($_POST['hrm']) ? $_POST['hrm'] : '';
+$hid = isset($_POST['hid']) ? $_POST['hid'] : '';
+$hchg = isset($_POST['hchg']) ? $_POST['hchg'] : '';
+$hrom = isset($_POST['hrom']) ? $_POST['hrom'] : '';
+$hrm = isset($_POST['hrm']) ? $_POST['hrm'] : '';
 
 
 if(!empty($rrom) && ($rrm == "hrm")) { 
