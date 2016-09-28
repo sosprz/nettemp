@@ -265,7 +265,7 @@ $db->exec("CREATE TABLE heaters (id INTEGER PRIMARY KEY,temp_actual type TEXT,te
 $db->exec("ALTER TABLE heaters ADD ip type TEXT");
 $db->exec("ALTER TABLE heaters ADD name type TEXT");
 $db->exec("ALTER TABLE heaters ADD status type TEXT");
-$db->exec("INSERT OR IGNORE INTO heaters (id,name,temp_actual,temp_set, work_mode,status ) VALUES (4, 'Salon2', '21.5', '23', 'AUTO', 'OFF')");
+$db->exec("INSERT OR IGNORE INTO heaters (id,name,temp_actual,temp_set, work_mode,status ) VALUES (5, 'Salon2', '21.5', '23', 'AUTO', 'OFF')");
 
 
 
