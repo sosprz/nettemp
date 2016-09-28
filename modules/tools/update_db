@@ -308,4 +308,4 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE heaters ADD ip typ
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE heaters ADD name type TEXT"
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "ALTER TABLE heaters ADD status type TEXT"
 
-sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO heaters (id,name,temp_actual,temp_set, work_mode,status ) VALUES (1, 'Pokój', '21', '23', 'AUTO', 'OFF');"
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO heaters (id,name,temp_actual,temp_set, work_mode,status ) VALUES (3, 'Kuchnia', '21.5', '23', 'AUTO', 'OFF');"
