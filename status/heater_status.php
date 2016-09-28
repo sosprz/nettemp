@@ -17,8 +17,8 @@ $numRows = count($result);
 <tr>
 <th></th>
 <th><small>Name</small></th>
-<th><small>Temp.</small></th>
-<th><small>Set Temp.</small></th>
+<th><small>Temp</small></th>
+<th><small>Set</small></th>
 <th><small>Mode</small></th>
 <th><small>Status</small></th>
 </tr>
