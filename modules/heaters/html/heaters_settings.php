@@ -51,7 +51,7 @@ $row = $sth2->fetchAll();
 <tr>
     <td class="col-md-3"><img src="media/ico/TO-220-icon.png" />
     <form action="" method="post" style="display:inline!important;">
-	<input type="text" name="rname" size="12" maxlength="30" value="<?php echo $a["name"]; ?>" />
+	<input type="text" name="hname" size="12" maxlength="30" value="<?php echo $a["name"]; ?>" />
 	<input type="hidden" name="hid" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="hchg" value="hchg"/>
 	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
