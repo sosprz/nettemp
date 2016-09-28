@@ -9,15 +9,14 @@ $hid = isset($_POST['hid']) ? $_POST['hid'] : '';
 $hchg = isset($_POST['hchg']) ? $_POST['hchg'] : '';
 $hrom = isset($_POST['hrom']) ? $_POST['hrom'] : '';
 $hrm = isset($_POST['hrm']) ? $_POST['hrm'] : '';
+$tempset = isset($_POST['tempset']) ? $_POST['tempset'] : '';
 
-
-    $tempset = isset($_POST['tempset']) ? $_POST['tempset'] : '';
-    $tempset1 = isset($_POST['tempset1']) ? $_POST['tempset1'] : '';
+   if (!empty($tempset) && !empty($hrom) && ( $hchg == "hchg") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE heaters SET temp_set='$tempset' WHERE rom='$hrom'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
-
+   }
 
 if(!empty($hrom) && ($hrm == "hrm")) { 
 $db = new PDO('sqlite:dbf/nettemp.db');
@@ -73,9 +72,8 @@ $row = $sth2->fetchAll();
 	<td class="col-md-0">
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="hrom" value="<?php echo $a["rom"]; ?>" />
-		<input type="text" name="tempset" size="3" value="<?php echo $a["temp_set"]; ?>" />
-		
-		<input type="hidden" name="ok" value="ok" />
+		<input type="text" name="tempset" size="3" value="<?php echo $a["temp_set"]; ?>" /
+		<input type="hidden" name="hchg" value="hchg" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
 	</td>
