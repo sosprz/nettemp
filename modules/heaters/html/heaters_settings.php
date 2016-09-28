@@ -11,6 +11,16 @@ $hrom = isset($_POST['hrom']) ? $_POST['hrom'] : '';
 $hrm = isset($_POST['hrm']) ? $_POST['hrm'] : '';
 
 
+    $tempset = isset($_POST['tempset']) ? $_POST['tempset'] : '';
+    $tempset1 = isset($_POST['tempset1']) ? $_POST['tempset1'] : '';
+    if ($tempset1 == 'tempset2'){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE heaters SET tempset='$tempset' WHERE id='$name_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
+
+
 if(!empty($hrom) && ($hrm == "hrm")) { 
 $db = new PDO('sqlite:dbf/nettemp.db');
 $db->exec("DELETE FROM heaters WHERE rom='$hrom'") or die ($db->lastErrorMsg()); 
