@@ -44,8 +44,24 @@ if ( $o == 'off') { $rs='OFF'; }
 	<td><?php echo $a['temp_actual']; ?></td>
 	<td><?php echo $a['temp_set']; ?></td>
     <td><?php echo $a['work_mode']; ?></td>
-	<td><?php echo $a['status']; ?></td>
-    <td><?php echo $rs; ?></td>
+	
+	<td>
+		<?php echo $a['status'] == 'off'  '<span class="label label-danger">' ?>	
+		
+		<?php echo $a['status']; ?>
+		
+		</span>
+	
+	
+	
+	
+	
+	
+	
+	</td>
+	
+	
+    <td><?php echo $heat; ?></td>
     
     </tr>
 <?php
