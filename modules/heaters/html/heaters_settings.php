@@ -71,7 +71,7 @@ $row = $sth2->fetchAll();
 ?>
 <thead>
 <tr>
-<th>Positioning</th>
+<th>Position</th>
 <th>Name</th>
 <th>Rom ID</th>
 <th>Set Temp.</th>
