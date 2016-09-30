@@ -84,7 +84,7 @@ $row = $sth2->fetchAll();
 <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
 	<input type="hidden" name="hposition_id" value="<?php echo $a["id"]; ?>" />
-	<input type="text" name="hposition" size="1" maxlength="3" value="<?php echo $a['hposition']; ?>" />
+	<input type="text" name="hposition" size="1" maxlength="3" value="<?php echo $a['position']; ?>" />
 	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="hpositionok" value="ok" />
     </form>
