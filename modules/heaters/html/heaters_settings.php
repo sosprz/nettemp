@@ -105,7 +105,7 @@ $row = $sth2->fetchAll();
     </td>
 	
 	
-	<td class="col-md-3">
+	<td class="col-md-2">
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="hidts" value="<?php echo $a["id"]; ?>" />
 		<input type="text" name="tempset" size="10" value="<?php echo $a["temp_set"]; ?>"/>
@@ -116,7 +116,7 @@ $row = $sth2->fetchAll();
 	</td>
 	
 	
-	<td class="col-md-0">
+	<td class="col-md-2">
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="h2rom" value="<?php echo $a["rom"]; ?>" />
 		<input type="text" name="tempset" size="3" value="<?php echo $a["mode"]; ?>"/>
@@ -126,7 +126,7 @@ $row = $sth2->fetchAll();
     </form>
 	</td>
 	
-	<td class="col-md-0">
+	<td class="col-md-2">
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="h2rom" value="<?php echo $a["rom"]; ?>" />
 		<input type="text" name="tempset" size="3" value="<?php echo $a["status"]; ?>"/>
