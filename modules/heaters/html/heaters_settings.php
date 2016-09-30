@@ -65,7 +65,7 @@ $row = $sth2->fetchAll();
 ?>
 <thead>
 <tr>
-<th>Pos</th>
+<th>Positioning</th>
 <th>Name</th>
 <th>id</th>
 <th>Set Temp.</th>
