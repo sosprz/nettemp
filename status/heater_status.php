@@ -11,7 +11,7 @@ $numRows = count($result);
 <div class="grid-item heat">
 <div class="panel panel-default">
             <div class="panel-heading">WiFi Heaters</div>
-<table class="table table-responsive table-hover table-condensed small">
+<table class="table table-responsive table-hover table-condensed">
 
 <thead>
 <tr>
@@ -39,13 +39,13 @@ if ( $o == 'off') { $rs='OFF'; }
 
 ?>
     <tr>
-    <td>	<img type="image" src="media/ico/heat.png" /></td>
-    <td><?php echo $a['name']; ?></td>
-	<td><?php echo $a['temp_actual']; ?></td>
-	<td><span class="label label-info"> <?php echo $a['temp_set']; ?></span></td>
-    <td><span class="label label-warning"> <?php echo $a['work_mode']; ?></span></td>
+    <td><small>	<img type="image" src="media/ico/heat.png" /></small></td>
+    <td><small><?php echo $a['name']; ?><small></td>
+	<td><small><?php echo $a['temp_actual']; ?></small></td>
+	<td><small><span class="label label-info"> <?php echo $a['temp_set']; ?></span></small></td>
+    <td><small><span class="label label-warning"> <?php echo $a['work_mode']; ?></small></span></td>
 	
-	<td><span
+	<td><small><span
 		<?php if ($a['status'] == 'OFF')  {
 			echo 'class="label label-danger"';
 		}
@@ -58,7 +58,7 @@ if ( $o == 'off') { $rs='OFF'; }
 		</span>
 		
 	
-	</td>
+	</td></small>
 	
 
     
