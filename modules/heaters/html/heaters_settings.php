@@ -125,7 +125,7 @@ $row = $sth2->fetchAll();
 	<td class="col-md-2">
     <form action="" method="post"  class="form-inline">
     <select name="ch_mode_set" class="form-control input-sm small" onchange="this.form.submit()" style="width: 100px;" >
-	    <option value="ON"  <?php echo $a['work_modemode'] == ON ? 'selected="selected"' : ''; ?>  >ON</option>
+	    <option value="ON"  <?php echo $a['work_mode'] == ON ? 'selected="selected"' : ''; ?>  >ON</option>
 	    <option value="OFF"  <?php echo $a['work_mode'] == OFF ? 'selected="selected"' : ''; ?>  >OFF</option>
 	    <option value="AUTO"  <?php echo $a['work_mode'] == AUTO ? 'selected="selected"' : ''; ?>  >AUTO</option>
     </select>
