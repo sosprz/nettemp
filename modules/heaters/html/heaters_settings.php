@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 <div class="panel-heading">Heaters</div>
 <div class="table-responsive">
-<table class="table table-hover table-condensed small">
+<table class="table table-hover table-condensed small" border="0">
 
 <?php
 $hname = isset($_POST['hname']) ? $_POST['hname'] : '';
@@ -71,6 +71,7 @@ $row = $sth2->fetchAll();
 <th>Set Temp.</th>
 <th>Mode</th>
 <th>Status</th>
+<th></th>
 </tr>
 </thead>
 
