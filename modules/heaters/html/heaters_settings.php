@@ -73,7 +73,7 @@ $row = $sth2->fetchAll();
 	<td class="col-md-0">
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="h2rom" value="<?php echo $a["rom"]; ?>" />
-		<input type="text" name="tempset" size="10" value="<?php echo $a["temp_set"]; ?>" /
+		<input type="text" name="tempset" size="10" value="<?php echo $a["temp_set"]; ?>"
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 		<input type="hidden" name="hchg" value="hchg" />
 		
@@ -88,7 +88,7 @@ $row = $sth2->fetchAll();
 	<td class="col-md-0">
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="h2rom" value="<?php echo $a["rom"]; ?>" />
-		<input type="text" name="tempset" size="3" value="<?php echo $a["mode"]; ?>" /
+		<input type="text" name="tempset" size="3" value="<?php echo $a["mode"]; ?>"
 		<input type="hidden" name="hchg" value="hchg" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
@@ -97,7 +97,7 @@ $row = $sth2->fetchAll();
 	<td class="col-md-0">
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="h2rom" value="<?php echo $a["rom"]; ?>" />
-		<input type="text" name="tempset" size="3" value="<?php echo $a["status"]; ?>" /
+		<input type="text" name="tempset" size="3" value="<?php echo $a["status"]; ?>"
 		<input type="hidden" name="hchg" value="hchg" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
