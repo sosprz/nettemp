@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 <div class="panel-heading">Heaters</div>
 <div class="table-responsive">
-<table class="table table-striped table-condensed small" border="0">
+<table class="table table-hover " border="0">
 
 <?php
 $hname = isset($_POST['hname']) ? $_POST['hname'] : '';
