@@ -47,7 +47,7 @@ if ( $o == 'off') { $rs='OFF'; }
 	
 	<td><span
 		<?php if ($a['status'] == 'off')  {
-			echo '<span class="label label-danger">';
+			echo 'span class="label label-danger"';
 		}
 		else {
 			
