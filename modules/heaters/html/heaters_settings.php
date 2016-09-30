@@ -15,10 +15,13 @@ $hidts = isset($_POST['hidts']) ? $_POST['hidts'] : '';
 $hts = isset($_POST['hts']) ? $_POST['ts'] : '';
 $hposition = isset($_POST['hposition']) ? $_POST['hposition'] : '';
 $hposition_id = isset($_POST['hposition_id']) ? $_POST['hposition_id'] : '';
+$ch_mode_set = isset($_POST['ch_mode_set']) ? $_POST['ch_mode_set'] : '';
+$ch_mode = isset($_POST['ch_mode']) ? $_POST['ch_mode'] : '';
+$ch_mode_id = isset($_POST['ch_mode_id']) ? $_POST['ch_mode_id'] : '';
 
 
-
-
+    
+ 
 
 
     if (!empty($hposition_id) && ($_POST['hpositionok'] == "ok")){
@@ -29,23 +32,6 @@ $hposition_id = isset($_POST['hposition_id']) ? $_POST['hposition_id'] : '';
     } 
 
 
-
-
-
-   if (!empty($tempset) && !empty($hidts)  ){
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE heaters SET temp_set='$tempset' WHERE id='$hidts'") or die ($db->lastErrorMsg());
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-   }
-
-if(!empty($hrom) && ($hrm == "hrm")) { 
-$db = new PDO('sqlite:dbf/nettemp.db');
-$db->exec("DELETE FROM heaters WHERE rom='$hrom'") or die ($db->lastErrorMsg()); 
-header("location: " . $_SERVER['REQUEST_URI']);
-exit();
-}	
-
 if (!empty($hname) && !empty($hid) && ( $hchg == "hchg") ){
 $rep = str_replace(" ", "_", $hname);
 $db = new PDO('sqlite:dbf/nettemp.db');
@@ -55,6 +41,26 @@ exit();
 }
 
 
+   if (!empty($tempset) && !empty($hidts)  ){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE heaters SET temp_set='$tempset' WHERE id='$hidts'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+   }
+   
+   
+      if (($ch_grouponoff == "onoff")){
+    $db->exec("UPDATE heaters SET mode='$ch_mode_set' WHERE id='$ch_mode_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
+if(!empty($hrom) && ($hrm == "hrm")) { 
+$db = new PDO('sqlite:dbf/nettemp.db');
+$db->exec("DELETE FROM heaters WHERE rom='$hrom'") or die ($db->lastErrorMsg()); 
+header("location: " . $_SERVER['REQUEST_URI']);
+exit();
+}	
 
 
 $db = new PDO('sqlite:dbf/nettemp.db');
@@ -118,7 +124,7 @@ $row = $sth2->fetchAll();
 	
 	<td class="col-md-2">
     <form action="" method="post"  class="form-inline">
-    <select name="ch_groupon" class="form-control input-sm small" onchange="this.form.submit()" style="width: 100px;" >
+    <select name="ch_mode_set" class="form-control input-sm small" onchange="this.form.submit()" style="width: 100px;" >
 	    <option value="on"  <?php echo $a['ch_mode'] == 1 ? 'selected="selected"' : ''; ?>  >on</option>
 	    <option value="off"  <?php echo $a['ch_mode'] == 2 ? 'selected="selected"' : ''; ?>  >off</option>
 	    <option value="auto"  <?php echo $a['ch_mode'] == 3 ? 'selected="selected"' : ''; ?>  >auto</option>
