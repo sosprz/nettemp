@@ -49,8 +49,8 @@ exit();
    }
    
    
-      if (($ch_grouponoff == "onoff")){
-    $db->exec("UPDATE heaters SET mode='$ch_mode_set' WHERE id='$ch_mode_id'") or die ($db->lastErrorMsg());
+      if (($ch_mode == "ch_mode")){
+    $db->exec("UPDATE heaters SET work_mode='$ch_mode_set' WHERE id='$ch_mode_id'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -125,9 +125,9 @@ $row = $sth2->fetchAll();
 	<td class="col-md-2">
     <form action="" method="post"  class="form-inline">
     <select name="ch_mode_set" class="form-control input-sm small" onchange="this.form.submit()" style="width: 100px;" >
-	    <option value="on"  <?php echo $a['mode'] == on ? 'selected="selected"' : ''; ?>  >on</option>
-	    <option value="off"  <?php echo $a['mode'] == off ? 'selected="selected"' : ''; ?>  >off</option>
-	    <option value="auto"  <?php echo $a['mode'] == auto ? 'selected="selected"' : ''; ?>  >auto</option>
+	    <option value="on"  <?php echo $a['work_modemode'] == on ? 'selected="selected"' : ''; ?>  >on</option>
+	    <option value="off"  <?php echo $a['work_mode'] == off ? 'selected="selected"' : ''; ?>  >off</option>
+	    <option value="auto"  <?php echo $a['work_mode'] == auto ? 'selected="selected"' : ''; ?>  >auto</option>
     </select>
     <input type="hidden" name="ch_mode" value="ch_mode" />
     <input type="hidden" name="ch_mode_id" value="<?php echo $a['id']; ?>" />
