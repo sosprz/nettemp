@@ -13,9 +13,14 @@ $hrm = isset($_POST['hrm']) ? $_POST['hrm'] : '';
 $tempset = isset($_POST['tempset']) ? $_POST['tempset'] : '';
 $hidts = isset($_POST['hidts']) ? $_POST['hidts'] : '';
 $hts = isset($_POST['hts']) ? $_POST['ts'] : '';
+$hposition = isset($_POST['hposition']) ? $_POST['hposition'] : '';
+$hposition_id = isset($_POST['hposition_id']) ? $_POST['hposition_id'] : '';
 
-$position = isset($_POST['hposition']) ? $_POST['hposition'] : '';
-    $hposition_id = isset($_POST['hposition_id']) ? $_POST['hposition_id'] : '';
+
+
+
+
+
     if (!empty($hposition_id) && ($_POST['hpositionok'] == "ok")){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE heaters SET position='$hposition' WHERE id='$hposition_id'") or die ($db->lastErrorMsg());
