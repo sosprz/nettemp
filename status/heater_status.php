@@ -43,7 +43,7 @@ if ( $o == 'off') { $rs='OFF'; }
     <td><?php echo $a['name']; ?></td>
 	<td><?php echo $a['temp_actual']; ?></td>
 	<td><span class="label label-info"> <?php echo $a['temp_set']; ?></span></td>
-    <td><?php echo $a['work_mode']; ?></td>
+    <td><span class="label label-warning"> <?php echo $a['work_mode']; ?></span></td>
 	
 	<td><span
 		<?php if ($a['status'] == 'OFF')  {
