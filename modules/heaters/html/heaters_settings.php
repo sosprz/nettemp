@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-<div class="panel-heading">WiFiHeaters</div>
+<div class="panel-heading">WiFi Heaters</div>
 <div class="table-responsive">
 <table class="table table-hover table-condensed small" border="0">
 
