@@ -42,7 +42,7 @@ if ( $o == 'off') { $rs='OFF'; }
     <td>	<img type="image" src="media/ico/heat.png" /></td>
     <td><?php echo $a['name']; ?></td>
 	<td><?php echo $a['temp_actual']; ?></td>
-	<td><?php echo $a['temp_set']; ?></td>
+	<td class="label label-info" <?php echo $a['temp_set']; ?></td>
     <td><?php echo $a['work_mode']; ?></td>
 	
 	<td><span
