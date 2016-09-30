@@ -73,11 +73,18 @@ $row = $sth2->fetchAll();
 	<td class="col-md-0">
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="h2rom" value="<?php echo $a["rom"]; ?>" />
-		<input type="text" name="tempset" size="5" value="<?php echo $a["temp_set"]; ?>" 
+		<input type="text" name="tempset" size="10" value="<?php echo $a["temp_set"]; ?>" 
 		<input type="hidden" name="hchg" value="hchg" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
 	</td>
+	
+	
+	
+	
+	
+	
+	
 	
 	<td class="col-md-0">
 	<form action="" method="post" style="display:inline!important;"> 
