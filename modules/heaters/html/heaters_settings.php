@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 <div class="panel-heading">Heaters</div>
 <div class="table-responsive">
-<table class="table table-hover table-condensed small" border="0">
+<table class="table table-striped table-condensed small" border="0">
 
 <?php
 $hname = isset($_POST['hname']) ? $_POST['hname'] : '';
@@ -91,7 +91,7 @@ $row = $sth2->fetchAll();
     </form>
     </td>
 
-    <td class="col-md-2"><img src="media/ico/heat.png" />
+    <td class="col-md-0"><img src="media/ico/heat.png" />
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="hname" size="12" maxlength="30" value="<?php echo $a["name"]; ?>" />
 	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
@@ -100,7 +100,7 @@ $row = $sth2->fetchAll();
 	
     </form>
     </td>
-    <td class="col-md-3">
+    <td class="col-md-0">
 	<?php echo $a["rom"] ;?>
     </td>
 	<td class="col-md-0">
