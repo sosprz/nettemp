@@ -117,26 +117,26 @@ $row = $sth2->fetchAll();
 	
 	
 	<td class="col-md-2">
+    <form action="" method="post"  class="form-inline">
+    <select name="ch_groupon" class="form-control input-sm small" onchange="this.form.submit()" style="width: 100px;" >
+	    <option value="on"  <?php echo $a['ch_mode'] == 1 ? 'selected="selected"' : ''; ?>  >on</option>
+	    <option value="off"  <?php echo $a['ch_mode'] == 2 ? 'selected="selected"' : ''; ?>  >off</option>
+	    <option value="auto"  <?php echo $a['ch_mode'] == 3 ? 'selected="selected"' : ''; ?>  >auto</option>
+    </select>
+    <input type="hidden" name="ch_mode" value="ch_mode" />
+    <input type="hidden" name="ch_mode_id" value="<?php echo $a['id']; ?>" />
+    </form>
+    </td>
+	
+	<td class="col-md-2">
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="h2rom" value="<?php echo $a["rom"]; ?>" />
-		<input type="text" name="tempset" size="3" value="<?php echo $a["mode"]; ?>"/>
+		<input type="text" name="tempset" size="3" value="<?php echo $a["status"]; ?>"/>
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 		<input type="hidden" name="hchg" value="hchg" />
 		
     </form>
 	</td>
-	
-	<td class="col-md-2">
-    <form action="" method="post"  class="form-inline">
-    <select name="ch_groupon" class="form-control input-sm small" onchange="this.form.submit()" style="width: 100px;" >
-	    <option value="on"  <?php echo $a['ch_status'] == 1 ? 'selected="selected"' : ''; ?>  >on</option>
-	    <option value="off"  <?php echo $a['ch_status'] == 2 ? 'selected="selected"' : ''; ?>  >off</option>
-	    <option value="auto"  <?php echo $a['ch_status'] == 3 ? 'selected="selected"' : ''; ?>  >auto</option>
-    </select>
-    <input type="hidden" name="ch_status" value="ch_status" />
-    <input type="hidden" name="ch_group" value="<?php echo $a['id']; ?>" />
-    </form>
-    </td>
 	
 	
     <td class="col-md-8">
