@@ -14,6 +14,18 @@ $tempset = isset($_POST['tempset']) ? $_POST['tempset'] : '';
 $hidts = isset($_POST['hidts']) ? $_POST['hidts'] : '';
 $hts = isset($_POST['hts']) ? $_POST['ts'] : '';
 
+$position = isset($_POST['hposition']) ? $_POST['hposition'] : '';
+    $hposition_id = isset($_POST['hposition_id']) ? $_POST['hposition_id'] : '';
+    if (!empty($hposition_id) && ($_POST['hpositionok'] == "ok")){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE heaters SET position='$hposition' WHERE id='$hposition_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
+
+
+
+
 
    if (!empty($tempset) && !empty($hidts)  ){
     $db = new PDO('sqlite:dbf/nettemp.db');
@@ -48,6 +60,7 @@ $row = $sth2->fetchAll();
 ?>
 <thead>
 <tr>
+<th>Pos</th>
 <th>Name</th>
 <th>id</th>
 <th>Set Temp.</th>
@@ -62,6 +75,21 @@ $row = $sth2->fetchAll();
 	
 ?>
 <tr>
+
+<td class="col-md-0">
+    <form action="" method="post" style="display:inline!important;">
+	<input type="hidden" name="hposition_id" value="<?php echo $a["id"]; ?>" />
+	<input type="text" name="hposition" size="1" maxlength="3" value="<?php echo $a['position']; ?>" />
+	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<input type="hidden" name="hpositionok" value="ok" />
+    </form>
+    </td>
+
+
+
+
+
+
     <td class="col-md-3"><img src="media/ico/TO-220-icon.png" />
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="hname" size="12" maxlength="30" value="<?php echo $a["name"]; ?>" />
