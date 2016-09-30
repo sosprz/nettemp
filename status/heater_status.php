@@ -39,7 +39,7 @@ if ( $o == 'off') { $rs='OFF'; }
 
 ?>
     <tr>
-    <td>	<img type="image" src="media/ico/SMD-64-pin-icon_24.png" /></td>
+    <td>	<img type="image" src="media/ico/heat.png" /></td>
     <td><?php echo $a['name']; ?></td>
 	<td><?php echo $a['temp_actual']; ?></td>
 	<td><?php echo $a['temp_set']; ?></td>
