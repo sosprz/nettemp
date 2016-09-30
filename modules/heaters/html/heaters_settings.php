@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 <div class="panel-heading">Heaters</div>
 <div class="table-responsive">
-<table class="table table-hover " border="0">
+<table class="table table-hover table-condensed small" border="0">
 
 <?php
 $hname = isset($_POST['hname']) ? $_POST['hname'] : '';
@@ -107,8 +107,9 @@ $row = $sth2->fetchAll();
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="hidts" value="<?php echo $a["id"]; ?>" />
 		<input type="text" name="tempset" size="10" value="<?php echo $a["temp_set"]; ?>"
-		<input type="hidden" name="hts" value="hts" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+		<input type="hidden" name="hts" value="hts" />
+		
     </form>
 	</td>
 	
@@ -121,8 +122,9 @@ $row = $sth2->fetchAll();
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="h2rom" value="<?php echo $a["rom"]; ?>" />
 		<input type="text" name="tempset" size="3" value="<?php echo $a["mode"]; ?>"
-		<input type="hidden" name="hchg" value="hchg" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+		<input type="hidden" name="hchg" value="hchg" />
+		
     </form>
 	</td>
 	
@@ -130,8 +132,9 @@ $row = $sth2->fetchAll();
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="h2rom" value="<?php echo $a["rom"]; ?>" />
 		<input type="text" name="tempset" size="3" value="<?php echo $a["status"]; ?>"
-		<input type="hidden" name="hchg" value="hchg" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+		<input type="hidden" name="hchg" value="hchg" />
+		
     </form>
 	</td>
 	
@@ -143,8 +146,9 @@ $row = $sth2->fetchAll();
     <td class="col-md-8">
     <form action="" method="post" style="display:inline!important;" >
 	<input type="hidden" name="hrom" value="<?php echo $a["rom"]; ?>" />
-	<input type="hidden" name="hrm" value="hrm" />
 	<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+	<input type="hidden" name="hrm" value="hrm" />
+
     </form>
     </td>
 </tr>
