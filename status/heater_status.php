@@ -45,18 +45,18 @@ if ( $o == 'off') { $rs='OFF'; }
 	<td><?php echo $a['temp_set']; ?></td>
     <td><?php echo $a['work_mode']; ?></td>
 	
-	<td>
-		<?php echo $a['status'] == 'off'  '<span class="label label-danger">' ?>	
-		
+	<td><span
+		<?php if ($a['status'] == 'off')  {
+			echo '<span class="label label-danger">';
+		}
+		else {
+			
+		echo 'class="label label-success"';	
+		}?>
+		>
 		<?php echo $a['status']; ?>
-		
 		</span>
-	
-	
-	
-	
-	
-	
+		
 	
 	</td>
 	
