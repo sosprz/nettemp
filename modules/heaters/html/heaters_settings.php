@@ -114,7 +114,7 @@ $row = $sth2->fetchAll();
 	<td class="col-md-2">
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="hidts" value="<?php echo $a["id"]; ?>" />
-		<input type="text" name="tempset" size="10" value="<?php echo $a["temp_set"]; ?>"/>
+		<input type="text" name="tempset" size="1" value="<?php echo $a["temp_set"]; ?>"/>
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 		<input type="hidden" name="hts" value="hts" />
 		
