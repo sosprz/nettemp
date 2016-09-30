@@ -152,7 +152,7 @@ $row = $sth2->fetchAll();
     </form>
     </td>
 </tr>
-		
+</tr>		
 
 <?php 
 }  
