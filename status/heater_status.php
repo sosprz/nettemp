@@ -11,7 +11,7 @@ $numRows = count($result);
 <div class="grid-item heat">
 <div class="panel panel-default">
             <div class="panel-heading">WiFi Heaters</div>
-<table class="table table-responsive table-hover table-condensed">
+<table class="table table-responsive table-hover table-condensed small">
 
 <thead>
 <tr>
