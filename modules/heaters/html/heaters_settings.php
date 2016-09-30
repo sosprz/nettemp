@@ -82,7 +82,7 @@ $row = $sth2->fetchAll();
 ?>
 <tr>
 
-<td class="col-md-0">
+<td class="col-md-1">
     <form action="" method="post" style="display:inline!important;">
 	<input type="hidden" name="hposition_id" value="<?php echo $a["id"]; ?>" />
 	<input type="text" name="hposition" size="1" maxlength="3" value="<?php echo $a['position']; ?>" />
@@ -91,7 +91,7 @@ $row = $sth2->fetchAll();
     </form>
     </td>
 
-    <td class="col-md-0"><img src="media/ico/heat.png" />
+    <td class="col-md-2"><img src="media/ico/heat.png" />
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="hname" size="12" maxlength="30" value="<?php echo $a["name"]; ?>" />
 	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
@@ -105,7 +105,7 @@ $row = $sth2->fetchAll();
     </td>
 	
 	
-	<td class="col-md-0">
+	<td class="col-md-3">
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="hidts" value="<?php echo $a["id"]; ?>" />
 		<input type="text" name="tempset" size="10" value="<?php echo $a["temp_set"]; ?>"/>
