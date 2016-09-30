@@ -73,7 +73,7 @@ $row = $sth2->fetchAll();
 <tr>
 <th>Positioning</th>
 <th>Name</th>
-<th>id</th>
+<th>Rom ID</th>
 <th>Set Temp.</th>
 <th>Mode</th>
 <th>Status</th>
@@ -106,7 +106,7 @@ $row = $sth2->fetchAll();
 	
     </form>
     </td>
-    <td class="col-md-0">
+    <td class="col-md-2">
 	<?php echo $a["rom"] ;?>
     </td>
 	
