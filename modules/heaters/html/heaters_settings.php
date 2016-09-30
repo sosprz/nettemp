@@ -135,13 +135,17 @@ $row = $sth2->fetchAll();
     </td>
 	
 	<td class="col-md-2">
-	<form action="" method="post" style="display:inline!important;"> 
-		<input type="hidden" name="h2rom" value="<?php echo $a["rom"]; ?>" />
-		<input type="text" name="tempset" size="3" value="<?php echo $a["status"]; ?>"/>
-		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-		<input type="hidden" name="hchg" value="hchg" />
-		
-    </form>
+	<span
+		<?php if ($a['status'] == 'OFF')  {
+			echo 'class="label label-danger"';
+		}
+		else {
+			
+		echo 'class="label label-success"';	
+		}?>
+		>
+		<?php echo $a['status']; ?>
+		</span>
 	</td>
 	
 	
