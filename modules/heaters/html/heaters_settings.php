@@ -12,7 +12,7 @@ $h2rom = isset($_POST['h2rom']) ? $_POST['h2rom'] : '';
 $hrm = isset($_POST['hrm']) ? $_POST['hrm'] : '';
 $tempset = isset($_POST['tempset']) ? $_POST['tempset'] : '';
 
-   if (!empty($tempset) && !empty($h2rom) && ( $hchg == "hchg") ){
+   if (!empty($tempset) && !empty($h2rom)  ){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE heaters SET temp_set='$tempset' WHERE rom='$h2rom'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
