@@ -49,7 +49,7 @@ exit();
    }
    
    
-      if (($ch_grouponoff == "onoff")){
+      if (($ch_mode == "ch_mode")){
     $db->exec("UPDATE heaters SET mode='$ch_mode_set' WHERE id='$ch_mode_id'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
