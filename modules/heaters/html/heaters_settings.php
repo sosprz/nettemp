@@ -91,20 +91,16 @@ $row = $sth2->fetchAll();
     </form>
     </td>
 
-
-
-
-
-
-    <td class="col-md-3"><img src="media/ico/heat.png" />
+    <td class="col-md-2"><img src="media/ico/heat.png" />
     <form action="" method="post" style="display:inline!important;">
 	<input type="text" name="hname" size="12" maxlength="30" value="<?php echo $a["name"]; ?>" />
+	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="hid" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="hchg" value="hchg"/>
-	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+	
     </form>
     </td>
-    <td class="col-md-2">
+    <td class="col-md-3">
 	<?php echo $a["rom"] ;?>
     </td>
 	<td class="col-md-0">
