@@ -46,7 +46,7 @@ if ( $o == 'off') { $rs='OFF'; }
     <td><?php echo $a['work_mode']; ?></td>
 	
 	<td><span
-		<?php if ($a['status'] == 'off')  {
+		<?php if ($a['status'] == 'OFF')  {
 			echo 'class="label label-danger"';
 		}
 		else {
@@ -60,8 +60,7 @@ if ( $o == 'off') { $rs='OFF'; }
 	
 	</td>
 	
-	
-    <td><?php echo $heat; ?></td>
+
     
     </tr>
 <?php
