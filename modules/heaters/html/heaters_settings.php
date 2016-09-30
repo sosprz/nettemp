@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 <div class="panel-heading">Heaters</div>
 <div class="table-responsive">
-<table class="table table-striped table-condensed small">
+<table class="table table-hover table-condensed small">
 
 <?php
 $hname = isset($_POST['hname']) ? $_POST['hname'] : '';
@@ -58,7 +58,7 @@ exit();
 
 
 $db = new PDO('sqlite:dbf/nettemp.db');
-$sth2 = $db->prepare("select * from heaters ");
+$sth2 = $db->prepare("SELECT * FROM heaters ORDER BY position ASC");
 $sth2->execute();
 $row = $sth2->fetchAll();
 
