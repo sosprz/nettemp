@@ -59,14 +59,16 @@ Go to device scan!
 		
 		
 		foreach($result_t as $ty){
-       	if($ty['type']==$a['type']) {
-       		if($temp_scale == 'F'){
-       			$unit=$ty['unit2'];
-       		} else {
-       			$unit=$ty['unit'];
-       		}
-       		$type="<img src=\"".$ty['ico']."\" alt=\"\" title=\"".$ty['title']."\"/>";
-       	}   
+       		    if($ty['type']==$a['type']){
+			if($a['type']=='temp'){
+       			    if($temp_scale == 'F'){
+       				$unit=$ty['unit2'];
+       			    } else {
+       				$unit=$ty['unit'];
+       			    }
+       			}
+		    $type="<img src=\"".$ty['ico']."\" alt=\"\" title=\"".$ty['title']."\"/>";
+       		    }   
 		}
 		
 
