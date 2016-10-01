@@ -15,7 +15,7 @@ $name_new=trim($name_new2);
 
 ?>
 
-<?php // SQLite3 - sekcja dodawania do bazy && tworzenie baz rrd
+<?php 
 	if(!empty($id_rom_new)) {
 	$name=substr(rand(), 0, 4);
 	$gpio='';
@@ -26,79 +26,22 @@ $name_new=trim($name_new2);
 	$map_num=substr(rand(), 0, 4);
 	$map_num2=substr(rand(), 0, 4);
 	
-	    
-	    
-	//type
+	//types
+	$query = $db->query("SELECT * FROM types");
+	$result_t = $query->fetchAll();
 
-	if (strpos($id_rom_new,'temp') !== false) {
-	    $type='temp';
-	}
-	elseif (strpos($id_rom_new,'humid') !== false) {
-	    $type='humid';
-	}
-	elseif (strpos($id_rom_new,'elec') !== false) {
-	    $type='elec';
-	}
-	elseif (strpos($id_rom_new,'water') !== false) {
-	    $type='water';
-	}
-	elseif (strpos($id_rom_new,'gas') !== false) {
-	    $type='gas';
-	}
-	elseif (strpos($id_rom_new,'relay') !== false) {
-	    $type='relay';
-	}
-	elseif (strpos($id_rom_new,'lux') !== false) {
-	    $type='lux';
-	}
-	elseif (strpos($id_rom_new,'press') !== false) {
-	    $type='press';
-	}
-	elseif (strpos($id_rom_new,'humid') !== false) {
-	    $type='humid';
-	}
-	elseif (strpos($id_rom_new,'volt') !== false) {
-	    $type='volt';
-	}
-	elseif (strpos($id_rom_new,'amps') !== false) {
-	    $type='amps';
-	}
-	elseif (strpos($id_rom_new,'watt') !== false) {
-	    $type='watt';
-	}
-	elseif (strpos($id_rom_new,'dist') !== false) {
-	    $type='dist';
-	}
-	elseif (strpos($id_rom_new,'trigger') !== false) {
-	    $type='trigger';
-	}
-	elseif (strpos($id_rom_new,'rainfall') !== false) {
-	    $type='rainfall';
-	}
-	elseif (strpos($id_rom_new,'speed') !== false) {
-	    $type='speed';
-	}
-	elseif (strpos($id_rom_new,'wind') !== false) {
-	    $type='wind';
-	}
-	elseif (strpos($id_rom_new,'uv') !== false) {
-	    $type='uv';
-	}
-	elseif (strpos($id_rom_new,'storm') !== false) {
-	    $type='storm';
-	}
-	elseif (strpos($id_rom_new,'lighting') !== false) {
-	    $type='lightning';
-	}
-	
-	else {
-	    if (substr($id_rom_new, 0, 4 ) === "0x26") {
-		$type='humid';
-	    } 
-	    else {
-		$type='temp';
-	    }
-        }
+	foreach($result_t as $ty){
+   	if (strpos($id_rom_new,$ty['type']) !== false) {
+	   	$type=$ty['type'];
+	   } else {
+	   		if (substr($id_rom_new, 0, 4 ) === "0x26") {
+					$type='humid';
+	   		} 
+	   		else {
+					$type='temp';
+	   		}
+       }
+   }
 
 	//method
 	//ip
