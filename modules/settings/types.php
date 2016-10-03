@@ -50,6 +50,9 @@
 	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('hosts', 'ms', 'ms', '' ,'Host')");
 	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('system', '%', 'm%', '' ,'System')");
 	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('gpio', 'H/L', 'H/L', '' ,'GPIO')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('group', '', '', '' ,'')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('relay', '', '', '' ,'')");
+	 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('baterry', '', '', '' ,'Baterry')");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     }

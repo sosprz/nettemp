@@ -300,6 +300,7 @@ $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('gpio', 'H/L', 'H/L', '' ,'GPIO')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('group', '', '', '' ,'')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('relay', '', '', '' ,'')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('baterry', '', '', '' ,'Baterry')");
 
 
 
