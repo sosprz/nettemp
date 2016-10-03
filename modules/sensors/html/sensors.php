@@ -33,15 +33,17 @@ $name_new=trim($name_new2);
 	foreach($result_t as $ty){
    	if (strpos($id_rom_new,$ty['type']) !== false) {
 	   	$type=$ty['type'];
-	   } else {
-	   		if (substr($id_rom_new, 0, 4 ) === "0x26") {
-					$type='humid';
-	   		} 
-	   		else {
-					$type='temp';
-	   		}
-       }
-   }
+	   	break;
+	   } elseif (substr($id_rom_new, 0, 4 ) === "0x26") {
+			$type='humid';
+			break;
+	   } 
+	}
+	   
+	if(empty($type)){
+		$type='temp';
+	}
+
 
 	//method
 	//ip
