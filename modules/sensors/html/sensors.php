@@ -93,6 +93,12 @@ $name_new=trim($name_new2);
 		//relays
 		$db->exec("INSERT OR IGNORE INTO relays (name, rom, ip, type) VALUES ('wifi_relay_$name','$id_rom_new','$ip', '$type'  )") or die ("cannot insert relays to DB" );
 	}
+	
+	if ($type == "heaters" ) {
+		//heaters
+		$db->exec("INSERT OR IGNORE INTO heaters (name, rom, ip, type, temp_actual, temp_set, work_mode, position, status) VALUES ('wifi_heater_$name','$id_rom_new','$ip', '$type','0','0','off','1','off'  )") or die ("cannot insert relays to DB" );
+	    }
+	
 	// ADD DB
    if ($device == "wireless"  ) {
 		//host for monitoring
@@ -259,6 +265,7 @@ if ( $lcd == "lcd"){
 <?php 
     include("modules/sensors/html/sensors_settings.php"); 
     include("modules/relays/html/relays_settings.php");
+	include("modules/heaters/html/heaters_settings.php");
     include("modules/sensors/html/sensors_new.php"); 
     include("modules/sensors/html/other.php"); 
 ?>
