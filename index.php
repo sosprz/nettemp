@@ -1,4 +1,6 @@
 <?php
+$root=$_SERVER["DOCUMENT_ROOT"];
+$db = new PDO("sqlite:$root/dbf/nettemp.db");
 include("modules/login/login.php");
 ob_start();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -8,6 +10,8 @@ if ( '' == file_get_contents( $dbfile ) ) {
 header("Location: html/errors/no_db.php");
 }
 else {
+include("html/htmlconf.php");
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,11 +44,14 @@ else {
  </head>
 <body>
 
+<?php
+if($id != 'screen') { 
+	?>
  <!-- Static navbar -->
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-		<a href="http://nettemp.pl" target="_blank"><img src="media/png/nettemp.pl.png" height="50" alt="nettemp.pl"></a>
+		<a href="<?php echo $html_nettemp_link ?>" target="_blank"><img src="<?php echo $html_nettemp_logo ?>" height="50" alt="<?php echo $html_nettemp_alt ?>"></a>
 
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
               <span class="sr-only">Toggle navigation</span>
@@ -56,25 +63,30 @@ else {
 <div id="navbar" class="navbar-collapse collapse">
 <ul class="nav navbar-nav">
 <?php
-$db1 = new PDO('sqlite:dbf/nettemp.db');
-$rows1 = $db1->query("SELECT * FROM gpio WHERE mode='simple' OR mode='moment' OR mode='trigger' OR mode='call'") or header("Location: html/errors/db_error.php");
-$rows2 = $db1->query("SELECT * FROM relays WHERE type='relay'") or header("Location: html/errors/db_error.php");
+$rows1 = $db->query("SELECT * FROM gpio WHERE mode='simple' OR mode='moment' OR mode='trigger' OR mode='call'") or header("Location: html/errors/db_error.php");
+$rows2 = $db->query("SELECT * FROM relays WHERE type='relay'") or header("Location: html/errors/db_error.php");
 $row1 = $rows1->fetchAll();
 $row2 = $rows2->fetchAll();
 $numsimple = count($row1);
 $numsimple2 = count($row2);
 ?>
 <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status"><span class="glyphicon glyphicon-th-large" aria-hidden="true"> Status</span></a></li>
-<li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp&max=day"><span class="glyphicon glyphicon-stats" aria-hidden="true"> Charts</span></a></li>
+<li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp&max=<?php echo $html_charts_max?>"><span class="glyphicon glyphicon-stats" aria-hidden="true"> Charts</span></a></li>
+<?php
+	if($html_screen=='on') 
+	{ 
+	?>
+	<li <?php echo $id == 'screen' ? ' class="active"' : ''; ?>><a href="screen"><span class="glyphicon glyphicon-modal-window" aria-hidden="true"> Screen</span></a></li>
 <?php 
-if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
-    if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { 
-    ?>
-    <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls"><span class="glyphicon glyphicon-record" aria-hidden="true"> Controls</span></a></li>
-	<?php 
+	} 
+	if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
+   if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { 
+   ?>
+   <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls"><span class="glyphicon glyphicon-record" aria-hidden="true"> Controls</span></a></li>
+<?php 
 	}
- if($_SESSION["perms"] == 'adm') { 
- ?>
+ 	if($_SESSION["perms"] == 'adm') { 
+?>
 <li <?php echo $id == 'map' ? ' class="active"' : ''; ?>><a href="index.php?id=map"><span class="glyphicon glyphicon-picture" aria-hidden="true"> Map</span> </a></li>
 <li<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><a href="devices"><span class="glyphicon glyphicon-cog" aria-hidden="true"> Device</span></a></li>
 <li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security"><span class="glyphicon glyphicon-tower" aria-hidden="true"> Security</span></a></li>
@@ -83,8 +95,12 @@ if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 <?php 
 	} 
 }
+if($html_info=='on') {
 ?>
 <li <?php echo $id == 'info' ? ' class="active"' : ''; ?>><a href="info"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"> Info</span></a></li>
+<?php
+	}
+	?>
 <li> <?php include('modules/settings/access_time_check.php'); ?></li>
 
 </ul>
@@ -100,8 +116,9 @@ if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 	    <input type="hidden" name="form_login" value="log">
             <button type="submit" class="btn btn-xs btn-success">Sign in</button>
           </form>        
-    <?php } ?>
-    <?php if(isset($_SESSION["user"])) {?>
+    <?php 
+    }
+		if(isset($_SESSION["user"])) {?>
 	<form method="post" action="logout" class="navbar-form navbar-right" >
 	    <?php echo $_SESSION["user"];?>
 	    <button type="submit" class="btn btn-xs btn-success">Log Out</button>
@@ -109,8 +126,10 @@ if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
     <?php } ?>
     	</div><!--/.nav-collapse -->
 	</div><!--/.container-fluid -->
-        </nav>
- 
+</nav>
+<?php 
+	}
+	?> 
 
 <div class="container-nettemp">
 <?php 
@@ -137,10 +156,12 @@ case 'upload': include('modules/tools/backup/html/upload.php'); break;
 case 'csv': include('common/csv.php'); break;
 case 'receiver': include('modules/sensors/html/receiver.php'); break;
 case 'controls': include('modules/relays/html/relays_controls.php'); include('modules/gpio/html/gpio_controls.php'); break;
+case 'screen': include('modules/screen/screen.php'); break;
 }
 ?>
 </div>
-
+<?php 
+	if(($html_footer=='on')&&($id!='screen')){ ?>
 <footer class="footer">
       <div class="container text-center">
 	    <a href="https://nettemp.pl/forum/viewtopic.php?f=20&t=765&p=11209" target="_blank" class="btn btn-xs btn-primary"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </a>
@@ -150,7 +171,9 @@ case 'controls': include('modules/relays/html/relays_controls.php'); include('mo
 	    
       </div>
 </footer>
-
+<?php 
+	}
+	?>
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->

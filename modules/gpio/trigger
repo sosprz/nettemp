@@ -6,7 +6,7 @@ date=$(date +%y%m%d-%H%M)
 trigger_run=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT trigger_run FROM gpio WHERE gpio='$gpio'")
 if [ "$trigger_run" = "on" ]; then
     if pgrep -a trigger_proc | grep -q $gpio; then 
-	echo "trigger_proc $gpio already running" && exit; 
+	echo "trigger_proc $gpio already running" 
 	else 
 	    $dir/modules/gpio/trigger_proc $gpio &
     fi

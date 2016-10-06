@@ -1,5 +1,22 @@
 <?php
 
+	 $del_all = isset($_POST['del_all']) ? $_POST['del_all'] : '';
+	 $add_all = isset($_POST['add_all']) ? $_POST['add_all'] : '';
+	 
+    if (!empty($add_all)) {
+    	$db = new PDO('sqlite:dbf/nettemp.db');
+    	$db->exec("UPDATE sensors SET '$add_all'='on'") or die ($db->lastErrorMsg());
+    	header("location: " . $_SERVER['REQUEST_URI']);
+    	exit();
+    } 
+    
+    if (!empty($del_all)){
+    	$db = new PDO('sqlite:dbf/nettemp.db');
+    	$db->exec("UPDATE sensors SET '$del_all'=''") or die ($db->lastErrorMsg());
+    	header("location: " . $_SERVER['REQUEST_URI']);
+    	exit();
+    }
+    
     $position = isset($_POST['position']) ? $_POST['position'] : '';
     $position_id = isset($_POST['position_id']) ? $_POST['position_id'] : '';
     if (!empty($position_id) && ($_POST['positionok'] == "ok")){
@@ -78,6 +95,17 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+    //################
+    $minmax_mode = isset($_POST['minmax_mode']) ? $_POST['minmax_mode'] : '';
+    $minmax_mode_on = isset($_POST['minmax_mode_on']) ? $_POST['minmax_mode_on'] : '';
+    if (($minmax_mode == "onoff")){
+    	if(empty($minmax_mode_on)) {
+    		$minmax_mode_on='2';
+    	}
+    $db->exec("UPDATE minmax SET state='$minmax_mode_on' WHERE name='mode'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 
     $adj = isset($_POST['adj']) ? $_POST['adj'] : '';
     $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
@@ -101,7 +129,7 @@
     $maponoff = isset($_POST['maponoff']) ? $_POST['maponoff'] : '';
     $mapon = isset($_POST['mapon']) ? $_POST['mapon'] : '';
     if (($maponoff == "onoff")){
-	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
+	 $dbmaps = new PDO('sqlite:dbf/nettemp.db');
     $dbmaps->exec("UPDATE maps SET map_on='$mapon' WHERE element_id='$map' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -131,11 +159,18 @@
 <div class="panel panel-default">
 <div class="panel-heading">Sensors
 <?php
-$db = new PDO('sqlite:dbf/nettemp.db');
+//$db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM settings WHERE id='1'");
 $row = $rows->fetchAll();
 foreach ($row as $a) { 	
     $temp_scale=$a['temp_scale'];
+}
+$mm = $db->query("SELECT * FROM minmax");
+$mm1 = $mm->fetchAll();
+foreach($mm1 as $ms){
+       if($ms[name]=='mode') {
+       	$mm_mode=$ms[state];
+       }
 }
 ?>
 
@@ -143,7 +178,11 @@ foreach ($row as $a) {
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="temp_scaleon" data-on="&deg;F" data-off="&deg;C"  value="F" <?php echo $temp_scale == 'F' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="temp_scaleonoff" value="onoff" />
 </form>
-
+MinMax mode:
+<form action="" method="post" style="display:inline!important;"> 	
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="minmax_mode_on" data-on="min/max" data-off="difference"  value="1" <?php echo $mm_mode == '1' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+	<input type="hidden" name="minmax_mode" value="onoff" />
+</form>
 </div>
 
 <div class="table-responsive">
@@ -156,8 +195,8 @@ foreach ($row as $a) {
 
 <?php
 $counters=array("gas","water","elec");
-$db = new PDO('sqlite:dbf/nettemp.db');
-$dbmaps = new PDO('sqlite:dbf/nettemp.db');
+//$db = new PDO('sqlite:dbf/nettemp.db');
+//$dbmaps = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors ORDER BY position ASC");
 $row = $rows->fetchAll();
 ?>
@@ -169,12 +208,71 @@ $row = $rows->fetchAll();
 <th>Adjust</th>
 <th>Counters</th>
 <th>Alarm / Min / Max</th>
-<th>Charts</th>
+<th>Charts
+
+	 <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="add_all" value="charts" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="del_all" value="charts" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+
+</th>
 <th>Group</th>
-<th>Node</th>
-<th>Status Min/Max</th>
-<th>LCD</th>
-<th>JustGage</th>
+<th>Node
+
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="add_all" value="remote" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="del_all" value="remote" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+
+
+</th>
+<th>Status Min/Max
+
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="add_all" value="minmax" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="del_all" value="minmax" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+
+
+
+</th>
+<th>LCD
+
+ 	<form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="add_all" value="lcd" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="del_all" value="lcd" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+
+
+</th>
+<th>JustGage
+
+ 	<form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="add_all" value="jg" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="del_all" value="jg" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+
+</th>
 <th></th>
 </tr>
 </thead>
@@ -183,7 +281,7 @@ $row = $rows->fetchAll();
 
 <?php 
     foreach ($row as $a) { 	
-		$rows_maps = $dbmaps->query("SELECT * FROM maps WHERE element_id='$a[id]' AND type='sensors'");
+		$rows_maps = $db->query("SELECT * FROM maps WHERE element_id='$a[id]' AND type='sensors'");
 		$row_maps=$rows_maps->fetchAll();
 		$row_maps=$row_maps[0];
 ?>
@@ -357,6 +455,7 @@ else { ?>
 }  
 
 ?>
+
 </table>
 </div>
 </div>

@@ -3,6 +3,13 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
+if pidof -o %PPID -x $(basename $0) > /dev/null; then
+    echo $(basename $0) runnning
+    echo "$date  $(basename $0) already running" >> $dir/log.txt
+    exit
+fi
+
+
 dev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT dev FROM usb WHERE device='RS485'"|sed 's/\/dev\///g')
 if [[ "$dev" != "none" ]]; then
 echo SDM630ON
@@ -51,7 +58,7 @@ for i in $addr; do
 	php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=0 type=elec
     fi
 
-    unset $ARRAY
+    unset ARRAY
 
 done
 

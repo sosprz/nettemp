@@ -1,7 +1,16 @@
 <?php 
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
-$sth = $db->prepare("select * from sensors where jg='on' ORDER BY position ASC");
+//check if display normalized in jg
+$normalized=-1;
+$sth_norma = $db->prepare("select * from meteo");
+$sth_norma->execute();
+$result_norma = $sth_norma->fetchAll();	
+if ($result_norma[0]['jg']=='on')
+{
+	$normalized=$result_norma[0]['pressure'];
+}
+$sth = $db->prepare("select *,'off' as 'normalized' from sensors where jg='on' UNION ALL select *,'on' as 'normalized' from sensors WHERE id=$normalized ORDER BY position ASC,id");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);
@@ -14,37 +23,38 @@ if ( $numRows > '0' ) { ?>
 <script src="html/justgage/justgage.js"></script>
 
 <?php
+$query = $db->query("SELECT * FROM types");
+$result_t = $query->fetchAll();
+
 $KtoryWidget = 1;
 foreach ($result as $a) { 	
+if ($a['normalized']=='on')
+{
+	$a['name']=$a['name'].' npm';
+	$a['type']='normalized';
+	require_once('Meteo.class.php');
+	$meteo=new Meteo();
+	$a['tmp']=number_format($meteo->getCisnienieZnormalizowane(),2,'.','');
+}
+
+
 ?>
 <div id="<?php echo $a['name']?>" style="width:100px; height:100px;display:inline-block;"></div>
    
 <script>
 <?php
-$query = "SELECT temp_scale FROM settings WHERE id='1'";
-foreach ($db->query($query) as $row) {
-	$temp_scale=$row['temp_scale'];
-}
-echo "var types = '". $a['type'] ."';\n"; 
-echo "var temp_scale = '". $temp_scale ."';\n";
+
+foreach($result_t as $ty){
+       	if($ty['type']==$a['type']) {
+       		if(($temp_scale != 'C')&&($a['type']=='temp')){
+       			echo "var n_units = '". $ty['unit2'] ."';\n"; 
+       		} else {
+					echo "var n_units = '". $ty['unit'] ."';\n"; 
+       		}
+        	}   
+		}
+
 ?>
- 
-if (types=='temp' && temp_scale=='F') {n_units = " °F"}
-else if (types=='temp' && temp_scale=='C') {n_units = " °C" }
-if (types=='humid') {n_units = " %"};
-if (types=='press') {n_units = " hPa"};
-if (types=='gpio') {n_units = " H/L"};
-if (types=='host') {n_units = " ms"};
-if (types=='system') {n_units = " %"};
-if (types=='lux') {n_units = " lux"};
-if (types=='water') {n_units = " m3"};
-if (types=='gas') {n_units = " m3"};
-if (types=='elec') {n_units = " W"};
-if (types=='hosts') {n_units = " ms"};
-if (types=='volt') {n_units = " V"};
-if (types=='amps') {n_units = " A"};
-if (types=='watt') {n_units = " W"};
-if (types=='dist') {n_units = " cm"};
 
 var g<?=$KtoryWidget++?> = new JustGage({
         id: "<?php echo $a['name']?>",

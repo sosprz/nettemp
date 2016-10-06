@@ -5,16 +5,19 @@
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 
-$rows = $db->query("SELECT * FROM settings WHERE id='1'");
-$row = $rows->fetchAll();
-foreach ($row as $a) {
-    $temp_scale=$a['temp_scale'];
-}
+$query = $db->query("SELECT * FROM types");
+$result_t = $query->fetchAll();
+
 $rows_meteo = $db->query("SELECT normalized,pressure FROM meteo WHERE id='1'");
 $row_meteo = $rows_meteo->fetchAll();
 foreach ($row_meteo as $a) {
     $normalized=$a['normalized'];
 	$pressure=$a['pressure'];
+}
+$rows = $db->query("SELECT * FROM settings WHERE id='1'");
+$row = $rows->fetchAll();
+foreach ($row as $a) {
+    $temp_scale=$a['temp_scale'];
 }
 
 $rows = $db->query("SELECT * FROM sensors");
@@ -33,8 +36,9 @@ Go to device scan!
     $result = $sth->fetchAll(); ?>
     <table class="table table-hover table-condensed small">
     <tbody>
-<?php       
-    foreach ($result as $a) {
+<?php
+	
+   foreach ($result as $a) {
 	$name1=$a['name'];
 	$name = str_replace("_", " ", $name1);
 	$min='';
@@ -52,25 +56,22 @@ Go to device scan!
 		if($a['device'] == 'i2c'){ $device='<img src="media/ico/i2c_1.png" alt="" title="I2C"/>';}
 		if($a['device'] == 'snmp'){ $device='<img src="media/ico/snmp-icon.png" alt="" title=SNMP"/>';}
 		if(empty($a['device'])) { $device='<img src="media/ico/1wire.png" alt="" title="1wire"/>';}
-
-		if($a['type'] == 'lux'){ $unit='lux'; $type='<img src="media/ico/sun-icon.png" alt="" title="Lux"/>';} 
-		if($a['type'] == 'temp' && $temp_scale == 'C'){ $unit='&deg;C'; $type='<img src="media/ico/temp2-icon.png" alt="" title="Temperature"/>';}
-		if($a['type'] == 'temp' && $temp_scale == 'F'){ $unit='&deg;F'; $type='<img src="media/ico/temp2-icon.png" alt="" title="Temperature"/>';}
-		if($a['type'] == 'humid'){ $unit='%'; $type='<img src="media/ico/rain-icon.png" alt="" title="Humidity"/>';}
-		if($a['type'] == 'press'){ $unit='hPa'; $type='<img src="media/ico/Science-Pressure-icon.png" alt="" title="Pressure"/>';}		
-		if($a['type'] == 'water'){ $unit='m3'; $type='<img src="media/ico/water-icon.png" alt="" title="Water"/>';}		
-		if($a['type'] == 'gas'){ $unit='m3'; $type='<img src="media/ico/gas-icon.png" alt="" title="Gas"/>';}		
-		if($a['type'] == 'elec'){ $unit='kWh'; $type='<img src="media/ico/Lamp-icon.png" alt="" title="Electricity"/>';}		
-		if($a['type'] == 'watt'){ $unit='W'; $type='<img src="media/ico/watt.png" alt="Watt" title="Watt"/>';}		
-		if($a['type'] == 'volt'){ $unit='V'; $type='<img src="media/ico/volt.png" alt="Volt" title="Volt"/> ';}		
-		if($a['type'] == 'amps'){ $unit='A'; $type='<img src="media/ico/amper.png" alt="Amps" title="Amps"/> ';}		
-		if($a['type'] == 'dist'){ $unit='cm'; $type='';}	
-		if($a['type'] == 'trigger'){ $unit=''; $type='<img src="media/ico/alarm-icon.png" alt="Trigger" title="Trigger"/>';}	
 		
+		
+		foreach($result_t as $ty){
+       	if($ty['type']==$a['type']) {
+       		if($temp_scale == 'F'){
+       			$unit=$ty['unit2'];
+       		} else {
+       			$unit=$ty['unit'];
+       		}
+       		$type="<img src=\"".$ty['ico']."\" alt=\"\" title=\"".$ty['title']."\"/>";
+       	}   
+		}
+		
+
 		//glyphicon glyphicon-exclamation-sign	
 		
-		//if($a['tmp'] > $a['tmp_5ago']) { $updo='<img src="media/ico/Up-3-icon.png"/>';}
-		//if($a['tmp'] < $a['tmp_5ago']) { $updo='<img src="media/ico/Down-3-icon.png" />';}
 		if($a['tmp'] > $a['tmp_5ago']) { $updo='<span class="label label-danger" title='.$a['tmp_5ago'].'><span class="glyphicon glyphicon-arrow-up"></span></span>';}
 		if($a['tmp'] < $a['tmp_5ago']) { $updo='<span class="label label-info" title='.$a['tmp_5ago'].'><span class="glyphicon glyphicon-arrow-down"></span></span>';}
 		
