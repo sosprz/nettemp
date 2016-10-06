@@ -96,7 +96,7 @@ $name_new=trim($name_new2);
 	
 	if ($type == "heaters" ) {
 		//heaters
-		$db->exec("INSERT OR IGNORE INTO heaters (name, rom, ip, type, temp_actual, temp_set, work_mode, position, status) VALUES ('wifi_heater_$name','$id_rom_new','$ip', '$type','0','0','off','1','off'  )") or die ("cannot insert relays to DB" );
+		$db->exec("INSERT OR IGNORE INTO heaters (name, rom, ip, type, temp_actual, temp_set, work_mode, position, status) VALUES ('wifi_heater_$name','$id_rom_new','$ip', '$type','0','0','off','1','off'  )") or die ("cannot insert heaters to DB" );
 	    }
 	
 	// ADD DB
