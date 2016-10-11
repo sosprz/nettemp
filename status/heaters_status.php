@@ -51,7 +51,7 @@ if ( $o == 'off') { $rs='OFF'; }
 	
 	
 	
-	echo $a['temperature']; 
+	echo $temperature; 
 	
 	
 	
