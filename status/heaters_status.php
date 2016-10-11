@@ -45,11 +45,12 @@ if ( $o == 'off') { $rs='OFF'; }
 	
 	
 	
-	<?php echo $a['temp_actual']; 
+	<?php 
+	$temperature=$db->query("SELECT tmp FROM sensors WHERE rom='$rom'");
 	
-	sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tmp FROM sensors WHERE rom='rom'"
 	
 	
+	echo $a['temperature']; 
 	
 	
 	
