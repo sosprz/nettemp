@@ -48,10 +48,10 @@ if ( $o == 'off') { $rs='OFF'; }
 	<?php 
 	$rom2=$a['rom'];
 	
+	$temperature=$db->query("SELECT tmp FROM sensors WHERE rom=$rom2");
 	
 	
-	
-	echo $rom2; 
+	echo $temperature; 
 	
 	
 	
