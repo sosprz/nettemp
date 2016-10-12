@@ -1,7 +1,7 @@
 <?php
 // name:
-// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps, watt, trigger
-// device: wireless, remote, gpio, i2c, usb
+// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps, watt, trigger, heaterstemp, heatersmode, heatersstatus
+// device: wireless, remote, gpio, i2c, usb, wifiheaters
 // definied source (middle part): tty, ip, gpio number
 
 // curl --connect-timeout 3 -G "http://172.18.10.10/receiver.php" -d "value=1&key=123456&device=wireless&type=gas&ip=172.18.10.9"
@@ -259,8 +259,8 @@ function db($rom,$val,$type,$device,$current) {
 		if ($val != 'range'){
 		    //// base
 		    // counters can always put to base
-		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting", "heaterstemp");
-		    $arrayd = array("heaters", "wireless", "gpio", "usb");
+		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting", "heaterstemp", "heatersmode", "heatersstatus");
+		    $arrayd = array("wifiheaters", "wireless", "gpio", "usb");
 		    if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
 					if (isset($current) && is_numeric($current)) {
 			    		$dbf->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql current\n" );
@@ -392,7 +392,7 @@ elseif (isset($val) && isset($type)) {
 	    }
 	}
 	
-	if ( $device == "heaters" ) {
+	if ( $device == "wifiheaters" ) {
 	    if (!empty($type) && !empty($ip)) {
 		$rom=$device.'_'.$ip.'_'.$type; 
 	    } else {
