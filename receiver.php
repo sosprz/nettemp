@@ -391,7 +391,6 @@ elseif (isset($val) && isset($type)) {
 		exit();
 	    }
 	}
-	
 	if ( $device == "wifiheaters" ) {
 	    if (!empty($type) && !empty($ip)) {
 		$rom=$device.'_'.$ip.'_'.$type; 
