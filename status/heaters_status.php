@@ -46,10 +46,7 @@ if ( $o == 'off') { $rs='OFF'; }
 	
 	
 	<?php 
-	$rom2=$a['rom'];
-	
-	$temperature=$db->query("SELECT tmp FROM sensors WHERE rom=$a['rom']");
-	
+
 	
 	echo $temperature; 
 	
@@ -63,6 +60,9 @@ if ( $o == 'off') { $rs='OFF'; }
 	
 	
 	</span></small></td>
+
+	<td><small><span class="label label-success"><?php echo $a['temp_actual']; ?></span></small></td>
+
 	<td><small><span class="label label-info"> <?php echo $a['temp_set']; ?></span></small></td>
     <td><small><span class="label label-warning"> <?php echo $a['work_mode']; ?></span></small></td>
 	
