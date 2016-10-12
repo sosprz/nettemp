@@ -391,6 +391,15 @@ elseif (isset($val) && isset($type)) {
 		exit();
 	    }
 	}
+	
+	if ( $device == "heaters" ) {
+	    if (!empty($type) && !empty($ip)) {
+		$rom=$device.'_'.$ip.'_'.$type; 
+	    } else {
+		echo "Missing type or IP";
+		exit();
+	    }
+	}
 	if ( $device == "usb" ) {
 	    if (!empty($type) && !empty($usb)) {
 		$rom=$device.'_'.$usb.'_'.$type; 
