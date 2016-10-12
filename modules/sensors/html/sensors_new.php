@@ -71,6 +71,12 @@
     foreach ($result2 as $a) { 		
     $array20[]=$a["rom"];
     }	 
+	$sth = $db->prepare("SELECT rom FROM relays");
+    $sth3->execute();
+    $result3 = $sth->fetchAll();
+    foreach ($result3 as $a) { 		
+    $array20[]=$a["rom"];
+    }	 
     
     foreach($array20 as $rom_no){
 	   if (!in_array($rom_no, $digitemprc)){
