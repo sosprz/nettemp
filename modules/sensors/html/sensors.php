@@ -103,7 +103,7 @@ $name_new=trim($name_new2);
 	    }
 	
 	// ADD DB
-   if ($device == "wireless"  ) {
+   if ($device == "wireless" || $device == "wifiheaters") {
 		//host for monitoring
 		$name='host_wifi_' . $type . '_' . $name;
 		$dbhost = new PDO("sqlite:dbf/nettemp.db");	
