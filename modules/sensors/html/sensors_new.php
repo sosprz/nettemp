@@ -71,7 +71,7 @@
     foreach ($result2 as $a) { 		
     $array20[]=$a["rom"];
     }	 
-	$sth = $db->prepare("SELECT rom FROM relays");
+	$sth = $db->prepare("SELECT rom FROM heaters");
     $sth3->execute();
     $result3 = $sth->fetchAll();
     foreach ($result3 as $a) { 		
