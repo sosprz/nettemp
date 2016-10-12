@@ -83,7 +83,15 @@ function check(&$val,$type) {
 		    else {
 			$val='range';
 		    }
-		    
+		}	
+		elseif ($type == 'heaterstemp') {
+		    if (( -150 <= $val) && ($val <= 3000) && ($val != 85) && ($val != 185) && ($val != 127.9)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }	
+			    
 		}
 		elseif ($type == 'humid') {
 		    if ((0 <= $val) && ($val <= 110)) {
@@ -251,8 +259,8 @@ function db($rom,$val,$type,$device,$current) {
 		if ($val != 'range'){
 		    //// base
 		    // counters can always put to base
-		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting");
-		    $arrayd = array("wireless", "gpio", "usb");
+		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting", "heaterstemp");
+		    $arrayd = array("heaters", "wireless", "gpio", "usb");
 		    if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
 					if (isset($current) && is_numeric($current)) {
 			    		$dbf->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql current\n" );
