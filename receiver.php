@@ -1,6 +1,6 @@
 <?php
 // name:
-// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps, watt, trigger, heaterstemp, heatersmode, heatersstatus
+// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps, watt, trigger, tempheaters, heatersmode, heatersstatus
 // device: wireless, remote, gpio, i2c, usb, wifiheaters
 // definied source (middle part): tty, ip, gpio number
 
@@ -84,7 +84,7 @@ function check(&$val,$type) {
 			$val='range';
 		    }
 		}	
-		elseif ($type == 'heaterstemp') {
+		elseif ($type == 'tempheaters') {
 		    if (( -150 <= $val) && ($val <= 3000) && ($val != 85) && ($val != 185) && ($val != 127.9)) {
 			$val=$val;
 		    }
@@ -259,7 +259,7 @@ function db($rom,$val,$type,$device,$current) {
 		if ($val != 'range'){
 		    //// base
 		    // counters can always put to base
-		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting", "heaterstemp", "heatersmode", "heatersstatus");
+		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting", "tempheaters", "heatersmode", "heatersstatus");
 		    $arrayd = array("wifiheaters", "wireless", "gpio", "usb");
 		    if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
 					if (isset($current) && is_numeric($current)) {
