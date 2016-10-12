@@ -57,8 +57,8 @@ $name_new=trim($name_new2);
    if (strpos($id_rom_new,'wireless') !== false) {
 		 $device='wireless';
 	}
-	if (strpos($id_rom_new,'heaters') !== false) {
-		 $device='heaters';
+	if (strpos($id_rom_new,'wifiheaters') !== false) {
+		 $device='wifiheaters';
 	}
 	if (strpos($id_rom_new,'remote_') !== false) {
     	    $device='remote';
