@@ -51,8 +51,14 @@
     } 
     elseif (empty($alarm) && ($alarmonoff == "onoff")){
     $db->exec("UPDATE sensors SET alarm='' WHERE rom='$rom'") or die ($db->lastErrorMsg());
-    unlink("tmp/mail/$rom.mail");
-    unlink("tmp/mail/hour/$rom.mail");
+   
+    if (file_exists("tmp/mail/$rom.mail")) {
+        unlink("tmp/mail/$rom.mail");
+    }
+    if (file_exists("tmp/mail/hour/$rom.mail")) {
+        unlink("tmp/mail/hour/$rom.mail");
+    }    
+    
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -168,8 +174,8 @@ foreach ($row as $a) {
 $mm = $db->query("SELECT * FROM minmax");
 $mm1 = $mm->fetchAll();
 foreach($mm1 as $ms){
-       if($ms[name]=='mode') {
-       	$mm_mode=$ms[state];
+       if($ms['name']=='mode') {
+       	$mm_mode=$ms['state'];
        }
 }
 ?>
@@ -195,8 +201,6 @@ MinMax mode:
 
 <?php
 $counters=array("gas","water","elec");
-//$db = new PDO('sqlite:dbf/nettemp.db');
-//$dbmaps = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors ORDER BY position ASC");
 $row = $rows->fetchAll();
 ?>

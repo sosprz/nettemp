@@ -101,20 +101,19 @@ $name_new=trim($name_new2);
 		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping', '{left:0,top:0}', '$map_num2', 'on', '1')") or die ("cannot insert host to DB" );	
 		$dbnew = new PDO("sqlite:db/host_$id_rom_new.sql");
    	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
-   	$dbnew->exec("CCREATE INDEX time_index ON def(time)");
+   	$dbnew->exec("CREATE INDEX time_index ON def(time)");
 	}
 	if ($type=='elec' || $type=='water' || $type=='gas' || $type=='watt') {
 		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");
 		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER, current INTEGER, last INTEGER)");
-		$dbnew->exec("CCREATE INDEX time_index ON def(time)");
+		$dbnew->exec("CREATE INDEX time_index ON def(time)");
 	}
 	else {
 		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");
 		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
-		$dbnew->exec("CCREATE INDEX time_index ON def(time)");
+		$dbnew->exec("CREATE INDEX time_index ON def(time)");
 	}
 	   $dbnew==NULL;
-
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 	}
@@ -131,9 +130,15 @@ $name_new=trim($name_new2);
 	$db->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='sensors'");// or die ($db->lastErrorMsg());
 	
 	$db->exec("DELETE FROM sensors WHERE rom='$rom'") or die ($db->lastErrorMsg()); 
-	unlink("db/$rom.sql");
-	unlink("tmp/mail/$rom.mail");
-	unlink("tmp/mail/hour/$rom.mail");
+	if (file_exists("tmp/mail/$rom.mail")) {
+        unlink("tmp/mail/$rom.mail");
+   }
+   if (file_exists("tmp/mail/hour/$rom.mail")) {
+        unlink("tmp/mail/hour/$rom.mail");
+   }
+   if (file_exists("db/$rom.sql")) {
+        unlink("db/$rom.sql");
+   }
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
    } ?>	   
@@ -146,9 +151,15 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 	//plik rrd
 	$rep_del_db = str_replace(" ", "_", $usun_rom_nw);
 	$name_rep_del_db = "$rep_del_db.rrd";
-	unlink("tmp/mail/$rom.mail");
-	unlink("tmp/mail/hour/$rom.mail");
-	unlink("db/$name_rep_del_db");
+	if (file_exists("tmp/mail/$rom.mail")) {
+        unlink("tmp/mail/$rom.mail");
+   }
+   if (file_exists("tmp/mail/hour/$rom.mail")) {
+        unlink("tmp/mail/hour/$rom.mail");
+   }
+   if (file_exists("db/$name_rep_del_db")) {
+        unlink("db/$name_rep_del_db");
+   }
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 	} ?>      
@@ -260,6 +271,6 @@ if ( $lcd == "lcd"){
     include("modules/sensors/html/sensors_settings.php"); 
     include("modules/relays/html/relays_settings.php");
     include("modules/sensors/html/sensors_new.php"); 
-    include("modules/sensors/html/other.php"); 
+    //include("modules/sensors/html/other.php"); 
 ?>
 
