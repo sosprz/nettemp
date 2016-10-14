@@ -303,7 +303,7 @@ function db($rom,$val,$type,$device,$current) {
 		    }
 			
 			elseif ($type == 'heaterst') {
-					$db->exec("UPDATE heaters SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to trigger status2\n");
+					$db->exec("UPDATE heaters SET tmp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to trigger status2\n");
 		    }
 			
 		    //sensors status
