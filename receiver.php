@@ -277,6 +277,16 @@ function db($rom,$val,$type,$device,$current) {
 					echo "$rom ok insert heaters temp_actual\n";
 					}
 					
+					if ($type == 'heatersm') {
+					$db->exec("UPDATE heaters SET work_mode='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
+					echo "$rom ok insert heaters work_mode\n";
+					}
+					
+					if ($type == 'heaterss') {
+					$db->exec("UPDATE heaters SET status='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
+					echo "$rom ok insert heaters ststus\n";
+					}
+					
 		    }
 		    // time when you can put into base
 		    elseif ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
