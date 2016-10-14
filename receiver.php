@@ -270,12 +270,18 @@ function db($rom,$val,$type,$device,$current) {
 					}
 					//sum,current for counters
 					$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
-					echo "$rom ok for counters \n";
+					echo "$rom ok \n";
+					if ($type == 'heaterst') {
+					$db->exec("UPDATE heaters SET tmp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters status temp_actual\n");
+					echo "$rom ok tmpactual \n";
+					}
+					
+					
 		    }
 		    // time when you can put into base
 		    elseif ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
 				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql\n" );
-				echo "$rom ok def\n";
+				echo "$rom ok \n";
 		    }
 		    else {
 					echo "Not writed interval is $chmin min";
