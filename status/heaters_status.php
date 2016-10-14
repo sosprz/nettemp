@@ -7,9 +7,9 @@ $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);
 
-$sth2 = $db->prepare("SELECT * FROM sensors WHERE type = 'heaterst' ");
-$sth2->execute();
-$result = $sth2->fetchAll();
+//$sth2 = $db->prepare("SELECT * FROM sensors WHERE type = 'heaterst' ");
+//$sth2->execute();
+//$result = $sth2->fetchAll();
 
 
 
@@ -48,7 +48,7 @@ if ( $o == 'off') { $rs='OFF'; }
     <tr>
     <td><small>	<img type="image" src="media/ico/heat.png" /></small></td>
     <td><small><?php echo $a['name']; ?><small></td>
-	<td><small><span class="label label-success"><?php echo $a['tmp']; ?></span></small></td>
+	<td><small><span class="label label-success"><?php echo $a['tmp_actual']; ?></span></small></td>
 	<td><small><span class="label label-info"> <?php echo $a['temp_set']; ?></span></small></td>
     <td><small><span class="label label-warning"> <?php echo $a['work_mode']; ?></span></small></td>
 	
