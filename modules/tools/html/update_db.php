@@ -2,6 +2,9 @@
 <?php
 echo "nettemp database update: \n";
 $root=$_SERVER["DOCUMENT_ROOT"];
+if(empty($root)){
+    $root='/var/www/nettemp';
+}
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
 
 $db->exec("ALTER TABLE settings ADD vpn type TEXT");
