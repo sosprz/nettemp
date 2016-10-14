@@ -34,14 +34,7 @@ $numRows = count($result);
 <tbody>
 <?php
 foreach ( $result as $a) {
-$ip=$a['ip'];
-$cmd="curl --connect-timeout 3 $ip/showstatus";
-exec($cmd, $i);
-$s=$i[0];
-$o1=str_replace('status', '', $s);
-$o = str_replace(' ', '', $o1);
-if ( $o == 'on') { $rs='ON'; }
-if ( $o == 'off') { $rs='OFF'; }
+
 
 
 ?>
