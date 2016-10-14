@@ -247,6 +247,9 @@ function db($rom,$val,$type,$device,$current) {
 	if ($type == 'host') {
     	    $rows = $db->query("SELECT rom FROM hosts WHERE rom='$rom'");
 	}
+	elseif ($type == 'heaterst' || $type == 'heatersm' || $type == 'heaterss') {
+    	    $rows = $db->query("SELECT rom FROM heaters WHERE rom='$rom'");
+	}
 	else {
 		 	 $rows = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
     	 }
