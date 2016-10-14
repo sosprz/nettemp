@@ -1,6 +1,6 @@
 <?php
 // name:
-// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps, watt, trigger, heaterst, heatersmode, heatersstatus
+// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps, watt, trigger, heaterst, heatersm, heaterss
 // device: wireless, remote, gpio, i2c, usb, wifiheaters
 // definied source (middle part): tty, ip, gpio number
 
@@ -259,7 +259,7 @@ function db($rom,$val,$type,$device,$current) {
 		if ($val != 'range'){
 		    //// base
 		    // counters can always put to base
-		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting", "heaterst", "heatersmode", "heatersstatus");
+		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting", "heaterst", "heatersm", "heaterss");
 		    $arrayd = array("wifiheaters", "wireless", "gpio", "usb");
 		    if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
 					if (isset($current) && is_numeric($current)) {
