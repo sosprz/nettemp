@@ -34,7 +34,8 @@ $numRows = count($result);
 <tbody>
 <?php
 foreach ( $result as $a) {
-
+	$name1=$a['name'];
+	$name = str_replace("_", " ", $name1);
 
 
 ?>
