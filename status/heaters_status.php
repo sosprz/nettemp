@@ -41,28 +41,7 @@ if ( $o == 'off') { $rs='OFF'; }
     <tr>
     <td><small>	<img type="image" src="media/ico/heat.png" /></small></td>
     <td><small><?php echo $a['name']; ?><small></td>
-	<td><small><span class="label label-success">
-	
-	
-	
-	<?php 
-
-	
-	echo $temperature; 
-	
-	
-	
-	?>
-	
-	
-	
-	
-	
-	
-	</span></small></td>
-
 	<td><small><span class="label label-success"><?php echo $a['temp_actual']; ?></span></small></td>
-
 	<td><small><span class="label label-info"> <?php echo $a['temp_set']; ?></span></small></td>
     <td><small><span class="label label-warning"> <?php echo $a['work_mode']; ?></span></small></td>
 	
