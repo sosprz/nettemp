@@ -271,11 +271,8 @@ function db($rom,$val,$type,$device,$current) {
 					//sum,current for counters
 					$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
 					echo "$rom ok \n";
-					if ($type == 'heaterst') {
-					$db->exec("UPDATE heaters SET tmp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters status temp_actual\n");
-					echo "$rom ok tmpactual \n";
-					}
-					
+					$db->exec("UPDATE heaters SET temp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
+					echo "$rom ok insert heaters temp_actual\n";
 					
 		    }
 		    // time when you can put into base
