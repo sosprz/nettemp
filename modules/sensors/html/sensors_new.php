@@ -18,13 +18,6 @@
 	$file_expl_array2[]=$a["rom"];	
 	}
 	
-	$sth3 = $db->prepare("SELECT rom FROM heaters");
-	$sth3->execute();
-	$result = $sth3->fetchAll();
-	foreach ($result as $a) { 
-	$file_expl_array2[]=$a["rom"];	
-	}
-	
 	foreach ($digitemprc as $rom_new) { ?>
 	<?php 
 	$trim_rom_new=trim($rom_new);
@@ -69,12 +62,6 @@
     $sth2->execute();
     $result2 = $sth->fetchAll();
     foreach ($result2 as $a) { 		
-    $array20[]=$a["rom"];
-    }	 
-	$sth = $db->prepare("SELECT rom FROM heaters");
-    $sth3->execute();
-    $result3 = $sth->fetchAll();
-    foreach ($result3 as $a) { 		
     $array20[]=$a["rom"];
     }	 
     
