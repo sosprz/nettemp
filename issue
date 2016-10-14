@@ -1,6 +1,5 @@
 
 bme280 other address
-button for all minmax, justgage, charts
 if (types[this.name]=='elec' && mode=='2') {n_units = " W"};
 justgauge poprawka interval
 -custom max charts
