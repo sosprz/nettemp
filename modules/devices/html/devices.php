@@ -22,7 +22,7 @@
 <a href="index.php?id=devices&type=usb" ><button class="btn btn-xs btn-default <?php echo $art == 'usb' ? 'active' : ''; ?>">USB/Serial</button></a>
 <a href="index.php?id=devices&type=lcd" ><button class="btn btn-xs btn-default <?php echo $art == 'lcd' ? 'active' : ''; ?>">LCD</button></a>
 <a href="index.php?id=devices&type=i2c" ><button class="btn btn-xs btn-default <?php echo $art == 'i2c' ? 'active' : ''; ?>">I2C</button></a>
-<a href="index.php?id=devices&type=rs485" ><button class="btn btn-xs btn-default <?php echo $art == 'rs485' ? 'active' : ''; ?>">RS4851</button></a>
+<a href="index.php?id=devices&type=rs485" ><button class="btn btn-xs btn-default <?php echo $art == 'rs485' ? 'active' : ''; ?>">RS485</button></a>
 </p>
 
 
