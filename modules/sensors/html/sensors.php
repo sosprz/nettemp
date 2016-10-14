@@ -57,9 +57,6 @@ $name_new=trim($name_new2);
    if (strpos($id_rom_new,'wireless') !== false) {
 		 $device='wireless';
 	}
-	if (strpos($id_rom_new,'wifiheaters') !== false) {
-		 $device='wifiheaters';
-	}
 	if (strpos($id_rom_new,'remote_') !== false) {
     	    $device='remote';
 	}
@@ -81,10 +78,10 @@ $name_new=trim($name_new2);
 	elseif (strpos($id_rom_new,'Banana_Pi') !== false) {
 	    $device='banana';
 	}
- 
+
 	
 	//DB    
-	if ($type != "relay") {
+	if ($type != "relay" ) {
 		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip, adj, charts, sum, map_pos, map_num, position, map) VALUES ('$name','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip', '0', 'on', '0', '{left:0,top:0}', '$map_num', '1', 'on')") or die ("cannot insert to DB" );
 		//maps settings
 		$inserted=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_new'");
@@ -96,14 +93,8 @@ $name_new=trim($name_new2);
 		//relays
 		$db->exec("INSERT OR IGNORE INTO relays (name, rom, ip, type) VALUES ('wifi_relay_$name','$id_rom_new','$ip', '$type'  )") or die ("cannot insert relays to DB" );
 	}
-	
-	if ($type == "heaterst" ) {
-		//heaters
-		$db->exec("INSERT OR IGNORE INTO heaters (name, rom, ip, type, temp_actual, temp_set, work_mode, position, status) VALUES ('$name','$id_rom_new','$ip', '$type','0','0','OFF','1','OFF'  )") or die ("cannot insert heaters to DB" );
-	    }
-	
 	// ADD DB
-   if ($device == "wireless" || $device == "wifiheaters") {
+   if ($device == "wireless"  ) {
 		//host for monitoring
 		$name='host_wifi_' . $type . '_' . $name;
 		$dbhost = new PDO("sqlite:dbf/nettemp.db");	
@@ -268,7 +259,6 @@ if ( $lcd == "lcd"){
 <?php 
     include("modules/sensors/html/sensors_settings.php"); 
     include("modules/relays/html/relays_settings.php");
-	include("modules/heaters/html/heaters_settings.php");
     include("modules/sensors/html/sensors_new.php"); 
     include("modules/sensors/html/other.php"); 
 ?>
