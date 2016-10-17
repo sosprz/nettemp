@@ -87,7 +87,6 @@ function check(&$val,$type) {
 		elseif ($type == 'heaters') {
 		    if (( -150 <= $val) && ($val <= 3000) && ($val != 85) && ($val != 185) && ($val != 127.9)) {
 			$val=$val;
-			$val2=$val;
 		    }
 		    else {
 			$val='range';
