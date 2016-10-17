@@ -225,12 +225,13 @@ function check(&$val,$type) {
 		elseif ($type == 'heaters') {
 			
 			$val2= substr($val,0,2);
-			if ($val2 =='v1'){
+			if ($val2 == 'v1'){
 			$val=22.2;
 		    }
 		    else {
 			$val='range';
-		    }	
+		}	
+		}
 			    
 		}	
 			
