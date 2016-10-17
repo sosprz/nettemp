@@ -226,7 +226,7 @@ function check(&$val,$type) {
 			
 			$val2= substr($val,0,2);
 			if ($val2 =='v1'){
-			$val=1111;
+			$val=22.2;
 		    }
 		    else {
 			$val='range';
