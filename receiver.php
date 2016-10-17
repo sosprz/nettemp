@@ -85,12 +85,12 @@ function check(&$val,$type) {
 		    }
 		}	
 		elseif ($type == 'heaters') {
-		    if (( -150 <= $val) && ($val <= 3000) && ($val != 85) && ($val != 185) && ($val != 127.9)) {
+		    //if (( -150 <= $val) && ($val <= 3000) && ($val != 85) && ($val != 185) && ($val != 127.9)) {
 			$val=substr($val,0,1);
 		    }
-		    else {
-			$val='range';
-		    }	
+		   // else {
+			//$val='range';
+		   // }	
 			    
 		}
 		elseif ($type == 'humid') {
