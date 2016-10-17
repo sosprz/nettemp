@@ -87,6 +87,7 @@ function check(&$val,$type) {
 		elseif ($type == 'heaters') {
 		    if (( -150 <= $val) && ($val <= 3000) && ($val != 85) && ($val != 185) && ($val != 127.9)) {
 			$val=$val;
+			$val2=$val;
 		    }
 		    else {
 			$val='range';
@@ -277,7 +278,7 @@ function db($rom,$val,$type,$device,$current) {
 					
 					if ($type == 'heaters') {
 					$db->exec("UPDATE heaters SET temp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
-					echo "$rom ok insert heaters temp_actual \n";
+					echo "$rom ok insert heaters temp_actual $val2 \n";
 					}
 					
 					
