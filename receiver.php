@@ -224,7 +224,7 @@ function check(&$val,$type) {
 				
 		elseif ($type == 'heaters') {
 			
-			$val2= substr($val,0,2);
+			$val2 = substr($val,0,2);
 			if ($val2 == 'v1'){
 			$val = 22;
 		    }
@@ -342,7 +342,7 @@ function db($rom,$val,$type,$device,$current) {
 		else {
 		    $db->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert error to status\n" );
 		}
-		echo "$rom not numieric! $val \n";
+		echo "$rom not numieric! $val $val2 \n";
 		}
 	}
 	//if not exist on base
