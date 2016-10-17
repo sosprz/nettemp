@@ -278,7 +278,7 @@ function db($rom,$val,$type,$device,$current) {
 					echo "$rom ok \n";
 					
 					if ($type == 'heaters') {
-					$db->exec("UPDATE heaters SET temp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
+					$db->exec("UPDATE heaters SET temp_actual='$val2' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
 					echo "$rom ok insert heaters temp_actual $val2 \n";
 					}
 					
