@@ -10,7 +10,6 @@
 
 // |sed 's/.sql//g'|awk -F0x '{print $2"-"$8$7$6$5$4$3}' |tr A-Z a-z
 
-
 if (isset($_GET['key'])) {
 	    $key = $_GET['key'];
     }
@@ -85,7 +84,15 @@ function check(&$val,$type) {
 			$val='range';
 		    }
 		}	
-		
+		elseif ($type == 'heaters') {
+		    if (( -150 <= $val) && ($val <= 3000) && ($val != 85) && ($val != 185) && ($val != 127.9)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }	
+			    
+		}
 		elseif ($type == 'humid') {
 		    if ((0 <= $val) && ($val <= 110)) {
 			$val=$val;
@@ -221,21 +228,7 @@ function check(&$val,$type) {
 		    else {
 			$val='range';
 		    }
-		}	
-				
-		elseif ($type == 'heaters') {
-			$val2 = substr($val,0,2);
-			if ($val2 == 'v1'){
-			$val = $val;
-		    }
-		    else {
-			$val='range';
-		}	
-		
-			    
-		}	
-			
-		
+		}
 		
 		
 		
@@ -342,7 +335,7 @@ function db($rom,$val,$type,$device,$current) {
 		else {
 		    $db->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert error to status\n" );
 		}
-		echo "$rom not numieric! $val oraz $val2 \n";
+		echo "$rom not numieric! $val \n";
 		}
 	}
 	//if not exist on base
