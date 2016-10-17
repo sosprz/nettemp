@@ -15,7 +15,7 @@ if (isset($_GET['key'])) {
     }
 if (isset($_GET['value'])) {
             $val = $_GET['value'];
-			$val2 = substr($val,0,2);
+			
 			//$val = substr($val,3,2);
     }
 if (isset($_GET['rom'])) {
@@ -43,6 +43,8 @@ if (isset($_GET['current'])) {
 if (isset($_GET['usb'])) {
             $usb = $_GET['usb'];
     }
+	
+	$val2 = substr($val,0,2);
 
 function trigger($rom) {
 	$db = new PDO("sqlite:dbf/nettemp.db") or die ("cannot open database");
