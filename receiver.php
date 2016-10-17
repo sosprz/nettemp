@@ -92,7 +92,7 @@ function check(&$val,$type) {
 			//$val='range';
 		   // }	
 			    
-		}
+		
 		elseif ($type == 'humid') {
 		    if ((0 <= $val) && ($val <= 110)) {
 			$val=$val;
