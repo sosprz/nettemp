@@ -36,11 +36,8 @@ foreach ( $result as $a) {
     <tr>
     <td><small>	<img type="image" src="media/ico/heat.png" /></small></td>
     <td><small><?php echo $name; ?><small></td>
-<td><small><span class="label label-success"><?php echo number_format($a['temp_actual'], 2, '.', ','); ?></span></small></td>
-	
-	echo 	number_format($a['tmp'], 2, '.', ',')
-	
-	<td><small><span class="label label-info"> <?php echo $a['temp_set']; ?></span></small></td>
+	<td><small><span class="label label-success"> <?php echo number_format($a['temp_actual'], 1, '.', ','); ?></span></small></td>
+	<td><small><span class="label label-info"> <?php echo number_format($a['temp_set'], 1, '.', ','); ?></span></small></td>
     <td><small><span class="label label-warning"> <?php echo $a['work_mode']; ?></span></small></td>
 	
 	<td><small><span
