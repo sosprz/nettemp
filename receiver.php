@@ -1,6 +1,6 @@
 <?php
 // name:
-// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps, watt, trigger, heaterst, heatersm, heaterss
+// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps, watt, trigger, heaters
 // device: wireless, remote, gpio, i2c, usb, wifiheaters
 // definied source (middle part): tty, ip, gpio number
 
@@ -84,7 +84,7 @@ function check(&$val,$type) {
 			$val='range';
 		    }
 		}	
-		elseif ($type == 'heaterst') {
+		elseif ($type == 'heaters') {
 		    if (( -150 <= $val) && ($val <= 3000) && ($val != 85) && ($val != 185) && ($val != 127.9)) {
 			$val=$val;
 		    }
@@ -247,7 +247,7 @@ function db($rom,$val,$type,$device,$current) {
 	if ($type == 'host') {
     	    $rows = $db->query("SELECT rom FROM hosts WHERE rom='$rom'");
 	}
-	elseif ($type == 'heaterst' || $type == 'heatersm' || $type == 'heaterss') {
+	elseif ($type == 'heaters') {
     	    $rows = $db->query("SELECT rom FROM heaters WHERE rom='$rom'");
 	}
 	else {
@@ -262,7 +262,7 @@ function db($rom,$val,$type,$device,$current) {
 		if ($val != 'range'){
 		    //// base
 		    // counters can always put to base
-		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting", "heaterst", "heatersm", "heaterss");
+		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting", "heaters" );
 		    $arrayd = array("wifiheaters", "wireless", "gpio", "usb");
 		    if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
 					if (isset($current) && is_numeric($current)) {
@@ -275,20 +275,11 @@ function db($rom,$val,$type,$device,$current) {
 					$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
 					echo "$rom ok \n";
 					
-					if ($type == 'heaterst') {
+					if ($type == 'heaters') {
 					$db->exec("UPDATE heaters SET temp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
 					echo "$rom ok insert heaters temp_actual\n";
 					}
 					
-					if ($type == 'heatersm') {
-					$db->exec("UPDATE heaters SET work_mode='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
-					echo "$rom ok insert heaters work_mode\n";
-					}
-					
-					if ($type == 'heaterss') {
-					$db->exec("UPDATE heaters SET status='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
-					echo "$rom ok insert heaters ststus\n";
-					}
 					
 		    }
 		    // time when you can put into base
