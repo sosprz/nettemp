@@ -15,6 +15,8 @@ if (isset($_GET['key'])) {
     }
 if (isset($_GET['value'])) {
             $val = $_GET['value'];
+			$val2 = substr($val,0,2);
+			$val = substr($val,3,3);
     }
 if (isset($_GET['rom'])) {
             $rom = $_GET['rom'];
@@ -85,14 +87,14 @@ function check(&$val,$type) {
 		    }
 		}	
 		elseif ($type == 'heaters') {
-		    //if (( -150 <= $val) && ($val <= 3000) && ($val != 85) && ($val != 185) && ($val != 127.9)) {
-			$val=substr($val,0,1);
+		    if (( -150 <= $val) && ($val <= 3000) && ($val != 85) && ($val != 185) && ($val != 127.9)) {
+			$val=$val;
 		    }
-		   // else {
-			//$val='range';
-		   // }	
+		    else {
+			$val='range';
+		    }	
 			    
-		
+		}
 		elseif ($type == 'humid') {
 		    if ((0 <= $val) && ($val <= 110)) {
 			$val=$val;
@@ -277,7 +279,7 @@ function db($rom,$val,$type,$device,$current) {
 					
 					if ($type == 'heaters') {
 					$db->exec("UPDATE heaters SET temp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
-					echo "$rom ok insert heaters temp_actual \n";
+					echo "$rom ok insert heaters temp_actual $val2 \n";
 					}
 					
 					
