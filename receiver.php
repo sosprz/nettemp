@@ -16,7 +16,7 @@ if (isset($_GET['key'])) {
 if (isset($_GET['value'])) {
             $val = $_GET['value'];
 			$val2 = substr($val,0,2);
-			$val = substr($val,3,3);
+			//$val = substr($val,3,2);
     }
 if (isset($_GET['rom'])) {
             $rom = $_GET['rom'];
@@ -337,7 +337,7 @@ function db($rom,$val,$type,$device,$current) {
 		else {
 		    $db->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert error to status\n" );
 		}
-		echo "$rom not numieric! $val \n";
+		echo "$rom not numieric! $val .... $val2 \n";
 		}
 	}
 	//if not exist on base
