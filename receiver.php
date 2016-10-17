@@ -9,6 +9,7 @@
 // php-cgi -f receiver.php key=123456 rom=new_12_temp value=23
 
 // |sed 's/.sql//g'|awk -F0x '{print $2"-"$8$7$6$5$4$3}' |tr A-Z a-z
+$val2==0;
 
 if (isset($_GET['key'])) {
 	    $key = $_GET['key'];
