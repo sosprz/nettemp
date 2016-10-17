@@ -39,7 +39,7 @@ if ($a['mode'] != 'read') {
 		    </span>
 		</a>
     </td>
-	<td>Test</td>
+	
 </tr>
 
 <?php
