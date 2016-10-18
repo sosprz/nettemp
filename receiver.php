@@ -259,7 +259,7 @@ function db($rom,$val,$type,$device,$current) {
    $c = count($row);
    if ( $c >= "1") {
 	   
-	   if (type == 'heaters'){
+	   if ($type == 'heaters'){
 	   
 	   $val2= substr($val,0,2); // tutaj wycinam identyfikator parametru
 	   $val= substr($val,2,4);   // tutaj mamy wartość parametru - dalej powinno być z górki :)
