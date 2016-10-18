@@ -16,6 +16,9 @@ if (isset($_GET['key'])) {
 if (isset($_GET['value'])) {
             $val = $_GET['value'];
     }
+if (isset($_GET['value_type'])) {
+            $val_t = $_GET['value_type'];
+    }	
 if (isset($_GET['rom'])) {
             $rom = $_GET['rom'];
 	    $file = "$rom.sql";
@@ -66,7 +69,7 @@ function trigger($rom) {
 
 }
 
-function check(&$val,$type) {
+function check(&$val,$type,$val_t) {
 
 		if ($type == 'lux') {
 		    if ((-1 <= $val) && ($val <= 80000)) {
@@ -239,7 +242,7 @@ function check(&$val,$type) {
 
 
 
-function db($rom,$val,$type,$device,$current) {
+function db($rom,$val,$val_t,$type,$device,$current) {
 	global $chmin;
 	$db = new PDO("sqlite:dbf/nettemp.db") or die ("cannot open database");
 	$file = "$rom.sql";
@@ -425,16 +428,8 @@ elseif (isset($val) && isset($type)) {
 	    }
 	}
 
-	$file = "$rom.sql";
-	
-	if ($type=="heaters"){
-		db($rom,$val,$type,$device,$current);
-		
-						}
-				else{
-	
-	
-	db($rom,$val,$type,$device,$current);
+	$file = "$rom.sql"
+	db($rom,$val,$val_t,$type,$device,$current);
 				}
 }
 else {
