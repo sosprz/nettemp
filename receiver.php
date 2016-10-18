@@ -258,6 +258,11 @@ function db($rom,$val,$type,$device,$current) {
    $row = $rows->fetchAll();
    $c = count($row);
    if ( $c >= "1") {
+	   
+	   $val2= substr($val,0,2);
+	   
+	   
+	   
 	  if (is_numeric($val)) {
 		check($val,$type);
 		if ($val != 'range'){
