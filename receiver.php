@@ -259,9 +259,11 @@ function db($rom,$val,$type,$device,$current) {
    $c = count($row);
    if ( $c >= "1") {
 	   
-	   $val2= substr($val,0,2); // tutaj wycinam identyfikator parametru
-	   $val= substr($val,2,3);   // tutaj mamy wartość parametru - dalej powinno być z górki :)
+	   if (type == 'heaters'){
 	   
+	   $val2= substr($val,0,2); // tutaj wycinam identyfikator parametru
+	   $val= substr($val,2,4);   // tutaj mamy wartość parametru - dalej powinno być z górki :)
+	   }
 	   
 	  if (is_numeric($val)) {
 		check($val,$type);
