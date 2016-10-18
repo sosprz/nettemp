@@ -428,7 +428,7 @@ elseif (isset($val) && isset($type)) {
 	$file = "$rom.sql";
 	
 	if ($type=="heaters"){
-		
+		db($rom,$val,$type,$device,$current);
 		
 						}
 				else{
