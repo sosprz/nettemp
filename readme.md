@@ -59,6 +59,7 @@ RC3
 
 Add screen
 Add types in seetings
+Add datepicker to cvs export
 
 
 
