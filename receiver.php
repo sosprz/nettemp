@@ -284,12 +284,21 @@ function db($rom,$val,$val_t,$type,$device,$current) {
 						
 						if ($val_t == 'tempa'){
 						$db->exec("UPDATE heaters SET temp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
-						echo "$rom ok insert heaters temp_actual \n";	
+						echo "$rom ok insert heaters temp_actual $val\n";	
+					}
+					elseif ($val_t == 'temps'){
+						$db->exec("UPDATE heaters SET temp_set='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
+						echo "$rom ok insert heaters temp_set $val\n";	
 					}
 					elseif ($val_t == 'mode'){
 						$db->exec("UPDATE heaters SET work_mode='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
-						echo "$rom ok insert heaters work_mode \n";	
+						echo "$rom ok insert heaters work_mode $val\n";	
 					}
+					elseif ($val_t == 'status'){
+						$db->exec("UPDATE heaters SET status='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
+						echo "$rom ok insert heaters status $val\n";	
+					}
+					
 					}
 		    }
 		    // time when you can put into base
