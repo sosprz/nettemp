@@ -259,8 +259,8 @@ function db($rom,$val,$type,$device,$current) {
    $c = count($row);
    if ( $c >= "1") {
 	   
-	   $val2= substr($val,0,2);
-	   $val= substr($val,2,3);
+	   $val2= substr($val,0,2); // tutaj wycinam identyfikator parametru
+	   $val= substr($val,2,3);   // tutaj mamy wartość parametru - dalej powinno być z górki :)
 	   
 	   
 	  if (is_numeric($val)) {
@@ -281,7 +281,7 @@ function db($rom,$val,$type,$device,$current) {
 					$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
 					echo "$rom ok \n";
 					
-					if ($type == 'heaters') {
+					if ($type == 'heaters' && $val2 == 'v1') {
 					$db->exec("UPDATE heaters SET temp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
 					echo "$rom ok insert heaters temp_actual \n";
 					}
