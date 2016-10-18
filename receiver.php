@@ -282,7 +282,7 @@ function db($rom,$val,$val_t,$type,$device,$current) {
 					
 					if ($type == 'heaters') {
 						
-						if ($val_t == 'tmpa'){
+						if ($val_t == 'tempa'){
 						$db->exec("UPDATE heaters SET temp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
 						echo "$rom ok insert heaters temp_actual \n";	
 					}
