@@ -262,6 +262,8 @@ function db($rom,$val,$type,$device,$current) {
 	   if ($type == 'heaters'){
 	   
 	   $val2= substr($val,0,2); // tutaj wycinam identyfikator parametru
+	   
+	   
 	   $val= substr($val,2,4);   // tutaj mamy wartość parametru - dalej powinno być z górki :)
 	   }
 	   
@@ -283,9 +285,12 @@ function db($rom,$val,$type,$device,$current) {
 					$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
 					echo "$rom ok \n";
 					
-					if ($type == 'heaters' && $val2 == 'v1') {
-					$db->exec("UPDATE heaters SET temp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
-					echo "$rom ok insert heaters temp_actual \n";
+					if ($type == 'heaters') {
+						
+						if ($val2 == 'v1'){
+						$db->exec("UPDATE heaters SET temp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
+						echo "$rom ok insert heaters temp_actual \n";
+						}
 					}
 					
 					
