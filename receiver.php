@@ -18,7 +18,7 @@ if (isset($_GET['value'])) {
     }
 if (isset($_GET['value_type'])) {
             $val_t = $_GET['value_type'];
-    }	
+    }	else $val_t='';
 if (isset($_GET['rom'])) {
             $rom = $_GET['rom'];
 	    $file = "$rom.sql";
