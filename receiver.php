@@ -69,7 +69,7 @@ function trigger($rom) {
 
 }
 
-function check(&$val,$type,$val_t) {
+function check(&$val,$val_t,$type) {
 
 		if ($type == 'lux') {
 		    if ((-1 <= $val) && ($val <= 80000)) {
@@ -263,7 +263,7 @@ function db($rom,$val,$val_t,$type,$device,$current) {
    if ( $c >= "1") {
 	   
 	  if (is_numeric($val)) {
-		check($val,$type);
+		check($val,$val_t,$type);
 		if ($val != 'range'){
 		    //// base
 		    // counters can always put to base
