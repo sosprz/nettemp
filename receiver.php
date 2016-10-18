@@ -260,7 +260,7 @@ function db($rom,$val,$type,$device,$current) {
    if ( $c >= "1") {
 	   
 	   $val2= substr($val,0,2);
-	   
+	   $val= substr($val,2,3);
 	   
 	   
 	  if (is_numeric($val)) {
