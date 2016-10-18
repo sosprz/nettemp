@@ -1,7 +1,7 @@
 <?php
 // name:
-// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps, watt, trigger
-// device: wireless, remote, gpio, i2c, usb
+// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps, watt, trigger, heaters
+// device: wireless, remote, gpio, i2c, usb, wifiheaters
 // definied source (middle part): tty, ip, gpio number
 
 // curl --connect-timeout 3 -G "http://172.18.10.10/receiver.php" -d "value=1&key=123456&device=wireless&type=gas&ip=172.18.10.9"
@@ -16,6 +16,9 @@ if (isset($_GET['key'])) {
 if (isset($_GET['value'])) {
             $val = $_GET['value'];
     }
+if (isset($_GET['value_type'])) {
+            $val_t = $_GET['value_type'];
+    }	else $val_t='';
 if (isset($_GET['rom'])) {
             $rom = $_GET['rom'];
 	    $file = "$rom.sql";
@@ -41,6 +44,7 @@ if (isset($_GET['current'])) {
 if (isset($_GET['usb'])) {
             $usb = $_GET['usb'];
     }
+	
 
 function trigger($rom) {
 	$db = new PDO("sqlite:dbf/nettemp.db") or die ("cannot open database");
@@ -65,7 +69,7 @@ function trigger($rom) {
 
 }
 
-function check(&$val,$type) {
+function check(&$val,$val_t,$type) {
 
 		if ($type == 'lux') {
 		    if ((-1 <= $val) && ($val <= 80000)) {
@@ -83,7 +87,15 @@ function check(&$val,$type) {
 		    else {
 			$val='range';
 		    }
-		    
+		}	
+		elseif ($type == 'heaters') {
+		    if (( -150 <= $val) && ($val <= 3000) && ($val != 85) && ($val != 185) && ($val != 127.9)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }	
+			    
 		}
 		elseif ($type == 'humid') {
 		    if ((0 <= $val) && ($val <= 110)) {
@@ -230,7 +242,7 @@ function check(&$val,$type) {
 
 
 
-function db($rom,$val,$type,$device,$current) {
+function db($rom,$val,$val_t,$type,$device,$current) {
 	global $chmin;
 	$db = new PDO("sqlite:dbf/nettemp.db") or die ("cannot open database");
 	$file = "$rom.sql";
@@ -239,6 +251,9 @@ function db($rom,$val,$type,$device,$current) {
 	if ($type == 'host') {
     	    $rows = $db->query("SELECT rom FROM hosts WHERE rom='$rom'");
 	}
+	elseif ($type == 'heaters') {
+    	    $rows = $db->query("SELECT rom FROM heaters WHERE rom='$rom'");
+	}
 	else {
 		 	 $rows = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
     	 }
@@ -246,23 +261,49 @@ function db($rom,$val,$type,$device,$current) {
    $row = $rows->fetchAll();
    $c = count($row);
    if ( $c >= "1") {
+	   
 	  if (is_numeric($val)) {
-		check($val,$type);
+		check($val,$val_t,$type);
 		if ($val != 'range'){
 		    //// base
 		    // counters can always put to base
-		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting");
-		    $arrayd = array("wireless", "gpio", "usb");
+		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting", "heaters" );
+		    $arrayd = array("wifiheaters", "wireless", "gpio", "usb");
 		    if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
 					if (isset($current) && is_numeric($current)) {
 			    		$dbf->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql current\n" );
 			    		$db->exec("UPDATE sensors SET current='$current' WHERE rom='$rom'") or die ("cannot insert to current\n" );
 					} else {
 			    		$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql\n" );
-					}
+							}
 					//sum,current for counters
+					if ($type != 'heaters'){
 					$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
-					echo "$rom ok \n";
+					echo "$rom ok $val\n";
+					}
+					if ($type == 'heaters') {
+						
+						if ($val_t == 'tempa'){
+						$db->exec("UPDATE heaters SET temp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
+						echo "$rom ok insert heaters temp_actual $val\n";	
+						
+						$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
+						echo "$rom ok insert heaters to sensors temp_actual$val\n";
+					}
+					elseif ($val_t == 'temps'){
+						$db->exec("UPDATE heaters SET temp_set='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
+						echo "$rom ok insert heaters temp_set $val\n";	
+					}
+					elseif ($val_t == 'mode'){
+						$db->exec("UPDATE heaters SET work_mode='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
+						echo "$rom ok insert heaters work_mode $val\n";	
+					}
+					elseif ($val_t == 'status'){
+						$db->exec("UPDATE heaters SET status='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
+						echo "$rom ok insert heaters status $val\n";	
+					}
+					
+					}
 		    }
 		    // time when you can put into base
 		    elseif ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
@@ -293,6 +334,9 @@ function db($rom,$val,$type,$device,$current) {
 					$db->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to trigger status2\n");
 					trigger($rom);
 		    }
+			
+			
+			
 		    //sensors status
 		    else {
 					$db->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status\n" );
@@ -314,7 +358,7 @@ function db($rom,$val,$type,$device,$current) {
 		else {
 		    $db->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert error to status\n" );
 		}
-		echo "$rom not numieric! $val \n";
+		echo "$rom not numeric! $val .... \n";
 		}
 	}
 	//if not exist on base
@@ -383,6 +427,14 @@ elseif (isset($val) && isset($type)) {
 		exit();
 	    }
 	}
+	if ( $device == "wifiheaters" ) {
+	    if (!empty($type) && !empty($ip)) {
+		$rom=$device.'_'.$ip.'_'.$type; 
+	    } else {
+		echo "Missing type or IP";
+		exit();
+	    }
+	}
 	if ( $device == "usb" ) {
 	    if (!empty($type) && !empty($usb)) {
 		$rom=$device.'_'.$usb.'_'.$type; 
@@ -393,8 +445,8 @@ elseif (isset($val) && isset($type)) {
 	}
 
 	$file = "$rom.sql";
-	db($rom,$val,$type,$device,$current);
-
+	db($rom,$val,$val_t,$type,$device,$current);
+				
 }
 else {
     echo "no data\n";

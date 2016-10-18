@@ -48,6 +48,7 @@ Go to device scan!
 	$mm='';
 
 		if($a['device'] == 'wireless'){ $device='<img src="media/ico/wifi-circle-icon.png" alt="" title="Wireless"/>';}
+		if($a['device'] == 'wifiheaters'){ $device='<img src="media/ico/wifi-circle-icon.png" alt="" title="Wireless"/>';}
 		if($a['device'] == 'remote'){ $device='<img src="media/ico/remote.png" alt="" title="Remote NODE"/>';}
 		if($a['device'] == 'usb'){ $device='<img src="media/ico/usb-icon.png" alt="" title="USB"/>';}
 		if($a['device'] == 'rpi'){ $device='<img src="media/ico/raspberry-icon.png" alt="" title="Raspberry Pi"/>';}
