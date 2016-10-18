@@ -428,7 +428,7 @@ elseif (isset($val) && isset($type)) {
 	    }
 	}
 
-	$file = "$rom.sql"
+	$file = "$rom.sql";
 	db($rom,$val,$val_t,$type,$device,$current);
 				
 }
