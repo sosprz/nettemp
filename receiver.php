@@ -426,8 +426,16 @@ elseif (isset($val) && isset($type)) {
 	}
 
 	$file = "$rom.sql";
+	
+	if ($type=="heaters"){
+		
+		
+						}
+				else{
+	
+	
 	db($rom,$val,$type,$device,$current);
-
+				}
 }
 else {
     echo "no data\n";
