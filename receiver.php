@@ -430,7 +430,7 @@ elseif (isset($val) && isset($type)) {
 
 	$file = "$rom.sql"
 	db($rom,$val,$val_t,$type,$device,$current);
-				}
+				
 }
 else {
     echo "no data\n";
