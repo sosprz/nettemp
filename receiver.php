@@ -277,7 +277,7 @@ function db($rom,$val,$val_t,$type,$device,$current) {
 			    		$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql\n" );
 							}
 					//sum,current for counters
-					if ($type!='heaters'){
+					if ($type != 'heaters'){
 					$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
 					echo "$rom ok $val\n";
 					}
@@ -286,8 +286,9 @@ function db($rom,$val,$val_t,$type,$device,$current) {
 						if ($val_t == 'tempa'){
 						$db->exec("UPDATE heaters SET temp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
 						echo "$rom ok insert heaters temp_actual $val\n";	
+						
 						$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
-					echo "$rom ok insert heaters to sensors temp_actual$val\n";
+						echo "$rom ok insert heaters to sensors temp_actual$val\n";
 					}
 					elseif ($val_t == 'temps'){
 						$db->exec("UPDATE heaters SET temp_set='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
@@ -357,7 +358,7 @@ function db($rom,$val,$val_t,$type,$device,$current) {
 		else {
 		    $db->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert error to status\n" );
 		}
-		echo "$rom not numieric! $val .... $val2 \n";
+		echo "$rom not numeric! $val .... \n";
 		}
 	}
 	//if not exist on base
