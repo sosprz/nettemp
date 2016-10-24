@@ -67,7 +67,7 @@ exit();
       background: url("map.jpg") left top;
 <?php 
     } else { ?>
-    background: url("map_example.jpg") left top;
+    background: url("media/jpg/map_example.jpg") left top;
 <?php
     }
 ?>
