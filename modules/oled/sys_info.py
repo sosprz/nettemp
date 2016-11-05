@@ -67,7 +67,7 @@ def ip():
 
 def stats(oled):
     font = ImageFont.load_default()
-    font2 = ImageFont.truetype('../fonts/C&C Red Alert [INET].ttf', 12)
+    font2 = ImageFont.truetype('fonts/C&C Red Alert [INET].ttf', 12)
     with canvas(oled) as draw:
         draw.text((0, 0), cpu_usage(), font=font2, fill=255)
         draw.text((0, 14), mem_usage(), font=font2, fill=255)
