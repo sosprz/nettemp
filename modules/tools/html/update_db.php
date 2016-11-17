@@ -280,6 +280,8 @@ $db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('map_height', '600')
 $db->exec("CREATE TABLE minmax (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT)");
 $db->exec("INSERT OR IGNORE INTO minmax (name, state) VALUES ('mode', '1')");
 $db->exec("CREATE TABLE types (id INTEGER PRIMARY KEY,type UNIQUE, unit TEXT, unit2 TEXT, ico TEXT, title TEXT, min NUMERIC, max NUMERIC, value1 NUMERIC, value2 NUMERIC, value3 NUMERIC");
+
+
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max, value1, value2, value3) VALUES ('temp', '°C', '°F', 'media/ico/temp2-icon.png' ,'Temperature','-150', '3000', '85', '185' ,'127.9')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('lux', 'lux', 'lux', 'media/ico/sun-icon.png' ,'Lux','8000')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('humid', '%', '%', 'media/ico/rain-icon.png' ,'Humidity','0', '110')");
@@ -311,7 +313,12 @@ $db->exec("ALTER TABLE types ADD value1 NUMERIC");
 $db->exec("ALTER TABLE types ADD value2 NUMERIC");
 $db->exec("ALTER TABLE types ADD value3 NUMERIC");
 
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('humid','0', '110', '0', '0' ,'0')");
+$db->exec("UPDATE types SET min='-150', max='3000', value1='85', value2='185', value3='127.9' WHERE type='temp' && min is null");
+$db->exec("UPDATE types SET min='0', max='110' WHERE type='humid' && min is null");
+
+
+
+$db->exec("INSERT OR IGNORE INTO types (min, max, value1, value2, value3) VALUES ('humid','0', '110', '0', '0' ,'0')");
 $db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('lux','-1', '8000', '0', '0' ,'0')");
 $db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('press','0','1100', '0', '0' ,'0')");
 $db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('gas','0', '100', '0', '0' ,'0')");

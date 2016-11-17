@@ -67,11 +67,10 @@ function trigger($rom) {
 
 function check(&$val,$type) {
 	$db = new PDO("sqlite:dbf/nettemp.db") or die ("cannot open database");
-	$rows = $db->query("SELECT * FROM sensors_range WHERE type='$type'");
+	$rows = $db->query("SELECT * FROM types WHERE type='$type'");
     $row = $rows->fetchAll();
     foreach($row as $range) 
     {
-	
 		if (($range['min'] <= $val) && ($val <= $range['max']) && ($val != $range['value1']) && ($val != $range['value2']) && ($val != $range['value3'])) 
 		{
 			$val=$val;
