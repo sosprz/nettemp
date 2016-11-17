@@ -16,7 +16,7 @@ sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db < $dir/modules/tools/nettemp.sc
 chmod 775 $dir/dbf/nettemp.db
 chown root.www-data $dir/dbf/nettemp.db
 
-$dir/modules/tools/update_perms
+#$dir/modules/tools/update_perms
 
 if [[ "$2" == update ]]; then 
     php-cgi -f $dir/modules/tools/html/update_db.php
