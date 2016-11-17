@@ -15,14 +15,14 @@ if ($update == "Update") {
     passthru("cd /var/www/nettemp && git reset --hard");
     passthru("/usr/bin/git pull 2>&1");
 ?>
-</pre>
+
 <?php
     shell_exec("$dir/modules/tools/update_su");
-    //shell_exec("$dir/modules/tools/update_db");
     shell_exec("$dir/modules/tools/update_fi");
     include("modules/tools/html/update_db.php");
     }
 ?>
+</pre>
     <form action="" method="post">
     <button type="submit" name="update" value="Update" class="btn btn-xs btn-success"  />Update</button>
     </form>
