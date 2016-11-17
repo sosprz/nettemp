@@ -8,19 +8,14 @@ if [[ "$1" == git ]]; then
 fi
 
 rm -rf $dir/dbf/*.db
-#rm -rf $dir/db/*.rrd #uncomment will delete all stored data
 rm -rf $dir/tmp
 mkdir $dir/tmp
 
-#for i in snmp hosts nettemp; do 
-for i in nettemp; do
-    rm -rf $dir/dbf/$i.db
-    sqlite3 -cmd ".timeout 2000" $dir/dbf/$i.db < $dir/modules/tools/$i.schema
-    chmod 775 $dir/dbf/$i.db
-    chown root.www-data $dir/dbf/$i.db
-done
+rm -rf $dir/dbf/$i.db
+sqlite3 -cmd ".timeout 2000" $dir/dbf/$i.db < $dir/modules/tools/$i.schema
+chmod 775 $dir/dbf/$i.db
+chown root.www-data $dir/dbf/$i.db
 
-php-cgi -f $dir/modules/tools/html/update_db.php
 
 
 

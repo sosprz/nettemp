@@ -5,9 +5,10 @@
 $dir=$_SERVER['DOCUMENT_ROOT'];
 $admin_db_reset = isset($_POST['admin_db_reset']) ? $_POST['admin_db_reset'] : '';
 if ($admin_db_reset == "admin_db_reset1") { 
-shell_exec("$dir/modules/tools/db_reset git");
-header("location: " . $_SERVER['REQUEST_URI']);
-exit();	
+	shell_exec("$dir/modules/tools/db_reset git");
+	include("modules/tools/html/update_db.php");
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();	
 }
 ?>
 <form action="" method="post">

@@ -7,16 +7,12 @@ $dir=$_SERVER['DOCUMENT_ROOT'];
 $update=isset($_POST['update']) ? $_POST['update'] : '';
 
 if ($update == "Update") { 
-    //putenv('PATH='. getenv('PATH') .':var/www/nettemp');
-    
+       
 ?>
 <pre>
 <?php
     passthru("cd /var/www/nettemp && git reset --hard");
     passthru("/usr/bin/git pull 2>&1");
-?>
-
-<?php
     shell_exec("$dir/modules/tools/update_su");
     shell_exec("$dir/modules/tools/update_fi");
     include("modules/tools/html/update_db.php");
