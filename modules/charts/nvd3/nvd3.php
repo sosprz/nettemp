@@ -105,7 +105,7 @@ d3.json('common/nvd3_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mod
     chart.xAxis
     .axisLabel("Time")
     .tickFormat(function(d) {
-      return d3.time.format.utc('%m/%d %X')(new Date(d))
+      return d3.time.format.utc('%H:%M')(new Date(d))
     });
     
     chart.x2Axis
@@ -125,7 +125,7 @@ d3.json('common/nvd3_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mod
      //   });
         
        chart.interactiveLayer.tooltip.contentGenerator(function (d) {
-         var html = "<h5><b>"+d3.time.format.utc('%m/%d %X')(new Date(d.value))+"</b></h5>";
+         var html = "<h5><b>"+d3.time.format.utc('%m/%d %H:%M')(new Date(d.value))+"</b></h5>";
 
           d.series.forEach(function(elem){
             html += "<h5 style='color:"+elem.color+"'>"+elem.key+" : <b>"+elem.value+' '+n_units+"</b></h5>";
