@@ -281,7 +281,6 @@ $db->exec("CREATE TABLE minmax (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,va
 $db->exec("INSERT OR IGNORE INTO minmax (name, state) VALUES ('mode', '1')");
 $db->exec("CREATE TABLE types (id INTEGER PRIMARY KEY,type UNIQUE, unit TEXT, unit2 TEXT, ico TEXT, title TEXT, min NUMERIC, max NUMERIC, value1 NUMERIC, value2 NUMERIC, value3 NUMERIC");
 
-
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max, value1, value2, value3) VALUES ('temp', '°C', '°F', 'media/ico/temp2-icon.png' ,'Temperature','-150', '3000', '85', '185' ,'127.9')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('lux', 'lux', 'lux', 'media/ico/sun-icon.png' ,'Lux','8000')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('humid', '%', '%', 'media/ico/rain-icon.png' ,'Humidity','0', '110')");
@@ -331,19 +330,7 @@ $db->exec("UPDATE types SET min='0', max='10000' WHERE type='speed' AND min is n
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='wind' AND min is null AND max is null");
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='uv' AND min is null AND max is null");
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='storm' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='10000' WHERE type='lighting' AND min is null AND max is null");
-
-
-
-
-
-
-
-
-
-
-
-
+$db->exec("UPDATE types SET min='0', max='10000' WHERE type='lightining' AND min is null AND max is null");
 
 
 echo "ok";
