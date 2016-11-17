@@ -131,7 +131,7 @@ $db->exec("UPDATE sensors SET charts='on' WHERE charts is null");
 $db->exec("UPDATE sensors SET adj='0' WHERE adj='' OR adj=' ' OR adj is null");
 $db->exec("UPDATE users SET perms='adm' WHERE login='admin' AND perms is null");
 $db->exec("UPDATE OR IGNORE settings SET tempnum='3' where id='1' AND tempnum is null");
-$db->exec("UPDATE OR IGNORE settings SET server_key='$(date +%s | sha256sum | base64 | head -c 10 ; echo)' where id='1' AND server_key is null");
+$db->exec("UPDATE OR IGNORE settings SET server_key='$(date +%s | sha256sum | base64 | head -c 10)' where id='1' AND server_key is null");
 
 $db->exec("INSERT OR IGNORE INTO mail_settings (id,tlscheck) VALUES (1,'off')");
 $db->exec("INSERT OR IGNORE INTO mail_settings (id,tls) VALUES (1,'on')");
