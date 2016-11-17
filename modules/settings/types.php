@@ -78,9 +78,9 @@ $row = $rows->fetchAll();
 <th>Title</th>
 <th>Min</th>
 <th>Max</th>
-<th>Value1</th>
-<th>Value2</th>
-<th>Value3</th>
+<th>Exclude Value1</th>
+<th>Exclude Value2</th>
+<th>Exclude Value3</th>
 <th></th>
 </tr>
 </thead>
