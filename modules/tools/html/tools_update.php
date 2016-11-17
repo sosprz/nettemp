@@ -15,7 +15,7 @@ if ($update == "Update") {
     passthru("/usr/bin/git pull 2>&1");
     shell_exec("$dir/modules/tools/update_su");
     shell_exec("$dir/modules/tools/update_fi");
-    include("modules/tools/html/update_db.php");
+    include("$dir/modules/tools/html/update_db.php");
     }
 ?>
 </pre>
