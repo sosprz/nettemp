@@ -20,7 +20,7 @@ for i in nettemp; do
     chown root.www-data $dir/dbf/$i.db
 done
 
-php-cgi -f $dir/modules/tools/update_db.php
+php-cgi -f $dir/modules/tools/html/update_db.php
 
 
 

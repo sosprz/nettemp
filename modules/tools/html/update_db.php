@@ -7,9 +7,6 @@ if(empty($root)){
 }
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
 
-
-
-
 $db->exec("INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')");
 $db->exec("INSERT INTO device (usb, onewire, serial, i2c, lmsensors, wireless ) VALUES ('off','off','off','off','off','off')");
 $db->exec("INSERT INTO settings (mail, sms, rrd, fw, vpn, gpio, authmod, temp_scale) VALUES ('off','off', 'off', 'off', 'off', 'on', 'on', 'C')");
