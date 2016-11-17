@@ -306,7 +306,7 @@ $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('baterry', '', '', '' ,'Baterry')");
 
 $db->exec("CREATE TABLE sensors_range (id INTEGER PRIMARY KEY,type UNIQUE, min NUMERIC, max NUMERIC, value1 NUMERIC, value2 NUMERIC, value3 NUMERIC)");
-$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('-150', '3000', '85', '185' ,'127.9')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('temp','-150', '3000', '85', '185' ,'127.9')");
 
 
 
