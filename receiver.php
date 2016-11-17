@@ -66,164 +66,19 @@ function trigger($rom) {
 }
 
 function check(&$val,$type) {
-
-		if ($type == 'lux') {
-		    if ((-1 <= $val) && ($val <= 80000)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-			    
-		}
-		elseif ($type == 'temp') {
-		    if (( -150 <= $val) && ($val <= 3000) && ($val != 85) && ($val != 185) && ($val != 127.9)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		    
-		}
-		elseif ($type == 'humid') {
-		    if ((0 <= $val) && ($val <= 110)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		
-		}
-		elseif ($type == 'press') {
-    		    if ((0 <= $val) && ($val <= 1100)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}
-		elseif ($type == 'gas') {
-    		    if ((0 <= $val) && ($val <= 100)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}
-		elseif ($type == 'water') {
-    		    if ((0 <= $val) && ($val <= 100)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}
-		elseif ($type == 'elec') {
-    		    if ((0 <= $val) && ($val <= 99999999)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}
-		elseif ($type == 'host') {
-    		    if ((0 <= $val) && ($val <= 10000)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}
-		elseif ($type == 'volt') {
-    		    if ((-10000 <= $val) && ($val <= 10000)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}
-		elseif ($type == 'amps') {
-    		    if ((0 <= $val) && ($val <= 10000)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}
-		elseif ($type == 'watt') {
-    		    if ((-10000 <= $val) && ($val <= 10000)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}
-		elseif ($type == 'dist') {
-    		    if ((0 <= $val) && ($val <= 100000)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}
-		elseif ($type == 'trigger') {
-    		    if ((0 <= $val) && ($val <= 100000)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}
-		elseif ($type == 'rainfall') {
-    		    if ((0 <= $val) && ($val <= 100000)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}elseif ($type == 'speed') {
-    		    if ((0 <= $val) && ($val <= 100000)) {
-			$val=$val;
-		    }
-		    else {
-			$val='speed';
-		    }
-		}
-		elseif ($type == 'wind') {
-    		    if ((0 <= $val) && ($val <= 100000)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}
-		elseif ($type == 'uv') {
-    		    if ((0 <= $val) && ($val <= 100000)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}
-		elseif ($type == 'storm') {
-    		    if ((0 <= $val) && ($val <= 100000)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}
-		elseif ($type == 'lightning') {
-    		    if ((0 <= $val) && ($val <= 100000)) {
-			$val=$val;
-		    }
-		    else {
-			$val='range';
-		    }
-		}
-		
-		
-		
+	
+	$rows = $db->query("SELECT * FROM sensors_range WHERE type='$type'");
+    $row = $rows->fetchAll();
+    foreach($row as $range) {
+	
+	if (($range['min'] <= $val) && ($val <= $range['max']) && ($val != $range['value1']) && ($val != $range['value2']) && ($val != $range['value3'])) 
+	{
+		$val=$val;
+	}
+	else 
+	{
+		$val='range';
+	}
 
 }
 
