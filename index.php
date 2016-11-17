@@ -1,7 +1,4 @@
 <?php
-$sig = hash_hmac('sha256', date("s"), $secret);
-echo date("s");
-echo $sig;
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 include("modules/login/login.php");
