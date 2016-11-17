@@ -313,8 +313,8 @@ $db->exec("ALTER TABLE types ADD value1 NUMERIC");
 $db->exec("ALTER TABLE types ADD value2 NUMERIC");
 $db->exec("ALTER TABLE types ADD value3 NUMERIC");
 
-$db->exec("UPDATE types SET min='-150', max='3000', value1='85', value2='185', value3='127.9' WHERE type='temp' && min is null");
-$db->exec("UPDATE types SET min='0', max='110' WHERE type='humid' && min is null");
+$db->exec("UPDATE types SET min='-150', max='3000', value1='85', value2='185', value3='127.9' WHERE type='temp' AND min is null");
+$db->exec("UPDATE types SET min='0', max='110' WHERE type='humid' AND min is null");
 
 
 
