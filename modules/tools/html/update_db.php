@@ -313,30 +313,28 @@ $db->exec("ALTER TABLE types ADD value1 NUMERIC");
 $db->exec("ALTER TABLE types ADD value2 NUMERIC");
 $db->exec("ALTER TABLE types ADD value3 NUMERIC");
 
-$db->exec("UPDATE types SET min='-150', max='3000', value1='85', value2='185', value3='127.9' WHERE type='temp' AND min is null");
-$db->exec("UPDATE types SET min='0', max='110' WHERE type='humid' AND min is null");
+$db->exec("UPDATE types SET min='-150', max='3000', value1='85', value2='185', value3='127.9' WHERE type='temp' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='110' WHERE type='humid' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='-1', max='8000' WHERE type='lux' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='1100' WHERE type='press' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='100' WHERE type='gas' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='100' WHERE type='water' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='99999999' WHERE type='elec' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='-10000', max='10000' WHERE type='watt' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='-10000', max='10000' WHERE type='volt' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='10000' WHERE type='host' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='10000' WHERE type='amps' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='10000' WHERE type='dist' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='10000' WHERE type='trigger' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='10000' WHERE type='rainfall' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='10000' WHERE type='speed' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='10000' WHERE type='wind' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='10000' WHERE type='uv' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='10000' WHERE type='storm' AND min is null AND max is null");
+$db->exec("UPDATE types SET min='0', max='10000' WHERE type='lighting' AND min is null AND max is null");
 
 
 
-$db->exec("INSERT OR IGNORE INTO types (min, max, value1, value2, value3) VALUES ('humid','0', '110', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('lux','-1', '8000', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('press','0','1100', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('gas','0', '100', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('water','0', '100', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('elec','0', '99999999', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('host','0', '10000', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('volt','-10000', '10000', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('amps','0', '10000', '0', '0' ,'0')");
-
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('watt','-10000', '10000', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('dist','0', '100000', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('trigger','0', '100000', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('rainfall','0', '10000', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('speed','0', '10000', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('wind','0', '10000', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('uv','0', '10000', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('storm','0', '10000', '0', '0' ,'0')");
-$db->exec("INSERT OR IGNORE INTO types (type, min, max, value1, value2, value3) VALUES ('lightning','0', '10000', '0', '0' ,'0')");
 
 
 
