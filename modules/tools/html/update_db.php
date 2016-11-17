@@ -307,6 +307,33 @@ $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('
 
 $db->exec("CREATE TABLE sensors_range (id INTEGER PRIMARY KEY,type UNIQUE, min NUMERIC, max NUMERIC, value1 NUMERIC, value2 NUMERIC, value3 NUMERIC)");
 $db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('temp','-150', '3000', '85', '185' ,'127.9')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('humid','0', '110', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('lux','-1', '8000', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('press','0', '1100', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('gas','0', '100', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('water','0', '100', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('elec','0', '99999999', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('host','0', '10000', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('volt','-10000', '10000', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('amps','0', '10000', '0', '0' ,'0')");
+
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('watt','-10000', '10000', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('dist','0', '100000', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('trigger','0', '100000', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('rainfall','0', '10000', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('speed','0', '10000', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('wind','0', '10000', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('uv','0', '10000', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('storm','0', '10000', '0', '0' ,'0')");
+$db->exec("INSERT OR IGNORE INTO sensors_range (type, min, max, value1, value2, value3) VALUES ('lightning','0', '10000', '0', '0' ,'0')");
+
+
+
+
+
+
+
+
 
 
 
