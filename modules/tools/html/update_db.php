@@ -140,9 +140,7 @@ function generateRandomString($length = 10) {
     }
     return $randomString;
 }
-echo $randomString;
-echo generateRandomString();
-$db->exec("UPDATE OR IGNORE settings SET server_key='$randomString' where id='1' AND server_key is null");
+$db->exec("UPDATE OR IGNORE settings SET server_key='generateRandomString()' where id='1' AND server_key is null");
 
 $db->exec("INSERT OR IGNORE INTO mail_settings (id,tlscheck) VALUES (1,'off')");
 $db->exec("INSERT OR IGNORE INTO mail_settings (id,tls) VALUES (1,'on')");
