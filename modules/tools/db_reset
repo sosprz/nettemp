@@ -11,10 +11,10 @@ rm -rf $dir/dbf/*.db
 rm -rf $dir/tmp
 mkdir $dir/tmp
 
-rm -rf $dir/dbf/$i.db
-sqlite3 -cmd ".timeout 2000" $dir/dbf/$i.db < $dir/modules/tools/$i.schema
-chmod 775 $dir/dbf/$i.db
-chown root.www-data $dir/dbf/$i.db
+rm -rf $dir/dbf/nettemp.db
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db < $dir/modules/tools/nettemp.schema
+chmod 775 $dir/dbf/nettemp.db
+chown root.www-data $dir/dbf/nettemp.db
 
 
 
