@@ -1,21 +1,6 @@
 <?php
-//#! /bin/bash
-
-//dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
-
-//sudo chown -R root.www-data $dir
-//sudo chmod -R 775 $dir
-//sudo chmod g+s -R $dir/tmp
-//sudo chmod g+s -R $dir/tmp
-//sudo chmod g+s -R $dir/dbf
-
-//sudo chmod a+w -R /var/spool/sms/outgoing
-//sudo chmod -R 644 /var/log/smstools/smsd.log
-
-//sudo gpasswd -a www-data dialout 1>/dev/null
-
-$dir=$_SERVER['DOCUMENT_ROOT'];
-echo $dir;
+$dir=dirname(dirname(dirname(__FILE__)));
+//echo "Nettemp dir: ".$dir."\n";
 shell_exec("sudo chown -R root.www-data $dir");
 shell_exec("sudo chmod -R 775 $dir");
 shell_exec("sudo chmod g+s -R $dir/tmp");
