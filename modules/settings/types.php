@@ -100,7 +100,7 @@ $row = $rows->fetchAll();
 		<input type="text" name="unit2" size="10" maxlength="30" value="" class="form-control input-sm"/>
     </td>
     <td class="col-md-0">
-		<input type="text" name="ico" size="25" maxlength="30" value="" class="form-control input-sm"/>
+		<input type="text" name="ico" size="10" maxlength="30" value="" class="form-control input-sm"/>
     </td>
 	<td class="col-md-0">
 		<input type="text" name="title" size="10" maxlength="30" value="" class="form-control input-sm"/>
