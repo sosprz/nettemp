@@ -2,11 +2,10 @@
 <div class="panel-heading">Reset system to default</div>
 <div class="panel-body">
 <?php
-$dir=$_SERVER['DOCUMENT_ROOT'];
 $admin_db_reset = isset($_POST['admin_db_reset']) ? $_POST['admin_db_reset'] : '';
 if ($admin_db_reset == "admin_db_reset1") { 
-	include("$dir/modules/tools/db_reset.php");
-	include("$dir/modules/tools/html/update_db.php");
+	include("modules/tools/db_reset.php");
+	include("modules/tools/html/update_db.php");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 }

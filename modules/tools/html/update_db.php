@@ -1,10 +1,10 @@
 <?php
 echo "nettemp database update: \n";
-$root=$_SERVER["DOCUMENT_ROOT"];
-if(empty($root)){
-    $root='/var/www/nettemp';
+$ROOT=$_SERVER["DOCUMENT_ROOT"];
+if(empty($ROOT)){
+    $ROOT=dirname(dirname(dirname(dirname(__FILE__))));
 }
-$db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
+$db = new PDO("sqlite:$ROOT/dbf/nettemp.db") or die ("cannot open database");
 
 $db->exec("INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')");
 $db->exec("INSERT INTO device (usb, onewire, serial, i2c, lmsensors, wireless ) VALUES ('off','off','off','off','off','off')");
@@ -65,11 +65,6 @@ $db->exec("ALTER TABLE relays ADD delay type TEXT");
 $db->exec("ALTER TABLE relays ADD rom type TEXT");
 $db->exec("ALTER TABLE relays ADD type type TEXT");
 $db->exec("ALTER TABLE hosts ADD rom type TEXT");
-
-//for i in $(seq 1 30);
-//    do
-//    $db->exec("ALTER TABLE gpio ADD tout$i type TEXT");
-//done
 
 $db->exec("ALTER TABLE gpio ADD control type TEXT");
 $db->exec("ALTER TABLE gpio ADD control_run type TEXT");

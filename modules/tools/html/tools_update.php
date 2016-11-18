@@ -3,7 +3,7 @@
 <div class="panel-body">
 
 <?php
-$dir=$_SERVER['DOCUMENT_ROOT'];
+$ROOT=$_SERVER['DOCUMENT_ROOT'];
 $update=isset($_POST['update']) ? $_POST['update'] : '';
 
 if ($update == "Update") { 
@@ -13,9 +13,9 @@ if ($update == "Update") {
 <?php
     passthru("cd /var/www/nettemp && git reset --hard");
     passthru("/usr/bin/git pull 2>&1");
-    shell_exec("$dir/modules/tools/update_su");
-    shell_exec("$dir/modules/tools/update_fi");
-    include("$dir/modules/tools/html/update_db.php");
+    shell_exec("$ROOT/modules/tools/update_su");
+    shell_exec("$ROOT/modules/tools/update_fi");
+    include("$ROOT/modules/tools/html/update_db.php");
     }
 ?>
 </pre>
