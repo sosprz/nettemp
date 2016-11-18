@@ -49,12 +49,6 @@ if ($exit == true ) { ?>
     ?>
 </div>
 
-    <?php
+<?php
 }
-//elseif ( $id == 'tools' ){ ?>
-<?php
-    //include('modules/tools/html/tools_perms.php');
-?>
-<?php
-//    }
 ?>

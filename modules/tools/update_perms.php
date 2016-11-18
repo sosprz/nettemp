@@ -15,6 +15,7 @@
 //sudo gpasswd -a www-data dialout 1>/dev/null
 
 $dir=$_SERVER['DOCUMENT_ROOT'];
+echo $dir;
 shell_exec("sudo chown -R root.www-data $dir");
 shell_exec("sudo chmod -R 775 $dir");
 shell_exec("sudo chmod g+s -R $dir/tmp");
