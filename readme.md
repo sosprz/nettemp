@@ -55,7 +55,7 @@ OpenWRT, beta version:
 
 Changelog:
 
-RC3
+RC3.1
 
 Add screen
 Add types in seetings
