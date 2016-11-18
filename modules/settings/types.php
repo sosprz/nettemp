@@ -4,13 +4,21 @@
     $unit = isset($_POST['unit']) ? $_POST['unit'] : '';
     $unit2 = isset($_POST['unit2']) ? $_POST['unit2'] : '';
     $title = isset($_POST['title']) ? $_POST['title'] : '';
-	 $ico = isset($_POST['ico']) ? $_POST['ico'] : '';
+	$ico = isset($_POST['ico']) ? $_POST['ico'] : '';
     $save_id = isset($_POST['save_id']) ? $_POST['save_id'] : '';
-	 $add = isset($_POST['add']) ? $_POST['add'] : '';
+	$add = isset($_POST['add']) ? $_POST['add'] : '';
+	$min = isset($_POST['min']) ? $_POST['min'] : '';
+	$max = isset($_POST['max']) ? $_POST['max'] : '';
+	$value1 = isset($_POST['value1']) ? $_POST['value1'] : '';
+	$value2 = isset($_POST['value2']) ? $_POST['value2'] : '';
+	$value2 = isset($_POST['value2']) ? $_POST['value2'] : '';
+
+
+
    	 
     if ($save == 'save1'){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE types SET title='$title',unit2='$unit2',unit='$unit',type='$type',ico='$ico' WHERE id='$save_id'") or header("Location: html/errors/db_error.php");
+    $db->exec("UPDATE types SET title='$title',unit2='$unit2',unit='$unit',type='$type',ico='$ico',min='$min',max='$max',value1='$value1',value2='$value2',value3='$value3' WHERE id='$save_id'") or header("Location: html/errors/db_error.php");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -166,8 +174,7 @@ $row = $rows->fetchAll();
 	}
 	?>
 	</select>
-    
-    
+        
     </td>
     <td class="col-md-0">
 		<input type="text" name="title" size="10" maxlength="30" value="<?php echo $a['title']; ?>" class="form-control input-sm"/>
