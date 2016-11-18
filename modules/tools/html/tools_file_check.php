@@ -45,7 +45,6 @@ if ($exit == true ) { ?>
     foreach ($tofix as $line) {
 	echo $line . "<br>";
     }
-    //include('modules/tools/html/tools_perms.php');
     ?>
 </div>
 
