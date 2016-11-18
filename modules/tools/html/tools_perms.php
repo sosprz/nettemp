@@ -8,11 +8,12 @@
 include('modules/tools/html/tools_file_check.php');
 
 $perms = isset($_POST['perms']) ? $_POST['perms'] : '';
-if ($perms == "perms") { 
-$dir=getcwd();
-shell_exec("/bin/bash modules/tools/update_perms");
-header("location: " . $_SERVER['REQUEST_URI']);
-exit();	
+if ($perms == "perms") 
+{ 
+	$dir=getcwd();
+	include('modules/tools/update_perms.php');
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();	
 }
 ?>
 <form action="" method="post">
