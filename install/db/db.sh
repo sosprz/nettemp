@@ -1,3 +1,3 @@
 #! /bin/bash
 
-$dir/modules/tools/db_reset git update
+php-cgi -f $dir/modules/tools/db_reset.php
