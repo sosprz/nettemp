@@ -3,7 +3,6 @@ $ROOT=dirname(dirname(dirname(__FILE__)));
 //echo "Nettemp dir: ".$ROOT."\n";
 shell_exec("sudo chown -R root.www-data $ROOT");
 shell_exec("sudo chmod -R 775 $ROOT");
-shell_exec("sudo umask 0000 $ROOT");
 shell_exec("sudo chmod g+s -R $ROOT/tmp");
 shell_exec("sudo chmod g+s -R $ROOT/db");
 shell_exec("sudo chmod g+s -R $ROOT/dbf");
