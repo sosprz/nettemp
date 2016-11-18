@@ -4,6 +4,7 @@ $ROOT=dirname(dirname(dirname(__FILE__)));
 shell_exec("sudo chown -R root.www-data $ROOT");
 shell_exec("sudo chmod -R 775 $ROOT");
 shell_exec("sudo chmod g+s -R $ROOT/tmp");
+shell_exec("sudo setfacl -m d:m::rwx $ROOT/tmp");
 shell_exec("sudo chmod g+s -R $ROOT/db");
 shell_exec("sudo chmod g+s -R $ROOT/dbf");
 shell_exec("sudo chmod a+w -R /var/spool/sms/outgoing");

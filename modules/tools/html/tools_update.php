@@ -15,6 +15,7 @@ if ($update == "Update") {
     passthru("/usr/bin/git pull 2>&1");
     shell_exec("$ROOT/modules/tools/update_su");
     shell_exec("$ROOT/modules/tools/update_fi");
+    include("$ROOT/modules/tools/update_perms.php");
     include("$ROOT/modules/tools/html/update_db.php");
     }
 ?>
