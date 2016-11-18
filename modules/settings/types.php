@@ -150,9 +150,26 @@ $row = $rows->fetchAll();
 		<input type="text" name="unit2" size="10" maxlength="30" value="<?php echo $a['unit2']; ?>" class="form-control input-sm"/>
     </td>
     <td class="col-md-0">
-		<input type="text" name="ico" size="10" maxlength="30" value="<?php echo $a['ico']; ?>" class="form-control input-sm"/>
+   
+    <select name="ico" class="form-control input-sm">
+    <?php
+	$dir = "media/ico";
+	$dh  = opendir($dir);
+	while (false !== ($filename = readdir($dh))) 
+	{
+		if(($filename!='.') && ($filename!='..')) 
+		{
+		?>
+		<option <?php echo $a['ico'] == $dir."/".$filename ? 'selected="selected"' : ''; ?> value="<?php echo $dir."/".$filename; ?>"> <?php echo $filename; ?></option>
+		<?php
+		}
+	}
+	?>
+	</select>
+    
+    
     </td>
-	<td class="col-md-0">
+    <td class="col-md-0">
 		<input type="text" name="title" size="10" maxlength="30" value="<?php echo $a['title']; ?>" class="form-control input-sm"/>
     </td>
     <td class="col-md-0">
