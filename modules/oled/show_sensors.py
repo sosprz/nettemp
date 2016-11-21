@@ -20,7 +20,7 @@ fname = "/var/www/nettemp/tmp/lcd"
 
 def stats(oled):
     font = ImageFont.load_default()
-    font2 = ImageFont.truetype('fonts/C&C Red Alert [INET].ttf', 22)
+    font2 = ImageFont.truetype('/var/www/nettemp/fonts/C&C Red Alert [INET].ttf', 22)
     with canvas(oled) as draw:
 	with open(fname) as f:
 	    for i, line in enumerate(f):
