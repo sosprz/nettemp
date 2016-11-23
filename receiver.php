@@ -1,7 +1,7 @@
 <?php
 // name:
-// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps, watt, trigger
-// device: wireless, remote, gpio, i2c, usb
+// type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps, watt, trigger, heaterst, heatersm, heaterss
+// device: wireless, remote, gpio, i2c, usb, wifiheaters
 // definied source (middle part): tty, ip, gpio number
 
 // curl --connect-timeout 3 -G "http://172.18.10.10/receiver.php" -d "value=1&key=123456&device=wireless&type=gas&ip=172.18.10.9"
@@ -83,7 +83,15 @@ function check(&$val,$type) {
 		    else {
 			$val='range';
 		    }
-		    
+		}	
+		elseif ($type == 'heaterst') {
+		    if (( -150 <= $val) && ($val <= 3000) && ($val != 85) && ($val != 185) && ($val != 127.9)) {
+			$val=$val;
+		    }
+		    else {
+			$val='range';
+		    }	
+			    
 		}
 		elseif ($type == 'humid') {
 		    if ((0 <= $val) && ($val <= 110)) {
@@ -239,6 +247,9 @@ function db($rom,$val,$type,$device,$current) {
 	if ($type == 'host') {
     	    $rows = $db->query("SELECT rom FROM hosts WHERE rom='$rom'");
 	}
+	elseif ($type == 'heaterst' || $type == 'heatersm' || $type == 'heaterss') {
+    	    $rows = $db->query("SELECT rom FROM heaters WHERE rom='$rom'");
+	}
 	else {
 		 	 $rows = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
     	 }
@@ -251,8 +262,8 @@ function db($rom,$val,$type,$device,$current) {
 		if ($val != 'range'){
 		    //// base
 		    // counters can always put to base
-		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting");
-		    $arrayd = array("wireless", "gpio", "usb");
+		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting", "heaterst", "heatersm", "heaterss");
+		    $arrayd = array("wifiheaters", "wireless", "gpio", "usb");
 		    if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
 					if (isset($current) && is_numeric($current)) {
 			    		$dbf->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql current\n" );
@@ -263,6 +274,22 @@ function db($rom,$val,$type,$device,$current) {
 					//sum,current for counters
 					$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
 					echo "$rom ok \n";
+					
+					if ($type == 'heaterst') {
+					$db->exec("UPDATE heaters SET temp_actual='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
+					echo "$rom ok insert heaters temp_actual\n";
+					}
+					
+					if ($type == 'heatersm') {
+					$db->exec("UPDATE heaters SET work_mode='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
+					echo "$rom ok insert heaters work_mode\n";
+					}
+					
+					if ($type == 'heaterss') {
+					$db->exec("UPDATE heaters SET status='$val' WHERE rom='$rom'") or die ("cannot insert to heaters\n" );
+					echo "$rom ok insert heaters ststus\n";
+					}
+					
 		    }
 		    // time when you can put into base
 		    elseif ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
@@ -293,6 +320,9 @@ function db($rom,$val,$type,$device,$current) {
 					$db->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to trigger status2\n");
 					trigger($rom);
 		    }
+			
+			
+			
 		    //sensors status
 		    else {
 					$db->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status\n" );
@@ -376,6 +406,14 @@ elseif (isset($val) && isset($type)) {
 	    }
 	}
 	if ( $device == "wireless" ) {
+	    if (!empty($type) && !empty($ip)) {
+		$rom=$device.'_'.$ip.'_'.$type; 
+	    } else {
+		echo "Missing type or IP";
+		exit();
+	    }
+	}
+	if ( $device == "wifiheaters" ) {
 	    if (!empty($type) && !empty($ip)) {
 		$rom=$device.'_'.$ip.'_'.$type; 
 	    } else {
