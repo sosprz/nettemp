@@ -10,37 +10,59 @@
 
 // |sed 's/.sql//g'|awk -F0x '{print $2"-"$8$7$6$5$4$3}' |tr A-Z a-z
 
-if (isset($_GET['key'])) {
-	    $key = $_GET['key'];
-    }
+
+if (isset($_GET['key'])) { 
+    $key = $_GET['key'];
+} else { 
+    $key='';
+}
+
 if (isset($_GET['value'])) {
-            $val = $_GET['value'];
-    }
+    $val = $_GET['value'];
+} else {
+    $val=$local_val;
+}
+
 if (isset($_GET['rom'])) {
-            $rom = $_GET['rom'];
-	    $file = "$rom.sql";
-    }
+    $rom = $_GET['rom'];
+    $file = "$rom.sql";
+} else {
+    $rom=$local_rom;
+}
+
 if (isset($_GET['ip'])) {
-            $ip = $_GET['ip'];
-    }
+    $ip = $_GET['ip'];
+}
+
 if (isset($_GET['type'])) {
-            $type = $_GET['type'];
-    }
+    $type = $_GET['type'];
+} else {
+    $type=$local_type;
+}
+    
 if (isset($_GET['gpio'])) {
-            $gpio = $_GET['gpio'];
-    }
+    $gpio = $_GET['gpio'];
+}
+
 if (isset($_GET['device'])) {
-            $device = $_GET['device'];
-    } else $device='';
-if (isset($_GET['i2c'])) {
-            $i2c = $_GET['i2c'];
-    }
-if (isset($_GET['current'])) {
-            $current = $_GET['current'];
-    } else $current='';
+    $device = $_GET['device'];
+} else {
+    $device='';
+}
+
+if (isset($_GET['i2c'])) { 
+    $i2c = $_GET['i2c'];
+}
+
+if (isset($_GET['current'])){
+    $current = $_GET['current'];
+} else {
+    $current='';
+}
+
 if (isset($_GET['usb'])) {
-            $usb = $_GET['usb'];
-    }
+    $usb = $_GET['usb'];
+}
 
 function trigger($rom) {
 	$db = new PDO("sqlite:dbf/nettemp.db") or die ("cannot open database");
@@ -200,9 +222,12 @@ foreach ( $result as $a) {
 	$chmin=$a['charts_min'];
 	}
 
-if ("$key" != "$skey"){
+
+if (("$key" != "$skey") && (!defined('LOCAL')))
+{
     echo "wrong key\n";
-} else {
+} 
+    else {
 
 // scale F->C
 if($scale=='F' && $type=='temp') {
