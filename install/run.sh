@@ -2,8 +2,9 @@
 
 > $dir/install_log.txt
 
-source install/apt/apt.sh
+mkdir $dir/tmp
 
+source install/apt/apt.sh
 source install/rpi/rpi.sh
 source install/1w/1w.sh
 source install/dht/dht.sh
