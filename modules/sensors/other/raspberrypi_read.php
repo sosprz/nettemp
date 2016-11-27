@@ -31,7 +31,6 @@ try {
     
 } catch (Exception $e) {
     echo $msg." Error.\n";
-    echo $e;
     exit;
 }
 ?>
