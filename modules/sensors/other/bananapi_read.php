@@ -27,6 +27,7 @@ try {
 	$local_val = $output;
 	echo $msg." ".$local_val."\n";
 	include("$ROOT/receiver.php");
+	db($local_rom,$local_val,$local_type,$device,$current);
     }
     
 } catch (Exception $e) {

@@ -19,17 +19,12 @@ if (isset($_GET['key'])) {
 
 if (isset($_GET['value'])) {
     $val = $_GET['value'];
-} else {
-    $val=$local_val;
-}
+} 
 
 if (isset($_GET['rom'])) {
     $rom = $_GET['rom'];
     $file = "$rom.sql";
-} else {
-    $rom=$local_rom;
-    $file = "$rom.sql";
-}
+} 
 
 if (isset($_GET['ip'])) {
     $ip = $_GET['ip'];
@@ -37,9 +32,7 @@ if (isset($_GET['ip'])) {
 
 if (isset($_GET['type'])) {
     $type = $_GET['type'];
-} else {
-    $type=$local_type;
-}
+} 
     
 if (isset($_GET['gpio'])) {
     $gpio = $_GET['gpio'];
@@ -278,9 +271,9 @@ elseif (isset($val) && isset($type)) {
 	db($rom,$val,$type,$device,$current);
 
 }
-else {
+elseif (!defined('LOCAL')) {
     echo "no data\n";
-} 
+    } 
 
 } //end main
 ?>
