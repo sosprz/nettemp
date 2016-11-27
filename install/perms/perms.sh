@@ -5,5 +5,5 @@ umask 002 $dir/db
 umask 002 $dir/dbf
 
 $dir/modules/tools/update_su
-$dir/modules/tools/update_perms
+php-cgi -f $dir/modules/tools/db_reset.php
 

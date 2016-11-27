@@ -4,13 +4,21 @@
     $unit = isset($_POST['unit']) ? $_POST['unit'] : '';
     $unit2 = isset($_POST['unit2']) ? $_POST['unit2'] : '';
     $title = isset($_POST['title']) ? $_POST['title'] : '';
-	 $ico = isset($_POST['ico']) ? $_POST['ico'] : '';
+	$ico = isset($_POST['ico']) ? $_POST['ico'] : '';
     $save_id = isset($_POST['save_id']) ? $_POST['save_id'] : '';
-	 $add = isset($_POST['add']) ? $_POST['add'] : '';
+	$add = isset($_POST['add']) ? $_POST['add'] : '';
+	$min = isset($_POST['min']) ? $_POST['min'] : '';
+	$max = isset($_POST['max']) ? $_POST['max'] : '';
+	$value1 = isset($_POST['value1']) ? $_POST['value1'] : '';
+	$value2 = isset($_POST['value2']) ? $_POST['value2'] : '';
+	$value2 = isset($_POST['value2']) ? $_POST['value2'] : '';
+
+
+
    	 
     if ($save == 'save1'){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE types SET title='$title',unit2='$unit2',unit='$unit',type='$type',ico='$ico' WHERE id='$save_id'") or header("Location: html/errors/db_error.php");
+    $db->exec("UPDATE types SET title='$title',unit2='$unit2',unit='$unit',type='$type',ico='$ico',min='$min',max='$max',value1='$value1',value2='$value2',value3='$value3' WHERE id='$save_id'") or header("Location: html/errors/db_error.php");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -32,7 +40,7 @@
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max, value1, value2, value3) VALUES ('temp', '°C', '°F', 'media/ico/temp2-icon.png' ,'Temperature','-150', '3000', '85', '185' ,'127.9')");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('lux', 'lux', 'lux', 'media/ico/sun-icon.png' ,'Lux','8000')");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('humid', '%', '%', 'media/ico/rain-icon.png' ,'Humidity','0', '110')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('press', 'hPa', 'hPa', 'media/ico/Science-Pressure-icon.png' ,'Pressure','1100')");
+	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('press', 'hPa', 'hPa', 'media/ico/Science-Pressure-icon.png' ,'Pressure','0','10000')");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('water', 'm3', 'm3', 'media/ico/water-icon.png' ,'Water','0', '100')");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('gas', 'm3', 'm3', 'media/ico/gas-icon.png' ,'Gas','0', '100')");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('elec', 'kWh', 'W', 'media/ico/Lamp-icon.png' ,'Electricity','0', '99999999')");
@@ -41,18 +49,18 @@
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('amps', 'A', 'A', 'media/ico/amper.png' ,'Amps','0', '10000')");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('dist', 'cm', 'cm', 'media/ico/Distance-icon.png' ,'Distance','0', '100000')");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('trigger', '', '', 'media/ico/alarm-icon.png' ,'Trigger','0', '100000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('rainfall', 'mm/m2', 'mm/m2', '' ,'Rainfall','0', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('speed', 'km/h', 'km/h', '' ,'Speed','0', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('wind', '°', '°', '' ,'Wind','0', '10000')");
+	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('rainfall', 'mm/m2', 'mm/m2', 'media/ico/showers.png' ,'Rainfall','0', '10000')");
+	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('speed', 'km/h', 'km/h', 'media/ico/Wind-Flag-Storm-icon.png' ,'Speed','0', '10000')");
+	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('wind', '°', '°', 'media/ico/compass.png' ,'Wind','0', '10000')");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('uv', 'index', 'index', '' ,'UV','0', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('storm', 'km', 'km', '' ,'Storm','0', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('lightining', '', '', '' ,'Lightining','0', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('hosts', 'ms', 'ms', '' ,'Host','0', '10000')");
+	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('storm', 'km', 'km', 'media/ico/storm-icon.png' ,'Storm','0', '10000')");
+	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('lightining', '', '', 'media/ico/thunder-icon.png' ,'Lightining','0', '10000')");
+	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('hosts', 'ms', 'ms', 'media/ico/Computer-icon.png' ,'Host','0', '10000')");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('system', '%', '%', '' ,'System','0', '100')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('gpio', 'H/L', 'H/L', '' ,'GPIO')");
+	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('gpio', 'H/L', 'H/L', 'media/ico/gpio2.png' ,'GPIO')");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('group', '', '', '' ,'')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('relay', '', '', '' ,'')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('baterry', '', '', '' ,'Baterry')");
+	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('relay', '', '', 'media/ico/socket-icon.png' ,'Relay')");
+	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('baterry', '%', '', 'media/ico/Battery-icon.png' ,'Baterry','0', '100')");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     }
@@ -100,7 +108,7 @@ $row = $rows->fetchAll();
 		<input type="text" name="unit2" size="10" maxlength="30" value="" class="form-control input-sm"/>
     </td>
     <td class="col-md-0">
-		<input type="text" name="ico" size="25" maxlength="30" value="" class="form-control input-sm"/>
+		<input type="text" name="ico" size="10" maxlength="30" value="" class="form-control input-sm"/>
     </td>
 	<td class="col-md-0">
 		<input type="text" name="title" size="10" maxlength="30" value="" class="form-control input-sm"/>
@@ -150,9 +158,25 @@ $row = $rows->fetchAll();
 		<input type="text" name="unit2" size="10" maxlength="30" value="<?php echo $a['unit2']; ?>" class="form-control input-sm"/>
     </td>
     <td class="col-md-0">
-		<input type="text" name="ico" size="10" maxlength="30" value="<?php echo $a['ico']; ?>" class="form-control input-sm"/>
+   
+    <select name="ico" class="form-control input-sm">
+    <?php
+	$dir = "media/ico";
+	$dh  = opendir($dir);
+	while (false !== ($filename = readdir($dh))) 
+	{
+		if(($filename!='.') && ($filename!='..')) 
+		{
+		?>
+		<option <?php echo $a['ico'] == $dir."/".$filename ? 'selected="selected"' : ''; ?> value="<?php echo $dir."/".$filename; ?>"> <?php echo $filename; ?></option>
+		<?php
+		}
+	}
+	?>
+	</select>
+        
     </td>
-	<td class="col-md-0">
+    <td class="col-md-0">
 		<input type="text" name="title" size="10" maxlength="30" value="<?php echo $a['title']; ?>" class="form-control input-sm"/>
     </td>
     <td class="col-md-0">
