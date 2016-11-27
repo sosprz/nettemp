@@ -2,28 +2,36 @@
 $ROOT=dirname(dirname(dirname(dirname(__FILE__))));
 define("LOCAL","local"); 
 
+$rom = "Raspberry_Pi";
+$cmd = "/opt/vc/bin/vcgencmd measure_temp|cut -c 6-9";
+$local_type = 'temp';
+
+$date = date("Y-m-d H:i:s"); 
+$msg = $date." ".$rom;
+
 try {
     $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 } catch (Exception $e) {
-    echo "Could not connect to the database.";
+    echo $mgs."Could not connect to the database.\n";
     exit;
 }
 
 try {
-    $query = $db->query("SELECT rom FROM sensors WHERE rom='Raspberry_Pi'");
+    $query = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
     $result= $query->fetchAll();
     if ((count($result)) >= "1") 
     {
-	$output = shell_exec("/opt/vc/bin/vcgencmd measure_temp");
-	$local_val = substr($output, 5, -3);
-	$local_type = 'temp';
-        $local_rom = 'Raspberry_Pi';
+	$output = shell_exec($cmd);
+	$output = trim($output);
+	$local_val = $output;
+        $local_rom = $rom;
+	echo $msg." ".$local_val."\n";
 	include("$ROOT/receiver.php");
     }
+    
 } catch (Exception $e) {
-    echo "Error.";
+    echo $msg."Error.\n";
     exit;
 }
-//var_dump($rows->fetchAll());
 ?>
