@@ -10,6 +10,7 @@
 
 // |sed 's/.sql//g'|awk -F0x '{print $2"-"$8$7$6$5$4$3}' |tr A-Z a-z
 
+
 if (isset($_GET['key'])) { 
     $key = $_GET['key'];
 } else { 
@@ -65,7 +66,7 @@ if (isset($_GET['usb'])) {
 }
 
 function trigger($rom) {
-	$db = new PDO("sqlite:".dirname(__FILE__)."/dbf/nettemp.db") or die ("cannot open database");
+	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
    $rows = $db->query("SELECT mail FROM users WHERE maila='yes'");
    $row = $rows->fetchAll();
    foreach($row as $row) {
@@ -88,7 +89,7 @@ function trigger($rom) {
 }
 
 function check(&$val,$type) {
-	$db = new PDO("sqlite:".dirname(__FILE__)."/dbf/nettemp.db") or die ("cannot open database");
+	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
 	$rows = $db->query("SELECT * FROM types WHERE type='$type'");
     $row = $rows->fetchAll();
     foreach($row as $range) 
@@ -110,9 +111,9 @@ function check(&$val,$type) {
 
 function db($rom,$val,$type,$device,$current) {
 	global $chmin;
-	$db = new PDO("sqlite:".dirname(__FILE__)."/dbf/nettemp.db") or die ("cannot open database");
+	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
 	$file = "$rom.sql";
-	$dbf = new PDO("sqlite:".dirname(__FILE__)."/db/$file");
+	$dbf = new PDO("sqlite:".__DIR__."/db/$file");
 
 	if ($type == 'host') {
     	    $rows = $db->query("SELECT rom FROM hosts WHERE rom='$rom'");
@@ -205,7 +206,7 @@ function db($rom,$val,$type,$device,$current) {
 
 
 
-$db = new PDO("sqlite:".dirname(__FILE__)."/dbf/nettemp.db") or die ("cannot open database");
+$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
 $sth = $db->prepare("select * from settings WHERE id='1'");
 $sth->execute();
 $result = $sth->fetchAll();
