@@ -1,6 +1,6 @@
 <?php
 echo "nettemp database update: \n";
-$ROOT=$_SERVER["DOCUMENT_ROOT"];
+//$ROOT=$_SERVER["DOCUMENT_ROOT"];
 if(empty($ROOT)){
     $ROOT=dirname(dirname(dirname(dirname(__FILE__))));
 }
