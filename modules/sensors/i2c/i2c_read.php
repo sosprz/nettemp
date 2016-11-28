@@ -21,7 +21,7 @@ try {
     foreach($result as $r) {
 	$i2c=$r['i2c'];
     }
-    if(($i2c=='i2c-1')||($i2c=='i2c-2')||($i2c=='i2c-3')||($i2c=='i2c-4')){
+    if(($i2c=='i2c-0')||($i2c=='i2c-1')||($i2c=='i2c-2')||($i2c=='i2c-3')||($i2c=='i2c-4')){
 	$bus=substr($i2c, -1, 1);
 	echo "I2C BUS: $bus\n";
 	$qname = $db->query("SELECT DISTINCT name FROM i2c");
