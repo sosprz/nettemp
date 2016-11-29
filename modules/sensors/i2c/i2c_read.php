@@ -209,8 +209,4 @@ try {
     echo $e;
     exit;
 }
-					$str='Success lux 1963';
-$str = preg_replace('/\D/', '', $str);
-echo $str;
-		    
 ?>
