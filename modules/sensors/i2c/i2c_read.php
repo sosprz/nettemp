@@ -79,7 +79,7 @@ try {
 						$output = shell_exec($cmd);
 						$output = preg_split ('/$\R?^/m', $output);
 						//temp,humid
-						var_dump($output);
+						//var_dump($output);
 						$output0 = trim($output[0]);
 						$output1 = trim($output[1]);
 						$output = '';
@@ -88,8 +88,8 @@ try {
 						$output = $output0;
 						$output0 = '';
 					} elseif ($rr['type']=='humid') {
-						$output = $output2;
-						$output2 = '';
+						$output = $output1;
+						$output1 = '';
 					}
 				//mpl3115a2	
 			    } elseif($name=='mpl3115a2') {
@@ -161,9 +161,10 @@ try {
 						$cmd="$ROOT/modules/sensors/i2c/TSL2561/TSL2561_i2c_$bus";
 						echo $date." Running: ".$cmd."\n";
 						$output = shell_exec($cmd);
-						$output = preg_split ('/$\R?^/m', $output);
+						//$output = preg_split ('/$\R?^/m', $output);
+						$output = preg_replace('/\D/', '', $output);
 						//lux
-						var_dump($output);
+						//var_dump($output);
 						$output0 = trim($output[0]);
 						$output = '';
 					}
@@ -197,7 +198,6 @@ try {
 				$device='';
 				$current='';
 				echo $date." Name:".$rr['name']." Rom:".$rr['rom']." Addr:".$qa['addr']." Bus:".$bus." Value:".$output."\n";
-				
 				db($local_rom,$local_val,$local_type,$device,$current);
 			    
 			}
@@ -209,6 +209,8 @@ try {
     echo $e;
     exit;
 }
-					
+					$str='Success lux 1963';
+$str = preg_replace('/\D/', '', $str);
+echo $str;
 		    
 ?>
