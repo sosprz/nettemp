@@ -3,7 +3,7 @@ $ROOT=dirname(dirname(dirname(dirname(__FILE__))));
 define("LOCAL","local"); 
 
 $local_rom = "Banana_Pi";
-$cmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input| awk '{ getline;  printf '%1.2f\n', $1/1000}'";
+$cmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input";
 $local_type = 'temp';
 
 $date = date("Y-m-d H:i:s"); 
@@ -23,7 +23,8 @@ try {
     if ((count($result)) >= "1") 
     {
 	$output = shell_exec($cmd);
-	$output = trim($output);
+    $output = trim($output)/1000;
+    $output = number_format($output, 2, '.', '');
 	$local_val = $output;
 	echo $msg." ".$local_val."\n";
 	include("$ROOT/receiver.php");

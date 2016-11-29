@@ -2,7 +2,8 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
 date=`date +%y%m%d-%H%M`
-bananian=`find /boot -name "*bananian"  | wc -l`
+bananian=`find /boot -name "banan*"  | wc -l`
+
 
 #Banana Pi system temp
 

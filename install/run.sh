@@ -2,7 +2,7 @@
 
 > $dir/install_log.txt
 
-mkdir $dir/tmp
+mkdir -p $dir/tmp
 
 source install/apt/apt.sh
 source install/rpi/rpi.sh
