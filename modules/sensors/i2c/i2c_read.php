@@ -79,7 +79,7 @@ try {
 						$output = shell_exec($cmd);
 						$output = preg_split ('/$\R?^/m', $output);
 						//temp,humid
-						//var_dump($output);
+						var_dump($output);
 						$output0 = trim($output[0]);
 						$output1 = trim($output[1]);
 						$output = '';
@@ -100,7 +100,7 @@ try {
 						$output = shell_exec($cmd);
 						$output = preg_split ('/$\R?^/m', $output);
 						//temp,press
-						//var_dump($output);
+						var_dump($output);
 						$output0 = trim($output[0]);
 						$output1 = trim($output[1]);
 						$output = '';
@@ -121,7 +121,7 @@ try {
 						$output = shell_exec($cmd);
 						$output = preg_split ('/$\R?^/m', $output);
 						//temp,humid
-						//var_dump($output);
+						var_dump($output);
 						$output0 = trim($output[0]);
 						$output1 = trim($output[1]);
 						$output = '';
@@ -158,12 +158,12 @@ try {
 			    } elseif($name=='tsl2561') {
 					if($block!=$addr) {
 						$block=$addr;
-						$cmd="$ROOT/modules/sensors/i2c/TSL2561/TSL2561_i2c_$(echo $bus | sed 's/i2c-//')";
+						$cmd="$ROOT/modules/sensors/i2c/TSL2561/TSL2561_i2c_$bus";
 						echo $date." Running: ".$cmd."\n";
 						$output = shell_exec($cmd);
 						$output = preg_split ('/$\R?^/m', $output);
 						//lux
-						//var_dump($output);
+						var_dump($output);
 						$output0 = trim($output[0]);
 						$output = '';
 					}
@@ -180,7 +180,7 @@ try {
 						$output = shell_exec($cmd);
 						$output = preg_split ('/$\R?^/m', $output);
 						//lux
-						//var_dump($output);
+						var_dump($output);
 						$output0 = trim($output[0]);
 						$output = '';
 					}
