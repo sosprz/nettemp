@@ -100,7 +100,7 @@ try {
 						$output = shell_exec($cmd);
 						$output = preg_split ('/$\R?^/m', $output);
 						//temp,press
-						var_dump($output);
+						//var_dump($output);
 						$output0 = trim($output[0]);
 						$output1 = trim($output[1]);
 						$output = '';
@@ -119,11 +119,11 @@ try {
 						$cmd="$ROOT/modules/sensors/i2c/HIH6130/read.py $bus $addr";
 						echo $date." Running: ".$cmd."\n";
 						$output = shell_exec($cmd);
-						$output = preg_split ('/$\R?^/m', $output);
 						//temp,humid
-						var_dump($output);
-						$output0 = trim($output[0]);
-						$output1 = trim($output[1]);
+						//var_dump($output);
+						preg_match_all('/\d+\,?\.?\d+/m', $output, $output);
+						$output0 = trim($output[0][0]);
+						$output1 = trim($output[0][1]);
 						$output = '';
 					}
 					if($rr['type']=='temp') {
@@ -199,6 +199,7 @@ try {
 				$current='';
 				echo $date." Name:".$rr['name']." Rom:".$rr['rom']." Addr:".$qa['addr']." Bus:".$bus." Value:".$output."\n";
 				db($local_rom,$local_val,$local_type,$device,$current);
+				unset($output);
 			    
 			}
 		    }
