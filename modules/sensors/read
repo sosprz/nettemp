@@ -20,6 +20,7 @@ fi
 php-cgi -f $dir/modules/sensors/other/raspberrypi_read.php
 php-cgi -f $dir/modules/sensors/other/bananapi_read.php
 php-cgi -f $dir/modules/sensors/1wire/1wire_gpio_i2c_read.php
+php-cgi -f $dir/modules/sensors/i2c/i2c_read.php
 
 #1wire serial
 $dir/modules/sensors/1wire/1wire_serial_read
@@ -31,8 +32,6 @@ $dir/modules/sensors/GPIO/DHT/dht_read
 $dir/modules/sensors/lmsensors/lmsensors_read
 # SNMP
 $dir/modules/sensors/snmp/snmp_read
-# I2C
-$dir/modules/sensors/i2c/i2c_read
 # wireless
 $dir/modules/sensors/wireless/esp8266_read
 #ups
