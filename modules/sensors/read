@@ -21,9 +21,8 @@ php-cgi -f $dir/modules/sensors/other/raspberrypi_read.php
 php-cgi -f $dir/modules/sensors/other/bananapi_read.php
 php-cgi -f $dir/modules/sensors/1wire/1wire_gpio_i2c_read.php
 php-cgi -f $dir/modules/sensors/i2c/i2c_read.php
+php-cgi -f $dir/modules/sensors/1wire/1wire_serial_read.php
 
-#1wire serial
-$dir/modules/sensors/1wire/1wire_serial_read
 #1wire usb
 $dir/modules/sensors/1wire/1wire_usb_read
 # DHT11, 22 Adafruit
