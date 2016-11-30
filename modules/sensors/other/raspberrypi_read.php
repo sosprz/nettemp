@@ -7,13 +7,13 @@ $cmd = "/opt/vc/bin/vcgencmd measure_temp|cut -c 6-9";
 $local_type = 'temp';
 
 $date = date("Y-m-d H:i:s"); 
-$msg = $date." ".$local_rom;
+
 
 try {
     $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 } catch (Exception $e) {
-    echo $mgs."Could not connect to the database.\n";
+    echo $date." Could not connect to the database.\n";
     exit;
 }
 
@@ -26,12 +26,12 @@ try {
 	$output = trim($output);
 	$local_val = $output;
 	include("$ROOT/receiver.php");
-	echo $msg." ".$local_val."\n";
+	echo $date." ".$local_rom." ".$local_val."\n";
 	db($local_rom,$local_val,$local_type,$device,$current);
     }
     
 } catch (Exception $e) {
-    echo $msg." Error.\n";
+    echo $date." Error.\n";
     exit;
 }
 ?>

@@ -13,7 +13,7 @@ try {
     $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 } catch (Exception $e) {
-    echo $mgs."Could not connect to the database.\n";
+    echo $date." ".$local_rom." Could not connect to the database.\n";
     exit;
 }
 
@@ -26,13 +26,13 @@ try {
     $output = trim($output)/1000;
     $output = number_format($output, 2, '.', '');
 	$local_val = $output;
-	echo $msg." ".$local_val."\n";
+	echo $date." ".$local_rom." ".$local_val."\n";
 	include("$ROOT/receiver.php");
 	db($local_rom,$local_val,$local_type,$device,$current);
     }
     
 } catch (Exception $e) {
-    echo $msg." Error.\n";
+    echo $date." ".$local_rom." Error.\n";
     exit;
 }
 ?>

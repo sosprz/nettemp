@@ -10,7 +10,7 @@ try {
     $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 } catch (Exception $e) {
-    echo $mgs."Could not connect to the database.\n";
+    echo $date." Could not connect to the database.\n";
     exit;
 }
 
@@ -206,7 +206,7 @@ try {
 	    }
     }
 } catch (Exception $e) {
-    echo $msg." Error.\n";
+    echo $date." Error.\n";
     echo $e;
     exit;
 }
