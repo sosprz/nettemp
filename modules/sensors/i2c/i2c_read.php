@@ -120,10 +120,10 @@ try {
 						echo $date." Running: ".$cmd."\n";
 						$output = shell_exec($cmd);
 						//temp,humid
+						$output = preg_split ('/$\R?^/m', $output);
 						//var_dump($output);
-						preg_match_all('/\d+\,?\.?\d+/m', $output, $output);
-						$output0 = trim($output[0][0]);
-						$output1 = trim($output[0][1]);
+						$output0 = trim($output[0]);
+						$output1 = trim($output[1]);
 						$output = '';
 					}
 					if($rr['type']=='temp') {
