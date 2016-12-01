@@ -44,7 +44,7 @@ try {
 		shell_exec($cmd);
 	} else {
 		echo $date."Nothing to install";
-						
+	}					
 } catch (Exception $e) {
     echo $date." Error.\n";
     echo $e;
