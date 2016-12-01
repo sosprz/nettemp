@@ -37,13 +37,13 @@ try {
 	
 	if(!empty($install)) {
 		$string = rtrim(implode(' ', $install), ',');
-		echo $date." You must install packages: aptitude -y install ".$install."\n";
+		echo $date." You must install packages: aptitude -y install ".$string."\n";
 		//$cmd="sudo /usr/bin/aptitude update";
 		//shell_exec($cmd);
 		//$cmd="sudo /usr/bin/aptitude install -y $string";
 		//shell_exec($cmd);
 	} else {
-		echo $date." You have all packages";
+		echo $date." You have all system packages.\n";
 	}					
 } catch (Exception $e) {
     echo $date." Error.\n";

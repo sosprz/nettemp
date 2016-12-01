@@ -1,6 +1,6 @@
 <?php
-echo "nettemp database update: \n";
-//$ROOT=$_SERVER["DOCUMENT_ROOT"];
+$date = date("Y-m-d H:i:s"); 
+
 if(empty($ROOT)){
     $ROOT=dirname(dirname(dirname(__FILE__)));
 }
@@ -341,8 +341,7 @@ $db->exec("UPDATE types SET min='0', max='10000' WHERE type='uv' AND min is null
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='storm' AND min is null AND max is null");
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='lightining' AND min is null AND max is null");
 
-
-echo "ok";
+echo $date." nettemp database update: ok \n";
 
 ?>
 
