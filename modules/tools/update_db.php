@@ -2,7 +2,7 @@
 echo "nettemp database update: \n";
 //$ROOT=$_SERVER["DOCUMENT_ROOT"];
 if(empty($ROOT)){
-    $ROOT=dirname(dirname(dirname(dirname(__FILE__))));
+    $ROOT=dirname(dirname(dirname(__FILE__)));
 }
 $db = new PDO("sqlite:$ROOT/dbf/nettemp.db") or die ("cannot open database");
 

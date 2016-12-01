@@ -1,5 +1,5 @@
 <?php
-$ROOT=dirname(dirname(dirname(dirname(__FILE__))));
+$ROOT=dirname(dirname(dirname(__FILE__)));
 
 $date = date("Y-m-d H:i:s"); 
 
@@ -37,11 +37,13 @@ try {
 	
 	if(!empty($install)) {
 		$string = rtrim(implode(' ', $install), ',');
+		echo $date." Packages to install: ".$install;
 		$cmd="sudo /usr/bin/aptitude update";
 		shell_exec($cmd);
 		$cmd="sudo /usr/bin/aptitude install -y $string";
 		shell_exec($cmd);
-	}
+	} else {
+		echo $date."Nothing to install";
 						
 } catch (Exception $e) {
     echo $date." Error.\n";

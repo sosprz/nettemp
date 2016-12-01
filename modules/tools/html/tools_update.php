@@ -16,7 +16,8 @@ if ($update == "Update") {
     shell_exec("$ROOT/modules/tools/update_su");
     shell_exec("$ROOT/modules/tools/update_fi");
     include("$ROOT/modules/tools/update_perms.php");
-    include("$ROOT/modules/tools/html/update_db.php");
+    include("$ROOT/modules/tools/update_db.php");
+    include("$ROOT/modules/tools/check_packages.php");
     }
 ?>
 </pre>
