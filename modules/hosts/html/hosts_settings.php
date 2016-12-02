@@ -64,8 +64,7 @@ $map_num=substr(rand(), 0, 4);
 		$db = new PDO('sqlite:dbf/nettemp.db');
 		$db->exec("UPDATE hosts SET alarm='$alarmon' WHERE id='$alarm'") or die ($db->lastErrorMsg());
 		if($alarmon!='on') {
-			unlink("tmp/mail/$host_name.mail");
-   		unlink("tmp/mail/hour/$host_name.mail");
+		$db->exec("UPDATE hosts SET mail='' WHERE id='$alarm'");
    	}
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();

@@ -69,12 +69,13 @@ try {
 
     
     //HOST LOST 
-    $query = $db->query("SELECT rom,name FROM hosts WHERE alarm='on' AND (status='error' OR last='0')");
+    $query = $db->query("SELECT rom,name,mail FROM hosts WHERE alarm='on' AND (status='error' OR last='0')");
     $result= $query->fetchAll();
     foreach($result as $s) {
 		$rom=$s['rom'];
 		$name=$s['name'];
-		if(!file_exists("$ROOT/tmp/mail/hour/$rom.mail")||($minute=='00')){
+		$mail=$s['mail'];
+		if(($mail!='sent')||($minute=='00')){
 		    echo $date." Sending to: ".$string."\n";
 		    
 			if ( mail ($addr, 'Mail from nettemp device', message($name,0,$date,"Lost connecion","#FF0000"), $headers ) ) {
@@ -82,23 +83,24 @@ try {
 			} else {
 				echo $date." Lost cnnection with: ".$name." - Mail send problem\n";
 			}
-			fopen("$ROOT/tmp/mail/hour/$rom.mail", "w");
+			$db->exec("UPDATE hosts SET mail='sent' WHERE rom='$rom'");
 		} else {
 			echo $date." Wait to full hour: ".$name."\n";
 		}
 	}
 	
 	//HOST RECOVERY
-	$query = $db->query("SELECT rom,name FROM hosts WHERE status='ok'");
+	$query = $db->query("SELECT rom,name,mail FROM hosts WHERE status='ok'");
     $result= $query->fetchAll();
     foreach($result as $s) {
 		$rom=$s['rom'];
 		$name=$s['name'];
-		if(file_exists("$ROOT/tmp/mail/hour/$rom.mail")){
+		$mail=$s['mail'];
+		if($mail=='sent'){
 		    echo $date." Sending to: ".$string."\n";
 			if ( mail ($addr, 'Mail from nettemp device', message($name,0,$date,"Recovery","#00FF00"), $headers ) ) {
 				echo $date." ".$name." recovery - Mail send OK\n";
-				unlink("$ROOT/tmp/mail/hour/$rom.mail");
+				$db->exec("UPDATE hosts SET mail='' WHERE rom='$rom'");
 			} else {
 				echo $date." ".$name." recovery - Mail send problem\n";
 			}
@@ -107,7 +109,7 @@ try {
 	}
 	
 	//TEMP
-	$query = $db->query("SELECT name,rom,tmp,tmp_min,tmp_max FROM sensors WHERE alarm='on'");
+	$query = $db->query("SELECT name,rom,tmp,tmp_min,tmp_max,mail FROM sensors WHERE alarm='on'");
     $result= $query->fetchAll();
     foreach($result as $s) {
 		$tmpmin=$s['tmp_min'];
@@ -115,28 +117,29 @@ try {
 		$tmp=$s['tmp'];
 		$rom=$s['rom'];
 		$name=$s['name'];
+		$mail=$s['mail'];
 	
 	//TEMP MAX
 	if(!empty($tmpmax)) {
 		if($tmp>$tmpmax) {
-			if(!file_exists("$ROOT/tmp/mail/hour/$rom.mail")||($minute=='00')){
+			if(($mail!='sent')||($minute=='00')){
 				echo $date." Sending to: ".$string."\n";
 				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"High value","#FF0000"), $headers ) ) {
 					echo $date." High value ".$name." - Mail send OK\n";
 				} else {
 					echo $date." High value ".$name." - Mail send problem\n";
 				}
-				fopen("$ROOT/tmp/mail/hour/$rom.mail", "w");
+				$db->exec("UPDATE sensors SET mail='sent' WHERE rom='$rom'");
 			} else {
 				echo $date." Wait to full hour: ".$rom."\n";
 			}
 			
 		} else {
-			if(file_exists("$ROOT/tmp/mail/hour/$rom.mail")){
+			if($mail=='sent'){
 				echo $date." Sending to: ".$string."\n";
 				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"Recovery","#00FF00"), $headers ) ) {
 					echo $date." Recovery ".$name." ".$tmp." - Mail send OK\n";
-					unlink("$ROOT/tmp/mail/hour/$rom.mail");
+					$db->exec("UPDATE sensors SET mail='' WHERE rom='$rom'");
 				} else {
 					echo $date." Recovery ".$name." ".$tmp." - Mail send problem\n";
 				}
@@ -147,23 +150,23 @@ try {
 	//TEMP MIN	
 	if(!empty($tmpmin)) {
 		if($tmp<$tmpmin) {
-			if(!file_exists("$ROOT/tmp/mail/hour/$rom.mail")||($minute=='00')){
+			if(($mail!='sent')||($minute=='00')){
 				echo $date." Sending to: ".$string."\n";
 				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"High value","#FF0000"), $headers ) ) {
 					echo $date." Low value ".$name." - Mail send OK\n";
 				} else {
 					echo $date." Low value ".$name." - Mail send problem\n";
 				}
-				fopen("$ROOT/tmp/mail/hour/$rom.mail", "w");
+				$db->exec("UPDATE sensors SET mail='sent' WHERE rom='$rom'");
 			} else {
 				echo $date." Wait to full hour: ".$rom."\n";
 			}
 		} else {
-			if(file_exists("$ROOT/tmp/mail/hour/$rom.mail")){
+			if($mail=='sent'){
 				echo $date." Sending to: ".$string."\n";
 				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"Recovery","#00FF00"), $headers ) ) {
 					echo $date." Recovery ".$name." ".$tmp." - Mail send OK\n";
-					unlink("$ROOT/tmp/mail/hour/$rom.mail");
+					$db->exec("UPDATE sensors SET mail='' WHERE rom='$rom'");
 				} else {
 					echo $date." Recovery ".$name." ".$tmp." - Mail send problem\n";
 				}
@@ -172,9 +175,9 @@ try {
 	} 
 	
 	// TEMP remove if empty
-	if(file_exists("$ROOT/tmp/mail/hour/$rom.mail") && empty($tmpmax) && empty($tmpmin)){
+	if($mail=='sent' && empty($tmpmax) && empty($tmpmin)){
 			echo $date." No min & max value, remove file ".$name."\n";
-			unlink("$ROOT/tmp/mail/hour/$rom.mail");
+			$db->exec("UPDATE sensors SET mail='' WHERE rom='$rom'");
 		}
 		
 	

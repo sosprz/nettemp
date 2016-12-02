@@ -51,13 +51,7 @@
     } 
     elseif (empty($alarm) && ($alarmonoff == "onoff")){
     $db->exec("UPDATE sensors SET alarm='' WHERE rom='$rom'") or die ($db->lastErrorMsg());
-   
-    if (file_exists("tmp/mail/$rom.mail")) {
-        unlink("tmp/mail/$rom.mail");
-    }
-    if (file_exists("tmp/mail/hour/$rom.mail")) {
-        unlink("tmp/mail/hour/$rom.mail");
-    }    
+    $db->exec("UPDATE sensors SET mail='' WHERE rom='$rom'");
     
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
