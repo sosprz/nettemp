@@ -340,6 +340,8 @@ $db->exec("UPDATE types SET min='0', max='10000' WHERE type='wind' AND min is nu
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='uv' AND min is null AND max is null");
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='storm' AND min is null AND max is null");
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='lightining' AND min is null AND max is null");
+$db->exec("ALTER TABLE sensors ADD mail type TEXT");
+
 
 echo $date." nettemp database update: ok \n";
 
