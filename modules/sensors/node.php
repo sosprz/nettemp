@@ -12,7 +12,7 @@ try {
     exit;
 }
 try {
-	$query = $db->query("SELECT * FROM settings");
+	$query = $db->query("SELECT * FROM settings where id='1'");
     $result= $query->fetchAll();
     foreach($result as $s) {
 		$client_ip=$s['client_ip'];
@@ -21,7 +21,7 @@ try {
 		$cauth_on=$s['cauth_on'];
 		$cauth_pass=$s['cauth_pass'];
     }
-    if(!empty($client_ip)&&(!empty($client_key))&&(!empty($client_on))){
+    if(!empty($client_ip)&&!empty($client_key)&&!empty($client_on)){
 		$query = $db->query("SELECT * FROM sensors WHERE remote='on'");
 		$result= $query->fetchAll();
 		foreach($result as $s) {
