@@ -21,7 +21,7 @@ try {
 		$cauth_on=$s['cauth_on'];
 		$cauth_pass=$s['cauth_pass'];
     }
-    if(!empty($client_ip)&&!empty($client_key)&&!empty($client_on)){
+    if(!empty($client_ip)&&(!empty($client_key))&&(!empty($client_on))){
 		$query = $db->query("SELECT * FROM sensors WHERE remote='on'");
 		$result= $query->fetchAll();
 		foreach($result as $s) {
