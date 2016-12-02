@@ -5,7 +5,7 @@ DATE=`date +%y%m%d-%H%M`
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=$(date +%y%m%d-%H%)
 LOG="$dir/tmp/incoming_sms.txt"
-
+mkdir -p /var/spool/sms/incoming
 cd /var/spool/sms/incoming
 
 for i in $(ls); do
