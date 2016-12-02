@@ -42,6 +42,31 @@ try {
 	fclose($fh);
 	$a=$cread;
 	$headers = "From: ".$a['user']."\r\n";
+	$headers .= "MIME-Version: 1.0" . "\r\n";
+	$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+	
+	function message($name,$value,$date,$state,$color)
+	{
+	$body = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+			 <html>
+			 <head>
+			 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+	         <style>* { margin: 0; padding: 0; } a {text-decoration: none;} th, td {  padding: 5px;} table, th, td { border: 1px solid black;  border-collapse: collapse;} * {font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;}</style>
+			 </head>
+			 <body bgcolor="#ffffff" text="#000000">
+			 <h4>Hi, this is notification from <a href="http://#">nettemp system.</a></br></h4><br>
+			 <table border="1" style="">
+			 <tr><th>Name</th><th>Value</th><th>Date</th><th>Status</th></tr><tr>
+			 <td>'.$name.'</td><td>'.$value.'</td><td>'.$date.'</td><td bgcolor="'.$color.'">'.$state.'</td>
+			 </tr></table><br><br>
+			 <a href="http://techfreak.pl/tag/nettemp"> <img src="http://techfreak.pl/wp-content/uploads/2012/12/nettemp.pl_.png" style="width:120px;height:40px;"></a><br>
+			 </div>
+			 </body>
+			 </html>';
+	return $body;
+	}
+	
+
     
     //HOST LOST 
     $query = $db->query("SELECT rom,name FROM hosts WHERE alarm='on' AND (status='error' OR last='0')");
@@ -51,7 +76,8 @@ try {
 		$name=$s['name'];
 		if(!file_exists("$ROOT/tmp/mail/hour/$rom.mail")||($minute=='00')){
 		    echo $date." Sending to: ".$string."\n";
-			if ( mail ($addr, 'Mail from nettemp device', "Lost connection with $name", $headers ) ) {
+		    
+			if ( mail ($addr, 'Mail from nettemp device', message($name,0,$date,"Lost connecion","#FF0000"), $headers ) ) {
 				echo $date." Lost cnnection with: ".$name." - Mail send OK\n";
 			} else {
 				echo $date." Lost cnnection with: ".$name." - Mail send problem\n";
@@ -70,7 +96,7 @@ try {
 		$name=$s['name'];
 		if(file_exists("$ROOT/tmp/mail/hour/$rom.mail")){
 		    echo $date." Sending to: ".$string."\n";
-			if ( mail ($addr, 'Mail from nettemp device', "Recovery connection with $name", $headers ) ) {
+			if ( mail ($addr, 'Mail from nettemp device', message($name,0,$date,"Recovery","#00FF00"), $headers ) ) {
 				echo $date." ".$name." recovery - Mail send OK\n";
 				unlink("$ROOT/tmp/mail/hour/$rom.mail");
 			} else {
@@ -95,7 +121,7 @@ try {
 		if($tmp>$tmpmax) {
 			if(!file_exists("$ROOT/tmp/mail/hour/$rom.mail")||($minute=='00')){
 				echo $date." Sending to: ".$string."\n";
-				if ( mail ($addr, 'Mail from nettemp device', "High value in $name $tmp", $headers ) ) {
+				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"High value","#FF0000"), $headers ) ) {
 					echo $date." High value ".$name." - Mail send OK\n";
 				} else {
 					echo $date." High value ".$name." - Mail send problem\n";
@@ -108,7 +134,7 @@ try {
 		} else {
 			if(file_exists("$ROOT/tmp/mail/hour/$rom.mail")){
 				echo $date." Sending to: ".$string."\n";
-				if ( mail ($addr, 'Mail from nettemp device', "Recovery ".$name." ".$tmp, $headers ) ) {
+				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"Recovery","#00FF00"), $headers ) ) {
 					echo $date." Recovery ".$name." ".$tmp." - Mail send OK\n";
 					unlink("$ROOT/tmp/mail/hour/$rom.mail");
 				} else {
@@ -123,7 +149,7 @@ try {
 		if($tmp<$tmpmin) {
 			if(!file_exists("$ROOT/tmp/mail/hour/$rom.mail")||($minute=='00')){
 				echo $date." Sending to: ".$string."\n";
-				if ( mail ($addr, 'Mail from nettemp device', "Low value in ".$name." ".$tmp, $headers ) ) {
+				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"High value","#FF0000"), $headers ) ) {
 					echo $date." Low value ".$name." - Mail send OK\n";
 				} else {
 					echo $date." Low value ".$name." - Mail send problem\n";
@@ -135,7 +161,7 @@ try {
 		} else {
 			if(file_exists("$ROOT/tmp/mail/hour/$rom.mail")){
 				echo $date." Sending to: ".$string."\n";
-				if ( mail ($addr, 'Mail from nettemp device', "Recovery ".$name." ".$tmp, $headers ) ) {
+				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"Recovery","#00FF00"), $headers ) ) {
 					echo $date." Recovery ".$name." ".$tmp." - Mail send OK\n";
 					unlink("$ROOT/tmp/mail/hour/$rom.mail");
 				} else {
@@ -155,6 +181,7 @@ try {
 	}//for
 	
 	//REMOVE if ALARM OFF
+	// unlink in modules/sensors/html/sensor_settings.php
 	
     
 } catch (Exception $e) {
