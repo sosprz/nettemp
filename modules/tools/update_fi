@@ -34,5 +34,6 @@ fi
 
 # update mail
 sudo sed -i 's/;sendmail_path =/sendmail_path = '\''\/usr\/bin\/msmtp -t'\''/g' /etc/php5/fpm/php.ini
+sudo sed -i 's/;sendmail_path =/sendmail_path = '\''\/usr\/bin\/msmtp -t'\''/g' /etc/php5/cli/php.ini
 # end update mail
 

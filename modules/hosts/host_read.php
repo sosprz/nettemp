@@ -31,11 +31,9 @@ try {
 		$cmd="fping -e $ip";
 		$output=shell_exec($cmd);
 		if (strpos($output, 'alive') !== false) {
-			var_dump($output);
 			echo $date." Connection is OK with: ".$name."\n";
 			preg_match_all('/-?\d+(?:\.\d+)?+/', $output, $out);
 			$output=$out[0][2];
-			var_dump($out);
 			$local_val=$output;
 			echo $date." Name:".$name." Value:".$output."\n";
 			db($local_rom,$local_val,$local_type,$device,$current);
