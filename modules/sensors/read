@@ -38,7 +38,7 @@ $dir/modules/sensors/other/ups
 #sdm120/sdm120c
 $dir/modules/sensors/rs485/sdm120
 #sdm630
-$dir/modules/sensors/rs485/sdm630
+php-cgi -f $dir/modules/sensors/rs485/sdm630.php
 #orwe
 $dir/modules/sensors/rs485/orwe
 #HCS04
