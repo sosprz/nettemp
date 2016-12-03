@@ -147,7 +147,7 @@ function db($rom,$val,$type,$device,$current) {
 		    
 		    // 5ago arrow
 		    $min=intval(date('i'));
-		    if ((strpos($min,'0') !== false) || (strpos($min,'5') !== false)) {
+		    if ( ($type!='host')&&((strpos($min,'0') !== false) || (strpos($min,'5') !== false))) {
 				$db->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to 5ago\n" );
 		    }
 		    
