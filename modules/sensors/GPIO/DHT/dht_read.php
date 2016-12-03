@@ -20,19 +20,30 @@ try {
     foreach($result as $g) {
 		$gpios[$g['gpio']]=$g['humid_type'];
     }
-
 	foreach($gpios as $gpio => $htype){
-		$cmd("$ROOT/modules/sensors/GPIO/DHT/AdafruitDHT.py $htype $gpio");
+		$cmd=("$ROOT/modules/sensors/GPIO/DHT/AdafruitDHT.py $htype $gpio");
 		$out=shell_exec($cmd);
-		$out = preg_split ('/$\R?^/m', $out);
-		
-		
-		
+		$out = explode (' ',$out);
+		$temp=trim($out[0]);
+		$humid=trim($out[1]);
 		$device='';
 		$current='';
-		echo $date." Rom: ".$name." Value:".$output."\n";
-		db($local_rom,$local_val,$local_type,$device,$current);
 		
+		if(!empty($temp)) {
+		    $local_val=$temp;
+		    $local_type='temp';
+		$local_rom="gpio_".$gpio."_".$local_type;
+		echo $date." Rom: ".$local_rom." Value:".$local_val."\n";
+		db($local_rom,$local_val,$local_type,$device,$current);
+		}
+		if(!empty($humid)){
+		$local_val=$humid;
+		$local_type='humid';
+		$local_rom="gpio_".$gpio."_".$local_type;
+		echo $date." Rom: ".$local_rom." Value:".$local_val."\n";
+		db($local_rom,$local_val,$local_type,$device,$current);
+		}
+
 		}
 
     
