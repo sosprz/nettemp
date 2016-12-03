@@ -5,8 +5,8 @@ mkdir -p $dir/tmp/debug/time
 
 (time $dir/modules/sensors/read) 2> $dir/tmp/debug/time/read && \
 (time $dir/modules/gpio/gpio2 check) 2> $dir/tmp/debug/time/gpio && \
-(time php -f $dir/modules/hosts/host_read.php) 2> $dir/tmp/debug/time/host && \
-(time $dir/modules/tools/system_stats) 2> $dir/tmp/debug/time/system_stat && \
+(time php -f $dir/modules/hosts/host_read.php) 2> $dir/tmp/debug/time/host.php && \
+(time php -f $dir/modules/tools/system_stats.php) 2> $dir/tmp/debug/time/system_stat.php && \
 (time php -f $dir/modules/mail/mail_send.php) 2> $dir/tmp/debug/time/mail_send.php && \
 (time $dir/modules/sms/sms_check) 2> $dir/tmp/debug/time/sms_check && \
 (time $dir/modules/sms/sms_send) 2> $dir/tmp/debug/time/sms_send
