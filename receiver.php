@@ -154,7 +154,7 @@ function db($rom,$val,$type,$device,$current) {
 		    ////status for all
 		    //hosts status
 		    if ($type == 'host') {
-		    		if($val==0) {
+		    		if($val=='0') {
 		    			$db->exec("UPDATE hosts SET last='0', status='error' WHERE rom='$rom'")or die ("cannot insert to hosts status\n");
 		    		} 
 		    		else {   			
