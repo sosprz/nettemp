@@ -37,7 +37,7 @@ try {
 	
 	if(!empty($install)) {
 		$string = rtrim(implode(' ', $install), ',');
-		echo $date." You must install packages: sudo aptitude -y install ".$string."\n";
+		echo $date." You must install packages: sudo aptitude update && sudo aptitude -y install ".$string."\n";
 		//$cmd="sudo /usr/bin/aptitude update";
 		//shell_exec($cmd);
 		//$cmd="sudo /usr/bin/aptitude install -y $string";
