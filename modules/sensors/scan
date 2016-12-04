@@ -31,7 +31,7 @@ $dir/modules/sensors/other/raspberrypi_scan
 #bananapi
 $dir/modules/sensors/other/bananapi_scan
 # DHT11 22
-#$dir/modules/sensors/GPIO/DHT/dht_scan
+$dir/modules/sensors/GPIO/DHT/dht_scan
 # snmp
 $dir/modules/sensors/snmp/snmp_scan
 # lmsensors
