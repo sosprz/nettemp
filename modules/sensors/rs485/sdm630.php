@@ -4,6 +4,18 @@ $date = date("Y-m-d H:i:s");
 define("LOCAL","local");
 
 
+exec("ps ax |grep sdm360.php",$response);
+    if ($response)
+    {
+	echo $date." SDM630 Running.\n";
+	exit;
+    } 
+
+
+var_dump($response);
+
+sleep(80);
+
 try {
     $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
