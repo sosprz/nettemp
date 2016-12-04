@@ -142,7 +142,7 @@ function db($rom,$val,$type,$device,$current) {
 				echo "$rom ok \n";
 		    }
 		    else {
-					echo "Not writed interval is $chmin min";
+					echo "Not writed interval is $chmin min\n";
 		    }
 		    
 		    // 5ago arrow
