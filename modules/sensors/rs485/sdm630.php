@@ -11,11 +11,6 @@ exec("ps ax |grep sdm360.php",$response);
 	exit;
     } 
 
-
-var_dump($response);
-
-sleep(80);
-
 try {
     $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
