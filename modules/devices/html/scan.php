@@ -10,10 +10,9 @@ $result = $sth->fetchAll();
 $separator = "\r\n";
 foreach ($result as $a) { ?>
 	<?php 
-		$ds=trim(strpos('-i2c','',$a['i2c']));
-		echo $ds."\n";
-		?>
-	<?php if (file_exists("/sys/bus/i2c/devices/".$ds."-0018/") && $a['i2c']!='off') { ?> 
+		$ds=str_replace('i2c-','',$a['i2c']);
+	?>
+	<?php if (file_exists("/sys/bus/i2c/devices/".$ds."-0018/")) { ?> 
 	<tr class="info"><td>1wire DS2482</td><td>on</td></tr> 	<?php } else { ?><tr><td>1wire DS2482</td><td>off</td></tr>  
 	<?php } ?>
 	<tr <?php echo $a['usb'] != 'off' ? 'class="info"' : ''; ?>><td>1wire USB </td> <td><?php echo $a['usb']; ?></td></tr>
