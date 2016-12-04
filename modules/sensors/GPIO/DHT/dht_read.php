@@ -32,19 +32,19 @@ try {
 		if(!empty($temp)) {
 		    $local_val=$temp;
 		    $local_type='temp';
-		$local_rom="gpio_".$gpio."_".$local_type;
-		echo $date." Rom: ".$local_rom." Value:".$local_val."\n";
-		db($local_rom,$local_val,$local_type,$device,$current);
+			$local_rom="gpio_".$gpio."_".$local_type;
+			echo $date." Rom: ".$local_rom." Value:".$local_val."\n";
+			db($local_rom,$local_val,$local_type,$device,$current);
 		}
 		if(!empty($humid)){
-		$local_val=$humid;
-		$local_type='humid';
-		$local_rom="gpio_".$gpio."_".$local_type;
-		echo $date." Rom: ".$local_rom." Value:".$local_val."\n";
-		db($local_rom,$local_val,$local_type,$device,$current);
+			$local_val=$humid;
+			$local_type='humid';
+			$local_rom="gpio_".$gpio."_".$local_type;
+			echo $date." Rom: ".$local_rom." Value:".$local_val."\n";
+			db($local_rom,$local_val,$local_type,$device,$current);
 		}
 
-		}
+	}
 
     
 } catch (Exception $e) {
