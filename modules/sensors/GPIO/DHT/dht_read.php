@@ -15,7 +15,7 @@ try {
 
 try {
 	include("$ROOT/receiver.php");
-    $query = $db->query("SELECT * FROM gpio WHERE mode='humid' OR mode='temp'");
+    $query = $db->query("SELECT * FROM gpio WHERE mode='humid'");
     $result= $query->fetchAll();
     foreach($result as $g) {
 		$gpios[$g['gpio']]=$g['humid_type'];
