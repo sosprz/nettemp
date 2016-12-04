@@ -1,6 +1,5 @@
 <?php
 $ROOT=dirname(dirname(dirname(__FILE__)));
-echo $ROOT;
 $date = date("Y-m-d H:i:s");
 
 $conf="$ROOT/modules/mysql/mysql_conf.php";
@@ -9,7 +8,10 @@ if(file_exists($conf)) {
 	include_once($conf);
 	$conn = new mysqli($IP, $USER, $PASS, $DB, $PORT);
 	
-	if($conn){
+	$test="SHOW TABLES";
+	if ($conn->connect_error){
+		echo $date." Connection to MYSQL error\n";
+	} else {
 		$db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 		$rows = $db->query("SELECT * FROM sensors");
 		$row = $rows->fetchAll();
@@ -19,9 +21,9 @@ if(file_exists($conf)) {
 			$name=$a['name'];
 			$sql="INSERT INTO `".$rom."` (value) VALUES ('$tmp')";
 			if ($conn->query($sql) === TRUE) {
-				echo "Send $tmp to $name successfully\n";
+				echo $date." Send $tmp to $name successfully \n";
 			} else {
-				echo "Error send $tmp to $name\n" . $conn->error;
+				echo $date." Error send $tmp to $name " . $conn->error ."\n";
 			}		
 			$sql='';
 		}

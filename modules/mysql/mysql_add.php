@@ -44,8 +44,8 @@ $conn = new mysqli($IP, $USER, $PASS, $DB, $PORT);
 	}		
 	$conn->close();
      
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
+   // header("location: " . $_SERVER['REQUEST_URI']);
+    //exit();
     	
 }
 	
@@ -88,7 +88,7 @@ $row = $rows->fetchAll();
 	</td>
 	<td class="col-md-1">
 	<?php
-	$rom=$a['name']."_".$a['rom'];
+	$rom=$a['rom'];
 	$check_exists = $conn->query("SHOW TABLES LIKE '$rom'");
 	$table_exists = $check_exists->num_rows;
 	if ($table_exists > 0) { 
@@ -109,14 +109,14 @@ $row = $rows->fetchAll();
 
     <td class="col-md-1">
     <form action="" method="post" style="display:inline!important;"> 	
-	<input type="hidden" name="name" value="<?php echo $a['name']."_".$a['rom']; ?>" />
+	<input type="hidden" name="name" value="<?php echo $a['rom']; ?>" />
 	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button>
 	<input type="hidden" name="add" value="add" />
     </form>
   
 	<td class="col-md-1">
     <form action="" method="post" style="display:inline!important;">
-	<input type="hidden" name="name" value="<?php echo $a["rom"]; ?>" />
+	<input type="hidden" name="name" value="<?php echo $a['rom']; ?>" />
 	<input type="hidden" name="rm" value="rm" />
 	<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
     </form>
