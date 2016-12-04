@@ -1,6 +1,9 @@
 <?php
-$date = date("Y-m-d H:i:s"); 
-$conf="../../modules/mysql/mysql_conf.php";
+$ROOT=dirname(dirname(dirname(dirname(__FILE__))));
+define("LOCAL","local");
+$date = date("Y-m-d H:i:s");
+
+$conf="$DIR/modules/mysql/mysql_conf.php";
 if(file_exists($conf)) {
 	include_once($conf);
 	$conn = new mysqli($IP, $USER, $PASS, $DB, $PORT);
