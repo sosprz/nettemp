@@ -12,11 +12,14 @@ apt-get -y install $package
 } >> $dir/install_log.txt 2>&1
 
 for i in $package; do
-    #dpkg-query -W -f='${Status}' $i 
-    if [[ $? = 1 ]]; then
-    echo no package $i >> $dir/install_log.txt 2>&1
-    echo no package $i
-    exit 1
+    dpkg-query -W -f='${Package}\t\t${Status}' $i 
+    exitstatus=$?
+    echo -e
+    if [ $exitstatus = '1' ]; then
+    echo -e No package $i  >> $dir/install_log.txt 2>&1
+    echo -e No package $i
+    echo -e "[ ${RED}error${R} ] packages"
+    exit
     fi
 done
 

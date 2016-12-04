@@ -28,7 +28,7 @@ $dir/modules/sensors/1wire/1wire_usb_read
 # DHT11, 22 Adafruit
 $dir/modules/sensors/GPIO/DHT/dht_read
 #lmsensors
-$dir/modules/sensors/lmsensors/lmsensors_read
+php-cgi -f $dir/modules/sensors/lmsensors/lmsensors_read.php
 # SNMP
 $dir/modules/sensors/snmp/snmp_read
 # wireless

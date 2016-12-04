@@ -15,7 +15,7 @@ try {
 }
 
 try {
-	include(dirname(dirname(dirname(dirname(__FILE__))))."/receiver.php");
+	include("$ROOT/receiver.php");
     $query = $db->query("SELECT i2c FROM device WHERE id='1'");
     $result= $query->fetchAll();
     foreach($result as $r) {
