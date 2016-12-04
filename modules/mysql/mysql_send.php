@@ -1,14 +1,15 @@
 <?php
-$ROOT=dirname(dirname(dirname(dirname(__FILE__))));
-define("LOCAL","local");
+$ROOT=dirname(dirname(dirname(__FILE__)));
+echo $ROOT;
 $date = date("Y-m-d H:i:s");
 
-$conf="$DIR/modules/mysql/mysql_conf.php";
+$conf="$ROOT/modules/mysql/mysql_conf.php";
+
 if(file_exists($conf)) {
 	include_once($conf);
 	$conn = new mysqli($IP, $USER, $PASS, $DB, $PORT);
 
-	$db = new PDO('sqlite:../../dbf/nettemp.db');
+	$db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 	$rows = $db->query("SELECT * FROM sensors");
 	$row = $rows->fetchAll();
 	foreach ($row as $a) { 	
