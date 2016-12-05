@@ -38,8 +38,3 @@ if ip=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT ip FROM hosts W
      done
 fi
 
-
-$host = 'www.google.com';
-$pingTime = shell_exec('ping -q -c1 ' . $host . ' | grep "packets transmitted" | sed s/"^[[:print:]]* time \([0-9]*\)ms$"/\\\\1/g');
-
-echo "ping time:" . $pingTime . "ms\n";
