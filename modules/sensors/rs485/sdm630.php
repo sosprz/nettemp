@@ -4,12 +4,12 @@ $date = date("Y-m-d H:i:s");
 define("LOCAL","local");
 
 
-exec("ps ax |grep sdm360.php",$response);
-    if ($response)
-    {
-	echo $date." SDM630 Running.\n";
-	exit;
-    } 
+//exec("pgrep -f 'php '.$ROOT.'/modules/sensors/rs485/sdm630.php'",$response);
+//    if ($response)
+//    {
+//	echo $date." SDM630 Running.\n";
+//	exit;
+ //   } 
 
 try {
     $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
