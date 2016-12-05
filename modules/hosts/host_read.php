@@ -32,10 +32,10 @@ try {
 		$output=shell_exec($cmd);
 		if (strpos($output, 'alive') !== false) {
 			echo $date." Connection is OK with: ".$name."\n";
-			$output=explode("(",$output);
-			$output=str_replace("ms)"," ",$output[1]);
+			preg_match('/\((\d+\,?\.?\d+)[ ms]+\)/m', $output, $out);
+			$output=$out[1];
 			$local_val=trim($output);
-			echo $date." Name:".$name." Value:".$output;
+			echo $date." Name:".$name." Value:".$output."\n";
 			db($local_rom,$local_val,$local_type,$device,$current);
 		} else {
 			echo $date." Connection lost with: ".$name."\n";
@@ -60,7 +60,7 @@ try {
 		$val=str_replace(",",".",$exp[7]);
 		$out=$val;
 		if (strpos($exp[0], 'connected') !== false) {
-			echo $date." Connection is OK with: ".$name."\n";
+			echo $date." Connection is OK with: ".$name."\n";           
 			$local_val=$out;
 			echo $date." Name:".$name." Value:".$out."\n";
 			db($local_rom,$local_val,$local_type,$device,$current);
