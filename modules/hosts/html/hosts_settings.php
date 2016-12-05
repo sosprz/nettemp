@@ -28,13 +28,10 @@ $map_num=substr(rand(), 0, 4);
 	$inserted=$db->query("SELECT id FROM hosts WHERE name='$host_name'");
 	$inserted_id=$inserted->fetchAll();
 	$inserted_id=$inserted_id[0];
-	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
-	$dbmaps->exec("INSERT OR IGNORE INTO maps (element_id, type, map_pos, map_num, map_on) VALUES ('$inserted_id[id]','hosts','{left:0,top:0}','$map_num','on')");
-	
-	
-	    $dbnew = new PDO("sqlite:db/$host_name.sql");
-	    $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
-	    $dbnew==NULL;
+	$db->exec("INSERT OR IGNORE INTO maps (element_id, type, map_pos, map_num, map_on) VALUES ('$inserted_id[id]','hosts','{left:0,top:0}','$map_num','on')");
+    $dbnew = new PDO("sqlite:db/$host_name.sql");
+    $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
+    $dbnew==NULL;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
     }	
@@ -45,13 +42,9 @@ $map_num=substr(rand(), 0, 4);
 	$to_delete=$db->query("SELECT id FROM hosts WHERE name='$host_name'");
 	$to_delete_id=$to_delete->fetchAll();
 	$to_delete_id=$to_delete_id[0];
-	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
-	$dbmaps->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='hosts'");// or die ($db->lastErrorMsg());
-	
-	$db->exec("DELETE FROM hosts WHERE name='$host_name'") or die ($db->lastErrorMsg());
+	$db->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='hosts'");
+	$db->exec("DELETE FROM hosts WHERE rom='$host_name'");
 	unlink("db/$host_name.sql");
-	unlink("tmp/mail/$host_name.mail");
-   unlink("tmp/mail/hour/$host_name.mail");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
     }
@@ -62,9 +55,9 @@ $map_num=substr(rand(), 0, 4);
     $alarmon = isset($_POST['alarmon']) ? $_POST['alarmon'] : '';
     if (($alarmonoff == "onoff")){
 		$db = new PDO('sqlite:dbf/nettemp.db');
-		$db->exec("UPDATE hosts SET alarm='$alarmon' WHERE id='$alarm'") or die ($db->lastErrorMsg());
+		$db->exec("UPDATE hosts SET alarm='$alarmon' WHERE rom='$host_name'") or die ($db->lastErrorMsg());
 		if($alarmon!='on') {
-		$db->exec("UPDATE hosts SET mail='' WHERE id='$alarm'");
+		$db->exec("UPDATE hosts SET mail='' WHERE rom='$host_name'");
    	}
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
