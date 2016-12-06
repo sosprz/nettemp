@@ -110,7 +110,7 @@ if ($type == 'system') {
     exit();
 }
 
-elseif ($type == 'hosts') {
+elseif ($type == 'host') {
 
     $file=$name;
     $dirb = "sqlite:$root/db/$file.sql";

@@ -126,7 +126,7 @@ if ($type == 'system') {
 } 
 
 
-elseif ($type == 'hosts') {
+elseif ($type == 'host') {
  	 $db = new PDO("sqlite:$root/dbf/nettemp.db");
  	 if(empty($single)) {
     	$rows = $db->query("SELECT * FROM hosts");
