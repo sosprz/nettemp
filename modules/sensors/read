@@ -47,11 +47,8 @@ $dir/modules/sensors/GPIO/HCS04/read
 #snmp server
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tmp FROM sensors" | sed 's/$/:/' | sed '$s/.$//' |tr -d "\n" > $dir/tmp/results
 
-#lcd
-echo $(date "+%y.%m.%d %H:%M") > $dir/tmp/lcd
-sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name,tmp,type FROM sensors WHERE lcd='on' ORDER BY position ASC, id ASC" | sed 's/|/ /g' | sed 's/press/hPa/g' | sed 's/temp/C/g' | sed 's/humid/%/g' | sed 's/volt/V/g' | sed 's/amps/A/g' | sed 's/watt/W/g' | sed 's/water/m3/g' | sed 's/gas/m3/g' | sed 's/elec/kWh/g' >> $dir/tmp/lcd
 
-
+php-cgi -f $dir/modules/lcd/lcd.php
 php-cgi -f $dir/modules/sensors/node.php
 php-cgi -f $dir/modules/mysql/mysql_send.php
 
