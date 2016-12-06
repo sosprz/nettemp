@@ -4,14 +4,15 @@ $date = date("Y-m-d H:i:s");
 if(empty($ROOT)){
     $ROOT=dirname(dirname(dirname(__FILE__)));
 }
-$db = new PDO("sqlite:$ROOT/dbf/nettemp.db") or die ("cannot open database");
+
+$db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 
 $db->exec("INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')");
-$db->exec("INSERT INTO device (usb, onewire, serial, i2c, lmsensors, wireless ) VALUES ('off','off','off','off','off','off')");
-$db->exec("INSERT INTO settings (mail, sms, rrd, fw, vpn, gpio, authmod, temp_scale) VALUES ('off','off', 'off', 'off', 'off', 'on', 'on', 'C')");
+$db->exec("INSERT OR IGNORE INTO device (usb, onewire, serial, i2c, lmsensors, wireless ) VALUES ('off','off','off','off','off','off')");
+$db->exec("INSERT OR IGNORE INTO settings (mail, sms, rrd, fw, vpn, gpio, authmod, temp_scale) VALUES ('off','off', 'off', 'off', 'off', 'on', 'on', 'C')");
 
 $db->exec("ALTER TABLE settings ADD vpn type TEXT");
-$db->exec("CREATE TABLE vpn (id INTEGER PRIMARY KEY,users UNIQUE)");
+$db->exec("CREATE TABLE IF NOT EXISTS vpn (id INTEGER PRIMARY KEY,users UNIQUE)");
 $db->exec("ALTER TABLE settings ADD fw type TEXT");
 $db->exec("CREATE TABLE fw (id INTEGER PRIMARY KEY,ssh TEXT,icmp TEXT,openvpn TEXT,ext TEXT)");
 $db->exec("ALTER TABLE fw ADD radius type TEXT");
@@ -158,8 +159,6 @@ $db->exec("INSERT OR IGNORE INTO device (id,lmsensors) VALUES (1,'off')");
 $db->exec("INSERT OR IGNORE INTO device (id,i2c) VALUES (1,'off')");
 $db->exec("INSERT OR IGNORE INTO device (id,wireless) VALUES (1,'off')");
 
-$db->exec("CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE tmp = old.tmp; END;");
-
 $db->exec("ALTER TABLE sensors ADD minmax type TEXT");
 $db->exec("ALTER TABLE sensors ADD sum type TEXT");
 $db->exec("UPDATE sensors SET sum='0' WHERE sum='' OR sum=' ' OR sum is null");
@@ -225,8 +224,6 @@ $db->exec("ALTER TABLE camera ADD access_all type TEXT");
 $db->exec("ALTER TABLE snmp ADD version type TEXT");
 $db->exec("UPDATE snmp SET version='2c' WHERE version is null");
 $db->exec("ALTER TABLE settings ADD ups_status type TEXT");
-
-$db->exec("ALTER TABLE sensors ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL");
 
 $db->exec("ALTER TABLE gpio ADD position type NUM");
 $db->exec("UPDATE gpio SET position='1' WHERE position is null");
@@ -343,9 +340,15 @@ $db->exec("UPDATE types SET min='0', max='10000' WHERE type='lightining' AND min
 $db->exec("ALTER TABLE sensors ADD mail type TEXT");
 $db->exec("ALTER TABLE hosts ADD mail type TEXT");
 
+// TIME & TRIGGER
+$db->exec("ALTER TABLE sensors ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL");
+//$db->exec("ALTER TABLE hosts ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL");
+$db->exec("CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE tmp = old.tmp; END;");
+//$db->exec("CREATE TRIGGER hosts_time_trigger AFTER UPDATE ON hosts WHEN NEW.last BEGIN UPDATE hosts SET time = (datetime('now','localtime')) WHERE last = old.last; END;");
 
 
 echo $date." nettemp database update: ok \n";
+
 
 ?>
 

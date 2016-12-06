@@ -176,7 +176,7 @@ function db($rom,$val,$type,$device,$current) {
 		    			$db->exec("UPDATE hosts SET last='0', status='error' WHERE rom='$rom'")or die ("cannot insert to hosts status\n");
 		    		} 
 		    		else {   			
-						$db->exec("UPDATE hosts SET last='$val', status='ok' WHERE rom='$rom'")or die ("cannot insert to hosts status\n");
+						$db->exec("UPDATE hosts SET last='$val', status='ok' WHERE rom='$rom'")or die ("cannot insert to hosts status 2\n");
 					}
 		    }
 		    elseif ($type == 'trigger') {
