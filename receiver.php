@@ -58,6 +58,23 @@ if (isset($_GET['usb'])) {
     $usb = $_GET['usb'];
 }
 
+function scale($val,$type) {
+	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
+	$sth = $db->prepare("select * from settings WHERE id='1'");
+	$sth->execute();
+	$result = $sth->fetchAll();
+	foreach ( $result as $a) {
+		$scale=$a['temp_scale'];
+	}
+	// scale F->C
+	if($scale=='F' && $type=='temp') {
+		$val=$val*1.8+32;
+		return $val;
+	} else {
+		return $val;
+	}
+}
+
 function trigger($rom) {
 	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
    $rows = $db->query("SELECT mail FROM users WHERE maila='yes'");
@@ -81,7 +98,7 @@ function trigger($rom) {
 
 }
 
-function check(&$val,$type) {
+function check($val,$type) {
 	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
 	$rows = $db->query("SELECT * FROM types WHERE type='$type'");
     $row = $rows->fetchAll();
@@ -89,11 +106,11 @@ function check(&$val,$type) {
     {
 		if (($range['min'] <= $val) && ($val <= $range['max']) && ($val != $range['value1']) && ($val != $range['value2']) && ($val != $range['value3'])) 
 		{
-			$val=$val;
+			return $val;
 		}
 		else 
 		{
-			$val='range';
+			return 'range';
 		}
 	}
 
@@ -119,7 +136,8 @@ function db($rom,$val,$type,$device,$current) {
    $c = count($row);
    if ( $c >= "1") {
 	  if (is_numeric($val)) {
-		check($val,$type);
+		$val=scale($val,$type);
+		$val=check($val,$type);
 		if ($val != 'range'){
 		    //// base
 		    // counters can always put to base
@@ -223,10 +241,7 @@ if (("$key" != "$skey") && (!defined('LOCAL')))
 } 
     else {
 
-// scale F->C
-if($scale=='F' && $type=='temp') {
-    $val=$val*1.8+32;
-}
+
 
 // main
 if  (isset($val) && isset($rom) && isset($type)) {
