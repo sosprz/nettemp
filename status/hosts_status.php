@@ -21,7 +21,7 @@ foreach ( $result as $a) {
 		<?php echo str_replace("host_","",$a["name"]); ?>
 	</td>
 	<td>
-	    <a href="index.php?id=view&type=hosts&max=day&single=<?php echo $a['name']?>" title="Last update: <?php echo $a['time']?>"
+	    <a href="index.php?id=view&type=host&max=day&single=<?php echo $a['name']?>" title="Last update: <?php echo $a['time']?>"
 		    <?php echo $a['status'] == 'error' || $a['last'] == 0 ? '<span class="label label-danger">' : '<span class="label label-success">' ?>
 		    <?php echo $a['status'] == 'error' || $a['last'] == 0 ? 'offline' : $a['last']." ms"?>
 		</span>
