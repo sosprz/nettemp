@@ -23,11 +23,11 @@ php-cgi -f $dir/modules/sensors/1wire/1wire_gpio_i2c_read.php
 php-cgi -f $dir/modules/sensors/i2c/i2c_read.php
 php-cgi -f $dir/modules/sensors/1wire/1wire_serial_read.php
 php-cgi -f $dir/modules/sensors/GPIO/DHT/dht_read.php
+php-cgi -f $dir/modules/sensors/lmsensors/lmsensors_read.php
+php-cgi -f $dir/modules/sensors/snmp/snmp.php
 
 #1wire usb
 $dir/modules/sensors/1wire/1wire_usb_read
-#lmsensors
-php-cgi -f $dir/modules/sensors/lmsensors/lmsensors_read.php
 # SNMP
 $dir/modules/sensors/snmp/snmp_read
 # wireless
@@ -42,10 +42,6 @@ php-cgi -f $dir/modules/sensors/rs485/sdm630.php
 $dir/modules/sensors/rs485/orwe
 #HCS04
 $dir/modules/sensors/GPIO/HCS04/read
-
-#snmp server
-sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tmp FROM sensors" | sed 's/$/:/' | sed '$s/.$//' |tr -d "\n" > $dir/tmp/results
-
 
 php-cgi -f $dir/modules/lcd/lcd.php
 php-cgi -f $dir/modules/sensors/node.php
