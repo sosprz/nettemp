@@ -19,11 +19,12 @@ try {
     $result= $query->fetchAll();
     $count = count($result);
 		if ( $count == '2'){
-			$cmd=("$ROTO/modules/sensors/GPIO/HCS04/hcs04.py");
-			$local_val=$shell_exec($cmd);
+			$cmd=("$ROOT/modules/sensors/GPIO/HCS04/hcs04.py");
+			$local_val=shell_exec($cmd);
 			$device='';
 			$current='';
 			$local_rom='gpio_2324_dist';
+			$local_type='dist';
 			echo $date." Rom: ".$local_rom." Value:".$local_val."\n";
 			db($local_rom,$local_val,$local_type,$device,$current);
 		} else {
