@@ -22,7 +22,7 @@ php-cgi -f $dir/modules/sensors/other/bananapi_read.php
 php-cgi -f $dir/modules/sensors/1wire/1wire_gpio_i2c_read.php
 php-cgi -f $dir/modules/sensors/i2c/i2c_read.php
 php-cgi -f $dir/modules/sensors/1wire/1wire_serial_read.php
-php-cdi -f $dir/modules/sensors/GPIO/DHT/dht_read.php
+php-cgi -f $dir/modules/sensors/GPIO/DHT/dht_read.php
 
 #1wire usb
 $dir/modules/sensors/1wire/1wire_usb_read
