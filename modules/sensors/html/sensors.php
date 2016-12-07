@@ -81,6 +81,18 @@ $name_new=trim($name_new2);
 
 	
 	//DB    
+	if ($type=='elec' || $type=='water' || $type=='gas' || $type=='watt') {
+		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");
+		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER, current INTEGER, last INTEGER)");
+		$dbnew->exec("CREATE INDEX time_index ON def(time)");
+	}
+	else {
+		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");
+		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
+		$dbnew->exec("CREATE INDEX time_index ON def(time)");
+	}
+		
+	
 	if ($type != "relay" ) {
 		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip, adj, charts, sum, map_pos, map_num, position, map) VALUES ('$name','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip', '0', 'on', '0', '{left:0,top:0}', '$map_num', '1', 'on')") or die ("cannot insert to DB" );
 		//maps settings
@@ -94,26 +106,15 @@ $name_new=trim($name_new2);
 		$db->exec("INSERT OR IGNORE INTO relays (name, rom, ip, type) VALUES ('wifi_relay_$name','$id_rom_new','$ip', '$type'  )") or die ("cannot insert relays to DB" );
 	}
 	// ADD DB
-   if ($device == "wireless"  ) {
+    if ($device == "wireless"  ) {
 		//host for monitoring
 		$name='host_wifi_' . $type . '_' . $name;
-		$dbhost = new PDO("sqlite:dbf/nettemp.db");	
-		$dbhost->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping', '{left:0,top:0}', '$map_num2', 'on', '1')") or die ("cannot insert host to DB" );	
+		$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping', '{left:0,top:0}', '$map_num2', 'on', '1')") or die ("cannot insert host to DB" );	
 		$dbnew = new PDO("sqlite:db/host_$id_rom_new.sql");
-   	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
-   	$dbnew->exec("CREATE INDEX time_index ON def(time)");
-	}
-	if ($type=='elec' || $type=='water' || $type=='gas' || $type=='watt') {
-		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");
-		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER, current INTEGER, last INTEGER)");
-		$dbnew->exec("CREATE INDEX time_index ON def(time)");
-	}
-	else {
-		$dbnew = new PDO("sqlite:db/$id_rom_new.sql");
 		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
 		$dbnew->exec("CREATE INDEX time_index ON def(time)");
 	}
-	   $dbnew==NULL;
+
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 	}
