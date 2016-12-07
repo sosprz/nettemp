@@ -1,5 +1,7 @@
 <?php
-$ROOT=dirname(dirname(dirname(__FILE__)));
+$ROOT=dirname(dirname(dirname(dirname(__FILE__))));
+$date = date("Y-m-d H:i:s"); 
+
 define("LOCAL","local");
 
 
@@ -14,22 +16,24 @@ try {
 
 try {
 	include("$ROOT/receiver.php");
+	$path="/mnt/1wire/";
+	$files = array_diff(scandir($path), array('..', '.',));
+	if(!empty($files)){
+		$device='';
+		$current='';
+		$local_type='temp';
+		foreach($files as $fi) {
+			if(preg_match('/^\d/', $fi)){
+				$local_val=file_get_contents("$path/$fi/temperature");
+				$local_rom=strtolower(str_replace(".","-",$fi));
+				echo $date." OWFS - File: ".$fi.", Value: ".$local_val."\n";
+				db($local_rom,$local_val,$local_type,$device,$current);
+			}
+		}
+	} else {
+		echo $date." OWFS - No files.\n";
+	}
 	
-	
-	
-
-    for i in $(ls /mnt/1wire/ |grep ^[1-9]..)
-
-		val=$(cat /mnt/1wire/$i/temperature)
-		
-		rom=$(echo $i |sed 's/\./-/g'| sed -e 's/\(.*\)/\L\1/')
-		
-		
-		php-cgi -f $dir/receiver.php key=$skey type=temp value=$val 
-
-
-
-
 	} catch (Exception $e) {
     echo $date." Error.\n";
     echo $e;
