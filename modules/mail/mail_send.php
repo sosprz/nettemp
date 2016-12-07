@@ -152,7 +152,7 @@ try {
 		if($tmp<$tmpmin) {
 			if(($mail!='sent')||($minute=='00')){
 				echo $date." Sending to: ".$string."\n";
-				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"High value","#FF0000"), $headers ) ) {
+				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"Low value","#FF0000"), $headers ) ) {
 					echo $date." Low value ".$name." - Mail send OK\n";
 				} else {
 					echo $date." Low value ".$name." - Mail send problem\n";
