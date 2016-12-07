@@ -13,9 +13,9 @@ $add = isset($_POST['add']) ? $_POST['add'] : '';
     exit();
     }
 
-    if (!empty($addr) && ($_POST['add'] == "add") ){
+    if ($_POST['add'] == "add"){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("INSERT OR IGNORE INTO rs485 (dev, addr) VALUES ('$name', '$addr')") or die ("cannot insert to DB" );
+    $db->exec("INSERT OR IGNORE INTO rs485 (dev, addr) VALUES ('$name','$addr')") or die ("cannot insert to DB" );
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -47,11 +47,6 @@ $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM rs485") or header("Location: html/errors/db_error.php");
 $row = $rows->fetchAll();
 
-$lcd = $db->query("SELECT * FROM settings") or header("Location: html/errors/db_error.php");
-$lcd = $lcd->fetchAll();
-foreach ($lcd as $c) {
-$lcd=$c['lcd'];
-}
 
 
 ?>
