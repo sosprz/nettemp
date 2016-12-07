@@ -115,7 +115,7 @@ try {
 		//GET LAST
 		$local_type='elec';
 		$local_rom="usb_".$dev."a".$addr."_".$local_type;
-		$device='';
+		$device='usb';
 		$last='';
 		$WATsum=trim($line[2]+$line[5]+$line[8]);
 		$ALL=trim($line[9]);
