@@ -17,10 +17,12 @@ try {
 	include("$ROOT/receiver.php");
     $query = $db->query("SELECT * FROM gpio WHERE mode='humid'");
     $result= $query->fetchAll();
-    foreach($result as $g) {
-		$gpios[$g['gpio']]=$g['humid_type'];
-    }
-	foreach($gpios as $gpio => $htype){
+    $count = count($result);
+	if ( $count >= '1'){
+		foreach($result as $g) {
+			$gpios[$g['gpio']]=$g['humid_type'];
+		}
+		foreach($gpios as $gpio => $htype){
 		$cmd=("$ROOT/modules/sensors/GPIO/DHT/AdafruitDHT.py $htype $gpio");
 		$out=shell_exec($cmd);
 		$out = explode (' ',$out);
@@ -44,8 +46,10 @@ try {
 			db($local_rom,$local_val,$local_type,$device,$current);
 		}
 
+		}
+	} else {
+		echo $date." No sensors on GPIO.\n";
 	}
-
     
 } catch (Exception $e) {
 echo $date." Error.\n";
