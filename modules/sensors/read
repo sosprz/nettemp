@@ -30,8 +30,6 @@ php-cgi -f $dir/modules/sensors/1wire/owfs.php
 
 #1wire usb
 $dir/modules/sensors/1wire/1wire_usb_read
-# SNMP
-$dir/modules/sensors/snmp/snmp_read
 # wireless
 $dir/modules/sensors/wireless/esp8266_read
 #ups
@@ -44,8 +42,9 @@ php-cgi -f $dir/modules/sensors/rs485/sdm630.php
 $dir/modules/sensors/rs485/orwe
 
 
-#in progress
+#in test
 $dir/modules/sensors/GPIO/HCS04/read
+$dir/modules/sensors/snmp/snmp_read
 
 php-cgi -f $dir/modules/lcd/lcd.php
 php-cgi -f $dir/modules/sensors/node.php
