@@ -42,7 +42,9 @@ $dir/modules/sensors/rs485/sdm120
 php-cgi -f $dir/modules/sensors/rs485/sdm630.php
 #orwe
 $dir/modules/sensors/rs485/orwe
-#HCS04
+
+
+#in progress
 $dir/modules/sensors/GPIO/HCS04/read
 
 php-cgi -f $dir/modules/lcd/lcd.php
