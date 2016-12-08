@@ -28,11 +28,11 @@ try {
 		if($version=='1'){
 			$out = snmpget($host, $community, $oid);
 			$out=explode(" ",$out);
-			$output=number_format($out[1]/$divider, 1, '.', ',');
+			$output=number_format($out[1]/$divider, 1, '.', '');
 		} elseif($version=='2') {
 			$out = snmp2_get($host, $community, $oid);
 			$out=explode(" ",$out);
-			$output=number_format($out[1]/$divider, 1, '.', ',');
+			$output=number_format($out[1]/$divider, 1, '.', '');
 		}
 		$local_val=$output;
 		$local_rom=$rom;
