@@ -24,6 +24,7 @@ try {
 		$divider=$s['divider'];
 		$local_type=$s['type'];
 		$version=$s['version'];
+		$rom=$s['rom'];
 		if($version=='1'){
 			$out = snmpget($host, $community, $oid);
 			$out=explode(" ",$out);
@@ -33,8 +34,8 @@ try {
 			$out=explode(" ",$out);
 			$output=number_format($out[1]/$divider, 1, '.', ',');
 		}
-		$local_val=
-		$local_rom="snmp_".$host."_".$local_type;
+		$local_val=$output;
+		$local_rom=$rom;
 		$device='';
 		$current='';
 		echo $date." Host:".$host." Rom:".$local_rom." Type:".$local_type." Value:".$output."\n";
