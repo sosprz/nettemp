@@ -25,7 +25,7 @@ $result = $sth->fetchAll();
     
 foreach ($result as $a) {   
 	foreach($result_t as $ty){
-       	if($ty['type']==$a['type']&&$a['type']=='temp'){
+       	if($ty['type']==$a['type']){
      		if(($temp_scale == 'F')&&($a['type']=='temp')){
 				$unit='F';
        		} elseif(($temp_scale == 'C')&&($a['type']=='temp')){
