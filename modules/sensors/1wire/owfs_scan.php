@@ -1,10 +1,7 @@
 <?php
 $ROOT=dirname(dirname(dirname(dirname(__FILE__))));
 $date = date("Y-m-d H:i:s"); 
-
 define("LOCAL","local");
-
-
 try {
     $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -15,7 +12,6 @@ try {
 
 
 try {
-	include("$ROOT/receiver.php");
 	$path="/mnt/1wire/";
 	$files = array_diff(scandir($path), array('..', '.',));
 	if(!empty($files)){
