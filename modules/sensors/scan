@@ -14,7 +14,7 @@ rm -rf $dir/tmp/.digitemprcs
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "DELETE FROM newdev;"
 
-mkdir $dir/tmp 2> /dev/null
+mkdir -p $dir/tmp 
 
 echo "$date temp_dev_scan - Deleted .digitemprc" >> $dir/tmp/log.txt
 
@@ -38,6 +38,8 @@ $dir/modules/sensors/snmp/snmp_scan
 $dir/modules/sensors/lmsensors/lmsensors_scan
 # esp8266
 $dir/modules/sensors/wireless/esp8266_scan
+php -f $dir/modules/sensors/1wire/owfs_scan.php
+
 
 
 
