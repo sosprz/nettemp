@@ -129,13 +129,13 @@ try {
 				} else {
 					echo $date." High value ".$name." - Mail send problem\n";
 				}
-				$db->exec("UPDATE sensors SET mail='$tmp' WHERE rom='$rom'");
+				$db->exec("UPDATE sensors SET mail='sent' WHERE rom='$rom'");
 			} else {
 				echo $date." Wait to full hour: ".$rom."\n";
 			}
 			
 		} else {
-			if($mail>$tmp){
+			if($mail=='sent'){
 				echo $date." Sending to: ".$string."\n";
 				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"Recovery","#00FF00"), $headers ) ) {
 					echo $date." Recovery ".$name." ".$tmp." - Mail send OK\n";
@@ -157,12 +157,12 @@ try {
 				} else {
 					echo $date." Low value ".$name." - Mail send problem\n";
 				}
-				$db->exec("UPDATE sensors SET mail='$tmp' WHERE rom='$rom'");
+				$db->exec("UPDATE sensors SET mail='sent' WHERE rom='$rom'");
 			} else {
 				echo $date." Wait to full hour: ".$rom."\n";
 			}
-		} else {    
-			if($mail<$tmp){
+		} else {
+			if($mail=='sent'){
 				echo $date." Sending to: ".$string."\n";
 				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"Recovery","#00FF00"), $headers ) ) {
 					echo $date." Recovery ".$name." ".$tmp." - Mail send OK\n";
