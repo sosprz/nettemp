@@ -54,7 +54,6 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	$db->exec("DELETE FROM snmp WHERE id='$snmp_id'") or die ($db->lastErrorMsg());
 	$dbn->exec("DELETE FROM newdev WHERE list='$snmp_name'"); 
 	header("location: " . $_SERVER['REQUEST_URI']);
-	echo $snmp_id;
 	exit();
 	}
 	?>
