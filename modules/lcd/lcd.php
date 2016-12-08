@@ -30,7 +30,9 @@ foreach ($result as $a) {
 				$unit='F';
        		} elseif(($temp_scale == 'C')&&($a['type']=='temp')){
        			$unit='C';
-       		}
+       		} else {
+				$unit=$ty['unit'];
+			}
        		$lcd[]=$a['name']." ".$a['tmp']." ".$unit."\n";
        	}   
 	}
