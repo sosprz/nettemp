@@ -22,29 +22,24 @@ $sth = $db->prepare("SELECT name,tmp,type FROM sensors WHERE lcd='on' ORDER BY p
 $sth->execute();
 $result = $sth->fetchAll();
 
-    
-foreach ($result as $a) {   
-	foreach($result_t as $ty){
-       	if($ty['type']==$a['type']){
-     			if($temp_scale == 'F'){
-       			$unit=$ty['unit2'];
-       		} else {
-       			$unit=$ty['unit'];
-       		}
-       		$lcd[]=$a['name']." ".$a['tmp']." ".$unit."\n";
-       	}   
+foreach ($result as $a) {
+    foreach($result_t as $ty){
+	if($ty['type']==$a['type']){
+	    if($temp_scale == 'F'){
+		$unit=$ty['unit2'];
+	    } else {
+		$unit=$ty['unit'];
+	    }
+	$lcd[]=$a['name']." ".$a['tmp']." ".$unit."\n";
 	}
+    }
 }
 
-$lfile = 'tmp/lcd';
+$lfile = $ROOT.'/tmp/lcd';
 $fh = fopen($lfile, 'w');
 fwrite($fh, date("Y-m-d H:i")."\n");
 foreach ($lcd as $line) {
-		fwrite($fh, $line);
-	}
+    fwrite($fh, $line);
+}
 fclose($fh);
-
-
-		
-
 ?>
