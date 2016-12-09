@@ -26,17 +26,19 @@ $result = $sth->fetchAll();
 foreach ($result as $a) {   
 	foreach($result_t as $ty){
        	if($ty['type']==$a['type']){
-     			if($temp_scale == 'F'){
-       			$unit=$ty['unit2'];
+     		if(($temp_scale == 'F')&&($a['type']=='temp')){
+				$unit='F';
+       		} elseif(($temp_scale == 'C')&&($a['type']=='temp')){
+       			$unit='C';
        		} else {
-       			$unit=$ty['unit'];
-       		}
+				$unit=$ty['unit'];
+			}
        		$lcd[]=$a['name']." ".$a['tmp']." ".$unit."\n";
        	}   
 	}
 }
 
-$lfile = 'tmp/lcd';
+$lfile = "$ROOT/tmp/lcd";
 $fh = fopen($lfile, 'w');
 fwrite($fh, date("Y-m-d H:i")."\n");
 foreach ($lcd as $line) {

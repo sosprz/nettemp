@@ -344,7 +344,8 @@ $db->exec("ALTER TABLE hosts ADD mail type TEXT");
 //$db->exec("ALTER TABLE sensors ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL");
 //$db->exec("ALTER TABLE hosts ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL");
 $db->exec("CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE tmp = old.tmp; END;");
-$db->exec("CREATE TRIGGER hosts_time_trigger AFTER UPDATE ON hosts WHEN NEW.last BEGIN UPDATE hosts SET time = (datetime('now','localtime')) WHERE last = old.last; END;");
+$db->exec("drop trigger hosts_time_trigger");
+//$db->exec("CREATE TRIGGER hosts_time_trigger AFTER UPDATE ON hosts WHEN NEW.last BEGIN UPDATE hosts SET time = (datetime('now','localtime')) WHERE last = old.last; END;");
 
 
 echo $date." nettemp database update: ok \n";

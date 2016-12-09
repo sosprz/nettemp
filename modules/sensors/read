@@ -26,24 +26,23 @@ php-cgi -f $dir/modules/sensors/GPIO/DHT/dht_read.php
 php-cgi -f $dir/modules/sensors/lmsensors/lmsensors_read.php
 php-cgi -f $dir/modules/sensors/snmp/snmp.php
 php-cgi -f $dir/modules/sensors/1wire/owfs.php
+php-cgi -f $dir/modules/sensors/snmp/snmp_read.php
 
 
 #1wire usb
 $dir/modules/sensors/1wire/1wire_usb_read
-# SNMP
-$dir/modules/sensors/snmp/snmp_read
 # wireless
 $dir/modules/sensors/wireless/esp8266_read
-#ups
-$dir/modules/sensors/other/ups
 #sdm120/sdm120c
 $dir/modules/sensors/rs485/sdm120
-#sdm630
-php-cgi -f $dir/modules/sensors/rs485/sdm630.php
 #orwe
 $dir/modules/sensors/rs485/orwe
-#HCS04
+
+
+#in test
+$dir/modules/sensors/other/ups
 $dir/modules/sensors/GPIO/HCS04/read
+php-cgi -f $dir/modules/sensors/rs485/sdm630.php
 
 php-cgi -f $dir/modules/lcd/lcd.php
 php-cgi -f $dir/modules/sensors/node.php
