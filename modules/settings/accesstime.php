@@ -10,11 +10,12 @@ $fri = isset($_POST['fri']) ? $_POST['fri'] : '';
 $sat = isset($_POST['sat']) ? $_POST['sat'] : '';
 $sun = isset($_POST['sun']) ? $_POST['sun'] : '';
 $del = isset($_POST['del']) ? $_POST['del'] : '';
+$add1 = isset($_POST['add1']) ? $_POST['add1'] : '';
 ?>
 
 <?php // SQLite - ADD RECIPIENT
 	$add1 = isset($_POST['add1']) ? $_POST['add1'] : '';
-	if ($_POST['add1'] == "add2"){
+	if ($add1 == 'add2'){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("INSERT OR IGNORE INTO access_time (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime) VALUES ('$name','$mon', '$tue', '$wed', '$thu', '$fri', '$sat', '$sun', '$stime', '$etime')") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);

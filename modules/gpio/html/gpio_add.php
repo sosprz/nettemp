@@ -95,6 +95,7 @@ else {
 <div class="panel-body">
 
 <?php
+$added=array();
 foreach ($gpiolist as $value1) {
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$rows = $db->query("SELECT * FROM gpio WHERE gpio='$value1'") or exit(header("Location: html/errors/db_error.php"));
