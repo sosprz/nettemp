@@ -315,7 +315,7 @@ $db->exec("ALTER TABLE types ADD value3 NUMERIC");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('gpio', 'H/L', 'H/L', 'media/ico/gpio2.png' ,'GPIO')");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('group', '', '', '' ,'')");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('relay', '', '', 'media/ico/socket-icon.png' ,'Relay')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('baterry', '%', '', 'media/ico/Battery-icon.png' ,'Baterry','0', '100')");
+	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('battery', '%', '', 'media/ico/Battery-icon.png' ,'Battery','0', '100')");
 
 
 $db->exec("UPDATE types SET min='-150', max='3000', value1='85', value2='185', value3='127.9' WHERE type='temp' AND min is null AND max is null");
