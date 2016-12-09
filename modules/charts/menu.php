@@ -64,7 +64,7 @@ if ( $gre3 >= "1") { ?>
 <a href="index.php?id=<?php echo $id ?>&type=group&group=3&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $group == '3' ? ' active' : ''; ?>">Group 3</button></a>
 <?php }
 if ( $hostc >= "1")  {?>
-<a href="index.php?id=<?php echo $id ?>&type=host&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'hosts' ? ' active' : ''; ?>">Hosts</button></a>
+<a href="index.php?id=<?php echo $id ?>&type=host&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'host' ? ' active' : ''; ?>">Hosts</button></a>
 <?php } 
 if (in_array('elec', $typearr))  {?>
 <a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'elec' && empty($mode) ? ' active' : ''; ?>">Electricity kWh</button></a>

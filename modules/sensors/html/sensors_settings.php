@@ -203,6 +203,7 @@ $row = $rows->fetchAll();
 <th>Pos</th>	
 <th>Name</th>
 <th>DB</th>
+<th>Type</th>
 <th>Adjust</th>
 <th>Counters</th>
 <th>Alarm / Min / Max</th>
@@ -335,7 +336,9 @@ else { ?>
 	<?php echo  $a["tmp"];?>
     </span>    
 </td> -->
+	<td class="col-md-0"><span class="label label-default"><?php echo $a['type']?></span></td>
 
+	
     <td class="col-md-0">
     <?php if ($a["device"] != 'remote') { ?>
     <form action="" method="post" style="display:inline!important;">
