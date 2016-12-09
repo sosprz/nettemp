@@ -67,7 +67,6 @@ if ( $hostc >= "1")  {?>
 <a href="index.php?id=<?php echo $id ?>&type=host&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'host' ? ' active' : ''; ?>">Hosts</button></a>
 <?php } 
 if (in_array('elec', $typearr))  {?>
-<a href="index.php?id=<?php echo $id ?>&type=elec&max=day" ><button class="btn btn-xs btn-default <?php echo $art == 'elec' && empty($mode) ? ' active' : ''; ?>">Electricity kWh</button></a>
 <a href="index.php?id=<?php echo $id ?>&type=elec&max=day&mode=2" ><button class="btn btn-xs btn-default <?php echo $art == 'elec' && $mode == '2' ? ' active' : ''; ?>">Electricity Wh</button></a>
 <?php } 
 if (glob('db/gpio_stats_*')) {?>
