@@ -348,6 +348,9 @@ $db->exec("drop trigger hosts_time_trigger");
 //$db->exec("CREATE TRIGGER hosts_time_trigger AFTER UPDATE ON hosts WHEN NEW.last BEGIN UPDATE hosts SET time = (datetime('now','localtime')) WHERE last = old.last; END;");
 
 
+//CLEAN
+$db->exec("DELETE FROM settings WHERE id>1");
+
 echo $date." nettemp database update: ok \n";
 
 
