@@ -12,6 +12,7 @@
 <a href="index.php?id=tools&type=file_check" ><button class="btn btn-xs btn-default <?php echo $art == 'file_check' ? 'active' : ''; ?>">File check</button></a>
 <a href="index.php?id=tools&type=password" ><button class="btn btn-xs btn-default <?php echo $art == 'password' ? 'active' : ''; ?>">Password</button></a>
 <a href="index.php?id=tools&type=update" ><button class="btn btn-xs btn-default <?php echo $art == 'update' ? 'active' : ''; ?>">Update</button></a>
+<a href="index.php?id=tools&type=ticket" ><button class="btn btn-xs btn-default <?php echo $art == 'ticket' ? 'active' : ''; ?>">Ticket</button></a>
 <a href="index.php?id=tools&type=reset" ><button class="btn btn-xs btn-default <?php echo $art == 'reset' ? 'active' : ''; ?>">Reset to default</button></a>
 <a href="index.php?id=tools&type=reboot" ><button class="btn btn-xs btn-default <?php echo $art == 'reboot' ? 'active' : ''; ?>">Reboot</button></a>
 <a href="index.php?id=tools&type=log" ><button class="btn btn-xs btn-default <?php echo $art == 'log' ? 'active' : ''; ?>">Logging</button></a>
@@ -40,6 +41,8 @@ case 'espupload': include('modules/sensors/wireless/espupload/espupload.php'); b
 case 'export': include('modules/tools/html/tools_export_to_file.php'); break;
 case 'dbedit': include('modules/tools/html/tools_db_edit.php'); break;
 case 'dbedit2': include('modules/tools/html/tools_db_edit_select.php'); break;
+case 'ticket': include('modules/tools/html/tools_ticket.php'); break;
+
 }
 ?>
 
