@@ -95,12 +95,10 @@ Go to device scan!
 			</td>
 			<td>
 			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=day&single=<?php echo $a['name']?>" title="Last update: <?php echo $a['time']?>"
-				<?php $old_read=86400;
-				    if (($a['tmp'] == 'error') || ($label=='danger') || strtotime($a['time'])<(time()-(7*$old_read))){
-					echo 'class="label label-danger"';
-				    } elseif (strtotime($a['time'])<(time()-$old_read)){
-					echo 'class="label label-warning"';
-				    }else{
+			    <?php if(($a['tmp'] == 'error') || ($label=='danger')) {
+				    echo 'class="label label-danger"';
+				    } 
+				    else {
 					echo 'class="label label-success"';
 				    } ?>
 				>
