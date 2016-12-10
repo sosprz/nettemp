@@ -362,13 +362,14 @@ $sqlb="CREATE TABLE hosts (
     element_id type TEXT,
     mail type TEXT
 )";
-$sqlc="INSERT OR ROLLBACK INTO hosts (id,name,ip,type,last,status,rom,map_pos,map_num,map,alarm,position,element_id,mail) SELECT id,name,ip,type,last,status,rom,map_pos,map_num,map,alarm,position,element_id,mail FROM tmp_hosts;
-DROP TABLE tmp_hosts";
+$sqlc="INSERT OR ROLLBACK INTO hosts (id,name,ip,type,last,status,rom,map_pos,map_num,map,alarm,position,element_id,mail) SELECT id,name,ip,type,last,status,rom,map_pos,map_num,map,alarm,position,element_id,mail FROM tmp_hosts";
+$sqld="DROP TABLE tmp_hosts";
 
 if(!preg_match('/^time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL\,$/',$resp['sql'])){
     $db->exec($sqla);
     $db->exec($sqlb);
     $db->exec($sqlc);
+    $db->exec($sqld);
 }
 
 // TIME & TRIGGER
