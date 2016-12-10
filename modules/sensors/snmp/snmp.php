@@ -20,7 +20,7 @@ foreach ($result as $a) {
 }
 
 $sn=implode(":",$sn);
-$sfile = 'tmp/results';
+$sfile = "$ROOT/tmp/results";
 $fh = fopen($sfile, 'w');
 	fwrite($fh, $sn);
 fclose($fh);
