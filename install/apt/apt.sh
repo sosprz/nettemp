@@ -9,6 +9,7 @@ echo -n -e "Updating repo \r"
 
 for i in $package
     do
+    clear
     echo -n -e "Installing $i \r"
     { 
 	apt-get -y install $i 
