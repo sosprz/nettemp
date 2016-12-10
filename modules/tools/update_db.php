@@ -377,11 +377,12 @@ if(!preg_match('/^time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL\,$/',$resp['
 //$db->exec("ALTER TABLE hosts ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL");
 $db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
 $db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_hosts_time_trigger AFTER UPDATE ON hosts WHEN NEW.last BEGIN UPDATE hosts SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
-$db->exec("drop trigger hosts_time_trigger");
 
 
 //CLEAN
 $db->exec("DELETE FROM settings WHERE id>1");
+$db->exec("DROP trigger hosts_time_trigger");
+
 
 echo $date." nettemp database update: ok \n";
 
