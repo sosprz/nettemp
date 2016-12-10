@@ -17,6 +17,11 @@ try {
 try {
 	include("$ROOT/receiver.php");
 	$path="/mnt/1wire/";
+	if(!file_exists($path)) {
+		echo $date." OWFS - OFF.\n";
+		exit;
+	}
+
 	$files = array_diff(scandir($path), array('..', '.',));
 	if(!empty($files)){
 		$device='';
