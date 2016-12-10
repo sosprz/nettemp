@@ -20,7 +20,8 @@ try {
     $count = count($result);
 		if ( $count == '2'){
 			$cmd=("$ROOT/modules/sensors/GPIO/HCS04/hcs04.py");
-			$local_val=shell_exec($cmd);
+			$out=shell_exec($cmd);
+			$local_val=trim($out);
 			$device='';
 			$current='';
 			$local_rom='gpio_2324_dist';
