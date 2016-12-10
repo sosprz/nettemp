@@ -119,7 +119,7 @@ try {
 						$cmd="$ROOT/modules/sensors/i2c/HIH6130/read.py $bus $addr";
 						echo $date." Running: ".$cmd."\n";
 						$output = shell_exec($cmd);
-						//temp,humid
+						//humid, temp
 						$output = preg_split ('/$\R?^/m', $output);
 						//var_dump($output);
 						$output0 = trim($output[0]);
@@ -127,10 +127,10 @@ try {
 						$output = '';
 					}
 					if($rr['type']=='temp') {
-						$output = $output0;
+						$output = $output1;
 						$output0 = '';
 					} elseif ($rr['type']=='humid') {
-						$output = $output1;
+						$output = $output0;
 						$output1 = '';
 					}
 				//bmp180	
