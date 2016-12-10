@@ -41,7 +41,7 @@ $dir/modules/sensors/rs485/orwe
 
 #in test
 $dir/modules/sensors/other/ups
-$dir/modules/sensors/GPIO/HCS04/read
+php-cgi -f $dir/modules/sensors/GPIO/HCS04/read.php
 php-cgi -f $dir/modules/sensors/rs485/sdm630.php
 
 php-cgi -f $dir/modules/lcd/lcd.php
