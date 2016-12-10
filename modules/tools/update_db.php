@@ -192,8 +192,6 @@ $db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem SMS','none')");
 $db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('UPS Pimowo','none')");
 $db->exec("ALTER TABLE gpio ADD state type TEXT");
 
-$db->exec("PRAGMA journal_mode=WAL");
-
 $db->exec("ALTER TABLE sensors ADD map_pos type NUM");
 $db->exec("ALTER TABLE sensors ADD map_num type NUM");
 $db->exec("ALTER TABLE sensors ADD map type NUM");
@@ -378,6 +376,9 @@ if(!preg_match('/^time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL\,$/',$resp['
 $db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
 $db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_hosts_time_trigger AFTER UPDATE ON hosts WHEN NEW.last BEGIN UPDATE hosts SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
 
+
+//WAL
+$db->exec("PRAGMA journal_mode=WAL");
 
 //CLEAN
 $db->exec("DELETE FROM settings WHERE id>1");
