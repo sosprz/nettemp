@@ -151,7 +151,7 @@ elseif ($type == 'gpio') {
     	};
 
     foreach ($dbh->query($query) as $row) {
-	$line=[($row[0])*1000 . "," . ($row[1]+$adj)];
+	$line=[($row[0])*1000 . "," . ($row[1])];
 	$array[]=$line;
     }
     print str_replace('"', "",json_encode($array));

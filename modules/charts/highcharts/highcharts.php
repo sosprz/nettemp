@@ -55,14 +55,19 @@ if(!empty($url['type'])) {
 } else {
 	$type="temp";
 }
-$single=$url['single'];
-$group=$url['group'];
+if(!empty($url['single'])) {
+	$single=$url['single'];
+}
+if(!empty($url['group'])) {
+	$group=$url['group'];
+}
+
+
 
 
 if ($type == 'system') {
     $array[]='cpu';
     $array[]='memory';
-    $array[]='memory_cached';
     foreach($array as $row) {
 			$types[$row]='system';
     }
