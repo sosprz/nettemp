@@ -344,9 +344,8 @@ $db->exec("ALTER TABLE hosts ADD mail type TEXT");
 $sql = "SELECT sql FROM sqlite_master WHERE tbl_name = 'hosts' AND type = 'table'";
 $r = $db->query($sql);
 $resp = $r->fetch();
-$sql='BEGIN;
-ALTER TABLE hosts RENAME TO tmp_hosts;
-CREATE TABLE hosts (
+$sqla="ALTER TABLE hosts RENAME TO tmp_hosts";
+$sqlb="CREATE TABLE hosts (
     id INTEGER PRIMARY KEY,
     time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     name UNIQUE,
@@ -362,13 +361,14 @@ CREATE TABLE hosts (
     position type NUM,
     element_id type TEXT,
     mail type TEXT
-);
-INSERT OR ROLLBACK INTO hosts (id,name,ip,type,last,status,rom,map_pos,map_num,map,alarm,position,element_id,mail) SELECT id,name,ip,type,last,status,rom,map_pos,map_num,map,alarm,position,element_id,mail FROM tmp_hosts;
-DROP TABLE tmp_hosts;
-COMMIT;
-';
+)";
+$sqlc="INSERT OR ROLLBACK INTO hosts (id,name,ip,type,last,status,rom,map_pos,map_num,map,alarm,position,element_id,mail) SELECT id,name,ip,type,last,status,rom,map_pos,map_num,map,alarm,position,element_id,mail FROM tmp_hosts;
+DROP TABLE tmp_hosts";
+
 if(!preg_match('/^time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL\,$/',$resp['sql'])){
-    $db->exec($sql);
+    $db->exec($sqla);
+    $db->exec($sqlb);
+    $db->exec($sqlc);
 }
 
 // TIME & TRIGGER
