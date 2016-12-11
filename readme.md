@@ -42,6 +42,10 @@ BETA:
 	apt-get update && apt-get install -y git
 	git clone https://github.com/sosprz/nettemp
 	cd nettemp && git checkout beta && ./install_nettemp
+	
+	or all in one line
+	
+	mkdir -p /var/www/nettemp && cd /var/www && apt-get update && apt-get install -y git && git clone https://github.com/sosprz/nettemp && cd nettemp && git checkout beta && ./install_nettemp   
 
 
 OpenWRT, beta version:

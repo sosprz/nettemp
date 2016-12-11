@@ -1,6 +1,6 @@
 #! /bin/bash
 
-mkdir -p 
+
 {
 mkdir -p /var/spool/cron/crontabs
 if [ ! -e /var/spool/cron/crontabs/root ]; then
