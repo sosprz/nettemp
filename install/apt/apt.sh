@@ -1,14 +1,13 @@
 #! /bin/bash
 
 list=$(cat $dir/install/apt/packages_list)
-packages=$(cat $list)
 clear
 echo -n -e "Updating repo \r"
-apt-get -y update >> $dir/install_log.txt 2>&1
+apt-get -y update 
 
 clear
 echo -n -e "Instaling packages \r"
-apt-get -y install $packages >> $dir/install_log.txt 2>&1
+apt-get -y install $list 
 
 clear
 for i in $package; do
