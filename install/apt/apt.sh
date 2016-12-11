@@ -1,15 +1,15 @@
 #! /bin/bash
 
 list=$(cat $dir/install/apt/packages_list)
-clear
+
 echo -n -e "Updating repo \r"
 apt-get -y update 
 
-clear
+
 echo -n -e "Instaling packages \r"
 apt-get -y install $list 
 
-clear
+
 for i in $package; do
     dpkg-query -W -f='${Package}\t\t${Status}' $i 
     exitstatus=$?
