@@ -1,6 +1,8 @@
 #! /bin/bash
 
+mkdir -p 
 {
+mkdir -p /var/spool/cron/crontabs
 if [ ! -e /var/spool/cron/crontabs/root ]; then
 	touch /var/spool/cron/crontabs/root
 	chmod 600 /var/spool/cron/crontabs/root
