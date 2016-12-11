@@ -50,6 +50,7 @@ try {
 		$local_val=$line[0];
 		$device='';
 		$current='';
+		echo $date." SDM630 L1 ".$local_val." ".$local_type.".\n";
 		db($local_rom,$local_val,$local_type,$device,$current);
 		
 		$local_type='amps';
@@ -57,6 +58,7 @@ try {
 		$local_val=$line[1];
 		$device='';
 		$current='';
+		echo $date." SDM630 L1 ".$local_val." ".$local_type.".\n";
 		db($local_rom,$local_val,$local_type,$device,$current);
 		
 		$local_type='watt';
@@ -64,13 +66,16 @@ try {
 		$local_val=$line[2];
 		$device='';
 		$current='';
+		echo $date." SDM630 L1 ".$local_val." ".$local_type.".\n";
 		db($local_rom,$local_val,$local_type,$device,$current);
+
 		//L2
 		$local_type='volt';
 		$local_rom="usb_".$dev."L2a".$addr."_".$local_type;
 		$local_val=$line[3];
 		$device='';
 		$current='';
+		echo $date." SDM630 L2 ".$local_val." ".$local_type.".\n";
 		db($local_rom,$local_val,$local_type,$device,$current);
 		
 		$local_type='amps';
@@ -78,6 +83,7 @@ try {
 		$local_val=$line[4];
 		$device='';
 		$current='';
+		echo $date." SDM630 L2 ".$local_val." ".$local_type.".\n";
 		db($local_rom,$local_val,$local_type,$device,$current);
 		
 		$local_type='watt';
@@ -85,13 +91,16 @@ try {
 		$local_val=$line[5];
 		$device='';
 		$current='';
+		echo $date." SDM630 L2 ".$local_val." ".$local_type.".\n";
 		db($local_rom,$local_val,$local_type,$device,$current);
+		
 		//L3
 		$local_type='volt';
 		$local_rom="usb_".$dev."L3a".$addr."_".$local_type;
 		$local_val=$line[6];
 		$device='';
 		$current='';
+		echo $date." SDM630 L3 ".$local_val." ".$local_type.".\n";
 		db($local_rom,$local_val,$local_type,$device,$current);
 		
 		$local_type='amps';
@@ -99,6 +108,7 @@ try {
 		$local_val=$line[7];
 		$device='';
 		$current='';
+		echo $date." SDM630 L3 ".$local_val." ".$local_type.".\n";
 		db($local_rom,$local_val,$local_type,$device,$current);
 		
 		$local_type='watt';
@@ -106,8 +116,25 @@ try {
 		$local_val=$line[8];
 		$device='';
 		$current='';
+		echo $date." SDM630 L3 ".$local_val." ".$local_type.".\n";
 		db($local_rom,$local_val,$local_type,$device,$current);
 		
+		
+		$local_val=$line[9];
+		$local_type='elec';
+		echo $date." SDM630 suma energii biernej ".$local_val." ".$local_type.".\n";
+		
+		$local_type='var';
+		$local_val=$line[10];
+		echo $date." SDM630 export energii czynnej ".$local_val." ".$local_type.".\n";
+		
+		$local_val=$line[11];
+		$local_type='var';
+		echo $date." SDM630 eksport energii biernej ".$local_val." ".$local_type.".\n";
+		
+		$local_val=$line[12];
+		$local_type='var';
+		echo $date." SDM630 import energii biernej ".$local_val." ".$local_type.".\n";
 		
 		
 		// SUM
