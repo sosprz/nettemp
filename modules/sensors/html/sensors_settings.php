@@ -350,12 +350,10 @@ $row = $rows->fetchAll();
     </span>
 </td>
 
-<?php  }
-else { ?> 
-<td class="col-md-0">Error - no sql base</td>
-<?php } ?>
-
-	<?php echo  $a["tmp"];?>
+	<?php  }
+	else { ?> 
+	<td class="col-md-0">Error - no sql base</td>
+	<?php } ?>
 
 	<td class="col-md-0"><span class="label label-default"><?php echo $a['type']?></span></td>
 
