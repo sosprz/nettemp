@@ -199,6 +199,10 @@ $db->exec("UPDATE sensors SET map_num=ABS(300 + RANDOM() % 3600) WHERE map_num i
 $db->exec("UPDATE sensors SET map_pos='{left:0,top:0}' WHERE map_pos is null");
 $db->exec("UPDATE sensors SET map='on' WHERE map is null");
 
+$db->exec("ALTER TABLE sensors ADD status TEXT");
+$db->exec("UPDATE sensors SET status='on' WHERE status is null");
+
+
 $db->exec("ALTER TABLE gpio ADD map_pos type NUM");
 $db->exec("ALTER TABLE gpio ADD map_num type NUM");
 $db->exec("ALTER TABLE gpio ADD map type NUM");

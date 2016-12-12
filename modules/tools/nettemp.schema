@@ -106,11 +106,11 @@ CREATE TABLE sensors (
   ip type TEXT, 
   device type TEXT,
   lcd type TEXT,
-  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT, i2c type TEXT, minmax type TEXT, sum type TEXT, map_pos type NUM, map_num type NUM, position INTEGER DEFAULT 1, map type NUM, ch_group type NUM, display_name type TEXT, transparent_bkg type TEXT, background_color TEXT, background_low TEXT, background_high TEXT, font_color TEXT, font_size TEXT, jg TEXT, current TEXT, mail type TEXT);
+  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT, i2c type TEXT, minmax type TEXT, sum type TEXT, map_pos type NUM, map_num type NUM, position INTEGER DEFAULT 1, map type NUM, ch_group type NUM, display_name type TEXT, transparent_bkg type TEXT, background_color TEXT, background_low TEXT, background_high TEXT, font_color TEXT, font_size TEXT, jg TEXT, current TEXT, mail type TEXT, status TEXT);
 CREATE TABLE usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE);
 CREATE TABLE statistics (id INTEGER PRIMARY KEY, agreement TEXT, nick TEXT, location TEXT, sensor_temp TEXT);
 CREATE TABLE g_func (id INTEGER PRIMARY KEY, position INTEGER DEFAULT 1, sensor TEXT, sensor2 TEXT, onoff TEXT, value TEXT, op TEXT, hyst TEXT, source TEXT, gpio TEXT, w_profile TEXT);
-CREATE TABLE hosts (
+CREATE TABLE "tmp_hosts" (
 id INTEGER PRIMARY KEY,
 time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 name UNIQUE,
@@ -152,5 +152,22 @@ CREATE TABLE rs485 (id INTEGER PRIMARY KEY,dev,addr TEXT);
 CREATE TABLE html (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT);
 CREATE TABLE minmax (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT);
 CREATE TABLE types (id INTEGER PRIMARY KEY,type UNIQUE, unit TEXT, unit2 TEXT, ico TEXT, title TEXT, min NUMERIC, max NUMERIC, value1 NUMERIC, value2 NUMERIC, value3 NUMERIC);
-CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;
-CREATE TRIGGER IF NOT EXISTS aupdate_hosts_time_trigger AFTER UPDATE ON hosts WHEN NEW.last BEGIN UPDATE hosts SET time = (datetime('now','localtime')) WHERE id = old.id; END;
+CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;
+CREATE TRIGGER aupdate_hosts_time_trigger AFTER UPDATE ON "tmp_hosts" WHEN NEW.last BEGIN UPDATE hosts SET time = (datetime('now','localtime')) WHERE id = old.id; END;
+CREATE TABLE hosts (
+    id INTEGER PRIMARY KEY,
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    name UNIQUE,
+    ip TEXT,
+    type TEXT,
+    last TEXT,
+    status TEXT,
+    rom type TEXT,
+    map_pos type NUM,
+    map_num type NUM,
+    map type NUM,
+    alarm type TEXT,
+    position type NUM,
+    element_id type TEXT,
+    mail type TEXT
+);

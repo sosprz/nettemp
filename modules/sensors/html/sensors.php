@@ -94,7 +94,7 @@ $name_new=trim($name_new2);
 		
 	
 	if ($type != "relay" ) {
-		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip, adj, charts, sum, map_pos, map_num, position, map) VALUES ('$name','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip', '0', 'on', '0', '{left:0,top:0}', '$map_num', '1', 'on')") or die ("cannot insert to DB" );
+		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, device, method, ip, adj, charts, sum, map_pos, map_num, position, map, status) VALUES ('$name','$id_rom_new', '$type', 'off', 'wait', '$gpio', '$device', '$method', '$ip', '0', 'on', '0', '{left:0,top:0}', '$map_num', '1', 'on', 'on')") or die ("cannot insert to DB" );
 		//maps settings
 		$inserted=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_new'");
 		$inserted_id=$inserted->fetchAll();

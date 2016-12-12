@@ -152,6 +152,15 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+    
+    $status = isset($_POST['status']) ? $_POST['status'] : '';
+    $statusid = isset($_POST['statusid']) ? $_POST['statusid'] : '';
+    $statuson = isset($_POST['statuson']) ? $_POST['statuson'] : '';
+    if (($status == "status")){
+    $db->exec("UPDATE sensors SET status='$statuson' WHERE id='$statusid'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 
 ?> 
 
@@ -272,6 +281,21 @@ $row = $rows->fetchAll();
     </form>
 
 </th>
+<th>Status
+
+ 	<form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="add_all" value="status" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="del_all" value="status" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+
+</th>
+
+
+
 <th></th>
 </tr>
 </thead>
@@ -331,11 +355,8 @@ else { ?>
 <td class="col-md-0">Error - no sql base</td>
 <?php } ?>
 
-<!-- <td class="col-md-1">
-    <span class="label label-default">    
 	<?php echo  $a["tmp"];?>
-    </span>    
-</td> -->
+
 	<td class="col-md-0"><span class="label label-default"><?php echo $a['type']?></span></td>
 
 	
@@ -436,6 +457,14 @@ else { ?>
 		<input type="hidden" name="jgid" value="<?php echo $a["id"]; ?>" />
 		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="jgon" value="on" <?php echo $a["jg"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
 		<input type="hidden" name="jg" value="jg" />
+    </form>
+    </td>
+    
+    <td class="col-md-0">
+    <form action="" method="post" style="display:inline!important;"> 	
+		<input type="hidden" name="statusid" value="<?php echo $a["id"]; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="statuson" value="on" <?php echo $a["status"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="status" value="status" />
     </form>
     </td>  
     
