@@ -120,19 +120,19 @@ try {
 		db($local_rom,$local_val,$local_type,$device,$current);
 		
 		
-		$local_val=$line[9];
+		$local_val=$line[10];
 		$local_type='elec';
 		echo $date." SDM630 suma energii biernej ".$local_val." ".$local_type.".\n";
 		
 		$local_type='var';
-		$local_val=$line[10];
+		$local_val=$line[11];
 		echo $date." SDM630 export energii czynnej ".$local_val." ".$local_type.".\n";
 		
-		$local_val=$line[11];
+		$local_val=$line[12];
 		$local_type='var';
 		echo $date." SDM630 eksport energii biernej ".$local_val." ".$local_type.".\n";
 		
-		$local_val=$line[12];
+		$local_val=$line[13];
 		$local_type='var';
 		echo $date." SDM630 import energii biernej ".$local_val." ".$local_type.".\n";
 		
