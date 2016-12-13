@@ -45,8 +45,8 @@
     include('status/relays_status.php');
     include('status/meteo_status.php');
     foreach (range(1, 10) as $v) {
-	$ow=$v;
-	include('status/ownwidget.php');
+		$ow=$v;
+		include('status/ownwidget.php');
     }
     include('status/ipcam_status.php');
     include('status/ups_status.php');

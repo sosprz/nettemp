@@ -57,54 +57,40 @@ $map_num=substr(rand(), 0, 4);
     }
 
   
-    $alarm = isset($_POST['alarm']) ? $_POST['alarm'] : '';
-    $alarmonoff = isset($_POST['alarmonoff']) ? $_POST['alarmonoff'] : '';
-    $alarmon = isset($_POST['alarmon']) ? $_POST['alarmon'] : '';
-    if (($alarmonoff == "onoff")){
-		$db = new PDO('sqlite:dbf/nettemp.db');
-		$db->exec("UPDATE hosts SET alarm='$alarmon' WHERE rom='$host_rom'") or die ($db->lastErrorMsg());
-		if($alarmon!='on') {
-		$db->exec("UPDATE hosts SET mail='' WHERE rom='$host_name'");
-   	}
-		header("location: " . $_SERVER['REQUEST_URI']);
-		exit();
-    }
 
 ?>
 
 <div class="panel panel-default">
 <div class="panel-heading">Host monitoring</div>
 <div class="table-responsive">
-<table class="table table-hover table-condensed small"">
+<table class="table table-hover table-condensed small">
 <thead>
 <tr>
-<th>Pos</th>
+<th></th>
 <th>Name</th>
 <th>IP / Name</th>
 <th>Type</th>
-<th>Alarm</th>
 <th></th>
+
 </tr>
 </thead>
 <tr>
-	<td></td>
-	<td>
+	<td class="col-md-0"><img src="media/ico/Global-Network-icon.png" ></td>
+	<td class="col-md-1">
 	    <form action="" method="post" class="form-horizontal">
 		<input type="text" name="host_name" value="" class="form-control input-sm" required=""/>
 	</td>
-	<td>
+	<td class="col-md-1">
 		<input type="text" name="host_ip" value="" class="form-control input-sm" required=""/>
 	</td>
-	<td>
+	<td class="col-md-1">
 	    <select name="host_type" class="form-control input-sm">
 		<option value="ping">ping</option>
 		<option value="httpping">http ping</option>
     	    </select>
 	</td>
 	    <input type="hidden" name="host_add1" value="host_add2" class="form-control"/>
-	<td>
-	</td>
-	<td>
+	<td class="col-md-10">
 	    <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button>
 	</td>
 	</form>
@@ -120,25 +106,11 @@ $result = $sth->fetchAll();
 foreach ($result as $a) { 
 ?>
 <tr>
-        <td>
-	<form action="" method="post" style="display:inline!important;">
-	    <input type="hidden" name="position_id" value="<?php echo $a["id"]; ?>" />
-    	    <input type="text" name="position" size="1" maxlength="3" value="<?php echo $a['position']; ?>" />
-    	    <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-	    <input type="hidden" name="positionok" value="ok" />
-	</form>
-	</td>
+	<td><img src="media/ico/Global-Network-icon.png" ></td>
 	<td><?php echo $a["name"];?></td>
 	<td><?php echo $a["ip"];?></td>
 	<td><?php echo $a["type"];?></td>
-	<td >
-	<form action="" method="post" style="display:inline!important;">
-	    <input type="hidden" name="host_rom" value="<?php echo $a["rom"]; ?>" />
-	    <input type="hidden" name="alarm" value="<?php echo $a["id"]; ?>" />
-	    <input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarmon" value="on" <?php echo $a["alarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
-	    <input type="hidden" name="alarmonoff" value="onoff" />
-	</form>
-	</td>
+
 	<td>
 	<form action="" method="post" class="form-horizontal">
 	    <input type="hidden" name="host_rom" value="<?php echo $a["rom"]; ?>" />
@@ -146,8 +118,6 @@ foreach ($result as $a) {
 	    <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
 	</form>
 	</td>
-	
-
 	
 </tr>
 	

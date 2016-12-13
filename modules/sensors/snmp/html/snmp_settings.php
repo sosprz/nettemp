@@ -63,10 +63,10 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 
 <div class="table-responsive">
 <table class="table table-hover table-condensed small">
-<thead><tr><th></th><th>Name</th><th>Community</th><th>Version</th><th>Host</th><th>OID</th><th>Divider</th><th>Type</th><th>Add/Rem</th></tr></thead>
+<thead><tr><th></th><th>Name</th><th>Community</th><th>Version</th><th>Host</th><th>OID</th><th>Divider</th><th>Type</th><th></th></tr></thead>
     <form action="" method="post" class="form-horizontal">
 	<tr>
-	<td></td>
+	<td><img src="media/ico/snmp-icon.png" ></td>
 	<td class="col-md-1"><input type="text" name="snmp_name" value="" class="form-control input-sm" required=""/></td>
 	<td class="col-md-1"><input type="text" name="snmp_community"  value="" class="form-control input-sm" required=""/></td>
 	<td class="col-md-1">
@@ -90,7 +90,9 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	    <option value="elec">Electricity</option>
 	</select>
 	</td>
-	<td class="col-md-1"><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button></td>
+		<td class="col-md-1">
+			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+		</td>
     </tr>
     </form>
 
