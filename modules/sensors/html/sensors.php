@@ -78,6 +78,9 @@ $name_new=trim($name_new2);
 	elseif (strpos($id_rom_new,'Banana_Pi') !== false) {
 	    $device='banana';
 	}
+	elseif (strpos($id_rom_new,'host') !== false) {
+	    $device='ip';
+	}
 
 	
 	//DB    

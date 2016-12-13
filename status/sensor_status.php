@@ -64,6 +64,7 @@ Go to device scan!
 		if($a['device'] == 'gpio'){ $device='<img src="media/ico/gpio2.png" alt="" title="GPIO"/>';}
 		if($a['device'] == 'i2c'){ $device='<img src="media/ico/i2c_1.png" alt="" title="I2C"/>';}
 		if($a['device'] == 'snmp'){ $device='<img src="media/ico/snmp-icon.png" alt="" title=SNMP"/>';}
+		if($a['device'] == 'ip'){ $device='<img src="media/ico/snmp-icon.png" alt="" title=SNMP"/>';}
 		if(empty($a['device'])) { $device='<img src="media/ico/1wire.png" alt="" title="1wire"/>';}
 		
 		
