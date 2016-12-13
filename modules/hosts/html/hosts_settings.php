@@ -29,10 +29,10 @@ $map_num=substr(rand(), 0, 4);
 		$db->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$host_name')");
 		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, ip, adj, charts, sum, map_pos, map_num, position, map, status) VALUES ('$host_name','$host_name', 'host', 'off', 'wait', '$host_ip', '0', 'on', '0', '{left:0,top:0}', '$map_num', '1', 'on', 'on')") or die ("cannot insert to DB" );
 		//maps settings
-		$inserted=$db->query("SELECT id FROM sensors WHERE name='$host_name'");
+		$inserted=$db->query("SELECT id FROM sensors WHERE rom='$host_name'");
 		$inserted_id=$inserted->fetchAll();
 		$inserted_id=$inserted_id[0];
-		$db->exec("INSERT OR IGNORE INTO maps (element_id, type, map_pos, map_num, map_on) VALUES ('$inserted_id[id]','hosts','{left:0,top:0}','$map_num','on')");
+		$db->exec("INSERT OR IGNORE INTO maps (element_id, type, map_pos, map_num, map_on) VALUES ('$inserted_id[id]','sensors','{left:0,top:0}','$map_num','on')");
 		//ADD DB
 		$dbnew = new PDO("sqlite:db/$host_name.sql");
 		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
