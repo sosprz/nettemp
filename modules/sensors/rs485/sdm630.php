@@ -141,9 +141,7 @@ try {
 		echo $date." SDM630 import energii biernej ".$local_val." ".$local_type.".\n";
 		
 		
-		// SUM
-		
-		//GET LAST
+		//IMPORT
 		$local_type='elec';
 		$local_rom="usb_".$dev."a".$addr."_".$local_type;
 		$device='usb';
@@ -174,6 +172,42 @@ try {
 			db($local_rom,$local_val,$local_type,$device,$current);
 			$db->exec("UPDATE sensors SET sum='$ALL' WHERE rom='$local_rom'");
 		}
+		
+		//EXPORT
+		$local_type='elec';
+		$local_rom="usb_".$dev."a".$addr."EXP_".$local_type;
+		$device='usb';
+		$last='';
+		$WATsum=trim($line[2]+$line[5]+$line[8]);
+		$ALL=trim($line[10]);
+		$query = $db->query("SELECT sum FROM sensors WHERE rom='$local_rom'");
+		$result= $query->fetchAll();
+		foreach ($result as $r) {
+			$last=trim($r['sum']);
+		}
+		$VAL=$ALL-$last;
+		
+		
+		//echo "1. ".$last."\n";
+		//echo "2. ".$WATsum."\n";
+		//echo "3. ".$ALL."\n";
+		//echo "4. ".$VAL."\n";
+		
+		if($last!=0){
+			$local_val=$VAL;
+			$current=$WATsum;
+			db($local_rom,$local_val,$local_type,$device,$current);
+			$db->exec("UPDATE sensors SET sum='$ALL' WHERE rom='$local_rom'");
+		} else {
+			$local_val='0';
+			$current='';
+			db($local_rom,$local_val,$local_type,$device,$current);
+			$db->exec("UPDATE sensors SET sum='$ALL' WHERE rom='$local_rom'");
+		}
+		
+		
+		
+		
 	}
 
 
