@@ -1,8 +1,8 @@
 <?php 
 $root=$_SERVER["DOCUMENT_ROOT"];
-$dir="modules/gpio/";
+$dir="modules/gpio/"; 
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
-$sth = $db->prepare("select * from sensors WHERE position!=0 AND type='host' AND status!='on' AND (ch_group IS NULL OR ch_group='') ORDER BY position ASC");
+$sth = $db->prepare("select * from sensors WHERE position!=0 AND type='host' AND status!='on' AND ch_group='none' ORDER BY position ASC");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);

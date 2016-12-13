@@ -148,6 +148,9 @@
     $addch_grouponoff = isset($_POST['addch_grouponoff']) ? $_POST['addch_grouponoff'] : '';
     $addch_groupon = isset($_POST['addch_groupon']) ? $_POST['addch_groupon'] : '';
     if (($addch_grouponoff == "onoff")){
+		if(empty($addch_groupon)) {
+			$addch_groupon='none';
+		}
     $db->exec("UPDATE sensors SET ch_group='$addch_groupon' WHERE id='$addch_group'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();

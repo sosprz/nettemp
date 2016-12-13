@@ -17,32 +17,25 @@ foreach ($row as $a) {
     $temp_scale=$a['temp_scale'];
 }
 
-$rows = $db->query("SELECT * FROM sensors");
-$row = $rows->fetchAll();
-$numRows = count($row);
+$rows = $db->query("SELECT ch_group FROM sensors");
+$result_ch_g = $rows->fetchAll();
+	foreach($result_ch_g as $uniq) {
+		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none') {
+			$unique[]=$uniq['ch_group'];
+		}
+	}
+	$rowu = array_unique($unique);
+	foreach ($rowu as $ch_g) { 	
 
-if ($numRows == 0 ) { ?>
-<div class="grid-item ss">
-<div class="panel panel-default">
-<div class="panel-heading">Sensors</div>
-<div class="panel-body">
-Go to device scan!
-<a href="index.php?id=devices&type=scan" class="btn btn-success">GO!</a>
-</div>
-</div>
-</div>
-<?php
-    }
-
-    $sth = $db->prepare("SELECT * FROM sensors WHERE position !=0 AND type!='elec' AND status='on' AND ch_group='none' ORDER BY position ASC");
+    $sth = $db->prepare("SELECT * FROM sensors WHERE position !=0 AND type!='elec' AND status='on' AND ch_group='$ch_g' ORDER BY position ASC");
     $sth->execute();
     $result = $sth->fetchAll(); 
     $numsen = count($result);
     if ($numsen >= 1 ){
     ?>
-    <div class="grid-item ss">
+    <div class="grid-item sg">
 	<div class="panel panel-default">
-	<div class="panel-heading">Sensors</div>
+	<div class="panel-heading"><?php echo $ch_g ?></div>
     <table class="table table-hover table-condensed small">
     <tbody>
 <?php
@@ -175,4 +168,5 @@ Go to device scan!
 	</div>
 <?php 
 	}
+}
 ?>
