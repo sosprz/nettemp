@@ -262,7 +262,7 @@ $db->exec("INSERT OR IGNORE INTO settings (id, temp_scale) VALUES (1, 'C')");
 $db->exec("UPDATE settings SET temp_scale='C' WHERE temp_scale is null OR temp_scale=''");
 
 $db->exec("CREATE TABLE highcharts (id INTEGER PRIMARY KEY,charts_min TEXT, charts_theme TEXT, charts_fast TEXT)");
-$db->exec("INSERT OR IGNORE INTO highcharts (id, charts_min, charts_theme, charts_fast) VALUES (1, '1', 'black', 'on')");
+$db->exec("INSERT OR IGNORE INTO highcharts (id, charts_min, charts_theme, charts_fast) VALUES (1, '1', 'black', 'off')");
 $db->exec("ALTER TABLE gpio ADD moment_time type TEXT");
 $db->exec("CREATE TABLE charts (id INTEGER PRIMARY KEY,charts TEXT)");
 $db->exec("INSERT OR IGNORE INTO charts (id, charts) VALUES (1, 'Highcharts')");

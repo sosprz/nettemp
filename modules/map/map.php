@@ -18,12 +18,9 @@ $x = isset($_POST['x']) ? $_POST['x'] : '';
 $y = isset($_POST['y']) ? $_POST['y'] : '';
 if (!empty($need_id)){
 $pos="{left:".$x.", top:".$y."}";
-/*if ($need_dst=='hosts') {
-    $dbs = new PDO('sqlite:dbf/nettemp.db');
-}
-else {*/
-    $db = new PDO('sqlite:dbf/nettemp.db');
-//}
+
+$db = new PDO('sqlite:dbf/nettemp.db');
+
 $db->exec("UPDATE maps SET map_pos='$pos' WHERE map_num='$need_id'");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
@@ -87,9 +84,6 @@ exit();
 <script>
 <?php
 $array = array();
-//$dirn = "sqlite:dbf/nettemp.db";
-//$db = new PDO($dirn) or die("cannot open database");
-//$db = new PDO('sqlite:dbf/nettemp.db');
 
 $query = "select map_num,map_pos FROM maps";//sensors";
 $db->query($query);
