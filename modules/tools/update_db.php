@@ -387,7 +387,7 @@ $db->exec("PRAGMA journal_mode=WAL");
 //CLEAN
 $db->exec("DELETE FROM settings WHERE id>1");
 $db->exec("DROP trigger hosts_time_trigger");
-
+$db->exec("DELETE FROM hosts");
 
 echo $date." nettemp database update: ok \n";
 

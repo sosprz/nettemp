@@ -40,6 +40,7 @@
     include('status/sensor_status.php');
     include('status/justgage_status.php');
     include('status/minmax_status.php');
+    include('status/hosts_status.php');
     include('status/gpio_status.php');
     include('status/counters_status.php');
     include('status/relays_status.php');

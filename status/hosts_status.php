@@ -2,7 +2,7 @@
 $root=$_SERVER["DOCUMENT_ROOT"];
 $dir="modules/gpio/";
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
-$sth = $db->prepare("select * from hosts WHERE position!=0 ORDER BY position ASC");
+$sth = $db->prepare("select * from sensors WHERE position!=0 AND type='host' AND status!='on' ORDER BY position ASC");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);
@@ -18,12 +18,12 @@ foreach ( $result as $a) {
     <tr>
 	<td >
 		<img src="media/ico/Computer-icon.png" alt="" />
-		<?php echo str_replace("host_","",$a["name"]); ?>
+		<?php echo $a["name"]; ?>
 	</td>
 	<td>
 	    <a href="index.php?id=view&type=host&max=day&single=<?php echo $a['name']?>" title="Last update: <?php echo $a['time']?>"
-		    <?php echo $a['status'] == 'error' || $a['last'] == 0 ? '<span class="label label-danger">' : '<span class="label label-success">' ?>
-		    <?php echo $a['status'] == 'error' || $a['last'] == 0 ? 'offline' : $a['last']." ms"?>
+		    <?php echo $a['tmp'] == 'error' ? '<span class="label label-danger">' : '<span class="label label-success">' ?>
+		    <?php echo $a['tmp'] == 'error' ? 'offline' : $a['tmp']." ms"?>
 		</span>
 	    </a>
 	</td>

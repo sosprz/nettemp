@@ -304,6 +304,7 @@ unset($a);
 ?>
 
 <?php
+/*
 $rows = $db->query("SELECT * FROM maps WHERE map_on='on' AND type='hosts'");
 $row = $rows->fetchAll();
 foreach ($row as $b) {
@@ -348,6 +349,7 @@ foreach ($row as $b) {
 <?php 
     }
 unset($h);
+*/
 ?>
 </div>
 
