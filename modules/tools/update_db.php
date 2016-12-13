@@ -375,10 +375,10 @@ if(!preg_match('/^time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL\,$/',$resp['
 }
 
 // TIME & TRIGGER
-//$db->exec("ALTER TABLE sensors ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL");
+$db->exec("ALTER TABLE sensors ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL");
 //$db->exec("ALTER TABLE hosts ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL");
 $db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
-$db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_hosts_time_trigger AFTER UPDATE ON hosts WHEN NEW.last BEGIN UPDATE hosts SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
+//$db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_hosts_time_trigger AFTER UPDATE ON hosts WHEN NEW.last BEGIN UPDATE hosts SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
 
 
 //WAL
