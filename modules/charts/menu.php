@@ -23,18 +23,6 @@ foreach ($row as $a) {
 }
 
 
-$gr1 = $db->query("SELECT * FROM sensors WHERE ch_group='1'");
-$grp1 = $gr1->fetchAll();
-$gre1 = count($grp1);
-$gr2 = $db->query("SELECT * FROM sensors WHERE ch_group='2'");
-$grp2 = $gr2->fetchAll();
-$gre2 = count($grp2);
-$gr3 = $db->query("SELECT * FROM sensors WHERE ch_group='3'");
-$grp3 = $gr3->fetchAll();
-$gre3 = count($grp3);
-
-
-//print_r($type);
 ?>
 <p>
 <?php
@@ -49,16 +37,22 @@ foreach($result_t as $ty){
 	}
 }
 
+$query = $db->query("SELECT ch_group FROM sensors ");
+$result_ch_g = $query->fetchAll();
+	foreach($result_ch_g as $uniq) {
+		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none') {
+			$unique[]=$uniq['ch_group'];
+		}
+	}
+	$rowu = array_unique($unique);
+	foreach ($rowu as $ch_g) { 	
+		?>
+		<a href="index.php?id=<?php echo $id ?>&type=group&max=<?php echo $html_charts_max?>&mode=&group=<?php echo $ch_g ?>&single=" ><button class="btn btn-xs btn-default <?php echo $art == $ch_g ? ' active' : ''; ?>"><?php echo $ch_g?></button></a>
+		<?php 
+	}
 
-if ( $gre1 >= "1") { ?>
-<a href="index.php?id=<?php echo $id ?>&type=group&group=1&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $group == '1' ? ' active' : ''; ?>">Group 1</button></a>
-<?php } 
-if ( $gre2 >= "1") { ?>
-<a href="index.php?id=<?php echo $id ?>&type=group&group=2&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $group == '2' ? ' active' : ''; ?>">Group 2</button></a>
-<?php } 
-if ( $gre3 >= "1") { ?>
-<a href="index.php?id=<?php echo $id ?>&type=group&group=3&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $group == '3' ? ' active' : ''; ?>">Group 3</button></a>
-<?php }
+
+
 if (in_array('elec', $typearr))  {?>
 <a href="index.php?id=<?php echo $id ?>&type=elec&max=day&mode=2" ><button class="btn btn-xs btn-default <?php echo $art == 'elec' && $mode == '2' ? ' active' : ''; ?>">Electricity Wh</button></a>
 <?php } 

@@ -59,6 +59,11 @@ OpenWRT, beta version:
 
 Changelog:
 
+4 RC1
+Changes in status
+Move hosts to sensors
+Turn off sensors tab in status
+
 RC3.1
 
 Add screen

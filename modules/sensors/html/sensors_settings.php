@@ -143,6 +143,15 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+    //ADD GROUP
+    $addch_group = isset($_POST['addch_group']) ? $_POST['addch_group'] : '';
+    $addch_grouponoff = isset($_POST['addch_grouponoff']) ? $_POST['addch_grouponoff'] : '';
+    $addch_groupon = isset($_POST['addch_groupon']) ? $_POST['addch_groupon'] : '';
+    if (($addch_grouponoff == "onoff")){
+    $db->exec("UPDATE sensors SET ch_group='$addch_groupon' WHERE id='$addch_group'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
     
     $jg = isset($_POST['jg']) ? $_POST['jg'] : '';
     $jgid = isset($_POST['jgid']) ? $_POST['jgid'] : '';
@@ -228,6 +237,7 @@ $row = $rows->fetchAll();
     </form>
 
 </th>
+<th>New group</th>
 <th>Group</th>
 <th>Node
 
@@ -407,13 +417,39 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="chartsonoff" value="onoff" />
     </form>
     </td>
+    
+    
+    <!--NEW GROUP-->
+    <td class="col-md-0">
+    <form action="" method="post" style="display:inline!important;">
+		<input type="text" name="addch_groupon" size="10" maxlength="30" value="<?php echo $a["ch_group"]; ?>" />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+		<input type="hidden" name="addch_group" value="<?php echo $a["id"]; ?>" />
+		<input type="hidden" name="addch_grouponoff" value="onoff"/>
+    </form>
+    </td>
+    
+    
     <td class="col-md-0">
     <form action="" method="post"  class="form-inline">
     <select name="ch_groupon" class="form-control input-sm small" onchange="this.form.submit()" style="width: 100px;" >
-	    <option value="1"  <?php echo $a['ch_group'] == 1 ? 'selected="selected"' : ''; ?>  >1</option>
-	    <option value="2"  <?php echo $a['ch_group'] == 2 ? 'selected="selected"' : ''; ?>  >2</option>
-	    <option value="3"  <?php echo $a['ch_group'] == 3 ? 'selected="selected"' : ''; ?>  >3</option>
-	    <option value="0"  <?php echo $a['ch_group'] == 0 ? 'selected="selected"' : ''; ?>  >none</option>
+		<?php 
+			$rows = $db->query("SELECT ch_group FROM sensors");
+			$row = $rows->fetchAll();
+			foreach($row as $uniq) {
+				if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none') {
+					$unique[]=$uniq['ch_group'];
+				}
+			}
+			$rowu = array_unique($unique);
+			foreach ($rowu as $ch_g) { 	
+				?>
+				    <option value="<?php echo $ch_g?>"  <?php echo $ch_g == $a["ch_group"] ? 'selected="selected"' : ''; ?>  ><?php echo $ch_g ?></option>
+				<?php 
+
+			}
+			?>
+				<option value="none"  <?php echo $a['ch_group'] == 'none' ? 'selected="selected"' : ''; ?>  >none</option>
     </select>
     <input type="hidden" name="ch_grouponoff" value="onoff" />
     <input type="hidden" name="ch_group" value="<?php echo $a['id']; ?>" />

@@ -106,7 +106,7 @@ CREATE TABLE sensors (
   ip type TEXT, 
   device type TEXT,
   lcd type TEXT,
-  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT, i2c type TEXT, minmax type TEXT, sum type TEXT, map_pos type NUM, map_num type NUM, position INTEGER DEFAULT 1, map type NUM, ch_group type NUM, display_name type TEXT, transparent_bkg type TEXT, background_color TEXT, background_low TEXT, background_high TEXT, font_color TEXT, font_size TEXT, jg TEXT, current TEXT, mail type TEXT, status TEXT);
+  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT, i2c type TEXT, minmax type TEXT, sum type TEXT, map_pos type NUM, map_num type NUM, position INTEGER DEFAULT 1, map type NUM, ch_group type UNIQUE, display_name type TEXT, transparent_bkg type TEXT, background_color TEXT, background_low TEXT, background_high TEXT, font_color TEXT, font_size TEXT, jg TEXT, current TEXT, mail type TEXT, status TEXT);
 CREATE TABLE usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE);
 CREATE TABLE statistics (id INTEGER PRIMARY KEY, agreement TEXT, nick TEXT, location TEXT, sensor_temp TEXT);
 CREATE TABLE g_func (id INTEGER PRIMARY KEY, position INTEGER DEFAULT 1, sensor TEXT, sensor2 TEXT, onoff TEXT, value TEXT, op TEXT, hyst TEXT, source TEXT, gpio TEXT, w_profile TEXT);
