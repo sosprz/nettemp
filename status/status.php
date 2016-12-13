@@ -57,8 +57,8 @@
 
 <script type="text/javascript">
     setInterval( function() {
-    $(".ss").load("status/sensor_status.php");
-    $(".sg").load("status/sensor_status.php");
+    $('.ss').load("status/sensor_status.php");
+    $('.sg').load("status/sensor_groups.php");
     $('.co').load("status/counters_status.php");
     $('.gs').load("status/gpio_status.php");
     $('.hs').load("status/hosts_status.php");
