@@ -85,19 +85,15 @@
 	header("location: " . $_SERVER['REQUEST_URI']);
     exit();
    }
- 
+	//MAP ON/OFF
     $map = isset($_POST['map']) ? $_POST['map'] : '';
     $maponoff = isset($_POST['maponoff']) ? $_POST['maponoff'] : '';
     $mapon = isset($_POST['mapon']) ? $_POST['mapon'] : '';
-    if (($maponoff == "onoff")){
-	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
-    $dbmaps->exec("UPDATE maps SET map_on='$mapon' WHERE element_id='$map' AND type='sensors'") or die ($db->lastErrorMsg());
-    echo $mapon."\n";
-    echo $map."\n";
-
-    
-    //header("location: " . $_SERVER['REQUEST_URI']);
-    //exit();
+    if ($maponoff == "onoff"){
+		$db = new PDO('sqlite:dbf/nettemp.db');
+		$db->exec("UPDATE maps SET map_on='$mapon' WHERE element_id='$map' AND type='sensors'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
     }
 
 
