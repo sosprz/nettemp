@@ -34,7 +34,7 @@ Go to device scan!
 <?php
     }
 
-    $sth = $db->prepare("SELECT * FROM sensors WHERE position !=0 AND type!='elec' AND status ='on' ORDER BY position ASC");
+    $sth = $db->prepare("SELECT * FROM sensors WHERE position !=0 AND type!='elec' AND status='on' AND (ch_group IS NULL OR ch_group='') ORDER BY position ASC");
     $sth->execute();
     $result = $sth->fetchAll(); 
     $numsen = count($result);
