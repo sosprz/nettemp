@@ -39,7 +39,7 @@ try {
 			db($local_rom,$local_val,$local_type,$device,$current);
 		} else {
 			echo $date." Connection lost with: ".$name."\n";
-			$local_val='0';
+			$local_val='error';
 			db($local_rom,$local_val,$local_type,$device,$current);
 		}
 		
@@ -66,7 +66,7 @@ try {
 			db($local_rom,$local_val,$local_type,$device,$current);
 		} else {
 			echo $date." Connection lost with: ".$name."\n";
-			$local_val='0';
+			$local_val='error';
 			db($local_rom,$local_val,$local_type,$device,$current);
 		}
 		

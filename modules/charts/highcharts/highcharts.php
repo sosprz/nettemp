@@ -73,25 +73,6 @@ if ($type == 'system') {
     }
 }
 
-elseif ($type == 'host' && empty($single)) {
-    $dirb = "sqlite:dbf/nettemp.db";
-    $db = new PDO($dirb) or die("cannot open database");
-    $query = "SELECT name FROM hosts";
-    foreach ($db->query($query) as $row) {
-	$array[]=$row[0];
-	$types[$row[0]]='host';
-    }
-}
-elseif ($type == 'host' && $single) {
-    $dirb = "sqlite:dbf/nettemp.db";
-    $db = new PDO($dirb) or die("cannot open database");
-    $query = "SELECT name FROM hosts WHERE name='$single'";
-    foreach ($db->query($query) as $row) {
-	$array[]=$row[0];
-	$types[$row[0]]='host';
-    }
-}
-
 elseif ($type == 'gpio' && empty($single)) {
 $dirb = "sqlite:dbf/nettemp.db";
 $db = new PDO($dirb) or die("cannot open database");

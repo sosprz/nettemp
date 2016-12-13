@@ -90,10 +90,14 @@
     $maponoff = isset($_POST['maponoff']) ? $_POST['maponoff'] : '';
     $mapon = isset($_POST['mapon']) ? $_POST['mapon'] : '';
     if (($maponoff == "onoff")){
-	 $dbmaps = new PDO('sqlite:dbf/nettemp.db');
+	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
     $dbmaps->exec("UPDATE maps SET map_on='$mapon' WHERE element_id='$map' AND type='sensors'") or die ($db->lastErrorMsg());
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
+    echo $mapon."\n";
+    echo $map."\n";
+
+    
+    //header("location: " . $_SERVER['REQUEST_URI']);
+    //exit();
     }
 
 

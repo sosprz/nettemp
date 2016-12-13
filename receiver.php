@@ -125,12 +125,12 @@ function db($rom,$val,$type,$device,$current) {
 	$file = "$rom.sql";
 	$dbf = new PDO("sqlite:".__DIR__."/db/$file");
 
-	if ($type == 'host') {
-    	    $rows = $db->query("SELECT rom FROM hosts WHERE rom='$rom'");
-	}
-	else {
+	//if ($type == 'host') {
+    //	    $rows = $db->query("SELECT rom FROM hosts WHERE rom='$rom'");
+	//}
+	//else {
 		 	 $rows = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
-    	 }
+    //	 }
     	 
    $row = $rows->fetchAll();
    $c = count($row);
@@ -171,15 +171,15 @@ function db($rom,$val,$type,$device,$current) {
 		    
 		    ////status for all
 		    //hosts status
-		    if ($type == 'host') {
-		    		if($val=='0') {
-		    			$db->exec("UPDATE hosts SET last='0', status='error' WHERE rom='$rom'")or die ("cannot insert to hosts status\n");
-		    		} 
-		    		else {   			
-						$db->exec("UPDATE hosts SET last='$val', status='ok' WHERE rom='$rom'")or die ("cannot insert to hosts status 2\n");
-					}
-		    }
-		    elseif ($type == 'trigger') {
+		    //if ($type == 'host') {
+		    //		if($val=='0') {
+		    //			$db->exec("UPDATE hosts SET last='0', status='error' WHERE rom='$rom'")or die ("cannot insert to hosts status\n");
+		    //		} 
+		    //		else {   			
+			//			$db->exec("UPDATE hosts SET last='$val', status='ok' WHERE rom='$rom'")or die ("cannot insert to hosts status 2\n");
+			//		}
+		    //}
+		    if ($type == 'trigger') {
 					$db->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to trigger status2\n");
 					trigger($rom);
 		    }
@@ -197,13 +197,13 @@ function db($rom,$val,$type,$device,$current) {
 	    }
 	    // if not numeric
 	    else {
-		if ($type == 'host') {
-		    $db->exec("UPDATE hosts SET last='0', status='error' WHERE rom='$rom'")or die ("cannot insert to hosts status\n");
-		}
-		//sensors
-		else {
+			//if ($type == 'host') {
+		    //$db->exec("UPDATE hosts SET last='0', status='error' WHERE rom='$rom'")or die ("cannot insert to hosts status\n");
+			//}
+			//sensors
+			//else {
 		    $db->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert error to status\n" );
-		}
+			//}
 		echo "$rom not numieric! $val \n";
 		}
 	}

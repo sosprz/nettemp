@@ -1,6 +1,7 @@
 <?php
 
 $rand=substr(rand(), 0, 10);
+$host_rom = isset($_POST['host_rom']) ? $_POST['host_rom'] : '';
 $host_name = isset($_POST['host_name']) ? $_POST['host_name'] : '';
 $host_ip = isset($_POST['host_ip']) ? $_POST['host_ip'] : '';
 $host_id = isset($_POST['host_id']) ? $_POST['host_id'] : '';
@@ -17,7 +18,7 @@ $map_num=substr(rand(), 0, 4);
     } 
  
 
-
+	//ADD
     $host_add1 = isset($_POST['host_add1']) ? $_POST['host_add1'] : '';
     if (!empty($host_name)  && !empty($host_ip) && ($host_add1 == "host_add2") ){
 	$db = new PDO('sqlite:dbf/nettemp.db');
@@ -25,10 +26,15 @@ $map_num=substr(rand(), 0, 4);
 	$host_name=str_replace(".","",$host_name);
 	$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$host_name', '$host_ip', '$host_name', '$host_type', '{left:0,top:0}', '$map_num', 'on', '1')") or die ("cannot insert to DB" );
 	//maps settings
-	$inserted=$db->query("SELECT id FROM hosts WHERE name='$host_name'");
-	$inserted_id=$inserted->fetchAll();
-	$inserted_id=$inserted_id[0];
-	$db->exec("INSERT OR IGNORE INTO maps (element_id, type, map_pos, map_num, map_on) VALUES ('$inserted_id[id]','hosts','{left:0,top:0}','$map_num','on')");
+	//$inserted=$db->query("SELECT id FROM hosts WHERE name='$host_name'");
+	//$inserted_id=$inserted->fetchAll();
+	//$inserted_id=$inserted_id[0];
+	//$db->exec("INSERT OR IGNORE INTO maps (element_id, type, map_pos, map_num, map_on) VALUES ('$inserted_id[id]','hosts','{left:0,top:0}','$map_num','on')");
+	
+	//add to sensors
+	$db->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$host_name')");
+	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, ip, adj, charts, sum, map_pos, map_num, position, map, status) VALUES ('$host_name','$host_name', 'host', 'off', 'wait', '$host_ip', '0', 'on', '0', '{left:0,top:0}', '$map_num', '1', 'on', 'on')") or die ("cannot insert to DB" );
+	
     $dbnew = new PDO("sqlite:db/$host_name.sql");
     $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
     $dbnew==NULL;
@@ -36,17 +42,20 @@ $map_num=substr(rand(), 0, 4);
 	exit();
     }	
 
-    if (!empty($host_name) && ($_POST['host_del1'] == "host_del2") ){
+    if (!empty($host_rom) && ($_POST['host_del1'] == "host_del2") ){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	//maps settings
-	$to_delete=$db->query("SELECT id FROM hosts WHERE name='$host_name'");
+	$to_delete=$db->query("SELECT id FROM sensors WHERE rom='$host_rom'");
 	$to_delete_id=$to_delete->fetchAll();
 	$to_delete_id=$to_delete_id[0];
-	$db->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='hosts'");
-	$db->exec("DELETE FROM hosts WHERE rom='$host_name'");
-	unlink("db/$host_name.sql");
-	header("location: " . $_SERVER['REQUEST_URI']);
-	exit();
+	$db->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='host'");
+	//sensors
+	$db->exec("DELETE FROM sensors WHERE rom='$host_rom'");
+	$db->exec("DELETE FROM hosts WHERE rom='$host_rom'");
+	unlink("db/$host_rom.sql");
+	//header("location: " . $_SERVER['REQUEST_URI']);
+	//exit();
+	echo $host_rom."\n";
     }
 
   
@@ -55,7 +64,7 @@ $map_num=substr(rand(), 0, 4);
     $alarmon = isset($_POST['alarmon']) ? $_POST['alarmon'] : '';
     if (($alarmonoff == "onoff")){
 		$db = new PDO('sqlite:dbf/nettemp.db');
-		$db->exec("UPDATE hosts SET alarm='$alarmon' WHERE rom='$host_name'") or die ($db->lastErrorMsg());
+		$db->exec("UPDATE hosts SET alarm='$alarmon' WHERE rom='$host_rom'") or die ($db->lastErrorMsg());
 		if($alarmon!='on') {
 		$db->exec("UPDATE hosts SET mail='' WHERE rom='$host_name'");
    	}
@@ -121,12 +130,12 @@ foreach ($result as $a) {
 	    <input type="hidden" name="positionok" value="ok" />
 	</form>
 	</td>
-	<td><?php echo str_replace("host_","",$a["name"]);?></td>
+	<td><?php echo $a["name"];?></td>
 	<td><?php echo $a["ip"];?></td>
 	<td><?php echo $a["type"];?></td>
 	<td >
 	<form action="" method="post" style="display:inline!important;">
-	    <input type="hidden" name="host_name" value="<?php echo $a["name"]; ?>" />
+	    <input type="hidden" name="host_rom" value="<?php echo $a["rom"]; ?>" />
 	    <input type="hidden" name="alarm" value="<?php echo $a["id"]; ?>" />
 	    <input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarmon" value="on" <?php echo $a["alarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	    <input type="hidden" name="alarmonoff" value="onoff" />
@@ -134,7 +143,7 @@ foreach ($result as $a) {
 	</td>
 	<td>
 	<form action="" method="post" class="form-horizontal">
-	    <input type="hidden" name="host_name" value="<?php echo $a["name"]; ?>" />
+	    <input type="hidden" name="host_rom" value="<?php echo $a["rom"]; ?>" />
 	    <input type="hidden" type="submit" name="host_del1" value="host_del2" />
 	    <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
 	</form>

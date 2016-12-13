@@ -100,6 +100,7 @@ $name_new=trim($name_new2);
 		$inserted_id=$inserted->fetchAll();
 		$inserted_id=$inserted_id[0];
 		$db->exec("INSERT OR IGNORE INTO maps (type, map_pos, map_num,map_on,element_id) VALUES ('sensors','{left:0,top:0}','$map_num','on','$inserted_id[id]')");
+		
 	}
 	if ($type == "relay" ) {
 		//relays

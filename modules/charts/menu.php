@@ -23,10 +23,6 @@ foreach ($row as $a) {
 }
 
 
-$rows1 = $db->query("SELECT name FROM hosts");
-$row1 = $rows1->fetchAll();
-$hostc = count($row1);
-
 $gr1 = $db->query("SELECT * FROM sensors WHERE ch_group='1'");
 $grp1 = $gr1->fetchAll();
 $gre1 = count($grp1);
@@ -63,9 +59,6 @@ if ( $gre2 >= "1") { ?>
 if ( $gre3 >= "1") { ?>
 <a href="index.php?id=<?php echo $id ?>&type=group&group=3&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $group == '3' ? ' active' : ''; ?>">Group 3</button></a>
 <?php }
-if ( $hostc >= "1")  {?>
-<a href="index.php?id=<?php echo $id ?>&type=host&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'host' ? ' active' : ''; ?>">Hosts</button></a>
-<?php } 
 if (in_array('elec', $typearr))  {?>
 <a href="index.php?id=<?php echo $id ?>&type=elec&max=day&mode=2" ><button class="btn btn-xs btn-default <?php echo $art == 'elec' && $mode == '2' ? ' active' : ''; ?>">Electricity Wh</button></a>
 <?php } 
