@@ -1,4 +1,9 @@
 <?php
+
+if (isset($_GET['chg'])) { 
+    $ch_g = $_GET['chg'];
+} 
+
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 
@@ -17,15 +22,6 @@ foreach ($row as $a) {
     $temp_scale=$a['temp_scale'];
 }
 
-$rows = $db->query("SELECT ch_group FROM sensors");
-$result_ch_g = $rows->fetchAll();
-	foreach($result_ch_g as $uniq) {
-		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none') {
-			$unique[]=$uniq['ch_group'];
-		}
-	}
-	$rowu = array_unique($unique);
-	foreach ($rowu as $ch_g) { 	
 
     $sth = $db->prepare("SELECT * FROM sensors WHERE position !=0 AND type!='elec' AND status='on' AND ch_group='$ch_g' ORDER BY position ASC");
     $sth->execute();
@@ -33,14 +29,13 @@ $result_ch_g = $rows->fetchAll();
     $numsen = count($result);
     if ($numsen >= 1 ){
     ?>
-    <div class="grid-item sg">
+    <div class="grid-item sg<?php echo $groupc ?>">
 	<div class="panel panel-default">
 	<div class="panel-heading"><?php echo $ch_g ?></div>
     <table class="table table-hover table-condensed small">
     <tbody>
 <?php
-	
-   foreach ($result as $a) {
+    foreach ($result as $a) {
 	$name1=$a['name'];
 	$name = str_replace("_", " ", $name1);
 	$min='';
@@ -168,5 +163,4 @@ $result_ch_g = $rows->fetchAll();
 	</div>
 <?php 
 	}
-}
 ?>

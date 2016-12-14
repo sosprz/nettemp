@@ -38,7 +38,27 @@
     <div class="grid-sizer"></div>
     <?php
     include('status/sensor_status.php');
-    include('status/sensor_groups.php');
+    
+    //GROUPS
+    $rows = $db->query("SELECT ch_group FROM sensors");
+	$result_ch_g = $rows->fetchAll();
+	
+	foreach($result_ch_g as $uniq) {
+		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none') {
+			$unique[]=$uniq['ch_group'];
+		}
+	}
+	
+	$rowu = array_unique($unique);
+	print_r($rowu);
+	$group_num=count($rowu);
+	$groupc=0;
+	foreach ($rowu as $ch_g) { 
+		include('status/sensor_groups.php');
+		$groupc++;
+	}
+	//END GROUPS
+	
     include('status/justgage_status.php');
     include('status/minmax_status.php');
     include('status/hosts_status.php');
@@ -58,7 +78,13 @@
 <script type="text/javascript">
     setInterval( function() {
     $('.ss').load("status/sensor_status.php");
-    $('.sg').load("status/sensor_groups.php");
+    <?php
+		foreach ($rowu as $key => $ch_g) { 
+	?>
+		$('.sg<?php echo $key?>').load("status/sensor_groups.php?chg=<?php echo $ch_g?>");
+	<?php
+		}
+	?>
     $('.co').load("status/counters_status.php");
     $('.gs').load("status/gpio_status.php");
     $('.hs').load("status/hosts_status.php");
@@ -69,7 +95,7 @@
     $('.mm').load("status/minmax_status.php");
     $('.ups').load("status/ups_status.php");
     $('#justgage_refresh').load("status/justgage_refresh.php");
-}, 60000);
+}, 6000);
 
 $(document).ready( function() {
 
