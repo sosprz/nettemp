@@ -340,41 +340,14 @@ $db->exec("UPDATE types SET min='0', max='10000' WHERE type='uv' AND min is null
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='storm' AND min is null AND max is null");
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='lightining' AND min is null AND max is null");
 $db->exec("ALTER TABLE sensors ADD mail type TEXT");
-$db->exec("ALTER TABLE hosts ADD mail type TEXT");
 
-//host db update & copy old data
-$sql = "SELECT sql FROM sqlite_master WHERE tbl_name = 'hosts' AND type = 'table'";
-$r = $db->query($sql);
-$resp = $r->fetch();
-$sqla="ALTER TABLE hosts RENAME TO tmp_hosts";
-$sqlb="CREATE TABLE hosts (
-    id INTEGER PRIMARY KEY,
-    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    name UNIQUE,
-    ip TEXT,
-    type TEXT,
-    last TEXT,
-    status TEXT,
-    rom type TEXT,
-    map_pos type NUM,
-    map_num type NUM,
-    map type NUM,
-    alarm type TEXT,
-    position type NUM,
-    element_id type TEXT,
-    mail type TEXT
-)";
-$sqlc="INSERT OR ROLLBACK INTO hosts (id,name,ip,type,last,status,rom,map_pos,map_num,map,alarm,position,element_id,mail) SELECT id,name,ip,type,last,status,rom,map_pos,map_num,map,alarm,position,element_id,mail FROM tmp_hosts";
-$sqld="DROP TABLE tmp_hosts";
 
-if(!preg_match('/^time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL\,$/',$resp['sql'])){
-    $db->exec($sqla);
-    $db->exec($sqlb);
-    $db->exec($sqlc);
-    $db->exec($sqld);
-}
 
-// TIME & TRIGGER
+//UPDATE after new ALTER
+$db->exec("UPDATE sensors SET status='on' WHERE status is null");
+
+
+//TIME & TRIGGER
 $db->exec("ALTER TABLE sensors ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL");
 //$db->exec("ALTER TABLE hosts ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL");
 $db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
@@ -387,7 +360,7 @@ $db->exec("PRAGMA journal_mode=WAL");
 //CLEAN
 $db->exec("DELETE FROM settings WHERE id>1");
 $db->exec("DROP trigger hosts_time_trigger");
-$db->exec("DELETE FROM hosts");
+//$db->exec("DELETE FROM hosts");
 
 echo $date." nettemp database update: ok \n";
 

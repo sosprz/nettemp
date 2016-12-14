@@ -29,7 +29,7 @@ $map_num2=substr(rand(), 0, 6);
 	$id_rom_h='gpio_'.$gpio_post.'_humid.sql';
 	$id_rom_t='gpio_'.$gpio_post.'_temp.sql';
 	$rand=substr(rand(), 0, 4);
-	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj, charts, device, map_pos, map_num, map) VALUES ('$rand','$id_rom_newh', 'humid', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', '{left:0,top:0}', '$map_num', 'on')") or die ("cannot insert to DB humi" );
+	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj, charts, device, map_pos, map_num, map, status) VALUES ('$rand','$id_rom_newh', 'humid', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', '{left:0,top:0}', '$map_num', 'on', 'on')") or die ("cannot insert to DB humi" );
 	//maps
 	$inserted=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_newh'");
 	$inserted_id=$inserted->fetchAll();

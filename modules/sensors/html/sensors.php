@@ -113,7 +113,7 @@ $name_new=trim($name_new2);
     if ($device == "wireless"  ) {
 		//host for monitoring
 		$name='host_wifi_' . $type . '_' . $name;
-		$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping', '{left:0,top:0}', '$map_num2', 'on', '1')") or die ("cannot insert host to DB" );	
+		$db->exec("INSERT OR IGNORE INTO sensors (name, ip, rom, type, map_pos, map_num, map, position, status) VALUES ('$name', '$ip', 'host_$id_rom_new', 'ping', '{left:0,top:0}', '$map_num2', 'on', '1', 'on')") or die ("cannot insert host to DB" );	
 		$dbnew = new PDO("sqlite:db/host_$id_rom_new.sql");
 		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
 		$dbnew->exec("CREATE INDEX time_index ON def(time)");
