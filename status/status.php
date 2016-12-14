@@ -50,7 +50,6 @@
 	}
 	
 	$rowu = array_unique($unique);
-	print_r($rowu);
 	$group_num=count($rowu);
 	$groupc=0;
 	foreach ($rowu as $ch_g) { 
