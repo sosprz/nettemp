@@ -293,7 +293,6 @@ elseif (isset($val) && isset($type)) {
 			$type=$typel;
 			$val=$aval[$index];
 			$rom=$device.'_'.$ip.'_'.$type; 
-			echo $type." ".$val." ".$rom." ".$device." ".$ip."QQQQQQQQQ \n";
 			db($rom,$val,$type,$device,$current);
 		}
 		
