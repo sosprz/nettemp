@@ -24,10 +24,9 @@
 /* ---- grid-item ---- */
 
 .grid-item {
-    width: 360px;
+    width: 340px;
     float: left;
     border-radius: 5px;
-    //padding: 10px;
 }
 
 </style>
@@ -100,7 +99,7 @@ $(document).ready( function() {
 
   $('.grid').masonry({
     itemSelector: '.grid-item',
-    columnWidth: 380
+    columnWidth: 350
   });
   
 });
