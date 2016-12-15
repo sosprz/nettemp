@@ -162,10 +162,12 @@ try {
 						echo $date." Running: ".$cmd."\n";
 						$output = shell_exec($cmd);
 						//$output = preg_split ('/$\R?^/m', $output);
-						$output = preg_replace('/\D/', '', $output);
+						//$output = preg_replace('/\D/', '', $output);
 						//lux
 						//var_dump($output);
-						$output0 = trim($output[0]);
+						//$output0 = trim($output[0]);
+						preg_match('/(\d+)/', $output, $output);
+						$output0=$output[1];
 						$output = '';
 					}
 					if($rr['type']=='lux') {
