@@ -283,7 +283,23 @@ elseif (isset($val) && isset($type)) {
 	}
 
 	$file = "$rom.sql";
-	db($rom,$val,$type,$device,$current);
+	
+	
+	if (strpos($type, ';') !== false) {
+		$atype =  explode(';', $type);
+		$aval =  explode(';', $val);
+		
+		foreach( $atype as $index => $typel ) {
+			$type=$typel;
+			$val=$aval[$index];
+			$rom=$device.'_'.$ip.'_'.$type; 
+			echo $type." ".$val." ".$rom." ".$device." ".$ip."QQQQQQQQQ \n";
+			db($rom,$val,$type,$device,$current);
+		}
+		
+	} else {
+		db($rom,$val,$type,$device,$current);
+	}
 
 }
 elseif (!defined('LOCAL')) {
