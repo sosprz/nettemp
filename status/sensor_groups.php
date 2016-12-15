@@ -31,7 +31,7 @@ foreach ($row as $a) {
     ?>
     <div class="grid-item sg<?php echo $groupc ?>">
 	<div class="panel panel-default">
-	<div class="panel-heading"><?php echo $ch_g ?></div>
+	<div class="panel-heading"><?php echo $name = str_replace('_', ' ', $ch_g);?></div>
     <table class="table table-hover table-condensed small">
     <tbody>
 <?php
