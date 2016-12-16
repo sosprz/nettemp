@@ -115,14 +115,13 @@ $name_new=trim($name_new2);
 
 	// ADD HOST MONITORING
 	if ($device == "wireless" || $device == "ip") {
-	
 		$name="host_".$id_rom_new;
-		$rom="host_".$id_rom_new;
+		$rom="host_".$ip;
 		//ADD TO HOSTS
-		$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$name', '$ip', '$rom', 'ping', '{left:0,top:0}', '$map_num', 'on', '1')") or die ("cannot insert to DB" );
+		$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$rom', '$ip', '$rom', 'ping', '{left:0,top:0}', '$map_num', 'on', '1')");
 		//ADD TO SENSORS
 		$db->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')");
-		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, device, alarm, tmp, ip, adj, charts, sum, map_pos, map_num, position, map, status) VALUES ('$name','$rom', 'host', 'ip','off', 'wait', '$ip', '0', 'on', '0', '{left:0,top:0}', '$map_num', '1', 'on', 'on')") or die ("cannot insert to DB" );
+		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, device, alarm, tmp, ip, adj, charts, sum, map_pos, map_num, position, map, status) VALUES ('$name','$rom', 'host', 'ip','off', 'wait', '$ip', '0', 'on', '0', '{left:0,top:0}', '$map_num', '1', 'on', 'on')");
 		//ADD TO MAPS
 		$inserted=$db->query("SELECT id FROM sensors WHERE rom='$rom'");
 		$inserted_id=$inserted->fetchAll();
@@ -132,8 +131,8 @@ $name_new=trim($name_new2);
 		$dbnew = new PDO("sqlite:db/$rom.sql");
 		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
 		$dbnew->exec("CREATE INDEX time_index ON def(time)");
-		header("location: " . $_SERVER['REQUEST_URI']);
-		exit();
+		//header("location: " . $_SERVER['REQUEST_URI']);
+		//exit();
 	}
 	
 	}
