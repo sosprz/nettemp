@@ -312,7 +312,7 @@ elseif (isset($val) && isset($type)) {
 		
 	}
 	//MULTI TYPE
-	// http://localhost/receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&type=temp;humid;press&value=0.00;0.00;0.00
+	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&type=temp;humid;press&value=0.00;0.00;0.00
 	if (strpos($type, ';') !== false && empty($id)) {
 		$atype =  explode(';', $type);
 		$aval =  explode(';', $val);
