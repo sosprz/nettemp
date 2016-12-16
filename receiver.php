@@ -53,6 +53,12 @@ if (isset($_GET['current'])){
     $current='';
 }
 
+if (isset($_GET['id'])){
+    $id = $_GET['id'];
+} else {
+    $id='';
+}
+
 if (isset($_GET['usb'])) {
     $usb = $_GET['usb'];
 }
@@ -291,19 +297,48 @@ elseif (isset($val) && isset($type)) {
 
 	$file = "$rom.sql";
 	
-	
-	if (strpos($type, ';') !== false) {
+	//MULTI ID
+	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&id=5;6;7&type=temp;humid;press&value=0.00;0.00;0.00
+	if (strpos($type, ';') !== false && strpos($id, ';') !== false) {
 		$atype =  explode(';', $type);
 		$aval =  explode(';', $val);
+		$aid =  explode(';', $id);
+		foreach($aid as $index => $id) {
+			$type=$atype[$index];
+			$val=$aval[$index];
+			$rom=$device.'_'.$ip.'_id'.$id.'_'.$type; 
+			db($rom,$val,$type,$device,$current);
+		}
 		
-		foreach( $atype as $index => $typel ) {
-			$type=$typel;
+	}
+	//MULTI TYPE
+	// http://localhost/receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&type=temp;humid;press&value=0.00;0.00;0.00
+	if (strpos($type, ';') !== false && empty($id)) {
+		$atype =  explode(';', $type);
+		$aval =  explode(';', $val);
+		foreach($atype as $index => $type) {
+			$type=$atype[$index];
 			$val=$aval[$index];
 			$rom=$device.'_'.$ip.'_'.$type; 
 			db($rom,$val,$type,$device,$current);
 		}
 		
-	} else {
+	}
+	//ONE ID 
+	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&id=5&type=temp;humid;press&value=0.00;0.00;0.00
+	elseif (!empty($id)) {
+		$atype =  explode(';', $type);
+		$aval =  explode(';', $val);
+		foreach($atype as $index => $typel) {
+			$type=$typel;
+			$val=$aval[$index];
+			$rom=$device.'_'.$ip.'_id'.$id.'_'.$type; 
+			db($rom,$val,$type,$device,$current);
+		} 
+	}
+	//SIMPLE	
+	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&type=temp&value=0.00
+	else {
 		db($rom,$val,$type,$device,$current);
 	}
 
