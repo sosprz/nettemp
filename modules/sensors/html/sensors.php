@@ -114,7 +114,7 @@ $name_new=trim($name_new2);
 	}
 
 	// ADD HOST MONITORING
-	if ($device == "wireless"  ) {
+	if ($device == "wireless" || $device == "ip") {
 	
 		$name="host_".$id_rom_new;
 		$rom="host_".$id_rom_new;
@@ -143,22 +143,17 @@ $name_new=trim($name_new2);
 	$usun2 = isset($_POST['usun2']) ? $_POST['usun2'] : '';
 	if(!empty($rom) && ($usun2 == "usun3")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
+	
 	//maps settings - first delete
 	$to_delete=$db->query("SELECT id FROM sensors WHERE rom='$rom'");
 	$to_delete_id=$to_delete->fetchAll();
 	$to_delete_id=$to_delete_id[0];
-	$db->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='sensors'");// or die ($db->lastErrorMsg());
-	
-	$db->exec("DELETE FROM sensors WHERE rom='$rom'") or die ($db->lastErrorMsg()); 
-	if (file_exists("tmp/mail/$rom.mail")) {
-        unlink("tmp/mail/$rom.mail");
-   }
-   if (file_exists("tmp/mail/hour/$rom.mail")) {
-        unlink("tmp/mail/hour/$rom.mail");
-   }
-   if (file_exists("db/$rom.sql")) {
+	$db->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='sensors'");
+	$db->exec("DELETE FROM hosts WHERE rom='$rom'");
+	$db->exec("DELETE FROM sensors WHERE rom='$rom'");
+	if (file_exists("db/$rom.sql")) {
         unlink("db/$rom.sql");
-   }
+	}
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
    } ?>	   
