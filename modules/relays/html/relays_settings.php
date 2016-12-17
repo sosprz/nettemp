@@ -1,3 +1,15 @@
+<?php
+
+// OLD moved to sensors
+
+$db = new PDO('sqlite:dbf/nettemp.db');
+$sth2 = $db->prepare("select * from relays ");
+$sth2->execute();
+$row = $sth2->fetchAll();
+
+$count=count($row);
+if($count>=1){
+?>
 <div class="panel panel-default">
 <div class="panel-heading">Relays</div>
 <div class="table-responsive">
@@ -29,10 +41,7 @@ exit();
 
 
 
-$db = new PDO('sqlite:dbf/nettemp.db');
-$sth2 = $db->prepare("select * from relays ");
-$sth2->execute();
-$row = $sth2->fetchAll();
+
 
 ?>
 <thead>
@@ -76,3 +85,6 @@ $row = $sth2->fetchAll();
 </table>
 </div>
 </div>
+<?php
+	}
+?>
