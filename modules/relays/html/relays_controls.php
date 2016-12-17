@@ -11,12 +11,22 @@ $relay = isset($_POST['relay']) ? $_POST['relay'] : '';
 $ronoff = isset($_POST['ronoff']) ? $_POST['ronoff'] : '';
 if (($ronoff == "ronoff")){
     if ($relay == 'on' ){
-    $cmd="curl --connect-timeout 3 $ip/seton";
-    exec($cmd);
-    } else { 
-    $cmd="curl --connect-timeout 3 $ip/setoff";
-    exec($cmd);
-    }
+		$ch = curl_init();
+		$optArray = array(
+			CURLOPT_URL => "$ip/seton",
+			CURLOPT_RETURNTRANSFER => true
+		);
+		curl_setopt_array($ch, $optArray);
+		$res = curl_exec($ch);
+     } else { 
+		$ch = curl_init();
+		$optArray = array(
+			CURLOPT_URL => "$ip/setoff",
+			CURLOPT_RETURNTRANSFER => true
+		);
+		curl_setopt_array($ch, $optArray);
+		$res = curl_exec($ch);
+	}
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -27,12 +37,17 @@ $sth2->execute();
 $result2 = $sth2->fetchAll();
 foreach ( $result2 as $r) {
 $ip=$r['ip'];
-$cmd="curl --connect-timeout 3 $ip/showstatus";
-exec($cmd, $i);
-$s=$i[0];
-$os=str_replace('status', '', $s);
-$o=str_replace(' ', '', $os);
 
+$ch = curl_init();
+$optArray = array(
+    CURLOPT_URL => "$ip/showstatus",
+    CURLOPT_RETURNTRANSFER => true
+);
+curl_setopt_array($ch, $optArray);
+$res = curl_exec($ch);
+
+$o1=str_replace('status', '', $res);
+$o=strtolower(trim($o1));
 ?>
 
 

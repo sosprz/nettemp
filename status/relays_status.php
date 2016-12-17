@@ -14,12 +14,20 @@ $numRows = count($result);
 <table class="table table-hover table-condensed">
 <?php
 foreach ( $result as $a) {
+
 $ip=$a['ip'];
-$cmd="curl --connect-timeout 3 $ip/showstatus";
-exec($cmd, $i);
-$s=$i[0];
-$o1=str_replace('status', '', $s);
-$o = str_replace(' ', '', $o1);
+  
+$ch = curl_init();
+$optArray = array(
+    CURLOPT_URL => "$ip/showstatus",
+    CURLOPT_RETURNTRANSFER => true
+);
+curl_setopt_array($ch, $optArray);
+$res = curl_exec($ch);
+
+$o1=str_replace('status', '', $res);
+$o=trim($o1);
+
 if ( $o == 'on') { $rs='ON'; }
 if ( $o == 'off') { $rs='OFF'; }
 
