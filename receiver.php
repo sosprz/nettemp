@@ -303,7 +303,7 @@ elseif (isset($val) && isset($type)) {
 	}
 
 	$file = "$rom.sql";
-	/
+
 	//MULTI ID
 	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&id=5;6;7&type=temp;humid;press&value=0.00;0.00;0.00
 	if (strpos($type, ';') !== false && strpos($id, ';') !== false) {
