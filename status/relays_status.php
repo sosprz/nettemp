@@ -2,7 +2,7 @@
 $dir="modules/gpio/";
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
-$sth = $db->prepare("select * from relays");
+$sth = $db->prepare("select * from sensors where type='relay'");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);
@@ -36,7 +36,6 @@ if ( $o == 'off') { $rs='OFF'; }
     <tr>
     <td>	<img type="image" src="media/ico/SMD-64-pin-icon_24.png" /></td>
     <td><?php echo $a['name']; ?></td>
-    <td><?php echo $a['status']; ?></td>
     <td><?php echo $rs; ?></td>
     
     </tr>
