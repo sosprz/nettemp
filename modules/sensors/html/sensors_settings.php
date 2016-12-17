@@ -116,15 +116,6 @@
     exit();
     } 
 
-    $sum = isset($_POST['sum']) ? $_POST['sum'] : '';
-    $sum1 = isset($_POST['sum1']) ? $_POST['sum1'] : '';
-    if ($sum1 == 'sum2'){
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE sensors SET sum='$sum' WHERE id='$name_id'") or die ($db->lastErrorMsg());
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
-
     $map = isset($_POST['map']) ? $_POST['map'] : '';
     $maponoff = isset($_POST['maponoff']) ? $_POST['maponoff'] : '';
     $mapon = isset($_POST['mapon']) ? $_POST['mapon'] : '';
@@ -214,7 +205,6 @@ MinMax mode:
 <table class="table table-hover table-condensed small" border="0">
 
 <?php
-$counters=array("gas","water","elec");
 $rows = $db->query("SELECT * FROM sensors ORDER BY position ASC");
 $row = $rows->fetchAll();
 ?>
@@ -225,8 +215,9 @@ $row = $rows->fetchAll();
 <th>DB</th>
 <th>Type</th>
 <th>Adjust</th>
-<th>Counters</th>
 <th>Alarm / Min / Max</th>
+<th>New group</th>
+<th>Group</th>
 <th>Charts
 
 	 <form action="" method="post" style="display:inline!important;">
@@ -239,8 +230,6 @@ $row = $rows->fetchAll();
     </form>
 
 </th>
-<th>New group</th>
-<th>Group</th>
 <th>Node
 
     <form action="" method="post" style="display:inline!important;">
@@ -382,20 +371,7 @@ $row = $rows->fetchAll();
 	}
     ?>
     </td>
-    <td class="col-md-0">
-    <?php if (in_array($a['type'], $counters)) { ?>
-    <form action="" method="post" style="display:inline!important;">
-	<input type="text" name="sum" size="2" maxlength="30" value="<?php echo $a["sum"]; ?>" required=""/>
-	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
-	<input type="hidden" name="sum1" value="sum2"/>
-    </form>
-    <?php
-	}
-    ?>
-    </td>
-
-
+    
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>" />
@@ -411,16 +387,7 @@ $row = $rows->fetchAll();
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
     </td>
-    
-    <td class="col-md-0">
-    <form action="" method="post" style="display:inline!important;" > 	
-		<input type="hidden" name="charts" value="<?php echo $a["id"]; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="chartson" value="on" <?php echo $a["charts"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
-		<input type="hidden" name="chartsonoff" value="onoff" />
-    </form>
-    </td>
-    
-    
+       
     <!--NEW GROUP-->
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
@@ -459,6 +426,13 @@ $row = $rows->fetchAll();
     </td>
 
 
+    <td class="col-md-0">
+    <form action="" method="post" style="display:inline!important;" > 	
+		<input type="hidden" name="charts" value="<?php echo $a["id"]; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="chartson" value="on" <?php echo $a["charts"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="chartsonoff" value="onoff" />
+    </form>
+    </td>
     
     <td class="col-md-0">
     <?php if ($a["device"] != 'remote') { ?>
