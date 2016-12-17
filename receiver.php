@@ -277,14 +277,6 @@ elseif (isset($val) && isset($type)) {
 		exit();
 	    }
 	}
-	elseif ( $device == "ip" ) {
-	    if (!empty($type) && !empty($ip)) {
-		$rom=$device.'_'.$ip.'_'.$type; 
-	    } else {
-		echo "Missing type or IP";
-		exit();
-	    }
-	}
 	elseif ( $device == "wireless" ) {
 	    if (!empty($type) && !empty($ip)) {
 		$rom=$device.'_'.$ip.'_'.$type; 
