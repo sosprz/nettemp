@@ -303,7 +303,7 @@ elseif (isset($val) && isset($type)) {
 	}
 
 	$file = "$rom.sql";
-	
+	/
 	//MULTI ID
 	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&id=5;6;7&type=temp;humid;press&value=0.00;0.00;0.00
 	if (strpos($type, ';') !== false && strpos($id, ';') !== false) {
@@ -325,7 +325,7 @@ elseif (isset($val) && isset($type)) {
 				echo "No val definied in multi id mode, name ".$name.", type ".$type." id ".$id.", type ".$type."\n";
 				continue;
 			}			
-			$rom=$name.'_id'.$id.'_'.$type; 
+			$rom=$device."_".$name."id".$id."_".$type; 
 			db($rom,$val,$type,$device,$current);
 		}
 		
@@ -351,7 +351,7 @@ elseif (isset($val) && isset($type)) {
 				continue;
 			}
 
-			$rom=$name.'_'.$type; 
+			$rom=$device."_".$name."_".$type; 
 			db($rom,$val,$type,$device,$current);
 		} 
 	}
@@ -377,7 +377,7 @@ elseif (isset($val) && isset($type)) {
 				continue;;
 			}
 
-			$rom=$name.'_id'.$id.'_'.$type; 
+			$rom=$device."_".$name."_id".$id."_".$type; 
 			db($rom,$val,$type,$device,$current);
 		} 
 	}
