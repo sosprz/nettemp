@@ -23,7 +23,7 @@ foreach ($row as $a) {
 }
 
 
-    $sth = $db->prepare("SELECT * FROM sensors WHERE position !=0 AND type!='elec' AND status!='on' AND ch_group='$ch_g' ORDER BY position ASC");
+    $sth = $db->prepare("SELECT * FROM sensors WHERE position !=0 AND type!='elec' AND ch_group='$ch_g' ORDER BY position ASC");
     $sth->execute();
     $result = $sth->fetchAll(); 
     $numsen = count($result);
