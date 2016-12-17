@@ -2,15 +2,6 @@
 <div class="panel-heading">
 <h3 class="panel-title">Counters </h3></div>
 
-<div class="table-responsive">
-<table class="table table-hover table-condensed small" border="0">
-	
-<thead>
-<th>Name</th>
-<th>Type</th>
-<th>Counters</th>
-</thead>
-
 <?php
 $sum = isset($_POST['sum']) ? $_POST['sum'] : '';
 $sum1 = isset($_POST['sum1']) ? $_POST['sum1'] : '';
@@ -20,14 +11,26 @@ $id = isset($_POST['id']) ? $_POST['id'] : '';
 if ($sum1 == 'sum2'){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE sensors SET sum='$sum' WHERE id='$id'") or die ($db->lastErrorMsg());
-	//header("location: " . $_SERVER['REQUEST_URI']);
-	//exit();
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
 }
 
 $db = new PDO('sqlite:dbf/nettemp.db');
-$rows = $db->query("SELECT * FROM sensors WHERE type='elec'");
+$rows = $db->query("SELECT * FROM sensors WHERE type='elec' OR type='water' OR type='gas'");
 $row = $rows->fetchAll();
-foreach ($row as $a) { 	?>
+$count = count($row);
+if ($count >= "1") {
+?>
+<div class="table-responsive">
+<table class="table table-hover table-condensed small" border="0">
+<thead>
+<th>Name</th>
+<th>Type</th>
+<th>Counters</th>
+</thead>
+<?php
+foreach ($row as $a) { 	
+?>
 <tr>
     <td class="col-md-0">
 		<?php echo $a["name"]; ?>
@@ -47,10 +50,15 @@ foreach ($row as $a) { 	?>
 <?php
 	}
 ?>
-
 </table>
-
-
-
+<?php
+	} else { 
+		?>
+		<div class="panel-body">
+		No counters in system
+		</div>
+		<?php
+	}
+?>
 </div>
 
