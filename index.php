@@ -64,7 +64,7 @@ if($id != 'screen') {
 <ul class="nav navbar-nav">
 <?php
 $rows1 = $db->query("SELECT * FROM gpio WHERE mode='simple' OR mode='moment' OR mode='trigger' OR mode='call'") or header("Location: html/errors/db_error.php");
-$rows2 = $db->query("SELECT * FROM relays WHERE type='relay'") or header("Location: html/errors/db_error.php");
+$rows2 = $db->query("SELECT * FROM sensors WHERE type='relay'") or header("Location: html/errors/db_error.php");
 $row1 = $rows1->fetchAll();
 $row2 = $rows2->fetchAll();
 $numsimple = count($row1);
