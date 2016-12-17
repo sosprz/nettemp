@@ -112,7 +112,7 @@ $name_new=trim($name_new2);
 	if ($type == "relay" ) {
 		$db->exec("INSERT OR IGNORE INTO relays (name, rom, ip, type) VALUES ('wifi_relay_$name','$id_rom_new','$ip', '$type'  )") or die ("cannot insert relays to DB" );
 	}
-
+	/*
 	// ADD HOST MONITORING
 	if ($device == "wireless" || $device == "ip") {
 		$name="host_".$id_rom_new;
@@ -134,6 +134,7 @@ $name_new=trim($name_new2);
 		//header("location: " . $_SERVER['REQUEST_URI']);
 		//exit();
 	}
+	*/
 	
 	}
 

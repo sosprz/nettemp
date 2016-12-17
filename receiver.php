@@ -2,6 +2,7 @@
 // name:
 // type: temp, humid, relay, lux, press, humid, gas, water, elec, volt, amps, watt, trigger
 // device: ip, wireless, remote, gpio, i2c, usb
+
 // definied source (middle part): tty, ip, gpio number
 
 // curl --connect-timeout 3 -G "http://172.18.10.10/receiver.php" -d "value=1&key=123456&device=wireless&type=gas&ip=172.18.10.9"
@@ -57,6 +58,12 @@ if (isset($_GET['id'])){
     $id = $_GET['id'];
 } else {
     $id='';
+}
+
+if (isset($_GET['name'])){
+    $name = $_GET['name'];
+} else {
+    $name='';
 }
 
 if (isset($_GET['usb'])) {
@@ -300,43 +307,81 @@ elseif (isset($val) && isset($type)) {
 	//MULTI ID
 	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&id=5;6;7&type=temp;humid;press&value=0.00;0.00;0.00
 	if (strpos($type, ';') !== false && strpos($id, ';') !== false) {
-		$atype =  explode(';', $type);
-		$aval =  explode(';', $val);
-		$aid =  explode(';', $id);
+		$aid = array_filter(explode(';', $id),'strlen');
+		$atype = array_filter(explode(';', $type),'strlen');
+		$aval = array_filter(explode(';', $val),'strlen');
 		foreach($aid as $index => $id) {
 			$type=$atype[$index];
 			$val=$aval[$index];
-			$rom=$device.'_'.$ip.'_id'.$id.'_'.$type; 
+			if(empty($id)){
+				echo "One id is not definied in multi id mode, name ".$name.", type ".$type.", val ".$val."\n";
+				continue;
+			}
+			if(empty($type)){
+				echo "One type is not definied in multi id mode, name ".$name.", id ".$id.", val ".$val."\n";
+				continue;
+			}
+			if(empty($val)){
+				echo "No val definied in multi id mode, name ".$name.", type ".$type." id ".$id.", type ".$type."\n";
+				continue;
+			}			
+			$rom=$name.'_id'.$id.'_'.$type; 
 			db($rom,$val,$type,$device,$current);
 		}
 		
 	}
 	//MULTI TYPE
-	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&type=temp;humid;press&value=0.00;0.00;0.00
-	if (strpos($type, ';') !== false && empty($id)) {
-		$atype =  explode(';', $type);
-		$aval =  explode(';', $val);
-		foreach($atype as $index => $type) {
-			$type=$atype[$index];
-			$val=$aval[$index];
-			$rom=$device.'_'.$ip.'_'.$type; 
-			db($rom,$val,$type,$device,$current);
+	// receiver.php?name=unit1&key=q1w2e3r4&type=temp;humid;press&value=0.00;0.00;0.00
+	elseif (strpos($type, ';') !== false && empty($id)) {
+		$atype = array_filter(explode(';', $type),'strlen');
+		$aval = array_filter(explode(';', $val),'strlen');
+		if(empty($atype)) {
+			echo "No type definied in one id mode, name ".$name.", id ".$id."\n";
+			exit;
 		}
-		
-	}
-	//ONE ID 
-	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&id=5&type=temp;humid;press&value=0.00;0.00;0.00
-	elseif (!empty($id)) {
-		$atype =  explode(';', $type);
-		$aval =  explode(';', $val);
 		foreach($atype as $index => $typel) {
 			$type=$typel;
 			$val=$aval[$index];
-			$rom=$device.'_'.$ip.'_id'.$id.'_'.$type; 
+			if(empty($type)){
+				echo "One type is not definied in multi id mode, name ".$name.", id ".$id.", val ".$val."\n";
+				continue;
+			}
+			if(empty($val)){
+				echo "No val definied in multi id mode, name ".$name.", id ".$id.", type ".$type."\n";
+				continue;
+			}
+
+			$rom=$name.'_'.$type; 
 			db($rom,$val,$type,$device,$current);
 		} 
 	}
-	//SIMPLE	
+	// ONE ID 
+	// type is more important than id, type equal value
+	// receiver.php?name=unit1&key=q1w2e3r4&id=5&type=temp;humid;press&value=0.00;0.00;0.00
+	elseif (!empty($id)&&!empty($name)) {
+		$atype = array_filter(explode(';', $type),'strlen');
+		$aval = array_filter(explode(';', $val),'strlen');
+		if(empty($atype)) {
+			echo "No type definied in one id mode, name ".$name.", id ".$id."\n";
+			exit;
+		}
+		foreach($atype as $index => $typel) {
+			$type=$typel;
+			$val=$aval[$index];
+			if(empty($type)){
+				echo "One type is not definied in one id mode, name ".$name.", id ".$id.", val $val\n";
+				continue;;
+			}
+			if(empty($val)){
+				echo "No val definied in one id mode, name ".$name.", id ".$id.", type ".$type."\n";
+				continue;;
+			}
+
+			$rom=$name.'_id'.$id.'_'.$type; 
+			db($rom,$val,$type,$device,$current);
+		} 
+	}
+	// ONE TYPE	
 	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&type=temp&value=0.00
 	else {
 		db($rom,$val,$type,$device,$current);
