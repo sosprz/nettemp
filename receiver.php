@@ -369,7 +369,7 @@ elseif (isset($val) && isset($type)) {
 				continue;;
 			}
 
-			$rom=$device."_".$name."_id".$id."_".$type; 
+			$rom=$device."_".$name."id".$id."_".$type; 
 			db($rom,$val,$type,$device,$current);
 		} 
 	}
