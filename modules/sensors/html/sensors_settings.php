@@ -293,7 +293,7 @@ $row = $rows->fetchAll();
     </form>
 
 </th>
-<th>Sensors
+<th>Status
 
  	<form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="status" />
