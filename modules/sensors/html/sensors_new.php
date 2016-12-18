@@ -1,3 +1,12 @@
+<?php
+$delallnewrom = isset($_POST['delallnewrom']) ? $_POST['delallnewrom'] : '';
+if ($delallnewrom=='yes'){
+    	$db = new PDO('sqlite:dbf/nettemp.db');
+    	$db->exec("DELETE FROM newdev");
+    	header("location: " . $_SERVER['REQUEST_URI']);
+    	exit();
+    }
+?>
 <div class="panel panel-default">
 <div class="panel-heading">New devices</div>
 <div class="table-responsive">
@@ -54,10 +63,35 @@ foreach ($result as $a) {
 			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button>
 		</form>
 	</td>
+	
 </tr>    
 <?php 
 	} 					
 ?>
+<tr>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-2">
+		<form action="" method="post" style="display:inline!important;">
+			<input type="hidden" name="delallnewrom" value="yes" > 
+			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+		</form>
+	</td>
+</tr>
 </table>
 </div>
 </div>
