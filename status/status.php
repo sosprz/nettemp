@@ -63,6 +63,7 @@
     include('status/gpio_status.php');
     include('status/counters_status.php');
     include('status/relays_status.php');
+    include('status/switch_status.php');
     include('status/meteo_status.php');
     foreach (range(1, 10) as $v) {
 		$ow=$v;
@@ -87,6 +88,7 @@
     $('.gs').load("status/gpio_status.php");
     $('.hs').load("status/hosts_status.php");
     $('.rs').load("status/relays_status.php");
+    $('.rss').load("status/switch_status.php");
     $('.ms').load("status/meteo_status.php");
     $('.ow2').load("status/ownwidget2.php");
     $('.ow3').load("status/ownwidget3.php");

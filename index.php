@@ -64,7 +64,7 @@ if($id != 'screen') {
 <ul class="nav navbar-nav">
 <?php
 $rows1 = $db->query("SELECT * FROM gpio WHERE mode='simple' OR mode='moment' OR mode='trigger' OR mode='call'") or header("Location: html/errors/db_error.php");
-$rows2 = $db->query("SELECT * FROM sensors WHERE type='relay'") or header("Location: html/errors/db_error.php");
+$rows2 = $db->query("SELECT * FROM sensors WHERE type='relay' OR type='switch'") or header("Location: html/errors/db_error.php");
 $row1 = $rows1->fetchAll();
 $row2 = $rows2->fetchAll();
 $numsimple = count($row1);
@@ -155,7 +155,7 @@ case 'logout': include('modules/login/logout.php'); break;
 case 'upload': include('modules/tools/backup/html/upload.php'); break;
 case 'csv': include('common/csv.php'); break;
 case 'receiver': include('modules/sensors/html/receiver.php'); break;
-case 'controls': include('modules/relays/html/relays_controls.php'); include('modules/gpio/html/gpio_controls.php'); break;
+case 'controls': include('modules/relays/html/relays_controls.php'); include('modules/relays/html/switch_controls.php'); include('modules/gpio/html/gpio_controls.php'); break;
 case 'screen': include('modules/screen/screen.php'); break;
 }
 ?>
