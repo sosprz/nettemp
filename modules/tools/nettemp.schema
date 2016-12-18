@@ -53,7 +53,6 @@ CREATE TABLE gpio (
   elec_divider type TEXT, water_divider type TEXT, gas_divider type TEXT, elec_run type TEXT, water_run type TEXT, gas_run type TEXT, elec_debouncing type TEXT, water_debouncing type TEXT, gas_debouncing type TEXT, fnum type TEXT, state type TEXT, map_pos type NUM, map_num type NUM, map type NUM, position type NUM, display_name type TEXT, control_on_map type TEXT, day_zone2s type TEXT, day_zone2e type TEXT, day_zone3s type TEXT, day_zone3e type TEXT, moment_time type TEXT);
 CREATE TABLE i2c (id INTEGER PRIMARY KEY,name TEXT, addr UNIQUE);
 CREATE TABLE meteo (id INTEGER PRIMARY KEY, temp TEXT, latitude TEXT, height TEXT, pressure TEXT, humid TEXT, onoff TEXT, normalized TEXT, jg TEXT);
-CREATE TABLE newdev (id INTEGER PRIMARY KEY,list UNIQUE, type type TEXT, device type TEXT, i2c type TEXT, usb type TEXT, gpio type TEXT, ip type TEXT);
 CREATE TABLE relays (id INTEGER PRIMARY KEY,list UNIQUE, name type TEXT, ip type TEXT, delay type TEXT, rom type TEXT, type type TEXT);
 CREATE TABLE settings (
    id INTEGER PRIMARY KEY,
@@ -108,7 +107,7 @@ CREATE TABLE sensors (
   ip type TEXT, 
   device type TEXT,
   lcd type TEXT,
-  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT, i2c type TEXT, minmax type TEXT, sum type TEXT, map_pos type NUM, map_num type NUM, position INTEGER DEFAULT 1, map type NUM, ch_group type TEXT, display_name type TEXT, transparent_bkg type TEXT, background_color TEXT, background_low TEXT, background_high TEXT, font_color TEXT, font_size TEXT, jg TEXT, current TEXT, mail type TEXT, status TEXT);
+  method type TEXT, tmp_5ago type TEXT, adj type TEXT, charts type TEXT, remote type TEXT, i2c type TEXT, minmax type TEXT, sum type TEXT, map_pos type NUM, map_num type NUM, position INTEGER DEFAULT 1, map type NUM, ch_group type TEXT, display_name type TEXT, transparent_bkg type TEXT, background_color TEXT, background_low TEXT, background_high TEXT, font_color TEXT, font_size TEXT, jg TEXT, current TEXT, mail type TEXT, status TEXT, USB type TEXT);
 CREATE TABLE usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE);
 CREATE TABLE statistics (id INTEGER PRIMARY KEY, agreement TEXT, nick TEXT, location TEXT, sensor_temp TEXT);
 CREATE TABLE g_func (id INTEGER PRIMARY KEY, position INTEGER DEFAULT 1, sensor TEXT, sensor2 TEXT, onoff TEXT, value TEXT, op TEXT, hyst TEXT, source TEXT, gpio TEXT, w_profile TEXT);
@@ -173,3 +172,4 @@ CREATE TABLE hosts (
     element_id type TEXT,
     mail type TEXT
 );
+CREATE TABLE newdev (id INTEGER PRIMARY KEY,list type TEXT, type type TEXT, rom type UNIQUE, device type TEXT, i2c type TEXT, usb type TEXT, gpio type TEXT, ip type TEXT, name type TEXT);
