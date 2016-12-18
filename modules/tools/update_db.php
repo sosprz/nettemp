@@ -318,6 +318,8 @@ $db->exec("ALTER TABLE types ADD value3 NUMERIC");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('group', '', '', '' ,'')");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('relay', '', '', 'media/ico/socket-icon.png' ,'Relay')");
 	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('battery', '%', '', 'media/ico/Battery-icon.png' ,'Battery','0', '100')");
+	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('rssi', 'rssi', '', 'media/ico/wifi-icon.png' ,'RSSI','-1000', '1000')");
+	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('switch', 'H/L', '', 'media/ico/Switch-icon.png' ,'Switch','-1000', '1000')");
 
 
 $db->exec("UPDATE types SET min='-150', max='3000', value1='85', value2='185', value3='127.9' WHERE type='temp' AND min is null AND max is null");
@@ -373,7 +375,6 @@ $db->exec("PRAGMA journal_mode=WAL");
 //CLEAN
 $db->exec("DELETE FROM settings WHERE id>1");
 $db->exec("DROP trigger hosts_time_trigger");
-//$db->exec("DELETE FROM hosts");
 
 echo $date." nettemp database update: ok \n";
 
