@@ -341,6 +341,19 @@ $db->exec("UPDATE types SET min='0', max='10000' WHERE type='storm' AND min is n
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='lightining' AND min is null AND max is null");
 $db->exec("ALTER TABLE sensors ADD mail type TEXT");
 
+//UPDATE NEWDEV
+$db->exec("ALTER TABLE newdev ADD type type TEXT");
+$db->exec("ALTER TABLE newdev ADD rom type UNIQUE");
+$db->exec("ALTER TABLE newdev ADD device type TEXT");
+$db->exec("ALTER TABLE newdev ADD ip type TEXT");
+$db->exec("ALTER TABLE newdev ADD gpio type TEXT");
+$db->exec("ALTER TABLE newdev ADD type type TEXT");
+$db->exec("ALTER TABLE newdev ADD i2c type TEXT");
+$db->exec("ALTER TABLE newdev ADD usb type TEXT");
+$db->exec("ALTER TABLE newdev ADD name type TEXT");
+
+//UPDATE sensors
+$db->exec("ALTER TABLE sensors ADD USB type TEXT");
 
 
 //UPDATE after new ALTER

@@ -31,10 +31,16 @@ try {
 			$local_rom=trim("lmsensors_".str_replace(' ', '', $da[0])."_temp");
 			$local_val=trim($da[1]);
 			$local_type='temp';
-			$device='';
-			$current='';
+			$local_device='lmsensors';
+			$name=substr(rand(), 0, 4);
+			$local_name=$name;
+			$local_current='';
+			$local_usb='';
+			$local_i2c='';
+			$local_ip='';
+			$local_gpio='';
 			echo $date." Rom:".$local_rom." Value:".$local_val."\n";
-			db($local_rom,$local_val,$local_type,$device,$current);
+			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 		}
 	} else {
 		echo $date." Lmsensors OFF\n";

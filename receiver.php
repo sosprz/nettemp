@@ -28,6 +28,8 @@ if (isset($_GET['rom'])) {
 
 if (isset($_GET['ip'])) {
     $ip = $_GET['ip'];
+} else {
+    $ip='';
 }
 
 if (isset($_GET['type'])) {
@@ -36,6 +38,8 @@ if (isset($_GET['type'])) {
     
 if (isset($_GET['gpio'])) {
     $gpio = $_GET['gpio'];
+} else {
+    $gpio='';
 }
 
 if (isset($_GET['device'])) {
@@ -46,7 +50,16 @@ if (isset($_GET['device'])) {
 
 if (isset($_GET['i2c'])) { 
     $i2c = $_GET['i2c'];
+} else {
+    $i2c='';
 }
+
+if (isset($_GET['usb'])) { 
+    $usb = $_GET['usb'];
+} else {
+    $usb='';
+}
+
 
 if (isset($_GET['current'])){
     $current = $_GET['current'];
@@ -69,6 +82,11 @@ if (isset($_GET['name'])){
 if (isset($_GET['usb'])) {
     $usb = $_GET['usb'];
 }
+
+if (isset($_GET['name'])) {
+    $name = $_GET['name'];
+} 
+
 
 function scale($val,$type) {
 	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
@@ -130,8 +148,7 @@ function check($val,$type) {
 
 
 
-
-function db($rom,$val,$type,$device,$current) {
+function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 	global $chmin;
 	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
 	$file = "$rom.sql";
@@ -200,9 +217,18 @@ function db($rom,$val,$type,$device,$current) {
 	}
 	//if not exist on base
 	else {
-	    $db->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')");
-	    $db==NULL;
+		$name=substr(rand(), 0, 4);
+	    $db->exec("INSERT OR IGNORE INTO newdev (rom,type,device,ip,gpio,i2c,usb,name) VALUES ('$rom','$type','$device','$ip','$gpio','$i2c','$usb','$name')");
 	    echo "Added $rom to new sensors \n";
+	    echo "1: ".$type."\n";
+	    echo "2: ".$name."\n";
+	    echo "3: ".$device."\n";
+	    echo "4: ".$ip."\n";
+	    echo "5: ".$gpio."\n";
+	    echo "6: ".$i2c."\n";
+	    echo "7: ".$usb."\n";
+	    echo "8: ".$rom."\n";
+	    
 	}
 } 
 
@@ -234,43 +260,25 @@ if (("$key" != "$skey") && (!defined('LOCAL')))
 
 
 
-// main
+//MAIN
+//Local devices have always rom
 if  (isset($val) && isset($rom) && isset($type)) {
     	db($rom,$val,$type,$device,$current);
     }
 elseif (isset($val) && isset($type)) {
-
-	if ( $device == "i2c" ) { 
-	    if (!empty($type) && !empty($i2c)) {
-		$rom=$device.'_'.$i2c.'_'.$type;
-	    } else {
-		echo "Missing type or i2c number";
-		exit();
-	    }	
-	} 
-	elseif ( $device == "gpio" ) { 
-	    if (!empty($type) && !empty($gpio)) {
-		$rom=$device.'_'.$gpio.'_'.$type; 
-	    } else {
-		echo "Missing type or gpio number";
-		exit();
-	    }
-	}
-	elseif ( $device == "wireless" ) {
+	// BUILD ROM
+	if ( $device == "wireless" ) {
 	    if (!empty($type) && !empty($ip)) {
-		$rom=$device.'_'.$ip.'_'.$type; 
+		$rom=$device.'_'.$name.'_'.$type; 
 	    } else {
 		echo "Missing type or IP";
 		exit();
 	    }
 	}
-	elseif ( $device == "usb" ) {
-	    if (!empty($type) && !empty($usb)) {
-		$rom=$device.'_'.$usb.'_'.$type; 
-	    } else {
-		echo "Missing type or USB";
-		exit();
-	    }
+	elseif ( $device == "ip" ) {
+	    if (empty($type)){ echo "Missing type"; exit();}
+	    if (empty($device)){ echo "Missing device"; exit();}
+	    if (empty($name)){ echo "Missing name"; exit();}
 	}
 
 	$file = "$rom.sql";
@@ -341,15 +349,14 @@ elseif (isset($val) && isset($type)) {
 			$val=$aval[$index];
 			if(empty($type)){
 				echo "One type is not definied in one id mode, name ".$name.", id ".$id.", val $val\n";
-				continue;;
+				continue;
 			}
 			if(empty($val)){
 				echo "No val definied in one id mode, name ".$name.", id ".$id.", type ".$type."\n";
-				continue;;
+				continue;
 			}
-
-			$rom=$device."_".$name."id".$id."_".$type; 
-			db($rom,$val,$type,$device,$current);
+			$rom=$device.'_'.$name.'id'.$id.'_'.$type; 
+			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
 		} 
 	}
 	// ONE TYPE	
