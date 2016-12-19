@@ -200,7 +200,7 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 		    
 		}		
 		else {
-		    echo "$rom $val not in range \n";
+		    echo $rom." ".$val." not in range \n";
 		}
 		
 	    }
