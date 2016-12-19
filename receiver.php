@@ -79,13 +79,8 @@ if (isset($_GET['name'])){
     $name='';
 }
 
-if (isset($_GET['usb'])) {
-    $usb = $_GET['usb'];
-}
 
-if (isset($_GET['name'])) {
-    $name = $_GET['name'];
-} 
+
 
 
 function scale($val,$type) {
@@ -215,7 +210,7 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 			echo "$rom not numieric! $val \n";
 		}
 	}
-	//if not exist on base
+	//if not exist in base
 	else {
 		$name=substr(rand(), 0, 4);
 	    $db->exec("INSERT OR IGNORE INTO newdev (rom,type,device,ip,gpio,i2c,usb,name) VALUES ('$rom','$type','$device','$ip','$gpio','$i2c','$usb','$name')");

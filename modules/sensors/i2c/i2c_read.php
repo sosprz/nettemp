@@ -197,10 +197,10 @@ try {
 				$local_rom=$rr['rom'];
 				$local_type=$rr['type'];
 				$local_val=$output;
-				$device='';
-				$current='';
+				$local_device='i2c';
+				$local_current='';
 				echo $date." Name:".$rr['name']." Rom:".$rr['rom']." Addr:".$qa['addr']." Bus:".$bus." Value:".$output."\n";
-				db($local_rom,$local_val,$local_type,$device,$current);
+				db($local_rom,$local_val,$local_type,$local_device,$local_current);
 				unset($output);
 			    
 			}
