@@ -101,8 +101,7 @@ foreach ($result as $a) {
 	</td>
 	<td>
 		<form action="" method="post" style="display:inline!important;">
-			<input type="hidden" name="delnewrom" value="<?php echo $a['rom']; ?>" > 
-			<input type="hidden" name="delnew" value="yes" > 
+			<input type="hidden" name="delallnewrom" value="yes" > 
 			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
 		</form>
 	</td>
