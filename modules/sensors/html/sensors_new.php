@@ -82,6 +82,34 @@ foreach ($result as $a) {
 <?php 
 	} 					
 ?>
+<tr>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-1">
+	</td>
+	<td class="col-md-1">
+	</td>
+	<td>
+		<form action="" method="post" style="display:inline!important;">
+			<input type="hidden" name="delnewrom" value="<?php echo $a['rom']; ?>" > 
+			<input type="hidden" name="delnew" value="yes" > 
+			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+		</form>
+	</td>
+
+	
+	
+</tr>
 </table>
 </div>
 </div>
