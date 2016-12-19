@@ -5,7 +5,14 @@ if ($delallnewrom=='yes'){
     	$db->exec("DELETE FROM newdev");
     	header("location: " . $_SERVER['REQUEST_URI']);
     	exit();
-    }
+}
+$delnewrom = isset($_POST['delnewrom']) ? $_POST['delnewrom'] : '';
+if ($delnewrom=='yes'){
+    	$db = new PDO('sqlite:dbf/nettemp.db');
+    	$db->exec("DELETE FROM newdev WHERE rom='$new_rom'");
+    	header("location: " . $_SERVER['REQUEST_URI']);
+    	exit();
+}
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">New devices</div>
@@ -57,10 +64,16 @@ foreach ($result as $a) {
 		<?php echo $a['usb']; ?>
 	</td>
 	
-	<td class="col-md-2">
+	<td class="col-md-1">
 		<form action="" method="post" style="display:inline!important;">
 			<input type="hidden" name="new_rom" value="<?php echo $a['rom']; ?>" > 
 			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button>
+		</form>
+
+		<form action="" method="post" style="display:inline!important;">
+			<input type="hidden" name="new_rom" value="<?php echo $a['rom']; ?>" > 
+			<input type="hidden" name="delnewrom" value="yes" > 
+			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
 		</form>
 	</td>
 	
@@ -68,30 +81,6 @@ foreach ($result as $a) {
 <?php 
 	} 					
 ?>
-<tr>
-	<td class="col-md-1">
-	</td>
-	<td class="col-md-1">
-	</td>
-	<td class="col-md-1">
-	</td>
-	<td class="col-md-1">
-	</td>
-	<td class="col-md-1">
-	</td>
-	<td class="col-md-1">
-	</td>
-	<td class="col-md-1">
-	</td>
-	<td class="col-md-1">
-	</td>
-	<td class="col-md-2">
-		<form action="" method="post" style="display:inline!important;">
-			<input type="hidden" name="delallnewrom" value="yes" > 
-			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
-		</form>
-	</td>
-</tr>
 </table>
 </div>
 </div>
