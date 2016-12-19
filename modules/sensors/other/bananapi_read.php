@@ -4,7 +4,7 @@ define("LOCAL","local");
 
 $local_rom = "Banana_Pi";
 $cmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input";
-$local_type = 'temp';
+
 
 $date = date("Y-m-d H:i:s"); 
 $msg = $date." ".$local_rom;
@@ -28,7 +28,8 @@ try {
 	$local_val = $output;
 	echo $date." ".$local_rom." ".$local_val."\n";
 	include("$ROOT/receiver.php");
-	db($local_rom,$local_val,$local_type,$device,$current);
+	$local_type = 'temp';
+	db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
     }
     
 } catch (Exception $e) {

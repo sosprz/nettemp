@@ -33,9 +33,9 @@ try {
 		 $local_type = $n['type'];
 		 $local_rom = $n['rom'];
 		 $msg = $date." ".$n['name'];
+		 $local_device='1wire';
 		 echo $msg." ".$local_val."\n";
-		 db($local_rom,$local_val,$local_type,$device,$current);
-		 
+		 db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 	     }
 	}
     }

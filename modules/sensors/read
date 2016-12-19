@@ -27,7 +27,8 @@ php-cgi -f $dir/modules/sensors/lmsensors/lmsensors_read.php
 php-cgi -f $dir/modules/sensors/snmp/snmp.php
 php-cgi -f $dir/modules/sensors/1wire/owfs.php
 php-cgi -f $dir/modules/sensors/snmp/snmp_read.php
-
+php-cgi -f $dir/modules/sensors/GPIO/HCS04/read.php
+php-cgi -f $dir/modules/sensors/rs485/sdm630.php
 
 #1wire usb
 $dir/modules/sensors/1wire/1wire_usb_read
@@ -41,9 +42,6 @@ $dir/modules/sensors/rs485/orwe
 
 #in test
 $dir/modules/sensors/other/ups
-php-cgi -f $dir/modules/sensors/GPIO/HCS04/read.php
-php-cgi -f $dir/modules/sensors/rs485/sdm630.php
-
 php-cgi -f $dir/modules/lcd/lcd.php
 php-cgi -f $dir/modules/sensors/node.php
 php-cgi -f $dir/modules/mysql/mysql_send.php

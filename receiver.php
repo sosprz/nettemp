@@ -19,12 +19,15 @@ if (isset($_GET['key'])) {
 
 if (isset($_GET['value'])) {
     $val = $_GET['value'];
-} 
+} else { 
+    $val='';
+}
 
 if (isset($_GET['rom'])) {
     $rom = $_GET['rom'];
-    $file = "$rom.sql";
-} 
+} else { 
+    $rom='';
+}
 
 if (isset($_GET['ip'])) {
     $ip = $_GET['ip'];
@@ -60,7 +63,6 @@ if (isset($_GET['usb'])) {
     $usb='';
 }
 
-
 if (isset($_GET['current'])){
     $current = $_GET['current'];
 } else {
@@ -79,7 +81,16 @@ if (isset($_GET['name'])){
     $name='';
 }
 
-
+$local_rom='';
+$local_type='';
+$local_val='';
+$local_device='';
+$local_i2c='';
+$local_current='';
+$local_name='';
+$local_ip='';
+$local_gpio='';
+$local_usb='';
 
 
 
@@ -144,16 +155,14 @@ function check($val,$type) {
 
 
 function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
+	$file = "$rom.sql";
 	global $chmin;
 	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
-	$file = "$rom.sql";
 	$dbf = new PDO("sqlite:".__DIR__."/db/$file");
     $rows = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
-
-    	 
-   $row = $rows->fetchAll();
-   $c = count($row);
-   if ( $c >= "1") {
+	$row = $rows->fetchAll();
+    $c = count($row);
+	if ( $c >= "1") {
 	  if (is_numeric($val)) {
 		$val=scale($val,$type);
 		$val=check($val,$type);
@@ -215,15 +224,6 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 		$name=substr(rand(), 0, 4);
 	    $db->exec("INSERT OR IGNORE INTO newdev (rom,type,device,ip,gpio,i2c,usb,name) VALUES ('$rom','$type','$device','$ip','$gpio','$i2c','$usb','$name')");
 	    echo "Added $rom to new sensors \n";
-	    echo "1: ".$type."\n";
-	    echo "2: ".$name."\n";
-	    echo "3: ".$device."\n";
-	    echo "4: ".$ip."\n";
-	    echo "5: ".$gpio."\n";
-	    echo "6: ".$i2c."\n";
-	    echo "7: ".$usb."\n";
-	    echo "8: ".$rom."\n";
-	    
 	}
 } 
 
@@ -257,8 +257,8 @@ if (("$key" != "$skey") && (!defined('LOCAL')))
 
 //MAIN
 //Local devices have always rom
-if  (isset($val) && isset($rom) && isset($type)) {
-    	db($rom,$val,$type,$device,$current);
+if(isset($val) && isset($rom) && isset($type)) {
+	db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
     }
 elseif (isset($val) && isset($type)) {
 	// BUILD ROM
@@ -300,7 +300,7 @@ elseif (isset($val) && isset($type)) {
 				continue;
 			}			
 			$rom=$device."_".$name."id".$id."_".$type; 
-			db($rom,$val,$type,$device,$current);
+			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
 		}
 		
 	}
@@ -326,7 +326,7 @@ elseif (isset($val) && isset($type)) {
 			}
 
 			$rom=$device."_".$name."_".$type; 
-			db($rom,$val,$type,$device,$current);
+			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
 		} 
 	}
 	// ONE ID 
@@ -357,7 +357,7 @@ elseif (isset($val) && isset($type)) {
 	// ONE TYPE	
 	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&type=temp&value=0.00
 	else {
-		db($rom,$val,$type,$device,$current);
+		 db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
 	}
 
 }

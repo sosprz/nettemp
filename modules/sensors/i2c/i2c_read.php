@@ -23,7 +23,7 @@ try {
     }
     if(($i2c=='i2c-0')||($i2c=='i2c-1')||($i2c=='i2c-2')||($i2c=='i2c-3')||($i2c=='i2c-4')){
 	$bus=substr($i2c, -1, 1);
-	echo "I2C BUS: $bus\n";
+	echo $date." I2C BUS: $bus\n";
 	$qname = $db->query("SELECT DISTINCT name FROM i2c");
 	$resname= $qname->fetchAll();
 	    foreach($resname as $rn) {
@@ -161,11 +161,6 @@ try {
 						$cmd="$ROOT/modules/sensors/i2c/TSL2561/TSL2561_i2c_$bus";
 						echo $date." Running: ".$cmd."\n";
 						$output = shell_exec($cmd);
-						//$output = preg_split ('/$\R?^/m', $output);
-						//$output = preg_replace('/\D/', '', $output);
-						//lux
-						//var_dump($output);
-						//$output0 = trim($output[0]);
 						preg_match('/(\d+)/', $output, $output);
 						$output0=$output[1];
 						$output = '';
@@ -198,7 +193,7 @@ try {
 				$local_type=$rr['type'];
 				$local_val=$output;
 				$local_device='i2c';
-				$local_current='';
+				$local_i2c=$addr;
 				echo $date." Name:".$rr['name']." Rom:".$rr['rom']." Addr:".$qa['addr']." Bus:".$bus." Value:".$output."\n";
 				db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 				unset($output);

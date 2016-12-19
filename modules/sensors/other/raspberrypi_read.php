@@ -4,7 +4,7 @@ define("LOCAL","local");
 
 $local_rom = "Raspberry_Pi";
 $cmd = "/opt/vc/bin/vcgencmd measure_temp|cut -c 6-9";
-$local_type = 'temp';
+
 
 $date = date("Y-m-d H:i:s"); 
 
@@ -26,8 +26,10 @@ try {
 	$output = trim($output);
 	$local_val = $output;
 	include("$ROOT/receiver.php");
+	
+	$local_type = 'temp';
 	echo $date." ".$local_rom." ".$local_val."\n";
-	db($local_rom,$local_val,$local_type,$device,$current);
+	db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
     }
     
 } catch (Exception $e) {

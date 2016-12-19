@@ -17,7 +17,6 @@ if [ -e /sys/bus/w1/devices/w1_bus_master1/w1_master_slaves ]
             if  [ -e /sys/bus/w1/devices/${sensor}/w1_slave ]; then
 	        wynik=`awk -F'[ =]' ' $11 ~ /crc/ && $13 ~ /YES/ { getline; printf "%3.2f\n", $11/1000 } ' /sys/bus/w1/devices/${sensor}/w1_slave;`
 	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$sensor')"
-	    #echo $sensor  >>  $dir/tmp/onewire
 	fi
         done
     fi
