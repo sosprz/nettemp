@@ -39,8 +39,6 @@ $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { 
 	if(empty($a['rom'])) {
-		echo $name=substr(rand(), 0, 4);
-	}
 	?>
 <tr>
 	<td class="col-md-1">
