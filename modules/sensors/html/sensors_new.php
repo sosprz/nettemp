@@ -83,7 +83,8 @@ foreach ($result as $a) {
 	
 </tr>    
 <?php 
-	} 					
+	} 	
+	if(count($result)>0) {				
 ?>
 <tr>
 	<td class="col-md-1">
@@ -108,10 +109,11 @@ foreach ($result as $a) {
 			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
 		</form>
 	</td>
-
-	
-	
 </tr>
+<?php
+	}
+?>
+
 </table>
 </div>
 </div>
