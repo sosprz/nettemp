@@ -70,7 +70,7 @@ foreach ($result as $a) {
 	
 	<td class="col-md-1">
 		<form action="" method="post" style="display:inline!important;">
-			<input type="hidden" name="new_rom" value="<?php echo $a['id']; ?>" > 
+			<input type="hidden" name="new_rom" value="<?php echo $a['rom']; ?>" > 
 			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button>
 		</form>
 
