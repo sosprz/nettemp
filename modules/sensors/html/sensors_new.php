@@ -38,8 +38,7 @@ $sth = $db->prepare("SELECT * FROM newdev t1 WHERE NOT EXISTS (SELECT * FROM sen
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { 
-	if(empty($a['rom'])) {
-	?>
+?>
 <tr>
 	<td class="col-md-1">
 		<?php echo $a['name']; ?>
