@@ -193,7 +193,7 @@ try {
 		$local_usb=$dev;
 		$last='';
 		$WATsum=trim($line[2]+$line[5]+$line[8]);
-		$ALL=trim($line[10]);
+		$ALL=trim($line[11]);
 		$query = $db->query("SELECT sum FROM sensors WHERE rom='$local_rom'");
 		$result= $query->fetchAll();
 		foreach ($result as $r) {
