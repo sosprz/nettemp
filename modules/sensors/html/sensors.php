@@ -80,15 +80,6 @@ if(!empty($usun_rom_nw) && ($usun_nw2 == "usun_nw3")) {   // 2x post aby potwier
 	//plik rrd
 	$rep_del_db = str_replace(" ", "_", $usun_rom_nw);
 	$name_rep_del_db = "$rep_del_db.rrd";
-	if (file_exists("tmp/mail/$rom.mail")) {
-        unlink("tmp/mail/$rom.mail");
-   }
-   if (file_exists("tmp/mail/hour/$rom.mail")) {
-        unlink("tmp/mail/hour/$rom.mail");
-   }
-   if (file_exists("db/$name_rep_del_db")) {
-        unlink("db/$name_rep_del_db");
-   }
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 	} ?>      

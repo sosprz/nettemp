@@ -41,14 +41,11 @@
     $rows = $db->query("SELECT ch_group,type FROM sensors");
 	$result_ch_g = $rows->fetchAll();
 	$unique=array();
-	$unique=array();
 	
 	foreach($result_ch_g as $uniq) {
 		if(!empty($uniq['ch_group'])&&!in_array($uniq['ch_group'], $unique)) {
 			$unique[]=$uniq['ch_group'];
 			$ch_g=$uniq['ch_group'];
-			$uniquet[]=$uniq['type'];
-			$ch_t=$uniq['type'];
 			include('status/sensor_groups.php');
 		}
 	}
