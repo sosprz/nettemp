@@ -18,7 +18,7 @@ if ($delnew=='yes'){
 <div class="panel panel-default">
 <div class="panel-heading">New devices</div>
 <div class="table-responsive">
-<table class="table table-hover table-condensed small"><tr>	
+<table class="table table-hover table-condensed small">
 <thead>
 	<tr>
 		<th>List*</th>
@@ -31,8 +31,10 @@ if ($delnew=='yes'){
 		<th>I2C</th>
 		<th>USB</th>
 		<th></th>
+		<th></th>
 	</tr>
 </thead>
+<tbody>
 <?php	
 $db = new PDO('sqlite:dbf/nettemp.db');
 $sth = $db->prepare("SELECT * FROM newdev t1 WHERE NOT EXISTS (SELECT * FROM sensors t2 WHERE t1.rom = t2.rom)");
@@ -41,40 +43,42 @@ $result = $sth->fetchAll();
 foreach ($result as $a) { 
 ?>
 <tr>
-	<td class="col-md-1">
+	<td class="col-md-0">
 		<?php echo $a['list']; ?>
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 		<?php echo $a['name']; ?>
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 		<?php echo $a['rom']; ?>
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 		<?php echo $a['type']; ?>
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 		<?php echo $a['device']; ?>
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 		<?php echo $a['ip']; ?>
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 		<?php echo $a['gpio']; ?>
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 		<?php echo $a['i2c']; ?>
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 		<?php echo $a['usb']; ?>
 	</td>
 	
-	<td class="col-md-1">
+	<td class="col-md-0">
 		<form action="" method="post" style="display:inline!important;">
 			<input type="hidden" name="new_rom" value="<?php echo $a['rom']; ?>" > 
 			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button>
 		</form>
-
+	
+	</td>
+	<td class="col-md-0">
 		<form action="" method="post" style="display:inline!important;">
 			<input type="hidden" name="delnewrom" value="<?php echo $a['id']; ?>" > 
 			<input type="hidden" name="delnew" value="yes" > 
@@ -88,24 +92,28 @@ foreach ($result as $a) {
 	if(count($result)>0) {				
 ?>
 <tr>
-	<td class="col-md-1">
+	<td class="col-md-0">
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 	</td>
-	<td class="col-md-1">
+	<td class="col-md-0">
 	</td>
-	<td>
-		<form action="" method="post" style="display:inline!important;">
+	<td class="col-md-0">
+	</td>
+	<td class="col-md-0">
+	</td>
+	<td class="col-md-0">
+		<form action="" method="post">
 			<input type="hidden" name="delallnewrom" value="yes" > 
 			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
 		</form>
@@ -114,7 +122,7 @@ foreach ($result as $a) {
 <?php
 	}
 ?>
-
+</tbody>
 </table>
 </div>
 </div>
