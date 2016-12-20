@@ -25,7 +25,8 @@ $dir/modules/sensors/1wire/1wire_usb_scan
 # DS9097 - serial 
 $dir/modules/sensors/1wire/1wire_serial_scan
 # 1-wire
-$dir/modules/sensors/1wire/1wire_gpio_i2c_scan
+#off moved to -> $dir/modules/sensors/1wire/1wire_gpio_i2c_read.php
+#$dir/modules/sensors/1wire/1wire_gpio_i2c_scan
 #raspberrypi
 $dir/modules/sensors/other/raspberrypi_scan
 #bananapi

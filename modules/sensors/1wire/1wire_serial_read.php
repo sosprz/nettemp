@@ -35,6 +35,7 @@ try {
 				echo $date." Rom: ".$rom." Value:".$output."\n"; 
 				$local_rom=$rom;
 				$local_val=$output;
+				$local_type='temp';
 				db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 
 
