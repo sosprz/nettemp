@@ -40,14 +40,14 @@ foreach($result_t as $ty){
 $query = $db->query("SELECT ch_group FROM sensors ");
 $result_ch_g = $query->fetchAll();
 	foreach($result_ch_g as $uniq) {
-		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none') {
+		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none'&&$uniq['ch_group']!='sensors') {
 			$unique[]=$uniq['ch_group'];
 		}
 	}
 	$rowu = array_unique($unique);
 	foreach ($rowu as $ch_g) { 	
 		?>
-		<a href="index.php?id=<?php echo $id ?>&type=group&max=<?php echo $html_charts_max?>&mode=&group=<?php echo $ch_g ?>&single=" ><button class="btn btn-xs btn-default <?php echo $art == $ch_g ? ' active' : ''; ?>"><?php echo $ch_g?></button></a>
+		<a href="index.php?id=<?php echo $id ?>&type=group&max=<?php echo $html_charts_max?>&mode=&group=<?php echo $ch_g ?>&single=" ><button class="btn btn-xs btn-default <?php echo $art == $ch_g ? ' active' : ''; ?>">Group: <?php echo $ch_g?></button></a>
 		<?php 
 	}
 
