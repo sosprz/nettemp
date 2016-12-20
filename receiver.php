@@ -25,8 +25,6 @@ if (isset($_GET['value'])) {
 
 if (isset($_GET['rom'])) {
     $rom = $_GET['rom'];
-} else { 
-    $rom='';
 }
 
 if (isset($_GET['ip'])) {
