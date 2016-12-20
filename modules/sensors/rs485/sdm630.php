@@ -48,95 +48,103 @@ try {
 		$local_type='volt';
 		$local_rom="usb_".$dev."L1a".$addr."_".$local_type;
 		$local_val=$line[0];
-		$device='';
-		$current='';
+		$local_device='USB';
+		$local_usb=$dev;
 		echo $date." SDM630 L1 ".$local_val." ".$local_type.".\n";
-		db($local_rom,$local_val,$local_type,$device,$current);
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 		
 		$local_type='amps';
 		$local_rom="usb_".$dev."L1a".$addr."_".$local_type;
 		$local_val=$line[1];
-		$device='';
-		$current='';
+		$local_device='USB';
+		$local_usb=$dev;
 		echo $date." SDM630 L1 ".$local_val." ".$local_type.".\n";
-		db($local_rom,$local_val,$local_type,$device,$current);
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 		
 		$local_type='watt';
 		$local_rom="usb_".$dev."L1a".$addr."_".$local_type;
 		$local_val=$line[2];
-		$device='';
-		$current='';
+		$local_device='USB';
+		$local_usb=$dev;
 		echo $date." SDM630 L1 ".$local_val." ".$local_type.".\n";
-		db($local_rom,$local_val,$local_type,$device,$current);
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 
 		//L2
 		$local_type='volt';
 		$local_rom="usb_".$dev."L2a".$addr."_".$local_type;
 		$local_val=$line[3];
-		$device='';
-		$current='';
+		$local_device='USB';
+		$local_usb=$dev;
 		echo $date." SDM630 L2 ".$local_val." ".$local_type.".\n";
-		db($local_rom,$local_val,$local_type,$device,$current);
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 		
 		$local_type='amps';
 		$local_rom="usb_".$dev."L2a".$addr."_".$local_type;
 		$local_val=$line[4];
-		$device='';
-		$current='';
+		$local_device='USB';
+		$local_usb=$dev;
 		echo $date." SDM630 L2 ".$local_val." ".$local_type.".\n";
-		db($local_rom,$local_val,$local_type,$device,$current);
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 		
 		$local_type='watt';
 		$local_rom="usb_".$dev."L2a".$addr."_".$local_type;
 		$local_val=$line[5];
-		$device='';
-		$current='';
+		$local_device='USB';
+		$local_usb=$dev;
 		echo $date." SDM630 L2 ".$local_val." ".$local_type.".\n";
-		db($local_rom,$local_val,$local_type,$device,$current);
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 		
 		//L3
 		$local_type='volt';
 		$local_rom="usb_".$dev."L3a".$addr."_".$local_type;
 		$local_val=$line[6];
-		$device='';
-		$current='';
+		$local_device='USB';
+		$local_usb=$dev;
 		echo $date." SDM630 L3 ".$local_val." ".$local_type.".\n";
-		db($local_rom,$local_val,$local_type,$device,$current);
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 		
 		$local_type='amps';
 		$local_rom="usb_".$dev."L3a".$addr."_".$local_type;
 		$local_val=$line[7];
-		$device='';
-		$current='';
+		$local_device='USB';
+		$local_usb=$dev;
 		echo $date." SDM630 L3 ".$local_val." ".$local_type.".\n";
-		db($local_rom,$local_val,$local_type,$device,$current);
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 		
 		$local_type='watt';
 		$local_rom="usb_".$dev."L3a".$addr."_".$local_type;
 		$local_val=$line[8];
-		$device='';
-		$current='';
+		$local_device='USB';
+		$local_usb=$dev;
 		echo $date." SDM630 L3 ".$local_val." ".$local_type.".\n";
-		db($local_rom,$local_val,$local_type,$device,$current);
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 		
 		
 		$local_val=$line[11];
 		$local_type='var';
+		$local_device='USB';
+		$local_usb=$dev;
 		$local_rom="usb_".$dev."a".$addr."exp_".$local_type;
 		echo $date." SDM630 export energii czynnej ".$local_val." ".$local_type.".\n";
 		
 		$local_type='elec';
 		$local_val=$line[10];
+		$local_device='USB';
+		$local_usb=$dev;
 		$local_rom="usb_".$dev."a".$addr."sum_".$local_type;
 		echo $date." SDM630 suma energii biernej ".$local_val." ".$local_type.".\n";
 		
 		$local_val=$line[12];
 		$local_type='var';
+		$local_device='USB';
+		$local_usb=$dev;
 		$local_rom="usb_".$dev."a".$addr."expb_".$local_type;
 		echo $date." SDM630 eksport energii biernej ".$local_val." ".$local_type.".\n";
 		
 		$local_val=$line[13];
 		$local_type='var';
+		$local_device='USB';
+		$local_usb=$dev;
 		$local_rom="usb_".$dev."a".$addr."impb_".$local_type;
 		echo $date." SDM630 import energii biernej ".$local_val." ".$local_type.".\n";
 		
@@ -144,7 +152,8 @@ try {
 		//IMPORT
 		$local_type='elec';
 		$local_rom="usb_".$dev."a".$addr."_".$local_type;
-		$device='usb';
+		$local_device='USB';
+		$local_usb=$dev;
 		$last='';
 		$WATsum=trim($line[2]+$line[5]+$line[8]);
 		$ALL=trim($line[9]);
@@ -163,20 +172,25 @@ try {
 		
 		if($last!=0){
 			$local_val=$VAL;
-			$current=$WATsum;
-			db($local_rom,$local_val,$local_type,$device,$current);
+			$local_current=$WATsum;
+			$local_device='USB';
+			$local_usb=$dev;
+			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 			$db->exec("UPDATE sensors SET sum='$ALL' WHERE rom='$local_rom'");
 		} else {
 			$local_val='0';
-			$current='';
-			db($local_rom,$local_val,$local_type,$device,$current);
+			$local_current='';
+			$local_device='USB';
+			$local_usb=$dev;
+			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 			$db->exec("UPDATE sensors SET sum='$ALL' WHERE rom='$local_rom'");
 		}
 		
 		//EXPORT
 		$local_type='elec';
 		$local_rom="usb_".$dev."a".$addr."EXP_".$local_type;
-		$device='usb';
+		$local_device='USB';
+		$local_usb=$dev;
 		$last='';
 		$WATsum=trim($line[2]+$line[5]+$line[8]);
 		$ALL=trim($line[10]);
@@ -195,13 +209,17 @@ try {
 		
 		if($last!=0){
 			$local_val=$VAL;
-			$current=$WATsum;
-			db($local_rom,$local_val,$local_type,$device,$current);
+			$local_current=$WATsum;
+			$local_device='USB';
+			$local_usb=$dev;
+			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 			$db->exec("UPDATE sensors SET sum='$ALL' WHERE rom='$local_rom'");
 		} else {
 			$local_val='0';
-			$current='';
-			db($local_rom,$local_val,$local_type,$device,$current);
+			$local_current='';
+			$local_device='USB';
+			$local_usb=$dev;
+			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 			$db->exec("UPDATE sensors SET sum='$ALL' WHERE rom='$local_rom'");
 		}
 		
