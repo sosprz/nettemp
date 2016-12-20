@@ -10,7 +10,7 @@ $delnewrom = isset($_POST['delnewrom']) ? $_POST['delnewrom'] : '';
 $delnew = isset($_POST['delnew']) ? $_POST['delnew'] : '';
 if ($delnew=='yes'){
     	$db = new PDO('sqlite:dbf/nettemp.db');
-    	$db->exec("DELETE FROM newdev WHERE rom='$delnewrom'");
+    	$db->exec("DELETE FROM newdev WHERE id='$delnewrom'");
     	header("location: " . $_SERVER['REQUEST_URI']);
     	exit();
 }
@@ -38,6 +38,9 @@ $sth = $db->prepare("SELECT * FROM newdev t1 WHERE NOT EXISTS (SELECT * FROM sen
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) { 
+	if(empty($a['rom'])) {
+		echo $name=substr(rand(), 0, 4);
+	}
 	?>
 <tr>
 	<td class="col-md-1">
@@ -67,12 +70,12 @@ foreach ($result as $a) {
 	
 	<td class="col-md-1">
 		<form action="" method="post" style="display:inline!important;">
-			<input type="hidden" name="new_rom" value="<?php echo $a['rom']; ?>" > 
+			<input type="hidden" name="new_rom" value="<?php echo $a['id']; ?>" > 
 			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button>
 		</form>
 
 		<form action="" method="post" style="display:inline!important;">
-			<input type="hidden" name="delnewrom" value="<?php echo $a['rom']; ?>" > 
+			<input type="hidden" name="delnewrom" value="<?php echo $a['id']; ?>" > 
 			<input type="hidden" name="delnew" value="yes" > 
 			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
 		</form>
