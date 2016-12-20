@@ -84,7 +84,7 @@
     $('.mm').load("status/minmax_status.php");
     $('.ups').load("status/ups_status.php");
     $('#justgage_refresh').load("status/justgage_refresh.php");
-}, 6000);
+}, 60000);
 
 $(document).ready( function() {
 
