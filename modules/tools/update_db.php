@@ -358,9 +358,9 @@ $db->exec("ALTER TABLE newdev ADD name type TEXT");
 //UPDATE sensors
 $db->exec("ALTER TABLE sensors ADD USB type TEXT");
 
+//UPDATE default groups
+$db->exec("UPDATE sensors SET ch_group='sensors' WHERE ch_group is null OR ch_group=''");
 
-//UPDATE after new ALTER
-$db->exec("UPDATE sensors SET status='on' WHERE status is null");
 
 
 //TIME & TRIGGER

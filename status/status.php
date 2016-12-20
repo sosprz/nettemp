@@ -36,34 +36,29 @@
 <div class="grid">
     <div class="grid-sizer"></div>
     <?php
-    include('status/sensor_status.php');
     
     //GROUPS
-    $rows = $db->query("SELECT ch_group FROM sensors");
+    $rows = $db->query("SELECT ch_group,type FROM sensors");
 	$result_ch_g = $rows->fetchAll();
+	$unique=array();
+	$unique=array();
 	
 	foreach($result_ch_g as $uniq) {
-		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none') {
+		if(!empty($uniq['ch_group'])&&!in_array($uniq['ch_group'], $unique)) {
 			$unique[]=$uniq['ch_group'];
+			$ch_g=$uniq['ch_group'];
+			$uniquet[]=$uniq['type'];
+			$ch_t=$uniq['type'];
+			include('status/sensor_groups.php');
 		}
 	}
 	
-	$rowu = array_unique($unique);
-	$group_num=count($rowu);
-	$groupc=0;
-	foreach ($rowu as $ch_g) { 
-		include('status/sensor_groups.php');
-		$groupc++;
-	}
 	//END GROUPS
 	
     include('status/justgage_status.php');
     include('status/minmax_status.php');
-    include('status/hosts_status.php');
     include('status/gpio_status.php');
     include('status/counters_status.php');
-    include('status/relays_status.php');
-    include('status/switch_status.php');
     include('status/meteo_status.php');
     foreach (range(1, 10) as $v) {
 		$ow=$v;
@@ -76,26 +71,23 @@
 
 <script type="text/javascript">
     setInterval( function() {
-    $('.ss').load("status/sensor_status.php");
+
     <?php
-		foreach ($rowu as $key => $ch_g) { 
+		foreach ($unique as $key => $ch_g) { 
 	?>
-		$('.sg<?php echo $key?>').load("status/sensor_groups.php?chg=<?php echo $ch_g?>");
+		$('.sg<?php echo $ch_g?>').load("status/sensor_groups.php?ch_g=<?php echo $ch_g?>");
 	<?php
 		}
 	?>
     $('.co').load("status/counters_status.php");
     $('.gs').load("status/gpio_status.php");
-    $('.hs').load("status/hosts_status.php");
-    $('.rs').load("status/relays_status.php");
-    $('.rss').load("status/switch_status.php");
     $('.ms').load("status/meteo_status.php");
     $('.ow2').load("status/ownwidget2.php");
     $('.ow3').load("status/ownwidget3.php");
     $('.mm').load("status/minmax_status.php");
     $('.ups').load("status/ups_status.php");
     $('#justgage_refresh').load("status/justgage_refresh.php");
-}, 60000);
+}, 6000);
 
 $(document).ready( function() {
 
