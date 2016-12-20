@@ -40,7 +40,7 @@ foreach($result_t as $ty){
 $query = $db->query("SELECT ch_group FROM sensors ");
 $result_ch_g = $query->fetchAll();
 	foreach($result_ch_g as $uniq) {
-		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none'&&$uniq['ch_group']!='sensors') {
+		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none'&&$uniq['ch_group']!='all') {
 			$unique[]=$uniq['ch_group'];
 		}
 	}

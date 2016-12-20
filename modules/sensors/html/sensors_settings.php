@@ -388,13 +388,13 @@ $row = $rows->fetchAll();
     <select name="ch_groupon" class="form-control input-sm small" onchange="this.form.submit()" style="width: 100px;" >
 		<?php
 			$unique1=array();
-			$unique1[]='sensors';
+			$unique1[]='all';
 			$unique1[]=$a['type'];
 				
 			$rows2 = $db->query("SELECT ch_group FROM sensors");
 			$row2 = $rows2->fetchAll();
 			foreach($row2 as $uniq) {
-				if(!empty($uniq['ch_group'])&&!in_array($uniq['ch_group'], $atypes)) {
+				if(!empty($uniq['ch_group'])&&!in_array($uniq['ch_group'], $atypes)&&$uniq['ch_group']!='none') {
 					$unique1[]=$uniq['ch_group'];
 				}
 			}
@@ -408,7 +408,7 @@ $row = $rows->fetchAll();
 
 			}
 		?>
-		<option value=""  <?php echo $a['ch_group'] == '' ? 'selected="selected"' : ''; ?>  >none</option>
+		<option value="none"  <?php echo $a['ch_group'] == 'none' ? 'selected="selected"' : ''; ?>  >none</option>
     </select>
     <input type="hidden" name="ch_grouponoff" value="onoff" />
     <input type="hidden" name="ch_group" value="<?php echo $a['id']; ?>" />

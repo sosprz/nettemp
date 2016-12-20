@@ -43,7 +43,7 @@
 	$unique=array();
 	
 	foreach($result_ch_g as $uniq) {
-		if(!empty($uniq['ch_group'])&&!in_array($uniq['ch_group'], $unique)) {
+		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none'&&!in_array($uniq['ch_group'], $unique)) {
 			$unique[]=$uniq['ch_group'];
 			$ch_g=$uniq['ch_group'];
 			include('status/sensor_groups.php');

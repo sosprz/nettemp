@@ -359,7 +359,7 @@ $db->exec("ALTER TABLE newdev ADD name type TEXT");
 $db->exec("ALTER TABLE sensors ADD USB type TEXT");
 
 //UPDATE default groups
-$db->exec("UPDATE sensors SET ch_group='sensors' WHERE ch_group is null OR ch_group=''");
+$db->exec("UPDATE sensors SET ch_group='all' WHERE ch_group is null OR ch_group=''");
 
 
 
