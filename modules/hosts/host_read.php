@@ -21,11 +21,11 @@ try {
 	$query = $db->query("SELECT ip,name,rom FROM hosts WHERE type='ping'");
     $result= $query->fetchAll();
     foreach($result as $s) {
-		$ip=$s['ip'];
+		$local_ip=$s['ip'];
 		$name=$s['name'];
 		$local_rom=$s['rom'];
 		$rom=$s['rom'];
-		$cmd="fping -e $ip";
+		$cmd="fping -e $local_ip";
 		$output=shell_exec($cmd);
 		if (strpos($output, 'alive') !== false) {
 			echo $date." Connection is OK with: ".$name."\n";
@@ -49,12 +49,12 @@ try {
 	$query = $db->query("SELECT ip,name,rom FROM hosts WHERE type='httpping'");
     $result= $query->fetchAll();
     foreach($result as $s) {
-		$ip=$s['ip'];
+		$local_ip=$s['ip'];
 		$name=$s['name'];
 		$local_rom=$s['rom'];
 		$local_type='host';
 		$rom=$s['rom'];
-		$cmd="httping -c 1 $ip |grep connected";
+		$cmd="httping -c 1 $local_ip |grep connected";
 		$output=shell_exec($cmd);
 		$exp=(explode(" ",$output));
 		$val=str_replace(",",".",$exp[6]);

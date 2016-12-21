@@ -22,20 +22,20 @@ $map_num=substr(rand(), 0, 4);
     $host_add1 = isset($_POST['host_add1']) ? $_POST['host_add1'] : '';
     if (!empty($host_name)  && !empty($host_ip) && ($host_add1 == "host_add2") ){
 		$db = new PDO('sqlite:dbf/nettemp.db');
-		$host_name=host_ . $host_name;
+		$rom="host_".$host_name;
 		$host_name=str_replace(".","",$host_name);
 		//ADD TO HOSTS
-		$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$host_name', '$host_ip', '$host_name', '$host_type', '{left:0,top:0}', '$map_num', 'on', '1')") or die ("cannot insert to DB" );
+		$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$host_name', '$host_ip', '$rom', '$host_type', '{left:0,top:0}', '$map_num', 'on', '1')") or die ("cannot insert to DB" );
 		//ADD TO SENSORS
-		$db->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$host_name')");
-		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, device, alarm, tmp, ip, adj, charts, sum, map_pos, map_num, position, map, ch_group) VALUES ('$host_name','$host_name', 'host', 'ip','off', 'wait', '$host_ip', '0', 'on', '0', '{left:0,top:0}', '$map_num', '1', 'on', 'host')") or die ("cannot insert to DB" );
+		$db->exec("INSERT OR IGNORE INTO newdev (name,rom,type,ip) VALUES ('$host_name','$rom','host','$host_ip')");
+		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, device, alarm, tmp, ip, adj, charts, sum, map_pos, map_num, position, map, ch_group) VALUES ('$host_name','$rom', 'host', 'ip','off', 'wait', '$host_ip', '0', 'on', '0', '{left:0,top:0}', '$map_num', '1', 'on', 'host')") or die ("cannot insert to DB" );
 		//ADD TO MAPS
-		$inserted=$db->query("SELECT id FROM sensors WHERE rom='$host_name'");
+		$inserted=$db->query("SELECT id FROM sensors WHERE rom='$rom'");
 		$inserted_id=$inserted->fetchAll();
 		$inserted_id=$inserted_id[0];
 		$db->exec("INSERT OR IGNORE INTO maps (element_id, type, map_pos, map_num, map_on) VALUES ('$inserted_id[id]','sensors','{left:0,top:0}','$map_num','on')");
 		//ADD DB
-		$dbnew = new PDO("sqlite:db/$host_name.sql");
+		$dbnew = new PDO("sqlite:db/$rom.sql");
 		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
 
 		header("location: " . $_SERVER['REQUEST_URI']);
