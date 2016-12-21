@@ -28,9 +28,9 @@ $dir/modules/sensors/1wire/1wire_serial_scan
 #off moved to -> $dir/modules/sensors/1wire/1wire_gpio_i2c_read.php
 #$dir/modules/sensors/1wire/1wire_gpio_i2c_scan
 #raspberrypi
-$dir/modules/sensors/other/raspberrypi_scan
+#$dir/modules/sensors/other/raspberrypi_scan
 #bananapi
-$dir/modules/sensors/other/bananapi_scan
+#$dir/modules/sensors/other/bananapi_scan
 # DHT11 22
 $dir/modules/sensors/GPIO/DHT/dht_scan
 # snmp
@@ -40,7 +40,7 @@ $dir/modules/sensors/lmsensors/lmsensors_scan
 # esp8266
 $dir/modules/sensors/wireless/esp8266_scan
 
-php -f $dir/modules/sensors/1wire/owfs_scan.php
+#php -f $dir/modules/sensors/1wire/owfs_scan.php
 
 
 
