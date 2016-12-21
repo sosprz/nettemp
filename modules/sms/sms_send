@@ -20,7 +20,7 @@ for line in `sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name,tmp,t
 		tmp=`echo $line | awk 'BEGIN {FS="|"}{print $2}'`
 		tmp_min=`echo $line | awk 'BEGIN {FS="|"}{print $3}'`
 		tmp_max=`echo $line | awk 'BEGIN {FS="|"}{print $4}'`
-		type=$(echo $line | awk 'BEGIN {FS="|"}{print $5}' | sed 's/|/ /g' | sed 's/press/hPa/g' | sed 's/temp/$temp_scale/g' | sed 's/humid/%/g' | sed 's/volt/V/g' | sed 's/amps/A/g' | sed 's/watt/W/g' | sed 's/water/m3/g' | sed 's/gas/m3/g' | sed 's/elec/kWh/g')
+		type=$(echo $line | awk 'BEGIN {FS="|"}{print $5}' | sed 's/|/ /g' | sed 's/press/hPa/g' | sed 's/temp/'$temp_scale'/g' | sed 's/humid/%/g' | sed 's/volt/V/g' | sed 's/amps/A/g' | sed 's/watt/W/g' | sed 's/water/m3/g' | sed 's/gas/m3/g' | sed 's/elec/kWh/g')
 		plik=/var/spool/sms/outgoing/sms-$name-$line2
 		sent=/var/spool/sms/sent/sms-$name-$line2
 		failed=/var/spool/sms/failed/sms-$name-$line2
