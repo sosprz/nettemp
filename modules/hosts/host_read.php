@@ -4,9 +4,6 @@ $ROOT=dirname(dirname(dirname(__FILE__)));
 $date = date("Y-m-d H:i:s"); 
 $hostname=gethostname(); 
 $minute=date('i');
-$device='';
-$current='';
-$local_type='host';
 define("LOCAL","local");
 
 
@@ -35,12 +32,15 @@ try {
 			preg_match('/\((\d+\,?\.?\d+)[ ms]+\)/m', $output, $out);
 			$output=$out[1];
 			$local_val=trim($output);
+			$local_type='host';
 			echo $date." Name:".$name." Value:".$output."\n";
-			db($local_rom,$local_val,$local_type,$device,$current);
+			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+
 		} else {
 			echo $date." Connection lost with: ".$name."\n";
 			$local_val='error';
-			db($local_rom,$local_val,$local_type,$device,$current);
+			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+
 		}
 		
 	}
@@ -52,10 +52,12 @@ try {
 		$ip=$s['ip'];
 		$name=$s['name'];
 		$local_rom=$s['rom'];
+		$local_type='host';
 		$rom=$s['rom'];
 		$cmd="httping -c 1 $ip |grep connected";
 		$output=shell_exec($cmd);
 		$exp=(explode(" ",$output));
+		print_r($exp);
 		$connected=$exp[0];
 		$val=str_replace(",",".",$exp[7]);
 		$out=$val;
@@ -63,11 +65,13 @@ try {
 			echo $date." Connection is OK with: ".$name."\n";           
 			$local_val=$out;
 			echo $date." Name:".$name." Value:".$out."\n";
-			db($local_rom,$local_val,$local_type,$device,$current);
+			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+
 		} else {
 			echo $date." Connection lost with: ".$name."\n";
 			$local_val='error';
-			db($local_rom,$local_val,$local_type,$device,$current);
+			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+
 		}
 		
 	}
