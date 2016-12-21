@@ -173,3 +173,4 @@ CREATE TABLE hosts (
     mail type TEXT
 );
 CREATE TABLE newdev (id INTEGER PRIMARY KEY,list type TEXT, type type TEXT, rom type UNIQUE, device type TEXT, i2c type TEXT, usb type TEXT, gpio type TEXT, ip type TEXT, name type TEXT);
+CREATE UNIQUE INDEX unique_name on newdev(rom);
