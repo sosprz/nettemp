@@ -57,7 +57,6 @@ try {
 		$cmd="httping -c 1 $ip |grep connected";
 		$output=shell_exec($cmd);
 		$exp=(explode(" ",$output));
-		print_r($exp);
 		$connected=$exp[0];
 		$val=str_replace(",",".",$exp[7]);
 		$out=$val;
