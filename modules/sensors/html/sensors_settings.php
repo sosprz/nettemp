@@ -388,7 +388,7 @@ $row = $rows->fetchAll();
     <select name="ch_groupon" class="form-control input-sm small" onchange="this.form.submit()" style="width: 100px;" >
 		<?php
 			$unique1=array();
-			$unique1[]='all';
+			$unique1[]='sensors';
 			$unique1[]=$a['type'];
 				
 			$rows2 = $db->query("SELECT ch_group FROM sensors");
