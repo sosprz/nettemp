@@ -260,6 +260,31 @@ if(isset($val) && isset($rom) && isset($type)) {
     }
 elseif (isset($val) && isset($type)) {
 	// BUILD ROM
+	
+	if ( $device == "i2c" ) { 
+	    if (!empty($type) && !empty($i2c)) {
+		$rom=$device.'_'.$i2c.'_'.$type;
+	    } else {
+		echo "Missing type or i2c number";
+		exit();
+	    }	
+	}
+	if ( $device == "gpio" ) { 
+	    if (!empty($type) && !empty($gpio)) {
+		$rom=$device.'_'.$gpio.'_'.$type; 
+	    } else {
+		echo "Missing type or gpio number";
+		exit();
+	    }
+	}
+	if ( $device == "usb" ) {
+	    if (!empty($type) && !empty($usb)) {
+		$rom=$device.'_'.$usb.'_'.$type; 
+	    } else {
+		echo "Missing type or USB";
+		exit();
+	    }
+	}
 	if ( $device == "wireless" ) {
 	    if (!empty($type) && !empty($ip)) {
 		$rom=$device.'_'.$name.'_'.$type; 
