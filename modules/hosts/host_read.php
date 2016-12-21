@@ -57,9 +57,10 @@ try {
 		$cmd="httping -c 1 $ip |grep connected";
 		$output=shell_exec($cmd);
 		$exp=(explode(" ",$output));
-		$connected=$exp[0];
-		$val=str_replace(",",".",$exp[7]);
-		$out=$val;
+		$val=str_replace(",",".",$exp[6]);
+		$out=trim(str_replace("time=","",$val));
+		var_dump($out);
+		
 		if (strpos($exp[0], 'connected') !== false) {
 			echo $date." Connection is OK with: ".$name."\n";           
 			$local_val=$out;
