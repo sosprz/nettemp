@@ -269,7 +269,7 @@ elseif (isset($val) && isset($type)) {
 		exit();
 	    }	
 	}
-	if ( $device == "gpio" ) { 
+	elseif ( $device == "gpio" ) { 
 	    if (!empty($type) && !empty($gpio)) {
 		$rom=$device.'_'.$gpio.'_'.$type; 
 	    } else {
@@ -277,7 +277,7 @@ elseif (isset($val) && isset($type)) {
 		exit();
 	    }
 	}
-	if ( $device == "usb" ) {
+	elseif ( $device == "usb" ) {
 	    if (!empty($type) && !empty($usb)) {
 		$rom=$device.'_'.$usb.'_'.$type; 
 	    } else {
@@ -285,15 +285,13 @@ elseif (isset($val) && isset($type)) {
 		exit();
 	    }
 	}
-	if ( $device == "wireless" ) {
+	elseif ( $device == "wireless" ) {
 	    if (!empty($type) && !empty($ip)) {
 		$rom=$device.'_'.$ip.'_'.$type; 
 	    } else {
 		echo "Missing type or IP";
 		exit();
 	    }
-	}
-
 	}
 	elseif ( $device == "ip" ) {
 	    if (empty($type)){ echo "Missing type"; exit();}
