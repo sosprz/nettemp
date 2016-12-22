@@ -178,15 +178,15 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 					}
 					//sum,current for counters
 					$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
-					echo "$rom ok \n";
+					echo $rom." ok \n";
 		    }
 		    // time when you can put into base
 		    elseif ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
 				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql, time\n" );
-				echo "$rom ok \n";
+				echo $rom." ok \n";
 		    }
 		    else {
-					echo "Not writed interval is $chmin min\n";
+					echo "Not writed interval is ".$chmin." min\n";
 		    }
 		    
 		    // 5ago arrow
@@ -214,14 +214,14 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 	    // if not numeric
 	    else {
 		    $db->exec("UPDATE sensors SET status='offline' WHERE rom='$rom'") or die ("cannot insert error to status\n" );
-			echo "$rom not numieric! ".$val."\n";
+			echo $rom." not numieric! ".$val."\n";
 		}
 	}
 	//if not exist in base
 	else {
 		$name=substr(rand(), 0, 4);
 	    $db->exec("INSERT OR IGNORE INTO newdev (rom,type,device,ip,gpio,i2c,usb,name) VALUES ('$rom','$type','$device','$ip','$gpio','$i2c','$usb','$name')");
-	    echo "Added $rom to new sensors \n";
+	    echo "Added ".$rom." to new sensors \n";
 	}
 } 
 
