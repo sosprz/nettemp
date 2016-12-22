@@ -155,7 +155,7 @@ try {
 		$local_device='USB';
 		$local_usb=$dev;
 		$last='';
-		$WATsum=trim($line[2]+$line[5]+$line[8]);
+		$WATsum=trim($line[2])+trim($line[5])+trim($line[8]);
 		$ALL=trim($line[9]);
 		$query = $db->query("SELECT sum FROM sensors WHERE rom='$local_rom'");
 		$result= $query->fetchAll();
@@ -165,10 +165,10 @@ try {
 		$VAL=trim($ALL-$last);
 		
 		
-		echo "1. ".$last."\n";
-		echo "2. ".$WATsum."\n";
-		echo "3. ".$ALL."\n";
-		echo "4. ".$VAL."\n";
+		#echo "1. ".$last."\n";
+		#echo "2. ".$WATsum."\n";
+		#echo "3. ".$ALL."\n";
+		#echo "4. ".$VAL."\n";
 		
 		if($last!=0){
 			$local_val=$VAL;
@@ -188,7 +188,7 @@ try {
 		$local_device='USB';
 		$local_usb=$dev;
 		$last='';
-		$WATsum=trim($line[2]+$line[5]+$line[8]);
+		$WATsum=trim($line[2])+trim($line[5])+trim($line[8]);
 		$ALL=trim($line[11]);
 		$query = $db->query("SELECT sum FROM sensors WHERE rom='$local_rom'");
 		$result= $query->fetchAll();
