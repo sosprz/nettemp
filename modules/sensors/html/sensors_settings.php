@@ -312,37 +312,38 @@ $row = $rows->fetchAll();
 	<input type="hidden" name="id_name2" value="id_name3"/>
     </form>
     </td>
-<?php
+	<?php
 	$id_rom3 = str_replace(" ", "_", $a["rom"]);
 	$id_rom2 = "$id_rom3.sql";
 	$file3 =  "db/$id_rom2";
 	if (file_exists($file3) && ( 0 != filesize($file3)))
 	{
-?>
-<td class="col-md-0">
-    <span class="label label-success" title="Last update: <?php echo $a["time"] ?>">ok</span>
-    <span class="label label-default"><?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3)."MB" ?></span>
-    <span class="label label-default">
-	<?php 
-	    $rom=$a["rom"];
-	    if (strpos($rom,'0x') !== false) {
-		$part = explode("0x", $rom);
-		 echo strtolower($part[1].'-'.$part[7].''.$part[6].''.$part[5].''.$part[4].''.$part[3].''.$part[2]);
-	    } else {
-		echo $rom; 
-	    }
 	?>
-    </span>
-</td>
-
-	<?php  }
+	<td class="col-md-0">
+		<span class="label label-success" title="Last update: <?php echo $a["time"] ?>">ok</span>
+		<span class="label label-default"><?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3)."MB" ?></span>
+		<span class="label label-default">
+		<?php 
+			$rom=$a["rom"];
+			if (strpos($rom,'0x') !== false) {
+				$part = explode("0x", $rom);
+				echo strtolower($part[1].'-'.$part[7].''.$part[6].''.$part[5].''.$part[4].''.$part[3].''.$part[2]);
+			} else {
+				echo $rom; 
+			}
+		?>
+		</span>
+	</td>
+	<?php  
+	}
 	else { ?> 
-	<td class="col-md-0">Error - no sql base</td>
-	<?php } ?>
+		<td class="col-md-0">Error - no sql base</td>
+		<?php } ?>
 
-	<td class="col-md-0"><span class="label label-default"><?php echo $a['type']?></span></td>
-
-	
+	<td class="col-md-0">
+		<span class="label label-default"><?php echo $a['type']?></span>
+	</td>
+    
     <td class="col-md-0">
     <?php if ($a["device"] != 'remote') { ?>
     <form action="" method="post" style="display:inline!important;">
