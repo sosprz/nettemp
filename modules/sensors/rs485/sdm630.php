@@ -17,7 +17,7 @@ try {
     $query = $db->query("SELECT dev FROM usb WHERE device='RS485'");
     $result= $query->fetchAll();
     foreach($result as $r) {
-		$dev=$r['dev'];
+		$dev0=$r['dev'];
     }
     if($dev0=='none'){
 		echo $date." No RS485 USB Device.\n";
@@ -28,7 +28,7 @@ try {
 	$result= $query->fetchAll();
     foreach($result as $r) {
 		$addr=$r['addr'];
-		echo $date." RS485 ".$dev." ".$addr."\n";
+		echo $date." RS485 ".$dev0." ".$addr."\n";
     	$cmd="$ROOT/modules/sensors/rs485/sdm630_get.sh $dev0 $addr";
 		$res=shell_exec($cmd);
 		$res = preg_split ('/$\R?^/m', $res);
