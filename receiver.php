@@ -214,7 +214,7 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 	    // if not numeric
 	    else {
 		    $db->exec("UPDATE sensors SET status='offline' WHERE rom='$rom'") or die ("cannot insert error to status\n" );
-			echo "$rom not numieric! $val \n";
+			echo "$rom not numieric! ".$val."\n";
 		}
 	}
 	//if not exist in base
