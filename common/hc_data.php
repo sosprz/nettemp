@@ -110,26 +110,6 @@ if ($type == 'system') {
     exit();
 }
 
-elseif ($type == 'host') {
-
-    $file=$name;
-    $dirb = "sqlite:$root/db/$file.sql";
-    $dbh = new PDO($dirb) or die("cannot open database");
-
-    if($charts_fast=='on') {
-    	querymod($max,$query);
-    }
-		else {
-    		query($max,$query);
-    	}
-
-    foreach ($dbh->query($query) as $row) {
-	$array[]=[($row[0])*1000 . "," . $row[1]];
-	    
-    }
-    print str_replace('"', "",json_encode($array));
-    exit();
-}
 
 elseif ($type == 'gpio') {
 

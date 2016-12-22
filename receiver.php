@@ -182,7 +182,7 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 		    }
 		    // time when you can put into base
 		    elseif ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
-				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql\n" );
+				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql, time\n" );
 				echo "$rom ok \n";
 		    }
 		    else {
@@ -213,7 +213,7 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 	    }
 	    // if not numeric
 	    else {
-		    $db->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert error to status\n" );
+		    $db->exec("UPDATE sensors SET status='offline' WHERE rom='$rom'") or die ("cannot insert error to status\n" );
 			echo "$rom not numieric! $val \n";
 		}
 	}
