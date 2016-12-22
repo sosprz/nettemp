@@ -74,6 +74,7 @@ foreach ($result as $a) {
 	<td class="col-md-0">
 		<form action="" method="post" style="display:inline!important;">
 			<input type="hidden" name="new_rom" value="<?php echo $a['rom']; ?>" > 
+			<input type="hidden" name="type" value="<?php echo $a['type']; ?>" > 
 			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button>
 		</form>
 	

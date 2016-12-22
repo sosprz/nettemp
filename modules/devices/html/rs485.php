@@ -24,8 +24,8 @@ $add = isset($_POST['add']) ? $_POST['add'] : '';
     if ($default == "default") { 
     $db = new PDO("sqlite:dbf/nettemp.db");	
     $db->exec("DELETE from rs485") or header("Location: html/errors/db_error.php");
-    $db->exec("INSERT OR IGNORE INTO rs485 (dev, addr) VALUES ('sdm120','2')") or header("Location: html/errors/db_error.php");
-    $db->exec("INSERT OR IGNORE INTO rs485 (dev, addr) VALUES ('sdm630','1')") or header("Location: html/errors/db_error.php");
+    $db->exec("INSERT OR IGNORE INTO rs485 (dev, addr) VALUES ('SDM120','2')") or header("Location: html/errors/db_error.php");
+    $db->exec("INSERT OR IGNORE INTO rs485 (dev, addr) VALUES ('SDM630','1')") or header("Location: html/errors/db_error.php");
     
 
     header("location: " . $_SERVER['REQUEST_URI']);

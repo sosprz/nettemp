@@ -1,17 +1,18 @@
 <?php
 
 $name_new = isset($_POST['name_new']) ? $_POST['name_new'] : '';
-$color = isset($_POST['color']) ? $_POST['color'] : '';
 
 $name_id = isset($_POST['name_id']) ? $_POST['name_id'] : '';
 $usun_rom_nw = isset($_POST['usun_nw']) ? $_POST['usun_nw'] : '';
 
-$new_rom = isset($_POST['new_rom']) ? $_POST['new_rom'] : '';
 
-$add_graf = isset($_POST['add_graf']) ? $_POST['add_graf'] : '';
-$del_graf = isset($_POST['del_graf']) ? $_POST['del_graf'] : '';
 $name_new2 = isset($_POST['name_new']) ? $_POST['name_new'] : '';
 $name_new=trim($name_new2);
+
+// OK 
+$new_rom = isset($_POST['new_rom']) ? $_POST['new_rom'] : '';
+$type = isset($_POST['type']) ? $_POST['type'] : '';
+
 
 
 //ADD from NEWDEV 
