@@ -36,6 +36,20 @@
 <div class="grid">
     <div class="grid-sizer"></div>
     <?php
+		$rows = $db->query("SELECT * FROM sensors");
+$row = $rows->fetchAll();
+$numRows = count($row);
+if ($numRows == 0 ) { ?>
+<div class="grid-item sg<?php echo $ch_g ?>">
+<div class="panel panel-default">
+<div class="panel-body">
+Go to device scan!
+<a href="index.php?id=devices&type=scan" class="btn btn-success">GO!</a>
+</div>
+</div>
+<?php
+}
+
     
     //GROUPS
     $rows = $db->query("SELECT ch_group,type FROM sensors");
