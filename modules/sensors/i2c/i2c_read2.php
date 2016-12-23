@@ -195,16 +195,18 @@ echo "Scanning...\n";
 
 foreach($bus as $id => $key) {
 	$a=array();
-	$cmd="i2cdetect -y ".$id." |sed '1d' |cut -d \" \" -f 2-";
-	$out=exec($cmd);
-	$out=str_replace("--","",$out);
-	$out = array_filter(explode(' ', $out));
-	foreach($ai2c as $addr => $name){
-		foreach($out as $oaddr){
-			$oaddr=trim($oaddr);
-			if(!empty($oaddr)&&$oaddr==$addr) {
-				echo $key." ".$oaddr." ".$name."\n";
+	if(file_exists("/dev/i2c-$id")){
+		$cmd="i2cdetect -y ".$id." |sed '1d' |cut -d \" \" -f 2-";
+		$out=shell_exec($cmd);
+		$out=str_replace("--","",$out);
+		$out = array_filter(explode(' ', $out));
+		foreach($ai2c as $addr => $name){
+			foreach($out as $oaddr){
+				$oaddr=trim($oaddr);
+				if(!empty($oaddr)&&$oaddr==$addr) {
+					echo $key." ".$oaddr." ".$name."\n";
 				
+				}
 			}
 		}
 	}
