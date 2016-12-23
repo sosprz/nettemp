@@ -44,7 +44,7 @@ function read($addr,$name,$bus) {
 			$atype=array("temp","press","humid");
 		}
 		foreach($atype as $index => $type){ 
-			write($output,$index,$type,$addr)
+			write($output,$index,$type,$addr);
 		}
 	}
 
@@ -183,7 +183,7 @@ function read($addr,$name,$bus) {
 $bus=shell_exec("i2cdetect -l |awk {'print $1'}");
 $bus=array_filter(explode("\n", $bus));
 
-$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
+$db = new PDO("sqlite:$ROOT/dbf/nettemp.db") or die ("cannot open database");
 $rows = $db->query("SELECT * FROM i2c");
 $row = $rows->fetchAll();
 foreach($row as $i2c) {
@@ -196,7 +196,7 @@ echo "Scanning...\n";
 foreach($bus as $id => $key) {
 	$a=array();
 	$cmd="i2cdetect -y ".$id." |sed '1d' |cut -d \" \" -f 2-";
-	$out=shell_exec($cmd);
+	$out=exec($cmd);
 	$out=str_replace("--","",$out);
 	$out = array_filter(explode(' ', $out));
 	foreach($ai2c as $addr => $name){
