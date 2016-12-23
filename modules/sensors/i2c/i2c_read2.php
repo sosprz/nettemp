@@ -24,28 +24,30 @@ function read($addr,$name,$bus) {
 	
 	//TMP102
 	if($name=='tmp102') {
-		if($block!=$addr) {
 			$cmd="$ROOT/modules/sensors/i2c/TMP102/read.py $bus $addr";
 			echo $date." Running: ".$cmd."\n";
+			
 			$output = shell_exec($cmd);
 			$output = trim($output);
-		}
-		$block='yes';
-
+			
+			$atype=array("temp");
+			foreach($atype as $index => $type){ 
+				write($output,$index,$type,$addr);
+			}
 	}
 	//bme280
 	elseif($name=='bme280') {
-		if($block!=$addr) {
 			$block=$addr;
 			$cmd="$ROOT/modules/sensors/i2c/BME280/bme280.py $bus $addr";
 			echo $date." Running: ".$cmd."\n";
+			
 			$output = shell_exec($cmd);
 			$output = preg_split ('/$\R?^/m', $output);
+			
 			$atype=array("temp","press","humid");
-		}
-		foreach($atype as $index => $type){ 
-			write($output,$index,$type,$addr);
-		}
+			foreach($atype as $index => $type){ 
+				write($output,$index,$type,$addr);
+			}
 	}
 
 	//htu21d	
@@ -181,7 +183,7 @@ function read($addr,$name,$bus) {
 
 
 $bus=shell_exec("i2cdetect -l |awk {'print $1'}");
-$bus=array_filter(explode("\n", $bus));
+$bus=explode("\n", $bus);
 
 $db = new PDO("sqlite:$ROOT/dbf/nettemp.db") or die ("cannot open database");
 $rows = $db->query("SELECT * FROM i2c");
