@@ -41,10 +41,9 @@ function read($addr,$name,$bus){
 	//TMP102
 	if($name=='tmp102') {
 			$cmd="$ROOT/modules/sensors/i2c/TMP102/read.py $bus $addr";
-			echo $date." Running: ".$cmd."\n";
 			
 			$output = shell_exec($cmd);
-			$output = trim($output);
+			$output= preg_split('/\s+/', trim($output));
 			
 			$atype=array("temp");
 			foreach($atype as $index => $type){ 
@@ -53,9 +52,7 @@ function read($addr,$name,$bus){
 	}
 	//bme280
 	elseif($name=='bme280') {
-			$block=$addr;
 			$cmd="$ROOT/modules/sensors/i2c/BME280/bme280.py $bus $addr";
-			echo $date." Running: ".$cmd."\n";
 			
 			$output = shell_exec($cmd);
 			$output = preg_split ('/$\R?^/m', $output);
@@ -64,6 +61,73 @@ function read($addr,$name,$bus){
 			foreach($atype as $index => $type){ 
 				write($output,$index,$type,$addr);
 			}
+	}
+	//htu21d
+	elseif($name=='htu21d') {
+			$cmd="$ROOT/modules/sensors/i2c/HTU21D/htu21d.py $bus $addr";
+			$output = shell_exec($cmd);
+			$output = preg_split ('/$\R?^/m', $output);
+
+			$atype=array("temp","humid");
+			foreach($atype as $index => $type){ 
+				write($output,$index,$type,$addr);
+			}
+	}
+	//mpl3115a2
+	elseif($name=='mpl3115a2') {
+			$cmd="$ROOT/modules/sensors/i2c/MPL3115A2/read.py $bus $addr";
+			$output = shell_exec($cmd);
+			$output = preg_split ('/$\R?^/m', $output);
+			
+			$atype=array("temp","press");
+			foreach($atype as $index => $type){ 
+				write($output,$index,$type,$addr);
+			}
+	}
+	//hih6130	
+	elseif($name=='hih6130') {
+			$cmd="$ROOT/modules/sensors/i2c/HIH6130/read.py $bus $addr";
+			$output = shell_exec($cmd);
+			$output = preg_split ('/$\R?^/m', $output);
+						
+			$atype=array("humid","temp");
+			foreach($atype as $index => $type){ 
+				write($output,$index,$type,$addr);
+			}			
+	}
+	//bmp180	
+	elseif($name=='bmp180') {
+			$cmd="$ROOT/modules/sensors/i2c/BMP180/bmp180.py $bus $addr";
+			$output = shell_exec($cmd);
+			$output = preg_split ('/$\R?^/m', $output);
+
+			$atype=array("temp","press");
+			foreach($atype as $index => $type){ 
+				write($output,$index,$type,$addr);
+			}	
+	} 
+	//tsl2561	
+	elseif($name=='tsl2561') {
+			$cmd="$ROOT/modules/sensors/i2c/TSL2561/TSL2561_i2c_$bus";
+			$output = shell_exec($cmd);
+			preg_match('/(\d+)/', $output, $output);
+
+			$atype=array("lux");
+			foreach($atype as $index => $type){ 
+				write($output,$index,$type,$addr);
+			}	
+
+	}	
+	//bh1750	
+	elseif($name=='bh1750') {
+			$cmd="$ROOT/modules/sensors/i2c/BH1750/bh1750.py $bus $addr";
+			$output = shell_exec($cmd);
+			$output = preg_split ('/$\R?^/m', $output);
+
+			$atype=array("lux");
+			foreach($atype as $index => $type){ 
+				write($output,$index,$type,$addr);
+			}	
 	}
 
 }
