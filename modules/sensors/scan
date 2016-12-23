@@ -19,7 +19,7 @@ mkdir -p $dir/tmp
 echo "$date temp_dev_scan - Deleted .digitemprc" >> $dir/tmp/log.txt
 
 # i2c
-$dir/modules/sensors/i2c/i2c_scan
+#$dir/modules/sensors/i2c/i2c_scan
 # USB
 $dir/modules/sensors/1wire/1wire_usb_scan
 # DS9097 - serial 
