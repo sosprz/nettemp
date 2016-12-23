@@ -59,7 +59,7 @@ function read($addr,$name,$bus){
 			
 			$atype=array("temp","press","humid");
 			foreach($atype as $index => $type){ 
-				write($output,$index,$type,$addr);
+				write($output,$index,$type,$addr,$bus);
 			}
 	}
 	//htu21d
@@ -70,7 +70,7 @@ function read($addr,$name,$bus){
 
 			$atype=array("temp","humid");
 			foreach($atype as $index => $type){ 
-				write($output,$index,$type,$addr);
+				write($output,$index,$type,$addr,$bus);
 			}
 	}
 	//mpl3115a2
@@ -81,7 +81,7 @@ function read($addr,$name,$bus){
 			
 			$atype=array("temp","press");
 			foreach($atype as $index => $type){ 
-				write($output,$index,$type,$addr);
+				write($output,$index,$type,$addr,$bus);
 			}
 	}
 	//hih6130	
@@ -92,7 +92,7 @@ function read($addr,$name,$bus){
 						
 			$atype=array("humid","temp");
 			foreach($atype as $index => $type){ 
-				write($output,$index,$type,$addr);
+				write($output,$index,$type,$addr,$bus);
 			}			
 	}
 	//bmp180	
@@ -103,7 +103,7 @@ function read($addr,$name,$bus){
 
 			$atype=array("temp","press");
 			foreach($atype as $index => $type){ 
-				write($output,$index,$type,$addr);
+				write($output,$index,$type,$addr,$bus);
 			}	
 	} 
 	//tsl2561	
@@ -114,7 +114,7 @@ function read($addr,$name,$bus){
 
 			$atype=array("lux");
 			foreach($atype as $index => $type){ 
-				write($output,$index,$type,$addr);
+				write($output,$index,$type,$addr,$bus);
 			}	
 
 	}	
@@ -126,7 +126,7 @@ function read($addr,$name,$bus){
 
 			$atype=array("lux");
 			foreach($atype as $index => $type){ 
-				write($output,$index,$type,$addr);
+				write($output,$index,$type,$addr,$bus);
 			}	
 	}
 
