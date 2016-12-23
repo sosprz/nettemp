@@ -5,7 +5,7 @@ $date = date("Y-m-d H:i:s");
 
 include_once("$ROOT/receiver.php");
 
-function write($output,$index,$type,$addr){
+function write($output,$index,$type,$addr,$bus){
 	global $ROOT;
 	global $date;
 	
@@ -48,7 +48,7 @@ function read($addr,$name,$bus){
 			
 			$atype=array("temp");
 			foreach($atype as $index => $type){ 
-				write($output,$index,$type,$addr);
+				write($output,$index,$type,$addr,$bus);
 			}
 	}
 	//bme280
