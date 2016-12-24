@@ -183,8 +183,8 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 		    }
 		    // time when you can put into base
 		    elseif ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
-				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql, time\n" );
-				echo $rom." ok \n";
+				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die(date("Y-m-d H:i:s")." ERROR: Cannot insert to rom sql, time\n");
+				echo date("Y-m-d H:i:s")." ".$rom." ok \n";
 		    }
 		    else {
 					echo "Not writed interval is ".$chmin." min\n";
@@ -202,7 +202,7 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 		    }
 		    //sensors status
 		    else {
-					$db->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status\n" );
+					$db->exec("UPDATE sensors SET tmp='$val'+adj, status='ok' WHERE rom='$rom'") or die ("cannot insert to status\n" );
 		    }
 		    
 		    
@@ -214,8 +214,9 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 	    }
 	    // if not numeric
 	    else {
-		    $db->exec("UPDATE sensors SET status='offline' WHERE rom='$rom'") or die ("cannot insert error to status\n" );
-			echo $rom." not numieric! ".$val."\n";
+		    $db->exec("UPDATE sensors SET status='error' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert status to sensors ".$rom.", not numeric\n");
+			$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('0')") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert to rom DB ".$rom.", not numeric\n");
+			echo date("Y-m-d H:i:s")." Puting value \"".$val."\" to ".$rom.", but value is not numieric!, inserting 0 to db\n";
 		}
 	}
 	//if not exist in base

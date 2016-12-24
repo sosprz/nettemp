@@ -94,7 +94,7 @@ foreach ($row as $a) {
 			<td>
 			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=day&single=<?php echo $a['name']?>" title="Last update: <?php echo $a['time']?>"
 				<?php $old_read=86400;
-				    if (($a['tmp'] == 'error') || ($label=='danger') || strtotime($a['time'])<(time()-(7*$old_read))){
+				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || ($label=='danger') || strtotime($a['time'])<(time()-(7*$old_read))){
 					echo 'class="label label-danger"';
 				    } elseif (strtotime($a['time'])<(time()-$old_read)){
 					echo 'class="label label-warning"';
@@ -120,10 +120,10 @@ foreach ($row as $a) {
 							echo $a['tmp'];
 						}
 				    } 
-				    elseif (is_numeric($a['tmp'])) { 
+				    elseif (is_numeric($a['tmp'])&&$a['status']!='error') { 
 						echo 	number_format($a['tmp'], 1, '.', ',')." ".$unit." ".$max." ".$min;
 				    }
-				    elseif ($a['status']=='offline') { 
+				    elseif ($a['status']=='error') { 
 						echo "offline";
 				    }
 				    else {

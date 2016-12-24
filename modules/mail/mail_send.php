@@ -69,7 +69,7 @@ try {
 
     
     //HOST LOST 
-    $query = $db->query("SELECT rom,name,mail FROM sensors WHERE alarm='on' AND tmp='error' AND type='host'");
+    $query = $db->query("SELECT rom,name,mail FROM sensors WHERE alarm='on' AND status='error' AND type='host'");
     $result= $query->fetchAll();
     foreach($result as $s) {
 		$rom=$s['rom'];
@@ -90,7 +90,7 @@ try {
 	}
 	
 	//HOST RECOVERY
-	$query = $db->query("SELECT rom,name,mail FROM sensors WHERE type='host' AND tmp!='error'");
+	$query = $db->query("SELECT rom,name,mail FROM sensors WHERE type='host' AND status!='error'");
     $result= $query->fetchAll();
     foreach($result as $s) {
 		$rom=$s['rom'];
