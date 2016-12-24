@@ -135,7 +135,7 @@ function read($addr,$name,$bus){
 
 
 
-$bus=shell_exec("i2cdetect -l |awk {'print $1'}");
+$bus=shell_exec("/usr/sbin/i2cdetect -l |awk {'print $1'}");
 $bus=explode("\n", $bus);
 
 $db = new PDO("sqlite:$ROOT/dbf/nettemp.db") or die ("cannot open database");
@@ -152,7 +152,7 @@ foreach($bus as $bus) {
 	$a=array();
 	$bus=str_replace("i2c-","",$bus);
 	if(file_exists("/dev/i2c-$bus")){
-		$cmd="i2cdetect -y ".$bus." |sed '1d' |cut -d \" \" -f 2-";
+		$cmd="/usr/sbin/i2cdetect -y ".$bus." |sed '1d' |cut -d \" \" -f 2-";
 		$out=shell_exec($cmd);
 		$out=str_replace("--","",$out);
 		$out = array_filter(explode(' ', $out));
