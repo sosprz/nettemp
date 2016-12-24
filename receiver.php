@@ -202,7 +202,8 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 		    }
 		    //sensors status
 		    else {
-					$db->exec("UPDATE sensors SET tmp='$val'+adj, status='ok' WHERE rom='$rom'") or die ("cannot insert to status\n" );
+					$db->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status\n" );
+					$db->exec("UPDATE sensors SET status='ok' WHERE rom='$rom'") or die ("cannot insert to status\n" );
 		    }
 		    
 		    
