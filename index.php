@@ -160,6 +160,19 @@ case 'screen': include('modules/screen/screen.php'); break;
 }
 ?>
 </div>
+<script type="text/javascript">
+var refreshTime = 30000; // every 5 minutes in milliseconds
+window.setInterval( function() {
+    $.ajax({
+        cache: false,
+        type: "GET",
+        url: "common/refreshSession.php",
+        success: function(data) {
+        }
+    });
+}, refreshTime );
+</script>
+
 <?php 
 	if(($html_footer=='on')&&($id!='screen')){ ?>
 <footer class="footer">
@@ -184,4 +197,5 @@ case 'screen': include('modules/screen/screen.php'); break;
 <?php 
 }
 ?>
+
 
