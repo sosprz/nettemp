@@ -122,7 +122,12 @@ if($html_info=='on') {
 	<form method="post" action="logout" class="navbar-form navbar-right" >
 	    <?php echo $_SESSION["user"];?>
 	    <button type="submit" class="btn btn-xs btn-success">Log Out</button>
-	</form>        
+	</form>   
+	<form action="" method="post" class="navbar-form navbar-right">
+		Auto logout
+		<input type="checkbox" data-toggle="toggle" data-size="mini" " name="autologout" value="on" <?php echo $autologout == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="setautologout" value="onoff" />
+    </form>     
     <?php } ?>
     	</div><!--/.nav-collapse -->
 	</div><!--/.container-fluid -->

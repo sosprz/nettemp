@@ -1,5 +1,6 @@
 <?php 
-//if(!isset($_SESSION['user'])||($id!='screen')){ header("Location: denied"); } 
+if(!isset($_SESSION['user'])){ header("Location: denied"); } 
+
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 
