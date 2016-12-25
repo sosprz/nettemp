@@ -18,6 +18,7 @@ if ($update == "Update") {
     include("$ROOT/modules/tools/update_perms.php");
     include("$ROOT/modules/tools/update_db.php");
     include("$ROOT/modules/tools/check_packages.php");
+    unlink("$ROOT/tmp/update");
     }
 ?>
 </pre>
