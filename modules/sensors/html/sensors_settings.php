@@ -254,7 +254,7 @@ $row = $rows->fetchAll();
 
 
 </th>
-<th>LCD
+<th>LCD/OLED
 
  	<form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="lcd" />
