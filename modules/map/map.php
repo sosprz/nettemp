@@ -62,10 +62,10 @@ exit();
       padding: 2px;
 <?php 
     if (file_exists("map.jpg")) { ?>
-      background: url("map.jpg") left top;
+      background: url("map.jpg?nocache=<?php echo time(); ?>") left top;
 <?php 
     } else { ?>
-    background: url("media/jpg/map_example.jpg") left top;
+    background: url("media/jpg/map_example.jpg?nocache=<?php echo time(); ?>") left top;
 <?php
     }
 ?>
