@@ -47,15 +47,17 @@ foreach ($row as $a) {
 	$type='';
 
 		if($a['device'] == 'wireless'){ $device='<img src="media/ico/wifi-circle-icon.png" alt="" title="'.$a['ip'].'"/>';}
-		if($a['device'] == 'remote'){ $device='<img src="media/ico/remote.png" alt="" title="Remote NODE"/>';}
-		if($a['device'] == 'usb'){ $device='<img src="media/ico/usb-icon.png" alt="" title="USB"/>';}
-		if($a['device'] == 'rpi'){ $device='<img src="media/ico/raspberry-icon.png" alt="" title="Raspberry Pi"/>';}
-		if($a['device'] == 'banana'){ $device='<img src="media/ico/banana-icon.png" alt="" title="Banana Pi"/>';}
-		if($a['device'] == 'gpio'){ $device='<img src="media/ico/gpio2.png" alt="" title="GPIO"/>';}
-		if($a['device'] == 'i2c'){ $device='<img src="media/ico/i2c_1.png" alt="" title="I2C"/>';}
-		if($a['device'] == 'snmp'){ $device='<img src="media/ico/snmp-icon.png" alt="" title=SNMP"/>';}
-		if($a['device'] == 'ip'){ $device='<img src="media/ico/remote.png" alt="" title="'.$a['ip'].'"/>';}
-		if(empty($a['device'])) { $device='<img src="media/ico/1wire.png" alt="" title="1wire"/>';}
+		elseif($a['device'] == 'remote'){ $device='<img src="media/ico/remote.png" alt="" title="Remote NODE"/>';}
+		elseif($a['device'] == 'ip'){ $device='<img src="media/ico/remote.png" alt="" title="'.$a['ip'].'"/>';}
+		elseif($a['device'] == 'usb'){ $device='<img src="media/ico/usb-icon.png" alt="" title="USB"/>';}
+		elseif($a['device'] == 'rpi'){ $device='<img src="media/ico/raspberry-icon.png" alt="" title="Raspberry Pi"/>';}
+		elseif($a['device'] == 'banana'){ $device='<img src="media/ico/banana-icon.png" alt="" title="Banana Pi"/>';}
+		elseif($a['device'] == 'gpio'){ $device='<img src="media/ico/gpio2.png" alt="" title="GPIO"/>';}
+		elseif($a['device'] == 'i2c'){ $device='<img src="media/ico/i2c_1.png" alt="" title="I2C"/>';}
+		elseif($a['device'] == 'lmsensors'){ $device='<img src="media/ico/i2c_1.png" alt="" title="I2C"/>';}
+		elseif($a['device'] == 'snmp'){ $device='<img src="media/ico/snmp-icon.png" alt="" title=SNMP"/>';}
+		elseif($a['device'] == '1wire'){ $device='<img src="media/ico/1wire.png" alt="" title="1wire"/>';}
+		else { $device='<img src="media/ico/Help-icon.png" alt="" title=""/>';}
 		
 		
 		foreach($result_t as $ty){

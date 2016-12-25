@@ -119,50 +119,40 @@ try {
 		$name=$s['name'];
 		$mail=$s['mail'];
 	
-	//TEMP MAX
-	if(!empty($tmpmax)) {
+	//ALL
+	
+	if(!empty($tmpmax)||!empty($tmpmin)) {
+		//MAX
 		if($tmp>$tmpmax) {
-			if(($mail!='sent')||($minute=='00')){
+			if(($mail!='sentmax')||($minute=='00')){
 				echo $date." Sending to: ".$string."\n";
 				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"High value","#FF0000"), $headers ) ) {
 					echo $date." High value ".$name." - Mail send OK\n";
 				} else {
 					echo $date." High value ".$name." - Mail send problem\n";
 				}
-				$db->exec("UPDATE sensors SET mail='sent' WHERE rom='$rom'");
+				$db->exec("UPDATE sensors SET mail='sentmax' WHERE rom='$rom'");
 			} else {
 				echo $date." Wait to full hour: ".$rom."\n";
 			}
-			
-		} else {
-			if($mail=='sent'){
-				echo $date." Sending to: ".$string."\n";
-				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"Recovery","#00FF00"), $headers ) ) {
-					echo $date." Recovery ".$name." ".$tmp." - Mail send OK\n";
-					$db->exec("UPDATE sensors SET mail='' WHERE rom='$rom'");
-				} else {
-					echo $date." Recovery ".$name." ".$tmp." - Mail send problem\n";
-				}
-			}
 		}
-	} 
-		
-	//TEMP MIN	
-	if(!empty($tmpmin)) {
-		if($tmp<$tmpmin) {
-			if(($mail!='sent')||($minute=='00')){
+		//MIN 
+		elseif($tmp<$tmpmin) {
+			if(($mail!='sentmin')||($minute=='00')){
 				echo $date." Sending to: ".$string."\n";
 				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"Low value","#FF0000"), $headers ) ) {
 					echo $date." Low value ".$name." - Mail send OK\n";
 				} else {
 					echo $date." Low value ".$name." - Mail send problem\n";
 				}
-				$db->exec("UPDATE sensors SET mail='sent' WHERE rom='$rom'");
+				$db->exec("UPDATE sensors SET mail='sentmin' WHERE rom='$rom'");
 			} else {
 				echo $date." Wait to full hour: ".$rom."\n";
 			}
-		} else {
-			if($mail=='sent'){
+		}
+		//RECOVERY 
+		else {
+			if(!empty($mail)){
 				echo $date." Sending to: ".$string."\n";
 				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"Recovery","#00FF00"), $headers ) ) {
 					echo $date." Recovery ".$name." ".$tmp." - Mail send OK\n";
@@ -172,7 +162,11 @@ try {
 				}
 			}
 		}
-	} 
+	}
+	
+
+	
+	 
 	
 	// TEMP remove if empty
 	if($mail=='sent' && empty($tmpmax) && empty($tmpmin)){
