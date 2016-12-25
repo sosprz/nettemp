@@ -45,6 +45,7 @@ foreach ($row as $a) {
 	$mm='';
 	$device='';
 	$type='';
+	$mail='';
 
 		if($a['device'] == 'wireless'){ $device='<img src="media/ico/wifi-circle-icon.png" alt="" title="'.$a['ip'].'"/>';}
 		elseif($a['device'] == 'remote'){ $device='<img src="media/ico/remote.png" alt="" title="Remote NODE"/>';}
@@ -87,6 +88,7 @@ foreach ($row as $a) {
 		    if($a['type'] == 'temp'){ $type='<img src="media/ico/temp_low.png" alt=""/>';}
 		    $label='danger';
 		}
+		if(!empty($a['mail'])) {$mail='<img src="media/ico/message-icon.png" alt="" title="Message was send!"/>';}
 ?>
 
 		    <tr>
@@ -136,9 +138,12 @@ foreach ($row as $a) {
 			    </span>
 			    </a>
 			</td>
-			<td>
+				<td>
 		    	    <?php echo $updo; ?>
-			</td>
+				</td>
+				<td>
+						<?php echo $mail; ?>
+				</td>
 		    </tr>
 			<?php if ($normalized == "on" && $pressure == $a['id']): ?>
 				<tr>
@@ -160,7 +165,10 @@ foreach ($row as $a) {
 					</span>
 					</td>
 					<td>
-		    	    <?php echo $updo; ?>
+						<?php echo $updo; ?>
+					</td>
+					<td>
+						<?php echo $mail; ?>
 					</td>
 				</tr>
 			<?php endif; ?>
