@@ -17,7 +17,7 @@ $rows = $db->query("SELECT autologout FROM settings WHERE id='1'");
 	}
 
 
-if ($autologout=='on' && isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 60)) {
+if ($autologout=='on' && isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 600)) {
 	session_unset();     // unset $_SESSION variable for the run-time 
 	session_destroy();   // destroy session data in storage
 }
