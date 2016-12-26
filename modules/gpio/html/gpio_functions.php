@@ -28,26 +28,36 @@ $map_num2=substr(rand(), 0, 6);
 	$id_rom_newt='gpio_'.$gpio_post.'_temp';
 	$id_rom_h='gpio_'.$gpio_post.'_humid.sql';
 	$id_rom_t='gpio_'.$gpio_post.'_temp.sql';
-	$rand=substr(rand(), 0, 4);
-	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj, charts, device, map_pos, map_num, map, status) VALUES ('$rand','$id_rom_newh', 'humid', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', '{left:0,top:0}', '$map_num', 'on', 'on')") or die ("cannot insert to DB humi" );
-	//maps
+	$randt=substr(rand(), 0, 4);
+	$randh=substr(rand(), 0, 4);
+	
+
+	// insert to sensors
+	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj, charts, device, map_pos, map_num, map, ch_group) VALUES ('$randh','$id_rom_newh', 'humid', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', '{left:0,top:0}', '$map_num', 'on', 'sensors')") or die ("cannot insert to DB humi" );
+	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj, charts, device, map_pos, map_num, map, ch_group) VALUES ('$randt','$id_rom_newt', 'temp', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', '{left:0,top:0}', '$map_num2', 'on', 'sensors')") or die ("cannot insert to DB temp" );
+
+	//add maps humid
 	$inserted=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_newh'");
 	$inserted_id=$inserted->fetchAll();
 	$inserted_id=$inserted_id[0];
 	$db->exec("INSERT OR IGNORE INTO maps (type, element_id, map_pos, map_num) VALUES ('sensors', '$inserted_id[id]','{left:0,top:0}', '$map_num')");
 	$rand=substr(rand(), 0, 4);
-	$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj, charts, device, map_pos, map_num, map) VALUES ('$rand','$id_rom_newt', 'temp', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', '{left:0,top:0}', '$map_num2', 'on')") or die ("cannot insert to DB temp" );
-	//maps
+	
+	//add maps temp
 	$inserted=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_newt'");
 	$inserted_id=$inserted->fetchAll();
 	$inserted_id=$inserted_id[0];
 	$db->exec("INSERT OR IGNORE INTO maps (type, element_id, map_pos, map_num) VALUES ('sensors', '$inserted_id[id]','{left:0,top:0}', '$map_num')");
+	
+	// add db
 	$dbnew = new PDO("sqlite:db/$id_rom_h");
 	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
 	$dbnew = new PDO("sqlite:db/$id_rom_t");
 	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
-	$db->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$id_rom_newh')") or die ("cannot insert to newdev" );
-	$db->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$id_rom_newt')") or die ("cannot insert to newdev" );
+	
+	//new dev
+	$db->exec("INSERT OR IGNORE INTO newdev (name,rom,device,gpio,type) VALUES ('$randh','$id_rom_newh','gpio','$gpio_post','humid')") or die ("cannot insert to newdev" );
+	$db->exec("INSERT OR IGNORE INTO newdev (name,rom,device,gpio,type) VALUES ('$randt','$id_rom_newt','gpio','$gpio_post','temp')") or die ("cannot insert to newdev" );
 	$db = null;
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();

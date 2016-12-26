@@ -30,7 +30,7 @@ try {
 			$value=$s['tmp'];
 			$type=$s['type'];
 			$name=$s['name'];
-			$URL="http://".$client_ip."/receiver.php?key=".$client_key."&type=".$type."&rom=".$rom2."&value=".$value."&device=".$node."&device=ip";;
+			$URL="http://".$client_ip."/receiver.php?key=".$client_key."&type=".$type."&rom=".$rom2."&value=".$value."&device=ip";
 	
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $URL);
