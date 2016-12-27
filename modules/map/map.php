@@ -187,7 +187,7 @@ foreach ($row as $b) {
 											ondblclick="location.href='index.php?id=view&type=temp&max=day&single=<?php echo $a['name']; ?>'">
     <?php 
 			$display_style='style=""';
-			if(($a['tmp'] == 'error') || ($label=='danger') || ($a['tmp'] == 'wait')) {
+			if(($a['tmp'] == 'error') || ($label=='danger') || ($a['status'] =='error') || ($a['tmp'] == 'wait')) {
 				//echo '<span class="label label-danger label-sensors">';
 				$label_class="label-danger";
 		    } 
@@ -213,13 +213,16 @@ foreach ($row as $b) {
 		    } 
 			echo '<span class="label '.$label_class.'" style="'.$background_color.';'.$font_size.';'.$font_color.'">';
 			if ((is_numeric($a['tmp']) && (($a['type'])=='elec')))  {
-			echo 	$type." ".$sensor_name." ".number_format($a['tmp'], 3, '.', ',')." ".$unit;
-		    } 
-		    elseif (is_numeric($a['tmp'])) { 
-			echo 	$type." ".$sensor_name." ".number_format($a['tmp'], 1, '.', ',')." ".$unit;
+				echo 	$type." ".$sensor_name." ".number_format($a['tmp'], 3, '.', ',')." ".$unit;
 		    }
+		    elseif (is_numeric($a['tmp'])&&$a['status']!='error') {  
+				echo 	$type." ".$sensor_name." ".number_format($a['tmp'], 1, '.', ',')." ".$unit;
+			}
+			elseif ($a['status']=='error') { 
+				echo $type." ".$sensor_name." offline";
+			}
 		    else {
-			echo $type." ".$sensor_name." ".$a['tmp']." ".$unit;
+				echo $type." ".$sensor_name." ".$a['tmp']." ".$unit;
 		    }
 
 	?>

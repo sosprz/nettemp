@@ -10,9 +10,22 @@ $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 $db->exec("INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')");
 $db->exec("INSERT OR IGNORE INTO device (usb, onewire, serial, i2c, lmsensors, wireless ) VALUES ('off','off','off','off','off','off')");
 $db->exec("INSERT OR IGNORE INTO settings (mail, sms, rrd, fw, vpn, gpio, authmod, temp_scale, autologout) VALUES ('off','off', 'off', 'off', 'off', 'on', 'on', 'C', 'on')");
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+$key=generateRandomString();
+$db->exec("UPDATE OR IGNORE settings SET server_key='$key' where id='1' AND server_key is null");
 
-$db->exec("ALTER TABLE settings ADD autologout type TEXT");
-$db->exec("UPDATE settings SET autologout='on' WHERE autologout is null");
+
+
+
+
 $db->exec("ALTER TABLE settings ADD vpn type TEXT");
 $db->exec("CREATE TABLE IF NOT EXISTS vpn (id INTEGER PRIMARY KEY,users UNIQUE)");
 $db->exec("ALTER TABLE settings ADD fw type TEXT");
@@ -128,17 +141,7 @@ $db->exec("UPDATE sensors SET charts='on' WHERE charts is null");
 $db->exec("UPDATE sensors SET adj='0' WHERE adj='' OR adj=' ' OR adj is null");
 $db->exec("UPDATE users SET perms='adm' WHERE login='admin' AND perms is null");
 $db->exec("UPDATE OR IGNORE settings SET tempnum='3' where id='1' AND tempnum is null");
-function generateRandomString($length = 10) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-}
-$key=generateRandomString();
-$db->exec("UPDATE OR IGNORE settings SET server_key='$key' where id='1' AND server_key is null");
+
 
 $db->exec("INSERT OR IGNORE INTO mail_settings (id,tlscheck) VALUES (1,'off')");
 $db->exec("INSERT OR IGNORE INTO mail_settings (id,tls) VALUES (1,'on')");
@@ -345,7 +348,7 @@ $db->exec("UPDATE types SET min='0', max='10000' WHERE type='wind' AND min is nu
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='uv' AND min is null AND max is null");
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='storm' AND min is null AND max is null");
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='lightining' AND min is null AND max is null");
-$db->exec("ALTER TABLE sensors ADD mail type TEXT");
+
 
 //UPDATE NEWDEV
 $db->exec("ALTER TABLE newdev ADD type type TEXT");
@@ -362,6 +365,11 @@ $db->exec("ALTER TABLE newdev ADD name type TEXT");
 //UPDATE sensors
 $db->exec("ALTER TABLE sensors ADD usb type TEXT");
 $db->exec("UPDATE sensors SET ch_group='sensors' WHERE ch_group is null OR ch_group=''");
+$db->exec("ALTER TABLE sensors ADD mail type TEXT");
+
+//UPDATE settings
+$db->exec("ALTER TABLE settings ADD autologout type TEXT");
+$db->exec("UPDATE settings SET autologout='on' WHERE autologout is null");
 
 //UPDATE GPIO
 $db->exec("ALTER TABLE gpio ADD ip type TEXT");
