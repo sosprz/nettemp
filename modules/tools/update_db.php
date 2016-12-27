@@ -361,7 +361,7 @@ $db->exec("ALTER TABLE newdev ADD name type TEXT");
 
 //UPDATE sensors
 $db->exec("ALTER TABLE sensors ADD usb type TEXT");
-$db->exec("UPDATE sensors SET ch_group='all' WHERE ch_group is null OR ch_group=''");
+$db->exec("UPDATE sensors SET ch_group='sensors' WHERE ch_group is null OR ch_group=''");
 
 //UPDATE GPIO
 $db->exec("ALTER TABLE gpio ADD ip type TEXT");
