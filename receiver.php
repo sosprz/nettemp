@@ -178,19 +178,19 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 					$arrayd = array("wireless", "gpio", "usb");
 					if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
 						if (isset($current) && is_numeric($current)) {
-							$dbf->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or print ("cannot insert to rom sql current\n" );
-							$db->exec("UPDATE sensors SET current='$current' WHERE rom='$rom'") or print ("cannot insert to current\n" );
+							$dbf->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql current\n" );
+							$db->exec("UPDATE sensors SET current='$current' WHERE rom='$rom'") or die ("cannot insert to current\n" );
 							echo $rom." current ".$current." \n";
 						} else {
-							$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or print ("cannot insert to rom sql\n" );
+							$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql\n" );
 						}
 						//sum,current for counters
-						$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or print ("cannot insert to status\n" );
+						$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
 						echo $rom." ok \n";
 					}
 					// time when you can put into base
 					elseif ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
-						$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or print (date("Y-m-d H:i:s")." ERROR: Cannot insert to rom sql, time\n");
+						$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert to rom sql, time\n");
 						echo date("Y-m-d H:i:s")." ".$rom." ok \n";
 					}
 					else {
@@ -200,18 +200,18 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 					// 5ago arrow
 					$min=intval(date('i'));
 					if ( ($type!='host')&&((strpos($min,'0') !== false) || (strpos($min,'5') !== false))) {
-						$db->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or print ("cannot insert to 5ago\n" );
+						$db->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to 5ago\n" );
 					}
 		
 					if ($type == 'trigger') {
-						$db->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or print ("cannot insert to trigger status2\n");
+						$db->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to trigger status2\n");
 						trigger($rom);
 					}
 					//sensors status
 					else {
-						$db->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or print (date("Y-m-d H:i:s")." ERROR: Cannot insert value to status\n" );
-						$db->exec("UPDATE sensors SET status='ok' WHERE rom='$rom'") or print (date("Y-m-d H:i:s")." ERROR: Cannot insert status to status\n" );
-						$db->exec("UPDATE sensors SET ip='$ip' WHERE rom='$rom'") or print (date("Y-m-d H:i:s")." ERROR: Cannot insert IP to status\n" );
+						$db->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert value to status\n" );
+						$db->exec("UPDATE sensors SET status='ok' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert status to status\n" );
+						$db->exec("UPDATE sensors SET ip='$ip' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert IP to status\n" );
 					}
 				}		
 				else {
@@ -221,8 +221,8 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 			}
 			// if not numeric
 			else {
-				$db->exec("UPDATE sensors SET status='error' WHERE rom='$rom'") or print (date("Y-m-d H:i:s")." ERROR: Cannot insert status to sensors ".$rom.", not numeric\n");
-				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('0')") or print (date("Y-m-d H:i:s")." ERROR: Cannot insert to rom DB ".$rom.", not numeric\n");
+				$db->exec("UPDATE sensors SET status='error' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert status to sensors ".$rom.", not numeric\n");
+				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('0')") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert to rom DB ".$rom.", not numeric\n");
 				echo date("Y-m-d H:i:s")." Puting value \"".$val."\" to ".$rom.", but value is not numieric!, inserting 0 to db\n";
 			}
 		}
