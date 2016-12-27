@@ -32,18 +32,18 @@ else {
 	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
 	$dbnew->exec("CREATE INDEX time_index ON def(time)");
 }
-	
-//SENOSRS ALL
+//check if file exist before insert to db 
+if(file_exists("db/".$new_rom.".sql")&&filesize("db/".$new_rom.".sql")!=0){
+	//SENOSRS ALL
+	$db->exec("INSERT INTO sensors (rom,type,device,ip,gpio,i2c,usb,name) SELECT rom,type,device,ip,gpio,i2c,usb,name FROM newdev WHERE rom='$new_rom'");
+	$db->exec("UPDATE sensors SET alarm='off', tmp='wait', adj='0', charts='on', sum='0', position='1', status='on', ch_group='sensors' WHERE rom='$new_rom'");
 
-$db->exec("INSERT INTO sensors (rom,type,device,ip,gpio,i2c,usb,name) SELECT rom,type,device,ip,gpio,i2c,usb,name FROM newdev WHERE rom='$new_rom'");
-$db->exec("UPDATE sensors SET alarm='off', tmp='wait', adj='0', charts='on', sum='0', position='1', status='on', ch_group='sensors' WHERE rom='$new_rom'");
-
-//maps settings
-$inserted=$db->query("SELECT id FROM sensors WHERE rom='$new_rom'");
-$inserted_id=$inserted->fetchAll();
-$inserted_id=$inserted_id[0];
-$db->exec("INSERT OR IGNORE INTO maps (type, map_pos, map_num,map_on,element_id) VALUES ('sensors','{left:0,top:0}','$map_num','on','$inserted_id[id]')");
-
+	//maps settings
+	$inserted=$db->query("SELECT id FROM sensors WHERE rom='$new_rom'");
+	$inserted_id=$inserted->fetchAll();
+	$inserted_id=$inserted_id[0];
+	$db->exec("INSERT OR IGNORE INTO maps (type, map_pos, map_num,map_on,element_id) VALUES ('sensors','{left:0,top:0}','$map_num','on','$inserted_id[id]')");
+}
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();	
 }

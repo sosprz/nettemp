@@ -107,35 +107,39 @@ function scale($val,$type) {
 	} else {
 		return $val;
 	}
+	$sth=null;
+    $db=null;
 }
 
 function trigger($rom) {
 	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
-   $rows = $db->query("SELECT mail FROM users WHERE maila='yes'");
-   $row = $rows->fetchAll();
-   foreach($row as $row) {
-	$to[]=$row['mail'];   
-   }
+    $sth = $db->query("SELECT mail FROM users WHERE maila='yes'");
+    $row = $sth->fetchAll();
+    foreach($row as $row) {
+		$to[]=$row['mail'];   
+    }
    
-   $rows = $db->query("SELECT name FROM sensors WHERE rom='$rom'");
-   $row = $rows->fetchAll();
-   foreach($row as $row) {
-	$name=$row['name'];   
-   }
+    $sth = $db->query("SELECT name FROM sensors WHERE rom='$rom'");
+    $row = $sth->fetchAll();
+    foreach($row as $row) {
+		$name=$row['name'];   
+    }
    
-   $to = implode(', ', $to);
-   if(mail("$to", 'ALARM from nettemp device', "Trigger ALARM $name" )) {
-	echo "ok\n";
-   } else {
-    echo "error\n";
-   }
+    $to = implode(', ', $to);
+    if(mail("$to", 'ALARM from nettemp device', "Trigger ALARM $name" )) {
+		echo "ok\n";
+    } else {
+		echo "error\n";
+    }
+    $sth=null;
+    $db=null;
 
 }
 
 function check($val,$type) {
 	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
-	$rows = $db->query("SELECT * FROM types WHERE type='$type'");
-    $row = $rows->fetchAll();
+	$sth = $db->query("SELECT * FROM types WHERE type='$type'");
+    $row = $sth->fetchAll();
     foreach($row as $range) 
     {
 		if (($range['min'] <= $val) && ($val <= $range['max']) && ($val != $range['value1']) && ($val != $range['value2']) && ($val != $range['value3'])) 
@@ -147,6 +151,8 @@ function check($val,$type) {
 			return 'range';
 		}
 	}
+    $sth=null;
+    $db=null;	
 
 }
 
@@ -154,83 +160,93 @@ function check($val,$type) {
 
 function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 	$file = "$rom.sql";
-	global $chmin;
 	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
-	$dbf = new PDO("sqlite:".__DIR__."/db/$file");
-    $rows = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
-	$row = $rows->fetchAll();
-    $c = count($row);
-	if ( $c >= "1") {
-	  if (is_numeric($val)) {
-		$val=scale($val,$type);
-		$val=check($val,$type);
-		if ($val != 'range'){
-		    //// base
-		    // counters can always put to base
-		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting");
-		    $arrayd = array("wireless", "gpio", "usb");
-		    if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
-					if (isset($current) && is_numeric($current)) {
-			    		$dbf->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql current\n" );
-			    		$db->exec("UPDATE sensors SET current='$current' WHERE rom='$rom'") or die ("cannot insert to current\n" );
-			    		echo $rom." current ".$current." \n";
-					} else {
-			    		$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql\n" );
+	if(file_exists(__DIR__."/db/".$file)&&filesize(__DIR__."/db/".$file)!=0){
+		global $chmin;
+		$dbf = new PDO("sqlite:".__DIR__."/db/$file");
+		$sth = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
+		$row = $sth->fetchAll();
+		$c = count($row);
+		if ( $c >= "1") {
+			if (is_numeric($val)) {
+				$val=scale($val,$type);
+				$val=check($val,$type);
+				if ($val != 'range'){
+					//// base
+					// counters can always put to base
+					$arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting");
+					$arrayd = array("wireless", "gpio", "usb");
+					if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
+						if (isset($current) && is_numeric($current)) {
+							$dbf->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or print ("cannot insert to rom sql current\n" );
+							$db->exec("UPDATE sensors SET current='$current' WHERE rom='$rom'") or print ("cannot insert to current\n" );
+							echo $rom." current ".$current." \n";
+						} else {
+							$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or print ("cannot insert to rom sql\n" );
+						}
+						//sum,current for counters
+						$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or print ("cannot insert to status\n" );
+						echo $rom." ok \n";
 					}
-					//sum,current for counters
-					$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
-					echo $rom." ok \n";
-		    }
-		    // time when you can put into base
-		    elseif ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
-				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die(date("Y-m-d H:i:s")." ERROR: Cannot insert to rom sql, time\n");
-				echo date("Y-m-d H:i:s")." ".$rom." ok \n";
-		    }
-		    else {
-					echo "Not writed interval is ".$chmin." min\n";
-		    }
+					// time when you can put into base
+					elseif ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
+						$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or print (date("Y-m-d H:i:s")." ERROR: Cannot insert to rom sql, time\n");
+						echo date("Y-m-d H:i:s")." ".$rom." ok \n";
+					}
+					else {
+						echo "Not writed interval is ".$chmin." min\n";
+					}
 		    
-		    // 5ago arrow
-		    $min=intval(date('i'));
-		    if ( ($type!='host')&&((strpos($min,'0') !== false) || (strpos($min,'5') !== false))) {
-				$db->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to 5ago\n" );
-		    }
+					// 5ago arrow
+					$min=intval(date('i'));
+					if ( ($type!='host')&&((strpos($min,'0') !== false) || (strpos($min,'5') !== false))) {
+						$db->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or print ("cannot insert to 5ago\n" );
+					}
 		
-		    if ($type == 'trigger') {
-					$db->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to trigger status2\n");
-					trigger($rom);
-		    }
-		    //sensors status
-		    else {
-					$db->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status\n" );
-					$db->exec("UPDATE sensors SET status='ok' WHERE rom='$rom'") or die ("cannot insert to status\n" );
-		    }
-		    
-		    
-		}		
-		else {
-		    echo $rom." ".$val." not in range \n";
+					if ($type == 'trigger') {
+						$db->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or print ("cannot insert to trigger status2\n");
+						trigger($rom);
+					}
+					//sensors status
+					else {
+						$db->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or print ("cannot insert to status\n" );
+						$db->exec("UPDATE sensors SET status='ok' WHERE rom='$rom'") or print ("cannot insert to status\n" );
+					}
+				}		
+				else {
+					echo $rom." ".$val." not in range \n";
+				}
+		
+			}
+			// if not numeric
+			else {
+				$db->exec("UPDATE sensors SET status='error' WHERE rom='$rom'") or print (date("Y-m-d H:i:s")." ERROR: Cannot insert status to sensors ".$rom.", not numeric\n");
+				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('0')") or print (date("Y-m-d H:i:s")." ERROR: Cannot insert to rom DB ".$rom.", not numeric\n");
+				echo date("Y-m-d H:i:s")." Puting value \"".$val."\" to ".$rom.", but value is not numieric!, inserting 0 to db\n";
+			}
 		}
-		
-	    }
-	    // if not numeric
-	    else {
-		    $db->exec("UPDATE sensors SET status='error' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert status to sensors ".$rom.", not numeric\n");
-			$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('0')") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert to rom DB ".$rom.", not numeric\n");
-			echo date("Y-m-d H:i:s")." Puting value \"".$val."\" to ".$rom.", but value is not numieric!, inserting 0 to db\n";
+		//if not in sensors table
+		else {
+			$name=substr(rand(), 0, 4);
+			$db->exec("INSERT OR IGNORE INTO newdev (rom,type,device,ip,gpio,i2c,usb,name) VALUES ('$rom','$type','$device','$ip','$gpio','$i2c','$usb','$name')");
+			echo "DB exist. Added ".$rom." to new sensors \n";
 		}
 	}
-	//if not exist in base
+	//if base not exist
 	else {
 		$name=substr(rand(), 0, 4);
-	    $db->exec("INSERT OR IGNORE INTO newdev (rom,type,device,ip,gpio,i2c,usb,name) VALUES ('$rom','$type','$device','$ip','$gpio','$i2c','$usb','$name')");
-	    echo "Added ".$rom." to new sensors \n";
+		$db->exec("INSERT OR IGNORE INTO newdev (rom,type,device,ip,gpio,i2c,usb,name) VALUES ('$rom','$type','$device','$ip','$gpio','$i2c','$usb','$name')");
+		echo "No DB. Added ".$rom." to new sensors \n";
 	}
+	$sth=null;
+	$db=null;
+	$dbf=null;
 } 
 
 
 
 $db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
+
 $sth = $db->prepare("select * from settings WHERE id='1'");
 $sth->execute();
 $result = $sth->fetchAll();
@@ -246,6 +262,9 @@ foreach ( $result as $a) {
 	global $chmin;
 	$chmin=$a['charts_min'];
 	}
+    
+$sth=null;
+$db=null;
 
 
 if (("$key" != "$skey") && (!defined('LOCAL')))
