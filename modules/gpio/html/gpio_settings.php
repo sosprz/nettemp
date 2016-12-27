@@ -52,10 +52,11 @@ foreach ( $result as $a) {
 $gpio=$a['gpio'];
 $mode=$a['mode'];
 $name=$a['name'];
+$ip=$a['ip'];
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">GPIO <?php echo $gpio." ".$name ?></h3></div>
+<h3 class="panel-title">GPIO <?php echo $gpio." ".$name." ".$ip ?></h3></div>
 <div class="panel-body">
 
 <?php

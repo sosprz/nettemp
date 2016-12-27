@@ -23,7 +23,8 @@ CREATE TABLE fw (
     , radius type TEXT, syslog type TEXT);
 CREATE TABLE gpio (
   id INTEGER PRIMARY KEY,
-  gpio UNIQUE,
+  rom TEXT,
+  gpio TEXT,
   name TEXT,
   mode TEXT,
   simple TEXT,

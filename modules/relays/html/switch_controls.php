@@ -22,7 +22,9 @@ if (($sonoff == "sonoff")){
 		$ch = curl_init();
 		$optArray = array(
 			CURLOPT_URL => "$ip/control?cmd=GPIO,$gpio,1",
-			CURLOPT_RETURNTRANSFER => true
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_CONNECTTIMEOUT => 1,
+			CURLOPT_TIMEOUT => 3
 		);
 		curl_setopt_array($ch, $optArray);
 		$res = curl_exec($ch);
@@ -35,7 +37,9 @@ if (($sonoff == "sonoff")){
 		$ch = curl_init();
 		$optArray = array(
 			CURLOPT_URL => "$ip/control?cmd=GPIO,$gpio,0",
-			CURLOPT_RETURNTRANSFER => true
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_CONNECTTIMEOUT => 1,
+			CURLOPT_TIMEOUT => 3
 		);
 		curl_setopt_array($ch, $optArray);
 		$res = curl_exec($ch);
