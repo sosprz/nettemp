@@ -209,8 +209,9 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 					}
 					//sensors status
 					else {
-						$db->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or print ("cannot insert to status\n" );
-						$db->exec("UPDATE sensors SET status='ok' WHERE rom='$rom'") or print ("cannot insert to status\n" );
+						$db->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or print (date("Y-m-d H:i:s")." ERROR: Cannot insert value to status\n" );
+						$db->exec("UPDATE sensors SET status='ok' WHERE rom='$rom'") or print (date("Y-m-d H:i:s")." ERROR: Cannot insert status to status\n" );
+						$db->exec("UPDATE sensors SET ip='$ip' WHERE rom='$rom'") or print (date("Y-m-d H:i:s")." ERROR: Cannot insert IP to status\n" );
 					}
 				}		
 				else {
