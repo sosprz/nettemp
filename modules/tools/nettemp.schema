@@ -23,8 +23,7 @@ CREATE TABLE fw (
     , radius type TEXT, syslog type TEXT);
 CREATE TABLE gpio (
   id INTEGER PRIMARY KEY,
-  rom TEXT,
-  gpio TEXT,
+  gpio UNIQUE,
   name TEXT,
   mode TEXT,
   simple TEXT,
@@ -51,7 +50,7 @@ CREATE TABLE gpio (
   temp_run TEXT,
   trigger_source type TEXT, 
   control type TEXT, control_run type TEXT, trigger_delay type TEXT, trigger_con type TEXT, tel_num1 type TEXT, tel_num2 type TEXT, tel_num3 type TEXT, tel_any type TEXT, tel_at type TEXT, 
-  elec_divider type TEXT, water_divider type TEXT, gas_divider type TEXT, elec_run type TEXT, water_run type TEXT, gas_run type TEXT, elec_debouncing type TEXT, water_debouncing type TEXT, gas_debouncing type TEXT, fnum type TEXT, state type TEXT, map_pos type NUM, map_num type NUM, map type NUM, position type NUM, display_name type TEXT, control_on_map type TEXT, day_zone2s type TEXT, day_zone2e type TEXT, day_zone3s type TEXT, day_zone3e type TEXT, moment_time type TEXT);
+  elec_divider type TEXT, water_divider type TEXT, gas_divider type TEXT, elec_run type TEXT, water_run type TEXT, gas_run type TEXT, elec_debouncing type TEXT, water_debouncing type TEXT, gas_debouncing type TEXT, fnum type TEXT, state type TEXT, map_pos type NUM, map_num type NUM, map type NUM, position type NUM, display_name type TEXT, control_on_map type TEXT, day_zone2s type TEXT, day_zone2e type TEXT, day_zone3s type TEXT, day_zone3e type TEXT, moment_time type TEXT, ip type TEXT, rom type TEXT);
 CREATE TABLE i2c (id INTEGER PRIMARY KEY,name TEXT, addr UNIQUE);
 CREATE TABLE meteo (id INTEGER PRIMARY KEY, temp TEXT, latitude TEXT, height TEXT, pressure TEXT, humid TEXT, onoff TEXT, normalized TEXT, jg TEXT);
 CREATE TABLE relays (id INTEGER PRIMARY KEY,list UNIQUE, name type TEXT, ip type TEXT, delay type TEXT, rom type TEXT, type type TEXT);
@@ -68,7 +67,7 @@ CREATE TABLE settings (
    kwh TEXT,
    lcd TEXT,
    authmod TEXT
-  , radius type TEXT, lcdmode type TEXT, lcd4 type TEXT, call type TEXT, logger type TEXT, charts_system type TEXT, charts_hosts type TEXT, charts_gpio type TEXT, server_key type TEXT, client_key type TEXT, client_ip type TEXT, client_on type TEXT, charts_min type TEXT, charts_theme type TEXT, meteogram type TEXT, MCP23017 type TEXT, ups_status type TEXT, temp_scale TEXT, cauth_on type TEXT, cauth_login type TEXT, cauth_pass type TEXT);
+  , radius type TEXT, lcdmode type TEXT, lcd4 type TEXT, call type TEXT, logger type TEXT, charts_system type TEXT, charts_hosts type TEXT, charts_gpio type TEXT, server_key type TEXT, client_key type TEXT, client_ip type TEXT, client_on type TEXT, charts_min type TEXT, charts_theme type TEXT, meteogram type TEXT, MCP23017 type TEXT, ups_status type TEXT, temp_scale TEXT, cauth_on type TEXT, cauth_login type TEXT, cauth_pass type TEXT, autologout type TEXT);
 CREATE TABLE sms_settings (
   id INTEGER PRIMARY KEY,
   name TEXT,
@@ -112,6 +111,23 @@ CREATE TABLE sensors (
 CREATE TABLE usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE);
 CREATE TABLE statistics (id INTEGER PRIMARY KEY, agreement TEXT, nick TEXT, location TEXT, sensor_temp TEXT);
 CREATE TABLE g_func (id INTEGER PRIMARY KEY, position INTEGER DEFAULT 1, sensor TEXT, sensor2 TEXT, onoff TEXT, value TEXT, op TEXT, hyst TEXT, source TEXT, gpio TEXT, w_profile TEXT);
+CREATE TABLE "tmp_hosts" (
+id INTEGER PRIMARY KEY,
+time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+name UNIQUE,
+ip TEXT, 
+type TEXT,
+last TEXT, 
+status TEXT, 
+rom type TEXT, 
+map_pos type NUM, 
+map_num type NUM, 
+map type NUM, 
+alarm type TEXT, 
+position type NUM, 
+element_id type TEXT,
+mail type TEXT
+);
 CREATE TABLE snmp (
   id INTEGER PRIMARY KEY,
   name UNIQUE,
@@ -158,3 +174,4 @@ CREATE TABLE hosts (
 );
 CREATE TABLE newdev (id INTEGER PRIMARY KEY,list type TEXT, type type TEXT, rom type UNIQUE, device type TEXT, i2c type TEXT, usb type TEXT, gpio type TEXT, ip type TEXT, name type TEXT);
 CREATE UNIQUE INDEX unique_name on newdev(rom);
+CREATE TABLE settings2 (id INTEGER PRIMARY KEY, name UNIQUE, setup TEXT);
