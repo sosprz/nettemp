@@ -225,7 +225,7 @@ var hc = function () {
 	if (max=="year") { var xhour = "month" }
 	if (max=="all") { var xhour = "year" }
 
-	if (type=="gas"|| type=="water"|| type=="elec" && mode != 2) {
+	if (type=="gas"|| type=="water"|| (type=="elec" && mode != 2) || type=="rainfall" || type=="speed" || type="gust" ) {
 	    
             seriesOptions[i] = {
                 name: name,
