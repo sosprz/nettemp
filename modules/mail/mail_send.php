@@ -119,11 +119,8 @@ try {
 		$name=$s['name'];
 		$mail=$s['mail'];
 	
-	//ALL
-	
-	if(!empty($tmpmax)||!empty($tmpmin)) {
 		//MAX
-		if($tmp>$tmpmax) {
+		if($tmp>$tmpmax&&is_numeric($tmpmax)) {
 			if(($mail!='sentmax')||($minute=='00')){
 				echo $date." Sending to: ".$string."\n";
 				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"High value","#FF0000"), $headers ) ) {
@@ -137,7 +134,7 @@ try {
 			}
 		}
 		//MIN 
-		elseif($tmp<$tmpmin) {
+		elseif($tmp<$tmpmin&&is_numeric($tmpmin)) {
 			if(($mail!='sentmin')||($minute=='00')){
 				echo $date." Sending to: ".$string."\n";
 				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"Low value","#FF0000"), $headers ) ) {
@@ -162,7 +159,6 @@ try {
 				}
 			}
 		}
-	}
 	
 
 	
