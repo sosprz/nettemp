@@ -353,7 +353,9 @@ $db->exec("UPDATE types SET min='0', max='10000' WHERE type='lightining' AND min
 //UPDATE NEWDEV
 $db->exec("ALTER TABLE newdev ADD type type TEXT");
 $db->exec("ALTER TABLE newdev ADD rom type TEXT");
-$db->exec("create unique index unique_name on newdev(rom)");
+//////////////////PROBLEM
+//$db->exec("create unique index unique_name on newdev(rom)");
+/////////////////END PROBLEM
 $db->exec("ALTER TABLE newdev ADD device type TEXT");
 $db->exec("ALTER TABLE newdev ADD ip type TEXT");
 $db->exec("ALTER TABLE newdev ADD gpio type TEXT");
