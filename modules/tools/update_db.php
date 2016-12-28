@@ -232,8 +232,7 @@ $db->exec("INSERT OR IGNORE INTO charts (id, charts) VALUES (1, 'Highcharts')");
 
 $db->exec("INSERT OR IGNORE INTO settings (id,gpio) VALUES (1,'on')");
 $db->exec("INSERT OR IGNORE INTO settings (id, temp_scale) VALUES (1, 'C')");
-$db->exec("INSERT OR IGNORE INTO settings (mail, sms, rrd, fw, vpn, gpio, authmod, temp_scale, autologout, meteogram) VALUES ('off','off', 'off', 'off', 'off', 'on', 'on', 'C', 'on', 'Poland/Pomerania/Gdansk')");
-
+$db->exec("INSERT OR IGNORE INTO settings (id, mail, sms, rrd, fw, vpn, gpio, authmod, temp_scale, autologout, meteogram) VALUES (1,'off','off', 'off', 'off', 'off', 'on', 'on', 'C', 'on', 'Poland/Pomerania/Gdansk')");
 
 $db->exec("INSERT OR IGNORE INTO device (id,lmsensors) VALUES (1,'off')");
 $db->exec("INSERT OR IGNORE INTO device (id,i2c) VALUES (1,'off')");
@@ -329,7 +328,7 @@ $db->exec("UPDATE settings SET autologout='on' WHERE autologout is null");
 
 
 //TIME & TRIGGER
-//$db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
+$db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
 
 
 // FAKE INFO
