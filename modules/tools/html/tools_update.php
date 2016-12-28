@@ -16,6 +16,8 @@ if ($update == "Update") {
 
 	if (!copy($file, $newfile)) {
 		echo "failed to copy $file...\n";
+	} else {
+		echo "New backup $newfile...\n";
 	}
 	
 	
