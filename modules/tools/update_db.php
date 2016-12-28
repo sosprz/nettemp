@@ -240,8 +240,8 @@ $db->exec("UPDATE hosts SET position='1' WHERE position is null");
 
 $db->exec("ALTER TABLE sensors ADD ch_group type NUM");
 
-$db->exec("CREATE TABLE statistics (id INTEGER PRIMARY KEY, agreement TEXT, nick TEXT, location TEXT, sensor_temp TEXT)");
-$db->exec("INSERT OR IGNORE INTO statistics (agreement) VALUES ('no')");
+$db->exec("CREATE TABLE statistics (id INTEGER PRIMARY KEY, agreement UNIQUE, nick UNIQUE, location UNIQUE, sensor_temp UNIQUE)");
+$db->exec("INSERT OR IGNORE INTO statistics (agreement) VALUES ('no') WHERE id=1");
 
 $db->exec("CREATE TABLE g_func (id INTEGER PRIMARY KEY, position INTEGER DEFAULT 0, sensor TEXT, sensor2 TEXT, onoff TEXT, value TEXT, op TEXT, hyst TEXT, source TEXT, gpio TEXT, w_profile TEXT)");
 
