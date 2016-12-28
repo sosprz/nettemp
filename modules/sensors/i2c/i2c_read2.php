@@ -79,7 +79,7 @@ function read($addr,$name,$bus){
 			$output = shell_exec($cmd);
 			$output = preg_split ('/$\R?^/m', $output);
 			
-			$atype=array("temp","press");
+			$atype=array("press","temp");
 			foreach($atype as $index => $type){ 
 				write($output,$index,$type,$addr,$bus);
 			}

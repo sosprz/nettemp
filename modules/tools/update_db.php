@@ -329,7 +329,7 @@ $db->exec("UPDATE settings SET autologout='on' WHERE autologout is null");
 
 //TIME & TRIGGER
 $db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
-
+//$db->exec("create unique index unique_name on newdev(rom)");
 
 // FAKE INFO
 echo $date." nettemp database update: ok \n";
