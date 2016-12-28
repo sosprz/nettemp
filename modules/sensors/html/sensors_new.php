@@ -21,6 +21,7 @@ if ($delnew=='yes'){
 <table class="table table-hover table-condensed small">
 <thead>
 	<tr>
+		<th>ID</th>
 		<th>List*</th>
 		<th>Name</th>
 		<th>ROM</th>
@@ -43,6 +44,9 @@ $result = $sth->fetchAll();
 foreach ($result as $a) { 
 ?>
 <tr>
+	<td class="col-md-0">
+		<?php echo $a['id']; ?>
+	</td>
 	<td class="col-md-0">
 		<?php echo $a['list']; ?>
 	</td>
