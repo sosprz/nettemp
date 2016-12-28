@@ -4,12 +4,19 @@ $date = date("Y-m-d H:i:s");
 if(empty($ROOT)){
     $ROOT=dirname(dirname(dirname(__FILE__)));
 }
-
+//DB
 $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 
+//WAL
+$db->exec("PRAGMA journal_mode=WAL");
+
+// DEFAULT
 $db->exec("INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')");
 $db->exec("INSERT OR IGNORE INTO device (usb, onewire, serial, i2c, lmsensors, wireless ) VALUES ('off','off','off','off','off','off')");
 $db->exec("INSERT OR IGNORE INTO settings (mail, sms, rrd, fw, vpn, gpio, authmod, temp_scale, autologout) VALUES ('off','off', 'off', 'off', 'off', 'on', 'on', 'C', 'on')");
+
+
+
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
@@ -21,7 +28,7 @@ function generateRandomString($length = 10) {
 }
 $key=generateRandomString();
 $db->exec("UPDATE OR IGNORE settings SET server_key='$key' where id='1' AND server_key is null");
-
+// END DEFAULT
 
 
 
@@ -240,7 +247,6 @@ $db->exec("UPDATE hosts SET position='1' WHERE position is null");
 
 $db->exec("ALTER TABLE sensors ADD ch_group type NUM");
 
-$db->exec("CREATE TABLE statistics (id INTEGER PRIMARY KEY, agreement UNIQUE, nick UNIQUE, location UNIQUE, sensor_temp UNIQUE)");
 $db->exec("INSERT OR IGNORE INTO statistics (agreement) VALUES ('no') WHERE id=1");
 
 $db->exec("CREATE TABLE g_func (id INTEGER PRIMARY KEY, position INTEGER DEFAULT 0, sensor TEXT, sensor2 TEXT, onoff TEXT, value TEXT, op TEXT, hyst TEXT, source TEXT, gpio TEXT, w_profile TEXT)");
@@ -353,9 +359,6 @@ $db->exec("UPDATE types SET min='0', max='10000' WHERE type='lightining' AND min
 //UPDATE NEWDEV
 $db->exec("ALTER TABLE newdev ADD type type TEXT");
 $db->exec("ALTER TABLE newdev ADD rom type TEXT");
-//////////////////PROBLEM
-//$db->exec("create unique index unique_name on newdev(rom)");
-/////////////////END PROBLEM
 $db->exec("ALTER TABLE newdev ADD device type TEXT");
 $db->exec("ALTER TABLE newdev ADD ip type TEXT");
 $db->exec("ALTER TABLE newdev ADD gpio type TEXT");
@@ -377,20 +380,15 @@ $db->exec("UPDATE settings SET autologout='on' WHERE autologout is null");
 $db->exec("ALTER TABLE gpio ADD ip type TEXT");
 $db->exec("ALTER TABLE gpio ADD rom type TEXT");
 
-
 //TIME & TRIGGER
 //$db->exec("ALTER TABLE sensors ADD time type TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL");
 //$db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
-
-
-//WAL
-$db->exec("PRAGMA journal_mode=WAL");
 
 //CLEAN
 $db->exec("DELETE FROM settings WHERE id>1");
 $db->exec("DROP trigger hosts_time_trigger");
 
-
+// FAKE INFO
 echo $date." nettemp database update: ok \n";
 
 
