@@ -1,6 +1,15 @@
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
+
+$sth = $db->query("PRAGMA integrity_check");
+$row = $sth->fetchAll();
+foreach($row as $r){
+	if($r[0]!=ok) {
+		echo "databse problem: PRAGMA integrity_check";
+	}
+}
+
 include("modules/login/login.php");
 ob_start();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
