@@ -6,14 +6,91 @@ if(empty($ROOT)){
 }
 //DB
 $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
-
 //WAL
 $db->exec("PRAGMA journal_mode=WAL");
 
-// DEFAULT
+// DEFAULT INSERT
+
+$db->exec("INSERT OR IGNORE INTO mail_settings (id,tlscheck) VALUES (1,'off')");
+$db->exec("INSERT OR IGNORE INTO mail_settings (id,tls) VALUES (1,'on')");
+$db->exec("INSERT OR IGNORE INTO mail_settings (id,auth) VALUES (1,'on')");
+
+
+$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('bmp180','77')");
+$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tsl2561','39')");
+$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('ds2482','18')");
+$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('ds2482','1a')");
+$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('htu21d','40')");
+$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('mpl3115a2','60')");
+$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('hih6130','27')");
+$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tmp102','48')");
+$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('bh1750','23')");
+$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('bme280','76')");
+
+$db->exec("INSERT OR IGNORE INTO fw (id, ssh, icmp, ext, openvpn, radius ) VALUES (1,'off','off', '0.0.0.0/0', 'off', 'off')");
+$db->exec("INSERT OR IGNORE INTO meteo (id, temp, latitude, height, pressure, humid, onoff ) VALUES (1,'0','0','0','0','0','off')");
+$db->exec("INSERT OR IGNORE INTO access_time (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime) VALUES  ('any', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', '00:00', '23:59')");
+$db->exec("INSERT OR IGNORE INTO statistics (agreement) VALUES ('no')");
 $db->exec("INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')");
 $db->exec("INSERT OR IGNORE INTO device (usb, onewire, serial, i2c, lmsensors, wireless ) VALUES ('off','off','off','off','off','off')");
+$db->exec("INSERT OR IGNORE INTO highcharts (id, charts_min, charts_theme, charts_fast) VALUES (1, '1', 'black', 'off')");
+$db->exec("INSERT OR IGNORE INTO minmax (name, state) VALUES ('mode', '1')");
+$db->exec("INSERT OR IGNORE INTO charts (id, charts) VALUES (1, 'Highcharts')");
+
+$db->exec("INSERT OR IGNORE INTO settings (id,gpio) VALUES (1,'on')");
+$db->exec("INSERT OR IGNORE INTO settings (id, temp_scale) VALUES (1, 'C')");
 $db->exec("INSERT OR IGNORE INTO settings (mail, sms, rrd, fw, vpn, gpio, authmod, temp_scale, autologout) VALUES ('off','off', 'off', 'off', 'off', 'on', 'on', 'C', 'on')");
+
+$db->exec("INSERT OR IGNORE INTO device (id,lmsensors) VALUES (1,'off')");
+$db->exec("INSERT OR IGNORE INTO device (id,i2c) VALUES (1,'off')");
+$db->exec("INSERT OR IGNORE INTO device (id,wireless) VALUES (1,'off')");
+
+$db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('RS485','none')");
+$db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('1wire','none')");
+$db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('1wire Serial','none')");
+$db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem Call','none')");
+$db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem SMS','none')");
+$db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('UPS Pimowo','none')");
+
+
+$db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('info', 'on')");
+$db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('footer', 'on')");
+$db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('screen', 'off')");
+$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('nettemp_logo', ' media/png/nettemp.pl.png')");
+$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('nettemp_link', 'http://nettemp.pl')");
+$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('nettemp_alt', 'nettemp')");
+$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('charts_max', 'day')");
+$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('map_width', '800')");
+$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('map_height', '600')");
+
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max, value1, value2, value3) VALUES ('temp', '°C', '°F', 'media/ico/temp2-icon.png' ,'Temperature','-150', '3000', '85', '185' ,'127.9')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('lux', 'lux', 'lux', 'media/ico/sun-icon.png' ,'Lux','8000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('humid', '%', '%', 'media/ico/rain-icon.png' ,'Humidity','0', '110')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('press', 'hPa', 'hPa', 'media/ico/Science-Pressure-icon.png' ,'Pressure','0','10000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('water', 'm3', 'm3', 'media/ico/water-icon.png' ,'Water','0', '100')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('gas', 'm3', 'm3', 'media/ico/gas-icon.png' ,'Gas','0', '100')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('elec', 'kWh', 'W', 'media/ico/Lamp-icon.png' ,'Electricity','0', '99999999')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('watt', 'W', 'W', 'media/ico/watt.png' ,'Watt','-10000', '10000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('volt', 'V', 'V', 'media/ico/volt.png' ,'Volt','-10000', '10000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('amps', 'A', 'A', 'media/ico/amper.png' ,'Amps','0', '10000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('dist', 'cm', 'cm', 'media/ico/Distance-icon.png' ,'Distance','0', '100000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('trigger', '', '', 'media/ico/alarm-icon.png' ,'Trigger','0', '100000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('rainfall', 'mm/m2', 'mm/m2', 'media/ico/showers.png' ,'Rainfall','0', '10000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('speed', 'km/h', 'km/h', 'media/ico/Wind-Flag-Storm-icon.png' ,'Speed','0', '10000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('wind', '°', '°', 'media/ico/compass.png' ,'Wind','0', '10000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('uv', 'index', 'index', '' ,'UV','0', '10000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('storm', 'km', 'km', 'media/ico/storm-icon.png' ,'Storm','0', '10000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('lightining', '', '', 'media/ico/thunder-icon.png' ,'Lightining','0', '10000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('host', 'ms', 'ms', 'media/ico/Computer-icon.png' ,'Host','0', '10000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('system', '%', '%', '' ,'System','0', '100')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('gpio', 'H/L', 'H/L', 'media/ico/gpio2.png' ,'GPIO')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('group', '', '', '' ,'')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('relay', '', '', 'media/ico/socket-icon.png' ,'Relay')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('battery', '%', '', 'media/ico/Battery-icon.png' ,'Battery','0', '100')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('rssi', 'rssi', '', 'media/ico/wifi-icon.png' ,'RSSI','-1000', '1000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('switch', 'H/L', '', 'media/ico/Switch-icon.png' ,'Switch','-1000', '1000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('gust', 'km/h', '', 'media/ico/gust.png' ,'Gust','0', '255')");
+
 
 
 
@@ -149,28 +226,6 @@ $db->exec("UPDATE sensors SET adj='0' WHERE adj='' OR adj=' ' OR adj is null");
 $db->exec("UPDATE users SET perms='adm' WHERE login='admin' AND perms is null");
 $db->exec("UPDATE OR IGNORE settings SET tempnum='3' where id='1' AND tempnum is null");
 
-
-$db->exec("INSERT OR IGNORE INTO mail_settings (id,tlscheck) VALUES (1,'off')");
-$db->exec("INSERT OR IGNORE INTO mail_settings (id,tls) VALUES (1,'on')");
-$db->exec("INSERT OR IGNORE INTO mail_settings (id,auth) VALUES (1,'on')");
-$db->exec("INSERT OR IGNORE INTO access_time (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime) VALUES  ('any', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', '00:00', '23:59')");
-$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('bmp180','77')");
-$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tsl2561','39')");
-$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('ds2482','18')");
-$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('ds2482','1a')");
-$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('htu21d','40')");
-$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('mpl3115a2','60')");
-$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('hih6130','27')");
-$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tmp102','48')");
-$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('bh1750','23')");
-$db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('bme280','76')");
-$db->exec("INSERT OR IGNORE INTO fw (id, ssh, icmp, ext, openvpn, radius ) VALUES (1,'off','off', '0.0.0.0/0', 'off', 'off')");
-$db->exec("INSERT OR IGNORE INTO meteo (id, temp, latitude, height, pressure, humid, onoff ) VALUES (1,'0','0','0','0','0','off')");
-$db->exec("INSERT OR IGNORE INTO settings (id,gpio) VALUES (1,'on')");
-$db->exec("INSERT OR IGNORE INTO device (id,lmsensors) VALUES (1,'off')");
-$db->exec("INSERT OR IGNORE INTO device (id,i2c) VALUES (1,'off')");
-$db->exec("INSERT OR IGNORE INTO device (id,wireless) VALUES (1,'off')");
-
 $db->exec("ALTER TABLE sensors ADD minmax type TEXT");
 $db->exec("ALTER TABLE sensors ADD sum type TEXT");
 $db->exec("UPDATE sensors SET sum='0' WHERE sum='' OR sum=' ' OR sum is null");
@@ -194,14 +249,8 @@ $db->exec("ALTER TABLE gpio ADD water_debouncing type TEXT");
 $db->exec("ALTER TABLE gpio ADD gas_debouncing type TEXT");
 $db->exec("ALTER TABLE gpio ADD fnum type TEXT");
 
-
 $db->exec("CREATE TABLE usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE)");
-$db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('RS485','none')");
-$db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('1wire','none')");
-$db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('1wire Serial','none')");
-$db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem Call','none')");
-$db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('Modem SMS','none')");
-$db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('UPS Pimowo','none')");
+
 $db->exec("ALTER TABLE gpio ADD state type TEXT");
 
 $db->exec("ALTER TABLE sensors ADD map_pos type NUM");
@@ -247,7 +296,6 @@ $db->exec("UPDATE hosts SET position='1' WHERE position is null");
 
 $db->exec("ALTER TABLE sensors ADD ch_group type NUM");
 
-$db->exec("INSERT OR IGNORE INTO statistics (agreement) VALUES ('no') WHERE id=1");
 
 $db->exec("CREATE TABLE g_func (id INTEGER PRIMARY KEY, position INTEGER DEFAULT 0, sensor TEXT, sensor2 TEXT, onoff TEXT, value TEXT, op TEXT, hyst TEXT, source TEXT, gpio TEXT, w_profile TEXT)");
 
@@ -269,14 +317,11 @@ $db->exec("ALTER TABLE hosts ADD element_id type TEXT");
 
 
 $db->exec("ALTER TABLE settings ADD temp_scale TEXT");
-$db->exec("INSERT OR IGNORE INTO settings (id, temp_scale) VALUES (1, 'C')");
 $db->exec("UPDATE settings SET temp_scale='C' WHERE temp_scale is null OR temp_scale=''");
 
 $db->exec("CREATE TABLE highcharts (id INTEGER PRIMARY KEY,charts_min TEXT, charts_theme TEXT, charts_fast TEXT)");
-$db->exec("INSERT OR IGNORE INTO highcharts (id, charts_min, charts_theme, charts_fast) VALUES (1, '1', 'black', 'off')");
 $db->exec("ALTER TABLE gpio ADD moment_time type TEXT");
 $db->exec("CREATE TABLE charts (id INTEGER PRIMARY KEY,charts TEXT)");
-$db->exec("INSERT OR IGNORE INTO charts (id, charts) VALUES (1, 'Highcharts')");
 
 $db->exec("CREATE TABLE rs485 (id INTEGER PRIMARY KEY,dev,addr TEXT)");
 $db->exec("ALTER TABLE sensors ADD jg TEXT");
@@ -285,18 +330,9 @@ $db->exec("ALTER TABLE meteo ADD normalized TEXT");
 $db->exec("ALTER TABLE meteo ADD jg TEXT");
 $db->exec("CREATE TABLE html (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT)");
 
-$db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('info', 'on')");
-$db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('footer', 'on')");
-$db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('screen', 'off')");
-$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('nettemp_logo', ' media/png/nettemp.pl.png')");
-$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('nettemp_link', 'http://nettemp.pl')");
-$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('nettemp_alt', 'nettemp')");
-$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('charts_max', 'day')");
-$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('map_width', '800')");
-$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('map_height', '600')");
+
 
 $db->exec("CREATE TABLE minmax (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT)");
-$db->exec("INSERT OR IGNORE INTO minmax (name, state) VALUES ('mode', '1')");
 $db->exec("CREATE TABLE types (id INTEGER PRIMARY KEY,type UNIQUE, unit TEXT, unit2 TEXT, ico TEXT, title TEXT, min NUMERIC, max NUMERIC, value1 NUMERIC, value2 NUMERIC, value3 NUMERIC");
 
 $db->exec("ALTER TABLE types ADD min NUMERIC");
@@ -305,55 +341,8 @@ $db->exec("ALTER TABLE types ADD value1 NUMERIC");
 $db->exec("ALTER TABLE types ADD value2 NUMERIC");
 $db->exec("ALTER TABLE types ADD value3 NUMERIC");
 
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max, value1, value2, value3) VALUES ('temp', '°C', '°F', 'media/ico/temp2-icon.png' ,'Temperature','-150', '3000', '85', '185' ,'127.9')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('lux', 'lux', 'lux', 'media/ico/sun-icon.png' ,'Lux','8000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('humid', '%', '%', 'media/ico/rain-icon.png' ,'Humidity','0', '110')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('press', 'hPa', 'hPa', 'media/ico/Science-Pressure-icon.png' ,'Pressure','0','10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('water', 'm3', 'm3', 'media/ico/water-icon.png' ,'Water','0', '100')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('gas', 'm3', 'm3', 'media/ico/gas-icon.png' ,'Gas','0', '100')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('elec', 'kWh', 'W', 'media/ico/Lamp-icon.png' ,'Electricity','0', '99999999')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('watt', 'W', 'W', 'media/ico/watt.png' ,'Watt','-10000', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('volt', 'V', 'V', 'media/ico/volt.png' ,'Volt','-10000', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('amps', 'A', 'A', 'media/ico/amper.png' ,'Amps','0', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('dist', 'cm', 'cm', 'media/ico/Distance-icon.png' ,'Distance','0', '100000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('trigger', '', '', 'media/ico/alarm-icon.png' ,'Trigger','0', '100000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('rainfall', 'mm/m2', 'mm/m2', 'media/ico/showers.png' ,'Rainfall','0', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('speed', 'km/h', 'km/h', 'media/ico/Wind-Flag-Storm-icon.png' ,'Speed','0', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('wind', '°', '°', 'media/ico/compass.png' ,'Wind','0', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('uv', 'index', 'index', '' ,'UV','0', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('storm', 'km', 'km', 'media/ico/storm-icon.png' ,'Storm','0', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('lightining', '', '', 'media/ico/thunder-icon.png' ,'Lightining','0', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('host', 'ms', 'ms', 'media/ico/Computer-icon.png' ,'Host','0', '10000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('system', '%', '%', '' ,'System','0', '100')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('gpio', 'H/L', 'H/L', 'media/ico/gpio2.png' ,'GPIO')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('group', '', '', '' ,'')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('relay', '', '', 'media/ico/socket-icon.png' ,'Relay')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('battery', '%', '', 'media/ico/Battery-icon.png' ,'Battery','0', '100')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('rssi', 'rssi', '', 'media/ico/wifi-icon.png' ,'RSSI','-1000', '1000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('switch', 'H/L', '', 'media/ico/Switch-icon.png' ,'Switch','-1000', '1000')");
-	$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('gust', 'km/h', '', 'media/ico/gust.png' ,'Gust','0', '255')");
+	
 
-
-
-$db->exec("UPDATE types SET min='-150', max='3000', value1='85', value2='185', value3='127.9' WHERE type='temp' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='110' WHERE type='humid' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='-1', max='8000' WHERE type='lux' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='10000' WHERE type='press' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='100' WHERE type='gas' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='100' WHERE type='water' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='99999999' WHERE type='elec' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='-10000', max='10000' WHERE type='watt' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='-10000', max='10000' WHERE type='volt' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='10000' WHERE type='host' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='10000' WHERE type='amps' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='10000' WHERE type='dist' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='10000' WHERE type='trigger' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='10000' WHERE type='rainfall' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='10000' WHERE type='speed' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='10000' WHERE type='wind' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='10000' WHERE type='uv' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='10000' WHERE type='storm' AND min is null AND max is null");
-$db->exec("UPDATE types SET min='0', max='10000' WHERE type='lightining' AND min is null AND max is null");
 
 
 //UPDATE NEWDEV
