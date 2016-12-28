@@ -16,9 +16,9 @@ try {
 try {
 //CLEAN
 $dbc = new PDO("sqlite:$ROOT/dbf/nettemp.db");
-$dbc->exec("DELETE FROM settings WHERE id>1");
-$dbc->exec("DROP trigger hosts_time_trigger");
-$dbc->exec("DROP index unique_name");
+//$db->exec("DELETE FROM settings WHERE id>1");
+$db->exec("DROP trigger IF EXISTS hosts_time_trigger");
+$db->exec("DROP index IF EXISTS unique_name");
 	
 //WAL
 $db->exec("PRAGMA journal_mode=WAL");
