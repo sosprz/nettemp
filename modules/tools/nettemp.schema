@@ -153,6 +153,7 @@ CREATE TABLE rs485 (id INTEGER PRIMARY KEY,dev,addr TEXT);
 CREATE TABLE html (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT);
 CREATE TABLE minmax (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT);
 CREATE TABLE types (id INTEGER PRIMARY KEY,type UNIQUE, unit TEXT, unit2 TEXT, ico TEXT, title TEXT, min NUMERIC, max NUMERIC, value1 NUMERIC, value2 NUMERIC, value3 NUMERIC);
+CREATE TRIGGER aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;
 CREATE TABLE hosts (
     id INTEGER PRIMARY KEY,
     time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
