@@ -13,12 +13,12 @@ try {
 }
 
 try {
-    $query = $db->query("SELECT serial FROM device");
+    $query = $db->query("SELECT usb FROM device");
     $result= $query->fetchAll();
     foreach($result as $r) {
-		$serial=$r['serial'];
+		$usb=$r['usb'];
 	}
-		if($serial!='off') {
+		if($usb!='off') {
 			include(dirname(dirname(dirname(dirname(__FILE__))))."/receiver.php");
 			
 			$file_digi2 = file("$ROOT/tmp/.digitemprcs");
@@ -28,7 +28,7 @@ try {
 					list($rom, $nr, $id1, $id2, $id3, $id4, $id5, $id6, $id7, $id8 ) = explode(" ", $trim_line_digi);
 					$rom="$id1$id2$id3$id4$id5$id6$id7$id8";
 					$rom2= "$id1 $id2 $id3 $id4 $id5 $id6 $id7 $id8";
-					$cmd="/usr/bin/digitemp_$serial -c $ROOT/tmp/.digitemprcs -t $rom2 -q -o%.1C";
+					$cmd="/usr/bin/digitemp_$usb -c $ROOT/tmp/.digitemprc -t $rom2 -q -o%.1C";
 					$output=shell_exec($cmd);
 					$output=trim($output);
 				echo $date." Rom: ".$rom." Value:".$output."\n"; 
