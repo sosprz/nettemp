@@ -15,9 +15,9 @@ if ($update == "Update") {
 	$newfile = $ROOT."/dbf/nettemp.db.".substr(rand(), 0, 4);
 
 	if (!copy($file, $newfile)) {
-		echo "failed to copy $file...\n";
+		echo "failed to copy $file\n";
 	} else {
-		echo "New backup $newfile...\n";
+		echo "New backup $newfile\n";
 	}
 	
 	
