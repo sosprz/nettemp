@@ -107,8 +107,8 @@ function scale($val,$type) {
 	} else {
 		return $val;
 	}
-	$sthr=null;
-    $dbr=null;
+	//$sthr=null;
+    //$dbr=null;
 }
 
 function trigger($rom) {
@@ -131,8 +131,8 @@ function trigger($rom) {
     } else {
 		echo "error\n";
     }
-    $sthr=null;
-    $dbr=null;
+    //$sthr=null;
+    //$dbr=null;
 
 }
 
@@ -151,8 +151,8 @@ function check($val,$type) {
 			return 'range';
 		}
 	}
-    $sthr=null;
-    $dbr=null;	
+    //$sthr=null;
+    //$dbr=null;	
 
 }
 
@@ -239,9 +239,9 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 		$dbr->exec("INSERT OR IGNORE INTO newdev (rom,type,device,ip,gpio,i2c,usb,name) VALUES ('$rom','$type','$device','$ip','$gpio','$i2c','$usb','$name')");
 		echo "No DB. Added ".$rom." to new sensors \n";
 	}
-	$sthr=null;
-	$dbr=null;
-	$dbfr=null;
+	//$sthr=null;
+	//$dbr=null;
+	//$dbfr=null;
 } 
 
 
@@ -264,8 +264,8 @@ foreach ( $result as $a) {
 	$chmin=$a['charts_min'];
 	}
     
-$sthr=null;
-$dbr=null;
+//$sthr=null;
+//$dbr=null;
 
 
 if (("$key" != "$skey") && (!defined('LOCAL')))
