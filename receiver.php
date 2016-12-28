@@ -91,15 +91,27 @@ $local_gpio='';
 $local_usb='';
 
 
+$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
+
+$sthr = $dbr->prepare("select server_key,temp_scale from settings WHERE id='1'");
+$sthr->execute();
+$result = $sthr->fetchAll();
+foreach ( $result as $a) {
+	$skey=$a['server_key'];
+	$scale=$a['temp_scale'];
+}
+
+$sthr = $dbr->prepare("select * from highcharts WHERE id='1'");
+$sthr->execute();
+$result = $sthr->fetchAll();
+foreach ( $result as $a) {
+	$chmin=$a['charts_min'];
+}
+
+
 
 function scale($val,$type) {
-	$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
-	$sthr = $dbr->prepare("select * from settings WHERE id='1'");
-	$sthr->execute();
-	$result = $sthr->fetchAll();
-	foreach ( $result as $a) {
-		$scale=$a['temp_scale'];
-	}
+	global $scale;
 	// scale F->C
 	if($scale=='F' && $type=='temp') {
 		$val=$val*1.8+32;
@@ -160,9 +172,9 @@ function check($val,$type) {
 
 function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 	$file = "$rom.sql";
+	global $chmin;
 	$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
 	if(file_exists(__DIR__."/db/".$file)&&filesize(__DIR__."/db/".$file)!=0){
-		global $chmin;
 		$dbfr = new PDO("sqlite:".__DIR__."/db/$file");
 		$sthr = $dbr->query("SELECT rom FROM sensors WHERE rom='$rom'");
 		$row = $sthr->fetchAll();
@@ -244,28 +256,6 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 	//$dbfr=null;
 } 
 
-
-
-$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
-
-$sthr = $dbr->prepare("select * from settings WHERE id='1'");
-$sthr->execute();
-$result = $sthr->fetchAll();
-foreach ( $result as $a) {
-	$skey=$a['server_key'];
-	$scale=$a['temp_scale'];
-	}
-
-$sthr = $dbr->prepare("select * from highcharts WHERE id='1'");
-$sthr->execute();
-$result = $sthr->fetchAll();
-foreach ( $result as $a) {
-	global $chmin;
-	$chmin=$a['charts_min'];
-	}
-    
-//$sthr=null;
-//$dbr=null;
 
 
 if (("$key" != "$skey") && (!defined('LOCAL')))
