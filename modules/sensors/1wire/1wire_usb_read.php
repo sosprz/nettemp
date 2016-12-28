@@ -13,15 +13,14 @@ try {
 }
 
 try {
+	include(dirname(dirname(dirname(dirname(__FILE__))))."/receiver.php");
     $query = $db->query("SELECT usb FROM device");
     $result= $query->fetchAll();
     foreach($result as $r) {
 		$usb=$r['usb'];
 	}
 		if($usb!='off') {
-			include(dirname(dirname(dirname(dirname(__FILE__))))."/receiver.php");
-			
-			$file_digi2 = file("$ROOT/tmp/.digitemprcs");
+			$file_digi2 = file("$ROOT/tmp/.digitemprc");
 			foreach($file_digi2 as $line_digi) {
 				if(strstr($line_digi,"ROM")) { 
 					$trim_line_digi=trim($line_digi);
