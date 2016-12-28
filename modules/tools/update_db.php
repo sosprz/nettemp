@@ -14,6 +14,11 @@ try {
 }
 
 try {
+//CLEAN
+$db->exec("DELETE FROM settings WHERE id>1");
+$db->exec("DROP trigger hosts_time_trigger");
+$db->exec("drop index unique_name");
+	
 //WAL
 $db->exec("PRAGMA journal_mode=WAL");
 
@@ -325,9 +330,6 @@ $db->exec("UPDATE settings SET autologout='on' WHERE autologout is null");
 //TIME & TRIGGER
 $db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
 
-//CLEAN
-$db->exec("DELETE FROM settings WHERE id>1");
-//$db->exec("DROP trigger hosts_time_trigger");
 
 // FAKE INFO
 echo $date." nettemp database update: ok \n";
