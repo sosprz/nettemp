@@ -11,6 +11,14 @@ if ($update == "Update") {
 ?>
 <pre>
 <?php
+	$file = "$ROOT/dbf/nettemp.db";
+	$newfile = $ROOT."/dbf/nettemp.db".substr(rand(), 0, 4);
+
+	if (!copy($file, $newfile)) {
+		echo "failed to copy $file...\n";
+	}
+	
+	
     passthru("cd /var/www/nettemp && git reset --hard");
     passthru("/usr/bin/git pull 2>&1");
     shell_exec("$ROOT/modules/tools/update_su");
