@@ -5,8 +5,7 @@ if ($backup == "backup") {
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
 }
-?>
-<?php
+
 $backup_file = isset($_POST['backup_file']) ? $_POST['backup_file'] : '';
 $rm = isset($_POST['rm']) ? $_POST['rm'] : '';
 if ($rm == "rm") {
@@ -14,8 +13,28 @@ if ($rm == "rm") {
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     } 
-?> 
-<?php
+    
+$db_file = isset($_POST['db_file']) ? $_POST['db_file'] : '';
+$rmdb = isset($_POST['rmdb']) ? $_POST['rmdb'] : '';
+if ($rmdb == "rm") {
+    unlink("dbf/$db_file");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();	
+}
+
+$mkdb = isset($_POST['mkdb']) ? $_POST['mkdb'] : '';
+if ($mkdb == "mkdb") {
+	$file = "dbf/nettemp.db";
+	$newfile = "dbf/nettemp.db.".date('y-m-d_His').'.'.substr(rand(), 0, 4);
+	if (!copy($file, $newfile)) {
+		echo "failed to copy $file\n";
+	} else {
+		echo "New backup $newfile\n";
+	}
+} 
+ 
+  
+    
 $restore_file = isset($_POST['restore_file']) ? $_POST['restore_file'] : '';
 $re = isset($_POST['re']) ? $_POST['re'] : '';
 if ($re == "re") {   
@@ -81,7 +100,11 @@ foreach($files AS $file) {
 
 <div class="panel panel-default">
 <div class="panel-heading">DB Backup files</div>
-
+<div class="panel-body">
+<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+<input type="hidden" name="mkdb" value="mkdb">
+<input  type="submit" value="Make DB backup" class="btn btn-xs btn-success" />
+</form>
 <table class="table table-striped condensed">
 <thead><tr><th>file</th><th>Size</th><th>Delete</th></tr></thead>
 
@@ -96,8 +119,8 @@ foreach($files AS $file) {
 <td><a href="<?php echo "$dir/$file";?>"><?php echo $file; ?></a></td>
 <td><?php $filesize = (filesize("$dir$file") * .0009765625) * .0009765625; echo round($filesize, 2) ?>MB</td>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
-	<input type="hidden" name="backup_file" value="<?php echo $file; ?>" />
-	<input type="hidden" name="rm" value="rm" />
+	<input type="hidden" name="db_file" value="<?php echo $file; ?>" />
+	<input type="hidden" name="rmdb" value="rm" />
 <td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
 </form>
 </tr>
@@ -106,6 +129,7 @@ foreach($files AS $file) {
  }}
 ?>
 </table>
+</div>
 </div>
 
 
