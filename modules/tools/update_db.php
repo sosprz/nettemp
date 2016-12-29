@@ -52,7 +52,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS vpn (id INTEGER PRIMARY KEY,users UNIQUE)"
 
 //ALTER
 $dba = new PDO("sqlite:$ROOT/dbf/nettemp.db");
-$db->exec("ALTER TABLE camera ADD access_all type TEXT");
+$dba->exec("ALTER TABLE camera ADD access_all type TEXT");
 $dba->exec("ALTER TABLE camera ADD link type TEXT");
 $dba->exec("ALTER TABLE camera ADD name type TEXT");
 $dba->exec("ALTER TABLE day_plan ADD gpio type TEXT");
