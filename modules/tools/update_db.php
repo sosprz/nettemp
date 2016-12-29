@@ -14,12 +14,17 @@ try {
 }
 
 try {
+// http://php.net/manual/en/pdo.transactions.php
+
+$db->beginTransaction();
+
+/* Change the database schema and data */
+
 //CLEAN
-$dbc = new PDO("sqlite:$ROOT/dbf/nettemp.db");
-$dbc->exec("DELETE FROM settings WHERE id>1");
-$dbc->exec("DROP TRIGGER IF EXISTS hosts_time_trigger");
-$dbc->exec("DROP TRIGGER IF EXISTS aupdate_time_trigger");
-$dbc->exec("DROP INDEX IF EXISTS unique_name");
+$db->exec("DELETE FROM settings WHERE id>1");
+$db->exec("DROP TRIGGER IF EXISTS hosts_time_trigger");
+$db->exec("DROP TRIGGER IF EXISTS aupdate_time_trigger");
+$db->exec("DROP INDEX IF EXISTS unique_name");
 
 //WAL
 $db->exec("PRAGMA journal_mode=WAL");
@@ -47,7 +52,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS vpn (id INTEGER PRIMARY KEY,users UNIQUE)"
 
 //ALTER
 $dba = new PDO("sqlite:$ROOT/dbf/nettemp.db");
-$dba->exec("ALTER TABLE camera ADD access_all type TEXT");
+$db->exec("ALTER TABLE camera ADD access_all type TEXT");
 $dba->exec("ALTER TABLE camera ADD link type TEXT");
 $dba->exec("ALTER TABLE camera ADD name type TEXT");
 $dba->exec("ALTER TABLE day_plan ADD gpio type TEXT");
@@ -119,7 +124,6 @@ $dba->exec("ALTER TABLE maps ADD map_on type TEXT");
 $dba->exec("ALTER TABLE maps ADD transparent type TEXT");
 $dba->exec("ALTER TABLE maps ADD transparent_bkg type TEXT");
 
-$dba->exec("ALTER TABLE meteo ADD COLUMN onoff TEXT");
 $dba->exec("ALTER TABLE meteo ADD jg TEXT");
 $dba->exec("ALTER TABLE meteo ADD normalized TEXT");
 
@@ -301,7 +305,6 @@ $key=generateRandomString();
 $db->exec("UPDATE OR IGNORE settings SET server_key='$key' where id='1' AND server_key is null");
 // END DEFAULT INSERT
 
-
 //UPDATE
 $db->exec("UPDATE gpio SET position='1' WHERE position is null");
 $db->exec("UPDATE hosts SET position='1' WHERE position is null");
@@ -319,19 +322,23 @@ $db->exec("UPDATE settings SET temp_scale='C' WHERE temp_scale is null OR temp_s
 $db->exec("UPDATE snmp SET version='2c' WHERE version is null");
 $db->exec("UPDATE users SET perms='adm' WHERE login='admin' AND perms is null");
 
-
 //TIME & TRIGGER
 //$db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
 $db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE OF tmp ON sensors FOR EACH ROW WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END");
 //$db->exec("create unique index unique_name on newdev(rom)");
 
-// FAKE INFO
-echo $date." nettemp database update: ok \n";
+/* COMMIT */
+$db->commit();
 
 } catch (Exception $e) {
+	/* Recognize mistake and roll back changes */
+	$db->rollBack();
     echo $date." Error.\n";
     echo $e;
-    //exit;
+    exit;
 }
+
+echo $date." nettemp database update: ok \n";
+
 
 ?>
