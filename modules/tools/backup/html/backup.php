@@ -79,29 +79,25 @@ foreach($files AS $file) {
 </div>
 </div>
 
+<div class="panel panel-default">
+<div class="panel-heading">DB Backup files</div>
 
-
-<table class="table table-striped">
-<thead><tr><th>file</th><th>Size</th><th>Restore</th><th></th></tr></thead>
+<table class="table table-striped condensed">
+<thead><tr><th>file</th><th>Size</th><th>Delete</th></tr></thead>
 
 <?php
 $dir = 'dbf';
 $files = scandir($dir);
-$fileExtensions = array('.db.');
+$fileExtensions = array('.','..','.gitignore','nettemp.db','nettemp.db-wal','nettemp.db-shm');
 foreach($files AS $file) {
- if(is_file($dir.'/'.$file) AND in_array($fileinfo['extension'], $fileExtensions)) { 
+ if(is_file($dir.'/'.$file) AND !in_array($file, $fileExtensions)) { 
 ?>
 <tr>
-<td><a href="<?php echo "$dir$file";?>"><?php echo $file; ?></a></td>
+<td><a href="<?php echo "$dir/$file";?>"><?php echo $file; ?></a></td>
 <td><?php $filesize = (filesize("$dir$file") * .0009765625) * .0009765625; echo round($filesize, 2) ?>MB</td>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
-<input type="hidden" name="restore_file" value="<?php echo $file; ?>" />
-<input type="hidden" name="re" value="re" />
-<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-play"></span> </button></td>
-</form>
-<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
-<input type="hidden" name="backup_file" value="<?php echo $file; ?>" />
-<input type="hidden" name="rm" value="rm" />
+	<input type="hidden" name="backup_file" value="<?php echo $file; ?>" />
+	<input type="hidden" name="rm" value="rm" />
 <td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
 </form>
 </tr>
@@ -110,6 +106,7 @@ foreach($files AS $file) {
  }}
 ?>
 </table>
+</div>
 
 
 
