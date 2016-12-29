@@ -97,31 +97,13 @@ foreach ($result as $a) {
 	if(count($result)>0) {				
 ?>
 <tr>
-	<td class="col-md-0">
-	</td>
-	<td class="col-md-0">
-	</td>
-	<td class="col-md-0">
-	</td>
-	<td class="col-md-0">
-	</td>
-	<td class="col-md-0">
-	</td>
-	<td class="col-md-0">
-	</td>
-	<td class="col-md-0">
-	</td>
-	<td class="col-md-0">
-	</td>
-	<td class="col-md-0">
-	</td>
-	<td class="col-md-0">
-	</td>
-	<td class="col-md-0">
+	<td  colspan = "12">
+		<center>
 		<form action="" method="post">
 			<input type="hidden" name="delallnewrom" value="yes" > 
-			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> Remove all new device</button>
 		</form>
+		</center>
 	</td>
 </tr>
 <?php

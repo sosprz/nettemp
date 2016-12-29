@@ -46,6 +46,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS minmax (id INTEGER PRIMARY KEY,name UNIQUE
 $db->exec("CREATE TABLE IF NOT EXISTS types (id INTEGER PRIMARY KEY,type UNIQUE, unit TEXT, unit2 TEXT, ico TEXT, title TEXT, min NUMERIC, max NUMERIC, value1 NUMERIC, value2 NUMERIC, value3 NUMERIC)");
 
 //ALTER
+/*
 $dba = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 $dba->exec("ALTER TABLE newdev ADD type type TEXT");
 $dba->exec("ALTER TABLE newdev ADD rom type TEXT");
@@ -206,6 +207,7 @@ $dba->exec("ALTER TABLE sensors ADD mail type TEXT");
 $dba->exec("ALTER TABLE settings ADD autologout type TEXT");
 $dba->exec("ALTER TABLE gpio ADD ip type TEXT");
 $dba->exec("ALTER TABLE gpio ADD rom type TEXT");
+*/
 
 
 // DEFAULT INSERT
