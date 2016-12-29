@@ -78,3 +78,39 @@ foreach($files AS $file) {
 
 </div>
 </div>
+
+
+
+<table class="table table-striped">
+<thead><tr><th>file</th><th>Size</th><th>Restore</th><th></th></tr></thead>
+
+<?php
+$dir = 'dbf';
+$files = scandir($dir);
+$fileExtensions = array('.db.');
+foreach($files AS $file) {
+ if(is_file($dir.'/'.$file) AND in_array($fileinfo['extension'], $fileExtensions)) { 
+?>
+<tr>
+<td><a href="<?php echo "$dir$file";?>"><?php echo $file; ?></a></td>
+<td><?php $filesize = (filesize("$dir$file") * .0009765625) * .0009765625; echo round($filesize, 2) ?>MB</td>
+<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
+<input type="hidden" name="restore_file" value="<?php echo $file; ?>" />
+<input type="hidden" name="re" value="re" />
+<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-play"></span> </button></td>
+</form>
+<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
+<input type="hidden" name="backup_file" value="<?php echo $file; ?>" />
+<input type="hidden" name="rm" value="rm" />
+<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
+</form>
+</tr>
+
+<?php
+ }}
+?>
+</table>
+
+
+
+
