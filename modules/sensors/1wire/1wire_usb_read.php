@@ -27,7 +27,7 @@ try {
 					list($rom, $nr, $id1, $id2, $id3, $id4, $id5, $id6, $id7, $id8 ) = explode(" ", $trim_line_digi);
 					$rom="$id1$id2$id3$id4$id5$id6$id7$id8";
 					$rom2= "$id1 $id2 $id3 $id4 $id5 $id6 $id7 $id8";
-					$cmd="/usr/bin/digitemp_$usb -c $ROOT/tmp/.digitemprc -t $rom2 -q -o%.1C";
+					$cmd="/usr/bin/digitemp_$usb -c $ROOT/tmp/.digitemprc -t $nr -q -o%.1C";
 					$output=shell_exec($cmd);
 					$output=trim($output);
 				echo $date." Rom: ".$rom." Value:".$output."\n"; 
