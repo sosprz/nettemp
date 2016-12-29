@@ -36,10 +36,11 @@ try {
 		}
 		$local_val=$output;
 		$local_rom=$rom;
-		$device='';
-		$current='';
+		$local_device='ip';
+		$local_ip=$host;
 		echo $date." Host:".$host." Rom:".$local_rom." Type:".$local_type." Value:".$output."\n";
-		db($local_rom,$local_val,$local_type,$device,$current);
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+
 	}
 } catch (Exception $e) {
     echo $date." Error.\n";

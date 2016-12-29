@@ -1,5 +1,29 @@
 <?php
 session_start();
+
+$autologout= isset($_POST['autologout']) ? $_POST['autologout'] : '';
+$setautologout= isset($_POST['setautologout']) ? $_POST['setautologout'] : '';
+    if ($setautologout == "onoff"){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE settings SET autologout='$autologout' WHERE id='1'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
+$rows = $db->query("SELECT autologout FROM settings WHERE id='1'");
+	$row = $rows->fetchAll();
+	foreach($row as $a) {
+	    $autologout=$a['autologout'];
+	}
+
+
+if ($autologout=='on' && isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 600)) {
+	session_unset();     // unset $_SESSION variable for the run-time 
+	session_destroy();   // destroy session data in storage
+}
+$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+
+
 $form_login = isset($_POST['form_login']) ? $_POST['form_login'] : '';
 if ($form_login == "log") { /// do after login form is submitted  
 	$user=$_POST["username"];

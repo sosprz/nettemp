@@ -18,7 +18,7 @@ else
 fi
     if [ -e $dir/tmp/.digitemprc ]; then 
     sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097U'"
-    echo USB: DS9097 found
+    echo USB: DS9097U found
     echo "$date temp_dev_scan - Discovered DS9097U on USB" >> $dir/tmp/log.txt
     else
     sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET usb='off' WHERE id='1'"
@@ -52,7 +52,7 @@ if [ ! -e $dir/tmp/.digitemprc ]; then
 
     if [ -e $dir/tmp/.digitemprc ]; then 
     sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097' WHERE id='1'"
-    USB: DS9097 found
+    echo USB: DS9097 found
     echo "$date temp_dev_scan - Discovered DS9097 on USB" >> $dir/tmp/log.txt
     else
     sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET usb='off'"

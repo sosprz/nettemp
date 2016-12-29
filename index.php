@@ -1,6 +1,15 @@
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
+
+$sth = $db->query("PRAGMA integrity_check");
+$row = $sth->fetchAll();
+foreach($row as $r){
+	if($r[0]!=ok) {
+		echo "databse problem: PRAGMA integrity_check";
+	}
+}
+
 include("modules/login/login.php");
 ob_start();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -64,7 +73,7 @@ if($id != 'screen') {
 <ul class="nav navbar-nav">
 <?php
 $rows1 = $db->query("SELECT * FROM gpio WHERE mode='simple' OR mode='moment' OR mode='trigger' OR mode='call'") or header("Location: html/errors/db_error.php");
-$rows2 = $db->query("SELECT * FROM sensors WHERE type='relay'") or header("Location: html/errors/db_error.php");
+$rows2 = $db->query("SELECT * FROM sensors WHERE type='relay' OR type='switch'") or header("Location: html/errors/db_error.php");
 $row1 = $rows1->fetchAll();
 $row2 = $rows2->fetchAll();
 $numsimple = count($row1);
@@ -122,7 +131,12 @@ if($html_info=='on') {
 	<form method="post" action="logout" class="navbar-form navbar-right" >
 	    <?php echo $_SESSION["user"];?>
 	    <button type="submit" class="btn btn-xs btn-success">Log Out</button>
-	</form>        
+	</form>   
+	<form action="" method="post" class="navbar-form navbar-right">
+		Auto logout
+		<input type="checkbox" data-toggle="toggle" data-size="mini" " name="autologout" value="on" <?php echo $autologout == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="setautologout" value="onoff" />
+    </form>     
     <?php } ?>
     	</div><!--/.nav-collapse -->
 	</div><!--/.container-fluid -->
@@ -155,18 +169,34 @@ case 'logout': include('modules/login/logout.php'); break;
 case 'upload': include('modules/tools/backup/html/upload.php'); break;
 case 'csv': include('common/csv.php'); break;
 case 'receiver': include('modules/sensors/html/receiver.php'); break;
-case 'controls': include('modules/relays/html/relays_controls.php'); include('modules/gpio/html/gpio_controls.php'); break;
+case 'controls': include('modules/relays/html/relays_controls.php'); include('modules/relays/html/switch_controls.php'); include('modules/gpio/html/gpio_controls.php'); break;
 case 'screen': include('modules/screen/screen.php'); break;
 }
 ?>
 </div>
+<script type="text/javascript">
+var refreshTime = 30000; // every 5 minutes in milliseconds
+window.setInterval( function() {
+    $.ajax({
+        cache: false,
+        type: "GET",
+        url: "common/refreshSession.php",
+        success: function(data) {
+        }
+    });
+}, refreshTime );
+</script>
+
 <?php 
 	if(($html_footer=='on')&&($id!='screen')){ ?>
 <footer class="footer">
       <div class="container text-center">
-	    <a href="https://nettemp.pl/forum/viewforum.php?f=25" target="_blank" class="btn btn-xs btn-primary"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </a>
+			<a href="https://nettemp.pl/forum/viewforum.php?f=35" target="_blank" class="btn btn-xs btn-primary"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </a>
 	    <?php include('html/info/paypal.php');?>
-	    <button class="btn btn-xs btn-primary">System time <?php passthru("date +%H:%M:%S");?></button>
+			<button class="btn btn-xs btn-primary">System time <?php passthru("date +%H:%M:%S");?></button>
+	    <?php if (file_exists("tmp/update")) {  ?>
+			<a href="index.php?id=tools&type=update" class="btn btn-xs btn-info">Update available!</a>
+		<?php } ?>
 
 	    
       </div>
@@ -184,4 +214,5 @@ case 'screen': include('modules/screen/screen.php'); break;
 <?php 
 }
 ?>
+
 

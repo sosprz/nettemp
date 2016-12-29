@@ -46,50 +46,50 @@ for i in ${det[@]}
     do
         for s in $(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='bmp180' AND addr='$i'")
 	    do
-		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$press')"
-		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$temp')"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (name, rom, device, i2c, type) VALUES ('i2c_$s$press','i2c_$s$press','i2c','$s','press')"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (name, rom, device, i2c, type) VALUES ('i2c_$s$temp','i2c_$s$temp','i2c','$s','temp')"
 	done
 
         for s in $(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='bme280' AND addr='$i'")
     	    do
-      		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$temp')"
-      		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$press')"
-      		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$humid')"
+      		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (name, rom, device, i2c, type) VALUES ('i2c_$s$temp','i2c_$s$temp','i2c','$s','temp')"
+      		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (name, rom, device, i2c, type) VALUES ('i2c_$s$press','i2c_$s$press','i2c','$s','press')"
+      		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (name, rom, device, i2c, type) VALUES ('i2c_$s$humid','i2c_$s$humid','i2c','$s','humid')"
    	done
 
         for s in $(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='tsl2561' AND addr='$i'")
 	    do
-		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$lux')"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (name, rom, device, i2c, type) VALUES ('i2c_$s$lux','i2c_$s$lux','i2c','$s','lux')"
         done
 
 	for s in $(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='bh1750' AND addr='$i'")
 	    do
-		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$lux')"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (name, rom, device, i2c, type) VALUES ('i2c_$s$lux','i2c_$s$lux','i2c','$s','lux')"
         done
         
 	
 
 	for s in $(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='htu21d' AND addr='$i'")
 	    do
-		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$humid')"
-		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$temp')"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (name, rom, device, i2c, type) VALUES ('i2c_$s$humid','i2c_$s$humid','i2c','$s','humid')"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (name, rom, device, i2c, type) VALUES ('i2c_$s$temp','i2c_$s$temp','i2c','$s','temp')"
         done
 
 	for s in $(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='mpl3115a2' AND addr='$i'")
 	    do
-		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$press')"
-		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$temp')"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (name, rom, device, i2c, type) VALUES ('i2c_$s$press','i2c_$s$press','i2c','$s','press')"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (name, rom, device, i2c, type) VALUES ('i2c_$s$temp','i2c_$s$temp','i2c','$s','temp')"
         done
 
 	for s in $(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='hih6130' AND addr='$i'")
 	    do
-		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$humid')"
-		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$temp')"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (name, rom, device, i2c, type) VALUES ('i2c_$s$humid','i2c_$s$humid','i2c','$s','humid')"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (name, rom, device, i2c, type) VALUES ('i2c_$s$temp','i2c_$s$temp','i2c','$s','temp')"
         done
 
 	for s in $(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT addr FROM i2c WHERE name='tmp102' AND addr='$i'")
 	    do
-		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('i2c_$s$temp')"
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (name, rom, device, i2c, type) VALUES ('i2c_$s$temp','i2c_$s$temp','i2c','$s','temp')"
         done
 done
 

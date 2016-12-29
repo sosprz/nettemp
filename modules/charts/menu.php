@@ -1,7 +1,7 @@
 <?php 
 $art = isset($_GET['type']) ? $_GET['type'] : '';
-
 $max = isset($_GET['max']) ? $_GET['max'] : '';
+
 if($id=='screen') {
        $max='hour';
        }
@@ -32,7 +32,7 @@ $result_t = $query->fetchAll();
 foreach($result_t as $ty){
 	if(in_array($ty['type'], $typearr)) { 
 	?>
-     <a href="index.php?id=<?php echo $id ?>&type=<?php echo $ty['type']?>&max=<?php echo $html_charts_max?>&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php echo $art == $ty['type'] ? ' active' : ''; ?>"><?php echo $ty['title']?></button></a>
+     <a href="index.php?id=<?php echo $id ?>&type=<?php echo $ty['type']?>&max=<?php echo $html_charts_max?>&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php if($art == $ty['type']&&empty($group)) {echo "active";} ?>"><?php echo $ty['title']?></button></a>
 	<?php
 	}
 }
@@ -40,14 +40,14 @@ foreach($result_t as $ty){
 $query = $db->query("SELECT ch_group FROM sensors ");
 $result_ch_g = $query->fetchAll();
 	foreach($result_ch_g as $uniq) {
-		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none') {
+		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none'&&$uniq['ch_group']!='all') {
 			$unique[]=$uniq['ch_group'];
 		}
 	}
 	$rowu = array_unique($unique);
 	foreach ($rowu as $ch_g) { 	
 		?>
-		<a href="index.php?id=<?php echo $id ?>&type=group&max=<?php echo $html_charts_max?>&mode=&group=<?php echo $ch_g ?>&single=" ><button class="btn btn-xs btn-default <?php echo $art == $ch_g ? ' active' : ''; ?>"><?php echo $ch_g?></button></a>
+		<a href="index.php?id=<?php echo $id ?>&type=group&max=<?php echo $html_charts_max?>&mode=&group=<?php echo $ch_g ?>&single=" ><button class="btn btn-xs btn-default <?php if($group==$ch_g) {echo "active";} ?>">Group: <?php echo $ch_g?></button></a>
 		<?php 
 	}
 
@@ -60,11 +60,12 @@ if (glob('db/gpio_stats_*')) {?>
 <a href="index.php?id=<?php echo $id ?>&type=gpio&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'gpio' ? ' active' : ''; ?>">GPIO</button></a>
 <?php } 
 
-if($id!='screen') {
+if($id!='screen'&&isset($_SESSION['user'])) {
 ?>
 
 <a href="index.php?id=<?php echo $id ?>&type=system&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'system' ? ' active' : ''; ?>">System stats</button></a>
 <a href="index.php?id=<?php echo $id ?>&type=meteogram" ><button class="btn btn-xs btn-default <?php echo $art == 'meteogram' ? ' active' : ''; ?>">Meteogram</button></a>
+
 </p>
 <?php
 if ($art!='meteogram') {

@@ -22,7 +22,7 @@ $sth = $db->prepare("SELECT name,tmp,type FROM sensors WHERE lcd='on' ORDER BY p
 $sth->execute();
 $result = $sth->fetchAll();
 
-    
+$lcd=array();
 foreach ($result as $a) {   
 	foreach($result_t as $ty){
        	if($ty['type']==$a['type']){

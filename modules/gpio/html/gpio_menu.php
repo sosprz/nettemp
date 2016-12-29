@@ -4,7 +4,7 @@ $dbmaps = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 $dir="modules/gpio/";
 $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 
-$position = isset($_POST['position']) ? $_POST['position'] : '';
+	$position = isset($_POST['position']) ? $_POST['position'] : '';
     $position_id = isset($_POST['position_id']) ? $_POST['position_id'] : '';
     if (!empty($position_id) && ($_POST['positionok'] == "ok")){
     $db = new PDO('sqlite:dbf/nettemp.db');
@@ -52,7 +52,7 @@ $row = $rows->fetchAll();
     		</form>
 	</td>
 	<td class="col-md-2">
-		<a href="index.php?id=devices&type=gpio&gpios=<?php echo $b['gpio']?>" class="btn btn-xs btn-success ">GPIO <?php echo $b['gpio']?></a>
+		<a href="index.php?id=devices&type=gpio&gpios=<?php echo $b['gpio']?>" class="btn btn-xs btn-success ">GPIO <?php echo $b['gpio']; if(!empty($b['ip'])){echo " ".$b['ip'];}?></a>
 	</td>
 	<td class="col-md-2">
                 <span class="label label-default"><?php echo $b["name"]; ?></span>

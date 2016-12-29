@@ -51,6 +51,11 @@ if ($uploadOk == 0) {
 ?>
 <div class="panel panel-default">
   <div class="panel-body">
+	<?php if(!file_exists('map.jpg')) { ?>
+		<img src="media/jpg/map_example.jpg?nocache=<?php echo time(); ?>" >
+	<?php } else {?>
+		<img src="map.jpg?nocache=<?php echo time(); ?>" >
+	<?php } ?>
     <form action="" method="post" enctype="multipart/form-data">
     Select image to upload:
     <input type="file" name="fileToUpload" id="fileToUpload">

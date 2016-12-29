@@ -36,33 +36,40 @@
 <div class="grid">
     <div class="grid-sizer"></div>
     <?php
-    include('status/sensor_status.php');
+		$rows = $db->query("SELECT * FROM sensors");
+$row = $rows->fetchAll();
+$numRows = count($row);
+if ($numRows == 0 ) { ?>
+<div class="grid-item sg<?php echo $ch_g ?>">
+<div class="panel panel-default">
+<div class="panel-body">
+Go to device scan!
+<a href="index.php?id=devices&type=scan" class="btn btn-success">GO!</a>
+</div>
+</div>
+<?php
+}
+
     
     //GROUPS
-    $rows = $db->query("SELECT ch_group FROM sensors");
+    $rows = $db->query("SELECT ch_group,type FROM sensors");
 	$result_ch_g = $rows->fetchAll();
+	$unique=array();
 	
 	foreach($result_ch_g as $uniq) {
-		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none') {
+		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none'&&!in_array($uniq['ch_group'], $unique)) {
 			$unique[]=$uniq['ch_group'];
+			$ch_g=$uniq['ch_group'];
+			include('status/sensor_groups.php');
 		}
 	}
 	
-	$rowu = array_unique($unique);
-	$group_num=count($rowu);
-	$groupc=0;
-	foreach ($rowu as $ch_g) { 
-		include('status/sensor_groups.php');
-		$groupc++;
-	}
 	//END GROUPS
 	
     include('status/justgage_status.php');
     include('status/minmax_status.php');
-    include('status/hosts_status.php');
     include('status/gpio_status.php');
     include('status/counters_status.php');
-    include('status/relays_status.php');
     include('status/meteo_status.php');
     foreach (range(1, 10) as $v) {
 		$ow=$v;
@@ -75,18 +82,16 @@
 
 <script type="text/javascript">
     setInterval( function() {
-    $('.ss').load("status/sensor_status.php");
+
     <?php
-		foreach ($rowu as $key => $ch_g) { 
+		foreach ($unique as $key => $ch_g) { 
 	?>
-		$('.sg<?php echo $key?>').load("status/sensor_groups.php?chg=<?php echo $ch_g?>");
+		$('.sg<?php echo $ch_g?>').load("status/sensor_groups.php?ch_g=<?php echo $ch_g?>");
 	<?php
 		}
 	?>
     $('.co').load("status/counters_status.php");
     $('.gs').load("status/gpio_status.php");
-    $('.hs').load("status/hosts_status.php");
-    $('.rs').load("status/relays_status.php");
     $('.ms').load("status/meteo_status.php");
     $('.ow2').load("status/ownwidget2.php");
     $('.ow3').load("status/ownwidget3.php");

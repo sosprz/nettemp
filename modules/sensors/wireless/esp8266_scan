@@ -38,7 +38,7 @@ relay=_relay
 dist=_dist
 volt=_volt
 trigger=_trigger
-wiv=wireless_
+wiv=ip_
 
 if [ -n "$rom" ]
     then
@@ -46,30 +46,30 @@ if [ -n "$rom" ]
 	        ip=$(echo $i|awk -F"_" '{print $1}')
 		    type=$(curl --connect-timeout 3 $ip |sed -e 's/<[^>]*>/\n/g' |grep nettemp |awk '{ print $2}')
 			if [ "$type" == "DHT11" ] || [ "$type" == "DHT22" ]; then
-			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$temp')"
-			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$humid')"
+			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (rom,type,device,ip,name) VALUES ('$wiv$ip$temp','temp','wireless','$ip','$wiv$ip$temp')"
+			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (rom,type,device,ip,name) VALUES ('$wiv$ip$humid','temp','wireless','$ip','$wiv$ip$humid')"
 			    echo Wireless: ESP6288 DHT11/22 found on $ip
 			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET wireless='on' WHERE id='1'"
 			elif [ "$type" == "DHT11V" ] || [ "$type" == "DHT22V" ]; then
-			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$temp')"
-			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$humid')"
-			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$volt')"
+			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (rom,type,device,ip,name) VALUES ('$wiv$ip$temp','temp','wireless','$ip','$wiv$ip$temp')"
+			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (rom,type,device,ip,name) VALUES ('$wiv$ip$humid','humid','wireless','$ip','$wiv$ip$humid')"
+			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (rom,type,device,ip,name) VALUES ('$wiv$ip$volt','volt','wireless','$ip','$wiv$ip$volt')"
 			    echo Wireless: ESP6288 DHT11/22 found on $ip
 			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET wireless='on' WHERE id='1'"
 			elif [ "$type" == "ds18b20" ]; then
-			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$temp')"
+			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (rom,type,device,ip,name) VALUES ('$wiv$ip$temp','temp','wireless','$ip','$wiv$ip$temp')"
 			    echo Wireless: ESP6288 ds18b20 found on $ip
 			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET wireless='on' WHERE id='1'"
 			elif [ "$type" == "relay" ]; then
-			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$relay')"
+			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (rom,type,device,ip,name) VALUES ('$wiv$ip$relay','relay','wireless','$ip','$wiv$ip$relay')"
 			    echo Wireless: ESP6288 relay found on $ip
 			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET wireless='on' WHERE id='1'"
 			elif [ "$type" == "dist" ]; then
-			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$dist')"
+			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (rom,type,device,ip,name) VALUES ('$wiv$ip$dist','dist','wireless','$ip','$wiv$ip$dist')"
 			    echo Wireless: ESP6288 distance found on $ip
 			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET wireless='on' WHERE id='1'"
 			elif [ "$type" == "trigger" ]; then
-			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (list) VALUES ('$wiv$i$trigger')"
+			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "INSERT OR IGNORE INTO newdev (rom,type,device,ip,name) VALUES ('$wiv$ip$trigger','trigger','wireless','$ip','$wiv$ip$trigger')"
 			    echo Wireless: ESP6288 trigger found on $ip
 			    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET wireless='on' WHERE id='1'"
 			fi

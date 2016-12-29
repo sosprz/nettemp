@@ -1,12 +1,9 @@
 <?php
-//gpio, czas, rownasie, metoda
-
-// logowanie do pliku
-
-
-$db = new PDO('sqlite:../../dbf/nettemp.db');
+$ROOT=dirname(dirname(dirname(__FILE__)));
+$db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 $debug = isset($_GET['debug']) ? $_GET['debug'] : '';
-
+$CHECK_OVER='';
+$and='';
 
 ////////////////////////////////////////////////////////
 // functions
@@ -14,22 +11,24 @@ $debug = isset($_GET['debug']) ? $_GET['debug'] : '';
 ob_start();
 
 function timestamp($gpio,$onoff) {
+	global $ROOT;
 	
-	if (file_exists("../../db/gpio_stats_$gpio.sql")) {
-		$db = new PDO("sqlite:../../db/gpio_stats_$gpio.sql") or die ("WARNING timestamp 1\n" );
+	if (file_exists("$ROOT/db/gpio_stats_$gpio.sql")) {
+		$db = new PDO("sqlite:$ROOT/db/gpio_stats_$gpio.sql") or die ("WARNING timestamp 1\n" );
 	   $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("WARNING timestamp 2\n" );
   	}
 	else {
-		$db = new PDO("sqlite:../../db/gpio_stats_$gpio.sql");
+		$db = new PDO("sqlite:$ROOT/db/gpio_stats_$gpio.sql");
    	$db->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)") or die ("WARNING timestamp 3\n" );
     	$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("WARNING timestamp 4\n" );
 	}
 }
 
 function w_profile_check($gpio,$w_profile) {
+	global $ROOT;
+	global $db;
 	$day=date("D");
 	$time=date("Hi");
-	$db = new PDO('sqlite:../../dbf/nettemp.db');
 	$rows = $db->query("SELECT * FROM day_plan WHERE name='$w_profile' AND (Mon='$day' OR Tue='$day' OR Wed='$day' OR Thu='$day' OR Fri='$day' OR Sat='$day' OR Sun='$day')");
 	$row = $rows->fetchAll();
 	$numRows = count($row);
@@ -55,62 +54,111 @@ function w_profile_check($gpio,$w_profile) {
 }
 
 
-function action_on($op,$sensor_name,$gpio,$rev) {
-	$db = new PDO('sqlite:../../dbf/nettemp.db');
-	$out="/usr/local/bin/gpio -g mode $gpio output";
-	$read="/usr/local/bin/gpio -g read $gpio";
-	$on="/usr/local/bin/gpio -g write $gpio 1";
-	$off="/usr/local/bin/gpio -g write $gpio 0";
-	exec($out);
-	exec($read, $check);
-	if ($rev == 'on') {
-	    if ($check['0'] == '1'){ 
-		 	exec($off);
-		 	echo date('Y H:i:s')." GPIO ".$gpio." CHECK" .$check['0'].", SET ON\n";
-	    }
-	    else {
-	    	echo date('Y H:i:s')." GPIO ".$gpio." CHECK" .$check['0'].", ALREADY ON\n";
-	    }
+function action_on($op,$sensor_name,$gpio,$rev,$ip) {
+	global $ROOT;
+	global $db;
+	
+	if(empty($ip)){
+		$out="/usr/local/bin/gpio -g mode $gpio output";
+		$read="/usr/local/bin/gpio -g read $gpio";
+		$on="/usr/local/bin/gpio -g write $gpio 1";
+		$off="/usr/local/bin/gpio -g write $gpio 0";
+		exec($out);
+		exec($read, $check);
+		if ($rev == 'on') {
+			if ($check['0'] == '1'){ 
+				exec($off);
+				echo date('Y H:i:s')." GPIO ".$gpio." CHECK" .$check['0'].", SET ON\n";
+			}
+			else {
+				echo date('Y H:i:s')." GPIO ".$gpio." CHECK" .$check['0'].", ALREADY ON\n";
+			}
+		}
+		else {
+			if ($check['0'] == '0'){ 
+				exec($on);
+				echo date('Y H:i:s')." GPIO ".$gpio." CHECK " .$check['0'].", SET ON\n";
+			}
+			else {
+				echo date('Y H:i:s')." GPIO ".$gpio." CHECK " .$check['0'].", ALREADY ON\n";
+			}
+		}
+	} else {
+		$ch = curl_init();
+		$optArray = array(
+			CURLOPT_URL => "$ip/control?cmd=GPIO,$gpio,1",
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_CONNECTTIMEOUT => 1,
+			CURLOPT_TIMEOUT => 3
+		);
+		curl_setopt_array($ch, $optArray);
+		$res = curl_exec($ch);
+		if(curl_errno($ch))
+		{
+			echo date('Y H:i:s')." GPIO ".$gpio." IP ".$ip.", Curl error: ".curl_error($ch)."\n";
+		}
+		global $rom;
+		$dbf = new PDO("sqlite:$ROOT/db/$rom.sql");
+		$db->exec("UPDATE sensors SET tmp='1.0' WHERE rom='$rom'");
+		echo date('Y H:i:s')." GPIO ".$gpio." IP ".$ip.", SET ON\n";
 	}
-	else {
-	    if ($check['0'] == '0'){ 
-	        exec($on);
-	        echo date('Y H:i:s')." GPIO ".$gpio." CHECK " .$check['0'].", SET ON\n";
-	    }
-	    else {
-	    	echo date('Y H:i:s')." GPIO ".$gpio." CHECK " .$check['0'].", ALREADY ON\n";
-	    }
-	}	
+	
 	$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
   	$onoff='1';
   	timestamp($gpio,$onoff);
- }
-function action_off($op,$sensor_name,$gpio,$rev) {
-	$db = new PDO('sqlite:../../dbf/nettemp.db');
-	$out="/usr/local/bin/gpio -g mode $gpio output";
-	$read="/usr/local/bin/gpio -g read $gpio";
-	$on="/usr/local/bin/gpio -g write $gpio 1";
-	$off="/usr/local/bin/gpio -g write $gpio 0";
-	exec($out);
-	exec($read, $check);
-	if ($rev == 'on') {
-	    if ($check['0'] == '0'){ 
+}
+ 
+function action_off($op,$sensor_name,$gpio,$rev,$ip) {
+	global $db;
+	global $ROOT;
+	
+	if(empty($ip)){
+		$out="/usr/local/bin/gpio -g mode $gpio output";
+		$read="/usr/local/bin/gpio -g read $gpio";
+		$on="/usr/local/bin/gpio -g write $gpio 1";
+		$off="/usr/local/bin/gpio -g write $gpio 0";
+		exec($out);
+		exec($read, $check);
+		if ($rev == 'on') {
+			if ($check['0'] == '0'){ 
 				exec($on);
 				echo date('Y H:i:s')." GPIO ".$gpio." CHECK" .$check['0'].", SET OFF\n";
-	    }
-	    else {
-	    	echo date('Y H:i:s')." GPIO ".$gpio." CHECK" .$check['0'].", ALREADY OFF\n";
-	    }
-	}
+			}
+			else {
+				echo date('Y H:i:s')." GPIO ".$gpio." CHECK" .$check['0'].", ALREADY OFF\n";
+			}
+		}
+		else {
+			if ($check['0'] == '1'){ 
+				exec($off);
+				echo date('Y H:i:s')." GPIO ".$gpio." CHECK  " .$check['0'].", SET OFF\n";
+			}
+			else {
+				echo date('Y H:i:s')." GPIO ".$gpio." CHECK " .$check['0'].", ALREADY OFF\n";
+			}
+		}
+	} 
 	else {
-	    if ($check['0'] == '1'){ 
-	    	exec($off);
-	    	echo date('Y H:i:s')." GPIO ".$gpio." CHECK  " .$check['0'].", SET OFF\n";
-	    }
-	    else {
-	    	echo date('Y H:i:s')." GPIO ".$gpio." CHECK " .$check['0'].", ALREADY OFF\n";
-	    }
+		$ch = curl_init();
+		$optArray = array(
+			CURLOPT_URL => "$ip/control?cmd=GPIO,$gpio,0",
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_CONNECTTIMEOUT => 1,
+			CURLOPT_TIMEOUT => 3
+		);
+		curl_setopt_array($ch, $optArray);
+		$res = curl_exec($ch);
+		if(curl_errno($ch))
+		{
+			echo date('Y H:i:s')." GPIO ".$gpio." IP ".$ip.", Curl error: ".curl_error($ch)."\n";
+		}
+		global $rom;
+		$dbf = new PDO("sqlite:$ROOT/db/$rom.sql");
+		$db->exec("UPDATE sensors SET tmp='0.0' WHERE rom='$rom'");
+		echo date('Y H:i:s')." GPIO ".$gpio." IP ".$ip.", SET OFF\n";
+
 	}
+	
 	$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
 	$onoff='0';
 	timestamp($gpio,$onoff);
@@ -123,9 +171,11 @@ $row = $rows->fetchAll();
 foreach ($row as $a) {
 	$gpio=$a['gpio'];
 	$rev=$a['rev']; 
-		if($rev=='on') {$mode='LOW';} else {$mode='HIGH'; $rev=null;}
+	if($rev=='on') {$mode='LOW';} else {$mode='HIGH'; $rev=null;}
 	$day_run=$a['day_run'];
 	$state=$a['state'];
+	$ip=$a['ip'];
+	$rom=$a['rom'];
 			
 	$rows = $db->query("SELECT * FROM g_func WHERE gpio='$gpio' ORDER BY position ASC");
 	$func = $rows->fetchAll();
@@ -279,7 +329,7 @@ foreach ($row as $a) {
 					// ENDY ok i jest spelniona
 					elseif ($map[$comparison] && $onoff!='and' && $and=='tak'){					
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '".$comparison."' in function ".$func['id']." AND OK, EXIT\n\n";
-						print $funcion_p($op,$sensor_name,$gpio,$rev);
+						print $funcion_p($op,$sensor_name,$gpio,$rev,$ip);
 						break;
 					} 
 					// ENDY ok i nie jest spelniona
@@ -303,7 +353,7 @@ foreach ($row as $a) {
 					elseif($onoff!='and') {
 						if ($map[$comparison]){
 							echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '".$comparison."' in function ".$func['id']."\n\n";
-							print $funcion_p($op,$sensor_name,$gpio,$rev);
+							print $funcion_p($op,$sensor_name,$gpio,$rev,$ip);
 							break;
 						}
 						// nie jest AND i nie jest spelniona
@@ -323,10 +373,10 @@ foreach ($row as $a) {
 						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 1 ON\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '".$comparison."' in function ".$func['id']."\n";
 						if($onoff=='on') {
-							action_on($op,$sensor_name,$gpio,$rev);
+							action_on($op,$sensor_name,$gpio,$rev,$ip);
 							} 
 							else {
-								action_off($op,$sensor_name,$gpio,$rev);
+								action_off($op,$sensor_name,$gpio,$rev,$ip);
 							}
 							break;
 					}
@@ -336,10 +386,10 @@ foreach ($row as $a) {
 						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 2 ON\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '".$comparison2."' in function ".$func['id']."\n";
 						if($onoff=='on') {
-							action_on($op,$sensor_name,$gpio,$rev);
+							action_on($op,$sensor_name,$gpio,$rev,$ip);
 							} 
 							else {
-								action_off($op,$sensor_name,$gpio,$rev);
+								action_off($op,$sensor_name,$gpio,$rev,$ip);
 							}
 							break;
 					}
@@ -349,10 +399,10 @@ foreach ($row as $a) {
 						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 3 OFF\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '".$comparison2."' in function ".$func['id']."\n";
 						if($onoff=='on') {
-							action_off($op,$sensor_name,$gpio,$rev);
+							action_off($op,$sensor_name,$gpio,$rev,$ip);
 							} 
 							else {
-								action_on($op,$sensor_name,$gpio,$rev);
+								action_on($op,$sensor_name,$gpio,$rev,$ip);
 							}
 							break;
 					}
@@ -362,10 +412,10 @@ foreach ($row as $a) {
 						echo date('Y H:i:s')." GPIO ".$gpio." STAGE 4 OFF\n";
 						echo date('Y H:i:s')." GPIO ".$gpio." HIT condition '".$comparison2."' in function ".$func['id']."\n";
 						if($onoff=='on') {
-							action_off($op,$sensor_name,$gpio,$rev);
+							action_off($op,$sensor_name,$gpio,$rev,$ip);
 							} 
 							else {
-								action_on($op,$sensor_name,$gpio,$rev);
+								action_on($op,$sensor_name,$gpio,$rev,$ip);
 							}
 							break;
 					}
@@ -381,11 +431,15 @@ foreach ($row as $a) {
 	if(($CHECK_OVER=='tak') && ($state=='ON')) {
 		$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio'");
 		echo date('Y H:i:s')." GPIO ".$gpio." FORCE CLOSE HIST\n";
-		action_off($op,$sensor_name,$gpio,$rev);
+		action_off($op,$sensor_name,$gpio,$rev,$ip);
 	}
 
 $content = ob_get_contents();
-$f = fopen("../../tmp/gpio_".$gpio."_log.txt", "a");
+if(!empty($ip)){
+	$f = fopen("$ROOT/tmp/gpio_".$gpio."_".$ip."_log.txt", "a");
+}else {
+	$f = fopen("$ROOT/tmp/gpio_".$gpio."_log.txt", "a");
+}
 fwrite($f, $content);
 fclose($f); 
 }  //main

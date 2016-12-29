@@ -1,5 +1,6 @@
 <?php 
-//if(!isset($_SESSION['user'])||($id!='screen')){ header("Location: denied"); } 
+if(!isset($_SESSION['user'])){ header("Location: denied"); } 
+
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 
@@ -61,10 +62,10 @@ exit();
       padding: 2px;
 <?php 
     if (file_exists("map.jpg")) { ?>
-      background: url("map.jpg") left top;
+      background: url("map.jpg?nocache=<?php echo time(); ?>") left top;
 <?php 
     } else { ?>
-    background: url("media/jpg/map_example.jpg") left top;
+    background: url("media/jpg/map_example.jpg?nocache=<?php echo time(); ?>") left top;
 <?php
     }
 ?>
@@ -186,7 +187,7 @@ foreach ($row as $b) {
 											ondblclick="location.href='index.php?id=view&type=temp&max=day&single=<?php echo $a['name']; ?>'">
     <?php 
 			$display_style='style=""';
-			if(($a['tmp'] == 'error') || ($label=='danger') || ($a['tmp'] == 'wait')) {
+			if(($a['tmp'] == 'error') || ($label=='danger') || ($a['status'] =='error') || ($a['tmp'] == 'wait')) {
 				//echo '<span class="label label-danger label-sensors">';
 				$label_class="label-danger";
 		    } 
@@ -212,13 +213,16 @@ foreach ($row as $b) {
 		    } 
 			echo '<span class="label '.$label_class.'" style="'.$background_color.';'.$font_size.';'.$font_color.'">';
 			if ((is_numeric($a['tmp']) && (($a['type'])=='elec')))  {
-			echo 	$type." ".$sensor_name." ".number_format($a['tmp'], 3, '.', ',')." ".$unit;
-		    } 
-		    elseif (is_numeric($a['tmp'])) { 
-			echo 	$type." ".$sensor_name." ".number_format($a['tmp'], 1, '.', ',')." ".$unit;
+				echo 	$type." ".$sensor_name." ".number_format($a['tmp'], 3, '.', ',')." ".$unit;
 		    }
+		    elseif (is_numeric($a['tmp'])&&$a['status']!='error') {  
+				echo 	$type." ".$sensor_name." ".number_format($a['tmp'], 1, '.', ',')." ".$unit;
+			}
+			elseif ($a['status']=='error') { 
+				echo $type." ".$sensor_name." offline";
+			}
 		    else {
-			echo $type." ".$sensor_name." ".$a['tmp']." ".$unit;
+				echo $type." ".$sensor_name." ".$a['tmp']." ".$unit;
 		    }
 
 	?>
@@ -301,55 +305,6 @@ foreach ($row as $b) {
 	}//end if
     }
 unset($a);
-?>
-
-<?php
-/*
-$rows = $db->query("SELECT * FROM maps WHERE map_on='on' AND type='hosts'");
-$row = $rows->fetchAll();
-foreach ($row as $b) {
-	$rows=$db->query("SELECT * FROM hosts WHERE id='$b[element_id]'");//always one record
-	$h=$rows->fetchAll();
-	$h=$h[0];//extracting from array
-    $device='<img src="media/ico/Computer-icon.png" />';
-	if($b['icon'] != '')
-	{
-		$icon=$b['icon'];
-	}
-	switch ($icon){
-		case 'Host':
-			$device='<img src="media/ico/Computer-icon.png" />';
-			break;
-		case 'Camera':
-			$device='<img src="media/ico/Eye-icon.png" />';
-			break;
-		case 'Printer':
-			$device='<img src="media/ico/Mail-icon.png" />';
-			break;
-		case 'Raspberry':
-			$device='<img src="media/ico/raspberry-icon.png" />';
-			break;
-		default:
-			$device='<img src="media/ico/SMD-64-pin-icon_24.png" />';
-	}
-?>
-<div data-need="<?php echo $h['map_num']?>" id="<?php echo "data-need".$h['map_num']?>" data-dst="hosts" class="ui-widget-content draggable">
-    <?php 
-	if(($h['status'] == 'error') || ($h['last']== 0)) {
-		    echo '<span class="label label-danger">';
-		    } 
-		    else {
-		    echo '<span class="label label-success">';
-		    }
-	        ?>
-
-    <?php echo $device." ".$h['name']?>
-     </span>
-</div>
-<?php 
-    }
-unset($h);
-*/
 ?>
 </div>
 

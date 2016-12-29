@@ -27,17 +27,19 @@ try {
 	$out=shell_exec($cmd);;
 	var_dump($out);
 	
-	$device='';
-	$current='';
+	$local_device='USB';
+	$local_usb='$dev';
 	$local_type='volt';
 	$local_rom="usb_".$dev2."_".$local_type;
 	echo $date." UPS Pimowo Volt: ".$out[0]."\n";
-	db($local_rom,$local_val,$local_type,$device,$current);
-	
+	db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+
+	$local_device='USB';
+	$local_usb='$dev';
 	$local_type='amps';
 	$local_rom="usb_".$dev2."_".$local_type;
 	echo $date." UPS Pimowo Amps: ".$out[1]."\n";
-	db($local_rom,$local_val,$local_type,$device,$current);
+	b($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 } catch (Exception $e) {
     echo $date." Error.\n";
     echo $e;
