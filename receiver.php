@@ -310,6 +310,7 @@ elseif (isset($val) && isset($type)) {
 	    if (empty($type)){ echo "Missing type"; exit();}
 	    if (empty($device)){ echo "Missing device"; exit();}
 	    if (empty($name)){ echo "Missing name"; exit();}
+	    $rom=$device.'_'.$name.'_'.$type;
 	}
 
 	//MULTI ID
@@ -392,7 +393,8 @@ elseif (isset($val) && isset($type)) {
 	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&type=temp&value=0.00
 	else {
 		 db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
-	}
+	} 
+	
 
 }
 elseif (!defined('LOCAL')) {
