@@ -10,11 +10,12 @@ $setautologout= isset($_POST['setautologout']) ? $_POST['setautologout'] : '';
     exit();
     }
 
-$rows = $db->query("SELECT autologout FROM settings WHERE id='1'");
-	$row = $rows->fetchAll();
-	foreach($row as $a) {
-	    $autologout=$a['autologout'];
-	}
+$sth = $db->prepare("SELECT autologout FROM settings WHERE id='1'");
+if ( $sth ) {
+    $result = $sth->execute() ? $sth->fetch() : '';
+}
+$autologout = empty($result) ? 'on' : $result['autologout'];
+unset($sth,$result);
 
 
 if ($autologout=='on' && isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 600)) {
