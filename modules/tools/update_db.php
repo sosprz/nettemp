@@ -104,9 +104,6 @@ $dba->exec("ALTER TABLE gpio ADD week_Wed type TEXT");
 
 $dba->exec("ALTER TABLE hosts ADD alarm type TEXT");
 $dba->exec("ALTER TABLE hosts ADD element_id type TEXT");
-$dba->exec("ALTER TABLE hosts ADD map type NUM");
-$dba->exec("ALTER TABLE hosts ADD map_num type NUM");
-$dba->exec("ALTER TABLE hosts ADD map_pos type NUM");
 $dba->exec("ALTER TABLE hosts ADD position type NUM");
 $dba->exec("ALTER TABLE hosts ADD rom type TEXT");
 
@@ -149,7 +146,6 @@ $dba->exec("ALTER TABLE relays ADD type type TEXT");
 $dba->exec("ALTER TABLE sensors ADD adj type TEXT");
 $dba->exec("ALTER TABLE sensors ADD charts type TEXT");
 $dba->exec("ALTER TABLE sensors ADD ch_group type NUM");
-$dba->exec("ALTER TABLE sensors ADD COLUMN position INTEGER DEFAULT 1");
 $dba->exec("ALTER TABLE sensors ADD current TEXT");
 $dba->exec("ALTER TABLE sensors ADD device type TEXT");
 $dba->exec("ALTER TABLE sensors ADD i2c type TEXT");
@@ -157,9 +153,6 @@ $dba->exec("ALTER TABLE sensors ADD ip type TEXT");
 $dba->exec("ALTER TABLE sensors ADD jg TEXT");
 $dba->exec("ALTER TABLE sensors ADD lcd type TEXT");
 $dba->exec("ALTER TABLE sensors ADD mail type TEXT");
-$dba->exec("ALTER TABLE sensors ADD map type NUM");
-$dba->exec("ALTER TABLE sensors ADD map_num type NUM");
-$dba->exec("ALTER TABLE sensors ADD map_pos type NUM");
 $dba->exec("ALTER TABLE sensors ADD method type TEXT");
 $dba->exec("ALTER TABLE sensors ADD minmax type TEXT");
 $dba->exec("ALTER TABLE sensors ADD remote type TEXT");
@@ -314,21 +307,11 @@ $db->exec("UPDATE OR IGNORE settings SET server_key='$key' where id='1' AND serv
 
 
 //UPDATE
-$db->exec("UPDATE gpio SET map='on' WHERE map is null");
-$db->exec("UPDATE gpio SET map_num=ABS(300 + RANDOM() % 3600) WHERE map_num is null");
-$db->exec("UPDATE gpio SET map_pos='{left:0,top:0}' WHERE map_pos is null");
 $db->exec("UPDATE gpio SET position='1' WHERE position is null");
-$db->exec("UPDATE hosts SET map='on' WHERE map is null");
-$db->exec("UPDATE hosts SET map_num=ABS(300 + RANDOM() % 3600) WHERE map_num is null");
-$db->exec("UPDATE hosts SET map_pos='{left:0,top:0}' WHERE map_pos is null");
 $db->exec("UPDATE hosts SET position='1' WHERE position is null");
 $db->exec("UPDATE sensors SET adj='0' WHERE adj='' OR adj=' ' OR adj is null");
 $db->exec("UPDATE sensors SET charts='on' WHERE charts is null");
 $db->exec("UPDATE sensors SET ch_group='sensors' WHERE ch_group is null OR ch_group=''");
-$db->exec("UPDATE sensors SET map='on' WHERE map is null");
-$db->exec("UPDATE sensors SET map_num=ABS(300 + RANDOM() % 3600) WHERE map_num is null");
-$db->exec("UPDATE sensors SET map_pos='{left:0,top:0}' WHERE map_pos is null");
-$db->exec("UPDATE sensors SET status='on' WHERE status is null");
 $db->exec("UPDATE sensors SET sum='0' WHERE sum='' OR sum=' ' OR sum is null");
 $db->exec("UPDATE settings SET autologout='on' WHERE autologout is null");
 $db->exec("UPDATE settings SET charts_gpio='on' WHERE charts_gpio is null");
