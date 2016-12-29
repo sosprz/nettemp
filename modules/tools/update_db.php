@@ -107,11 +107,6 @@ $dba->exec("ALTER TABLE hosts ADD element_id type TEXT");
 $dba->exec("ALTER TABLE hosts ADD position type NUM");
 $dba->exec("ALTER TABLE hosts ADD rom type TEXT");
 
-$dba->exec("ALTER TABLE mail_settings ADD auth type TEXT");
-$dba->exec("ALTER TABLE mail_settings ADD error type TEXT");
-$dba->exec("ALTER TABLE mail_settings ADD tls type TEXT");
-$dba->exec("ALTER TABLE mail_settings ADD tlscheck type TEXT");
-
 $dba->exec("ALTER TABLE maps ADD background_color TEXT");
 $dba->exec("ALTER TABLE maps ADD background_high TEXT");
 $dba->exec("ALTER TABLE maps ADD background_low TEXT");
