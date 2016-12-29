@@ -155,6 +155,7 @@ $dba->exec("ALTER TABLE sensors ADD status TEXT");
 $dba->exec("ALTER TABLE sensors ADD sum type TEXT");
 $dba->exec("ALTER TABLE sensors ADD tmp_5ago type TEXT");
 $dba->exec("ALTER TABLE sensors ADD usb type TEXT");
+$dba->exec("ALTER TABLE sensors ADD position_group type TEXT");
 
 $dba->exec("ALTER TABLE settings ADD authmod type TEXT");
 $dba->exec("ALTER TABLE settings ADD autologout type TEXT");

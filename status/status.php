@@ -52,7 +52,7 @@ Go to device scan!
 
     
     //GROUPS
-    $rows = $db->query("SELECT ch_group,type FROM sensors");
+    $rows = $db->query("SELECT ch_group,type FROM sensors ORDER BY position_group ASC");
 	$result_ch_g = $rows->fetchAll();
 	$unique=array();
 	

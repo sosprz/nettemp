@@ -24,9 +24,8 @@
     $db->exec("UPDATE sensors SET position='$position' WHERE id='$position_id'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
-    } 
-   
-	
+    }
+     
     $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
     $tmp_min_new = isset($_POST['tmp_min_new']) ? $_POST['tmp_min_new'] : '';
     $tmp_max_new = isset($_POST['tmp_max_new']) ? $_POST['tmp_max_new'] : '';
@@ -138,10 +137,13 @@
     $addch_group = isset($_POST['addch_group']) ? $_POST['addch_group'] : '';
     $addch_grouponoff = isset($_POST['addch_grouponoff']) ? $_POST['addch_grouponoff'] : '';
     $addch_groupon = isset($_POST['addch_groupon']) ? $_POST['addch_groupon'] : '';
+    $position_group = isset($_POST['position_group']) ? $_POST['position_group'] : '';
+     
     if (($addch_grouponoff == "onoff")){
 	$addch_groupon=trim($addch_groupon);
 	$name = str_replace(' ', '_', $addch_groupon);
     $db->exec("UPDATE sensors SET ch_group='$name' WHERE id='$addch_group'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE sensors SET position_group='$position_group' WHERE ch_group='$name'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -376,6 +378,7 @@ $row = $rows->fetchAll();
     <!--NEW GROUP-->
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
+		<input type="text" name="position_group" size="1" value="<?php echo $a['position_group']; ?>" />
 		<input type="text" name="addch_groupon" size="10" maxlength="30" value="<?php echo $a["ch_group"]; ?>" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 		<input type="hidden" name="addch_group" value="<?php echo $a["id"]; ?>" />

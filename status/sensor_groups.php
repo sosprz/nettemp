@@ -56,7 +56,7 @@ foreach ($row as $a) {
 		elseif($a['device'] == 'i2c'||$a['device'] == 'lmsensors'){ $device='<img src="media/ico/i2c_1.png" alt="" title="I2C"/>';}
 		elseif($a['device'] == 'snmp'){ $device='<img src="media/ico/snmp-icon.png" alt="" title=SNMP"/>';}
 		elseif($a['device'] == '1wire'||$a['device'] == 'owfs'){ $device='<img src="media/ico/1wire.png" alt="" title="1wire"/>';}
-		else { $device='<img src="media/ico/Help-icon.png" alt="" title=""/>';}
+
 		
 		
 		foreach($result_t as $ty){
