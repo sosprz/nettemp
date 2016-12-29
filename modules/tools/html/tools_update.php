@@ -6,13 +6,13 @@
 $ROOT=$_SERVER['DOCUMENT_ROOT'];
 $update=isset($_POST['update']) ? $_POST['update'] : '';
 
-if ($update == "Update") { 
-       
+if ($update == "Update") {
+
 ?>
 <pre>
 <?php
 	$file = "$ROOT/dbf/nettemp.db";
-	$newfile = $ROOT."/dbf/nettemp.db.".substr(rand(), 0, 4);
+        $newfile = $ROOT."/dbf/nettemp.db.".date('y-m-d_His').'.'.substr(rand(), 0, 4);
 
 	if (!copy($file, $newfile)) {
 		echo "failed to copy $file\n";
