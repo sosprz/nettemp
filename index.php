@@ -97,7 +97,7 @@ $numsimple2 = count($row2);
  	if($_SESSION["perms"] == 'adm') { 
 ?>
 <li <?php echo $id == 'map' ? ' class="active"' : ''; ?>><a href="index.php?id=map"><span class="glyphicon glyphicon-picture" aria-hidden="true"> Map</span> </a></li>
-<li<?php echo $id == 'devices' ? ' class="active"' : ''; ?>><a href="devices"><span class="glyphicon glyphicon-cog" aria-hidden="true"> Device</span></a></li>
+<li<?php echo $id == 'device' ? ' class="active"' : ''; ?>><a href="device"><span class="glyphicon glyphicon-cog" aria-hidden="true"> Device</span></a></li>
 <li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security"><span class="glyphicon glyphicon-tower" aria-hidden="true"> Security</span></a></li>
 <li <?php echo $id == 'settings' ? ' class="active"' : ''; ?>><a href="settings"><span class="glyphicon glyphicon-tasks" aria-hidden="true"> Settings</span></a></li>
 <li <?php echo $id == 'tools' ? ' class="active"' : ''; ?>><a href="tools"><span class="glyphicon glyphicon-wrench" aria-hidden="true"> Tools</span></a></li>
@@ -159,7 +159,7 @@ switch ($id)
 default: case '$id': include('status/status.php'); break;
 case 'view': include('modules/charts/menu.php'); break;
 case 'map': include('modules/map/map_main.php'); break;
-case 'devices': include('modules/devices/html/devices.php'); break;
+case 'device': include('modules/devices/html/devices.php'); break;
 case 'security': include('modules/security/html/security.php'); break;
 case 'settings': include('modules/settings/settings.php'); break;
 case 'tools': include('modules/tools/html/tools.php'); break;
