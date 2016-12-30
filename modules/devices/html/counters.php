@@ -15,6 +15,16 @@ if ($sum1 == 'sum2'){
 	exit();
 }
 
+ $ch_group = isset($_POST['ch_group']) ? $_POST['ch_group'] : '';
+    $ch_grouponoff = isset($_POST['ch_grouponoff']) ? $_POST['ch_grouponoff'] : '';
+    $ch_groupon = isset($_POST['ch_groupon']) ? $_POST['ch_groupon'] : '';
+    if (($ch_grouponoff == "onoff")){
+	$db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET ch_group='$ch_groupon' WHERE id='$ch_group'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors WHERE type='elec' OR type='water' OR type='gas'");
 $row = $rows->fetchAll();
@@ -27,6 +37,7 @@ if ($count >= "1") {
 <th>Name</th>
 <th>Type</th>
 <th>Counters</th>
+<th>Show in status</th>
 </thead>
 <?php
 foreach ($row as $a) { 	
@@ -38,7 +49,7 @@ foreach ($row as $a) {
 	<td class="col-md-0">
 		<?php echo $a["type"]; ?>
 	</td>
-	<td class="col-md-10">
+	<td class="col-md-0">
 		<form action="" method="post" style="display:inline!important;">
 			<input type="text" name="sum" size="16" maxlength="30" value="<?php echo $a["sum"]; ?>" required=""/>
 			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
@@ -46,6 +57,18 @@ foreach ($row as $a) {
 			<input type="hidden" name="sum1" value="sum2"/>
     </form>
 	</td>
+	    <!--NEW GROUP-->
+
+    <td class="col-md-9">
+    <form action="" method="post"  class="form-inline">
+    <select name="ch_groupon" class="form-control input-sm small" onchange="this.form.submit()" style="width: 100px;" >
+		<option value="sensors"  <?php echo $a['ch_group'] == 'sensors' ? 'selected="selected"' : ''; ?>  >sensors</option>
+		<option value="none"  <?php echo $a['ch_group'] == 'none' ? 'selected="selected"' : ''; ?>  >none</option>
+    </select>
+    <input type="hidden" name="ch_grouponoff" value="onoff" />
+    <input type="hidden" name="ch_group" value="<?php echo $a['id']; ?>" />
+    </form>
+    </td>
 </tr>
 <?php
 	}
