@@ -50,7 +50,12 @@ $db->exec("CREATE TABLE IF NOT EXISTS types (id INTEGER PRIMARY KEY,type UNIQUE,
 $db->exec("CREATE TABLE IF NOT EXISTS usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE)");
 $db->exec("CREATE TABLE IF NOT EXISTS vpn (id INTEGER PRIMARY KEY,users UNIQUE)");
 
+$db->rollBack();
+$db->commit();
+
 //ALTER
+$dba->beginTransaction();
+
 $dba = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 $dba->exec("ALTER TABLE camera ADD COLUMN access_all TEXT");
 $dba->exec("ALTER TABLE camera ADD link type TEXT");
@@ -211,8 +216,12 @@ $dba->exec("ALTER TABLE users ADD smsts type TEXT");
 $dba->exec("ALTER TABLE users ADD tel type TEXT");
 $dba->exec("ALTER TABLE users ADD trigger type TEXT");
 
+$dba->rollBack();
+$dba->commit();
 
 // DEFAULT INSERT
+$db->beginTransaction();
+
 $db->exec("INSERT OR IGNORE INTO access_time (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime) VALUES  ('any', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', '00:00', '23:59')");
 $db->exec("INSERT OR IGNORE INTO charts (id, charts) VALUES (1, 'Highcharts')");
 
