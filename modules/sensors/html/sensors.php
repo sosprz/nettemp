@@ -36,7 +36,7 @@ else {
 if(file_exists("db/".$new_rom.".sql")&&filesize("db/".$new_rom.".sql")!=0){
 	//SENOSRS ALL
 	$db->exec("INSERT INTO sensors (rom,type,device,ip,gpio,i2c,usb,name) SELECT rom,type,device,ip,gpio,i2c,usb,name FROM newdev WHERE rom='$new_rom'");
-	$db->exec("UPDATE sensors SET alarm='off', tmp='wait', adj='0', charts='on', sum='0', position='1', status='on', ch_group='sensors' WHERE rom='$new_rom'");
+	$db->exec("UPDATE sensors SET alarm='off', tmp='wait', adj='0', charts='on', sum='0', position='1', status='on', ch_group='sensors' WHERE rom='$new_rom',position_group='1'");
 
 	//maps settings
 	$inserted=$db->query("SELECT id FROM sensors WHERE rom='$new_rom'");

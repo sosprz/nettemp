@@ -308,6 +308,7 @@ $db->exec("UPDATE OR IGNORE settings SET server_key='$key' where id='1' AND serv
 //UPDATE
 $db->exec("UPDATE gpio SET position='1' WHERE position is null");
 $db->exec("UPDATE hosts SET position='1' WHERE position is null");
+$db->exec("UPDATE sensors SET position_group='1' WHERE position_group is null");
 $db->exec("UPDATE sensors SET adj='0' WHERE adj='' OR adj=' ' OR adj is null");
 $db->exec("UPDATE sensors SET charts='on' WHERE charts is null");
 $db->exec("UPDATE sensors SET ch_group='sensors' WHERE ch_group is null OR ch_group=''");
