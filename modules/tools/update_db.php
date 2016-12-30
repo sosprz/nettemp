@@ -1,10 +1,12 @@
 <?php
+// http://php.net/manual/en/pdo.transactions.php
+
 $date = date("Y-m-d H:i:s"); 
 
 if(empty($ROOT)){
     $ROOT=dirname(dirname(dirname(__FILE__)));
 }
-//DB
+//
 try {
     $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -14,7 +16,6 @@ try {
 }
 
 try {
-// http://php.net/manual/en/pdo.transactions.php
 
 $db->beginTransaction();
 
@@ -50,13 +51,18 @@ $db->exec("CREATE TABLE IF NOT EXISTS types (id INTEGER PRIMARY KEY,type UNIQUE,
 $db->exec("CREATE TABLE IF NOT EXISTS usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE)");
 $db->exec("CREATE TABLE IF NOT EXISTS vpn (id INTEGER PRIMARY KEY,users UNIQUE)");
 
-$db->rollBack();
 $db->commit();
-
-//ALTER
-$dba->beginTransaction();
+$db=null;
+} catch (Exception $e) {
+	/* Recognize mistake and roll back changes */
+	$db->rollBack();
+    echo $date." Error.\n";
+    echo $e;
+    //exit;
+}
 
 $dba = new PDO("sqlite:$ROOT/dbf/nettemp.db");
+
 $dba->exec("ALTER TABLE camera ADD COLUMN access_all TEXT");
 $dba->exec("ALTER TABLE camera ADD link type TEXT");
 $dba->exec("ALTER TABLE camera ADD name type TEXT");
@@ -216,9 +222,20 @@ $dba->exec("ALTER TABLE users ADD smsts type TEXT");
 $dba->exec("ALTER TABLE users ADD tel type TEXT");
 $dba->exec("ALTER TABLE users ADD trigger type TEXT");
 
-$dba->commit();
+$dba=null;
+
 
 // DEFAULT INSERT
+
+try {
+    $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
+    $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+} catch (Exception $e) {
+    echo $date." Could not connect to the database.\n";
+    exit;
+}
+
+try {
 $db->beginTransaction();
 
 $db->exec("INSERT OR IGNORE INTO access_time (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime) VALUES  ('any', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', '00:00', '23:59')");
@@ -311,9 +328,32 @@ function generateRandomString($length = 10) {
 }
 $key=generateRandomString();
 $db->exec("UPDATE OR IGNORE settings SET server_key='$key' where id='1' AND server_key is null");
+
+$db->commit();
+$db=null;
+} catch (Exception $e) {
+	/* Recognize mistake and roll back changes */
+	$db->rollBack();
+    echo $date." Error.\n";
+    echo $e;
+    //exit;
+}
+
+
 // END DEFAULT INSERT
 
 //UPDATE
+
+try {
+    $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
+    $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+} catch (Exception $e) {
+    echo $date." Could not connect to the database.\n";
+    exit;
+}
+
+try {
+$db->beginTransaction();
 $db->exec("UPDATE gpio SET position='1' WHERE position is null");
 $db->exec("UPDATE hosts SET position='1' WHERE position is null");
 $db->exec("UPDATE sensors SET position_group='1' WHERE position_group is null");
@@ -338,6 +378,7 @@ $db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE OF tmp
 
 /* COMMIT */
 $db->commit();
+$db=null;
 
 } catch (Exception $e) {
 	/* Recognize mistake and roll back changes */
