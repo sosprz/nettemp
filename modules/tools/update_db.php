@@ -344,7 +344,7 @@ $db->commit();
 	$db->rollBack();
     echo $date." Error.\n";
     echo $e;
-    exit;
+    //exit;
 }
 
 echo $date." nettemp database update: ok \n";
