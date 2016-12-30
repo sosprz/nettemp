@@ -1,6 +1,7 @@
 <?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
 
-<?php $db = new PDO('sqlite:dbf/nettemp.db');
+<?php 
+	$db = new PDO('sqlite:dbf/nettemp.db');
 	$sth = $db->prepare("select * from settings ");
 	$sth->execute();
 	$result = $sth->fetchAll();

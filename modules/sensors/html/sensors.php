@@ -1,5 +1,4 @@
 <?php
-
 $name_new = isset($_POST['name_new']) ? $_POST['name_new'] : '';
 
 $name_id = isset($_POST['name_id']) ? $_POST['name_id'] : '';

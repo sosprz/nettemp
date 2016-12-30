@@ -21,7 +21,7 @@ foreach ($row as $a) {
     $temp_scale=$a['temp_scale'];
 }
 
-	$sth = $db->prepare("SELECT * FROM sensors WHERE position !=0 AND type!='elec' AND ch_group=='$ch_g' AND type!='elec' AND jg!='on' ORDER BY position ASC");
+	$sth = $db->prepare("SELECT * FROM sensors WHERE position !=0 AND ch_group=='$ch_g' AND type!='elec' AND (jg!='on' OR jg is null) ORDER BY position ASC");
 	$gname = str_replace('_', ' ', $ch_g);
 
     $sth->execute();
