@@ -3,23 +3,32 @@ $backup = isset($_POST['backup']) ? $_POST['backup'] : '';
 if ($backup == "backup") { 
     passthru("modules/tools/backup/backup b");
     header("location: " . $_SERVER['REQUEST_URI']);
-    exit();	
+    exit();
 }
 
 $backup_file = isset($_POST['backup_file']) ? $_POST['backup_file'] : '';
 $rm = isset($_POST['rm']) ? $_POST['rm'] : '';
 if ($rm == "rm") {
-    unlink("tmp/backup/$backup_file");
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();	
-    } 
-    
+    if(preg_match('/^[a-z0-9_ \-\.]+$/i',$backup_file)){
+        unlink("tmp/backup/$backup_file");
+        header("location: " . $_SERVER['REQUEST_URI']);
+        exit();
+    }else{
+        echo '<a href="'.$_SERVER['REQUEST_URI'].'"><button class="btn btn-lg btn-danger btn-block">IMPROPER FILE NAME. <br>Backup File: ('.$backup_file.')<br> RELOAD?</button></a>';
+        exit();
+    }
+}
 $db_file = isset($_POST['db_file']) ? $_POST['db_file'] : '';
 $rmdb = isset($_POST['rmdb']) ? $_POST['rmdb'] : '';
 if ($rmdb == "rm") {
-    unlink("dbf/$db_file");
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();	
+    if(preg_match('/^[a-z0-9_ \-\.]+$/i',$db_file)){
+        unlink("dbf/$db_file");
+        header("location: " . $_SERVER['REQUEST_URI']);
+        exit();
+    }else{
+        echo '<a href="'.$_SERVER['REQUEST_URI'].'"><button class="btn btn-lg btn-danger btn-block">IMPROPER FILE NAME. <br>DB File: ('.$db_file.')<br> RELOAD?</button></a>';
+        exit();
+    }
 }
 
 $mkdb = isset($_POST['mkdb']) ? $_POST['mkdb'] : '';
@@ -31,18 +40,21 @@ if ($mkdb == "mkdb") {
 	} else {
 		echo "New backup $newfile\n";
 	}
-} 
- 
-  
-    
+}
+
 $restore_file = isset($_POST['restore_file']) ? $_POST['restore_file'] : '';
 $re = isset($_POST['re']) ? $_POST['re'] : '';
-if ($re == "re") {   
-    passthru("modules/tools/backup/backup r tmp/backup/$restore_file");
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();	
-    } 
-?> 
+if ($re == "re") {
+    if(preg_match('/^[a-z0-9_ \-\.]+$/i',$db_file)){
+        passthru("modules/tools/backup/backup r tmp/backup/$restore_file");
+        header("location: " . $_SERVER['REQUEST_URI']);
+        exit();
+    }else{
+        echo '<a href="'.$_SERVER['REQUEST_URI'].'"><button class="btn btn-lg btn-danger btn-block">IMPROPER FILE NAME. <br>Restore File: ('.$restore_file.')<br> RELOAD?</button></a>';
+        exit();
+    }
+}
+?>
 
 <div class="panel panel-default">
 <div class="panel-heading">Backup/restore</div>
@@ -57,6 +69,9 @@ if ($re == "re") {
 
 <?php
 $dir = 'tmp/backup/';
+if(!file_exists($dir)){
+    mkdir($dir, octdec('0775'));
+}
 $fileExtensions = array('gz');
 $files = scandir($dir);
 foreach($files AS $file) {
@@ -117,7 +132,7 @@ foreach($files AS $file) {
 ?>
 <tr>
 <td><a href="<?php echo "$dir/$file";?>"><?php echo $file; ?></a></td>
-<td><?php $filesize = (filesize("$dir$file") * .0009765625) * .0009765625; echo round($filesize, 2) ?>MB</td>
+<td><?php $filesize = (filesize("$dir/$file") * .0009765625) * .0009765625; echo round($filesize, 2) ?>MB</td>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 	<input type="hidden" name="db_file" value="<?php echo $file; ?>" />
 	<input type="hidden" name="rmdb" value="rm" />
@@ -131,7 +146,3 @@ foreach($files AS $file) {
 </table>
 </div>
 </div>
-
-
-
-
