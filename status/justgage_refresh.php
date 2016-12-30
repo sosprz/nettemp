@@ -1,4 +1,7 @@
 <?php
+if (isset($_GET['ch_g'])) { 
+    $ch_g = $_GET['ch_g'];
+} 
 header("Pragma: no-cache");
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
@@ -10,7 +13,7 @@ if ($result_norma[0]['jg']=='on')
 {
 	$normalized=$result_norma[0]['pressure'];
 }
-$sth = $db->prepare("select *,'off' as 'normalized' from sensors where jg='on' UNION ALL select *,'on' as 'normalized' from sensors WHERE id=$normalized ORDER BY position ASC,id");//$db->prepare("select * from sensors where jg='on' ORDER BY position ASC");
+$sth = $db->prepare("select *,'off' as 'normalized' from sensors where jg='on' AND ch_group=='$ch_g' UNION ALL select *,'on' as 'normalized' from sensors WHERE id=$normalized AND ch_group=='$ch_g' ORDER BY position ASC,id");//$db->prepare("select * from sensors where jg='on' ORDER BY position ASC");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);
@@ -28,7 +31,7 @@ foreach ($result as $a) {
 		$a['tmp']=number_format($meteo->getCisnienieZnormalizowane(),2,'.','');
 	}
 ?>
-g<?=$kw++?>.refresh('<?php
+g<?=$ch_g?><?=$kw++?>.refresh('<?php
 if($a['type']=='elec') { echo $a['current']; } else if($a['tmp']=='error') { echo '0'; } else { echo $a['tmp']; }
 ?>');
 <?php

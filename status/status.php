@@ -1,3 +1,5 @@
+<script src="<?php $SERVER['DOCUMENT_ROOT']?>/html/justgage/raphael-2.1.4.min.js"></script>
+<script src="<?php $SERVER['DOCUMENT_ROOT']?>/html/justgage/justgage.js"></script>
 <style type="text/css">
 
 * {
@@ -31,7 +33,8 @@
 
 </style>
 
-
+<script src="html/justgage/raphael-2.1.4.min.js"></script>
+<script src="html/justgage/justgage.js"></script>
 
 <div class="grid">
     <div class="grid-sizer"></div>
@@ -62,11 +65,20 @@ Go to device scan!
 			$ch_g=$uniq['ch_group'];
 			include('status/sensor_groups.php');
 		}
-	}
-	
+	}	
 	//END GROUPS
+	//JG GROUPS
+	foreach($result_ch_g as $uniqa) {
+		if(!empty($uniqa['ch_group'])&&$uniqa['ch_group']!='none'&&!in_array($uniqa['ch_group'], $uniquea)) {
+			$uniquea[]=$uniqa['ch_group'];
+			$ch_g=$uniqa['ch_group'];
+			include('status/justgage_status.php');
+		}
+	}	
+
+	//END JG GROUPS
 	
-    include('status/justgage_status.php');
+    
     include('status/minmax_status.php');
     include('status/gpio_status.php');
     include('status/counters_status.php');
@@ -90,6 +102,15 @@ Go to device scan!
 	<?php
 		}
 	?>
+	
+	    <?php
+		foreach ($uniquea as $key => $ch_g) { 
+	?>
+		$('#justgage_refresh').load("status/justgage_refresh.php?ch_g=<?php echo $ch_g?>");
+	<?php
+		}
+	?>
+	
     $('.co').load("status/counters_status.php");
     $('.gs').load("status/gpio_status.php");
     $('.ms').load("status/meteo_status.php");
@@ -97,7 +118,6 @@ Go to device scan!
     $('.ow3').load("status/ownwidget3.php");
     $('.mm').load("status/minmax_status.php");
     $('.ups').load("status/ups_status.php");
-    $('#justgage_refresh').load("status/justgage_refresh.php");
 }, 60000);
 
 $(document).ready( function() {
