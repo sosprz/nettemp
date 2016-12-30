@@ -18,7 +18,7 @@ if [ "$action" == "on" ];then
     sudo /sbin/iptables -P FORWARD DROP
     
     sudo /sbin/iptables -N DEFAULT
-	 sudo /sbin/iptables -N NETTEMP	
+	sudo /sbin/iptables -N NETTEMP	
 	 
     sudo /sbin/iptables -A DEFAULT -s localhost -j ACCEPT
     sudo /sbin/iptables -A DEFAULT -j ACCEPT -m state --state ESTABLISHED,RELATED
@@ -28,6 +28,7 @@ if [ "$action" == "on" ];then
     sudo /sbin/iptables -A DEFAULT -j DROP
     
     sudo /sbin/iptables -A INPUT -j DEFAULT
+    sudo /sbin/iptables -A NETTEMP -s 0.0.0.0/0 -m limit --limit 1/second -p tcp --dport 22 -j ACCEPT
 
  elif [ "$action" == "off" ]; then
     sudo /sbin/iptables -F
