@@ -216,7 +216,6 @@ $dba->exec("ALTER TABLE users ADD smsts type TEXT");
 $dba->exec("ALTER TABLE users ADD tel type TEXT");
 $dba->exec("ALTER TABLE users ADD trigger type TEXT");
 
-$dba->rollBack();
 $dba->commit();
 
 // DEFAULT INSERT
