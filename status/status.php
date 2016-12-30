@@ -82,6 +82,7 @@ Go to device scan!
     include('status/minmax_status.php');
     include('status/gpio_status.php');
     include('status/counters_status.php');
+    include('status/relays_status.php');
     include('status/meteo_status.php');
     foreach (range(1, 10) as $v) {
 		$ow=$v;
@@ -118,6 +119,7 @@ Go to device scan!
     $('.ow3').load("status/ownwidget3.php");
     $('.mm').load("status/minmax_status.php");
     $('.ups').load("status/ups_status.php");
+    $('.rs').load("status/relays_status.php");
 }, 60000);
 
 $(document).ready( function() {
