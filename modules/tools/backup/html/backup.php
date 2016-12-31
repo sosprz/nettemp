@@ -34,7 +34,7 @@ if ($rmdb == "rm") {
 $mkdb = isset($_POST['mkdb']) ? $_POST['mkdb'] : '';
 if ($mkdb == "mkdb") {
 	$file = "dbf/nettemp.db";
-	$newfile = "dbf/nettemp.db.".date('y-m-d_His').'.'.substr(rand(), 0, 4);
+	$newfile = "dbf/nettemp.db.".date('Y-m-d_His').'.'.substr(rand(), 0, 4);
 	if (!copy($file, $newfile)) {
 		echo "failed to copy $file\n";
 	} else {
