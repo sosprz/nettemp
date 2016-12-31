@@ -12,7 +12,7 @@ if ($update == "Update") {
 <pre>
 <?php
 	$file = "$ROOT/dbf/nettemp.db";
-        $newfile = $ROOT."/dbf/nettemp.db.".date('y-m-d_His').'.'.substr(rand(), 0, 4);
+        $newfile = $ROOT."/dbf/nettemp.db.".date('Y-m-d_His').'.'.substr(rand(), 0, 4);
 
 	if (!copy($file, $newfile)) {
 		echo "failed to copy $file\n";
