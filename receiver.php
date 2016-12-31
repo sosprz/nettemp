@@ -35,6 +35,10 @@ if (isset($_GET['ip'])) {
 
 if (isset($_GET['type'])) {
     $type = $_GET['type'];
+    if($type='Temperature') {$type='temp'}
+    if($type='Humidity') {$type='humid'}
+    if($type='Pressure') {$type='press'}
+    if($type='Lux') {$type='lux'}
 } 
     
 if (isset($_GET['gpio'])) {
