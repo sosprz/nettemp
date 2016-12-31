@@ -1,26 +1,18 @@
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
-$db = new PDO("sqlite:$root/dbf/nettemp.db");
+$dbfile=$root.'/dbf/nettemp.db';
 
-$sth = $db->query("PRAGMA integrity_check");
-$row = $sth->fetchAll();
-foreach($row as $r){
-	if($r[0]!='ok') {
-		echo "databse problem: PRAGMA integrity_check";
-	}
-}
+if( !file_exists($dbfile) || !is_readable($dbfile) || filesize($dbfile) == 0 ){
+    header("Location: html/errors/no_db.php");
+}else{
+    $db = new PDO("sqlite:$root/dbf/nettemp.db");
 
-include("modules/login/login.php");
-ob_start();
-$id = isset($_GET['id']) ? $_GET['id'] : '';
-$art=isset($_GET['type']) ? $_GET['type'] : '';
-$dbfile='dbf/nettemp.db';
-if ( '' == file_get_contents( $dbfile ) ) {
-header("Location: html/errors/no_db.php");
-}
-else {
-include("html/htmlconf.php");
-	
+    include("modules/login/login.php");
+    ob_start();
+    $id = isset($_GET['id']) ? $_GET['id'] : '';
+    $art=isset($_GET['type']) ? $_GET['type'] : '';
+    include("html/htmlconf.php");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,12 +32,12 @@ include("html/htmlconf.php");
     <!-- jQuery -->
     <script src="html/jquery/jquery-1.11.3.min.js"></script>
     <script src="html/jquery/jquery-migrate-1.2.1.min.js"></script>
-    
+
     <!-- bootstrap-toogle -->
     <link href="html/bootstrap-toggle/bootstrap-toggle.min.css" rel="stylesheet">
     <script type="text/javascript" src="html/bootstrap-toggle/bootstrap-toggle.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- WARNING: Respond.js doesn''t work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -54,7 +46,7 @@ include("html/htmlconf.php");
 <body>
 
 <?php
-if($id != 'screen') { 
+if($id != 'screen') {
 	?>
  <!-- Static navbar -->
       <nav class="navbar navbar-default">
@@ -82,27 +74,27 @@ $numsimple2 = count($row2);
 <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status"><span class="glyphicon glyphicon-th-large" aria-hidden="true"> Status</span></a></li>
 <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp&max=<?php echo $html_charts_max?>"><span class="glyphicon glyphicon-stats" aria-hidden="true"> Charts</span></a></li>
 <?php
-	if($html_screen=='on') 
-	{ 
+	if($html_screen=='on')
+	{
 	?>
 	<li <?php echo $id == 'screen' ? ' class="active"' : ''; ?>><a href="screen"><span class="glyphicon glyphicon-modal-window" aria-hidden="true"> Screen</span></a></li>
-<?php 
-	} 
+<?php
+	}
 	if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
-   if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  { 
+   if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  {
    ?>
    <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls"><span class="glyphicon glyphicon-record" aria-hidden="true"> Controls</span></a></li>
-<?php 
+<?php
 	}
- 	if($_SESSION["perms"] == 'adm') { 
+ 	if($_SESSION["perms"] == 'adm') {
 ?>
 <li <?php echo $id == 'map' ? ' class="active"' : ''; ?>><a href="index.php?id=map"><span class="glyphicon glyphicon-picture" aria-hidden="true"> Map</span> </a></li>
 <li<?php echo $id == 'device' ? ' class="active"' : ''; ?>><a href="device"><span class="glyphicon glyphicon-cog" aria-hidden="true"> Device</span></a></li>
 <li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security"><span class="glyphicon glyphicon-tower" aria-hidden="true"> Security</span></a></li>
 <li <?php echo $id == 'settings' ? ' class="active"' : ''; ?>><a href="settings"><span class="glyphicon glyphicon-tasks" aria-hidden="true"> Settings</span></a></li>
 <li <?php echo $id == 'tools' ? ' class="active"' : ''; ?>><a href="tools"><span class="glyphicon glyphicon-wrench" aria-hidden="true"> Tools</span></a></li>
-<?php 
-	} 
+<?php
+	}
 }
 if($html_info=='on') {
 ?>
@@ -124,38 +116,38 @@ if($html_info=='on') {
             </div>
 	    <input type="hidden" name="form_login" value="log">
             <button type="submit" class="btn btn-xs btn-success">Sign in</button>
-          </form>        
-    <?php 
+          </form>
+    <?php
     }
 		if(isset($_SESSION["user"])) {?>
 	<form method="post" action="logout" class="navbar-form navbar-right" >
 	    <?php echo $_SESSION["user"];?>
 	    <button type="submit" class="btn btn-xs btn-success">Log Out</button>
-	</form>   
+	</form>
 	<form action="" method="post" class="navbar-form navbar-right">
 		Auto logout
-		<input type="checkbox" data-toggle="toggle" data-size="mini" " name="autologout" value="on" <?php echo $autologout == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini" name="autologout" value="on" <?php echo $autologout == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
 		<input type="hidden" name="setautologout" value="onoff" />
-    </form>     
+    </form>
     <?php } ?>
     	</div><!--/.nav-collapse -->
 	</div><!--/.container-fluid -->
 </nav>
-<?php 
+<?php
 	}
-	?> 
+	?>
 
 <div class="container-nettemp">
-<?php 
+<?php
 if (file_exists("tmp/reboot")) {  ?>
 <div class="alert alert-warning" role="alert"><a href="index.php?id=tools&type=reboot" class="btn btn-xs btn-warning">Reboot required</a></div>
 <?php
 }
 ?>
 
-<?php  
+<?php
 switch ($id)
-{ 
+{
 default: case '$id': include('status/status.php'); break;
 case 'view': include('modules/charts/menu.php'); break;
 case 'map': include('modules/map/map_main.php'); break;
@@ -187,7 +179,7 @@ window.setInterval( function() {
 }, refreshTime );
 </script>
 
-<?php 
+<?php
 	if(($html_footer=='on')&&($id!='screen')){ ?>
 <footer class="footer">
       <div class="container text-center">
@@ -198,21 +190,18 @@ window.setInterval( function() {
 			<a href="index.php?id=tools&type=update" class="btn btn-xs btn-info">Update available!</a>
 		<?php } ?>
 
-	    
       </div>
 </footer>
 <?php 
 	}
 	?>
-    
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+    <!-- jQuery (necessary for Bootstrap''s JavaScript plugins) -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
     <script src="html/bootstrap/js/bootstrap.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
   </body>
 </html>
-<?php 
-}
+<?php
+} //end of : if( !file_exists($dbfile) || !is_readable($dbfile) || filesize($dbfile) == 0 )
 ?>
-
-
