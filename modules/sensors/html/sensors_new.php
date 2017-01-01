@@ -38,7 +38,7 @@ if ($delnew=='yes'){
 <tbody>
 <?php	
 $db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("SELECT * FROM newdev WHERE list NOT IN (SELECT rom FROM sensors WHERE 1)");
+$sth = $db->prepare("SELECT * FROM newdev WHERE rom NOT IN (SELECT rom FROM sensors WHERE 1)");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) {
