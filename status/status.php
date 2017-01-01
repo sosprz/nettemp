@@ -1,5 +1,5 @@
-<script src="<?php $SERVER['DOCUMENT_ROOT']?>/html/justgage/raphael-2.1.4.min.js"></script>
-<script src="<?php $SERVER['DOCUMENT_ROOT']?>/html/justgage/justgage.js"></script>
+<script src="<?php $_SERVER['DOCUMENT_ROOT']?>/html/justgage/raphael-2.1.4.min.js"></script>
+<script src="<?php $_SERVER['DOCUMENT_ROOT']?>/html/justgage/justgage.js"></script>
 <style type="text/css">
 
 * {
@@ -53,9 +53,9 @@ Go to device scan!
 <?php
 }
 
-    
+
     //GROUPS
-    $rows = $db->query("SELECT ch_group,type FROM sensors ORDER BY position_group ASC");
+    $rows = $db->query("SELECT ch_group,type FROM sensors ORDER BY position_group ASC") or header("Location: html/errors/db_error.php");
 	$result_ch_g = $rows->fetchAll();
 	$unique=array();
 	
