@@ -1,5 +1,3 @@
-<script src="<?php $_SERVER['DOCUMENT_ROOT']?>/html/justgage/raphael-2.1.4.min.js"></script>
-<script src="<?php $_SERVER['DOCUMENT_ROOT']?>/html/justgage/justgage.js"></script>
 <style type="text/css">
 
 * {
