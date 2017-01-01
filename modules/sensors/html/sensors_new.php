@@ -1,18 +1,18 @@
 <?php
 $delallnewrom = isset($_POST['delallnewrom']) ? $_POST['delallnewrom'] : '';
 if ($delallnewrom=='yes'){
-    	$db = new PDO('sqlite:dbf/nettemp.db');
-    	$db->exec("DELETE FROM newdev");
-    	header("location: " . $_SERVER['REQUEST_URI']);
-    	exit();
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("DELETE FROM newdev");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
 }
 $delnewrom = isset($_POST['delnewrom']) ? $_POST['delnewrom'] : '';
 $delnew = isset($_POST['delnew']) ? $_POST['delnew'] : '';
 if ($delnew=='yes'){
-    	$db = new PDO('sqlite:dbf/nettemp.db');
-    	$db->exec("DELETE FROM newdev WHERE id='$delnewrom'");
-    	header("location: " . $_SERVER['REQUEST_URI']);
-    	exit();
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("DELETE FROM newdev WHERE id='$delnewrom'");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
 }
 ?>
 <div class="panel panel-default">
@@ -38,10 +38,10 @@ if ($delnew=='yes'){
 <tbody>
 <?php	
 $db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("SELECT * FROM newdev t1 WHERE NOT EXISTS (SELECT * FROM sensors t2 WHERE t1.rom = t2.rom)");
+$sth = $db->prepare("SELECT * FROM newdev WHERE list NOT IN (SELECT rom FROM sensors WHERE 1)");
 $sth->execute();
 $result = $sth->fetchAll();
-foreach ($result as $a) { 
+foreach ($result as $a) {
 ?>
 <tr>
 	<td class="col-md-0">
@@ -77,30 +77,30 @@ foreach ($result as $a) {
 	
 	<td class="col-md-0">
 		<form action="" method="post" style="display:inline!important;">
-			<input type="hidden" name="new_rom" value="<?php echo $a['rom']; ?>" > 
-			<input type="hidden" name="type" value="<?php echo $a['type']; ?>" > 
+			<input type="hidden" name="new_rom" value="<?php echo $a['rom']; ?>" >
+			<input type="hidden" name="type" value="<?php echo $a['type']; ?>" >
 			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button>
 		</form>
 	
 	</td>
 	<td class="col-md-0">
 		<form action="" method="post" style="display:inline!important;">
-			<input type="hidden" name="delnewrom" value="<?php echo $a['id']; ?>" > 
-			<input type="hidden" name="delnew" value="yes" > 
+			<input type="hidden" name="delnewrom" value="<?php echo $a['id']; ?>" >
+			<input type="hidden" name="delnew" value="yes" >
 			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
 		</form>
 	</td>
 	
-</tr>    
-<?php 
-	} 	
-	if(count($result)>0) {				
+</tr>
+<?php
+	}
+	if(count($result)>0) {
 ?>
 <tr>
 	<td  colspan = "12">
 		<center>
 		<form action="" method="post">
-			<input type="hidden" name="delallnewrom" value="yes" > 
+			<input type="hidden" name="delallnewrom" value="yes" >
 			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> Remove all new device</button>
 		</form>
 		</center>
@@ -113,7 +113,3 @@ foreach ($result as $a) {
 </table>
 </div>
 </div>
-
-
-
-
