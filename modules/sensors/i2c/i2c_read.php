@@ -144,6 +144,7 @@ function read($addr,$name,$bus){
 		shell_exec("sudo cp $ROOT/install/1w/nettemp.ds2482 /etc/init.d/");
 		shell_exec("sudo update-rc.d nettemp.ds2482 defaults");
 		shell_exec("sudo service nettemp.ds2482 start");
+		echo $date." ".$dsfile." created";
 	}
 
 }
