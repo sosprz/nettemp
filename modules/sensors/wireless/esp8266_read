@@ -10,7 +10,7 @@ if rom=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rom FROM senso
 	ip=$(echo $all |awk -F_ '{print $2}')
 	#wynik=$(curl -s  $ip |awk -F" " '{print $4}')
 	#wynik=$(nc $ip 80 |awk -F":" '{print $2}'|cut -c 2-6)
-	type=$(echo $all |awk -F"_" '{ print $4}')
+	type=$(echo $all |awk -F"_" '{ print $3}')
 	    if [ "$type" == "humid" ]; then
 		wynik=$(curl $ip |sed -e 's/<[^>]*>/\n/g' |grep Humid | awk '{ print $2}')
 		php-cgi -f $dir/receiver.php key=$skey rom=$all value=$wynik type=humid

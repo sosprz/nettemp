@@ -263,60 +263,20 @@ if (("$key" != "$skey") && (!defined('LOCAL')))
 {
     echo "wrong key\n";
 } 
-    else {
-
-
+else {
 
 //MAIN
 //Local devices have always rom
-if(isset($val) && isset($rom) && isset($type)) {
+if(isset($val) && isset($rom) && isset($type))
+{
 	db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
-    }
-elseif (isset($val) && isset($type)) {
-	// BUILD ROM
-	
-	if ( $device == "i2c" ) { 
-	    if (!empty($type) && !empty($i2c)) {
-		$rom=$device.'_'.$i2c.'_'.$type;
-	    } else {
-		echo "Missing type or i2c number";
-		exit();
-	    }	
-	}
-	elseif ( $device == "gpio" ) { 
-	    if (!empty($type) && !empty($gpio)) {
-		$rom=$device.'_'.$gpio.'_'.$type; 
-	    } else {
-		echo "Missing type or gpio number";
-		exit();
-	    }
-	}
-	elseif ( $device == "usb" ) {
-	    if (!empty($type) && !empty($usb)) {
-		$rom=$device.'_'.$usb.'_'.$type; 
-	    } else {
-		echo "Missing type or USB";
-		exit();
-	    }
-	}
-	elseif ( $device == "wireless" ) {
-	    if (!empty($type) && !empty($ip)) {
-		$rom=$device.'_'.$ip.'_'.$type; 
-	    } else {
-		echo "Missing type or IP";
-		exit();
-	    }
-	}
-	elseif ( $device == "ip" ) {
-	    if (empty($type)){ echo "Missing type"; exit();}
-	    if (empty($device)){ echo "Missing device"; exit();}
-	    if (empty($name)){ echo "Missing name"; exit();}
-	    $rom=$device.'_'.$name.'_'.$type;
-	}
-
+}
+elseif (isset($val) && isset($type)) 
+{
 	//MULTI ID
 	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&id=5;6;7&type=temp;humid;press&value=0.00;0.00;0.00
-	if (strpos($type, ';') !== false && strpos($id, ';') !== false) {
+	if (strpos($type, ';') !== false && strpos($id, ';') !== false) 
+	{
 		$aid = array_filter(explode(';', $id),'strlen');
 		$atype = array_filter(explode(';', $type),'strlen');
 		$aval = array_filter(explode(';', $val),'strlen');
@@ -342,7 +302,8 @@ elseif (isset($val) && isset($type)) {
 	}
 	//MULTI TYPE
 	// receiver.php?name=unit1&key=q1w2e3r4&type=temp;humid;press&value=0.00;0.00;0.00
-	elseif (strpos($type, ';') !== false && empty($id)) {
+	elseif (strpos($type, ';') !== false && empty($id)) 
+	{
 		$atype = array_filter(explode(';', $type),'strlen');
 		$aval = array_filter(explode(';', $val),'strlen');
 		if(empty($atype)) {
@@ -368,7 +329,8 @@ elseif (isset($val) && isset($type)) {
 	// ONE ID 
 	// type is more important than id, type equal value
 	// receiver.php?name=unit1&key=q1w2e3r4&id=5&type=temp;humid;press&value=0.00;0.00;0.00
-	elseif (!empty($id)&&!empty($name)) {
+	elseif (!empty($id)&&!empty($name)) 
+	{
 		$atype = array_filter(explode(';', $type),'strlen');
 		$aval = array_filter(explode(';', $val),'strlen');
 		if(empty($atype)) {
@@ -392,7 +354,60 @@ elseif (isset($val) && isset($type)) {
 	}
 	// ONE TYPE	
 	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&type=temp&value=0.00
-	else {
+	elseif ( $device == "i2c" ) 
+	{ 
+	    if (!empty($type) && !empty($i2c)) 
+	    {
+			$rom=$device.'_'.$i2c.'_'.$type;
+			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
+	    } else 
+	    {
+			echo "Missing type or i2c number";
+			exit();
+	    }	
+	}
+	elseif ( $device == "gpio" ) 
+	{ 
+	    if (!empty($type) && !empty($gpio)) {
+			$rom=$device.'_'.$gpio.'_'.$type; 
+			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
+	    } else {
+			echo "Missing type or gpio number";
+			exit();
+	    }
+	}
+	elseif ( $device == "usb" ) 
+	{
+	    if (!empty($type) && !empty($usb)) 
+	    {
+			$rom=$device.'_'.$usb.'_'.$type; 
+			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
+	    } else {
+			echo "Missing type or USB";
+			exit();
+	    }
+	}
+	elseif ( $device == "wireless" ) 
+	{
+	    if (!empty($type) && !empty($ip)) {
+			$rom=$device.'_'.$ip.'_'.$type; 
+			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
+	    } else 
+	    {
+			echo "Missing type or IP";
+			exit();
+	    }
+	}
+	elseif ( $device == "ip" ) 
+	{
+	    if (empty($type)){ echo "Missing type"; exit();}
+	    if (empty($device)){ echo "Missing device"; exit();}
+	    if (empty($name)){ echo "Missing name"; exit();}
+	    $rom=$device.'_'.$name.'_'.$type;
+	    db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
+	}
+	else 
+	{
 		 db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
 	} 
 	
