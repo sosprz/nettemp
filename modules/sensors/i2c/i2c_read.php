@@ -131,20 +131,37 @@ function read($addr,$name,$bus){
 	}
 	elseif($name=='ds2482') {
 		$dsfile = "$ROOT/tmp/ds2482";
-		$fh = fopen($dsfile, 'w');
-		fwrite($fh, "modprobe ds2482\n");
-		fwrite($fh, "modprobe w1-therm strong_pullup=0\n");
-		fwrite($fh, "echo ds2482 0x18 > /sys/bus/i2c/devices/i2c-$bus/new_device\n");
-		fwrite($fh, "echo ds2482 0x19 > /sys/bus/i2c/devices/i2c-$bus/new_device\n");
-		fwrite($fh, "echo ds2482 0x1A > /sys/bus/i2c/devices/i2c-$bus/new_device\n");
-		fwrite($fh, "echo ds2482 0x1B > /sys/bus/i2c/devices/i2c-$bus/new_device\n");
-		fwrite($fh, "exit 0\n");
-		fclose($fh);
-		shell_exec("sudo chmod +x $dsfile");
-		shell_exec("sudo cp $ROOT/install/1w/nettemp.ds2482 /etc/init.d/");
-		shell_exec("sudo update-rc.d nettemp.ds2482 defaults");
-		shell_exec("sudo service nettemp.ds2482 start");
-		echo $date." ".$dsfile." created\n";
+		
+		if(!file_exists("$dsfile"))
+		{
+			$fh = fopen($dsfile, 'w');
+			fwrite($fh, "modprobe ds2482\n");
+			fwrite($fh, "modprobe w1-therm strong_pullup=0\n");
+			fwrite($fh, "echo ds2482 0x18 > /sys/bus/i2c/devices/i2c-$bus/new_device\n");
+			fwrite($fh, "echo ds2482 0x19 > /sys/bus/i2c/devices/i2c-$bus/new_device\n");
+			fwrite($fh, "echo ds2482 0x1A > /sys/bus/i2c/devices/i2c-$bus/new_device\n");
+			fwrite($fh, "echo ds2482 0x1B > /sys/bus/i2c/devices/i2c-$bus/new_device\n");
+			fwrite($fh, "exit 0\n");
+			fclose($fh);
+			shell_exec("sudo chmod +x $dsfile");
+		}
+		else 
+		{
+			echo $date." ".$dsfile." already exist\n";
+		}
+		
+		if(!file_exists('/etc/init.d/nettemp.ds2482'))
+		{
+			shell_exec("sudo cp $ROOT/install/1w/nettemp.ds2482 /etc/init.d/");
+			shell_exec("sudo update-rc.d nettemp.ds2482 defaults");
+			shell_exec("sudo service nettemp.ds2482 start");
+			echo $date." copy nettemp.ds2482 to init.d done\n";
+		} 
+		else 
+		{
+			echo $date." nettemp.ds2482 already in init.d\n";
+		}
+		
 	}
 
 }
