@@ -1,0 +1,14 @@
+
+
+
+
+
+sqlite3 /var/www/nettemp/dbf/nettemp.db "PRAGMA integrity_check"
+sqlite3 /var/www/nettemp/dbf/nettemp.db "DROP index unique_name";
+
+
+sudo su -
+ls /sys/bus/w1/devices/
+i2cdetect -y 1
+php /var/www/nettemp/modules/sensors/i2c/i2c_read2.php
+

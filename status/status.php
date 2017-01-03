@@ -80,7 +80,8 @@ Go to device scan!
     include('status/minmax_status.php');
     include('status/gpio_status.php');
     include('status/counters_status.php');
-    include('status/relays_status.php');
+    include('status/switch_controls.php');
+    include('status/relays_controls.php');
     include('status/meteo_status.php');
     foreach (range(1, 10) as $v) {
 		$ow=$v;
@@ -102,7 +103,7 @@ Go to device scan!
 		}
 	?>
 	
-	    <?php
+	<?php
 		foreach ($uniquea as $key => $ch_g) { 
 	?>
 		$('#justgage_refresh').load("status/justgage_refresh.php?ch_g=<?php echo $ch_g?>");
@@ -117,15 +118,18 @@ Go to device scan!
     $('.ow3').load("status/ownwidget3.php");
     $('.mm').load("status/minmax_status.php");
     $('.ups').load("status/ups_status.php");
-    $('.rs').load("status/relays_status.php");
+    //$('.swcon').load("status/switch_controls.php");
+    //$('.recon').load("status/relays_controls.php");
+  
 }, 60000);
 
 $(document).ready( function() {
 
   $('.grid').masonry({
     itemSelector: '.grid-item',
-    columnWidth: 350
+    columnWidth: 350,
   });
+
   
 });
 </script>
