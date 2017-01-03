@@ -56,7 +56,7 @@ if (($sonoff == "sonoff")){
 <div class="grid-item swcon">
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">Switch</h3>
+<h3 class="panel-title">IP Switch</h3>
 </div>
 <div class="panel-body">
 <?php

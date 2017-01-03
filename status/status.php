@@ -82,6 +82,7 @@ Go to device scan!
     include('status/counters_status.php');
     include('status/switch_controls.php');
     include('status/relays_controls.php');
+    include('status/gpio_controls.php');
     include('status/meteo_status.php');
     foreach (range(1, 10) as $v) {
 		$ow=$v;

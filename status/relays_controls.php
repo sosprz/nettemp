@@ -53,7 +53,7 @@ if (($ronoff == "ronoff")){
 <div class="grid-item recon">
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">Relays</h3>
+<h3 class="panel-title">Relays (Wireless)</h3>
 </div>
 <div class="panel-body">
 <?php
@@ -76,7 +76,6 @@ $o=strtolower(trim($o1));
 <form class="form-horizontal" action="" method="post">
 <fieldset>
 
-<!-- Multiple Checkboxes (inline) -->
 <div class="form-group">
   <label class="col-md-5 control-label" for="relay"><?php echo $r['name']; ?></label>
   <div class="col-md-5">
