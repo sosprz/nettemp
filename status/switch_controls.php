@@ -5,7 +5,7 @@ $root=$_SERVER["DOCUMENT_ROOT"];
 if(isset($_SESSION['user'])){
 
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
-$sth = $db->prepare("SELECT ip,rom,gpio,name,tmp FROM sensors WHERE type='switch'");
+$sth = $db->prepare("SELECT ip,rom,gpio,name,tmp FROM sensors WHERE type='switch' AND ch_group='switch'");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);
