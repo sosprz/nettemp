@@ -39,6 +39,45 @@ function ch_source() {
     </script>
 
 <?php
+	//change
+	$sensor1_update=isset($_POST['sensor1_update']) ? $_POST['sensor1_update'] : '';
+	$source_update=isset($_POST['source_update']) ? $_POST['source_update'] : '';
+	$op_update=isset($_POST['op_update']) ? $_POST['op_update'] : '';
+	$sensor2_update=isset($_POST['sensor2_update']) ? $_POST['sensor2_update'] : '';
+	$value_update=isset($_POST['value_update']) ? $_POST['value_update'] : '';
+	$hyst_update=isset($_POST['hyst_update']) ? $_POST['hyst_update'] : '';
+	$onoff_update=isset($_POST['onoff_update']) ? $_POST['onoff_update'] : '';
+	$day_plan_update=isset($_POST['day_plan_update']) ? $_POST['day_plan_update'] : '';
+	$fid_update=isset($_POST['fid_update']) ? $_POST['fid_update'] : '';
+	$fupdate=isset($_POST['fupdate']) ? $_POST['fupdate'] : '';
+
+	if ($source_update == 'value') {
+	    $sensor2_update=NULL;
+	    $hyst_update=NULL;
+    } elseif ($source_update == 'sensor2') {
+	    $value_update=NULL;
+	    $hyst_update=NULL;
+    } elseif ($source_update == 'valuehyst') {
+	    $sensor2_update=NULL;
+    } elseif ($source_update == 'sensor2hyst') {
+	    $value_update=NULL;
+    }
+    
+	if ($fupdate == "change"){
+		$db = new PDO('sqlite:dbf/nettemp.db');
+		$db->exec("UPDATE g_func SET sensor='$sensor1_update', sensor2='$sensor2_update', onoff='$onoff_update', value='$value_update', op='$op_update', hyst='$hyst_update', w_profile='$day_plan_update' WHERE id='$fid_update'");
+		$db->exec("UPDATE g_func SET w_profile='any' WHERE id='$fid_update'");
+
+		//header("location: " . $_SERVER['REQUEST_URI']);
+		//exit();
+	}
+
+	
+	
+	
+	
+	
+
 	//update
 	$sensor1=isset($_POST['sensor1']) ? $_POST['sensor1'] : '';
 	$sensor2=isset($_POST['sensor2']) ? $_POST['sensor2'] : '';
@@ -47,7 +86,7 @@ function ch_source() {
 	$hyst=isset($_POST['hyst']) ? $_POST['hyst'] : '';
 	$onoff=isset($_POST['onoff']) ? $_POST['onoff'] : '';
 	$op=isset($_POST['op']) ? $_POST['op'] : '';
-	$day_plan=isset($_POST['day_plan']) ? $_POST['day_plan'] : 'any';
+	$day_plan=isset($_POST['day_plan']) ? $_POST['day_plan'] : '';
 	
 	$fadd=isset($_POST['fadd']) ? $_POST['fadd'] : '';
 	$fdel=isset($_POST['fdel']) ? $_POST['fdel'] : '';
@@ -56,7 +95,7 @@ function ch_source() {
 	$up=isset($_POST['up']) ? $_POST['up'] : '';
 	$fpos=isset($_POST['fpos']) ? $_POST['fpos'] : '';
 	
-	 if ($source == 'value') {
+	if ($source == 'value') {
 	    $sensor2=NULL;
 	    $hyst=NULL;
     } elseif ($source == 'sensor2') {
@@ -64,10 +103,8 @@ function ch_source() {
 	    $hyst=NULL;
     } elseif ($source == 'valuehyst') {
 	    $sensor2=NULL;
-	    //$onoff='on';
     } elseif ($source == 'sensor2hyst') {
 	    $value=NULL;
-	    //$onoff='on';
     }
     
     if(($op=='gt' || $op=='ge') && ($source=='sensor2hyst' || $source=='valuehyst')) {
@@ -146,8 +183,8 @@ function ch_source() {
 
 	//loops
 	$sth = $db->prepare("SELECT * FROM sensors");
-   $sth->execute();
-   $result = $sth->fetchAll(); 
+    $sth->execute();
+    $result = $sth->fetchAll(); 
 
 	$sth1 = $db->prepare("SELECT * FROM day_plan WHERE gpio='$gpio'");
 	$sth1->execute();
@@ -234,7 +271,6 @@ function ch_source() {
     <option value="on">ON</option>
     <option value="off">OFF</option>
     <option value="and" id="actionand">AND</option>
-  <!--  <option value="onoff">ON/OFF</option> -->
 </select>
 </td>
 
@@ -287,25 +323,28 @@ function ch_source() {
 </td>
 
 <td class="col-md-1">
-<?php
-  foreach ($result as $select) {
-	if($select['id'] == $func['sensor']) {
-			echo $select['name']." (".$select['tmp'].")";
-		}	
-	}
-?>
+<form class="form-horizontal" action="" method="post" style="display:inline!important;">	
+	<select name="sensor1_update" class="form-control input-sm">
+	<?php 
+    foreach ($result as $select) { ?>
+		<option value="<?php echo $select['id']; ?>" <?php echo $select['id']==$func['sensor'] ? 'selected="selected"' : ''; ?> ><?php echo $select['name']." ".$select['tmp'] ?></option>
+	<?php 
+    } 
+	?>
+	</select>
 </td>
 
 <td class="col-md-1">
-	<?php
-		if($func['op']=="lt") { echo "&lt"; }  
-		if($func['op']=="le") { echo "&lt;&#61;"; }
-		if($func['op']=="gt") { echo "&gt"; }
-		if($func['op']=="ge") { echo "&gt;&#61"; }
-	?>
+	<select name="op_update" class="form-control input-sm">
+		<option value="lt" <?php echo $func['op'] == 'lt' ? 'selected="selected"' : ''; ?>>&lt;</option>   
+		<option value="le" <?php echo $func['op'] == 'le' ? 'selected="selected"' : ''; ?>>&lt;&#61;</option>     
+		<option value="gt" <?php echo $func['op'] == 'gt' ? 'selected="selected"' : ''; ?>>&gt;</option>   
+		<option value="ge" <?php echo $func['op'] == 'ge' ? 'selected="selected"' : ''; ?>>&gt;&#61;</option>   
+	</select>
 </td>
 
 <td class="col-md-1" onclick='ch_source()'>
+	<input type="hidden" name="source_update" value="<?php echo $func['source'];?>">
 	<?php 
 	if($func['source']=="value") { echo "value"; }
 	elseif($func['source']=="valuehyst") { echo "val + hist"; }
@@ -316,34 +355,70 @@ function ch_source() {
 
 <td class="col-md-1">
 <?php
-if ($func['source'] == 'sensor2' || $func['source'] == 'sensor2hyst') {
- foreach ($result as $select) {
-	if($select['id'] == $func['sensor2']) {
-			echo $select['name']." (".$select['tmp'].")";
-		}	
-	}
-} else {
-	echo $func['value'];
+
+if ($func['source'] == 'sensor2' || $func['source'] == 'sensor2hyst') 
+{
+?>
+	<select name="sensor2_update" class="form-control input-sm" id="sensor2" >
+	<?php
+		foreach ($result as $select) { 
+		?>
+			<option value="<?php echo $select['id']; ?>" <?php echo $select['id'] == $func['sensor2'] ? 'selected="selected"' : ''; ?>><?php echo $select['name']." ".$select['tmp'] ?></option>
+		<?php 
+		} 
+		?>
+    </select>
+<?php
+} 
+else { 
+	?>
+	<input type="text" name="value_update" class="form-control input-sm" id="value" required="" value="<?php echo $func['value'];?>">
+	<?php
 }
 ?>
 </td>
 
 <td class="col-md-1">
-    <?php echo $func['hyst']?>
+	<?php
+	if($func['source']=="valuehyst"||$func['source']=="sensor2hyst") { 
+	?>
+	<input type="text" name="hyst_update" class="form-control input-sm" id="value" required="" value="<?php echo $func['hyst'];?>">
+	<?php
+	}
+	?>
 </td>
 
 <td class="col-md-1">
-	<?php echo $func['onoff']?>
+	<select name="onoff_update" class="form-control input-sm">
+		<option value="on"  <?php echo $func['onoff'] == 'on' ? 'selected="selected"' : ''; ?>  >ON</option>
+		<option value="off" <?php echo $func['onoff'] == 'off' ? 'selected="selected"' : ''; ?>  >OFF</option>
+		<option value="and"  <?php echo $func['onoff'] == 'and' ? 'selected="selected"' : ''; ?>  id="actionand">AND</option>
+	</select>
 </td>
-
 <td class="col-md-2">
+	<select name="day_plan_update" class="form-control input-sm" <?php echo $a['day_run'] != 'on' ? 'disabled="disabled"' : ''; ?>>
+	<?php
+	$sth1 = $db->prepare("SELECT * FROM day_plan WHERE gpio='$gpio'");
+	$sth1->execute();
+	$dpu = $sth1->fetchAll();
+	foreach ($dpu as $dpu) {
+	?>
+	<option value="<?php echo $dpu['name']?>" <?php echo $func['w_profile'] == $dpu['name'] ? 'selected="selected"' : ''; ?>><?php echo $dpu['name']?></option>
 	<?php 
-		echo $name=str_replace('_', ' ', $func['w_profile']);
-		?>
-	</td>
+	} 
+	?>
+	<option value="any" <?php echo $func['w_profile'] == 'any' ? 'selected="selected"' : ''; ?>>any</option>
+	</select>
+</td>
 
+
+	
+		<input type="hidden" name="fid_update" value="<?php echo $func['id']; ?>"/>
+		<input type="hidden" name="fupdate" value="change" />
 <td class="col-md-1">
-	<form class="form-horizontal" action="" method="post">
+		<button type="submit" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
+	</form>
+	<form class="form-horizontal" action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="fid" value="<?php echo $func['id']; ?>"/>
 		<input type="hidden" name="fdel" value="del" />
 		<button type="submit" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
