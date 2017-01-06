@@ -113,7 +113,7 @@ $sensors_relay = $sth->fetchAll();
 			
 				if($g['mode']=='temp') {
 					/* TEMP */
-					$sth = $db->prepare("SELECT id,value FROM g_func WHERE gpio='$s[gpio]' LIMIT 1");
+					$sth = $db->prepare("SELECT id,value FROM g_func WHERE gpio='$s[gpio]' ORDER BY position ASC LIMIT 1 ");
 					$sth->execute();
 					$g_func = $sth->fetchAll();
 					$numRows = count($result);
