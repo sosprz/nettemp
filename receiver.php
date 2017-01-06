@@ -306,6 +306,7 @@ elseif (isset($val) && isset($type))
 	{
 		$atype = array_filter(explode(';', $type),'strlen');
 		$aval = array_filter(explode(';', $val),'strlen');
+		
 		if(empty($atype)) {
 			echo "No type definied in one id mode, name ".$name.", id ".$id."\n";
 			exit;

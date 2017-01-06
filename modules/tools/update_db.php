@@ -117,6 +117,7 @@ $dba->exec("ALTER TABLE gpio ADD week_Sun type TEXT");
 $dba->exec("ALTER TABLE gpio ADD week_Thu type TEXT");
 $dba->exec("ALTER TABLE gpio ADD week_Tue type TEXT");
 $dba->exec("ALTER TABLE gpio ADD week_Wed type TEXT");
+$dba->exec("ALTER TABLE gpio ADD locked type TEXT");
 
 $dba->exec("ALTER TABLE hosts ADD alarm type TEXT");
 $dba->exec("ALTER TABLE hosts ADD element_id type TEXT");

@@ -169,6 +169,10 @@ function action_off($op,$sensor_name,$gpio,$rev,$ip) {
 $rows = $db->query("SELECT * FROM gpio WHERE mode='temp'");
 $row = $rows->fetchAll();
 foreach ($row as $a) {
+	if($a['locked']=='user') {
+		echo date('Y H:i:s')." GPIO ".$a['gpio'].", name: ".$a['name'].", LOCKED by USER.\n";
+		continue;
+	}
 	$gpio=$a['gpio'];
 	$rev=$a['rev']; 
 	if($rev=='on') {$mode='LOW';} else {$mode='HIGH'; $rev=null;}
