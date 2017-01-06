@@ -50,6 +50,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS rs485 (id INTEGER PRIMARY KEY,dev,addr TEX
 $db->exec("CREATE TABLE IF NOT EXISTS types (id INTEGER PRIMARY KEY,type UNIQUE, unit TEXT, unit2 TEXT, ico TEXT, title TEXT, min NUMERIC, max NUMERIC, value1 NUMERIC, value2 NUMERIC, value3 NUMERIC)");
 $db->exec("CREATE TABLE IF NOT EXISTS usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE)");
 $db->exec("CREATE TABLE IF NOT EXISTS vpn (id INTEGER PRIMARY KEY,users UNIQUE)");
+$db->exec("CREATE TABLE IF NOT EXISTS auth_tokens (id INTEGER PRIMARY KEY, selector TEXT, token TEXT, userid TEXT, expires TEXT)");
 
 $db->commit();
 $db=null;
@@ -60,6 +61,7 @@ $db=null;
     echo $e;
     //exit;
 }
+
 
 $dba = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 
@@ -174,7 +176,6 @@ $dba->exec("ALTER TABLE sensors ADD usb type TEXT");
 $dba->exec("ALTER TABLE sensors ADD position_group type TEXT");
 
 $dba->exec("ALTER TABLE settings ADD authmod type TEXT");
-$dba->exec("ALTER TABLE settings ADD autologout type TEXT");
 $dba->exec("ALTER TABLE settings ADD call type TEXT");
 $dba->exec("ALTER TABLE settings ADD cauth_login type TEXT");
 $dba->exec("ALTER TABLE settings ADD cauth_on type TEXT");
@@ -274,7 +275,7 @@ $db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tsl2561','39')");
 $db->exec("INSERT OR IGNORE INTO meteo (id, temp, latitude, height, pressure, humid, onoff ) VALUES (1,'0','0','0','0','0','off')");
 $db->exec("INSERT OR IGNORE INTO minmax (name, state) VALUES ('mode', '1')");
 
-$db->exec("INSERT OR IGNORE INTO settings (id, mail, sms, rrd, fw, vpn, gpio, authmod, temp_scale, autologout, meteogram) VALUES (1,'off','off', 'off', 'off', 'off', 'on', 'on', 'C', 'on', 'Poland/Pomerania/Gdansk')");
+$db->exec("INSERT OR IGNORE INTO settings (id, mail, sms, rrd, fw, vpn, gpio, authmod, temp_scale, meteogram) VALUES (1,'off','off', 'off', 'off', 'off', 'on', 'on', 'C', 'Poland/Pomerania/Gdansk')");
 $db->exec("INSERT OR IGNORE INTO settings (id, temp_scale) VALUES (1, 'C')");
 $db->exec("INSERT OR IGNORE INTO settings (id,gpio) VALUES (1,'on')");
 
