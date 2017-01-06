@@ -167,7 +167,7 @@ case 'screen': include('modules/screen/screen.php'); break;
 ?>
 </div>
 <script type="text/javascript">
-var refreshTime = 30000; // every 5 minutes in milliseconds
+var refreshTime = 30000; 
 window.setInterval( function() {
     $.ajax({
         cache: false,
