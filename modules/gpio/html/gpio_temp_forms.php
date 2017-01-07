@@ -437,5 +437,10 @@ else {
 
 </div>
 </table>
+	<div class="panel-footer">
+		<span id="helpBlock" class="help-block">
+			Note: If You set action ON, then function search first condition and set action ON. For cleanup set last condition with action OFF.
+		</span>
+	</div>
 </div>
 </div>

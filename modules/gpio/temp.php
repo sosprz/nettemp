@@ -326,7 +326,7 @@ foreach ($row as $a) {
 							}
 						}
 					// jest AND i nie spelnionym
-						elseif($map[$comparison2] && $onoff=='and') {
+					elseif($map[$comparison2] && $onoff=='and') {
 							echo date('Y H:i:s')." GPIO ".$gpio." NO HIT condition '".$comparison2."' in function ".$func['id']." AND not OK, NEXT\n\n";
 							$and='nie';
 						}
