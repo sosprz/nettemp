@@ -1,22 +1,11 @@
 <?php
 session_start();
+
 $user=$_SESSION['user'];
+$autologout='';
 
-if(!empty($_COOKIE['stay_login'])){
-	$autologout='on';
-}
-
-
-if ($autologout=='on' && isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 600)) {
-	session_unset();     // unset $_SESSION variable for the run-time 
-	session_destroy();   // destroy session data in storage
-	setcookie('stay_login'.$user, null, -1, '/');
-}
-$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
-
-
-if (empty($_SESSION['user']) && !empty($_COOKIE['stay_login'])) {
-	
+//if (empty($_SESSION['user']) && !empty($_COOKIE['stay_login'])) {
+if (!empty($_COOKIE['stay_login'])) {	
     list($selector, $authenticator) = explode(':', $_COOKIE['stay_login']);
     
     $db = new PDO('sqlite:dbf/nettemp.db');
@@ -27,9 +16,21 @@ if (empty($_SESSION['user']) && !empty($_COOKIE['stay_login'])) {
 		if (hash_equals($row['token'], hash('sha256', base64_decode($authenticator)))) {
 			$_SESSION['user'] = $row['login'];
 			$_SESSION['perms'] = $row['perms'];
+			$autologout='on';
 		}
 	}
 }
+
+
+if (empty($autologout) && isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 600)) {
+	session_unset();     // unset $_SESSION variable for the run-time 
+	session_destroy();   // destroy session data in storage
+	setcookie('stay_login'.$user, null, -1, '/');
+}
+$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+
+
+
 
 /* forms */
 $autologout_value= isset($_POST['autologout_vaue']) ? $_POST['autologout_value'] : '';
@@ -55,12 +56,12 @@ $setautologout= isset($_POST['setautologout']) ? $_POST['setautologout'] : '';
 				'/'
 			);
 			$db = new PDO('sqlite:dbf/nettemp.db');
-			$db->exec("DELETE FROM auth_tokens WHERE userid='$userid'");
+			//$db->exec("DELETE FROM auth_tokens WHERE userid='$userid'");
 			$db->exec("INSERT INTO auth_tokens (selector, token, userid, expires) VALUES ('$selector', '$token', '$userid', '$date')");
 			/* seetocookie end */
 		}
 		else {
-			$db->exec("DELETE FROM auth_tokens WHERE userid='$userid'");
+			$db->exec("DELETE FROM auth_tokens WHERE selector='$selector'");
 			setcookie('stay_login', null, -1, '/');
 		}
 	
