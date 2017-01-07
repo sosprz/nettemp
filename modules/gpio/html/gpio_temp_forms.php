@@ -87,6 +87,10 @@ function ch_source() {
 	$op=isset($_POST['op']) ? $_POST['op'] : '';
 	$day_plan=isset($_POST['day_plan']) ? $_POST['day_plan'] : '';
 	
+	if(empty($day_plan)) {
+		$day_plan='any';
+	}
+	
 	$fadd=isset($_POST['fadd']) ? $_POST['fadd'] : '';
 	$fdel=isset($_POST['fdel']) ? $_POST['fdel'] : '';
 	$fid=isset($_POST['fid']) ? $_POST['fid'] : '';
