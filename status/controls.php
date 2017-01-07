@@ -12,8 +12,10 @@ $sensors_switch = $sth->fetchAll();
 $sth = $db->prepare("SELECT ip,rom,gpio,name,tmp FROM sensors WHERE type='relay' AND ch_group='relay'");
 $sth->execute();
 $sensors_relay = $sth->fetchAll();
-?>
 
+
+if(!empty($sensors_switch)||!empty($sensors_relay)) {
+?>
 <div class="grid-item swcon">
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -230,6 +232,9 @@ $sensors_relay = $sth->fetchAll();
 </div>
 <?php
 } /*user*/
+
+} /* end check if empty */
 ?>
+
 
 
