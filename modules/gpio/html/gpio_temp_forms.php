@@ -66,10 +66,9 @@ function ch_source() {
 	if ($fupdate == "change"){
 		$db = new PDO('sqlite:dbf/nettemp.db');
 		$db->exec("UPDATE g_func SET sensor='$sensor1_update', sensor2='$sensor2_update', onoff='$onoff_update', value='$value_update', op='$op_update', hyst='$hyst_update', w_profile='$day_plan_update' WHERE id='$fid_update'");
-		$db->exec("UPDATE g_func SET w_profile='any' WHERE id='$fid_update'");
 
-		//header("location: " . $_SERVER['REQUEST_URI']);
-		//exit();
+		header("location: " . $_SERVER['REQUEST_URI']);
+		exit();
 	}
 
 	
