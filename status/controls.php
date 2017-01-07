@@ -93,7 +93,7 @@ if(!empty($sensors_switch)||!empty($sensors_relay)) {
 		?>
 		<tr>
 			<td class="col-md-2">
-				<?php echo $s['name']; ?>
+				<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label label-default" title=""><?php echo $s['name']?></a>
 			</td>
 			<td class="col-md-2">
 				<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
@@ -110,6 +110,11 @@ if(!empty($sensors_switch)||!empty($sensors_relay)) {
 			$sth = $db->prepare("SELECT mode,locked FROM gpio WHERE gpio='$s[gpio]'");
 			$sth->execute();
 			$gpio = $sth->fetchAll();
+			if(empty($gpio)) {
+				?> 
+				<td></td><td></td><td></td>
+				<?php
+			};
 			foreach ($gpio as $g) {
 			
 				if($g['mode']=='temp') {
@@ -205,7 +210,7 @@ if(!empty($sensors_switch)||!empty($sensors_relay)) {
 		?>
 		<tr>
 			<td>
-				<?php echo $r['name']; ?>
+				<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $r['name']?>" class="label label-default" title=""><?php echo $r['name']?></a>
 			</td>
 			<td>
 				<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="relay" value="<?php echo $o == 'on'  ? 'off' : 'on'; ?>" <?php echo $o == 'on' ? 'checked="checked"' : ''; ?>  />
@@ -214,6 +219,7 @@ if(!empty($sensors_switch)||!empty($sensors_relay)) {
 				<input type="hidden" name="gpio" value="<?php echo $r['gpio']; ?>"/>
 				<input type="hidden" name="ronoff" value="ronoff" />
 			</td>
+			<td></td><td></td><td></td>
 		</tr>
 		<?php
 		unset($i);
