@@ -195,6 +195,7 @@ function ch_source() {
 	?>
 <div class="panel panel-default">
 <div class="panel-heading">Value functions</div>
+<div class="table-responsive">
 <table class="table table-condensed table-hover table-striped">
 <thead><tr>
 
@@ -433,4 +434,4 @@ else {
 </div>
 </table>
 </div>
-
+</div>

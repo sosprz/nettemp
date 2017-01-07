@@ -38,7 +38,8 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 
 <div class="table-responsive">
 <table class="table table-striped">
-<thead><tr>
+<thead>
+<tr>
 <th>Name</th>
 <th>Mon</th>
 <th>Tue</th>
@@ -50,7 +51,8 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 <th>Start hour</th>
 <th>End hour</th>
 <th></th>
-</tr></thead>
+</tr>
+</thead>
 
     <tr>	
 	<form action="" method="post">
