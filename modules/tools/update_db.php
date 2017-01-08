@@ -16,6 +16,8 @@ try {
 }
 
 try {
+//WAL
+$db->exec("PRAGMA journal_mode=WAL");
 
 $db->beginTransaction();
 
@@ -27,8 +29,6 @@ $db->exec("DROP TRIGGER IF EXISTS hosts_time_trigger");
 $db->exec("DROP TRIGGER IF EXISTS aupdate_time_trigger");
 $db->exec("DROP INDEX IF EXISTS unique_name");
 
-//WAL
-$db->exec("PRAGMA journal_mode=WAL");
 
 //CREATE
 $db->exec("CREATE TABLE IF NOT EXISTS access_time (id INTEGER PRIMARY KEY, name UNIQUE, Mon TEXT, Tue TEXT, Wed TEXT, Thu TEXT, Fri TEXT, Sat TEXT, Sun TEXT, stime TEXT, etime TEXT)");
@@ -64,6 +64,7 @@ $db=null;
 
 
 $dba = new PDO("sqlite:$ROOT/dbf/nettemp.db");
+$dba->beginTransaction();
 
 $dba->exec("ALTER TABLE camera ADD COLUMN access_all TEXT");
 $dba->exec("ALTER TABLE camera ADD link type TEXT");
@@ -224,6 +225,7 @@ $dba->exec("ALTER TABLE users ADD smsts type TEXT");
 $dba->exec("ALTER TABLE users ADD tel type TEXT");
 $dba->exec("ALTER TABLE users ADD trigger type TEXT");
 
+$dba->commit();
 $dba=null;
 
 
