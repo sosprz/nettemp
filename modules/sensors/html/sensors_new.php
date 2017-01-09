@@ -48,7 +48,7 @@ if(file_exists("db/".$new_rom.".sql")&&filesize("db/".$new_rom.".sql")!=0){
 	
 	//GPIO
 	if($type=='gpio') {
-		$db->exec("INSERT INTO gpio (gpio, name, status, position, ip, rom) VALUES ('$gpio','new_$gpio','OFF','1','$ip','$new_rom')") or exit(header("Location: html/errors/db_error.php"));
+		$db->exec("INSERT INTO gpio (gpio, name, status, position, ip, rom, mode) VALUES ('$gpio','new_$gpio','OFF','1','$ip','$new_rom', 'simple')") or exit(header("Location: html/errors/db_error.php"));
 		$device='gpio';
 	}
 

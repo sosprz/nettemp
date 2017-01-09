@@ -4,9 +4,9 @@ if(isset($_SESSION['user'])){
 	
 /* SWITCH EasyESP */
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
-$sth = $db->prepare("SELECT ip,rom,gpio,name,tmp FROM sensors WHERE type='switch' AND ch_group='switch'");
+$sth = $db->prepare("SELECT ip,rom,gpio,name,tmp FROM sensors WHERE type='gpio' AND ch_group='gpio'");
 $sth->execute();
-$sensors_switch = $sth->fetchAll();
+$ip_gpio = $sth->fetchAll();
 
 /* RELAYS  wireless, nodemcu */
 $sth = $db->prepare("SELECT ip,rom,gpio,name,tmp FROM sensors WHERE type='relay' AND ch_group='relay'");
@@ -14,18 +14,18 @@ $sth->execute();
 $sensors_relay = $sth->fetchAll();
 
 
-if(!empty($sensors_switch)||!empty($sensors_relay)) {
+if(!empty($ip_gpio)||!empty($sensors_relay)) {
 ?>
 <div class="grid-item swcon">
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">Switch</h3>
+<h3 class="panel-title">new GPIO</h3>
 </div>
 <table class="table table-hover table-condensed small" border="0">
 	<tbody>
 	<?php
 	/* SWITCH EasyESP */
-	$numRows = count($sensors_switch);
+	$numRows = count($ip_gpio);
 	if ( $numRows > '0' ) { 
 		$ip = isset($_POST['ip']) ? $_POST['ip'] : '';
 		$switch = isset($_POST['switch']) ? $_POST['switch'] : '';
@@ -89,35 +89,80 @@ if(!empty($sensors_switch)||!empty($sensors_relay)) {
 		}
 		    
 
-		foreach ( $sensors_switch as $s) {
-		?>
-		<tr>
-			<td class="col-md-2">
-				<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label label-default" title=""><?php echo $s['name']?></a>
-			</td>
-			<td class="col-md-2">
-				<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-					<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="<?php echo $s['tmp'] == '1.0'  ? 'off' : 'on'; ?>" <?php echo $s['tmp'] == '1.0' ? 'checked="checked"' : ''; ?>  />
-					<input type="hidden" name="ip" value="<?php echo $s['ip']; ?>"/>
-					<input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
-					<input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
-					<input type="hidden" name="sonoff" value="sonoff" />
-				</form>
-			</td>
-			<?php
-		
-			/* SWITCH EasyESP ADDON TEMP*/
-			$sth = $db->prepare("SELECT mode,locked FROM gpio WHERE gpio='$s[gpio]'");
-			$sth->execute();
-			$gpio = $sth->fetchAll();
-			if(empty($gpio)) {
-				?> 
-				<td></td><td></td><td></td>
+		foreach ( $ip_gpio as $s) {
+			?>
+			<tr>
+				<?php		
+				/* GPIO */
+				$sth = $db->prepare("SELECT mode,locked FROM gpio WHERE gpio='$s[gpio]' AND (mode='simple' OR mode='temp' OR mode='moment' OR mode='read')");
+				$sth->execute();
+				$gpio = $sth->fetchAll();
+				foreach ($gpio as $g) {
+				?>
+					<td class="col-md-2">
+						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label label-default" title=""><?php echo $s['name']?></a>
+					</td>
 				<?php
-			};
-			foreach ($gpio as $g) {
-			
-				if($g['mode']=='temp') {
+				/* SIMPLE IP */
+				if($g['mode']=='simple'&&!empty($ip)) {
+					?>
+					<td class="col-md-2">
+                   	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="<?php echo $s['tmp'] == '1.0'  ? 'off' : 'on'; ?>" <?php echo $s['tmp'] == '1.0' ? 'checked="checked"' : ''; ?>  />
+                        <input type="hidden" name="ip" value="<?php echo $s['ip']; ?>"/>
+                        <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
+                        <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
+                        <input type="hidden" name="sonoff" value="sonoff" />
+                    </form>
+                    </td>
+                    <td></td><td></td><td></td>
+				<?php
+				}
+				/* SIMPLE */
+				elseif($g['mode']=='simple') {
+					?>
+					<td class="col-md-2">
+                   	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="<?php echo $s['tmp'] == '1.0'  ? 'off' : 'on'; ?>" <?php echo $s['tmp'] == '1.0' ? 'checked="checked"' : ''; ?>  />
+                        <input type="hidden" name="ip" value="<?php echo $s['ip']; ?>"/>
+                        <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
+                        <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
+                        <input type="hidden" name="sonoff" value="sonoff" />
+                    </form>
+                    </td>
+                    <td></td><td></td><td></td>
+				<?php
+				}
+				elseif($g['mode']=='moment') {
+					?>
+					<td class="col-md-2">
+                   	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="<?php echo $s['tmp'] == '1.0'  ? 'off' : 'on'; ?>" <?php echo $s['tmp'] == '1.0' ? 'checked="checked"' : ''; ?>  />
+                        <input type="hidden" name="ip" value="<?php echo $s['ip']; ?>"/>
+                        <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
+                        <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
+                        <input type="hidden" name="sonoff" value="sonoff" />
+                    </form>
+                    </td>
+                    <td></td><td></td><td></td>
+				<?php
+				}
+				elseif($g['mode']=='read') {
+					?>
+					<td class="col-md-2">
+                   	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="<?php echo $s['tmp'] == '1.0'  ? 'off' : 'on'; ?>" <?php echo $s['tmp'] == '1.0' ? 'checked="checked"' : ''; ?> disabled="disabled"  />
+                        <input type="hidden" name="ip" value="<?php echo $s['ip']; ?>"/>
+                        <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
+                        <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
+                        <input type="hidden" name="sonoff" value="sonoff" />
+                    </form>
+                    </td>
+                    <td></td><td></td><td></td>
+				<?php
+				}
+				/* TEMP */
+				elseif($g['mode']=='temp') {
 					/* TEMP */
 					$sth = $db->prepare("SELECT id,value FROM g_func WHERE gpio='$s[gpio]' ORDER BY position ASC LIMIT 1 ");
 					$sth->execute();
