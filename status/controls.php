@@ -35,6 +35,10 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		$rev = isset($_POST['rev']) ? $_POST['rev'] : '';
 		$onoff = isset($_POST['onoff']) ? $_POST['onoff'] : '';
 		$moment_time = isset($_POST['moment_time']) ? $_POST['moment_time'] : '';
+		
+		if($moment_time>10){
+			$moment_time=10;
+		}
 
 		if (($onoff == "simpleip")){
 			if ($switch == 'on' ){
@@ -204,7 +208,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                         <input type="hidden" name="onoff" value="simpleip" />
                     </form>
                     </td>
-                    <td></td><td></td><td></td>
+                    <td></td><td></td>
 				<?php
 				}
 				/* SIMPLE */
@@ -221,7 +225,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                         <input type="hidden" name="onoff" value="simple" />
                     </form>
                     </td>
-                    <td></td><td></td><td></td>
+                    <td></td><td></td>
 				<?php
 				}
 				/* MOMENT */
@@ -229,14 +233,14 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					?>
 					<td class="col-md-2">
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input data-onstyle="warning" type="checkbox" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
+						<input data-onstyle="warning" type="checkbox" data-size="mini" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
 						<input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
 						<input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
 						<input type="hidden" name="onoff" value="bi" />
 						<input type="hidden" name="moment_time" value="<?php echo $g['moment_time']; ?>" />    
                     </form>
                     </td>
-                    <td></td><td></td><td></td>
+                    <td></td><td></td>
 				<?php
 				}
 				/* READ */
@@ -249,7 +253,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="" <?php echo $state[0] == '1' ? 'checked="checked"' : ''; $state[0]=null; ?> disabled="disabled" />
 
                     </td>
-                    <td></td><td></td><td></td>
+                    <td></td><td></td>
 				<?php
 				}
 				/*READ IP */
@@ -258,7 +262,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<td class="col-md-2">
 						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="<?php echo $s['tmp'] == '1.0'  ? 'off' : 'on'; ?>" <?php echo $s['tmp'] == '1.0' ? 'checked="checked"' : ''; ?>  disabled="disabled" />
                     </td>
-                    <td></td><td></td><td></td>
+                    <td></td><td></td>
 				<?php
 				}
 				/* TEMP */

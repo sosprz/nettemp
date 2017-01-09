@@ -216,11 +216,6 @@ $map_num2=substr(rand(), 0, 6);
 
 ?>
 <table>
-<td class="col-md-2">
-<?php
-include('gpio_name.php');
-?>
-</td>
 <td class="col-md-1">
 <?php
 include('gpio_rev.php');

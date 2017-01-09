@@ -14,13 +14,23 @@ try {
 }
 
 try {
+	$query = $db->query("SELECT mail FROM settings WHERE id='1'");
+    $result= $query->fetchAll();
+    foreach($result as $s) {
+		if($s['mail']!='on') {
+			echo $date." Cannot send mail bacause fucntion is off, go to settings.\n";
+			exit();
+		}
+			
+	}
+	
 	$query = $db->query("SELECT mail FROM users WHERE maila='yes'");
     $result= $query->fetchAll();
     foreach($result as $s) {
 		$get_addr[]=$s['mail'];
 	}
 	if(empty($get_addr)) {
-		echo "Add users to nettemp!\n";
+		echo $date." Add users to nettemp settings!\n";
 		exit;
 	}
 	
