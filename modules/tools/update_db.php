@@ -202,6 +202,7 @@ $dba->exec("ALTER TABLE settings ADD tempnum type TEXT");
 $dba->exec("ALTER TABLE settings ADD temp_scale TEXT");
 $dba->exec("ALTER TABLE settings ADD ups_status type TEXT");
 $dba->exec("ALTER TABLE settings ADD vpn type TEXT");
+$dba->exec("ALTER TABLE settings ADD gpiodemo type TEXT");
 
 $dba->exec("ALTER TABLE snmp ADD rom type UNIQUE");
 $dba->exec("ALTER TABLE snmp ADD type type TEXT");

@@ -478,6 +478,8 @@ $row = $rows->fetchAll();
 	<td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />
+		<input type="hidden" name="type" value="<?php echo $a["type"]; ?>" />
+		<input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
 		<input type="hidden" name="usun2" value="usun3" />
 		<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
     </form>

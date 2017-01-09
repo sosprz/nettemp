@@ -12,7 +12,7 @@ if ( $add == "ADD") {
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$dbmaps = new PDO('sqlite:dbf/nettemp.db');
 	if (!empty($gpioad)) { 
-	    $db->exec("INSERT INTO gpio (gpio, name, status, fnum, position, ip,rom) VALUES ('$gpio','new_$gpio','OFF','1','1','$ip','$rom')") or exit(header("Location: html/errors/db_error.php"));
+	    $db->exec("INSERT INTO gpio (gpio, name, status, position, ip,rom) VALUES ('$gpio','new_$gpio','OFF','1','$ip','$rom')") or exit(header("Location: html/errors/db_error.php"));
 		$inserted=$db->query("SELECT id FROM gpio WHERE gpio='$gpio'");
 		$inserted_id=$inserted->fetchAll();
 		$inserted_id=$inserted_id[0];

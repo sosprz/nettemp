@@ -338,6 +338,7 @@ if (empty($mode2)) { ?>
     }
 ?>
 </td>
+<!--
 <td class="col-md-1">
 <form action="" method="post" style="display:inline!important;">
         <input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
@@ -345,6 +346,7 @@ if (empty($mode2)) { ?>
         <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-stop"></span> Remove</button>
 </form>
 </td>
+-->
 </table>
 
 
