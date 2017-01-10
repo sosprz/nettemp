@@ -66,7 +66,7 @@ if (empty($smsdev) || $smsdev == 'none') { ?>
     <div class="panel-heading">SMS modem</div>
 	<div class="panel-body">
 	    No SMS modem set
-  <a href="index.php?id=devices&type=usb" class="btn btn-xs btn-success" role="button">Go to USB/Serial</a>
+  <a href="index.php?id=device&type=usb" class="btn btn-xs btn-success" role="button">Go to USB/Serial</a>
 	</div>
 </div>
 <?php
@@ -123,7 +123,7 @@ if (empty($dev) || $dev == 'none') { ?>
 <div class="panel panel-default">
     <div class="panel-heading">Call modem</div>
 	<div class="panel-body">
-	    No Call modem set <a href="index.php?id=devices&type=usb" class="btn btn-xs btn-success" role="button">Go to USB/Serial</a>
+	    No Call modem set <a href="index.php?id=device&type=usb" class="btn btn-xs btn-success" role="button">Go to USB/Serial</a>
 	</div>
 </div>
 <?php
