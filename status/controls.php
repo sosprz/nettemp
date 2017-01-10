@@ -36,9 +36,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		$onoff = isset($_POST['onoff']) ? $_POST['onoff'] : '';
 		$moment_time = isset($_POST['moment_time']) ? $_POST['moment_time'] : '';
 		
-		if($moment_time>10){
-			$moment_time=10;
-		}
+		
 		/* SIMPLE IP */
 		if (($onoff == "simpleip")){
 			if ($switch == 'on' ){
@@ -76,9 +74,15 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		}
 		/* MOMENT IP */
 		if ($onoff == "momentip"){
+			if($moment_time>10){
+				$moment_time=10;
+			}
+			$moment_time=$moment_time*1000;	
+			
 				$ch = curl_init();
 				$optArray = array(
 					CURLOPT_URL => "$ip/control?cmd=GPIO,$gpio_post,1",
+					CURLOPT_URL => "$ip/control?cmd=Pulse,$gpio_post,1,$moment_time",
 					CURLOPT_RETURNTRANSFER => true,
 					CURLOPT_CONNECTTIMEOUT => 1,
 					CURLOPT_TIMEOUT => 3
@@ -89,23 +93,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				$dbf = new PDO("sqlite:db/$rom.sql");
 				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('1')");
 				$db->exec("UPDATE sensors SET tmp='1.0' WHERE rom='$rom_post'");
-				
-				sleep($moment_time);
-				
-				$ch = curl_init();
-				$optArray = array(
-					CURLOPT_URL => "$ip/control?cmd=GPIO,$gpio_post,0",
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 1,
-					CURLOPT_TIMEOUT => 3
-				);
-				curl_setopt_array($ch, $optArray);
-				$res = curl_exec($ch);
-
-				$dbf = new PDO("sqlite:db/$rom.sql");
-				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('0')");
-				$db->exec("UPDATE sensors SET tmp='0.0' WHERE rom='$rom_post'");
-		
+	
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 		}
