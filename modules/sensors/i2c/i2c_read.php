@@ -170,12 +170,19 @@ function read($addr,$name,$bus){
 
 
 
-$bus=shell_exec("/usr/sbin/i2cdetect -l |awk {'print $1'}");
-$bus=explode("\n", $bus);
+
 
 $db = new PDO("sqlite:$ROOT/dbf/nettemp.db") or die ("cannot open database");
 $rows = $db->query("SELECT * FROM i2c");
 $row = $rows->fetchAll();
+if(count($row)<1) {
+	echo $date." I2C please define addreses for devices in I2C settings.\n";
+	exit();
+}
+
+$bus=shell_exec("/usr/sbin/i2cdetect -l |awk {'print $1'}");
+$bus=explode("\n", $bus);
+
 foreach($row as $i2c) {
 	$ai2c[$i2c['addr']]=$i2c['name'];
 	echo "I2C Adress: ".$i2c['addr']." Name: ".$i2c['name']."\n";
