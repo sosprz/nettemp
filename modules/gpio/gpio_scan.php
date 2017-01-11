@@ -66,11 +66,13 @@ function write($gpio){
 	global $local_gpio;
 	global $local_usb;
 
+    exec('/usr/local/bin/gpio -g read '.$gpio, $state);
+    $local_val=$state[0];
 	$local_device='gpio';
     $local_type='gpio';
     $local_gpio=$gpio;
     $local_rom="gpio_".$local_gpio."_".$local_type;
-    echo $date." Rom:".$local_rom." GPIO:".$local_gpio."\n";
+    echo $date." Rom:".$local_rom." GPIO:".$local_gpio." State: ".$local_val."\n";
     db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 }
 
