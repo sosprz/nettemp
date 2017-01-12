@@ -78,7 +78,7 @@ Go to device scan!
 	
     
     include('status/minmax_status.php');
-    include('status/gpio_status.php');
+    //include('status/gpio_status.php');
     include('status/counters_status.php');
     include('status/controls.php');
     //include('status/switch_controls.php');
