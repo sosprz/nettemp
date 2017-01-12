@@ -28,9 +28,9 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 	$numRows = count($ip_gpio);
 	if ( $numRows > '0' ) { 
 		/* FORMS */
-		$ip = isset($_POST['ip']) ? $_POST['ip'] : '';
+		$ip_post = isset($_POST['ip']) ? $_POST['ip'] : '';
 		$switch = isset($_POST['switch']) ? $_POST['switch'] : '';
-		$rom = isset($_POST['rom']) ? $_POST['rom'] : '';
+		$rom_post = isset($_POST['rom']) ? $_POST['rom'] : '';
 		$gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 		$rev = isset($_POST['rev']) ? $_POST['rev'] : '';
 		$onoff = isset($_POST['onoff']) ? $_POST['onoff'] : '';
@@ -38,11 +38,12 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		
 		
 		/* SIMPLE IP */
-		if (($onoff == "simpleip")){
+		if ($onoff == "simpleip"){
 			if ($switch == 'on' ){
+				
 				$ch = curl_init();
 				$optArray = array(
-					CURLOPT_URL => "$ip/control?cmd=GPIO,$gpio_post,1",
+					CURLOPT_URL => "$ip_post/control?cmd=GPIO,$gpio_post,1",
 					CURLOPT_RETURNTRANSFER => true,
 					CURLOPT_CONNECTTIMEOUT => 1,
 					CURLOPT_TIMEOUT => 3
@@ -50,13 +51,13 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				curl_setopt_array($ch, $optArray);
 				$res = curl_exec($ch);
 
-				$dbf = new PDO("sqlite:db/$rom.sql");
+				$dbf = new PDO("sqlite:db/$rom_post.sql");
 				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('1')");
 				$db->exec("UPDATE sensors SET tmp='1.0' WHERE rom='$rom_post'");
 			} else { 
 				$ch = curl_init();
 				$optArray = array(
-					CURLOPT_URL => "$ip/control?cmd=GPIO,$gpio_post,0",
+					CURLOPT_URL => "$ip_post/control?cmd=GPIO,$gpio_post,0",
 					CURLOPT_RETURNTRANSFER => true,
 					CURLOPT_CONNECTTIMEOUT => 1,
 					CURLOPT_TIMEOUT => 3
@@ -64,9 +65,9 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				curl_setopt_array($ch, $optArray);
 				$res = curl_exec($ch);
 		
-				$dbf = new PDO("sqlite:db/$rom.sql");
+				$dbf = new PDO("sqlite:db/$rom_post.sql");
 				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('0')");
-				$db->exec("UPDATE sensors SET tmp='0.0' WHERE rom='$rom'");
+				$db->exec("UPDATE sensors SET tmp='0.0' WHERE rom='$rom_post'");
 			}
 		$db->exec("UPDATE gpio SET locked='user' WHERE gpio='$gpio_post'");
 		header("location: " . $_SERVER['REQUEST_URI']);
@@ -81,16 +82,15 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 			
 				$ch = curl_init();
 				$optArray = array(
-					CURLOPT_URL => "$ip/control?cmd=GPIO,$gpio_post,1",
-					CURLOPT_URL => "$ip/control?cmd=Pulse,$gpio_post,1,$moment_time",
+					CURLOPT_URL => "$ip_post/control?cmd=Pulse,$gpio_post,1,$moment_time",
 					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 1,
-					CURLOPT_TIMEOUT => 3
+					CURLOPT_CONNECTTIMEOUT => 2,
+					CURLOPT_TIMEOUT => 6
 				);
 				curl_setopt_array($ch, $optArray);
 				$res = curl_exec($ch);
 
-				$dbf = new PDO("sqlite:db/$rom.sql");
+				$dbf = new PDO("sqlite:db/$rom_post.sql");
 				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('1')");
 				$db->exec("UPDATE sensors SET tmp='1.0' WHERE rom='$rom_post'");
 	
@@ -187,7 +187,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					</td>
 				<?php
 				/* SIMPLE IP */
-				if($g['mode']=='simple'&&!empty($ip)) {
+				if($g['mode']=='simple'&&!empty($s['ip'])) {
 					?>
 					<td class="col-md-2">
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
@@ -218,6 +218,23 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                     <td></td><td></td>
 				<?php
 				}
+				/* MOMENT IP*/
+				elseif($g['mode']=='moment'&&!empty($s['ip'])) {
+					?>
+					<td class="col-md-2">
+                   	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input data-onstyle="warning" type="checkbox" data-size="mini" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
+						<input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
+                        <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
+						<input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
+						<input type="hidden" name="ip" value="<?php echo $s['ip']; ?>"/>
+						<input type="hidden" name="onoff" value="momentip" />
+						<input type="hidden" name="moment_time" value="<?php echo $g['moment_time']; ?>" />    
+                    </form>
+                    </td>
+                    <td></td><td></td>
+				<?php
+				}
 				/* MOMENT */
 				elseif($g['mode']=='moment') {
 					?>
@@ -227,21 +244,6 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						<input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
 						<input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
 						<input type="hidden" name="onoff" value="bi" />
-						<input type="hidden" name="moment_time" value="<?php echo $g['moment_time']; ?>" />    
-                    </form>
-                    </td>
-                    <td></td><td></td>
-				<?php
-				}
-				/* MOMENT IP */
-				elseif($g['mode']=='moment') {
-					?>
-					<td class="col-md-2">
-                   	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input data-onstyle="warning" type="checkbox" data-size="mini" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
-						<input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
-						<input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
-						<input type="hidden" name="onoff" value="momentip" />
 						<input type="hidden" name="moment_time" value="<?php echo $g['moment_time']; ?>" />    
                     </form>
                     </td>
@@ -370,7 +372,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="relay" value="<?php echo $o == 'on'  ? 'off' : 'on'; ?>" <?php echo $o == 'on' ? 'checked="checked"' : ''; ?>  />
 				<input type="hidden" name="ip" value="<?php echo $r['ip']; ?>"/>
 				<input type="hidden" name="rom" value="<?php echo $r['rom']; ?>"/>
-				<input type="hidden" name="gpio" value="<?php echo $r['gpio']; ?>"/>
+				<input type="hidden" name="gpio_post" value="<?php echo $r['gpio']; ?>"/>
 				<input type="hidden" name="ronoff" value="ronoff" />
 			</td>
 			<td></td><td></td><td></td>
