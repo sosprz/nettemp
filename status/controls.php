@@ -148,6 +148,8 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					}
 				}
 				exec("modules/gpio/timestamp $gpio_post 1");
+				$db->exec("UPDATE gpio SET simple='on', status='ON' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+
 			} else {
 				if ($gpio_post >= '100') {
 					exec("/usr/local/bin/gpio -x mcp23017:$gpio_post:0x20 mode $gpio_post out");
@@ -166,9 +168,11 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						exec("/usr/local/bin/gpio -g write $gpio_post 0");	
 					}
 				}
-				exec("modules/gpio/timestamp $gpio_post 0");	
+				exec("modules/gpio/timestamp $gpio_post 0");
+				$db->exec("UPDATE gpio SET simple='', status='OFF' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
 			}
 		}
+		
 		
    		    
 
