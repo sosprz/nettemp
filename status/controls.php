@@ -183,7 +183,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				foreach ($gpio as $g) {
 				?>
 					<td class="col-md-2">
-						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label label-default" title=""><?php echo $s['name']?></a>
+						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label label-default" title="<?php echo "Last IP: ".$s['ip']?>"><?php echo $s['name']?></a>
 					</td>
 				<?php
 				/* SIMPLE IP */
