@@ -13,6 +13,42 @@ $sth = $db->prepare("SELECT ip,rom,gpio,name,tmp FROM sensors WHERE type='relay'
 $sth->execute();
 $sensors_relay = $sth->fetchAll();
 
+/* Functions */
+
+function gpio_curl_onoff($ip,$gpio,$rom,$action,$time){
+	global $root;
+	$db = new PDO("sqlite:$root/dbf/nettemp.db");
+
+	if($action=='on') {
+		$action='1';
+		$tmp='1.0';
+		$method='GPIO';
+		$time='0';
+	} elseif($action=='off') {
+		$action='0';
+		$tmp='0.0';
+		$method='GPIO';
+		$time='0';
+	} elseif($action=='moment') {
+		$method='Pulse';
+		$time='0';
+		$action='1';
+	}
+		
+	$ch = curl_init();
+	$optArray = array(
+		CURLOPT_URL => "$ip/control?cmd=$method,$gpio,$action,$time",
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_CONNECTTIMEOUT => 1,
+		CURLOPT_TIMEOUT => 3
+	);
+	curl_setopt_array($ch, $optArray);
+	$res = curl_exec($ch);
+
+	$dbf = new PDO("sqlite:$root/db/$rom.sql");
+	$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$action')");
+	$db->exec("UPDATE sensors SET tmp='$tmp' WHERE rom='$rom'");
+}
 
 if(!empty($ip_gpio)||!empty($sensors_relay)) {
 ?>
@@ -40,34 +76,9 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		/* SIMPLE IP */
 		if ($onoff == "simpleip"){
 			if ($switch == 'on' ){
-				
-				$ch = curl_init();
-				$optArray = array(
-					CURLOPT_URL => "$ip_post/control?cmd=GPIO,$gpio_post,1",
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 1,
-					CURLOPT_TIMEOUT => 3
-				);
-				curl_setopt_array($ch, $optArray);
-				$res = curl_exec($ch);
-
-				$dbf = new PDO("sqlite:db/$rom_post.sql");
-				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('1')");
-				$db->exec("UPDATE sensors SET tmp='1.0' WHERE rom='$rom_post'");
+				gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'on','0')
 			} else { 
-				$ch = curl_init();
-				$optArray = array(
-					CURLOPT_URL => "$ip_post/control?cmd=GPIO,$gpio_post,0",
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 1,
-					CURLOPT_TIMEOUT => 3
-				);
-				curl_setopt_array($ch, $optArray);
-				$res = curl_exec($ch);
-		
-				$dbf = new PDO("sqlite:db/$rom_post.sql");
-				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('0')");
-				$db->exec("UPDATE sensors SET tmp='0.0' WHERE rom='$rom_post'");
+				gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'off','0')
 			}
 		$db->exec("UPDATE gpio SET locked='user' WHERE gpio='$gpio_post'");
 		header("location: " . $_SERVER['REQUEST_URI']);
@@ -80,19 +91,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 			}
 			$moment_time=$moment_time*1000;	
 			
-				$ch = curl_init();
-				$optArray = array(
-					CURLOPT_URL => "$ip_post/control?cmd=Pulse,$gpio_post,1,$moment_time",
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 2,
-					CURLOPT_TIMEOUT => 6
-				);
-				curl_setopt_array($ch, $optArray);
-				$res = curl_exec($ch);
-
-				$dbf = new PDO("sqlite:db/$rom_post.sql");
-				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('1')");
-				$db->exec("UPDATE sensors SET tmp='1.0' WHERE rom='$rom_post'");
+			gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'moment',$moment_time)	
 	
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
