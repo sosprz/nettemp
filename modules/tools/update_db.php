@@ -17,6 +17,9 @@ try {
 
 try {
 //WAL
+$db->exec("PRAGMA journal_mode=DELETE");
+$db->exec("PRAGMA page_size=4096");
+$db->exec("VACUUM");
 $db->exec("PRAGMA journal_mode=WAL");
 
 $db->beginTransaction();
