@@ -341,7 +341,12 @@ $db->exec("UPDATE types SET min='0', max='10000' WHERE type='storm' AND min is n
 $db->exec("UPDATE types SET min='0', max='10000' WHERE type='lightining' AND min is null AND max is null");
 $db->exec("ALTER TABLE sensors ADD mail type TEXT");
 
-
+//MultiLCD
+//LCD Settings
+$db->exec("CREATE TABLE IF NOT EXISTS lcds (id INTEGER PRIMARY KEY, name TEXT NOT NULL, addr TEXT NOT NULL UNIQUE, rows TINYINT NOT NULL DEFAULT 2, cols TINYINT NOT NULL DEFAULT 16, clock TEXT DEFAULT '', avg TEXT DEFAULT '', active TEXT DEFAULT 'on', grp TEXT DEFAULT NULL)");
+//LCD Groups
+$db->exec("CREATE TABLE IF NOT EXISTS lcd_groups (id INTEGER PRIMARY KEY, name TEXT UNIQUE, active TEXT DEFAULT 'on', charts TEXT DEFAULT '', grpkey TEXT UNIQUE DEFAULT (lower(hex(randomblob(4)))) NOT NULL)");
+$db->exec("CREATE TABLE IF NOT EXISTS lcd_group_assign (rom TEXT NOT NULL, grpkey TEXT NOT NULL)");
 
 //UPDATE after new ALTER
 $db->exec("UPDATE sensors SET status='on' WHERE status is null");
