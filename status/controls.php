@@ -76,9 +76,9 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		/* SIMPLE IP */
 		if ($onoff == "simpleip"){
 			if ($switch == 'on' ){
-				gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'on','0')
+				gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'on','0');
 			} else { 
-				gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'off','0')
+				gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'off','0');
 			}
 		$db->exec("UPDATE gpio SET locked='user' WHERE gpio='$gpio_post'");
 		header("location: " . $_SERVER['REQUEST_URI']);
@@ -91,7 +91,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 			}
 			$moment_time=$moment_time*1000;	
 			
-			gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'moment',$moment_time)	
+			gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'moment',$moment_time);
 	
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
@@ -127,7 +127,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		exit();
 		}
 		/* SIMPLE */
-		if ($onoff == "simple")  {
+		if ($onoff == "simple") {
 			if ($switch == 'on' ){
 				if ($gpio_post >= '100') {
 					exec("/usr/local/bin/gpio -x mcp23017:$gpio_post:0x20 mode $gpio_post out");
