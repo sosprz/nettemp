@@ -23,7 +23,7 @@ function gpio_db($rom,$action){
 }
 
 function gpio_status($rom,$tmp){
-	global $root
+	global $root;
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
 	$db->exec("UPDATE sensors SET tmp='$tmp' WHERE rom='$rom'");
 }
@@ -58,8 +58,8 @@ function gpio_curl_onoff($ip,$gpio,$rom,$action,$time){
 	curl_setopt_array($ch, $optArray);
 	$res = curl_exec($ch);
 	
-	gpio_db($rom,$action)
-	gpio_status($rom,$tmp)
+	gpio_db($rom,$action);
+	gpio_status($rom,$tmp);
 
 }
 
