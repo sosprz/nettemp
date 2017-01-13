@@ -357,7 +357,16 @@ $row = $rows->fetchAll();
 		<?php } ?>
 
 	<td class="col-md-0">
-		<span class="label label-default"><?php echo $a['type']?></span>
+		<?php if($a['type']=='gpio') { 
+			?>
+			<a href="index.php?id=device&type=gpio&gpios=<?php echo $a['gpio']?>" class="label label-default" title="<?php if(!empty($a['ip'])){echo "Last IP: ".$a['ip']." GPIO: ".$a['gpio'];} else {echo "GPIO: ".$a['gpio'];}?>"><?php echo $a['type']?></a>
+			<?php 
+		} else {
+			?>
+			<span class="label label-default"><?php echo $a['type']?></span>
+			<?php 
+		}
+		?>
 	</td>
     
     <td class="col-md-0">

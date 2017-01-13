@@ -19,7 +19,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 <div class="grid-item swcon">
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">new GPIO</h3>
+<h3 class="panel-title">GPIO</h3>
 </div>
 <table class="table table-hover table-condensed small" border="0">
 	<tbody>
@@ -186,12 +186,15 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				$gpio = $sth->fetchAll();
 				foreach ($gpio as $g) {
 				?>
-					<td class="col-md-2">
-						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label label-default" title="<?php echo "Last IP: ".$s['ip']?>"><?php echo $s['name']?></a>
+					<td class="col-md-1">
+						<img src="media/ico/switch-icon.png" alt="" title="GPIO"/>
+					</td>
+					<td class="col-md-1">
+						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label label-default" title="<?php if(!empty($s['ip'])){echo "Last IP: ".$s['ip']." GPIO: ".$s['gpio']." Mode: ".$g['mode'];} else {echo "GPIO: ".$s['gpio']." Mode: ".$g['mode'];}?>"><?php echo $s['name']?></a>
 					</td>
 				<?php
 				/* SIMPLE IP */
-				if($g['mode']=='simple'&&!empty($s['ip'])) {
+				if(($g['mode']=='simple'&&!empty($s['ip']))||($g['mode']=='temp'&&!empty($s['ip']))) {
 					?>
 					<td class="col-md-2">
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
@@ -202,13 +205,12 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                         <input type="hidden" name="onoff" value="simpleip" />
                     </form>
                     </td>
-                    <td></td><td></td>
-				<?php
+                   <?php if($g['mode']!='temp') { echo '<td></td><td></td><td></td>';} 
 				}
 				/* SIMPLE */
-				elseif($g['mode']=='simple') {
+				elseif($g['mode']=='simple'||($g['mode']=='temp')) {
 					?>
-					<td class="col-md-2">
+					<td class="col-md-1">
 					 <?php
 						exec('/usr/local/bin/gpio -g read '.$g['gpio'], $state);
 					?>	
@@ -219,13 +221,12 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                         <input type="hidden" name="onoff" value="simple" />
                     </form>
                     </td>
-                    <td></td><td></td>
-				<?php
+                    <?php if($g['mode']!='temp') { echo '<td></td><td></td><td></td>';} 
 				}
 				/* MOMENT IP*/
 				elseif($g['mode']=='moment'&&!empty($s['ip'])) {
 					?>
-					<td class="col-md-2">
+					<td class="col-md-1">
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input data-onstyle="warning" type="checkbox" data-size="mini" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
 						<input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
@@ -236,13 +237,13 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						<input type="hidden" name="moment_time" value="<?php echo $g['moment_time']; ?>" />    
                     </form>
                     </td>
-                    <td></td><td></td>
+                    <td></td><td></td><td></td>
 				<?php
 				}
 				/* MOMENT */
 				elseif($g['mode']=='moment') {
 					?>
-					<td class="col-md-2">
+					<td class="col-md-1">
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input data-onstyle="warning" type="checkbox" data-size="mini" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
 						<input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
@@ -251,33 +252,33 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						<input type="hidden" name="moment_time" value="<?php echo $g['moment_time']; ?>" />    
                     </form>
                     </td>
-                    <td></td><td></td>
+                    <td></td><td></td><td></td>
 				<?php
 				}
 				/* READ */
 				elseif($g['mode']=='read') {
 					?>
-					<td class="col-md-2">
+					<td class="col-md-1">
                    <?php
 						exec('/usr/local/bin/gpio -g read '.$g['gpio'], $state);
 					?>
 					<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="" <?php echo $state[0] == '1' ? 'checked="checked"' : ''; $state[0]=null; ?> disabled="disabled" />
 
                     </td>
-                    <td></td><td></td>
+                    <td></td><td></td><td></td>
 				<?php
 				}
 				/*READ IP */
 				elseif($g['mode']=='simple'&&!empty($ip)) {
 					?>
-					<td class="col-md-2">
+					<td class="col-md-1">
 						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="<?php echo $s['tmp'] == '1.0'  ? 'off' : 'on'; ?>" <?php echo $s['tmp'] == '1.0' ? 'checked="checked"' : ''; ?>  disabled="disabled" />
                     </td>
-                    <td></td><td></td>
+                    <td></td><td></td><td></td>
 				<?php
 				}
 				/* TEMP */
-				elseif($g['mode']=='temp') {
+				if($g['mode']=='temp') {
 					/* TEMP */
 					$sth = $db->prepare("SELECT id,value FROM g_func WHERE gpio='$s[gpio]' ORDER BY position ASC LIMIT 1 ");
 					$sth->execute();
