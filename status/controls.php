@@ -226,7 +226,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						exec('/usr/local/bin/gpio -g read '.$g['gpio'], $state);
 					?>	
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="on" <?php echo $state[0] == '1' ? 'checked="checked"' : ''; $state[0]=null;?>  />
+						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="on" <?php echo $state[0] == '1' ? 'checked="checked"' : ''; unset($state);?>  />
                         <input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
                         <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
                         <input type="hidden" name="onoff" value="simple" />
@@ -273,7 +273,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                    <?php
 						exec('/usr/local/bin/gpio -g read '.$g['gpio'], $state);
 					?>
-					<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="" <?php echo $state[0] == '1' ? 'checked="checked"' : ''; $state[0]=null; ?> disabled="disabled" />
+					<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="" <?php echo $state[0] == '1' ? 'checked="checked"' : ''; unset($state); ?> disabled="disabled" />
 
                     </td>
                     <td></td><td></td><td></td>
