@@ -29,7 +29,7 @@ function gpio_status($rom,$tmp){
 }
 
 
-function gpio_curl_onoff($ip,$gpio,$rom,$action,$time){
+function gpio_curl_onoff($ip,$gpio,$rom,$action,$moment_time){
 	
 	if($action=='on') {
 		$action='1';
@@ -43,14 +43,13 @@ function gpio_curl_onoff($ip,$gpio,$rom,$action,$time){
 		$time='0';
 	} elseif($action=='moment') {
 		$method='Pulse';
-		$time='0';
 		$action='1';
 		$tmp='1.0';
 	}
 		
 	$ch = curl_init();
 	$optArray = array(
-		CURLOPT_URL => "$ip/control?cmd=$method,$gpio,$action,$time",
+		CURLOPT_URL => "$ip/control?cmd=$method,$gpio,$action,$moment_time",
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_CONNECTTIMEOUT => 1,
 		CURLOPT_TIMEOUT => 3
@@ -104,7 +103,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 			}
 			$moment_time=$moment_time*1000;	
 			
-			gpio_curl_onoff($ip_post,$gpio_post,$rom_post,"moment",$moment_time);
+			gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'moment',$moment_time);
 	
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
