@@ -111,12 +111,13 @@ foreach ( $result as $a) {
 
 function adjust($val,$rom) { 
 	$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
-	$sthr = $dbr->query("SELECT * FROM adjust WHERE rom='$rom'");
+	$sthr = $dbr->query("SELECT * FROM adjust WHERE rom='$rom' ORDER by threshold ASC");
     $row = $sthr->fetchAll();
     foreach($row as $row) {
 		$threshold=$row['threshold'];
+		$end=$row['end'];
 		$add=$row['add'];
-		if($val>=$threshold)
+		if($val>=$threshold&&$val<$end)
 		{ 
 			$val=$val+$add;
 			break;
