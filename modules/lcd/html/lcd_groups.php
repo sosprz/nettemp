@@ -200,7 +200,7 @@ if( count($groups) > 0 ){
 ?>
 	<span id="helpBlock" class="help-block">Server key is: <b><?php echo $skey ?></b></span>
 	<span id="helpBlock" class="help-block"></span>
-	<span id="helpBlock" class="help-block">Group link: <?php echo "http://".$_SERVER['SERVER_NAME']."/lcd.php?key=$skey&group=$edit" ?></span>
+	<span id="helpBlock" class="help-block">Group link: <?php echo "http://".$_SERVER['SERVER_NAME']."/lcdfeed.php?key=$skey&group=$edit" ?></span>
 	</div>
 	</div>
 <?php
