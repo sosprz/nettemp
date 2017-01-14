@@ -178,6 +178,8 @@ $dba->exec("ALTER TABLE sensors ADD sum type TEXT");
 $dba->exec("ALTER TABLE sensors ADD tmp_5ago type TEXT");
 $dba->exec("ALTER TABLE sensors ADD usb type TEXT");
 $dba->exec("ALTER TABLE sensors ADD position_group type TEXT");
+$dba->exec("ALTER TABLE sensors ADD stat_min type TEXT");
+$dba->exec("ALTER TABLE sensors ADD stat_max type TEXT");
 
 $dba->exec("ALTER TABLE settings ADD authmod type TEXT");
 $dba->exec("ALTER TABLE settings ADD call type TEXT");

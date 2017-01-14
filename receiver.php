@@ -223,8 +223,9 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 					//sensors status
 					else {
 						$dbr->exec("UPDATE sensors SET tmp='$val'+adj, status='ok', ip='$ip' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert value to status\n" );
-						//$dbr->exec("UPDATE sensors SET status='ok', ip='$ip' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert status to status\n" );
-						//$dbr->exec("UPDATE sensors SET  WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert IP to status\n" );
+						$dbr->exec("UPDATE sensors SET stat_min='$val' WHERE stat_min>'$val'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert value to stat_min\n" );
+						$dbr->exec("UPDATE sensors SET stat_max='$val' WHERE stat_max<'$val'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert value to stat_max\n" );
+						
 					}
 				}		
 				else {
