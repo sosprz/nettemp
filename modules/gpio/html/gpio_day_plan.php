@@ -15,7 +15,7 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 
 <?php 
 	$dpdd1 = isset($_POST['add1']) ? $_POST['add1'] : '';
-	if ($_POST['add1'] == "add2"){
+	if ($dpdd1 == 'add2'){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$name=str_replace(' ', '_', $name);
 	$db->exec("INSERT OR IGNORE INTO day_plan (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime, gpio) VALUES ('$name','$mon', '$tue', '$wed', '$thu', '$fri', '$sat', '$sun', '$stime', '$etime', '$dpgpio')") or die ($db->lastErrorMsg());
@@ -38,7 +38,8 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 
 <div class="table-responsive">
 <table class="table table-striped">
-<thead><tr>
+<thead>
+<tr>
 <th>Name</th>
 <th>Mon</th>
 <th>Tue</th>
@@ -50,7 +51,8 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 <th>Start hour</th>
 <th>End hour</th>
 <th></th>
-</tr></thead>
+</tr>
+</thead>
 
     <tr>	
 	<form action="" method="post">
@@ -62,8 +64,8 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 	<td><input type="checkbox" name="fri" value="Fri" /></td>        
 	<td><input type="checkbox" name="sat" value="Sat" /></td>        
 	<td><input type="checkbox" name="sun" value="Sun" /></td>
-	<td><input type="time" name="stime" value="" class="form-control" required="" placeholder="07:00"/></td>
-	<td><input type="time" name="etime" value="" class="form-control" required="" placeholder="19:00"/></td>
+	<td><input type="text" name="stime" value="" class="form-control" required="" placeholder="07:00"/></td>
+	<td><input type="text" name="etime" value="" class="form-control" required="" placeholder="19:00"/></td>
 	<input type="hidden" name="add1" value="add2" />
 	<input type="hidden" name="dpgpio" value="<?php echo $gpio; ?>" />
 	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>

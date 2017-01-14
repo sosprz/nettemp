@@ -85,7 +85,7 @@ if (file_exists($wp)) {
 	}
 }
 else{
-    $gpiolist = array(1,2,3);
+    $gpiolist = array(91,92,93,94,94,95,96,97,98,99);
 ?>
 
 <span class="label label-warning">Warning: No wiringPI package</span>

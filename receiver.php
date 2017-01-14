@@ -222,9 +222,9 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 					}
 					//sensors status
 					else {
-						$dbr->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert value to status\n" );
-						$dbr->exec("UPDATE sensors SET status='ok' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert status to status\n" );
-						$dbr->exec("UPDATE sensors SET ip='$ip' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert IP to status\n" );
+						$dbr->exec("UPDATE sensors SET tmp='$val'+adj, status='ok', ip='$ip' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert value to status\n" );
+						//$dbr->exec("UPDATE sensors SET status='ok', ip='$ip' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert status to status\n" );
+						//$dbr->exec("UPDATE sensors SET  WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert IP to status\n" );
 					}
 				}		
 				else {
@@ -306,6 +306,7 @@ elseif (isset($val) && isset($type))
 	{
 		$atype = array_filter(explode(';', $type),'strlen');
 		$aval = array_filter(explode(';', $val),'strlen');
+		
 		if(empty($atype)) {
 			echo "No type definied in one id mode, name ".$name.", id ".$id."\n";
 			exit;

@@ -1,7 +1,7 @@
 <?php 
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
-$sth = $db->prepare("SELECT * FROM gpio WHERE position !=0 AND ip is null AND ( mode='trigger' or mode='simple' or mode='day' or mode='week' or mode='temp' or mode='call' or mode='read') ORDER BY position ASC");
+$sth = $db->prepare("SELECT * FROM gpio WHERE position !=0 AND (ip is null OR ip='') AND ( mode='trigger' or mode='simple' or mode='day' or mode='week' or mode='temp' or mode='call' or mode='read') ORDER BY position ASC");
 $sth->execute();
 $result = $sth->fetchAll();
 $numRows = count($result);

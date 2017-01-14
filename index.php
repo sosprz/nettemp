@@ -134,8 +134,8 @@ if($html_info=='on') {
 	    <button type="submit" class="btn btn-xs btn-success">Log Out</button>
 	</form>
 	<form action="" method="post" class="navbar-form navbar-right">
-		Auto logout
-		<input type="checkbox" data-toggle="toggle" data-size="mini" name="autologout" value="on" <?php echo $autologout == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		Remember me:
+		<input type="checkbox" data-toggle="toggle" data-size="mini" name="autologout_value" value="on" <?php echo $autologout == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
 		<input type="hidden" name="setautologout" value="onoff" />
     </form>
     <?php } ?>
@@ -176,7 +176,7 @@ case 'screen': include('modules/screen/screen.php'); break;
 ?>
 </div>
 <script type="text/javascript">
-var refreshTime = 30000; // every 5 minutes in milliseconds
+var refreshTime = 30000; 
 window.setInterval( function() {
     $.ajax({
         cache: false,

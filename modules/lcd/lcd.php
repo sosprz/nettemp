@@ -40,7 +40,7 @@ foreach ($result as $a) {
 
 $lfile = "$ROOT/tmp/lcd";
 $fh = fopen($lfile, 'w');
-fwrite($fh, date("Y-m-d H:i")."\n");
+fwrite($fh, date("y-m-d H:i")."\n");
 foreach ($lcd as $line) {
 		fwrite($fh, $line);
 	}
