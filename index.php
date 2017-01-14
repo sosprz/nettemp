@@ -18,15 +18,6 @@ if( !file_exists($dbfile) || !is_readable($dbfile) || filesize($dbfile) == 0 ){
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<?php
-if ( isset($_SESSION["user"]) ){
-    $sth = $db->prepare("SELECT autologout FROM settings WHERE id=1") or $sth = '';
-    if ( !empty($sth) ){
-        $result = $sth->fetch();
-        echo $result['autologout'] != 'on' ? "\t".'<meta http-equiv="refresh" content="1800">'."\n" : '';
-    }
-}
-?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
