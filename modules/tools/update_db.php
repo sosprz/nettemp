@@ -54,6 +54,8 @@ $db->exec("CREATE TABLE IF NOT EXISTS types (id INTEGER PRIMARY KEY,type UNIQUE,
 $db->exec("CREATE TABLE IF NOT EXISTS usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE)");
 $db->exec("CREATE TABLE IF NOT EXISTS vpn (id INTEGER PRIMARY KEY,users UNIQUE)");
 $db->exec("CREATE TABLE IF NOT EXISTS auth_tokens (id INTEGER PRIMARY KEY, selector TEXT, token TEXT, userid TEXT, expires TEXT)");
+$db->exec("CREATE TABLE IF NOT EXISTS adjust (id INTEGER PRIMARY KEY, `rom` TEXT, `threshold` NUMERIC, `add` NUMERIC)");
+
 
 $db->commit();
 $db=null;
