@@ -45,7 +45,7 @@ if ($mkdb == "mkdb") {
 $restore_file = isset($_POST['restore_file']) ? $_POST['restore_file'] : '';
 $re = isset($_POST['re']) ? $_POST['re'] : '';
 if ($re == "re") {
-    if(preg_match('/^[a-z0-9_ \-\.]+$/i',$db_file)){
+    if(preg_match('/^[a-z0-9_ \-\.]+$/i',$restore_file)){
         passthru("modules/tools/backup/backup r tmp/backup/$restore_file");
         header("location: " . $_SERVER['REQUEST_URI']);
         exit();
