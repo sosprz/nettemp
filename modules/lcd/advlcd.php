@@ -75,6 +75,8 @@ for($i=0;$i<=75;$i++){
         for($l=0;$l<$lines;$l++){
             if(($settings[$key]['position']+$l)<count($msgs[$key])){
                 $msg[]=$msgs[$key][$settings[$key]['position']+$l];
+            }elseif($settings[$key]['loop'] == 'on' && $l < count($msgs[$key]) ){
+                $msg[]=$msgs[$key][$settings[$key]['position']+$l-count($msgs[$key])];
             }else{
                 $msg[]=format($settings[$key]['cols'],'');
             }
@@ -109,7 +111,7 @@ for($i=0;$i<=75;$i++){
         if($i % 3 == 0){
 //print msg to stdout
             echo $key."\t-> ".$msg."\n";
-            if($settings[$key]['position']<count($msgs[$key])-1 && $settings[$key]['rows']<count($msgs[$key])){
+            if($settings[$key]['position']<count($msgs[$key])-1 && $lines<count($msgs[$key])){
                 $settings[$key]['position']++;
             }else{
                 $settings[$key]['position']=0;

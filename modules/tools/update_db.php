@@ -343,7 +343,7 @@ $db->exec("ALTER TABLE sensors ADD mail type TEXT");
 
 //MultiLCD
 //LCD Settings
-$db->exec("CREATE TABLE IF NOT EXISTS lcds (id INTEGER PRIMARY KEY, name TEXT NOT NULL, addr TEXT NOT NULL UNIQUE, rows TINYINT NOT NULL DEFAULT 2, cols TINYINT NOT NULL DEFAULT 16, clock TEXT DEFAULT '', avg TEXT DEFAULT '', active TEXT DEFAULT 'on', grp TEXT DEFAULT NULL)");
+$db->exec("CREATE TABLE IF NOT EXISTS lcds (id INTEGER PRIMARY KEY, name TEXT NOT NULL, addr TEXT NOT NULL UNIQUE, rows TINYINT NOT NULL DEFAULT 2, cols TINYINT NOT NULL DEFAULT 16, clock TEXT DEFAULT 'off', avg TEXT DEFAULT 'off', loop TEXT DEFAULT 'off', active TEXT DEFAULT 'on', grp TEXT DEFAULT NULL)");
 //LCD Groups
 $db->exec("CREATE TABLE IF NOT EXISTS lcd_groups (id INTEGER PRIMARY KEY, name TEXT UNIQUE, active TEXT DEFAULT 'on', charts TEXT DEFAULT '', grpkey TEXT UNIQUE DEFAULT (lower(hex(randomblob(4)))) NOT NULL)");
 $db->exec("CREATE TABLE IF NOT EXISTS lcd_group_assign (rom TEXT NOT NULL, grpkey TEXT NOT NULL)");

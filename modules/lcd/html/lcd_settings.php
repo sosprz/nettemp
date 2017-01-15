@@ -69,13 +69,13 @@ foreach ($result as $a) {
 if ( $lcdmode == 'adv' ){
 //advanced mode
 //    adv($db,$root);
-    foreach (array('add','del','name','addr', 'rows', 'cols', 'clock', 'avg', 'active', 'group', 'activeonoff', 'activeon') as $v){
+    foreach (array('add','del','name','addr', 'rows', 'cols', 'clock', 'avg', 'loop', 'active', 'group', 'activeonoff', 'activeon') as $v){
         ${$v} = isset($_POST[$v]) ? $_POST[$v] : '';
     }
 
     if ( $add == 'add' && !empty($name) && !empty($addr) ){
 //add
-        $db->exec("INSERT OR REPLACE INTO lcds (name, addr, rows, cols, clock, avg, active, grp) VALUES ('$name', '$addr', '$rows', '$cols', '$clock', '$avg', '$active', '$group')");
+        $db->exec("INSERT OR REPLACE INTO lcds (name, addr, rows, cols, clock, avg, loop, active, grp) VALUES ('$name', '$addr', '$rows', '$cols', '$clock', '$avg', '$loop', '$active', '$group')");
         exec("sudo touch ".$root."/tmp/reboot");
         header("location: " . $_SERVER['REQUEST_URI']);
         exit();
@@ -109,7 +109,7 @@ if ( $lcdmode == 'adv' ){
 ?>
     <div class="table-responsive">
     <table class="table table-hover table-condensed small">
-    <thead><tr><th>Name</th><th>Addr</th><th>Rows</th><th>Cols</th><th>Permament Clock</th><th>Average Values</th><th>Display Group</th><th>Active</th><th></th></tr></thead>
+    <thead><tr><th>Name</th><th>Addr</th><th>Rows</th><th>Cols</th><th>Permament Clock</th><th>Average Values</th><th>Infinite Loop</th><th>Display Group</th><th>Active</th><th></th><th></th></tr></thead>
     <tbody>
         <tr>
         <form action="" method="post">
@@ -119,8 +119,9 @@ if ( $lcdmode == 'adv' ){
            <td class="col-md-1"><input type="text" name="cols" size="2" pattern="[0-9]{1,2}" value="16" class="form-control input-sm" required=""/></td>
            <td class="col-md-1"><select name="clock" class="form-control input-sm"><option selected value="off">off</option><option value="on">on</option></td>
            <td class="col-md-1"><select name="avg" class="form-control input-sm"><option selected value="off">off</option><option value="on">on</option></td>
+           <td class="col-md-1"><select name="loop" class="form-control input-sm"><option selected value="off">off</option><option value="on">on</option></td>
            <td class="col-md-1"><select name="group" class="form-control input-sm"><?php echo $group_option; ?></td>
-           <td class="col-md-1"><select name="active" class="form-control input-sm"><option selected value="off">off</option><option value="on">on</option></td>
+           <td class="col-md-1"><select name="active" class="form-control input-sm"><option value="off">off</option><option selected value="on">on</option></td>
            <input type="hidden" name="add" value="add" />
            <td class="col-md-1"></td>
            <td class="col-md-4"><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
@@ -155,6 +156,9 @@ if ( $lcdmode == 'adv' ){
            <?php echo $a["avg"];?>
        </td>
        <td class="col-md-1">
+           <?php echo $a["loop"];?>
+       </td>
+       <td class="col-md-1">
            <?php echo $a["grp"];?>
        </td>
        <td class="col-md-1">
@@ -183,7 +187,7 @@ if ( $lcdmode == 'adv' ){
     </table>
     </div>
     <div class="panel-body">
-    <span id="helpBlock" class="help-block">If You want change LCD settings like name or any other setting  please fill ADD form, but use ADDR of LCD to change</span>
+    <span id="helpBlock" class="help-block">If You want change LCD settings like name or any other setting please fill ADD form, but use ADDR of LCD to change</span>
     <span id="helpBlock" class="help-block">Default I<sup>2</sup>C Addres: 0x27</span>
     <span id="helpBlock" class="help-block">Valid values: 0x**</span>
     </div>
