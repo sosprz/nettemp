@@ -64,13 +64,13 @@ function gpio_curl_onoff($ip,$gpio,$rom,$action,$moment_time){
 
 function gpio_onoff($gpio,$rom,$action,$rev){
 	$tmp='';
-	if($action=='on'&&$rev='on'){
+	if($action=='on'&&$rev=='on'){
 		$set='0';
-	} elseif ($action=='on'&&$rev=''){
+	} elseif ($action=='on'&&$rev==''){
 		$set='1';
-	} elseif ($action=='off'&&$rev='on'){
+	} elseif ($action=='off'&&$rev=='on'){
 		$set='1';
-	} elseif ($action=='off'&&$rev=''){
+	} elseif ($action=='off'&&$rev==''){
 		$set='0';
 	}
 	
