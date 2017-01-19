@@ -70,7 +70,7 @@ function gpio_onoff($gpio,$rom,$action,$rev){
 		$set='1';
 	} elseif ($action=='off'&&$rev='on'){
 		$set='1';
-	} elseif ($action=='on'&&$rev=''){
+	} elseif ($action=='off'&&$rev=''){
 		$set='0';
 	}
 	
