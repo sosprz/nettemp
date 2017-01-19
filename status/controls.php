@@ -22,10 +22,10 @@ function gpio_db($rom,$action){
 	$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$action')");
 }
 
-function gpio_status($rom,$tmp){
+function gpio_status($rom,$tmp,$action){
 	global $root;
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
-	$db->exec("UPDATE sensors SET tmp='$tmp' WHERE rom='$rom'");
+	$db->exec("UPDATE sensors SET tmp='$tmp', status='$action' WHERE rom='$rom'");
 }
 
 
@@ -58,7 +58,7 @@ function gpio_curl_onoff($ip,$gpio,$rom,$action,$moment_time){
 	$res = curl_exec($ch);
 	
 	gpio_db($rom,$action);
-	gpio_status($rom,$tmp);
+	gpio_status($rom,$tmp,$action);
 
 }
 
@@ -159,7 +159,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					}
 				}
 				exec("modules/gpio/timestamp $gpio_post 1");
-				$db->exec("UPDATE gpio SET simple='on', status='ON' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+				$db->exec("UPDATE gpio SET simple='on', status='on' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
 
 			} else {
 				if ($gpio_post >= '100') {
@@ -180,7 +180,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					}
 				}
 				exec("modules/gpio/timestamp $gpio_post 0");
-				$db->exec("UPDATE gpio SET simple='', status='OFF' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+				$db->exec("UPDATE gpio SET simple='', status='off' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
 			}
 		}
 		
@@ -198,10 +198,10 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				foreach ($gpio as $g) {
 				?>
 					<td class="col-md-1">
-						<img src="media/ico/switch-icon.png" alt="" title="GPIO"/>
+						<img src="media/ico/switch-icon.png" alt="" title="<?php if(!empty($s['ip'])){echo "Last IP: ".$s['ip']." GPIO: ".$s['gpio']." Mode: ".$g['mode'];} else {echo "GPIO: ".$s['gpio']." Mode: ".$g['mode'];}?>" />
 					</td>
 					<td class="col-md-1">
-						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label label-default" title="<?php if(!empty($s['ip'])){echo "Last IP: ".$s['ip']." GPIO: ".$s['gpio']." Mode: ".$g['mode'];} else {echo "GPIO: ".$s['gpio']." Mode: ".$g['mode'];}?>"><?php echo $s['name']?></a>
+						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label <?php echo $s['status'] == 'on'  ? 'label-danger' : 'label-success'; ?>" title="Charts" ><?php echo $s['name']?></a>
 					</td>
 				<?php
 				/* SIMPLE IP */
