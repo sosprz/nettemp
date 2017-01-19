@@ -62,6 +62,41 @@ function gpio_curl_onoff($ip,$gpio,$rom,$action,$moment_time){
 
 }
 
+function gpio_onoff($gpio,$rom,$action,$rev){
+	$tmp='';
+	if($action=='on'&&$rev='on'){
+		$set='0';
+	} elseif ($action=='on'&&$rev=''){
+		$set='1';
+	} elseif ($action=='off'&&$rev='on'){
+		$set='1';
+	} elseif ($action=='on'&&$rev=''){
+		$set='0';
+	}
+	
+	if ($gpio >= '100') {
+		exec("/usr/local/bin/gpio -x mcp23017:$gpio:0x20 mode $gpio out");
+		if ($rev == 'on') { 
+			exec("/usr/local/bin/gpio -x mcp23017:$gpio:0x20 write $gpio $set");
+		}
+		else { 
+			exec("/usr/local/bin/gpio -x mcp23017:$gpio:0x20 write $gpio $set");
+		}
+	} else {	
+		exec("/usr/local/bin/gpio -g mode $gpio output");
+		if ($rev == 'on') { 
+			exec("/usr/local/bin/gpio -g write $gpio $set");	
+		}
+		else { 
+			exec("/usr/local/bin/gpio -g write $gpio $set");	
+		}
+	}
+
+	gpio_db($rom,$action);
+	gpio_status($rom,$tmp,$action);
+
+}
+
 if(!empty($ip_gpio)||!empty($sensors_relay)) {
 ?>
 <div class="grid-item swcon">
@@ -140,52 +175,14 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		}
 		/* SIMPLE */
 		if ($onoff == "simple") {
+			$tmp='';
 			if ($switch == 'on' ){
-				if ($gpio_post >= '100') {
-					exec("/usr/local/bin/gpio -x mcp23017:$gpio_post:0x20 mode $gpio_post out");
-					if ( $a["rev"] == "on" || $rev == 'on') { 
-						exec("/usr/local/bin/gpio -x mcp23017:$gpio_post:0x20 write $gpio_post 0");
-					}
-					else { 
-						exec("/usr/local/bin/gpio -x mcp23017:$gpio_post:0x20 write $gpio_post 1");
-					}
-				} else {	
-					exec("/usr/local/bin/gpio -g mode $gpio_post output");
-					if ( $a["rev"] == "on" || $rev == 'on') { 
-						exec("/usr/local/bin/gpio -g write $gpio_post 0");	
-					}
-					else { 
-						exec("/usr/local/bin/gpio -g write $gpio_post 1");	
-					}
-				}
-				exec("modules/gpio/timestamp $gpio_post 1");
-				$db->exec("UPDATE gpio SET simple='on', status='on' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
-
+				gpio_onoff($gpio_post,$rom,'on',$rev);
 			} else {
-				if ($gpio_post >= '100') {
-					exec("/usr/local/bin/gpio -x mcp23017:$gpio_post:0x20 mode $gpio_post out");
-					if ( $a["rev"] == "on" || $rev == 'on') { 
-						exec("/usr/local/bin/gpio -x mcp23017:$gpio_post:0x20 write $gpio_post 1");
-					}
-					else { 
-						exec("/usr/local/bin/gpio -x mcp23017:$gpio_post:0x20 write $gpio_post 0");
-					}
-				} else {
-					exec("/usr/local/bin/gpio -g mode $gpio_post output");
-					if ( $a["rev"] == "on" || $rev == 'on') { 
-						exec("/usr/local/bin/gpio -g write $gpio_post 1");	
-					}
-					else { 
-						exec("/usr/local/bin/gpio -g write $gpio_post 0");	
-					}
-				}
-				exec("modules/gpio/timestamp $gpio_post 0");
-				$db->exec("UPDATE gpio SET simple='', status='off' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+				gpio_onoff($gpio_post,$rom,'off',$rev);
 			}
 		}
-		
-		
-   		    
+  		    
 
 		foreach ( $ip_gpio as $s) {
 			?>
@@ -211,6 +208,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="<?php echo $s['tmp'] == '1.0'  ? 'off' : 'on'; ?>" <?php echo $s['tmp'] == '1.0' ? 'checked="checked"' : ''; ?>  />
                         <input type="hidden" name="ip" value="<?php echo $s['ip']; ?>"/>
+                        <input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
                         <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
                         <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
                         <input type="hidden" name="onoff" value="simpleip" />
@@ -228,6 +226,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="on" <?php echo $state[0] == '1' ? 'checked="checked"' : ''; unset($state);?>  />
                         <input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
+                        <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
                         <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
                         <input type="hidden" name="onoff" value="simple" />
                     </form>
@@ -258,6 +257,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input data-onstyle="warning" type="checkbox" data-size="mini" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
 						<input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
+						<input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
 						<input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
 						<input type="hidden" name="onoff" value="bi" />
 						<input type="hidden" name="moment_time" value="<?php echo $g['moment_time']; ?>" />    
