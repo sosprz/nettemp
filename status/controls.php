@@ -222,9 +222,27 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<td class="col-md-1">
 					 <?php
 						exec('/usr/local/bin/gpio -g read '.$g['gpio'], $state);
+						if(state[0]=='0'){
+							$action='on';
+						} else {
+							$action='off';
+						}
+						$rev=$g['rev'];
+						
+							if($action=='on'&&$rev=='on'){
+								$set='0';
+							} elseif ($action=='on'&&$rev==''){
+								$set='1';
+							} elseif ($action=='off'&&$rev=='on'){
+								$set='1';
+							} elseif ($action=='off'&&$rev==''){
+								$set='0';
+							}
+	
+						
 					?>	
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="on" <?php echo $state[0] == '1' ? 'checked="checked"' : ''; unset($state);?>  />
+						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="on" <?php echo $set == '1' ? 'checked="checked"' : ''; unset($set);?>  />
                         <input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
                         <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
                         <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
