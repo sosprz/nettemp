@@ -65,7 +65,7 @@ $row = $rows->fetchAll();
 
 	<td class="col-md-2"> 
 		<?php
-		    if (strpos($b['status'],'ON') !== false) {
+		    if (strpos($b['status'],'ON') !== false||strpos($b['status'],'on') !== false) {
 		?>
 			<span class="label label-success">
 			<?php

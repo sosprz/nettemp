@@ -96,6 +96,23 @@ function gpio_onoff($gpio,$rom,$action,$rev){
 	gpio_status($rom,$tmp,$action);
 
 }
+function gpio_moment($gpio,$rom,$rev,$moment_time) {
+	$tmp='';
+	$action='on';
+	if ($rev == 'on') {
+		$faction='0';
+		$laction='1';
+	} else {
+		$faction='1';
+		$laction='0';
+	}
+	exec("/usr/local/bin/gpio -g mode $gpio output && /usr/local/bin/gpio -g write $gpio $faction && sleep $moment_time && /usr/local/bin/gpio -g write $gpio $laction");
+	gpio_db($rom,$action);
+	gpio_status($rom,$tmp,$action);
+}
+
+
+/* END FUNCTIONS */
 
 if(!empty($ip_gpio)||!empty($sensors_relay)) {
 ?>
@@ -165,11 +182,10 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		
 		/* MOMENT */
 		if ($onoff == "bi")  {
-			if ($rev == 'on') {
-				exec("/usr/local/bin/gpio -g mode $gpio_post output && /usr/local/bin/gpio -g write $gpio_post 0 && sleep $moment_time &&  /usr/local/bin/gpio -g write $gpio_post 1");
-			} else {
-				exec("/usr/local/bin/gpio -g mode $gpio_post output && /usr/local/bin/gpio -g write $gpio_post 1 && sleep $moment_time && /usr/local/bin/gpio -g write $gpio_post 0");
+			if($moment_time>10){
+				$moment_time=10;
 			}
+			gpio_moment($gpio_post,$rom_post,$rev,$moment_time);
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 		}
@@ -181,6 +197,8 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 			} else {
 				gpio_onoff($gpio_post,$rom,'off',$rev);
 			}
+		header("location: " . $_SERVER['REQUEST_URI']);
+		exit();
 		}
   		    
 
@@ -222,34 +240,21 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<td class="col-md-1">
 					 <?php
 						exec('/usr/local/bin/gpio -g read '.$g['gpio'], $state);
-						if(state[0]=='0'){
-							$action='on';
-						} else {
-							$action='off';
-						}
-						$rev=$g['rev'];
-						
-							if($action=='on'&&$rev=='on'){
-								$set='0';
-							} elseif ($action=='on'&&$rev==''){
-								$set='1';
-							} elseif ($action=='off'&&$rev=='on'){
-								$set='1';
-							} elseif ($action=='off'&&$rev==''){
-								$set='0';
-							}
-	
-						
+						$set=$state[0];
 					?>	
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="on" <?php echo $set == '1' ? 'checked="checked"' : ''; unset($set);?>  />
+						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="on" <?php echo $set == '1' ? 'checked="checked"' : ''; ?>  />
                         <input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
                         <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
                         <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
                         <input type="hidden" name="onoff" value="simple" />
                     </form>
                     </td>
-                    <?php if($g['mode']!='temp') { echo '<td></td><td></td><td></td>';} 
+                    <?php 
+                    unset($set);
+                    unset($state);
+                    
+                    if($g['mode']!='temp') { echo '<td></td><td></td><td></td>';} 
 				}
 				/* MOMENT IP*/
 				elseif($g['mode']=='moment'&&!empty($s['ip'])) {
