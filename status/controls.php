@@ -4,7 +4,7 @@ if(isset($_SESSION['user'])){
 	
 /* SWITCH EasyESP */
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
-$sth = $db->prepare("SELECT ip,rom,gpio,name,tmp FROM sensors WHERE type='gpio' AND ch_group='gpio'");
+$sth = $db->prepare("SELECT ip,rom,gpio,name,tmp,status FROM sensors WHERE type='gpio' AND ch_group='gpio'");
 $sth->execute();
 $ip_gpio = $sth->fetchAll();
 
@@ -22,10 +22,11 @@ function gpio_db($rom,$action){
 	$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$action')");
 }
 
-function gpio_status($rom,$tmp,$action){
+function gpio_status($rom,$tmp,$action,$gpio){
 	global $root;
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
 	$db->exec("UPDATE sensors SET tmp='$tmp', status='$action' WHERE rom='$rom'");
+	$db->exec("UPDATE gpio SET status='$action', simple='$action' WHERE gpio='$gpio'");
 }
 
 
@@ -58,12 +59,12 @@ function gpio_curl_onoff($ip,$gpio,$rom,$action,$moment_time){
 	$res = curl_exec($ch);
 	
 	gpio_db($rom,$action);
-	gpio_status($rom,$tmp,$action);
+	gpio_status($rom,$tmp,$action,$gpio);
 
 }
 
 function gpio_onoff($gpio,$rom,$action,$rev){
-	$tmp='';
+	
 	if($action=='on'&&$rev=='on'){
 		$set='0';
 	} elseif ($action=='on'&&$rev==''){
@@ -93,7 +94,7 @@ function gpio_onoff($gpio,$rom,$action,$rev){
 	}
 
 	gpio_db($rom,$action);
-	gpio_status($rom,$tmp,$action);
+	gpio_status($rom,$tmp,$action,$gpio);
 
 }
 function gpio_moment($gpio,$rom,$rev,$moment_time) {
@@ -108,7 +109,7 @@ function gpio_moment($gpio,$rom,$rev,$moment_time) {
 	}
 	exec("/usr/local/bin/gpio -g mode $gpio output && /usr/local/bin/gpio -g write $gpio $faction && sleep $moment_time && /usr/local/bin/gpio -g write $gpio $laction");
 	gpio_db($rom,$action);
-	gpio_status($rom,$tmp,$action);
+	gpio_status($rom,$tmp,$action,$gpio);
 }
 
 

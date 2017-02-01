@@ -116,7 +116,7 @@ function adjust($val,$rom) {
     foreach($row as $row) {
 		$threshold=$row['threshold'];
 		$end=$row['end'];
-		$add=$row['add'];
+		$add=$row['addvalue'];
 		if($val>=$threshold&&$val<$end)
 		{ 
 			$val=$val+$add;
