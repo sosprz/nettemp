@@ -33,24 +33,24 @@ function gpio_status($rom,$tmp,$action,$gpio){
 function gpio_curl_onoff($ip,$gpio,$rom,$action,$moment_time){
 	
 	if($action=='on') {
-		$action='1';
+		$set='1';
 		$tmp='1.0';
 		$method='GPIO';
 		$time='0';
 	} elseif($action=='off') {
-		$action='0';
+		$set='0';
 		$tmp='0.0';
 		$method='GPIO';
 		$time='0';
 	} elseif($action=='moment') {
 		$method='Pulse';
-		$action='1';
+		$set='1';
 		$tmp='1.0';
 	}
 		
 	$ch = curl_init();
 	$optArray = array(
-		CURLOPT_URL => "$ip/control?cmd=$method,$gpio,$action,$moment_time",
+		CURLOPT_URL => "$ip/control?cmd=$method,$gpio,$set,$moment_time",
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_CONNECTTIMEOUT => 1,
 		CURLOPT_TIMEOUT => 3
