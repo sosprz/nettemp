@@ -149,7 +149,7 @@ CREATE TABLE "sensors" (
 	`mail`	TEXT,
 	`status`	TEXT,
 	`usb`	TEXT,
-	`position_group`	TEXT,
+	`position_group`	TEXT, stat_min TEXT, stat_max TEXT,
 	PRIMARY KEY(id)
 );
 CREATE TABLE "rs485" (
@@ -412,5 +412,6 @@ CREATE TABLE "access_time" (
 	`etime`	TEXT,
 	PRIMARY KEY(id)
 );
+CREATE TABLE adjust (id INTEGER PRIMARY KEY, rom TEXT, threshold NUMERIC, end NUMERIC, addvalue NUMERIC);
 CREATE TRIGGER aupdate_time_trigger AFTER UPDATE OF tmp ON sensors FOR EACH ROW WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;
 COMMIT;
