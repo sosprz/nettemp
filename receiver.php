@@ -393,7 +393,7 @@ elseif (isset($val) && isset($type))
 	elseif ( $device == "gpio" ) 
 	{ 
 	    if (!empty($type) && !empty($gpio)) {
-			$rom=$device.'_'.$gpio.'_'.$type; 
+			$rom=$device.'_'.$gpio; 
 			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
 	    } else {
 			echo "Missing type or gpio number";

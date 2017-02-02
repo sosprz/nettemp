@@ -98,6 +98,7 @@ $map_num2=substr(rand(), 0, 6);
     $elecon = isset($_POST['elecon']) ? $_POST['elecon'] : '';
     if ($elecon == "elecon")  {
 		$db->exec("UPDATE gpio SET mode='elec' WHERE gpio='$gpio_post'") or die("exec error");
+		$db->exec("UPDATE sensors SET type='elec' WHERE gpio='$gpio_post'") or die("exec error");
 		$db = null;
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
@@ -106,6 +107,7 @@ $map_num2=substr(rand(), 0, 6);
     $wateron = isset($_POST['wateron']) ? $_POST['wateron'] : '';
     if ($wateron == "wateron")  {
 		$db->exec("UPDATE gpio SET mode='water' WHERE gpio='$gpio_post'") or die("exec error");
+		$db->exec("UPDATE sensors SET type='water' WHERE gpio='$gpio_post'") or die("exec error");
 		$db = null;
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
@@ -114,6 +116,7 @@ $map_num2=substr(rand(), 0, 6);
     $gason = isset($_POST['gason']) ? $_POST['gason'] : '';
     if ($gason == "gason")  {
 		$db->exec("UPDATE gpio SET mode='gas' WHERE gpio='$gpio_post'") or die("exec error");
+		$db->exec("UPDATE sensors SET type='gas' WHERE gpio='$gpio_post'") or die("exec error");
 		$db = null;
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();

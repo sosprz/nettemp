@@ -27,7 +27,7 @@ if(!empty($new_rom)) {
 	$map_num2=substr(rand(), 0, 4);
 	
 //DB    
-if ($type=='elec' || $type=='water' || $type=='gas' || $type=='watt') {
+if ($type=='elec' || $type=='water' || $type=='gas' || $type=='watt'|| $type=='gpio') {
 	$dbnew = new PDO("sqlite:db/$new_rom.sql");
 	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER, current INTEGER, last INTEGER)");
 	$dbnew->exec("CREATE INDEX time_index ON def(time)");
