@@ -6,7 +6,15 @@ $date = date("Y-m-d H:i:s");
 if(empty($ROOT)){
     $ROOT=dirname(dirname(dirname(__FILE__)));
 }
-//
+
+//WAL
+$dbu = new PDO("sqlite:$ROOT/dbf/nettemp.db");
+$dbu->exec("PRAGMA journal_mode=DELETE");
+$dbu->exec("PRAGMA page_size=4096");
+$dbu->exec("VACUUM");
+$dbu->exec("PRAGMA journal_mode=WAL");
+$dbu=null;
+
 try {
     $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -16,11 +24,6 @@ try {
 }
 
 try {
-//WAL
-$db->exec("PRAGMA journal_mode=DELETE");
-$db->exec("PRAGMA page_size=4096");
-$db->exec("VACUUM");
-$db->exec("PRAGMA journal_mode=WAL");
 
 $db->beginTransaction();
 
@@ -56,7 +59,6 @@ $db->exec("CREATE TABLE IF NOT EXISTS vpn (id INTEGER PRIMARY KEY,users UNIQUE)"
 $db->exec("CREATE TABLE IF NOT EXISTS auth_tokens (id INTEGER PRIMARY KEY, selector TEXT, token TEXT, userid TEXT, expires TEXT)");
 $db->exec("CREATE TABLE IF NOT EXISTS adjust (id INTEGER PRIMARY KEY, rom TEXT, threshold NUMERIC, end NUMERIC, addvalue NUMERIC)");
 
-
 $db->commit();
 $db=null;
 } catch (Exception $e) {
@@ -64,7 +66,7 @@ $db=null;
 	$db->rollBack();
     echo $date." Error.\n";
     echo $e;
-    //exit;
+    exit;
 }
 
 
