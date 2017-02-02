@@ -123,7 +123,7 @@ function adjust($val,$rom) {
 			break;
 		}
     }
-    return $val;
+    return "$val";
 }
 
 function scale($val,$type) {
@@ -131,9 +131,9 @@ function scale($val,$type) {
 	// scale F->C
 	if($scale=='F' && $type=='temp') {
 		$val=$val*1.8+32;
-		return $val;
+		return "$val";
 	} else {
-		return $val;
+		return "$val";
 	}
 	//$sthr=null;
     //$dbr=null;
@@ -172,7 +172,7 @@ function check($val,$type) {
     {
 		if (($range['min'] <= $val) && ($val <= $range['max']) && ($val != $range['value1']) && ($val != $range['value2']) && ($val != $range['value3'])) 
 		{
-			return $val;
+			return "$val";
 		}
 		else 
 		{

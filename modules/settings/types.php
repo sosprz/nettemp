@@ -11,7 +11,7 @@
 	$max = isset($_POST['max']) ? $_POST['max'] : '';
 	$value1 = isset($_POST['value1']) ? $_POST['value1'] : '';
 	$value2 = isset($_POST['value2']) ? $_POST['value2'] : '';
-	$value2 = isset($_POST['value2']) ? $_POST['value2'] : '';
+	$value3 = isset($_POST['value3']) ? $_POST['value3'] : '';
 
 
 
