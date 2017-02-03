@@ -452,7 +452,7 @@ $row = $rows->fetchAll();
     </td>
     
     <td class="col-md-0">
-    <?php if ($a["device"] != 'remote') { ?>
+    <?php if ($a["device"] != 'remote' && $a["device"] != 'gpio') { ?>
     <form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="remote" value="<?php echo $a["id"]; ?>" />
 		<button type="submit" name="remoteon" value="<?php echo $a["remote"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["remote"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-success"'; ?>>
