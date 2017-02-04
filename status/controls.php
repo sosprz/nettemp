@@ -26,7 +26,7 @@ function gpio_status($rom,$tmp,$action,$gpio){
 	global $root;
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
 	$db->exec("UPDATE sensors SET tmp='$tmp', status='$action' WHERE rom='$rom'");
-	$db->exec("UPDATE gpio SET status='$action', simple='$action' WHERE gpio='$gpio'");
+	$db->exec("UPDATE gpio SET status='$action', simple='$action' WHERE rom='$rom'");
 }
 
 
@@ -208,7 +208,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 			<tr>
 				<?php		
 				/* GPIO */
-				$sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$s[gpio]' AND (mode='simple' OR mode='temp' OR mode='moment' OR mode='read')");
+				$sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$s[gpio]' AND rom='$s[rom]' AND (mode='simple' OR mode='temp' OR mode='moment' OR mode='read') ");
 				$sth->execute();
 				$gpio = $sth->fetchAll();
 				foreach ($gpio as $g) {
