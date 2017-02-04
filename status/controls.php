@@ -17,9 +17,9 @@ $sensors_relay = $sth->fetchAll();
 
 function label($status){
 	if($status == 'on')
-		{	
-			return 'label-success';
-		} 
+	{	
+		return 'label-success';
+	} 
 	elseif($status == 'off') 
 	{
 		return 'label-danger';
@@ -27,6 +27,10 @@ function label($status){
 	elseif($status == 'moment')
 	{
 		return 'label-warning';
+	}
+	else 
+	{
+		return 'label-danger';
 	}
 
 }
