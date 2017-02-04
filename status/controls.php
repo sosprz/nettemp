@@ -15,6 +15,22 @@ $sensors_relay = $sth->fetchAll();
 
 /* Functions */
 
+function label($status){
+	if($status == 'on')
+		{	
+			return 'label-success';
+		} 
+	elseif($status == 'off') 
+	{
+		return 'label-danger';
+	}
+	elseif($status == 'moment')
+	{
+		return 'label-warning';
+	}
+
+}
+
 
 function gpio_db($rom,$action){
 	global $root;
@@ -58,7 +74,7 @@ function gpio_curl_onoff($ip,$gpio,$rom,$action,$moment_time){
 	curl_setopt_array($ch, $optArray);
 	$res = curl_exec($ch);
 	
-	gpio_db($rom,$action);
+	gpio_db($rom,$set);
 	gpio_status($rom,$tmp,$action,$gpio);
 
 }
@@ -93,13 +109,13 @@ function gpio_onoff($gpio,$rom,$action,$rev){
 		}
 	}
 
-	gpio_db($rom,$action);
+	gpio_db($rom,$set);
 	gpio_status($rom,$tmp,$action,$gpio);
 
 }
 function gpio_moment($gpio,$rom,$rev,$moment_time) {
 	$tmp='';
-	$action='on';
+	$action='moment';
 	if ($rev == 'on') {
 		$faction='0';
 		$laction='1';
@@ -107,8 +123,9 @@ function gpio_moment($gpio,$rom,$rev,$moment_time) {
 		$faction='1';
 		$laction='0';
 	}
+	$set='1';
 	exec("/usr/local/bin/gpio -g mode $gpio output && /usr/local/bin/gpio -g write $gpio $faction && sleep $moment_time && /usr/local/bin/gpio -g write $gpio $laction");
-	gpio_db($rom,$action);
+	gpio_db($rom,$set);
 	gpio_status($rom,$tmp,$action,$gpio);
 }
 
@@ -217,7 +234,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						<img src="media/ico/switch-icon.png" alt="" title="<?php if(!empty($s['ip'])){echo "Last IP: ".$s['ip']." GPIO: ".$s['gpio']." Mode: ".$g['mode'];} else {echo "GPIO: ".$s['gpio']." Mode: ".$g['mode'];}?>" />
 					</td>
 					<td class="col-md-1">
-						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label <?php echo $g['status'] == 'on'  ? 'label-success' : 'label-danger'; ?>" title="Charts" ><?php echo $s['name']?></a>
+						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label <?php echo label($g['status']) ?>" title="Charts" ><?php echo $s['name']?></a>
 					</td>
 				<?php
 				/* SIMPLE IP */

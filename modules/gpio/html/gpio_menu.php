@@ -32,8 +32,8 @@ $row = $rows->fetchAll();
 <thead>
 <tr>
 <th>Pos</th>
-<th>Settings</th>
 <th>Name</th>
+<th>Settings</th>
 <th>Function</th>
 <th>Status</th>
 </tr>
@@ -43,7 +43,7 @@ $row = $rows->fetchAll();
 	?>
 
 <tr>
-	<td class="col-md-2">
+	<td class="col-md-1">
     		<form action="" method="post" style="display:inline!important;">
         	<input type="hidden" name="position_id" value="<?php echo $b["id"]; ?>" />
         	<input type="text" name="position" size="1" maxlength="3" value="<?php echo $b['position']; ?>" />
@@ -51,19 +51,19 @@ $row = $rows->fetchAll();
         	<input type="hidden" name="positionok" value="ok" />
     		</form>
 	</td>
-	<td class="col-md-2">
+	<td class="col-md-1">
+                <span class="label label-default"><?php echo $b["name"]; ?></span>
+    </td>
+
+	<td class="col-md-1">
 		<a href="index.php?id=device&type=gpio&gpios=<?php echo $b['gpio']?>&ip=<?php echo $b['ip']?>" class="btn btn-xs btn-success ">GPIO <?php echo $b['gpio']; if(!empty($b['ip'])){echo " ".$b['ip'];}?></a>
 	</td>
-	<td class="col-md-2">
-                <span class="label label-default"><?php echo $b["name"]; ?></span>
-        </td>
 
-
-	<td class="col-md-2">
+	<td class="col-md-1">
                 <span class="label label-default"><?php echo $b["mode"]; ?></span>
         </td>
 
-	<td class="col-md-2"> 
+	<td class="col-md-8"> 
 		<?php
 		    if (strpos($b['status'],'ON') !== false||strpos($b['status'],'on') !== false) {
 		?>
