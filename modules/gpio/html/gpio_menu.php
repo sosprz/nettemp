@@ -52,7 +52,7 @@ $row = $rows->fetchAll();
     		</form>
 	</td>
 	<td class="col-md-2">
-		<a href="index.php?id=device&type=gpio&gpios=<?php echo $b['gpio']?>" class="btn btn-xs btn-success ">GPIO <?php echo $b['gpio']; if(!empty($b['ip'])){echo " ".$b['ip'];}?></a>
+		<a href="index.php?id=device&type=gpio&gpios=<?php echo $b['gpio']?>&ip=<?php echo $b['ip']?>" class="btn btn-xs btn-success ">GPIO <?php echo $b['gpio']; if(!empty($b['ip'])){echo " ".$b['ip'];}?></a>
 	</td>
 	<td class="col-md-2">
                 <span class="label label-default"><?php echo $b["name"]; ?></span>

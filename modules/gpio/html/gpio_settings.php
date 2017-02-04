@@ -3,6 +3,7 @@ $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 $dir="modules/gpio/";
 $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 $gpios = isset($_GET['gpios']) ? $_GET['gpios'] : '';
+$ip_post = isset($_GET['ip']) ? $_GET['ip'] : '';
 
 $sth2 = $db->prepare("select mode from gpio where mode='buzzer'");
 $sth2->execute();
@@ -45,7 +46,7 @@ $mode5=$ab['gpio'];
 
 //main loop
 $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-$sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$gpios'");
+$sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$gpios' AND ip='$ip_post'");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ( $result as $a) { 
