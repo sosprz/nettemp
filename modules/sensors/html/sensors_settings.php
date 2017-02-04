@@ -445,8 +445,8 @@ $row = $rows->fetchAll();
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;" > 	
 		<input type="hidden" name="charts" value="<?php echo $a["id"]; ?>" />
-		<button type="submit" name="chartson" value="<?php echo $a["charts"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["charts"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-success"'; ?>>
-	    <?php echo $a["charts"] == 'on' ? '<span class="glyphicon glyphicon-off" aria-hidden="true"></span>' : '<span class="glyphicon glyphicon-play" aria-hidden="true"></span>'; ?></button>
+		<button type="submit" name="chartson" value="<?php echo $a["charts"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["charts"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["charts"] == 'on' ? 'ON' : 'OFF'; ?></button>
 		<input type="hidden" name="chartsonoff" value="onoff" />
     </form>
     </td>
@@ -455,8 +455,8 @@ $row = $rows->fetchAll();
     <?php if ($a["device"] != 'remote' && $a["device"] != 'gpio') { ?>
     <form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="remote" value="<?php echo $a["id"]; ?>" />
-		<button type="submit" name="remoteon" value="<?php echo $a["remote"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["remote"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-success"'; ?>>
-	    <?php echo $a["remote"] == 'on' ? '<span class="glyphicon glyphicon-off" aria-hidden="true"></span>' : '<span class="glyphicon glyphicon-play" aria-hidden="true"></span>'; ?></button>
+		<button type="submit" name="remoteon" value="<?php echo $a["remote"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["remote"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["remote"] == 'on' ? 'ON' : 'OFF'; ?></button>
 		<input type="hidden" name="remoteonoff" value="onoff" />
     </form>
     <?php 
@@ -467,8 +467,8 @@ $row = $rows->fetchAll();
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="minmax" value="<?php echo $a["id"]; ?>" />
-		<button type="submit" name="minmaxon" value="<?php echo $a["minmax"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["minmax"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-success"'; ?>>
-	    <?php echo $a["minmax"] == 'on' ? '<span class="glyphicon glyphicon-off" aria-hidden="true"></span>' : '<span class="glyphicon glyphicon-play" aria-hidden="true"></span>'; ?></button>
+		<button type="submit" name="minmaxon" value="<?php echo $a["minmax"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["minmax"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["minmax"] == 'on' ? 'ON' : 'OFF'; ?></button>
 		<input type="hidden" name="minmaxonoff" value="onoff" />
     </form>
     </td>
@@ -476,8 +476,8 @@ $row = $rows->fetchAll();
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="lcdid" value="<?php echo $a["id"]; ?>" />
-		<button type="submit" name="lcdon" value="<?php echo $a["lcd"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["lcd"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-success"'; ?>>
-	    <?php echo $a["lcd"] == 'on' ? '<span class="glyphicon glyphicon-off" aria-hidden="true"></span>' : '<span class="glyphicon glyphicon-play" aria-hidden="true"></span>'; ?></button>
+		<button type="submit" name="lcdon" value="<?php echo $a["lcd"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["lcd"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["lcd"] == 'on' ? 'ON' : 'OFF'; ?></button>
 		<input type="hidden" name="lcd" value="lcd" />
     </form>
     </td>
@@ -485,8 +485,8 @@ $row = $rows->fetchAll();
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="jgid" value="<?php echo $a["id"]; ?>" />
-		<button type="submit" name="jgon" value="<?php echo $a["jg"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["jg"] == 'on' ? 'class="btn btn-xs btn-danger"' : 'class="btn btn-xs btn-success"'; ?>>
-	    <?php echo $a["jg"] == 'on' ? '<span class="glyphicon glyphicon-off" aria-hidden="true"></span>' : '<span class="glyphicon glyphicon-play" aria-hidden="true"></span>'; ?></button>
+		<button type="submit" name="jgon" value="<?php echo $a["jg"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["jg"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["jg"] == 'on' ? 'ON' : 'OFF'; ?></button>
 		<input type="hidden" name="jg" value="jg" />
     </form>
     </td>
