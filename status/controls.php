@@ -26,6 +26,10 @@ function label($status){
 	}
 	elseif($status == 'moment')
 	{
+		return 'label-default';
+	}
+	elseif($status == 'error')
+	{
 		return 'label-warning';
 	}
 	else 
@@ -85,6 +89,8 @@ function gpio_curl_onoff($ip,$gpio,$rom,$action,$moment_time){
 	if($httpcode == 200) {
 		gpio_db($rom,$set);
 		gpio_status($rom,$tmp,$action,$gpio);
+	} else {
+		gpio_status($rom,$tmp,error,$gpio);
 	}
 
 }
@@ -289,7 +295,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					?>
 					<td class="col-md-1">
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input data-onstyle="warning" type="checkbox" data-size="mini" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
+						<input data-onstyle="default" type="checkbox" data-size="mini" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
 						<input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
                         <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
 						<input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
@@ -306,7 +312,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					?>
 					<td class="col-md-1">
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input data-onstyle="warning" type="checkbox" data-size="mini" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
+						<input data-onstyle="default" type="checkbox" data-size="mini" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
 						<input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
 						<input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
 						<input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
