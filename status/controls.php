@@ -49,7 +49,7 @@ function gpio_status($rom,$tmp,$action,$gpio){
 	$db->exec("UPDATE gpio SET status='$action', simple='$action' WHERE rom='$rom'");
 }
 
-
+echo "asas";
 function gpio_curl_onoff($ip,$gpio,$rom,$action,$moment_time){
 	
 	if($action=='on') {
@@ -71,6 +71,8 @@ function gpio_curl_onoff($ip,$gpio,$rom,$action,$moment_time){
 	$ch = curl_init();
 	$optArray = array(
 		CURLOPT_URL => "$ip/control?cmd=$method,$gpio,$set,$moment_time",
+		CURLOPT_HEADER => true,
+		CURLOPT_NOBODY => true,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_CONNECTTIMEOUT => 1,
 		CURLOPT_TIMEOUT => 3
@@ -78,8 +80,12 @@ function gpio_curl_onoff($ip,$gpio,$rom,$action,$moment_time){
 	curl_setopt_array($ch, $optArray);
 	$res = curl_exec($ch);
 	
-	gpio_db($rom,$set);
-	gpio_status($rom,$tmp,$action,$gpio);
+	$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	
+	if($httpcode == 200) {
+		gpio_db($rom,$set);
+		gpio_status($rom,$tmp,$action,$gpio);
+	}
 
 }
 

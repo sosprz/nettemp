@@ -59,6 +59,9 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.1
+Add check after action if connection to EasyESP is 200
+
 4.1 RC1
 Changes in status
 Move hosts to sensors
