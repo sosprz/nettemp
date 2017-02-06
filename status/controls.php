@@ -53,7 +53,6 @@ function gpio_status($rom,$tmp,$action,$gpio){
 	$db->exec("UPDATE gpio SET status='$action', simple='$action' WHERE rom='$rom'");
 }
 
-echo "asas";
 function gpio_curl_onoff($ip,$gpio,$rom,$action,$moment_time){
 	
 	if($action=='on') {
@@ -90,7 +89,7 @@ function gpio_curl_onoff($ip,$gpio,$rom,$action,$moment_time){
 		gpio_db($rom,$set);
 		gpio_status($rom,$tmp,$action,$gpio);
 	} else {
-		gpio_status($rom,$tmp,error,$gpio);
+		gpio_status($rom,0,error,$gpio);
 	}
 
 }
