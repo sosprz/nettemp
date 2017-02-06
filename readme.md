@@ -61,6 +61,7 @@ Changelog:
 
 4.1.1
 Add check after action if connection to EasyESP is 200
+Fix gpio status
 
 4.1 RC1
 Changes in status
