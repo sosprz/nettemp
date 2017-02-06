@@ -16,11 +16,11 @@ $sensors_relay = $sth->fetchAll();
 /* Functions */
 
 function label($status){
-	if($status == 'on')
+	if($status == 'on' || $status == 'ON')
 	{	
 		return 'label-success';
 	} 
-	elseif($status == 'off') 
+	elseif($status == 'off' || $status == 'OFF') 
 	{
 		return 'label-danger';
 	}
@@ -126,8 +126,8 @@ function gpio_onoff($gpio,$rom,$action,$rev){
 
 	gpio_db($rom,$set);
 	gpio_status($rom,$tmp,$action,$gpio);
-
 }
+
 function gpio_moment($gpio,$rom,$rev,$moment_time) {
 	$tmp='';
 	$action='moment';
@@ -224,11 +224,10 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		}
 		/* SIMPLE */
 		if ($onoff == "simple") {
-			$tmp='';
 			if ($switch == 'on' ){
-				gpio_onoff($gpio_post,$rom,'on',$rev);
+				gpio_onoff($gpio_post,$rom_post,'on',$rev);
 			} else {
-				gpio_onoff($gpio_post,$rom,'off',$rev);
+				gpio_onoff($gpio_post,$rom_post,'off',$rev);
 			}
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
