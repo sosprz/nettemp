@@ -7,7 +7,7 @@ $demo_device=array("ip", "wireless", "remote", "gpio", "i2c", "usb");
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM types");
 $row = $rows->fetchAll();
-$loop=1;
+$loop=10;
 for ($x = 0; $x <= $loop; $x++) {
 	foreach($row as $t) {
 		foreach($demo_device as $d){

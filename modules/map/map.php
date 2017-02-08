@@ -146,7 +146,7 @@ $result_t = $query->fetchAll();
 $rows = $db->query("SELECT * FROM maps WHERE map_on='on' AND type='sensors'");
 $row = $rows->fetchAll();
 foreach ($row as $b) {
-	$rows=$db->query("SELECT * FROM sensors WHERE id='$b[element_id]'");//always one record
+	$rows=$db->query("SELECT * FROM sensors WHERE id='$b[element_id]' AND type!='gpio'");//always one record
 	$a=$rows->fetchAll();
 	$a=$a[0];//extracting from array
 

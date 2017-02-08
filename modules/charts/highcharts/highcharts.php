@@ -73,24 +73,6 @@ if ($type == 'system') {
     }
 }
 
-elseif ($type == 'gpio' && empty($single)) {
-$dirb = "sqlite:dbf/nettemp.db";
-$db = new PDO($dirb) or die("cannot open database");
-$query = "select name FROM gpio WHERE mode!='humid'";
-foreach ($db->query($query) as $row) {
-    $array[]=$row[0];
-    $types[$row[0]]="gpio";
-    }
-}
-elseif ($type == 'gpio' && $single) {
-$dirb = "sqlite:dbf/nettemp.db";
-$db = new PDO($dirb) or die("cannot open database");
-$query = "select name FROM gpio WHERE mode!='humid' AND name='$single'";
-foreach ($db->query($query) as $row) {
-    $array[]=$row[0];
-    $types[$row[0]]="gpio";
-    }
-}
 elseif ($single) {
 $dirb = "sqlite:dbf/nettemp.db";
 $db = new PDO($dirb) or die("cannot open database");

@@ -102,23 +102,38 @@ foreach ( $result as $a) {
 	$scale=$a['temp_scale'];
 }
 
-$sthr = $dbr->prepare("select * from highcharts WHERE id='1'");
+$sthr = $dbr->prepare("SELECT * FROM highcharts WHERE id='1'");
 $sthr->execute();
 $result = $sthr->fetchAll();
 foreach ( $result as $a) {
 	$chmin=$a['charts_min'];
 }
 
-
+function adjust($val,$rom) { 
+	$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
+	$sthr = $dbr->query("SELECT * FROM adjust WHERE rom='$rom' ORDER by threshold ASC");
+    $row = $sthr->fetchAll();
+    foreach($row as $row) {
+		$threshold=$row['threshold'];
+		$end=$row['end'];
+		$add=$row['addvalue'];
+		if($val>=$threshold&&$val<$end)
+		{ 
+			$val=$val+$add;
+			break;
+		}
+    }
+    return "$val";
+}
 
 function scale($val,$type) {
 	global $scale;
 	// scale F->C
 	if($scale=='F' && $type=='temp') {
 		$val=$val*1.8+32;
-		return $val;
+		return "$val";
 	} else {
-		return $val;
+		return "$val";
 	}
 	//$sthr=null;
     //$dbr=null;
@@ -157,7 +172,7 @@ function check($val,$type) {
     {
 		if (($range['min'] <= $val) && ($val <= $range['max']) && ($val != $range['value1']) && ($val != $range['value2']) && ($val != $range['value3'])) 
 		{
-			return $val;
+			return "$val";
 		}
 		else 
 		{
@@ -177,12 +192,17 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 	$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
 	if(file_exists(__DIR__."/db/".$file)&&filesize(__DIR__."/db/".$file)!=0){
 		$dbfr = new PDO("sqlite:".__DIR__."/db/$file");
-		$sthr = $dbr->query("SELECT rom FROM sensors WHERE rom='$rom'");
+		$sthr = $dbr->query("SELECT rom,adj FROM sensors WHERE rom='$rom'");
 		$row = $sthr->fetchAll();
+		foreach($row as $row) {
+			$adj=$row['adj']; 
+			$val=$val+$adj;  
+		}
 		$c = count($row);
 		if ( $c >= "1") {
 			if (is_numeric($val)) {
 				$val=scale($val,$type);
+				$val=adjust($val,$rom);
 				$val=check($val,$type);
 				if ($val != 'range'){
 					//// base
@@ -204,7 +224,7 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 					// time when you can put into base
 					elseif ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
 						$dbfr->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert to rom sql, time\n");
-						echo date("Y-m-d H:i:s")." ".$rom." ok \n";
+						echo date("Y-m-d H:i:s")." ".$rom." ".$val." ok \n";
 					}
 					else {
 						echo "Not writed interval is ".$chmin." min\n";
@@ -222,9 +242,10 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 					}
 					//sensors status
 					else {
-						$dbr->exec("UPDATE sensors SET tmp='$val'+adj, status='ok', ip='$ip' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert value to status\n" );
-						//$dbr->exec("UPDATE sensors SET status='ok', ip='$ip' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert status to status\n" );
-						//$dbr->exec("UPDATE sensors SET  WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert IP to status\n" );
+						$dbr->exec("UPDATE sensors SET tmp='$val', status='ok', ip='$ip' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert value to status\n" );
+						$dbr->exec("UPDATE sensors SET stat_min='$val' WHERE stat_min>'$val' AND rom='$rom'");
+						$dbr->exec("UPDATE sensors SET stat_max='$val' WHERE stat_max<'$val' AND rom='$rom'");
+						
 					}
 				}		
 				else {
@@ -234,9 +255,11 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 			}
 			// if not numeric
 			else {
-				$dbr->exec("UPDATE sensors SET status='error' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert status to sensors ".$rom.", not numeric\n");
-				$dbfr->exec("INSERT OR IGNORE INTO def (value) VALUES ('0')") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert to rom DB ".$rom.", not numeric\n");
-				echo date("Y-m-d H:i:s")." Puting value \"".$val."\" to ".$rom.", but value is not numieric!, inserting 0 to db\n";
+				if($device!='gpio'&&$type!='gpio'){
+					$dbr->exec("UPDATE sensors SET status='error' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert status to sensors ".$rom.", not numeric\n");
+					$dbfr->exec("INSERT OR IGNORE INTO def (value) VALUES ('0')") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert to rom DB ".$rom.", not numeric\n");
+					echo date("Y-m-d H:i:s")." Puting value \"".$val."\" to ".$rom.", but value is not numieric!, inserting 0 to db\n";
+				}
 			}
 		}
 		//if not in sensors table
@@ -370,7 +393,7 @@ elseif (isset($val) && isset($type))
 	elseif ( $device == "gpio" ) 
 	{ 
 	    if (!empty($type) && !empty($gpio)) {
-			$rom=$device.'_'.$gpio.'_'.$type; 
+			$rom=$device.'_'.$gpio; 
 			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
 	    } else {
 			echo "Missing type or gpio number";

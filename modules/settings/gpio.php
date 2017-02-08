@@ -8,6 +8,16 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+    
+    $gpiodemo = isset($_POST['gpiodemo']) ? $_POST['gpiodemo'] : '';
+    $gpiodemo_onoff = isset($_POST['gpiodemo_onoff']) ? $_POST['gpiodemo_onoff'] : '';
+    if (($gpiodemo == "onoff") ){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE settings SET gpiodemo='$gpiodemo_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
+    echo $gpio_onoff;
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 
 
     $MCP23017_onoff = isset($_POST['MCP23017_onoff']) ? $_POST['MCP23017_onoff'] : '';
@@ -29,6 +39,7 @@ $hc=$a["highcharts"];
 $ss=$a["sms"];
 $ms=$a["mail"];
 $gpio=$a["gpio"];
+$gpiodemo=$a["gpiodemo"];
 $lcd=$a["lcd"];
 $MCP23017=$a["MCP23017"];
 
@@ -44,6 +55,18 @@ $MCP23017=$a["MCP23017"];
 <form action="" method="post">
   <input type="hidden" name="gpio_onoff1" value="gpio_onoff2"  />
   <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="gpio_onoff" value="on"  <?php echo $gpio == 'on' ? 'checked="checked"' : ''; ?> >
+</form>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">GPIO demo (fake gpio)</h3>
+</div>
+<div class="panel-body"> 
+<form action="" method="post">
+  <input type="hidden" name="gpiodemo" value="onoff"  />
+  <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="gpiodemo_onoff" value="on"  <?php echo $gpiodemo == 'on' ? 'checked="checked"' : ''; ?> >
 </form>
 </div>
 </div>

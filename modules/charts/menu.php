@@ -56,10 +56,6 @@ $result_ch_g = $query->fetchAll();
 if (in_array('elec', $typearr))  {?>
 <a href="index.php?id=<?php echo $id ?>&type=elec&max=day&mode=2" ><button class="btn btn-xs btn-default <?php echo $art == 'elec' && $mode == '2' ? ' active' : ''; ?>">Electricity Wh</button></a>
 <?php } 
-if (glob('db/gpio_stats_*')) {?>
-<a href="index.php?id=<?php echo $id ?>&type=gpio&max=<?php echo $max ?>" ><button class="btn btn-xs btn-default <?php echo $art == 'gpio' ? ' active' : ''; ?>">GPIO</button></a>
-<?php } 
-
 if($id!='screen'&&isset($_SESSION['user'])) {
 ?>
 

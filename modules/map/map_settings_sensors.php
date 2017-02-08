@@ -115,7 +115,7 @@
 $counters=array("gas","water","elec");
 $db = new PDO('sqlite:dbf/nettemp.db');
 $dbmaps = new PDO('sqlite:dbf/nettemp.db');
-$rows = $db->query("SELECT * FROM sensors ORDER BY position ASC");
+$rows = $db->query("SELECT * FROM sensors WHERE type!='gpio' ORDER BY position ASC");
 $row = $rows->fetchAll();
 ?>
 <thead>

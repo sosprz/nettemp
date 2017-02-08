@@ -6,7 +6,15 @@ $date = date("Y-m-d H:i:s");
 if(empty($ROOT)){
     $ROOT=dirname(dirname(dirname(__FILE__)));
 }
-//
+
+//WAL
+$dbu = new PDO("sqlite:$ROOT/dbf/nettemp.db");
+$dbu->exec("PRAGMA journal_mode=DELETE");
+$dbu->exec("PRAGMA page_size=4096");
+$dbu->exec("VACUUM");
+$dbu->exec("PRAGMA journal_mode=WAL");
+$dbu=null;
+
 try {
     $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -16,8 +24,6 @@ try {
 }
 
 try {
-//WAL
-$db->exec("PRAGMA journal_mode=WAL");
 
 $db->beginTransaction();
 
@@ -41,7 +47,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS g_func (id INTEGER PRIMARY KEY, position I
 $db->exec("CREATE TABLE IF NOT EXISTS highcharts (id INTEGER PRIMARY KEY,charts_min TEXT, charts_theme TEXT, charts_fast TEXT)");
 $db->exec("CREATE TABLE IF NOT EXISTS html (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT)");
 $db->exec("CREATE TABLE IF NOT EXISTS i2c (id INTEGER PRIMARY KEY,name TEXT, addr UNIQUE)");
-$db->exec("CREATE TABLE IF NOT EXISTS maps (id INTEGER PRIMARY KEY,type TEXT,element_id INTEGER,map_num type NUM, map_pos NUMERIC, position INTEGER DEFAULT 1)");
+$db->exec("CREATE TABLE IF NOT EXISTS maps (id INTEGER PRIMARY KEY,type TEXT,element_id INTEGER,map_num NUMERIC, map_pos NUMERIC, position INTEGER DEFAULT 1)");
 $db->exec("CREATE TABLE IF NOT EXISTS meteo (id INTEGER PRIMARY KEY, temp TEXT, latitude TEXT, height TEXT, pressure TEXT, humid TEXT, onoff TEXT)");
 $db->exec("CREATE TABLE IF NOT EXISTS minmax (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT)");
 $db->exec("CREATE TABLE IF NOT EXISTS newdev (id INTEGER PRIMARY KEY,list UNIQUE)");
@@ -51,6 +57,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS types (id INTEGER PRIMARY KEY,type UNIQUE,
 $db->exec("CREATE TABLE IF NOT EXISTS usb (id INTEGER PRIMARY KEY, dev TEXT, device UNIQUE)");
 $db->exec("CREATE TABLE IF NOT EXISTS vpn (id INTEGER PRIMARY KEY,users UNIQUE)");
 $db->exec("CREATE TABLE IF NOT EXISTS auth_tokens (id INTEGER PRIMARY KEY, selector TEXT, token TEXT, userid TEXT, expires TEXT)");
+$db->exec("CREATE TABLE IF NOT EXISTS adjust (id INTEGER PRIMARY KEY, rom TEXT, threshold NUMERIC, end NUMERIC, addvalue NUMERIC)");
 
 $db->commit();
 $db=null;
@@ -59,7 +66,7 @@ $db=null;
 	$db->rollBack();
     echo $date." Error.\n";
     echo $e;
-    //exit;
+    exit;
 }
 
 
@@ -67,163 +74,166 @@ $dba = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 $dba->beginTransaction();
 
 $dba->exec("ALTER TABLE camera ADD COLUMN access_all TEXT");
-$dba->exec("ALTER TABLE camera ADD link type TEXT");
-$dba->exec("ALTER TABLE camera ADD name type TEXT");
-$dba->exec("ALTER TABLE day_plan ADD gpio type TEXT");
-$dba->exec("ALTER TABLE device ADD i2c type TEXT");
-$dba->exec("ALTER TABLE device ADD lmsensors type TEXT");
-$dba->exec("ALTER TABLE device ADD wireless type TEXT");
-$dba->exec("ALTER TABLE fw ADD radius type TEXT");
+$dba->exec("ALTER TABLE camera ADD link TEXT");
+$dba->exec("ALTER TABLE camera ADD name TEXT");
+$dba->exec("ALTER TABLE day_plan ADD gpio TEXT");
+$dba->exec("ALTER TABLE device ADD i2c TEXT");
+$dba->exec("ALTER TABLE device ADD lmsensors TEXT");
+$dba->exec("ALTER TABLE device ADD wireless TEXT");
+$dba->exec("ALTER TABLE fw ADD radius TEXT");
 
-$dba->exec("ALTER TABLE gpio ADD control type TEXT");
-$dba->exec("ALTER TABLE gpio ADD control_run type TEXT");
-$dba->exec("ALTER TABLE gpio ADD day_run type TEXT");
-$dba->exec("ALTER TABLE gpio ADD day_zone2e type TEXT");
-$dba->exec("ALTER TABLE gpio ADD day_zone2s type TEXT");
-$dba->exec("ALTER TABLE gpio ADD day_zone3e type TEXT");
-$dba->exec("ALTER TABLE gpio ADD day_zone3s type TEXT");
-$dba->exec("ALTER TABLE gpio ADD elec_debouncing type TEXT");
-$dba->exec("ALTER TABLE gpio ADD elec_divider type TEXT");
-$dba->exec("ALTER TABLE gpio ADD elec_run type TEXT");
-$dba->exec("ALTER TABLE gpio ADD fnum type TEXT");
-$dba->exec("ALTER TABLE gpio ADD gas_debouncing type TEXT");
-$dba->exec("ALTER TABLE gpio ADD gas_divider type TEXT");
+$dba->exec("ALTER TABLE gpio ADD control TEXT");
+$dba->exec("ALTER TABLE gpio ADD control_run TEXT");
+$dba->exec("ALTER TABLE gpio ADD day_run TEXT");
+$dba->exec("ALTER TABLE gpio ADD day_zone2e TEXT");
+$dba->exec("ALTER TABLE gpio ADD day_zone2s TEXT");
+$dba->exec("ALTER TABLE gpio ADD day_zone3e TEXT");
+$dba->exec("ALTER TABLE gpio ADD day_zone3s TEXT");
+$dba->exec("ALTER TABLE gpio ADD elec_debouncing TEXT");
+$dba->exec("ALTER TABLE gpio ADD elec_divider TEXT");
+$dba->exec("ALTER TABLE gpio ADD elec_run TEXT");
+$dba->exec("ALTER TABLE gpio ADD fnum TEXT");
+$dba->exec("ALTER TABLE gpio ADD gas_debouncing TEXT");
+$dba->exec("ALTER TABLE gpio ADD gas_divider TEXT");
 $dba->exec("ALTER TABLE gpio ADD gas_run type TEXT");
-$dba->exec("ALTER TABLE gpio ADD humid_type type TEXT");
-$dba->exec("ALTER TABLE gpio ADD ip type TEXT");
-$dba->exec("ALTER TABLE gpio ADD kwh_divider type TEXT");
-$dba->exec("ALTER TABLE gpio ADD kwh_run type TEXT");
-$dba->exec("ALTER TABLE gpio ADD map type NUM");
-$dba->exec("ALTER TABLE gpio ADD map_num type NUM");
-$dba->exec("ALTER TABLE gpio ADD map_pos type NUM");
-$dba->exec("ALTER TABLE gpio ADD mode type TEXT");
-$dba->exec("ALTER TABLE gpio ADD moment_time type TEXT");
-$dba->exec("ALTER TABLE gpio ADD position type NUM");
-$dba->exec("ALTER TABLE gpio ADD rev type TEXT");
-$dba->exec("ALTER TABLE gpio ADD rom type TEXT");
-$dba->exec("ALTER TABLE gpio ADD simple type TEXT");
+$dba->exec("ALTER TABLE gpio ADD humid_type TEXT");
+$dba->exec("ALTER TABLE gpio ADD ip TEXT");
+$dba->exec("ALTER TABLE gpio ADD kwh_divider TEXT");
+$dba->exec("ALTER TABLE gpio ADD kwh_run TEXT");
+$dba->exec("ALTER TABLE gpio ADD map NUM");
+$dba->exec("ALTER TABLE gpio ADD map_num NUMERIC");
+$dba->exec("ALTER TABLE gpio ADD map_pos NUMERIC");
+$dba->exec("ALTER TABLE gpio ADD mode TEXT");
+$dba->exec("ALTER TABLE gpio ADD moment_time TEXT");
+$dba->exec("ALTER TABLE gpio ADD position NUM");
+$dba->exec("ALTER TABLE gpio ADD rev TEXT");
+$dba->exec("ALTER TABLE gpio ADD rom TEXT");
+$dba->exec("ALTER TABLE gpio ADD simple TEXT");
 $dba->exec("ALTER TABLE gpio ADD state type TEXT");
-$dba->exec("ALTER TABLE gpio ADD status type TEXT");
-$dba->exec("ALTER TABLE gpio ADD tel_any type TEXT");
-$dba->exec("ALTER TABLE gpio ADD tel_at type TEXT");
-$dba->exec("ALTER TABLE gpio ADD trigger_con type TEXT");
-$dba->exec("ALTER TABLE gpio ADD trigger_delay type TEXT");
-$dba->exec("ALTER TABLE gpio ADD water_debouncing type TEXT");
-$dba->exec("ALTER TABLE gpio ADD water_divider type TEXT");
-$dba->exec("ALTER TABLE gpio ADD water_run type TEXT");
-$dba->exec("ALTER TABLE gpio ADD week_Fri type TEXT");
-$dba->exec("ALTER TABLE gpio ADD week_Mon type TEXT");
-$dba->exec("ALTER TABLE gpio ADD week_run type TEXT");
-$dba->exec("ALTER TABLE gpio ADD week_Sat type TEXT");
-$dba->exec("ALTER TABLE gpio ADD week_status type TEXT");
-$dba->exec("ALTER TABLE gpio ADD week_Sun type TEXT");
-$dba->exec("ALTER TABLE gpio ADD week_Thu type TEXT");
-$dba->exec("ALTER TABLE gpio ADD week_Tue type TEXT");
-$dba->exec("ALTER TABLE gpio ADD week_Wed type TEXT");
-$dba->exec("ALTER TABLE gpio ADD locked type TEXT");
+$dba->exec("ALTER TABLE gpio ADD status  TEXT");
+$dba->exec("ALTER TABLE gpio ADD tel_any  TEXT");
+$dba->exec("ALTER TABLE gpio ADD tel_at  TEXT");
+$dba->exec("ALTER TABLE gpio ADD trigger_con  TEXT");
+$dba->exec("ALTER TABLE gpio ADD trigger_delay  TEXT");
+$dba->exec("ALTER TABLE gpio ADD water_debouncing  TEXT");
+$dba->exec("ALTER TABLE gpio ADD water_divider  TEXT");
+$dba->exec("ALTER TABLE gpio ADD water_run  TEXT");
+$dba->exec("ALTER TABLE gpio ADD week_Fri  TEXT");
+$dba->exec("ALTER TABLE gpio ADD week_Mon  TEXT");
+$dba->exec("ALTER TABLE gpio ADD week_run  TEXT");
+$dba->exec("ALTER TABLE gpio ADD week_Sat  TEXT");
+$dba->exec("ALTER TABLE gpio ADD week_status  TEXT");
+$dba->exec("ALTER TABLE gpio ADD week_Sun  TEXT");
+$dba->exec("ALTER TABLE gpio ADD week_Thu  TEXT");
+$dba->exec("ALTER TABLE gpio ADD week_Tue  TEXT");
+$dba->exec("ALTER TABLE gpio ADD week_Wed  TEXT");
+$dba->exec("ALTER TABLE gpio ADD locked  TEXT");
 
-$dba->exec("ALTER TABLE hosts ADD alarm type TEXT");
-$dba->exec("ALTER TABLE hosts ADD element_id type TEXT");
-$dba->exec("ALTER TABLE hosts ADD position type NUM");
-$dba->exec("ALTER TABLE hosts ADD rom type TEXT");
+$dba->exec("ALTER TABLE hosts ADD alarm  TEXT");
+$dba->exec("ALTER TABLE hosts ADD element_id  TEXT");
+$dba->exec("ALTER TABLE hosts ADD position  NUM");
+$dba->exec("ALTER TABLE hosts ADD rom  TEXT");
 
 $dba->exec("ALTER TABLE maps ADD background_color TEXT");
 $dba->exec("ALTER TABLE maps ADD background_high TEXT");
 $dba->exec("ALTER TABLE maps ADD background_low TEXT");
-$dba->exec("ALTER TABLE maps ADD control_on_map type TEXT");
-$dba->exec("ALTER TABLE maps ADD display_name type TEXT");
+$dba->exec("ALTER TABLE maps ADD control_on_map  TEXT");
+$dba->exec("ALTER TABLE maps ADD display_name  TEXT");
 $dba->exec("ALTER TABLE maps ADD font_color TEXT");
 $dba->exec("ALTER TABLE maps ADD font_size TEXT");
 $dba->exec("ALTER TABLE maps ADD icon TEXT");
-$dba->exec("ALTER TABLE maps ADD map_on type TEXT");
-$dba->exec("ALTER TABLE maps ADD transparent type TEXT");
-$dba->exec("ALTER TABLE maps ADD transparent_bkg type TEXT");
+$dba->exec("ALTER TABLE maps ADD map_on  TEXT");
+$dba->exec("ALTER TABLE maps ADD transparent  TEXT");
+$dba->exec("ALTER TABLE maps ADD transparent_bkg  TEXT");
 
 $dba->exec("ALTER TABLE meteo ADD jg TEXT");
 $dba->exec("ALTER TABLE meteo ADD normalized TEXT");
 
-$dba->exec("ALTER TABLE newdev ADD device type TEXT");
-$dba->exec("ALTER TABLE newdev ADD gpio type TEXT");
-$dba->exec("ALTER TABLE newdev ADD i2c type TEXT");
-$dba->exec("ALTER TABLE newdev ADD ip type TEXT");
-$dba->exec("ALTER TABLE newdev ADD name type TEXT");
-$dba->exec("ALTER TABLE newdev ADD rom type TEXT");
-$dba->exec("ALTER TABLE newdev ADD type type TEXT");
-$dba->exec("ALTER TABLE newdev ADD usb type TEXT");
+$dba->exec("ALTER TABLE newdev ADD device  TEXT");
+$dba->exec("ALTER TABLE newdev ADD gpio  TEXT");
+$dba->exec("ALTER TABLE newdev ADD i2c  TEXT");
+$dba->exec("ALTER TABLE newdev ADD ip  TEXT");
+$dba->exec("ALTER TABLE newdev ADD name  TEXT");
+$dba->exec("ALTER TABLE newdev ADD rom  TEXT");
+$dba->exec("ALTER TABLE newdev ADD type TEXT");
+$dba->exec("ALTER TABLE newdev ADD usb  TEXT");
 
-$dba->exec("ALTER TABLE relays ADD delay type TEXT");
-$dba->exec("ALTER TABLE relays ADD ip type TEXT");
-$dba->exec("ALTER TABLE relays ADD name type TEXT");
-$dba->exec("ALTER TABLE relays ADD rom type TEXT");
-$dba->exec("ALTER TABLE relays ADD type type TEXT");
+$dba->exec("ALTER TABLE relays ADD delay TEXT");
+$dba->exec("ALTER TABLE relays ADD ip TEXT");
+$dba->exec("ALTER TABLE relays ADD name TEXT");
+$dba->exec("ALTER TABLE relays ADD rom TEXT");
+$dba->exec("ALTER TABLE relays ADD type TEXT");
 
-$dba->exec("ALTER TABLE sensors ADD adj type TEXT");
-$dba->exec("ALTER TABLE sensors ADD charts type TEXT");
-$dba->exec("ALTER TABLE sensors ADD ch_group type NUM");
+$dba->exec("ALTER TABLE sensors ADD adj  TEXT");
+$dba->exec("ALTER TABLE sensors ADD charts  TEXT");
+$dba->exec("ALTER TABLE sensors ADD ch_group  NUM");
 $dba->exec("ALTER TABLE sensors ADD current TEXT");
-$dba->exec("ALTER TABLE sensors ADD device type TEXT");
-$dba->exec("ALTER TABLE sensors ADD i2c type TEXT");
-$dba->exec("ALTER TABLE sensors ADD ip type TEXT");
+$dba->exec("ALTER TABLE sensors ADD device  TEXT");
+$dba->exec("ALTER TABLE sensors ADD i2c  TEXT");
+$dba->exec("ALTER TABLE sensors ADD ip  TEXT");
 $dba->exec("ALTER TABLE sensors ADD jg TEXT");
-$dba->exec("ALTER TABLE sensors ADD lcd type TEXT");
-$dba->exec("ALTER TABLE sensors ADD mail type TEXT");
-$dba->exec("ALTER TABLE sensors ADD method type TEXT");
-$dba->exec("ALTER TABLE sensors ADD minmax type TEXT");
-$dba->exec("ALTER TABLE sensors ADD remote type TEXT");
+$dba->exec("ALTER TABLE sensors ADD lcd  TEXT");
+$dba->exec("ALTER TABLE sensors ADD mail  TEXT");
+$dba->exec("ALTER TABLE sensors ADD method  TEXT");
+$dba->exec("ALTER TABLE sensors ADD minmax  TEXT");
+$dba->exec("ALTER TABLE sensors ADD remote  TEXT");
 $dba->exec("ALTER TABLE sensors ADD status TEXT");
-$dba->exec("ALTER TABLE sensors ADD sum type TEXT");
-$dba->exec("ALTER TABLE sensors ADD tmp_5ago type TEXT");
-$dba->exec("ALTER TABLE sensors ADD usb type TEXT");
-$dba->exec("ALTER TABLE sensors ADD position_group type TEXT");
+$dba->exec("ALTER TABLE sensors ADD sum  TEXT");
+$dba->exec("ALTER TABLE sensors ADD tmp_5ago  TEXT");
+$dba->exec("ALTER TABLE sensors ADD usb  TEXT");
+$dba->exec("ALTER TABLE sensors ADD position_group  TEXT");
+$dba->exec("ALTER TABLE sensors ADD stat_min TEXT");
+$dba->exec("ALTER TABLE sensors ADD stat_max TEXT");
 
-$dba->exec("ALTER TABLE settings ADD authmod type TEXT");
-$dba->exec("ALTER TABLE settings ADD call type TEXT");
-$dba->exec("ALTER TABLE settings ADD cauth_login type TEXT");
-$dba->exec("ALTER TABLE settings ADD cauth_on type TEXT");
-$dba->exec("ALTER TABLE settings ADD cauth_pass type TEXT");
-$dba->exec("ALTER TABLE settings ADD charts_gpio type TEXT");
-$dba->exec("ALTER TABLE settings ADD charts_hosts type TEXT");
-$dba->exec("ALTER TABLE settings ADD charts_min type TEXT");
-$dba->exec("ALTER TABLE settings ADD charts_system type TEXT");
-$dba->exec("ALTER TABLE settings ADD charts_theme type TEXT");
-$dba->exec("ALTER TABLE settings ADD client_ip type TEXT");
-$dba->exec("ALTER TABLE settings ADD client_key type TEXT");
-$dba->exec("ALTER TABLE settings ADD client_on type TEXT");
-$dba->exec("ALTER TABLE settings ADD fw type TEXT");
-$dba->exec("ALTER TABLE settings ADD gpio type TEXT");
-$dba->exec("ALTER TABLE settings ADD kwh type TEXT");
-$dba->exec("ALTER TABLE settings ADD lcd type TEXT");
-$dba->exec("ALTER TABLE settings ADD lcd4 type TEXT");
-$dba->exec("ALTER TABLE settings ADD MCP23017 type TEXT");
-$dba->exec("ALTER TABLE settings ADD meteogram type TEXT");
-$dba->exec("ALTER TABLE settings ADD radius type TEXT");
-$dba->exec("ALTER TABLE settings ADD server_key type TEXT");
-$dba->exec("ALTER TABLE settings ADD tempnum type TEXT");
+$dba->exec("ALTER TABLE settings ADD authmod  TEXT");
+$dba->exec("ALTER TABLE settings ADD call  TEXT");
+$dba->exec("ALTER TABLE settings ADD cauth_login  TEXT");
+$dba->exec("ALTER TABLE settings ADD cauth_on  TEXT");
+$dba->exec("ALTER TABLE settings ADD cauth_pass  TEXT");
+$dba->exec("ALTER TABLE settings ADD charts_gpio  TEXT");
+$dba->exec("ALTER TABLE settings ADD charts_hosts  TEXT");
+$dba->exec("ALTER TABLE settings ADD charts_min  TEXT");
+$dba->exec("ALTER TABLE settings ADD charts_system  TEXT");
+$dba->exec("ALTER TABLE settings ADD charts_theme  TEXT");
+$dba->exec("ALTER TABLE settings ADD client_ip  TEXT");
+$dba->exec("ALTER TABLE settings ADD client_key  TEXT");
+$dba->exec("ALTER TABLE settings ADD client_on  TEXT");
+$dba->exec("ALTER TABLE settings ADD fw  TEXT");
+$dba->exec("ALTER TABLE settings ADD gpio  TEXT");
+$dba->exec("ALTER TABLE settings ADD kwh  TEXT");
+$dba->exec("ALTER TABLE settings ADD lcd  TEXT");
+$dba->exec("ALTER TABLE settings ADD lcd4  TEXT");
+$dba->exec("ALTER TABLE settings ADD MCP23017  TEXT");
+$dba->exec("ALTER TABLE settings ADD meteogram  TEXT");
+$dba->exec("ALTER TABLE settings ADD radius  TEXT");
+$dba->exec("ALTER TABLE settings ADD server_key  TEXT");
+$dba->exec("ALTER TABLE settings ADD tempnum  TEXT");
 $dba->exec("ALTER TABLE settings ADD temp_scale TEXT");
-$dba->exec("ALTER TABLE settings ADD ups_status type TEXT");
-$dba->exec("ALTER TABLE settings ADD vpn type TEXT");
+$dba->exec("ALTER TABLE settings ADD ups_status  TEXT");
+$dba->exec("ALTER TABLE settings ADD vpn  TEXT");
+$dba->exec("ALTER TABLE settings ADD gpiodemo  TEXT");
 
-$dba->exec("ALTER TABLE snmp ADD rom type UNIQUE");
-$dba->exec("ALTER TABLE snmp ADD type type TEXT");
-$dba->exec("ALTER TABLE snmp ADD version type TEXT");
+$dba->exec("ALTER TABLE snmp ADD rom  UNIQUE");
+$dba->exec("ALTER TABLE snmp ADD  type TEXT");
+$dba->exec("ALTER TABLE snmp ADD version  TEXT");
 
 $dba->exec("ALTER TABLE types ADD max NUMERIC");
 $dba->exec("ALTER TABLE types ADD min NUMERIC");
 $dba->exec("ALTER TABLE types ADD value1 NUMERIC");
 $dba->exec("ALTER TABLE types ADD value2 NUMERIC");
 $dba->exec("ALTER TABLE types ADD value3 NUMERIC");
-$dba->exec("ALTER TABLE users ADD at type TEXT");
-$dba->exec("ALTER TABLE users ADD cam type TEXT");
-$dba->exec("ALTER TABLE users ADD ctr type TEXT");
-$dba->exec("ALTER TABLE users ADD mail type TEXT");
-$dba->exec("ALTER TABLE users ADD maila type TEXT");
-$dba->exec("ALTER TABLE users ADD moment type TEXT");
-$dba->exec("ALTER TABLE users ADD simple type TEXT");
-$dba->exec("ALTER TABLE users ADD smsa type TEXT");
-$dba->exec("ALTER TABLE users ADD smspin type TEXT");
-$dba->exec("ALTER TABLE users ADD smsts type TEXT");
-$dba->exec("ALTER TABLE users ADD tel type TEXT");
-$dba->exec("ALTER TABLE users ADD trigger type TEXT");
+$dba->exec("ALTER TABLE users ADD at  TEXT");
+$dba->exec("ALTER TABLE users ADD cam  TEXT");
+$dba->exec("ALTER TABLE users ADD ctr  TEXT");
+$dba->exec("ALTER TABLE users ADD mail  TEXT");
+$dba->exec("ALTER TABLE users ADD maila  TEXT");
+$dba->exec("ALTER TABLE users ADD moment  TEXT");
+$dba->exec("ALTER TABLE users ADD simple  TEXT");
+$dba->exec("ALTER TABLE users ADD smsa  TEXT");
+$dba->exec("ALTER TABLE users ADD smspin  TEXT");
+$dba->exec("ALTER TABLE users ADD smsts  TEXT");
+$dba->exec("ALTER TABLE users ADD tel  TEXT");
+$dba->exec("ALTER TABLE users ADD trigger  TEXT");
 
 $dba->commit();
 $dba=null;
@@ -374,6 +384,8 @@ $db->exec("UPDATE settings SET meteogram='Poland/Pomerania/Gdansk' WHERE id='1' 
 $db->exec("UPDATE settings SET temp_scale='C' WHERE temp_scale is null OR temp_scale=''");
 $db->exec("UPDATE snmp SET version='2c' WHERE version is null");
 $db->exec("UPDATE users SET perms='adm' WHERE login='admin' AND perms is null");
+$db->exec("UPDATE sensors SET stat_max='0' WHERE stat_max='' OR stat_max is null");
+$db->exec("UPDATE sensors SET stat_min='0' WHERE stat_min='' OR stat_min is null");
 
 //TIME & TRIGGER
 //$db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;");

@@ -320,10 +320,12 @@ $row = $rows->fetchAll();
 	
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
-	<input type="text" name="name_new" size="10" maxlength="30" value="<?php echo $a["name"]; ?>" />
-	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
-	<input type="hidden" name="id_name2" value="id_name3"/>
+		<input type="text" name="name_new" size="10" maxlength="30" value="<?php echo $a["name"]; ?>" />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+		<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
+		<input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
+		<input type="hidden" name="type" value="<?php echo $a["type"]; ?>" />
+		<input type="hidden" name="id_name2" value="id_name3"/>
     </form>
     </td>
 	<?php
@@ -355,7 +357,16 @@ $row = $rows->fetchAll();
 		<?php } ?>
 
 	<td class="col-md-0">
-		<span class="label label-default"><?php echo $a['type']?></span>
+		<?php if($a['type']=='gpio') { 
+			?>
+			<a href="index.php?id=device&type=gpio&gpios=<?php echo $a['gpio']?>" class="label label-default" title="<?php if(!empty($a['ip'])){echo "Last IP: ".$a['ip']." GPIO: ".$a['gpio'];} else {echo "GPIO: ".$a['gpio'];}?>"><?php echo $a['type']?></a>
+			<?php 
+		} else {
+			?>
+			<span class="label label-default"><?php echo $a['type']?></span>
+			<?php 
+		}
+		?>
 	</td>
     
     <td class="col-md-0">
@@ -434,16 +445,18 @@ $row = $rows->fetchAll();
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;" > 	
 		<input type="hidden" name="charts" value="<?php echo $a["id"]; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="chartson" value="on" <?php echo $a["charts"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<button type="submit" name="chartson" value="<?php echo $a["charts"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["charts"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["charts"] == 'on' ? 'ON' : 'OFF'; ?></button>
 		<input type="hidden" name="chartsonoff" value="onoff" />
     </form>
     </td>
     
     <td class="col-md-0">
-    <?php if ($a["device"] != 'remote') { ?>
+    <?php if ($a["device"] != 'remote' && $a["device"] != 'gpio') { ?>
     <form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="remote" value="<?php echo $a["id"]; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="remoteon" value="on" <?php echo $a["remote"] == 'on' ? 'checked="checked"' : ''; ?>   onchange="this.form.submit()" />
+		<button type="submit" name="remoteon" value="<?php echo $a["remote"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["remote"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["remote"] == 'on' ? 'ON' : 'OFF'; ?></button>
 		<input type="hidden" name="remoteonoff" value="onoff" />
     </form>
     <?php 
@@ -454,7 +467,8 @@ $row = $rows->fetchAll();
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="minmax" value="<?php echo $a["id"]; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="minmaxon" value="on" <?php echo $a["minmax"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<button type="submit" name="minmaxon" value="<?php echo $a["minmax"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["minmax"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["minmax"] == 'on' ? 'ON' : 'OFF'; ?></button>
 		<input type="hidden" name="minmaxonoff" value="onoff" />
     </form>
     </td>
@@ -462,7 +476,8 @@ $row = $rows->fetchAll();
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="lcdid" value="<?php echo $a["id"]; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="lcdon" value="on" <?php echo $a["lcd"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<button type="submit" name="lcdon" value="<?php echo $a["lcd"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["lcd"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["lcd"] == 'on' ? 'ON' : 'OFF'; ?></button>
 		<input type="hidden" name="lcd" value="lcd" />
     </form>
     </td>
@@ -470,7 +485,8 @@ $row = $rows->fetchAll();
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="jgid" value="<?php echo $a["id"]; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="jgon" value="on" <?php echo $a["jg"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<button type="submit" name="jgon" value="<?php echo $a["jg"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["jg"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["jg"] == 'on' ? 'ON' : 'OFF'; ?></button>
 		<input type="hidden" name="jg" value="jg" />
     </form>
     </td>
@@ -478,6 +494,8 @@ $row = $rows->fetchAll();
 	<td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />
+		<input type="hidden" name="type" value="<?php echo $a["type"]; ?>" />
+		<input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
 		<input type="hidden" name="usun2" value="usun3" />
 		<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
     </form>

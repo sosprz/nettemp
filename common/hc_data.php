@@ -111,33 +111,6 @@ if ($type == 'system') {
 }
 
 
-elseif ($type == 'gpio') {
-
-    $db = new PDO("sqlite:$root/dbf/nettemp.db");
-    $rows = $db->query("SELECT * FROM gpio WHERE name='$name'");
-    $row = $rows->fetchAll();
-    foreach($row as $a) {
-	$gpio=$a['gpio'];
-    }
-
-    $dirb = "sqlite:$root/db/gpio_stats_$gpio.sql";
-    $dbh = new PDO($dirb) or die("cannot open database");
-
-    if($charts_fast=='on') {
-    	querymod($max,$query);
-    }
-		else {
-    		query($max,$query);
-    	};
-
-    foreach ($dbh->query($query) as $row) {
-	$line=[($row[0])*1000 . "," . ($row[1])];
-	$array[]=$line;
-    }
-    print str_replace('"', "",json_encode($array));
-
-}
-
 elseif ($type == 'group'){
 //sensors
     $db = new PDO("sqlite:$root/dbf/nettemp.db");

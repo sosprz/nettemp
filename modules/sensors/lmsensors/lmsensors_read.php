@@ -12,11 +12,14 @@ try {
 }
 
 try {
-    $query = $db->query("SELECT lmsensors FROM device where id='1'");
-    $result= $query->fetchAll();
-    foreach($result as $r) {
-		$lm=$r['lmsensors'];
-    }
+   
+    $cmd="/usr/bin/sensors | grep -E 'Core|temp'";
+    $se=shell_exec($cmd);
+        
+    if(file_exists("/usr/bin/sensors")&&!empty($se)){
+		$lm='on';
+	} 
+    
     if($lm=='on'){
 		$cmd="sensors |grep -E 'temp[0-9]|Core [0-9]'";
 		$temp=shell_exec($cmd);
