@@ -53,12 +53,15 @@ if ($update == "INTEGRITY"){
 
 $dbintegrity='';
 $db = new PDO("sqlite:$dbfile");
-$sth = $db->query("PRAGMA integrity_check");
-$row = $sth->fetchAll();
-foreach($row as $r){
-    if($r[0]!='ok') {
-        $dbintegrity = "databse problem: PRAGMA integrity_check";
+if ( $sth = $db->query("PRAGMA integrity_check") ){
+    $row = $sth->fetchAll();
+    foreach($row as $r) {
+        if($r[0]!='ok') {
+            $dbintegrity = "database problem: PRAGMA integrity_check";
+        }
     }
+} else {
+    $dbintegrity = "database problem: PRAGMA query failed";
 }
 
 echo '<form action="" method="post">';
