@@ -314,7 +314,7 @@ elseif (isset($val) && isset($type))
 				echo "One type is not definied in multi id mode, name ".$name.", id ".$id.", val ".$val."\n";
 				continue;
 			}
-			if(empty($val)){
+			if(is_numeric($val)&&isset($val)){
 				echo "No val definied in multi id mode, name ".$name.", type ".$type." id ".$id.", type ".$type."\n";
 				continue;
 			}			
@@ -341,7 +341,7 @@ elseif (isset($val) && isset($type))
 				echo "One type is not definied in multi id mode, name ".$name.", id ".$id.", val ".$val."\n";
 				continue;
 			}
-			if(empty($val)){
+			if(is_numeric($val)&&isset($val)){
 				echo "No val definied in multi id mode, name ".$name.", id ".$id.", type ".$type."\n";
 				continue;
 			}
@@ -368,7 +368,7 @@ elseif (isset($val) && isset($type))
 				echo "One type is not definied in one id mode, name ".$name.", id ".$id.", val $val\n";
 				continue;
 			}
-			if(empty($val)){
+			if(is_numeric($val)&&isset($val)){
 				echo "No val definied in one id mode, name ".$name.", id ".$id.", type ".$type."\n";
 				continue;
 			}
