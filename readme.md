@@ -58,6 +58,9 @@ OpenWRT, beta version:
 
 
 Changelog:
+4.1.2
+
+Fix meteogram, local parsing. Thanks to debriuman.
 
 4.1.1
 Add check after action if connection to EasyESP is 200

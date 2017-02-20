@@ -798,7 +798,7 @@ $meteogram=$a['meteogram'];
     // https://github.com/highcharts/highcharts/blob/master/samples/data/jsonp.php
     // for source code.
     $.getJSON(
-        'https://www.highcharts.com/samples/data/jsonp.php?url=' + location.hash.substr(1) + '&callback=?',
+         'common/jsonp.php?url=' + location.hash.substr(1) + '&callback=?',
         function (xml) {
             window.meteogram = new Meteogram(xml, 'container');
         }
