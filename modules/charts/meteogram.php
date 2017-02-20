@@ -315,7 +315,7 @@ Meteogram.prototype.drawWeatherSymbols = function (chart) {
 
                 // Position the image inside it at the sprite position
                 chart.renderer.image(
-                    'https://www.highcharts.com/samples/graphics/meteogram-symbols-30px.png',
+                    'media/highcharts/meteogram-symbols-30px.png',
                     -sprite.x,
                     -sprite.y,
                     90,
