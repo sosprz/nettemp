@@ -5,6 +5,7 @@ php5-fpm
 php5-curl
 php5-mysql
 php5-snmp
+php5-xml
 sqlite3 
 msmtp 
 digitemp 
