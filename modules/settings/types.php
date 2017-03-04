@@ -65,7 +65,7 @@ $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max)
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('switch', 'H/L', '', 'media/ico/Switch-icon.png' ,'Switch','-1000', '1000')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('gust', 'km/h', '', 'media/ico/gust.png' ,'Gust','0', '255')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('air', 'μg/m^3', '', 'media/ico/gust.png' ,'Air','-4000', '4000')");
-$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('air', 'μg/m^3', '', 'media/ico/gust.png' ,'Air','-4000', '4000')");
+
 
 
     header("location: " . $_SERVER['REQUEST_URI']);

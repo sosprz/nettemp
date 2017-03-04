@@ -319,8 +319,8 @@ $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max)
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('water', 'm3', 'm3', 'media/ico/water-icon.png' ,'Water','0', '100')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('watt', 'W', 'W', 'media/ico/watt.png' ,'Watt','-10000', '10000')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('wind', '°', '°', 'media/ico/compass.png' ,'Wind','0', '10000')");
-$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('pm25', 'μg/m^3', '', 'media/ico/gust.png' ,'Air','-4000', '4000')");
-$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('pm10', 'μg/m^3', '', 'media/ico/gust.png' ,'Air','-4000', '4000')");
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('air', 'μg/m^3', '', 'media/ico/gust.png' ,'Air','-4000', '4000')");
+
 
 
 $db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('1wire Serial','none')");
