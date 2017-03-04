@@ -58,6 +58,11 @@ OpenWRT, beta version:
 
 
 Changelog:
+4.1.3
+
+add SDS011
+fix sorting icons and menu in settings>types
+
 4.1.2
 
 Fix meteogram, local parsing. Thanks to debriuman.

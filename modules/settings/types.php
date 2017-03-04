@@ -24,7 +24,7 @@
     }
     if ($add == 'add1'){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES ('$type','$unit','$unit2','$ico','$title')") or header("Location: html/errors/db_error.php");
+    $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max, value1, value2 ,value3) VALUES ('$type','$unit','$unit2','$ico','$title','$min','$max','$value1','$value2','$value3')") or header("Location: html/errors/db_error.php");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -113,7 +113,21 @@ $row = $rows->fetchAll();
 		<input type="text" name="unit2" size="10" maxlength="30" value="" class="form-control input-sm"/>
     </td>
     <td class="col-md-0">
-		<input type="text" name="ico" size="10" maxlength="30" value="" class="form-control input-sm"/>
+		<select name="ico" class="form-control input-sm">
+		<?php
+		$dir = "media/ico";
+		$files = scandir($dir);
+		sort($files);
+		foreach ($files as $filename) {
+			if(($filename!='.') && ($filename!='..')) 
+			{
+			?>
+			<option <?php echo $a['ico'] == $dir."/".$filename ? 'selected="selected"' : ''; ?> value="<?php echo $dir."/".$filename; ?>"> <?php echo $filename; ?></option>
+			<?php
+			}
+		}
+		?>
+		</select>
     </td>
 	<td class="col-md-0">
 		<input type="text" name="title" size="10" maxlength="30" value="" class="form-control input-sm"/>
@@ -166,17 +180,14 @@ $row = $rows->fetchAll();
    
     <select name="ico" class="form-control input-sm">
     <?php
-	$dir = "media/ico";
-	$dh  = opendir($dir);
-	while (false !== ($filename = readdir($dh))) 
-	{
-		if(($filename!='.') && ($filename!='..')) 
-		{
-		?>
-		<option <?php echo $a['ico'] == $dir."/".$filename ? 'selected="selected"' : ''; ?> value="<?php echo $dir."/".$filename; ?>"> <?php echo $filename; ?></option>
-		<?php
+		foreach ($files as $filename) {
+			if(($filename!='.') && ($filename!='..')) 
+			{
+			?>
+			<option <?php echo $a['ico'] == $dir."/".$filename ? 'selected="selected"' : ''; ?> value="<?php echo $dir."/".$filename; ?>"> <?php echo $filename; ?></option>
+			<?php
+			}
 		}
-	}
 	?>
 	</select>
         
