@@ -32,16 +32,16 @@ try {
 			$line[]=trim($l);
 		}
 	
-		$local_type='pm25';
-		$local_rom="usb_".$dev."_".$local_type;
+		$local_type='air';
+		$local_rom="usb_".$dev."pm25_".$local_type;
 		$local_val=$line[0];
 		$local_device='usb';
 		$local_usb=$dev0;
 		echo $date." PM25 ".$local_val." ".$local_type.".\n";
 		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 		
-		$local_type='pm10';
-		$local_rom="usb_".$dev."_".$local_type;
+		$local_type='air';
+		$local_rom="usb_".$dev."pm10_".$local_type;
 		$local_val=$line[1];
 		$local_device='usb';
 		$local_usb=$dev0;
