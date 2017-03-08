@@ -58,6 +58,10 @@ OpenWRT, beta version:
 
 
 Changelog:
+4.1.4
+
+fix types
+
 4.1.3
 
 add SDS011
