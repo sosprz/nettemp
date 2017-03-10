@@ -35,7 +35,7 @@ if ($max == 'year') {
     $query = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 year')";
     } 
 if ($max == 'all') {
-    $query = "select strftime('%s', time),value FROM def WHERE rowid % 10080=0";
+    $query = "select strftime('%s', time),value from def";
     }
 }
 
@@ -84,7 +84,7 @@ if ($max == 'year') {
     $query = "select strftime('%s', time),current from def WHERE time >= datetime('now','localtime','-1 year')";
     } 
 if ($max == 'all') {
-    $query = "select strftime('%s', time),current FROM def WHERE rowid % 10080=0";
+    $query = "select strftime('%s', time),current FROM def";
     }
 
 }
