@@ -1,4 +1,10 @@
 <?php
+$gpio = isset($_POST['gpio']) ? $_POST['gpio'] : '';
+$new_rom = isset($_POST['new_rom']) ? $_POST['new_rom'] : '';
+$type = isset($_POST['type']) ? $_POST['type'] : '';
+$ip = isset($_POST['ip']) ? $_POST['ip'] : '';
+
+
 $delallnewrom = isset($_POST['delallnewrom']) ? $_POST['delallnewrom'] : '';
 if ($delallnewrom=='yes'){
     $db = new PDO('sqlite:dbf/nettemp.db');
@@ -94,6 +100,7 @@ $sth = $db->prepare("SELECT * FROM newdev WHERE rom NOT IN (SELECT rom FROM sens
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) {
+	$db->exec("UPDATE newdev SET seen='1' WHERE id=$a[id]");
 ?>
 <tr>
 	<td class="col-md-0">

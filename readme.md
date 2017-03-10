@@ -58,6 +58,16 @@ OpenWRT, beta version:
 
 
 Changelog:
+4.1.5
+
+add option where you can remove only sensors > reset to default
+add new dev counter in menu
+bigger labels in status
+remove device icons
+add links to sensors single settings
+add more info in title links
+add mini min max vlue in status, maybe will replace heavy min max
+
 4.1.4
 
 fix types

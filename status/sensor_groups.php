@@ -32,7 +32,7 @@ foreach ($row as $a) {
     <div class="grid-item sg<?php echo $ch_g ?>">
 	<div class="panel panel-default">
 	<div class="panel-heading"><?php echo $gname; ?></div>
-    <table class="table table-hover table-condensed small">
+    <table class="table table-hover table-condensed">
     <tbody>
 <?php
     foreach ($result as $a) {
@@ -46,6 +46,8 @@ foreach ($row as $a) {
 	$device='';
 	$type='';
 	$mail='';
+	$stat_min='';
+	$stat_max='';
 
 		if($a['device'] == 'wireless'){ $device='<img src="media/ico/wifi-circle-icon.png" alt="" title="'.$a['ip'].'"/>';}
 		elseif($a['device'] == 'remote'||$a['device'] == 'ip'){ $device='<img src="media/ico/remote.png" alt="" title="'.$a['ip'].'"/>';}
@@ -70,9 +72,16 @@ foreach ($row as $a) {
        	}   
 		}
 		
+		$name2='<span class="label label-default" title="'.$a['name'].'">'.$a['name'].'</span>';
+		$name3='<a href="index.php?id=device&device_id='.$a['id'].'" title="Go to settings" class="label label-default">'.$a['name'].'</a>';
 
-		if($a['tmp'] > $a['tmp_5ago']) { $updo='<span class="label label-danger" title='.$a['tmp_5ago'].'><span class="glyphicon glyphicon-arrow-up"></span></span>';}
-		if($a['tmp'] < $a['tmp_5ago']) { $updo='<span class="label label-info" title='.$a['tmp_5ago'].'><span class="glyphicon glyphicon-arrow-down"></span></span>';}
+		if($a['tmp'] > $a['tmp_5ago']) { $updo='<span class="label label-danger" title="5 min stats '.$a['tmp_5ago'].' '.$unit.'"><span class="glyphicon glyphicon-arrow-up"></span></span>';}
+		if($a['tmp'] < $a['tmp_5ago']) { $updo='<span class="label label-info" title="5 min stats '.$a['tmp_5ago'].' '.$unit.'"><span class="glyphicon glyphicon-arrow-down"></span></span>';}
+		
+		if($a['stat_min']) { $stat_min='<span class="label label-info" title="Lowest value from sensor '.$unit.'">'.$a['stat_min'].'</span>';}
+		if($a['stat_max']) { $stat_max='<span class="label label-warning" title="Greatest value form sensor '.$unit.'">'.$a['stat_max'].'</span>';}
+		
+
 		
 		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max'])) { 
 		    $mm='e'; 
@@ -91,10 +100,19 @@ foreach ($row as $a) {
 
 		    <tr>
 			<td>
-			    <?php echo $device." ".$type." ".$name;?>
+				<?php echo $type;?>
 			</td>
 			<td>
-			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=day&single=<?php echo $a['name']?>" title="Last update: <?php echo $a['time']?>"
+				<?php 
+					if(isset($_SESSION['user'])){
+						echo $name3;
+					} else {
+						echo $name2;
+					}
+				?>
+			</td>
+			<td>
+			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=day&single=<?php echo $a['name']?>" title="Go to charts, last update: <?php echo $a['time']?>"
 				<?php 
 					$old_read=86400;
 				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || ($label=='danger') || strtotime($a['time'])<(time()-(7*$old_read))){
@@ -133,15 +151,23 @@ foreach ($row as $a) {
 						echo $a['tmp']." ".$unit." ".$max." ".$min;
 				    }
 				?>	
-			    </span>
 			    </a>
+			   
 			</td>
-				<td>
-		    	    <?php echo $updo; ?>
-				</td>
-				<td>
-						<?php echo $mail; ?>
-				</td>
+			<td>
+				 <?php
+					if($a['minmax']=='on') {
+						echo $stat_min;
+						echo $stat_max;
+					}
+					echo $updo; 
+				?>
+			</td>
+			<td>
+				<?php 
+					echo $mail; 
+				?>
+			</td>
 		    </tr>
 			<?php if ($normalized == "on" && $pressure == $a['id']): ?>
 				<tr>
@@ -178,6 +204,8 @@ foreach ($row as $a) {
     unset($updo);
     unset($device);
     unset($unit);
+    unset($stat_min);
+    unset($stat_max);
      } 
 ?>
     </tbody>

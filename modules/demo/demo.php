@@ -3,7 +3,8 @@ $ROOT=dirname(dirname(dirname(__FILE__)));
 
 include("$ROOT/receiver.php");
 
-$demo_device=array("ip", "wireless", "remote", "gpio", "i2c", "usb");
+#$demo_device=array("ip", "wireless", "remote", "gpio", "i2c", "usb");
+$demo_device=array("ip");
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM types");
 $row = $rows->fetchAll();

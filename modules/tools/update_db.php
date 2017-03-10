@@ -157,6 +157,7 @@ $dba->exec("ALTER TABLE newdev ADD name  TEXT");
 $dba->exec("ALTER TABLE newdev ADD rom  TEXT");
 $dba->exec("ALTER TABLE newdev ADD type TEXT");
 $dba->exec("ALTER TABLE newdev ADD usb  TEXT");
+$dba->exec("ALTER TABLE newdev ADD seen  TEXT");
 
 $dba->exec("ALTER TABLE relays ADD delay TEXT");
 $dba->exec("ALTER TABLE relays ADD ip TEXT");
