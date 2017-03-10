@@ -63,6 +63,7 @@ Changelog:
 
 fix Adjust on charts
 add choose between Min Max and Min Max Light
+add tools/bd_check for check if sqlite DB is ok
 
 4.1.5
 
