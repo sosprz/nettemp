@@ -343,7 +343,7 @@ $row = $rows->fetchAll();
     </form>
     <form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="del_all" value="charts" />
-		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
+		<button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
     </form>
 
 </th>
