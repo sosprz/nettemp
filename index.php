@@ -70,6 +70,18 @@ $row1 = $rows1->fetchAll();
 $row2 = $rows2->fetchAll();
 $numsimple = count($row1);
 $numsimple2 = count($row2);
+
+$getseen = $db->query("SELECT id FROM newdev WHERE seen is null");
+$gs = $getseen->fetchAll();
+$seen = count($gs);
+
+function new_seen($seen){
+	if($seen >  0)
+	{	
+		return '<span class="badge">'.$seen.'</span>';
+	} 
+}
+
 ?>
 <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status"><span class="glyphicon glyphicon-th-large" aria-hidden="true"> Status</span></a></li>
 <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp&max=<?php echo $html_charts_max?>"><span class="glyphicon glyphicon-stats" aria-hidden="true"> Charts</span></a></li>
@@ -89,7 +101,7 @@ $numsimple2 = count($row2);
  	if($_SESSION["perms"] == 'adm') {
 ?>
 <li <?php echo $id == 'map' ? ' class="active"' : ''; ?>><a href="index.php?id=map"><span class="glyphicon glyphicon-picture" aria-hidden="true"> Map</span> </a></li>
-<li<?php echo $id == 'device' ? ' class="active"' : ''; ?>><a href="device"><span class="glyphicon glyphicon-cog" aria-hidden="true"> Device</span></a></li>
+<li<?php echo $id == 'device' ? ' class="active"' : ''; ?>><a href="device"><span class="glyphicon glyphicon-cog" aria-hidden="true"> Device <?php echo new_seen($seen);?></span></a></li>
 <li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security"><span class="glyphicon glyphicon-tower" aria-hidden="true"> Security</span></a></li>
 <li <?php echo $id == 'settings' ? ' class="active"' : ''; ?>><a href="settings"><span class="glyphicon glyphicon-tasks" aria-hidden="true"> Settings</span></a></li>
 <li <?php echo $id == 'tools' ? ' class="active"' : ''; ?>><a href="tools"><span class="glyphicon glyphicon-wrench" aria-hidden="true"> Tools</span></a></li>

@@ -5,17 +5,6 @@ $device_type=isset($_GET['device_type']) ? $_GET['device_type'] : '';
 $device_id=isset($_GET['device_id']) ? $_GET['device_id'] : '';
 $device_menu=isset($_GET['device_menu']) ? $_GET['device_menu'] : '';
 
-$rows2 = $db->query("SELECT id FROM newdev WHERE seen is null") or header("Location: html/errors/db_error.php");
-$row2 = $rows2->fetchAll();
-$seen = count($row2);
-
-function new_seen($seen){
-	if($seen >  0)
-	{	
-		return '<span class="badge">'.$seen.'</span>';
-	} 
-}
-
 ?>
 <p>
 
