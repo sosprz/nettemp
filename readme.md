@@ -62,6 +62,7 @@ Changelog:
 4.1.6
 
 fix Adjust on charts
+add choose between Min Max and Min Max Light
 
 4.1.5
 

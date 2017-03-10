@@ -156,7 +156,7 @@ foreach ($row as $a) {
 			</td>
 			<td>
 				 <?php
-					if($a['minmax']=='on') {
+					if($a['minmax']=='light') {
 						echo $stat_min;
 						echo $stat_max;
 					}
