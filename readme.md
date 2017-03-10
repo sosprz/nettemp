@@ -58,6 +58,11 @@ OpenWRT, beta version:
 
 
 Changelog:
+
+4.1.6
+
+fix Adjust on charts
+
 4.1.5
 
 add option where you can remove only sensors > reset to default

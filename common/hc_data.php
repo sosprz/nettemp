@@ -114,11 +114,10 @@ if ($type == 'system') {
 elseif ($type == 'group'){
 //sensors
     $db = new PDO("sqlite:$root/dbf/nettemp.db");
-    $rows = $db->query("SELECT * FROM sensors WHERE name='$name'");
+    $rows = $db->query("SELECT rom FROM sensors WHERE name='$name'");
     $row = $rows->fetchAll();
     foreach($row as $a) {
 	$file=$a['rom'];
-	$adj=$a['adj'];
     }
 
     $dirb = "sqlite:$root/db/$file.sql";
@@ -132,7 +131,7 @@ elseif ($type == 'group'){
     };
 
     foreach ($dbh->query($query) as $row) {
-	$line=[($row[0])*1000 . "," . ($row[1]+$adj)];
+	$line=[($row[0])*1000 . "," . $row[1]];
 	$array[]=$line;
     }
     print str_replace('"', "",json_encode($array));
@@ -141,11 +140,10 @@ elseif ($type == 'group'){
 elseif ($type == 'elec' && $mode == 2) {
 
     $db = new PDO("sqlite:$root/dbf/nettemp.db");
-    $rows = $db->query("SELECT * FROM sensors WHERE type='$type' and name='$name'");
+    $rows = $db->query("SELECT rom FROM sensors WHERE type='$type' and name='$name'");
     $row = $rows->fetchAll();
     foreach($row as $a) {
 	$file=$a['rom'];
-	$adj=$a['adj'];
     }
 
     $dirb = "sqlite:$root/db/$file.sql";
@@ -159,7 +157,7 @@ elseif ($type == 'elec' && $mode == 2) {
     	};
 
     foreach ($dbh->query($query) as $row) {
-	$line=[($row[0])*1000 . "," . ($row[1]+$adj)];
+	$line=[($row[0])*1000 . "," . $row[1]];
 	$array[]=$line;
     }
     print str_replace('"', "",json_encode($array));
@@ -168,11 +166,10 @@ elseif ($type == 'elec' && $mode == 2) {
 else {
 //sensors
     $db = new PDO("sqlite:$root/dbf/nettemp.db");
-    $rows = $db->query("SELECT * FROM sensors WHERE type='$type' and name='$name'");
+    $rows = $db->query("SELECT rom FROM sensors WHERE type='$type' and name='$name'");
     $row = $rows->fetchAll();
     foreach($row as $a) {
 	$file=$a['rom'];
-	$adj=$a['adj'];
     }
 
     $dirb = "sqlite:$root/db/$file.sql";
@@ -186,7 +183,7 @@ else {
     }
 
     foreach ($dbh->query($query) as $row) {
-	$line=[($row[0])*1000 . "," . ($row[1]+$adj)];
+	$line=[($row[0])*1000 . "," . $row[1]];
 	$array[]=$line;
     }
     print str_replace('"', "",json_encode($array));
