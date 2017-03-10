@@ -178,7 +178,8 @@ CREATE TABLE "newdev" (
 	`usb`	TEXT,
 	`gpio`	TEXT,
 	`ip`	TEXT,
-	`name`	TEXT,
+	`name`	TEXT, 
+	`seen`  TEXT,
 	PRIMARY KEY(id)
 );
 CREATE TABLE "minmax" (
