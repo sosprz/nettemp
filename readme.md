@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.7
+
+fix update check
+
 4.1.6
 
 fix Adjust on charts
