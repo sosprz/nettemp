@@ -71,7 +71,7 @@ $row2 = $rows2->fetchAll();
 $numsimple = count($row1);
 $numsimple2 = count($row2);
 
-$getseen = $db->query("SELECT id FROM newdev WHERE seen is null");
+$getseen = $db->query("SELECT id FROM newdev WHERE seen is null") or header("Location: html/errors/db_error.php");
 $gs = $getseen->fetchAll();
 $seen = count($gs);
 
