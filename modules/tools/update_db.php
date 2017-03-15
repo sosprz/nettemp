@@ -187,6 +187,7 @@ $dba->exec("ALTER TABLE sensors ADD stat_min TEXT");
 $dba->exec("ALTER TABLE sensors ADD stat_max TEXT");
 
 $dba->exec("ALTER TABLE settings ADD authmod  TEXT");
+$dba->exec("ALTER TABLE settings ADD autologout TEXT");
 $dba->exec("ALTER TABLE settings ADD call  TEXT");
 $dba->exec("ALTER TABLE settings ADD cauth_login  TEXT");
 $dba->exec("ALTER TABLE settings ADD cauth_on  TEXT");
