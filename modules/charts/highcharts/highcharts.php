@@ -73,24 +73,6 @@ if ($type == 'system') {
     }
 }
 
-elseif ($type == 'gpio' && empty($single)) {
-$dirb = "sqlite:dbf/nettemp.db";
-$db = new PDO($dirb) or die("cannot open database");
-$query = "select name FROM gpio WHERE mode!='humid'";
-foreach ($db->query($query) as $row) {
-    $array[]=$row[0];
-    $types[$row[0]]="gpio";
-    }
-}
-elseif ($type == 'gpio' && $single) {
-$dirb = "sqlite:dbf/nettemp.db";
-$db = new PDO($dirb) or die("cannot open database");
-$query = "select name FROM gpio WHERE mode!='humid' AND name='$single'";
-foreach ($db->query($query) as $row) {
-    $array[]=$row[0];
-    $types[$row[0]]="gpio";
-    }
-}
 elseif ($single) {
 $dirb = "sqlite:dbf/nettemp.db";
 $db = new PDO($dirb) or die("cannot open database");
@@ -225,7 +207,7 @@ var hc = function () {
 	if (max=="year") { var xhour = "month" }
 	if (max=="all") { var xhour = "year" }
 
-	if (type=="gas"|| type=="water"|| type=="elec" && mode != 2) {
+	if (type=="gas"|| type=="water"|| type=="rainfall" || type=="speed" || type=="gust" || type=="elec" && mode != "2" ) {
 	    
             seriesOptions[i] = {
                 name: name,

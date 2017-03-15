@@ -16,7 +16,9 @@ if (($ronoff == "ronoff")){
 		$ch = curl_init();
 		$optArray = array(
 			CURLOPT_URL => "$ip/seton",
-			CURLOPT_RETURNTRANSFER => true
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_CONNECTTIMEOUT => 1,
+			CURLOPT_TIMEOUT => 3
 		);
 		curl_setopt_array($ch, $optArray);
 		$res = curl_exec($ch);
@@ -28,7 +30,9 @@ if (($ronoff == "ronoff")){
 		$ch = curl_init();
 		$optArray = array(
 			CURLOPT_URL => "$ip/setoff",
-			CURLOPT_RETURNTRANSFER => true
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_CONNECTTIMEOUT => 1,
+			CURLOPT_TIMEOUT => 3
 		);
 		curl_setopt_array($ch, $optArray);
 		$res = curl_exec($ch);
@@ -50,7 +54,9 @@ $ip=$r['ip'];
 $ch = curl_init();
 $optArray = array(
     CURLOPT_URL => "$ip/showstatus",
-    CURLOPT_RETURNTRANSFER => true
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CONNECTTIMEOUT => 1,
+	CURLOPT_TIMEOUT => 3
 );
 curl_setopt_array($ch, $optArray);
 $res = curl_exec($ch);

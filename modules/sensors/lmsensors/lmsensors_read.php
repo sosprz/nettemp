@@ -12,11 +12,14 @@ try {
 }
 
 try {
-    $query = $db->query("SELECT lmsensors FROM device where id='1'");
-    $result= $query->fetchAll();
-    foreach($result as $r) {
-		$lm=$r['lmsensors'];
-    }
+   
+    $cmd="/usr/bin/sensors | grep -E 'Core|temp'";
+    $se=shell_exec($cmd);
+        
+    if(file_exists("/usr/bin/sensors")&&!empty($se)){
+		$lm='on';
+	} 
+    
     if($lm=='on'){
 		$cmd="sensors |grep -E 'temp[0-9]|Core [0-9]'";
 		$temp=shell_exec($cmd);
@@ -31,10 +34,11 @@ try {
 			$local_rom=trim("lmsensors_".str_replace(' ', '', $da[0])."_temp");
 			$local_val=trim($da[1]);
 			$local_type='temp';
-			$device='';
-			$current='';
+			$local_device='lmsensors';
+			$name=substr(rand(), 0, 4);
+			$local_name=$name;
 			echo $date." Rom:".$local_rom." Value:".$local_val."\n";
-			db($local_rom,$local_val,$local_type,$device,$current);
+			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 		}
 	} else {
 		echo $date." Lmsensors OFF\n";

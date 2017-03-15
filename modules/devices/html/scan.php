@@ -1,3 +1,5 @@
+<div class="alert alert-warning" role="alert">Sensors I2C, 1wire gpio, some 1wire USB, 1wire OWFS and lmsensors are detected automatically go to <a href="index.php?id=device&type=sensors" class="btn btn-xs btn-warning">Devices</a></div>
+
 <div class="panel panel-default">
             <div class="panel-heading">Discovered devices</div>
 <table class="table table-condensed small">

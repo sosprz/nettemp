@@ -2,6 +2,7 @@
 $waterexit = isset($_POST['waterexit']) ? $_POST['waterexit'] : '';
 if (($waterexit == "waterexit") ){
     $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or die("simple off db error");
+    $db->exec("UPDATE sensors SET type='gpio' WHERE gpio='$gpio_post'") or die("exec error");
      $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();

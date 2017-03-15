@@ -23,6 +23,8 @@
 <a href="index.php?id=tools&type=espupload" ><button class="btn btn-xs btn-default <?php echo $art == 'espupload' ? 'active' : ''; ?>">ESPupload</button></a>
 <a href="index.php?id=tools&type=export" ><button class="btn btn-xs btn-default <?php echo $art == 'export' ? 'active' : ''; ?>">DB export</button></a>
 <a href="index.php?id=tools&type=dbedit" ><button class="btn btn-xs btn-default <?php echo $art == 'dbedit' ? 'active' : ''; ?>">DB edit</button></a>
+<a href="index.php?id=tools&type=dbcheck" ><button class="btn btn-xs btn-default <?php echo $art == 'dbcheck' ? 'active' : ''; ?>">DB check</button></a>
+
 
 </p>
 <?php  
@@ -42,6 +44,8 @@ case 'export': include('modules/tools/html/tools_export_to_file.php'); break;
 case 'dbedit': include('modules/tools/html/tools_db_edit.php'); break;
 case 'dbedit2': include('modules/tools/html/tools_db_edit_select.php'); break;
 case 'ticket': include('modules/tools/html/tools_ticket.php'); break;
+case 'dbcheck': include('modules/tools/html/tools_db_check.php'); break;
+
 
 }
 ?>

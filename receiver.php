@@ -19,23 +19,29 @@ if (isset($_GET['key'])) {
 
 if (isset($_GET['value'])) {
     $val = $_GET['value'];
-} 
+} else { 
+    $val='';
+}
 
 if (isset($_GET['rom'])) {
     $rom = $_GET['rom'];
-    $file = "$rom.sql";
-} 
+}
 
 if (isset($_GET['ip'])) {
     $ip = $_GET['ip'];
+} else {
+    $ip='';
 }
 
 if (isset($_GET['type'])) {
     $type = $_GET['type'];
+
 } 
     
 if (isset($_GET['gpio'])) {
     $gpio = $_GET['gpio'];
+} else {
+    $gpio='';
 }
 
 if (isset($_GET['device'])) {
@@ -46,6 +52,14 @@ if (isset($_GET['device'])) {
 
 if (isset($_GET['i2c'])) { 
     $i2c = $_GET['i2c'];
+} else {
+    $i2c='';
+}
+
+if (isset($_GET['usb'])) { 
+    $usb = $_GET['usb'];
+} else {
+    $usb='';
 }
 
 if (isset($_GET['current'])){
@@ -66,239 +80,226 @@ if (isset($_GET['name'])){
     $name='';
 }
 
-if (isset($_GET['usb'])) {
-    $usb = $_GET['usb'];
+$local_rom='';
+$local_type='';
+$local_val='';
+$local_device='';
+$local_i2c='';
+$local_current='';
+$local_name='';
+$local_ip='';
+$local_gpio='';
+$local_usb='';
+
+
+$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
+
+$sthr = $dbr->prepare("select server_key,temp_scale from settings WHERE id='1'");
+$sthr->execute();
+$result = $sthr->fetchAll();
+foreach ( $result as $a) {
+	$skey=$a['server_key'];
+	$scale=$a['temp_scale'];
+}
+
+$sthr = $dbr->prepare("SELECT * FROM highcharts WHERE id='1'");
+$sthr->execute();
+$result = $sthr->fetchAll();
+foreach ( $result as $a) {
+	$chmin=$a['charts_min'];
+}
+
+function adjust($val,$rom) { 
+	$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
+	$sthr = $dbr->query("SELECT * FROM adjust WHERE rom='$rom' ORDER by threshold ASC");
+    $row = $sthr->fetchAll();
+    foreach($row as $row) {
+		$threshold=$row['threshold'];
+		$end=$row['end'];
+		$add=$row['addvalue'];
+		if($val>=$threshold&&$val<$end)
+		{ 
+			$val=$val+$add;
+			break;
+		}
+    }
+    return "$val";
 }
 
 function scale($val,$type) {
-	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
-	$sth = $db->prepare("select * from settings WHERE id='1'");
-	$sth->execute();
-	$result = $sth->fetchAll();
-	foreach ( $result as $a) {
-		$scale=$a['temp_scale'];
-	}
+	global $scale;
 	// scale F->C
 	if($scale=='F' && $type=='temp') {
 		$val=$val*1.8+32;
-		return $val;
+		return "$val";
 	} else {
-		return $val;
+		return "$val";
 	}
+	//$sthr=null;
+    //$dbr=null;
 }
 
 function trigger($rom) {
-	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
-   $rows = $db->query("SELECT mail FROM users WHERE maila='yes'");
-   $row = $rows->fetchAll();
-   foreach($row as $row) {
-	$to[]=$row['mail'];   
-   }
+	$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
+    $sthr = $dbr->query("SELECT mail FROM users WHERE maila='yes'");
+    $row = $sthr->fetchAll();
+    foreach($row as $row) {
+		$to[]=$row['mail'];   
+    }
    
-   $rows = $db->query("SELECT name FROM sensors WHERE rom='$rom'");
-   $row = $rows->fetchAll();
-   foreach($row as $row) {
-	$name=$row['name'];   
-   }
+    $sthr = $dbr->query("SELECT name FROM sensors WHERE rom='$rom'");
+    $row = $sthr->fetchAll();
+    foreach($row as $row) {
+		$name=$row['name'];   
+    }
    
-   $to = implode(', ', $to);
-   if(mail("$to", 'ALARM from nettemp device', "Trigger ALARM $name" )) {
-	echo "ok\n";
-   } else {
-    echo "error\n";
-   }
+    $to = implode(', ', $to);
+    if(mail("$to", 'ALARM from nettemp device', "Trigger ALARM $name" )) {
+		echo "ok\n";
+    } else {
+		echo "error\n";
+    }
+    //$sthr=null;
+    //$dbr=null;
 
 }
 
 function check($val,$type) {
-	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
-	$rows = $db->query("SELECT * FROM types WHERE type='$type'");
-    $row = $rows->fetchAll();
+	$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
+	$sthr = $dbr->query("SELECT * FROM types WHERE type='$type'");
+    $row = $sthr->fetchAll();
     foreach($row as $range) 
     {
 		if (($range['min'] <= $val) && ($val <= $range['max']) && ($val != $range['value1']) && ($val != $range['value2']) && ($val != $range['value3'])) 
 		{
-			return $val;
+			return "$val";
 		}
 		else 
 		{
 			return 'range';
 		}
 	}
+    //$sthr=null;
+    //$dbr=null;	
 
 }
 
 
 
-
-function db($rom,$val,$type,$device,$current) {
-	global $chmin;
-	$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
+function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 	$file = "$rom.sql";
-	$dbf = new PDO("sqlite:".__DIR__."/db/$file");
-
-	//if ($type == 'host') {
-    //	    $rows = $db->query("SELECT rom FROM hosts WHERE rom='$rom'");
-	//}
-	//else {
-		 	 $rows = $db->query("SELECT rom FROM sensors WHERE rom='$rom'");
-    //	 }
-    	 
-   $row = $rows->fetchAll();
-   $c = count($row);
-   if ( $c >= "1") {
-	  if (is_numeric($val)) {
-		$val=scale($val,$type);
-		$val=check($val,$type);
-		if ($val != 'range'){
-		    //// base
-		    // counters can always put to base
-		    $arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting");
-		    $arrayd = array("wireless", "gpio", "usb");
-		    if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
-					if (isset($current) && is_numeric($current)) {
-			    		$dbf->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql current\n" );
-			    		$db->exec("UPDATE sensors SET current='$current' WHERE rom='$rom'") or die ("cannot insert to current\n" );
-					} else {
-			    		$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql\n" );
+	global $chmin;
+	$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
+	if(file_exists(__DIR__."/db/".$file)&&filesize(__DIR__."/db/".$file)!=0){
+		$dbfr = new PDO("sqlite:".__DIR__."/db/$file");
+		$sthr = $dbr->query("SELECT rom,adj FROM sensors WHERE rom='$rom'");
+		$row = $sthr->fetchAll();
+		foreach($row as $row) {
+			$adj=$row['adj']; 
+			$val=$val+$adj;  
+		}
+		$c = count($row);
+		if ( $c >= "1") {
+			if (is_numeric($val)) {
+				$val=scale($val,$type);
+				$val=adjust($val,$rom);
+				$val=check($val,$type);
+				if ($val != 'range'){
+					//// base
+					// counters can always put to base
+					$arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting");
+					$arrayd = array("wireless", "gpio", "usb");
+					if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
+						if (isset($current) && is_numeric($current)) {
+							$dbfr->exec("INSERT OR IGNORE INTO def (value,current) VALUES ('$val','$current')") or die ("cannot insert to rom sql current\n" );
+							$dbr->exec("UPDATE sensors SET current='$current' WHERE rom='$rom'") or die ("cannot insert to current\n" );
+							echo $rom." current ".$current." \n";
+						} else {
+							$dbfr->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql\n" );
+						}
+						//sum,current for counters
+						$dbr->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
+						echo $rom." ok \n";
 					}
-					//sum,current for counters
-					$db->exec("UPDATE sensors SET sum='$val'+sum WHERE rom='$rom'") or die ("cannot insert to status\n" );
-					echo "$rom ok \n";
-		    }
-		    // time when you can put into base
-		    elseif ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
-				$dbf->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die ("cannot insert to rom sql\n" );
-				echo "$rom ok \n";
-		    }
-		    else {
-					echo "Not writed interval is $chmin min\n";
-		    }
+					// time when you can put into base
+					elseif ((date('i', time())%$chmin==0) || (date('i', time())==00))  {
+						$dbfr->exec("INSERT OR IGNORE INTO def (value) VALUES ('$val')") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert to rom sql, time\n");
+						echo date("Y-m-d H:i:s")." ".$rom." ".$val." ok \n";
+					}
+					else {
+						echo "Not writed interval is ".$chmin." min\n";
+					}
 		    
-		    // 5ago arrow
-		    $min=intval(date('i'));
-		    if ( ($type!='host')&&((strpos($min,'0') !== false) || (strpos($min,'5') !== false))) {
-				$db->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to 5ago\n" );
-		    }
-		    
-		    ////status for all
-		    //hosts status
-		    //if ($type == 'host') {
-		    //		if($val=='0') {
-		    //			$db->exec("UPDATE hosts SET last='0', status='error' WHERE rom='$rom'")or die ("cannot insert to hosts status\n");
-		    //		} 
-		    //		else {   			
-			//			$db->exec("UPDATE hosts SET last='$val', status='ok' WHERE rom='$rom'")or die ("cannot insert to hosts status 2\n");
-			//		}
-		    //}
-		    if ($type == 'trigger') {
-					$db->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to trigger status2\n");
-					trigger($rom);
-		    }
-		    //sensors status
-		    else {
-					$db->exec("UPDATE sensors SET tmp='$val'+adj WHERE rom='$rom'") or die ("cannot insert to status\n" );
-		    }
-		    
-		    
-		}		
-		else {
-		    echo "$rom $val not in range \n";
-		}
+					// 5ago arrow
+					$min=intval(date('i'));
+					if ((strpos($min,'0') !== false) || (strpos($min,'5') !== false)) {
+						$dbr->exec("UPDATE sensors SET tmp_5ago='$val' WHERE rom='$rom'") or die ("cannot insert to 5ago\n" );
+					}
 		
-	    }
-	    // if not numeric
-	    else {
-			//if ($type == 'host') {
-		    //$db->exec("UPDATE hosts SET last='0', status='error' WHERE rom='$rom'")or die ("cannot insert to hosts status\n");
-			//}
-			//sensors
-			//else {
-		    $db->exec("UPDATE sensors SET tmp='error' WHERE rom='$rom'") or die ("cannot insert error to status\n" );
-			//}
-		echo "$rom not numieric! $val \n";
+					if ($type == 'trigger') {
+						$dbr->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to trigger status2\n");
+						trigger($rom);
+					}
+					//sensors status
+					else {
+						$dbr->exec("UPDATE sensors SET tmp='$val', status='ok', ip='$ip' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert value to status\n" );
+						$dbr->exec("UPDATE sensors SET stat_min='$val' WHERE stat_min>'$val' AND rom='$rom' OR stat_min is null AND rom='$rom'");
+						$dbr->exec("UPDATE sensors SET stat_max='$val' WHERE stat_max<'$val' AND rom='$rom' OR stat_max is null AND rom='$rom'");
+						
+					}
+				}		
+				else {
+					echo $rom." ".$val." not in range \n";
+				}
+		
+			}
+			// if not numeric
+			else {
+				if($device!='gpio'&&$type!='gpio'){
+					$dbr->exec("UPDATE sensors SET status='error' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert status to sensors ".$rom.", not numeric\n");
+					$dbfr->exec("INSERT OR IGNORE INTO def (value) VALUES ('0')") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert to rom DB ".$rom.", not numeric\n");
+					echo date("Y-m-d H:i:s")." Puting value \"".$val."\" to ".$rom.", but value is not numieric!, inserting 0 to db\n";
+				}
+			}
+		}
+		//if not in sensors table
+		else {
+			$name=substr(rand(), 0, 4);
+			$dbr->exec("INSERT OR IGNORE INTO newdev (rom,type,device,ip,gpio,i2c,usb,name) VALUES ('$rom','$type','$device','$ip','$gpio','$i2c','$usb','$name')");
+			echo "DB exist. Added ".$rom." to new sensors \n";
 		}
 	}
-	//if not exist on base
+	//if base not exist
 	else {
-	    $db->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')");
-	    $db==NULL;
-	    echo "Added $rom to new sensors \n";
+		$name=substr(rand(), 0, 4);
+		$dbr->exec("INSERT OR IGNORE INTO newdev (rom,type,device,ip,gpio,i2c,usb,name) VALUES ('$rom','$type','$device','$ip','$gpio','$i2c','$usb','$name')");
+		echo "No DB. Added ".$rom." to new sensors \n";
 	}
+	//$sthr=null;
+	//$dbr=null;
+	//$dbfr=null;
 } 
 
-
-
-$db = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
-$sth = $db->prepare("select * from settings WHERE id='1'");
-$sth->execute();
-$result = $sth->fetchAll();
-foreach ( $result as $a) {
-	$skey=$a['server_key'];
-	$scale=$a['temp_scale'];
-	}
-
-$sth = $db->prepare("select * from highcharts WHERE id='1'");
-$sth->execute();
-$result = $sth->fetchAll();
-foreach ( $result as $a) {
-	global $chmin;
-	$chmin=$a['charts_min'];
-	}
 
 
 if (("$key" != "$skey") && (!defined('LOCAL')))
 {
     echo "wrong key\n";
 } 
-    else {
+else {
 
-
-
-// main
-if  (isset($val) && isset($rom) && isset($type)) {
-    	db($rom,$val,$type,$device,$current);
-    }
-elseif (isset($val) && isset($type)) {
-
-	if ( $device == "i2c" ) { 
-	    if (!empty($type) && !empty($i2c)) {
-		$rom=$device.'_'.$i2c.'_'.$type;
-	    } else {
-		echo "Missing type or i2c number";
-		exit();
-	    }	
-	} 
-	elseif ( $device == "gpio" ) { 
-	    if (!empty($type) && !empty($gpio)) {
-		$rom=$device.'_'.$gpio.'_'.$type; 
-	    } else {
-		echo "Missing type or gpio number";
-		exit();
-	    }
-	}
-	elseif ( $device == "wireless" ) {
-	    if (!empty($type) && !empty($ip)) {
-		$rom=$device.'_'.$ip.'_'.$type; 
-	    } else {
-		echo "Missing type or IP";
-		exit();
-	    }
-	}
-	elseif ( $device == "usb" ) {
-	    if (!empty($type) && !empty($usb)) {
-		$rom=$device.'_'.$usb.'_'.$type; 
-	    } else {
-		echo "Missing type or USB";
-		exit();
-	    }
-	}
-
-	$file = "$rom.sql";
-
+//MAIN
+//Local devices have always rom
+if(isset($val) && isset($rom) && isset($type))
+{
+	db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
+}
+elseif (isset($val) && isset($type)) 
+{
 	//MULTI ID
 	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&id=5;6;7&type=temp;humid;press&value=0.00;0.00;0.00
-	if (strpos($type, ';') !== false && strpos($id, ';') !== false) {
+	if (strpos($type, ';') !== false && strpos($id, ';') !== false) 
+	{
 		$aid = array_filter(explode(';', $id),'strlen');
 		$atype = array_filter(explode(';', $type),'strlen');
 		$aval = array_filter(explode(';', $val),'strlen');
@@ -313,20 +314,22 @@ elseif (isset($val) && isset($type)) {
 				echo "One type is not definied in multi id mode, name ".$name.", id ".$id.", val ".$val."\n";
 				continue;
 			}
-			if(empty($val)){
+			if(!is_numeric($val)){
 				echo "No val definied in multi id mode, name ".$name.", type ".$type." id ".$id.", type ".$type."\n";
 				continue;
 			}			
 			$rom=$device."_".$name."id".$id."_".$type; 
-			db($rom,$val,$type,$device,$current);
+			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
 		}
 		
 	}
 	//MULTI TYPE
 	// receiver.php?name=unit1&key=q1w2e3r4&type=temp;humid;press&value=0.00;0.00;0.00
-	elseif (strpos($type, ';') !== false && empty($id)) {
+	elseif (strpos($type, ';') !== false && empty($id)) 
+	{
 		$atype = array_filter(explode(';', $type),'strlen');
 		$aval = array_filter(explode(';', $val),'strlen');
+		
 		if(empty($atype)) {
 			echo "No type definied in one id mode, name ".$name.", id ".$id."\n";
 			exit;
@@ -338,19 +341,20 @@ elseif (isset($val) && isset($type)) {
 				echo "One type is not definied in multi id mode, name ".$name.", id ".$id.", val ".$val."\n";
 				continue;
 			}
-			if(empty($val)){
+			if(!is_numeric($val)){
 				echo "No val definied in multi id mode, name ".$name.", id ".$id.", type ".$type."\n";
 				continue;
 			}
 
 			$rom=$device."_".$name."_".$type; 
-			db($rom,$val,$type,$device,$current);
+			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
 		} 
 	}
 	// ONE ID 
 	// type is more important than id, type equal value
 	// receiver.php?name=unit1&key=q1w2e3r4&id=5&type=temp;humid;press&value=0.00;0.00;0.00
-	elseif (!empty($id)&&!empty($name)) {
+	elseif (!empty($id)&&!empty($name)) 
+	{
 		$atype = array_filter(explode(';', $type),'strlen');
 		$aval = array_filter(explode(';', $val),'strlen');
 		if(empty($atype)) {
@@ -362,22 +366,75 @@ elseif (isset($val) && isset($type)) {
 			$val=$aval[$index];
 			if(empty($type)){
 				echo "One type is not definied in one id mode, name ".$name.", id ".$id.", val $val\n";
-				continue;;
+				continue;
 			}
-			if(empty($val)){
+			if(!is_numeric($val)){
 				echo "No val definied in one id mode, name ".$name.", id ".$id.", type ".$type."\n";
-				continue;;
+				continue;
 			}
-
-			$rom=$device."_".$name."id".$id."_".$type; 
-			db($rom,$val,$type,$device,$current);
+			$rom=$device.'_'.$name.'id'.$id.'_'.$type; 
+			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
 		} 
 	}
 	// ONE TYPE	
 	// receiver.php?device=ip&ip=172.18.10.102&key=q1w2e3r4&type=temp&value=0.00
-	else {
-		db($rom,$val,$type,$device,$current);
+	elseif ( $device == "i2c" ) 
+	{ 
+	    if (!empty($type) && !empty($i2c)) 
+	    {
+			$rom=$device.'_'.$i2c.'_'.$type;
+			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
+	    } else 
+	    {
+			echo "Missing type or i2c number";
+			exit();
+	    }	
 	}
+	elseif ( $device == "gpio" ) 
+	{ 
+	    if (!empty($type) && !empty($gpio)) {
+			$rom=$device.'_'.$gpio; 
+			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
+	    } else {
+			echo "Missing type or gpio number";
+			exit();
+	    }
+	}
+	elseif ( $device == "usb" ) 
+	{
+	    if (!empty($type) && !empty($usb)) 
+	    {
+			$rom=$device.'_'.$usb.'_'.$type; 
+			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
+	    } else {
+			echo "Missing type or USB";
+			exit();
+	    }
+	}
+	elseif ( $device == "wireless" ) 
+	{
+	    if (!empty($type) && !empty($ip)) {
+			$rom=$device.'_'.$ip.'_'.$type; 
+			db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
+	    } else 
+	    {
+			echo "Missing type or IP";
+			exit();
+	    }
+	}
+	elseif ( $device == "ip" ) 
+	{
+	    if (empty($type)){ echo "Missing type"; exit();}
+	    if (empty($device)){ echo "Missing device"; exit();}
+	    if (empty($name)){ echo "Missing name"; exit();}
+	    $rom=$device.'_'.$name.'_'.$type;
+	    db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
+	}
+	else 
+	{
+		 db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name);
+	} 
+	
 
 }
 elseif (!defined('LOCAL')) {

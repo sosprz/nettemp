@@ -1,3 +1,4 @@
 #! /bin/bash
-
-sqlite3 /var/www/nettemp/dbf/nettemp.db ".schema" > /var/www/nettemp/modules/tools/nettemp.schema
+echo "BEGIN TRANSACTION;" > /var/www/nettemp/modules/tools/nettemp.sql
+sqlite3 /var/www/nettemp/dbf/nettemp.db ".schema" >> /var/www/nettemp/modules/tools/nettemp.sql
+echo "COMMIT;" >> /var/www/nettemp/modules/tools/nettemp.sql

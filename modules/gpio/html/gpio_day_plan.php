@@ -11,17 +11,26 @@ $sat = isset($_POST['sat']) ? $_POST['sat'] : '';
 $sun = isset($_POST['sun']) ? $_POST['sun'] : '';
 $del = isset($_POST['del']) ? $_POST['del'] : '';
 $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
-?>
 
-<?php 
 	$dpdd1 = isset($_POST['add1']) ? $_POST['add1'] : '';
-	if ($_POST['add1'] == "add2"){
+	if ($dpdd1 == 'add2'){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$name=str_replace(' ', '_', $name);
 	$db->exec("INSERT OR IGNORE INTO day_plan (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime, gpio) VALUES ('$name','$mon', '$tue', '$wed', '$thu', '$fri', '$sat', '$sun', '$stime', '$etime', '$dpgpio')") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}
+	
+	$week_plan = isset($_POST['week_plan']) ? $_POST['week_plan'] : '';
+	$week_plan_id = isset($_POST['week_plan_id']) ? $_POST['week_plan_id'] : '';
+	if ($week_plan == 'edit'){
+		$db = new PDO('sqlite:dbf/nettemp.db');
+		$db->exec("UPDATE day_plan SET Mon='$mon', Tue='$tue', Wed='$wed', Thu='$thu', Fri='$fri', Sat='$sat', Sun='$sun', stime='$stime', etime='$etime' WHERE id='$week_plan_id'") or die($week_plan_id."\n".$etime."\n".$stime."\n".$wed);
+		header("location: " . $_SERVER['REQUEST_URI']);
+		exit();
+	}
+
+
 
 	// SQLite - usuwanie notification
 	if (!empty($del) && ($_POST['del1'] == "del2") ){
@@ -38,7 +47,8 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 
 <div class="table-responsive">
 <table class="table table-striped">
-<thead><tr>
+<thead>
+<tr>
 <th>Name</th>
 <th>Mon</th>
 <th>Tue</th>
@@ -50,7 +60,9 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 <th>Start hour</th>
 <th>End hour</th>
 <th></th>
-</tr></thead>
+<th></th>
+</tr>
+</thead>
 
     <tr>	
 	<form action="" method="post">
@@ -62,11 +74,12 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 	<td><input type="checkbox" name="fri" value="Fri" /></td>        
 	<td><input type="checkbox" name="sat" value="Sat" /></td>        
 	<td><input type="checkbox" name="sun" value="Sun" /></td>
-	<td><input type="time" name="stime" value="" class="form-control" required="" placeholder="07:00"/></td>
-	<td><input type="time" name="etime" value="" class="form-control" required="" placeholder="19:00"/></td>
+	<td><input type="text" name="stime" value="" class="form-control" required="" placeholder="07:00"/></td>
+	<td><input type="text" name="etime" value="" class="form-control" required="" placeholder="19:00"/></td>
 	<input type="hidden" name="add1" value="add2" />
 	<input type="hidden" name="dpgpio" value="<?php echo $gpio; ?>" />
 	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
+	<th></th>
 	</form>
     </tr> 
 <?php
@@ -78,24 +91,33 @@ $result = $sth->fetchAll();
 foreach ($result as $dp) { 
 ?>
 	<tr>
+			<form action="" method="post"> 
+	
 	<td><?php echo str_replace('_', ' ', $dp["name"])?></td>
-	<td><?php echo $dp["Mon"];?></td>
-	<td><?php echo $dp["Tue"];?></td>
-	<td><?php echo $dp["Wed"];?></td>
-	<td><?php echo $dp["Thu"];?></td>
-	<td><?php echo $dp["Fri"];?></td>
-	<td><?php echo $dp["Sat"];?></td>
-	<td><?php echo $dp["Sun"];?></td>
-	<td><?php echo $dp["stime"];?></td>
-	<td><?php echo $dp["etime"];?></td>
-
-
+	<td><input type="checkbox" name="mon" value="Mon" <?php echo $dp['Mon'] == 'Mon' ? 'checked="checked"' : ''; ?>/></td>
+	<td><input type="checkbox" name="tue" value="Tue" <?php echo $dp['Tue'] == 'Tue' ? 'checked="checked"' : ''; ?>/></td>
+	<td><input type="checkbox" name="wed" value="Wed" <?php echo $dp['Wed'] == 'Wed' ? 'checked="checked"' : ''; ?>/></td>
+	<td><input type="checkbox" name="thu" value="Thu" <?php echo $dp['Thu'] == 'Thu' ? 'checked="checked"' : ''; ?>/></td>
+	<td><input type="checkbox" name="fri" value="Fri" <?php echo $dp['Fri'] == 'Fri' ? 'checked="checked"' : ''; ?>/></td>
+	<td><input type="checkbox" name="sat" value="Sat" <?php echo $dp['Sat'] == 'Sat' ? 'checked="checked"' : ''; ?>/></td>
+	<td><input type="checkbox" name="sun" value="Sun" <?php echo $dp['Sun'] == 'Sun' ? 'checked="checked"' : ''; ?>/></td>
+	<td><input type="text" name="stime" value="<?php echo $dp["stime"];?>" class="form-control" required="" placeholder="07:00"/></td>
+	<td><input type="text" name="etime" value="<?php echo $dp["etime"];?>" class="form-control" required="" placeholder="19:00"/></td>
+	
+	
+	<td>
+			<input type="hidden" name="week_plan_id" value="<?php echo $dp["id"]; ?>" />
+			<input type="hidden" type="submit" name="week_plan" value="edit" />
+			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+		</form>
+	</td>
+	
 	<td>
     	<form action="" method="post"> 	
-	    <input type="hidden" name="del" value="<?php echo $dp["id"]; ?>" />
-	    <input type="hidden" type="submit" name="del1" value="del2" />
-	    <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
-	</form>
+			<input type="hidden" name="del" value="<?php echo $dp["id"]; ?>" />
+			<input type="hidden" type="submit" name="del1" value="del2" />
+			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+		</form>
 	</td>
 	</tr>
 <?php 

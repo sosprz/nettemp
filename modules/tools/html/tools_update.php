@@ -4,13 +4,21 @@
 
 <?php
 $ROOT=$_SERVER['DOCUMENT_ROOT'];
+$dir=$ROOT.'/dbf';
+$dbfile=$dir.'/nettemp.db';
+
 $update=isset($_POST['update']) ? $_POST['update'] : '';
 
-if ($update == "Update") { 
-       
-?>
-<pre>
-<?php
+if ($update == "UPDATE") {
+    echo '<pre>';
+    $file = $ROOT."/dbf/nettemp.db";
+    $newfile = $ROOT."/dbf/nettemp.db.".date('Y-m-d_His').'.'.substr(rand(), 0, 4);
+    if (!copy($file, $newfile)) {
+	echo "failed to copy $file\n";
+    } else {
+	echo "New backup $newfile\n";
+    }
+
     passthru("cd /var/www/nettemp && git reset --hard");
     passthru("/usr/bin/git pull 2>&1");
     shell_exec("$ROOT/modules/tools/update_su");
@@ -18,12 +26,53 @@ if ($update == "Update") {
     include("$ROOT/modules/tools/update_perms.php");
     include("$ROOT/modules/tools/update_db.php");
     include("$ROOT/modules/tools/check_packages.php");
+    unlink("$ROOT/tmp/update");
+    echo '</pre>';
+}
+
+if ($update == "INTEGRITY"){
+//Integrity fix
+    $date=date('Y-m-d_His');
+    $badfile=$dir.'/BAD_nettemp.db.'.$date;
+    $okfile =$dir.'/OK_nettemp.db.'.$date;
+    echo '<pre>';
+    if(rename($dbfile,$badfile)){
+        unlink($dbfile.'-shm');
+        unlink($dbfile.'-wal');
+        passthru('/usr/bin/sqlite3 '.$badfile.' ".clone '.$okfile.'" 2>&1');
+        if( file_exists($okfile) && filesize($okfile)>0 ){
+            rename($okfile,$dbfile);
+        }else{
+            echo "Something is wrong. Please restore backup.\n";
+        }
+    }else{
+	echo "Cannot move $dbfile to $badfile.\n";
     }
+    echo '</pre>';
+}
+
+$dbintegrity='';
+$db = new PDO("sqlite:$dbfile");
+if ( $sth = $db->query("PRAGMA integrity_check") ){
+    $row = $sth->fetchAll();
+    foreach($row as $r) {
+        if($r[0]!='ok') {
+            $dbintegrity = "database problem: PRAGMA integrity_check";
+        }
+    }
+} else {
+    $dbintegrity = "database problem: PRAGMA query failed";
+}
+
+echo '<form action="" method="post">';
+if(!empty($dbintegrity)){
+    echo '<button type="submit" name="update" value="INTEGRITY" class="btn btn-lg btn-danger btn-block">We found problem: '.$dbintegrity.'<br><br>You may lost some, or all settings.<br>Press to continue?</button>';
+}else{
+    echo '<button type="submit" name="update" value="UPDATE" class="btn btn-xs btn-success"  />Update</button>';
+}
+    echo '</form>';
+
 ?>
-</pre>
-    <form action="" method="post">
-    <button type="submit" name="update" value="Update" class="btn btn-xs btn-success"  />Update</button>
-    </form>
 
 </div></div>
 <script type="text/javascript">

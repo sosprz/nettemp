@@ -17,20 +17,21 @@ echo "INFO: no sensors added"
 exit
 fi
 
-php-cgi -f $dir/modules/sensors/other/raspberrypi_read.php
-php-cgi -f $dir/modules/sensors/other/bananapi_read.php
-php-cgi -f $dir/modules/sensors/1wire/1wire_gpio_i2c_read.php
 php-cgi -f $dir/modules/sensors/i2c/i2c_read.php
+php-cgi -f $dir/modules/sensors/other/raspberrypi_read.php
+php-cgi -f $dir/modules/sensors/1wire/1wire_gpio_i2c_read.php
 php-cgi -f $dir/modules/sensors/1wire/1wire_serial_read.php
+php-cgi -f $dir/modules/sensors/1wire/1wire_usb_read.php
 php-cgi -f $dir/modules/sensors/GPIO/DHT/dht_read.php
 php-cgi -f $dir/modules/sensors/lmsensors/lmsensors_read.php
 php-cgi -f $dir/modules/sensors/snmp/snmp.php
 php-cgi -f $dir/modules/sensors/1wire/owfs.php
 php-cgi -f $dir/modules/sensors/snmp/snmp_read.php
+php-cgi -f $dir/modules/sensors/GPIO/HCS04/read.php
+php-cgi -f $dir/modules/sensors/rs485/sdm630.php
+php-cgi -f $dir/modules/gpio/gpio_scan.php
+php-cgi -f $dir/modules/sensors/USB/SDS011/SDS011.php
 
-
-#1wire usb
-$dir/modules/sensors/1wire/1wire_usb_read
 # wireless
 $dir/modules/sensors/wireless/esp8266_read
 #sdm120/sdm120c
@@ -41,9 +42,6 @@ $dir/modules/sensors/rs485/orwe
 
 #in test
 $dir/modules/sensors/other/ups
-php-cgi -f $dir/modules/sensors/GPIO/HCS04/read.php
-php-cgi -f $dir/modules/sensors/rs485/sdm630.php
-
 php-cgi -f $dir/modules/lcd/lcd.php
 php-cgi -f $dir/modules/sensors/node.php
 php-cgi -f $dir/modules/mysql/mysql_send.php

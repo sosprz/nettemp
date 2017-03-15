@@ -24,15 +24,20 @@ try {
 
 	$files = array_diff(scandir($path), array('..', '.',));
 	if(!empty($files)){
-		$device='';
+		$local_device='owfs';
 		$current='';
 		$local_type='temp';
 		foreach($files as $fi) {
 			if(preg_match('/^\d/', $fi)){
+				$local_name=substr(rand(), 0, 4);
+				if(!file_exists("$path/$fi/temperature")) {
+					continue;
+				}
 				$local_val=file_get_contents("$path/$fi/temperature");
 				$local_rom=strtolower(str_replace(".","-",$fi));
+				$local_device='owfs';
 				echo $date." OWFS - File: ".$fi.", Value: ".$local_val."\n";
-				db($local_rom,$local_val,$local_type,$device,$current);
+				db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 			}
 		}
 	} else {
@@ -43,8 +48,4 @@ try {
     echo $date." Error.\n";
     echo $e;
     exit;
-}
-
-
-?>
-
+}?>

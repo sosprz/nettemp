@@ -315,7 +315,7 @@ Meteogram.prototype.drawWeatherSymbols = function (chart) {
 
                 // Position the image inside it at the sprite position
                 chart.renderer.image(
-                    'https://www.highcharts.com/samples/graphics/meteogram-symbols-30px.png',
+                    'media/highcharts/meteogram-symbols-30px.png',
                     -sprite.x,
                     -sprite.y,
                     90,
@@ -798,7 +798,7 @@ $meteogram=$a['meteogram'];
     // https://github.com/highcharts/highcharts/blob/master/samples/data/jsonp.php
     // for source code.
     $.getJSON(
-        'https://www.highcharts.com/samples/data/jsonp.php?url=' + location.hash.substr(1) + '&callback=?',
+         'common/jsonp.php?url=' + location.hash.substr(1) + '&callback=?',
         function (xml) {
             window.meteogram = new Meteogram(xml, 'container');
         }

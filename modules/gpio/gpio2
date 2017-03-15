@@ -55,17 +55,15 @@ gpio_off(){
 }
 
 if [ -z "$gpio_list" ]; then
-	gpio_list=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT gpio FROM gpio")
+	gpio_list=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT gpio FROM gpio WHERE ip is null")
 fi
 
 
 for gpio in $gpio_list; do 
-	mode=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mode FROM gpio WHERE gpio='$gpio'")
-	rev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
+	mode=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mode FROM gpio WHERE gpio='$gpio' AND is null")
+	rev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio' AND is null")
 if [ "$mode" = "time" ]; then
     source $(dirname $0)/time
-#elif [ "$mode" = "temp" ]; then
-#    source $(dirname $0)/temp
 elif [ "$mode" = "simple" ]; then
     source $(dirname $0)/simple
 elif [ "$mode" = "trigger" ]; then

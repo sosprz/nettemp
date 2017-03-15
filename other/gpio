@@ -1,0 +1,13 @@
+#! /bin/bash
+
+
+if [ "$2" == "read" ]
+then
+    cat /var/www/nettemp/$3
+fi
+
+
+if [ "$2" == "write" ]
+then
+    echo $4 > /var/www/nettemp/$3
+fi

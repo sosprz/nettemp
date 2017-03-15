@@ -59,7 +59,44 @@ OpenWRT, beta version:
 
 Changelog:
 
-4 RC1
+4.1.7
+
+fix update check
+
+4.1.6
+
+fix Adjust on charts
+add choose between Min Max and Min Max Light
+add tools/bd_check for check if sqlite DB is ok
+
+4.1.5
+
+add option where you can remove only sensors > reset to default
+add new dev counter in menu
+bigger labels in status
+remove device icons
+add links to sensors single settings
+add more info in title links
+add mini min max vlue in status, maybe will replace heavy min max
+
+4.1.4
+
+fix types
+
+4.1.3
+
+add SDS011
+fix sorting icons and menu in settings>types
+
+4.1.2
+
+Fix meteogram, local parsing. Thanks to debriuman.
+
+4.1.1
+Add check after action if connection to EasyESP is 200
+Fix gpio status
+
+4.1 RC1
 Changes in status
 Move hosts to sensors
 Turn off sensors tab in status

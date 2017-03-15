@@ -30,6 +30,7 @@ $sth = $db->prepare("SELECT name,tmp,type FROM sensors WHERE lcd='on' ORDER BY p
 $sth->execute();
 $result = $sth->fetchAll();
 
+$lcd=array();
 foreach ($result as $a) {
     foreach($result_t as $ty){
         if($ty['type']==$a['type']){
@@ -47,7 +48,7 @@ foreach ($result as $a) {
 
 $lfile = "$ROOT/tmp/lcd";
 $fh = fopen($lfile, 'w');
-fwrite($fh, date("Y-m-d H:i")."\n");
+fwrite($fh, date("y-m-d H:i")."\n");
 foreach ($lcd as $line) {
     fwrite($fh, $line);
 }

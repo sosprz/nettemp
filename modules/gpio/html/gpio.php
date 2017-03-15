@@ -6,5 +6,5 @@ default: case '$gpios': include('modules/gpio/html/gpio_settings.php'); break;
 }
 
 	include("gpio_menu.php");
-	include("gpio_add.php"); 
+	//include("gpio_add.php"); 
 ?>
