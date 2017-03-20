@@ -42,3 +42,4 @@ apcupsd
 smstools
 mysql-client
 python-pymodbus
+lm-sensors
