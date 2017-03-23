@@ -1,29 +1,38 @@
 <?php
 
-//ideal
-//$sensor=array("19","19.5","20.0","20.5","21","21.5","21","19.5","19");
-//one shot
-$sensor=array("18","18.6","19","19.5","20.0","30","20.5","21","21.5","21","19.5","19","18.4");
+	//variables
+	$state='';
+	$stage='';
+	$getlog='';
 
-$a=array('gpio' => '18', 'name' => 'test');
-$func=array('id' => '1');
-$value="20";
+	$tmp=array("17","17.5","18","18.5","19","19.5","20.0","30","20.5","21","21.5","21","19.5","19","18.4");
+
+foreach ($tmp as $tmp) {
+
+	//gpio
+	$g=array('id' => '3', 'gpio' => '18', 'name' => 'test', 'mode' => 'hist');
+
+	//sensors
+	$s=array('id' => '5','name' => 'taras', 'tmp' => 'trmparray');
+
+	//rules
+	$r=array('id' => '1','gpio' => '18', 'name' => 'test', 'value' => '20', 'op' => 'gt', 'hist' => '2', 'sensor1' => '5');
+
+	//week
 
 
-$STATE='';
-$STAGE='';
-$op='gt';
-$getlog='';
+	$gpio_name=$g['name'];
+	$gpio=$g['gpio'];
+	$mode=$g['mode'];
+	
+	$op=$r['op'];
+	$hist=$r['hist'];
+	$value=$r['value'];
+	$rule_name=$r['name'];
+	
+	$sensor1=$tmp;
+	$value_max=$value+$hist;
 
-$mode='temp';
-$hist='';
-$value_max='';
-
-//$mode='hist';
-//$hist="1";
-//$value_max=$value+$hist;
-
-foreach ($sensor as $sensor1) {
 	
 	/* MAP for condition */
 	if ($op=='gt') {
@@ -58,61 +67,59 @@ foreach ($sensor as $sensor1) {
 	 ">=" => $sensor1 <= $value_max, //ge
 	);
 	
-				
+	/*
+	  stage 1 bellow min
+	  stage 2 above min and bellow max
+	  stage 3 above max
+	*/			
 	
 	
-if($mode=='hist') {
-	if($normal[$op]) {
-		if($STATE=='OFF') {
-			$STATE='ON';
-		}
-		$getlog='histon';
-		$STAGE='1'; 
-
-	} 
-	else {
-		if($raise[$op]&&($STATE=='ON')) {
+	if($mode=='hist') {
+		if($normal[$op]&&!$max[$op]) {
 			$getlog='histon';
-			$STAGE='2'; 
-		} elseif($max[$op]) {
-			$STATE='OFF';
-			$STAGE='3'; 
+			$state='ON';
+			$stage='1'; 
+		} 
+		elseif(!$normal[$op]&&$raise[$op]&&$stage!='3') {
+			$getlog='histon';
+			$state='ON';
+			$stage='2'; 
+		} 
+		elseif($max[$op]) {
 			$getlog='histoff';
+			$state='OFF';
+			$stage='3'; 
+			
 		}
+	}
+
+
+
+	/* LOG */
+
+	if($mode=='temp') {
+		if($normal[$op]) {
+			$getlog='normalon';
+		} 
 		else {
-			$STAGE='4'; 
-			$getlog='histoff';
+			$getlog='normaloff';
 		}
 	}
-}
-
-if($mode=='temp') {
-	if($normal[$op]) {
-		$getlog='normalon';
-	} 
-	else {
-		$getlog='normaloff';
-	}
-
-}
 
 
 	$log=array(
-	"histon"    	=> date('Y H:i:s')." GPIO ".$a['gpio']." Name:".$a['name'].	"	Sensor1: ".$sensor1."	".$op."	Value: ".$value."	Hist: ".$hist.	"	Max: "	.$value_max.	"	F:".$func['id']."	Action: ON	State: ".$STATE."	Stage: ".$STAGE." \n",
-	"histoff"   	=> date('Y H:i:s')." GPIO ".$a['gpio']." Name:".$a['name'].	"	Sensor1: ".$sensor1."	".$op."	Value: ".$value."	Hist: ".$hist.	"	Max: "	.$value_max.	"	F:".$func['id']."	Action: OFF	State: ".$STATE."	Stage: ".$STAGE." \n",
-	"normalon"  	=> date('Y H:i:s')." GPIO ".$a['gpio']." Name:".$a['name'].	"	Sensor1: ".$sensor1."	".$op."	Value: ".$value."	Hist: ".$hist.	"	Max: "	.$value_max.	"	F:".$func['id']."	Action: ON	\n",
-	"normaloff" 	=> date('Y H:i:s')." GPIO ".$a['gpio']." Name:".$a['name'].	"	Sensor1: ".$sensor1."	".$op."	Value: ".$value."	Hist: ".$hist.	"	Max: "	.$value_max.	"	F:".$func['id']."	Action: OFF	\n",
-	"user_locked"	=> date('Y H:i:s')." GPIO ".$a['gpio']." Name:".$a['name'].	"	LOCKED by USER\n"
+	"histon"    	=> date('Y H:i:s')." GPIO ".$gpio." Name:".$gpio_name.	"	Sensor1: ".$sensor1."	".$op."	Value: ".$value."	Hist: ".$hist.	"	Max: "	.$value_max.	"	Rule:".$rule_name."	Action: ON	state: ".$state."	Stage: ".$stage." \n",
+	"histoff"   	=> date('Y H:i:s')." GPIO ".$gpio." Name:".$gpio_name.	"	Sensor1: ".$sensor1."	".$op."	Value: ".$value."	Hist: ".$hist.	"	Max: "	.$value_max.	"	Rule:".$rule_name."	Action: OFF	state: ".$state."	Stage: ".$stage." \n",
+	"normalon"  	=> date('Y H:i:s')." GPIO ".$gpio." Name:".$gpio_name.	"	Sensor1: ".$sensor1."	".$op."	Value: ".$value."	Hist: ".$hist.	"	Max: "	.$value_max.	"	Rule:".$rule_name."	Action: ON	\n",
+	"normaloff" 	=> date('Y H:i:s')." GPIO ".$gpio." Name:".$gpio_name.	"	Sensor1: ".$sensor1."	".$op."	Value: ".$value."	Hist: ".$hist.	"	Max: "	.$value_max.	"	Rule:".$rule_name."	Action: OFF	\n",
+	"user_locked"	=> date('Y H:i:s')." GPIO ".$gpio." Name:".$gpio_name.	"	LOCKED by USER\n"
 	);
 	echo $log[$getlog];
 
-}
+	/* END LOG */
 
 
 
-
-
-
-
+} // END test foreach tmp array
 
 ?>
