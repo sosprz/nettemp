@@ -395,7 +395,7 @@ $db->exec("UPDATE sensors SET stat_min='0' WHERE stat_min='' OR stat_min is null
 //TIME & TRIGGER
 //$db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
 $db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE OF tmp ON sensors FOR EACH ROW WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END");
-$db->exec("create unique index unique_name on newdev(rom)");
+//$db->exec("create unique index unique_name on newdev(rom)");
 
 /* COMMIT */
 $db->commit();
