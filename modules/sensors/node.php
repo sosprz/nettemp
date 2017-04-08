@@ -12,15 +12,30 @@ try {
     exit;
 }
 try {
-	$query = $db->query("SELECT * FROM settings where id='1'");
-    $result= $query->fetchAll();
-    foreach($result as $s) {
-		$client_ip=$s['client_ip'];
-		$client_key=$s['client_key'];
-		$client_on=$s['client_on'];
-		$cauth_on=$s['cauth_on'];
-		$cauth_pass=$s['cauth_pass'];
-    }
+    $sth = $db->query("SELECT * FROM nt_settings");
+	$sth->execute();
+	$result = $sth->fetchAll();
+	foreach ($result as $a) {
+		if($a['option']=='client_ip') {
+			$client_ip=$a['value'];
+		}
+		if($a['option']=='client_key') {
+			$client_key=$a['value'];
+		}
+		if($a['option']=='client_on') {
+			$client_on=$a['value'];
+		}
+		if($a['option']=='cauth_on') {
+			$cauth_on=$a['value'];
+		}
+		if($a['option']=='cauth_pass') {
+			$cauth_pass=$a['value'];
+		}
+}
+    
+    
+    
+    
     if(!empty($client_ip)&&!empty($client_key)&&!empty($client_on)){
 		$query = $db->query("SELECT * FROM sensors WHERE remote='on'");
 		$result= $query->fetchAll();
