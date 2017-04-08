@@ -8,17 +8,12 @@
     exit();
     }
 
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $sth = $db->prepare("select * from settings WHERE id='1'");
-    $sth->execute();
-    $result = $sth->fetchAll();
-    foreach ($result as $a) {
 ?>
 
 <form action="" method="post" class="form-inline">
   <div class="form-group">
     <label for="exampleInputName2">Location from <a href="http://www.yr.no" target="_blank">www.yr.no</a> </label>  
-    <input type="text" class="form-control input-sm" name="place" value="<?php echo $a['meteogram']; ?>" placeholder="Poland/Pomerania/Gdańsk">
+    <input type="text" class="form-control input-sm" name="place" value="<?php echo $nts_charts_meteogram ?>" placeholder="Poland/Pomerania/Gdańsk">
     <input type="hidden" name="set" value="set" />
   </div>
   <button type="submit" class="btn btn-xs btn-success">Save</button>
@@ -26,9 +21,7 @@
 </br>
 
 
-<?php
-    }
-?>
+
 
 
 <script src="https://code.highcharts.com/highcharts.js"></script>

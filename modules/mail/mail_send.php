@@ -14,7 +14,7 @@ try {
 }
 
 try {
-	$query = $db->query("SELECT * FROM nt_settings WHERE option='mail_onoff' OR option='mail_topic'");
+	$query = $db->query("SELECT * FROM nt_settings");
     $result= $query->fetchAll();
     
     foreach($result as $s) {

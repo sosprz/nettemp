@@ -8,12 +8,7 @@ $max=$_GET["max"];
 $mode=$_GET["mode"];
 $array=null;
 
-$db = new PDO("sqlite:$root/dbf/nettemp.db");
-$rows = $db->query("SELECT * FROM highcharts WHERE id='1'");
-$row = $rows->fetchAll();
-foreach($row as $a) {
-	$charts_fast=$a['charts_fast'];
-}
+include("modules/settings/nt_settings.php");
 
 function query($max,&$query) {
 if ($max == 'hour') {

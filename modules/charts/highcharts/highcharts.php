@@ -1,10 +1,5 @@
 <?php 
-$db = new PDO('sqlite:dbf/nettemp.db');
-$rows1 = $db->query("SELECT charts_theme FROM highcharts WHERE id='1'");
-$row1 = $rows1->fetchAll();
-foreach($row1 as $t){
-$theme=$t['charts_theme'];
-}
+$theme=$nts_charts_theme;
 ?>
 <script type="text/javascript" src="html/highcharts/highstock.js"></script>
 <script type="text/javascript" src="html/highcharts/exporting.js"></script>
@@ -43,7 +38,7 @@ function getUrlVars() {
 		var type = "temp";    
     }
     if(!max) {
-		var max = "<?php echo $html_charts_max?>";    
+		var max = "<?php echo $nts_charts_max?>";    
     }
     
     

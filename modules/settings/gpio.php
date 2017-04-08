@@ -2,49 +2,34 @@
     $gpio_onoff = isset($_POST['gpio_onoff']) ? $_POST['gpio_onoff'] : '';
     $gpio_onoff1 = isset($_POST['gpio_onoff1']) ? $_POST['gpio_onoff1'] : '';
     if (($gpio_onoff1 == "gpio_onoff2") ){
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET gpio='$gpio_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
-    echo $gpio_onoff;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
+		$db = new PDO('sqlite:dbf/nettemp.db');
+		$db->exec("UPDATE nt_settings SET value='$gpio_onoff' WHERE option='gpio'") or die ($db->lastErrorMsg());
+		echo $gpio_onoff;
+		header("location: " . $_SERVER['REQUEST_URI']);
+		exit();
     }
     
     $gpiodemo = isset($_POST['gpiodemo']) ? $_POST['gpiodemo'] : '';
     $gpiodemo_onoff = isset($_POST['gpiodemo_onoff']) ? $_POST['gpiodemo_onoff'] : '';
     if (($gpiodemo == "onoff") ){
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET gpiodemo='$gpiodemo_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
-    echo $gpio_onoff;
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
+		$db = new PDO('sqlite:dbf/nettemp.db');
+		$db->exec("UPDATE nt_settings SET value='$gpiodemo_onoff' WHERE option='gpio_demo'") or die ($db->lastErrorMsg());
+		echo $gpio_onoff;
+		header("location: " . $_SERVER['REQUEST_URI']);
+		exit();
     }
 
 
     $MCP23017_onoff = isset($_POST['MCP23017_onoff']) ? $_POST['MCP23017_onoff'] : '';
     $MCP23017_onoff1 = isset($_POST['MCP23017_onoff1']) ? $_POST['MCP23017_onoff1'] : '';
     if (($MCP23017_onoff1 == "MCP23017_onoff2") ){
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET MCP23017='$MCP23017_onoff' WHERE id='1'");
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
+		$db = new PDO('sqlite:dbf/nettemp.db');
+		$db->exec("UPDATE nt_settings SET value='$MCP23017_onoff' WHERE option='MCP23017'") or die ($db->lastErrorMsg());
+		header("location: " . $_SERVER['REQUEST_URI']);
+		exit();
     }
 
-$db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("select * from settings WHERE id='1'");
-$sth->execute();
-$result = $sth->fetchAll();
-foreach ($result as $a) {
-$rrd=$a["rrd"];
-$hc=$a["highcharts"];
-$ss=$a["sms"];
-$ms=$a["mail"];
-$gpio=$a["gpio"];
-$gpiodemo=$a["gpiodemo"];
-$lcd=$a["lcd"];
-$MCP23017=$a["MCP23017"];
 
-
-}
 ?>
 
 <div class="panel panel-default">
@@ -54,7 +39,7 @@ $MCP23017=$a["MCP23017"];
 <div class="panel-body"> 
 <form action="" method="post">
   <input type="hidden" name="gpio_onoff1" value="gpio_onoff2"  />
-  <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="gpio_onoff" value="on"  <?php echo $gpio == 'on' ? 'checked="checked"' : ''; ?> >
+  <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="gpio_onoff" value="on"  <?php echo $nts_gpio == 'on' ? 'checked="checked"' : ''; ?> >
 </form>
 </div>
 </div>
@@ -66,7 +51,7 @@ $MCP23017=$a["MCP23017"];
 <div class="panel-body"> 
 <form action="" method="post">
   <input type="hidden" name="gpiodemo" value="onoff"  />
-  <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="gpiodemo_onoff" value="on"  <?php echo $gpiodemo == 'on' ? 'checked="checked"' : ''; ?> >
+  <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="gpiodemo_onoff" value="on"  <?php echo $nts_gpio_demo == 'on' ? 'checked="checked"' : ''; ?> >
 </form>
 </div>
 </div>
@@ -78,7 +63,7 @@ $MCP23017=$a["MCP23017"];
 <div class="panel-body">
 <form action="" method="post">
   <input type="hidden" name="MCP23017_onoff1" value="MCP23017_onoff2"  />
-  <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="MCP23017_onoff" value="on"  <?php echo $MCP23017 == 'on' ? 'checked="checked"' : ''; ?> >
+  <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="MCP23017_onoff" value="on"  <?php echo $nts_MCP23017 == 'on' ? 'checked="checked"' : ''; ?> >
 </form>
 </div>
 </div>

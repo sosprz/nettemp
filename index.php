@@ -11,7 +11,7 @@ if( !file_exists($dbfile) || !is_readable($dbfile) || filesize($dbfile) == 0 ){
     ob_start();
     $id = isset($_GET['id']) ? $_GET['id'] : '';
     $art=isset($_GET['type']) ? $_GET['type'] : '';
-    include("html/htmlconf.php");
+    include("modules/settings/nt_settings.php");
 
 ?>
 <!DOCTYPE html>

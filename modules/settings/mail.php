@@ -7,15 +7,6 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
-$db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("select value from nt_settings WHERE option='mail_onoff'");
-
-$sth->execute();
-$result = $sth->fetchAll();
-foreach ($result as $a) {
-	$ms=$a["value"];
-}
-
 ?>
 
 <div class="panel panel-default">
@@ -25,7 +16,7 @@ foreach ($result as $a) {
 <div class="panel-body">
 <p>
 <form action="" method="post">
-    <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="ms_onoff" value="on" <?php echo $ms == 'on' ? 'checked="checked"' : ''; ?>  />
+    <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="ms_onoff" value="on" <?php echo $nts_mail_onoff == 'on' ? 'checked="checked"' : ''; ?>  />
     <input type="hidden" name="ms_onoff1" value="ms_onoff2" />
 </form>
 </p>

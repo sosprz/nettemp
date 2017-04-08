@@ -193,7 +193,7 @@ if ( $lcd == "lcd"){
     	if(empty($temp_scaleon)) {
     		$temp_scaleon='C';
     	}
-    $db->exec("UPDATE settings SET temp_scale='$temp_scaleon' WHERE id='1'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$temp_scaleon' WHERE option='temp_scale'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -273,11 +273,6 @@ foreach($row as $types) {
 	$atypes[]=$types['type'];
 }
 
-$rows = $db->query("SELECT * FROM settings WHERE id='1'");
-$row = $rows->fetchAll();
-foreach ($row as $a) { 	
-    $temp_scale=$a['temp_scale'];
-}
 $mm = $db->query("SELECT * FROM minmax");
 $mm1 = $mm->fetchAll();
 foreach($mm1 as $ms){
@@ -288,7 +283,7 @@ foreach($mm1 as $ms){
 ?>
 
 <form action="" method="post" style="display:inline!important;"> 	
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="temp_scaleon" data-on="&deg;F" data-off="&deg;C"  value="F" <?php echo $temp_scale == 'F' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="temp_scaleon" data-on="&deg;F" data-off="&deg;C"  value="F" <?php echo $nts_temp_scale == 'F' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="temp_scaleonoff" value="onoff" />
 </form>
 MinMax mode:

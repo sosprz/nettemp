@@ -16,11 +16,9 @@ foreach($row1 as $hi){
 	$typearr[]=$hi['type'];
 }
 
-$rows = $db->query("SELECT * FROM settings WHERE id='1'");
-$row = $rows->fetchAll();
-foreach ($row as $a) {
-    $temp_scale=$a['temp_scale'];
-}
+
+$temp_scale=$nts_temp_scale;
+
 
 
 ?>

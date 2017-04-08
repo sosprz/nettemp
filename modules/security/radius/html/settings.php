@@ -3,7 +3,7 @@
     $onoff = isset($_POST['onoff']) ? $_POST['onoff'] : '';
     if (($onoff == "onoff") ){
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE settings SET radius='$rad_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
+	$db->exec("UPDATE nt_settings SET value='$rad_onoff' WHERE option='radius'") or die ($db->lastErrorMsg());
 	shell_exec("sudo sed -i '/exit 0/i radiusd' /etc/rc.local");
 	shell_exec("sudo radiusd");
     if ($rad_onoff != "on") {
@@ -14,28 +14,19 @@
     exit();
     }
 ?>
-<?php
-$db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("select * from settings ");
-$sth->execute();
-$result = $sth->fetchAll();
-foreach ($result as $a) {
-$rad=$a['radius'];
-}
-?>
 
 <div class="panel panel-default">
 <div class="panel-heading">Radius</div>
 <div class="panel-body">
 <form action="" method="post">
-<input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="rad_onoff" value="on" <?php echo $rad == 'on' ? 'checked="checked"' : ''; ?> />
+<input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="rad_onoff" value="on" <?php echo $nts_radius == 'on' ? 'checked="checked"' : ''; ?> />
 <input type="hidden" name="onoff" value="onoff" />
 </form>
 </div>
 </div>
 
 <?php
-    if ($rad == "on" ) {
+    if ($nts_radius == "on" ) {
     exec("pgrep radiusd", $pids);
     if(empty($pids)) { ?>
 	<span class="label label-danger">Radius not work</span>

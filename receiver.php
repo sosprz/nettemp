@@ -94,20 +94,21 @@ $local_usb='';
 
 $dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
 
-$sthr = $dbr->prepare("select server_key,temp_scale from settings WHERE id='1'");
-$sthr->execute();
-$result = $sthr->fetchAll();
-foreach ( $result as $a) {
-	$skey=$a['server_key'];
-	$scale=$a['temp_scale'];
+$sth = $dbr->query("SELECT * FROM nt_settings");
+$sth->execute();
+$result = $sth->fetchAll();
+foreach ($result as $a) {
+	if($a['option']=='temp_scale') {
+		$scale=$a['value'];
+	}
+	if($a['option']=='server_key') {
+		$skey=$a['value'];
+	}
+	if($a['option']=='charts_min') {
+		$chmin=$a['value'];
+	}
 }
 
-$sthr = $dbr->prepare("SELECT * FROM highcharts WHERE id='1'");
-$sthr->execute();
-$result = $sthr->fetchAll();
-foreach ( $result as $a) {
-	$chmin=$a['charts_min'];
-}
 
 function adjust($val,$rom) { 
 	$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");

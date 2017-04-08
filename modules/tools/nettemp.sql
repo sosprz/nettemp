@@ -75,7 +75,6 @@ CREATE TABLE "sms_settings" (
 );
 CREATE TABLE "settings" (
 	`id`	INTEGER,
-	`mail`	TEXT,
 	`sms`	TEXT,
 	`highcharts`	TEXT,
 	`rrd`	TEXT,
@@ -91,9 +90,6 @@ CREATE TABLE "settings" (
 	`lcd4`	TEXT,
 	`call`	TEXT,
 	`logger`	TEXT,
-	`charts_system`	TEXT,
-	`charts_hosts`	TEXT,
-	`charts_gpio`	TEXT,
 	`server_key`	TEXT,
 	`client_key`	TEXT,
 	`client_ip`	TEXT,
@@ -108,7 +104,6 @@ CREATE TABLE "settings" (
 	`cauth_login`	TEXT,
 	`cauth_pass`	TEXT,
 	`autologout`	TEXT,
-	`gpiodemo`	TEXT,
 	PRIMARY KEY(id)
 );
 CREATE TABLE "sensors" (
@@ -414,5 +409,6 @@ CREATE TABLE "access_time" (
 	PRIMARY KEY(id)
 );
 CREATE TABLE adjust (id INTEGER PRIMARY KEY, rom TEXT, threshold NUMERIC, end NUMERIC, addvalue NUMERIC);
+CREATE TABLE nt_settings (id INTEGER PRIMARY KEY, option UNIQUE, value TEXT);
 CREATE TRIGGER aupdate_time_trigger AFTER UPDATE OF tmp ON sensors FOR EACH ROW WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;
 COMMIT;

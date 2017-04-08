@@ -40,12 +40,9 @@ $db->exec("DROP INDEX IF EXISTS unique_name");
 $db->exec("CREATE TABLE IF NOT EXISTS access_time (id INTEGER PRIMARY KEY, name UNIQUE, Mon TEXT, Tue TEXT, Wed TEXT, Thu TEXT, Fri TEXT, Sat TEXT, Sun TEXT, stime TEXT, etime TEXT)");
 $db->exec("CREATE TABLE IF NOT EXISTS call_settings (id INTEGER PRIMARY KEY, name TEXT, dev TEXT, default_dev TEXT)");
 $db->exec("CREATE TABLE IF NOT EXISTS camera (id INTEGER PRIMARY KEY,list UNIQUE)");
-$db->exec("CREATE TABLE IF NOT EXISTS charts (id INTEGER PRIMARY KEY,charts TEXT)");
 $db->exec("CREATE TABLE IF NOT EXISTS day_plan (id INTEGER PRIMARY KEY, name UNIQUE, Mon TEXT, Tue TEXT, Wed TEXT, Thu TEXT, Fri TEXT, Sat TEXT, Sun TEXT, stime TEXT, etime TEXT)");
 $db->exec("CREATE TABLE IF NOT EXISTS fw (id INTEGER PRIMARY KEY,ssh TEXT,icmp TEXT,openvpn TEXT,ext TEXT)");
 $db->exec("CREATE TABLE IF NOT EXISTS g_func (id INTEGER PRIMARY KEY, position INTEGER DEFAULT 0, sensor TEXT, sensor2 TEXT, onoff TEXT, value TEXT, op TEXT, hyst TEXT, source TEXT, gpio TEXT, w_profile TEXT)");
-$db->exec("CREATE TABLE IF NOT EXISTS highcharts (id INTEGER PRIMARY KEY,charts_min TEXT, charts_theme TEXT, charts_fast TEXT)");
-$db->exec("CREATE TABLE IF NOT EXISTS html (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT)");
 $db->exec("CREATE TABLE IF NOT EXISTS i2c (id INTEGER PRIMARY KEY,name TEXT, addr UNIQUE)");
 $db->exec("CREATE TABLE IF NOT EXISTS maps (id INTEGER PRIMARY KEY,type TEXT,element_id INTEGER,map_num NUMERIC, map_pos NUMERIC, position INTEGER DEFAULT 1)");
 $db->exec("CREATE TABLE IF NOT EXISTS meteo (id INTEGER PRIMARY KEY, temp TEXT, latitude TEXT, height TEXT, pressure TEXT, humid TEXT, onoff TEXT)");
@@ -190,35 +187,6 @@ $dba->exec("ALTER TABLE sensors ADD position_group  TEXT");
 $dba->exec("ALTER TABLE sensors ADD stat_min TEXT");
 $dba->exec("ALTER TABLE sensors ADD stat_max TEXT");
 
-$dba->exec("ALTER TABLE settings ADD authmod  TEXT");
-$dba->exec("ALTER TABLE settings ADD call  TEXT");
-$dba->exec("ALTER TABLE settings ADD cauth_login  TEXT");
-$dba->exec("ALTER TABLE settings ADD cauth_on  TEXT");
-$dba->exec("ALTER TABLE settings ADD cauth_pass  TEXT");
-$dba->exec("ALTER TABLE settings ADD charts_gpio  TEXT");
-$dba->exec("ALTER TABLE settings ADD charts_hosts  TEXT");
-$dba->exec("ALTER TABLE settings ADD charts_min  TEXT");
-$dba->exec("ALTER TABLE settings ADD charts_system  TEXT");
-$dba->exec("ALTER TABLE settings ADD charts_theme  TEXT");
-$dba->exec("ALTER TABLE settings ADD client_ip  TEXT");
-$dba->exec("ALTER TABLE settings ADD client_key  TEXT");
-$dba->exec("ALTER TABLE settings ADD client_on  TEXT");
-$dba->exec("ALTER TABLE settings ADD fw  TEXT");
-$dba->exec("ALTER TABLE settings ADD gpio  TEXT");
-$dba->exec("ALTER TABLE settings ADD kwh  TEXT");
-$dba->exec("ALTER TABLE settings ADD lcd  TEXT");
-$dba->exec("ALTER TABLE settings ADD lcd4  TEXT");
-$dba->exec("ALTER TABLE settings ADD MCP23017  TEXT");
-$dba->exec("ALTER TABLE settings ADD meteogram  TEXT");
-$dba->exec("ALTER TABLE settings ADD radius  TEXT");
-$dba->exec("ALTER TABLE settings ADD server_key  TEXT");
-$dba->exec("ALTER TABLE settings ADD tempnum  TEXT");
-$dba->exec("ALTER TABLE settings ADD temp_scale TEXT");
-$dba->exec("ALTER TABLE settings ADD ups_status  TEXT");
-$dba->exec("ALTER TABLE settings ADD vpn  TEXT");
-$dba->exec("ALTER TABLE settings ADD gpiodemo  TEXT");
-$dba->exec("ALTER TABLE settings ADD autologout  TEXT");
-
 $dba->exec("ALTER TABLE snmp ADD rom  UNIQUE");
 $dba->exec("ALTER TABLE snmp ADD  type TEXT");
 $dba->exec("ALTER TABLE snmp ADD version  TEXT");
@@ -259,7 +227,6 @@ try {
 $db->beginTransaction();
 
 $db->exec("INSERT OR IGNORE INTO access_time (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime) VALUES  ('any', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', '00:00', '23:59')");
-$db->exec("INSERT OR IGNORE INTO charts (id, charts) VALUES (1, 'Highcharts')");
 
 $db->exec("INSERT OR IGNORE INTO device (id,i2c) VALUES (1,'off')");
 $db->exec("INSERT OR IGNORE INTO device (id,lmsensors) VALUES (1,'off')");
@@ -267,17 +234,6 @@ $db->exec("INSERT OR IGNORE INTO device (id,wireless) VALUES (1,'off')");
 $db->exec("INSERT OR IGNORE INTO device (usb, onewire, serial, i2c, lmsensors, wireless ) VALUES ('off','off','off','off','off','off')");
 
 $db->exec("INSERT OR IGNORE INTO fw (id, ssh, icmp, ext, openvpn, radius ) VALUES (1,'off','off', '0.0.0.0/0', 'off', 'off')");
-$db->exec("INSERT OR IGNORE INTO highcharts (id, charts_min, charts_theme, charts_fast) VALUES (1, '1', 'black', 'off')");
-
-$db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('footer', 'on')");
-$db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('info', 'on')");
-$db->exec("INSERT OR IGNORE INTO html (name, state) VALUES ('screen', 'off')");
-$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('charts_max', 'day')");
-$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('map_height', '600')");
-$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('map_width', '800')");
-$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('nettemp_alt', 'nettemp')");
-$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('nettemp_link', 'http://nettemp.pl')");
-$db->exec("INSERT OR IGNORE INTO html (name, value) VALUES ('nettemp_logo', ' media/png/nettemp.pl.png')");
 
 $db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('bh1750','23')");
 $db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('bme280','76')");
@@ -292,10 +248,6 @@ $db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tsl2561','39')");
 
 $db->exec("INSERT OR IGNORE INTO meteo (id, temp, latitude, height, pressure, humid, onoff ) VALUES (1,'0','0','0','0','0','off')");
 $db->exec("INSERT OR IGNORE INTO minmax (name, state) VALUES ('mode', '1')");
-
-$db->exec("INSERT OR IGNORE INTO settings (id, mail, sms, rrd, fw, vpn, gpio, authmod, temp_scale, meteogram) VALUES (1,'off','off', 'off', 'off', 'off', 'on', 'on', 'C', 'Poland/Pomerania/Gdansk')");
-$db->exec("INSERT OR IGNORE INTO settings (id, temp_scale) VALUES (1, 'C')");
-$db->exec("INSERT OR IGNORE INTO settings (id,gpio) VALUES (1,'on')");
 
 $db->exec("INSERT OR IGNORE INTO statistics (agreement) VALUES ('no')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max, value1, value2, value3) VALUES ('temp', '°C', '°F', 'media/ico/temp2-icon.png' ,'Temperature','-150', '3000', '85', '185' ,'127.9')");
@@ -340,7 +292,7 @@ $db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('SDS011','none')");
 $db->exec("INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')");
 
 
-
+//nt_settings
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
@@ -351,11 +303,48 @@ function generateRandomString($length = 10) {
     return $randomString;
 }
 $key=generateRandomString();
-$db->exec("UPDATE OR IGNORE settings SET server_key='$key' where id='1' AND server_key is null");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('server_key', '$key')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('client_ip', '')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('client_key', '')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('client_on', '')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('cauth_on', '')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('cauth_pass', '')");
 
-//nt_settings
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('mail_topic','Mail from nettemp device')");
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('mail_onoff','on')");
+
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('gpio','on')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('gpio_demo','off')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('MCP23017','off')");
+
+
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_min','10')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_theme','off')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_meteogram','Poland/Pomerania/Gdansk')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_default','Highcharts')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_max','day')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_fast','on')");
+
+
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('fw','off')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('vpn','off')");
+
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('temp_scale','C')");
+
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('footer', 'on')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('info', 'on')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('screen', 'off')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('map_height', '600')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('map_width', '800')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('nettemp_alt', 'nettemp')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('nettemp_link', 'http://nettemp.pl')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('nettemp_logo', ' media/png/nettemp.pl.png')");
+
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('vpn', 'off')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('sms', 'off')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('fw', 'off')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('authmod', 'on')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('radius', 'off')");
 
 
 
@@ -392,13 +381,7 @@ $db->exec("UPDATE sensors SET adj='0' WHERE adj='' OR adj=' ' OR adj is null");
 $db->exec("UPDATE sensors SET charts='on' WHERE charts is null");
 $db->exec("UPDATE sensors SET ch_group='sensors' WHERE ch_group is null OR ch_group=''");
 $db->exec("UPDATE sensors SET sum='0' WHERE sum='' OR sum=' ' OR sum is null");
-$db->exec("UPDATE settings SET autologout='on' WHERE autologout is null");
-$db->exec("UPDATE settings SET charts_gpio='on' WHERE charts_gpio is null");
-$db->exec("UPDATE settings SET charts_hosts='on' WHERE charts_hosts is null");
-$db->exec("UPDATE settings SET charts_min='10' WHERE charts_gpio is null");
-$db->exec("UPDATE settings SET charts_system='on' WHERE charts_system is null");
-$db->exec("UPDATE settings SET meteogram='Poland/Pomerania/Gdansk' WHERE id='1' AND meteogram is null");
-$db->exec("UPDATE settings SET temp_scale='C' WHERE temp_scale is null OR temp_scale=''");
+
 $db->exec("UPDATE snmp SET version='2c' WHERE version is null");
 $db->exec("UPDATE users SET perms='adm' WHERE login='admin' AND perms is null");
 $db->exec("UPDATE sensors SET stat_max='0' WHERE stat_max='' OR stat_max is null");
