@@ -14,15 +14,19 @@ try {
 }
 
 try {
-	$query = $db->query("SELECT mail FROM settings WHERE id='1'");
+	$query = $db->query("SELECT * FROM nt_settings WHERE option='mail_onoff' OR option='mail_topic'");
     $result= $query->fetchAll();
+    
     foreach($result as $s) {
-		if($s['mail']!='on') {
+		if($s['option']=='mail_onoff' && $s['value']!='on') {
 			echo $date." Cannot send mail bacause fucntion is off, go to settings.\n";
 			exit();
 		}
-			
+		if($s['option']=='mail_topic') {
+			$mail_topic=$s['value'];
+		}
 	}
+
 	
 	$query = $db->query("SELECT mail FROM users WHERE maila='yes'");
     $result= $query->fetchAll();
@@ -88,7 +92,7 @@ try {
 		if(($mail!='sent')||($minute=='00')){
 		    echo $date." Sending to: ".$string."\n";
 		    
-			if ( mail ($addr, 'Mail from nettemp device', message($name,0,$date,"Lost connecion","#FF0000"), $headers ) ) {
+			if ( mail ($addr, $mail_topic, message($name,0,$date,"Lost connecion","#FF0000"), $headers ) ) {
 				echo $date." Lost cnnection with: ".$name." - Mail send OK\n";
 			} else {
 				echo $date." Lost cnnection with: ".$name." - Mail send problem\n";
@@ -108,7 +112,7 @@ try {
 		$mail=$s['mail'];
 		if($mail=='sent'){
 		    echo $date." Sending to: ".$string."\n";
-			if ( mail ($addr, 'Mail from nettemp device', message($name,0,$date,"Recovery","#00FF00"), $headers ) ) {
+			if ( mail ($addr, $mail_topic, message($name,0,$date,"Recovery","#00FF00"), $headers ) ) {
 				echo $date." ".$name." recovery - Mail send OK\n";
 				$db->exec("UPDATE sensors SET mail='' WHERE rom='$rom'");
 			} else {
@@ -133,7 +137,7 @@ try {
 		if($tmp>$tmpmax&&is_numeric($tmpmax)) {
 			if(($mail!='sentmax')||($minute=='00')){
 				echo $date." Sending to: ".$string."\n";
-				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"High value","#FF0000"), $headers ) ) {
+				if ( mail ($addr, $mail_topic, message($name,$tmp,$date,"High value","#FF0000"), $headers ) ) {
 					echo $date." High value ".$name." - Mail send OK\n";
 				} else {
 					echo $date." High value ".$name." - Mail send problem\n";
@@ -147,7 +151,7 @@ try {
 		elseif($tmp<$tmpmin&&is_numeric($tmpmin)) {
 			if(($mail!='sentmin')||($minute=='00')){
 				echo $date." Sending to: ".$string."\n";
-				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"Low value","#FF0000"), $headers ) ) {
+				if ( mail ($addr, $mail_topic, message($name,$tmp,$date,"Low value","#FF0000"), $headers ) ) {
 					echo $date." Low value ".$name." - Mail send OK\n";
 				} else {
 					echo $date." Low value ".$name." - Mail send problem\n";
@@ -161,7 +165,7 @@ try {
 		else {
 			if(!empty($mail)){
 				echo $date." Sending to: ".$string."\n";
-				if ( mail ($addr, 'Mail from nettemp device', message($name,$tmp,$date,"Recovery","#00FF00"), $headers ) ) {
+				if ( mail ($addr, $mail_topic, message($name,$tmp,$date,"Recovery","#00FF00"), $headers ) ) {
 					echo $date." Recovery ".$name." ".$tmp." - Mail send OK\n";
 					$db->exec("UPDATE sensors SET mail='' WHERE rom='$rom'");
 				} else {

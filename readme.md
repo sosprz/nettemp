@@ -59,6 +59,11 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.8
+
+new settings table in db
+add mail topic in mail settings
+
 4.1.7
 
 fix update check

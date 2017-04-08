@@ -355,6 +355,8 @@ $db->exec("UPDATE OR IGNORE settings SET server_key='$key' where id='1' AND serv
 
 //nt_settings
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('mail_topic','Mail from nettemp device')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('mail_onoff','on')");
+
 
 
 

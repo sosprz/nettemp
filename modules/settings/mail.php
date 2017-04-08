@@ -3,21 +3,17 @@
     $ms_onoff1 = isset($_POST['ms_onoff1']) ? $_POST['ms_onoff1'] : '';
     if (($ms_onoff1 == "ms_onoff2") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET mail='$ms_onoff' WHERE id='1'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$ms_onoff' WHERE option='mail_onoff'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
 $db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("select * from settings WHERE id='1'");
+$sth = $db->prepare("select value from nt_settings WHERE option='mail_onoff'");
+
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) {
-$rrd=$a["rrd"];
-$hc=$a["highcharts"];
-$ss=$a["sms"];
-$ms=$a["mail"];
-$gpio=$a["gpio"];
-$lcd=$a["lcd"];
+	$ms=$a["value"];
 }
 
 ?>

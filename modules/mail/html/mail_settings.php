@@ -70,7 +70,7 @@ $conf = array (
 		}
 		
 
-		$db->exec("UPDATE nettemp_settings SET value='$topic' WHERE option='mail_topic'") or die ($db->lastErrorMsg());
+		$db->exec("UPDATE nt_settings SET value='$topic' WHERE option='mail_topic'") or die ($db->lastErrorMsg());
 		
 		header("location: " . $_SERVER['REQUEST_URI']);
     	exit();
