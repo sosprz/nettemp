@@ -31,7 +31,7 @@ $headers = "From: ".$a['user']."\r\n";
 
 if  ($send == "send") {
 	 $test_mail1=escapeshellarg($test_mail);
-	 if ( mail ($test_mail, 'Test mail from nettemp device', 'Working Fine.', $headers ) ) {
+	 if ( mail ($test_mail, $mail_topic, 'Working Fine.', $headers ) ) {
 ?>
 
     		<center><span class="label label-success">Mail send ok</span></center>
