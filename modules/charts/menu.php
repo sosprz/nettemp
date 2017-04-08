@@ -30,7 +30,7 @@ $result_t = $query->fetchAll();
 foreach($result_t as $ty){
 	if(in_array($ty['type'], $typearr)) { 
 	?>
-     <a href="index.php?id=<?php echo $id ?>&type=<?php echo $ty['type']?>&max=<?php echo $html_charts_max?>&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php if($art == $ty['type']&&empty($group)) {echo "active";} ?>"><?php echo $ty['title']?></button></a>
+     <a href="index.php?id=<?php echo $id ?>&type=<?php echo $ty['type']?>&max=<?php echo $nts_charts_max?>&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php if($art == $ty['type']&&empty($group)) {echo "active";} ?>"><?php echo $ty['title']?></button></a>
 	<?php
 	}
 }
@@ -45,7 +45,7 @@ $result_ch_g = $query->fetchAll();
 	$rowu = array_unique($unique);
 	foreach ($rowu as $ch_g) { 	
 		?>
-		<a href="index.php?id=<?php echo $id ?>&type=group&max=<?php echo $html_charts_max?>&mode=&group=<?php echo $ch_g ?>&single=" ><button class="btn btn-xs btn-default <?php if($group==$ch_g) {echo "active";} ?>">Group: <?php echo $ch_g?></button></a>
+		<a href="index.php?id=<?php echo $id ?>&type=group&max=<?php echo $nts_charts_max?>&mode=&group=<?php echo $ch_g ?>&single=" ><button class="btn btn-xs btn-default <?php if($group==$ch_g) {echo "active";} ?>">Group: <?php echo $ch_g?></button></a>
 		<?php 
 	}
 

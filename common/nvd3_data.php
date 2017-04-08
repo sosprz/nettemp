@@ -12,7 +12,7 @@ $data='';
 $adj='';
 
 
-include("modules/settings/nt_settings.php");
+include($root."/modules/settings/nt_settings.php");
 
 function query($max,&$query) {
 if ($max == 'hour') {
@@ -100,8 +100,8 @@ if ($type == 'system') {
     $dirb = "sqlite:$root/db/system_$file.sql";
     $dbh = new PDO($dirb) or die("cannot open database");
 
-    	if($charts_fast=='on') {
-    		querymod($max,$charts_min,$query);
+    	if($nts_charts_fast=='on') {
+    		querymod($max,$nts_charts_min,$query);
     	}
 		else {
     		query($max,$query);
@@ -137,7 +137,7 @@ elseif ($type == 'host') {
     	$dirb = "sqlite:$root/db/$file.sql";
     	$dbh = new PDO($dirb) or die("cannot open database");
     	if($charts_fast=='on') {
-    		querymod($max,$charts_min,$query);
+    		querymod($max,$nts_charts_min,$query);
     	}
 		else {
     		query($max,$query);
@@ -170,8 +170,8 @@ elseif ($type == 'gpio') {
 
     	$dirb = "sqlite:$root/db/gpio_stats_$file.sql";
     	$dbh = new PDO($dirb) or die("cannot open database");
-    	if($charts_fast=='on') {
-    		querymod($max,$charts_min,$query);
+    	if($nts_charts_fast=='on') {
+    		querymod($max,$nts_charts_min,$query);
     	}
 		else {
     		query($max,$query);
@@ -200,8 +200,8 @@ elseif ($type == 'group'){
 		
     	$dirb = "sqlite:$root/db/$file.sql";
     	$dbh = new PDO($dirb) or die("cannot open database");
-    	if($charts_fast=='on') {
-    		querymod($max,$charts_min,$query);
+    	if($nts_charts_fast=='on') {
+    		querymod($max,$nts_charts_min,$query);
     	}
 		else {
     		query($max,$query);
@@ -239,7 +239,7 @@ elseif ($type == 'elec' && $mode == 2) {
     	$dirb = "sqlite:$root/db/$file.sql";
     	$dbh = new PDO($dirb) or die("cannot open database");
     	if($charts_fast=='on') {
-    		queryc($max,$charts_min,$query);
+    		queryc($max,$nts_charts_min,$query);
     	}
 		else {
     		queryc($max,$query);
@@ -277,8 +277,8 @@ else {
 
     	$dirb = "sqlite:$root/db/$file.sql";
     	$dbh = new PDO($dirb) or die("cannot open database");
-    	if($charts_fast=='on') {
-    		querymod($max,$charts_min,$query);
+    	if($nts_charts_fast=='on') {
+    		querymod($max,$nts_charts_min,$query);
     	}
 		else {
     		query($max,$query);

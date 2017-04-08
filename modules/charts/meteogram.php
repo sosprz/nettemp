@@ -769,13 +769,7 @@ $(function () { // On DOM ready...
     // Set the hash to the yr.no URL we want to parse
     if (!location.hash) {
 <?php
-$db = new PDO('sqlite:dbf/nettemp.db');
-$rows1 = $db->query("SELECT meteogram  FROM settings WHERE id='1'");
-$row1 = $rows1->fetchAll();
-foreach($row1 as $a){
-$meteogram=$a['meteogram'];
-}
-    echo "var place = '$meteogram';\n";
+    echo "var place = '$nts_charts_meteogram';\n";
 ?>
 
         //var place = 'United_Kingdom/England/London';

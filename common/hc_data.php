@@ -8,7 +8,7 @@ $max=$_GET["max"];
 $mode=$_GET["mode"];
 $array=null;
 
-include("modules/settings/nt_settings.php");
+include($root."/modules/settings/nt_settings.php");
 
 function query($max,&$query) {
 if ($max == 'hour') {
@@ -126,7 +126,7 @@ else {
     $dirb = "sqlite:$root/db/$file.sql";
     $dbh = new PDO($dirb) or die("cannot open database");
 
-    if($charts_fast=='on') {
+    if($nts_charts_fast=='on') {
     	querymod($max,$query);
     }
 	else {

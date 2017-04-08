@@ -53,13 +53,6 @@ $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM i2c") or header("Location: html/errors/db_error.php");
 $row = $rows->fetchAll();
 
-$lcd = $db->query("SELECT * FROM settings") or header("Location: html/errors/db_error.php");
-$lcd = $lcd->fetchAll();
-foreach ($lcd as $c) {
-$lcd=$c['lcd'];
-}
-
-
 ?>
 <thead>
 <tr>

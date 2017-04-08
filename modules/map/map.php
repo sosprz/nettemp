@@ -4,13 +4,6 @@ if(!isset($_SESSION['user'])){ header("Location: denied"); }
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 
-$rows = $db->query("SELECT * FROM settings WHERE id='1'");
-$row = $rows->fetchAll();
-foreach ($row as $a) {
-    $temp_scale=$a['temp_scale'];
-}
-
-include("$root/html/htmlconf.php");
 
 $label='';
 $need_id = isset($_POST['need_id']) ? $_POST['need_id'] : '';
@@ -154,7 +147,7 @@ foreach ($row as $b) {
 	foreach($result_t as $ty){
 
        	if($ty['type']==$a['type']) {
-       		if($temp_scale == 'C'){
+       		if($nts_temp_scale == 'C'){
        			$unit=$ty['unit'];
        		} else {
        			$unit=$ty['unit2'];

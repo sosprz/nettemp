@@ -15,11 +15,6 @@ foreach ($row_meteo as $a) {
     $normalized=$a['normalized'];
 	$pressure=$a['pressure'];
 }
-$rows = $db->query("SELECT * FROM settings WHERE id='1'");
-$row = $rows->fetchAll();
-foreach ($row as $a) {
-    $temp_scale=$a['temp_scale'];
-}
 
 	$sth = $db->prepare("SELECT * FROM sensors WHERE position !=0 AND ch_group='$ch_g' AND type!='gpio' AND type!='elec' AND type!='water' AND type!='gas' AND ch_group!='switch' AND ch_group!='relay' AND (jg!='on' OR jg is null) ORDER BY position ASC");
 	$gname = str_replace('_', ' ', $ch_g);
@@ -63,7 +58,7 @@ foreach ($row as $a) {
 		
 		foreach($result_t as $ty){
        	if($ty['type']==$a['type']){
-     			if($temp_scale == 'F'){
+     			if($nts_temp_scale == 'F'){
        			$unit=$ty['unit2'];
        		} else {
        			$unit=$ty['unit'];

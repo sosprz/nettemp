@@ -45,7 +45,6 @@ $db->exec("CREATE TABLE IF NOT EXISTS g_func (id INTEGER PRIMARY KEY, position I
 $db->exec("CREATE TABLE IF NOT EXISTS i2c (id INTEGER PRIMARY KEY,name TEXT, addr UNIQUE)");
 $db->exec("CREATE TABLE IF NOT EXISTS maps (id INTEGER PRIMARY KEY,type TEXT,element_id INTEGER,map_num NUMERIC, map_pos NUMERIC, position INTEGER DEFAULT 1)");
 $db->exec("CREATE TABLE IF NOT EXISTS meteo (id INTEGER PRIMARY KEY, temp TEXT, latitude TEXT, height TEXT, pressure TEXT, humid TEXT, onoff TEXT)");
-$db->exec("CREATE TABLE IF NOT EXISTS minmax (id INTEGER PRIMARY KEY,name UNIQUE,state TEXT,value TEXT)");
 $db->exec("CREATE TABLE IF NOT EXISTS newdev (id INTEGER PRIMARY KEY,list UNIQUE)");
 $db->exec("CREATE TABLE IF NOT EXISTS relays (id INTEGER PRIMARY KEY,list UNIQUE)");
 $db->exec("CREATE TABLE IF NOT EXISTS rs485 (id INTEGER PRIMARY KEY,dev,addr TEXT)");
@@ -310,7 +309,7 @@ $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('cauth_on', 
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('cauth_pass', '')");
 
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('mail_topic','Mail from nettemp device')");
-$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('mail_onoff','on')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('mail_onoff','off')");
 
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('gpio','on')");
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('gpio_demo','off')");
@@ -318,7 +317,7 @@ $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('MCP23017','
 
 
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_min','10')");
-$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_theme','off')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_theme','black')");
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_meteogram','Poland/Pomerania/Gdansk')");
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_default','Highcharts')");
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_max','day')");

@@ -1,19 +1,9 @@
 <?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
 
-<?php 
-	$db = new PDO('sqlite:dbf/nettemp.db');
-	$sth = $db->prepare("select * from settings ");
-	$sth->execute();
-	$result = $sth->fetchAll();
-	foreach ($result as $a) {
-	$kwh=$a["kwh"];
-	$gpio=$a["gpio"];
-	}
-	?>
 <p>
 <a href="index.php?id=device&type=scan" ><button class="btn btn-xs btn-default <?php if (!file_exists('tmp/scan')) { echo "btn-danger"; } else { echo $art == 'scan' ? 'active ' : ''; } ?> ">Scan</button></a>
 <a href="index.php?id=device&type=devices" ><button class="btn btn-xs btn-default <?php echo $art == 'devices' ? 'active' : ''; ?>">Devices</button></a>
-<?php if ( $gpio == 'on' ) { ?>
+<?php if ( $nts_gpio == 'on' ) { ?>
 <a href="index.php?id=device&type=gpio" ><button class="btn btn-xs btn-default <?php echo $art == 'gpio' ? 'active' : ''; ?>">GPIO</button></a>
 	<?php } ?>
 <a href="index.php?id=device&type=snmp" ><button class="btn btn-xs btn-default <?php echo $art == 'snmp' ? 'active' : ''; ?>">SNMP</button></a>
