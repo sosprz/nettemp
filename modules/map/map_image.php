@@ -5,8 +5,8 @@
     $map_height = isset($_POST['map_height']) ? $_POST['map_height'] : '';
     if (($action == "save")){
 	 $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE html SET value='$map_width' WHERE name='map_width'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE html SET value='$map_height' WHERE name='map_height'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$map_width' WHERE option='map_width'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$map_height' WHERE option='map_height'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -24,7 +24,7 @@
 <div class="form-group">
   <label class="col-md-1 control-label" for="textinput">Height</label>  
   <div class="col-md-1">
-  <input id="textinput" name="map_height" type="text" placeholder="800" class="form-control input-md" value="<?php echo $html_map_height ?>">
+  <input id="textinput" name="map_height" type="text" placeholder="800" class="form-control input-md" value="<?php echo $nts_map_height ?>">
   </div>
 </div>
 
@@ -32,7 +32,7 @@
 <div class="form-group">
   <label class="col-md-1 control-label" for="textinput">Width</label>  
   <div class="col-md-1">
-  <input id="textinput" name="map_width" type="text" placeholder="600" class="form-control input-md" value="<?php echo $html_map_width ?>">
+  <input id="textinput" name="map_width" type="text" placeholder="600" class="form-control input-md" value="<?php echo $nts_map_width ?>">
   </div>
 </div>
 

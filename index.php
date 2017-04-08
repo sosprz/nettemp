@@ -52,7 +52,7 @@ if($id != 'screen') {
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-		<a href="<?php echo $html_nettemp_link ?>" target="_blank"><img src="<?php echo $html_nettemp_logo ?>" height="50" alt="<?php echo $html_nettemp_alt ?>"></a>
+		<a href="<?php echo $nts_nettemp_link ?>" target="_blank"><img src="<?php echo $nts_nettemp_logo ?>" height="50" alt="<?php echo $nts_nettemp_alt ?>"></a>
 
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
               <span class="sr-only">Toggle navigation</span>
@@ -108,7 +108,7 @@ function new_seen($seen){
 <?php
 	}
 }
-if($html_info=='on') {
+if($nts_info=='on') {
 ?>
 <li <?php echo $id == 'info' ? ' class="active"' : ''; ?>><a href="info"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"> Info</span></a></li>
 <?php
@@ -192,7 +192,7 @@ window.setInterval( function() {
 </script>
 
 <?php
-	if(($html_footer=='on')&&($id!='screen')){ ?>
+	if(($nts_footer=='on')&&($id!='screen')){ ?>
 <footer class="footer">
       <div class="container text-center">
 			<a href="https://nettemp.pl/forum/viewforum.php?f=35" target="_blank" class="btn btn-xs btn-primary"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </a>

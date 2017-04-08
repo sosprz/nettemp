@@ -60,25 +60,25 @@ foreach ($result as $a) {
 		$nts_cauth_pass=$a['value'];
 	}
     if($a['option']=='info') {
-      	$html_info=$a['value'];
+      	$nts_info=$a['value'];
     }
     if($a['option']=='footer') {
-       	$html_footer=$a['value'];
+       	$nts_footer=$a['value'];
     }
     if($a['option']=='nettemp_alt') {
-       	$html_nettemp_alt=$a['value'];
+       	$nts_nettemp_alt=$a['value'];
     }
     if($a['option']=='nettemp_logo') {
-       	$html_nettemp_logo=$a['value'];
+       	$nts_nettemp_logo=$a['value'];
     }
     if($a['option']=='nettemp_link') {
-       	$html_nettemp_link=$a['value'];
+       	$nts_nettemp_link=$a['value'];
     }
     if($a['option']=='map_width') {
-       	$html_map_width=$a['value'];
+       	$nts_map_width=$a['value'];
     }
     if($a['option']=='map_height') {
-       	$html_map_height=$a['value'];
+       	$nts_map_height=$a['value'];
     }
     if($a['option']=='sms') {
        	$nts_sms=$a['value'];

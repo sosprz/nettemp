@@ -49,8 +49,8 @@ exit();
       cursor: e-resize;
   }
   #content {
-      width: <?php echo $html_map_width ?>px;
-      height: <?php echo $html_map_height ?>px;
+      width: <?php echo $nts_map_width ?>px;
+      height: <?php echo $nts_map_height ?>px;
       border:2px solid #ccc;
       padding: 2px;
 <?php 
