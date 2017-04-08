@@ -14,6 +14,13 @@ fclose($fh);
 $a=$cread;
 
 
+$db = new PDO('sqlite:dbf/nettemp.db');
+$ns_row = $db->query("SELECT value FROM nt_settings WHERE option='mail_topic'") or header("Location: html/errors/db_error.php");
+$ns_rows = $ns_row->fetchAll();
+
+foreach ($ns_rows as $v) { 	
+	$mail_topic=$v['value'];
+}
 
 
 $address = isset($_POST['address']) ? $_POST['address'] : '';
@@ -24,6 +31,8 @@ $password = isset($_POST['password']) ? $_POST['password'] : '';
 $auth = isset($_POST['auth']) ? $_POST['auth'] : '';
 $tls = isset($_POST['tls']) ? $_POST['tls'] : '';
 $tlscheck = isset($_POST['tlscheck']) ? $_POST['tlscheck'] : '';
+$topic = isset($_POST['topic']) ? $_POST['topic'] : '';
+
 
 
 $change_password1 = isset($_POST['change_password1']) ? $_POST['change_password1'] : '';
@@ -59,6 +68,10 @@ $conf = array (
 		foreach ($conf as $index => $string) {
     		fwrite($fh, $index." ".$string."\n");
 		}
+		
+
+		$db->exec("UPDATE nettemp_settings SET value='$topic' WHERE option='mail_topic'") or die ($db->lastErrorMsg());
+		
 		header("location: " . $_SERVER['REQUEST_URI']);
     	exit();
 }
@@ -149,6 +162,14 @@ $conf = array (
       <option value="on" <?php echo $a['tlscheck'] == 'on' ? 'selected="selected"' : ''; ?>>on</option>
       <option value="off" <?php echo $a['tlscheck'] == 'off' ? 'selected="selected"' : 'selected="selected"'; ?> >off</option>
     </select>
+  </div>
+</div>
+
+<!-- Mail topic-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="topic">Mail topic</label>
+  <div class="col-md-2">
+    <input id="topic" name="topic" placeholder="" class="form-control input-md" required="" type="topic" value="<?php echo $mail_topic ?>">
   </div>
 </div>
 

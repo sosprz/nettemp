@@ -59,6 +59,10 @@ $db->exec("CREATE TABLE IF NOT EXISTS vpn (id INTEGER PRIMARY KEY,users UNIQUE)"
 $db->exec("CREATE TABLE IF NOT EXISTS auth_tokens (id INTEGER PRIMARY KEY, selector TEXT, token TEXT, userid TEXT, expires TEXT)");
 $db->exec("CREATE TABLE IF NOT EXISTS adjust (id INTEGER PRIMARY KEY, rom TEXT, threshold NUMERIC, end NUMERIC, addvalue NUMERIC)");
 
+// nt_settings
+$db->exec("CREATE TABLE IF NOT EXISTS nt_settings (id INTEGER PRIMARY KEY, option UNIQUE, value TEXT)");
+
+
 $db->commit();
 $db=null;
 } catch (Exception $e) {
@@ -336,6 +340,7 @@ $db->exec("INSERT OR IGNORE INTO usb (device,dev) VALUES ('SDS011','none')");
 $db->exec("INSERT OR IGNORE INTO users (login, password, perms ) VALUES ('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'adm')");
 
 
+
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
@@ -347,6 +352,11 @@ function generateRandomString($length = 10) {
 }
 $key=generateRandomString();
 $db->exec("UPDATE OR IGNORE settings SET server_key='$key' where id='1' AND server_key is null");
+
+//nt_settings
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('mail_topic','Mail from nettemp device')");
+
+
 
 $db->commit();
 $db=null;
