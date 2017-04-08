@@ -65,9 +65,6 @@ foreach ($result as $a) {
     if($a['option']=='footer') {
        	$html_footer=$a['value'];
     }
-    if($a['option']=='screen') {
-       	$html_screen=$a['value'];
-    }
     if($a['option']=='nettemp_alt') {
        	$html_nettemp_alt=$a['value'];
     }
@@ -109,6 +106,9 @@ foreach ($result as $a) {
     }
     if($a['option']=='ups_status') {
        	$nts_ups_status=$a['value'];
+    }
+    if($a['option']=='screen') {
+       	$nts_screen=$a['value'];
     }
 }
 

@@ -86,7 +86,7 @@ function new_seen($seen){
 <li <?php echo $id == 'status' ? ' class="active"' : ''; ?>><a href="status"><span class="glyphicon glyphicon-th-large" aria-hidden="true"> Status</span></a></li>
 <li <?php echo $id == 'view' ? ' class="active"' : ''; ?>><a href="index.php?id=view&type=temp&max=<?php echo $nts_charts_max?>"><span class="glyphicon glyphicon-stats" aria-hidden="true"> Charts</span></a></li>
 <?php
-	if($html_screen=='on')
+	if($nts_screen=='on')
 	{
 	?>
 	<li <?php echo $id == 'screen' ? ' class="active"' : ''; ?>><a href="screen"><span class="glyphicon glyphicon-modal-window" aria-hidden="true"> Screen</span></a></li>

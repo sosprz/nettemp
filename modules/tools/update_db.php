@@ -351,6 +351,9 @@ $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('ups_status'
 
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('minmax_mode', '1')");
 
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('screen', 'off')");
+
+
 
 $db->commit();
 $db=null;
