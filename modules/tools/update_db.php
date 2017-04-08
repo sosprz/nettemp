@@ -30,7 +30,6 @@ $db->beginTransaction();
 /* Change the database schema and data */
 
 //CLEAN
-$db->exec("DELETE FROM settings WHERE id>1");
 $db->exec("DROP TRIGGER IF EXISTS hosts_time_trigger");
 $db->exec("DROP TRIGGER IF EXISTS aupdate_time_trigger");
 $db->exec("DROP INDEX IF EXISTS unique_name");
