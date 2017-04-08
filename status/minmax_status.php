@@ -14,14 +14,8 @@ if ( $numRows > '0' ) { ?>
 <tr>
    <th></th>
 <?php
-$mm = $db->query("SELECT * FROM minmax");
-$mm1 = $mm->fetchAll();
-foreach($mm1 as $ms){
-       if($ms['name']=='mode') {
-       	$mm_mode=$ms['state'];
-       }   
-}
- if($mm_mode != '1') {
+
+ if($nts_minmax_mode != '1') {
      ?>
     <th>Hour</th>
     <?php
@@ -48,7 +42,7 @@ $file=$rom .".sql";
     $m = $db1->query("select min(value) AS mmin, max(value) AS mmax from def WHERE time BETWEEN datetime('now','localtime','-1 months') AND datetime('now','localtime') AND rowid % 480=0") or die('month');
     $m = $m->fetch();
     
-    if($mm_mode == '1') { 
+    if($nts_minmax_mode == '1') { 
     if ($a['type'] == 'elec' || $a['type'] == 'water' || $a['type'] == 'gas') { ?>
     <tr>
 	<td><?php echo $a['name'] ?></td>

@@ -64,48 +64,6 @@ CREATE TABLE "snmp" (
 	`version`	TEXT,
 	PRIMARY KEY(id)
 );
-CREATE TABLE "sms_settings" (
-	`id`	INTEGER,
-	`name`	TEXT,
-	`dev`	TEXT,
-	`sms_test`	TEXT,
-	`smsc`	TEXT,
-	`default_dev`	TEXT,
-	PRIMARY KEY(id)
-);
-CREATE TABLE "settings" (
-	`id`	INTEGER,
-	`sms`	TEXT,
-	`highcharts`	TEXT,
-	`rrd`	TEXT,
-	`fw`	TEXT,
-	`vpn`	TEXT,
-	`gpio`	TEXT,
-	`tempnum`	TEXT,
-	`kwh`	TEXT,
-	`lcd`	TEXT,
-	`authmod`	TEXT,
-	`radius`	TEXT,
-	`lcdmode`	TEXT,
-	`lcd4`	TEXT,
-	`call`	TEXT,
-	`logger`	TEXT,
-	`server_key`	TEXT,
-	`client_key`	TEXT,
-	`client_ip`	TEXT,
-	`client_on`	TEXT,
-	`charts_min`	TEXT,
-	`charts_theme`	TEXT,
-	`meteogram`	TEXT,
-	`MCP23017`	TEXT,
-	`ups_status`	TEXT,
-	`temp_scale`	TEXT,
-	`cauth_on`	TEXT,
-	`cauth_login`	TEXT,
-	`cauth_pass`	TEXT,
-	`autologout`	TEXT,
-	PRIMARY KEY(id)
-);
 CREATE TABLE "sensors" (
 	`id`	INTEGER,
 	`time`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -173,15 +131,7 @@ CREATE TABLE "newdev" (
 	`usb`	TEXT,
 	`gpio`	TEXT,
 	`ip`	TEXT,
-	`name`	TEXT, 
-	`seen`  TEXT,
-	PRIMARY KEY(id)
-);
-CREATE TABLE "minmax" (
-	`id`	INTEGER,
-	`name`	TEXT UNIQUE,
-	`state`	TEXT,
-	`value`	TEXT,
+	`name`	TEXT, seen TEXT,
 	PRIMARY KEY(id)
 );
 CREATE TABLE "meteo" (
@@ -222,13 +172,6 @@ CREATE TABLE "i2c" (
 	`addr`	TEXT UNIQUE,
 	PRIMARY KEY(id)
 );
-CREATE TABLE "html" (
-	`id`	INTEGER,
-	`name`	TEXT UNIQUE,
-	`state`	TEXT,
-	`value`	TEXT,
-	PRIMARY KEY(id)
-);
 CREATE TABLE "hosts" (
 	`id`	INTEGER,
 	`time`	TEXT DEFAULT CURRENT_TIMESTAMP,
@@ -245,13 +188,6 @@ CREATE TABLE "hosts" (
 	`position`	TEXT,
 	`element_id`	TEXT,
 	`mail`	TEXT,
-	PRIMARY KEY(id)
-);
-CREATE TABLE "highcharts" (
-	`id`	INTEGER,
-	`charts_min`	TEXT,
-	`charts_theme`	TEXT,
-	`charts_fast`	TEXT,
 	PRIMARY KEY(id)
 );
 CREATE TABLE "gpio" (
@@ -365,11 +301,6 @@ CREATE TABLE "day_plan" (
 	`stime`	TEXT,
 	`etime`	TEXT,
 	`gpio`	TEXT,
-	PRIMARY KEY(id)
-);
-CREATE TABLE "charts" (
-	`id`	INTEGER,
-	`charts`	TEXT,
 	PRIMARY KEY(id)
 );
 CREATE TABLE "camera" (

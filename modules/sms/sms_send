@@ -8,7 +8,7 @@ nr=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT tel FROM users WHER
 
 mkdir -p $dir/tmp/sms
 
-temp_scale=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT temp_scale FROM settings"`
+temp_scale=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT value FROM nt_settings WHERE option='temp_scale'"`
 
 check_alarm() {
 for line in `sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name,tmp,tmp_min,tmp_max,type FROM sensors WHERE alarm='on'"| sed 's/ /_/g'`; 

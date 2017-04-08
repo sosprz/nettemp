@@ -346,7 +346,12 @@ $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('fw', 'off')
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('authmod', 'on')");
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('radius', 'off')");
 
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('lcd', 'off')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('lcd4', 'off')");
 
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('ups_status', 'off')");
+
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('minmax_mode', '1')");
 
 
 $db->commit();

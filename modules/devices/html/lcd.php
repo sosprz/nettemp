@@ -11,33 +11,24 @@
     
     if (($lcd == "lcd") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET lcd='$lcdon' WHERE id='1'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE settings SET lcd4='off' WHERE id='1'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$lcdon' WHERE option='lcd'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='off' WHERE option='lcd4'") or die ($db->lastErrorMsg());
     shell_exec("sudo touch tmp/reboot");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
     if (($lcd4 == "lcd4") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET lcd4='$lcdon4' WHERE id='1'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE settings SET lcd='off' WHERE id='1'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$lcdon4' WHERE option='lcd4'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='off' WHERE option='lcd'") or die ($db->lastErrorMsg());
     shell_exec("sudo touch tmp/reboot");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
-$db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("select * from settings WHERE id='1'");
-$sth->execute();
-$result = $sth->fetchAll();
-foreach ($result as $a) {
-$rrd=$a["rrd"];
-$hc=$a["highcharts"];
-$ss=$a["sms"];
-$ms=$a["mail"];
-$gpio=$a["gpio"];
-$lcd=$a["lcd"];
-$lcd4=$a["lcd4"];
-}
+
+$lcd=$nts_lcd;
+$lcd4=$nts_lcd4;
+
 
 ?>
     

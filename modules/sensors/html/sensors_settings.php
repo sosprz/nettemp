@@ -204,7 +204,7 @@ if ( $lcd == "lcd"){
     	if(empty($minmax_mode_on)) {
     		$minmax_mode_on='2';
     	}
-    $db->exec("UPDATE minmax SET state='$minmax_mode_on' WHERE name='mode'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$minmax_mode_on' WHERE option='minmax_mode'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -272,14 +272,6 @@ $row = $rows->fetchAll();
 foreach($row as $types) {
 	$atypes[]=$types['type'];
 }
-
-$mm = $db->query("SELECT * FROM minmax");
-$mm1 = $mm->fetchAll();
-foreach($mm1 as $ms){
-       if($ms['name']=='mode') {
-       	$mm_mode=$ms['state'];
-       }
-}
 ?>
 
 <form action="" method="post" style="display:inline!important;"> 	
@@ -288,7 +280,7 @@ foreach($mm1 as $ms){
 </form>
 MinMax mode:
 <form action="" method="post" style="display:inline!important;"> 	
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="minmax_mode_on" data-on="min/max" data-off="difference"  value="1" <?php echo $mm_mode == '1' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="minmax_mode_on" data-on="min/max" data-off="difference"  value="1" <?php echo $nts_minmax_mode == '1' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="minmax_mode" value="onoff" />
 </form>
 </div>
