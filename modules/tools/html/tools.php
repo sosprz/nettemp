@@ -1,13 +1,4 @@
 <?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
-
-<?php $db = new PDO('sqlite:dbf/nettemp.db');
-    $sth = $db->prepare("select * from settings where id='1'");
-    $sth->execute();
-    $result = $sth->fetchAll();
-    foreach ($result as $a) {
-    $gpio=$a["gpio"];
-    }
-?>
 <p>
 <a href="index.php?id=tools&type=file_check" ><button class="btn btn-xs btn-default <?php echo $art == 'file_check' ? 'active' : ''; ?>">File check</button></a>
 <a href="index.php?id=tools&type=password" ><button class="btn btn-xs btn-default <?php echo $art == 'password' ? 'active' : ''; ?>">Password</button></a>
@@ -16,7 +7,7 @@
 <a href="index.php?id=tools&type=reset" ><button class="btn btn-xs btn-default <?php echo $art == 'reset' ? 'active' : ''; ?>">Reset to default</button></a>
 <a href="index.php?id=tools&type=reboot" ><button class="btn btn-xs btn-default <?php echo $art == 'reboot' ? 'active' : ''; ?>">Reboot</button></a>
 <a href="index.php?id=tools&type=log" ><button class="btn btn-xs btn-default <?php echo $art == 'log' ? 'active' : ''; ?>">Logging</button></a>
-<?php if ( $gpio == 'on' ) { ?>
+<?php if ( $nts_gpio == 'on' ) { ?>
 <a href="index.php?id=tools&type=gpio" ><button class="btn btn-xs btn-default <?php echo $art == 'gpio' ? 'active' : ''; ?>">GPIO</button></a>
 <?php } ?>
 <a href="index.php?id=tools&type=backup" ><button class="btn btn-xs btn-default <?php echo $art == 'backup' ? 'active' : ''; ?>">Backup/Restore</button></a>
