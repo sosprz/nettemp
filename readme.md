@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.9
+
+fix meteogram input
+
 4.1.8
 
 new settings table in db
