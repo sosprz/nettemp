@@ -340,7 +340,8 @@ CREATE TABLE "access_time" (
 	PRIMARY KEY(id)
 );
 CREATE TABLE "adjust" (
-	`rom` TEXT,
+	`id`	INTEGER,
+	`rom` 	TEXT,
 	`threshold` NUMERIC,
 	`end` NUMERIC,
 	`addvalue` NUMERIC,
