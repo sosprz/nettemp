@@ -245,7 +245,6 @@ $db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tmp102','48')");
 $db->exec("INSERT OR IGNORE INTO i2c (name,addr) VALUES ('tsl2561','39')");
 
 $db->exec("INSERT OR IGNORE INTO meteo (id, temp, latitude, height, pressure, humid, onoff ) VALUES (1,'0','0','0','0','0','off')");
-$db->exec("INSERT OR IGNORE INTO minmax (name, state) VALUES ('mode', '1')");
 
 $db->exec("INSERT OR IGNORE INTO statistics (agreement) VALUES ('no')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max, value1, value2, value3) VALUES ('temp', '°C', '°F', 'media/ico/temp2-icon.png' ,'Temperature','-150', '3000', '85', '185' ,'127.9')");
