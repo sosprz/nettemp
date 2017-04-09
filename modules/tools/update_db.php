@@ -315,12 +315,12 @@ $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('gpio_demo',
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('MCP23017','off')");
 
 
-$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_min','10')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_min','1')");
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_theme','black')");
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_meteogram','Poland/Pomerania/Gdansk')");
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_default','Highcharts')");
-$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_max','day')");
-$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_fast','on')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_max','hour')");
+$db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_fast','off')");
 
 
 $db->exec("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('fw','off')");
