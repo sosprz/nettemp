@@ -3,7 +3,7 @@
     $set = isset($_POST['set']) ? $_POST['set'] : '';
     if  ($set == "set") {
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET meteogram='$place'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$place' WHERE option='charts_meteogram'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
