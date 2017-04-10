@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.11
+
+fix meteogram save & reload
+
 4.1.10
 
 fix NT schema

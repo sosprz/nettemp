@@ -10,7 +10,7 @@
 
 ?>
 
-<form action="" method="post" class="form-inline">
+<form action="index.php?id=view&type=meteogram" method="post" class="form-inline">
   <div class="form-group">
     <label for="exampleInputName2">Location from <a href="http://www.yr.no" target="_blank">www.yr.no</a> </label>  
     <input type="text" class="form-control input-sm" name="place" value="<?php echo $nts_charts_meteogram ?>" placeholder="Poland/Pomerania/Gdańsk">
@@ -21,12 +21,8 @@
 </br>
 
 
-
-
-
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<script type="text/javascript" src="html/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="html/highcharts/exporting.js"></script>
 
 <div id="container" ></div>
 
