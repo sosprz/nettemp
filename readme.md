@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.12
+
+fix sdm20 server key
+
 4.1.11
 
 fix meteogram save & reload

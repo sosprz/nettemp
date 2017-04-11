@@ -16,7 +16,7 @@ dev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT dev FROM usb WHE
 if [[ "$dev" != "none" ]]; then
 echo OR-WE ON
 
-skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
+skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select value from nt_settings WHERE option='server_key'")
 addr=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT addr FROM rs485 WHERE dev='OR-WE'")
 
 
