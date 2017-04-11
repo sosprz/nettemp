@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.13
+
+unique rom fix
+
 4.1.12
 
 fix sdm20 server key

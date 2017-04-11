@@ -45,7 +45,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS g_func (id INTEGER PRIMARY KEY, position I
 $db->exec("CREATE TABLE IF NOT EXISTS i2c (id INTEGER PRIMARY KEY,name TEXT, addr UNIQUE)");
 $db->exec("CREATE TABLE IF NOT EXISTS maps (id INTEGER PRIMARY KEY,type TEXT,element_id INTEGER,map_num NUMERIC, map_pos NUMERIC, position INTEGER DEFAULT 1)");
 $db->exec("CREATE TABLE IF NOT EXISTS meteo (id INTEGER PRIMARY KEY, temp TEXT, latitude TEXT, height TEXT, pressure TEXT, humid TEXT, onoff TEXT)");
-$db->exec("CREATE TABLE IF NOT EXISTS newdev (id INTEGER PRIMARY KEY,list UNIQUE)");
+$db->exec("CREATE TABLE IF NOT EXISTS newdev (id INTEGER PRIMARY KEY,list UNIQUE, rom UNIQUE)");
 $db->exec("CREATE TABLE IF NOT EXISTS relays (id INTEGER PRIMARY KEY,list UNIQUE)");
 $db->exec("CREATE TABLE IF NOT EXISTS rs485 (id INTEGER PRIMARY KEY,dev,addr TEXT)");
 $db->exec("CREATE TABLE IF NOT EXISTS types (id INTEGER PRIMARY KEY,type UNIQUE, unit TEXT, unit2 TEXT, ico TEXT, title TEXT, min NUMERIC, max NUMERIC, value1 NUMERIC, value2 NUMERIC, value3 NUMERIC)");
