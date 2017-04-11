@@ -12,10 +12,14 @@ try {
 $query = $db->query("SELECT * FROM types");
 $result_t = $query->fetchAll();
 
-$rows = $db->query("SELECT * FROM settings WHERE id='1'");
-$row = $rows->fetchAll();
-foreach ($row as $a) {
-    $temp_scale=$a['temp_scale'];
+
+$sth = $db->query("SELECT * FROM nt_settings");
+$sth->execute();
+$result = $sth->fetchAll();
+foreach ($result as $a) {
+	if($a['option']=='temp_scale') {
+		$temp_scale=$a['value'];
+	}
 }
 
 $sth = $db->prepare("SELECT name,tmp,type FROM sensors WHERE lcd='on' ORDER BY position ASC, id ASC");
