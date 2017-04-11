@@ -392,9 +392,28 @@ $db->exec("UPDATE users SET perms='adm' WHERE login='admin' AND perms is null");
 $db->exec("UPDATE sensors SET stat_max='0' WHERE stat_max='' OR stat_max is null");
 $db->exec("UPDATE sensors SET stat_min='0' WHERE stat_min='' OR stat_min is null");
 
+//TIME & TRIGGER
+//$db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
+$db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE OF tmp ON sensors FOR EACH ROW WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END");
+//$db->exec("create unique index unique_name on newdev(rom)");
+
+/* COMMIT */
+$db->commit();
+//$db=null;
+
+} catch (Exception $e) {
+	/* Recognize mistake and roll back changes */
+	$db->rollBack();
+    echo $date." Error.\n";
+    echo $e;
+    //exit;
+}
+
+echo $date." nettemp database update: ok \n";
+
 /*settings -> nt_settings*/
-$db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("select * from settings WHERE id='1'");
+$db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
+if($sth = $db->prepare("select * from settings WHERE id='1'")) {
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) {
@@ -419,26 +438,7 @@ foreach ($result as $a) {
 	$cauth_pass=$a["cauth_pass"];
 	$db->exec("UPDATE nt_settings SET value='$cauth_pass' WHERE option='cauth_pass' AND value is null OR value=''");
 }
-
-
-//TIME & TRIGGER
-//$db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE ON sensors WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END;");
-$db->exec("CREATE TRIGGER IF NOT EXISTS aupdate_time_trigger AFTER UPDATE OF tmp ON sensors FOR EACH ROW WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END");
-//$db->exec("create unique index unique_name on newdev(rom)");
-
-/* COMMIT */
-$db->commit();
-$db=null;
-
-} catch (Exception $e) {
-	/* Recognize mistake and roll back changes */
-	$db->rollBack();
-    echo $date." Error.\n";
-    echo $e;
-    //exit;
 }
-
-echo $date." nettemp database update: ok \n";
 
 
 ?>
