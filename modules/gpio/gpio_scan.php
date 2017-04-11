@@ -3,13 +3,19 @@ $ROOT=dirname(dirname(dirname(__FILE__)));
 define("LOCAL","local");
 $date = date("Y-m-d H:i:s"); 
 
-	$db = new PDO('sqlite:'.$ROOT.'/dbf/nettemp.db');
-	$rows = $db->query("SELECT MCP23017,gpiodemo FROM settings WHERE id='1'") or exit(header("Location: html/errors/db_error.php"));
-	$row = $rows->fetchAll();
-	foreach ($row as $result) { 
-   	    $MCP23017 = $result['MCP23017'];
-   	    $gpiodemo = $result['gpiodemo'];
+$db = new PDO("sqlite:$ROOT/dbf/nettemp.db") or die ("cannot open database");
+$sth = $db->query("SELECT * FROM nt_settings");
+$sth->execute();
+$result = $sth->fetchAll();
+foreach ($result as $a) {
+	if($a['option']=='MCP23017') {
+		$MCP23017=$a['value'];
 	}
+	if($a['option']=='gpiodemo') {
+		$gpiodemo=$a['value'];
+	}
+
+}
 
 $wp = '/usr/local/bin/gpio';
 $gpiolist=array();
