@@ -107,6 +107,9 @@ foreach ($result as $a) {
 	if($a['option']=='charts_min') {
 		$chmin=$a['value'];
 	}
+	if($s['option']=='mail_topic') {
+		$mail_topic=$s['value'];
+	}
 }
 
 
@@ -155,7 +158,7 @@ function trigger($rom) {
     }
    
     $to = implode(', ', $to);
-    if(mail("$to", 'ALARM from nettemp device', "Trigger ALARM $name" )) {
+    if(mail($to, $mail_topic, "Trigger ALARM $name" )) {
 		echo "ok\n";
     } else {
 		echo "error\n";
