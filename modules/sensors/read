@@ -29,7 +29,7 @@ php-cgi -f $dir/modules/sensors/1wire/owfs.php
 php-cgi -f $dir/modules/sensors/snmp/snmp_read.php
 php-cgi -f $dir/modules/sensors/GPIO/HCS04/read.php
 php-cgi -f $dir/modules/sensors/rs485/sdm630.php
-php-cgi -f $dir/modules/gpio/gpio_scan.php
+#php-cgi -f $dir/modules/gpio/gpio_scan.php
 php-cgi -f $dir/modules/sensors/USB/SDS011/SDS011.php
 
 # wireless
