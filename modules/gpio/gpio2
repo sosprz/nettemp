@@ -60,8 +60,8 @@ fi
 
 
 for gpio in $gpio_list; do 
-	mode=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mode FROM gpio WHERE gpio='$gpio' AND is null")
-	rev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio' AND is null")
+	mode=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mode FROM gpio WHERE gpio='$gpio' AND ip is null")
+	rev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio' AND ip is null")
 if [ "$mode" = "time" ]; then
     source $(dirname $0)/time
 elif [ "$mode" = "simple" ]; then
