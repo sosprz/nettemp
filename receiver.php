@@ -107,8 +107,8 @@ foreach ($result as $a) {
 	if($a['option']=='charts_min') {
 		$chmin=$a['value'];
 	}
-	if($s['option']=='mail_topic') {
-		$mail_topic=$s['value'];
+	if($a['option']=='mail_topic') {
+		$mail_topic=$a['value'];
 	}
 }
 
