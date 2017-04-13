@@ -54,7 +54,7 @@ if ($gpiodemo == 'on') {
 		$gpiolist = array(91,92,93,94,94,95,96,97,98,99);
 }
 
-/*
+
 include_once("$ROOT/receiver.php");
 
 function write($gpio){
@@ -85,6 +85,6 @@ function write($gpio){
 foreach($gpiolist as $gpio){
 	write($gpio);
 }
-*/
+
 
 ?>
