@@ -229,7 +229,7 @@ CREATE TABLE "gpio" (
 	`moment_time`	TEXT,
 	`ip`	TEXT,
 	`rom`	TEXT,
-	`locked`	TEXT,
+	`locked`	TEXT, map NUM, map_num NUMERIC, map_pos NUMERIC, week_Fri  TEXT, week_Mon  TEXT, week_Sat  TEXT, week_Sun  TEXT, week_Thu  TEXT, week_Tue  TEXT, week_Wed  TEXT,
 	PRIMARY KEY(id)
 );
 CREATE TABLE "g_func" (
