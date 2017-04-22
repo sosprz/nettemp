@@ -112,7 +112,9 @@ if ($type == 'system') {
 		}
     		$array['key']=$file;
     		$array['values']=$data;
-     		$all[]=$array;
+     		if(!empty($data)) {
+     			$all[]=$array;
+     		}
   			unset($data);
     		unset($array);
 	}
@@ -143,11 +145,13 @@ elseif ($type == 'host') {
     		query($max,$query);
     	}
 	   foreach ($dbh->query($query) as $row) {
-			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]+$adj);
+			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]);
 		}
     		$array['key']=$name;
     		$array['values']=$data;
-     		$all[]=$array;
+     		if(!empty($data)) {
+     			$all[]=$array;
+     		}
   			unset($data);
     		unset($array);
 	}
@@ -177,7 +181,7 @@ elseif ($type == 'gpio') {
     		query($max,$query);
     	}
 	   foreach ($dbh->query($query) as $row) {
-			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]+$adj);
+			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]);
 		}
     		$array['key']=$name;
     		$array['values']=$data;
@@ -196,7 +200,6 @@ elseif ($type == 'group'){
     foreach($row as $a) {
 		$file=$a['rom'];
 		$name=$a['name'];
-		$adj=$a['adj'];
 		
     	$dirb = "sqlite:$root/db/$file.sql";
     	$dbh = new PDO($dirb) or die("cannot open database");
@@ -207,11 +210,13 @@ elseif ($type == 'group'){
     		query($max,$query);
     	}
 	   foreach ($dbh->query($query) as $row) {
-			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]+$adj);
+			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]);
 		}
     		$array['key']=$name;
     		$array['values']=$data;
-     		$all[]=$array;
+     		if(!empty($data)) {
+     			$all[]=$array;
+     		}
   			unset($data);
     		unset($array);
 	}
@@ -233,7 +238,6 @@ elseif ($type == 'elec' && $mode == 2) {
     foreach($row as $a) {
 		$file=$a['rom'];
 		$name=$a['name'];
-		$adj=$a['adj'];
 		$type=$a['type'];
 
     	$dirb = "sqlite:$root/db/$file.sql";
@@ -245,12 +249,13 @@ elseif ($type == 'elec' && $mode == 2) {
     		queryc($max,$query);
     	}
 	   foreach ($dbh->query($query) as $row) {
-			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]+$adj);
+			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]);
 		}
     		$array['key']=$name;
     		$array['values']=$data;
-    		//$array['units']=$type;
-     		$all[]=$array;
+     		if(!empty($data)) {
+     			$all[]=$array;
+     		}
   			unset($data);
     		unset($array);
 	}
@@ -272,7 +277,6 @@ else {
     foreach($row as $a) {
 		$file=$a['rom'];
 		$name=$a['name'];
-		$adj=$a['adj'];
 		$type=$a['type'];
 
     	$dirb = "sqlite:$root/db/$file.sql";
@@ -284,12 +288,13 @@ else {
     		query($max,$query);
     	}
 	   foreach ($dbh->query($query) as $row) {
-			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]+$adj);
+			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]);
 		}
     		$array['key']=$name;
     		$array['values']=$data;
-    		//$array['units']=$type;
-     		$all[]=$array;
+     		if(!empty($data)) {
+     			$all[]=$array;
+     		}
   			unset($data);
     		unset($array);
 	}

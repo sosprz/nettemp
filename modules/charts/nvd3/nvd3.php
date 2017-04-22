@@ -92,6 +92,7 @@ foreach($result_t as $ty){
 ?>
           
 d3.json('common/nvd3_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mode+'&group='+group+'&single='+single, function(data) {
+  console.log('common/nvd3_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mode+'&group='+group+'&single='+single);
   nv.addGraph(function() {
   	var chart = nv.models.lineWithFocusChart()
         .margin({top: 30, right: 20, bottom: 50, left: 60})
