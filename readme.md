@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.15
+
+fix: no NVD charts when no data in one db
+
 4.1.14
 
 trigger mail topis from base
