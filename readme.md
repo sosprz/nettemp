@@ -62,6 +62,7 @@ Changelog:
 4.1.15
 
 fix: no NVD charts when no data in one db
+fix empty devices
 
 4.1.14
 
