@@ -92,7 +92,10 @@ CREATE TABLE "sensors" (
 	`mail`	TEXT,
 	`status`	TEXT,
 	`usb`	TEXT,
-	`position_group`	TEXT, stat_min TEXT, stat_max TEXT,
+	`position_group`	TEXT,
+	`stat_min` TEXT,
+	`stat_max` TEXT,
+	`position` TEXT
 	PRIMARY KEY(id)
 );
 CREATE TABLE "rs485" (

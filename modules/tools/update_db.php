@@ -181,6 +181,7 @@ $dba->exec("ALTER TABLE sensors ADD status TEXT");
 $dba->exec("ALTER TABLE sensors ADD sum  TEXT");
 $dba->exec("ALTER TABLE sensors ADD tmp_5ago  TEXT");
 $dba->exec("ALTER TABLE sensors ADD usb  TEXT");
+$dba->exec("ALTER TABLE sensors ADD position TEXT");
 $dba->exec("ALTER TABLE sensors ADD position_group  TEXT");
 $dba->exec("ALTER TABLE sensors ADD stat_min TEXT");
 $dba->exec("ALTER TABLE sensors ADD stat_max TEXT");
