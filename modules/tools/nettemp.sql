@@ -95,7 +95,7 @@ CREATE TABLE "sensors" (
 	`position_group`	TEXT,
 	`stat_min` TEXT,
 	`stat_max` TEXT,
-	`position` TEXT
+	`position` TEXT,
 	PRIMARY KEY(id)
 );
 CREATE TABLE "rs485" (
