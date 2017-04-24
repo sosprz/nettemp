@@ -158,41 +158,7 @@ elseif ($type == 'host') {
    print json_encode($all);
 }
 
-elseif ($type == 'gpio') {
-
-    $db = new PDO("sqlite:$root/dbf/nettemp.db");
-    if(empty($single)) {
-     		$rows = $db->query("SELECT * FROM gpio");
-     	} 
-     	else {
-     		$rows = $db->query("SELECT * FROM gpio WHERE name='$single'");
-     	}
-    $row = $rows->fetchAll();
-	 foreach($row as $a) {
-		$file=$a['gpio'];
-		$name=$a['name'];
-
-    	$dirb = "sqlite:$root/db/gpio_stats_$file.sql";
-    	$dbh = new PDO($dirb) or die("cannot open database");
-    	if($nts_charts_fast=='on') {
-    		querymod($max,$nts_charts_min,$query);
-    	}
-		else {
-    		query($max,$query);
-    	}
-	   foreach ($dbh->query($query) as $row) {
-			$data[]=array('x' => $row[0]*1000, 'y' => $row[1]);
-		}
-    		$array['key']=$name;
-    		$array['values']=$data;
-    		if(!empty($data)) {
-     			$all[]=$array;
-     		}
-  			unset($data);
-    		unset($array);
-	}
-   print json_encode($all);
-}    
+   
 elseif ($type == 'group'){
     $db = new PDO("sqlite:$root/dbf/nettemp.db");
     $rows = $db->query("SELECT * FROM sensors WHERE ch_group='$group'");
