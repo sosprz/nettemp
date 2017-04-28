@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.17
+
+Electricity fix charts, and base.
+
 4.1.16
 
 fix: can't add to hosts new host 
