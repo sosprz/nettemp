@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.16
+
+fix: can't add to hosts new host 
+
 4.1.15
 
 fix: no NVD charts when no data in one db
