@@ -219,7 +219,7 @@ var hc = function () {
                 }
 	    };
 	    
-	} else if (type=='gpio' || type=='host' || type=='relay'){
+	} else if (type=='gpio' || type=='host' || type=='relay' || type=="elec" ){
 		seriesOptions[i] = {
                 name: name,
                 data: data,

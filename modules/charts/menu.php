@@ -30,7 +30,7 @@ $result_t = $query->fetchAll();
 foreach($result_t as $ty){
 	if(in_array($ty['type'], $typearr)) { 
 	?>
-     <a href="index.php?id=<?php echo $id ?>&type=<?php echo $ty['type']?>&max=<?php echo $nts_charts_max?>&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php if($art == $ty['type']&&empty($group)) {echo "active";} ?>"><?php echo $ty['title']?></button></a>
+     <a href="index.php?id=<?php echo $id ?>&type=<?php echo $ty['type']?>&max=<?php echo $nts_charts_max?>&mode=&group=&single=" ><button class="btn btn-xs btn-default <?php if($art == $ty['type']&&empty($group)&&empty($mode)) {echo "active";} ?>"><?php echo $ty['title']?></button></a>
 	<?php
 	}
 }

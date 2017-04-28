@@ -112,6 +112,9 @@ elseif ($type == 'group'){
     $row = $rows->fetchAll();
 }
 
+
+
+
 else {
     $db = new PDO("sqlite:$root/dbf/nettemp.db");
     $rows = $db->query("SELECT rom FROM sensors WHERE type='$type' and name='$name'");
@@ -119,20 +122,25 @@ else {
 }
 
 
-	foreach($row as $a) {
+    foreach($row as $a) {
 		$file=$a['rom'];
     }
 
     $dirb = "sqlite:$root/db/$file.sql";
     $dbh = new PDO($dirb) or die("cannot open database");
 
-    if($nts_charts_fast=='on') {
-    	querymod($max,$query);
+    if ($type == 'elec' && $mode == 2) {
+	queryc($max,$query);
     }
+    else {
+	if($nts_charts_fast=='on') {
+    	    querymod($max,$query);
+	}
 	else {
-    	query($max,$query);
+    	    query($max,$query);
+	}
     }
-
+    
     foreach ($dbh->query($query) as $row) {
 		$line=[($row[0])*1000 . "," . $row[1]];
 		$array[]=$line;

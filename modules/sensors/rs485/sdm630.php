@@ -111,7 +111,9 @@ try {
 		echo $date." SDM630 L3 ".$local_val." ".$local_type.".\n";
 		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 		
-		
+		$local_val=$line[9];
+		echo $date." SDM630 import energii czynnej ".$local_val." kWh \n";
+
 		$local_val=$line[11];
 		$local_type='var';
 		$local_device='usb';
@@ -155,26 +157,28 @@ try {
 			$last=trim($r['sum']);
 		}
 		$VAL=trim($ALL-$last);
+		$VAL=number_format($VAL, 3, '.', ',');
 		
-		
-		#echo "1. ".$last."\n";
-		#echo "2. ".$WATsum."\n";
-		#echo "3. ".$ALL."\n";
-		#echo "4. ".$VAL."\n";
+		echo "1. last ".$last."\n";
+		echo "2. WAT sum ".$WATsum."\n";
+		echo "3. all ".$ALL."\n";
+		echo "4. val ".$VAL."\n";
 		
 		if($last!=0){
 			$local_val=$VAL;
 			$local_current=$WATsum;
 			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 			$db->exec("UPDATE sensors SET sum='$ALL' WHERE rom='$local_rom'");
-		} else {
+		} 
+		/*else {
 			$local_val='0.0';
 			$local_current='';
 			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 			$db->exec("UPDATE sensors SET sum='$ALL' WHERE rom='$local_rom'");
-		}
+		}*/
 		
 		//EXPORT
+/*
 		$local_type='elec';
 		$local_rom="usb_".$dev."a".$addr."EXP_".$local_type;
 		$local_device='usb';
@@ -206,7 +210,7 @@ try {
 			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 			$db->exec("UPDATE sensors SET sum='$ALL' WHERE rom='$local_rom'");
 		}
-		
+*/		
 		
 		
 		
