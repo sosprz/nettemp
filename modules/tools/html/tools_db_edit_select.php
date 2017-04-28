@@ -67,7 +67,7 @@ $row = $rows->fetchAll();
 <tr>
 <th>id</th>
 <th>time</th>
-<th>value</th>
+<th>value / current</th>
 </tr>
 </thead>
 
@@ -81,6 +81,7 @@ $row = $rows->fetchAll();
     <td class="col-md-10">
     <form action="" method="post" style="display:inline!important;">
       <input type="input" size="4" name="value" value="<?php echo $a['value']?>" />
+      <input type="input" size="4" name="current" value="<?php echo $a['current']?>" />
       <input type="hidden" name="filee" value="<?php echo $file ?>" />
       <input type="hidden" name="id" value="<?php echo $a['rowid'] ?>" />
     	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
