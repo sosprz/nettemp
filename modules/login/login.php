@@ -1,4 +1,11 @@
 <?php
+
+if(!function_exists('hash_equals')) {
+  function hash_equals($a, $b) {
+    return substr_count($a ^ $b, "\0") * 2 === strlen($a . $b);
+  }
+}
+
 session_start();
 
 $user=$_SESSION['user'];
