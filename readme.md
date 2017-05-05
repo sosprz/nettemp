@@ -58,6 +58,9 @@ OpenWRT, beta version:
 
 
 Changelog:
+4.1.18
+
+merge new updatedb form jot
 
 4.1.17
 

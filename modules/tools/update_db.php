@@ -73,8 +73,8 @@ foreach (array_keys($updates) as $key){
     }
 }
 
-echo (isset($needupdate) && !isset($error)) ? "Nettemp DB update OK" : '';
-echo (!isset($needupdate) && !isset($error)) ? "Nettemp DB update not needed" : '';
+echo (isset($needupdate) && !isset($error)) ? "Nettemp DB update OK \n" : '';
+echo (!isset($needupdate) && !isset($error)) ? "Nettemp DB update not needed \n" : '';
 unset($needupdate,$error,$updates);
 unset($db);
 
