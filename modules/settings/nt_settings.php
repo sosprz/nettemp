@@ -112,5 +112,15 @@ foreach ($result as $a) {
     }
 }
 
+//different way..
+foreach ($result as $a) {
+    $NT_SETTINGS[$a['option']] = $a['value'];
+}
 
+if($sth = $db->query("SELECT * FROM version LIMIT 1;")){
+$result = $sth->fetch(PDO::FETCH_ASSOC);
+$NT_SETTINGS['DB_VER']=$result['db_ver'];
+$NT_SETTINGS['DB_LAST_UPDATE']=$result['lastupdate'];
+}
+unset($sth,$result,$a);
 ?>

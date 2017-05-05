@@ -42,7 +42,8 @@ $row = $rows->fetchAll();
 			if ( $sth = $db->query("PRAGMA integrity_check") ){
 				$row = $sth->fetchAll();
 				foreach($row as $r) {
-					echo "DB ".$r[0]."  ".$r[1];
+					echo "DB ".$r[0];
+					echo isset($r[1]) ? "  ".$r[1] : '';
 				}
 			}
 		}

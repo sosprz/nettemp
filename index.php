@@ -71,15 +71,18 @@ $row2 = $rows2->fetchAll();
 $numsimple = count($row1);
 $numsimple2 = count($row2);
 
-$getseen = $db->query("SELECT id FROM newdev WHERE seen is null");
-$gs = $getseen->fetchAll();
-$seen = count($gs);
-
+if($getseen = $db->query("SELECT COUNT(id) as newseen FROM newdev WHERE seen IS NULL")){
+//    $gs = $getseen->fetch(PDO::FETCH_ASSOC);
+//    $seen = $gs['newseen'];
+    $seen = $getseen->fetch(PDO::FETCH_ASSOC)['newseen'];
+}else{
+    $seen = -1;
+}
 function new_seen($seen){
-	if($seen >  0)
+	if($seen > 0 || $seen == -1)
 	{	
 		return '<span class="badge">'.$seen.'</span>';
-	} 
+	}
 }
 
 ?>
