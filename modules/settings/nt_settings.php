@@ -1,6 +1,6 @@
 <?php
-//$root=$_SERVER["DOCUMENT_ROOT"];
-//$db = new PDO("sqlite:$root/dbf/nettemp.db");
+$root=$_SERVER["DOCUMENT_ROOT"];
+$db = new PDO("sqlite:$root/dbf/nettemp.db");
 $sth = $db->query("SELECT * FROM nt_settings");
 $sth->execute();
 $result = $sth->fetchAll();
