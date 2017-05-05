@@ -26,7 +26,7 @@ if ($update == "UPDATE") {
     include("$ROOT/modules/tools/update_perms.php");
     include("$ROOT/modules/tools/update_db.php");
     include("$ROOT/modules/tools/check_packages.php");
-    unlink("$ROOT/tmp/update");
+//    unlink("$ROOT/tmp/update");
     echo '</pre>';
 }
 
@@ -74,7 +74,14 @@ if(!empty($dbintegrity)){
 
 ?>
 
-</div></div>
+</div>
+
+<?php
+//Show DB version if is set..
+echo (isset($NT_SETTINGS['DB_VER']) && isset($NT_SETTINGS['DB_LAST_UPDATE'])) ? '<div class="panel-footer">Last successful DB update: '.$NT_SETTINGS['DB_LAST_UPDATE'].'<br><h4><span class="label label-info">DB Version: '.$NT_SETTINGS['DB_VER'].'</span></h4></div>' : '';
+?>
+
+</div>
 <script type="text/javascript">
 $("button").click(function() {
     var $btn = $(this);
