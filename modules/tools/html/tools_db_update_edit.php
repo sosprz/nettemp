@@ -1,6 +1,7 @@
 <?php
 
 if(!isset($_SESSION['user'])){ header("Location: denied"); }
+if(!isset($NT_SETTINGS['dbUpdateEditPreparePage'])){ header("Location: denied"); }
 
 if(isset($_POST['sql'])){
     $SQL_Array = preg_split('/;\r?\n?|\r?\n/s', $_POST['sql']."\n", -1, PREG_SPLIT_NO_EMPTY);
