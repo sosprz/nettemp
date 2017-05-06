@@ -1,4 +1,5 @@
 <?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
+<?php $art = (!isset($art) || $art == '') ? 'update' : $art; ?>
 <p>
 <a href="index.php?id=tools&type=file_check" ><button class="btn btn-xs btn-default <?php echo $art == 'file_check' ? 'active' : ''; ?>">File check</button></a>
 <a href="index.php?id=tools&type=password" ><button class="btn btn-xs btn-default <?php echo $art == 'password' ? 'active' : ''; ?>">Password</button></a>
@@ -15,7 +16,9 @@
 <a href="index.php?id=tools&type=export" ><button class="btn btn-xs btn-default <?php echo $art == 'export' ? 'active' : ''; ?>">DB export</button></a>
 <a href="index.php?id=tools&type=dbedit" ><button class="btn btn-xs btn-default <?php echo $art == 'dbedit' ? 'active' : ''; ?>">DB edit</button></a>
 <a href="index.php?id=tools&type=dbcheck" ><button class="btn btn-xs btn-default <?php echo $art == 'dbcheck' ? 'active' : ''; ?>">DB check</button></a>
-
+<?php if ( isset($NT_SETTINGS['dbUpdateEditPreparePage']) ){ ?>
+<a href="index.php?id=tools&type=dbupdateedit" ><button class="btn btn-xs btn-default <?php echo $art == 'dbupdateedit' ? 'active' : ''; ?>">DB Update Edit</button></a>
+<?php } ?>
 
 </p>
 <?php  
@@ -36,6 +39,7 @@ case 'dbedit': include('modules/tools/html/tools_db_edit.php'); break;
 case 'dbedit2': include('modules/tools/html/tools_db_edit_select.php'); break;
 case 'ticket': include('modules/tools/html/tools_ticket.php'); break;
 case 'dbcheck': include('modules/tools/html/tools_db_check.php'); break;
+case 'dbupdateedit': include('modules/tools/html/tools_db_update_edit.php'); break;
 
 
 }
