@@ -65,6 +65,7 @@ if($id!='screen'&&isset($_SESSION['user'])) {
 if ($art!='meteogram') {
     ?>
 <p>
+<a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=15min&mode=<?php echo $mode; ?>&group=<?php echo $group; ?>&single=<?php echo $single; ?>" ><button class="btn btn-xs btn-default <?php echo $max == '15min' ? ' active' : ''; ?>">15min</button></a>
 <a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=hour&mode=<?php echo $mode; ?>&group=<?php echo $group; ?>&single=<?php echo $single; ?>" ><button class="btn btn-xs btn-default <?php echo $max == 'hour' ? ' active' : ''; ?>">Hour</button></a>
 <a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=day&mode=<?php echo $mode; ?>&group=<?php echo $group; ?>&single=<?php echo $single; ?>" ><button class="btn btn-xs btn-default <?php echo $max == 'day' ? ' active' : ''; ?>">Day</button></a>
 <a href="index.php?id=<?php echo $id ?>&type=<?php echo $art ?>&max=week&mode=<?php echo $mode; ?>&group=<?php echo $group; ?>&single=<?php echo $single; ?>" ><button class="btn btn-xs btn-default <?php echo $max == 'week' ? ' active' : ''; ?>">Week</button></a>

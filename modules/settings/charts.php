@@ -127,7 +127,7 @@
   <label class="col-md-2 control-label" for="selectbasic">Set default chart MAX</label>
   <div class="col-md-2">
     <select id="selectbasic" name="chmax" onchange="this.form.submit()" class="form-control input-sm">
-    <?php $ar=array("hour","day", "week", "month");
+    <?php $ar=array("15min","hour","day", "week", "month");
      foreach ($ar as $num) { ?>
         <option <?php echo $nts_charts_max == "$num" ? 'selected="selected"' : ''; ?> value="<?php echo $num; ?>"><?php echo $num ." "; ?></option>   
     <?php } ?>

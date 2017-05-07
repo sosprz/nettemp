@@ -18,6 +18,9 @@ $charts_fast=$a['charts_fast'];
 }
 
 function query($max,&$query) {
+if ($max == '15min') {
+    $query = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-15 minutes')";
+    } 
 if ($max == 'hour') {
     $query = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 hour')";
     } 
@@ -43,6 +46,9 @@ if ($max == 'all') {
 
 
 function querymod($max,&$query) {
+if ($max == '15min') {
+    $query = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-15 minutes')";
+    } 
 if ($max == 'hour') {
     $query = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 hour')";
     } 
@@ -67,6 +73,9 @@ if ($max == 'all') {
 }
 
 function queryc($max,&$query) {
+if ($max == '15min') {
+    $query = "select strftime('%s', time),current from def WHERE time >= datetime('now','localtime','-15 minutes')";
+    } 
 if ($max == 'hour') {
     $query = "select strftime('%s', time),current from def WHERE time >= datetime('now','localtime','-1 hour')";
     } 
