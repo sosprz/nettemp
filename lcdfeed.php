@@ -48,11 +48,9 @@ try {
     exit;
 }
 
-$sth = $db->prepare("select server_key,temp_scale from settings WHERE id='1'");
-$sth->execute();
-$result = $sth->fetch();
-$skey=$result['server_key'];
-$scale=$result['temp_scale'];
+require('modules/settings/nt_settings.php');
+$skey=$NT_SETTINGS['server_key'];
+$scale=$NT_SETTINGS['temp_scale'];
 
 //main loop
 if ("$key" != "$skey"){
