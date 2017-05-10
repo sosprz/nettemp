@@ -161,7 +161,7 @@ if ( $lcdmode == 'adv' ){
        <td class="col-md-1">
           <form action="" method="post" style="display:inline!important;">
           <input type="hidden" name="active" value="<?php echo $a['id']; ?>" />
-          <button type="submit" name="activeon" value="<?php echo $a["active"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["active"] == 'on' ? 'class="btn btn-sm btn-primary"' : 'class="btn btn-sm btn-default"'; ?>><?php echo $a["active"] == 'on' ? 'ON' : 'OFF'; ?></button></td>
+          <input type="checkbox" data-toggle="toggle" data-size="mini"  name="activeon" value="on" <?php echo $a["active"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
           <input type="hidden" name="activeonoff" value="onoff" />
           </form>
        </td>
