@@ -94,7 +94,7 @@ foreach ($groups as $group) {
       <form action="" method="post" style="display:inline!important;">
       <input type="hidden" name="active" value="<?php echo $group['id']; ?>" />
       <input type="hidden" name="swap" value="active" />
-      <input type="checkbox" data-toggle="toggle" data-size="mini"  name="activeon" value="on" <?php echo $group["active"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+      <button type="submit" name="activeon" value="<?php echo $group["active"] == 'on' ? 'off' : 'on'; ?>" <?php echo $group["active"] == 'on' ? 'class="btn btn-sm btn-primary"' : 'class="btn btn-sm btn-default"'; ?>><?php echo $group["active"] == 'on' ? 'ON' : 'OFF'; ?></button></td>
       <input type="hidden" name="activeonoff" value="onoff" />
       </form>
    </td>
@@ -178,7 +178,7 @@ if( count($groups) > 0 ){
 	   <td class="col-md-1">
 	      <form action="" method="post" style="display:inline!important;">
 	      <input type="hidden" name="active" value="<?php echo $a["rom"]; ?>" />
-	      <input type="checkbox" data-toggle="toggle" data-size="mini" name="activeon" value="on" <?php echo !empty($active[$a['rom']]) ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+	      <button type="submit" name="activeon" value="<?php echo !empty($active[$a['rom']]) ? 'off' : 'on'; ?>" <?php echo !empty($active[$a['rom']]) ? 'class="btn btn-sm btn-primary"' : 'class="btn btn-sm btn-default"'; ?>><?php echo !empty($active[$a['rom']]) ? 'ON' : 'OFF'; ?></button></td>
 	      <input type="hidden" name="activeonoff" value="onoff" />
 	      </form>
 	   </td>

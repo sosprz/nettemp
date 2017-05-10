@@ -13,23 +13,23 @@ foreach (array('lcdmode', 'lcdmodeon', 'lcd', 'lcdon', 'lcd4', 'lcdon4') as $v){
 //settings
     if (($lcdmode == 'adv')){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET lcdmode='$lcdmodeon' WHERE id='1'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='".$lcdmodeon."' WHERE option = 'lcdmode'") or die ($db->lastErrorMsg());
     shell_exec("sudo touch tmp/reboot");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
     if (($lcd == "lcd") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET lcd='$lcdon' WHERE id='1'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE settings SET lcd4='off' WHERE id='1'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$lcdon' WHERE option = 'lcd'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='off' WHERE option = 'lcd4'") or die ($db->lastErrorMsg());
     shell_exec("sudo touch tmp/reboot");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
     if (($lcd4 == "lcd4") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET lcd4='$lcdon4' WHERE id='1'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE settings SET lcd='off' WHERE id='1'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$lcdon4' WHERE option = 'lcd4'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='off' WHERE option = 'lcd'") or die ($db->lastErrorMsg());
     shell_exec("sudo touch tmp/reboot");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -45,14 +45,11 @@ try {
     exit;
 }
 
-$sth = $db->prepare("select * from settings WHERE id='1'");
-$sth->execute();
-$result = $sth->fetchAll();
-foreach ($result as $a) {
-    $lcd=$a["lcd"];
-    $lcd4=$a["lcd4"];
-    $lcdmode=$a["lcdmode"];
-}
+if(!isset($NT_SETTINGS)){ require('modules/settings/nt_settings.php'); }
+$lcd = isset($NT_SETTINGS['lcd']) ? $NT_SETTINGS['lcd'] : 'off';
+$lcd4 = isset($NT_SETTINGS['lcd4']) ? $NT_SETTINGS['lcd4'] : 'off';
+$lcdmode = isset($NT_SETTINGS['lcdmode']) ? $NT_SETTINGS['lcdmode'] : 'off';
+
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -164,7 +161,7 @@ if ( $lcdmode == 'adv' ){
        <td class="col-md-1">
           <form action="" method="post" style="display:inline!important;">
           <input type="hidden" name="active" value="<?php echo $a['id']; ?>" />
-          <input type="checkbox" data-toggle="toggle" data-size="mini"  name="activeon" value="on" <?php echo $a["active"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+          <button type="submit" name="activeon" value="<?php echo $a["active"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["active"] == 'on' ? 'class="btn btn-sm btn-primary"' : 'class="btn btn-sm btn-default"'; ?>><?php echo $a["active"] == 'on' ? 'ON' : 'OFF'; ?></button></td>
           <input type="hidden" name="activeonoff" value="onoff" />
           </form>
        </td>
