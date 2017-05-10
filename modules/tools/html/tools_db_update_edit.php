@@ -36,8 +36,8 @@ if(isset($_POST['sql'])){
   if(isset($SQL_Array)){
     $db_date=date('Y-m-d H:i:s');
     echo '$updates[\''.$db_date.'\'][]="';
-    echo implode("\"\n".'$updates[\''.$db_date.'\'][]="',$SQL_Array);
-    echo '"';
+    echo implode("\";\n".'$updates[\''.$db_date.'\'][]="',$SQL_Array);
+    echo '";';
   }
   echo '</pre>';
 ?>
