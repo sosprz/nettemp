@@ -15,13 +15,11 @@
 <a href="index.php?id=device&type=rs485" ><button class="btn btn-xs btn-default <?php echo $art == 'rs485' ? 'active' : ''; ?>">RS485</button></a>
 <a href="index.php?id=device&type=ups" ><button class="btn btn-xs btn-default <?php echo $art == 'ups' ? 'active' : ''; ?>">UPS</button></a>
 <a href="index.php?id=device&type=counters" ><button class="btn btn-xs btn-default <?php echo $art == 'counters' ? 'active' : ''; ?>">Counters</button></a>
-
 </p>
 
-
-<?php  
+<?php
 switch ($art)
-{ 
+{
 default: case '$art': include('modules/sensors/html/sensors.php'); break;
 case 'scan': include('modules/devices/html/scan.php'); break;
 case 'gpio': include('modules/gpio/html/gpio.php'); break;
@@ -32,10 +30,8 @@ case 'hosts': include('modules/hosts/html/hosts.php'); break;
 case 'ipcam' : include('modules/ipcam/ipcam.php'); break;
 case 'usb' : include('modules/devices/html/usb.php'); break;
 case 'i2c' : include('modules/devices/html/i2c.php'); break;
-case 'lcd' : include('modules/devices/html/lcd.php'); break;
+case 'lcd' : include('modules/devices/html/lcdswitcher.php'); break;
 case 'rs485' : include('modules/devices/html/rs485.php'); break;
 case 'counters' : include('modules/devices/html/counters.php'); break;
-
 }
 ?>
-
