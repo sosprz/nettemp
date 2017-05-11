@@ -1,5 +1,5 @@
 <?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
-
+<?php $art = (!isset($art) || $art == '') ? 'devices' : $art; ?>
 <p>
 <a href="index.php?id=device&type=scan" ><button class="btn btn-xs btn-default <?php if (!file_exists('tmp/scan')) { echo "btn-danger"; } else { echo $art == 'scan' ? 'active ' : ''; } ?> ">Scan</button></a>
 <a href="index.php?id=device&type=devices" ><button class="btn btn-xs btn-default <?php echo $art == 'devices' ? 'active' : ''; ?>">Devices</button></a>

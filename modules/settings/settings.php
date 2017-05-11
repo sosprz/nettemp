@@ -1,4 +1,5 @@
 <?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
+<?php $art = (!isset($art) || $art == '') ? 'mail' : $art; ?>
 
 <p>
 <a href="index.php?id=settings&type=users" ><button class="btn btn-xs btn-default <?php echo $art == 'users' ? 'active' : ''; ?>">Users</button></a>

@@ -3,7 +3,7 @@
 $device_group=isset($_GET['device_group']) ? $_GET['device_group'] : '';
 $device_type=isset($_GET['device_type']) ? $_GET['device_type'] : '';
 $device_id=isset($_GET['device_id']) ? $_GET['device_id'] : '';
-$device_menu=isset($_GET['device_menu']) ? $_GET['device_menu'] : '';
+$device_menu=isset($_GET['device_menu']) ? $_GET['device_menu'] : 'settings';
 
 ?>
 <p>
