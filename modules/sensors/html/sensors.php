@@ -8,8 +8,8 @@ $device_menu=isset($_GET['device_menu']) ? $_GET['device_menu'] : '';
 ?>
 <p>
 
-<a href="index.php?id=<?php echo $id ?>&type=devices&device_group=<?php echo $ch_g?>&device_menu=settings" ><button class="btn btn-xs btn-default <?php if($device_menu==settings) {echo "active";} ?>">Settings</button></a>
-<a href="index.php?id=<?php echo $id ?>&type=devices&device_menu=new_devices" ><button class="btn btn-xs btn-default <?php if($device_menu==new_devices) {echo "active";} ?>">New devices <?php echo new_seen($seen);?></button></a>
+<a href="index.php?id=<?php echo $id ?>&type=devices&device_group=<?php echo $ch_g?>&device_menu=settings" ><button class="btn btn-xs btn-default <?php if($device_menu=='settings') {echo "active";} ?>">Settings</button></a>
+<a href="index.php?id=<?php echo $id ?>&type=devices&device_menu=new_devices" ><button class="btn btn-xs btn-default <?php if($device_menu=='new_devices') {echo "active";} ?>">New devices <?php echo new_seen($seen);?></button></a>
 
 </p>
 
