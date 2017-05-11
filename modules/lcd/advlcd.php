@@ -16,21 +16,18 @@ try {
 }
 
 //obtain server key
-$sth = $db->prepare("select lcdmode,lcd4,lcd,server_key from settings WHERE id='1'");
-$sth->execute();
-$result = $sth->fetch();
-$skey=$result['server_key'];
+require($ROOT.'/modules/settings/nt_settings.php');
+$skey=$NT_SETTINGS['server_key'];
 
 //if basic lcd is configured - run old script
-if($result['lcdmode'] != 'adv'){
-    if($result['lcd'] == 'on' || $result['lcd4'] == 'on'){
+if($NT_SETTINGS['lcdmode'] != 'adv'){
+    if($NT_SETTINGS['lcd'] == 'on' || $NT_SETTINGS['lcd4'] == 'on'){
         exec('/usr/bin/nohup '.$ROOT.'/modules/lcd/lcd > /dev/null 2>&1 &');
         exit;
     }else{
         exit;
     }
 }
-unset($sth,$result);
 
 $settings = settings($db);
 //Close DB Connection
