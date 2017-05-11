@@ -7,8 +7,9 @@ if(!empty($_SERVER["DOCUMENT_ROOT"])){
         $root = file_exists($root.'/dbf/nettemp.db') ? $root : dirname($root) ;
     }
 }
-
-$db = new PDO("sqlite:$root/dbf/nettemp.db");
+if(!isset($db)){
+    $db = new PDO("sqlite:$root/dbf/nettemp.db");
+}
 $sth = $db->query("SELECT * FROM nt_settings");
 $sth->execute();
 $result = $sth->fetchAll();
