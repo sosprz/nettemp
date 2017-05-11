@@ -9,13 +9,10 @@ try {
     exit;
 }
 
-$sth = $db->prepare("select lcdmode,lcd4,lcd from settings WHERE id='1'");
-$sth->execute();
-$result = $sth->fetch();
-if( $result['lcdmode'] == 'adv' || ( $result['lcd'] != 'on' && $result['lcd4'] != 'on' ) ){
+require($ROOT.'/modules/settings/nt_settings.php');
+if( $NT_SETTINGS['lcdmode'] == 'adv' || ( $NT_SETTINGS['lcd'] != 'on' && $NT_SETTINGS['lcd4'] != 'on' ) ){
     exit;
 }
-unset($sth,$result);
 
 $query = $db->query("SELECT * FROM types");
 $result_t = $query->fetchAll();
