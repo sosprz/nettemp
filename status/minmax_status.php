@@ -1,5 +1,6 @@
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
+if(!isset($NT_SETTINGS)){ include($root."/modules/settings/nt_settings.php"); }
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $rows = $db->query("SELECT * FROM sensors WHERE minmax='on' ORDER BY position ASC");
 $result = $rows->fetchAll();
