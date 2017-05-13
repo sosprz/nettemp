@@ -3,13 +3,13 @@
 $device_group=isset($_GET['device_group']) ? $_GET['device_group'] : '';
 $device_type=isset($_GET['device_type']) ? $_GET['device_type'] : '';
 $device_id=isset($_GET['device_id']) ? $_GET['device_id'] : '';
-$device_menu=isset($_GET['device_menu']) ? $_GET['device_menu'] : '';
+$device_menu=isset($_GET['device_menu']) ? $_GET['device_menu'] : 'settings';
 
 ?>
 <p>
 
-<a href="index.php?id=<?php echo $id ?>&type=devices&device_group=<?php echo $ch_g?>&device_menu=settings" ><button class="btn btn-xs btn-default <?php if($device_menu==settings) {echo "active";} ?>">Settings</button></a>
-<a href="index.php?id=<?php echo $id ?>&type=devices&device_menu=new_devices" ><button class="btn btn-xs btn-default <?php if($device_menu==new_devices) {echo "active";} ?>">New devices <?php echo new_seen($seen);?></button></a>
+<a href="index.php?id=<?php echo $id ?>&type=devices&device_group=<?php echo $ch_g?>&device_menu=settings" ><button class="btn btn-xs btn-default <?php if($device_menu=='settings') {echo "active";} ?>">Settings</button></a>
+<a href="index.php?id=<?php echo $id ?>&type=devices&device_menu=new_devices" ><button class="btn btn-xs btn-default <?php if($device_menu=='new_devices') {echo "active";} ?>">New devices <?php echo new_seen($seen);?></button></a>
 
 </p>
 

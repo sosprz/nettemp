@@ -1,4 +1,5 @@
 <?php if(!isset($_SESSION['user'])){ header("Location: denied"); } ?>
+<?php $art = (!isset($art) || $art == '') ? 'fw' : $art; ?>
 
 <p>
 <a href="index.php?id=security&type=fw" ><button class="btn btn-xs btn-default <?php echo $art == 'fw' ? 'active' : ''; ?>">Firewall</button></a>

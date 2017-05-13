@@ -1,6 +1,15 @@
 <?php
-$root=$_SERVER["DOCUMENT_ROOT"];
-$db = new PDO("sqlite:$root/dbf/nettemp.db");
+if(!empty($_SERVER["DOCUMENT_ROOT"])){
+    $root=$_SERVER["DOCUMENT_ROOT"];
+}else{
+    $root=__DIR__;
+    for($i=0;$i<5;$i++){
+        $root = file_exists($root.'/dbf/nettemp.db') ? $root : dirname($root) ;
+    }
+}
+if(!isset($db)){
+    $db = new PDO("sqlite:$root/dbf/nettemp.db");
+}
 $sth = $db->query("SELECT * FROM nt_settings");
 $sth->execute();
 $result = $sth->fetchAll();
