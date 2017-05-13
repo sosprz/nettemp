@@ -194,6 +194,7 @@ var hc = function () {
 
     $.getJSON('common/hc_data.php?type='+type+'&name='+name+'&max='+max+'&mode='+mode,  function (data) {
 
+	if (max=="15min") { var xhour = "1min" }
 	if (max=="hour") { var xhour = "hour" }
 	if (max=="day") { var xhour = "hour" }
 	if (max=="week") { var xhour = "day" }
