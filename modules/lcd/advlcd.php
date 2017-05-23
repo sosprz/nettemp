@@ -129,7 +129,7 @@ exit;
 
 //some function definitions
 function settings($db){
-    $sth = $db->prepare("SELECT l.*,g.grpkey FROM lcds l,lcd_groups g WHERE l.grp == g.name AND l.active == 'on'");
+    $sth = $db->prepare("SELECT l.*,g.grpkey FROM lcds l LEFT JOIN lcd_groups g on l.grp == g.name WHERE l.active == 'on'");
     $sth->execute();
     $settings = $sth->fetchAll();
     foreach ($settings as $s){
@@ -145,12 +145,16 @@ function fetch($settings,$skey){
 //exec way..
     foreach($settings as $s){
 //combine options
-        global $ROOT;
-        $opt = $skey.' '.$s['grpkey'].' csv ';
-        $opt.= $s['avg'] == 'on' ? '1' : '';
-        exec('/usr/bin/php '.$ROOT.'/lcdfeed.php '.$opt, $execout);
-        $tmp[$s['addr']] = implode("\n",$execout);
-        unset($execout,$opt);
+        if(isset($s['grpkey'])){
+            global $ROOT;
+            $opt = $skey.' '.$s['grpkey'].' csv ';
+            $opt.= $s['avg'] == 'on' ? '1' : '';
+            exec('/usr/bin/php '.$ROOT.'/lcdfeed.php '.$opt, $execout);
+            $tmp[$s['addr']] = implode("\n",$execout);
+            unset($execout,$opt);
+        }else{
+            $tmp[$s['addr']] = "No group is\nconfigured for\nthis lcd..";
+        }
     }
 
 //do some magic with the response
