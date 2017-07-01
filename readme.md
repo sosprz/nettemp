@@ -58,6 +58,11 @@ OpenWRT, beta version:
 
 
 Changelog:
+
+4.1.19
+
+fix password read in counters
+
 4.1.18
 
 merge new updatedb form jot
