@@ -78,11 +78,26 @@ function write($gpio){
     $local_type='gpio';
     $local_gpio=$gpio;
     $local_rom="gpio_".$local_gpio;
-    echo $date." Rom:".$local_rom." GPIO:".$local_gpio." State: ".$local_val."\n";
-    db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+    if($local_type!='elec' || $local_type!='water' || $local_type!='gas') { 
+		echo $date." Rom:".$local_rom." GPIO:".$local_gpio." State: ".$local_val."\n";
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+	} else {
+		echo $date." Counter on GPIO: ".$gpio;
+	}
 }
 
-foreach($gpiolist as $gpio){
+	$sth2 = $db->query("SELECT * FROM sensors WHERE type='gas' OR type='water' OR type='elec'");
+	$sth2->execute();
+	$row = $sth2->fetchAll();
+    foreach($row as $cgpio){
+		$counter_list[]=$cgpio['gpio'];
+	} 
+	
+	$gpio_diff = array_diff($gpiolist, $counter_list);
+	
+
+foreach($gpio_diff as $gpio){
+	
 	write($gpio);
 }
 

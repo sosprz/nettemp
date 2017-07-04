@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.20
+
+no add 1 to counters
+
 4.1.19
 
 fix password read in counters
