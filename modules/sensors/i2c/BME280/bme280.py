@@ -10,7 +10,7 @@ try:
 except:
     addr = 0x76
 
-sensor = BME280(mode=BME280_OSAMPLE_16, address=addr)
+sensor = BME280(mode=BME280_OSAMPLE_8, address=addr)
 
 degrees = sensor.read_temperature()
 pascals = sensor.read_pressure()
