@@ -1,7 +1,7 @@
 <?php
 $ROOT=dirname(dirname(dirname(__FILE__)));
 define("LOCAL","local");
-$date = date("Y-m-d H:i:s"); 
+$date = date("Y-m-d H:i:s");
 
 $db = new PDO("sqlite:$ROOT/dbf/nettemp.db") or die ("cannot open database");
 $sth = $db->query("SELECT * FROM nt_settings");
@@ -22,7 +22,7 @@ $gpiolist=array();
 
 if (file_exists($wp)) {
 	exec("$wp -v |grep Type:", $wpout );
-	
+	$wpout=$wpout[0];
    if(strpos($wpout, 'B+') !== false) {
 		$gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);  
    } elseif(strpos($wpout, 'Model B, Revision: 2') !== false) {
@@ -44,13 +44,13 @@ if (file_exists($wp)) {
    } else {
 		$gpiolist = array(4,17,21,22,18,23,24,25);
    }
-    
+
 	if ($MCP23017 == 'on') {
 	    array_push($gpiolist,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115);
 	}
 }
 
-if ($gpiodemo == 'on') {
+if (isset($gpiodemo) && $gpiodemo == 'on') {
 		$gpiolist = array(91,92,93,94,94,95,96,97,98,99);
 }
 
@@ -89,15 +89,15 @@ function write($gpio){
 	$sth2 = $db->query("SELECT * FROM sensors WHERE type='gas' OR type='water' OR type='elec'");
 	$sth2->execute();
 	$row = $sth2->fetchAll();
+    $counter_list=[];
     foreach($row as $cgpio){
 		$counter_list[]=$cgpio['gpio'];
-	} 
+	}
 	
 	$gpio_diff = array_diff($gpiolist, $counter_list);
 	
 
 foreach($gpio_diff as $gpio){
-	
 	write($gpio);
 }
 
