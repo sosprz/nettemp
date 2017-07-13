@@ -2,7 +2,15 @@
 
 from Adafruit_BME280 import *
 
-sensor = BME280(mode=BME280_OSAMPLE_8)
+import sys
+
+try:
+    if sys.argv[2]:
+        addr = int('0x'+sys.argv[2], 16)
+except:
+    addr = 0x76
+
+sensor = BME280(mode=BME280_OSAMPLE_8, address=addr)
 
 degrees = sensor.read_temperature()
 pascals = sensor.read_pressure()
