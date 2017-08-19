@@ -11,7 +11,8 @@ fi
 # enable fastcgi
 lighty-enable-mod fastcgi-php 1>/dev/null
 # enable modrewrite
-sed -i -e 's/#       "mod_rewrite",/ "mod_rewrite",/g' /etc/lighttpd/lighttpd.conf
+lighty-enable-mod rewrite 1>/dev/null
+
 # www dir
 sed -i -e 's/server.document-root        = \"\/var\/www\"/server.document-root        = \"\/var\/www\/nettemp\"/g' /etc/lighttpd/lighttpd.conf
 sed -i -e 's/server.document-root        = \"\/var\/www\/html"/server.document-root        = \"\/var\/www\/nettemp\"/g' /etc/lighttpd/lighttpd.conf
@@ -42,15 +43,15 @@ echo "admin:admin" > /etc/lighttpd/.lighttpdpassword
 lighttpd-enable-mod auth
 fi
 # php.ini upload file max size
-sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 300M/g' /etc/php5/cgi/php.ini
-sed -i 's/post_max_size = 8M/post_max_size = 300M/g' /etc/php5/cgi/php.ini
+sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 300M/g' /etc/php/7.0/cgi/php.ini
+sed -i 's/post_max_size = 8M/post_max_size = 300M/g' /etc/php/7.0/cgi/php.ini
 
 #PHP5-FPM
 mv /etc/lighttpd/conf-available/15-fastcgi-php.conf /etc/lighttpd/conf-available/15-fastcgi-php.conf.old
 cp $dir/install/www/15-fastcgi-php.conf /etc/lighttpd/conf-available/
-sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 300M/g' /etc/php5/fpm/php.ini
+sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 300M/g' /etc/php/7.0/fpm/php.ini
 sed -i 's/post_max_size = 8M/post_max_size = 300M/g' /etc/php5/fpm/php.ini
-sed -i 's/;sendmail_path =/sendmail_path = '\''\/usr\/bin\/msmtp -t'\''/g' /etc/php5/fpm/php.ini
+sed -i 's/;sendmail_path =/sendmail_path = '\''\/usr\/bin\/msmtp -t'\''/g' /etc/php/7.0/fpm/php.ini
 } >> $dir/install_log.txt 2>&1
 
 exitstatus=$?
