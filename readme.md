@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.21
+
+update installer to php7
+
 4.1.20
 
 no add 1 to counters
