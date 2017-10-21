@@ -2,9 +2,9 @@
 
 apt-get install libssl-dev  libgnutls28-dev  gcc python2.7-dev libldap2-dev libacl1-dev libtalloc-dev libsasl2-dev
 cd /tmp
-wget ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-3.0.9.tar.gz 
-tar -xzf freeradius-server-3.0.9.tar.gz 
-cd freeradius-server-3.0.9
+wget ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-3.0.15.tar.gz 
+tar -xzf freeradius-server-3.0.15.tar.gz 
+cd freeradius-server-3.0.15
 ./configure
 make
 make install
