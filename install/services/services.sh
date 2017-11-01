@@ -6,6 +6,7 @@
 /etc/init.d/lighttpd restart
 
 update-rc.d smstools enable
+systemctl enable mosquitto
 
 if [[ $APCUPS == 'yes' ]]; then
     /etc/init.d/apcupsd start

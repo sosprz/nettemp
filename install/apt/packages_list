@@ -43,3 +43,5 @@ smstools
 mysql-client
 python-pymodbus
 lm-sensors
+mosquitto
+mosquitto-clients
