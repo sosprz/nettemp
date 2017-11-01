@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.22
+
+add first mqtt files
+
 4.1.21
 
 update installer to php7
