@@ -6,7 +6,11 @@
 /etc/init.d/lighttpd restart
 
 update-rc.d smstools enable
+
 systemctl enable mosquitto
+cp $dir/install/services/nettempmqtt.service /etc/systemd/system/
+systemctl enable nettempmqtt
+systemctl start nettempmqtt
 
 if [[ $APCUPS == 'yes' ]]; then
     /etc/init.d/apcupsd start

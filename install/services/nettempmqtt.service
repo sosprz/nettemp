@@ -1,0 +1,11 @@
+[Unit]
+Description=nettemp mqtt subscriber
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/php -f /var/www/nettemp/modules/mqtt/subscribe.php
+Restart=on-abort
+
+
