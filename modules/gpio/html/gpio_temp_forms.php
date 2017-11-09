@@ -400,6 +400,7 @@ else {
 	</select>
 </td>
 <td class="col-md-2">
+	<input type="hidden" name="day_plan_update" value=any>
 	<select name="day_plan_update" class="form-control input-sm" <?php echo $a['day_run'] != 'on' ? 'disabled="disabled"' : ''; ?>>
 	<?php
 	$sth1 = $db->prepare("SELECT * FROM day_plan WHERE gpio='$gpio'");

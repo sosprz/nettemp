@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.23
+
+fix disappearing week pforfile - thanks to asystentroberta
+
 4.1.22
 
 add first mqtt files
