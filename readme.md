@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.24
+
+fix justgage temp scale
+
 4.1.23
 
 fix disappearing week pforfile - thanks to asystentroberta
