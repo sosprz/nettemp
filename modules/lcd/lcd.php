@@ -23,7 +23,7 @@ $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $a) {
 	if($a['option']=='temp_scale') {
-		$temp_scale=$a['value'];
+		$nts_temp_scale=$a['value'];
 	}
 }
 
@@ -35,9 +35,9 @@ $lcd=array();
 foreach ($result as $a) {
     foreach($result_t as $ty){
         if($ty['type']==$a['type']){
-            if(($temp_scale == 'F')&&($a['type']=='temp')){
+            if(($nts_temp_scale == 'F')&&($a['type']=='temp')){
                 $unit='F';
-            } elseif(($temp_scale == 'C')&&($a['type']=='temp')){
+            } elseif(($nts_temp_scale == 'C')&&($a['type']=='temp')){
                 $unit='C';
             } else {
                 $unit=$ty['unit'];

@@ -82,7 +82,7 @@ $query = $db->query("SELECT * FROM types");
 $result_t = $query->fetchAll();
 foreach($result_t as $ty){
        	if($ty['type']==$type) {
-       		if(($temp_scale != 'C')&&($ty['type']=='temp')){
+       		if(($nts_temp_scale != 'C')&&($ty['type']=='temp')){
        			echo "var n_units = '". $ty['unit2'] ."';\n"; 
         		} else {
 					echo "var n_units = '". $ty['unit'] ."';\n"; 

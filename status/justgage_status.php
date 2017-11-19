@@ -50,7 +50,7 @@ if ($a['normalized']=='on')
 
 foreach($result_t as $ty){
        	if($ty['type']==$a['type']) {
-       		if(($temp_scale != 'C')&&($a['type']=='temp')){
+       		if(($nts_temp_scale != 'C')&&($a['type']=='temp')){
        			echo "var n_units = '". $ty['unit2'] ."';\n"; 
        		} 
        		else {
