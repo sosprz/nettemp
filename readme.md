@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.25
+
+update gpio IP
+
 4.1.24
 
 fix justgage temp scale
