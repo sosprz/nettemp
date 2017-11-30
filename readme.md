@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.26
+
+fix when remove different devices with same gpio number
+
 4.1.25
 
 update gpio IP

@@ -34,7 +34,7 @@ if(!empty($rom) && ($usun2 == "usun3")) {
 	}
 	//gpio
 	if($type='gpio'){
-		$db->exec("DELETE FROM gpio WHERE gpio='$gpio'");
+		$db->exec("DELETE FROM gpio WHERE gpio='$gpio' AND rom='$rom'");
 	}
 	
 	header("location: " . $_SERVER['REQUEST_URI']);
