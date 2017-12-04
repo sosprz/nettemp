@@ -1,0 +1,8 @@
+CREATE TABLE hosts (
+  id INTEGER PRIMARY KEY,
+  name UNIQUE,
+  ip TEXT,
+  type TEXT,
+  last TEXT,
+  status TEXT
+  , rom type TEXT, map_pos type NUM, map_num type NUM, map type NUM, alarm type TEXT, position type NUM);

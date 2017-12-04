@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo "nettemp" > /etc/hostname
+useradd nettemp -m -s /bin/bash
+echo "nettemp:nettemp" | chpasswd
+sed -i '$anettemp ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
+chmod +x /nettemp_install_on_raspberry_pi.sh
+./nettemp_install_on_raspberry_pi.sh
+

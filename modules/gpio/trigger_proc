@@ -1,0 +1,129 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=$(date +%y%m%d-%H%M%S)
+
+gpio="$1"
+
+if [ ! -n "$gpio" ]; then echo "no gpio input" && exit; fi 
+
+name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name FROM gpio where gpio='$gpio'")
+out=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND tout$gpio='on'")
+rev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
+trigger_notice=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
+get_mail=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
+user=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT user FROM mail_settings")
+led=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT gpio FROM gpio where mode='led'")
+delay=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT trigger_delay FROM gpio where gpio='$gpio'")
+con=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT trigger_con FROM gpio where gpio='$gpio'")
+
+function triggerout_gpio {
+	    for i in $out; do
+		g=$(echo $i|awk -F"|" '{ print $1}')
+		r=$(echo $i|awk -F"|" '{ print $2}')
+		/usr/local/bin/gpio -g mode $g out
+		if [[ $1 = "on" ]]; then
+		    if [ "$r" = "on" ]; then
+			/usr/local/bin/gpio -g write $g 0
+			echo reverse ON
+		    else
+			/usr/local/bin/gpio -g write $g 1
+			echo normal ON
+		    fi
+		fi
+		if [[ $1 = "off" ]]; then
+		    if [ "$r" = "on" ]; then
+			/usr/local/bin/gpio -g write $g 1
+			echo reverse OFF
+		    else
+			/usr/local/bin/gpio -g write $g 0
+			echo normal OFF
+		    fi
+		fi
+		
+	    done
+}
+
+function ledalarm {
+		/usr/local/bin/gpio -g mode $led out
+		if [[ $con = "on" ]]; then
+		    while :; do
+			/usr/local/bin/gpio -g write $led 0
+			sleep 0.5
+			/usr/local/bin/gpio -g write $led 1
+			sleep 0.5
+			break
+		    done
+		else
+		    while :; do
+			/usr/local/bin/gpio -g write $led 0
+			sleep 0.5
+			/usr/local/bin/gpio -g write $led 1
+			sleep 0.5
+		    done
+		fi
+}
+
+
+function mail { 
+    daten=$(date +%y%m%d-%H%M%S)
+    if [ "$trigger_notice" = "on" ] && [ $trigger = "on" ]; then
+        plik=$dir/tmp/mail/mail-alarm-$gpio-$daten-oneshot
+	function file {
+	    source $dir/modules/mail/mail_body
+	    chmod 777 $plik
+	}
+	file "<td>$name</td><td></td><td>$date</td><td bgcolor="#FF0000">ALARM</td>" $plik
+	fi
+}
+
+
+
+for i in $(seq $delay)
+    do
+    /usr/local/bin/gpio -g write $led 1
+    sleep 1
+    /usr/local/bin/gpio -g write $led 0
+    sleep 1
+    echo $i
+done
+    sleep 1
+    /usr/local/bin/gpio -g write $led 1
+
+
+start=$(/usr/local/bin/gpio -g read $gpio)
+while :
+do
+    new=$(/usr/local/bin/gpio -g read $gpio)
+    if [[ "$start" != "$new" ]]
+        then
+	    trigger="on"
+	    triggerout_gpio on
+    
+	    if [[ -n "$led" ]]; then
+		ledalarm &
+	    fi
+
+	    mail &
+	    
+	    $dir/modules/gpio/timestamp $gpio &
+
+	    if [[ $con = "on" ]]; then
+		while :
+		    do
+			check=$(/usr/local/bin/gpio -g read $gpio)
+			if [[ $start == "$check" ]]; then
+			    triggerout_gpio off
+			    break
+			fi
+			sleep 0.5
+		    done
+	    
+		continue
+	    else
+		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='ALARM' WHERE gpio='$gpio'"
+		break
+	    fi
+    fi
+sleep 0.1
+done

@@ -1,0 +1,18 @@
+#!/bin/bash 
+
+rrdtool dump $1 > filename.xml
+name=$(echo $1 | sed '$s/....$//')
+
+cat filename.xml |grep row | awk '{ print $2" "$3" "$8}'  | sed 's/<\/v><\/row>//g' | sed 's/<row><v>//g' > file.n
+
+sqlite3 $name.sql  "CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER);"
+
+cat file.n | while read in; do 
+
+rtime=$(echo $in |awk '{ print $1" "$1}')
+rv1=$(echo $in |awk '{print $3}')
+rv=$(printf "%.2f" $rv1)
+echo $rv
+sqlite3 $name.sql "INSERT OR IGNORE INTO def (time,value) VALUES ('$rtime','$rv');"
+
+done

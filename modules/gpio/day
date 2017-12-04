@@ -1,0 +1,63 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+day=$(LC_ALL=en_EN.utf8 date '+%a')
+date2=$(date +%H%M|sed 's/^\0//g')
+
+if [ -z "$gpio" ]
+    then
+	gpio="$1"
+	mode="temp"
+fi
+day_run=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT day_run FROM gpio WHERE gpio='$gpio'")
+if [ "$day_run" = "on" ]; then
+
+	names=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name FROM day_plan WHERE gpio='$gpio' and (Mon='$day' OR Tue='$day' OR Wed='$day' OR Thu='$day' OR Fri='$day' OR Sat='$day' OR Sun='$day')")
+	#echo $gpio
+	#echo "$names"
+	for i in $names; do
+	    stime=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT stime FROM day_plan WHERE name='$i'")
+	    etime=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT etime FROM day_plan WHERE name='$i'")
+	    stimec=$(echo $stime | sed 's/://g'|sed 's/^\0//g')
+	    etimec=$(echo $etime | sed 's/://g'|sed 's/^\0//g')
+	    if (("$date2" >= "$stimec")) && (("$date2" < "$etimec")); then
+		onoff="on"
+		dayplan=$i
+		if [ $mode != "temp" ]; then
+		    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='ON DAY $i' WHERE gpio='$gpio'"
+		    day_status=$onoff
+		    logstatus="ON $i"
+		fi
+		break
+	    else
+		if [ $mode != "temp" ]; then
+	    	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF DAY' WHERE gpio='$gpio'"
+		    day_status=$onoff
+		    logstatus="OFF"
+		fi
+	    	onoff="off"
+	    fi
+	done
+	unset i
+
+    if [[ -z $onoff ]]; then
+	onoff=off
+	day_status=$onoff
+	logstatus="OFF not in day range"
+	log
+	if [ $mode != "temp" ]; then
+	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF DAY' WHERE gpio='$gpio'"
+	fi
+    fi
+
+    if [ $mode == "temp" ]
+	then
+    	    day_status=$onoff
+    else
+	log
+	gpio_$onoff
+	    
+    fi
+
+fi
+

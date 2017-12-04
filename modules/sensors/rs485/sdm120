@@ -1,0 +1,57 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
+date=`date +%y%m%d-%H%M`
+
+if pidof -o %PPID -x $(basename $0) > /dev/null; then
+    echo $(basename $0) runnning
+    echo "$date  $(basename $0) already running" >> $dir/log.txt
+    exit
+fi
+
+
+dev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT dev FROM usb WHERE device='RS485'"|sed 's/\/dev\///g')
+if [[ "$dev" != "none" ]]; then
+	echo USB selected
+	skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select value from nt_settings WHERE option='server_key'")
+
+	addr=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT addr FROM rs485 WHERE dev='SDM120'")
+
+	for i in $addr; do
+		
+		rs=a$i
+		val=$(/usr/local/bin/sdm120c /dev/$dev -a $i -p |head -1|awk '{print $2}')
+		php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=$val type=watt
+
+		val=$(/usr/local/bin/sdm120c /dev/$dev -a $i -v |head -1|awk '{print $2}' |sed 's/-//g')
+		php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=$val type=volt
+
+		val=$(/usr/local/bin/sdm120c /dev/$dev -a $i -c |head -1|awk '{print $2}' |sed 's/-//g')
+		php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=$val type=amps
+
+		all=$(/usr/local/bin/sdm120c /dev/$dev -a $i -i |head -1|awk '{print $4}')
+
+		last=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT sum FROM sensors WHERE rom='usb_$(echo $dev$rs)_elec'")
+
+		if [[ -n "$last" ]] && [[ "$last" != "0" ]]; then
+   		val=$(echo $all - $last |bc |awk '{print $1/1000}')
+    		echo "LAST $last"
+    		echo "VAL $val"
+    		echo "ALL $all"
+    		php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=$val type=elec current=$val
+    		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev$rs)_elec'"
+		else
+   		val=$all
+   		php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=0 type=elec
+    		sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev$rs)_elec'"
+		fi
+
+	done
+
+else
+    echo RS485 OFF
+fi
+
+
+
+

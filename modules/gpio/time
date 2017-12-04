@@ -1,0 +1,26 @@
+#! /bin/bash -x
+
+time_run=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT time_run FROM gpio WHERE gpio='$gpio'")
+if [ "$time_run" = "on" ]
+    then
+	time_offset=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT time_offset FROM gpio WHERE gpio='$gpio'")
+        time_start=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT time_start FROM gpio WHERE gpio='$gpio'")
+    	    if [ "$time_start" != "off" ]
+		then
+		now_time_s=`date +%s`
+		endtime=$(( $time_offset*60 + $time_start))
+		    if [ $endtime -lt $now_time_s ]
+			then # lt  mnijsze 
+			gpio_off $gpio
+			sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET time_run='off', time_start='off',status='OFF'  WHERE gpio='$gpio'"
+			echo "gpio $gpio off"
+		    else 
+			diff=$(( $endtime - $now_time_s ))
+			sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='ON $(($diff/60)) min' WHERE gpio='$gpio'"
+			echo "Elapsed time is $(($diff/60)) min, ($diff sec)"
+			echo "gpio on after reboot"
+			gpio_on $gpio  # for after reboot
+		    fi
+	    fi
+fi
+

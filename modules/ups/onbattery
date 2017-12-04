@@ -1,0 +1,24 @@
+#! /bin/bash 
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+
+date=$(date +%y-%m-%d_%H:%M)
+status="$1"
+
+get_mail=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
+
+model=$(apcaccess |grep -E "^MODEL" | awk -F ":" '{ print  $2 }')
+echo $model
+timeleft=$(apcaccess |grep -E "^TIMELEFT" | awk -F ":" '{ print  $2 }')
+echo $timeleft
+
+
+#|^BATTV|^STATUS|^LINEV|^TIMELEFT|^BCHARGE"
+
+
+if [ "$status" == "on" ]; then
+$dir/modules/mail/mail_test "$get_mail" "UPS on battery" "Your $model is on battery. Time left on battery is $timeleft"
+else
+$dir/modules/mail/mail_test "$get_mail" "UPS AC line recovery" "Your $model returned to AC mode."
+fi
+

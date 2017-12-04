@@ -1,0 +1,17 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+CEL=$'\xe2\x84\x83'
+
+while : 
+    do
+    clear
+    figlet nettemp
+    echo -n "version "; echo -n "$(cd $dir && /usr/bin/git branch |grep [*]|awk '{print $2}') "; awk '/Changelog/{y=1;next}y' $dir/readme.md |head -2 |grep -v '^$'
+    echo ""
+    #cat $dir/tmp/lcd | sed 's/temp/'$(echo -e $CEL)'/g' | sed 's/humid/%/g' | sed 's/press/Pa/g' | sed 's/humid/%/g' | column -t
+    cat $dir/tmp/lcd | sed 's/temp/'C'/g' | sed 's/humid/%/g' | sed 's/press/Pa/g' | sed 's/humid/%/g' | sed 's/volt/V/g' | sed 's/amps/A/g' | sed 's/elec/kWh/g' | column -t
+    echo ""
+    echo ""
+    sleep 60
+done

@@ -1,0 +1,36 @@
+#! /bin/bash 
+
+dtgpio="$1"
+ds="$2"
+modgpio="$3"
+
+if [ "$dtgpio" == "on" ]; then
+    sudo sed -i 's/#dtoverlay=w1-gpio,pullup=on/dtoverlay=w1-gpio,pullup=on/g' /boot/config.txt
+    sudo grep 'dtoverlay=w1-gpio,pullup=on' /boot/config.txt || sudo sed -i '$adtoverlay=w1-gpio,pullup=on' /boot/config.txt
+fi
+
+if [ "$dtgpio" == "off" ]; then
+    sudo sed -i 's/dtoverlay=w1-gpio,pullup=on//g' /boot/config.txt
+fi
+
+if [ "$ds" == "on" ]; then
+    sudo sed -i 's/.*w1_therm.*/w1_therm strong_pullup=0/g' /etc/modules
+    sudo grep 'ds2482' /etc/modules || sudo sed -i '$ads2482' /etc/modules
+    sudo grep 'w1_therm' /etc/modules || sudo sed -i '$aw1_therm strong_pullup=0' /etc/modules
+fi
+
+if [ "$ds" == "off" ]; then
+    sudo sed -i 's/.*w1_therm.*//g' /etc/modules
+    sudo sed -i 's/.*ds2482.*//g' /etc/modules
+fi
+
+if [ "$modgpio" == "on" ]; then
+    sudo sed -i 's/.*w1_gpio.*/w1_gpio pullup=1/g' /etc/modules
+    sudo grep 'w1_gpio' /etc/modules || sudo sed -i '$aw1_gpio pullup=1' /etc/modules
+fi
+
+if [ "$modgpio" == "off" ]; then
+    sudo sed -i 's/w1_gpio.*//g' /etc/modules
+fi
+
+touch $dir/tmp/reboot

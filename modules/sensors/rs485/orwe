@@ -1,0 +1,64 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
+date=`date +%y%m%d-%H%M`
+
+if pidof -o %PPID -x $(basename $0) > /dev/null; then
+    echo $(basename $0) runnning
+    echo "$date  $(basename $0) already running" >> $dir/log.txt
+    exit
+fi
+
+
+
+
+dev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT dev FROM usb WHERE device='RS485'"|sed 's/\/dev\///g')
+if [[ "$dev" != "none" ]]; then
+echo OR-WE ON
+
+skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select value from nt_settings WHERE option='server_key'")
+addr=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT addr FROM rs485 WHERE dev='OR-WE'")
+
+
+for i in $addr; do 
+
+    ARRAY=($($dir/modules/sensors/rs485/orwe_get /dev/$dev $i))
+    echo ${ARRAY[*]}
+    
+	 all=${ARRAY[3]}
+	 wat=${ARRAY[2]}
+
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=${ARRAY[0]} type=volt
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=${ARRAY[1]} type=amps
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=$wat type=watt
+    
+
+    last=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT sum FROM sensors WHERE rom='usb_$(echo $dev)_elec'")
+
+    if [[ -n "$last" ]] && [[ "$last" != "0" ]]; then
+	kwh=$(echo $all - $last |bc)
+	echo "LAST $last"
+	echo "VAL $kwh"
+	echo "ALL $all"
+	php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=$kwh type=elec current=$wat
+	sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev)_elec'"
+    else
+	val=$all
+	sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev)_elec'"
+	php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=0 type=elec
+    fi
+
+    unset ARRAY
+
+done
+
+
+
+
+else
+    echo OR-WE OFF
+fi
+
+
+
+

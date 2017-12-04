@@ -1,0 +1,60 @@
+#! /bin/bash 
+
+dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
+date=`date +%y%m%d-%H%M`
+dev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT dev FROM usb WHERE device='1wire'"|sed 's/\/dev\///g')
+
+# DS9097U na USB - meraprojekt new
+
+if [[ "$dev" == "none" ]]; then
+    for i in 0 1 2 3 4
+	do
+	    if [ `ls /dev/ttyUSB$i 2> /dev/null` ]; then 
+		/usr/bin/digitemp_DS9097U -i -c $dir/tmp/.digitemprc -s/dev/ttyUSB$i &> /dev/null
+	    fi
+	done
+else
+    /usr/bin/digitemp_DS9097U -i -c $dir/tmp/.digitemprc -s/dev/$dev &> /dev/null
+fi
+    if [ -e $dir/tmp/.digitemprc ]; then 
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097U'"
+    echo USB: DS9097U found
+    echo "$date temp_dev_scan - Discovered DS9097U on USB" >> $dir/tmp/log.txt
+    else
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET usb='off' WHERE id='1'"
+    fi
+
+
+# DS2490 na USB - meraprojekt old
+if [ ! -e $dir/tmp/.digitemprc ]; then 
+    /usr/bin/digitemp_DS2490 -i -c $dir/tmp/.digitemprc &> /dev/null
+    if [ -e $dir/tmp/.digitemprc ]; then 
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET usb='DS2490'"
+    echo USB: DS2490 found
+    echo "$date temp_dev_scan - Discovered DS2490 on USB" >> $dir/tmp/log.txt
+    else
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET usb='off' WHERE id='1'"
+    fi
+fi
+
+# DS9097 na USB - serial na przejsciowce USB
+if [ ! -e $dir/tmp/.digitemprc ]; then
+    if [[ "$dev" == "none" ]]; then
+	for i in 0 1 2 3
+	    do
+    		if [ `ls /dev/ttyUSB$i 2> /dev/null` ]; then 
+    		    /usr/bin/digitemp_DS9097 -i -c $dir/tmp/.digitemprc -s/dev/ttyUSB$i &> /dev/null
+    		fi
+	    done
+    else
+	/usr/bin/digitemp_DS9097 -i -c $dir/tmp/.digitemprc -s/dev/$dev &> /dev/null
+    fi
+
+    if [ -e $dir/tmp/.digitemprc ]; then 
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET usb='DS9097' WHERE id='1'"
+    echo USB: DS9097 found
+    echo "$date temp_dev_scan - Discovered DS9097 on USB" >> $dir/tmp/log.txt
+    else
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET usb='off'"
+    fi
+fi

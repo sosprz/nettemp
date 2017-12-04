@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+lb config noauto \
+-d wheezy \
+--mode debian \
+--bootappend-live "boot=live noautologin config persistence hostname=nettemp noeject quickreboot silent" \
+--debian-installer live \
+#--interactive shell \
+	"${@}"
+
+
+

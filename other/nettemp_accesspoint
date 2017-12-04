@@ -1,0 +1,56 @@
+#! /bin/bash
+
+apt-get update
+sudo update-usbids
+apt-get -y install hostapd dnsmasq
+
+sed -i 's/iface wlan0 inet manual/#iface wlan0 inet manual/g' /etc/network/interfaces
+sed -i 's/wpa-roam \/etc\/wpa_supplicant\/wpa_supplicant.conf/#wpa-roam \/etc\/wpa_supplicant\/wpa_supplicant.conf/g' /etc/network/interfaces
+sed -i 's/iface default inet dhcp/#iface default inet dhcp/g' /etc/network/interfaces
+sed -i '$aiface wlan0 inet static' /etc/network/interfaces
+sed -i '$aaddress 192.168.0.1' /etc/network/interfaces
+sed -i '$anetmask 255.255.255.0' /etc/network/interfaces
+
+
+sed -i 's/INTERFACES="auto"/INTERFACES="eth0"/g' /etc/default/ifplugd
+sed -i 's/HOTPLUG_INTERFACES="all"/HOTPLUG_INTERFACES="eth0"/g' /etc/default/ifplugd
+
+service ifplugd restart
+
+ifdown wlan0
+ifup wlan0
+
+cat <<EOT > /etc/hostapd/hostapd.conf
+interface=wlan0
+driver=nl80211
+ssid=nettemppl
+hw_mode=g
+channel=6
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=nettemppl
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+EOT
+
+sed -i 's/#DAEMON_CONF=""/DAEMON_CONF="\/etc\/hostapd\/hostapd.conf"/g' /etc/default/hostapd
+
+sed -i '$ainterface=wlan0' /etc/dnsmasq.conf
+sed -i '$adhcp-range=192.168.0.1,192.168.0.250,255.255.255.0,1h' /etc/dnsmasq.conf 
+
+sysctl -w net.ipv4.ip_forward=1
+sed -i -e '$anet.ipv4.ip_forward=1\' /etc/sysctl.conf
+
+sed -i '$a192.168.0.1 nettemp' /etc/hosts
+sed -i '$a192.168.0.1 nettemp.pl' /etc/hosts
+sed -i '$a192.168.0.1 nettemppl' /etc/hosts
+
+service hostapd restart
+service dnsmasq restart
+
+
+
+

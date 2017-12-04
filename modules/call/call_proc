@@ -1,0 +1,11 @@
+#! /bin/bash
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=$(date +%y%m%d-%H%M)
+
+dev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT dev FROM usb WHERE device='Modem Call'")
+if [[ -n "$dev" ]]; then
+    $dir/modules/call/call $dev
+else
+    echo "no dev"
+fi

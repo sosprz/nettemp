@@ -1,0 +1,143 @@
+#!/usr/bin/env python
+#
+#  Skrypt stworzony na potrzeby nettemp.
+#  Autor dise - dise@o2.pl
+#  update zapis Current bardziej dokladnego 
+ 
+import RPi.GPIO as GPIO
+import datetime
+import sys
+import signal
+import time
+import os
+import sqlite3
+import threading
+from datetime import datetime
+from datetime import timedelta
+import subprocess
+
+############################################################################################################
+
+pulseValue = 0
+currentWatt = 0
+dbWriteSleep = 60 # zapis do bazy co 60 sekund
+start_time = datetime.now()
+debouncing = 0
+lastPulseValue = 0
+
+
+def signal_handler(signal, frame): # cos nie dziala ctr+c no ale moze kiedys zaczenie
+        print('You pressed Ctrl+C, so exiting')
+        GPIO.cleanup()
+        sys.exit(0)
+        cleanup_stop_thread();
+        thread.exit()
+try:
+        db = sqlite3.connect('/var/www/nettemp/dbf/nettemp.db')
+        c = db.cursor()
+        c.execute("SELECT gpio FROM gpio WHERE water_run='on'")
+        array=[r[0] for r in c.fetchall()]
+        gpiopin = int(array[0]) # int gpiopin
+
+        c.execute("SELECT rev FROM gpio WHERE gpio like ? ", (gpiopin,))
+        array=[r[0] for r in c.fetchall()]
+        rev = str(array[0]) # rev = 'on' - High to Low - FALLING
+                            # rev = ' '  - Low  to High - RISING
+		
+	c.execute("SELECT value from nt_settings WHERE option='server_key'")
+        array=[r[0] for r in c.fetchall()]
+        key = str(array[0]) # server key
+		
+	c.execute("SELECT water_divider FROM gpio WHERE water_run='on'")
+        array=[r[0] for r in c.fetchall()]
+        divider = float(array[0]) # divider
+		
+        c.execute("SELECT water_debouncing FROM gpio WHERE gpio like ? ", (gpiopin,)) 
+        array=[r[0] for r in c.fetchall()] 
+        debouncing = int(array[0]) # debouncing
+							
+        db.close()
+
+except:
+        print ("Blad wczytania danych z bazy netemp'a !! ")
+        sys.exit(0)
+# Ustawiamy GPIO zgodnie z tym co zaczytane z bazy
+
+# print gpiopin
+# print rev
+
+signal.signal(signal.SIGINT, signal_handler)
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(gpiopin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+
+if rev == 'on' :  # ustawiamy detekcje odpowiednio z tym co w bazie
+        gpioEvent1 = GPIO.FALLING
+        gpioEvent2 = GPIO.RISING
+else:
+        gpioEvent1 = GPIO.RISING
+        gpioEvent2 = GPIO.FALLING
+
+def millis():
+   dt = datetime.now() - start_time
+   ms = (dt.days * 24 * 60 * 60 + dt.seconds) * 1000 + dt.microseconds / 1000.0
+   return ms
+
+def dbwrite():
+    # czekamy dbWriteSleep sekund i zapisujemy do bazy , po zapisie resetujemy licznik
+    global pulseValue # operujemy na globalnej zmiennej ilosci pulsow
+    global currentWatt
+    global gpiopinstr
+    global key
+    global divider
+    global debouncing
+    global lastPulseValue
+
+
+    threading.Timer(dbWriteSleep, dbwrite).start()
+    threading.Timer(dbWriteSleep, dbwrite).setDaemon(True)
+
+    # jesli puls ma wartosc inna niz  0 to  zapisujemy do bazy jesli 0 pomijamy zapis
+
+    if pulseValue > lastPulseValue:
+        now = datetime.now().replace(microsecond=0)  # use sqlite auto timestamp
+        		
+	# zapis  po php-cgi	
+	value = 'value='+str((float(pulseValue - lastPulseValue)/divider)) # floatujemy wynik  
+        gpiopinstr = 'gpio='+str(gpiopin)
+        keystring = 'key='+str(key)
+	currentstring = 'current='+str(currentWatt)
+ 
+        subprocess.call(['/usr/bin/php-cgi','-f','/var/www/nettemp/receiver.php',keystring,' type=water',value,' device=gpio', gpiopinstr, currentstring]) 
+    
+        lastPulseValue = pulseValue # jesli zapis pomyslny ustawiamy lastpulsevalue na pulsevalue
+
+# Startujemy z watkiem zapisywania do bazy
+
+dbwrite()
+debstarttime = millis()
+
+######    Glowna petla programu
+
+while True:
+
+        # Czekamy na zmiane stanu pinu...
+        GPIO.wait_for_edge(gpiopin, gpioEvent1)
+        
+        debstoptime = millis()
+        
+        if debstoptime - debstarttime > debouncing :
+
+	        # inkrementujemy wartosc pulsu zawsze przy zdarzeniu i zaczynamy zliczac czas pomiedzy pulsami
+        	pulseValue += 1
+
+        	deltaPulseMillis = millis()
+        	start_time = datetime.now()
+        	currentWatt = int((( 3600 * 1000 ) / deltaPulseMillis ))
+
+		debstarttime = millis()
+
+        # .... i znowu az pin powroci
+        GPIO.wait_for_edge(gpiopin, gpioEvent2)
+
+############################################################################################################

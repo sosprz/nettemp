@@ -1,0 +1,27 @@
+#! /bin/bash 
+
+dir=$( cd "$( dirname "$0" )" && cd ../../../ && pwd )
+date=`date +%y%m%d-%H%M`
+
+# DS9097 - serial 
+if [ ! -e $dir/tmp/.digitemprcs ]; then 
+    dev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT dev FROM usb WHERE device='1wire Serial'"|sed 's/\/dev\///g')
+    if [[ "$dev" == "none" ]]; then
+        for i in 0 1 2 3 4
+	do
+    	    if [ `ls /dev/ttyS$i 2> /dev/null` ]; then 
+    	    /usr/bin/digitemp_DS9097 -i -c $dir/tmp/.digitemprcs -s/dev/ttyS$i &> /dev/null
+    	    fi
+	done
+    else
+	/usr/bin/digitemp_DS9097 -i -c $dir/tmp/.digitemprcs -s/dev/$dev &> /dev/null
+    fi
+
+    if [ -e $dir/tmp/.digitemprcs ]; then 
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET serial='DS9097' WHERE id='1'"
+    echo Serial: DS9097 found
+    echo "$date temp_dev_scan - Discovered DS9097 on serial port" >> $dir/tmp/log.txt
+    else
+    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE device SET serial='off'"
+    fi
+fi

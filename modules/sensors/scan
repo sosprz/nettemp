@@ -1,0 +1,45 @@
+#! /bin/bash 
+
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+date=`date +%y%m%d-%H%M`
+
+rm -rf $dir/tmp/.digitemprc
+rm -rf $dir/tmp/.digitemprcs
+
+sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "DELETE FROM newdev;"
+
+mkdir -p $dir/tmp 
+
+echo "$date temp_dev_scan - Deleted .digitemprc" >> $dir/tmp/log.txt
+
+
+# USB
+$dir/modules/sensors/1wire/1wire_usb_scan
+# DS9097 - serial 
+$dir/modules/sensors/1wire/1wire_serial_scan
+# DHT11 22
+$dir/modules/sensors/GPIO/DHT/dht_scan
+# snmp
+$dir/modules/sensors/snmp/snmp_scan
+
+# esp8266
+$dir/modules/sensors/wireless/esp8266_scan
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
