@@ -34,7 +34,7 @@ $KtoryWidget = 1;
 foreach ($result as $a) { 	
 if ($a['normalized']=='on')
 {
-	$a['name']=$a['name'].' npm2';
+	$a['name']=$a['name'].' npm';
 	$a['type']='normalized';
 	require_once('Meteo.class.php');
 	$meteo=new Meteo();
