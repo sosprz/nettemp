@@ -154,6 +154,7 @@ if (typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
 if (typeof(window) !== 'undefined') {
   window.nv = nv;
 }
+<<<<<<< HEAD
 /* Facade for queueing DOM write operations
  * with Fastdom (https://github.com/wilsonpage/fastdom)
  * if available.
@@ -178,6 +179,32 @@ nv.dom.read = function(callback) {
 		return fastdom.read(callback);
 	}
 	return callback();
+=======
+/* Facade for queueing DOM write operations
+ * with Fastdom (https://github.com/wilsonpage/fastdom)
+ * if available.
+ * This could easily be extended to support alternate
+ * implementations in the future.
+ */
+nv.dom.write = function(callback) {
+	if (window.fastdom !== undefined) {
+		return fastdom.write(callback);
+	}
+	return callback();
+};
+
+/* Facade for queueing DOM read operations
+ * with Fastdom (https://github.com/wilsonpage/fastdom)
+ * if available.
+ * This could easily be extended to support alternate
+ * implementations in the future.
+ */
+nv.dom.read = function(callback) {
+	if (window.fastdom !== undefined) {
+		return fastdom.read(callback);
+	}
+	return callback();
+>>>>>>> e89c3117d3a249c2431ff22a6d69046113d5f404
 };/* Utility class to handle creation of an interactive layer.
  This places a rectangle on top of the chart. When you mouse move over it, it sends a dispatch
  containing the X-coordinate. It can also render a vertical line where the mouse is located.

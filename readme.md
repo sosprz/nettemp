@@ -185,8 +185,11 @@ Add screen
 Add types in seetings
 Add datepicker to cvs export
 
+<<<<<<< HEAD
 TESTY 2
 
+=======
+>>>>>>> e89c3117d3a249c2431ff22a6d69046113d5f404
 
 
 

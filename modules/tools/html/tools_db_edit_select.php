@@ -106,14 +106,23 @@ $row = $rows->fetchAll();
 	$row = $rows->fetchAll();
 	$total_records = count($row);
 	
+<<<<<<< HEAD
 	if($total_records >=101) {
+=======
+	if($total_records >=101) {
+>>>>>>> e89c3117d3a249c2431ff22a6d69046113d5f404
 	
 	$total_pages = ceil($total_records / $pstop); 
 	
 	echo "<a href='index.php?id=tools&type=dbedit2&file=$file&search=$search&page=1'>".'|<'."</a> ";
 	
+<<<<<<< HEAD
 	for ($i=1; $i<=$total_pages; $i++) { 
             echo "<a href='index.php?id=tools&type=dbedit2&file=$file&search=$search&page=".$i."'>".$i."</a> "; 
+=======
+	for ($i=1; $i<=$total_pages; $i++) { 
+            echo "<a href='index.php?id=tools&type=dbedit2&file=$file&search=$search&page=".$i."'>".$i."</a> "; 
+>>>>>>> e89c3117d3a249c2431ff22a6d69046113d5f404
 	}; 	
 	
 	echo "<a href='index.php?id=tools&type=dbedit2&file=$file&search=$search&page=$total_pages'>".'>|'."</a> "; 

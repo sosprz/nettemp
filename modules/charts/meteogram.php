@@ -22,11 +22,19 @@
 
 
 <script type="text/javascript" src="html/highcharts/highcharts.js"></script>
+<<<<<<< HEAD
 <script type="text/javascript" src="html/highcharts/exporting.js"></script>
 
 <div id="container" ></div>
 
 <script>
+=======
+<script type="text/javascript" src="html/highcharts/exporting.js"></script>
+
+<div id="container" ></div>
+
+<script>
+>>>>>>> e89c3117d3a249c2431ff22a6d69046113d5f404
 /**
  * This is a complex demo of how to set up a Highcharts chart, coupled to a
  * dynamic source and extended by drawing image sprites, wind arrow paths

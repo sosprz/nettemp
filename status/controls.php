@@ -248,7 +248,11 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						<img src="media/ico/switch-icon.png" alt="" title="<?php if(!empty($s['ip'])){echo "Last IP: ".$s['ip']." GPIO: ".$s['gpio']." Mode: ".$g['mode'];} else {echo "GPIO: ".$s['gpio']." Mode: ".$g['mode'];}?>" />
 					</td>
 					<td class="col-md-1">
+<<<<<<< HEAD
 						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label <?php echo label($g['status']) ?>" title="Charts" ><?php echo $s['name']?></a>
+=======
+						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label <?php echo label($g['status']) ?>" title="Charts" ><?php echo str_replace("_", " ", $s['name'])?></a>
+>>>>>>> e89c3117d3a249c2431ff22a6d69046113d5f404
 					</td>
 				<?php
 				/* SIMPLE IP */
