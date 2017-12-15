@@ -40,7 +40,7 @@ $time='';
 	
 if ($a['normalized']=='on')
 {
-	$a['name']=$a['name'].' npm';
+	$a['name']=$a['name'];
 	$a['type']='normalized';
 	require_once('Meteo.class.php');
 	$meteo=new Meteo();
