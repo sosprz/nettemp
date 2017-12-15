@@ -24,6 +24,8 @@ if ( $numRows > '0' ) { ?>
 <div class="panel panel-default">
 <div class="panel-heading"><?php echo $ch_g?></div>
 <div class="panel-body">
+
+
 	
 
 <?php
@@ -31,7 +33,11 @@ $query = $db->query("SELECT * FROM types");
 $result_t = $query->fetchAll();
 
 $KtoryWidget = 1;
-foreach ($result as $a) { 	
+foreach ($result as $a) { 
+$type='';
+$name='';
+$time='';
+	
 if ($a['normalized']=='on')
 {
 	$a['name']=$a['name'].' npm';
@@ -40,11 +46,12 @@ if ($a['normalized']=='on')
 	$meteo=new Meteo();
 	$a['tmp']=number_format($meteo->getCisnienieZnormalizowane(),2,'.','');
 }
-
-
 ?>
+
+<a href="index.php?id=view&type=<?php echo $a['type']?>&max=<?php echo $nts_charts_max ?>&single=<?php echo $a['name']?>" title="Go to charts, last update: <?php echo $a['time']?>" class="btn btn-link">
 <div id="<?php echo $ch_g.$a['name']?>" style="width:100px; height:100px;display:inline-block;"></div>
-   
+</a>
+
 <script>
 <?php
 
@@ -77,10 +84,13 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         <?php if(!empty($a['tmp_min']) && !empty($a['tmp_max'])) {
         	echo "min:".$a['tmp_min'].", max:".$a['tmp_max'].",";
         	} ?>
-        title: "<?php echo $a['name']?>",
+        title: "<?php echo str_replace("_", " ", $a['name'])?>",
         label: n_units
+		
       });
 </script>
+
+
 <?php
  }
 ?>

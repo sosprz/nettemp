@@ -100,9 +100,9 @@ foreach ($row_meteo as $a) {
 			<td>
 				<?php 
 					if(isset($_SESSION['user'])){
-						echo $name3;
+						echo str_replace("_", " ", $name3);
 					} else {
-						echo $name2;
+						echo str_replace("_", " ", $name2);
 					}
 				?>
 			</td>
