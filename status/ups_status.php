@@ -1,4 +1,4 @@
-<?php2
+<?php
 
 if ($nts_ups_status != 'on' ) { return; }
 else {

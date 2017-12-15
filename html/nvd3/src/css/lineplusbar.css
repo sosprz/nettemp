@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* line plus bar */
 .nvd3.nv-linePlusBar .nv-bar rect {
     fill-opacity: .75;
@@ -6,13 +5,4 @@
 
 .nvd3.nv-linePlusBar .nv-bar rect:hover {
     fill-opacity: 1;
-=======
-/* line plus bar */
-.nvd3.nv-linePlusBar .nv-bar rect {
-    fill-opacity: .75;
-}
-
-.nvd3.nv-linePlusBar .nv-bar rect:hover {
-    fill-opacity: 1;
->>>>>>> e89c3117d3a249c2431ff22a6d69046113d5f404
 }

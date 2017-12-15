@@ -56,11 +56,7 @@ $row = $rows->fetchAll();
     </td>
 
 	<td class="col-md-1">
-<<<<<<< HEAD
-		<a href="index.php?id=device&type=gpio&gpios=<?php echo $b['gpio']?>&ip=<?php echo $b['ip']?>" class="btn btn-xs btn-success ">GPIO <?php echo $b['gpio']; if(!empty($b['ip'])){echo " ".$b['ip'];}?></a>
-=======
 		<a href="index.php?id=device&type=gpio&gpios=<?php echo $b['gpio']?>&ip=<?php echo $b['ip']?>" class="btn btn-xs btn-success ">GPIO <?php echo $b['gpio']; /*if(!empty($b['ip'])){echo " ".$b['ip'];}*/?></a>
->>>>>>> e89c3117d3a249c2431ff22a6d69046113d5f404
 	</td>
 
 	<td class="col-md-1">

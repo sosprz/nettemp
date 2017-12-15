@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .nvd3.nv-ohlcBar .nv-ticks .nv-tick {
     stroke-width: 1px;
 }
@@ -15,21 +14,3 @@
     stroke: #d62728;
 }
 
-=======
-.nvd3.nv-ohlcBar .nv-ticks .nv-tick {
-    stroke-width: 1px;
-}
-
-.nvd3.nv-ohlcBar .nv-ticks .nv-tick.hover {
-    stroke-width: 2px;
-}
-
-.nvd3.nv-ohlcBar .nv-ticks .nv-tick.positive {
-    stroke: #2ca02c;
-}
-
-.nvd3.nv-ohlcBar .nv-ticks .nv-tick.negative {
-    stroke: #d62728;
-}
-
->>>>>>> e89c3117d3a249c2431ff22a6d69046113d5f404
