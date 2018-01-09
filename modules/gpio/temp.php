@@ -66,7 +66,7 @@ function w_profile_check($gpio,$w_profile) {
 }
 
 
-function action_on($op,$sensor_name,$gpio,$rev,$ip) {
+function action_on($op,$sensor_name,$gpio,$rev,$ip,$rom) {
 	global $ROOT;
 	global $db;
 	
@@ -126,7 +126,7 @@ function action_on($op,$sensor_name,$gpio,$rev,$ip) {
   	timestamp($gpio,$onoff);
 }
  
-function action_off($op,$sensor_name,$gpio,$rev,$ip) {
+function action_off($op,$sensor_name,$gpio,$rev,$ip,$rom) {
 	global $db;
 	global $ROOT;
 	
