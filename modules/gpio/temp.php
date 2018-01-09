@@ -196,7 +196,7 @@ foreach ($row as $a) {
 	
 	$gpio=$a['gpio'];
 	$ip=$a['ip'];
-	$rom=$a['rom']
+	$rom=$a['rom'];
 	
 	if($a['locked']=='user') {
 		$content = date('Y M d H:i:s')." GPIO ".$a['gpio'].", name: ".$a['name'].", LOCKED by USER.\n";
