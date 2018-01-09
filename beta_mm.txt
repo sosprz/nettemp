@@ -11,6 +11,7 @@
 - poprawki do urz¹dzeñ ip w statusie - lock
 - poprawka do zmiany trybów gpio w przypadku ip i tych samych numerów gpio (ip/ip - ip-gpio) - day,temp,simple,moment
 - auto lock gpio jeœli recznie zmieniam stan on/off w statusie
+- link do ustawieñ gpio ze statusu - ikonka gpio w controls
 
 
 To Do:
