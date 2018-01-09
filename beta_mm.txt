@@ -14,15 +14,16 @@
 
 
 To Do:
+
 wykresy - ³adowanie do bazy - konflikt ip/gpio
 Wsadzanie do def - ip/gpio
+
+
 maps - sprawdziæ
-usuwanie gpio - konflikt - sprawdziæ
 
 
 mcp dla day.php
 Kolorowanie JG jeœli brak odczytów
-£adniejsza tabelka dla GPIO - ip itd.
 Controls - temperatura dla w³asciwego dp
 
 Wyœwietlanie dp w statusie - na ¿yczenie.
