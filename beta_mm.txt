@@ -17,6 +17,7 @@ To Do:
 wykresy - ³adowanie do bazy - konflikt ip/gpio
 Wsadzanie do def - ip/gpio
 maps - sprawdziæ
+usuwanie gpio - konflikt - sprawdziæ
 
 
 mcp dla day.php
