@@ -387,7 +387,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					$sth = $db->prepare("SELECT id,value FROM g_func WHERE gpio='$s[gpio]' ORDER BY position ASC LIMIT 1 ");
 					$sth->execute();
 					$g_func = $sth->fetchAll();
-					$numRows = count($result);
+					//$numRows = count($result);
 					$gpio_locked=$g['locked'];
 			
 					foreach ($g_func as $gf) {
