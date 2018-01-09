@@ -181,7 +181,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 			} else { 
 				gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'off','0');
 			}
-		$db->exec("UPDATE gpio SET locked='user' WHERE gpio='$gpio_post' AND ip='$ip_post'");
+		$db->exec("UPDATE gpio SET locked='user' WHERE gpio='$gpio_post' AND rom='$rom_lock'");
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 		}

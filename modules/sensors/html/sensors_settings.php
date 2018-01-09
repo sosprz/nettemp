@@ -80,12 +80,7 @@ if (!empty($name_new) && !empty($name_id) && ($_POST['id_name2'] == "id_name3") 
 		} 
 	else {
 		$db->exec("UPDATE sensors SET name='$rep' WHERE id='$name_id'") or die ($db->lastErrorMsg());
-		if($type='gpio' && !empty($ip)){
-			$db->exec("UPDATE gpio SET name='$rep' WHERE gpio='$gpio' AND ip='$ip'");
-		} elseif ($type='gpio'){		
-			$db->exec("UPDATE gpio SET name='$rep' WHERE gpio='$gpio' AND ip=''");
-		}
-
+		$db->exec("UPDATE gpio SET name='$rep' WHERE gpio='$gpio' AND rom='$rom'")
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}
