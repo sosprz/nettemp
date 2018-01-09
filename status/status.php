@@ -122,14 +122,11 @@ Go to device scan!
 	$('[id="lockstatus"]').bootstrapToggle({size : 'mini', off : 'lock', on : 'lock',});
 	
 	});	
-    
-	//$('[data-toggle="toggle"]').bootstrapToggle({size : 'mini', off : 'lock',});});
-	
-	
+
 	$('.uptime').load("html/index/uptime.php");
 	$('.systime').load("html/index/systime.php");
 	
-}, 30000);
+}, 60000);
 
 $(document).ready( function() {
 
