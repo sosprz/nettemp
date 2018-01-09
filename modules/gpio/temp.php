@@ -209,7 +209,7 @@ foreach ($row as $a) {
 	$day_run=$a['day_run'];
 	$state=$a['state'];
 	
-	$rom=$a['rom'];
+	//$rom=$a['rom'];
 			
 	$rows = $db->query("SELECT * FROM g_func WHERE gpio='$gpio' ORDER BY position ASC");
 	$func = $rows->fetchAll();
