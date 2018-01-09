@@ -371,7 +371,7 @@ foreach ($row as $a) {
 					elseif ($map[$comparison] && $onoff!='and' && $and=='tak'){					
 						$content = date('Y M d H:i:s')." GPIO ".$gpio." HIT condition '".$comparison."' in function ".$func['id']." AND OK, EXIT\n\n";
 						logs($gpio,$ip,$content);
-						print $funcion_p($op,$sensor_name,$gpio,$rev,$ip);
+						print $funcion_p($op,$sensor_name,$gpio,$rev,$ip,$rom);
 						break;
 					} 
 					// ENDY ok i nie jest spelniona
@@ -399,7 +399,7 @@ foreach ($row as $a) {
 						if ($map[$comparison]){
 							$content = date('Y M d H:i:s')." GPIO ".$gpio." HIT condition '".$comparison."' in function ".$func['id']."\n\n";
 							logs($gpio,$ip,$content);
-							print $funcion_p($op,$sensor_name,$gpio,$rev,$ip);
+							print $funcion_p($op,$sensor_name,$gpio,$rev,$ip,$rom);
 							break;
 						}
 						// nie jest AND i nie jest spelniona
