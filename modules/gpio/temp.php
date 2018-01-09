@@ -121,7 +121,7 @@ function action_on($op,$sensor_name,$gpio,$rev,$ip) {
 		logs($gpio,$ip,$content);
 	}
 	
-	$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio'");
+	$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio' AND rom='$rom'");
   	$onoff='1';
   	timestamp($gpio,$onoff);
 }
@@ -183,7 +183,7 @@ function action_off($op,$sensor_name,$gpio,$rev,$ip) {
 
 	}
 	
-	$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio'");
+	$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio' AND rom='$rom'");
 	$onoff='0';
 	timestamp($gpio,$onoff);
 }
@@ -196,6 +196,7 @@ foreach ($row as $a) {
 	
 	$gpio=$a['gpio'];
 	$ip=$a['ip'];
+	$rom=$a['rom']
 	
 	if($a['locked']=='user') {
 		$content = date('Y M d H:i:s')." GPIO ".$a['gpio'].", name: ".$a['name'].", LOCKED by USER.\n";
@@ -417,7 +418,7 @@ foreach ($row as $a) {
 			$CHECK_OVER='nie';
 			
 					if ($map[$comparison]){
-						$db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio'");
+						$db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio' AND rom='$rom'");
 						$content = date('Y M d H:i:s')." GPIO ".$gpio." STAGE 1 ON\n";
 						logs($gpio,$ip,$content);
 						$content = date('Y M d H:i:s')." GPIO ".$gpio." HIT condition '".$comparison."' in function ".$func['id']."\n";
@@ -432,7 +433,7 @@ foreach ($row as $a) {
 					}
 						
 					elseif($map[$comparison2] && $max[$comparison] && $state == 'ON' ) {
-						$db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio'");
+						$db->exec("UPDATE gpio SET state='ON' WHERE gpio='$gpio' AND rom='$rom'");
 						$content = date('Y M d H:i:s')." GPIO ".$gpio." STAGE 2 ON\n";
 						logs($gpio,$ip,$content);
 						$content = date('Y M d H:i:s')." GPIO ".$gpio." HIT condition '".$comparison2."' in function ".$func['id']."\n";
@@ -447,7 +448,7 @@ foreach ($row as $a) {
 					}
 										
 					elseif($map[$comparison2] && $max[$comparison2]) {
-						$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio'");
+						$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio' AND rom='$rom'");
 						$content = date('Y M d H:i:s')." GPIO ".$gpio." STAGE 3 OFF\n";
 						logs($gpio,$ip,$content);
 						$content = date('Y M d H:i:s')." GPIO ".$gpio." HIT condition '".$comparison2."' in function ".$func['id']."\n";
@@ -462,7 +463,7 @@ foreach ($row as $a) {
 					}
 					
 					elseif($map[$comparison2] && $state == 'OFF') {
-						$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio'");
+						$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio' AND rom='$rom'");
 						$content = date('Y M d H:i:s')." GPIO ".$gpio." STAGE 4 OFF\n";
 						logs($gpio,$ip,$content);
 						$content = date('Y M d H:i:s')." GPIO ".$gpio." HIT condition '".$comparison2."' in function ".$func['id']."\n";
@@ -485,7 +486,7 @@ foreach ($row as $a) {
 	} //function
 	
 	if(($CHECK_OVER=='tak') && ($state=='ON')) {
-		$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio'");
+		$db->exec("UPDATE gpio SET state='OFF' WHERE gpio='$gpio' AND rom='$rom'");
 		$content = date('Y M d H:i:s')." GPIO ".$gpio." FORCE CLOSE HIST\n";
 		logs($gpio,$ip,$content);
 		action_off($op,$sensor_name,$gpio,$rev,$ip);
