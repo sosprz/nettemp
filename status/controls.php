@@ -254,7 +254,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				foreach ($gpio as $g) {
 				?>
 					<td class="col-md-1">
-						<img <?php if (!$s['ip']) {echo 'src="media/ico/switch-icon.png"';} else {echo 'src="media/ico/switchip-icon.png"';}  ?> alt="" title="<?php if(!empty($s['ip'])){echo "Last IP: ".$s['ip']." GPIO: ".$s['gpio']." Mode: ".$g['mode'];} else {echo "GPIO: ".$s['gpio']." Mode: ".$g['mode'];}?>" />
+						<a href="index.php?id=device&type=gpio&gpios=<?phpecho $s['gpio'] ?>&ip=<?phpecho $s['ip'] ?>"><img <?php if (!$s['ip']) {echo 'src="media/ico/switch-icon.png"';} else {echo 'src="media/ico/switchip-icon.png"';}  ?> alt="" title="<?php if(!empty($s['ip'])){echo "Last IP: ".$s['ip']." GPIO: ".$s['gpio']." Mode: ".$g['mode'];} else {echo "GPIO: ".$s['gpio']." Mode: ".$g['mode'];}?>" /></a>
 					</td>
 					<td class="col-md-1">
 						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label <?php echo label($g['status']) ?>" title="Charts" ><?php echo str_replace("_", " ", $s['name'])?></a>
