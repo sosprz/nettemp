@@ -1,15 +1,15 @@
 <?php
 $tempexit = isset($_POST['tempexit']) ? $_POST['tempexit'] : '';
 if ($tempexit == "tempexit"){
-    $db->exec("UPDATE gpio SET mode='', day_run='', week_run='' where gpio='$gpio_post' ") or die("simple off db error");
-     $db = null;
+	$db->exec("UPDATE gpio SET mode='', day_run='', week_run='' where gpio='$gpio_post' AND rom='$rom'") or die("simple off db error");
+    $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
 
 $tempon = isset($_POST['tempon']) ? $_POST['tempon'] : '';
 if ($tempon == "on") {
-    $db->exec("UPDATE gpio SET temp_run='on', status='wait' WHERE gpio='$gpio_post'") or die("exec 1");
+	$db->exec("UPDATE gpio SET temp_run='on', status='wait' WHERE gpio='$gpio_post' AND rom='$rom'") or die("exec 1");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
@@ -17,7 +17,7 @@ if ($tempon == "on") {
 
 if ($tempon == "off") {
 	include('gpio_off.php');
-    $db->exec("UPDATE gpio SET temp_run='off' WHERE gpio='$gpio_post'") or die("exec error");
+	$db->exec("UPDATE gpio SET temp_run='off' WHERE gpio='$gpio_post' AND rom='$rom'") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
@@ -26,7 +26,7 @@ if ($tempon == "off") {
 $dayrunon = isset($_POST['dayrunon']) ? $_POST['dayrunon'] : '';
 $dayrun = isset($_POST['dayrun']) ? $_POST['dayrun'] : '';
 if ($dayrunon == "on")  {
-    $db->exec("UPDATE gpio SET day_run='$dayrun'  WHERE gpio='$gpio_post'") or die("exec error");
+	$db->exec("UPDATE gpio SET day_run='$dayrun'  WHERE gpio='$gpio_post' AND rom='$rom'") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
@@ -35,7 +35,7 @@ if ($dayrunon == "on")  {
 $weekrunon = isset($_POST['weekrunon']) ? $_POST['weekrunon'] : '';
 $weekrun = isset($_POST['weekrun']) ? $_POST['weekrun'] : '';
 if ($weekrunon == "on")  {
-    $db->exec("UPDATE gpio SET week_run='$weekrun'  WHERE gpio='$gpio_post'") or die("exec error");
+	$db->exec("UPDATE gpio SET week_run='$weekrun'  WHERE gpio='$gpio_post' AND rom='$rom'") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	

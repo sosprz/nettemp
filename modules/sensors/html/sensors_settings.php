@@ -80,8 +80,10 @@ if (!empty($name_new) && !empty($name_id) && ($_POST['id_name2'] == "id_name3") 
 		} 
 	else {
 		$db->exec("UPDATE sensors SET name='$rep' WHERE id='$name_id'") or die ($db->lastErrorMsg());
-		if($type='gpio'){
-			$db->exec("UPDATE gpio SET name='$rep' WHERE gpio='$gpio'");
+		if($type='gpio' && !empty($ip)){
+			$db->exec("UPDATE gpio SET name='$rep' WHERE gpio='$gpio' AND ip='$ip'");
+		} elseif ($type='gpio'){		
+			$db->exec("UPDATE gpio SET name='$rep' WHERE gpio='$gpio' AND ip=''");
 		}
 
 	header("location: " . $_SERVER['REQUEST_URI']);
@@ -418,6 +420,7 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 		<input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
 		<input type="hidden" name="type" value="<?php echo $a["type"]; ?>" />
+		<input type="hidden" name="ip" value="<?php echo $a["ip"]; ?>" />
 		<input type="hidden" name="id_name2" value="id_name3"/>
     </form>
     </td>

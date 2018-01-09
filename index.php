@@ -199,8 +199,15 @@ window.setInterval( function() {
 <footer class="footer">
       <div class="container text-center">
 			<a href="https://nettemp.pl/forum/viewforum.php?f=35" target="_blank" class="btn btn-xs btn-primary"><?php passthru("/usr/bin/git branch |grep [*]|awk '{print $2}' && awk '/Changelog/{y=1;next}y' readme.md |head -2 |grep -v '^$'"); ?> </a>
+			
+		<button class="btn btn-xs btn-primary uptime">
+			<?php include('html/index/uptime.php');?>
+		</button>
+			
 	    <?php include('html/info/paypal.php');?>
-			<button class="btn btn-xs btn-primary">System time <?php passthru("date +%H:%M:%S");?></button>
+			<button class="btn btn-xs btn-primary systime">
+			<?php include('html/index/systime.php');?>
+			</button>
 	    <?php if (file_exists("tmp/update")) {  ?>
 			<a href="index.php?id=tools&type=update" class="btn btn-xs btn-info">Update available!</a>
 		<?php } ?>

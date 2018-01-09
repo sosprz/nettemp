@@ -55,23 +55,23 @@ gpio_off(){
 }
 
 if [ -z "$gpio_list" ]; then
-	gpio_list=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT gpio FROM gpio WHERE ip is null")
+	gpio_list=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT gpio FROM gpio WHERE ip like ''")
 fi
 
 
 for gpio in $gpio_list; do 
-	mode=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mode FROM gpio WHERE gpio='$gpio' AND ip is null")
-	rev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio' AND ip is null")
+	mode=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mode FROM gpio WHERE gpio='$gpio' AND ip like ''")
+	rev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio' AND ip like ''")
 if [ "$mode" = "time" ]; then
     source $(dirname $0)/time
-elif [ "$mode" = "simple" ]; then
-    source $(dirname $0)/simple
+#elif [ "$mode" = "simple" ]; then
+ #   source $(dirname $0)/simple
 elif [ "$mode" = "trigger" ]; then
     source $(dirname $0)/trigger
 elif [ "$mode" = "control" ]; then
     source $(dirname $0)/control
-elif [ "$mode" = "day" ]; then
-    source $(dirname $0)/day
+#elif [ "$mode" = "day" ]; then
+    #source $(dirname $0)/day
 elif [ "$mode" = "week" ]; then
     source $(dirname $0)/week
 fi
@@ -80,5 +80,7 @@ fi
 done
 
 php-cgi -f $dir/modules/gpio/temp.php
+php-cgi -f $dir/modules/gpio/day.php
+
 
 
