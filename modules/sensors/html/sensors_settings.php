@@ -415,7 +415,7 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 		<input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
 		<input type="hidden" name="type" value="<?php echo $a["type"]; ?>" />
-		<input type="hidden" name="ip" value="<?php echo $a["ip"]; ?>" />
+		<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />
 		<input type="hidden" name="id_name2" value="id_name3"/>
     </form>
     </td>
