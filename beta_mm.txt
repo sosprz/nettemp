@@ -6,7 +6,7 @@
 - Uptime w stopce i systime - odœwie¿a co minutê
 - Day plan dla GPIO - przepisany na php, lock w statusie
 - Ikona ip gpio - jeœli gpio jest ip - niebieska ikona w gpio
-- temp.php - poprawione logi - nie miêsza logów dla ró¿nych gpio   (co to print funcion_p ?)
+- temp.php - poprawione logi - nie miêsza logów dla ró¿nych gpio 
 - poprawka do zmiany nazy gpio w przypadku ip i tych samych numerów gpio (ip/ip - ip-gpio)
 - poprawki do urz¹dzeñ ip w statusie - lock
 - poprawka do zmiany trybów gpio w przypadku ip i tych samych numerów gpio (ip/ip - ip-gpio) - day,temp,simple,moment
