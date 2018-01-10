@@ -84,19 +84,7 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         <?php if(!empty($a['tmp_min']) && !empty($a['tmp_max'])) {
         	echo "min:".$a['tmp_min'].", max:".$a['tmp_max'].",";
         	} ?>
-       // title: "<?php echo str_replace("_", " ", $a['name'])?>",
-	   
-	   title: "<?php echo str_replace("_", " ", $a['name'])
-	   
-	   $old_read=86400;
-				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || ($label=='danger') || strtotime($a['time'])<(time()-(7*$old_read))){
-					echo 'class="label label-danger"';
-				    } elseif (strtotime($a['time'])<(time()-$old_read)){
-					echo 'class="label label-warning"';
-				    }else{
-					echo 'class="label label-success"';
-				    }  ?>         ",
-	   
+        title: "<?php echo str_replace("_", " ", $a['name'])?>",
         label: n_units
 		
       });
