@@ -95,7 +95,7 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
 					echo 'class="label label-warning"';
 				    }else{
 					echo 'class="label label-success"';
-				    } echo str_replace("_", " ", $a['name']) ?>         ",
+				    }  ?>         ",
 	   
         label: n_units
 		
