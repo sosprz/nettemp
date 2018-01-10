@@ -172,19 +172,19 @@ JustGage = function(config) {
 
     // titleMinFontSize
     // absolute minimum font size for the title
-    titleMinFontSize: kvLookup('titleMinFontSize', config, dataset, 10),
+    titleMinFontSize: kvLookup('titleMinFontSize', config, dataset, 11),
 
     // labelMinFontSize
     // absolute minimum font size for the label
-    labelMinFontSize: kvLookup('labelMinFontSize', config, dataset, 10),
+    labelMinFontSize: kvLookup('labelMinFontSize', config, dataset, 11),
 
     // minLabelMinFontSize
     // absolute minimum font size for the minimum label
-    minLabelMinFontSize: kvLookup('minLabelMinFontSize', config, dataset, 10),
+    minLabelMinFontSize: kvLookup('minLabelMinFontSize', config, dataset, 11),
 
     // maxLabelMinFontSize
     // absolute minimum font size for the maximum label
-    maxLabelMinFontSize: kvLookup('maxLabelMinFontSize', config, dataset, 10),
+    maxLabelMinFontSize: kvLookup('maxLabelMinFontSize', config, dataset, 11),
 
     // hideValue : bool
     // hide value text

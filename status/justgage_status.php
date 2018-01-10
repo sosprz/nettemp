@@ -25,6 +25,9 @@ if ( $numRows > '0' ) { ?>
 <div class="panel-heading"><?php echo $ch_g?></div>
 <div class="panel-body">
 
+
+	
+
 <?php
 $query = $db->query("SELECT * FROM types");
 $result_t = $query->fetchAll();
