@@ -220,7 +220,7 @@ JustGage = function(config) {
 
     // decimals : int
     // number of digits after floating point
-    decimals: kvLookup('decimals', config, dataset, 0),
+    decimals: kvLookup('decimals', config, dataset, 1),
 
     // customSectors : [] of objects
     // number of digits after floating point
