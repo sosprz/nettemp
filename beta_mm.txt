@@ -29,3 +29,5 @@ Controls - temperatura dla w³asciwego dp
 
 Wyœwietlanie dp w statusie - na ¿yczenie.
 Binding sensors do gpio w statusie - bez logowania.
+
+test
