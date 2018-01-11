@@ -5,15 +5,15 @@ $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 
 //***************************************************************************************************************** 
 
-function timestamp($gpio,$onoff,$rom) {
+function timestamp($gpio,$onoff) {
 	global $ROOT;
 	
-	if (file_exists("$ROOT/db/gpio_stats_$gpio_$rom.sql")) {
-		$db = new PDO("sqlite:$ROOT/db/gpio_stats_$gpio_$rom.sql") or die ("WARNING timestamp 1\n" );
+	if (file_exists("$ROOT/db/gpio_stats_$gpio.sql")) {
+		$db = new PDO("sqlite:$ROOT/db/gpio_stats_$gpio.sql") or die ("WARNING timestamp 1\n" );
 	    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("WARNING timestamp 2\n" );
   	}
 	else {
-		$db = new PDO("sqlite:$ROOT/db/gpio_stats_$gpio_$rom.sql");
+		$db = new PDO("sqlite:$ROOT/db/gpio_stats_$gpio.sql");
 		$db->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)") or die ("WARNING timestamp 3\n" );
     	$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("WARNING timestamp 4\n" );
 	}
@@ -90,7 +90,7 @@ function action_on($gpio,$rev,$ip,$rom) {
 	$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio' AND rom='$rom'");
 	
   	$onoff='1';
-  	timestamp($gpio,$onoff,$rom);
+  	timestamp($gpio,$onoff);
 }
 //***************************************************************************************************************** 
 function action_off($gpio,$rev,$ip,$rom) {
@@ -153,7 +153,7 @@ function action_off($gpio,$rev,$ip,$rom) {
 	$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio' AND rom='$rom'");
 
 	$onoff='0';
-	timestamp($gpio,$onoff,$rom);
+	timestamp($gpio,$onoff);
 }
 
 // main loop
