@@ -8,7 +8,7 @@ $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 function timestamp($gpio,$onoff) {
 	global $ROOT;
 	
-	if (file_exists("$ROOT/db/gpio_stats_$gpio.sql")) {
+	if (file_exists("$ROOT/db/gpio_stats_$gpio_$rom.sql")) {
 		$db = new PDO("sqlite:$ROOT/db/gpio_stats_$gpio_$rom.sql") or die ("WARNING timestamp 1\n" );
 	    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("WARNING timestamp 2\n" );
   	}
