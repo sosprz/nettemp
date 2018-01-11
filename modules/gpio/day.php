@@ -9,11 +9,11 @@ function timestamp($gpio,$onoff) {
 	global $ROOT;
 	
 	if (file_exists("$ROOT/db/gpio_stats_$gpio.sql")) {
-		$db = new PDO("sqlite:$ROOT/db/gpio_stats_$gpio.sql") or die ("WARNING timestamp 1\n" );
+		$db = new PDO("sqlite:$ROOT/db/gpio_stats_$gpio_$rom.sql") or die ("WARNING timestamp 1\n" );
 	    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("WARNING timestamp 2\n" );
   	}
 	else {
-		$db = new PDO("sqlite:$ROOT/db/gpio_stats_$gpio.sql");
+		$db = new PDO("sqlite:$ROOT/db/gpio_stats_$gpio_$rom.sql");
 		$db->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)") or die ("WARNING timestamp 3\n" );
     	$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("WARNING timestamp 4\n" );
 	}
