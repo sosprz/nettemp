@@ -5,7 +5,7 @@ $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 
 //***************************************************************************************************************** 
 
-function timestamp($gpio,$onoff) {
+function timestamp($gpio,$onoff,$rom) {
 	global $ROOT;
 	
 	if (file_exists("$ROOT/db/gpio_stats_$gpio_$rom.sql")) {
@@ -90,7 +90,7 @@ function action_on($gpio,$rev,$ip,$rom) {
 	$db->exec("UPDATE gpio SET status='ON' WHERE gpio='$gpio' AND rom='$rom'");
 	
   	$onoff='1';
-  	timestamp($gpio,$onoff);
+  	timestamp($gpio,$onoff,$rom);
 }
 //***************************************************************************************************************** 
 function action_off($gpio,$rev,$ip,$rom) {
@@ -153,7 +153,7 @@ function action_off($gpio,$rev,$ip,$rom) {
 	$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio' AND rom='$rom'");
 
 	$onoff='0';
-	timestamp($gpio,$onoff);
+	timestamp($gpio,$onoff,$rom);
 }
 
 // main loop
