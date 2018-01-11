@@ -8,12 +8,12 @@ $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 function timestamp($gpio,$onoff,$rom) {
 	global $ROOT;
 	
-	if (file_exists("$ROOT/db/gpio_stats_".$gpio"._".$rom.".sql")) {
-		$db = new PDO("sqlite:$ROOT/db/gpio_stats_".$gpio"._".$rom.".sql") or die ("WARNING timestamp 1\n" );
+	if (file_exists("$ROOT/db/gpio_stats_".$gpio."_".$rom.".sql")) {
+		$db = new PDO("sqlite:$ROOT/db/gpio_stats_".$gpio."_".$rom.".sql") or die ("WARNING timestamp 1\n" );
 	    $db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("WARNING timestamp 2\n" );
   	}
 	else {
-		$db = new PDO("sqlite:$ROOT/db/gpio_stats_".$gpio"._".$rom.".sql");
+		$db = new PDO("sqlite:$ROOT/db/gpio_stats_".$gpio."_".$rom.".sql");
 		$db->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)") or die ("WARNING timestamp 3\n" );
     	$db->exec("INSERT OR IGNORE INTO def (value) VALUES ('$onoff')") or die ("WARNING timestamp 4\n" );
 	}
