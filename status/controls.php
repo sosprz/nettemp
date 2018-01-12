@@ -298,6 +298,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					 <?php
 						exec('/usr/local/bin/gpio -g read '.$g['gpio'], $state);
 						$set=$state[0];
+						if ($g['rev']=='on'){if ($set==1){$set=0};};
 					?>	
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input id="onoffstatus" type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="on" <?php echo $set == '1' ? 'checked="checked"' : ''; ?>  />
