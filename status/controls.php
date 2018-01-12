@@ -173,6 +173,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		$onoff = isset($_POST['onoff']) ? $_POST['onoff'] : '';
 		$moment_time = isset($_POST['moment_time']) ? $_POST['moment_time'] : '';
 		$rom_lock = isset($_POST['rom_lock']) ? $_POST['rom_lock'] : '';
+		$trun = isset($_POST['trun']) ? $_POST['trun'] : '';
 		
 		
 		/* SIMPLE IP */
