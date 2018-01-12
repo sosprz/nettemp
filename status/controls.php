@@ -404,7 +404,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					</td>
 					
 					<td>
-						Poz: <?php echo $g['status']; ?>
+						<?php echo $g['status']; ?><?php 
 					</td>
 						
 						
@@ -415,7 +415,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					
 					
 					<?php
-					if($g['mode']!='temp' & $g['mode']=='time') { echo '<td></td><td></td>';}
+					if($g['mode']!='temp' & $g['mode']=='time') { echo '<td></td>';}
 					?>
 					
 					
