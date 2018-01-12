@@ -204,6 +204,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
         $value_update_from_status = isset($_POST['value_update_from_status']) ? $_POST['value_update_from_status'] : '';
 		$id_value_update_from_status = isset($_POST['id_value_update_from_status']) ? $_POST['id_value_update_from_status'] : '';
 		$update_from_status = isset($_POST['update_from_status']) ? $_POST['update_from_status'] : '';
+		$time_update_from_status = isset($_POST['time_update_from_status']) ? $_POST['time_update_from_status'] : '';
 		
 		$lock_update_from_status = isset($_POST['lock_update_from_status']) ? $_POST['lock_update_from_status'] : '';
 		$gpio_lock_update_from_status = isset($_POST['gpio_lock_update_from_status']) ? $_POST['gpio_lock_update_from_status'] : '';
@@ -219,6 +220,12 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 			$db->exec("UPDATE gpio SET locked='$lock_update_from_status' WHERE gpio='$gpio_lock_update_from_status' AND rom='$rom_lock'");
 			header("location: " . $_SERVER['REQUEST_URI']);
 			exit();
+		}
+		
+		if($update_from_status=='time_update_from_status') {
+			$db->exec("UPDATE gpio SET time_offset='$value_update_from_status' WHERE gpio='$gpio_post' AND rom='$rom_post'");
+		header("location: " . $_SERVER['REQUEST_URI']);
+		exit();
 		}
 		
 		/* MOMENT */
