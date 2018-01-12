@@ -332,6 +332,48 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<?php } 
 	
 				}
+				/* TIME */
+				elseif ($g['mode']=='time') {
+				
+					?>
+					<td class="col-md-1">
+					 <?php
+						exec('/usr/local/bin/gpio -g read '.$g['gpio'], $state);
+						$set=$state[0];
+						if ($g['rev']=='on'){
+							
+							if ($set==1){$set=0;
+							
+							} else {$set=1;}
+						}
+					?>	
+                   	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input id="onoffstatus" type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="on" <?php echo $set == '1' ? 'checked="checked"' : ''; ?>  />
+                        <input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
+                        <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
+                        <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
+                        <input type="hidden" name="onoff" value="simple" />
+                    </form>
+                    </td>
+                    <?php 
+                    unset($set);
+                    unset($state);
+                    
+					if($g['mode']!='temp' & $g['mode']=='simple') { echo '<td></td><td></td><td></td>';}
+                    elseif($g['mode']!='temp' & $g['mode']=='day') { echo '<td></td><td></td>';?>
+					
+					<td>
+					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input type="hidden" name="gpio_lock_update_from_status" value="<?php echo $s['gpio']; ?>"/>
+						<input id="lockstatus" type="checkbox"  data-toggle="toggle" data-size="mini" data-on="lock" data-off="lock" onchange="this.form.submit()" name="lock_update_from_status" value="<?php echo $g['locked'] == 'user'  ? '' : 'user'; ?>" <?php echo $g['locked'] == 'user' ? 'checked="checked"' : ''; ?>  />
+						<input type="hidden" name="rom_lock" value="<?php echo $s['rom']; ?>"/>
+						<input type="hidden" name="update_from_status" value="lock_update_from_status" />
+					</form>
+					</td>
+
+					<?php } 
+	
+				}
 				/* MOMENT IP*/
 				elseif($g['mode']=='moment'&&!empty($s['ip'])) {
 					?>
@@ -418,53 +460,6 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					</td>
 					<?php
 					} 
-					
-					/* TIME */
-				elseif(($g['mode']=='time') {
-				
-					?>
-					<td class="col-md-1">
-					 <?php
-						exec('/usr/local/bin/gpio -g read '.$g['gpio'], $state);
-						$set=$state[0];
-						if ($g['rev']=='on'){
-							
-							if ($set==1){$set=0;
-							
-							} else {$set=1;}
-						}
-					?>	
-                   	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input id="onoffstatus" type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="on" <?php echo $set == '1' ? 'checked="checked"' : ''; ?>  />
-                        <input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
-                        <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
-                        <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
-                        <input type="hidden" name="onoff" value="simple" />
-                    </form>
-                    </td>
-                    <?php 
-                    unset($set);
-                    unset($state);
-                    
-					if($g['mode']!='temp' & $g['mode']=='simple') { echo '<td></td><td></td><td></td>';}
-                    elseif($g['mode']!='temp' & $g['mode']=='day') { echo '<td></td><td></td>';?>
-					
-					<td>
-					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input type="hidden" name="gpio_lock_update_from_status" value="<?php echo $s['gpio']; ?>"/>
-						<input id="lockstatus" type="checkbox"  data-toggle="toggle" data-size="mini" data-on="lock" data-off="lock" onchange="this.form.submit()" name="lock_update_from_status" value="<?php echo $g['locked'] == 'user'  ? '' : 'user'; ?>" <?php echo $g['locked'] == 'user' ? 'checked="checked"' : ''; ?>  />
-						<input type="hidden" name="rom_lock" value="<?php echo $s['rom']; ?>"/>
-						<input type="hidden" name="update_from_status" value="lock_update_from_status" />
-					</form>
-					</td>
-
-					<?php } 
-	
-				}
-					
-					
-					
-					
 					?>
 					</tr>	
 
