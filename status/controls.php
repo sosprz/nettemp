@@ -363,6 +363,14 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<td>
 						Min:
 					</td>
+					
+					<td>
+					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input type="number" style="width: 4em;" onchange="this.form.submit()" name="value_update_from_status" value="<?php echo $g['time_offset'] ?>" />
+						<input type="hidden" name="id_value_update_from_status" value="<?php echo $gf['id']; ?>"/>
+						<input type="hidden" name="update_from_status" value="switch_update_from_status" />
+					</form>
+					</td>
                     
 					
 					
