@@ -358,18 +358,20 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                     <?php 
                     unset($set);
                     unset($state);
-                    
-					if($g['mode']!='temp' & $g['mode']=='time') { echo '<td></td><td></td><td></td>';}
 					?>
 					
 					<td>
-					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input type="hidden" name="gpio_lock_update_from_status" value="<?php echo $s['gpio']; ?>"/>
-						<input id="lockstatus" type="checkbox"  data-toggle="toggle" data-size="mini" data-on="lock" data-off="lock" onchange="this.form.submit()" name="lock_update_from_status" value="<?php echo $g['locked'] == 'user'  ? '' : 'user'; ?>" <?php echo $g['locked'] == 'user' ? 'checked="checked"' : ''; ?>  />
-						<input type="hidden" name="rom_lock" value="<?php echo $s['rom']; ?>"/>
-						<input type="hidden" name="update_from_status" value="lock_update_from_status" />
-					</form>
+						Min:
 					</td>
+                    
+					
+					
+					
+					<?php
+					if($g['mode']!='temp' & $g['mode']=='time') { echo '<td></td><td></td>';}
+					?>
+					
+					
 
 					<?php } 
 	
