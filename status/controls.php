@@ -300,12 +300,9 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						$set=$state[0];
 						if ($g['rev']=='on'){
 							
-							if ($set==1){$set=0;} else {$set=1;}
+							if ($set==1){$set=0;
 							
-							
-							
-							
-							
+							} else {$set=1;}
 						}
 					?>	
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
