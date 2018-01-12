@@ -14,13 +14,16 @@
 - link do ustawieñ gpio ze statusu - ikonka gpio w controls
 
 
+
+
+
 To Do:
 
 wykresy - ³adowanie do bazy - konflikt ip/gpio
 Wsadzanie do def - ip/gpio
 
 
-maps - sprawdziæ
+maps - sprawdziæ na nowej instalce
 
 
 mcp dla day.php
@@ -29,3 +32,5 @@ Controls - temperatura dla w³asciwego dp
 
 Wyœwietlanie dp w statusie - na ¿yczenie.
 Binding sensors do gpio w statusie - bez logowania.
+
+test
