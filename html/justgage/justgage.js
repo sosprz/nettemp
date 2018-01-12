@@ -107,7 +107,7 @@ JustGage = function(config) {
 
     // humanFriendlyDecimal : int
     // number of decimal places for our human friendly number to contain
-    humanFriendlyDecimal: kvLookup('humanFriendlyDecimal', config, dataset, 1),
+    humanFriendlyDecimal: kvLookup('humanFriendlyDecimal', config, dataset, 0),
 
 
     // textRenderer: func
