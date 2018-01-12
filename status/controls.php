@@ -17,7 +17,7 @@ $sensors_relay = $sth->fetchAll();
 /* Functions */
 
 function label($status){
-	if($status == 'on' || $status == 'ON')
+	if($status == 'on' || $status == 'ON' || $status=substr($status,0,2)== 'ON' )
 	{	
 		return 'label-success';
 	} 
