@@ -389,7 +389,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						<input type="hidden" name="id_value_update_from_status" value="<?php echo $gf['id']; ?>"/>
 						
 					<td>
-						Poz: <?php echo $a['status']; ?>
+						Poz: <?php echo $g['status']; ?>
 					</td>
 						
 						
