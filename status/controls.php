@@ -239,6 +239,25 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 		}
+		
+		/* TIME */
+		if ($trun == "timerun") {
+			if ($switch == 'on' ){
+				gpio_onoff($gpio_post,$rom_post,'on',$rev);
+				$date = new DateTime();
+				$time_start=$date->getTimestamp();
+				$db->exec("UPDATE gpio SET time_run='on', status='ON', time_offset='$time_offset',time_start='$time_start' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
+				header("location: " . $_SERVER['REQUEST_URI']);
+				exit();
+			} else {
+				gpio_onoff($gpio_post,$rom_post,'off',$rev);
+				$time_start=$date->getTimestamp();
+				$db->exec("UPDATE gpio SET time_run='', time_start='', status='OFF' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
+				header("location: " . $_SERVER['REQUEST_URI']);
+				exit();
+			}
+	
+		}
   		    
 
 		foreach ( $ip_gpio as $s) {
@@ -352,7 +371,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                         <input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
                         <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
                         <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
-                        <input type="hidden" name="onoff" value="simple" />
+                        <input type="hidden" name="trun" value="timerun" />
                     </form>
                     </td>
                     <?php 
@@ -368,6 +387,12 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input type="number" style="width: 4em;" onchange="this.form.submit()" name="value_update_from_status" value="<?php echo $g['time_offset'] ?>" />
 						<input type="hidden" name="id_value_update_from_status" value="<?php echo $gf['id']; ?>"/>
+						
+					<td>
+						Poz: <?php echo $a['status']; ?>
+					</td>
+						
+						
 						<input type="hidden" name="update_from_status" value="switch_update_from_status" />
 					</form>
 					</td>
