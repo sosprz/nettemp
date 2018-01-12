@@ -360,7 +360,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                     unset($state);
                     
 					if($g['mode']!='temp' & $g['mode']=='time') { echo '<td></td><td></td><td></td>';}
-                   ?>
+					?>
 					
 					<td>
 					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
