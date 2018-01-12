@@ -391,7 +391,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					?>
 					
 					<td>
-						Min:
+						Mins:
 					</td>
 					
 					<td>
