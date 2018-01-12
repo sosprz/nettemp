@@ -373,7 +373,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 
 					<?php } 
 	
-				}
+				
 				/* MOMENT IP*/
 				elseif($g['mode']=='moment'&&!empty($s['ip'])) {
 					?>
