@@ -174,6 +174,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		$moment_time = isset($_POST['moment_time']) ? $_POST['moment_time'] : '';
 		$rom_lock = isset($_POST['rom_lock']) ? $_POST['rom_lock'] : '';
 		$trun = isset($_POST['trun']) ? $_POST['trun'] : '';
+		$time_offset = isset($_POST['time_offset']) ? $_POST['time_offset'] : '';
 		
 		
 		/* SIMPLE IP */
@@ -372,6 +373,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                         <input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
                         <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
                         <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
+						<input type="hidden" name="time_offset" value="<?php echo $g['time_offset']; ?>"/>
                         <input type="hidden" name="trun" value="timerun" />
                     </form>
                     </td>
