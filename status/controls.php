@@ -253,15 +253,15 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		if ($trun == "timerun") {
 			if ($switch == 'on' ){
 				gpio_onoff($gpio_post,$rom_post,'on',$rev);
-				$date = new DateTime();
-				$time_start=$date->getTimestamp();
+				$dater = new DateTime();
+				$time_start=$dater->getTimestamp();
 				$db->exec("UPDATE gpio SET time_run='on', status='ON', time_offset='$time_offset',time_start='$time_start' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
 				header("location: " . $_SERVER['REQUEST_URI']);
 				exit();
 			} else {
 				gpio_onoff($gpio_post,$rom_post,'off',$rev);
 				$time_start=$date->getTimestamp();
-				$db->exec("UPDATE gpio SET time_run='0', time_start='0', status='OFF' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
+				$db->exec("UPDATE gpio SET time_run='', time_start='', status='OFF' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
 				header("location: " . $_SERVER['REQUEST_URI']);
 				exit();
 			}
