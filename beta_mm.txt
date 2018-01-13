@@ -12,18 +12,19 @@
 - poprawka do zmiany trybów gpio w przypadku ip i tych samych numerów gpio (ip/ip - ip-gpio) - day,temp,simple,moment
 - auto lock gpio jeœli recznie zmieniam stan on/off w statusie
 - link do ustawieñ gpio ze statusu - ikonka gpio w controls
+- poprawione dzia³anie przekaŸnika dla simple - zmiana wyzwalania stanem niskim i wysokim.
+- gpio Time w statusie - brak obs³ugi ip
 
 
 
 
 
 To Do:
-
+- gpio Time w statusie - dodaæ obs³ugê IP
 wykresy - ³adowanie do bazy - konflikt ip/gpio
 Wsadzanie do def - ip/gpio
 
 
-maps - sprawdziæ na nowej instalce
 
 
 mcp dla day.php
