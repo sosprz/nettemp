@@ -201,6 +201,28 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		exit();
 		}
 		
+		/* TIME IP */
+		if ($trun == "timerunip") {
+			if ($switch == 'on' ){
+				gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'on','0');
+				$date = new DateTime();
+				$time_start=$date->getTimestamp();
+				$db->exec("UPDATE gpio SET time_run='on', status='ON $time_offset min', time_offset='$time_offset',time_start='$time_start' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
+				header("location: " . $_SERVER['REQUEST_URI']);
+				exit();
+			} else {
+				gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'off','0');
+				$date = new DateTime();
+				$time_start=$date->getTimestamp();
+				$db->exec("UPDATE gpio SET time_run='', time_start='', status='OFF' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
+				header("location: " . $_SERVER['REQUEST_URI']);
+				exit();
+			}
+	
+		}
+		
+
+		
         $value_update_from_status = isset($_POST['value_update_from_status']) ? $_POST['value_update_from_status'] : '';
 		$id_value_update_from_status = isset($_POST['id_value_update_from_status']) ? $_POST['id_value_update_from_status'] : '';
 		$update_from_status = isset($_POST['update_from_status']) ? $_POST['update_from_status'] : '';
@@ -360,6 +382,60 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 
 					<?php } 
 	
+				}
+				
+				/* TIME IP */
+				elseif ($g['mode']=='time' && !empty($s['ip'])) {
+				
+					?>
+					<td class="col-md-1">
+					 <?php
+						exec('/usr/local/bin/gpio -g read '.$g['gpio'], $state);
+						$set=$state[0];
+						if ($g['rev']=='on'){
+							
+							if ($set==1){$set=0;
+							
+							} else {$set=1;}
+						}
+					?>	
+                   	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input id="onoffstatus" type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="<?php echo $s['tmp'] == '1.0'  ? 'off' : 'on'; ?>" <?php echo $s['tmp'] == '1.0' ? 'checked="checked"' : ''; ?>  />
+                        <input type="hidden" name="ip" value="<?php echo $s['ip']; ?>"/>
+						<input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
+                        <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
+                        <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
+						<input type="hidden" name="time_offset" value="<?php echo $g['time_offset']; ?>"/>
+                        <input type="hidden" name="trun" value="timerunip" />
+                    </form>
+                    </td>
+                    <?php 
+                    unset($set);
+                    unset($state);
+					?>
+					
+					<td style="vertical-align:middle">
+						Mins:
+					</td>
+					
+					<td>
+					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input type="number" style="width: 4em;" onchange="this.form.submit()" name="value_update_from_status" value="<?php echo $g['time_offset'] ?>" />
+						<input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
+                        <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
+						<input type="hidden" name="update_from_status" value="time_update_from_status" />
+					</form>
+					</td>
+					
+					<td>
+					<?php
+					if (substr($g['status'],0,2) == 'ON') {
+					?>
+						<span class="label <?php echo label($g['status']) ?>"> <?php echo str_replace("ON","",str_replace("min","",$g['status'])).min ?> </span>
+					</td>
+					<?php 
+					}
+				
 				}
 				/* TIME */
 				elseif ($g['mode']=='time') {
