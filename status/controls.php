@@ -407,7 +407,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<?php
 					if (substr($g['status'],0,2) == 'ON') {
 					?>
-						<span class="label <?php echo label($g['status']) ?>"> <?php echo (str_replace"m","",substr($g['status'],3,3))." min" ?> </span>
+						<span class="label <?php echo label($g['status']) ?>"> <?php echo str_replace("m","",substr($g['status'],3,3))." min" ?> </span>
 					</td>
 					<?php 
 					}
