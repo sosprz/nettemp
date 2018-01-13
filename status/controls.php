@@ -411,7 +411,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				
 					
 					<?php
-					if($g['mode']!='temp' & $g['mode']=='time') { echo '<td></td>';}
+					//if($g['mode']!='temp' & $g['mode']=='time') { echo '<td></td>';}
 					?>
 					
 					
