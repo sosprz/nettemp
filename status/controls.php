@@ -175,6 +175,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		$rom_lock = isset($_POST['rom_lock']) ? $_POST['rom_lock'] : '';
 		$trun = isset($_POST['trun']) ? $_POST['trun'] : '';
 		$time_offset = isset($_POST['time_offset']) ? $_POST['time_offset'] : '';
+		$rom_time = isset($_POST['rom_time']) ? $_POST['rom_time'] : '';
 		
 		
 		/* SIMPLE IP */
@@ -255,14 +256,14 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				gpio_onoff($gpio_post,$rom_post,'on',$rev);
 				$date = new DateTime();
 				$time_start=$date->getTimestamp();
-				$db->exec("UPDATE gpio SET time_run='on', status='ON $time_offset min', time_offset='$time_offset',time_start='$time_start' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
+				$db->exec("UPDATE gpio SET time_run='on', status='ON $time_offset min', time_offset='$time_offset',time_start='$time_start' WHERE gpio='$gpio_post' AND rom='$rom_time'") or die("exec error");
 				header("location: " . $_SERVER['REQUEST_URI']);
 				exit();
 			} else {
 				gpio_onoff($gpio_post,$rom_post,'off',$rev);
 				$date = new DateTime();
 				$time_start=$date->getTimestamp();
-				$db->exec("UPDATE gpio SET time_run='', time_start='', status='OFF' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
+				$db->exec("UPDATE gpio SET time_run='', time_start='', status='OFF' WHERE gpio='$gpio_post' AND rom='$rom_time'") or die("exec error");
 				header("location: " . $_SERVER['REQUEST_URI']);
 				exit();
 			}
@@ -379,7 +380,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input id="onoffstatus" type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="on" <?php echo $set == '1' ? 'checked="checked"' : ''; ?>  />
                         <input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
-                        <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
+                        <input type="hidden" name="rom_time" value="<?php echo $s['rom']; ?>"/>
                         <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
 						<input type="hidden" name="time_offset" value="<?php echo $g['time_offset']; ?>"/>
                         <input type="hidden" name="trun" value="timerun" />
