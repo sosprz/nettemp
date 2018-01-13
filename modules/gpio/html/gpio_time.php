@@ -3,7 +3,7 @@
 
 $timeexit = isset($_POST['timeexit']) ? $_POST['timeexit'] : '';
 if ($timeexit == "timeexit")  {
-    $db->exec("UPDATE gpio SET mode='' WHERE gpio='$gpio_post'") or die("exec error");
+    $db->exec("UPDATE gpio SET mode='' WHERE gpio='$gpio_post' AND rom='$rom'") or die("exec error");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
