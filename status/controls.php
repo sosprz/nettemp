@@ -266,6 +266,8 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				$date = new DateTime();
 				$time_start=$date->getTimestamp();
 				$db->exec("UPDATE gpio SET time_run='', time_start='', status='OFF' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
+				$db->exec("UPDATE gpio SET time_start='', status='OFF' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
+				$db->exec("UPDATE gpio SET status='OFF' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
 				header("location: " . $_SERVER['REQUEST_URI']);
 				exit();
 			}
