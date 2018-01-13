@@ -404,7 +404,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					</td>
 					
 					<td>
-						<span class="label<?php echo label($g['status']) ?>"> <?php echo $g['status'] ?> </span>
+						<span class="label <?php echo label($g['status']) ?>"> <?php echo $g['status'] ?> </span>
 					</td>
 						
 						
