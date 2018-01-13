@@ -412,7 +412,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<?php 
 					}
 					
-														echo str_replace("_", " ", $s['name'])
+												
 					} 
 	
 				
