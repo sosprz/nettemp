@@ -404,18 +404,9 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					</td>
 					
 					<td>
-						<span class="label <?php echo label($g['status']) ?>"> <?php echo substr($g['status'],3,3)?> </span>
+						<span class="label <?php echo label($g['status']) ?>"> <?php echo substr($g['status'],3,3)." min." ?> </span>
 					</td>
-						
-						
-				
-					
-					<?php
-					//if($g['mode']!='temp' & $g['mode']=='time') { echo '<td></td>';}
-					?>
-					
-					
-
+	
 					<?php } 
 	
 				
