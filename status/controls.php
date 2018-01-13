@@ -255,7 +255,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				gpio_onoff($gpio_post,$rom_post,'on',$rev);
 				$date = new DateTime();
 				$time_start=$date->getTimestamp();
-				$db->exec("UPDATE gpio SET time_run='on', status='ON', time_offset='$time_offset',time_start='$time_start' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
+				$db->exec("UPDATE gpio SET time_run='on', status='ON $time_offset min', time_offset='$time_offset',time_start='$time_start' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
 				header("location: " . $_SERVER['REQUEST_URI']);
 				exit();
 			} else {
@@ -404,15 +404,11 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					</td>
 					
 					<td>
-						<span class="label <?php echo label($g['status']) ?>"> <?php echo $g['status'] ?> </span>
+						<span class="label <?php echo label($g['status']) ?>"> <?php echo substr($g['status'],3,3) ?> </span>
 					</td>
 						
 						
 				
-					
-					
-					
-					
 					
 					<?php
 					if($g['mode']!='temp' & $g['mode']=='time') { echo '<td></td>';}
@@ -489,7 +485,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 			
 					foreach ($g_func as $gf) {
 					?>
-					<td>
+					<td style="vertical-align:middle">
 						Value:
 					</td>
 					<td>
