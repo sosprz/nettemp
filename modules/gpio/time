@@ -12,11 +12,11 @@ if [ "$time_run" = "on" ]
 		    if [ $endtime -lt $now_time_s ]
 			then # lt  mnijsze 
 			gpio_off $gpio
-			sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET time_run='off', time_start='off',status='OFF'  WHERE gpio='$gpio' AND rom='$rom'"
+			sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET time_run='off', time_start='off',status='OFF'  WHERE gpio='$gpio'"
 			echo "gpio $gpio off"
 		    else 
 			diff=$(( $endtime - $now_time_s ))
-			sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='ON $(($diff/60)) min' WHERE gpio='$gpio' AND rom='$rom'"
+			sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='ON $(($diff/60)) min' WHERE gpio='$gpio'"
 			echo "Elapsed time is $(($diff/60)) min, ($diff sec)"
 			echo "gpio on after reboot"
 			gpio_on $gpio  # for after reboot
