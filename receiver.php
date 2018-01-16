@@ -196,7 +196,7 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 	$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
 	if(file_exists(__DIR__."/db/".$file)&&filesize(__DIR__."/db/".$file)!=0){
 		$dbfr = new PDO("sqlite:".__DIR__."/db/$file");
-		$sthr = $dbr->query("SELECT rom,adj FROM sensors WHERE rom='$rom'");
+		$sthr = $dbr->query("SELECT stat_min,stat_max,rom,adj FROM sensors WHERE rom='$rom'");
 		$row = $sthr->fetchAll();
 		foreach($row as $row) {
 			$adj=$row['adj']; 
