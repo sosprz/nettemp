@@ -200,6 +200,8 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 		$row = $sthr->fetchAll();
 		foreach($row as $row) {
 			$adj=$row['adj']; 
+			$stat_min=$row['stat_min'];
+			$stat_max=$row['stat_max'];
 			$val=$val+$adj;  
 		}
 		$c = count($row);
@@ -247,7 +249,10 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 					//sensors status
 					else {
 						$dbr->exec("UPDATE sensors SET tmp='$val', status='ok', ip='$ip' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert value to status\n" );
-						$dbr->exec("UPDATE sensors SET stat_min='$val' WHERE stat_min>'$val' AND rom='$rom' OR stat_min is null AND rom='$rom'");
+						
+						if ($val<$stat_min) {$dbr->exec("UPDATE sensors SET stat_min='$val' WHERE rom='$rom' OR stat_min is null AND rom='$rom'");}
+						
+						//$dbr->exec("UPDATE sensors SET stat_min='$val' WHERE stat_min>'$val' AND rom='$rom' OR stat_min is null AND rom='$rom'");
 						$dbr->exec("UPDATE sensors SET stat_max='$val' WHERE stat_max<'$val' AND rom='$rom' OR stat_max is null AND rom='$rom'");
 						if(!is_null($ip)&&$device=='gpio') {
 						    $dbr->exec("UPDATE gpio SET ip='$ip' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert IP to gpio\n" );
