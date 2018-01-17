@@ -58,7 +58,7 @@ $rom=$a['rom'];
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">GPIO <?php echo $gpio." ".$name." ".$ip ?></h3></div>
+<h3 class="panel-title">GPIO <?php echo $gpio." ".$name." ".$ip." ".$mode ?></h3></div>
 <div class="panel-body">
 
 <?php
