@@ -1,4 +1,5 @@
 <?php
+session_start();
 $root=$_SERVER["DOCUMENT_ROOT"];
 if(isset($_SESSION['user'])){
 	
@@ -16,7 +17,7 @@ $sensors_relay = $sth->fetchAll();
 /* Functions */
 
 function label($status){
-	if($status == 'on' || $status == 'ON')
+	if($status == 'on' || $status == 'ON' || $status=substr($status,0,2)== 'ON' )
 	{	
 		return 'label-success';
 	} 
@@ -38,6 +39,8 @@ function label($status){
 	}
 
 }
+
+
 
 
 function gpio_db($rom,$action){
@@ -149,6 +152,7 @@ function gpio_moment($gpio,$rom,$rev,$moment_time) {
 
 if(!empty($ip_gpio)||!empty($sensors_relay)) {
 ?>
+
 <div class="grid-item swcon">
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -168,6 +172,9 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		$rev = isset($_POST['rev']) ? $_POST['rev'] : '';
 		$onoff = isset($_POST['onoff']) ? $_POST['onoff'] : '';
 		$moment_time = isset($_POST['moment_time']) ? $_POST['moment_time'] : '';
+		$rom_lock = isset($_POST['rom_lock']) ? $_POST['rom_lock'] : '';
+		$trun = isset($_POST['trun']) ? $_POST['trun'] : '';
+		$time_offset = isset($_POST['time_offset']) ? $_POST['time_offset'] : '';
 		
 		
 		/* SIMPLE IP */
@@ -177,7 +184,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 			} else { 
 				gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'off','0');
 			}
-		$db->exec("UPDATE gpio SET locked='user' WHERE gpio='$gpio_post'");
+		$db->exec("UPDATE gpio SET locked='user' WHERE gpio='$gpio_post' AND rom='$rom_post'");
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 		}
@@ -194,12 +201,36 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		exit();
 		}
 		
+		/* TIME IP */
+		if ($trun == "timerunip") {
+			if ($switch == 'on' ){
+				gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'on','0');
+				$date = new DateTime();
+				$time_start=$date->getTimestamp();
+				$db->exec("UPDATE gpio SET time_run='on', status='ON $time_offset min', time_offset='$time_offset',time_start='$time_start' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
+				header("location: " . $_SERVER['REQUEST_URI']);
+				exit();
+			} else {
+				gpio_curl_onoff($ip_post,$gpio_post,$rom_post,'off','0');
+				$date = new DateTime();
+				$time_start=$date->getTimestamp();
+				$db->exec("UPDATE gpio SET time_run='', time_start='', status='OFF' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
+				header("location: " . $_SERVER['REQUEST_URI']);
+				exit();
+			}
+	
+		}
+		
+
+		
         $value_update_from_status = isset($_POST['value_update_from_status']) ? $_POST['value_update_from_status'] : '';
 		$id_value_update_from_status = isset($_POST['id_value_update_from_status']) ? $_POST['id_value_update_from_status'] : '';
 		$update_from_status = isset($_POST['update_from_status']) ? $_POST['update_from_status'] : '';
+		$time_update_from_status = isset($_POST['time_update_from_status']) ? $_POST['time_update_from_status'] : '';
 		
 		$lock_update_from_status = isset($_POST['lock_update_from_status']) ? $_POST['lock_update_from_status'] : '';
 		$gpio_lock_update_from_status = isset($_POST['gpio_lock_update_from_status']) ? $_POST['gpio_lock_update_from_status'] : '';
+		$rom_lock = isset($_POST['rom_lock']) ? $_POST['rom_lock'] : '';
 
 		if($update_from_status=='switch_update_from_status') {
 			$db->exec("UPDATE g_func SET value='$value_update_from_status' WHERE id='$id_value_update_from_status'");
@@ -208,7 +239,13 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 		}
 		
 		if($update_from_status=='lock_update_from_status') {
-			$db->exec("UPDATE gpio SET locked='$lock_update_from_status' WHERE gpio='$gpio_lock_update_from_status'");
+			$db->exec("UPDATE gpio SET locked='$lock_update_from_status' WHERE gpio='$gpio_lock_update_from_status' AND rom='$rom_lock'");
+			header("location: " . $_SERVER['REQUEST_URI']);
+			exit();
+		}
+		
+		if($update_from_status=='time_update_from_status') {
+			$db->exec("UPDATE gpio SET time_offset='$value_update_from_status' WHERE gpio='$gpio_post' AND rom='$rom_post'");
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 		}
@@ -229,53 +266,98 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 			} else {
 				gpio_onoff($gpio_post,$rom_post,'off',$rev);
 			}
+		$db->exec("UPDATE gpio SET locked='user' WHERE gpio='$gpio_post' AND rom='$rom_post'");
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
+		}
+		
+		/* TIME */
+		if ($trun == "timerun") {
+			if ($switch == 'on' ){
+				gpio_onoff($gpio_post,$rom_post,'on',$rev);
+				$date = new DateTime();
+				$time_start=$date->getTimestamp();
+				$db->exec("UPDATE gpio SET time_run='on', status='ON $time_offset min', time_offset='$time_offset',time_start='$time_start' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
+				header("location: " . $_SERVER['REQUEST_URI']);
+				exit();
+			} else {
+				gpio_onoff($gpio_post,$rom_post,'off',$rev);
+				$date = new DateTime();
+				$time_start=$date->getTimestamp();
+				$db->exec("UPDATE gpio SET time_run='', time_start='', status='OFF' WHERE gpio='$gpio_post' AND rom='$rom_post'") or die("exec error");
+				header("location: " . $_SERVER['REQUEST_URI']);
+				exit();
+			}
+	
 		}
   		    
 
 		foreach ( $ip_gpio as $s) {
 			?>
+			
+
 			<tr>
 				<?php		
 				/* GPIO */
-				$sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$s[gpio]' AND rom='$s[rom]' AND (mode='simple' OR mode='temp' OR mode='moment' OR mode='read') ");
+				$sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$s[gpio]' AND rom='$s[rom]' AND (mode='simple' OR mode='temp' OR mode='moment' OR mode='read' OR mode='day' OR mode='time') ");
 				$sth->execute();
 				$gpio = $sth->fetchAll();
 				foreach ($gpio as $g) {
 				?>
 					<td class="col-md-1">
-						<img src="media/ico/switch-icon.png" alt="" title="<?php if(!empty($s['ip'])){echo "Last IP: ".$s['ip']." GPIO: ".$s['gpio']." Mode: ".$g['mode'];} else {echo "GPIO: ".$s['gpio']." Mode: ".$g['mode'];}?>" />
+						<a href="index.php?id=device&type=gpio&gpios=<?php echo $s['gpio'] ?>&ip=<?php echo $s['ip'] ?>"><img <?php if (!$s['ip']) {echo 'src="media/ico/switch-icon.png"';} else {echo 'src="media/ico/switchip-icon.png"';}  ?> alt="" title="<?php if(!empty($s['ip'])){echo "Last IP: ".$s['ip']." GPIO: ".$s['gpio']." Mode: ".$g['mode'];} else {echo "GPIO: ".$s['gpio']." Mode: ".$g['mode'];}?>" /></a>
 					</td>
 					<td class="col-md-1">
-						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label <?php echo label($g['status']) ?>" title="Charts" ><?php echo $s['name']?></a>
+						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label <?php echo label($g['status']) ?>" title="Charts" ><?php echo str_replace("_", " ", $s['name'])?></a>
 					</td>
 				<?php
 				/* SIMPLE IP */
-				if(($g['mode']=='simple'&&!empty($s['ip']))||($g['mode']=='temp'&&!empty($s['ip']))) {
+				if(($g['mode']=='simple'&&!empty($s['ip']))||($g['mode']=='temp'&&!empty($s['ip'])) ||($g['mode']=='day'&&!empty($s['ip']))) {
 					?>
 					<td class="col-md-2">
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="<?php echo $s['tmp'] == '1.0'  ? 'off' : 'on'; ?>" <?php echo $s['tmp'] == '1.0' ? 'checked="checked"' : ''; ?>  />
+						<input id="onoffstatus" type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="<?php echo $s['tmp'] == '1.0'  ? 'off' : 'on'; ?>" <?php echo $s['tmp'] == '1.0' ? 'checked="checked"' : ''; ?>  />
                         <input type="hidden" name="ip" value="<?php echo $s['ip']; ?>"/>
                         <input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
                         <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
                         <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
                         <input type="hidden" name="onoff" value="simpleip" />
                     </form>
-                    </td>
-                   <?php if($g['mode']!='temp') { echo '<td></td><td></td><td></td>';} 
+                    </td>  
+					
+                   <?php 
+				   if($g['mode']!='temp' & $g['mode']=='simple') { echo '<td></td><td></td><td></td>';}
+				   elseif($g['mode']!='temp' & $g['mode']=='day')                 {    echo '<td></td><td></td>';?> 
+				   <td>
+					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input type="hidden" name="gpio_lock_update_from_status" value="<?php echo $s['gpio']; ?>"/>
+						<input id="lockstatus" type="checkbox"  data-toggle="toggle" data-size="mini" data-on="lock" data-off="lock" onchange="this.form.submit()" name="lock_update_from_status" value="<?php echo $g['locked'] == 'user'  ? '' : 'user'; ?>" <?php echo $g['locked'] == 'user' ? 'checked="checked"' : ''; ?>  />
+						<input type="hidden" name="rom_lock" value="<?php echo $s['rom']; ?>"/>
+						<input type="hidden" name="update_from_status" value="lock_update_from_status" />
+					</form>
+					</td>
+
+					<?php } 
+
+				   
 				}
 				/* SIMPLE */
-				elseif($g['mode']=='simple'||($g['mode']=='temp')) {
+				elseif(($g['mode']=='simple')||($g['mode']=='temp')||($g['mode']=='day')) {
+				
 					?>
 					<td class="col-md-1">
 					 <?php
 						exec('/usr/local/bin/gpio -g read '.$g['gpio'], $state);
 						$set=$state[0];
+						if ($g['rev']=='on'){
+							
+							if ($set==1){$set=0;
+							
+							} else {$set=1;}
+						}
 					?>	
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="on" <?php echo $set == '1' ? 'checked="checked"' : ''; ?>  />
+						<input id="onoffstatus" type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="on" <?php echo $set == '1' ? 'checked="checked"' : ''; ?>  />
                         <input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
                         <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
                         <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
@@ -286,14 +368,136 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                     unset($set);
                     unset($state);
                     
-                    if($g['mode']!='temp') { echo '<td></td><td></td><td></td>';} 
+					if($g['mode']!='temp' & $g['mode']=='simple') { echo '<td></td><td></td><td></td>';}
+                    elseif($g['mode']!='temp' & $g['mode']=='day') { echo '<td></td><td></td>';?>
+					
+					<td>
+					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input type="hidden" name="gpio_lock_update_from_status" value="<?php echo $s['gpio']; ?>"/>
+						<input id="lockstatus" type="checkbox"  data-toggle="toggle" data-size="mini" data-on="lock" data-off="lock" onchange="this.form.submit()" name="lock_update_from_status" value="<?php echo $g['locked'] == 'user'  ? '' : 'user'; ?>" <?php echo $g['locked'] == 'user' ? 'checked="checked"' : ''; ?>  />
+						<input type="hidden" name="rom_lock" value="<?php echo $s['rom']; ?>"/>
+						<input type="hidden" name="update_from_status" value="lock_update_from_status" />
+					</form>
+					</td>
+
+					<?php } 
+	
 				}
+				
+				/* TIME IP */
+				elseif ($g['mode']=='time' && !empty($s['ip'])) {
+				
+					?>
+					<td class="col-md-1">
+					 <?php
+						exec('/usr/local/bin/gpio -g read '.$g['gpio'], $state);
+						$set=$state[0];
+						if ($g['rev']=='on'){
+							
+							if ($set==1){$set=0;
+							
+							} else {$set=1;}
+						}
+					?>	
+                   	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input id="onoffstatus" type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="<?php echo $s['tmp'] == '1.0'  ? 'off' : 'on'; ?>" <?php echo $s['tmp'] == '1.0' ? 'checked="checked"' : ''; ?>  />
+                        <input type="hidden" name="ip" value="<?php echo $s['ip']; ?>"/>
+						<input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
+                        <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
+                        <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
+						<input type="hidden" name="time_offset" value="<?php echo $g['time_offset']; ?>"/>
+                        <input type="hidden" name="trun" value="timerunip" />
+                    </form>
+                    </td>
+                    <?php 
+                    unset($set);
+                    unset($state);
+					?>
+					
+					<td style="vertical-align:middle">
+						Mins:
+					</td>
+					
+					<td>
+					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input type="number" style="width: 4em;" onchange="this.form.submit()" name="value_update_from_status" value="<?php echo $g['time_offset'] ?>" />
+						<input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
+                        <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
+						<input type="hidden" name="update_from_status" value="time_update_from_status" />
+					</form>
+					</td>
+					
+					<td>
+					<?php
+					if (substr($g['status'],0,2) == 'ON') {
+					?>
+						<span class="label <?php echo label($g['status']) ?>"> <?php echo str_replace("ON","",str_replace("min","",$g['status'])).min ?> </span>
+					</td>
+					<?php 
+					}
+				
+				}
+				/* TIME */
+				elseif ($g['mode']=='time') {
+				
+					?>
+					<td class="col-md-1">
+					 <?php
+						exec('/usr/local/bin/gpio -g read '.$g['gpio'], $state);
+						$set=$state[0];
+						if ($g['rev']=='on'){
+							
+							if ($set==1){$set=0;
+							
+							} else {$set=1;}
+						}
+					?>	
+                   	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input id="onoffstatus" type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="on" <?php echo $set == '1' ? 'checked="checked"' : ''; ?>  />
+                        <input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
+                        <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
+                        <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
+						<input type="hidden" name="time_offset" value="<?php echo $g['time_offset']; ?>"/>
+                        <input type="hidden" name="trun" value="timerun" />
+                    </form>
+                    </td>
+                    <?php 
+                    unset($set);
+                    unset($state);
+					?>
+					
+					<td style="vertical-align:middle">
+						Mins:
+					</td>
+					
+					<td>
+					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input type="number" style="width: 4em;" onchange="this.form.submit()" name="value_update_from_status" value="<?php echo $g['time_offset'] ?>" />
+						<input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
+                        <input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
+						<input type="hidden" name="update_from_status" value="time_update_from_status" />
+					</form>
+					</td>
+					
+					<td>
+					<?php
+					if (substr($g['status'],0,2) == 'ON') {
+					?>
+						<span class="label <?php echo label($g['status']) ?>"> <?php echo str_replace("ON","",str_replace("min","",$g['status'])).min ?> </span>
+					</td>
+					<?php 
+					}
+					
+												
+					} 
+	
+				
 				/* MOMENT IP*/
 				elseif($g['mode']=='moment'&&!empty($s['ip'])) {
 					?>
 					<td class="col-md-1">
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input data-onstyle="default" type="checkbox" data-size="mini" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
+						<input id="onoffstatus" data-onstyle="default" type="checkbox" data-size="mini" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
 						<input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
                         <input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
 						<input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
@@ -310,7 +514,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					?>
 					<td class="col-md-1">
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input data-onstyle="default" type="checkbox" data-size="mini" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
+						<input id="onoffstatus" data-onstyle="default" type="checkbox" data-size="mini" data-toggle="toggle" name="bi" value="on" onchange="this.form.submit()" title=""   onclick="this.form.submit()" />
 						<input type="hidden" name="gpio" value="<?php echo $s['gpio']; ?>"/>
 						<input type="hidden" name="rom" value="<?php echo $s['rom']; ?>"/>
 						<input type="hidden" name="rev" value="<?php echo $g['rev']; ?>"/>
@@ -349,12 +553,12 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					$sth = $db->prepare("SELECT id,value FROM g_func WHERE gpio='$s[gpio]' ORDER BY position ASC LIMIT 1 ");
 					$sth->execute();
 					$g_func = $sth->fetchAll();
-					$numRows = count($result);
+					//$numRows = count($result);
 					$gpio_locked=$g['locked'];
 			
 					foreach ($g_func as $gf) {
 					?>
-					<td>
+					<td style="vertical-align:middle">
 						Value:
 					</td>
 					<td>
@@ -367,7 +571,8 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<td>
 					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input type="hidden" name="gpio_lock_update_from_status" value="<?php echo $s['gpio']; ?>"/>
-						<input type="checkbox"  data-toggle="toggle" data-size="mini" data-on="lock" data-off="lock" onchange="this.form.submit()" name="lock_update_from_status" value="<?php echo $g['locked'] == 'user'  ? '' : 'user'; ?>" <?php echo $g['locked'] == 'user' ? 'checked="checked"' : ''; ?>  />
+						<input id="lockstatus" type="checkbox"  data-toggle="toggle" data-size="mini" data-on="lock" data-off="lock" onchange="this.form.submit()" name="lock_update_from_status" value="<?php echo $g['locked'] == 'user'  ? '' : 'user'; ?>" <?php echo $g['locked'] == 'user' ? 'checked="checked"' : ''; ?>  />
+						<input type="hidden" name="rom_lock" value="<?php echo $s['rom']; ?>"/>
 						<input type="hidden" name="update_from_status" value="lock_update_from_status" />
 					</form>
 					</td>
@@ -375,7 +580,9 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					} 
 					?>
 					</tr>	
+
 					<?php
+					
 				}
 			}
 		}
@@ -440,7 +647,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $r['name']?>" class="label label-default" title=""><?php echo $r['name']?></a>
 			</td>
 			<td>
-				<input type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="relay" value="<?php echo $o == 'on'  ? 'off' : 'on'; ?>" <?php echo $o == 'on' ? 'checked="checked"' : ''; ?>  />
+				<input id="onoffstatus" type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="relay" value="<?php echo $o == 'on'  ? 'off' : 'on'; ?>" <?php echo $o == 'on' ? 'checked="checked"' : ''; ?>  />
 				<input type="hidden" name="ip" value="<?php echo $r['ip']; ?>"/>
 				<input type="hidden" name="rom" value="<?php echo $r['rom']; ?>"/>
 				<input type="hidden" name="gpio_post" value="<?php echo $r['gpio']; ?>"/>
@@ -461,6 +668,9 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 <!--END-->
 	</tbody>
 </table>
+
+
+
 </div>
 </div>
 <?php

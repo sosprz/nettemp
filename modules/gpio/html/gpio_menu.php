@@ -56,7 +56,7 @@ $row = $rows->fetchAll();
     </td>
 
 	<td class="col-md-1">
-		<a href="index.php?id=device&type=gpio&gpios=<?php echo $b['gpio']?>&ip=<?php echo $b['ip']?>" class="btn btn-xs btn-success ">GPIO <?php echo $b['gpio']; if(!empty($b['ip'])){echo " ".$b['ip'];}?></a>
+		<a href="index.php?id=device&type=gpio&gpios=<?php echo $b['gpio']?>&ip=<?php echo $b['ip']?>" class="btn btn-xs btn-success ">GPIO <?php echo $b['gpio']; if(!empty($b['ip'])){echo " ".$b["ip"];}?></a>
 	</td>
 
 	<td class="col-md-1">
@@ -74,8 +74,9 @@ $row = $rows->fetchAll();
 
  		<?php }?>
 			<?php
-			echo $b['status']; ?> </span>
+			echo strtoupper($b['status']); ?> </span>
 	</td>
+	
 </tr>
 
 <?php } ?>

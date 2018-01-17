@@ -3,10 +3,10 @@ $gpio_rev = isset($_POST['gpio_rev']) ? $_POST['gpio_rev'] : '';
 $gpio_rev1 = isset($_POST['gpio_rev1']) ? $_POST['gpio_rev1'] : '';
 if (($gpio_rev1 == "gpio_rev1") ){
 	if ( $gpio_rev == "on") { 
-	$db->exec("UPDATE gpio SET rev='on' where gpio='$gpio_post' ") or die("exec error");
+	$db->exec("UPDATE gpio SET rev='on' where gpio='$gpio_post' AND rom='$rom' ") or die("exec error");
 	}
 	else { 
-	$db->exec("UPDATE gpio SET rev='' where gpio='$gpio_post' ") or die("exec error");
+	$db->exec("UPDATE gpio SET rev='' where gpio='$gpio_post' AND rom='$rom' ") or die("exec error");
 	}
      $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);

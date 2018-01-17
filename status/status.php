@@ -75,22 +75,21 @@ Go to device scan!
 	}	
 
 	//END JG GROUPS
-	
-    
-    include('status/minmax_status.php');
-    //include('status/gpio_status.php');
+   
+    include('status/minmax_status.php'); 
     include('status/counters_status.php');
     include('status/controls.php');
-    //include('status/switch_controls.php');
-    //include('status/relays_controls.php');
-    //include('status/gpio_controls.php');
     include('status/meteo_status.php');
-    foreach (range(1, 10) as $v) {
+    include('status/ipcam_status.php');
+    include('status/ups_status.php');
+	//include('modules/gpio/day.php');
+	
+	foreach (range(1, 10) as $v) {
 		$ow=$v;
 		include('status/ownwidget.php');
     }
-    include('status/ipcam_status.php');
-    include('status/ups_status.php');
+	
+	
     ?>
 </div>
 
@@ -114,15 +113,19 @@ Go to device scan!
 	?>
 	
     $('.co').load("status/counters_status.php");
-    $('.gs').load("status/gpio_status.php");
     $('.ms').load("status/meteo_status.php");
-    $('.ow2').load("status/ownwidget2.php");
-    $('.ow3').load("status/ownwidget3.php");
     $('.mm').load("status/minmax_status.php");
     $('.ups').load("status/ups_status.php");
-    //$('.swcon').load("status/switch_controls.php");
-    //$('.recon').load("status/relays_controls.php");
-  
+	
+    $('.swcon').load("status/controls.php", function() {		
+	$('[id="onoffstatus"]').bootstrapToggle({size : 'mini', off : 'Off', on : 'On',});
+	$('[id="lockstatus"]').bootstrapToggle({size : 'mini', off : 'lock', on : 'lock',});
+	
+	});	
+
+	$('.uptime').load("html/index/uptime.php");
+	$('.systime').load("html/index/systime.php");
+	
 }, 60000);
 
 $(document).ready( function() {
@@ -137,4 +140,6 @@ $(document).ready( function() {
 </script>
 <script src="html/masonry/masonry.pkgd.min.js"></script>
 <div id="justgage_refresh"></div>
+
+
 

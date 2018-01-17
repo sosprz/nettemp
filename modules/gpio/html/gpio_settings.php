@@ -54,6 +54,7 @@ $gpio=$a['gpio'];
 $mode=$a['mode'];
 $name=$a['name'];
 $ip=$a['ip'];
+$rom=$a['rom'];
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">

@@ -1,0 +1,36 @@
+- usuniêcie podkreœlników w nazwach
+- Linki z JG do charts
+- Wartoœci w JG z przecinkiem
+- Dok³adne Min/Max - dla du¿ej iloœci czujników mo¿e wolniej dzia³aæ status
+- Odœwie¿anie GPIO
+- Uptime w stopce i systime - odœwie¿a co minutê
+- Day plan dla GPIO - przepisany na php, lock w statusie
+- Ikona ip gpio - jeœli gpio jest ip - niebieska ikona w gpio
+- temp.php - poprawione logi - nie miêsza logów dla ró¿nych gpio 
+- poprawka do zmiany nazy gpio w przypadku ip i tych samych numerów gpio (ip/ip - ip-gpio)
+- poprawki do urz¹dzeñ ip w statusie - lock
+- poprawka do zmiany trybów gpio w przypadku ip i tych samych numerów gpio (ip/ip - ip-gpio) - day,temp,simple,moment
+- auto lock gpio jeœli recznie zmieniam stan on/off w statusie
+- link do ustawieñ gpio ze statusu - ikonka gpio w controls
+- poprawione dzia³anie przekaŸnika dla simple, temp, day - zmiana wyzwalania stanem niskim i wysokim.
+- gpio Time w statusie - brak obs³ugi ip
+- satus min max light - poprawione zbieranie danych - fix dla wartoœci ujemnych
+
+
+
+To Do:
+- gpio Time przepisaæ na php, logi, dodaæ obs³ugê ip
+wykresy - ³adowanie do bazy - konflikt ip/gpio
+Wsadzanie do def - ip/gpio
+satus min max light temp ujemne
+
+
+
+mcp dla day.php
+Kolorowanie JG jeœli brak odczytów
+Controls - temperatura dla w³asciwego dp
+
+Wyœwietlanie dp w statusie - na ¿yczenie.
+Binding sensors do gpio w statusie - bez logowania.
+
+
