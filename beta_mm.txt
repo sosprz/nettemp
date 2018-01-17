@@ -14,7 +14,7 @@
 - link do ustawieñ gpio ze statusu - ikonka gpio w controls
 - poprawione dzia³anie przekaŸnika dla simple, temp, day - zmiana wyzwalania stanem niskim i wysokim.
 - gpio Time w statusie - brak obs³ugi ip
-
+- satus min max light - poprawione zbieranie danych - fix dla wartoœci ujemnych
 
 
 
@@ -23,6 +23,7 @@ To Do:
 wykresy - ³adowanie do bazy - konflikt ip/gpio
 Wsadzanie do def - ip/gpio
 satus min max light temp ujemne
+
 
 
 mcp dla day.php
