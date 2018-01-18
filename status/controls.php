@@ -5,7 +5,7 @@ if(isset($_SESSION['user'])){
 	
 /* SWITCH EasyESP */
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
-$sth = $db->prepare("SELECT ip,rom,gpio,name,tmp,status FROM sensors WHERE type='gpio' AND ch_group='gpio'");
+$sth = $db->prepare("SELECT ip,rom,gpio,name,tmp,status FROM sensors WHERE type='gpio' AND ch_group='gpio' ORDER BY position_group ASC");
 $sth->execute();
 $ip_gpio = $sth->fetchAll();
 

@@ -22,7 +22,8 @@ To Do:
 - gpio Time przepisaæ na php, logi, dodaæ obs³ugê ip
 wykresy - ³adowanie do bazy - konflikt ip/gpio
 Wsadzanie do def - ip/gpio
-satus min max light temp ujemne
+DHT  11
+
 
 
 
