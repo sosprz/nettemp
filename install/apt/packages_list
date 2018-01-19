@@ -1,3 +1,5 @@
+acl
+swig2.0
 lighttpd
 php7.0-cgi 
 php7.0-sqlite 
@@ -45,3 +47,5 @@ python-pymodbus
 lm-sensors
 mosquitto
 mosquitto-clients
+
+
