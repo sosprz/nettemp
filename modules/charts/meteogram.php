@@ -773,7 +773,7 @@ $(function () { // On DOM ready...
         //place = 'Norway/Sogn_og_Fjordane/Vik/Målset';
         //place = 'United_States/California/San_Francisco';
         //place = 'United_States/Minnesota/Minneapolis';
-        location.hash = 'https://www.yr.no/place/' + place + '/forecast_hour_by_hour.xml';
+        location.hash = 'https://www.yr.no/place/' + place + '/forecast.xml';
 
     }
 
