@@ -16,7 +16,7 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 	if ($dpdd1 == 'add2'){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$name=str_replace(' ', '_', $name);
-	$db->exec("INSERT OR IGNORE INTO day_plan (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime, gpio) VALUES ('$name','$mon', '$tue', '$wed', '$thu', '$fri', '$sat', '$sun', '$stime', '$etime', '$dpgpio') WHERE rom='$rom' ") or die ($db->lastErrorMsg());
+	$db->exec("INSERT OR IGNORE INTO day_plan (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime, gpio,rom) VALUES ('$name','$mon', '$tue', '$wed', '$thu', '$fri', '$sat', '$sun', '$stime', '$etime', '$dpgpio','$rom') WHERE rom='$rom' ") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}
