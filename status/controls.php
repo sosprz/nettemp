@@ -158,7 +158,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 <div class="panel-heading">
 <h3 class="panel-title">GPIO</h3>
 </div>
-<table class="table table-hover table-condensed small" border="0">
+<table class="table table-hover table-condensed small" border="1">
 	<tbody>
 	<?php
 	/* EasyESP */
