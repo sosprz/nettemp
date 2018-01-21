@@ -381,9 +381,10 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					foreach ($activedp as $adp) {
 						
 						$activenamedp=$adp[name];
+					?>
 					
-					echo <span class="btn btn-xs btn-info"> $activenamedp </span>; 
-					
+					<span class="btn btn-xs btn-info"><?php echo $activenamedp; ?> </span> 
+					<?php
 					}
 					?>
 					
