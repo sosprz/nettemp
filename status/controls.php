@@ -389,8 +389,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					
 					<td class="col-md-1">
 					
-					<span class="label label-warning"><?php echo $stime; ?> </span> <span class="label label-warning"><?php echo $etime; ?> </span>
-					
+					<span style=" display:inline!important" class="label label-warning"><?php echo $stime; echo $etime; ?> </span>
 					</td>
 					<?php
 					}
