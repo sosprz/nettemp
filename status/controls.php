@@ -391,12 +391,11 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<span style=" display:inline!important" class="label label-warning"><?php echo $stime." ".$etime;?> </span>
 					</td>
 					-->
-					</td>
 					<?php
 					 echo '<td class="col-md-1"></td>';
 					}
 					?>
-					
+					</td>
 					
 					<td>
 					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
