@@ -381,7 +381,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					
 					echo $activedp;
 					
-					
+					}
 					?>
 					
 					
