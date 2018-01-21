@@ -11,12 +11,13 @@ $sat = isset($_POST['sat']) ? $_POST['sat'] : '';
 $sun = isset($_POST['sun']) ? $_POST['sun'] : '';
 $del = isset($_POST['del']) ? $_POST['del'] : '';
 $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
+$dprom = isset($_POST['dprom']) ? $_POST['dprom'] : '';
 
 	$dpdd1 = isset($_POST['add1']) ? $_POST['add1'] : '';
 	if ($dpdd1 == 'add2'){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$name=str_replace(' ', '_', $name);
-	$db->exec("INSERT OR IGNORE INTO day_plan (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime, gpio,rom) VALUES ('$name','$mon', '$tue', '$wed', '$thu', '$fri', '$sat', '$sun', '$stime', '$etime', '$dpgpio','$rom') WHERE rom='$rom' ") or die ($db->lastErrorMsg());
+	$db->exec("INSERT OR IGNORE INTO day_plan (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime, gpio,rom) VALUES ('$name','$mon', '$tue', '$wed', '$thu', '$fri', '$sat', '$sun', '$stime', '$etime', '$dpgpio','$dprom') ") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}
@@ -25,7 +26,7 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 	$week_plan_id = isset($_POST['week_plan_id']) ? $_POST['week_plan_id'] : '';
 	if ($week_plan == 'edit'){
 		$db = new PDO('sqlite:dbf/nettemp.db');
-		$db->exec("UPDATE day_plan SET Mon='$mon', Tue='$tue', Wed='$wed', Thu='$thu', Fri='$fri', Sat='$sat', Sun='$sun', stime='$stime', etime='$etime' WHERE id='$week_plan_id' AND rom='$rom' ") or die($week_plan_id."\n".$etime."\n".$stime."\n".$wed);
+		$db->exec("UPDATE day_plan SET Mon='$mon', Tue='$tue', Wed='$wed', Thu='$thu', Fri='$fri', Sat='$sat', Sun='$sun', stime='$stime', etime='$etime' WHERE id='$week_plan_id' AND rom='$dprom' ") or die($week_plan_id."\n".$etime."\n".$stime."\n".$wed);
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 	}
@@ -78,6 +79,7 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 	<td><input type="text" name="etime" value="" class="form-control" required="" placeholder="19:00"/></td>
 	<input type="hidden" name="add1" value="add2" />
 	<input type="hidden" name="dpgpio" value="<?php echo $gpio; ?>" />
+	<input type="hidden" name="dprom" value="<?php echo $a['rom']; ?>"/>
 	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	<th></th>
 	</form>
