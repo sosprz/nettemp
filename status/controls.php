@@ -374,7 +374,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					
 					
 					<?php
-					$sth = $db->prepare("SELECT name,stime,etime FROM day_plan WHERE  active='on' AND rom='$s[rom]' ");
+					$sth = $db->prepare("SELECT name,stime,etime FROM day_plan WHERE  rom='$s[rom]' ");
 					$sth->execute();
 					$activedp = $sth->fetchAll();
 			
