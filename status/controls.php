@@ -5,7 +5,7 @@ if(isset($_SESSION['user'])){
 	
 /* SWITCH EasyESP */
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
-$sth = $db->prepare("SELECT ip,rom,gpio,name,tmp,status FROM sensors WHERE type='gpio' AND ch_group='gpio'");
+$sth = $db->prepare("SELECT ip,rom,gpio,name,tmp,status FROM sensors WHERE type='gpio' AND ch_group='gpio' ORDER BY position ASC");
 $sth->execute();
 $ip_gpio = $sth->fetchAll();
 
@@ -341,7 +341,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 
 				   
 				}
-				/* SIMPLE */
+				/* SIMPLE AND DAY*/
 				elseif(($g['mode']=='simple')||($g['mode']=='temp')||($g['mode']=='day')) {
 				
 					?>
@@ -369,7 +369,16 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                     unset($state);
                     
 					if($g['mode']!='temp' & $g['mode']=='simple') { echo '<td></td><td></td><td></td>';}
-                    elseif($g['mode']!='temp' & $g['mode']=='day') { echo '<td></td><td></td>';?>
+                    elseif($g['mode']!='temp' & $g['mode']=='day') { echo '<td></td>';?>
+					
+					<td>
+					<?php
+					$activedp = $db->exec("SELECT name FROM day_plan WHERE gpio='$gpio' AND active='on'");
+					
+					echo $activedp;?>
+					
+					
+					</td>
 					
 					<td>
 					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
