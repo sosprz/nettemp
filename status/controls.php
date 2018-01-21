@@ -369,7 +369,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                     unset($state);
                     
 					if($g['mode']!='temp' & $g['mode']=='simple') { echo '<td class="col-md-1"></td><td></td><td></td>';}
-                    elseif($g['mode']!='temp' & $g['mode']=='day') { echo '<td class="col-md-1"></td>';?>
+                    elseif($g['mode']!='temp' & $g['mode']=='day') {?>
 					
 					<td class="col-md-1">
 					
@@ -386,6 +386,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<span class="label label-info"><?php echo $activenamedp; ?> </span> 
 					<?php
 					}
+					echo '<td class="col-md-1"></td>';
 					?>
 					
 					
