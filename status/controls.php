@@ -333,7 +333,8 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					$sth = $db->prepare("SELECT name,stime,etime FROM day_plan WHERE  active='on' AND rom='$s[rom]' ");
 					$sth->execute();
 					$activedp = $sth->fetchAll();
-			
+					$numRows = count($activedp);
+					if($numRows > 0) {
 					foreach ($activedp as $adp) {
 						
 						$activenamedp=$adp[name];
@@ -351,6 +352,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<?php
 					 echo '<td class="col-md-1"></td>';
 					}
+					} else {echo '<td></td><td></td><td></td>';}
 					?>
 
 				   
