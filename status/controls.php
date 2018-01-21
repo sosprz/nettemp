@@ -314,7 +314,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				/* SIMPLE IP */
 				if(($g['mode']=='simple'&&!empty($s['ip']))||($g['mode']=='temp'&&!empty($s['ip'])) ||($g['mode']=='day'&&!empty($s['ip']))) {
 					?>
-					<td class="col-md-2">
+					<td class="col-md-1">
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input id="onoffstatus" type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="<?php echo $s['tmp'] == '1.0'  ? 'off' : 'on'; ?>" <?php echo $s['tmp'] == '1.0' ? 'checked="checked"' : ''; ?>  />
                         <input type="hidden" name="ip" value="<?php echo $s['ip']; ?>"/>
@@ -372,6 +372,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                     elseif($g['mode']!='temp' & $g['mode']=='day') { echo '<td></td>';?>
 					
 					<td>
+					
 					<?php
 					$sth = $db->prepare("SELECT name FROM day_plan WHERE gpio='$s[gpio]' AND active='on' LIMIT 1 ");
 					$sth->execute();
