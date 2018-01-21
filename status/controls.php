@@ -374,19 +374,27 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<td class="col-md-1">
 					
 					<?php
-					$sth = $db->prepare("SELECT name FROM day_plan WHERE gpio='$s[gpio]' AND active='on' LIMIT 1 ");
+					$sth = $db->prepare("SELECT name,stime,etime FROM day_plan WHERE gpio='$s[gpio]' AND active='on' LIMIT 1 ");
 					$sth->execute();
 					$activedp = $sth->fetchAll();
 			
 					foreach ($activedp as $adp) {
 						
 						$activenamedp=$adp[name];
+						$stime=$adp[stime];
+						$etime=$adp[etime];
 					?>
 					
 					<span class="label label-info"><?php echo $activenamedp; ?> </span> 
+					
+					<td class="col-md-1">
+					
+					<span class="label label-danger"><?php echo $stime; ?> </span> 
+					
+					</td>
 					<?php
 					}
-					echo '<td class="col-md-1"></td>';
+				
 					?>
 					
 					
