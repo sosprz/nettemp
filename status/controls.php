@@ -386,11 +386,11 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					?>
 					
 					<span class="label label-info"><?php echo $activenamedp; ?> </span> 
-					
+					<!--
 					<td class="col-md-1">
-					
 					<span style=" display:inline!important" class="label label-warning"><?php echo $stime." ".$etime;?> </span>
 					</td>
+					-->
 					<?php
 					}
 					?>
