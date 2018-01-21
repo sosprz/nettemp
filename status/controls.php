@@ -327,7 +327,33 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					
                    <?php 
 				   if($g['mode']!='temp' & $g['mode']=='simple') { echo '<td></td><td></td><td></td>';}
-				   elseif($g['mode']!='temp' & $g['mode']=='day')                 {    echo '<td></td><td></td>';?> 
+				   elseif($g['mode']!='temp' & $g['mode']=='day')                 {?>
+					
+					<?php
+					$sth = $db->prepare("SELECT name,stime,etime FROM day_plan WHERE  active='on' AND rom='$s[rom]' ");
+					$sth->execute();
+					$activedp = $sth->fetchAll();
+			
+					foreach ($activedp as $adp) {
+						
+						$activenamedp=$adp[name];
+						$stime=$adp[stime];
+						$etime=$adp[etime];
+					?>
+					<td class="col-md-2">
+					<span class="label label-info"><?php echo $activenamedp; ?> </span> 
+					<!--
+					<td class="col-md-1">
+					<span style=" display:inline!important" class="label label-warning"><?php echo $stime." ".$etime;?> </span>
+					</td>
+					-->
+					</td>
+					<?php
+					 echo '<td class="col-md-1"></td>';
+					}
+					?>
+
+				   
 				   <td>
 					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input type="hidden" name="gpio_lock_update_from_status" value="<?php echo $s['gpio']; ?>"/>
@@ -374,7 +400,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					
 					
 					<?php
-					$sth = $db->prepare("SELECT name,stime,etime FROM day_plan WHERE  rom='$s[rom]' ");
+					$sth = $db->prepare("SELECT name,stime,etime FROM day_plan WHERE  active='on' AND rom='$s[rom]' ");
 					$sth->execute();
 					$activedp = $sth->fetchAll();
 			
