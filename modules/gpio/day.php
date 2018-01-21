@@ -171,6 +171,7 @@ $row = $rows->fetchAll();
 			
 // Check if Lock by User
 				if ($lock=='user') {
+					$db->exec("UPDATE day_plan SET active='off' WHERE rom='$rom' ");
 					$content = date('Y M d H:i:s')." GPIO ".$gpio.", name: ".$name." - LOCKED by USER.\n";
 					logs($gpio,$ip,$content);
 				}   else {
