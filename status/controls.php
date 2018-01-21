@@ -311,7 +311,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label <?php echo label($g['status']) ?>" title="Charts" ><?php echo str_replace("_", " ", $s['name'])?></a>
 					</td>
 				<?php
-				/* SIMPLE IP */
+				/* SIMPLE AND DAY IP */
 				if(($g['mode']=='simple'&&!empty($s['ip']))||($g['mode']=='temp'&&!empty($s['ip'])) ||($g['mode']=='day'&&!empty($s['ip']))) {
 					?>
 					<td class="col-md-1">
