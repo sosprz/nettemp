@@ -371,7 +371,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					if($g['mode']!='temp' & $g['mode']=='simple') { echo '<td class="col-md-1"></td><td></td><td></td>';}
                     elseif($g['mode']!='temp' & $g['mode']=='day') {?>
 					
-					<td class="col-md-2">
+					
 					
 					<?php
 					$sth = $db->prepare("SELECT name,stime,etime FROM day_plan WHERE  active='on' AND rom='$s[rom]' ");
@@ -384,7 +384,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						$stime=$adp[stime];
 						$etime=$adp[etime];
 					?>
-					
+					<td class="col-md-2">
 					<span class="label label-info"><?php echo $activenamedp; ?> </span> 
 					<!--
 					<td class="col-md-1">
