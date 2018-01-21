@@ -378,8 +378,10 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					$activedp = $sth->fetchAll();
 			
 					foreach ($activedp as $adp) {
+						
+						$activenamedp=$adp[name];
 					
-					echo $activedp;
+					echo $activenamedp;
 					
 					}
 					?>
