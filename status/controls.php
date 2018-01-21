@@ -368,10 +368,10 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                     unset($set);
                     unset($state);
                     
-					if($g['mode']!='temp' & $g['mode']=='simple') { echo '<td></td><td></td><td></td>';}
-                    elseif($g['mode']!='temp' & $g['mode']=='day') { echo '<td></td>';?>
+					if($g['mode']!='temp' & $g['mode']=='simple') { echo '<td class="col-md-1"></td><td></td><td></td>';}
+                    elseif($g['mode']!='temp' & $g['mode']=='day') { echo '<td class="col-md-1"></td>';?>
 					
-					<td>
+					<td class="col-md-1">
 					
 					<?php
 					$sth = $db->prepare("SELECT name FROM day_plan WHERE gpio='$s[gpio]' AND active='on' LIMIT 1 ");
