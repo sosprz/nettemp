@@ -23,7 +23,7 @@ To Do:
 wykresy - ³adowanie do bazy - konflikt ip/gpio
 Wsadzanie do def - ip/gpio
 
-dayplan - active off przy wy³¹czeniu gpio i lock 
+dayplan - active off przy wy³¹czeniu gpio i lock / active off ze statusu nie z day
 
 
 mcp dla day.php

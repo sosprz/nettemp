@@ -171,7 +171,7 @@ $row = $rows->fetchAll();
 			
 // Check if Lock by User
 				if ($lock=='user') {
-					$db->exec("UPDATE day_plan SET active='off' WHERE rom='$rom' ");
+					$db->exec("UPDATE day_plan SET active='off' WHERE gpio='$gpio' rom='$rom' ");
 					$content = date('Y M d H:i:s')." GPIO ".$gpio.", name: ".$name." - LOCKED by USER.\n";
 					logs($gpio,$ip,$content);
 				}   else {
@@ -193,19 +193,19 @@ $row = $rows->fetchAll();
 						
 							if($time >= $stime && $time < $etime) {
 								$status='on';	
-								$db->exec("UPDATE day_plan SET active='on' WHERE rom='$rom' ");	
+								$db->exec("UPDATE day_plan SET active='on' WHERE gpio='$gpio' rom='$rom' ");	
 								$content = date('Y M d H:i:s')." GPIO ".$gpio.", name: ".$name.", Day Plan: ".$w_profile.", SET: ".$status."\n";
 								logs($gpio,$ip,$content);
 								action_on($gpio,$rev,$ip,$rom);		
 							} else {
 									$status='off';
-									$db->exec("UPDATE day_plan SET active='off' WHERE rom='$rom' ");									
+									$db->exec("UPDATE day_plan SET active='off' WHERE gpio='$gpio' rom='$rom' ");									
 									$content = date('Y M d H:i:s')." GPIO ".$gpio.", name: ".$name.", Day Plan: ".$w_profile.", SET: ".$status."\n";
 									logs($gpio,$ip,$content);
 									action_off($gpio,$rev,$ip,$rom);	
 								}
 						}   else {
-								$db->exec("UPDATE day_plan SET active='off' WHERE rom='$rom' ");
+								$db->exec("UPDATE day_plan SET active='off' WHERE gpio='$gpio' rom='$rom' ");
 								$content = date('Y M d H:i:s')." GPIO ".$gpio.", name: ".$name." - Nothing to do - no dayplan.\n";
 								logs($gpio,$ip,$content);
 								action_off($gpio,$rev,$ip,$rom);
