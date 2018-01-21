@@ -35,5 +35,6 @@ $updates['2017-05-10 19:25:15'][]="INSERT INTO nt_settings ('option', 'value') V
 
 //DayPlan DB changes
 $updates['2018-01-20 11:00:00'][]="ALTER TABLE day_plan ADD active  TEXT";
+$updates['2018-01-20 12:00:00'][]="ALTER TABLE day_plan ADD rom  TEXT";
 
 ?>
