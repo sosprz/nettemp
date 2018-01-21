@@ -392,6 +392,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					</td>
 					-->
 					<?php
+					 echo '<td class="col-md-1"></td>';
 					}
 					?>
 					</td>
