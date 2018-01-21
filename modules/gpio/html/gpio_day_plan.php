@@ -26,7 +26,7 @@ $dprom = isset($_POST['dprom']) ? $_POST['dprom'] : '';
 	$week_plan_id = isset($_POST['week_plan_id']) ? $_POST['week_plan_id'] : '';
 	if ($week_plan == 'edit'){
 		$db = new PDO('sqlite:dbf/nettemp.db');
-		$db->exec("UPDATE day_plan SET Mon='$mon', Tue='$tue', Wed='$wed', Thu='$thu', Fri='$fri', Sat='$sat', Sun='$sun', stime='$stime', etime='$etime' WHERE id='$week_plan_id' AND rom='$dprom' ") or die($week_plan_id."\n".$etime."\n".$stime."\n".$wed);
+		$db->exec("UPDATE day_plan SET Mon='$mon', Tue='$tue', Wed='$wed', Thu='$thu', Fri='$fri', Sat='$sat', Sun='$sun', stime='$stime', etime='$etime' WHERE id='$week_plan_id'") or die($week_plan_id."\n".$etime."\n".$stime."\n".$wed);
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 	}
