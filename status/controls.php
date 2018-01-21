@@ -382,7 +382,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						
 						$activenamedp=$adp[name];
 					
-					echo $activenamedp;
+					echo <span class="btn btn-xs btn-info"> $activenamedp </span>; 
 					
 					}
 					?>
