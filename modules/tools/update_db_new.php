@@ -34,6 +34,6 @@ $updates['2017-05-10 19:25:15'][]="CREATE TABLE lcd_groups (id INTEGER PRIMARY K
 $updates['2017-05-10 19:25:15'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('lcdmode','off')";
 
 //DayPlan DB changes
-$updates['2018-01-21 12:00:00'][]="ALTER TABLE day_plan ADD active  TEXT";
+$updates['2018-01-21 11:00:00'][]="ALTER TABLE day_plan ADD active  TEXT";
 
 ?>
