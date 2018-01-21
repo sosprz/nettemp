@@ -383,7 +383,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						$activenamedp=$adp[name];
 					?>
 					
-					<span class="label-info"><?php echo $activenamedp; ?> </span> 
+					<span class="label info"><?php echo $activenamedp; ?> </span> 
 					<?php
 					}
 					?>
