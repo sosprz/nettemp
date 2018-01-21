@@ -373,7 +373,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					
 					<td>
 					<?php
-					$activedp = $db->exec("SELECT name FROM day_plan WHERE gpio=$g['gpio'] AND active='on'");
+					$activedp = $db->exec("SELECT name FROM day_plan WHERE gpio=$g['gpio'] AND active=on");
 					
 					echo $activedp;?>
 					
