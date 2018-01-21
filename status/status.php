@@ -24,7 +24,7 @@
 /* ---- grid-item ---- */
 
 .grid-item {
-    width: 350px;
+    width: 345px;
     float: left;
     border-radius: 5px;
 }
