@@ -87,7 +87,7 @@ $dprom = isset($_POST['dprom']) ? $_POST['dprom'] : '';
 <?php
 
 $db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("select * from day_plan where gpio='$gpio'");
+$sth = $db->prepare("select * from day_plan where gpio='$gpio' AND rom='$rom'");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $dp) { 
@@ -105,6 +105,7 @@ foreach ($result as $dp) {
 	<td><input type="checkbox" name="sun" value="Sun" <?php echo $dp['Sun'] == 'Sun' ? 'checked="checked"' : ''; ?>/></td>
 	<td><input type="text" name="stime" value="<?php echo $dp["stime"];?>" class="form-control" required="" placeholder="07:00"/></td>
 	<td><input type="text" name="etime" value="<?php echo $dp["etime"];?>" class="form-control" required="" placeholder="19:00"/></td>
+	
 	
 	
 	<td>
