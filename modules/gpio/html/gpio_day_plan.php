@@ -11,12 +11,13 @@ $sat = isset($_POST['sat']) ? $_POST['sat'] : '';
 $sun = isset($_POST['sun']) ? $_POST['sun'] : '';
 $del = isset($_POST['del']) ? $_POST['del'] : '';
 $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
+$dprom = isset($_POST['dprom']) ? $_POST['dprom'] : '';
 
 	$dpdd1 = isset($_POST['add1']) ? $_POST['add1'] : '';
 	if ($dpdd1 == 'add2'){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$name=str_replace(' ', '_', $name);
-	$db->exec("INSERT OR IGNORE INTO day_plan (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime, gpio) VALUES ('$name','$mon', '$tue', '$wed', '$thu', '$fri', '$sat', '$sun', '$stime', '$etime', '$dpgpio')") or die ($db->lastErrorMsg());
+	$db->exec("INSERT OR IGNORE INTO day_plan (name, Mon, Tue, Wed, Thu, Fri, Sat, Sun, stime, etime, gpio,rom) VALUES ('$name','$mon', '$tue', '$wed', '$thu', '$fri', '$sat', '$sun', '$stime', '$etime', '$dpgpio','$dprom') ") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	}
@@ -78,6 +79,7 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 	<td><input type="text" name="etime" value="" class="form-control" required="" placeholder="19:00"/></td>
 	<input type="hidden" name="add1" value="add2" />
 	<input type="hidden" name="dpgpio" value="<?php echo $gpio; ?>" />
+	<input type="hidden" name="dprom" value="<?php echo $a['rom']; ?>"/>
 	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	<th></th>
 	</form>
@@ -85,7 +87,7 @@ $dpgpio = isset($_POST['dpgpio']) ? $_POST['dpgpio'] : '';
 <?php
 
 $db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("select * from day_plan where gpio='$gpio'");
+$sth = $db->prepare("select * from day_plan where gpio='$gpio' AND rom='$rom'");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ($result as $dp) { 
@@ -103,6 +105,7 @@ foreach ($result as $dp) {
 	<td><input type="checkbox" name="sun" value="Sun" <?php echo $dp['Sun'] == 'Sun' ? 'checked="checked"' : ''; ?>/></td>
 	<td><input type="text" name="stime" value="<?php echo $dp["stime"];?>" class="form-control" required="" placeholder="07:00"/></td>
 	<td><input type="text" name="etime" value="<?php echo $dp["etime"];?>" class="form-control" required="" placeholder="19:00"/></td>
+	
 	
 	
 	<td>

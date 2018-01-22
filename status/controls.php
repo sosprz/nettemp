@@ -311,10 +311,10 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						<a href="index.php?id=view&type=gpio&max=day&single=<?php echo $s['name']?>" class="label <?php echo label($g['status']) ?>" title="Charts" ><?php echo str_replace("_", " ", $s['name'])?></a>
 					</td>
 				<?php
-				/* SIMPLE IP */
+				/* SIMPLE AND DAY IP */
 				if(($g['mode']=='simple'&&!empty($s['ip']))||($g['mode']=='temp'&&!empty($s['ip'])) ||($g['mode']=='day'&&!empty($s['ip']))) {
 					?>
-					<td class="col-md-2">
+					<td class="col-md-1">
                    	<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input id="onoffstatus" type="checkbox"  data-toggle="toggle" data-size="mini" onchange="this.form.submit()" name="switch" value="<?php echo $s['tmp'] == '1.0'  ? 'off' : 'on'; ?>" <?php echo $s['tmp'] == '1.0' ? 'checked="checked"' : ''; ?>  />
                         <input type="hidden" name="ip" value="<?php echo $s['ip']; ?>"/>
@@ -327,7 +327,35 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					
                    <?php 
 				   if($g['mode']!='temp' & $g['mode']=='simple') { echo '<td></td><td></td><td></td>';}
-				   elseif($g['mode']!='temp' & $g['mode']=='day')                 {    echo '<td></td><td></td>';?> 
+				   elseif($g['mode']!='temp' & $g['mode']=='day')                 {?>
+					
+					<?php
+					$sth = $db->prepare("SELECT name,stime,etime FROM day_plan WHERE  active='on' AND rom='$s[rom]' ");
+					$sth->execute();
+					$activedp = $sth->fetchAll();
+					$numRows = count($activedp);
+					if($numRows > 0) {
+					foreach ($activedp as $adp) {
+						
+						$activenamedp=$adp[name];
+						$stime=$adp[stime];
+						$etime=$adp[etime];
+					?>
+					<td class="col-md-2">
+					<span class="label label-info"><?php echo $activenamedp; ?> </span> 
+					<!--
+					<td class="col-md-1">
+					<span style=" display:inline!important" class="label label-warning"><?php echo $stime." ".$etime;?> </span>
+					</td>
+					-->
+					</td>
+					<?php
+					 echo '<td class="col-md-1"></td>';
+					}
+					} else {echo '<td></td><td></td>';}
+					?>
+
+				   
 				   <td>
 					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input type="hidden" name="gpio_lock_update_from_status" value="<?php echo $s['gpio']; ?>"/>
@@ -341,7 +369,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 
 				   
 				}
-				/* SIMPLE */
+				/* SIMPLE AND DAY*/
 				elseif(($g['mode']=='simple')||($g['mode']=='temp')||($g['mode']=='day')) {
 				
 					?>
@@ -368,8 +396,37 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                     unset($set);
                     unset($state);
                     
-					if($g['mode']!='temp' & $g['mode']=='simple') { echo '<td></td><td></td><td></td>';}
-                    elseif($g['mode']!='temp' & $g['mode']=='day') { echo '<td></td><td></td>';?>
+					if($g['mode']!='temp' & $g['mode']=='simple') { echo '<td class="col-md-1"></td><td></td><td></td>';}
+                    elseif($g['mode']!='temp' & $g['mode']=='day') {?>
+					
+					
+					
+					<?php
+					$sth = $db->prepare("SELECT name,stime,etime FROM day_plan WHERE  active='on' AND rom='$s[rom]' ");
+					$sth->execute();
+					$activedp = $sth->fetchAll();
+					$numRows = count($activedp);
+					if($numRows > 0) {
+					foreach ($activedp as $adp) {
+						
+						$activenamedp=$adp[name];
+						$stime=$adp[stime];
+						$etime=$adp[etime];
+					?>
+					<td class="col-md-2">
+					<span class="label label-info"><?php echo $activenamedp; ?> </span> 
+					<!--
+					<td class="col-md-1">
+					<span style=" display:inline!important" class="label label-warning"><?php echo $stime." ".$etime;?> </span>
+					</td>
+					-->
+					</td>
+					<?php
+					 echo '<td class="col-md-1"></td>';
+					}
+					} else {echo '<td></td><td></td>';}
+					?>
+					
 					
 					<td>
 					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
