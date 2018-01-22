@@ -3,8 +3,7 @@ $dayexit = isset($_POST['dayexit']) ? $_POST['dayexit'] : '';
 if (($dayexit == "dayexit") ){
 	
 	$db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' AND rom='$rom'") or die("Day plan off db - error");
-	//$db->exec("UPDATE day_plan SET active='off' where gpio='$gpio_post' AND rom='$rom'") or die("Day plan active set off - db error");
-     $db = null;
+    $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -24,7 +23,7 @@ if ($dayrun == "off")  {
       
 	$db->exec("UPDATE gpio SET day_run='', status='OFF' WHERE gpio='$gpio_post' AND rom='$rom'") or die("dayrun off error");
 	$db->exec("UPDATE day_plan SET active='off' where gpio='$gpio_post' AND rom='$rom'") or die("Day plan active set off - db error");
-   $db = null;
+    $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
     }
