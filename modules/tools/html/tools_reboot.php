@@ -10,7 +10,7 @@ exit();
 }
 $shutdown = isset($_POST['shutdown']) ? $_POST['shutdown'] : '';
 if ($shutdown == "shutdown1") { 
-system ("sudo /sbin/shutdown");
+system ("sudo /sbin/shutdown -r now");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();	
 }
