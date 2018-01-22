@@ -6,7 +6,7 @@ $reboot = isset($_POST['reboot']) ? $_POST['reboot'] : '';
 if ($reboot == "reboot1") { 
 system ("sudo /sbin/reboot");
 header("location: " . $_SERVER['REQUEST_URI']);
-exit();	
+//exit();	
 
 $shutdown = isset($_POST['shutdown']) ? $_POST['shutdown'] : '';
 if ($shutdown == "shutdown1") { 
@@ -18,7 +18,8 @@ exit();
 <form action="index.php?id=tools&type=reboot" method="post">
 <input type="hidden" name="reboot" value="reboot1">
 <input  type="submit" value="Reboot" class="btn btn-xs btn-warning" />
-
+</form>
+<form action="index.php?id=tools&type=reboot" method="post">
 <input type="hidden" name="shutdown" value="shutdown1">
 <input  type="submit" value="Shutdown" class="btn btn-xs btn-danger" />
 </form>
