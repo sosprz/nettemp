@@ -197,7 +197,8 @@ $row = $rows->fetchAll();
 								$db->exec("UPDATE day_plan SET active='on' WHERE gpio='$gpio' AND rom='$rom' AND id='$w_profile_id' ");	
 								$content = date('Y M d H:i:s')." GPIO ".$gpio.", name: ".$name.", Day Plan: ".$w_profile.", SET: ".$status."\n";
 								logs($gpio,$ip,$content);
-								action_on($gpio,$rev,$ip,$rom);		
+								action_on($gpio,$rev,$ip,$rom);	
+								break;								
 								} else {
 									$status='off';
 									$db->exec("UPDATE day_plan SET active='off' WHERE gpio='$gpio' AND rom='$rom' ");									
