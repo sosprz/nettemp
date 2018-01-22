@@ -18,6 +18,8 @@ exit();
 <form class="form-inline" action="index.php?id=tools&type=reboot" method="post">
 <input type="hidden" name="reboot" value="reboot1">
 <input  type="submit" value="Reboot" class="btn btn-xs btn-warning" />
+</form>
+<form class="form-inline" action="index.php?id=tools&type=reboot" method="post">
 <input type="hidden" name="shutdown" value="shutdown1">
 <input  type="submit" value="Shutdown" class="btn btn-xs btn-danger" />
 </form>
