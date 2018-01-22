@@ -46,7 +46,7 @@ $mode5=$ab['gpio'];
 
 //main loop
 $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-$sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$gpios' AND ip='$ip_post'");
+$sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$gpios' AND rom='$rom'");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ( $result as $a) { 
