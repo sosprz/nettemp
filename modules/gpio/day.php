@@ -177,7 +177,7 @@ $row = $rows->fetchAll();
 				}   else {
 						$day=date("D");
 						$time=date("Hi");
-						$rows = $db->query("SELECT * FROM day_plan WHERE gpio=$gpio  AND (Mon='$day' OR Tue='$day' OR Wed='$day' OR Thu='$day' OR Fri='$day' OR Sat='$day' OR Sun='$day')");
+						$rows = $db->query("SELECT * FROM day_plan WHERE gpio=$gpio AND rom='$rom' AND (Mon='$day' OR Tue='$day' OR Wed='$day' OR Thu='$day' OR Fri='$day' OR Sat='$day' OR Sun='$day')");
 						$func = $rows->fetchAll();
 						$numRows = count($func);
 						
