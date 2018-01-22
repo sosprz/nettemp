@@ -205,7 +205,7 @@ $row = $rows->fetchAll();
 									logs($gpio,$ip,$content);
 									action_off($gpio,$rev,$ip,$rom);	
 								}
-						}   else {
+						   else {
 								$db->exec("UPDATE day_plan SET active='off' WHERE gpio='$gpio' AND rom='$rom' ");
 								$content = date('Y M d H:i:s')." GPIO ".$gpio.", name: ".$name." - Nothing to do - no dayplan.\n";
 								logs($gpio,$ip,$content);
@@ -214,6 +214,6 @@ $row = $rows->fetchAll();
 						}
 			
 						}
-					
+				}
 }//main loop end
 ?>
