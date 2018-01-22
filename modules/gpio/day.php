@@ -184,6 +184,7 @@ $row = $rows->fetchAll();
 						if ( $numRows > '0' ) { 
 							foreach ($func as $b) {
 			
+								$w_profile_id=$b['id'];
 								$w_profile=$b['name'];
 								$stime=$b['stime'];
 								$stime=str_replace(':', '', $stime);
@@ -193,7 +194,7 @@ $row = $rows->fetchAll();
 						
 							if($time >= $stime && $time < $etime) {
 								$status='on';	
-								$db->exec("UPDATE day_plan SET active='on' WHERE gpio='$gpio' AND rom='$rom' ");	
+								$db->exec("UPDATE day_plan SET active='on' WHERE gpio='$gpio' AND rom='$rom' AND id='$w_profile_id' ");	
 								$content = date('Y M d H:i:s')." GPIO ".$gpio.", name: ".$name.", Day Plan: ".$w_profile.", SET: ".$status."\n";
 								logs($gpio,$ip,$content);
 								action_on($gpio,$rev,$ip,$rom);		
