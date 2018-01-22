@@ -190,7 +190,7 @@ $row = $rows->fetchAll();
 								$stime=str_replace(':', '', $stime);
 								$etime=$b['etime'];
 								$etime=str_replace(':', '', $etime);
-							}
+							
 						
 							if($time >= $stime && $time < $etime) {
 								$status='on';	
@@ -211,6 +211,7 @@ $row = $rows->fetchAll();
 								logs($gpio,$ip,$content);
 								action_off($gpio,$rev,$ip,$rom);
 							}
+						}
 			
 						}
 					
