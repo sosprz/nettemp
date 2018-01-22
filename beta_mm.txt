@@ -1,36 +1,37 @@
-- usuniÍcie podkreúlnikÛw w nazwach
+- usuniƒôcie podkre≈õlnik√≥w w nazwach
 - Linki z JG do charts
-- Wartoúci w JG z przecinkiem
-- Dok≥adne Min/Max - dla duøej iloúci czujnikÛw moøe wolniej dzia≥aÊ status
-- Odúwieøanie GPIO
-- Uptime w stopce i systime - odúwieøa co minutÍ
+- Warto≈õci w JG z przecinkiem
+- Dok≈Çadne Min/Max - dla du≈ºej ilo≈õci czujnik√≥w mo≈ºe wolniej dzia≈Çaƒá status
+- Od≈õwie≈ºanie GPIO
+- Uptime w stopce i systime - od≈õwie≈ºa co minutƒô
 - Day plan dla GPIO - przepisany na php, lock w statusie
-- Ikona ip gpio - jeúli gpio jest ip - niebieska ikona w gpio
-- temp.php - poprawione logi - nie miÍsza logÛw dla rÛønych gpio 
-- poprawka do zmiany nazy gpio w przypadku ip i tych samych numerÛw gpio (ip/ip - ip-gpio)
-- poprawki do urzπdzeÒ ip w statusie - lock
-- poprawka do zmiany trybÛw gpio w przypadku ip i tych samych numerÛw gpio (ip/ip - ip-gpio) - day,temp,simple,moment
-- auto lock gpio jeúli recznie zmieniam stan on/off w statusie
-- link do ustawieÒ gpio ze statusu - ikonka gpio w controls
-- poprawione dzia≥anie przekaünika dla simple, temp, day - zmiana wyzwalania stanem niskim i wysokim.
-- gpio Time w statusie - brak obs≥ugi ip
-- satus min max light - poprawione zbieranie danych - fix dla wartoúci ujemnych
+- Ikona ip gpio - je≈õli gpio jest ip - niebieska ikona w gpio
+- temp.php - poprawione logi - nie miƒôsza log√≥w dla r√≥≈ºnych gpio 
+- poprawka do zmiany nazy gpio w przypadku ip i tych samych numer√≥w gpio (ip/ip - ip-gpio)
+- poprawki do urzƒÖdze≈Ñ ip w statusie - lock
+- poprawka do zmiany tryb√≥w gpio w przypadku ip i tych samych numer√≥w gpio (ip/ip - ip-gpio) - day,temp,simple,moment
+- auto lock gpio je≈õli recznie zmieniam stan on/off w statusie
+- link do ustawie≈Ñ gpio ze statusu - ikonka gpio w controls
+- poprawione dzia≈Çanie przeka≈∫nika dla simple, temp, day - zmiana wyzwalania stanem niskim i wysokim.
+- gpio Time w statusie - brak obs≈Çugi ip
+- satus min max light - poprawione zbieranie danych - fix dla warto≈õci ujemnych
 
 
 
 To Do:
-- gpio Time przepisaÊ na php, logi, dodaÊ obs≥ugÍ ip
-wykresy - ≥adowanie do bazy - konflikt ip/gpio
+- gpio Time przepisaƒá na php, logi, dodaƒá obs≈Çugƒô ip
+wykresy - ≈Çadowanie do bazy - konflikt ip/gpio
 Wsadzanie do def - ip/gpio
 
-dayplan - active off przy wy≥πczeniu gpio i lock / active off ze statusu nie z day
+
+dayplan - active off przy wy≈ÇƒÖczeniu gpio i lock / active off ze statusu nie z day
 
 
 mcp dla day.php
-Kolorowanie JG jeúli brak odczytÛw
-Controls - temperatura dla w≥asciwego dp
+Kolorowanie JG je≈õli brak odczyt√≥w
+Controls - temperatura dla w≈Çasciwego dp
 
-Wyúwietlanie dp w statusie - na øyczenie.
+Wy≈õwietlanie dp w statusie - na ≈ºyczenie.
 Binding sensors do gpio w statusie - bez logowania.
 
 
