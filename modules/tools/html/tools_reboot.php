@@ -6,8 +6,8 @@ $reboot = isset($_POST['reboot']) ? $_POST['reboot'] : '';
 if ($reboot == "reboot1") { 
 system ("sudo /sbin/reboot");
 header("location: " . $_SERVER['REQUEST_URI']);
-//exit();	
-
+exit();	
+}
 $shutdown = isset($_POST['shutdown']) ? $_POST['shutdown'] : '';
 if ($shutdown == "shutdown1") { 
 system ("sudo /sbin/shutdown");
