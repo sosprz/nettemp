@@ -6,7 +6,7 @@
 <a href="index.php?id=tools&type=update" ><button class="btn btn-xs btn-default <?php echo $art == 'update' ? 'active' : ''; ?>">Update</button></a>
 <a href="index.php?id=tools&type=ticket" ><button class="btn btn-xs btn-default <?php echo $art == 'ticket' ? 'active' : ''; ?>">Ticket</button></a>
 <a href="index.php?id=tools&type=reset" ><button class="btn btn-xs btn-default <?php echo $art == 'reset' ? 'active' : ''; ?>">Reset to default</button></a>
-<a href="index.php?id=tools&type=reboot" ><button class="btn btn-xs btn-default <?php echo $art == 'reboot' ? 'active' : ''; ?>">Reboot</button></a>
+<a href="index.php?id=tools&type=reboot" ><button class="btn btn-xs btn-default <?php echo $art == 'reboot' ? 'active' : ''; ?>">Reboot/Shutdown</button></a>
 <a href="index.php?id=tools&type=log" ><button class="btn btn-xs btn-default <?php echo $art == 'log' ? 'active' : ''; ?>">Logging</button></a>
 <?php if ( $nts_gpio == 'on' ) { ?>
 <a href="index.php?id=tools&type=gpio" ><button class="btn btn-xs btn-default <?php echo $art == 'gpio' ? 'active' : ''; ?>">GPIO</button></a>
