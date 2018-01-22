@@ -4,6 +4,7 @@ $dir="modules/gpio/";
 $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 $gpios = isset($_GET['gpios']) ? $_GET['gpios'] : '';
 $ip_post = isset($_GET['ip']) ? $_GET['ip'] : '';
+$roms = isset($_GET['roms']) ? $_GET['roms'] : '';
 
 $sth2 = $db->prepare("select mode from gpio where mode='buzzer'");
 $sth2->execute();
