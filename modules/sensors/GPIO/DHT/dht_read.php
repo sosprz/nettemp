@@ -26,8 +26,8 @@ try {
 		$cmd=("$ROOT/modules/sensors/GPIO/DHT/AdafruitDHT.py $htype $gpio");
 		$out=shell_exec($cmd);
 		$out = explode (" ",$out);
-		$temp=trim($out[0]);
-		$humid=trim($out[1]);
+		$temp=trim($out[1]);
+		$humid=trim($out[0]);
 		$device='';
 		$current='';
 		
