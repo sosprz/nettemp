@@ -30,7 +30,7 @@ $map_num2=substr(rand(), 0, 6);
 		$randh=substr(rand(), 0, 4);
 	
 		// insert to sensors
-		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj, charts, device, map_pos, map_num, map, ch_group) VALUES ('$randh','$id_rom_newh', 'humid', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', 'sensors')") or die ("cannot insert to DB humi" );
+		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj, charts, device, ch_group) VALUES ('$randh','$id_rom_newh', 'humid', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', 'sensors')") or die ("cannot insert to DB humi" );
 		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj, charts, device, ch_group) VALUES ('$randt','$id_rom_newt', 'temp', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', 'sensors')") or die ("cannot insert to DB temp" );
 
 		//add maps humid
