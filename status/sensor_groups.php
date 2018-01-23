@@ -9,8 +9,7 @@ $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $query = $db->query("SELECT * FROM types");
 $result_t = $query->fetchAll();
 
-$nts_temp_scale='';
-$nts_charts_max='';
+
 
 
 $rows_meteo = $db->query("SELECT normalized,pressure FROM meteo WHERE id='1'");
