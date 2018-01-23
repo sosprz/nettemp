@@ -53,8 +53,8 @@ $map_num2=substr(rand(), 0, 6);
 		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
 	
 		//new dev
-		$db->exec("INSERT OR IGNORE INTO newdev (name,rom,device,gpio,type) VALUES ('$randh','$id_rom_newh','gpio','$gpio_post','humid')") or die ("cannot insert to newdev" );
-		$db->exec("INSERT OR IGNORE INTO newdev (name,rom,device,gpio,type) VALUES ('$randt','$id_rom_newt','gpio','$gpio_post','temp')") or die ("cannot insert to newdev" );
+		$db->exec("INSERT OR IGNORE INTO newdev (name,rom,device,gpio,type,seen) VALUES ('$randh','$id_rom_newh','gpio','$gpio_post','humid', '1')") or die ("cannot insert to newdev" );
+		$db->exec("INSERT OR IGNORE INTO newdev (name,rom,device,gpio,type,seen) VALUES ('$randt','$id_rom_newt','gpio','$gpio_post','temp', '1')") or die ("cannot insert to newdev" );
 		$db = null;
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
