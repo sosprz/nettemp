@@ -22,8 +22,8 @@ if (($humidexit == "humidexit") ){
 	
     $db->exec("DELETE FROM sensors WHERE rom='$id_rom_newh' "); 
     $db->exec("DELETE FROM sensors WHERE rom='$id_rom_newt' "); 
-    $db->exec("DELETE FROM newdev WHERE list='$id_rom_newh' "); 
-    $db->exec("DELETE FROM newdev WHERE list='$id_rom_newt' "); 
+    $db->exec("DELETE FROM newdev WHERE rom='$id_rom_newh' "); 
+    $db->exec("DELETE FROM newdev WHERE rom='$id_rom_newt' "); 
     unlink("db/$id_rom_h");
     unlink("db/$id_rom_t");
     $db = null;
