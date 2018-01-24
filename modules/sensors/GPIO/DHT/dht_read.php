@@ -19,8 +19,8 @@ try {
     $result= $query->fetchAll();
     $count = count($result);
 	if ( $count >= '1'){
-		$skey = $db->query("SELECT server_key FROM nt_settings WHERE id='1' ");
-		
+		$skey = $db->query("SELECT * FROM nt_settings WHERE id='1' ");
+		$key= $skey['server_key'];
 		foreach($result as $g) {
 			$gpios[$g['gpio']]=$g['humid_type'];
 		}
