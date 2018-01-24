@@ -19,6 +19,7 @@
 
 
 To Do:
+dodać rom do tabeli g_func - gpiofunctions poprawić usuwanie gpio-gfunc
 - gpio Time przepisać na php, logi, dodać obsługę ip
 wykresy - ładowanie do bazy - konflikt ip/gpio
 Wsadzanie do def - ip/gpio
