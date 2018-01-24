@@ -8,7 +8,7 @@ if (($humidexit == "humidexit") ){
     $id_rom_h='gpio_'.$gpio_post.'_humid.sql';
     $id_rom_t='gpio_'.$gpio_post.'_temp.sql';
 
-    $db->exec("UPDATE gpio SET mode='', status='' where gpio='$gpio_post' AND rom='$rom' ") or die ("humid gpio off db error");
+    $db->exec("UPDATE gpio SET mode='', status='', humid_type='' where gpio='$gpio_post' AND rom='$rom' ") or die ("humid gpio off db error");
 	//first delete from maps
 	$to_delete=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_newh'");
 	$to_delete_id=$to_delete->fetchAll();
