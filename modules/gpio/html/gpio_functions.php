@@ -30,8 +30,8 @@ $map_num2=substr(rand(), 0, 6);
 		$randh=substr(rand(), 0, 4);
 	
 		// insert to sensors
-		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj, charts, device, map_pos, map_num, map, ch_group) VALUES ('$randh','$id_rom_newh', 'humid', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', '{left:0,top:0}', '$map_num', 'on', 'sensors')") or die ("cannot insert to DB humi" );
-		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, gpio, adj, charts, device, map_pos, map_num, map, ch_group) VALUES ('$randt','$id_rom_newt', 'temp', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', '{left:0,top:0}', '$map_num2', 'on', 'sensors')") or die ("cannot insert to DB temp" );
+		$db->exec("INSERT OR IGNORE INTO sensors (position, name, rom, type, alarm, tmp, gpio, adj, charts, device, ch_group) VALUES ('1','$randh','$id_rom_newh', 'humid', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', 'sensors')") or die ("cannot insert to DB humi" );
+		$db->exec("INSERT OR IGNORE INTO sensors (position, name, rom, type, alarm, tmp, gpio, adj, charts, device, ch_group) VALUES ('1','$randt','$id_rom_newt', 'temp', 'off', 'wait', '$gpio_post', '0', 'on', 'gpio', 'sensors')") or die ("cannot insert to DB temp" );
 
 		//add maps humid
 		$inserted=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_newh'");
@@ -53,8 +53,8 @@ $map_num2=substr(rand(), 0, 6);
 		$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
 	
 		//new dev
-		$db->exec("INSERT OR IGNORE INTO newdev (name,rom,device,gpio,type) VALUES ('$randh','$id_rom_newh','gpio','$gpio_post','humid')") or die ("cannot insert to newdev" );
-		$db->exec("INSERT OR IGNORE INTO newdev (name,rom,device,gpio,type) VALUES ('$randt','$id_rom_newt','gpio','$gpio_post','temp')") or die ("cannot insert to newdev" );
+		$db->exec("INSERT OR IGNORE INTO newdev (name,rom,device,gpio,type,seen) VALUES ('$randh','$id_rom_newh','gpio','$gpio_post','humid', '1')") or die ("cannot insert to newdev" );
+		$db->exec("INSERT OR IGNORE INTO newdev (name,rom,device,gpio,type,seen) VALUES ('$randt','$id_rom_newt','gpio','$gpio_post','temp', '1')") or die ("cannot insert to newdev" );
 		$db = null;
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
@@ -97,7 +97,7 @@ $map_num2=substr(rand(), 0, 6);
 
     $elecon = isset($_POST['elecon']) ? $_POST['elecon'] : '';
     if ($elecon == "elecon")  {
-		$db->exec("UPDATE gpio SET mode='elec' WHERE gpio='$gpio_post'") or die("exec error");
+		$db->exec("UPDATE gpio SET mode='elec' WHERE gpio='$gpio_post' AND rom='$rom'") or die("exec error");
 		$db->exec("UPDATE sensors SET type='elec' WHERE gpio='$gpio_post' AND rom='$rom'") or die("exec error");
 		$db = null;
 		header("location: " . $_SERVER['REQUEST_URI']);
@@ -106,7 +106,7 @@ $map_num2=substr(rand(), 0, 6);
 
     $wateron = isset($_POST['wateron']) ? $_POST['wateron'] : '';
     if ($wateron == "wateron")  {
-		$db->exec("UPDATE gpio SET mode='water' WHERE gpio='$gpio_post'") or die("exec error");
+		$db->exec("UPDATE gpio SET mode='water' WHERE gpio='$gpio_post' AND rom='$rom'") or die("exec error");
 		$db->exec("UPDATE sensors SET type='water' WHERE gpio='$gpio_post' AND rom='$rom'") or die("exec error");
 		$db = null;
 		header("location: " . $_SERVER['REQUEST_URI']);
@@ -115,7 +115,7 @@ $map_num2=substr(rand(), 0, 6);
 
     $gason = isset($_POST['gason']) ? $_POST['gason'] : '';
     if ($gason == "gason")  {
-		$db->exec("UPDATE gpio SET mode='gas' WHERE gpio='$gpio_post'") or die("exec error");
+		$db->exec("UPDATE gpio SET mode='gas' WHERE gpio='$gpio_post' AND rom='$rom'") or die("exec error");
 		$db->exec("UPDATE sensors SET type='gas' WHERE gpio='$gpio_post' AND rom='$rom'") or die("exec error");
 		$db = null;
 		header("location: " . $_SERVER['REQUEST_URI']);
@@ -207,7 +207,7 @@ $map_num2=substr(rand(), 0, 6);
 		if ($to_delete_id['id'] != '') {
 			$db->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='gpio'");// or exit(header("Location: html/errors/db_error.php"));
 		}
-		$db->exec("DELETE FROM g_func WHERE gpio='$gpio_post' AND rom='$rom'");
+		$db->exec("DELETE FROM g_func WHERE gpio='$gpio_post'");// POPRAWIĆ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		$db->exec("DELETE FROM gpio WHERE gpio='$gpio_post' AND rom='$rom'") or die ($db->lastErrorMsg());
 		$db = null;
 		header("location: " . $_SERVER['REQUEST_URI']);

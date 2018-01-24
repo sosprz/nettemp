@@ -1,4 +1,4 @@
-- usunięcie podkreślników w nazwach
+﻿- usunięcie podkreślników w nazwach
 - Linki z JG do charts
 - Wartości w JG z przecinkiem
 - Dokładne Min/Max - dla dużej ilości czujników może wolniej działać status
@@ -19,12 +19,14 @@
 
 
 To Do:
+dodać rom do tabeli g_func - gpiofunctions poprawić usuwanie gpio-gfunc
 - gpio Time przepisać na php, logi, dodać obsługę ip
 wykresy - ładowanie do bazy - konflikt ip/gpio
 Wsadzanie do def - ip/gpio
 
 
 dayplan - active off przy wyłączeniu gpio i lock / active off ze statusu nie z day
+poprawka świeżak
 
 
 mcp dla day.php
