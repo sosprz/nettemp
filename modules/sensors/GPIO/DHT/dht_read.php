@@ -19,9 +19,10 @@ try {
     $result= $query->fetchAll();
     $count = count($result);
 	if ( $count >= '1'){
-		$skeya = $db->query("SELECT * FROM nt_settings WHERE id='1' ");
 		
-		foreach($skeya as $k) {
+		$query = $db->query("SELECT * FROM nt_settings WHERE id='1' ");
+		$result2= $query->fetchAll();
+		foreach($result2 as $k) {
 			$skey=$k['server_key'];
 		}
 		
