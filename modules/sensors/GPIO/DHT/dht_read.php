@@ -23,7 +23,7 @@ try {
 		$query = $db->query("SELECT * FROM nt_settings WHERE id='1' ");
 		$result2= $query->fetchAll();
 		foreach($result2 as $k) {
-			$skey=$k['server_key'];
+			$skey=$k['value'];
 		}
 		
 		
