@@ -19,8 +19,7 @@ try {
     $result= $query->fetchAll();
     $count = count($result);
 	if ( $count >= '1'){
-		$skeya=$db->query("SELECT server_key FROM settings WHERE id='1' ");
-		$skey = $skeya->fetch(PDO::FETCH_ASSOC);
+		$skey = $db->query("SELECT server_key FROM nt_settings WHERE id='1' ");
 		
 		foreach($result as $g) {
 			$gpios[$g['gpio']]=$g['humid_type'];
