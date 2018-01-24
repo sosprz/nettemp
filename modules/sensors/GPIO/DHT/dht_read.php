@@ -32,9 +32,10 @@ try {
 		$current='';
 		
 		if(!empty($temp)) {
-		    $local_valx=$temp;
-			$local_val=escapeshellarg($local_valx);
+		    $local_val=$temp;
+			$local_val=escapeshellarg($local_val);
 		    $local_type='temp';
+			$local_type=escapeshellarg($local_type);
 		    $local_device='gpio';
 		    $local_gpio=$gpio;
 			$local_rom="gpio_".$gpio."_".$local_type;
