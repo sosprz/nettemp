@@ -19,6 +19,8 @@ try {
     $result= $query->fetchAll();
     $count = count($result);
 	if ( $count >= '1'){
+		$skey=$db->query("SELECT server_key FROM settings WHERE id='1'");
+		
 		foreach($result as $g) {
 			$gpios[$g['gpio']]=$g['humid_type'];
 		}
@@ -39,11 +41,7 @@ try {
 			$local_rom="gpio_".$gpio."_".$local_type;
 			echo $date." Rom: ".$local_rom." Value:".$local_val."\n";
 			//db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
-			shell_exec("php-cgi -f  /var/www/nettemp/receiver.php key=1234 rom=\"$local_rom\" value=\"$local_val\" type=\"$local_type\"");
-			
-
-
-			
+			shell_exec("php-cgi -f  /var/www/nettemp/receiver.php key=\"$skey\" rom=\"$local_rom\" value=\"$local_val\" type=\"$local_type\"");
 			
 		}
 		
@@ -55,7 +53,7 @@ try {
 			$local_rom="gpio_".$gpio."_".$local_type;
 			echo $date." Rom: ".$local_rom." Value:".$local_val."\n";
 			//db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
-		    shell_exec("php-cgi -f  /var/www/nettemp/receiver.php key=1234 rom=\"$local_rom\" value=\"$local_val\" type=\"$local_type\"");
+		    shell_exec("php-cgi -f  /var/www/nettemp/receiver.php key=\"$skey\" rom=\"$local_rom\" value=\"$local_val\" type=\"$local_type\"");
 		}
 
 		}
