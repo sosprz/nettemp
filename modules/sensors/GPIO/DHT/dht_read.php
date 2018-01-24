@@ -39,7 +39,7 @@ try {
 			$local_rom="gpio_".$gpio."_".$local_type;
 			echo $date." Rom: ".$local_rom." Value:".$local_val."\n";
 			//db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
-			shell_exec(php-cgi -f ($ROOT/www/nettemp/receiver.php key=1234 rom=$local_rom type=$local_type value=$local_val));
+			shell_exec(php-cgi -f ($ROOT/www/nettemp/receiver.php 'key'=1234 rom=$local_rom type=$local_type value=$local_val));
 		}
 		
 		if(!empty($humid)){
@@ -50,7 +50,7 @@ try {
 			$local_rom="gpio_".$gpio."_".$local_type;
 			echo $date." Rom: ".$local_rom." Value:".$local_val."\n";
 			//db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
-		    shell_exec(php-cgi -f (var/www/nettemp/receiver.php key=1234 rom=$local_rom type=$local_type value=$local_val));
+		    shell_exec(php-cgi -f (var/www/nettemp/receiver.php 'key'=1234 rom=$local_rom type=$local_type value=$local_val));
 		}
 
 		}
