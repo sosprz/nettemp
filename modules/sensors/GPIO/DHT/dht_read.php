@@ -38,7 +38,8 @@ try {
 		    $local_gpio=$gpio;
 			$local_rom="gpio_".$gpio."_".$local_type;
 			echo $date." Rom: ".$local_rom." Value:".$local_val."\n";
-			//db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+		exit();
 		}
 		
 		if(!empty($humid)){
@@ -48,7 +49,8 @@ try {
 		    $local_gpio=$gpio;
 			$local_rom="gpio_".$gpio."_".$local_type;
 			echo $date." Rom: ".$local_rom." Value:".$local_val."\n";
-			//db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+		exit();
 		}
 
 		}
