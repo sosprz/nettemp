@@ -327,7 +327,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					
                    <?php 
 				   if($g['mode']!='temp' & $g['mode']=='simple') { echo '<td></td><td></td><td></td>';}
-				   elseif($g['mode']!='temp' & $g['mode']=='day')    {?>
+				   elseif($g['mode']!='temp' & $g['mode']=='day')                 {?>
 					
 					<?php
 					$sth = $db->prepare("SELECT name,stime,etime FROM day_plan WHERE  active='on' AND rom='$s[rom]' ");
@@ -335,9 +335,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					$activedp = $sth->fetchAll();
 					$numRows = count($activedp);
 					if($numRows > 0) {
-					foreach ($activedp as $adp) {  
-					
-						if ($g['locked']=='user') { ?> <td class="col-md-2"><span class="label label-warning"><?php echo DP.LOCK; ?> </span> </td> <?php} else {
+					foreach ($activedp as $adp) {
 						
 						$activenamedp=$adp[name];
 						$stime=$adp[stime];
@@ -351,7 +349,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					</td>
 					-->
 					</td>
-						<?php }
+					<?php
 					 echo '<td class="col-md-1"></td>';
 					}
 					} else {echo '<td></td><td></td>';}
@@ -411,8 +409,6 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					if($numRows > 0) {
 					foreach ($activedp as $adp) {
 						
-						if ($g['locked']=='user') { ?> <td class="col-md-2"><span class="label label-warning"><?php echo DP.LOCK; ?> </span> </td> <?php} else {
-						
 						$activenamedp=$adp[name];
 						$stime=$adp[stime];
 						$etime=$adp[etime];
@@ -425,7 +421,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					</td>
 					-->
 					</td>
-						<?php }
+					<?php
 					 echo '<td class="col-md-1"></td>';
 					}
 					} else {echo '<td></td><td></td>';}
