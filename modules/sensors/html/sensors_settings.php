@@ -568,6 +568,12 @@ $row = $rows->fetchAll();
 	    <?php echo $a["minmax"] == 'lite' ? 'Light' : 'Light'; ?></button>
 		<input type="hidden" name="minmaxonoff" value="onoff" />
     </form>
+	
+	<form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />
+		<input type="hidden" name="delminmax" value="delminmax" />
+		<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+    </form>
     </td>
 
     <td class="col-md-0">
