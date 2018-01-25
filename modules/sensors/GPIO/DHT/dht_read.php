@@ -14,7 +14,7 @@ try {
 }
 
 try {
-	include("$ROOT/receiver.php");
+	//include("$ROOT/receiver.php");
     $query = $db->query("SELECT * FROM gpio WHERE mode='humid'");
     $result= $query->fetchAll();
     $count = count($result);

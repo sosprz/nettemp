@@ -15,11 +15,13 @@
 - poprawione działanie przekaźnika dla simple, temp, day - zmiana wyzwalania stanem niskim i wysokim.
 - gpio Time w statusie - brak obsługi ip
 - satus min max light - poprawione zbieranie danych - fix dla wartości ujemnych
+- Insert do bazy i odczyt DHT
+- Del bazy minmax Light
+
 
 
 
 To Do:
-kasowanie bazy minmax light
 dodać rom do tabeli g_func - gpiofunctions poprawić usuwanie gpio-gfunc
 - gpio Time przepisać na php, logi, dodać obsługę ip
 wykresy - ładowanie do bazy - konflikt ip/gpio
