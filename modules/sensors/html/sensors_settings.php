@@ -568,7 +568,7 @@ $row = $rows->fetchAll();
     <form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="minmax" value="<?php echo $a["id"]; ?>" />
 		<button type="submit" name="minmaxon" value="<?php echo $a["minmax"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["minmax"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
-	    <?php echo $a["minmax"] == 'on' ? 'ON' : 'OFF'; ?></button>
+	    <?php echo $a["minmax"] == 'on' ? 'ON ' : 'OFF'; ?></button>
 		<input type="hidden" name="minmaxonoff" value="onoff" />
     </form>
     <form action="" method="post" style="display:inline!important;"> 	
