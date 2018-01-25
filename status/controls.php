@@ -337,7 +337,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					if($numRows > 0) {
 					foreach ($activedp as $adp) {  
 					
-						if ($g['lock']=='user') { ?> <td class="col-md-2"><span class="label label-warning"><?php echo LOCK; ?> </span> </td> <?php} else {
+						if ($g['locked']=='user') { ?> <td class="col-md-2"><span class="label label-warning"><?php echo DP.LOCK; ?> </span> </td> <?php} else {
 						
 						$activenamedp=$adp[name];
 						$stime=$adp[stime];
@@ -411,7 +411,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					if($numRows > 0) {
 					foreach ($activedp as $adp) {
 						
-						if ($g['lock']=='user') { ?> <td class="col-md-2"><span class="label label-warning"><?php echo LOCK; ?> </span> </td> <?php} else {
+						if ($g['locked']=='user') { ?> <td class="col-md-2"><span class="label label-warning"><?php echo DP.LOCK; ?> </span> </td> <?php} else {
 						
 						$activenamedp=$adp[name];
 						$stime=$adp[stime];
