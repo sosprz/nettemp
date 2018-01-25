@@ -14,10 +14,10 @@ $type = isset($_POST['type']) ? $_POST['type'] : '';
 $ip = isset($_POST['ip']) ? $_POST['ip'] : '';
 
 
-
 //DEL z bazy
 $rom = isset($_POST['rom']) ? $_POST['rom'] : '';
 $usun2 = isset($_POST['usun2']) ? $_POST['usun2'] : '';
+
 
 if(!empty($rom) && ($usun2 == "usun3")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
@@ -37,6 +37,15 @@ if(!empty($rom) && ($usun2 == "usun3")) {
 		$db->exec("DELETE FROM gpio WHERE gpio='$gpio' AND rom='$rom'");
 	}
 	
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();	
+} 
+
+//DEL MinMax
+$delminmax = isset($_POST['delminmax']) ? $_POST['delminmax'] : '';
+if(!empty($rom) && ($delminmax == "delminmax")) { 
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db->exec("UPDATE sensors SET stat_max='',stat_min='' WHERE rom='$rom'");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
@@ -567,6 +576,12 @@ $row = $rows->fetchAll();
 		<button type="submit" name="minmaxon" value="<?php echo $a["minmax"] == 'lite' ? 'off' : 'light'; ?>" <?php echo $a["minmax"] == 'light' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
 	    <?php echo $a["minmax"] == 'lite' ? 'Light' : 'Light'; ?></button>
 		<input type="hidden" name="minmaxonoff" value="onoff" />
+    </form>
+	
+	<form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />
+		<input type="hidden" name="delminmax" value="delminmax" />
+		<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
     </form>
     </td>
 
