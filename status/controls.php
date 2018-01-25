@@ -411,6 +411,8 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					if($numRows > 0) {
 					foreach ($activedp as $adp) {
 						
+						if ($g['lock']=='user') { ?> <td class="col-md-2"><span class="label label-warning"><?php echo LOCK; ?> </span> </td> <?php} else {
+						
 						$activenamedp=$adp[name];
 						$stime=$adp[stime];
 						$etime=$adp[etime];
@@ -423,7 +425,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					</td>
 					-->
 					</td>
-					<?php
+						<?php }
 					 echo '<td class="col-md-1"></td>';
 					}
 					} else {echo '<td></td><td></td>';}
