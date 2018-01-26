@@ -20,8 +20,9 @@ if ($bi == "bi")  {
 
 $mexit = isset($_POST['mexit']) ? $_POST['mexit'] : '';
 if (($mexit == "mexit") ){
+	include('gpio_off.php');
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-	$db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' AND rom='$rom'") or die("moment off db error");
+	$db->exec("UPDATE gpio SET mode='', status='off' where gpio='$gpio_post' AND rom='$rom'") or die("moment off db error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();

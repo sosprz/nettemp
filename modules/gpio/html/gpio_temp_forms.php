@@ -130,7 +130,7 @@ function ch_source() {
 		 		$position=$position+1;
 		 }
 		
-		$db->exec("INSERT OR IGNORE INTO g_func (position,sensor, sensor2, onoff, value, op, hyst, source, gpio, w_profile) VALUES ('$position','$sensor1','$sensor2', '$onoff', '$value', '$op', '$hyst', '$source', '$gpio', '$day_plan')") or die ($db->lastErrorMsg());
+		$db->exec("INSERT OR IGNORE INTO g_func (position,sensor, sensor2, onoff, value, op, hyst, source, gpio, w_profile, rom) VALUES ('$position','$sensor1','$sensor2', '$onoff', '$value', '$op', '$hyst', '$source', '$gpio', '$day_plan', '$rom')") or die ($db->lastErrorMsg());
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 	}
@@ -189,11 +189,11 @@ function ch_source() {
     $sth->execute();
     $result = $sth->fetchAll(); 
 
-	$sth1 = $db->prepare("SELECT * FROM day_plan WHERE gpio='$gpio'");
+	$sth1 = $db->prepare("SELECT * FROM day_plan WHERE gpio='$gpio' AND rom='$rom'");
 	$sth1->execute();
 	$dp = $sth1->fetchAll();
 	
-	$sth2 = $db->prepare("SELECT * FROM g_func WHERE gpio='$gpio' ORDER BY position ASC");
+	$sth2 = $db->prepare("SELECT * FROM g_func WHERE gpio='$gpio' AND rom='$rom' ORDER BY position ASC");
 	$sth2->execute();
 	$func = $sth2->fetchAll();
 	?>

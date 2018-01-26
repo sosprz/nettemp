@@ -1,8 +1,8 @@
 <?php
 $dayexit = isset($_POST['dayexit']) ? $_POST['dayexit'] : '';
 if (($dayexit == "dayexit") ){
-	
-	$db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' AND rom='$rom'") or die("Day plan off db - error");
+	include('gpio_off.php');
+	$db->exec("UPDATE gpio SET mode='', status='off' where gpio='$gpio_post' AND rom='$rom'") or die("Day plan off db - error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();

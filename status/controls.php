@@ -607,17 +607,18 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				/* TEMP */
 				if($g['mode']=='temp') {
 					/* TEMP */
-					$sth = $db->prepare("SELECT id,value FROM g_func WHERE gpio='$s[gpio]' ORDER BY position ASC LIMIT 1 ");
+					$sth = $db->prepare("SELECT id,value FROM g_func WHERE gpio='$s[gpio]' AND active='on' AND rom='$s[rom]' ORDER BY position ASC LIMIT 1 ");
 					$sth->execute();
 					$g_func = $sth->fetchAll();
-					//$numRows = count($result);
+					$numRows = count($g_func);
 					$gpio_locked=$g['locked'];
-			
+			if ( $numRows > '0' ) {
 					foreach ($g_func as $gf) {
 					?>
 					<td style="vertical-align:middle">
 						Value:
 					</td>
+					
 					<td>
 					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input type="number" style="width: 4em;" onchange="this.form.submit()" name="value_update_from_status" value="<?php echo $gf['value'] ?>" />
@@ -625,6 +626,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 						<input type="hidden" name="update_from_status" value="switch_update_from_status" />
 					</form>
 					</td>
+					
 					<td>
 					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input type="hidden" name="gpio_lock_update_from_status" value="<?php echo $s['gpio']; ?>"/>
@@ -635,6 +637,29 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					</td>
 					<?php
 					} 
+			}else {
+	
+					?>
+					<td style="vertical-align:middle">
+						Value:
+					</td>
+					
+					<td class="col-md-2">
+					<span class="label label-warning">NO DP</span>
+					</td>
+					
+					<td>
+					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
+						<input type="hidden" name="gpio_lock_update_from_status" value="<?php echo $s['gpio']; ?>"/>
+						<input id="lockstatus" type="checkbox"  data-toggle="toggle" data-size="mini" data-on="lock" data-off="lock" onchange="this.form.submit()" name="lock_update_from_status" value="<?php echo $g['locked'] == 'user'  ? '' : 'user'; ?>" <?php echo $g['locked'] == 'user' ? 'checked="checked"' : ''; ?>  />
+						<input type="hidden" name="rom_lock" value="<?php echo $s['rom']; ?>"/>
+						<input type="hidden" name="update_from_status" value="lock_update_from_status" />
+					</form>
+					</td>
+					
+					<?php
+
+			}
 					?>
 					</tr>	
 
