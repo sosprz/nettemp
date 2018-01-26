@@ -640,7 +640,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 			
 					?>
 					<td class="col-md-2">
-					<span class="label label-info">No active DP.</span>
+					<span class="label label-warning">No DP</span>
 					</td>
 					<?php
 					
