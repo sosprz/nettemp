@@ -1,6 +1,7 @@
 <?php
 $tempexit = isset($_POST['tempexit']) ? $_POST['tempexit'] : '';
 if ($tempexit == "tempexit"){
+	include('gpio_off.php');
 	$db->exec("UPDATE gpio SET mode='', day_run='', week_run='', status='off' where gpio='$gpio_post' AND rom='$rom'") or die("temp off db error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
