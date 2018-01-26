@@ -22,15 +22,12 @@
 
 
 To Do:
-Controls - temperatura dla własciwego dp
-dodać rom do tabeli g_func - gpiofunctions poprawić usuwanie gpio-gfunc
-
+- pimowo wykresy
 - gpio Time przepisać na php, logi, dodać obsługę ip
 wykresy - ładowanie do bazy - konflikt ip/gpio
 Wsadzanie do def - ip/gpio
 
-dayplan - active off przy wyłączeniu gpio i lock / active off ze statusu nie z day
-poprawka świeżak
+poprawka świeżak - status urządzen ip
 
 mcp dla day.php
 Kolorowanie JG jeśli brak odczytów

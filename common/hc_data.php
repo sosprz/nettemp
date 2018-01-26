@@ -99,7 +99,7 @@ if ($type == 'system') {
     $dirb = "sqlite:$root/db/$file.sql";
     $dbh = new PDO($dirb) or die("cannot open database");
     
-    if($charts_fast=='on') {
+    if($nts_charts_fast=='on') {
     	querymod($max,$query);
     }
 		else {
