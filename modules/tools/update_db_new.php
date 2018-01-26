@@ -39,5 +39,6 @@ $updates['2018-01-20 12:00:00'][]="ALTER TABLE day_plan ADD rom  TEXT";
 
 //g_func DB changes
 $updates['2018-01-26 11:00:00'][]="ALTER TABLE g_func ADD active  TEXT";
+$updates['2018-01-26 12:00:00'][]="ALTER TABLE g_func ADD rom TEXT";
 
 ?>
