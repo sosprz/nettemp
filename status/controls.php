@@ -637,7 +637,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					} 
 			}else {
 				
-				foreach ($g_func as $gf) {
+			
 					?>
 					<td style="vertical-align:middle">
 						No dp:
@@ -658,7 +658,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					</form>
 					</td>
 					<?php
-					}
+					
 				
 				
 			}
