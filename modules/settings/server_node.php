@@ -4,8 +4,8 @@
     $ckey = isset($_POST['ckey']) ? $_POST['ckey'] : '';
     if ($csave == "csave"){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET client_ip='$cip' WHERE id='1'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE settings SET client_key='$ckey' WHERE id='1'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$cip' WHERE option='client_ip'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$ckey' WHERE option='client_key'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -14,7 +14,7 @@
     $skey = isset($_POST['skey']) ? $_POST['skey'] : '';
     if ($ssave == "ssave"){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET server_key='$skey' WHERE id='1'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$skey' WHERE option='server_key'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -24,7 +24,7 @@
     $con = isset($_POST['con']) ? $_POST['con'] : '';
     if (($conoff == "conoff") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET client_on='$con' WHERE id='1'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$con' WHERE option='client_on'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -33,7 +33,7 @@
     $cauth_on = isset($_POST['cauth_on']) ? $_POST['cauth_on'] : '';
     if (($cauth_onoff == "cauth_onoff") ){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET cauth_on='$cauth_on' WHERE id='1'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$cauth_on' WHERE option='cauth_on'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -42,25 +42,19 @@
     $cauth_pass = isset($_POST['cauth_pass']) ? $_POST['cauth_pass'] : '';
     if ($cauth_save == "cauth_save"){
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET cauth_pass='$cauth_pass' WHERE id='1'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$cauth_pass' WHERE option='cauth_pass'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
 
 
-$db = new PDO('sqlite:dbf/nettemp.db');
-$sth = $db->prepare("select * from settings WHERE id='1'");
-$sth->execute();
-$result = $sth->fetchAll();
-foreach ($result as $a) {
-$cip=$a["client_ip"];
-$ckey=$a["client_key"];
-$skey=$a["server_key"];
-$con=$a["client_on"];
-$cauth_on=$a["cauth_on"];
-$cauth_login=$a["cauth_login"];
-$cauth_pass=$a["cauth_pass"];
-}
+$cip=$nts_client_ip;
+$ckey=$nts_client_key;
+$skey=$nts_server_key;
+$con=$nts_client_on;
+$cauth_on=$nts_cauth_on;
+$cauth_login=$nts_cauth_login;
+$cauth_pass=$nts_cauth_pass;
 ?>
 
 

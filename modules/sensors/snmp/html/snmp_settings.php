@@ -9,8 +9,8 @@ $snmp_divider = isset($_POST['snmp_divider']) ? $_POST['snmp_divider'] : '';
 $snmp_version = isset($_POST['snmp_version']) ? $_POST['snmp_version'] : '';
 $snmpid = isset($_POST['snmpid']) ? $_POST['snmpid'] : '';
 $rom = isset($_POST['rom']) ? $_POST['rom'] : '';
-	$db = new PDO('sqlite:dbf/nettemp.db');
-	$dbn = new PDO('sqlite:dbf/nettemp.db');
+$db = new PDO('sqlite:dbf/nettemp.db');
+$dbn = new PDO('sqlite:dbf/nettemp.db');
 
 
 ?>
@@ -25,7 +25,7 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	$map_num=substr(rand(), 0, 4);
 	$db->exec("INSERT OR IGNORE INTO snmp (name, rom, community, host, oid, divider, type, version ) VALUES ('$snmp_name','$rom','$snmp_community', '$snmp_host', '$snmp_oid', '$snmp_divider', '$snmp_type', '$snmp_version')") or die ("cannot insert to DB 1" );
 	$dbn->exec("INSERT OR IGNORE INTO newdev (list) VALUES ('$rom')");
-        $dbn->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, device, map_pos, map_num, adj, charts) VALUES ('$snmp_name','$rom','$snmp_type', 'off', 'wait', 'snmp', '{left:0,top:0}', '$map_num', 0, 'on')") or die ("cannot insert to DB 2" );
+    $dbn->exec("INSERT OR IGNORE INTO sensors (name, rom, type, alarm, tmp, device, map_pos, map_num, adj, charts) VALUES ('$snmp_name','$rom','$snmp_type', 'off', 'wait', 'snmp', '{left:0,top:0}', '$map_num', 0, 'on')") or die ("cannot insert to DB 2" );
 
 	$dbnew = new PDO("sqlite:db/$rom.sql");
 	$dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER, current INTEGER, last INTEGER)");
@@ -54,7 +54,6 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	$db->exec("DELETE FROM snmp WHERE id='$snmp_id'") or die ($db->lastErrorMsg());
 	$dbn->exec("DELETE FROM newdev WHERE list='$snmp_name'"); 
 	header("location: " . $_SERVER['REQUEST_URI']);
-	echo $snmp_id;
 	exit();
 	}
 	?>
@@ -64,16 +63,16 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 
 <div class="table-responsive">
 <table class="table table-hover table-condensed small">
-<thead><tr><th></th><th>Name</th><th>Community</th><th>Version</th><th>Host</th><th>OID</th><th>Divider</th><th>Type</th><th>Add/Rem</th></tr></thead>
+<thead><tr><th></th><th>Name</th><th>Community</th><th>Version</th><th>Host</th><th>OID</th><th>Divider</th><th>Type</th><th></th></tr></thead>
     <form action="" method="post" class="form-horizontal">
 	<tr>
-	<td></td>
+	<td><img src="media/ico/snmp-icon.png" ></td>
 	<td class="col-md-1"><input type="text" name="snmp_name" value="" class="form-control input-sm" required=""/></td>
 	<td class="col-md-1"><input type="text" name="snmp_community"  value="" class="form-control input-sm" required=""/></td>
 	<td class="col-md-1">
 	<select name="snmp_version" class="form-control input-sm">
 	    <option value="1">v1</option>
-	    <option value="2c">v2c</option>
+	    <option value="2">v2c</option>
 	</select>
 	</td>
 	<td class="col-md-2"><input type="text" name="snmp_host"  value="" class="form-control input-sm" required=""/></td>
@@ -91,7 +90,9 @@ $snmp_add1 = isset($_POST['snmp_add1']) ? $_POST['snmp_add1'] : '';
 	    <option value="elec">Electricity</option>
 	</select>
 	</td>
-	<td class="col-md-1"><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button></td>
+		<td class="col-md-1">
+			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+		</td>
     </tr>
     </form>
 

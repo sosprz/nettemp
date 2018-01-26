@@ -1,5 +1,5 @@
 <?php 
-$user = $_SESSION["user"];
+$user = isset($_SESSION["user"]) ? $_SESSION["user"] : '';
 $accesstime=null;
 $mon=null;
 $tue=null;
@@ -8,12 +8,13 @@ $thu=null;
 $fri=null;
 $sat=null;
 $sun=null;
+$profil='';
 
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT at FROM users WHERE login='$user'");
 $row = $rows->fetchAll();
 foreach ($row as $at) {
-$profil = $at['at'];
+	$profil = $at['at'];
 }
 
 $day = date("D");

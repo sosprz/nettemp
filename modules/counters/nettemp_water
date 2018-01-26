@@ -44,7 +44,7 @@ try:
         rev = str(array[0]) # rev = 'on' - High to Low - FALLING
                             # rev = ' '  - Low  to High - RISING
 		
-	c.execute("SELECT server_key from settings WHERE id='1'")
+	c.execute("SELECT value from nt_settings WHERE option='server_key'")
         array=[r[0] for r in c.fetchall()]
         key = str(array[0]) # server key
 		

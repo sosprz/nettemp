@@ -12,7 +12,7 @@ gpio=1
 skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select server_key from settings WHERE id='1'")
 
 
-for i in temp humid relay lux press volt amps watt trigger gas water elec
+for i in temp humid relay lux press volt amps watt trigger gas water elec switch
 	 do
 		val=$(( ( RANDOM % 10 )  + 1 ))
 		php-cgi -f $dir/receiver.php key=$skey type=$i value=$val device=wireless ip=$ip  current=$val
@@ -22,9 +22,18 @@ for i in temp humid relay lux press volt amps watt trigger gas water elec
 		php-cgi -f $dir/receiver.php key=$skey type=$i value=$val device=i2c i2c=$i2c  current=$val
 		val=$(( ( RANDOM % 10 )  + 1 ))
 		php-cgi -f $dir/receiver.php key=$skey type=$i value=$val device=usb usb=$dev2  current=$val
+		val=$(( ( RANDOM % 10 )  + 1 ))
+		php-cgi -f $dir/receiver.php key=$skey type=$i value=1.0  device=ip  name=Choinka  id=6 gpio=5 ip=172.18.10.100
 	done
 
-
+		val=$(( ( RANDOM % 10 )  + 1 ))
+		
+		#Multi type
+		php-cgi -f $dir/receiver.php key=$skey type="temp;humid" value="66;77"  device=ip  name=Choinka  id=6 value=1.0 gpio=5 ip=172.18.10.100
+		#Multi ID
+		php-cgi -f $dir/receiver.php key=$skey type="temp;humid" value="66;77"  device=ip  name=Choinka  id="6;7" gpio=5 ip=172.18.10.100
+		
+		
 
 #sqlite3 dbf/nettemp.db "DELETE FROM newdev"
 #sqlite3 dbf/nettemp.db "DELETE  FROM sensors"

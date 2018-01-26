@@ -3,41 +3,29 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 date=`date +%y%m%d-%H%M`
 
-#if pgrep -f  "$(basename $0)"; then
-#echo runnning
-#echo "$date scan already running" >> $dir/log.txt
-#exit
-#fi
-
 rm -rf $dir/tmp/.digitemprc
 rm -rf $dir/tmp/.digitemprcs
 
 sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "DELETE FROM newdev;"
 
-mkdir $dir/tmp 2> /dev/null
+mkdir -p $dir/tmp 
 
 echo "$date temp_dev_scan - Deleted .digitemprc" >> $dir/tmp/log.txt
 
-# i2c
-$dir/modules/sensors/i2c/i2c_scan
+
 # USB
 $dir/modules/sensors/1wire/1wire_usb_scan
 # DS9097 - serial 
 $dir/modules/sensors/1wire/1wire_serial_scan
-# 1-wire
-$dir/modules/sensors/1wire/1wire_gpio_i2c_scan
-#raspberrypi
-$dir/modules/sensors/other/raspberrypi_scan
-#bananapi
-$dir/modules/sensors/other/bananapi_scan
 # DHT11 22
 $dir/modules/sensors/GPIO/DHT/dht_scan
 # snmp
 $dir/modules/sensors/snmp/snmp_scan
-# lmsensors
-$dir/modules/sensors/lmsensors/lmsensors_scan
+
 # esp8266
 $dir/modules/sensors/wireless/esp8266_scan
+
+
 
 
 

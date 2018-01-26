@@ -1,25 +1,26 @@
 #! /bin/bash
 
-echo "Please wait installing packages"
-{
-package="lighttpd php5-cgi php5-sqlite php5-fpm sqlite3 msmtp digitemp gammu git-core mc sysstat \
-    sharutils bc htop snmp sudo ntp watchdog python-smbus i2c-tools openvpn iptables rcconf \
-    arp-scan snmpd httping fping make gcc lynx expect socat build-essential python-dev figlet \
-    libmodbus5 netfilter-persistent apcupsd smstools php5-mysql mysql-client"
+list=$(cat $dir/install/apt/packages_list)
 
-apt-get -y update
-apt-get -y install $package
-} >> $dir/install_log.txt 2>&1
+echo -n -e "Updating repo \r"
+apt-get -y update 
+
+
+echo -n -e "Instaling packages \r"
+apt-get -y install $list 
+
 
 for i in $package; do
-    #dpkg-query -W -f='${Status}' $i 
-    if [[ $? = 1 ]]; then
-    echo no package $i >> $dir/install_log.txt 2>&1
-    echo no package $i
-    exit 1
+    dpkg-query -W -f='${Package}\t\t${Status}' $i 
+    exitstatus=$?
+    echo -e
+    if [ $exitstatus = '1' ]; then
+    echo -e No package $i  >> $dir/install_log.txt 2>&1
+    echo -e No package $i
+    echo -e "[ ${RED}error${R} ] packages"
+    exit
     fi
 done
-
 
 exitstatus=$?
 if [ $exitstatus = 1 ]; then

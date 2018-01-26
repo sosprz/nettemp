@@ -1,3 +1,5 @@
+<div class="alert alert-warning" role="alert">Sensors I2C, 1wire gpio, some 1wire USB, 1wire OWFS and lmsensors are detected automatically go to <a href="index.php?id=device&type=sensors" class="btn btn-xs btn-warning">Devices</a></div>
+
 <div class="panel panel-default">
             <div class="panel-heading">Discovered devices</div>
 <table class="table table-condensed small">
@@ -9,20 +11,24 @@ $sth->execute();
 $result = $sth->fetchAll();
 $separator = "\r\n";
 foreach ($result as $a) { ?>
-	<?php if (file_exists('/sys/bus/i2c/devices/1-0018/')) { ?> 
-	<tr class="info"><td>1wire DS2482</td><td>on</td></tr> 	<?php } else { ?><tr><td>1wire DS2482</td><td>off</td></tr>  
-	<?php } ?>
+	<?php 
+		$ds=str_replace('i2c-','',$a['i2c']);
+	?>
+	<?php if (file_exists("/sys/bus/i2c/devices/".$ds."-0018/")) 
+	{ ?><tr class="info"><td>1wire DS2482</td><td>on</td></tr><?php } 
+	else { ?><tr><td>1wire DS2482</td><td>off</td></tr><?php } ?>
 	<tr <?php echo $a['usb'] != 'off' ? 'class="info"' : ''; ?>><td>1wire USB </td> <td><?php echo $a['usb']; ?></td></tr>
 	<tr <?php echo $a['onewire'] != 'off' ? 'class="info"' : ''; ?>><td>1-wire gpio</td><td><?php echo  $a['onewire']; ?></td></tr>
 	<tr <?php echo $a['serial'] != 'off' ? 'class="info"' : ''; ?>><td>1wire Serial </td><td><?php echo  $a['serial']; ?></td></tr>
 	<tr <?php echo $a['i2c'] != 'off' ? 'class="info"' : ''; ?>><td>I2C </td><td><?php echo  $a['i2c']; ?></td></tr>
 	<tr <?php echo $a['lmsensors'] != 'off' ? 'class="info"' : ''; ?>><td>lm-sensors </td><td><?php echo  $a['lmsensors']; ?></td></tr>
 	<tr <?php echo $a['wireless'] != 'off' ? 'class="info"' : ''; ?>><td>wireless ESP8266 </td><td><?php echo  $a['wireless']; ?></td></tr>
-	<?php if (file_exists('/sys/bus/i2c/devices/1-0068/')) { ?> <tr class="info"><td>HW Clock DS1307</td><td>on</td></tr> 	<?php } else { ?><tr><td>HW Clock DS1307</td><td>off</td></tr>  <?php } ?>
-
-<?php 
-    }
-?>
+	<?php if (file_exists("/sys/bus/i2c/devices/".$ds."-0068/"))
+	{ ?><tr class="info"><td>HW Clock DS1307</td><td>on</td></tr><?php }
+	else { ?><tr><td>HW Clock DS1307</td><td>off</td></tr><?php } ?>
+	<?php 
+}
+	?>
 </table>
 
 <hr>

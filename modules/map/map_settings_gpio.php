@@ -8,7 +8,7 @@ $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
     $g_maponoff = isset($_POST['g_maponoff']) ? $_POST['g_maponoff'] : '';
     $g_mapon = isset($_POST['g_mapon']) ? $_POST['g_mapon'] : '';
     if (($g_maponoff == "onoff")){
-	 $db->exec("UPDATE maps SET map_on='$g_mapon' WHERE element_id='$g_map' AND type='gpio'") or die ($db->lastErrorMsg());
+	 $db->exec("UPDATE maps SET map_on='$g_mapon' WHERE element_id='$g_map'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -20,7 +20,7 @@ $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 	$rows=$db->query("SELECT id FROM gpio WHERE gpio='$g_name_on_map'");//always one record
 	$a=$rows->fetchAll();
 	$a=$a[0];//extracting from array
-    $dbmaps->exec("UPDATE maps SET display_name='$g_name_on_mapon' WHERE element_id='$a[id]' AND type='gpio'") or die ($db->lastErrorMsg());
+    $dbmaps->exec("UPDATE maps SET display_name='$g_name_on_mapon' WHERE element_id='$a[id]'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -32,7 +32,7 @@ $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 	$rows=$db->query("SELECT id FROM gpio WHERE gpio='$control_on_map'");//always one record
 	$a=$rows->fetchAll();
 	$a=$a[0];//extracting from array
-    $dbmaps->exec("UPDATE maps SET control_on_map='$control_on_mapon' WHERE element_id='$a[id]' AND type='gpio'") or die ($db->lastErrorMsg());
+    $dbmaps->exec("UPDATE maps SET control_on_map='$control_on_mapon' WHERE element_id='$a[id]'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -44,7 +44,7 @@ $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 	$rows=$db->query("SELECT id FROM gpio WHERE gpio='$icon_on_map'");//always one record
 	$a=$rows->fetchAll();
 	$a=$a[0];//extracting from array
-    $dbmaps->exec("UPDATE maps SET icon='$icon_on_map_name' WHERE element_id='$a[id]' AND type='gpio'") or die ($db->lastErrorMsg());
+    $dbmaps->exec("UPDATE maps SET icon='$icon_on_map_name' WHERE element_id='$a[id]'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -75,7 +75,7 @@ $row = $rows->fetchAll();
 </thead>
 
 <?php foreach ($row as $b) {
-	$rows=$dbmaps->query("SELECT * FROM maps WHERE element_id='$b[id]' AND type='gpio'");//always one record
+	$rows=$dbmaps->query("SELECT * FROM maps WHERE element_id='$b[id]'");//always one record
 	$a=$rows->fetchAll();
 	$a=$a[0];//extracting from array
 	?>

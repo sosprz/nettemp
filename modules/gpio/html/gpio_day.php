@@ -1,8 +1,9 @@
 <?php
 $dayexit = isset($_POST['dayexit']) ? $_POST['dayexit'] : '';
 if (($dayexit == "dayexit") ){
-    $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or die("simple off db error");
-     $db = null;
+	include('gpio_off.php');
+	$db->exec("UPDATE gpio SET mode='', status='off' where gpio='$gpio_post' AND rom='$rom'") or die("Day plan off db - error");
+    $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -10,7 +11,8 @@ if (($dayexit == "dayexit") ){
 
 $dayrun = isset($_POST['dayrun']) ? $_POST['dayrun'] : '';
 if ($dayrun == "on")  {
-    $db->exec("UPDATE gpio SET status='Wait',day_run='on' WHERE gpio='$gpio_post'") or die("dayrun on error");
+	
+	$db->exec("UPDATE gpio SET status='Wait',day_run='on' WHERE gpio='$gpio_post' AND rom='$rom'") or die("dayrun on error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	
@@ -18,7 +20,9 @@ if ($dayrun == "on")  {
 
 if ($dayrun == "off")  {
     include('gpio_off.php');
-    $db->exec("UPDATE gpio SET day_run='', status='OFF' WHERE gpio='$gpio_post'") or die("dayrun off error");
+      
+	$db->exec("UPDATE gpio SET day_run='', status='OFF' WHERE gpio='$gpio_post' AND rom='$rom'") or die("dayrun off error");
+	$db->exec("UPDATE day_plan SET active='off' where gpio='$gpio_post' AND rom='$rom'") or die("Day plan active set off - db error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();	

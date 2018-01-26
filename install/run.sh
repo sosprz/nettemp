@@ -2,8 +2,9 @@
 
 > $dir/install_log.txt
 
-source install/apt/apt.sh
+mkdir -p $dir/tmp
 
+source install/apt/apt.sh
 source install/rpi/rpi.sh
 source install/1w/1w.sh
 source install/dht/dht.sh
@@ -18,11 +19,13 @@ source install/ups/ups.sh
 source install/vpn/vpn.sh
 
 source install/www/www.sh
+source install/crontab/crontab.sh
 source install/db/db.sh
 source install/perms/perms.sh
-source install/crontab/crontab.sh
 source install/services/services.sh
 
 if [[ "$SENDSTATS" == "yes" ]]; then
 	php-cgi -q install/stats/stats.php
 fi
+
+

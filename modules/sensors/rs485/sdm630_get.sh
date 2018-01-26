@@ -48,49 +48,68 @@ result  = client.write_registers(address, payload, skip_encode=True)
 # Read data and convert to float and creating output files
 #---------------------------------------------------------------------------# 
 
-
+#L1 V
 result  = client.read_input_registers(0x00, 2)
 decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
 print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
-
+#L1 A
 result  = client.read_input_registers(0x06, 2)
 decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
 print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
-
+#L1 W
 result  = client.read_input_registers(0x0C, 2)
 decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
 print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
 
-
+#L2 V
 result  = client.read_input_registers(0x02, 2)
 decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
 print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
-
+#L2 A
 result  = client.read_input_registers(0x08, 2)
 decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
 print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
-
+#L2 W
 result  = client.read_input_registers(0x0E, 2)
 decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
 print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
 
-
+#L3 V
 result  = client.read_input_registers(0x04, 2)
 decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
 print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
-
+#L3 A
 result  = client.read_input_registers(0x0A, 2)
 decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
 print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
-
+#L3 W
 result  = client.read_input_registers(0x10, 2)
 decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
 print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
-
+#all
 result  = client.read_input_registers(0x48, 2)
 decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
 print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
 
+# 0x3C -suma energii biernej z 3 faz. (0x18 - L1, 0x1A -L2, 0x1C -L3)
+result  = client.read_input_registers(0x3C, 2)
+decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
+print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
+
+# 0x4A -export energii czynnej (kWh)
+result  = client.read_input_registers(0x4A, 2)
+decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
+print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
+
+# 0x4E - eksport energii biernej (kVArh)
+result  = client.read_input_registers(0x4E, 2)
+decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
+print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
+
+# 0x4C - import energii biernej (kVArh)
+result  = client.read_input_registers(0x4C, 2)
+decoder = BinaryPayloadDecoder.fromRegisters(result.registers, endian=Endian.Big)
+print '{0:0.2f}'.format(decoder.decode_32bit_float()), "\n",
 
 #---------------------------------------------------------------------------# 
 # close the client

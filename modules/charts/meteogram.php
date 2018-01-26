@@ -3,22 +3,17 @@
     $set = isset($_POST['set']) ? $_POST['set'] : '';
     if  ($set == "set") {
     $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE settings SET meteogram='$place'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE nt_settings SET value='$place' WHERE option='charts_meteogram'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
 
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $sth = $db->prepare("select * from settings ");
-    $sth->execute();
-    $result = $sth->fetchAll();
-    foreach ($result as $a) {
 ?>
 
-<form action="" method="post" class="form-inline">
+<form action="index.php?id=view&type=meteogram" method="post" class="form-inline">
   <div class="form-group">
     <label for="exampleInputName2">Location from <a href="http://www.yr.no" target="_blank">www.yr.no</a> </label>  
-    <input type="text" class="form-control input-sm" name="place" value="<?php echo $a['meteogram']; ?>" placeholder="Poland/Pomerania/Gdańsk">
+    <input type="text" class="form-control input-sm" name="place" value="<?php echo $nts_charts_meteogram ?>" placeholder="Poland/Pomerania/Gdańsk">
     <input type="hidden" name="set" value="set" />
   </div>
   <button type="submit" class="btn btn-xs btn-success">Save</button>
@@ -26,14 +21,8 @@
 </br>
 
 
-<?php
-    }
-?>
-
-
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<script type="text/javascript" src="html/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="html/highcharts/exporting.js"></script>
 
 <div id="container" ></div>
 
@@ -315,7 +304,7 @@ Meteogram.prototype.drawWeatherSymbols = function (chart) {
 
                 // Position the image inside it at the sprite position
                 chart.renderer.image(
-                    'https://www.highcharts.com/samples/graphics/meteogram-symbols-30px.png',
+                    'media/highcharts/meteogram-symbols-30px.png',
                     -sprite.x,
                     -sprite.y,
                     90,
@@ -776,13 +765,7 @@ $(function () { // On DOM ready...
     // Set the hash to the yr.no URL we want to parse
     if (!location.hash) {
 <?php
-$db = new PDO('sqlite:dbf/nettemp.db');
-$rows1 = $db->query("SELECT meteogram  FROM settings WHERE id='1'");
-$row1 = $rows1->fetchAll();
-foreach($row1 as $a){
-$meteogram=$a['meteogram'];
-}
-    echo "var place = '$meteogram';\n";
+    echo "var place = '$nts_charts_meteogram';\n";
 ?>
 
         //var place = 'United_Kingdom/England/London';
@@ -798,7 +781,7 @@ $meteogram=$a['meteogram'];
     // https://github.com/highcharts/highcharts/blob/master/samples/data/jsonp.php
     // for source code.
     $.getJSON(
-        'https://www.highcharts.com/samples/data/jsonp.php?url=' + location.hash.substr(1) + '&callback=?',
+         'common/jsonp.php?url=' + location.hash.substr(1) + '&callback=?',
         function (xml) {
             window.meteogram = new Meteogram(xml, 'container');
         }

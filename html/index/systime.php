@@ -1,0 +1,1 @@
+System time: <?php passthru("date +%H:%M:%S");?>

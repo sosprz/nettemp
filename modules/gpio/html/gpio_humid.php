@@ -8,12 +8,12 @@ if (($humidexit == "humidexit") ){
     $id_rom_h='gpio_'.$gpio_post.'_humid.sql';
     $id_rom_t='gpio_'.$gpio_post.'_temp.sql';
 
-    $db->exec("UPDATE gpio SET mode='', status='' where gpio='$gpio_post' ") or die ("humid off db error");
+    $db->exec("UPDATE gpio SET mode='', status='', humid_type='' where gpio='$gpio_post' AND rom='$rom' ") or die ("humid gpio off db error");
 	//first delete from maps
 	$to_delete=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_newh'");
 	$to_delete_id=$to_delete->fetchAll();
 	$to_delete_id=$to_delete_id[0];
-	$db->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='sensors'") or die ("humid off db error");
+	$db->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='sensors'") or die ("humid maps off db error");
 	
 	$to_delete=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_newt'");
 	$to_delete_id=$to_delete->fetchAll();
@@ -22,8 +22,8 @@ if (($humidexit == "humidexit") ){
 	
     $db->exec("DELETE FROM sensors WHERE rom='$id_rom_newh' "); 
     $db->exec("DELETE FROM sensors WHERE rom='$id_rom_newt' "); 
-    $db->exec("DELETE FROM newdev WHERE list='$id_rom_newh'"); 
-    $db->exec("DELETE FROM newdev WHERE list='$id_rom_newt'"); 
+    $db->exec("DELETE FROM newdev WHERE rom='$id_rom_newh' "); 
+    $db->exec("DELETE FROM newdev WHERE rom='$id_rom_newt' "); 
     unlink("db/$id_rom_h");
     unlink("db/$id_rom_t");
     $db = null;
@@ -35,7 +35,7 @@ $dht11_onoff = isset($_POST['dht11_onoff']) ? $_POST['dht11_onoff'] : '';
 $dht11_onoff1 = isset($_POST['dht11_onoff1']) ? $_POST['dht11_onoff1'] : '';
 
 if (($dht11_onoff1 == "dht11_onoff2") ){
-    $db->exec("UPDATE gpio SET humid_type='$dht11_onoff', status='Humid DHT $dht11_onoff'  where gpio='$gpio_post' ") or die("exec error");
+    $db->exec("UPDATE gpio SET humid_type='$dht11_onoff', status='Humid DHT $dht11_onoff'  where gpio='$gpio_post' AND rom='$rom' ") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -44,7 +44,7 @@ $dht22_onoff = isset($_POST['dht22_onoff']) ? $_POST['dht22_onoff'] : '';
 $dht22_onoff1 = isset($_POST['dht22_onoff1']) ? $_POST['dht22_onoff1'] : '';
 
 if (($dht22_onoff1 == "dht22_onoff2") ){
-    $db->exec("UPDATE gpio SET humid_type='$dht22_onoff', status='Humid DHT $dht22_onoff' where gpio='$gpio_post' ") or die("exec error");
+    $db->exec("UPDATE gpio SET humid_type='$dht22_onoff', status='Humid DHT $dht22_onoff' where gpio='$gpio_post' AND rom='$rom' ") or die("exec error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();

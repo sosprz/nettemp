@@ -45,16 +45,9 @@ if ($exit == true ) { ?>
     foreach ($tofix as $line) {
 	echo $line . "<br>";
     }
-    //include('modules/tools/html/tools_perms.php');
     ?>
 </div>
 
-    <?php
+<?php
 }
-//elseif ( $id == 'tools' ){ ?>
-<?php
-    //include('modules/tools/html/tools_perms.php');
-?>
-<?php
-//    }
 ?>

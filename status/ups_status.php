@@ -1,12 +1,6 @@
 <?php
-$db = new PDO('sqlite:dbf/nettemp.db');
-$rows = $db->query("SELECT ups_status FROM settings WHERE id='1'");
-$row = $rows->fetchAll();
-foreach($row as $o) {
-$onoff=$o['ups_status'];
-}
 
-if ($onoff != 'on' ) { return; }
+if ($nts_ups_status != 'on' ) { return; }
 else {
 	exec("/sbin/apcaccess",$upso);
 	foreach($upso as $ar) {

@@ -85,13 +85,13 @@
 	header("location: " . $_SERVER['REQUEST_URI']);
     exit();
    }
- 
+	//MAP ON/OFF
     $map = isset($_POST['map']) ? $_POST['map'] : '';
     $maponoff = isset($_POST['maponoff']) ? $_POST['maponoff'] : '';
     $mapon = isset($_POST['mapon']) ? $_POST['mapon'] : '';
-    if (($maponoff == "onoff")){
-	 $dbmaps = new PDO('sqlite:dbf/nettemp.db');
-    $dbmaps->exec("UPDATE maps SET map_on='$mapon' WHERE element_id='$map' AND type='sensors'") or die ($db->lastErrorMsg());
+    if ($maponoff == "onoff"){
+		$db = new PDO('sqlite:dbf/nettemp.db');
+		$db->exec("UPDATE maps SET map_on='$mapon' WHERE element_id='$map' AND type='sensors'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -115,7 +115,8 @@
 $counters=array("gas","water","elec");
 $db = new PDO('sqlite:dbf/nettemp.db');
 $dbmaps = new PDO('sqlite:dbf/nettemp.db');
-$rows = $db->query("SELECT * FROM sensors ORDER BY position ASC");
+$rows = $db->query("SELECT * FROM sensors WHERE type!='gpio' ORDER BY position ASC");
+
 $row = $rows->fetchAll();
 ?>
 <thead>

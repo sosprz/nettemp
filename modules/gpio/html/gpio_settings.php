@@ -3,6 +3,8 @@ $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 $dir="modules/gpio/";
 $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 $gpios = isset($_GET['gpios']) ? $_GET['gpios'] : '';
+$ip_post = isset($_GET['ip']) ? $_GET['ip'] : '';
+$roms = isset($_GET['roms']) ? $_GET['roms'] : '';
 
 $sth2 = $db->prepare("select mode from gpio where mode='buzzer'");
 $sth2->execute();
@@ -45,17 +47,19 @@ $mode5=$ab['gpio'];
 
 //main loop
 $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-$sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$gpios'");
+$sth = $db->prepare("SELECT * FROM gpio WHERE gpio='$gpios' AND rom='$roms'");
 $sth->execute();
 $result = $sth->fetchAll();
 foreach ( $result as $a) { 
 $gpio=$a['gpio'];
 $mode=$a['mode'];
 $name=$a['name'];
+$ip=$a['ip'];
+$rom=$a['rom'];
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">GPIO <?php echo $gpio." ".$name ?></h3></div>
+<h3 class="panel-title">GPIO <?php echo $gpio." ".$name." ".$ip." ".$mode ?></h3></div>
 <div class="panel-body">
 
 <?php

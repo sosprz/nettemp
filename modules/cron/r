@@ -1,11 +1,11 @@
 #! /bin/bash
 
-dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd ) #"
 echo "$(date +\%y\%m\%d-\%H\%M) RPI rebooted" >> $dir/tmp/log.txt
 $dir/modules/tools/restart
 $dir/modules/counters/reset_water
 $dir/modules/counters/reset_gas
 $dir/modules/counters/reset_elec
-nohup $dir/modules/lcd/lcd &
-nohup $dir/modules/call/call_proc &
-
+nohup $dir/modules/call/call_proc > /dev/null 2>&1 &
+#nohup $dir/modules/lcd/lcd &
+nohup php $dir/modules/lcd/advlcd.php > /dev/null 2>&1 &

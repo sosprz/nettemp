@@ -24,14 +24,14 @@ if [ "$day_run" = "on" ]; then
 		onoff="on"
 		dayplan=$i
 		if [ $mode != "temp" ]; then
-		    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='ON DAY $i' WHERE gpio='$gpio'"
+		    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='ON' WHERE gpio='$gpio'"
 		    day_status=$onoff
 		    logstatus="ON $i"
 		fi
 		break
 	    else
 		if [ $mode != "temp" ]; then
-	    	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF DAY' WHERE gpio='$gpio'"
+	    	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
 		    day_status=$onoff
 		    logstatus="OFF"
 		fi
@@ -46,7 +46,7 @@ if [ "$day_run" = "on" ]; then
 	logstatus="OFF not in day range"
 	log
 	if [ $mode != "temp" ]; then
-	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF DAY' WHERE gpio='$gpio'"
+	    sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE gpio SET status='OFF' WHERE gpio='$gpio'"
 	fi
     fi
 
