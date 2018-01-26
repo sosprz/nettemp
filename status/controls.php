@@ -640,7 +640,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					?>
 					<td class="col-md-2">
 					<span class="label label-warning">No DP</span>
-					</td>
+					</td><td></td>
 					<td>
 					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input type="hidden" name="gpio_lock_update_from_status" value="<?php echo $s['gpio']; ?>"/>
