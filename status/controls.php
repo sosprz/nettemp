@@ -607,7 +607,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				/* TEMP */
 				if($g['mode']=='temp') {
 					/* TEMP */
-					$sth = $db->prepare("SELECT id,value FROM g_func WHERE gpio='$s[gpio]' AND active='on' ORDER BY position ASC LIMIT 1 ");
+					$sth = $db->prepare("SELECT id,value FROM g_func WHERE gpio='$s[gpio]' AND active='on' AND rom='$rom' ORDER BY position ASC LIMIT 1 ");
 					$sth->execute();
 					$g_func = $sth->fetchAll();
 					$numRows = count($g_func);
@@ -643,7 +643,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					</td>
 					
 					<td class="col-md-2">
-					<span class="label label-warning">No DP</span>
+					<span class="label label-warning">NO DP</span>
 					</td>
 					
 					<td>
