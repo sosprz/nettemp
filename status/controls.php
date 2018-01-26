@@ -639,23 +639,8 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 				
 			
 					?>
-					<td style="vertical-align:middle">
-						No dp:
-					</td>
-					<td>
-					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input type="number" style="width: 4em;" onchange="this.form.submit()" name="value_update_from_status" value="<?php echo $gf['value'] ?>" />
-						<input type="hidden" name="id_value_update_from_status" value="<?php echo $gf['id']; ?>"/>
-						<input type="hidden" name="update_from_status" value="switch_update_from_status" />
-					</form>
-					</td>
-					<td>
-					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
-						<input type="hidden" name="gpio_lock_update_from_status" value="<?php echo $s['gpio']; ?>"/>
-						<input id="lockstatus" type="checkbox"  data-toggle="toggle" data-size="mini" data-on="lock" data-off="lock" onchange="this.form.submit()" name="lock_update_from_status" value="<?php echo $g['locked'] == 'user'  ? '' : 'user'; ?>" <?php echo $g['locked'] == 'user' ? 'checked="checked"' : ''; ?>  />
-						<input type="hidden" name="rom_lock" value="<?php echo $s['rom']; ?>"/>
-						<input type="hidden" name="update_from_status" value="lock_update_from_status" />
-					</form>
+					<td class="col-md-2">
+					<span class="label label-info">No active DP.</span>
 					</td>
 					<?php
 					
