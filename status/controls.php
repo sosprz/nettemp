@@ -638,7 +638,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 			}else {
 	
 					?>
-					<td class="col-md-2">
+					<td style="vertical-align:middle" class="col-md-2">
 					<span class="label label-warning">No DP</span>
 					</td><td></td>
 					<td>
