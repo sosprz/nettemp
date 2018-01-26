@@ -203,7 +203,7 @@ var hc = function () {
 	if (max=="year") { var xhour = "month" }
 	if (max=="all") { var xhour = "year" }
 
-	if (type=="gas"|| type=="water"|| type=="rainfall" || type=="speed" || type=="gust" || type=="elec" && mode != "2" ) {
+	if (type=="gas"|| type=="water"|| type=="rainfall" || type=="elec" && mode != "2" ) {
 	    
             seriesOptions[i] = {
                 name: name,
@@ -219,7 +219,24 @@ var hc = function () {
                     valueDecimals: 3
                 }
 	    };
-	    
+		
+	} else if (type=="speed" || type=="gust" && mode != "2" ){
+		
+		seriesOptions[i] = {
+                name: name,
+                data: data,
+        	type: 'column',
+        	dataGrouping: {
+    		enabled: true,
+    		forced: true,
+		units: [[xhour,[1]]]
+		},
+		tooltip: {
+		    valueSuffix: n_units, 
+                    valueDecimals: 2
+                }
+	    };
+	
 	} else if (type=='gpio' || type=='host' || type=='relay' || type=="elec" ){
 		seriesOptions[i] = {
                 name: name,
