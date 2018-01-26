@@ -617,8 +617,7 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					?>
 					<td style="vertical-align:middle">
 						Value:
-					</td>
-					<td>
+					
 					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input type="number" style="width: 4em;" onchange="this.form.submit()" name="value_update_from_status" value="<?php echo $gf['value'] ?>" />
 						<input type="hidden" name="id_value_update_from_status" value="<?php echo $gf['id']; ?>"/>
