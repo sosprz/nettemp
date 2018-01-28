@@ -40,7 +40,7 @@ if ( $numRows > '0' ) { ?>
 	
 	<td>
 	    <small>
-	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=day&single=<?php echo $a['name']?>" class="label label-info" title="<?php echo $units;?>">
+	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=hour&single=<?php echo $a['name']?>" class="label label-info" title="<?php echo $units;?>">
 		<?php
 		$rom=$a['rom'];
 		$dbs = new PDO("sqlite:$root/db/$rom.sql") or die('lol');
@@ -53,7 +53,7 @@ if ( $numRows > '0' ) { ?>
 	</td>
 	<td>
 	    <small>
-	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=week&single=<?php echo $a['name']?>" class="label label-info" title="<?php echo $units;?>">
+	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=day&single=<?php echo $a['name']?>" class="label label-info" title="<?php echo $units;?>">
 		<?php
 		$rows = $dbs->query("SELECT round(sum(value),4) AS sums FROM def WHERE time >= datetime('now','localtime','start of day')") or die('lol');
 		$i = $rows->fetch(); 
@@ -75,7 +75,7 @@ if ( $numRows > '0' ) { ?>
 	</td>
 	<td>
 	    <small>
-	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=day&single=<?php echo $a['name']?>" class="label label-danger" title="<?php echo $units;?>">
+	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=all&single=<?php echo $a['name']?>" class="label label-danger" title="<?php echo $units;?>">
 		<?php
 		    echo number_format($a['sum'], 2, '.', ',')." ";
 		?>
