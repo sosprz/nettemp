@@ -212,7 +212,7 @@ var hc = function () {
         	dataGrouping: {
     		enabled: true,
     		forced: false,
-		units: [[minute,[15]]]
+		units: [[xminute,[15]]]
 		},
 		tooltip: {
 		    valueSuffix: n_units, 
