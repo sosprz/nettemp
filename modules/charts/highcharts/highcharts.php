@@ -208,11 +208,11 @@ var hc = function () {
             seriesOptions[i] = {
                 name: name,
                 data: data,
-        	type: 'column',
+        	type: 'spline',
         	dataGrouping: {
     		enabled: true,
     		forced: false,
-		units: [[xminute,[15]]]
+		units: [[xhour,[1]]]
 		},
 		tooltip: {
 		    valueSuffix: n_units, 
