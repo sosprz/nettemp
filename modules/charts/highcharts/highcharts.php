@@ -210,7 +210,7 @@ var hc = function () {
                 data: data,
         	type: 'column',
         	dataGrouping: {
-    		enabled: false,
+    		enabled: true,
     		forced: false,
 		units: [[xhour,[1]]]
 		},
