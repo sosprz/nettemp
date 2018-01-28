@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.27
+
+add missing php7 settings
+
 4.1.26
 
 fix when remove different devices with same gpio number
