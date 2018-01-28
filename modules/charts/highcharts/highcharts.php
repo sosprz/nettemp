@@ -203,15 +203,15 @@ var hc = function () {
 	if (max=="year") { var xhour = "month" }
 	if (max=="all") { var xhour = "year" }
 
-	if (type=="gas"|| type=="water"|| type=="elecs" && mode != "2" ) {
+	if (type=="gas"|| type=="water"|| type=="elec" && mode != "2" ) {
 	    
             seriesOptions[i] = {
                 name: name,
                 data: data,
         	type: 'column',
         	dataGrouping: {
-    		enabled: true,
-    		forced: true,
+    		enabled: false,
+    		forced: false,
 		units: [[xhour,[1]]]
 		},
 		tooltip: {
