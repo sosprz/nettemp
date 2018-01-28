@@ -146,7 +146,7 @@ else {
     	    querymod($max,$query);
 	}
 	else {
-    	    query($max,$query);
+    	    querymod($max,$query);
 	}
     }
     
