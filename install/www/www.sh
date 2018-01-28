@@ -50,7 +50,7 @@ sed -i 's/post_max_size = 8M/post_max_size = 300M/g' /etc/php/7.0/cgi/php.ini
 mv /etc/lighttpd/conf-available/15-fastcgi-php.conf /etc/lighttpd/conf-available/15-fastcgi-php.conf.old
 cp $dir/install/www/15-fastcgi-php.conf /etc/lighttpd/conf-available/
 sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 300M/g' /etc/php/7.0/fpm/php.ini
-sed -i 's/post_max_size = 8M/post_max_size = 300M/g' /etc/php5/fpm/php.ini
+sed -i 's/post_max_size = 8M/post_max_size = 300M/g' /etc/php/7.0/fpm/php.ini
 sed -i 's/;sendmail_path =/sendmail_path = '\''\/usr\/bin\/msmtp -t'\''/g' /etc/php/7.0/fpm/php.ini
 } >> $dir/install_log.txt 2>&1
 

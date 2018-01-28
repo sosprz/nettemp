@@ -108,7 +108,7 @@ foreach($files AS $file) {
 
     <font color="grey">Note: If You want upload image, You must change upload_max_filezise in php.ini<br />
         Now Your value is:
-        <?php passthru('grep upload_max_filesize /etc/php5/fpm/php.ini');  ?></font>
+        <?php passthru('grep upload_max_filesize /etc/php/7.0/fpm/php.ini');  ?></font>
 
 </div>
 </div>
