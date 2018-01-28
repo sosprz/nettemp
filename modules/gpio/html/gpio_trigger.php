@@ -3,7 +3,7 @@ $triggernotice_checkbox = isset($_POST['triggernotice_checkbox']) ? $_POST['trig
 $xtriggernoticeon = isset($_POST['xtriggernoticeon']) ? $_POST['xtriggernoticeon'] : '';
 if ($xtriggernoticeon == "xtriggernoticeON")  {
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-    $db->exec("UPDATE gpio SET trigger_notice='$triggernotice_checkbox' WHERE gpio='$gpio_post'") or die("exec error");
+    $db->exec("UPDATE gpio SET trigger_notice='$triggernotice_checkbox' WHERE gpio='$gpio_post' AND rom='$rom'") or die("exec error");
     $db = NULL;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -12,7 +12,7 @@ if ($xtriggernoticeon == "xtriggernoticeON")  {
 
 $triggerexit = isset($_POST['triggerexit']) ? $_POST['triggerexit'] : '';
 if (($triggerexit == "triggerexit") ){
-    $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or exit(header("Location: html/errors/db_error.php"));
+    $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' AND rom='$rom' ") or exit(header("Location: html/errors/db_error.php"));
      $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -21,7 +21,7 @@ if (($triggerexit == "triggerexit") ){
 
 $triggerrun = isset($_POST['triggerrun']) ? $_POST['triggerrun'] : '';
 if ($triggerrun == "on")  {
-    $db->exec("UPDATE gpio SET trigger_run='on', status='Wait' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+    $db->exec("UPDATE gpio SET trigger_run='on', status='Wait' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     $cmd=("nohup modules/gpio/trigger_proc $gpio_post");
     shell_exec( $cmd . "> /dev/null 2>/dev/null &" );
@@ -29,7 +29,7 @@ if ($triggerrun == "on")  {
     exit();
 }
 if ($triggerrun == "off")  {
-    $db->exec("UPDATE gpio SET trigger_run='', status='WWW OFF' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+    $db->exec("UPDATE gpio SET trigger_run='', status='WWW OFF' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     shell_exec("modules/gpio/trigger_close $gpio_post");
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -42,7 +42,7 @@ foreach (range(1, 30) as $num) {
 $tout=isset($_POST["tout".$num]) ? $_POST["tout".$num] : '';
 if (($toutonoff == "onoff") &&  (!empty($tout)))  {
     $tout == "off" ? $tout='' : "";
-    $db->exec("UPDATE gpio SET tout$num='$tout' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+    $db->exec("UPDATE gpio SET tout$num='$tout' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -52,7 +52,7 @@ if (($toutonoff == "onoff") &&  (!empty($tout)))  {
 $trigger_delay = isset($_POST['trigger_delay']) ? $_POST['trigger_delay'] : '';
 $trigger_delay1 = isset($_POST['trigger_delay1']) ? $_POST['trigger_delay1'] : '';
 if ($trigger_delay1 == "trigger_delay1") {
-    $db->exec("UPDATE gpio SET trigger_delay='$trigger_delay' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+    $db->exec("UPDATE gpio SET trigger_delay='$trigger_delay' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -61,7 +61,7 @@ if ($trigger_delay1 == "trigger_delay1") {
 $con = isset($_POST['con']) ? $_POST['con'] : '';
 $cononoff = isset($_POST['cononoff']) ? $_POST['cononoff'] : '';
 if ($cononoff == "onoff") {
-    $db->exec("UPDATE gpio SET trigger_con='$con' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+    $db->exec("UPDATE gpio SET trigger_con='$con' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -105,7 +105,7 @@ else
 	    <option <?php echo $a['trigger_delay'] == "30" ? 'selected="selected"' : ''; ?> value="30">Start delay 30 sec</option>
 	    <option <?php echo $a['trigger_delay'] == "60" ? 'selected="selected"' : ''; ?> value="60">Start delay 1 min</option>
 	    <option <?php echo $a['trigger_delay'] == "120" ? 'selected="selected"' : ''; ?> value="120">Start delay 2 min</option>
-	    <option <?php echo $a['trigger_delay'] == "360" ? 'selected="selected"' : ''; ?> value="360">Start delay 5 min</option>
+	    <option <?php echo $a['trigger_delay'] == "300" ? 'selected="selected"' : ''; ?> value="360">Start delay 5 min</option>
 	</select> 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
 	<input type="hidden" name="trigger_delay1" value="trigger_delay1" />

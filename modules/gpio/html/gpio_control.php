@@ -2,7 +2,7 @@
 $control = isset($_POST['control']) ? $_POST['control'] : '';
 $save = isset($_POST['save']) ? $_POST['save'] : '';
 if (($save == "save") ){
-    $db->exec("UPDATE gpio SET control='$control' where gpio='$gpio_post' ") or exit(header("Location: html/errors/db_error.php"));
+    $db->exec("UPDATE gpio SET control='$control' where gpio='$gpio_post' AND rom='$rom' ") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -11,7 +11,7 @@ if (($save == "save") ){
 
 $exit = isset($_POST['exit']) ? $_POST['exit'] : '';
 if (($exit == "control_exit") ){
-    $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' ") or exit(header("Location: html/errors/db_error.php"));
+    $db->exec("UPDATE gpio SET mode='' where gpio='$gpio_post' AND rom='$rom' ") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -19,7 +19,7 @@ if (($exit == "control_exit") ){
 
 $controlrun = isset($_POST['controlrun']) ? $_POST['controlrun'] : '';
 if ($controlrun == "on")  {
-    $db->exec("UPDATE gpio SET control_run='on', status='Wait' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+    $db->exec("UPDATE gpio SET control_run='on', status='Wait' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     $cmd=("nohup modules/gpio/control_proc $gpio_post");
     shell_exec( $cmd . "> /dev/null 2>/dev/null &" );
@@ -27,7 +27,7 @@ if ($controlrun == "on")  {
     exit();
 }
 if ($controlrun == "off")  {
-    $db->exec("UPDATE gpio SET control_run='', status='OFF' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+    $db->exec("UPDATE gpio SET control_run='', status='OFF' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     shell_exec("modules/gpio/control_close $gpio_post");
     header("location: " . $_SERVER['REQUEST_URI']);
