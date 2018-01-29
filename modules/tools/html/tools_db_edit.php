@@ -11,13 +11,13 @@ $row = $rows->fetchAll();
 $rom = isset($_POST['rom']) ? $_POST['rom'] : '';
 $delolder = isset($_POST['delolder']) ? $_POST['delolder'] : '';
 
-if(!empty($rom) && (!empty($delolder))) { 
+if(!empty($rom) && !empty($delolder)) { 
 
-	$db = new PDO("sqlite:db/$rom.sql");
+	$db = new PDO('sqlite:db/$rom.sql');
 	
 	if ($delolder !="all") {
 	
-		$db->exec("DELETE FROM def WHERE time <= datetime('now','localtime','$delolder'");
+		$db->exec("DELETE FROM def WHERE time <= datetime('now','localtime',$delolder");
 		
 	} else {
 		
@@ -53,7 +53,7 @@ if(!empty($rom) && (!empty($delolder))) {
 	<form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="rom" value="<?php echo $a['rom']?>" />
     <button class="btn btn-xs btn-danger">1 mth</button>
-    <input type="hidden" name="delolder" value="-1 hour" />
+    <input type="hidden" name="delolder" value="-1 months" />
     </form>
 	
 	<form action="" method="post" style="display:inline!important;">
