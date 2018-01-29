@@ -203,7 +203,7 @@ var hc = function () {
 	if (max=="year") { var xhour = "month" }
 	if (max=="all") { var xhour = "year" }
 
-	if (type=="gas"|| type=="water"|| type=="rainfall" || type=="elec" && mode != "2" ) {
+	if (type=="gas"|| type=="water"|| type=="elec" && mode != "2" ) {
 	    
             seriesOptions[i] = {
                 name: name,
@@ -212,6 +212,7 @@ var hc = function () {
         	dataGrouping: {
     		enabled: true,
     		forced: true,
+			approximation: 'high',
 		units: [[xhour,[1]]]
 		},
 		tooltip: {
@@ -220,15 +221,16 @@ var hc = function () {
                 }
 	    };
 		
-	} else if (type=="speed" || type=="gust" && mode != "2" ){
+	} else if (type=="speed" || type=="gust" || type=="rainfall" && mode != "2" ){
 		
 		seriesOptions[i] = {
                 name: name,
                 data: data,
-        	type: 'column',
+        	type: 'spline',
         	dataGrouping: {
     		enabled: true,
     		forced: true,
+			approximation: 'high',
 		units: [[xhour,[1]]]
 		},
 		tooltip: {

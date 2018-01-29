@@ -30,9 +30,9 @@ if ( $numRows > '0' ) { ?>
     <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" alt=""/><?php } ?>
     <?php if($a['device'] == 'usb'){ ?><img src="media/ico/usb-icon.png" alt=""/><?php } ?>
     <?php if($a['device'] == 'gpio'){ ?><img src="media/ico/gpio2.png" alt=""/><?php } ?>
-    <?php if($a['type'] == 'gas'){ ?><img src="media/ico/gas-icon.png" alt=""/><?php $units='m3'; } ?>
-    <?php if($a['type'] == 'water'){ ?><img src="media/ico/water-icon.png" alt=""/><?php $units='m3'; } ?>
-    <?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" alt=""/><?php $units='kWh' ;} ?>
+    <?php if($a['type'] == 'gas'){ ?><img src="media/ico/gas-icon.png" alt=""/><?php $units='m3'; $units2='L';} ?>
+    <?php if($a['type'] == 'water'){ ?><img src="media/ico/water-icon.png" alt=""/><?php $units='m3'; $units2='L'; } ?>
+    <?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" alt=""/><?php $units='kWh' ; $units2='W';} ?>
     <small>
 	<?php echo str_replace("_"," ","$a[name]"); ?>
     </small>
@@ -40,7 +40,7 @@ if ( $numRows > '0' ) { ?>
 	
 	<td>
 	    <small>
-	    <a href="index.php?id=view&type=elec&max=day&single=<?php echo $a['name']?>" class="label label-info" title="kWh">
+	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=hour&single=<?php echo $a['name']?>" class="label label-info" title="<?php echo $units;?>">
 		<?php
 		$rom=$a['rom'];
 		$dbs = new PDO("sqlite:$root/db/$rom.sql") or die('lol');
@@ -53,7 +53,7 @@ if ( $numRows > '0' ) { ?>
 	</td>
 	<td>
 	    <small>
-	    <a href="index.php?id=view&type=elec&max=week&single=<?php echo $a['name']?>" class="label label-info" title="kWh">
+	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=day&single=<?php echo $a['name']?>" class="label label-info" title="<?php echo $units;?>">
 		<?php
 		$rows = $dbs->query("SELECT round(sum(value),4) AS sums FROM def WHERE time >= datetime('now','localtime','start of day')") or die('lol');
 		$i = $rows->fetch(); 
@@ -64,7 +64,7 @@ if ( $numRows > '0' ) { ?>
 	</td>
 	<td>
 	    <small>
-	    <a href="index.php?id=view&type=elec&max=month&single=<?php echo $a['name']?>" class="label label-info" title="kWh">
+	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=month&single=<?php echo $a['name']?>" class="label label-info" title="<?php echo $units;?>">
 		<?php
 		$rows = $dbs->query("SELECT round(sum(value),4) AS sums FROM def WHERE time >= datetime('now','localtime','start of month')") or die('lol');
 		$i = $rows->fetch(); 
@@ -75,7 +75,7 @@ if ( $numRows > '0' ) { ?>
 	</td>
 	<td>
 	    <small>
-	    <a href="index.php?id=view&type=elec&max=day&single=<?php echo $a['name']?>" class="label label-danger" title="kWh">
+	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=all&single=<?php echo $a['name']?>" class="label label-danger" title="<?php echo $units;?>">
 		<?php
 		    echo number_format($a['sum'], 2, '.', ',')." ";
 		?>
@@ -84,11 +84,11 @@ if ( $numRows > '0' ) { ?>
 	</td>
 	<td>
 	    <small>
-	    <a href="index.php?id=view&type=elec&max=day&single=<?php echo $a['name']?>&mode=2" class="label label-warning" title="W">
+	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=day&single=<?php echo $a['name']?>&mode=2" class="label label-warning" title="<?php echo $units2;?>">
 		<?php
 		//$rows = $dbs->query("SELECT current AS sums from def where time = (select max(time) from def)") or die('lol');
 		//$i = $rows->fetch(); 
-		echo number_format($a['current'], 3, '.', ',')." ";
+		echo number_format($a['current'], 2, '.', ',')." ";
 		?>
 	    </a>
 	    </small>

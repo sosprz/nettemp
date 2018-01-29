@@ -15,10 +15,10 @@ if (($onoff == "onoff")){
     
     if ($simple == 'on'){
 	include('modules/gpio/html/gpio_on.php');
-	$db->exec("UPDATE gpio SET simple='$simple', status='ON' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+	$db->exec("UPDATE gpio SET simple='$simple', status='ON' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
     } else { 
 	include('modules/gpio/html/gpio_off.php');
-	$db->exec("UPDATE gpio SET simple='$simple', status='OFF' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+	$db->exec("UPDATE gpio SET simple='$simple', status='OFF' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
     }
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -41,13 +41,13 @@ $triggeronoff = isset($_POST['triggeronoff']) ? $_POST['triggeronoff'] : '';
 $trigger = isset($_POST['trigger']) ? $_POST['trigger'] : '';
 if ($triggeronoff == "onoff")  {
     if ( $trigger == 'on' ) {
-	$db->exec("UPDATE gpio SET trigger_run='on', status='Wait' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+	$db->exec("UPDATE gpio SET trigger_run='on', status='Wait' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
 	$db = null;
 	$cmd=("nohup modules/gpio/trigger_proc $gpio_post");
         shell_exec( $cmd . "> /dev/null 2>/dev/null &" );
 
     } else {
-	$db->exec("UPDATE gpio SET trigger_run='', status='CONTROLS OFF' WHERE gpio='$gpio_post'") or exit(header("Location: html/errors/db_error.php"));
+	$db->exec("UPDATE gpio SET trigger_run='', status='CONTROLS OFF' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
 	$db = null;
 	shell_exec("modules/gpio/trigger_close $gpio_post");
     }
