@@ -20,13 +20,13 @@ if(!empty($rom) && !empty($delolder)) {
 		//$dt= datetime('now','localtime','-10 day');
 	
 		$db2->exec("DELETE FROM def WHERE time <= datetime('now','localtime','$delolder')") or die ("No data to delete." );
-		$db2->exec("vacuum") or die ("No data to delete." );
+		
 		
 	} else {
 		
 		$db2->exec("DELETE FROM def") or die ("cannot insert to DB humi2 " );
 	}
-			
+	$db2->exec("vacuum") or die ("No vacuum." );	
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 
