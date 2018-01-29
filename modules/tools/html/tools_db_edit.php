@@ -55,7 +55,7 @@ if(!empty($rom) && !empty($delolder)) {
 	<form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="rom" value="<?php echo $a['rom']?>" />
     <button class="btn btn-xs btn-danger">1 mth</button>
-    <input type="hidden" name="delolder" value="-1 day" />
+    <input type="hidden" name="delolder" value="-1 months" />
     </form>
 	
 	<form action="" method="post" style="display:inline!important;">
