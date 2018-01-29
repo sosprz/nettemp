@@ -5,6 +5,38 @@
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors");
 $row = $rows->fetchAll();
+
+
+//DEL from Def
+$rom = isset($_POST['rom']) ? $_POST['rom'] : '';
+$delolder = isset($_POST['delolder']) ? $_POST['delolder'] : '';
+
+if(!empty($rom) && !empty($delolder)) { 
+
+	$db = new PDO("sqlite:db/$rom.sql");
+	
+	if ($delolder !="all") {
+	
+		$db->exec("DELETE FROM def WHERE time <= datetime('now','localtime','$delolder'");
+		
+	} else {
+		
+		$db->exec("DELETE * FROM def");
+	}
+			
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+
+} 
+
+
+
+
+
+
+
+
+
 ?>
 <table class="table table-striped table-hover small">
 <thead>
@@ -26,31 +58,31 @@ $row = $rows->fetchAll();
 	
 	<td class="col-md-2">
 	<form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
+    <input type="hidden" name="rom" value="<?php echo $a['rom']?>" />
     <button class="btn btn-xs btn-danger">1 mth</button>
-    <input type="hidden" name="delolder" value="month" />
+    <input type="hidden" name="delolder" value="-1 hour" />
     </form>
 	
 	<form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
+    <input type="hidden" name="rom" value="<?php echo $a['rom']?>" />
     <button class="btn btn-xs btn-danger">3 mth</button>
-    <input type="hidden" name="delolder" value="threemont" />
+    <input type="hidden" name="delolder" value="-3 months" />
     </form>
 	
 	<form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
+    <input type="hidden" name="rom" value="<?php echo $a['rom']?>" />
     <button class="btn btn-xs btn-danger">6 mth</span></button>
-    <input type="hidden" name="delolder" value="sixmonth" />
+    <input type="hidden" name="delolder" value="-6 months" />
     </form>
 	
 	<form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
+    <input type="hidden" name="rom" value="<?php echo $a['rom']?>" />
     <button class="btn btn-xs btn-danger">Year</span></button>
-    <input type="hidden" name="delolder" value="year" />
+    <input type="hidden" name="delolder" value="-1 year" />
     </form>
 	
 	<form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
+    <input type="hidden" name="rom" value="<?php echo $a['rom']?>" />
     <button class="btn btn-xs btn-danger">All</button>
     <input type="hidden" name="delolder" value="all" />
     </form>
