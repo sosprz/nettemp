@@ -208,7 +208,7 @@ var hc = function () {
             seriesOptions[i] = {
                 name: name,
                 data: data,
-        	type: 'spline',
+        	type: 'column',
         	dataGrouping: {
     		enabled: true,
     		forced: false,
