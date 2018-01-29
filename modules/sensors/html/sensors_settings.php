@@ -265,6 +265,19 @@ if ( $lcd == "lcd"){
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+	
+	$jg_min_new = isset($_POST['jg_min_new']) ? $_POST['jg_min_new'] : '';
+    $jg_max_new = isset($_POST['jg_max_new']) ? $_POST['jg_max_new'] : '';
+    $jg_id = isset($_POST['jg_id']) ? $_POST['jg_id'] : '';
+	
+	
+	if (!empty($jg_id) && ($_POST['ok'] == "ok")){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET jg_min='$jg_min_new' WHERE id='$jg_id'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE sensors SET jg_max='$jg_max_new' WHERE id='$jg_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
     
 ?> 
 
@@ -491,8 +504,8 @@ $row = $rows->fetchAll();
 
     <form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
-		<input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" />
-		<input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" />
+		<input type="text" name="tmp_min_new" size="2" value="<?php echo $a['tmp_min']; ?>" />
+		<input type="text" name="tmp_max_new" size="2" value="<?php echo $a['tmp_max']; ?>" />
 		<input type="hidden" name="ok" value="ok" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
@@ -595,6 +608,17 @@ $row = $rows->fetchAll();
     </td>
     
     <td class="col-md-0">
+	
+	<form action="" method="post" style="display:inline!important;"> 
+		<input type="hidden" name="jg_id" value="<?php echo $a['id']; ?>" />
+		<input type="text" name="jg_min_new" size="2" value="<?php echo $a['jg_min']; ?>" />
+		<input type="text" name="jg_max_new" size="2" value="<?php echo $a['jg_max']; ?>" />
+		<input type="hidden" name="ok" value="ok" />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+    </form>
+	
+	
+	
     <form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="jgid" value="<?php echo $a["id"]; ?>" />
 		<button type="submit" name="jgon" value="<?php echo $a["jg"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["jg"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
