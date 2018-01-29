@@ -27,19 +27,19 @@ $row = $rows->fetchAll();
 	<td class="col-md-2">
 	<form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
-    <button class="btn btn-xs btn-danger">1 month</button>
+    <button class="btn btn-xs btn-danger">1 mth</button>
     <input type="hidden" name="delolder" value="month" />
     </form>
 	
 	<form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
-    <button class="btn btn-xs btn-danger">3 months</button>
+    <button class="btn btn-xs btn-danger">3 mth</button>
     <input type="hidden" name="delolder" value="threemont" />
     </form>
 	
 	<form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
-    <button class="btn btn-xs btn-danger">6 months</span></button>
+    <button class="btn btn-xs btn-danger">6 mth</span></button>
     <input type="hidden" name="delolder" value="sixmonth" />
     </form>
 	
@@ -57,7 +57,7 @@ $row = $rows->fetchAll();
     </td>
 	
 	
-    <td class="col-md-5">
+    <td class="col-md-8">
     <form action="?id=tools&type=dbedit2&file=<?php echo $a['rom']?>" method="post" style="display:inline!important;">
     <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
     <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
