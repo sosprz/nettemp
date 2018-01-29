@@ -210,8 +210,9 @@ var hc = function () {
                 data: data,
         	type: 'column',
         	dataGrouping: {
-    		enabled: false,
+    		enabled: true,
     		forced: false,
+			approximation: avarage,
 		units: [[xhour,[1]]]
 		},
 		tooltip: {
