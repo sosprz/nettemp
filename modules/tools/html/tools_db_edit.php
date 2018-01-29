@@ -13,15 +13,15 @@ $delolder = isset($_POST['delolder']) ? $_POST['delolder'] : '';
 
 if(!empty($rom) && !empty($delolder)) { 
 
-	$db = new PDO("sqlite:db/$rom.sql");
+	$db2 = new PDO("sqlite:db/$rom.sql");
 	
 	if ($delolder !="all") {
 	
-		$db->exec("DELETE FROM def WHERE time <= datetime('now','localtime',$delolder)");
+		$db2->exec("DELETE FROM def WHERE time <= datetime('now','localtime',$delolder)");
 		
 	} else {
 		
-		$db->exec("DELETE * FROM def");
+		$db2->exec("DELETE * FROM def");
 	}
 			
     header("location: " . $_SERVER['REQUEST_URI']);
