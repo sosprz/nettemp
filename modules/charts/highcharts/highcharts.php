@@ -212,7 +212,7 @@ var hc = function () {
         	dataGrouping: {
     		enabled: true,
     		forced: false,
-			approximation: 'average',
+			approximation: 'high',
 		units: [[xhour,[1]]]
 		},
 		tooltip: {
