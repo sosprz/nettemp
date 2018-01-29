@@ -210,7 +210,7 @@ var hc = function () {
                 data: data,
         	type: 'spline',
         	dataGrouping: {
-    		enabled: true,
+    		enabled: false,
     		forced: false,
 		units: [[xhour,[1]]]
 		},
