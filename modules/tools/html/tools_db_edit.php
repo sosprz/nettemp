@@ -17,11 +17,11 @@ if(!empty($rom) && !empty($delolder)) {
 	
 	if ($delolder !="all") {
 	
-		$db2->exec("DELETE FROM def WHERE time <= datetime('now','localtime',$delolder)");
+		$db2->exec("DELETE FROM def WHERE time <= datetime('now','localtime',$delolder)") or die ("cannot insert to DB humi" );
 		
 	} else {
 		
-		$db2->exec("DELETE * FROM def");
+		$db2->exec("DELETE * FROM def") or die ("cannot insert to DB humi2 " );
 	}
 			
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -52,7 +52,7 @@ if(!empty($rom) && !empty($delolder)) {
 	<td class="col-md-2">
 	<form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="rom" value="<?php echo $a['rom']?>" />
-    <button class="btn btn-xs btn-danger">1 mth <?php echo $delolder;?></button>
+    <button class="btn btn-xs btn-danger">1 mth</button>
     <input type="hidden" name="delolder" value="-1 months" />
     </form>
 	
