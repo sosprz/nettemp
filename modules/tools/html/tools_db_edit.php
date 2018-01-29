@@ -17,7 +17,7 @@ if(!empty($rom) && !empty($delolder)) {
 	
 	if ($delolder !="all") {
 	
-		$db2->exec("DELETE FROM def WHERE time <= datetime('now','localtime',$delolder)") or die ("cannot insert to DB humi" );
+		$db2->exec("DELETE FROM def WHERE time <= datetime('now','localtime','-1 months')") or die ("cannot insert to DB humi" );
 		
 	} else {
 		
