@@ -211,7 +211,7 @@ var hc = function () {
         	type: 'column',
         	dataGrouping: {
     		enabled: true,
-    		forced: false,
+    		forced: true,
 			approximation: 'high',
 		units: [[xhour,[1]]]
 		},
@@ -230,6 +230,7 @@ var hc = function () {
         	dataGrouping: {
     		enabled: true,
     		forced: true,
+			approximation: 'high',
 		units: [[xhour,[1]]]
 		},
 		tooltip: {
