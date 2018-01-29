@@ -28,6 +28,37 @@ $row = $rows->fetchAll();
     <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
     <input type="hidden" name="csv" value="get" />
     </form>
+	
+	
+	<form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
+    <button class="btn btn-xs btn-success">1 month<span class="glyphicon glyphicon-trash"></span></button>
+    <input type="hidden" name="delolder" value="month" />
+    </form>
+	
+	<form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
+    <button class="btn btn-xs btn-success">3 months<span class="glyphicon glyphicon-trash"></span></button>
+    <input type="hidden" name="delolder" value="threemont" />
+    </form>
+	
+	<form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
+    <button class="btn btn-xs btn-success">6 months<span class="glyphicon glyphicon-trash"></span></button>
+    <input type="hidden" name="delolder" value="sixmonth" />
+    </form>
+	
+	<form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
+    <button class="btn btn-xs btn-success">Year<span class="glyphicon glyphicon-trash"></span></button>
+    <input type="hidden" name="delolder" value="year" />
+    </form>
+	
+	<form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
+    <button class="btn btn-xs btn-success">All<span class="glyphicon glyphicon-trash"></span></button>
+    <input type="hidden" name="delolder" value="all" />
+    </form>
     </td>
 </tr>
 <?php 
