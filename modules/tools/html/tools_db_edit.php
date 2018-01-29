@@ -21,7 +21,8 @@ $row = $rows->fetchAll();
     foreach ($row as $a) { 	
 ?>
 <tr>
-   
+    <td class="col-md-1"><?php echo $a['name']?></td>
+    <td class="col-md-1"><?php echo $a['rom']?></td>
 	
 	<td>
 	<form action="" method="post" style="display:inline!important;">
@@ -55,8 +56,7 @@ $row = $rows->fetchAll();
     </form>
     </td>
 	
-	 <td class="col-md-1"><?php echo $a['name']?></td>
-    <td class="col-md-1"><?php echo $a['rom']?></td>
+	
     <td class="col-md-5">
     <form action="?id=tools&type=dbedit2&file=<?php echo $a['rom']?>" method="post" style="display:inline!important;">
     <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
