@@ -15,9 +15,8 @@ if(!empty($rom) && !empty($delolder)) {
 
 	$db2 = new PDO("sqlite:db/$rom.sql");
 	
-	if ($delolder !="all") {
+	if ($delolder !='all') {
 		
-		//$dt= datetime('now','localtime','-10 day');
 	
 		$db2->exec("DELETE FROM def WHERE time <= datetime('now','localtime','$delolder')") or die ("No data to delete." );
 		
