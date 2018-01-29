@@ -595,6 +595,17 @@ $row = $rows->fetchAll();
     </td>
     
     <td class="col-md-0">
+	
+	<form action="" method="post" style="display:inline!important;"> 
+		<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
+		<input type="text" name="tmp_min_new" size="3" value="<?php echo $a['tmp_min']; ?>" />
+		<input type="text" name="tmp_max_new" size="3" value="<?php echo $a['tmp_max']; ?>" />
+		<input type="hidden" name="ok" value="ok" />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+    </form>
+	
+	
+	
     <form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="jgid" value="<?php echo $a["id"]; ?>" />
 		<button type="submit" name="jgon" value="<?php echo $a["jg"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["jg"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
