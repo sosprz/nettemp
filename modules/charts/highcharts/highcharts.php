@@ -228,8 +228,8 @@ var hc = function () {
         	type: 'spline',
         	dataGrouping: {
     		enabled: true,
-    		forced: false,
-		units: [[xhour,[1]]]
+    		forced: true,
+		
 		},
 		tooltip: {
 		    valueSuffix: n_units, 
