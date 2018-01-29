@@ -522,11 +522,9 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
                     unset($set);
                     unset($state);
 					?>
-					
 					<td style="vertical-align:middle">
 						Mins:
 					</td>
-					
 					<td>
 					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input type="number" style="width: 4em;" onchange="this.form.submit()" name="value_update_from_status" value="<?php echo $g['time_offset'] ?>" />
@@ -544,11 +542,9 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					</td>
 					<?php 
 					}
-					
 												
 					} 
 	
-				
 				/* MOMENT IP*/
 				elseif($g['mode']=='moment'&&!empty($s['ip'])) {
 					?>
@@ -618,7 +614,6 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<td style="vertical-align:middle">
 						Value:
 					</td>
-					
 					<td>
 					<form class="form-horizontal" action="" method="post" style=" display:inline!important;">
 						<input type="number" style="width: 4em;" onchange="this.form.submit()" name="value_update_from_status" value="<?php echo $gf['value'] ?>" />
@@ -638,12 +633,10 @@ if(!empty($ip_gpio)||!empty($sensors_relay)) {
 					<?php
 					} 
 			}else {
-	
 					?>
 					<td style="vertical-align:middle">
 						Value:
 					</td>
-					
 					<td class="col-md-2">
 					<span class="label label-warning">NO DP</span>
 					</td>
