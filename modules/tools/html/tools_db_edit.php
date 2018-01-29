@@ -20,6 +20,7 @@ if(!empty($rom) && !empty($delolder)) {
 		//$dt= datetime('now','localtime','-10 day');
 	
 		$db2->exec("DELETE FROM def WHERE time <= datetime('now','localtime','$delolder')") or die ("No data to delete." );
+		$db2->exec("vacuum") or die ("No data to delete." );
 		
 	} else {
 		
