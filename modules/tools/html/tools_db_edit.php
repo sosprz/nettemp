@@ -21,7 +21,7 @@ if(!empty($rom) && !empty($delolder)) {
 		
 	} else {
 		
-		$db2->exec("DELETE * FROM def") or die ("cannot insert to DB humi2 " );
+		$db2->exec("DELETE FROM def") or die ("cannot insert to DB humi2 " );
 	}
 			
     header("location: " . $_SERVER['REQUEST_URI']);
