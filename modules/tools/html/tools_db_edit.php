@@ -17,7 +17,7 @@ if(!empty($rom) && !empty($delolder)) {
 	
 	if ($delolder !="all") {
 		
-		$dt= datetime('now','localtime','-10 day');
+		//$dt= datetime('now','localtime','-10 day');
 	
 		$db2->exec("DELETE FROM 'def' WHERE time <= datetime('now','localtime','-10 day')") or die ("cannot insert to DB humi" );
 		
