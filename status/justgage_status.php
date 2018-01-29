@@ -81,8 +81,8 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         								echo $a['tmp'];
         								}
         			?>,
-        <?php if(!empty($a['tmp_min']) && !empty($a['tmp_max'])) {
-        	echo "min:".$a['tmp_min'].", max:".$a['tmp_max'].",";
+        <?php if(!empty($a['jg_min']) && !empty($a['jg_max'])) {
+        	echo "min:".$a['jg_min'].", max:".$a['jg_max'].",";
         	} ?>
         title: "<?php echo str_replace("_", " ", $a['name'])?>",
         label: n_units

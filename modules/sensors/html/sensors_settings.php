@@ -266,6 +266,11 @@ if ( $lcd == "lcd"){
     exit();
     }
 	
+	$jg_min_new = isset($_POST['jg_min_new']) ? $_POST['jg_min_new'] : '';
+    $jg_max_new = isset($_POST['jg_max_new']) ? $_POST['jg_max_new'] : '';
+    $jg_id = isset($_POST['jg_id']) ? $_POST['jg_id'] : '';
+	
+	
 	if (!empty($jg_id) && ($_POST['ok'] == "ok")){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE sensors SET jg_min='$jg_min_new' WHERE id='$jg_id'") or die ($db->lastErrorMsg());
