@@ -11,6 +11,7 @@ $row = $rows->fetchAll();
 <tr>
 <th>Name</th>
 <th>Rom</th>
+<th>Delete older than:</th>
 <th>Edit</th>
 </tr>
 </thead>
@@ -20,16 +21,9 @@ $row = $rows->fetchAll();
     foreach ($row as $a) { 	
 ?>
 <tr>
-    <td class="col-md-1"><?php echo $a['name']?></td>
-    <td class="col-md-1"><?php echo $a['rom']?></td>
-    <td class="col-md-5">
-    <form action="?id=tools&type=dbedit2&file=<?php echo $a['rom']?>" method="post" style="display:inline!important;">
-    <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
-    <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
-    <input type="hidden" name="csv" value="get" />
-    </form>
+   
 	
-	
+	<td>
 	<form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
     <button class="btn btn-xs btn-success">1 month<span class="glyphicon glyphicon-trash"></span></button>
@@ -60,6 +54,16 @@ $row = $rows->fetchAll();
     <input type="hidden" name="delolder" value="all" />
     </form>
     </td>
+	
+	 <td class="col-md-1"><?php echo $a['name']?></td>
+    <td class="col-md-1"><?php echo $a['rom']?></td>
+    <td class="col-md-5">
+    <form action="?id=tools&type=dbedit2&file=<?php echo $a['rom']?>" method="post" style="display:inline!important;">
+    <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
+    <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></button>
+    <input type="hidden" name="csv" value="get" />
+    </form>
+	</td>
 </tr>
 <?php 
     }
