@@ -24,34 +24,34 @@ $row = $rows->fetchAll();
     <td class="col-md-1"><?php echo $a['name']?></td>
     <td class="col-md-1"><?php echo $a['rom']?></td>
 	
-	<td>
+	<td class="col-md-2">
 	<form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
-    <button class="btn btn-xs btn-success">1 month<span class="glyphicon glyphicon-trash"></span></button>
+    <button class="btn btn-xs btn-danger">1 month</button>
     <input type="hidden" name="delolder" value="month" />
     </form>
 	
 	<form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
-    <button class="btn btn-xs btn-success">3 months<span class="glyphicon glyphicon-trash"></span></button>
+    <button class="btn btn-xs btn-danger">3 months</button>
     <input type="hidden" name="delolder" value="threemont" />
     </form>
 	
 	<form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
-    <button class="btn btn-xs btn-success">6 months<span class="glyphicon glyphicon-trash"></span></button>
+    <button class="btn btn-xs btn-danger">6 months</span></button>
     <input type="hidden" name="delolder" value="sixmonth" />
     </form>
 	
 	<form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
-    <button class="btn btn-xs btn-success">Year<span class="glyphicon glyphicon-trash"></span></button>
+    <button class="btn btn-xs btn-danger">Year</span></button>
     <input type="hidden" name="delolder" value="year" />
     </form>
 	
 	<form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="file" value="<?php echo $a['rom']?>" />
-    <button class="btn btn-xs btn-success">All<span class="glyphicon glyphicon-trash"></span></button>
+    <button class="btn btn-xs btn-danger">All</button>
     <input type="hidden" name="delolder" value="all" />
     </form>
     </td>
