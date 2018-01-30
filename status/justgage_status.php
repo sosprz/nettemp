@@ -54,10 +54,10 @@ if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max'])) {
 					$old_read=86400;
 				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || strtotime($a['time'])<(time()-(7*$old_read))){
 					$titfoncol='#d9534f'; 
-					$err='1';
+					$err = '1';
 				    } elseif (strtotime($a['time'])<(time()-$old_read)){
 					$titfoncol='#f0ad4e'; 
-					$err='1';
+					$err = '1';
 				    }else{
 					$titfoncol='#8c8c8c'; 
 				    }		
@@ -111,11 +111,11 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         	} ?>
         titleFontColor: "<?php echo $titfoncol ?>",
 		
-		<?php if ($err=="1") {?>
-			title: "<?php echo "!! ".str_replace("_", " ", $a['name'])." !!"?>",
-		<?php } else { ?>
-			title: "<?php echo str_replace("_", " ", $a['name'])?>",
-		<?php} ?>
+		<?php if ($err == "1") {
+			echo "title:"."!! ".str_replace("_", " ", $a['name'])." !!".",";
+		} else {
+			echo "title:".str_replace("_", " ", $a['name']).",";
+		} ?>
         label: n_units
 	
       });
