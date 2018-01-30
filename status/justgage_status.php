@@ -35,7 +35,7 @@ $result_t = $query->fetchAll();
 $KtoryWidget = 1;
 foreach ($result as $a) { 
 $type='';
-$name='';
+$name=str_replace("_", " ", $a['name']);
 $time='';
 $valfoncol='';
 $titfoncol='';
@@ -114,7 +114,7 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
 		<?php if ($err == "1") {
 			echo "title:"."!! ".str_replace("_", " ", $a['name'])." !!".",";
 		} else {
-			echo "title:" str_replace("_", " ", $a['name']) ",";
+			echo "title:".$name.",";
 		} ?>
         label: n_units
 	
