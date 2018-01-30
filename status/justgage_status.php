@@ -39,6 +39,7 @@ $name='';
 $time='';
 $valfoncol='';
 $titfoncol='';
+$err='';
 
 // value colours - alarm colours
 if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max'])) { 
@@ -51,16 +52,16 @@ if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max'])) {
 		
 // title colours - read colours
 					$old_read=86400;
-				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || ($label=='danger') || strtotime($a['time'])<(time()-(7*$old_read))){
+				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || strtotime($a['time'])<(time()-(7*$old_read))){
 					$titfoncol='#d9534f'; 
+					$err='1';
 				    } elseif (strtotime($a['time'])<(time()-$old_read)){
 					$titfoncol='#f0ad4e'; 
+					$err='1';
 				    }else{
 					$titfoncol='#8c8c8c'; 
 				    }		
 
-
-	
 if ($a['normalized']=='on')
 {
 	$a['name']=$a['name'].' npm';
@@ -109,7 +110,12 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         	echo "min:".$a['jg_min'].", max:".$a['jg_max'].",";
         	} ?>
         titleFontColor: "<?php echo $titfoncol ?>",
-		title: "<?php echo str_replace("_", " ", $a['name'])?>",
+		
+		<?php if ($err=='1') {?>
+			title: "<?php echo "!! ".str_replace("_", " ", $a['name'])." !!"?>",
+		<?php } else { ?>
+			title: "<?php echo str_replace("_", " ", $a['name'])?>",
+		<?php} ?>
         label: n_units
 	
       });
