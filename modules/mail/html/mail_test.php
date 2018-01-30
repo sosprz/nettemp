@@ -40,11 +40,11 @@ if  ($send == "send") {
 	 } else { 
 ?>
 
-			<center><span class="label label-alert">Cannot send mail</span></center>
+			<center><span class="label label-warning">Cannot send mail</span></center>
 			<br>
 
 <?php
-	 }
+	 }S
 
 }
 
