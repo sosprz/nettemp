@@ -112,7 +112,7 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         titleFontColor: "<?php echo $titfoncol ?>",
 		
 		<?php if ($err == "1") {
-			echo "title:"."!! ".str_replace("_", " ", $a['name'])." !!".",";
+			//echo "title:"."!! ".str_replace("_", " ", $a['name'])." !!".",";
 		} else {
 			echo "title:".$name.",";
 		} ?>
