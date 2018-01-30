@@ -44,7 +44,7 @@ if  ($send == "send") {
 			<br>
 
 <?php
-	 }S
+	 }
 
 }
 
