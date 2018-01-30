@@ -37,6 +37,15 @@ foreach ($result as $a) {
 $type='';
 $name='';
 $time='';
+$valfoncol=''; 
+
+if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max'])) { 
+		    $valfoncol='red'; 
+		} elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min'])) { 
+		    $valfoncol='blue'; 
+		} else {$valfoncol='black'; }
+
+
 	
 if ($a['normalized']=='on')
 {
@@ -70,7 +79,8 @@ foreach($result_t as $ty){
 
 var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         id: "<?php echo $ch_g.$a['name']?>",
-        value: <?php 
+        valueFontColor: "<?php echo $valfoncol ?>",
+		value: <?php 
         				if($a['type']=='elec') {
 							echo $a['current'];
         				}
