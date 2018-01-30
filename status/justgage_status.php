@@ -86,10 +86,11 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         	} ?>
         title: "<?php echo str_replace("_", " ", $a['name'])?>",
         label: n_units
-		
+		<?php echo "<div>aaaaa</div>"?>
       });
+	  
 </script>
-<div>aaaaa</div>
+
 
 <?php
  }
