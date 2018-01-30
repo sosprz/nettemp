@@ -107,7 +107,7 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         								}
         			?>,
         <?php if(!empty($a['jg_min'])) {echo "min:".$a['jg_min'].",";} ?>
-		<?php if(!empty($a['jg_max'])) {echo "max:".$a['jg_max'].",";} ?>
+		<?php if(!empty($a['jg_max'])) {echo "max: 0".",";} ?>
 		
 		
         titleFontColor: "<?php echo $titfoncol ?>",
