@@ -40,9 +40,9 @@ $time='';
 $valfoncol=''; 
 
 if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max'])) { 
-		    $valfoncol='red'; 
+		    $valfoncol='#d9534f'; 
 		} elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min'])) { 
-		    $valfoncol='blue'; 
+		    $valfoncol='#5bc0de'; 
 		} else {$valfoncol='black'; }
 
 
