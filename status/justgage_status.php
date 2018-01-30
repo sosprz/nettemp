@@ -114,7 +114,7 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
 		<?php if ($err == '1') {
 			//echo "title:"."!! ".str_replace("_", " ", $a['name'])." !!".",";
 		} else {
-			echo "title:".$name.",";
+			echo "title:"."ddddd".",";
 		} ?>
         label: n_units
 	
