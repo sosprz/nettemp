@@ -110,7 +110,7 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         	echo "min:".$a['jg_min'].", max:".$a['jg_max'].",";
         	} ?>
         titleFontColor: "<?php echo $titfoncol ?>",
-		title: "<?php if ($err=='') {echo str_replace("_", " ", $a['name'])}?>",
+		title: "<?php if ($err=='') {echo str_replace("_", " ", $a['name']);}?>",
         label: n_units
 	
       });
