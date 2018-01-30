@@ -89,7 +89,7 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
 		
       });
 </script>
-
+<div>aaaaa</div>
 
 <?php
  }
