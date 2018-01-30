@@ -35,7 +35,7 @@ $result_t = $query->fetchAll();
 $KtoryWidget = 1;
 foreach ($result as $a) { 
 $type='';
-$name=str_replace("_", " ", $a['name']);
+$name='';
 $time='';
 $valfoncol='';
 $titfoncol='';
@@ -54,10 +54,10 @@ if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max'])) {
 					$old_read=86400;
 				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || strtotime($a['time'])<(time()-(7*$old_read))){
 					$titfoncol='#d9534f'; 
-					$err = '1';
+					$err='1';
 				    } elseif (strtotime($a['time'])<(time()-$old_read)){
 					$titfoncol='#f0ad4e'; 
-					$err = '1';
+					$err='1';
 				    }else{
 					$titfoncol='#8c8c8c'; 
 				    }		
@@ -110,12 +110,7 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         	echo "min:".$a['jg_min'].", max:".$a['jg_max'].",";
         	} ?>
         titleFontColor: "<?php echo $titfoncol ?>",
-		
-		<?php if ($err == '1') {
-			//echo "title:"."!! ".str_replace("_", " ", $a['name'])." !!".",";
-		} else {
-			echo "title: dddddddd,";
-		} ?>
+		title: "<?php echo str_replace("_", " ", $a['name'])?>",
         label: n_units
 	
       });
