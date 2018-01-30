@@ -22,7 +22,7 @@
 
 
 To Do:
-- pimowo wykresy
+
 - gpio Time przepisać na php, logi, dodać obsługę ip
 wykresy - ładowanie do bazy - konflikt ip/gpio
 Wsadzanie do def - ip/gpio
@@ -30,7 +30,6 @@ Wsadzanie do def - ip/gpio
 poprawka świeżak - status urządzen ip
 
 mcp dla day.php
-Kolorowanie JG jeśli brak odczytów
 Binding sensors do gpio w statusie - bez logowania.
 
 
