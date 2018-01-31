@@ -57,7 +57,14 @@ if (isset($_POST['text'.$v]))
     <div style="height:300px;overflow:auto;padding:5px;">
 	<textarea name="<?php echo text.$v?>"><?php echo $bodys ?></textarea><br />
     </div>
-   <button class="btn btn-xs btn-success" type="submit">Save</button>
+  
+   
+   <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+	<input type="hidden" name="name_id" value="<?php echo $bodys; ?>" />
+	<input type="hidden" name="ow" value="ow"/>
+   
+   
+   
   </form>
 </div>
 </div>
