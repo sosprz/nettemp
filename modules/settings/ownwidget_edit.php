@@ -16,7 +16,33 @@ $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM ownwidget");
 $row = $rows->fetchAll();
 foreach($row as $z) {
-	$bodys = $z['body'];
+	$owbodys = $z['body'];
+	$owname = $z['name'];
+	
+	?>
+	
+	<div class="panel panel-default">
+  <div class="panel-heading"><?php echo "Widget ".$v;?></div>
+  <div class="panel-body">
+
+  <form action="" method="post">
+    <div style="height:300px;overflow:auto;padding:5px;">
+	<textarea name="bodystext"><?php echo$z['body'];?></textarea><br />
+    </div>
+	
+	<input type="hidden" name="ow" value="ow"/>
+	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+   
+   
+   
+  </form>
+</div>
+</div>
+	
+<?php	
+	
+	
+	
 }
 
 ?>
