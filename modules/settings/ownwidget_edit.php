@@ -2,6 +2,7 @@
 
 
 $ow = isset($_POST['ow']) ? $_POST['ow'] : '';
+$ow_name = isset($_POST['ow_name']) ? $_POST['ow_name'] : '';
 $bodystext = isset($_POST['bodystext']) ? $_POST['bodystext'] : '';
 $name_new = isset($_POST['name_new']) ? $_POST['name_new'] : '';
 $id= isset($_POST['id']) ? $_POST['id'] : '';
@@ -14,7 +15,7 @@ if(!empty($id) && ($ow == "ow")) {
 } 
 
 
-if(!empty($id) && !empty($name_new)) { 
+if(!empty($id) && !empty($name_new) && ($ow_name == "ow_name")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE ownwidget SET name='$name_new' WHERE id='$id'");
 	header("location: " . $_SERVER['REQUEST_URI']);
