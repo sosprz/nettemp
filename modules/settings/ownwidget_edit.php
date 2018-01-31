@@ -3,9 +3,20 @@
 
 $ow = isset($_POST['ow']) ? $_POST['ow'] : '';
 $bodystext = isset($_POST['bodystext']) ? $_POST['bodystext'] : '';
-if($ow == "ow") { 
+$name_new = isset($_POST['name_new']) ? $_POST['name_new'] : '';
+$id= isset($_POST['id']) ? $_POST['id'] : '';
+
+if(!empty($id) && ($ow == "ow")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE ownwidget SET body='$bodystext' WHERE id='1'");
+	$db->exec("UPDATE ownwidget SET body='$bodystext' WHERE id='$id'");
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();	
+} 
+
+
+if(!empty($id) && !empty($name_new)) { 
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db->exec("UPDATE ownwidget SET name='$name_new' WHERE id='$id'");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
@@ -27,7 +38,7 @@ foreach($row as $z) {
   <form action="" method="post" style="display:inline!important;">
 		<input type="text" name="name_new" size="10" maxlength="30" value="<?php echo $z["name"]; ?>" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-		<input type="hidden" name="name_id" value="<?php echo $z["id"]; ?>" />
+		<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
 		<input type="hidden" name="ow_name" value="ow_name"/>
     </form>
   
