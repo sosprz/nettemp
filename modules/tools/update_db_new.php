@@ -47,5 +47,6 @@ $updates['2018-01-29 13:00:00'][]="ALTER TABLE sensors ADD jg_max  TEXT";
 
 //ownwidget updates
 $updates['2018-01-31 19:28:01'][]="CREATE TABLE ownwidget (id INTEGER PRIMARY KEY, name TEXT NOT NULL, body TEXT NOT NULL, onoff TEXT, iflogon TEXT)";
+$updates['2018-01-31 21:31:17'][]="ALTER TABLE ownwidget ADD position  TEXT BEFORE name";
 
 ?>
