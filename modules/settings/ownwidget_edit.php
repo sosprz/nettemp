@@ -22,13 +22,24 @@ foreach($row as $z) {
 	?>
 	
 	<div class="panel panel-default">
-  <div class="panel-heading"><?php echo "Widget ".$v;?></div>
+  <div class="panel-heading"><?php echo "Widget "?>
+  
+  <form action="" method="post" style="display:inline!important;">
+		<input type="text" name="name_new" size="10" maxlength="30" value="<?php echo $z["name"]; ?>" />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+		<input type="hidden" name="name_id" value="<?php echo $z["id"]; ?>" />
+		<input type="hidden" name="ow_name" value="ow_name"/>
+    </form>
+  
+  </div>
   <div class="panel-body">
 
   <form action="" method="post">
     <div style="height:300px;overflow:auto;padding:5px;">
 	<textarea name="bodystext"><?php echo$z['body'];?></textarea><br />
     </div>
+	
+	 
 	
 	<input type="hidden" name="ow" value="ow"/>
 	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
