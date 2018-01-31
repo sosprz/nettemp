@@ -66,13 +66,11 @@ if (isset($_POST['text'.$v]))
 
   <form action="" method="post">
     <div style="height:300px;overflow:auto;padding:5px;">
-	<textarea name="bodystext1"> <?php echo $bodys ?></textarea><br />
+	<textarea name="bodystext"> <?php echo $bodys;?></textarea><br />
     </div>
-  
-   
-   <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-	<input  name="bodystext" value="<?php echo $z['body']; ?>" />
+	
 	<input type="hidden" name="ow" value="ow"/>
+	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
    
    
    
