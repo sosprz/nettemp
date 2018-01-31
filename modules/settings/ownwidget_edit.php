@@ -5,7 +5,7 @@ $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM ownwidget");
 $row = $rows->fetchAll();
 foreach($row as $z) {
-	$bodys[]=$z['body'];
+	$bodys = $z['body'];
 }
 
 ?>
