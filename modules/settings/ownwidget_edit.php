@@ -1,5 +1,16 @@
 <?php 
 
+
+$ow = isset($_POST['ow']) ? $_POST['ow'] : '';
+$bodystext = isset($_POST['bodystext']) ? $_POST['bodystext'] : '';
+if($ow == "ow") { 
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db->exec("UPDATE ownwidget SET body='$bodystext' WHERE id='1'");
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();	
+} 
+
+
 $db = new PDO('sqlite:dbf/nettemp.db');
 
 $rows = $db->query("SELECT * FROM ownwidget");
@@ -60,7 +71,7 @@ if (isset($_POST['text'.$v]))
   
    
    <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-	<input type="hidden" name="name_id" value="<?php echo $bodys; ?>" />
+	<input type="hidden" name="bodystext" value="<?php echo $bodys; ?>" />
 	<input type="hidden" name="ow" value="ow"/>
    
    
