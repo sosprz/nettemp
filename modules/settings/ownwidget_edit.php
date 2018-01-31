@@ -52,7 +52,7 @@ foreach($row as $z) {
     </div>
 	
 	 
-	
+	<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
 	<input type="hidden" name="ow" value="ow"/>
 	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
    
