@@ -1,4 +1,4 @@
-<? php 
+<?php 
 
 $db = new PDO('sqlite:dbf/nettemp.db');
 
