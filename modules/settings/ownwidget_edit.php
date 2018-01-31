@@ -66,7 +66,7 @@ if (isset($_POST['text'.$v]))
 
   <form action="" method="post">
     <div style="height:300px;overflow:auto;padding:5px;">
-	<textarea name="bodystext"> <?php echo $z['body'];?></textarea><br />
+	<textarea name="bodystext"> <?php echo$z['body'];?></textarea><br />
     </div>
 	
 	<input type="hidden" name="ow" value="ow"/>
