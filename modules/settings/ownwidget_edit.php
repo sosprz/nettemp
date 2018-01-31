@@ -71,7 +71,7 @@ if (isset($_POST['text'.$v]))
   
    
    <button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-	<input type="hidden" name="bodystext" value="<?php echo $z['body']; ?>" />
+	<input  name="bodystext" value="<?php echo $z['body']; ?>" />
 	<input type="hidden" name="ow" value="ow"/>
    
    
