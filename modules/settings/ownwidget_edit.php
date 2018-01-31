@@ -34,10 +34,10 @@ foreach($row as $z) {
 	?>
 	
 	<div class="panel panel-default">
-  <div class="panel-heading"><?php echo "Widget "?>
+  <div class="panel-heading"><?php echo "Widget name:  "?>
   
   <form action="" method="post" style="display:inline!important;">
-		<input type="text" name="name_new" size="10" maxlength="30" value="<?php echo $z["name"]; ?>" />
+		<input type="text" name="name_new" size="15" maxlength="30" value="<?php echo $z["name"]; ?>" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 		<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
 		<input type="hidden" name="ow_name" value="ow_name"/>
