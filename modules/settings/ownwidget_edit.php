@@ -66,7 +66,7 @@ if (isset($_POST['text'.$v]))
 
   <form action="" method="post">
     <div style="height:300px;overflow:auto;padding:5px;">
-	<textarea name="bodystext"> <?php echo $bodys ?></textarea><br />
+	<textarea name="bodystext" value=" <?php echo $bodys; ?>" /><br />
     </div>
   
    
