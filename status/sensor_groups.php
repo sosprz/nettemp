@@ -21,7 +21,7 @@ foreach ($row_meteo as $a) {
 
 	if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 
-		$sth = $db->prepare("SELECT * FROM sensors WHERE position !=0 AND ch_group='$ch_g' AND type!='gpio' AND type!='elec' AND type!='water' AND type!='gas' AND ch_group!='switch' AND ch_group!='relay' AND logon =='on' AND (jg!='on' OR jg is null) ORDER BY position ASC");
+		$sth = $db->prepare("SELECT * FROM sensors WHERE position !=0 AND ch_group='$ch_g' AND type!='gpio' AND type!='elec' AND type!='water' AND type!='gas' AND ch_group!='switch' AND ch_group!='relay' AND (jg!='on' OR jg is null) ORDER BY position ASC");
 	} else {
 		
 		$sth = $db->prepare("SELECT * FROM sensors WHERE position !=0 AND ch_group='$ch_g' AND type!='gpio' AND type!='elec' AND type!='water' AND type!='gas' AND ch_group!='switch' AND ch_group!='relay' AND logon !='on' AND (jg!='on' OR jg is null) ORDER BY position ASC");
