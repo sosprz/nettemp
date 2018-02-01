@@ -15,27 +15,23 @@ if ( $numRows > '0' ) {
 	
 	<?php
 	
-	$statuson = $ow['onoff'];
-	$logon = $ow['iflogon'];
-	$bodys = $ow['body'];
-	
-	if (($statuson == "on") && ($logon == "off"))  { ?>
+	if (($ow['onoff'] == "on") && ($ow['iflogon'] == "off"))  { ?>
 		<div class="grid-item ow">
 		<div class="panel panel-default">
 			<div class="panel-heading"><?php echo $ow['name'];?></div>
-			<div class="panel-body"><?php include("$root/tmp/ownwidget".$bodys.".php");?> </div>
+			<div class="panel-body"><?php include("$root/tmp/ownwidget".$ow['body'].".php");?> </div>
 		</div>
 		</div>
 <?php	
 	
-		} else { if (($statuson == "on") && ($logon == "on"))  {
+		} else { if (($ow['onoff'] == "on") && ($ow['iflogon']))  {
 			
 			if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) { ?>
 
 			<div class="grid-item ow">
 			<div class="panel panel-default">
 				<div class="panel-heading"><?php echo $ow['name'];?></div>
-				<div class="panel-body"><?php include("$root/tmp/ownwidget".$bodys.".php");?> </div>
+				<div class="panel-body"><?php include("$root/tmp/ownwidget".$ow['body'].".php");?> </div>
 			</div>
 			</div>
 
