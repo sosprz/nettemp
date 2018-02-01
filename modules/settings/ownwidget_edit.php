@@ -26,11 +26,7 @@
 <?php 
 
 
-if (isset($_POST['text'.$ownum]))
-{
-    file_put_contents($file, $_POST['text'.$ownum]);
 
- }
 
 
 $ow = isset($_POST['ow']) ? $_POST['ow'] : '';
@@ -53,7 +49,7 @@ if(!empty($addow) && ($addow == "addow")) {
 //body
 if(!empty($id) && ($ow == "ow")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE ownwidget SET body='$bodystext' WHERE id='$id'");
+	//$db->exec("UPDATE ownwidget SET body='$bodystext' WHERE id='$id'");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
@@ -106,6 +102,12 @@ foreach($row as $z) {
 	
 	$file = "tmp/ownwidget".$ownum.".php";
     $text = file_get_contents($file);
+	
+	if (isset($_POST['text'.$ownum]))
+{
+    file_put_contents($file, $_POST['text'.$ownum]);
+
+ }
 	
 ?>
 
