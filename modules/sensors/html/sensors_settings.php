@@ -165,6 +165,15 @@ if ( $lcd == "lcd"){
     exit();
     }
     
+	$logon_id = isset($_POST['logon_id']) ? $_POST['logon_id'] : '';
+    $logon_on = isset($_POST['logon_on']) ? $_POST['logon_on'] : '';
+    $log_on = isset($_POST['log_on']) ? $_POST['log_on'] : '';
+    if ($log_on == "log_on"){
+    $db->exec("UPDATE sensors SET logon='$logon_on' WHERE id='$logon_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	
     $charts = isset($_POST['charts']) ? $_POST['charts'] : '';
     $chartsonoff = isset($_POST['chartsonoff']) ? $_POST['chartsonoff'] : '';
     $chartson = isset($_POST['chartson']) ? $_POST['chartson'] : '';
@@ -558,10 +567,10 @@ $row = $rows->fetchAll();
 	
 	<td class="col-md-0">
     <form action="" method="post" style="display:inline!important;" > 	
-		<input type="hidden" name="charts" value="<?php echo $a["id"]; ?>" />
-		<button type="submit" name="chartson" value="<?php echo $a["charts"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["charts"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
-	    <?php echo $a["charts"] == 'on' ? 'ON' : 'OFF'; ?></button>
-		<input type="hidden" name="chartsonoff" value="onoff" />
+		<input type="hidden" name="logon_id" value="<?php echo $a["id"]; ?>" />
+		<button type="submit" name="logon_on" value="<?php echo $a["logon"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["logon"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["logon"] == 'on' ? 'ON' : 'OFF'; ?></button>
+		<input type="hidden" name="log_on" value="log_on" />
     </form>
     </td>
 	
