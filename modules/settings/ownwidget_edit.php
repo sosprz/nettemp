@@ -32,33 +32,35 @@ foreach($row as $z) {
 	$owname = $z['name'];
 	
 	?>
-	
-	<div class="panel panel-default">
+
+  <div class="panel panel-default">
   <div class="panel-heading"><?php echo "Widget name:  "?>
   
-  <form action="" method="post" style="display:inline!important;">
-		<input type="text" name="name_new" size="15" maxlength="30" value="<?php echo $z["name"]; ?>" />
-		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-		<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
-		<input type="hidden" name="ow_name" value="ow_name"/>
-    </form>
+		  <form action="" method="post" style="display:inline!important;">
+				<input type="text" name="name_new" size="15" maxlength="30" value="<?php echo $z["name"]; ?>" />
+				<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+				<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
+				<input type="hidden" name="ow_name" value="ow_name"/>
+		  </form>
   
   </div>
   <div class="panel-body">
 
-  <form action="" method="post">
-    <div style="height:300px;overflow:auto;padding:5px;">
-	<textarea name="bodystext"><?php echo$z['body'];?></textarea><br />
-    </div>
-	
-	 
-	<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
-	<input type="hidden" name="ow" value="ow"/>
-	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-   
-   
-   
-  </form>
+		  <form action="" method="post">
+			<div style="height:300px;overflow:auto;padding:5px;">
+			<textarea name="bodystext"><?php echo$z['body'];?></textarea><br />
+			</div>
+			
+			<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
+			<input type="hidden" name="ow" value="ow"/>
+			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+		  </form>
+		  
+		   <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="onoff" value="<?php echo $z['onoff']; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarm" value="on" <?php echo $z["onoff"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="visibleonoff" value="visibleonoff" />
+    </form>
 </div>
 </div>
 	
