@@ -15,33 +15,27 @@ if ( $numRows > '0' ) {
 	
 	<?php
 	
-	//$statuson = $ow['onoff'];
-	//$logon = $ow['iflogon'];
-	//$bodys = $ow['body'];
+	$statuson = $ow['onoff'];
+	$logon = $ow['iflogon'];
+	$bodys = $ow['body'];
 	
-	 ?>
-	
-	
+	if (($statuson == "on") && ($logon == "off"))  { ?>
 		<div class="grid-item ow">
-		
-		<?php if (($ow['onoff'] == 'on') && ($ow['iflogon'] == 'off'))  { ?>
-		
-		
 		<div class="panel panel-default">
 			<div class="panel-heading"><?php echo $ow['name'];?></div>
-			<div class="panel-body"><?php include("$root/tmp/ownwidget".$ow['body'].".php");?> </div>
+			<div class="panel-body"><?php include("$root/tmp/ownwidget".$bodys.".php");?> </div>
 		</div>
 		</div>
 <?php	
 	
-		} else { if (($ow['onoff'] == "on") && ($ow['iflogon'] == "on"))  {
+		} else { if (($statuson == "on") && ($logon == "on"))  {
 			
 			if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) { ?>
 
 			<div class="grid-item ow">
 			<div class="panel panel-default">
 				<div class="panel-heading"><?php echo $ow['name'];?></div>
-				<div class="panel-body"><?php include("$root/tmp/ownwidget".$ow['body'].".php");?> </div>
+				<div class="panel-body"><?php include("$root/tmp/ownwidget".$bodys.".php");?> </div>
 			</div>
 			</div>
 
