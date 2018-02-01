@@ -56,7 +56,7 @@ if(!empty($id) && ($ow == "ow")) {
 	
 	//$db = new PDO('sqlite:dbf/nettemp.db');
 	//$db->exec("UPDATE ownwidget SET body='$bodystext' WHERE id='$id'");
-	//header("location: " . $_SERVER['REQUEST_URI']);
+	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
 
