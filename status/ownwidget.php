@@ -12,15 +12,12 @@ $numRows = count($row);
 if ( $numRows > '0' ) { 
 
 	foreach ($row as $ow) {?> 	
-	
-		<div class="panel-heading"><?php echo $ow['name'];?></div>
-		<div class="panel-body">
-		<?php echo $ow[body]; ?>
+		<div class="grid-item ">
+		<div class="panel panel-default">
+			<div class="panel-heading"><?php echo $ow['name'];?></div>
+			<div class="panel-body"><?php echo $ow[body]; ?></div>
 		</div>
-	
-	
-	
-	
+		</div>
 	
 <?php	
 	}
