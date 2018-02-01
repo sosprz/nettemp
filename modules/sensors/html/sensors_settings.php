@@ -341,6 +341,7 @@ $row = $rows->fetchAll();
 <th>Alarm / Min / Max</th>
 <th>New group</th>
 <th>Group</th>
+<th>Log on</th>
 <th>Charts
 
 	 <form action="" method="post" style="display:inline!important;">
@@ -554,6 +555,16 @@ $row = $rows->fetchAll();
     <input type="hidden" name="ch_group" value="<?php echo $a['id']; ?>" />
     </form>
     </td>
+	
+	<td class="col-md-0">
+    <form action="" method="post" style="display:inline!important;" > 	
+		<input type="hidden" name="charts" value="<?php echo $a["id"]; ?>" />
+		<button type="submit" name="chartson" value="<?php echo $a["charts"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["charts"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["charts"] == 'on' ? 'ON' : 'OFF'; ?></button>
+		<input type="hidden" name="chartsonoff" value="onoff" />
+    </form>
+    </td>
+	
 
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;" > 	
