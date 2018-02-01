@@ -12,6 +12,18 @@ $numRows = count($row);
 if ( $numRows > '0' ) { 
 
 	foreach ($row as $ow) {?> 	
+	
+	<?php
+	
+	$statuson = $ow['onnoff'];
+	$logon = $ow['iflogon'];
+	
+	if ($statuson == "on") {
+	
+	
+	?>
+	
+	
 		<div class="grid-item ">
 		<div class="panel panel-default">
 			<div class="panel-heading"><?php echo $ow['name'];?></div>
@@ -20,6 +32,8 @@ if ( $numRows > '0' ) {
 		</div>
 	
 <?php	
+	
+	}
 	}
 
 
