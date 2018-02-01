@@ -69,7 +69,7 @@ foreach($row as $z) {
 		  
 		   <form action="" method="post" style="display:inline!important;">
 			<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
-			<input type="checkbox" data-toggle="toggle" data-size="mini"  name="visible" value="on" <?php echo $z["onoff"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+			<button type="submit" name="visible" value="<?php echo $z["onoff"] == 'on' ? 'off' : 'on'; ?>" <?php echo $z["onoff"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>> <?php echo $z["onoff"] == 'on' ? 'ON' : 'OFF'; ?></button>
 			<input type="hidden" name="visibleonoff" value="visibleonoff" />
     </form>
 </div>
