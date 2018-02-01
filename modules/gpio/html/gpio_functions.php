@@ -207,14 +207,12 @@ $map_num2=substr(rand(), 0, 6);
 		if ($to_delete_id['id'] != '') {
 			$db->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]' AND type='gpio'");// or exit(header("Location: html/errors/db_error.php"));
 		}
-		$db->exec("DELETE FROM g_func WHERE gpio='$gpio_post' AND rom='$rom'");// POPRAWIĆ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		$db->exec("DELETE FROM g_func WHERE gpio='$gpio_post' AND rom='$rom'");
 		$db->exec("DELETE FROM gpio WHERE gpio='$gpio_post' AND rom='$rom'") or die ($db->lastErrorMsg());
 		$db = null;
 		header("location: " . $_SERVER['REQUEST_URI']);
 		exit();
 	}
-
-
 
 
 ?>
