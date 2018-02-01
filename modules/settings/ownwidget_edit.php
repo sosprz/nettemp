@@ -50,7 +50,7 @@ if(!empty($addow) && ($addow == "addow")) {
 //body
 if(!empty($id) && ($ow == "ow")) { 
 
-	file_put_contents("tmp/ownwidget".$ow_num.".php", $_POST['text'.$v]);
+	file_put_contents("tmp/ownwidget".$ow_num.".php", $_POST['text'.$ownum]);
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	//$db->exec("UPDATE ownwidget SET body='$bodystext' WHERE id='$id'");
 	header("location: " . $_SERVER['REQUEST_URI']);
