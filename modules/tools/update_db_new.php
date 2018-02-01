@@ -49,5 +49,5 @@ $updates['2018-01-29 13:00:00'][]="ALTER TABLE sensors ADD jg_max  TEXT";
 $updates['2018-01-31 19:28:01'][]="CREATE TABLE ownwidget (id INTEGER PRIMARY KEY, name TEXT NOT NULL, body TEXT NOT NULL, onoff TEXT, iflogon TEXT)";
 //sensors table update logon
 $updates['2018-02-01 19:30:52'][]="ALTER TABLE sensors ADD logon TEXT";
-$updates['2018-02-01 19:47:50'][]="UPDATE sensors SET logon='off'";
+$updates['2018-02-01 19:47:50'][]="UPDATE sensors SET logon='on'";
 ?>
