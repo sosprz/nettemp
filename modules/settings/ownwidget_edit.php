@@ -7,6 +7,7 @@ $bodystext = isset($_POST['bodystext']) ? $_POST['bodystext'] : '';
 $name_new = isset($_POST['name_new']) ? $_POST['name_new'] : '';
 $id= isset($_POST['id']) ? $_POST['id'] : '';
 
+//body
 if(!empty($id) && ($ow == "ow")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE ownwidget SET body='$bodystext' WHERE id='$id'");
@@ -14,10 +15,20 @@ if(!empty($id) && ($ow == "ow")) {
 	exit();	
 } 
 
-
+//name
 if(!empty($id) && !empty($name_new) && ($ow_name == "ow_name")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE ownwidget SET name='$name_new' WHERE id='$id'");
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();	
+}
+
+//visible
+$visibleonoff= isset($_POST['visibleonoff']) ? $_POST['visibleonoff'] : '';
+$visible= isset($_POST['visible']) ? $_POST['visible'] : '';
+if(!empty($id) && !empty($visible) && ($visibleonoff == "visibleonoff")) { 
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db->exec("UPDATE ownwidget SET onoff='$visible' WHERE id='$id'");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
@@ -57,9 +68,9 @@ foreach($row as $z) {
 		  </form>
 		  
 		   <form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="onoff" value="<?php echo $z['onoff']; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarm" value="on" <?php echo $z["onoff"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
-		<input type="hidden" name="visibleonoff" value="visibleonoff" />
+			<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
+			<input type="checkbox" data-toggle="toggle" data-size="mini"  name="visible" value="on" <?php echo $z["onoff"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+			<input type="hidden" name="visibleonoff" value="visibleonoff" />
     </form>
 </div>
 </div>
