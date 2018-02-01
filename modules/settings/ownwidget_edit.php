@@ -33,12 +33,20 @@ if(!empty($id) && !empty($visible) && ($visibleonoff == "visibleonoff")) {
 	exit();	
 } 
 //if logon
-//visible
 $if_logon= isset($_POST['if_logon']) ? $_POST['if_logon'] : '';
 $logon= isset($_POST['logon']) ? $_POST['logon'] : '';
 if(!empty($id) && !empty($logon) && ($if_logon == "if_logon")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE ownwidget SET iflogon='$logon' WHERE id='$id'");
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();	
+} 
+
+//del from base
+$del= isset($_POST['del']) ? $_POST['del'] : '';
+if(!empty($id) && !empty($del) && ($del == "delete")) { 
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db->exec("DELETE FROM ownwidget WHERE id='$id'");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
@@ -52,7 +60,29 @@ foreach($row as $z) {
 	$owbodys = $z['body'];
 	$owname = $z['name'];
 	
-	?>
+?>
+
+<style>
+   textarea { width: 100%; height: 100%; }
+</style>
+
+<div class="panel panel-default">
+<div class="panel-heading">Widget example</div>
+    <div class="panel-body">
+	
+	
+	
+<pre>
+    &lt;div class="panel-heading"&gt;Widget&lt;/div&gt;
+    &lt;div class="panel-body"&gt;
+    &lt;?php 
+	echo "My first nettemp widget";
+    ?&gt;
+    &lt;/div&gt;
+</pre>
+</div>
+</div>
+
 
   <div class="panel panel-default">
   <div class="panel-heading"><?php echo "Widget name:  "?>
@@ -90,6 +120,12 @@ foreach($row as $z) {
 			<button type="submit" name="logon" value="<?php echo $z["iflogon"] == 'on' ? 'off' : 'on'; ?>" <?php echo $z["iflogon"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>> <?php echo $z["iflogon"] == 'on' ? 'ON' : 'OFF'; ?></button>
 			<input type="hidden" name="if_logon" value="if_logon" />
 		</form>
+		
+		<form action="" method="post" style="display:inline!important;">
+			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+			<input type="hidden" name="id" value="<?php echo $z['id']; ?>" />
+			<input type="hidden" name="del" value="delete"/>
+		</form>
 </div>
 </div>
 	
@@ -100,26 +136,7 @@ foreach($row as $z) {
 }
 
 ?>
-<style>
-   textarea { width: 100%; height: 100%; }
-</style>
 
-<div class="panel panel-default">
-<div class="panel-heading">Widget example</div>
-    <div class="panel-body">
-	
-	
-	
-<pre>
-    &lt;div class="panel-heading"&gt;Widget&lt;/div&gt;
-    &lt;div class="panel-body"&gt;
-    &lt;?php 
-	echo "My first nettemp widget";
-    ?&gt;
-    &lt;/div&gt;
-</pre>
-</div>
-</div>
 
 
 
