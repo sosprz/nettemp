@@ -49,13 +49,7 @@ if(!empty($addow) && ($addow == "addow")) {
 
 //body
 if(!empty($id) && ($ow == "ow")) { 
-
 	file_put_contents("tmp/ownwidget".$ow_num.".php", $bodystext);
-	
-	
-	
-	//$db = new PDO('sqlite:dbf/nettemp.db');
-	//$db->exec("UPDATE ownwidget SET body='$bodystext' WHERE id='$id'");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
@@ -92,6 +86,9 @@ $del= isset($_POST['del']) ? $_POST['del'] : '';
 if(!empty($id) && !empty($del) && ($del == "delete")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("DELETE FROM ownwidget WHERE id='$id'");
+	if (file_exists("tmp/ownwidget".$ow_num.".php")) {
+        unlink("tmp/ownwidget".$ow_num.".php");
+	}
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
@@ -155,6 +152,7 @@ foreach($row as $z) {
 		<form action="" method="post" style="display:inline!important;">
 			<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
 			<input type="hidden" name="id" value="<?php echo $z['id']; ?>" />
+			<input type="hidden" name="ow_num" value="<?php echo $z["body"]; ?>" />
 			<input type="hidden" name="del" value="delete"/>
 		</form>
 	</div>
