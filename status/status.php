@@ -82,12 +82,8 @@ Go to device scan!
     include('status/meteo_status.php');
     include('status/ipcam_status.php');
     include('status/ups_status.php');
-	//include('modules/gpio/day.php');
-	
-	//foreach (range(1, 10) as $v) {
-		//$ow=$v;
-		include('status/ownwidget.php');
-   // }
+	include('status/ownwidget.php');
+   
 	
 	
     ?>
@@ -116,6 +112,7 @@ Go to device scan!
     $('.ms').load("status/meteo_status.php");
     $('.mm').load("status/minmax_status.php");
     $('.ups').load("status/ups_status.php");
+	$('.ow').load("status/ownwidget.php");
 	
     $('.swcon').load("status/controls.php", function() {		
 	$('[id="onoffstatus"]').bootstrapToggle({size : 'mini', off : 'Off', on : 'On',});
