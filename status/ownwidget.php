@@ -17,6 +17,7 @@ if ( $numRows > '0' ) {
 	
 	$statuson = $ow['onoff'];
 	$logon = $ow['iflogon'];
+	$bodys = $ow['body'];
 	
 	if (($statuson == "on") && ($logon == "off"))  { ?>
 	
@@ -25,7 +26,7 @@ if ( $numRows > '0' ) {
 		<div class="grid-item ">
 		<div class="panel panel-default">
 			<div class="panel-heading"><?php echo $ow['name'];?></div>
-			<div class="panel-body"><?php echo $ow["body"]; ?></div>
+			<div class="panel-body"><?php echo $bodys; ?></div>
 		</div>
 		</div>
 	
@@ -42,7 +43,7 @@ if ( $numRows > '0' ) {
 		<div class="grid-item ">
 		<div class="panel panel-default">
 			<div class="panel-heading"><?php echo $ow['name'];?></div>
-			<div class="panel-body"><?php echo $ow["body"]; ?></div>
+			<div class="panel-body"><?php echo $bodys; ?></div>
 		</div>
 		</div>
 
