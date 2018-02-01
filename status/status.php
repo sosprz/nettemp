@@ -112,7 +112,7 @@ Go to device scan!
     $('.ms').load("status/meteo_status.php");
     $('.mm').load("status/minmax_status.php");
     $('.ups').load("status/ups_status.php");
-	$('.test').load("status/ownwidget.php");
+	$('.ow').load("status/ownwidget.php");
 	
     $('.swcon').load("status/controls.php", function() {		
 	$('[id="onoffstatus"]').bootstrapToggle({size : 'mini', off : 'Off', on : 'On',});
