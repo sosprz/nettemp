@@ -26,6 +26,13 @@
 <?php 
 
 
+if (isset($_POST['text'.$ownum]))
+{
+    file_put_contents($file, $_POST['text'.$ownum]);
+
+ }
+
+
 $ow = isset($_POST['ow']) ? $_POST['ow'] : '';
 $ow_name = isset($_POST['ow_name']) ? $_POST['ow_name'] : '';
 $bodystext = isset($_POST['bodystext']) ? $_POST['bodystext'] : '';
@@ -36,8 +43,9 @@ $id = isset($_POST['id']) ? $_POST['id'] : '';
 //add ow to base
 $addow = isset($_POST['addow']) ? $_POST['addow'] : '';
 if(!empty($addow) && ($addow == "addow")) { 
+	$ownr=substr(rand(), 0, 4);
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT INTO ownwidget ('name', 'body', 'onoff', 'iflogon') VALUES ('My widget','My widget code', 'off', 'off')");
+	$db->exec("INSERT INTO ownwidget ('name', 'body', 'onoff', 'iflogon') VALUES ('My widget','$ownr', 'off', 'off')");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
@@ -93,8 +101,11 @@ $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM ownwidget");
 $row = $rows->fetchAll();
 foreach($row as $z) {
-	$owbodys = $z['body'];
+	$ownum = $z['body'];
 	$owname = $z['name'];
+	
+	$file = "tmp/ownwidget".$ownum.".php";
+    $text = file_get_contents($file);
 	
 ?>
 
@@ -116,7 +127,7 @@ foreach($row as $z) {
 
 		  <form action="" method="post" style="display:inline!important;">
 			<div style="height:300px;overflow:auto;padding:5px;">
-			<textarea name="bodystext"><?php echo$z['body'];?></textarea><br />
+			<textarea name="<?php echo text.$ownum?>"><?php echo htmlspecialchars($text) ?></textarea><br />
 			</div>
 			
 			<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
