@@ -26,7 +26,7 @@ if ( $numRows > '0' ) {
 		<div class="grid-item ">
 		<div class="panel panel-default">
 			<div class="panel-heading"><?php echo $ow['name'];?></div>
-			<div class="panel-body"><?php echo htmlspecialchars_decode(stripslashes($ow['body'])); ?> </div>
+			<div class="panel-body"><?php include("$root/tmp/ownwidget1.php");?> </div>
 		</div>
 		</div>
 	
