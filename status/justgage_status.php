@@ -26,8 +26,6 @@ if ( $numRows > '0' ) { ?>
 <div class="panel-body">
 
 
-	
-
 <?php
 $query = $db->query("SELECT * FROM types");
 $result_t = $query->fetchAll();
@@ -47,8 +45,6 @@ if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max'])) {
 		} elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min'])) { 
 		    $valfoncol='#5bc0de'; 
 		} else {$valfoncol='black'; }
-		
-		
 		
 // title colours - read colours
 					$old_read=86400;
@@ -109,8 +105,6 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
 
 		<?php if(!empty($a['jg_min'])) {echo "min:".$a['jg_min'].",";} ?>
 		<?php if(!empty($a['jg_max'])) {echo "max:".$a['jg_max'].",";} ?>
-		
-
         titleFontColor: "<?php echo $titfoncol ?>",
 		title: "<?php if ($err=='1') {echo "!! ".str_replace("_", " ", $a['name'])." !!";} else {echo str_replace("_", " ", $a['name']);}?>",
         label: n_units

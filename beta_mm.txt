@@ -1,0 +1,35 @@
+﻿- usunięcie podkreślników w nazwach
+- Linki z JG do charts
+- Wartości w JG z przecinkiem
+- Dokładne Min/Max - dla dużej ilości czujników może wolniej działać status
+- Odświeżanie GPIO
+- Uptime w stopce i systime - odświeża co minutę
+- Day plan dla GPIO - przepisany na php, lock w statusie
+- Ikona ip gpio - jeśli gpio jest ip - niebieska ikona w gpio
+- temp.php - poprawione logi - nie mięsza logów dla różnych gpio 
+- poprawka do zmiany nazy gpio w przypadku ip i tych samych numerów gpio (ip/ip - ip-gpio)
+- poprawki do urządzeń ip w statusie - lock
+- poprawka do zmiany trybów gpio w przypadku ip i tych samych numerów gpio (ip/ip - ip-gpio) - day,temp,simple,moment
+- auto lock gpio jeśli recznie zmieniam stan on/off w statusie
+- link do ustawień gpio ze statusu - ikonka gpio w controls
+- poprawione działanie przekaźnika dla simple, temp, day - zmiana wyzwalania stanem niskim i wysokim.
+- gpio Time w statusie - brak obsługi ip
+- satus min max light - poprawione zbieranie danych - fix dla wartości ujemnych
+- Insert do bazy i odczyt DHT
+- Del bazy minmax Light
+
+
+
+
+To Do:
+
+- gpio Time przepisać na php, logi, dodać obsługę ip
+wykresy - ładowanie do bazy - konflikt ip/gpio
+Wsadzanie do def - ip/gpio
+
+poprawka świeżak - status urządzen ip
+
+mcp dla day.php
+Binding sensors do gpio w statusie - bez logowania.
+
+

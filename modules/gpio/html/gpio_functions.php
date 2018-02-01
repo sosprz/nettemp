@@ -215,8 +215,6 @@ $map_num2=substr(rand(), 0, 6);
 	}
 
 
-
-
 ?>
 <table>
 <td class="col-md-1">
