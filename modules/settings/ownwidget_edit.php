@@ -34,6 +34,7 @@ $ow_name = isset($_POST['ow_name']) ? $_POST['ow_name'] : '';
 $bodystext = isset($_POST['bodystext']) ? $_POST['bodystext'] : '';
 $name_new = isset($_POST['name_new']) ? $_POST['name_new'] : '';
 $id = isset($_POST['id']) ? $_POST['id'] : '';
+$ow_num = isset($_POST['ow_num']) ? $_POST['ow_num'] : '';
 
 
 //add ow to base
@@ -48,6 +49,8 @@ if(!empty($addow) && ($addow == "addow")) {
 
 //body
 if(!empty($id) && ($ow == "ow")) { 
+
+	file_put_contents("tmp/ownwidget".$ow_num.".php", $_POST['text'.$v]);
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	//$db->exec("UPDATE ownwidget SET body='$bodystext' WHERE id='$id'");
 	header("location: " . $_SERVER['REQUEST_URI']);
@@ -131,7 +134,7 @@ foreach($row as $z) {
 			<div style="height:300px;overflow:auto;padding:5px;">
 			<textarea name="<?php echo text.$ownum?>"><?php echo htmlspecialchars($text) ?></textarea><br />
 			</div>
-			
+			<input type="hidden" name="ow_num" value="<?php echo $z["body"]; ?>" />
 			<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
 			<input type="hidden" name="ow" value="ow"/>
 			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
