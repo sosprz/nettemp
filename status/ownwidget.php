@@ -18,11 +18,9 @@ if ( $numRows > '0' ) {
 	$statuson = $ow['onoff'];
 	$logon = $ow['iflogon'];
 	
-	if ($statuson == "on") {
-	
+	if (($statuson == "on") && ($logon == "off"))  {
 	
 	?>
-	
 	
 		<div class="grid-item ">
 		<div class="panel panel-default">
@@ -30,6 +28,10 @@ if ( $numRows > '0' ) {
 			<div class="panel-body"><?php echo $ow[body]; ?></div>
 		</div>
 		</div>
+	
+	
+	
+	
 	
 <?php	
 	
