@@ -350,7 +350,18 @@ $row = $rows->fetchAll();
 <th>Alarm / Min / Max</th>
 <th>New group</th>
 <th>Group</th>
-<th>Log on</th>
+<th>Log on
+
+	<form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="add_all" value="logon" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="del_all" value="logon" />
+		<button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+
+</th>
 <th>Charts
 
 	 <form action="" method="post" style="display:inline!important;">
