@@ -32,6 +32,16 @@ if(!empty($id) && !empty($visible) && ($visibleonoff == "visibleonoff")) {
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
+//if logon
+//visible
+$if_logon= isset($_POST['if_logon']) ? $_POST['if_logon'] : '';
+$logon= isset($_POST['logon']) ? $_POST['logon'] : '';
+if(!empty($id) && !empty($logon) && ($if_logon == "if_logon")) { 
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db->exec("UPDATE ownwidget SET iflogon='$logon' WHERE id='$id'");
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();	
+} 
 
 
 $db = new PDO('sqlite:dbf/nettemp.db');
@@ -65,13 +75,19 @@ foreach($row as $z) {
 			<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
 			<input type="hidden" name="ow" value="ow"/>
 			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-		  </form>
+		 </form>
 		  
-		   <form action="" method="post" style="display:inline!important;">
+		 <form action="" method="post" style="display:inline!important;">
 			<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
-			<button type="checkbox" name="visible" value="<?php echo $z["onoff"] == 'on' ? 'off' : 'on'; ?>" <?php echo $z["onoff"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>> <?php echo $z["onoff"] == 'on' ? 'ON' : 'OFF'; ?></button>
+			<button type="submit" name="visible" value="<?php echo $z["onoff"] == 'on' ? 'off' : 'on'; ?>" <?php echo $z["onoff"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>> <?php echo $z["onoff"] == 'on' ? 'ON' : 'OFF'; ?></button>
 			<input type="hidden" name="visibleonoff" value="visibleonoff" />
-    </form>
+		</form>
+		
+		<form action="" method="post" style="display:inline!important;">
+			<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
+			<button type="submit" name="logon" value="<?php echo $z["iflogon"] == 'on' ? 'off' : 'on'; ?>" <?php echo $z["iflogon"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>> <?php echo $z["iflogon"] == 'on' ? 'ON' : 'OFF'; ?></button>
+			<input type="hidden" name="if_logon" value="if_logon" />
+		</form>
 </div>
 </div>
 	
