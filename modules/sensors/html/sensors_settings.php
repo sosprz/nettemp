@@ -350,7 +350,7 @@ $row = $rows->fetchAll();
 <th>Alarm / Min / Max</th>
 <th>New group</th>
 <th>Group</th>
-<th>Log on
+<th>Log out
 
 	<form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="logon" />
