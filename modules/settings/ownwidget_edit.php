@@ -67,7 +67,7 @@ foreach($row as $z) {
   </div>
   <div class="panel-body">
 
-		  <form action="" method="post">
+		  <form action="" method="post" style="display:inline!important;">
 			<div style="height:300px;overflow:auto;padding:5px;">
 			<textarea name="bodystext"><?php echo$z['body'];?></textarea><br />
 			</div>
