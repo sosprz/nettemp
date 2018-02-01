@@ -9,8 +9,9 @@ $rows = $db->query("SELECT * FROM ownwidget");
 $row = $rows->fetchAll();
 $numRows = count($row);
 
-if ( $numRows > '0' ) { 
-
+if ( $numRows > '0' ) { ?>
+<div class="grid-item test">
+<?php
 	foreach ($row as $ow) {?> 	
 	
 	<?php
@@ -43,5 +44,6 @@ if ( $numRows > '0' ) {
 			
 				}
 		}
-	}
+	}?>
+	</div> <?php
 }?>
