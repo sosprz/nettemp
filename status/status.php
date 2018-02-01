@@ -84,10 +84,10 @@ Go to device scan!
     include('status/ups_status.php');
 	//include('modules/gpio/day.php');
 	
-	foreach (range(1, 10) as $v) {
-		$ow=$v;
+	//foreach (range(1, 10) as $v) {
+		//$ow=$v;
 		include('status/ownwidget.php');
-    }
+   // }
 	
 	
     ?>
