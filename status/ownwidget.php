@@ -24,7 +24,7 @@ if ( $numRows > '0' ) {
 		</div>
 <?php	
 	
-		} else { if (($ow['onoff'] == "on") && ($ow['iflogon']))  {
+		} else { if (($ow['onoff'] == "on") && ($ow['iflogon'] == "on"))  {
 			
 			if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) { ?>
 
