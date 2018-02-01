@@ -13,7 +13,7 @@ if ( $numRows > '0' ) {
 
 	foreach ($row as $ow) {?> 	
 	
-		<div class="panel-heading"><?php echo $ow['name']?></div>
+		<div class="panel-heading"><?php echo $ow['name'];?></div>
 		<div class="panel-body">
 		<?php echo $ow[body]; ?>
 		</div>
