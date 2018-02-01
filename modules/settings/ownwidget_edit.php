@@ -1,3 +1,24 @@
+<style>
+   textarea { width: 100%; height: 100%; }
+</style>
+
+<div class="panel panel-default">
+<div class="panel-heading">Widget example</div>
+    <div class="panel-body">
+	
+	
+	
+<pre>
+    &lt;div class="panel-heading"&gt;Widget&lt;/div&gt;
+    &lt;div class="panel-body"&gt;
+    &lt;?php 
+	echo "My first nettemp widget";
+    ?&gt;
+    &lt;/div&gt;
+</pre>
+</div>
+</div>
+
 <?php 
 
 
@@ -52,6 +73,7 @@ if(!empty($id) && !empty($del) && ($del == "delete")) {
 } 
 
 
+
 $db = new PDO('sqlite:dbf/nettemp.db');
 
 $rows = $db->query("SELECT * FROM ownwidget");
@@ -62,26 +84,7 @@ foreach($row as $z) {
 	
 ?>
 
-<style>
-   textarea { width: 100%; height: 100%; }
-</style>
 
-<div class="panel panel-default">
-<div class="panel-heading">Widget example</div>
-    <div class="panel-body">
-	
-	
-	
-<pre>
-    &lt;div class="panel-heading"&gt;Widget&lt;/div&gt;
-    &lt;div class="panel-body"&gt;
-    &lt;?php 
-	echo "My first nettemp widget";
-    ?&gt;
-    &lt;/div&gt;
-</pre>
-</div>
-</div>
 
 
   <div class="panel panel-default">
@@ -95,7 +98,7 @@ foreach($row as $z) {
 		  </form>
   
   </div>
-  <div class="panel-body">
+	<div class="panel-body">
 
 		  <form action="" method="post" style="display:inline!important;">
 			<div style="height:300px;overflow:auto;padding:5px;">
@@ -126,7 +129,7 @@ foreach($row as $z) {
 			<input type="hidden" name="id" value="<?php echo $z['id']; ?>" />
 			<input type="hidden" name="del" value="delete"/>
 		</form>
-</div>
+	</div>
 </div>
 	
 <?php	
