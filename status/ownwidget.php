@@ -20,40 +20,28 @@ if ( $numRows > '0' ) {
 	$bodys = $ow['body'];
 	
 	if (($statuson == "on") && ($logon == "off"))  { ?>
-	
-	
-	
-		<div class="grid-item ">
+		<div class="grid-item ow">
 		<div class="panel panel-default">
 			<div class="panel-heading"><?php echo $ow['name'];?></div>
 			<div class="panel-body"><?php include("$root/tmp/ownwidget".$bodys.".php");?> </div>
 		</div>
 		</div>
-	
 <?php	
 	
-	} 
-	
-	else { if (($statuson == "on") && ($logon == "on"))  {
-		
-				
-		
-		if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) { ?>
+		} else { if (($statuson == "on") && ($logon == "on"))  {
+			
+			if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) { ?>
 
-		<div class="grid-item ">
-		<div class="panel panel-default">
-			<div class="panel-heading"><?php echo $ow['name'];?></div>
-			<div class="panel-body"><?php include("$root/tmp/ownwidget".$bodys.".php");?> </div>
-		</div>
-		</div>
+			<div class="grid-item ow">
+			<div class="panel panel-default">
+				<div class="panel-heading"><?php echo $ow['name'];?></div>
+				<div class="panel-body"><?php include("$root/tmp/ownwidget".$bodys.".php");?> </div>
+			</div>
+			</div>
 
-
-		<?php } 
-		
-			}
-	}
-
-
-
+			<?php } 
+			
+				}
+		}
 	}
 }?>
