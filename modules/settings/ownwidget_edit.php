@@ -9,12 +9,11 @@
 	
 	
 <pre>
-    &lt;div class="panel-heading"&gt;Widget&lt;/div&gt;
-    &lt;div class="panel-body"&gt;
+  
     &lt;?php 
 	echo "My first nettemp widget";
     ?&gt;
-    &lt;/div&gt;
+ 
 </pre>
 
 		<form action="" method="post" style="display:inline!important;">
