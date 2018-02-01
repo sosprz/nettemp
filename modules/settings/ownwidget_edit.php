@@ -78,6 +78,7 @@ foreach($row as $z) {
 		 </form>
 		  
 		 <form action="" method="post" style="display:inline!important;">
+		 <label for="exampleInputName2">In status:</label>
 			<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
 			<button type="submit" name="visible" value="<?php echo $z["onoff"] == 'on' ? 'off' : 'on'; ?>" <?php echo $z["onoff"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>> <?php echo $z["onoff"] == 'on' ? 'ON' : 'OFF'; ?></button>
 			<input type="hidden" name="visibleonoff" value="visibleonoff" />
