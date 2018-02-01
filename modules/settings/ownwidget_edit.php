@@ -109,12 +109,7 @@ foreach($row as $z) {
 	$file = "tmp/ownwidget".$ownum.".php";
     $text = file_get_contents($file);
 	
-	if (isset($_POST['text'.$ownum]))
-{
-    file_put_contents($file, $_POST['text'.$ownum]);
 
- }
-	
 ?>
 
 
