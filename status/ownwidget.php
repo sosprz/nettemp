@@ -15,7 +15,7 @@ if ( $numRows > '0' ) {
 	
 	<?php
 	
-	$statuson = $ow['onnoff'];
+	$statuson = $ow['onoff'];
 	$logon = $ow['iflogon'];
 	
 	if ($statuson == "on") {
