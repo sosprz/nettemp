@@ -50,10 +50,13 @@ if(!empty($addow) && ($addow == "addow")) {
 //body
 if(!empty($id) && ($ow == "ow")) { 
 
-	file_put_contents("tmp/ownwidget".$ow_num.".php", $_POST['text'.$ownum]);
-	$db = new PDO('sqlite:dbf/nettemp.db');
+	file_put_contents("tmp/ownwidget".$ow_num.".php", $bodystext);
+	
+	
+	
+	//$db = new PDO('sqlite:dbf/nettemp.db');
 	//$db->exec("UPDATE ownwidget SET body='$bodystext' WHERE id='$id'");
-	header("location: " . $_SERVER['REQUEST_URI']);
+	//header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
 
@@ -132,7 +135,7 @@ foreach($row as $z) {
 
 		  <form action="" method="post" style="display:inline!important;">
 			<div style="height:300px;overflow:auto;padding:5px;">
-			<textarea name="<?php echo text.$ownum?>"><?php echo htmlspecialchars($text) ?></textarea><br />
+			<textarea name="bodystext"><?php echo htmlspecialchars($text) ?></textarea><br />
 			</div>
 			<input type="hidden" name="ow_num" value="<?php echo $z["body"]; ?>" />
 			<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
