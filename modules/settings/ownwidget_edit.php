@@ -31,14 +31,14 @@ $ow = isset($_POST['ow']) ? $_POST['ow'] : '';
 $ow_name = isset($_POST['ow_name']) ? $_POST['ow_name'] : '';
 $bodystext = isset($_POST['bodystext']) ? $_POST['bodystext'] : '';
 $name_new = isset($_POST['name_new']) ? $_POST['name_new'] : '';
-$id= isset($_POST['id']) ? $_POST['id'] : '';
+$id = isset($_POST['id']) ? $_POST['id'] : '';
 
 
 //add ow to base
-$addow= isset($_POST['addow']) ? $_POST['addow'] : '';
+$addow = isset($_POST['addow']) ? $_POST['addow'] : '';
 if(!empty($addow) && ($addow == "addow")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT INTO ownwidget ('name', 'body', 'onoff', 'iflogon') VALUES ('My widget','My widget code', 'off', 'off')";);
+	$db->exec("INSERT INTO ownwidget ('name', 'body', 'onoff', 'iflogon') VALUES ('My widget','My widget code', 'off', 'off')");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
