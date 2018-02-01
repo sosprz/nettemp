@@ -165,6 +165,15 @@ if ( $lcd == "lcd"){
     exit();
     }
     
+	$logon_id = isset($_POST['logon_id']) ? $_POST['logon_id'] : '';
+    $logon_on = isset($_POST['logon_on']) ? $_POST['logon_on'] : '';
+    $log_on = isset($_POST['log_on']) ? $_POST['log_on'] : '';
+    if ($log_on == "log_on"){
+    $db->exec("UPDATE sensors SET logon='$logon_on' WHERE id='$logon_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	
     $charts = isset($_POST['charts']) ? $_POST['charts'] : '';
     $chartsonoff = isset($_POST['chartsonoff']) ? $_POST['chartsonoff'] : '';
     $chartson = isset($_POST['chartson']) ? $_POST['chartson'] : '';
@@ -341,6 +350,18 @@ $row = $rows->fetchAll();
 <th>Alarm / Min / Max</th>
 <th>New group</th>
 <th>Group</th>
+<th>Log out
+
+	<form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="add_all" value="logon" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="del_all" value="logon" />
+		<button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+
+</th>
 <th>Charts
 
 	 <form action="" method="post" style="display:inline!important;">
@@ -554,6 +575,16 @@ $row = $rows->fetchAll();
     <input type="hidden" name="ch_group" value="<?php echo $a['id']; ?>" />
     </form>
     </td>
+	
+	<td class="col-md-0">
+    <form action="" method="post" style="display:inline!important;" > 	
+		<input type="hidden" name="logon_id" value="<?php echo $a["id"]; ?>" />
+		<button type="submit" name="logon_on" value="<?php echo $a["logon"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["logon"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["logon"] == 'on' ? 'ON' : 'OFF'; ?></button>
+		<input type="hidden" name="log_on" value="log_on" />
+    </form>
+    </td>
+	
 
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;" > 	
