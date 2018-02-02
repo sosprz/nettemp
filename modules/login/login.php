@@ -6,7 +6,7 @@ if(!function_exists('hash_equals')) {
   }
 }
 
-session_start();
+//session_start();
 
 $user=$_SESSION['user'];
 $autologout='';
