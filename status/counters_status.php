@@ -1,7 +1,17 @@
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
-$rows = $db->query("SELECT * FROM sensors WHERE ch_group!='none' AND (type='gas' OR type='elec' OR type='water')");
+
+if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
+
+	$rows = $db->query("SELECT * FROM sensors WHERE ch_group!='none' AND  (type='gas' OR type='elec' OR type='water')");
+	
+} else { 
+
+	$rows = $db->query("SELECT * FROM sensors WHERE ch_group!='none' AND logon =='on' AND (type='gas' OR type='elec' OR type='water')");
+	
+	}
+	
 $result = $rows->fetchAll();
 $numRows = count($result);
 if ( $numRows > '0' ) { ?>
