@@ -9,9 +9,6 @@ $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $query = $db->query("SELECT * FROM types");
 $result_t = $query->fetchAll();
 
-
-
-
 $rows_meteo = $db->query("SELECT normalized,pressure FROM meteo WHERE id='1'");
 $row_meteo = $rows_meteo->fetchAll();
 foreach ($row_meteo as $a) {
@@ -19,7 +16,7 @@ foreach ($row_meteo as $a) {
 	$pressure=$a['pressure'];
 }
 
-	if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
+	if((isset($_SESSION["user"])) {
 
 		$sth = $db->prepare("SELECT * FROM sensors WHERE position !=0 AND ch_group='$ch_g' AND type!='gpio' AND type!='elec' AND type!='water' AND type!='gas' AND ch_group!='switch' AND ch_group!='relay' AND (jg!='on' OR jg is null) ORDER BY position ASC");
 	} else {
