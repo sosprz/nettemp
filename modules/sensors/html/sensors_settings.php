@@ -586,7 +586,7 @@ $row = $rows->fetchAll();
     </form>
 	 <?php 
 	}
-    ?>
+    ?
     </td>
 	
     <td class="col-md-0">
