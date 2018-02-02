@@ -577,15 +577,18 @@ $row = $rows->fetchAll();
     </td>
 	
 	<td class="col-md-0">
+	 <?php if ($a["device"] != 'gpio') { ?>
     <form action="" method="post" style="display:inline!important;" > 	
 		<input type="hidden" name="logon_id" value="<?php echo $a["id"]; ?>" />
 		<button type="submit" name="logon_on" value="<?php echo $a["logon"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["logon"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
 	    <?php echo $a["logon"] == 'on' ? 'ON' : 'OFF'; ?></button>
 		<input type="hidden" name="log_on" value="log_on" />
     </form>
+	 <?php 
+	}
+    ?>
     </td>
 	
-
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;" > 	
 		<input type="hidden" name="charts" value="<?php echo $a["id"]; ?>" />
