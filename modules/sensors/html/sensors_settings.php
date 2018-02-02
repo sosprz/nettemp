@@ -414,7 +414,7 @@ $row = $rows->fetchAll();
 
 
 </th>
-<th>JustGage <? echo '/n'?>
+<th>JustGage
 
  	<form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="jg" />
