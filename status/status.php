@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <style type="text/css">
 
 * {

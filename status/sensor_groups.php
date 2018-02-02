@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 if (isset($_GET['ch_g'])) { 
     $ch_g = $_GET['ch_g'];
