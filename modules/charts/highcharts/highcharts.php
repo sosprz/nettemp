@@ -57,44 +57,86 @@ if(!empty($url['group'])) {
 	$group=$url['group'];
 }
 
+// logon
+if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 
 
+		if ($type == 'system') {
+			$array[]='cpu';
+			$array[]='memory';
+			foreach($array as $row) {
+					$types[$row]='system';
+			}
+		}
 
-if ($type == 'system') {
-    $array[]='cpu';
-    $array[]='memory';
-    foreach($array as $row) {
-			$types[$row]='system';
-    }
-}
+		elseif ($single) {
+		$dirb = "sqlite:dbf/nettemp.db";
+		$db = new PDO($dirb) or die("cannot open database");
+		$query = "select name,type FROM sensors WHERE type='$type' AND name='$single'";
+		foreach ($db->query($query) as $row) {
+			$array[]=$row[0];
+			$types[$row[0]]=$row[1];
+			}
+		}
+		elseif ($group) {
+		$dirb = "sqlite:dbf/nettemp.db";
+		$db = new PDO($dirb) or die("cannot open database");
+		$query = "select name,type FROM sensors WHERE ch_group='$group' AND charts='on'";
+		foreach ($db->query($query) as $row) {
+			$array[]=$row[0];
+			$types[$row[0]]=$row[1];
+			}
+		}
+		else {
+		$dirb = "sqlite:dbf/nettemp.db";
+		$db = new PDO($dirb) or die("cannot open database");
+		$query = "select name,type FROM sensors WHERE type='$type' AND charts='on'";
+		foreach ($db->query($query) as $row) {
+			$array[]=$row[0];
+			$types[$row[0]]=$row[1];
+			}
+		}
+} else { 
 
-elseif ($single) {
-$dirb = "sqlite:dbf/nettemp.db";
-$db = new PDO($dirb) or die("cannot open database");
-$query = "select name,type FROM sensors WHERE type='$type' AND name='$single'";
-foreach ($db->query($query) as $row) {
-    $array[]=$row[0];
-    $types[$row[0]]=$row[1];
-    }
-}
-elseif ($group) {
-$dirb = "sqlite:dbf/nettemp.db";
-$db = new PDO($dirb) or die("cannot open database");
-$query = "select name,type FROM sensors WHERE ch_group='$group' AND charts='on'";
-foreach ($db->query($query) as $row) {
-    $array[]=$row[0];
-    $types[$row[0]]=$row[1];
-    }
-}
-else {
-$dirb = "sqlite:dbf/nettemp.db";
-$db = new PDO($dirb) or die("cannot open database");
-$query = "select name,type FROM sensors WHERE type='$type' AND charts='on'";
-foreach ($db->query($query) as $row) {
-    $array[]=$row[0];
-    $types[$row[0]]=$row[1];
-    }
-}
+			if ($type == 'system') {
+			$array[]='cpu';
+			$array[]='memory';
+			foreach($array as $row) {
+					$types[$row]='system';
+			}
+		}
+
+		elseif ($single) {
+		$dirb = "sqlite:dbf/nettemp.db";
+		$db = new PDO($dirb) or die("cannot open database");
+		$query = "select name,type FROM sensors WHERE type='$type' AND name='$single' AND logon =='on'";
+		foreach ($db->query($query) as $row) {
+			$array[]=$row[0];
+			$types[$row[0]]=$row[1];
+			}
+		}
+		elseif ($group) {
+		$dirb = "sqlite:dbf/nettemp.db";
+		$db = new PDO($dirb) or die("cannot open database");
+		$query = "select name,type FROM sensors WHERE ch_group='$group' AND charts='on' AND logon =='on'";
+		foreach ($db->query($query) as $row) {
+			$array[]=$row[0];
+			$types[$row[0]]=$row[1];
+			}
+		}
+		else {
+		$dirb = "sqlite:dbf/nettemp.db";
+		$db = new PDO($dirb) or die("cannot open database");
+		$query = "select name,type FROM sensors WHERE type='$type' AND charts='on' AND logon =='on'";
+		foreach ($db->query($query) as $row) {
+			$array[]=$row[0];
+			$types[$row[0]]=$row[1];
+			}
+		}
+	
+}	
+	
+
 
 $js_array = json_encode($array);
 echo "names = ". $js_array .";\n";
