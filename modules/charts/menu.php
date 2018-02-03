@@ -12,25 +12,19 @@ $single = isset($_GET['single']) ? $_GET['single'] : '';
 if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 
 		$rows1 = $db->query("SELECT type FROM sensors WHERE charts='on'");
-		$row1 = $rows1->fetchAll();
-		$typearr[] = array(); 
-		foreach($row1 as $hi){
-			$typearr[]=$hi['type'];
-		}
-} else {
-	
+
+		} else {
+			
 			$rows1 = $db->query("SELECT type FROM sensors WHERE charts='on' AND logon =='on' ");
+			
+		}
 				$row1 = $rows1->fetchAll();
 				$typearr[] = array(); 
 				foreach($row1 as $hi){
 					$typearr[]=$hi['type'];
 				}
 	
-}
-
 $temp_scale=$nts_temp_scale;
-
-
 
 ?>
 <p>
