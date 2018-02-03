@@ -12,25 +12,19 @@ $single = isset($_GET['single']) ? $_GET['single'] : '';
 if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 
 		$rows1 = $db->query("SELECT type FROM sensors WHERE charts='on'");
-		$row1 = $rows1->fetchAll();
-		$typearr[] = array(); 
-		foreach($row1 as $hi){
-			$typearr[]=$hi['type'];
-		}
-} else {
-	
+
+		} else {
+			
 			$rows1 = $db->query("SELECT type FROM sensors WHERE charts='on' AND logon =='on' ");
+			
+		}
 				$row1 = $rows1->fetchAll();
 				$typearr[] = array(); 
 				foreach($row1 as $hi){
 					$typearr[]=$hi['type'];
 				}
 	
-}
-
 $temp_scale=$nts_temp_scale;
-
-
 
 ?>
 <p>
@@ -46,7 +40,13 @@ foreach($result_t as $ty){
 	}
 }
 
-$query = $db->query("SELECT ch_group FROM sensors ");
+if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
+
+$query = $db->query("SELECT ch_group FROM sensors WHERE charts='on' ");
+
+} else {
+	$query = $db->query("SELECT ch_group FROM sensors WHERE logon =='on' ");
+	}
 $result_ch_g = $query->fetchAll();
 	foreach($result_ch_g as $uniq) {
 		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none'&&$uniq['ch_group']!='all') {
