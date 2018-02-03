@@ -15,7 +15,7 @@ if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 
 		} else {
 			
-			$rows1 = $db->query("SELECT type FROM sensors WHERE charts='on' AND logon =='on' ");
+			$rows1 = $db->query("SELECT type FROM sensors WHERE charts='on' AND logon =='on'  AND position !='0' ");
 			
 		}
 				$row1 = $rows1->fetchAll();
