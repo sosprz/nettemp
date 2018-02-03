@@ -45,7 +45,7 @@ if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 $query = $db->query("SELECT ch_group FROM sensors WHERE charts='on' ");
 
 } else {
-	$query = $db->query("SELECT ch_group FROM sensors WHERE logon =='on' ");
+	$query = $db->query("SELECT ch_group FROM sensors WHERE logon =='on' AND position !='0' ");
 	}
 $result_ch_g = $query->fetchAll();
 	foreach($result_ch_g as $uniq) {
