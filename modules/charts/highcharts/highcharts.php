@@ -109,7 +109,7 @@ if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 		elseif ($single) {
 		$dirb = "sqlite:dbf/nettemp.db";
 		$db = new PDO($dirb) or die("cannot open database");
-		$query = "select name,type FROM sensors WHERE type='$type' AND name='$single'";
+		$query = "select name,type FROM sensors WHERE type='$type' AND name='$single' AND logon =='on'";
 		foreach ($db->query($query) as $row) {
 			$array[]=$row[0];
 			$types[$row[0]]=$row[1];
@@ -118,7 +118,7 @@ if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 		elseif ($group) {
 		$dirb = "sqlite:dbf/nettemp.db";
 		$db = new PDO($dirb) or die("cannot open database");
-		$query = "select name,type FROM sensors WHERE ch_group='$group' AND charts='on'";
+		$query = "select name,type FROM sensors WHERE ch_group='$group' AND charts='on' AND logon =='on'";
 		foreach ($db->query($query) as $row) {
 			$array[]=$row[0];
 			$types[$row[0]]=$row[1];
@@ -127,7 +127,7 @@ if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 		else {
 		$dirb = "sqlite:dbf/nettemp.db";
 		$db = new PDO($dirb) or die("cannot open database");
-		$query = "select name,type FROM sensors WHERE type='$type' AND charts='on'";
+		$query = "select name,type FROM sensors WHERE type='$type' AND charts='on' AND logon =='on'";
 		foreach ($db->query($query) as $row) {
 			$array[]=$row[0];
 			$types[$row[0]]=$row[1];
