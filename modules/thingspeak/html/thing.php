@@ -260,9 +260,8 @@ foreach ($row as $a) {
 </div>
 </div>
 <div class="panel-footer">
-<div class="panel panel-default">
-  <div class="panel-heading">Info:</div>
-	<div class="panel-body">
+
+	
 
 		<span id="helpBlock" class="help-block">
 			ThingSpeak is available as a free service for small non-commercial home projects - 3 million messages/year. <br>
@@ -272,6 +271,5 @@ foreach ($row as $a) {
 			<a href="https://thingspeak.com/pages/license_faq" target="_blank">Licensing FAQ</a>
 		
 		</span>
-	</div>
-</div>
+
 </div>
