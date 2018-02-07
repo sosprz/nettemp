@@ -4,7 +4,9 @@
 	<form action="" method="post" style="display:inline!important;">
 		<button class="btn btn-xs btn-danger"><span>Add new channel</span> </button>
 		<input type="hidden" name="addthc" value="addthc"/>
-	</form></span></div>
+	</form>
+</span>
+</div>
 
 <?php
 // chanel update
@@ -261,6 +263,9 @@ foreach ($row as $a) {
 <div class="panel panel-default">
   <div class="panel-heading">Info:</div>
 	<div class="panel-body">
+	
+	<div class="table-responsive">
+	<table class="table table-hover table-condensed small" border="0">
 
 		<span id="helpBlock" class="help-block">
 			ThingSpeak is available as a free service for small non-commercial home projects - 3 million messages/year. <br>
@@ -268,7 +273,9 @@ foreach ($row as $a) {
 			For questions about exceeding suggested daily usage rate or for purchasing new units,
 			see the
 			<a href="https://thingspeak.com/pages/license_faq" target="_blank">Licensing FAQ</a>
-		
 		</span>
+		
+		</table>
+		</div>
 	</div>
 </div>
