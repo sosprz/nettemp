@@ -6,13 +6,13 @@
 <div class="panel-heading">Widget example</div>
     <div class="panel-body">
 	
+	
+	
 <pre>
   
-    &lt;div class="panel-body"&gt;
     &lt;?php 
 	echo "My first nettemp widget";
     ?&gt;
-    &lt;/div&gt;
  
 </pre>
 
