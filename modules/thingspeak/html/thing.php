@@ -262,7 +262,7 @@ foreach ($row as $a) {
 
 <div class="panel panel-default">
   <div class="panel-heading">Info:</div>
-	<div class="panel-body">
+	
 	
 	<div class="table-responsive">
 	<table class="table table-hover table-condensed small" border="0">
@@ -277,6 +277,5 @@ foreach ($row as $a) {
 		</td></tr>
 		
 		</table>
-		</div>
 	</div>
 </div>
