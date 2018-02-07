@@ -8,7 +8,6 @@
 	
 <pre>
   
-    &lt;div class="panel-heading"&gt;Widget&lt;/div&gt;
     &lt;div class="panel-body"&gt;
     &lt;?php 
 	echo "My first nettemp widget";
