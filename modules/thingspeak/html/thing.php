@@ -266,7 +266,7 @@ foreach ($row as $a) {
 	
 	<div class="table-responsive">
 	<table class="table table-hover table-condensed small" border="0">
-
+		<tr></td>
 		<span id="helpBlock" class="help-block">
 			ThingSpeak is available as a free service for small non-commercial home projects - 3 million messages/year. <br>
 			Recommended maximum daily usage capacity:  8 219 messages. <br>
@@ -274,6 +274,7 @@ foreach ($row as $a) {
 			see the
 			<a href="https://thingspeak.com/pages/license_faq" target="_blank">Licensing FAQ</a>
 		</span>
+		</td></tr>
 		
 		</table>
 		</div>
