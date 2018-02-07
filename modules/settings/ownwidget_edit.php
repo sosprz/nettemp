@@ -6,8 +6,6 @@
 <div class="panel-heading">Widget example</div>
     <div class="panel-body">
 	
-	
-	
 <pre>
   
     &lt;div class="panel-heading"&gt;Widget&lt;/div&gt;
