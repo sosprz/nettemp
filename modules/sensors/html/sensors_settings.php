@@ -164,6 +164,15 @@ if ( $lcd == "lcd"){
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+	
+	$thing_id = isset($_POST['thing_id']) ? $_POST['thing_id'] : '';
+    $thing_on = isset($_POST['thing_on']) ? $_POST['thing_on'] : '';
+    $th_on = isset($_POST['th_on']) ? $_POST['th_on'] : '';
+    if ($th_on == "th_on"){
+    $db->exec("UPDATE sensors SET thing='$thing_on' WHERE id='$thing_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
     
 	$logon_id = isset($_POST['logon_id']) ? $_POST['logon_id'] : '';
     $logon_on = isset($_POST['logon_on']) ? $_POST['logon_on'] : '';
@@ -350,8 +359,26 @@ $row = $rows->fetchAll();
 <th>Alarm / Min / Max</th>
 <th>New group</th>
 <th>Group</th>
-<th>Log out
-
+<th>Thing Speak</th>
+<th>Log out</th>
+<th>Charts</th>
+<th>Node</th>
+<th>Status Min/Max</th>
+<th>LCD/OLED</th>
+<th>JustGage</th>
+<th></th>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>
 	<form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="logon" />
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
@@ -360,23 +387,19 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="del_all" value="logon" />
 		<button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
     </form>
-
-</th>
-<th>Charts
-
-	 <form action="" method="post" style="display:inline!important;">
+</td>
+<td>
+	<form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="charts" />
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
     </form>
     <form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="del_all" value="charts" />
 		<button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
-    </form>
-
-</th>
-<th>Node
-
-    <form action="" method="post" style="display:inline!important;">
+	</form>
+</td>
+<td>
+	<form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="remote" />
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
     </form>
@@ -384,12 +407,9 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="del_all" value="remote" />
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
     </form>
-
-
-</th>
-<th>Status Min/Max
-
-    <form action="" method="post" style="display:inline!important;">
+</td>
+<td>
+	<form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="minmax" />
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
     </form>
@@ -397,13 +417,9 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="del_all" value="minmax" />
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
     </form>
-
-
-
-</th>
-<th>LCD/OLED
-
- 	<form action="" method="post" style="display:inline!important;">
+</td>
+<td>
+	<form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="lcd" />
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
     </form>
@@ -411,12 +427,9 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="del_all" value="lcd" />
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
     </form>
-
-
-</th>
-<th>JustGage
-
- 	<form action="" method="post" style="display:inline!important;">
+</td>
+<td>
+	<form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="add_all" value="jg" />
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
     </form>
@@ -424,11 +437,7 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="del_all" value="jg" />
 		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
     </form>
-
-</th>
-
-
-<th></th>
+</td>
 </tr>
 </thead>
 
@@ -573,6 +582,15 @@ $row = $rows->fetchAll();
     </select>
     <input type="hidden" name="ch_grouponoff" value="onoff" />
     <input type="hidden" name="ch_group" value="<?php echo $a['id']; ?>" />
+    </form>
+    </td>
+	
+	<td class="col-md-0">
+    <form action="" method="post" style="display:inline!important;" > 	
+		<input type="hidden" name="thing_id" value="<?php echo $a["id"]; ?>" />
+		<button type="submit" name="thing_on" value="<?php echo $a["thing"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["thing"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["thing"] == 'on' ? 'ON' : 'OFF'; ?></button>
+		<input type="hidden" name="th_on" value="th_on" />
     </form>
     </td>
 	

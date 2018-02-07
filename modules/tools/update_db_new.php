@@ -52,4 +52,10 @@ $updates['2018-01-31 19:28:01'][]="CREATE TABLE ownwidget (id INTEGER PRIMARY KE
 $updates['2018-02-01 19:30:52'][]="ALTER TABLE sensors ADD logon TEXT";
 $updates['2018-02-01 19:47:50'][]="UPDATE sensors SET logon='on'";
 
+//sensors table update thingspeak
+$updates['2018-02-05 13:32:38'][]="ALTER TABLE sensors ADD thing  TEXT";
+//Create table for thingspeak
+$updates['2018-02-05 13:47:42'][]="CREATE TABLE thingspeak (id INTEGER PRIMARY KEY, name TEXT , apikey TEXT , f1 TEXT, f2 TEXT, f3 TEXT, f4 TEXT, f5 TEXT, f6 TEXT, f7 TEXT, f8 TEXT, active TEXT, interval INTEGER)";
+$updates['2018-02-07 12:04:46'][]="ALTER TABLE thingspeak ADD interval  INTEGER";
+
 ?>
