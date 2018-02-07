@@ -257,8 +257,6 @@ foreach ($row as $a) {
 <?php
 	} 
 ?>
-</div>
-</div>
 <div class="panel-footer">
 
 	
@@ -272,4 +270,6 @@ foreach ($row as $a) {
 		
 		</span>
 
+</div>
+</div>
 </div>
