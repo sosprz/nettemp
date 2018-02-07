@@ -15,12 +15,12 @@ if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/00h'
     sudo sed -i '$a00 00 * * * '$dir'/modules/cron/00h' /var/spool/cron/crontabs/root
 fi
 
-if  ! sudo cat /var/spool/cron/crontabs/root |grep -q '/thing_send intv=1'
+if  ! sudo cat /var/spool/cron/crontabs/root |grep -q '/thing_send.php intv=1'
     then
     sudo sed -i '$a*/1 * * * * php -f /var/www/nettemp/modules/thingspeak/thing_send.php intv=1' /var/spool/cron/crontabs/root
 fi
 
-if  ! sudo cat /var/spool/cron/crontabs/root |grep -q '/thing_send intv=5'
+if  ! sudo cat /var/spool/cron/crontabs/root |grep -q '/thing_send.php intv=5'
     then
     sudo sed -i '$a*/5 * * * * php -f /var/www/nettemp/modules/thingspeak/thing_send.php intv=5' /var/spool/cron/crontabs/root
 fi
