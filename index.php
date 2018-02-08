@@ -12,6 +12,10 @@ if( !file_exists($dbfile) || !is_readable($dbfile) || filesize($dbfile) == 0 ){
     $id = isset($_GET['id']) ? $_GET['id'] : '';
     $art=isset($_GET['type']) ? $_GET['type'] : '';
     include("modules/settings/nt_settings.php");
+	
+	
+//variables in session
+$_SESSION['nts_charts_max'] = $nts_charts_max;
 
 ?>
 <!DOCTYPE html>

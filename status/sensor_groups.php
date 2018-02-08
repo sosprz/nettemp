@@ -11,9 +11,6 @@ $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $query = $db->query("SELECT * FROM types");
 $result_t = $query->fetchAll();
 
-
-
-
 $rows_meteo = $db->query("SELECT normalized,pressure FROM meteo WHERE id='1'");
 $row_meteo = $rows_meteo->fetchAll();
 foreach ($row_meteo as $a) {
@@ -119,12 +116,12 @@ foreach ($row_meteo as $a) {
 				?>
 			</td>
 			<td>
-			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=<?php echo $nts_charts_max ?>&single=<?php echo $a['name']?>" title="Go to charts, last update: <?php echo $a['time']?>"
+			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=<?php echo $_SESSION['nts_charts_max']; ?>&single=<?php echo $a['name']?>" title="Go to charts, last update: <?php echo $a['time']?>"
 				<?php 
-					$old_read=86400;
-				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || ($label=='danger') || strtotime($a['time'])<(time()-(7*$old_read))){
+				
+				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || ($label=='danger')){
 					echo 'class="label label-danger"';
-				    } elseif (strtotime($a['time'])<(time()-$old_read)){
+				    } elseif (strtotime($a['time'])<(time()-($a['readerr']*60))){
 					echo 'class="label label-warning"';
 				    }else{
 					echo 'class="label label-success"';

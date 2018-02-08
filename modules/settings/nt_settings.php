@@ -119,6 +119,12 @@ foreach ($result as $a) {
     if($a['option']=='screen') {
        	$nts_screen=$a['value'];
     }
+	if($a['option']=='old_read_war') {
+       	$nts_old_read_war=$a['value'];
+    }
+	if($a['option']=='old_read_dan') {
+       	$nts_old_read_dan=$a['value'];
+    }
 }
 
 //different way..
