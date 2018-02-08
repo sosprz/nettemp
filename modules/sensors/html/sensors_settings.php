@@ -165,6 +165,32 @@ if ( $lcd == "lcd"){
     exit();
     }
 	
+	$readsonoff= isset($_POST['readsonoff']) ? $_POST['readsonoff'] : '';
+    $readerralarm = isset($_POST['readerralarm']) ? $_POST['readerralarm'] : '';
+    $rom = isset($_POST['rom']) ? $_POST['rom'] : '';
+    if ( !empty($readerralarm) && ($readsonoff == "readsonoff")){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET readerralarm='$readerralarm' WHERE rom='$rom'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
+    elseif (empty($readerralarm) && ($readsonoff == "readsonoff")){
+    $db->exec("UPDATE sensors SET readerralarm='off' WHERE rom='$rom'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	
+	$readerr = isset($_POST['readerr']) ? $_POST['readerr'] : '';
+    $reads_id = isset($_POST['reads_id']) ? $_POST['reads_id'] : '';
+	$readerrok = isset($_POST['readerrok']) ? $_POST['readerrok'] : '';
+	
+    if (!empty($reads_id) && ($readerrok == "readerrok")){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET readerr='$readerr' WHERE id='$reads_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
+	
 	$thing_id = isset($_POST['thing_id']) ? $_POST['thing_id'] : '';
     $thing_on = isset($_POST['thing_on']) ? $_POST['thing_on'] : '';
     $th_on = isset($_POST['th_on']) ? $_POST['th_on'] : '';
@@ -232,6 +258,7 @@ if ( $lcd == "lcd"){
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+	
 
     $adj = isset($_POST['adj']) ? $_POST['adj'] : '';
     $adj1 = isset($_POST['adj1']) ? $_POST['adj1'] : '';
@@ -357,6 +384,7 @@ $row = $rows->fetchAll();
 <th>Type</th>
 <th>Adjust</th>
 <th>Alarm / Min / Max</th>
+<th>Alarm / Read-min</th>
 <th>New group</th>
 <th>Group</th>
 <th>Thing Speak</th>
@@ -375,6 +403,16 @@ $row = $rows->fetchAll();
 <td></td>
 <td></td>
 <td></td>
+<td>
+<form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="add_all" value="readerralarm" />
+		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="del_all" value="readerralarm" />
+		<button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+</td>
 <td></td>
 <td></td>
 <td></td>
@@ -537,6 +575,21 @@ $row = $rows->fetchAll();
 		<input type="text" name="tmp_min_new" size="2" value="<?php echo $a['tmp_min']; ?>" />
 		<input type="text" name="tmp_max_new" size="2" value="<?php echo $a['tmp_max']; ?>" />
 		<input type="hidden" name="ok" value="ok" />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+    </form>
+    </td>
+	
+	<td class="col-md-0">
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="readerralarm" value="on" <?php echo $a["readerralarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="readsonoff" value="readsonoff" />
+    </form>
+
+    <form action="" method="post" style="display:inline!important;"> 
+		<input type="hidden" name="reads_id" value="<?php echo $a['id']; ?>" />
+		<input type="text" name="readerr" size="2" value="<?php echo $a['readerr']; ?>" />
+		<input type="hidden" name="readerrok" value="readerrok" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
     </td>
