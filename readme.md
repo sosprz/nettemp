@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.1.28
+
+add link to charts form justgage - thanks to pasiekazj
+
 4.1.27
 
 add missing php7 settings
