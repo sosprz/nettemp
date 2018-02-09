@@ -56,11 +56,11 @@ if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max'])) {
 		} else {$valfoncol='black'; }
 		
 // title colours - read colours
-					$old_read=86400;
-				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || strtotime($a['time'])<(time()-(7*$old_read))){
+					
+				    if (($a['tmp'] == 'error') || ($a['status'] == 'error')){
 					$titfoncol='#d9534f'; 
 					$err='1';
-				    } elseif (strtotime($a['time'])<(time()-$old_read)){
+				    } elseif (strtotime($a['time'])<(time()-($a['readerr']*60))){
 					$titfoncol='#f0ad4e'; 
 					$err='1';
 				    }else{
