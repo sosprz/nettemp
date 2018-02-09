@@ -580,6 +580,7 @@ $row = $rows->fetchAll();
     </td>
 	
 	<td class="col-md-0">
+	 <?php if ($a["device"] != 'gpio') { ?>
     <form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>" />
 		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="readerralarm" value="on" <?php echo $a["readerralarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
@@ -592,6 +593,10 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="readerrok" value="readerrok" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
+	 <?php 
+	}
+    ?>
+
     </td>
        
     <!--NEW GROUP-->
