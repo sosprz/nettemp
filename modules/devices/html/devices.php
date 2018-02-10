@@ -15,6 +15,7 @@
 <a href="index.php?id=device&type=rs485" ><button class="btn btn-xs btn-default <?php echo $art == 'rs485' ? 'active' : ''; ?>">RS485</button></a>
 <a href="index.php?id=device&type=ups" ><button class="btn btn-xs btn-default <?php echo $art == 'ups' ? 'active' : ''; ?>">UPS</button></a>
 <a href="index.php?id=device&type=counters" ><button class="btn btn-xs btn-default <?php echo $art == 'counters' ? 'active' : ''; ?>">Counters</button></a>
+<a href="index.php?id=device&type=upspimowo" ><button class="btn btn-xs btn-default <?php echo $art == 'upspimowo' ? 'active' : ''; ?>">UPS Pimowo</button></a>
 <a href="index.php?id=device&type=thing" ><button class="btn btn-xs btn-default <?php echo $art == 'thing' ? 'active' : ''; ?>">Thing Speak</button></a>
 </p>
 
@@ -33,6 +34,7 @@ case 'usb' : include('modules/devices/html/usb.php'); break;
 case 'i2c' : include('modules/devices/html/i2c.php'); break;
 case 'lcd' : include('modules/devices/html/lcdswitcher.php'); break;
 case 'rs485' : include('modules/devices/html/rs485.php'); break;
+case 'upspimowo' : include('modules/devices/html/upspimowo.php'); break;
 case 'counters' : include('modules/devices/html/counters.php'); break;
 case 'thing' : include('modules/thingspeak/html/thing.php'); break;
 
