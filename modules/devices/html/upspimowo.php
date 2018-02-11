@@ -125,8 +125,8 @@ echo 'pimowo'
 
 <tr>
 <td></td>
-<td>Read</td>
-<td>Save</td>
+<td><button type="button" class="btn btn-info">Read</button></td>
+<td><button type="button" class="btn btn-danger">Save</button></td>
 </tr>
 
 
