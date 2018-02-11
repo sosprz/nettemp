@@ -36,11 +36,6 @@ echo 'pimowo'
 <td></td>
 </tr>
 
-<tr>
-<td>DC Aku</td>
-<td></td>
-<td></td>
-</tr>
 
 <tr>
 <td>Current uotput</td>
@@ -55,13 +50,31 @@ echo 'pimowo'
 </tr>
 
 <tr>
-<td>Aku temp</td>
+<td>Aku Temp</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td>DC Aku</td>
+<td>Aku Capacity</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Aku Charge</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>UPS Power</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Aku </td>
 <td></td>
 <td></td>
 </tr>
