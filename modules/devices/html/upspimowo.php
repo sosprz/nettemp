@@ -17,62 +17,62 @@
 </tr>
 
 <tr>
-<td class="col-md-2">DC Input</td>
+<td class="col-md-2"><span class="label label-default">DC Input<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">DC Aku</td>
+<td class="col-md-2"><span class="label label-default">DC Aku<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">DC Output</td>
+<td class="col-md-2"><span class="label label-default">DC Output<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 
 <tr>
-<td class="col-md-2">Current uotput</td>
+<td class="col-md-2"><span class="label label-default">Current uotput<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Power Output</td>
+<td class="col-md-2"><span class="label label-default">Power Output<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Aku Temp</td>
+<td class="col-md-2"><span class="label label-default">Aku Temp<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Aku Capacity</td>
+<td class="col-md-2"><span class="label label-default">Aku Capacity<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Aku Charge</td>
+<td class="col-md-2"><span class="label label-default">Aku Charge<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">UPS Power</td>
+<td class="col-md-2"><span class="label label-default">UPS Power<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Aku Health</td>
+<td class="col-md-2"><span class="label label-default">Aku Health<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
@@ -80,43 +80,43 @@
 
 
 <tr>
-<td class="col-md-2">Delay ON</td>
+<td class="col-md-2"><span class="label label-default">Delay ON<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Delay OFF</td>
+<td class="col-md-2"><span class="label label-default">Delay OFF<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Aku charge start</td>
+<td class="col-md-2"><span class="label label-default">Aku charge start<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Aku charge stop</td>
+<td class="col-md-2"><span class="label label-default">Aku charge stop<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Aku discharged</td>
+<td class="col-md-2"><span class="label label-default">Aku discharged<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">LCD Scrolling</td>
+<td class="col-md-2"><span class="label label-default">LCD Scrolling<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">LCD Auto Backlight</td>
+<td class="col-md-2"><span class="label label-default">LCD Auto Backlight<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
