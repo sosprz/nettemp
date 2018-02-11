@@ -13,9 +13,10 @@ echo 'pimowo'
 <thead>
 <tr>
 
-<th>Actual settings</th>
-<th>New settings</th>
-
+<th>Settings</th>
+<th>Actual</th>
+<th>Settings</th>
+<th>New</th>
 </tr>
 
 
