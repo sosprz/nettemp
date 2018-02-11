@@ -15,11 +15,20 @@ echo 'pimowo'
 
 <th>Settings</th>
 <th>Actual</th>
-<th>Settings</th>
 <th>New</th>
 </tr>
 
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 
+<tr>
+<td></td>
+<td>Read</td>
+<td>Save</td>
+</tr>
 
 
 </thead>
