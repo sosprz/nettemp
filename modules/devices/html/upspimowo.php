@@ -4,7 +4,7 @@ echo 'pimowo'
 
 
 <div class="panel panel-default">
-<div class="panel-heading">UPS Pimowo Settings
+<div class="panel-heading">UPS Pimowo Settings</div>
 
 
 
