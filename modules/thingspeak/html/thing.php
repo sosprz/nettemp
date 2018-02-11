@@ -134,7 +134,7 @@ foreach ($row as $a) {
 	
 	<td class="col-md-0">
 	<form class="form-horizontal" action="" method="post" style="display:inline!important;">	
-		<select name="f1" class="form-control input-sm">
+		<select name="f1" class="form-control input-sm small">
 		<option value="off">off</option>
 		<?php 
 		
@@ -146,7 +146,7 @@ foreach ($row as $a) {
 	</td>
 	
 	<td class="col-md-0">
-		<select name="f2" class="form-control input-sm">
+		<select name="f2" class="form-control input-sm small">
 		<option value="off">off</option>
 		<?php 
 			foreach ($result as $select) { ?>
@@ -156,7 +156,7 @@ foreach ($row as $a) {
 	</td>
 	
 	<td class="col-md-0">
-		<select name="f3" class="form-control input-sm">
+		<select name="f3" class="form-control input-sm small">
 		<option value="off">off</option>
 		<?php 
 			foreach ($result as $select) { ?>
@@ -166,7 +166,7 @@ foreach ($row as $a) {
 	</td>
 	
 	<td class="col-md-0">
-		<select name="f4" class="form-control input-sm">
+		<select name="f4" class="form-control input-sm small">
 		<option value="off">off</option>
 		<?php 
 			foreach ($result as $select) { ?>
@@ -176,7 +176,7 @@ foreach ($row as $a) {
 	</td>
 	
 	<td class="col-md-0">
-		<select name="f5" class="form-control input-sm">
+		<select name="f5" class="form-control input-sm small">
 		<option value="off">off</option>
 		<?php 
 			foreach ($result as $select) { ?>
@@ -186,7 +186,7 @@ foreach ($row as $a) {
 	</td>
 	
 	<td class="col-md-0">
-		<select name="f6" class="form-control input-sm">
+		<select name="f6" class="form-control input-sm small">
 		<option value="off">off</option>
 		<?php 
 			foreach ($result as $select) { ?>
@@ -196,7 +196,7 @@ foreach ($row as $a) {
 	</td>
 	
 	<td class="col-md-0">
-		<select name="f7" class="form-control input-sm">
+		<select name="f7" class="form-control input-sm small">
 		<option value="off">off</option>
 		<?php 
 			foreach ($result as $select) { ?>
@@ -206,7 +206,7 @@ foreach ($row as $a) {
 	</td>
 	
 	<td class="col-md-0">
-		<select name="f8" class="form-control input-sm">
+		<select name="f8" class="form-control input-sm small">
 		<option value="off">off</option>
 		<?php 
 			foreach ($result as $select) { ?>
@@ -216,7 +216,7 @@ foreach ($row as $a) {
 	</td>
 	
 	<td class="col-md-0">
-		<select name="interval" class="form-control input-sm">
+		<select name="interval" class="form-control input-sm small">
 		<option value="1" <?php echo $a['interval'] == '1' ? 'selected="selected"' : ''; ?>>1 min</option>
 		<option value="2" <?php echo $a['interval'] == '2' ? 'selected="selected"' : ''; ?>>2 min</option>
 		<option value="5" <?php echo $a['interval'] == '5' ? 'selected="selected"' : ''; ?>>5 min</option>
