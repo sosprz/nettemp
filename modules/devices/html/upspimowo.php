@@ -17,19 +17,19 @@
 </tr>
 
 <tr>
-<td class="col-md-2"><span class="label label-default">DC Input<span class="label label-default"></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2"><span class="label label-default">DC Aku<span class="label label-default"></td>
+<td class="col-md-2"><span class="btn btn-xs btn-success">DC Input<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
 <td class="col-md-2"><span class="label label-default">DC Output<span class="label label-default"></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td class="col-md-2"><span class="label label-default">DC Aku<span class="label label-default"></td>
 <td></td>
 <td></td>
 </tr>
