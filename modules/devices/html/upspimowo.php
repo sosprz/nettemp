@@ -23,20 +23,20 @@
 </tr>
 
 <tr>
-<td class="col-md-2">DC Akku.</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
 <td class="col-md-2">DC Output</td>
 <td></td>
 <td></td>
 </tr>
 
+<tr>
+<td class="col-md-2">DC Akku.</td>
+<td></td>
+<td></td>
+</tr>
+
 
 <tr>
-<td class="col-md-2">Current uotput</td>
+<td class="col-md-2">Current output</td>
 <td></td>
 <td></td>
 </tr>
