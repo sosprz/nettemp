@@ -74,16 +74,12 @@ echo 'pimowo'
 </tr>
 
 <tr>
-<td class="col-md-2">Aku </td>
+<td class="col-md-2">Aku Health</td>
 <td></td>
 <td></td>
 </tr>
 
-<tr>
-<td class="col-md-2">Capacity Aku</td>
-<td></td>
-<td></td>
-</tr>
+
 
 <tr>
 <td class="col-md-2">Delay ON</td>
