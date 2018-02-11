@@ -19,16 +19,67 @@ echo 'pimowo'
 </tr>
 
 <tr>
-<td></td>
+<td>DC Input</td>
 <td></td>
 <td></td>
 </tr>
+
+<tr>
+<td>DC Aku</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>DC Output</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>DC Aku</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Current uotput</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Power Output</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Aku temp</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>DC Aku</td>
+<td></td>
+<td></td>
+</tr>
+
+
 
 <tr>
 <td></td>
 <td>Read</td>
 <td>Save</td>
 </tr>
+
+<tr>
+<td>Capacity Aku</td>
+<td></td>
+<td></td>
+</tr>
+
 
 
 </thead>
