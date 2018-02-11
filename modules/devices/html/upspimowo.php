@@ -79,7 +79,53 @@ echo 'pimowo'
 <td></td>
 </tr>
 
+<tr>
+<td>Capacity Aku</td>
+<td></td>
+<td></td>
+</tr>
 
+<tr>
+<td>Delay ON</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Delay OFF</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Aku charge start</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Aku charge stop</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Aku discharged</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>LCD Scrolling</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>LCD Auto Backlight</td>
+<td></td>
+<td></td>
+</tr>
 
 <tr>
 <td></td>
@@ -87,11 +133,6 @@ echo 'pimowo'
 <td>Save</td>
 </tr>
 
-<tr>
-<td>Capacity Aku</td>
-<td></td>
-<td></td>
-</tr>
 
 
 
