@@ -19,7 +19,7 @@ echo 'pimowo'
 </tr>
 
 <tr>
-<td>DC Input</td>
+<td class="col-md-1">DC Input</td>
 <td></td>
 <td></td>
 </tr>
