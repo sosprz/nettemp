@@ -23,7 +23,7 @@
 </tr>
 
 <tr>
-<td class="col-md-2">DC Aku</td>
+<td class="col-md-2">DC Akku.</td>
 <td></td>
 <td></td>
 </tr>
@@ -48,19 +48,19 @@
 </tr>
 
 <tr>
-<td class="col-md-2">Aku Temp</td>
+<td class="col-md-2">Akku. Temp</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Aku Capacity</td>
+<td class="col-md-2">Akku. Capacity</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Aku Charge</td>
+<td class="col-md-2">Akku. Charge</td>
 <td></td>
 <td></td>
 </tr>
@@ -72,7 +72,7 @@
 </tr>
 
 <tr>
-<td class="col-md-2">Aku Health</td>
+<td class="col-md-2">Akku. Health</td>
 <td></td>
 <td></td>
 </tr>
@@ -92,19 +92,19 @@
 </tr>
 
 <tr>
-<td class="col-md-2">Aku charge start</td>
+<td class="col-md-2">Akku. charge start</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Aku charge stop</td>
+<td class="col-md-2">Akku. charge stop</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Aku discharged</td>
+<td class="col-md-2">Akku. discharged</td>
 <td></td>
 <td></td>
 </tr>
