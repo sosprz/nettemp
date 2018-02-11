@@ -11,7 +11,7 @@ echo 'pimowo'
 <div class="table-responsive">
 <table class="table table-hover table-condensed small" border="0">
 <thead>
-<tr><
+<tr>
 
 <th>Actual settings</th>
 <th>New settings</th>
