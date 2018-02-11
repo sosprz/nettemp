@@ -1,6 +1,4 @@
-<?php
-echo 'pimowo'
-?>
+
 
 
 <div class="panel panel-default">
@@ -125,8 +123,8 @@ echo 'pimowo'
 
 <tr>
 <td></td>
-<td><button type="button" class="btn btn-info">Read</button></td>
-<td><button type="button" class="btn btn-danger">Save</button></td>
+<td><button type="button" class="btn btn-xs btn-info">Read</button></td>
+<td><button type="button" class="btn btn-xsbtn-danger">Save</button></td>
 </tr>
 
 
