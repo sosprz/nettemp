@@ -15,6 +15,8 @@
 <th>New</th>
 </tr>
 
+</thead>
+
 <tr>
 <td class="col-md-2">DC Input</td>
 <td></td>
@@ -79,7 +81,7 @@
 
 
 
-</thead>
+
 </table>
 
 </div></div>
@@ -88,7 +90,7 @@
 <div class="panel panel-default">
 <div class="panel-heading">UPS NT Settings</div>
 
- <table class="table table-hover table-condensed">
+<table class="table table-hover table-condensed">
 <thead>
 <tr>
 
