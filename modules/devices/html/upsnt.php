@@ -2,8 +2,6 @@
 <div class="grid-item">
 <div class="panel panel-default">
 <div class="panel-heading">UPS NT Status</div>
-
-
 <table class="table table-hover table-condensed">
 
 
@@ -70,7 +68,7 @@
 
 </table>
 
-</div></div>
+</div>
 
 <div class="grid-item">
 <div class="panel panel-default">
