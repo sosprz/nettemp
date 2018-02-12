@@ -195,9 +195,10 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 
 												<tr>
 												<td><? echo $flag; ?></td>
-												<td><button type="button" class="btn btn-xs btn-info">Read</button></td>
-												<td><button type="button" class="btn btn-xs btn-danger">Save</button>
+												<td><button type="submit" class="btn btn-xs btn-info">Read</button></td>
+												<td>
 												<input type="hidden" name="savetoups" value="savetoups" />
+												<button type="submit" class="btn btn-xs btn-danger">Save</button>
 												
 												</form></td>
 												</tr>
