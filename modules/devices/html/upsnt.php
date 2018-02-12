@@ -42,7 +42,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	
 // wczytanie danych ups	
 	
-$db = new PDO('sqlite:dbf/nettemp.db');
+$db = new PDO("sqlite:$root/dbf/nettemp.db");
 $rows = $db->query("SELECT name, tmp FROM sensors WHERE rom='*UPS_id*'");
 $row = $rows->fetchAll();
 
