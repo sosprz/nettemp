@@ -12,16 +12,16 @@ try {
 }
 
 try {
-    //$query = $db->query("SELECT dev FROM usb WHERE device='UPS Pimowo'");
-    //$result= $query->fetchAll();
-   // foreach($result as $r) {
-     // $dev=$r['dev'];
-   // }
-    //  if($dev=='none'){
-     // echo $date." No UPS Pimowo USB Device.\n";
-     // exit;
-   // }
-   // unset($db);
+    $query = $db->query("SELECT dev FROM usb WHERE device='UPS Pimowo'");
+    $result= $query->fetchAll();
+   foreach($result as $r) {
+     $dev=$r['dev'];
+    }
+     if($dev=='none'){
+      echo $date." No UPS Pimowo USB Device.\n";
+      exit;
+    }
+    unset($db);
 
     include("$ROOT/receiver.php");
     $cmd=("exec 3</dev/ttyUSB0 && echo -n 'D\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
@@ -42,13 +42,13 @@ try {
         exit;
     }else{
         $local_device='usb';
-        //$local_usb=dev/ttyUSB0;
+        $local_usb=$dev;
         for($i=0;$i<count($data);$i++){
             $local_rom='UPS_id'.($i+1);
             $local_val=$data[$i];
             $local_type=$types[$i];
             echo $date.' '.$echoes[$i].': '.$data[$i]."\n";
-            db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,'dev/ttyUSB0',$local_name);
+            db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
         }
     }
 
