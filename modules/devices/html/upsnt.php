@@ -186,7 +186,7 @@ $row = $rows->fetchAll();
 												</tr>
 
 												<tr>
-												<td <span class="label label-default">>Akku. charge stop</span</td>
+												<td <span class="label label-default">>Akku. charge stop</span></td>
 												<td></td>
 <td>
 	
@@ -196,7 +196,7 @@ $row = $rows->fetchAll();
 												</tr>
 
 												<tr>
-												<td ><span class="label label-default">Akku. discharged</span</td>
+												<td ><span class="label label-default">Akku. discharged</span></td>
 												<td></td>
 <td>
 	
@@ -207,7 +207,7 @@ $row = $rows->fetchAll();
 												</tr>
 
 												<tr>
-												<td ><span class="label label-default">LCD Scrolling</span</td>
+												<td ><span class="label label-default">LCD Scrolling</span></td>
 												<td></td>
 <td>
 	
