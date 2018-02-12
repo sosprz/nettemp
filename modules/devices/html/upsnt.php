@@ -12,9 +12,12 @@
 
 </style>
 <?php
+$root=$_SERVER["DOCUMENT_ROOT"];
+
 if(!isset($db)){
     $db = new PDO("sqlite:$root/dbf/nettemp.db");
 }
+
 $upsdelayon = isset($_POST['upsdelayon']) ? $_POST['upsdelayon'] : '';
 $upsdelayoff = isset($_POST['upsdelayoff']) ? $_POST['upsdelayoff'] : '';
 $upsakkuchargestart = isset($_POST['upsakkuchargestart']) ? $_POST['upsakkuchargestart'] : '';
@@ -135,7 +138,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 												<td >Delay OFF</td>
 												<td></td>
 <td>
-	<form action="" method="post" style="display:inline!important;">
+
 	<input type="text" name="upsdelayoff" size="2" maxlength="5" value="<?php echo $nts_ups_delay_off; ?>" />
     
 </td>
@@ -145,7 +148,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 												<td >Akku. charge start</td>
 												<td></td>
 <td>
-	<form action="" method="post" style="display:inline!important;">
+	
 	<input type="text" name="upsakkuchargestart" size="2" maxlength="5" value="<?php echo $nts_ups_akku_charge_start; ?>" />
     
 </td>
@@ -155,7 +158,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 												<td >Akku. charge stop</td>
 												<td></td>
 <td>
-	<form action="" method="post" style="display:inline!important;">
+	
 	<input type="text" name="upsakkuchargestop" size="2" maxlength="5" value="<?php echo $nts_ups_akku_charge_stop; ?>" />
     
 </td>	
@@ -165,7 +168,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 												<td >Akku. discharged</td>
 												<td></td>
 <td>
-	<form action="" method="post" style="display:inline!important;">
+	
 	<input type="text" name="upsakkudischarged" size="2" maxlength="5" value="<?php echo $nts_ups_akku_discharged; ?>" />
     
 </td>
@@ -176,7 +179,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 												<td >LCD Scrolling</td>
 												<td></td>
 <td>
-	<form action="" method="post" style="display:inline!important;">
+	
 	<input type="text" name="upsscroll" size="2" maxlength="5" value="<?php echo $nts_ups_lcd_scroll; ?>" />
     
 </td>	
@@ -186,7 +189,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 												<td >LCD Auto Backlight</td>
 												<td></td>
 <td>
-	<form action="" method="post" style="display:inline!important;">
+	
 	<input type="text" name="upsbacklight" size="2" maxlength="5" value="<?php echo $nts_ups_lcd_backlight; ?>" />
     
 </td>
