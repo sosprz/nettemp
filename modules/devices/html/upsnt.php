@@ -198,8 +198,8 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	
 	<select name="upsbacklight" class="form-control input-sm">
 		
-		<option value="yes" <?php echo $nts_ups_lcd_backlight ? 'selected="selected"' : ''; ?> >Yes</option>
-		<option value="no" <?php echo $nts_ups_lcd_backlight ? 'selected="selected"' : ''; ?> >No</option>
+		<option value="yes" <?php echo $nts_ups_lcd_backlight == 'yes' ? 'selected="selected"' : ''; ?> >Yes</option>
+		<option value="no" <?php echo $nts_ups_lcd_backlight == 'no'? 'selected="selected"' : ''; ?> >No</option>
 		
 		</select>
 	
