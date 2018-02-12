@@ -39,19 +39,39 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
-
+	
+// wczytanie danych ups	
+	
+$db = new PDO('sqlite:dbf/nettemp.db');
+$rows = $db->query("SELECT name, tmp FROM sensors WHERE rom='*UPS_id*'");
+$row = $rows->fetchAll();
 
 ?>
 
 <div class="grid">
 <div class="grid-sizer"></div>
-		<div class="grid-item">
-				<div class="panel panel-default">
+<div class="grid-item">
+<div class="panel panel-default">
 
-							<div class="panel-heading">UPS NT Status</div>
-								<table class="table table-hover table-condensed">
-
-										<tbody>
+<div class="panel-heading">UPS NT Status</div>
+	<table class="table table-hover table-condensed">
+		<tbody>
+		<?php
+		foreach ($row as $a) { ?>	
+		
+		<tr>
+		<td><?php $a['name']; ?></td>
+		<td><?php $a['tmp']; ?></td>										
+		</tr>
+		<?php
+		}
+		?>
+		
+		
+		
+		
+		
+		
 												<tr>
 												<td >DC Input</td>
 												<td></td>
