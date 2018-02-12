@@ -69,7 +69,7 @@ $row = $rows->fetchAll();
 		?>
 		
 		<tr>
-												<td >Dane wyżej czytane ze statusu (według position) lub zostaje tak jak było, czyli jak niżej</td>
+												<td >Dane wyżej czytane ze statusu (według position) lub zostaje tak jak było, czyli jak niżej - jeśli skrypt bedzie działał w miare szybko to bedą się czytać na bieżąco.</td>
 												<td></td>
 												
 												</tr>
