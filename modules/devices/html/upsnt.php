@@ -13,7 +13,7 @@
 </style>
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
-$flag=0;
+$flag=2;
 
 $upsdelayon = isset($_POST['upsdelayon']) ? $_POST['upsdelayon'] : '';
 $upsdelayoff = isset($_POST['upsdelayoff']) ? $_POST['upsdelayoff'] : '';
