@@ -1,35 +1,4 @@
-<style type="text/css">
-
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-
-/* ---- grid ---- */
-
-.grid {
-	<?php if($id=='screen') { ?>
-   	width: 800px;
-   <?php } ?>
-}
-
-/* clearfix */
-.grid:after {
-  content: '';
-  display: block;
-  clear: both;
-}
-
-/* ---- grid-item ---- */
-
-.grid-item {
-    width: 340px;
-    float: left;
-    border-radius: 5px;
-}
-
-</style>
+<div class="container-nettemp">
 <div class="grid">
     <div class="grid-sizer"></div>
 <div class="grid-item">
@@ -186,4 +155,4 @@
 </thead>
 </table>
 
-</div></div></div>
+</div></div></div></div>
