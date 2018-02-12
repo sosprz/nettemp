@@ -13,7 +13,6 @@
 </style>
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
-$flag=2;
 
 $upsdelayon = isset($_POST['upsdelayon']) ? $_POST['upsdelayon'] : '';
 $upsdelayoff = isset($_POST['upsdelayoff']) ? $_POST['upsdelayoff'] : '';
@@ -26,8 +25,17 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 
  if  ($savetoups == "savetoups") {
     $db = new PDO("sqlite:$root/dbf/nettemp.db");
-	$flag=1;
     $db->exec("UPDATE nt_settings SET value='$upsdelayon' WHERE option='ups_delay_on'");
+	$db->exec("UPDATE nt_settings SET value='$upsdelayoff' WHERE option='ups_delay_off'");
+	$db->exec("UPDATE nt_settings SET value='$upsakkuchargestart' WHERE option='ups_akku_charge_start'");
+	$db->exec("UPDATE nt_settings SET value='$upsakkuchargestop' WHERE option='ups_akku_charge_stop'");
+	$db->exec("UPDATE nt_settings SET value='$upsakkudischarged' WHERE option='ups_akku_discharged'");
+	$db->exec("UPDATE nt_settings SET value='$upsscroll' WHERE option='ups_lcd_scroll'");
+	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
+	
+	// tutaj zapis do UPSA
+	
+	
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -194,7 +202,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 												</tr>
 
 												<tr>
-												<td><? echo $flag; ?></td>
+												<td></td>
 												<td><button type="submit" class="btn btn-xs btn-info">Read</button></td>
 												<td>
 												<input type="hidden" name="savetoups" value="savetoups" />
