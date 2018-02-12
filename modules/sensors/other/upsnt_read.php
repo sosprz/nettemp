@@ -24,7 +24,7 @@ try {
     unset($db);
 
     include("$ROOT/receiver.php");
-    $cmd=("exec 3<$dev && echo -n \"D\" >$dev && head -1 <&3; exec 3<&-");
+    $cmd=("exec 3<$dev && echo  \"D\" >$dev && head -1 <&3; exec 3<&-");
     $out=shell_exec($cmd);
     $out=trim($out);
     $data=explode(" ",$out);
