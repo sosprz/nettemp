@@ -129,12 +129,8 @@
 
 
 </thead>
-</table
+</table>
 
-
-<?php
-
-?>
 </div></div>
 
 <div class="grid-item">
@@ -266,10 +262,6 @@
 
 
 </thead>
-</table
+</table>
 
-
-<?php
-
-?>
 </div></div>
