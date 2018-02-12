@@ -7,7 +7,7 @@
     width: 340px;
     float: left;
     border-radius: 5px;
-	margin-right:-10px;
+	margin-right: 10px;
 }
 
 </style>
