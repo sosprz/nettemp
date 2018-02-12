@@ -21,10 +21,10 @@ try {
     //  echo $date." No UPS Pimowo USB Device.\n";
      // exit;
    // }
-    //unset($db);
+   // unset($db);
 
     include("$ROOT/receiver.php");
-    $cmd=("exec 3</dev/ttyUSB0 && echo -n 'D\n' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+    $cmd=("exec 3</dev/ttyUSB0 && echo -n 'D\r\n' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
 	//echo $cmd."\n";
     $out=shell_exec($cmd);
 	//echo $out."\n";
