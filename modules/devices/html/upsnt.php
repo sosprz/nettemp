@@ -79,54 +79,6 @@
 
 
 
-<tr>
-<td class="col-md-2">Delay ON</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2">Delay OFF</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2">Akku. charge start</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2">Akku. charge stop</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2">Akku. discharged</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2">LCD Scrolling</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2">LCD Auto Backlight</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td></td>
-<td><button type="button" class="btn btn-xs btn-info">Read</button></td>
-<td><button type="button" class="btn btn-xs btn-danger">Save</button></td>
-</tr>
-
 
 </thead>
 </table>
