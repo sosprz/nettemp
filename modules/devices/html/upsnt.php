@@ -13,7 +13,7 @@
 </style>
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
-
+$flag=0;
 
 $upsdelayon = isset($_POST['upsdelayon']) ? $_POST['upsdelayon'] : '';
 $upsdelayoff = isset($_POST['upsdelayoff']) ? $_POST['upsdelayoff'] : '';
@@ -26,6 +26,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 
  if  ($savetoups == "savetoups") {
     $db = new PDO("sqlite:$root/dbf/nettemp.db");
+	$flag=1;
     $db->exec("UPDATE nt_settings SET value='$upsdelayon' WHERE option='ups_delay_on'");
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -193,7 +194,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 												</tr>
 
 												<tr>
-												<td></td>
+												<td><?echo $flag; ?></td>
 												<td><button type="button" class="btn btn-xs btn-info">Read</button></td>
 												<td><button type="button" class="btn btn-xs btn-danger">Save</button>
 												<input type="hidden" name="savetoups" value="savetoups" />
