@@ -68,82 +68,13 @@ $row = $rows->fetchAll();
 		}
 		?>
 		
-		<tr>
-												<td >Dane wyżej czytane ze statusu (według position) lub zostaje tak jak było, czyli jak niżej - jeśli skrypt bedzie działał w miare szybko to bedą się czytać na bieżąco.</td>
-												<td></td>
-												
-												</tr>
-		
-		
-		
-		
-		
-												<tr>
-												<td >DC Input</td>
-												<td></td>
-												
-												</tr>
+	
 
-												<tr>
-												<td >DC Output</td>
-												<td></td>
-												
-												</tr>
+		</tbody>
+	</table>
 
-												<tr>
-												<td >DC Akku.</td>
-												<td></td>
-											
-												</tr>
-
-
-												<tr>
-												<td >Current output</td>
-												<td></td>
-												
-												</tr>
-
-												<tr>
-												<td >Power Output</td>
-												<td></td>
-												
-												</tr>
-
-												<tr>
-												<td >Akku. Temp</td>
-												<td></td>
-												
-												</tr>
-
-												<tr>
-												<td >Akku. Capacity</td>
-												<td></td>
-												
-												</tr>
-
-												<tr>
-												<td >Akku. Charge</td>
-												<td></td>
-												
-												</tr>
-
-												<tr>
-												<td >UPS AC Power</td>
-												<td></td>
-												
-												</tr>
-
-												<tr>
-												<td >Akku. Health</td>
-												<td></td>
-												
-												</tr>
-
-										</tbody>
-								</table>
-
-				</div>
-		</div>
+	</div>
+</div>
 		
 		
 		
