@@ -62,8 +62,8 @@ $updates['2018-02-08 19:40:08'][]="ALTER TABLE sensors ADD readerralarm TEXT";
 $updates['2018-02-08 19:48:25'][]="UPDATE sensors SET readerralarm='off'";
 $updates['2018-02-08 19:49:20'][]="UPDATE sensors SET readerr='60'";
 //Update nt_settings UPS NT
-$updates['2018-02-12 13:04:09'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_deleay_on','60')";
-$updates['2018-02-12 13:04:09'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_deleay_off','60')";
+$updates['2018-02-12 13:04:11'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_delay_on','60')";
+$updates['2018-02-12 13:04:11'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_delay_off','60')";
 $updates['2018-02-12 13:04:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_akku_charge_start','3.9')";
 $updates['2018-02-12 13:04:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_akku_charge_stop','4.1')";
 $updates['2018-02-12 13:04:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_akku_discharged','3.3')";

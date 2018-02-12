@@ -119,11 +119,11 @@ foreach ($result as $a) {
     if($a['option']=='screen') {
        	$nts_screen=$a['value'];
     }
-	if($a['option']=='ups_deleay_on') {
-       	$nts_ups_deleay_on=$a['value'];
+	if($a['option']=='ups_delay_on') {
+       	$nts_ups_delay_on=$a['value'];
     }
-	if($a['option']=='ups_deleay_off') {
-       	$nts_ups_deleay_off=$a['value'];
+	if($a['option']=='ups_delay_off') {
+       	$nts_ups_delay_off=$a['value'];
     }
 	if($a['option']=='ups_akku_charge_start') {
        	$nts_ups_akku_charge_start=$a['value'];
