@@ -155,7 +155,7 @@ $row = $rows->fetchAll();
 
 										<tbody>
 												<tr>
-												<td >Delay ON</td>
+												<td><span class="label label-default">Delay ON</span</td>
 												<td></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
@@ -166,7 +166,7 @@ $row = $rows->fetchAll();
 												</tr>
 
 												<tr>
-												<td >Delay OFF</td>
+												<td ><span class="label label-default">Delay OFF</span</td>
 												<td></td>
 <td>
 
@@ -176,7 +176,7 @@ $row = $rows->fetchAll();
 												</tr>
 
 												<tr>
-												<td >Akku. charge start</td>
+												<td ><span class="label label-default">Akku. charge star</spant</td>
 												<td></td>
 <td>
 	
@@ -186,7 +186,7 @@ $row = $rows->fetchAll();
 												</tr>
 
 												<tr>
-												<td >Akku. charge stop</td>
+												<td <span class="label label-default">>Akku. charge stop</span</td>
 												<td></td>
 <td>
 	
@@ -196,7 +196,7 @@ $row = $rows->fetchAll();
 												</tr>
 
 												<tr>
-												<td >Akku. discharged</td>
+												<td ><span class="label label-default">Akku. discharged</span</td>
 												<td></td>
 <td>
 	
@@ -207,7 +207,7 @@ $row = $rows->fetchAll();
 												</tr>
 
 												<tr>
-												<td >LCD Scrolling</td>
+												<td ><span class="label label-default">LCD Scrolling</span</td>
 												<td></td>
 <td>
 	
@@ -217,7 +217,7 @@ $row = $rows->fetchAll();
 												</tr>
 
 												<tr>
-												<td >LCD Auto Backlight</td>
+												<td ><span class="label label-default">LCD Auto Backlight</span></td>
 												<td></td>
 <td>
 	
