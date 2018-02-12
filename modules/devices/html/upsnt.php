@@ -1,19 +1,11 @@
 
 <div class="grid-item">
 <div class="panel panel-default">
-<div class="panel-heading">UPS NT Settings</div>
+<div class="panel-heading">UPS NT Status</div>
 
 
- <table class="table table-hover table-condensed">
-<thead>
-<tr>
+<table class="table table-hover table-condensed">
 
-<th>Settings</th>
-<th>Actual</th>
-<th>New</th>
-</tr>
-
-</thead>
 
 <tr>
 <td class="col-md-2">DC Input</td>
@@ -75,10 +67,6 @@
 <td></td>
 <td></td>
 </tr>
-
-
-
-
 
 </table>
 
