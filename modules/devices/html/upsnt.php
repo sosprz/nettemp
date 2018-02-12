@@ -6,9 +6,7 @@
 <div class="panel-heading">UPS NT Settings</div>
 
 
-
-<div class="table-responsive">
-<table class="table table-hover table-condensed small" border="0">
+ <table class="table table-hover table-condensed">
 <thead>
 <tr>
 
@@ -90,10 +88,7 @@
 <div class="panel panel-default">
 <div class="panel-heading">UPS NT Settings</div>
 
-
-
-<div class="table-responsive">
-<table class="table table-hover table-condensed small" border="0">
+ <table class="table table-hover table-condensed">
 <thead>
 <tr>
 
