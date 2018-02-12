@@ -1,4 +1,4 @@
-<div class="container-nettemp">
+
 
 <div class="grid">
 <div class="grid-sizer"></div>
@@ -140,5 +140,4 @@
 
 </div></div>
 
-</div>
 </div>
