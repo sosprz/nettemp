@@ -119,7 +119,27 @@ foreach ($result as $a) {
     if($a['option']=='screen') {
        	$nts_screen=$a['value'];
     }
-	
+	if($a['option']=='ups_deleay_on') {
+       	$nts_ups_deleay_on=$a['value'];
+    }
+	if($a['option']=='ups_deleay_off') {
+       	$nts_ups_deleay_off=$a['value'];
+    }
+	if($a['option']=='ups_akku_charge_start') {
+       	$nts_ups_akku_charge_start=$a['value'];
+    }
+	if($a['option']=='ups_akku_charge_stop') {
+       	$nts_ups_akku_charge_stop=$a['value'];
+    }
+	if($a['option']=='ups_akku_discharged') {
+       	$nts_ups_akku_discharged=$a['value'];
+    }
+	if($a['option']=='ups_lcd_scroll') {
+       	$nts_ups_lcd_scroll=$a['value'];
+    }
+	if($a['option']=='ups_lcd_backlight') {
+       	$nts_ups_lcd_backlight=$a['value'];
+    }
 }
 
 //different way..
