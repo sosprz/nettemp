@@ -107,6 +107,14 @@ if(!isset($db)){
 												<td >Delay ON</td>
 												<td></td>
 												<td><?php echo $nts_ups_delay_on; ?></td>
+												
+	<form action="" method="post" style="display:inline!important;">
+	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_delay_on; ?>" />
+    </form>
+												
+												
+												
+												
 												</tr>
 
 												<tr>
