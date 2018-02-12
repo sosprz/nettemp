@@ -60,7 +60,7 @@ $row = $rows->fetchAll();
 		foreach ($row as $a) { ?>	
 		
 		<tr>
-		<td><span class="label label-default"><?php echo $a['name']; ?></span></td>
+		<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name']); ?></span></td>
 		<td><span class="label label-success"><?php echo $a['tmp']; ?></span></td>										
 		</tr>
 		<?php
