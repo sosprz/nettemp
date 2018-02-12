@@ -60,8 +60,8 @@ $row = $rows->fetchAll();
 		foreach ($row as $a) { ?>	
 		
 		<tr>
-		<td><?php echo $a['name']; ?></td>
-		<td><?php echo $a['tmp']; ?></td>										
+		<td><span class="label label-default"><?php echo $a['name']; ?></span></td>
+		<td><span class="label label-success"><?php echo $a['tmp']; ?></span></td>										
 		</tr>
 		<?php
 		}
