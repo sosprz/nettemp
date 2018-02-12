@@ -43,7 +43,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 // wczytanie danych ups	
 	
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
-$rows = $db->query("SELECT name, tmp FROM sensors WHERE rom LIKE '%UPS_id%'");
+$rows = $db->query("SELECT name, tmp, position FROM sensors WHERE rom LIKE '%UPS_id%' ORDER BY position ASC");
 $row = $rows->fetchAll();
 
 ?>
