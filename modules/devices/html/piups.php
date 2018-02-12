@@ -53,7 +53,7 @@ $row = $rows->fetchAll();
 <div class="grid-item">
 <div class="panel panel-default">
 
-<div class="panel-heading">UPS NT Status</div>
+<div class="panel-heading">PiUPS Status</div>
 	<table class="table table-hover table-condensed">
 		<tbody>
 		<?php
@@ -151,7 +151,7 @@ $row = $rows->fetchAll();
 		<div class="grid-item">
 				<div class="panel panel-default">
 
-							<div class="panel-heading">UPS NT Settings</div>
+							<div class="panel-heading">PiUPS Settings</div>
 								<table class="table table-hover table-condensed">
 
 										<tbody>
@@ -244,6 +244,10 @@ $row = $rows->fetchAll();
 												
 												</form></td>
 												</tr>
+												
+												<td><button type="submit" class="btn btn-xs btn-info">Service Mode</button></td>
+												
+												</td></tr>
 
 										</tbody>
 								</table>
