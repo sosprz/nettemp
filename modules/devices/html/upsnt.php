@@ -186,7 +186,7 @@ $row = $rows->fetchAll();
 												</tr>
 
 												<tr>
-												<td <span class="label label-default">>Akku. charge stop</span></td>
+												<td <span class="label label-default">Akku. charge stop</span></td>
 												<td></td>
 <td>
 	
