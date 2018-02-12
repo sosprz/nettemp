@@ -1,6 +1,4 @@
-<div class="container-nettemp">
-<div class="grid">
-    <div class="grid-sizer"></div>
+
 <div class="grid-item">
 <div class="panel panel-default">
 <div class="panel-heading">UPS NT Settings</div>
@@ -152,4 +150,4 @@
 </thead>
 </table>
 
-</div></div></div></div>
+</div></div>
