@@ -12,16 +12,16 @@ try {
 }
 
 try {
-    $query = $db->query("SELECT dev FROM usb WHERE device='UPS Pimowo'");
-    $result= $query->fetchAll();
-   foreach($result as $r) {
-     $dev=$r['dev'];
-    }
-     if($dev=='none'){
-      echo $date." No UPS Pimowo USB Device.\n";
-      exit;
-    }
-    unset($db);
+   // $query = $db->query("SELECT dev FROM usb WHERE device='UPS Pimowo'");
+   // $result= $query->fetchAll();
+  // foreach($result as $r) {
+    // $dev=$r['dev'];
+  //  }
+    // if($dev=='none'){
+    //  echo $date." No UPS Pimowo USB Device.\n";
+     // exit;
+   // }
+    //unset($db);
 
     include("$ROOT/receiver.php");
     $cmd=("exec 3</dev/ttyUSB0 && echo -n 'D\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
