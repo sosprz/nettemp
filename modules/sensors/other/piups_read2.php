@@ -42,7 +42,7 @@ try {
         exit;
     }else{
         $local_device='usb';
-        $local_usb=$dev;
+        $local_usb='/dev/ttyUSB0';
         for($i=0;$i<count($data);$i++){
             $local_rom='UPS_id'.($i+1);
             $local_val=$data[$i];
