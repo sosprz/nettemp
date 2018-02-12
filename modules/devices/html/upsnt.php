@@ -109,7 +109,7 @@ if(!isset($db)){
 <td>
 	<form action="" method="post" style="display:inline!important;">
 	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_delay_on; ?>" />
-    </form>
+    
 </td>
 												
 	
@@ -158,7 +158,7 @@ if(!isset($db)){
 												<tr>
 												<td></td>
 												<td><button type="button" class="btn btn-xs btn-info">Read</button></td>
-												<td><button type="button" class="btn btn-xs btn-danger">Save</button></td>
+												<td><button type="button" class="btn btn-xs btn-danger">Save</button></form></td>
 												</tr>
 
 										</tbody>
