@@ -201,12 +201,12 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 		<option value="no">No</option>
 		
 		<option value="<?php echo $nts_ups_lcd_backlight; ?>" <?php echo $nts_ups_lcd_backlight ? 'selected="selected"' : ''; ?> ><?php echo $nts_ups_lcd_backlight; ?></option>
-		<option value="<?php echo $nts_ups_lcd_backlight; ?>"><?php echo $nts_ups_lcd_backlight; ?></option>
+		
 		
 		</select>
 	
 	
-	<input type="text" name="upsbacklight" size="2" maxlength="5" value="<?php echo $nts_ups_lcd_backlight; ?>" />
+	
     
 </td>
 												</tr>
