@@ -237,7 +237,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td></td>
-												<td><button type="submit" class="btn btn-xs btn-info">Read</button></td>
+												<td><button type="submit" class="btn btn-xs btn-success">Read</button></td>
 												<td>
 												<input type="hidden" name="savetoups" value="savetoups" />
 												<button type="submit" class="btn btn-xs btn-danger">Save</button>
@@ -245,7 +245,9 @@ $row = $rows->fetchAll();
 												</form></td>
 												</tr>
 												
-												<td><button type="submit" class="btn btn-xs btn-info">Service Mode</button></td>
+												<td><button type="submit" class="btn btn-xs btn-warning">Service Mode</button></td>
+												<td><button type="submit" class="btn btn-xs btn-info">Info</button></td>
+												<td></td>
 												
 												</td></tr>
 
