@@ -155,7 +155,7 @@ $row = $rows->fetchAll();
 
 										<tbody>
 												<tr>
-												<td><span class="label label-default">Delay ON</span</td>
+												<td><span class="label label-default">Delay ON</span></td>
 												<td></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
@@ -166,7 +166,7 @@ $row = $rows->fetchAll();
 												</tr>
 
 												<tr>
-												<td ><span class="label label-default">Delay OFF</span</td>
+												<td ><span class="label label-default">Delay OFF</span></td>
 												<td></td>
 <td>
 
@@ -176,7 +176,7 @@ $row = $rows->fetchAll();
 												</tr>
 
 												<tr>
-												<td ><span class="label label-default">Akku. charge star</spant</td>
+												<td ><span class="label label-default">Akku. charge star</span></td>
 												<td></td>
 <td>
 	
