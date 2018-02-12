@@ -102,68 +102,6 @@
 <th>New</th>
 </tr>
 
-<tr>
-<td class="col-md-2">DC Input</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2">DC Output</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2">DC Akku.</td>
-<td></td>
-<td></td>
-</tr>
-
-
-<tr>
-<td class="col-md-2">Current output</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2">Power Output</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2">Akku. Temp</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2">Akku. Capacity</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2">Akku. Charge</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2">UPS Power</td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td class="col-md-2">Akku. Health</td>
-<td></td>
-<td></td>
-</tr>
-
-
 
 <tr>
 <td class="col-md-2">Delay ON</td>
