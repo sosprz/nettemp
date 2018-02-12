@@ -60,8 +60,8 @@ $row = $rows->fetchAll();
 		foreach ($row as $a) { ?>	
 		
 		<tr>
-		<td><?php $a['name']; ?></td>
-		<td><?php $a['tmp']; ?></td>										
+		<td><?php echo $a['name']; ?></td>
+		<td><?php echo $a['tmp']; ?></td>										
 		</tr>
 		<?php
 		}
