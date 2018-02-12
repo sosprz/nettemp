@@ -7,7 +7,7 @@ dev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT dev FROM usb WHE
 if [[ "$dev" != "none" ]]; then
 echo UPS Pimowo ON
 
-va=($(exec 3</dev/$dev && echo "D" >/dev/$dev && head -1 <&3 ; exec 3<&-))
+va=($(exec 3</dev/$dev && echo "S" >/dev/$dev && head -1 <&3 ; exec 3<&-))
 
 
   if [ -n "$va" ]; then

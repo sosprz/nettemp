@@ -23,7 +23,7 @@ try {
 		exit;
 	}
 	$dev2=str_replace("/dev/","",$dev);
-	$cmd=("exec 3<$dev && echo \"D\" >$dev && head -1 <&3; exec 3<&-");
+	$cmd=("exec 3<$dev && echo \"S\" >$dev && head -1 <&3; exec 3<&-");
 	$out=shell_exec($cmd);;
 	var_dump($out);
 	
