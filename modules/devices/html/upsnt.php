@@ -11,6 +11,11 @@
 }
 
 </style>
+<?php
+if(!isset($db)){
+    $db = new PDO("sqlite:$root/dbf/nettemp.db");
+}
+?>
 
 <div class="grid">
 <div class="grid-sizer"></div>
@@ -99,7 +104,7 @@
 
 										<tbody>
 												<tr>
-												<td >Delay ON</td>
+												<td ><?php echo $nts_ups_delay_on; ?></td>
 												<td></td>
 												<td></td>
 												</tr>
