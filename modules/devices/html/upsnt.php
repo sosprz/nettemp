@@ -1,6 +1,6 @@
 
 
-
+<div class="grid-item">
 <div class="panel panel-default">
 <div class="panel-heading">UPS NT Settings</div>
 
@@ -136,7 +136,5 @@
 
 <?php
 
-
-
 ?>
-</div>
+</div></div>
