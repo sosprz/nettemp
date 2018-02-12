@@ -2,7 +2,7 @@
 
 
 <div class="panel panel-default">
-<div class="panel-heading">UPS NT Settings</div>
+<div class="panel-heading">UPS NT Status</div>
 
 
 
@@ -76,8 +76,15 @@
 <td></td>
 <td></td>
 </tr>
+</thead>
+</table>
+</div>
 
-
+<div class="panel panel-default">
+<div class="panel-heading">UPS NT Settings</div>
+<div class="table-responsive">
+<table class="table table-hover table-condensed small" border="0">
+<thead>
 
 <tr>
 <td class="col-md-2">Delay ON</td>
@@ -128,10 +135,10 @@
 </tr>
 
 
-
-
 </thead>
-</table
+</table>
+
+
 
 
 <?php
