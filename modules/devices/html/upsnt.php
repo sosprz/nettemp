@@ -1,25 +1,5 @@
 <style type="text/css">
 
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-
-/* ---- grid ---- */
-
-.grid {
-	<?php if($id=='screen') { ?>
-   	width: 800px;
-   <?php } ?>
-}
-
-/* clearfix */
-.grid:after {
-  content: '';
-  display: block;
-  clear: both;
-}
 
 /* ---- grid-item ---- */
 
