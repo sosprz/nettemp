@@ -119,7 +119,7 @@ if(!isset($db)){
 												<td></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
-	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_delay_off; ?>" />
+	<input type="text" name="upsdelayoff" size="2" maxlength="5" value="<?php echo $nts_ups_delay_off; ?>" />
     
 </td>
 												</tr>
@@ -129,7 +129,7 @@ if(!isset($db)){
 												<td></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
-	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_akku_charge_start; ?>" />
+	<input type="text" name="upsakkuchargestart" size="2" maxlength="5" value="<?php echo $nts_ups_akku_charge_start; ?>" />
     
 </td>
 												</tr>
@@ -139,7 +139,7 @@ if(!isset($db)){
 												<td></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
-	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_akku_charge_stop; ?>" />
+	<input type="text" name="upsakkuchargestop" size="2" maxlength="5" value="<?php echo $nts_ups_akku_charge_stop; ?>" />
     
 </td>	
 												</tr>
@@ -149,7 +149,7 @@ if(!isset($db)){
 												<td></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
-	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_akku_discharged; ?>" />
+	<input type="text" name="upsakkudischarged" size="2" maxlength="5" value="<?php echo $nts_ups_akku_discharged; ?>" />
     
 </td>
 											
@@ -160,7 +160,7 @@ if(!isset($db)){
 												<td></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
-	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_lcd_scroll; ?>" />
+	<input type="text" name="upsscroll" size="2" maxlength="5" value="<?php echo $nts_ups_lcd_scroll; ?>" />
     
 </td>	
 												</tr>
@@ -170,7 +170,7 @@ if(!isset($db)){
 												<td></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
-	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_lcd_backlight; ?>" />
+	<input type="text" name="upsbacklight" size="2" maxlength="5" value="<?php echo $nts_ups_lcd_backlight; ?>" />
     
 </td>
 												</tr>
@@ -178,7 +178,10 @@ if(!isset($db)){
 												<tr>
 												<td></td>
 												<td><button type="button" class="btn btn-xs btn-info">Read</button></td>
-												<td><button type="button" class="btn btn-xs btn-danger">Save</button></form></td>
+												<td><button type="button" class="btn btn-xs btn-danger">Save</button>
+												<input type="hidden" name="savetoups" value="savetoups" />
+												
+												</form></td>
 												</tr>
 
 										</tbody>
