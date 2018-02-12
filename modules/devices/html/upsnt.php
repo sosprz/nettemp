@@ -111,48 +111,68 @@ if(!isset($db)){
 	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_delay_on; ?>" />
     
 </td>
-												
-	
-												
-												
-												
-												
+
 												</tr>
 
 												<tr>
 												<td >Delay OFF</td>
 												<td></td>
-												<td><?php echo $nts_ups_delay_off; ?></td>
+<td>
+	<form action="" method="post" style="display:inline!important;">
+	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_delay_off; ?>" />
+    
+</td>
 												</tr>
 
 												<tr>
 												<td >Akku. charge start</td>
 												<td></td>
-												<td><?php echo $nts_ups_akku_charge_start; ?></td>
+<td>
+	<form action="" method="post" style="display:inline!important;">
+	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_akku_charge_start; ?>" />
+    
+</td>
 												</tr>
 
 												<tr>
 												<td >Akku. charge stop</td>
 												<td></td>
-												<td><?php echo $nts_ups_akku_charge_stop; ?></td>
+<td>
+	<form action="" method="post" style="display:inline!important;">
+	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_akku_charge_stop; ?>" />
+    
+</td>	
 												</tr>
 
 												<tr>
 												<td >Akku. discharged</td>
 												<td></td>
-												<td><?php echo $nts_ups_akku_discharged; ?></td>
+<td>
+	<form action="" method="post" style="display:inline!important;">
+	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_akku_discharged; ?>" />
+    
+</td>
+											
 												</tr>
 
 												<tr>
 												<td >LCD Scrolling</td>
 												<td></td>
-												<td><?php echo $nts_ups_lcd_scroll; ?></td>
+<td>
+	<form action="" method="post" style="display:inline!important;">
+	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_lcd_scroll; ?>" />
+    
+</td>	
 												</tr>
 
 												<tr>
 												<td >LCD Auto Backlight</td>
 												<td></td>
-												<td><?php echo $nts_ups_lcd_backlight; ?></td>
+<td>
+	<form action="" method="post" style="display:inline!important;">
+	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_lcd_backlight; ?>" />
+    
+</td>
 												</tr>
 
 												<tr>
