@@ -134,7 +134,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 												<td></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
-	<input type="text" name="upsdelayon" size="2" maxlength="5" value="<?php echo $nts_ups_delay_on; ?>" />
+	<input type="text" name="upsdelayon" size="2" maxlength="3" value="<?php echo $nts_ups_delay_on; ?>" />
     
 </td>
 
@@ -145,7 +145,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 												<td></td>
 <td>
 
-	<input type="text" name="upsdelayoff" size="2" maxlength="5" value="<?php echo $nts_ups_delay_off; ?>" />
+	<input type="text" name="upsdelayoff" size="2" maxlength="3" value="<?php echo $nts_ups_delay_off; ?>" />
     
 </td>
 												</tr>
@@ -155,7 +155,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 												<td></td>
 <td>
 	
-	<input type="text" name="upsakkuchargestart" size="2" maxlength="5" value="<?php echo $nts_ups_akku_charge_start; ?>" />
+	<input type="text" name="upsakkuchargestart" size="2" maxlength="3" value="<?php echo $nts_ups_akku_charge_start; ?>" />
     
 </td>
 												</tr>
@@ -165,7 +165,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 												<td></td>
 <td>
 	
-	<input type="text" name="upsakkuchargestop" size="2" maxlength="5" value="<?php echo $nts_ups_akku_charge_stop; ?>" />
+	<input type="text" name="upsakkuchargestop" size="2" maxlength="3" value="<?php echo $nts_ups_akku_charge_stop; ?>" />
     
 </td>	
 												</tr>
@@ -175,7 +175,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 												<td></td>
 <td>
 	
-	<input type="text" name="upsakkudischarged" size="2" maxlength="5" value="<?php echo $nts_ups_akku_discharged; ?>" />
+	<input type="text" name="upsakkudischarged" size="2" maxlength="3" value="<?php echo $nts_ups_akku_discharged; ?>" />
     
 </td>
 											
@@ -186,7 +186,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 												<td></td>
 <td>
 	
-	<input type="text" name="upsscroll" size="2" maxlength="5" value="<?php echo $nts_ups_lcd_scroll; ?>" />
+	<input type="text" name="upsscroll" size="2" maxlength="3" value="<?php echo $nts_ups_lcd_scroll; ?>" />
     
 </td>	
 												</tr>
