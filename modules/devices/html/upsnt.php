@@ -67,6 +67,11 @@ $row = $rows->fetchAll();
 		}
 		?>
 		
+		<tr>
+												<td >Dane wyżej czytane ze statusu (według position) lub zostaje tak jak było, czyli jak niżej</td>
+												<td></td>
+												
+												</tr>
 		
 		
 		
