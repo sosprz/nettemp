@@ -211,7 +211,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 
 												<tr>
 												<td></td>
-												<td><form><button type="submit" class="btn btn-xs btn-info">Read</button></form></td>
+												<td><button type="submit" class="btn btn-xs btn-info">Read</button></td>
 												<td>
 												<input type="hidden" name="savetoups" value="savetoups" />
 												<button type="submit" class="btn btn-xs btn-danger">Save</button>
