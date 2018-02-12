@@ -15,6 +15,23 @@
 if(!isset($db)){
     $db = new PDO("sqlite:$root/dbf/nettemp.db");
 }
+$upsdelayon = isset($_POST['upsdelayon']) ? $_POST['upsdelayon'] : '';
+$upsdelayoff = isset($_POST['upsdelayoff']) ? $_POST['upsdelayoff'] : '';
+$upsakkuchargestart = isset($_POST['upsakkuchargestart']) ? $_POST['upsakkuchargestart'] : '';
+$upsakkuchargestop = isset($_POST['upsakkuchargestop']) ? $_POST['upsakkuchargestop'] : '';
+$upsakkudischarged = isset($_POST['upsakkudischarged']) ? $_POST['upsakkudischarged'] : '';
+$upsscroll = isset($_POST['upsscroll']) ? $_POST['upsscroll'] : '';
+$upsbacklight = isset($_POST['upsbacklight']) ? $_POST['upsbacklight'] : '';
+$savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
+
+ if  ($savetoups == "savetoups") {
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE nt_settings SET value='$upsdelayon' WHERE option='ups_delay_on'");
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+
+
 ?>
 
 <div class="grid">
