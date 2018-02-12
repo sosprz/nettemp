@@ -1,3 +1,35 @@
+<div class="container-nettemp">
+<style type="text/css">
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+
+/* ---- grid ---- */
+
+.grid {
+	}
+
+/* clearfix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- grid-item ---- */
+
+.grid-item {
+    width: 340px;
+    float: left;
+    border-radius: 5px;
+}
+
+</style>
+
+
 
 <div class="grid-item">
 <div class="panel panel-default">
@@ -136,3 +168,6 @@
 </table>
 
 </div></div>
+
+
+</div>
