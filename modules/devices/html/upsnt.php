@@ -8,62 +8,62 @@
 
 
 <tr>
-<td class="col-md-2">DC Input</td>
+<td >DC Input</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">DC Output</td>
+<td >DC Output</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">DC Akku.</td>
+<td >DC Akku.</td>
 <td></td>
 <td></td>
 </tr>
 
 
 <tr>
-<td class="col-md-2">Current output</td>
+<td >Current output</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Power Output</td>
+<td >Power Output</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Akku. Temp</td>
+<td >Akku. Temp</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Akku. Capacity</td>
+<td >Akku. Capacity</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Akku. Charge</td>
+<td >Akku. Charge</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">UPS Power</td>
+<td >UPS Power</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Akku. Health</td>
+<td >Akku. Health</td>
 <td></td>
 <td></td>
 </tr>
@@ -87,43 +87,43 @@
 
 
 <tr>
-<td class="col-md-2">Delay ON</td>
+<td >Delay ON</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Delay OFF</td>
+<td >Delay OFF</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Akku. charge start</td>
+<td >Akku. charge start</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Akku. charge stop</td>
+<td >Akku. charge stop</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">Akku. discharged</td>
+<td >Akku. discharged</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">LCD Scrolling</td>
+<td >LCD Scrolling</td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td class="col-md-2">LCD Auto Backlight</td>
+<td >LCD Auto Backlight</td>
 <td></td>
 <td></td>
 </tr>
