@@ -71,7 +71,7 @@
 												</tr>
 
 												<tr>
-												<td >UPS Power</td>
+												<td >UPS AC Power</td>
 												<td></td>
 												
 												</tr>
