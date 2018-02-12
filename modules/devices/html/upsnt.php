@@ -24,62 +24,62 @@
 												<tr>
 												<td >DC Input</td>
 												<td></td>
-												<td></td>
+												
 												</tr>
 
 												<tr>
 												<td >DC Output</td>
 												<td></td>
-												<td></td>
+												
 												</tr>
 
 												<tr>
 												<td >DC Akku.</td>
 												<td></td>
-												<td></td>
+											
 												</tr>
 
 
 												<tr>
 												<td >Current output</td>
 												<td></td>
-												<td></td>
+												
 												</tr>
 
 												<tr>
 												<td >Power Output</td>
 												<td></td>
-												<td></td>
+												
 												</tr>
 
 												<tr>
 												<td >Akku. Temp</td>
 												<td></td>
-												<td></td>
+												
 												</tr>
 
 												<tr>
 												<td >Akku. Capacity</td>
 												<td></td>
-												<td></td>
+												
 												</tr>
 
 												<tr>
 												<td >Akku. Charge</td>
 												<td></td>
-												<td></td>
+												
 												</tr>
 
 												<tr>
 												<td >UPS Power</td>
 												<td></td>
-												<td></td>
+												
 												</tr>
 
 												<tr>
 												<td >Akku. Health</td>
 												<td></td>
-												<td></td>
+												
 												</tr>
 
 										</tbody>
@@ -94,7 +94,7 @@
 		<div class="grid-item">
 				<div class="panel panel-default">
 
-							<div class="panel-heading">UPS NT Status</div>
+							<div class="panel-heading">UPS NT Settings</div>
 								<table class="table table-hover table-condensed">
 
 										<tbody>
