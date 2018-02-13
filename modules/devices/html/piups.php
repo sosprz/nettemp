@@ -134,7 +134,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">Delay OFF</span></td>
-												<td><span class="label label-default"><?php echo $d2  ?></span></td>
+												<td><span class="label label-success"><?php echo $d2  ?></span></td>
 <td>
 
 	<input type="text" name="upsdelayoff" size="2" maxlength="3" value="<?php echo $nts_ups_delay_off; ?>" />
@@ -144,7 +144,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">Akku. charge start</span></td>
-												<td><span class="label label-default"><?php echo $d3 ?></span></td>
+												<td><span class="label label-success"><?php echo $d3 ?></span></td>
 <td>
 	
 	<input type="text" name="upsakkuchargestart" size="2" maxlength="3" value="<?php echo $nts_ups_akku_charge_start; ?>" />
@@ -154,7 +154,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">Akku. charge stop</span></td>
-												<td><span class="label label-default"><?php echo $d4  ?></span></td>
+												<td><span class="label label-success"><?php echo $d4  ?></span></td>
 <td>
 	
 	<input type="text" name="upsakkuchargestop" size="2" maxlength="3" value="<?php echo $nts_ups_akku_charge_stop; ?>" />
@@ -164,7 +164,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">Akku. discharged</span></td>
-												<td><span class="label label-default"><?php echo $d5 ?></span></td>
+												<td><span class="label label-success"><?php echo $d5 ?></span></td>
 <td>
 	
 	<input type="text" name="upsakkudischarged" size="2" maxlength="3" value="<?php echo $nts_ups_akku_discharged; ?>" />
@@ -175,7 +175,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">LCD Scrolling</span></td>
-												<td><span class="label label-default"><?php echo $d6  ?></span></td>
+												<td><span class="label label-success"><?php echo $d6  ?></span></td>
 <td>
 	
 	<input type="text" name="upsscroll" size="2" maxlength="3" value="<?php echo $nts_ups_lcd_scroll; ?>" />
@@ -187,7 +187,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">LCD Auto Backlight</span></td>
-												<td><span class="label label-default"><?php echo $d7  ?></span></td>
+												<td><span class="label label-success"><?php echo $d7  ?></span></td>
 <td>
 	
 	<select class="selectpicker" data-width="50px" name="upsbacklight" class="form-control input-sm">
