@@ -31,13 +31,6 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upsakkuchargestop' WHERE option='ups_akku_charge_stop'");
 	$db->exec("UPDATE nt_settings SET value='$upsakkudischarged' WHERE option='ups_akku_discharged'");
 	$db->exec("UPDATE nt_settings SET value='$upsscroll' WHERE option='ups_lcd_scroll'");
-	
-	
-if (empty($_POST['upsbacklight'])) {
-	$upsbacklight='off';
-} elseif (isset($_POST['upsbacklight']) && $_POST['upsbacklight'] == 'on') {
-	$upsbacklight='on';
-}
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	
 	// tutaj zapis do UPSA
@@ -160,10 +153,13 @@ $row = $rows->fetchAll();
 												<td></td>
 <td>
 	
+	<select name="upsbacklight" class="form-control input-sm">
+		
+		<option value="TAK" <?php echo $nts_ups_lcd_backlight == 'TAK' ? 'selected="selected"' : ''; ?> >Yes</option>
+		<option value="NIE" <?php echo $nts_ups_lcd_backlight == 'NIE'? 'selected="selected"' : ''; ?> >No</option>
+		
+		</select>
 	
-	
-	
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="upsbacklight" value="on"/>
 	
 	
     
