@@ -12,7 +12,7 @@ $d4=$out;
    
    for($i=0;$i<count($data);$i++){
           
-		  echo  $d1=$data[$i];
+		  echo  $d1=$data[$i]."\n";
 			//$d2=$data[1];
 			//$d3=$data[2];
 			//$d4=$data[3];
