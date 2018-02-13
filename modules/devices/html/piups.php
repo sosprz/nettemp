@@ -50,7 +50,7 @@ $readups = isset($_POST['readups']) ? $_POST['readups'] : '';
 if  ($readups == "readups") { $read='on';
 
 
-$cmd=("exec 3</dev/ttyUSB0 && echo -n 'D\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+$cmd=("exec 3</dev/ttyUSB0 && echo -n 'O\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
 $out=shell_exec($cmd);
     $out=trim($out);
     $data=explode(" ",$out);
