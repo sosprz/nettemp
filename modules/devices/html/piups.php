@@ -16,9 +16,9 @@
 $root=$_SERVER["DOCUMENT_ROOT"];
 
 
-include("$ROOT/php_serial_class.php");
+include("$ROOT/php_serial.class.php");
 
-echo exec('whoami');
+
 $serial = new phpSerial;
 	
 	$serial->deviceSet("/dev/ttyUSB0");
