@@ -14,6 +14,7 @@
 </style>
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
+ echo $root;
 
 $read='zero';
 
