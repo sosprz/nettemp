@@ -33,10 +33,10 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upsscroll' WHERE option='ups_lcd_scroll'");
 	
 	
-if (isset($_POST['upsbacklight']) && !empty($_POST['upsbacklight'])) {
-   $upsbacklight='on';
-} else {
-   $upsbacklight='off';
+if (empty($_POST['upsbacklight'])) {
+	$upsbacklight='off';
+} elseif (isset($_POST['upsbacklight']) && $_POST['upsbacklight'] == 'on') {
+	$upsbacklight='on';
 }
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	
