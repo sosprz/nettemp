@@ -22,6 +22,7 @@ try {
      // exit;
    // }
    // unset($db);
+   echo exec('whoami');
 	include("$ROOT/php_serial_class.php");
     include("$ROOT/receiver.php");
 	
