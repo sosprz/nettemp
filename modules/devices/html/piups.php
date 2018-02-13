@@ -123,7 +123,7 @@ $row = $rows->fetchAll();
 										<tbody>
 												<tr>
 												<td><span class="label label-default">Delay ON</span></td>
-												<td> <span class="label label-default"><?php echo $d1 ?></span></td>
+												<td> <span class="label label-success"><?php echo $d1 ?></span></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
 	<input type="text" name="upsdelayon" size="2" maxlength="3" value="<?php echo $nts_ups_delay_on; ?>" />
