@@ -13,7 +13,8 @@
 
 </style>
 <?php
-$root=$_SERVER["DOCUMENT_ROOT"];
+$ROOT=dirname(dirname(dirname(dirname(__FILE__))));
+//$root=$_SERVER["DOCUMENT_ROOT"];
 
 
 include("$ROOT/php_serial.class.php");
