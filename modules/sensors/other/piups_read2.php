@@ -22,15 +22,31 @@ try {
      // exit;
    // }
    // unset($db);
-
+	include("$ROOT/php_serial.class.php");
     include("$ROOT/receiver.php");
-    $cmd=("exec 3</dev/ttyUSB0 && echo -n 'D\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
 	
-    $out=shell_exec($cmd);
-    $out=trim($out);
-    $data=explode(" ",$out);
-    var_dump($out);
-    var_dump($data);
+	$serial = new phpSerial;
+	
+	$serial->deviceSet("/dev/ttyUSB0");
+	$serial->confBaudRate(9600);
+	$serial->confParity("none");
+	$serial->confCharacterLength(8);
+	$serial->confStopBits(1);
+	$serial->confFlowControl("none");
+	$serial->deviceOpen();
+	
+	$serial->sendMessage("D\r");
+	
+	$out = $serial->readPort();
+	
+
+    //$cmd=("exec 3</dev/ttyUSB0 && echo -n 'D\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+	
+    //$out=shell_exec($cmd);
+   $out=trim($out);
+   $data=explode(" ",$out);
+   var_dump($out);
+   var_dump($data);
 	
 
     $types=array('volt','volt','volt','amps','watt','temp','battery','trigger','trigger','trigger');
