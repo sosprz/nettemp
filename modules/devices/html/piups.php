@@ -47,7 +47,37 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 // wczytanie danych ups	
 
 $readups = isset($_POST['readups']) ? $_POST['readups'] : '';
-if  ($readups == "readups") { $read='on';}
+if  ($readups == "readups") { $read='on';
+
+
+$cmd=("exec 3</dev/ttyUSB0 && echo -n 'D\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+$out=shell_exec($cmd);
+    $out=trim($out);
+    $data=explode(" ",$out);
+   // var_dump($out);
+   // var_dump($data);
+   
+   for($i=0;$i<count($data);$i++){
+            
+            $d1=$data[0];
+			$d2=$data[1];
+           
+   }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $rows = $db->query("SELECT name, tmp, position FROM sensors WHERE rom LIKE '%UPS_id%' ORDER BY position ASC");
@@ -97,7 +127,7 @@ $row = $rows->fetchAll();
 										<tbody>
 												<tr>
 												<td><span class="label label-default">Delay ON</span></td>
-												<td> <?php echo "test".$read ?></td>
+												<td> <?php echo "test".$d1 ?></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
 	<input type="text" name="upsdelayon" size="2" maxlength="3" value="<?php echo $nts_ups_delay_on; ?>" />
@@ -108,7 +138,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">Delay OFF</span></td>
-												<td></td>
+												<td><?php echo "test".$d2 ?></td>
 <td>
 
 	<input type="text" name="upsdelayoff" size="2" maxlength="3" value="<?php echo $nts_ups_delay_off; ?>" />
