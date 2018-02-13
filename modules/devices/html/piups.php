@@ -39,7 +39,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	
 	// tutaj zapis do UPSA
 	
-	$cmd=("exec 3</dev/ttyUSB0 && echo -n 'U 10 61 2.7 2.8 2.9 2 1 \r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+	$cmd=("exec 3</dev/ttyUSB0 && echo -n 'U 10 61 2.7 2.8 2.9 2.0 1.0 \r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
 	shell_exec($cmd);
 	
 	
