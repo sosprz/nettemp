@@ -14,6 +14,7 @@
 </style>
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
+include("$root/php_serial.class.php");
  echo $root;
 
 $read='zero';
