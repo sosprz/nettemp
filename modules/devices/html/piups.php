@@ -57,8 +57,8 @@ $out=shell_exec($cmd);
    var_dump($out);
    var_dump($data);
    
-   for($i=0;$i<3;$i++){
-            
+   for($i=0;$i<count($data);$i++){
+            $d5=count($data);
             $d1=$data[0];
 			$d2=$data[1];
 			$d3=$data[2];
@@ -160,7 +160,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">Akku. charge stop</span></td>
-												<td><?php echo "d4 ".$d4 ?>/td>
+												<td><?php echo "d4 ".$d4 ?></td>
 <td>
 	
 	<input type="text" name="upsakkuchargestop" size="2" maxlength="3" value="<?php echo $nts_ups_akku_charge_stop; ?>" />
@@ -213,6 +213,7 @@ $row = $rows->fetchAll();
 	<td>
 				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service Mode</button>
 				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
+				<?php echo "d5 ".$d5 ?>
 		
 	</td>
 	<td>
