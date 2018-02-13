@@ -54,6 +54,7 @@ $row = $rows->fetchAll();
 <div class="panel panel-default">
 
 <div class="panel-heading">PiUPS Status</div>
+<div class="table-responsive">
 	<table class="table table-hover table-condensed">
 		<tbody>
 		<?php
@@ -72,7 +73,7 @@ $row = $rows->fetchAll();
 
 		</tbody>
 	</table>
-
+</div>
 		</div>
 	</div>
 		
@@ -83,6 +84,7 @@ $row = $rows->fetchAll();
 				<div class="panel panel-default">
 
 							<div class="panel-heading">PiUPS Settings</div>
+							<div class="table-responsive">
 								<table class="table table-hover table-condensed">
 
 										<tbody>
@@ -190,7 +192,7 @@ $row = $rows->fetchAll();
 
 		</tbody>
 	</table>
-
+</div>
 				</div>
 		</div>
 
