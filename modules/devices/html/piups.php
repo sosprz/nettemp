@@ -34,7 +34,11 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	
 	if(empty($upsbacklight)) {
     		$upsbacklight='off';
-	} elseif (!empty($upsbacklight)){$upsbacklight='on'}
+	} else { if (!empty($upsbacklight){$upsbacklight='on'}}
+	
+	
+	
+	
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	
 	// tutaj zapis do UPSA
