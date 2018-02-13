@@ -11,6 +11,11 @@ try {
     exit;
 }
 
+ echo exec('whoami');
+	include("$ROOT/php_serial_class.php");
+    include("$ROOT/receiver.php");
+	
+
 try {
    // $query = $db->query("SELECT dev FROM usb WHERE device='UPS Pimowo'");
    // $result= $query->fetchAll();
@@ -22,10 +27,7 @@ try {
      // exit;
    // }
    // unset($db);
-   echo exec('whoami');
-	include("$ROOT/php_serial_class.php");
-    include("$ROOT/receiver.php");
-	
+  
 	echo exec('whoami');
 
 	
