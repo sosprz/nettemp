@@ -68,6 +68,7 @@ $out=shell_exec($cmd);
 		$d4=$data[3];
 		$d5=$data[4];
 		$d6=$data[5];
+		$d7=$data[6];
 			
            
    }
@@ -199,7 +200,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">LCD Auto Backlight</span></td>
-												<td></td>
+												<td><?php echo $d7  ?></td>
 <td>
 	
 	<select class="selectpicker" data-width="50px" name="upsbacklight" class="form-control input-sm">
