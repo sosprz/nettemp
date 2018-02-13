@@ -56,6 +56,7 @@ $out=shell_exec($cmd);
     $data=explode(" ",$out);
    var_dump($out);
    var_dump($data);
+   <?php echo "OUT______________".$out ?>
    
    for($i=0;$i<count($data);$i++){
             $d5=count($data);
