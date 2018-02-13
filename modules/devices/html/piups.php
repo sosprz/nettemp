@@ -54,10 +54,10 @@ $cmd=("exec 3</dev/ttyUSB0 && echo -n 'O\r' >/dev/ttyUSB0 && head -1 <&3; exec 3
 $out=shell_exec($cmd);
     $out=trim($out);
     $data=explode(" ",$out);
-   // var_dump($out);
-   // var_dump($data);
+   var_dump($out);
+   var_dump($data);
    
-   for($i=0;$i<count($data);$i++){
+   for($i=0;$i<3;$i++){
             
             $d1=$data[0];
 			$d2=$data[1];
