@@ -25,7 +25,7 @@ try {
 	include("$ROOT/php_serial_class.php");
     include("$ROOT/receiver.php");
 	
-	$serial = new phpSerial();
+	$serial = new phpSerial;
 	
 	$serial->deviceSet("/dev/ttyUSB0");
 	$serial->confBaudRate(9600);
