@@ -42,6 +42,9 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
     }
 	
 // wczytanie danych ups	
+
+$readups = isset($_POST['readups']) ? $_POST['readups'] : '';
+if  ($readups == "readups") { $read=1;}
 	
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $rows = $db->query("SELECT name, tmp, position FROM sensors WHERE rom LIKE '%UPS_id%' ORDER BY position ASC");
@@ -91,7 +94,7 @@ $row = $rows->fetchAll();
 										<tbody>
 												<tr>
 												<td><span class="label label-default">Delay ON</span></td>
-												<td></td>
+												<td> <?echo $read;?></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
 	<input type="text" name="upsdelayon" size="2" maxlength="3" value="<?php echo $nts_ups_delay_on; ?>" />
