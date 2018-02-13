@@ -654,15 +654,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 
-$serial = new phpSerial();
-	
-	$serial->deviceSet("/dev/ttyUSB0");
-	$serial->confBaudRate(9600);
-	$serial->confParity("none");
-	$serial->confCharacterLength(8);
-	$serial->confStopBits(1);
-	$serial->confFlowControl("none");
-	$serial->deviceOpen();
+
 
 
 
@@ -700,7 +692,15 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 $readups = isset($_POST['readups']) ? $_POST['readups'] : '';
 if  ($readups == "readups") { $read='on';
 
-
+$serial = new phpSerial();
+	
+	$serial->deviceSet("/dev/ttyUSB0");
+	$serial->confBaudRate(9600);
+	$serial->confParity("none");
+	$serial->confCharacterLength(8);
+	$serial->confStopBits(1);
+	$serial->confFlowControl("none");
+	$serial->deviceOpen();
 	$serial->sendMessage("O\r");
 	$out = $serial->readPort();
 
