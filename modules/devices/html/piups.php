@@ -689,20 +689,20 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 $readups = isset($_POST['readups']) ? $_POST['readups'] : '';
 if  ($readups == "readups") { $read='on';
 
-	$serial = new phpSerial;
+	//$serial = new phpSerial;
 	
-	$serial->deviceSet("/dev/ttyUSB0");
-	$serial->confBaudRate(9600);
-	$serial->confParity("none");
-	$serial->confCharacterLength(8);
-	$serial->confStopBits(1);
-	$serial->confFlowControl("none");
-	$serial->deviceOpen();
-	$serial->sendMessage("O\r");
-	$out = $serial->readPort();
+	//$serial->deviceSet("/dev/ttyUSB0");
+	//$serial->confBaudRate(9600);
+	//$serial->confParity("none");
+	//$serial->confCharacterLength(8);
+	//$serial->confStopBits(1);
+	//$serial->confFlowControl("none");
+	//$serial->deviceOpen();
+	//$serial->sendMessage("O\r");
+	//$out = $serial->readPort();
 
-    $out=trim($out);
-    $data=explode(" ",$out);
+    //$out=trim($out);
+   // $data=explode(" ",$out);
 	
    //var_dump($out);
    //var_dump($data);
