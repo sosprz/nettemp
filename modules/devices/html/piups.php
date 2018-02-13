@@ -59,8 +59,8 @@ $out=shell_exec($cmd);
    
    for($i=0;$i<count($data);$i++){
             
-            $d1=$data[0];
-			$d2=$data[1];
+            $d1=$data[2];
+			$d2=$data[3];
            
    }
 
