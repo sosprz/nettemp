@@ -158,7 +158,7 @@ $row = $rows->fetchAll();
 												<td></td>
 <td>
 	
-	<select class="selectpicker" data-width="50px" name="upsbacklight" class="form-control input-sm">
+	<select class="selectpicker" data-width="50px" name="upsbacklight" ">
 		
 		<option value="TAK" <?php echo $nts_ups_lcd_backlight == 'TAK' ? 'selected="selected"' : ''; ?> >Yes</option>
 		<option value="NIE" <?php echo $nts_ups_lcd_backlight == 'NIE'? 'selected="selected"' : ''; ?> >No</option>
