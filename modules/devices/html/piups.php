@@ -146,7 +146,7 @@ $row = $rows->fetchAll();
 												<td></td>
 <td>
 	
-	<input type="text" name="upsscroll" size="2" maxlength="3" value="<?php echo $nts_ups_lcd_scroll; ?>" />
+	<input type="text"  class="selectpicker" name="upsscroll" size="2" maxlength="3" value="<?php echo $nts_ups_lcd_scroll; ?>" />
 	
 	 
     
