@@ -32,9 +32,12 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upsakkudischarged' WHERE option='ups_akku_discharged'");
 	$db->exec("UPDATE nt_settings SET value='$upsscroll' WHERE option='ups_lcd_scroll'");
 	
-	if(empty($upsbacklight)) {
-    		$upsbacklight='off';
-	} else {$upsbacklight='on';}
+	
+if (isset($_POST['upsbacklight']) && !empty($_POST['upsbacklight'])) {
+   $upsbacklight='on';
+} else {
+   $upsbacklight='off';;
+}
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	
 	// tutaj zapis do UPSA
