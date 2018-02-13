@@ -97,7 +97,7 @@ $row = $rows->fetchAll();
 										<tbody>
 												<tr>
 												<td><span class="label label-default">Delay ON</span></td>
-												<td> <?echo "test".$read;?></td>
+												<td> <?php echo "test".$read ?></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
 	<input type="text" name="upsdelayon" size="2" maxlength="3" value="<?php echo $nts_ups_delay_on; ?>" />
