@@ -11,11 +11,6 @@ try {
     exit;
 }
 
- echo exec('whoami');
-	include("$ROOT/php_serial_class.php");
-    include("$ROOT/receiver.php");
-	
-
 try {
    // $query = $db->query("SELECT dev FROM usb WHERE device='UPS Pimowo'");
    // $result= $query->fetchAll();
@@ -27,33 +22,17 @@ try {
      // exit;
    // }
    // unset($db);
-  
-	echo exec('whoami');
 
-	
-	$serial = new phpSerial;
-	
-	$serial->deviceSet("/dev/ttyUSB0");
-	$serial->confBaudRate(9600);
-	$serial->confParity("none");
-	$serial->confCharacterLength(8);
-	$serial->confStopBits(1);
-	$serial->confFlowControl("none");
-	$serial->deviceOpen();
-	
-	$serial->sendMessage("D\r");
-	
-	$out = $serial->readPort();
-	
-
-    //$cmd=("exec 3</dev/ttyUSB0 && echo -n 'D\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
-	
-    //$out=shell_exec($cmd);
-   $out=trim($out);
-   $data=explode(" ",$out);
-   var_dump($out);
-   var_dump($data);
-	
+    include("$ROOT/receiver.php");
+    $cmd=("exec 3</dev/ttyUSB0 && echo -n 'D\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+	//echo $cmd."\n";
+    $out=shell_exec($cmd);
+	//echo $out."\n";
+    $out=trim($out);
+    $data=explode(" ",$out);
+    var_dump($out);
+    var_dump($data);
+	//echo $dev."\n";
 
     $types=array('volt','volt','volt','amps','watt','temp','battery','trigger','trigger','trigger');
     $echoes=array('UPS Volt IN','UPS Volt Akku','UPS Volt OUT','UPS Amps','UPS Watt','UPS Temp','UPS Battery','UPS Power Trigger','UPS Volt Trigger','UPS Akku Trigger');
@@ -63,7 +42,7 @@ try {
         exit;
     }else{
         $local_device='usb';
-        $local_usb=$dev;
+        $local_usb='/dev/ttyUSB0';
         for($i=0;$i<count($data);$i++){
             $local_rom='UPS_id'.($i+1);
             $local_val=$data[$i];
