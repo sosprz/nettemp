@@ -22,7 +22,7 @@ try {
      // exit;
    // }
    // unset($db);
-	include("$ROOT/php_serial.class.php");
+	include("$ROOT/php_serial_class.php");
     include("$ROOT/receiver.php");
 	
 	$serial = new phpSerial();
