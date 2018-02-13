@@ -59,8 +59,10 @@ $out=shell_exec($cmd);
    
    for($i=0;$i<count($data);$i++){
             
-            $d1=$data[2];
-			$d2=$data[3];
+            $d1=$data[0];
+			$d2=$data[1];
+			$d3=$data[2];
+			$d4=$data[3];
            
    }
 
@@ -127,7 +129,7 @@ $row = $rows->fetchAll();
 										<tbody>
 												<tr>
 												<td><span class="label label-default">Delay ON</span></td>
-												<td> <?php echo "test".$d1 ?></td>
+												<td> <?php echo "d1 ".$d1 ?></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
 	<input type="text" name="upsdelayon" size="2" maxlength="3" value="<?php echo $nts_ups_delay_on; ?>" />
@@ -138,7 +140,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">Delay OFF</span></td>
-												<td><?php echo "test".$d2 ?></td>
+												<td><?php echo "d2 ".$d2 ?></td>
 <td>
 
 	<input type="text" name="upsdelayoff" size="2" maxlength="3" value="<?php echo $nts_ups_delay_off; ?>" />
@@ -148,7 +150,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">Akku. charge start</span></td>
-												<td></td>
+												<td><?php echo "d3 ".$d3 ?></td>
 <td>
 	
 	<input type="text" name="upsakkuchargestart" size="2" maxlength="3" value="<?php echo $nts_ups_akku_charge_start; ?>" />
@@ -158,7 +160,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">Akku. charge stop</span></td>
-												<td></td>
+												<td><<?php echo "d4 ".$d4 ?>/td>
 <td>
 	
 	<input type="text" name="upsakkuchargestop" size="2" maxlength="3" value="<?php echo $nts_ups_akku_charge_stop; ?>" />
