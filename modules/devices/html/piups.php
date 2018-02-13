@@ -153,14 +153,8 @@ $row = $rows->fetchAll();
 												<td></td>
 <td>
 	
-	<select name="upsbacklight" class="form-control input-sm">
-		
-		<option value="TAK" <?php echo $nts_ups_lcd_backlight == 'TAK' ? 'selected="selected"' : ''; ?> >Yes</option>
-		<option value="NIE" <?php echo $nts_ups_lcd_backlight == 'NIE'? 'selected="selected"' : ''; ?> >No</option>
 	
-		
-		</select>
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarm" value="on" <?php echo $nts_ups_lcd_backlight == 'TAK' ? 'checked="checked"' : ''; ?> />
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="upsbacklight" value="TAK" <?php echo $nts_ups_lcd_backlight == 'TAK' ? 'checked="checked"' : ''; ?> />
 	
 	
     
