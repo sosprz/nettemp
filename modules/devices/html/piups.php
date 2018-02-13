@@ -154,7 +154,7 @@ $row = $rows->fetchAll();
 <td>
 	
 	
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="upsbacklight"  data-on="On" data-off="Off" <?php echo $nts_ups_lcd_backlight == 'On' ? 'checked="checked"' : ''; ?> />
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="upsbacklight"  data-on="On" data-off="Off"  />
 	
 	
     
