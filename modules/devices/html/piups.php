@@ -143,7 +143,9 @@ $row = $rows->fetchAll();
 												<td></td>
 <td>
 	
-	<input type="text" name="upsscroll" size="2" maxlength="2" value="<?php echo $nts_ups_lcd_scroll; ?>" />
+	<input class="form-control input-sm" type="text" placeholder=".input-sm" name="upsscroll" size="2" maxlength="3" value="<?php echo $nts_ups_lcd_scroll; ?>" />
+	
+	 
     
 </td>	
 												</tr>
