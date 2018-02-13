@@ -157,9 +157,10 @@ $row = $rows->fetchAll();
 		
 		<option value="TAK" <?php echo $nts_ups_lcd_backlight == 'TAK' ? 'selected="selected"' : ''; ?> >Yes</option>
 		<option value="NIE" <?php echo $nts_ups_lcd_backlight == 'NIE'? 'selected="selected"' : ''; ?> >No</option>
+	
 		
 		</select>
-	
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarm" value="on" <?php echo $nts_ups_lcd_backlight == 'TAK' ? 'checked="checked"' : ''; ?> />
 	
 	
     
@@ -180,6 +181,7 @@ $row = $rows->fetchAll();
 				<button type="submit" name="savetoups" value="savetoups" class="btn btn-xs btn-danger">Save</button>
 				</form>
 	</td>
+</tr>
 											
 												
 												
