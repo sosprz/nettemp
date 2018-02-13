@@ -55,15 +55,16 @@ $out=shell_exec($cmd);
 $d4=$out;
     $out=trim($out);
     $data=explode(" ",$out);
+	$d3=$data;
    var_dump($out);
    var_dump($data);
-   $d4=$out;
+   
    
    for($i=0;$i<count($data);$i++){
             $d5=count($data);
             $d1=$data[0];
 			$d2=$data[1];
-			$d3=$data[2];
+			//$d3=$data[2];
 			//$d4=$data[3];
            
    }
