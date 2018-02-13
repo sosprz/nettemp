@@ -166,24 +166,27 @@ $row = $rows->fetchAll();
 </td>
 												</tr>
 
-												<tr>
-												<td></td>
-												<td><button type="submit" class="btn btn-xs btn-success">Read</button></td>
-												<td>
+<tr>
+	<td>
+				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service Mode</button>
+				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
+		
+	</td>
+	<td>
+				<button type="submit" name="readups" value="readups"class="btn btn-xs btn-success">Read</button>
+				
+	</td>
+	<td>
+				<button type="submit" name="savetoups" value="savetoups" class="btn btn-xs btn-danger">Save</button>
+				</form>
+	</td>
 											
-												<button type="submit" name="savetoups" value="savetoups" class="btn btn-xs btn-danger">Save</button>
 												
-												</form></td>
-												</tr>
 												
-												<td><button type="submit" class="btn btn-xs btn-warning">Service Mode</button></td>
-												<td><button type="submit" class="btn btn-xs btn-info">Info</button></td>
-												<td></td>
 												
-												</td></tr>
 
-										</tbody>
-								</table>
+		</tbody>
+	</table>
 
 				</div>
 		</div>
