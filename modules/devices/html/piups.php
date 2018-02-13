@@ -168,12 +168,12 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td></td>
-												<td><form><button type="submit" class="btn btn-xs btn-success">Read</button></form></td>
-												<td>
+												<td><button type="submit" class="btn btn-xs btn-success">Read</button></td>
+												<td></form><form>
 												<input type="hidden" name="savetoups" value="savetoups" />
 												<button type="submit" class="btn btn-xs btn-danger">Save</button>
-												
-												</form></td>
+												</form>
+												</td>
 												</tr>
 												
 												<td><button type="submit" class="btn btn-xs btn-warning">Service Mode</button></td>
