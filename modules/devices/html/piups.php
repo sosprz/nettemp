@@ -15,6 +15,9 @@
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
 
+$read='zero';
+
+
 $upsdelayon = isset($_POST['upsdelayon']) ? $_POST['upsdelayon'] : '';
 $upsdelayoff = isset($_POST['upsdelayoff']) ? $_POST['upsdelayoff'] : '';
 $upsakkuchargestart = isset($_POST['upsakkuchargestart']) ? $_POST['upsakkuchargestart'] : '';
@@ -44,7 +47,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 // wczytanie danych ups	
 
 $readups = isset($_POST['readups']) ? $_POST['readups'] : '';
-if  ($readups == "readups") { $read=1;}
+if  ($readups == "readups") { $read='on';}
 	
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $rows = $db->query("SELECT name, tmp, position FROM sensors WHERE rom LIKE '%UPS_id%' ORDER BY position ASC");
