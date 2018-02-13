@@ -73,8 +73,8 @@ $row = $rows->fetchAll();
 		</tbody>
 	</table>
 
+		</div>
 	</div>
-</div>
 		
 		
 		
@@ -169,11 +169,11 @@ $row = $rows->fetchAll();
 												<tr>
 												<td></td>
 												<td><button type="submit" class="btn btn-xs btn-success">Read</button></td>
-												<td></form><form action="" method="post" style="display:inline!important;">
+												<td>
 												<input type="hidden" name="savetoups" value="savetoups" />
 												<button type="submit" class="btn btn-xs btn-danger">Save</button>
-												</form>
-												</td>
+												
+												</form></td>
 												</tr>
 												
 												<td><button type="submit" class="btn btn-xs btn-warning">Service Mode</button></td>
