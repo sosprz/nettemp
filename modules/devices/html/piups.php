@@ -36,7 +36,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 if (isset($_POST['upsbacklight']) && !empty($_POST['upsbacklight'])) {
    $upsbacklight='on';
 } else {
-   $upsbacklight='off';;
+   $upsbacklight='off';
 }
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	
