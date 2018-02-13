@@ -640,10 +640,7 @@ class phpSerial
     // INTERNAL TOOLKIT -- {STOP}
     //
 }
-?>
 
-
-<?php
 //$ROOT=dirname(dirname(dirname(dirname(__FILE__))));
 $root=$_SERVER["DOCUMENT_ROOT"];
 
