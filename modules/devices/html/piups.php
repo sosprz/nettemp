@@ -18,6 +18,9 @@ $root=$_SERVER["DOCUMENT_ROOT"];
 
 include("$ROOT/php_serial.class.php");
 
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 
 $serial = new phpSerial;
 	
