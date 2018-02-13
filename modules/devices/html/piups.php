@@ -17,7 +17,7 @@ $ROOT=dirname(dirname(dirname(dirname(__FILE__))));
 $root=$_SERVER["DOCUMENT_ROOT"];
 
 
-include("$root/php_serial.class.php");
+require("$root/php_serial.class.php");
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
