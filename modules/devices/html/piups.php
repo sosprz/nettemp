@@ -15,7 +15,20 @@
 <?php
 $root=$_SERVER["DOCUMENT_ROOT"];
 
-$read='zero';
+
+include("$ROOT/php_serial_class.php");
+
+echo exec('whoami');
+$serial = new phpSerial;
+	
+	$serial->deviceSet("/dev/ttyUSB0");
+	$serial->confBaudRate(9600);
+	$serial->confParity("none");
+	$serial->confCharacterLength(8);
+	$serial->confStopBits(1);
+	$serial->confFlowControl("none");
+	$serial->deviceOpen();
+
 
 
 $upsdelayon = isset($_POST['upsdelayon']) ? $_POST['upsdelayon'] : '';
@@ -53,8 +66,8 @@ $readups = isset($_POST['readups']) ? $_POST['readups'] : '';
 if  ($readups == "readups") { $read='on';
 
 
-$cmd=("exec 3</dev/ttyUSB0 && echo -n 'O\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
-$out=shell_exec($cmd);
+	$serial->sendMessage("O\r");
+	$out = $serial->readPort();
 
     $out=trim($out);
     $data=explode(" ",$out);
