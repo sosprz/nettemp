@@ -146,7 +146,7 @@ $row = $rows->fetchAll();
 												<td></td>
 <td>
 	
-	<input type="text"  class="selectpicker" name="upsscroll" size="2" maxlength="3" value="<?php echo $nts_ups_lcd_scroll; ?>" />
+	<input type="text" name="upsscroll" size="2" maxlength="3" value="<?php echo $nts_ups_lcd_scroll; ?>" />
 	
 	 
     
@@ -158,7 +158,7 @@ $row = $rows->fetchAll();
 												<td></td>
 <td>
 	
-	<select class="selectpicker" data-width="50px" name="upsbacklight" ">
+	<select class="selectpicker" data-width="50px" name="upsbacklight" class="form-control input-sm">
 		
 		<option value="TAK" <?php echo $nts_ups_lcd_backlight == 'TAK' ? 'selected="selected"' : ''; ?> >Yes</option>
 		<option value="NIE" <?php echo $nts_ups_lcd_backlight == 'NIE'? 'selected="selected"' : ''; ?> >No</option>
