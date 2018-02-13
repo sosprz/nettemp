@@ -25,6 +25,9 @@ try {
 	include("$ROOT/php_serial_class.php");
     include("$ROOT/receiver.php");
 	
+	echo exec('whoami');
+
+	
 	$serial = new phpSerial;
 	
 	$serial->deviceSet("/dev/ttyUSB0");
