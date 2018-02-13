@@ -156,7 +156,7 @@ $row = $rows->fetchAll();
 	
 	
 	
-	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="upsbacklight" value="on" <?php echo $nts_ups_lcd_backlight == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="upsbacklight" value="on" <?php echo $nts_ups_lcd_backlight == 'on' ? 'checked="checked"' : ''; ?>" />
 	
 	
     
