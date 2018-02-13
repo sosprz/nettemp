@@ -689,7 +689,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 $readups = isset($_POST['readups']) ? $_POST['readups'] : '';
 if  ($readups == "readups") { $read='on';
 
-	$serial = new phpSerial();
+	$serial = new phpSerial;
 	
 	$serial->deviceSet("/dev/ttyUSB0");
 	$serial->confBaudRate(9600);
