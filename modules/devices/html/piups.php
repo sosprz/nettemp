@@ -39,6 +39,9 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	
 	// tutaj zapis do UPSA
 	
+	$cmd=("exec 3</dev/ttyUSB0 && echo -n 'U 60 60 3.9 4.0 3.3 2 1\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+	shell_exec($cmd);
+	
 	
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -68,9 +71,7 @@ $out=shell_exec($cmd);
 		$d4=$data[3];
 		$d5=$data[4];
 		$d6=$data[5];
-		$d7=$data[6];
-			
-           
+		$d7=$data[6];        
    }
 
 }
@@ -192,8 +193,8 @@ $row = $rows->fetchAll();
 	
 	<select class="selectpicker" data-width="50px" name="upsbacklight" class="form-control input-sm">
 		
-		<option value="TAK" <?php echo $nts_ups_lcd_backlight == 'TAK' ? 'selected="selected"' : ''; ?> >Yes</option>
-		<option value="NIE" <?php echo $nts_ups_lcd_backlight == 'NIE'? 'selected="selected"' : ''; ?> >No</option>
+		<option value="TAK" <?php echo $nts_ups_lcd_backlight == '1' ? 'selected="selected"' : ''; ?> >Yes</option>
+		<option value="NIE" <?php echo $nts_ups_lcd_backlight == '0'? 'selected="selected"' : ''; ?> >No</option>
 		
 		</select>
 	
