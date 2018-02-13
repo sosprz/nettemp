@@ -160,7 +160,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">Akku. charge stop</span></td>
-												<td><<?php echo "d4 ".$d4 ?>/td>
+												<td><?php echo "d4 ".$d4 ?>/td>
 <td>
 	
 	<input type="text" name="upsakkuchargestop" size="2" maxlength="3" value="<?php echo $nts_ups_akku_charge_stop; ?>" />
