@@ -24,7 +24,7 @@ try {
    // unset($db);
 
     include("$ROOT/receiver.php");
-    $cmd=("exec 3</dev/ttyUSB0 && echo -n 'D\r\n' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+    $cmd=("exec 3</dev/ttyUSB0 && echo -n 'D\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
 	
     $out=shell_exec($cmd);
     $out=trim($out);
