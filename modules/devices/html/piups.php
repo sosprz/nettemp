@@ -56,8 +56,8 @@ $out=shell_exec($cmd);
     $out=trim($out);
     $data=explode(" ",$out);
 	
-   var_dump($out);
-   var_dump($data);
+   //var_dump($out);
+   //var_dump($data);
    
    
    for($i=0;$i<count($data);$i++){
