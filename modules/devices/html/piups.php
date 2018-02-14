@@ -46,7 +46,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	
 	$values = escapeshellarg($values);
 	
-	$cmd=("echo -n '\r'$values'\r'  >/dev/ttyUSB0 ");
+	$cmd=("echo -ne \"\\r$values\\r\" >/dev/ttyUSB0 ");
 	$out=shell_exec($cmd);
 	
     header("location: " . $_SERVER['REQUEST_URI']);
