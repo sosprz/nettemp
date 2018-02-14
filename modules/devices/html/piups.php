@@ -230,7 +230,7 @@ $row = $rows->fetchAll();
 	<select class="selectpicker" data-width="50px" name="upsbacklight" class="form-control input-sm">
 		
 		<option value="1" <?php echo $nts_ups_lcd_backlight == '1' ? 'selected="selected"' : ''; ?> >Yes</option>
-		<option value="2" <?php echo $nts_ups_lcd_backlight == '2'? 'selected="selected"' : ''; ?> >No</option>
+		<option value="0" <?php echo $nts_ups_lcd_backlight == '0'? 'selected="selected"' : ''; ?> >No</option>
 		
 		</select>
 	
