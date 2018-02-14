@@ -134,12 +134,7 @@ $row = $rows->fetchAll();
 							<div class="table-responsive">
 								<table class="table table-hover table-condensed">
 								
-								<tfoot><tr><td>
-				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
-				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Factory</button>
-				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Reset</button>
-		</td></tr>
-								</tfoot>
+								
 
 										<tbody>
 												<tr>
@@ -257,7 +252,27 @@ $row = $rows->fetchAll();
 		
 	</table>
 </div>
-				</div>
+</div>
+<div class="table-responsive">
+	<table class="table table-hover table-condensed">
+		<tbody>
+		<tr>
+		<td>
+		
+		
+				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
+				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Factory</button>
+				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Reset</button>
+		
+		
+		
+		
+		</td>
+		<tr>
+		</tbody>
+		</div>
+
+
 		</div>
 
 
