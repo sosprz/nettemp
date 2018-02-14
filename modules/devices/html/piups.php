@@ -20,9 +20,6 @@
 
 $root=$_SERVER["DOCUMENT_ROOT"];
 
-$read='zero';
-
-
 $upsdelayon = isset($_POST['upsdelayon']) ? $_POST['upsdelayon'] : '';
 $upsdelayoff = isset($_POST['upsdelayoff']) ? $_POST['upsdelayoff'] : '';
 $upsakkuchargestart = isset($_POST['upsakkuchargestart']) ? $_POST['upsakkuchargestart'] : '';
@@ -56,19 +53,14 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 // read from PiUPS
 
 $readups = isset($_POST['readups']) ? $_POST['readups'] : '';
-if  ($readups == "readups") { $read='on';
-
-
+if  ($readups == "readups") {
 $cmd=("exec 3</dev/ttyUSB0 && echo -n '\r' >/dev/ttyUSB0 && echo -n 'O\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
 $out=shell_exec($cmd);
 
-$tresc = fread('/dev/ttyUSB0', filesize('50'));
-
-    $out=trim($out);
-    $data=explode(" ",$out);
-	 
-   for($i=0;$i<count($data);$i++){
-          
+   $out=trim($out);
+   $data=explode(" ",$out);	
+   
+   for($i=0;$i<count($data);$i++){         
 		$d1=$data[0];
 		$d2=$data[1];
 		$d3=$data[2];
@@ -79,6 +71,23 @@ $tresc = fread('/dev/ttyUSB0', filesize('50'));
    }
 
 }
+
+// service mode PiUPS
+$serviceups = isset($_POST['serviceups']) ? $_POST['serviceups'] : '';
+if  ($serviceups == "serviceups") {
+	$fp = fopen('/dev/ttyUSB0','r+');
+	fwrite($fp, "\rT\r");
+	fclose($fp);
+}
+// info PiUPS
+$infoups = isset($_POST['infoups']) ? $_POST['infoups'] : '';
+if  ($infoups == "infoups") {
+	$fp = fopen('/dev/ttyUSB0','r+');
+	fwrite($fp, "\rI\r");
+	fclose($fp);
+}
+
+//***********************************************************
 
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $rows = $db->query("SELECT name, tmp, position FROM sensors WHERE rom LIKE '%UPS_id%' ORDER BY position ASC");
@@ -210,7 +219,7 @@ $row = $rows->fetchAll();
 
 <tr>
 	<td>
-				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service Mode <?php echo "t".$tresc; ?></button>
+				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service Mode</button>
 				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
 			
 		
