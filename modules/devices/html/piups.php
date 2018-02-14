@@ -221,7 +221,7 @@ $row = $rows->fetchAll();
 
 <tr>
 	<td>
-			
+			<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Factory</button>
 	</td>
 	<td>
 				<button type="submit" name="readups" value="readups"class="btn btn-xs btn-success">Read</button>
@@ -235,8 +235,7 @@ $row = $rows->fetchAll();
 
 <tr>
 	<td>
-				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service mode</button>
-				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Normal mode</button>
+				
 	</td>
 	<td>		
 	</td>
@@ -258,10 +257,11 @@ $row = $rows->fetchAll();
 		<tbody>
 		<tr>
 		<td>
-		
-		
+				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Normal</button>
+				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service</button>
+				
 				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
-				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Factory</button>
+				
 				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Reset</button>
 		
 		
