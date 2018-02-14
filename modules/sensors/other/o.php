@@ -1,7 +1,7 @@
 <?php 
 
 //$cmd=("exec 3</dev/ttyUSB0 && echo -n '\rO' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
-$cmd=("exec 3</dev/ttyUSB0 && echo -n '\r' >/dev/ttyUSB0 && sleep 0.1 && echo -n 'O\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+$cmd=("exec 3</dev/ttyUSB0 && echo -n '\r' >/dev/ttyUSB0 && sleep 0.1 && echo -n 'O\r' >/dev/ttyUSB0 && cat  <&3; exec 3<&-");
 $out=shell_exec($cmd);
 //$d4=$out;
 echo $out;
