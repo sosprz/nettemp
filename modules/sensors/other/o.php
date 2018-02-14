@@ -4,6 +4,7 @@
 $cmd=("exec 3</dev/ttyUSB0 && echo -n '\r' >/dev/ttyUSB0 && sleep 0.1 && echo -n 'O\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
 $out=shell_exec($cmd);
 //$d4=$out;
+echo $out;
     $out=trim($out);
     $data=explode(" ",$out);
 	//$d3=$data;
