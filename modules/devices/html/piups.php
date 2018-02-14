@@ -39,9 +39,8 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	
 	// tutaj zapis do UPSA
 	
-	$cmd=("exec 3</dev/ttyUSB0 && echo -n '\rU 61 62 3.9 4.0 3.3 2 11\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
-$out=shell_exec($cmd);
-	
+	$cmd=("echo -n '\rU 61 62 3.9 4.0 3.3 3 11\r' >/dev/ttyUSB0 ");
+	$out=shell_exec($cmd);
 	
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -58,11 +57,7 @@ $out=shell_exec($cmd);
 
     $out=trim($out);
     $data=explode(" ",$out);
-	
-   //var_dump($out);
-   //var_dump($data);
-   
-   
+	 
    for($i=0;$i<count($data);$i++){
           
 		$d1=$data[0];
