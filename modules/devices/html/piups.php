@@ -44,7 +44,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	//echo "test".$values;
 	//$db->exec("UPDATE nt_settings SET value='$values' WHERE option='ups_lcd_backlight'");
 	
-	$values = escapeshellarg($values);
+	//$values = escapeshellarg($values);
 	
 	$cmd=("echo -ne \"\\r$values\\r\" >/dev/ttyUSB0 ");
 	$out=shell_exec($cmd);
