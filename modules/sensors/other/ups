@@ -1,6 +1,5 @@
 #! /bin/bash 
 
-stty -F /dev/ttyUSB0 9600 raw -echo   #CONFIGURE SERIAL PORT
 exec 3</dev/ttyUSB0                     #REDIRECT SERIAL OUTPUT TO FD 3
   cat <&3 > /tmp/ttyDump.dat &          #REDIRECT SERIAL OUTPUT TO FILE
   PID=$!                                #SAVE PID TO KILL CAT
