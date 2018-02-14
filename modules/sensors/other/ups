@@ -7,7 +7,7 @@ exec 3</dev/ttyUSB0                     #REDIRECT SERIAL OUTPUT TO FD 3
     echo "O\r" > /dev/ttyUSB0             #SEND COMMAND STRING TO SERIAL PORT
     sleep 0.2s                          #WAIT FOR RESPONSE
   kill $PID                             #KILL CAT PROCESS
-exec 3<&-                               #FREE FD 3
+
 cat /tmp/ttyDump.dat                    #DUMP CAPTURED DATA
 
 
