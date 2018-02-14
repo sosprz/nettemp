@@ -205,7 +205,7 @@ $row = $rows->fetchAll();
 
 <tr>
 	<td>
-				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service Mode</button>
+				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service Mode <?echo "test".$values;?></button>
 				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
 			
 		
