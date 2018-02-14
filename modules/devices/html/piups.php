@@ -38,7 +38,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	
 	// tutaj zapis do UPSA
-	$arr = array($upsdelayon,$upsdelayoff,$upsakkuchargestart,$upsakkuchargestop,$upsakkudischarged,$upsscroll,$upsbacklight);
+	$arr = array('U'$upsdelayon,$upsdelayoff,$upsakkuchargestart,$upsakkuchargestop,$upsakkudischarged,$upsscroll,$upsbacklight);
     $values=implode(" ",$arr);
 	
 	//echo "test".$values;
@@ -50,7 +50,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	//$out=shell_exec($cmd);
 	
 $fp = fopen('/dev/ttyUSB0','r+'); //use this for Linux
-fwrite($fp, "\rU 60 68 3.9 4.0 3.3 3 11\r"); //write string to serial
+fwrite($fp, "\r$values\r"); //write string to serial
 fclose($fp);
 	
     header("location: " . $_SERVER['REQUEST_URI']);
