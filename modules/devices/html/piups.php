@@ -38,7 +38,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	
 	// tutaj zapis do UPSA
-	$arr = array('$upsdelayon','$upsdelayoff','$upsakkuchargestart','$upsakkuchargestop','$upsakkudischarged','$upsscroll','$upsbacklight');
+	$arr = array($upsdelayon,$upsdelayoff,$upsakkuchargestart,$upsakkuchargestop,$upsakkudischarged,$upsscroll,$upsbacklight);
     $values=implode(" ",$arr);
 	//echo $values;
 	
