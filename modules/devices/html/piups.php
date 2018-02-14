@@ -271,12 +271,23 @@ $row = $rows->fetchAll();
 			<input type="hidden" name="normalups" value="normalups" />
 			<button class="btn btn-xs btn-warning">Normal</button>
 		</form>
-		
-				
-				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service</button>
-				<button type="submit" name="factoryups" value="factoryups" class="btn btn-xs btn-danger">Factory</button>
-				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
-				<button type="submit" name="resetups" value="resetups" class="btn btn-xs btn-info">Reset</button>
+		<form action="" method="post" style="display:inline!important;">
+			<input type="hidden" name="serviceups" value="serviceups" />
+			<button class="btn btn-xs btn-warning">Service</button>
+		</form>
+		<form action="" method="post" style="display:inline!important;">
+			<input type="hidden" name="factoryups" value="factoryups" />
+			<button class="btn btn-xs btn-danger">Factory</button>
+		</form>
+		<form action="" method="post" style="display:inline!important;">
+			<input type="hidden" name="infoups" value="infoups"/>
+			<button class="btn btn-xs btn-info">Info</button>
+		</form>
+		<form action="" method="post" style="display:inline!important;">
+			<input type="hidden" name="resetups" value="resetups" />
+			<button class="btn btn-xs btn-info">Reset</button>
+		</form>
+			
 		</td>
 		<tr>
 		</tbody>
