@@ -13,6 +13,11 @@
 
 </style>
 <?php
+
+//$ ls -l /dev/ttyUSB0
+//crw-rw---- 1 root dialout 188, 0 2011-03-30 22:11 /dev/ttyUSB0
+//$ sudo usermod -G www-data,dialout www-data
+
 $root=$_SERVER["DOCUMENT_ROOT"];
 
 $read='zero';
@@ -37,27 +42,18 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upsscroll' WHERE option='ups_lcd_scroll'");
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	
-	// tutaj zapis do UPSA
+// write to PiUPS
 	$arr = array('U',$upsdelayon,$upsdelayoff,$upsakkuchargestart,$upsakkuchargestop,$upsakkudischarged,$upsscroll,$upsbacklight);
     $values=implode(" ",$arr);
-	
-	//echo "test".$values;
-	//$db->exec("UPDATE nt_settings SET value='$values' WHERE option='ups_lcd_backlight'");
-	
-	//$values = escapeshellarg($values);
-	
-	//$cmd=("echo -n '\r'$values'\r' >/dev/ttyUSB0 ");
-	//$out=shell_exec($cmd);
-	
-$fp = fopen('/dev/ttyUSB0','r+'); //use this for Linux
-fwrite($fp, "\r$values\r"); //write string to serial
-fclose($fp);
+	$fp = fopen('/dev/ttyUSB0','r+');
+	fwrite($fp, "\r$values\r");
+	fclose($fp);
 	
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
 	
-// wczytanie danych ups	
+// read from PiUPS
 
 $readups = isset($_POST['readups']) ? $_POST['readups'] : '';
 if  ($readups == "readups") { $read='on';
@@ -65,6 +61,8 @@ if  ($readups == "readups") { $read='on';
 
 $cmd=("exec 3</dev/ttyUSB0 && echo -n '\r' >/dev/ttyUSB0 && echo -n 'O\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
 $out=shell_exec($cmd);
+
+$tresc = fread('tmp/read.txt', filesize('50'));
 
     $out=trim($out);
     $data=explode(" ",$out);
@@ -194,7 +192,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">LCD Auto Backlight</span></td>
-												<td><span class="label label-success"><?php echo $d7  ?></span></td>
+												<td><span class="label label-success"><?php echo $tresc  ?></span></td>
 <td>
 	
 	<select class="selectpicker" data-width="50px" name="upsbacklight" class="form-control input-sm">
