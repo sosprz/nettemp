@@ -192,7 +192,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">LCD Auto Backlight</span></td>
-												<td><span class="label label-success"><?php echo $tresc  ?></span></td>
+												<td><span class="label label-success"><?php echo $d7  ?></span></td>
 <td>
 	
 	<select class="selectpicker" data-width="50px" name="upsbacklight" class="form-control input-sm">
@@ -210,7 +210,7 @@ $row = $rows->fetchAll();
 
 <tr>
 	<td>
-				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service Mode <?php echo "test".$values; ?></button>
+				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service Mode <?php echo "test".$tresc; ?></button>
 				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
 			
 		
