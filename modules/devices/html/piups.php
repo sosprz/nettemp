@@ -76,7 +76,7 @@ $out=shell_exec($cmd);
 $serviceups = isset($_POST['serviceups']) ? $_POST['serviceups'] : '';
 if  ($serviceups == "serviceups") {
 	$fp = fopen('/dev/ttyUSB0','r+');
-	fwrite($fp, "\rT\r");
+	fwrite($fp, "\rN\r");
 	fclose($fp);
 }
 // info PiUPS
