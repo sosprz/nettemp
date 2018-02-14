@@ -30,8 +30,8 @@ try {
 	//echo $out."\n";
     $out=trim($out);
     $data=explode(" ",$out);
-    var_dump($out);
-    var_dump($data);
+    //var_dump($out);
+   // var_dump($data);
 	//echo $dev."\n";
 
     $types=array('volt','volt','volt','amps','watt','temp','battery','trigger','trigger','trigger');
