@@ -233,6 +233,16 @@ $row = $rows->fetchAll();
 				</form>
 	</td>
 </tr>
+
+<tr>
+	<td>
+				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service mode</button>
+				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Normal mode</button>
+				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
+				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Factory</button>
+				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Reset</button>
+	</td>
+</tr>
 											
 												
 												
