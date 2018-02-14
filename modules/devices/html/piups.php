@@ -38,12 +38,12 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	
 	// tutaj zapis do UPSA
-	$arr = array($a1,$a2);
+	$arr = array('$upsdelayon','$upsdelayoff','$upsakkuchargestart','$upsakkuchargestop','$upsakkudischarged','$upsscroll','$upsbacklight');
     $values=implode(" ",$arr);
-	echo $values;
+	//echo $values;
 	
 	
-	$cmd=("echo -n '\rU 61 62 3.9 4.0 3.3 3 11\r' >/dev/ttyUSB0 ");
+	$cmd=("echo -n '\r$values\r' >/dev/ttyUSB0 ");
 	$out=shell_exec($cmd);
 	
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -78,12 +78,6 @@ $out=shell_exec($cmd);
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $rows = $db->query("SELECT name, tmp, position FROM sensors WHERE rom LIKE '%UPS_id%' ORDER BY position ASC");
 $row = $rows->fetchAll();
-$a1='ala';
-$a2='ma';
-
-$arr = array($a1,$a2);
-    $values=implode(" ",$arr);
-	echo $values;
 
 ?>
 
@@ -129,7 +123,7 @@ $arr = array($a1,$a2);
 										<tbody>
 												<tr>
 												<td><span class="label label-default">Delay ON</span></td>
-												<td> <span class="label label-success"><?php echo $values; ?> </span></td>
+												<td> <span class="label label-success"><?php echo $d1 ?></span></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
 	<input type="text" name="upsdelayon" size="2" maxlength="3" value="<?php echo $nts_ups_delay_on; ?>" />
