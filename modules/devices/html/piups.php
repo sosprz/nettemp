@@ -40,7 +40,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	// tutaj zapis do UPSA
 	$arr = array('$upsdelayon','$upsdelayoff','$upsakkuchargestart','$upsakkuchargestop','$upsakkudischarged','$upsscroll','$upsbacklight');
     $values=implode(" ",$arr);
-	//echo $values;
+	echo "test".$values;
 	
 	
 	$cmd=("echo -n '\r' && echo -n $values && echo -n '\r' >/dev/ttyUSB0 ");
