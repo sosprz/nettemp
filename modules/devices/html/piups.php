@@ -232,23 +232,11 @@ $row = $rows->fetchAll();
 				</form>
 	</td>
 </tr>
-
-<tr>
-	<td>
-				
-	</td>
-	<td>		
-	</td>
-</tr>
-											
-												
-												
-												
+							
+																				
 
 		</tbody>
-		
-		
-		
+
 	</table>
 </div>
 
@@ -259,14 +247,8 @@ $row = $rows->fetchAll();
 		<td>
 				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Normal</button>
 				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service</button>
-				
 				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
-				
 				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Reset</button>
-		
-		
-		
-		
 		</td>
 		<tr>
 		</tbody>
