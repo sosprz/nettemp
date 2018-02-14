@@ -76,7 +76,21 @@ $out=shell_exec($cmd);
 $serviceups = isset($_POST['serviceups']) ? $_POST['serviceups'] : '';
 if  ($serviceups == "serviceups") {
 	$fp = fopen('/dev/ttyUSB0','r+');
-	fwrite($fp, "\rN\r");
+	fwrite($fp, "\rT\r");
+	fclose($fp);
+}
+// normal mode PiUPS
+$normalups = isset($_POST['normalups']) ? $_POST['normalups'] : '';
+if  ($normalups == "normalups") {
+	$fp = fopen('/dev/ttyUSB0','r+');
+	fwrite($fp, "\rT\r");
+	fclose($fp);
+}
+// factory mode PiUPS
+$factoryups = isset($_POST['factoryups']) ? $_POST['factoryups'] : '';
+if  ($factoryups == "factoryups") {
+	$fp = fopen('/dev/ttyUSB0','r+');
+	fwrite($fp, "\rF\r");
 	fclose($fp);
 }
 // info PiUPS
@@ -84,6 +98,13 @@ $infoups = isset($_POST['infoups']) ? $_POST['infoups'] : '';
 if  ($infoups == "infoups") {
 	$fp = fopen('/dev/ttyUSB0','r+');
 	fwrite($fp, "\rI\r");
+	fclose($fp);
+}
+// reset PiUPS
+$resetups = isset($_POST['resetups']) ? $_POST['resetups'] : '';
+if  ($resetups == "resetups") {
+	$fp = fopen('/dev/ttyUSB0','r+');
+	fwrite($fp, "\rR\r");
 	fclose($fp);
 }
 
@@ -245,11 +266,11 @@ $row = $rows->fetchAll();
 		<tbody>
 		<tr>
 		<td>
-				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Normal</button>
+				<button type="submit" name="normalups" value="normalups"class="btn btn-xs btn-warning">Normal</button>
 				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service</button>
-				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-danger">Factory</button>
+				<button type="submit" name="factoryups" value="factoryups" class="btn btn-xs btn-danger">Factory</button>
 				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
-				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Reset</button>
+				<button type="submit" name="resetups" value="resetups" class="btn btn-xs btn-info">Reset</button>
 		</td>
 		<tr>
 		</tbody>
