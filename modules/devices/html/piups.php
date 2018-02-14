@@ -270,6 +270,7 @@ $row = $rows->fetchAll();
 		</td>
 		<tr>
 		</tbody>
+		</table>
 		</div>
 
 
