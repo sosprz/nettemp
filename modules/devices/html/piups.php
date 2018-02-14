@@ -69,8 +69,7 @@ $out=shell_exec($cmd);
 		$d6=$data[5];
 		$d7=$data[6];        
    }
-header("location: " . $_SERVER['REQUEST_URI']);
-exit();
+
 }
 
 // service mode PiUPS
