@@ -1,6 +1,7 @@
 <?php 
 
-$cmd=("exec 3</dev/ttyUSB0 && echo -n '\rO' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+//$cmd=("exec 3</dev/ttyUSB0 && echo -n '\rO' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+$cmd=("exec 3</dev/ttyUSB0 && echo -n '\rO' >/dev/ttyUSB0 && sleep 0.5 && head -1 <&3; exec 3<&-");
 $out=shell_exec($cmd);
 //$d4=$out;
     $out=trim($out);
