@@ -38,7 +38,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	
 	// tutaj zapis do UPSA
-	$arr = array($upsdelayon,$upsdelayoff);
+	$arr = array($a1,$a2);
     $values=implode(" ",$arr);
 	echo $values;
 	
@@ -78,6 +78,12 @@ $out=shell_exec($cmd);
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $rows = $db->query("SELECT name, tmp, position FROM sensors WHERE rom LIKE '%UPS_id%' ORDER BY position ASC");
 $row = $rows->fetchAll();
+$a1='ala';
+$a2='ma';
+
+$arr = array($a1,$a2);
+    $values=implode(" ",$arr);
+	echo $values;
 
 ?>
 
@@ -123,7 +129,7 @@ $row = $rows->fetchAll();
 										<tbody>
 												<tr>
 												<td><span class="label label-default">Delay ON</span></td>
-												<td> <span class="label label-success"><?php echo $d1 ?></span></td>
+												<td> <span class="label label-success"><?php echo $values; ?> </span></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
 	<input type="text" name="upsdelayon" size="2" maxlength="3" value="<?php echo $nts_ups_delay_on; ?>" />
