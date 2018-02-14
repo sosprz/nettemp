@@ -134,12 +134,12 @@ $row = $rows->fetchAll();
 							<div class="table-responsive">
 								<table class="table table-hover table-condensed">
 								
-								<tfoot>
-		<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
+								<tfoot><tr><td>
+				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
 				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Factory</button>
 				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Reset</button>
-		
-		</tfoot>
+		</td></tr>
+								</tfoot>
 
 										<tbody>
 												<tr>
