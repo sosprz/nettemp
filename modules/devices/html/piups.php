@@ -252,7 +252,7 @@ $row = $rows->fetchAll();
 		
 	</table>
 </div>
-</div>
+
 <div class="table-responsive">
 	<table class="table table-hover table-condensed">
 		<tbody>
@@ -272,6 +272,9 @@ $row = $rows->fetchAll();
 		</tbody>
 		</table>
 		</div>
+
+</div>
+
 
 
 		</div>
