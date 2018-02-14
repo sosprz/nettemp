@@ -83,7 +83,7 @@ if  ($serviceups == "serviceups") {
 $normalups = isset($_POST['normalups']) ? $_POST['normalups'] : '';
 if  ($normalups == "normalups") {
 	$fp = fopen('/dev/ttyUSB0','r+');
-	fwrite($fp, "\rT\r");
+	fwrite($fp, "\rN\r");
 	fclose($fp);
 }
 // factory mode PiUPS
