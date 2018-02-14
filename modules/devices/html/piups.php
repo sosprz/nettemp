@@ -35,12 +35,14 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upsakkuchargestop' WHERE option='ups_akku_charge_stop'");
 	$db->exec("UPDATE nt_settings SET value='$upsakkudischarged' WHERE option='ups_akku_discharged'");
 	$db->exec("UPDATE nt_settings SET value='$upsscroll' WHERE option='ups_lcd_scroll'");
-	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
+	//$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	
 	// tutaj zapis do UPSA
 	$arr = array('$upsdelayon','$upsdelayoff','$upsakkuchargestart','$upsakkuchargestop','$upsakkudischarged','$upsscroll','$upsbacklight');
     $values=implode(" ",$arr);
 	echo "test".$values;
+	$db->exec("UPDATE nt_settings SET value='$values' WHERE option='ups_lcd_backlight'");
+	
 	
 	
 	$cmd=("echo -n '\r' && echo -n $values && echo -n '\r' >/dev/ttyUSB0 ");
