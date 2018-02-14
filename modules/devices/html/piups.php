@@ -50,7 +50,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	//$out=shell_exec($cmd);
 	
 $fp = fopen('/dev/ttyUSB0','r+'); //use this for Linux
-fwrite($fp, "\rU 67 68 3.9 4.0 3.3 3 11\r"); //write string to serial
+fwrite($fp, "\rU$values\r"); //write string to serial
 fclose($fp);
 	
     header("location: " . $_SERVER['REQUEST_URI']);
