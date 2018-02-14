@@ -38,6 +38,10 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	
 	// tutaj zapis do UPSA
+	$arr = array($upsdelayon,$upsdelayoff);
+    $values=implode(" ",$arr);
+	echo $values;
+	
 	
 	$cmd=("echo -n '\rU 61 62 3.9 4.0 3.3 3 11\r' >/dev/ttyUSB0 ");
 	$out=shell_exec($cmd);
