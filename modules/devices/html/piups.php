@@ -162,7 +162,7 @@ $row = $rows->fetchAll();
 												<td><span class="label label-default">Delay ON</span></td>
 												<td> <span class="label label-success"><?php echo $d1 ?></span></td>
 <td>
-	<form id="piupsform" action="" method="post" style="display:inline!important;">
+	<form action="" method="post" style="display:inline!important;">
 	<input type="text" name="upsdelayon" size="2" maxlength="3" value="<?php echo $nts_ups_delay_on; ?>" />
     
 </td>
@@ -245,11 +245,11 @@ $row = $rows->fetchAll();
 			
 	</td>
 	<td>
-				<button type="submit" name="readups" value="readups" form="piupsform"class="btn btn-xs btn-success">Read</button>
+				<button type="submit" name="readups" value="readups"class="btn btn-xs btn-success">Read</button>
 				
 	</td>
 	<td>
-				<button type="submit" name="savetoups" value="savetoups" form="piupsform" class="btn btn-xs btn-danger">Save</button>
+				<button type="submit" name="savetoups" value="savetoups" class="btn btn-xs btn-danger">Save</button>
 				</form>
 	</td>
 </tr>
