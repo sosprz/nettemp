@@ -266,7 +266,13 @@ $row = $rows->fetchAll();
 		<tbody>
 		<tr>
 		<td>
-				<button type="submit" name="normalups" value="normalups"class="btn btn-xs btn-warning">Normal</button>
+		
+		<form action="" method="post" style="display:inline!important;">
+			<input type="hidden" name="normalups" value="normalups" />
+			<button class="btn btn-xs btn-warning">Normal</button>
+		</form>
+		
+				
 				<button type="submit" name="serviceups" value="serviceups"class="btn btn-xs btn-warning">Service</button>
 				<button type="submit" name="factoryups" value="factoryups" class="btn btn-xs btn-danger">Factory</button>
 				<button type="submit" name="infoups" value="infoups" class="btn btn-xs btn-info">Info</button>
