@@ -39,7 +39,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	
 	// tutaj zapis do UPSA
 	
-	$cmd=("exec 3</dev/ttyUSB0 && echo -n 'U 60 60 3.9 4.0 3.3 2 1\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+	$cmd=("exec 3</dev/ttyUSB0 && echo -n '\rU 60 60 3.9 4.0 3.3 2 1\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
 $out=shell_exec($cmd);
 	
 	
@@ -53,7 +53,7 @@ $readups = isset($_POST['readups']) ? $_POST['readups'] : '';
 if  ($readups == "readups") { $read='on';
 
 
-$cmd=("exec 3</dev/ttyUSB0 && echo -n 'O\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+$cmd=("exec 3</dev/ttyUSB0 && echo -n '\rO\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
 $out=shell_exec($cmd);
 
     $out=trim($out);
