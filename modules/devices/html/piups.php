@@ -220,7 +220,7 @@ $row = $rows->fetchAll();
 												<td><span class="label label-success"><?php echo $d5 ?></span></td>
 <td>
 	
-	<input type="text" name="upsakkudischarged" size="2" maxlength="3" value="<?php echo $nts_ups_akku_discharged; ?>" />
+	<input type="text" name="upsakkudischarged" size="3" maxlength="3" value="<?php echo $nts_ups_akku_discharged; ?>" />
     
 </td>
 											
