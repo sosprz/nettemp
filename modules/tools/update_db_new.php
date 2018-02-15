@@ -69,5 +69,6 @@ $updates['2018-02-12 13:04:08'][]="INSERT INTO nt_settings ('option', 'value') V
 $updates['2018-02-12 13:04:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_akku_discharged','3.3')";
 $updates['2018-02-12 13:04:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_lcd_scroll','2')";
 $updates['2018-02-12 13:04:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_lcd_backlight','yes')";
+$updates['2018-02-15 09:55:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_time_off','15')";
 
 ?>
