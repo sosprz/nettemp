@@ -141,7 +141,7 @@ $row = $rows->fetchAll();
 		elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '0') { echo 'OK';}
 		elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '1') { echo 'Discharged';}
 		else {echo $a['tmp'];} 
-		}
+		
 		
 		
 		?>
