@@ -245,7 +245,7 @@ $row = $rows->fetchAll();
 												
 if ($d7 == '1') { echo 'Yes';}
 elseif ($d7 == '0') { echo 'No';}
-elseif ($d7 == '') { echo '';}
+else { echo $d7;}
 												
 												
 												
