@@ -14,9 +14,6 @@
 </style>
 <?php
 
-//$ ls -l /dev/ttyUSB0
-//crw-rw---- 1 root dialout 188, 0 2011-03-30 22:11 /dev/ttyUSB0
-//$ sudo usermod -G www-data,dialout www-data
 
 $root=$_SERVER["DOCUMENT_ROOT"];
 
@@ -135,7 +132,7 @@ $row = $rows->fetchAll();
 
 <div class="grid">
 <div class="grid-sizer"></div>
-<div class="grid-item">
+<div class="grid-item piups">
 <div class="panel panel-default">
 
 <div class="panel-heading">PiUPS Status</div>
@@ -361,3 +358,13 @@ elseif ($d7 == '0') { echo 'No';}?>
 
 
 </div>
+
+<script type="text/javascript">
+    setInterval( function() {
+
+	
+    $('.piups').load("modules/devices/html/piups.php");
+   
+	
+}, 10000);
+</script>

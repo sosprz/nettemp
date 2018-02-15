@@ -48,7 +48,7 @@ try {
             $local_rom='UPS_id'.($i+1);
             $local_val=$data[$i];
             $local_type=$types[$i];
-            echo $date.' '.$echoes[$i].': '.$data[$i]."\n";
+            //echo $date.' '.$echoes[$i].': '.$data[$i]."\n";
             db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
         }
     }

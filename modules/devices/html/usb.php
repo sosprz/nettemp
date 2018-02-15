@@ -13,7 +13,7 @@ if ($setusb == "setusb") {
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE usb SET dev='$usb' WHERE device='$device'");
 	
-	if ($device =='PiUPS') {
+	if ($device == 'PiUPS') {
 		shell_exec("sudo usermod -G www-data,dialout www-data");
 	}
     header("location: " . $_SERVER['REQUEST_URI']);
