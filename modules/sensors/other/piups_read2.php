@@ -12,20 +12,19 @@ try {
 }
 
 try {
-   // $query = $db->query("SELECT dev FROM usb WHERE device='UPS Pimowo'");
-   // $result= $query->fetchAll();
-  // foreach($result as $r) {
-    // $dev=$r['dev'];
-  //  }
-    // if($dev=='none'){
-    //  echo $date." No UPS Pimowo USB Device.\n";
-     // exit;
-   // }
-   // unset($db);
+    $query = $db->query("SELECT dev FROM usb WHERE device='PiUPS'");
+    $result= $query->fetchAll();
+    foreach($result as $r) {
+     $dev=$r['dev'];
+    }
+    if($dev=='none'){
+    echo $date." No PiUPS USB Device.\n";
+    exit;
+    }
+    unset($db);
 
     include("$ROOT/receiver.php");
-    //$cmd=("exec 3</dev/ttyUSB0 && echo -n '\rD' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
-	$cmd=("exec 3</dev/ttyUSB0 && echo -n '\r' >/dev/ttyUSB0 && echo -n 'D\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+	$cmd=("exec 3<$dev && echo -n '\r' >$dev && echo -n 'D\r' >$dev && head -1 <&3; exec 3<&-");
 	
 	//echo $cmd."\n";
     $out=shell_exec($cmd);
@@ -33,7 +32,7 @@ try {
     $out=trim($out);
     $data=explode(" ",$out);
     //var_dump($out);
-   // var_dump($data);
+    //var_dump($data);
 	//echo $dev."\n";
 
     $types=array('volt','volt','volt','amps','watt','temp','battery','trigger','trigger','trigger');
@@ -44,7 +43,7 @@ try {
         exit;
     }else{
         $local_device='usb';
-        $local_usb='/dev/ttyUSB0';
+        $local_usb='$dev';
         for($i=0;$i<count($data);$i++){
             $local_rom='UPS_id'.($i+1);
             $local_val=$data[$i];
