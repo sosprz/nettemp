@@ -30,7 +30,7 @@ $query = $db->query("SELECT dev FROM usb WHERE device='PiUPS'");
      $dev=$r['dev'];
     }
     if($dev=='none'){
-    echo $date." No PiUPS USB Device.\n";
+    $nodevice=1;
     exit;
     }
 
