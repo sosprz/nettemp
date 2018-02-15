@@ -135,6 +135,7 @@ $row = $rows->fetchAll();
 		<tbody>
 		<?php
 		foreach ($row as $a) { 	
+		 $sname = str_replace("_", " ", $a['name'])
 		
 		foreach($typess as $ty){
        	if($ty['type']==$a['type']){
@@ -147,7 +148,7 @@ $row = $rows->fetchAll();
 		<td>
 				<?php echo $type;?>
 		</td>
-		<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name'])." ".$unit; ?></span></td>
+		<td><span class="label label-default"><?php echo $sname." ".$unit; ?></span></td>
 		<td><span class="label label-success">
 		
 		<?php
