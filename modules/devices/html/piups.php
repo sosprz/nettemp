@@ -83,7 +83,7 @@ $out=shell_exec($cmd);
 		$d6=$data[5];
 		$d7=$data[6];        
    }
-
+header("location: " . $_SERVER['REQUEST_URI']);
 }
 
 // service mode PiUPS
@@ -106,6 +106,7 @@ if  ($factoryups == "factoryups") {
 	$fp = fopen($dev,'r+');
 	fwrite($fp, "\rF\r");
 	fclose($fp);
+	header("location: " . $_SERVER['REQUEST_URI']);
 }
 // info PiUPS
 $infoups = isset($_POST['infoups']) ? $_POST['infoups'] : '';
