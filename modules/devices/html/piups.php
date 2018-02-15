@@ -148,17 +148,19 @@ $row = $rows->fetchAll();
 				<?php echo $type;?>
 		</td>
 		<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name']); ?></span></td>
-		<td><span class="label label-success">
+		<td>
+		
+		
 		
 		<?php
 		
-		if ($a['rom'] == 'UPS_id8' & $a['tmp'] == '1') { echo 'Charging';}
-		elseif ($a['rom'] == 'UPS_id8' & $a['tmp'] == '1') { echo 'Not Charging';}
-		elseif ($a['rom'] == 'UPS_id9' & $a['tmp'] == '0') { echo 'Online';}
-		elseif ($a['rom'] == 'UPS_id9' & $a['tmp'] == '1') { echo 'Offline';}
-		elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '0') { echo 'OK';}
-		elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '1') { echo 'Discharged';}
-		else {echo $a['tmp']." ".$unit;} 
+		if ($a['rom'] == 'UPS_id8' & $a['tmp'] == '1') { echo '<span class="label label-warning">Charging';}
+		elseif ($a['rom'] == 'UPS_id8' & $a['tmp'] == '1') { echo '<span class="label label-success">Charged';}
+		elseif ($a['rom'] == 'UPS_id9' & $a['tmp'] == '0') { echo '<span class="label label-success">Online';}
+		elseif ($a['rom'] == 'UPS_id9' & $a['tmp'] == '1') { echo '<span class="label label-danger">Offline';}
+		elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '0') { echo '<span class="label label-success">OK';}
+		elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '1') { echo '<span class="label label-danger">Discharged';}
+		else {echo '<span class="label label-success">'; echo $a['tmp']." ".$unit;} 
 		
 		
 		
