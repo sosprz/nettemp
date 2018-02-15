@@ -205,6 +205,7 @@ $row = $rows->fetchAll();
 	<input type="text" name="upsakkuchargestart" size="2" maxlength="4" value="<?php echo $nts_ups_akku_charge_start; ?>" />
     
 </td>
+<td><span class="label label-default">V</span></td>
 												</tr>
 
 												<tr>
@@ -214,7 +215,8 @@ $row = $rows->fetchAll();
 	
 	<input type="text" name="upsakkuchargestop" size="2" maxlength="4" value="<?php echo $nts_ups_akku_charge_stop; ?>" />
     
-</td>	
+</td>
+<td><span class="label label-default">V</span></td>	
 												</tr>
 
 												<tr>
@@ -225,6 +227,7 @@ $row = $rows->fetchAll();
 	<input type="text" name="upsakkudischarged" size="2" maxlength="4" value="<?php echo $nts_ups_akku_discharged; ?>" />
     
 </td>
+<td><span class="label label-default">V</span></td>
 											
 												</tr>
 
@@ -238,6 +241,7 @@ $row = $rows->fetchAll();
 	 
     
 </td>	
+<td><span class="label label-default">sec</span></td>
 												</tr>
 
 												<tr>
@@ -254,11 +258,8 @@ elseif ($d7 == '0') { echo 'No';}?>
 		<option value="0" <?php echo $nts_ups_lcd_backlight == '0'? 'selected="selected"' : ''; ?> >No</option>
 		
 	</select>
-	
-	
-	
-    
 </td>
+<td></td>
 												</tr>
 
 <tr>
@@ -273,6 +274,7 @@ elseif ($d7 == '0') { echo 'No';}?>
 				<button type="submit" name="savetoups" value="savetoups" class="btn btn-xs btn-danger">Save</button>
 				</form>
 	</td>
+	<td></td>
 </tr>
 							
 																				
