@@ -28,6 +28,9 @@ $upsakkudischarged = isset($_POST['upsakkudischarged']) ? $_POST['upsakkudischar
 $upsscroll = isset($_POST['upsscroll']) ? $_POST['upsscroll'] : '';
 $upsbacklight = isset($_POST['upsbacklight']) ? $_POST['upsbacklight'] : '';
 $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
+$upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
+
+
 
  if  ($savetoups == "savetoups") {
     $db = new PDO("sqlite:$root/dbf/nettemp.db");
@@ -38,6 +41,7 @@ $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upsakkudischarged' WHERE option='ups_akku_discharged'");
 	$db->exec("UPDATE nt_settings SET value='$upsscroll' WHERE option='ups_lcd_scroll'");
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
+	$db->exec("UPDATE nt_settings SET value='$upstimeoff' WHERE option='ups_time_off'");
 	
 // write to PiUPS
 	$arr = array('U',$upsdelayon,$upsdelayoff,$upsakkuchargestart,$upsakkuchargestop,$upsakkudischarged,$upsscroll,$upsbacklight);
@@ -260,6 +264,18 @@ elseif ($d7 == '0') { echo 'No';}?>
 	</select>
 </td>
 <td></td>
+												</tr>
+<tr>
+												<td><span class="label label-default">Shutdown Time</span></td>
+												<td><span class="label label-success"><?php echo $d6  ?></span></td>
+<td>
+	
+	<input type="text" name="upstimeoff" size="2" maxlength="4" value="<?php echo $nts_ups_time_off; ?>" />
+	
+	 
+    
+</td>	
+<td><span class="label label-default">S</span></td>
 												</tr>
 
 <tr>
