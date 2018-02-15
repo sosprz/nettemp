@@ -135,7 +135,6 @@ $row = $rows->fetchAll();
 		<tbody>
 		<?php
 		foreach ($row as $a) { 	
-		 $sname = str_replace("_", " ", $a['name'])
 		
 		foreach($typess as $ty){
        	if($ty['type']==$a['type']){
@@ -148,7 +147,7 @@ $row = $rows->fetchAll();
 		<td>
 				<?php echo $type;?>
 		</td>
-		<td><span class="label label-default"><?php echo $sname." ".$unit; ?></span></td>
+		<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name']); ?></span></td>
 		<td><span class="label label-success">
 		
 		<?php
@@ -159,7 +158,7 @@ $row = $rows->fetchAll();
 		elseif ($a['rom'] == 'UPS_id9' & $a['tmp'] == '1') { echo 'Offline';}
 		elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '0') { echo 'OK';}
 		elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '1') { echo 'Discharged';}
-		else {echo $a['tmp'];} 
+		else {echo $a['tmp']." ".$unit;} 
 		
 		
 		
