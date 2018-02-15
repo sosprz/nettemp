@@ -271,11 +271,8 @@ elseif ($d7 == '0') { echo 'No';}?>
 <td>
 	
 	<input type="text" name="upstimeoff" size="2" maxlength="4" value="<?php echo $nts_ups_time_off; ?>" />
-	
-	 
-    
 </td>	
-<td><span class="label label-default">S</span></td>
+<td><span class="label label-default">M</span></td>
 												</tr>
 
 <tr>
