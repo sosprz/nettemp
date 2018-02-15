@@ -240,7 +240,15 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">LCD Auto Backlight</span></td>
-												<td><span class="label label-success"><?php echo $d7  ?></span></td>
+												<td><span class="label label-success">
+												<?php 
+												
+if ($d7 == '1') { echo 'Yes';}
+elseif ($d7 == '0') { echo 'No';}
+												
+												
+												
+												?></span></td>
 <td>
 	
 	<select class="selectpicker" data-width="50px" name="upsbacklight" class="form-control input-sm">
@@ -248,7 +256,7 @@ $row = $rows->fetchAll();
 		<option value="1" <?php echo $nts_ups_lcd_backlight == '1' ? 'selected="selected"' : ''; ?> >Yes</option>
 		<option value="0" <?php echo $nts_ups_lcd_backlight == '0'? 'selected="selected"' : ''; ?> >No</option>
 		
-		</select>
+	</select>
 	
 	
 	
