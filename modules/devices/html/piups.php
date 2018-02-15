@@ -138,6 +138,7 @@ $row = $rows->fetchAll();
 		
 		foreach($typess as $ty){
        	if($ty['type']==$a['type']){
+			$unit=$ty['unit'];
        		$type="<img src=\"".$ty['ico']."\" alt=\"\" title=\"".$ty['title']."\"/>";
        	}   
 		}?>
@@ -146,7 +147,7 @@ $row = $rows->fetchAll();
 		<td>
 				<?php echo $type;?>
 		</td>
-		<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name']); ?></span></td>
+		<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name'])." ".$unit; ?></span></td>
 		<td><span class="label label-success">
 		
 		<?php
