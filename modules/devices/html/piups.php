@@ -24,6 +24,16 @@ $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $query = $db->query("SELECT * FROM types");
 $typess = $query->fetchAll();
 
+$query = $db->query("SELECT dev FROM usb WHERE device='PiUPS'");
+    $result= $query->fetchAll();
+    foreach($result as $r) {
+     $dev=$r['dev'];
+    }
+    if($dev=='none'){
+    echo $date." No PiUPS USB Device.\n";
+    exit;
+    }
+
 $upsdelayon = isset($_POST['upsdelayon']) ? $_POST['upsdelayon'] : '';
 $upsdelayoff = isset($_POST['upsdelayoff']) ? $_POST['upsdelayoff'] : '';
 $upsakkuchargestart = isset($_POST['upsakkuchargestart']) ? $_POST['upsakkuchargestart'] : '';
@@ -62,7 +72,7 @@ $upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
 
 $readups = isset($_POST['readups']) ? $_POST['readups'] : '';
 if  ($readups == "readups") {
-$cmd=("exec 3</dev/ttyUSB0 && echo -n '\r' >/dev/ttyUSB0 && echo -n 'O\r' >/dev/ttyUSB0 && head -1 <&3; exec 3<&-");
+$cmd=("exec 3<$dev && echo -n '\r' >$dev && echo -n 'O\r' >$dev && head -1 <&3; exec 3<&-");
 $out=shell_exec($cmd);
 
    $out=trim($out);
