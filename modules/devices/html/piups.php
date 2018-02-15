@@ -132,7 +132,7 @@ $row = $rows->fetchAll();
 
 <div class="grid">
 <div class="grid-sizer"></div>
-<div class="grid-item piups">
+<div class="grid-item">
 <div class="panel panel-default">
 
 <div class="panel-heading">PiUPS Status</div>
@@ -358,13 +358,3 @@ elseif ($d7 == '0') { echo 'No';}?>
 
 
 </div>
-
-<script type="text/javascript">
-    setInterval( function() {
-
-	
-    $('.piups').load("modules/devices/html/piups.php");
-   
-	
-}, 10000);
-</script>
