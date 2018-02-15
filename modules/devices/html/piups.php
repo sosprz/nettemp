@@ -93,35 +93,35 @@ $out=shell_exec($cmd);
 // service mode PiUPS
 $serviceups = isset($_POST['serviceups']) ? $_POST['serviceups'] : '';
 if  ($serviceups == "serviceups") {
-	$fp = fopen('/dev/ttyUSB0','r+');
+	$fp = fopen($dev,'r+');
 	fwrite($fp, "\rT\r");
 	fclose($fp);
 }
 // normal mode PiUPS
 $normalups = isset($_POST['normalups']) ? $_POST['normalups'] : '';
 if  ($normalups == "normalups") {
-	$fp = fopen('/dev/ttyUSB0','r+');
+	$fp = fopen($dev,'r+');
 	fwrite($fp, "\rN\r");
 	fclose($fp);
 }
 // factory mode PiUPS
 $factoryups = isset($_POST['factoryups']) ? $_POST['factoryups'] : '';
 if  ($factoryups == "factoryups") {
-	$fp = fopen('/dev/ttyUSB0','r+');
+	$fp = fopen($dev,'r+');
 	fwrite($fp, "\rF\r");
 	fclose($fp);
 }
 // info PiUPS
 $infoups = isset($_POST['infoups']) ? $_POST['infoups'] : '';
 if  ($infoups == "infoups") {
-	$fp = fopen('/dev/ttyUSB0','r+');
+	$fp = fopen($dev,'r+');
 	fwrite($fp, "\rI\r");
 	fclose($fp);
 }
 // reset PiUPS
 $resetups = isset($_POST['resetups']) ? $_POST['resetups'] : '';
 if  ($resetups == "resetups") {
-	$fp = fopen('/dev/ttyUSB0','r+');
+	$fp = fopen($dev,'r+');
 	fwrite($fp, "\rR\r");
 	fclose($fp);
 }
