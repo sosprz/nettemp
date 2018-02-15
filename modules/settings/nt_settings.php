@@ -140,6 +140,9 @@ foreach ($result as $a) {
 	if($a['option']=='ups_lcd_backlight') {
        	$nts_ups_lcd_backlight=$a['value'];
     }
+	if($a['option']=='ups_time_off') {
+       	$nts_ups_time_off=$a['value'];
+    }
 }
 
 //different way..
