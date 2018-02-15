@@ -20,6 +20,10 @@
 
 $root=$_SERVER["DOCUMENT_ROOT"];
 
+$db = new PDO("sqlite:$root/dbf/nettemp.db");
+$query = $db->query("SELECT * FROM types");
+$type = $query->fetchAll();
+
 $upsdelayon = isset($_POST['upsdelayon']) ? $_POST['upsdelayon'] : '';
 $upsdelayoff = isset($_POST['upsdelayoff']) ? $_POST['upsdelayoff'] : '';
 $upsakkuchargestart = isset($_POST['upsakkuchargestart']) ? $_POST['upsakkuchargestart'] : '';
@@ -130,9 +134,18 @@ $row = $rows->fetchAll();
 	<table class="table table-hover table-condensed">
 		<tbody>
 		<?php
-		foreach ($row as $a) { ?>	
+		foreach ($row as $a) { 	
+		
+		foreach($type as $ty){
+       	if($ty['type']==$a['type']){
+       		$type="<img src=\"".$ty['ico']."\" alt=\"\" title=\"".$ty['title']."\"/>";
+       	}   
+		}?>
 		
 		<tr>
+		<td>
+				<?php echo $type;?>
+		</td>
 		<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name']); ?></span></td>
 		<td><span class="label label-success">
 		
