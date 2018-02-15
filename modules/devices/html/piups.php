@@ -135,9 +135,12 @@ $row = $rows->fetchAll();
 		<?php
 		
 		if ($a['rom'] == 'UPS_id8' & $a['tmp'] == '1') { echo 'Charging';}
-		else {
-		
-		 echo $a['tmp']; 
+		elseif ($a['rom'] == 'UPS_id8' & $a['tmp'] == '1') { echo 'Not Charging';}
+		elseif ($a['rom'] == 'UPS_id9' & $a['tmp'] == '0') { echo 'Online';}
+		elseif ($a['rom'] == 'UPS_id9' & $a['tmp'] == '1') { echo 'Offline';}
+		elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '0') { echo 'OK';}
+		elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '1') { echo 'Discharged';}
+		else {echo $a['tmp'];} 
 		}
 		
 		
