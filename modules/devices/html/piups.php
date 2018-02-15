@@ -111,7 +111,7 @@ if  ($resetups == "resetups") {
 //***********************************************************
 
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
-$rows = $db->query("SELECT name, tmp, position FROM sensors WHERE rom LIKE '%UPS_id%' ORDER BY position ASC");
+$rows = $db->query("SELECT name, tmp, rom, position FROM sensors WHERE rom LIKE '%UPS_id%' ORDER BY position ASC");
 $row = $rows->fetchAll();
 
 ?>
@@ -130,7 +130,20 @@ $row = $rows->fetchAll();
 		
 		<tr>
 		<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name']); ?></span></td>
-		<td><span class="label label-success"><?php echo $a['tmp']; ?></span></td>	
+		<td><span class="label label-success">
+		
+		<?php
+		
+		if ($a['rom'] == 'UPS_id8' & $a['tmp'] == '1') { echo 'Charging';}
+		else {
+		
+		 echo $a['tmp']; 
+		}
+		
+		
+		?>
+		
+		</span></td>	
 		<td></td>		
 		</tr>
 		<?php
