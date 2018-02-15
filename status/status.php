@@ -129,7 +129,7 @@ $(document).ready( function() {
 
   $('.grid').masonry({
     itemSelector: '.grid-item',
-    columnWidth: 350,
+    columnWidth: 340,
   });
 
   
