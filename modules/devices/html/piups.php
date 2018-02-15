@@ -283,10 +283,12 @@ $row = $rows->fetchAll();
 			<input type="hidden" name="infoups" value="infoups"/>
 			<button class="btn btn-xs btn-info">Info</button>
 		</form>
+<!--
 		<form action="" method="post" style="display:inline!important;">
 			<input type="hidden" name="resetups" value="resetups" />
 			<button class="btn btn-xs btn-info">Reset</button>
 		</form>
+-->
 			
 		</td>
 		<tr>
