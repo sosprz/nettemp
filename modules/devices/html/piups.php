@@ -267,7 +267,7 @@ elseif ($d7 == '0') { echo 'No';}?>
 												</tr>
 <tr>
 												<td><span class="label label-default">Shutdown Time</span></td>
-												<td><span class="label label-success"><?php echo $d6  ?></span></td>
+												<td></td>
 <td>
 	
 	<input type="text" name="upstimeoff" size="2" maxlength="4" value="<?php echo $nts_ups_time_off; ?>" />
