@@ -346,7 +346,7 @@ elseif ($d7 == '0') { echo 'No';}?>
 		<tr>
 		<tr>
 			<td>
-				<?php if ($nodevice == 1) {echo '<span class="label label-danger">PiUPS USB Device is not configured. Go to Device/ USB/Serial.</span>'}?>
+				<?php if ($nodevice == 1) {echo '<span class="label label-danger">PiUPS USB Device is not configured. Go to Device/ USB/Serial.</span>';}?>
 			</td>
 		</tr>
 		</tbody>
