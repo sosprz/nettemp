@@ -300,7 +300,7 @@ elseif ($d7 == '0') { echo 'No';}?>
 				
 	</td>
 	<td>
-				<button type="submit" name="savetoups" value="savetoups" class="label label-danger">Save</button>
+				<button type="submit" name="savetoups" value="savetoups" class="btn btn-xs label-danger">Save</button>
 				</form>
 	</td>
 	<td></td>
