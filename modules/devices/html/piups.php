@@ -241,8 +241,7 @@ $row = $rows->fetchAll();
 												<tr>
 <td><span class="label label-default">LCD Auto Backlight</span></td>
 <td><span class="label label-success"><?php if ($d7 == '1') { echo 'Yes';}
-elseif ($d7 == '0') { echo 'No';}
-else { echo $d7;}?>
+elseif ($d7 == '0') { echo 'No';}?>
 </span>
 </td>
 <td>
