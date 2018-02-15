@@ -182,7 +182,7 @@ $row = $rows->fetchAll();
 	<input type="text" name="upsdelayon" size="2" maxlength="4" value="<?php echo $nts_ups_delay_on; ?>" />
     
 </td>
-<td><span class="label label-default">sec</span></td>
+<td><span class="label label-default">S</span></td>
 
 												</tr>
 
@@ -194,7 +194,7 @@ $row = $rows->fetchAll();
 	<input type="text" name="upsdelayoff" size="2" maxlength="4" value="<?php echo $nts_ups_delay_off; ?>" />
     
 </td>
-<td><span class="label label-default">sec</span></td>
+<td><span class="label label-default">S</span></td>
 												</tr>
 
 												<tr>
@@ -241,7 +241,7 @@ $row = $rows->fetchAll();
 	 
     
 </td>	
-<td><span class="label label-default">sec</span></td>
+<td><span class="label label-default">S</span></td>
 												</tr>
 
 												<tr>
