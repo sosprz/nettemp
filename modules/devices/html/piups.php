@@ -31,7 +31,6 @@ $query = $db->query("SELECT dev FROM usb WHERE device='PiUPS'");
     }
     if($dev=='none'){
     $nodevice=1;
-    exit;
     }
 
 $upsdelayon = isset($_POST['upsdelayon']) ? $_POST['upsdelayon'] : '';
