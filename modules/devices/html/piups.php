@@ -239,17 +239,12 @@ $row = $rows->fetchAll();
 												</tr>
 
 												<tr>
-												<td><span class="label label-default">LCD Auto Backlight</span></td>
-												<td><span class="label label-success">
-												<?php 
-												
-if ($d7 == '1') { echo 'Yes';}
+<td><span class="label label-default">LCD Auto Backlight</span></td>
+<td><span class="label label-success"><?php if ($d7 == '1') { echo 'Yes';}
 elseif ($d7 == '0') { echo 'No';}
-else { echo $d7;}
-												
-												
-												
-												?></span></td>
+else { echo $d7;}?>
+</span>
+</td>
 <td>
 	
 	<select class="selectpicker" data-width="50px" name="upsbacklight" class="form-control input-sm">
