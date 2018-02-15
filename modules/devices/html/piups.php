@@ -133,57 +133,48 @@ $row = $rows->fetchAll();
 <div class="table-responsive">
 	<table class="table table-hover table-condensed">
 		<tbody>
-		<?php
-		foreach ($row as $a) { 	
-		
-		foreach($typess as $ty){
-       	if($ty['type']==$a['type']){
-			$unit=$ty['unit'];
-       		$type="<img src=\"".$ty['ico']."\" alt=\"\" title=\"".$ty['title']."\"/>";
-       	}   
-		}?>
-		
-		<tr>
-		<td>
-				<?php echo $type;?>
-		</td>
-		<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name']); ?></span></td>
-		<td>
-		
-		
-		
-		<?php
-		
-		if ($a['rom'] == 'UPS_id8' & $a['tmp'] == '1') { echo '<span class="label label-warning">Charging';}
-		elseif ($a['rom'] == 'UPS_id8' & $a['tmp'] == '1') { echo '<span class="label label-success">Charged';}
-		elseif ($a['rom'] == 'UPS_id9' & $a['tmp'] == '0') { echo '<span class="label label-success">Online';}
-		elseif ($a['rom'] == 'UPS_id9' & $a['tmp'] == '1') { echo '<span class="label label-danger">Offline';}
-		elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '0') { echo '<span class="label label-success">OK';}
-		elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '1') { echo '<span class="label label-danger">Discharged';}
-		else {echo '<span class="label label-success">'; echo $a['tmp']." ".$unit;} 
-		
-		
-		
-		?>
-		
-		</span></td>	
-		<td></td>		
-		</tr>
-		<?php
-		}
-		?>
-		
-	
-
+			<?php
+			foreach ($row as $a) { 	
+			
+			foreach($typess as $ty){
+			if($ty['type']==$a['type']){
+				$unit=$ty['unit'];
+				$type="<img src=\"".$ty['ico']."\" alt=\"\" title=\"".$ty['title']."\"/>";
+			}   
+			}?>
+			
+			<tr>
+				<td>
+					<?php echo $type;?>
+				</td>
+				<td>
+					<span class="label label-default"><?php echo str_replace("_", " ", $a['name']); ?></span></td>
+				<td>
+			<?php
+			if ($a['rom'] == 'UPS_id8' & $a['tmp'] == '1') { echo '<span class="label label-warning">Charging';}
+			elseif ($a['rom'] == 'UPS_id8' & $a['tmp'] == '1') { echo '<span class="label label-success">Charged';}
+			elseif ($a['rom'] == 'UPS_id9' & $a['tmp'] == '0') { echo '<span class="label label-success">Online';}
+			elseif ($a['rom'] == 'UPS_id9' & $a['tmp'] == '1') { echo '<span class="label label-danger">Offline';}
+			elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '0') { echo '<span class="label label-success">OK';}
+			elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '1') { echo '<span class="label label-danger">Discharged';}
+			else {echo '<span class="label label-success">'; echo $a['tmp']." ".$unit;} 
+			?>
+			
+					</span>
+				</td>	
+				<td>
+				</td>		
+			</tr>
+			<?php
+			}
+			?>
 		</tbody>
 	</table>
 </div>
-		</div>
-	</div>
+</div>
+</div>
 		
-		
-		
-		
+
 		<div class="grid-item">
 				<div class="panel panel-default">
 
