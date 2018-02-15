@@ -60,7 +60,7 @@ $upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
 // write to PiUPS
 	$arr = array('U',$upsdelayon,$upsdelayoff,$upsakkuchargestart,$upsakkuchargestop,$upsakkudischarged,$upsscroll,$upsbacklight);
     $values=implode(" ",$arr);
-	$fp = fopen('/dev/ttyUSB0','r+');
+	$fp = fopen('$dev','r+');
 	fwrite($fp, "\r$values\r");
 	fclose($fp);
 	
