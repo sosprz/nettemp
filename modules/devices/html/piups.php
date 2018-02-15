@@ -179,7 +179,7 @@ $row = $rows->fetchAll();
 												<td> <span class="label label-success"><?php echo $d1 ?></span></td>
 <td>
 	<form action="" method="post" style="display:inline!important;">
-	<input type="text" name="upsdelayon" size="2" maxlength="3" value="<?php echo $nts_ups_delay_on; ?>" />
+	<input type="text" name="upsdelayon" size="2" maxlength="4" value="<?php echo $nts_ups_delay_on; ?>" />
     
 </td>
 
@@ -190,7 +190,7 @@ $row = $rows->fetchAll();
 												<td><span class="label label-success"><?php echo $d2  ?></span></td>
 <td>
 
-	<input type="text" name="upsdelayoff" size="2" maxlength="3" value="<?php echo $nts_ups_delay_off; ?>" />
+	<input type="text" name="upsdelayoff" size="2" maxlength="4" value="<?php echo $nts_ups_delay_off; ?>" />
     
 </td>
 												</tr>
@@ -200,7 +200,7 @@ $row = $rows->fetchAll();
 												<td><span class="label label-success"><?php echo $d3 ?></span></td>
 <td>
 	
-	<input type="text" name="upsakkuchargestart" size="2" maxlength="3" value="<?php echo $nts_ups_akku_charge_start; ?>" />
+	<input type="text" name="upsakkuchargestart" size="2" maxlength="4" value="<?php echo $nts_ups_akku_charge_start; ?>" />
     
 </td>
 												</tr>
@@ -210,7 +210,7 @@ $row = $rows->fetchAll();
 												<td><span class="label label-success"><?php echo $d4  ?></span></td>
 <td>
 	
-	<input type="text" name="upsakkuchargestop" size="2" maxlength="3" value="<?php echo $nts_ups_akku_charge_stop; ?>" />
+	<input type="text" name="upsakkuchargestop" size="2" maxlength="4" value="<?php echo $nts_ups_akku_charge_stop; ?>" />
     
 </td>	
 												</tr>
@@ -220,7 +220,7 @@ $row = $rows->fetchAll();
 												<td><span class="label label-success"><?php echo $d5 ?></span></td>
 <td>
 	
-	<input type="text" name="upsakkudischarged" size="3" maxlength="3" value="<?php echo $nts_ups_akku_discharged; ?>" />
+	<input type="text" name="upsakkudischarged" size="2" maxlength="4" value="<?php echo $nts_ups_akku_discharged; ?>" />
     
 </td>
 											
@@ -231,7 +231,7 @@ $row = $rows->fetchAll();
 												<td><span class="label label-success"><?php echo $d6  ?></span></td>
 <td>
 	
-	<input type="text" name="upsscroll" size="2" maxlength="3" value="<?php echo $nts_ups_lcd_scroll; ?>" />
+	<input type="text" name="upsscroll" size="2" maxlength="4" value="<?php echo $nts_ups_lcd_scroll; ?>" />
 	
 	 
     
