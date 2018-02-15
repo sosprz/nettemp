@@ -22,7 +22,7 @@ $root=$_SERVER["DOCUMENT_ROOT"];
 
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $query = $db->query("SELECT * FROM types");
-$type = $query->fetchAll();
+$typess = $query->fetchAll();
 
 $upsdelayon = isset($_POST['upsdelayon']) ? $_POST['upsdelayon'] : '';
 $upsdelayoff = isset($_POST['upsdelayoff']) ? $_POST['upsdelayoff'] : '';
@@ -136,7 +136,7 @@ $row = $rows->fetchAll();
 		<?php
 		foreach ($row as $a) { 	
 		
-		foreach($type as $ty){
+		foreach($typess as $ty){
        	if($ty['type']==$a['type']){
        		$type="<img src=\"".$ty['ico']."\" alt=\"\" title=\"".$ty['title']."\"/>";
        	}   
