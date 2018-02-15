@@ -45,6 +45,11 @@ if  ! sudo cat /var/spool/cron/crontabs/root |grep -q '/thing_send.php intv=60'
     sudo sed -i '$a0 * * * * php -f /var/www/nettemp/modules/thingspeak/thing_send.php intv=60' /var/spool/cron/crontabs/root
 fi
 
+if  ! sudo cat /var/spool/cron/crontabs/root |grep -q '/piups_read.php'
+    then
+    sudo sed -i '$a*/1 * * * * php -f /var/www/nettemp/modules/sensors/other/piups_read2.php' /var/spool/cron/crontabs/root
+fi
+
 touch $dir/tmp/cronr
 
 if [ ! -f /usr/local/lib/python2.7/dist-packages/Adafruit_BMP-*.egg ]; then 
