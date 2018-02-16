@@ -65,6 +65,8 @@ try {
 					$ttoff=$r['value'];
 					}
 					echo $ttoff."\n";
+					$tstart = time();
+					echo $tstart."\n";
 				
 				
 				
