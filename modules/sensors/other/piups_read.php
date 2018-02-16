@@ -61,10 +61,10 @@ try {
 					$db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 					$query = $db->query("SELECT value FROM nt_settings WHERE option='ups_time_off'");
 					$result= $query->fetchAll();
-					//foreach($result as $r) {
-					//$dev=$r['dev'];
-					//}
-					echo $result."\n";
+					foreach($result as $r) {
+					$ttoff=$r['value'];
+					}
+					echo $ttoff."\n";
 				
 				
 				
