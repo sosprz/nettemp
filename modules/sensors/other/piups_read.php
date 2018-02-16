@@ -3,6 +3,13 @@ $ROOT=dirname(dirname(dirname(dirname(__FILE__))));
 $date = date("Y-m-d H:i:s");
 define("LOCAL","local");
 
+$db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
+$query = $db->query("SELECT value FROM nt_settings WHERE option='ups_time_off'");
+					$result= $query->fetchAll();
+					foreach($result as $r) {
+					$ttoff=$r['value'];
+					}
+
 try {
     $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -66,7 +73,7 @@ try {
 					
 					if ($count == '1') {
 						
-						 if (time() > (time()+$ttoff)) {echo "--- Malina OFF ---\n"; } else {echo "--- Malina ON ---\n"; }
+						 if (time() > (time() + ($ttoff * 60))) {echo "--- Malina OFF ---\n"; } else {echo "--- Malina ON ---\n"; }
 						 
 					}else {
 				
