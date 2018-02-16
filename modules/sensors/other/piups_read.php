@@ -53,6 +53,8 @@ try {
             $local_type=$types[$i];
             //echo $date.' '.$echoes[$i].': '.$data[$i]."\n";
             db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+			
+			if (($local_rom == 'UPS_id6') && ($local_val == '1')) {echo 'Power 230 off';} else {echo 'Power 230 on';}
         }
     }
 
