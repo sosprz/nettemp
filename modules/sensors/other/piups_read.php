@@ -84,7 +84,9 @@ try {
 					$ttoff=$r['value'];
 					}
 					echo $ttoff."\n";
+					echo time()."\n";
 					$timewhenoff = time() + ($ttoff*60);
+					
 					echo $timewhenoff."\n";
 					 $db->exec("UPDATE nt_settings SET value='$timewhenoff' WHERE option='ups_toff_start'");
 					 $db->exec("UPDATE nt_settings SET value='1' WHERE option='ups_count'");
