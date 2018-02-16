@@ -43,8 +43,8 @@ try {
     //unset($db);
 
     include("$ROOT/receiver.php");
-	//$cmd=("exec 3<$dev && echo -n '\r' >$dev && echo -n 'D\r' >$dev && head -1 <&3; exec 3<&-");
-	$cmd=("exec 3<$dev && echo -n 'D\r' >$dev && head -1 <&3; exec 3<&-");
+	$cmd=("exec 3<$dev && echo -n '\r' >$dev && echo -n 'D\r' >$dev && head -1 <&3; exec 3<&-");
+	//$cmd=("exec 3<$dev && echo -n 'D\r' >$dev && head -1 <&3; exec 3<&-");
 	
 	
     $out=shell_exec($cmd);
