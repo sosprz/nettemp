@@ -45,13 +45,12 @@ try {
     include("$ROOT/receiver.php");
 	$cmd=("exec 3<$dev && echo -n '\r' >$dev && echo -n 'D\r' >$dev && head -1 <&3; exec 3<&-");
 	
-	//echo $cmd."\n";
     $out=shell_exec($cmd);
-	//echo $out."\n";
+
     $out=trim($out);
     $data=explode(" ",$out);
-    //var_dump($out);
-    //var_dump($data);
+    var_dump($out);
+    var_dump($data);
 	//echo $dev."\n";
 	
 	$types=array('volt','volt','volt','amps','watt','temp','battery','trigger','trigger','trigger');
