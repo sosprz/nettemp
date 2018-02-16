@@ -70,8 +70,8 @@ $upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
 
 $readups = isset($_POST['readups']) ? $_POST['readups'] : '';
 if  ($readups == "readups") {
-//$cmd=("exec 3<$dev && echo -n '\r' >$dev && echo -n 'O\r' >$dev && head -1 <&3; exec 3<&-");
-$cmd=("exec 3<$dev && echo -n 'D\r' >$dev && head -1 <&3; exec 3<&-");
+//$cmd=("exec 3<$dev &&>$dev && echo -n 'O\r' >$dev && head -1 <&3; exec 3<&-");
+$cmd=("exec 3<$dev && echo -n 'O\r' >$dev && head -1 <&3; exec 3<&-"); //v2
 $out=shell_exec($cmd);
 
    $out=trim($out);
