@@ -273,7 +273,7 @@ $row = $rows->fetchAll();
 
 												<tr>
 												<td><span class="label label-default">LCD Scrolling</span></td>
-												<td><span class="label label-success"><?php echo $d7  ?></span></td>
+												<td><span class="label label-success"><?php echo $d8  ?></span></td>
 <td>
 	
 	<input type="text" name="upsscroll" size="2" maxlength="4" value="<?php echo $nts_ups_lcd_scroll; ?>" />
@@ -286,8 +286,8 @@ $row = $rows->fetchAll();
 
 												<tr>
 <td><span class="label label-default">LCD Auto Backlight</span></td>
-<td><span class="label label-success"><?php if ($d7 == '1') { echo 'Yes';}
-elseif ($d7 == '0') { echo 'No';}?>
+<td><span class="label label-success"><?php if ($d8 == '1') { echo 'Yes';}
+elseif ($d8 == '0') { echo 'No';}?>
 </span>
 </td>
 <td>
