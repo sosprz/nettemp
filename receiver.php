@@ -213,7 +213,7 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 				if ($val != 'range'){
 					//// base
 					// counters can always put to base
-					$arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting");
+					$arrayt = array("gas", "water", "elec", "amps", "volt", "watt", "temp", "humid", "trigger", "rainfall", "speed", "wind", "uv", "storm", "lighting", "battery");
 					$arrayd = array("wireless", "gpio", "usb");
 					if (in_array($type, $arrayt) &&  in_array($device, $arrayd)) {
 						if (isset($current) && is_numeric($current)) {
