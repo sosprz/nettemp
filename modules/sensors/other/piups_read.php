@@ -10,7 +10,7 @@ $query = $db->query("SELECT value FROM nt_settings WHERE option='ups_time_off'")
 					$ttoff=$r['value'];
 					}
 					
-$query = $db->query("SELECT value FROM nt_settings WHERE option='ups_toff_start'");
+$query = $db->query("SELECT value FROM nt_settings WHERE option='ups_toff_stop'");
 					$result= $query->fetchAll();
 					foreach($result as $r) {
 					$tshutdown=$r['value'];
@@ -79,14 +79,17 @@ try {
 					
 					if ($count == '1') {
 						
-					
-				
-						
-						 if ( time() > $tshutdown) {echo "--- Malina OFF ---\n"; } else {echo "--- Malina ON ---\n"; echo time(); echo " "; echo $tshutdown;  }
+						 if ( time() > $tshutdown) {
+							 
+							 echo "--- Malina OFF ---\n"; 
+							 $db->exec("UPDATE nt_settings SET value='0' WHERE option='ups_count'");
+							 
+							 
+							 
+							 } else {echo "--- Malina ON ---\n"; echo time(); echo " "; echo $tshutdown;  }
 						 
 					}else {
 				
-					//$db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 					$query = $db->query("SELECT value FROM nt_settings WHERE option='ups_time_off'");
 					$result= $query->fetchAll();
 					foreach($result as $r) {
@@ -94,10 +97,12 @@ try {
 					}
 					echo $ttoff."\n";
 					echo time()."\n";
+					$timecountstart = time();
 					$timewhenoff = time() + ($ttoff*60);
 					
 					echo $timewhenoff."\n";
-					 $db->exec("UPDATE nt_settings SET value='$timewhenoff' WHERE option='ups_toff_start'");
+					 $db->exec("UPDATE nt_settings SET value='$timecountstart' WHERE option='ups_toff_start'");
+					 $db->exec("UPDATE nt_settings SET value='$timewhenoff' WHERE option='ups_toff_stop'");
 					 $db->exec("UPDATE nt_settings SET value='1' WHERE option='ups_count'");
 					}
 					
