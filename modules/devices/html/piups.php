@@ -35,6 +35,7 @@ $upsdelayoff = isset($_POST['upsdelayoff']) ? $_POST['upsdelayoff'] : '';
 $upsakkuchargestart = isset($_POST['upsakkuchargestart']) ? $_POST['upsakkuchargestart'] : '';
 $upsakkuchargestop = isset($_POST['upsakkuchargestop']) ? $_POST['upsakkuchargestop'] : '';
 $upsakkudischarged = isset($_POST['upsakkudischarged']) ? $_POST['upsakkudischarged'] : '';
+$upsakkutemp = isset($_POST['upsakkutemp']) ? $_POST['upsakkutemp'] : '';
 $upsscroll = isset($_POST['upsscroll']) ? $_POST['upsscroll'] : '';
 $upsbacklight = isset($_POST['upsbacklight']) ? $_POST['upsbacklight'] : '';
 $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
@@ -49,12 +50,13 @@ $upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upsakkuchargestart' WHERE option='ups_akku_charge_start'");
 	$db->exec("UPDATE nt_settings SET value='$upsakkuchargestop' WHERE option='ups_akku_charge_stop'");
 	$db->exec("UPDATE nt_settings SET value='$upsakkudischarged' WHERE option='ups_akku_discharged'");
+	$db->exec("UPDATE nt_settings SET value='$upsakkutemp' WHERE option='ups_akku_temp'");
 	$db->exec("UPDATE nt_settings SET value='$upsscroll' WHERE option='ups_lcd_scroll'");
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	$db->exec("UPDATE nt_settings SET value='$upstimeoff' WHERE option='ups_time_off'");
 	
 // write to PiUPS
-	$arr = array('U',$upsdelayon,$upsdelayoff,$upsakkuchargestart,$upsakkuchargestop,$upsakkudischarged,$upsscroll,$upsbacklight);
+	$arr = array('U',$upsdelayon,$upsdelayoff,$upsakkuchargestart,$upsakkuchargestop,$upsakkudischarged,$upsakkutemp,$upsscroll,$upsbacklight);
     $values=implode(" ",$arr);
 	$fp = fopen($dev,'r+');
 	fwrite($fp, "\r$values\r");
