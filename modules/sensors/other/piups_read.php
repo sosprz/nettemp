@@ -19,7 +19,8 @@ try {
     }
     if($dev=='none'){
     echo $date." No PiUPS USB Device.\n";
-    exit;
+	exit;
+    }
 	
 	$query = $db->query("SELECT value FROM nt_settings WHERE option='ups_time_off'");
     $res= $query->fetchAll();
