@@ -19,14 +19,7 @@ try {
     }
     if($dev=='none'){
     echo $date." No PiUPS USB Device.\n";
-	exit;
-    }
-	
-	$query = $db->query("SELECT value FROM nt_settings WHERE option='ups_time_off'");
-    $res= $query->fetchAll();
-    foreach($res as $t) {
-     $ttoff=$t['value'];
-    }
+    exit;
     }
     unset($db);
 
@@ -40,7 +33,7 @@ try {
     $data=explode(" ",$out);
     //var_dump($out);
     //var_dump($data);
-	echo $ttoff."\n";
+	//echo $dev."\n";
 	
 	$types=array('volt','volt','volt','amps','watt','temp','battery','trigger','trigger','trigger');
     $echoes=array('UPS Volt IN','UPS Volt Akku','UPS Volt OUT','UPS Amps','UPS Watt','UPS Temp','UPS Battery','UPS Power Trigger','UPS Volt Trigger','UPS Akku Trigger');
