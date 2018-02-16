@@ -21,7 +21,7 @@ try {
     echo $date." No PiUPS USB Device.\n";
     exit;
     }
-    unset($db);
+    //unset($db);
 
     include("$ROOT/receiver.php");
 	$cmd=("exec 3<$dev && echo -n '\r' >$dev && echo -n 'D\r' >$dev && head -1 <&3; exec 3<&-");
@@ -56,9 +56,21 @@ try {
 			
 			if (($local_rom == 'UPS_id9') && ($local_val == '0')) {
 				
-				echo "Power 230 off\n";
+					echo "Power 230 off\n";
+					
+					$query = $db->query("SELECT value FROM nt_settings WHERE option='ups_count'");
+					$result2= $query->fetchAll();
+					foreach($result2 as $r) {
+					$count=$r['value'];
+					}
+					
+					if ($count == '1') {
+						
+						 if (time() > (time()+$ttoff)) {echo "--- Malina OFF ---\n"; } else {echo "--- Malina ON ---\n"; }
+						 
+					}else {
 				
-					$db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
+					//$db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 					$query = $db->query("SELECT value FROM nt_settings WHERE option='ups_time_off'");
 					$result= $query->fetchAll();
 					foreach($result as $r) {
@@ -69,12 +81,13 @@ try {
 					echo $timewhenoff."\n";
 					 $db->exec("UPDATE nt_settings SET value='$timewhenoff' WHERE option='ups_toff_start'");
 					 $db->exec("UPDATE nt_settings SET value='1' WHERE option='ups_count'");
-					 
-					 if (time() > (time()+$ttoff)) {echo "--- Malina OFF ---\n"; } else {echo "--- Malina ON ---\n"; }
-				
-				
-				
+					}
+					
 				} 
+				
+				
+				
+				
 			elseif (($local_rom == 'UPS_id9') && ($local_val == '1')) {echo "Power 230 on\n";} 
 		}		
     }
