@@ -56,8 +56,8 @@ try {
 	$types=array('volt','volt','volt','amps','watt','temp','battery','trigger','trigger','trigger');
     $echoes=array('UPS Volt IN','UPS Volt Akku','UPS Volt OUT','UPS Amps','UPS Watt','UPS Temp','UPS Battery','UPS Power Trigger','UPS Volt Trigger','UPS Akku Trigger');
 
-    $types=array('volt','volt','volt','amps','watt','temp','battery','trigger','trigger','trigger','trigger');
-    $echoes=array('UPS Volt IN','UPS Volt Akku','UPS Volt OUT','UPS Amps','UPS Watt','UPS Temp','UPS Battery','UPS Power Trigger','UPS Volt Trigger','UPS Akku Trigger','UPS Temp Trigger');
+    //$types=array('volt','volt','volt','amps','watt','temp','battery','trigger','trigger','trigger','trigger');
+    //$echoes=array('UPS Volt IN','UPS Volt Akku','UPS Volt OUT','UPS Amps','UPS Watt','UPS Temp','UPS Battery','UPS Power Trigger','UPS Volt Trigger','UPS Akku Trigger','UPS Temp Trigger');
 
     if( count($data) != count($types) ){
         echo "Different number of array elements!\n";
@@ -102,7 +102,6 @@ try {
 					
 				} 
 				
-
 			elseif (($local_rom == 'UPS_id9') && ($local_val == '1')) {echo "Power 230 on\n";} 
 		}		
     }
