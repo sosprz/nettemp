@@ -86,7 +86,7 @@ try {
 							 
 							 
 							 
-							 } else {echo "--- Malina ON ---\n"; echo time(); echo " "; echo $tshutdown;  }
+							 } else {echo "--- Malina ON ---\n"; echo time(); echo " "; echo $tshutdown."\n";  }
 						 
 					}else {
 				
