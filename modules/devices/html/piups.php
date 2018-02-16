@@ -261,7 +261,7 @@ $row = $rows->fetchAll();
 	<input type="text" name="upsakkutemp" size="2" maxlength="4" value="<?php echo $nts_ups_akku_temp; ?>" />
     
 </td>
-<td><span class="label label-default">C</span></td>
+<td><span class="label label-default">&#186 C</span></td>
 											
 												</tr>
 
