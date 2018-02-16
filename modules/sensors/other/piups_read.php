@@ -4,17 +4,23 @@ $date = date("Y-m-d H:i:s");
 define("LOCAL","local");
 
 $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
-$query = $db->query("SELECT value FROM nt_settings WHERE option='ups_time_off'");
-					$result= $query->fetchAll();
-					foreach($result as $r) {
-					$ttoff=$r['value'];
-					}
 					
-$query = $db->query("SELECT value FROM nt_settings WHERE option='ups_toff_stop'");
-					$result= $query->fetchAll();
-					foreach($result as $r) {
-					$tshutdown=$r['value'];
-					}
+					
+
+$query = $db->query("SELECT option,value FROM nt_settings WHERE option='ups_time_off' OR option='ups_toff_stop' OR  option='ups_toff_start' OR option='ups_count'");
+$result= $query->fetchAll();
+foreach($result as $a) {
+						
+	if($a['option']=='ups_count') {
+	$count=$a['value'];
+	}
+	if($a['option']=='ups_time_off') {
+	$ttoff=$a['value'];
+	}
+	if($a['option']=='ups_toff_stop') {
+	$tshutdown=$a['value'];
+	}				
+}
 
 try {
     $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
@@ -71,11 +77,6 @@ try {
 				
 					echo "Power 230 off\n";
 					
-					$query = $db->query("SELECT value FROM nt_settings WHERE option='ups_count'");
-					$result2= $query->fetchAll();
-					foreach($result2 as $r) {
-					$count=$r['value'];
-					}
 					
 					if ($count == '1') {
 						
@@ -85,16 +86,10 @@ try {
 							 $db->exec("UPDATE nt_settings SET value='0' WHERE option='ups_count'");
 							 
 							 
-							 
 							 } else {echo "--- Malina ON ---\n"; echo time(); echo " "; echo $tshutdown."\n";  }
 						 
 					}else {
 				
-					$query = $db->query("SELECT value FROM nt_settings WHERE option='ups_time_off'");
-					$result= $query->fetchAll();
-					foreach($result as $r) {
-					$ttoff=$r['value'];
-					}
 					echo $ttoff."\n";
 					echo time()."\n";
 					$timecountstart = time();
@@ -108,9 +103,7 @@ try {
 					
 				} 
 				
-				
-				
-				
+
 			elseif (($local_rom == 'UPS_id9') && ($local_val == '1')) {echo "Power 230 on\n";} 
 		}		
     }
