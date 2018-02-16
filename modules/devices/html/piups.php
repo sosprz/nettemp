@@ -59,7 +59,8 @@ $upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
 	$arr = array('U',$upsdelayon,$upsdelayoff,$upsakkuchargestart,$upsakkuchargestop,$upsakkudischarged,$upsakkutemp,$upsscroll,$upsbacklight);
     $values=implode(" ",$arr);
 	$fp = fopen($dev,'r+');
-	fwrite($fp, "\r$values\r");
+	//fwrite($fp, "\r$values\r");
+	fwrite($fp, "$values\r");
 	fclose($fp);
 	
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -94,14 +95,16 @@ $out=shell_exec($cmd);
 $serviceups = isset($_POST['serviceups']) ? $_POST['serviceups'] : '';
 if  ($serviceups == "serviceups") {
 	$fp = fopen($dev,'r+');
-	fwrite($fp, "\rT\r");
+	//fwrite($fp, "\rT\r");
+	fwrite($fp, "T\r");
 	fclose($fp);
 }
 // normal mode PiUPS
 $normalups = isset($_POST['normalups']) ? $_POST['normalups'] : '';
 if  ($normalups == "normalups") {
 	$fp = fopen($dev,'r+');
-	fwrite($fp, "\rN\r");
+	//fwrite($fp, "\rN\r");
+	fwrite($fp, "N\r");
 	fclose($fp);
 }
 // factory mode PiUPS
@@ -115,14 +118,16 @@ if  ($factoryups == "factoryups") {
 $infoups = isset($_POST['infoups']) ? $_POST['infoups'] : '';
 if  ($infoups == "infoups") {
 	$fp = fopen($dev,'r+');
-	fwrite($fp, "\rI\r");
+	//fwrite($fp, "\rI\r");
+	fwrite($fp, "I\r");
 	fclose($fp);
 }
 // reset PiUPS
 $resetups = isset($_POST['resetups']) ? $_POST['resetups'] : '';
 if  ($resetups == "resetups") {
 	$fp = fopen($dev,'r+');
-	fwrite($fp, "\rR\r");
+	//fwrite($fp, "\rR\r");
+	fwrite($fp, "R\r");
 	fclose($fp);
 }
 
