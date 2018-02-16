@@ -147,6 +147,10 @@ foreach ($result as $a) {
        	$nts_ups_akku_temp=$a['value'];
     }
 	
+	if($a['option']=='ups_toff_start') {
+       	$nts_ups_toff_start=$a['value'];
+    }
+	
 }
 
 //different way..
