@@ -81,7 +81,8 @@ $out=shell_exec($cmd);
 		$d4=$data[3];
 		$d5=$data[4];
 		$d6=$data[5];
-		$d7=$data[6];        
+		$d7=$data[6];
+		$d8=$data[7];         
    }
 
 }
@@ -163,6 +164,8 @@ $row = $rows->fetchAll();
 			elseif ($a['rom'] == 'UPS_id9' & $a['tmp'] == '1') { echo '<span class="label label-danger">Offline';}
 			elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '0') { echo '<span class="label label-success">OK';}
 			elseif ($a['rom'] == 'UPS_id10' & $a['tmp'] == '1') { echo '<span class="label label-danger">Discharged';}
+			elseif ($a['rom'] == 'UPS_id11' & $a['tmp'] == '0') { echo '<span class="label label-success">OK';}
+			elseif ($a['rom'] == 'UPS_id11' & $a['tmp'] == '1') { echo '<span class="label label-danger">Alarm';}
 			else {echo '<span class="label label-success">'; echo $a['tmp']." ".$unit;} 
 			?>
 			
@@ -245,6 +248,18 @@ $row = $rows->fetchAll();
     
 </td>
 <td><span class="label label-default">V</span></td>
+											
+												</tr>
+												
+												<tr>
+												<td><span class="label label-default">Akku. temp</span></td>
+												<td><span class="label label-success"><?php echo $d7 ?></span></td>
+<td>
+	
+	<input type="text" name="upsakkutemp" size="2" maxlength="4" value="<?php echo $nts_ups_akku_temp; ?>" />
+    
+</td>
+<td><span class="label label-default">C</span></td>
 											
 												</tr>
 

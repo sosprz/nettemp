@@ -143,6 +143,10 @@ foreach ($result as $a) {
 	if($a['option']=='ups_time_off') {
        	$nts_ups_time_off=$a['value'];
     }
+	if($a['option']=='ups_akku_temp') {
+       	$nts_ups_akku_temp=$a['value'];
+    }
+	
 }
 
 //different way..
