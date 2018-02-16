@@ -56,7 +56,7 @@ try {
 			
 			if (($local_rom == 'UPS_id9') && ($local_val == '1')) {echo 'Power 230 off\n';} 
 			elseif (($local_rom == 'UPS_id9') && ($local_val == '0')) {echo 'Power 230 on\n';} 
-			
+		}		
     }
 
 } catch (Exception $e) {
