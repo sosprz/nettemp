@@ -67,6 +67,7 @@ try {
 					echo $ttoff."\n";
 					$tstart = time();
 					echo $tstart."\n";
+					 $db->exec("UPDATE nt_settings SET value='$tstart' WHERE option='ups_toff_start'");
 				
 				
 				
