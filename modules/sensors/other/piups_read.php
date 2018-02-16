@@ -9,6 +9,12 @@ $query = $db->query("SELECT value FROM nt_settings WHERE option='ups_time_off'")
 					foreach($result as $r) {
 					$ttoff=$r['value'];
 					}
+					
+$query = $db->query("SELECT value FROM nt_settings WHERE option='ups_toff_start'");
+					$result= $query->fetchAll();
+					foreach($result as $r) {
+					$tshutdown=$r['value'];
+					}
 
 try {
     $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
@@ -73,11 +79,10 @@ try {
 					
 					if ($count == '1') {
 						
-						$a1=time();
-						$a2=time() + ($ttoff * 60);
+					
 				
 						
-						 if ( $a1 > $a2) {echo "--- Malina OFF ---\n"; } else {echo "--- Malina ON ---\n"; echo time(); echo $a1; echo $a2; }
+						 if ( time() > $tshutdown) {echo "--- Malina OFF ---\n"; } else {echo "--- Malina ON ---\n"; echo time(); echo " "; echo $tshutdown;  }
 						 
 					}else {
 				
