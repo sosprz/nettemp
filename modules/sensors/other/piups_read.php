@@ -74,7 +74,7 @@ try {
             //echo $date.' '.$echoes[$i].': '.$data[$i]."\n";
             db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 			
-			if (($local_rom == 'UPS_id9') && ($local_val == '0')) {
+			if (($local_rom == 'UPS_id9') && ($local_val == '1')) {
 				
 					echo "Power 230 off\n";
 					
@@ -85,6 +85,7 @@ try {
 							 
 							 echo "--- Malina OFF ---\n"; 
 							 $db->exec("UPDATE nt_settings SET value='0' WHERE option='ups_count'");
+							 system ("sudo /sbin/shutdown -h now");
 							 
 							 
 							 } else {echo "--- Malina ON ---\n"; echo time(); echo " "; echo $tshutdown."\n";  }
@@ -104,7 +105,7 @@ try {
 					
 				} 
 				
-			elseif (($local_rom == 'UPS_id9') && ($local_val == '1')) {echo "Power 230 on\n";} 
+			elseif (($local_rom == 'UPS_id9') && ($local_val == '0')) {echo "Power 230 on\n";} 
 		}		
     }
 
