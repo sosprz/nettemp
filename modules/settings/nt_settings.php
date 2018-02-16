@@ -150,6 +150,9 @@ foreach ($result as $a) {
 	if($a['option']=='ups_toff_start') {
        	$nts_ups_toff_start=$a['value'];
     }
+	if($a['option']=='ups_count') {
+       	$nts_ups_count=$a['value'];
+    }
 	
 }
 

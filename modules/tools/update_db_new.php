@@ -72,6 +72,7 @@ $updates['2018-02-12 13:04:08'][]="INSERT INTO nt_settings ('option', 'value') V
 $updates['2018-02-15 09:55:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_time_off','15')";
 $updates['2018-02-16 09:55:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_akku_temp','45')";
 $updates['2018-02-16 09:57:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_toff_start','')";
+$updates['2018-02-16 09:58:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_count','0')";
 
 ups_toffstart
 //Update USB for PiUSB

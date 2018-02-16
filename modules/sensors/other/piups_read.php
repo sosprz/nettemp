@@ -65,9 +65,12 @@ try {
 					$ttoff=$r['value'];
 					}
 					echo $ttoff."\n";
-					$tstart = time();
-					echo $tstart."\n";
-					 $db->exec("UPDATE nt_settings SET value='$tstart' WHERE option='ups_toff_start'");
+					$timewhenoff = time() + ($ttoff*60);
+					echo $timewhenoff."\n";
+					 $db->exec("UPDATE nt_settings SET value='$timewhenoff' WHERE option='ups_toff_start'");
+					 $db->exec("UPDATE nt_settings SET value='1' WHERE option='ups_count'");
+					 
+					 if (time() > (time()+$ttoff)) {echo "--- Malina OFF ---\n"; } else {echo "--- Malina ON ---\n"; }
 				
 				
 				
