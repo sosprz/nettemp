@@ -76,7 +76,7 @@ try {
 						$a1=time();
 				
 						
-						 if ( $a1 > (time() + ($ttoff * 60))) {echo "--- Malina OFF ---\n"; } else {echo "--- Malina ON ---\n"; echo time(); }
+						 if ( $a1 > (time() + ($ttoff * 60))) {echo "--- Malina OFF ---\n"; } else {echo "--- Malina ON ---\n"; echo time(); echo $a1;  }
 						 
 					}else {
 				
