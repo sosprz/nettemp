@@ -76,7 +76,7 @@ $file=$rom .".sql";
     <?php
     } elseif ($a['type'] == 'volt' || $a['type'] == 'watt' || $a['type'] == 'amps' ) { ?>
     <tr>
-	<td><?php echo str_replace("_", " ", $a['name']) ?></td>
+	<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name']) ?></span></td>
 	<td><span class="label label-info"><?php echo number_format($d['dmin'], 2, '.', '')?></span><span class="label label-warning"><?php echo number_format($d['dmax'], 2, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format($w['wmin'], 2, '.', '')?></span><span class="label label-warning"><?php echo number_format($w['wmax'], 2, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format($m['mmin'], 2, '.', '')?></span><span class="label label-warning"><?php echo number_format($m['mmax'], 2, '.', '')?></span></td>
@@ -84,7 +84,7 @@ $file=$rom .".sql";
     <?php
      } else { ?>
     <tr>
-	<td><?php echo str_replace("_", " ", $a['name']) ?></td>
+	<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name']) ?></span></td>
 	<td><span class="label label-info"><?php echo number_format($d['dmin'], 1, '.', '')?></span><span class="label label-warning"><?php echo number_format($d['dmax'], 1, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format($w['wmin'], 1, '.', '')?></span><span class="label label-warning"><?php echo number_format($w['wmax'], 1, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format($m['mmin'], 1, '.', '')?></span><span class="label label-warning"><?php echo number_format($m['mmax'], 1, '.', '')?></span></td>
@@ -97,7 +97,7 @@ $file=$rom .".sql";
    
      if ($a['type'] == 'elec' || $a['type'] == 'water' || $a['type'] == 'gas') { ?>
     <tr>
-	<td><?php echo str_replace("_", " ", $a['name']) ?></td>
+	<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name']) ?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($h['hmax']-$h['hmin']), 3, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($d['dmax']-$d['dmin']), 3, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($w['wmax']-$w['wmin']), 3, '.', '')?></span></td>
@@ -106,7 +106,7 @@ $file=$rom .".sql";
     <?php
     } elseif ($a['type'] == 'volt' || $a['type'] == 'watt' || $a['type'] == 'amps' ) { ?>
     <tr>
-	<td><?php echo str_replace("_", " ", $a['name']) ?></td>
+	<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name']) ?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($h['hmax']-$h['hmin']), 2, '.', '')?></span></td>
    <td><span class="label label-info"><?php echo number_format(($d['dmax']-$d['dmin']), 2, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($w['wmax']-$w['wmin']), 2, '.', '')?></span></td>
@@ -114,7 +114,7 @@ $file=$rom .".sql";
     <?php
      } else { ?>
     <tr>
-	<td><?php echo str_replace("_", " ", $a['name']) ?></td>
+	<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name']) ?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($h['hmax']-$h['hmin']), 1, '.', '')?> </span></td>
    <td><span class="label label-info"><?php echo number_format(($d['dmax']-$d['dmin']), 1, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format(($w['wmax']-$w['wmin']), 1, '.', '')?></span></td>
