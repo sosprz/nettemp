@@ -59,8 +59,6 @@ OpenWRT, beta version:
 
 Changelog:
 
-
-
 4.5.0
 
 - usunięcie podkreślników w nazwach
