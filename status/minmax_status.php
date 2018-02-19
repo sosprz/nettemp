@@ -68,7 +68,7 @@ $file=$rom .".sql";
     if($nts_minmax_mode == '1') { 
     if ($a['type'] == 'elec' || $a['type'] == 'water' || $a['type'] == 'gas') { ?>
     <tr>
-	<td><?php echo str_replace("_", " ", $a['name']) ?></td>
+	<td><span class="label label-default"><?php echo str_replace("_", " ", $a['name']) ?></span></td>
 	<td><span class="label label-info"><?php echo number_format($d['dmin'], 3, '.', '')?></span><span class="label label-warning"><?php echo number_format($d['dmax'], 3, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format($w['wmin'], 3, '.', '')?></span><span class="label label-warning"><?php echo number_format($w['wmax'], 3, '.', '')?></span></td>
 	<td><span class="label label-info"><?php echo number_format($m['mmin'], 3, '.', '')?></span><span class="label label-warning"><?php echo number_format($m['mmax'], 3, '.', '')?></span></td>
