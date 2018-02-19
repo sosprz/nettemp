@@ -37,16 +37,12 @@ if ( $numRows > '0' ) { ?>
 ?>
 <tr>
     <td>
-    <?php if($a['device'] == 'wireless'){ ?><img src="media/ico/wifi-circle-icon.png" alt=""/><?php } ?>
-    <?php if($a['device'] == 'remote'){ ?><img src="media/ico/remote.png" alt=""/><?php } ?>
-    <?php if($a['device'] == 'usb'){ ?><img src="media/ico/usb-icon.png" alt=""/><?php } ?>
-    <?php if($a['device'] == 'gpio'){ ?><img src="media/ico/gpio2.png" alt=""/><?php } ?>
     <?php if($a['type'] == 'gas'){ ?><img src="media/ico/gas-icon.png" alt=""/><?php $units='m3'; $units2='L';} ?>
     <?php if($a['type'] == 'water'){ ?><img src="media/ico/water-icon.png" alt=""/><?php $units='m3'; $units2='L'; } ?>
     <?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" alt=""/><?php $units='kWh' ; $units2='W';} ?>
-    <small>
+    <small><span class="label label-default">
 	<?php echo str_replace("_"," ","$a[name]"); ?>
-    </small>
+    </span></small>
     </td>
 	
 	<td>
