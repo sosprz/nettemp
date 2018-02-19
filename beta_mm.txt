@@ -12,24 +12,39 @@
 - poprawka do zmiany trybów gpio w przypadku ip i tych samych numerów gpio (ip/ip - ip-gpio) - day,temp,simple,moment
 - auto lock gpio jeśli recznie zmieniam stan on/off w statusie
 - link do ustawień gpio ze statusu - ikonka gpio w controls
-- poprawione działanie przekaźnika dla simple, temp, day - zmiana wyzwalania stanem niskim i wysokim.
-- gpio Time w statusie - brak obsługi ip
+- poprawione działanie przekaźnika dla simple - zmiana wyzwalania stanem niskim i wysokim.
+- gpio Time w statusie - na razie tylko gpio - brak obsługi ip
 - satus min max light - poprawione zbieranie danych - fix dla wartości ujemnych
-- Insert do bazy i odczyt DHT
-- Del bazy minmax Light
+- poprawiony odczyt i dodawanie do bazy DHT11/22
+- dodane usuwanie bazy minmax light z ustawień w Device
+- dodanie przycisku shutown obok reboot
+- poprawki do DayPlan w funkcji temperatury - w statusie temperatura dla aktualnie aktywnego DP.
+- HighCharts column fix - poprawione wyświetlanie dla wykresów kolumnowych - teraz pokazuje poprawne rzeczywiste wartości, poprawki dla gust, speed, rainfall
+- poprawiony status dla counters - poprawione linki do chartsów i jednostki dla elec, water, gas 
+- min/max dla JG - niezależne od alarmów
+- usuwanie danych z baz czujników - zakładka DB Edit
+- kolorowanie JG przy przekroczeniu alarmów i przy braku odczytów - value dla alarmów (min:niebieskie max:czerwone), nazwa dla braku odczytów
+- nowy sposób edycji widgetów - ustawienia on/off i wyświetlanie po zalogowaniu
+- sensors - możliwość ustawienia ktore czujniki widoczne bez logowania.
+- wysyłka do thingspeak - IoT ThingSpeak Monitor Widget
+- poprawki nts_charts_max-teraz również po odświeżaniu poprawnie ustawia się charts_max
+- reads error dla sensors - w devices można ustawić czas w minutach po jakim czujnik "zaświeci się" na pomarańczowo jeśli brak odczytu w tym czasie
+- ujednolicenie wyświetlania nazw w statusie - label default
 
 
 
 
 To Do:
 
-- gpio Time przepisać na php, logi, dodać obsługę ip
+gpio Time przepisać na php, logi, dodać obsługę ip
 wykresy - ładowanie do bazy - konflikt ip/gpio
 Wsadzanie do def - ip/gpio
-
 poprawka świeżak - status urządzen ip
-
 mcp dla day.php
-Binding sensors do gpio w statusie - bez logowania.
+Virtual sensors
+Boost 1 hour
+Alarm - read sensors
+
+
 
 
