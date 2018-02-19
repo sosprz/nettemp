@@ -29,6 +29,7 @@
 - wysyłka do thingspeak - IoT ThingSpeak Monitor Widget
 - poprawki nts_charts_max-teraz również po odświeżaniu poprawnie ustawia się charts_max
 - reads error dla sensors - w devices można ustawić czas w minutach po jakim czujnik "zaświeci się" na pomarańczowo jeśli brak odczytu w tym czasie
+- ujednolicenie wyświetlania nazw w statusie - label default
 
 
 
