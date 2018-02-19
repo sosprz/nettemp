@@ -37,13 +37,12 @@ if ( $numRows > '0' ) { ?>
 ?>
 <tr>
     <td>
-	
     <?php if($a['type'] == 'gas'){ ?><img src="media/ico/gas-icon.png" alt=""/><?php $units='m3'; $units2='L';} ?>
     <?php if($a['type'] == 'water'){ ?><img src="media/ico/water-icon.png" alt=""/><?php $units='m3'; $units2='L'; } ?>
     <?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" alt=""/><?php $units='kWh' ; $units2='W';} ?>
-    <small>
+    <small><span class="label label-default">
 	<?php echo str_replace("_"," ","$a[name]"); ?>
-    </small>
+    </span></small>
     </td>
 	
 	<td>
