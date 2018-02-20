@@ -120,7 +120,7 @@ foreach ($row_meteo as $a) {
 				<?php 
 				
 				
-					if ($a['type']=='trigger' && $a['tmp'] == '1.0') {echo "class=\"label'".$a['trigoneclr'].\"";}
+					if ($a['type']=='trigger' && $a['tmp'] == '1.0') {echo 'class="label ';echo $a['trigoneclr'].'"'}
 				
 				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || ($label=='danger')){
 					echo 'class="label label-danger"';
