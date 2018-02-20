@@ -123,9 +123,8 @@ foreach ($row_meteo as $a) {
 					if ($a['type']=='trigger' && $a['tmp'] == '1.0') {
 						
 						echo "class=\"label ".$a['trigoneclr']."\"";
-						
-						//echo $a['trigoneclr'].'"'
-						
+						}elseif ($a['type']=='trigger' && $a['tmp'] == '0.0') {
+							echo "class=\"label ".$a['trigzeroclr']."\"";
 						}
 				
 				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || ($label=='danger')){
