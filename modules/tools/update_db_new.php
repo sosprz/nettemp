@@ -61,6 +61,7 @@ $updates['2018-02-08 19:40:08'][]="ALTER TABLE sensors ADD readerr TEXT";
 $updates['2018-02-08 19:40:08'][]="ALTER TABLE sensors ADD readerralarm TEXT";
 $updates['2018-02-08 19:48:25'][]="UPDATE sensors SET readerralarm='off'";
 $updates['2018-02-08 19:49:20'][]="UPDATE sensors SET readerr='60'";
+
 //Update nt_settings UPS NT
 $updates['2018-02-12 13:04:11'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_delay_on','60')";
 $updates['2018-02-12 13:04:11'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_delay_off','60')";
@@ -78,5 +79,14 @@ $updates['2018-02-16 09:59:08'][]="INSERT INTO nt_settings ('option', 'value') V
 //Update USB for PiUSB
 $updates['2018-02-15 12:00:03'][]="UPDATE usb SET device='PiUPS' where device='UPS Pimowo'";
 
+//Update sensors for triggers
+$updates['2018-02-19 14:36:25'][]="ALTER TABLE sensors ADD trigzero  TEXT";
+$updates['2018-02-19 14:36:25'][]="ALTER TABLE sensors ADD trigone  TEXT";
+$updates['2018-02-19 14:38:00'][]="UPDATE sensors SET trigzero='0' WHERE type='trigger'";
+$updates['2018-02-19 14:38:00'][]="UPDATE sensors SET trigone='1' WHERE type='trigger'";
+$updates['2018-02-19 18:54:12'][]="ALTER TABLE sensors ADD trigzeroclr  TEXT";
+$updates['2018-02-19 18:54:12'][]="ALTER TABLE sensors ADD trigoneclr  TEXT";
+$updates['2018-02-20 14:38:00'][]="UPDATE sensors SET trigzeroclr='label-success' WHERE type='trigger'";
+$updates['2018-02-20 14:38:00'][]="UPDATE sensors SET trigoneclr='label-danger' WHERE type='trigger'";
 
 ?>
