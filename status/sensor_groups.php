@@ -150,7 +150,7 @@ foreach ($row_meteo as $a) {
 						if ( $a['tmp'] == '1.0' && $a['trigone']!='' ) { 
 							echo $a['trigone']; 
 						} 
-						elseif ( $a['tmp'] == '0.0' $a['trigzero']!='') {
+						elseif ( $a['tmp'] == '0.0' && $a['trigzero']!='') {
 							echo $a['trigzero'];
 						}
 						else {
