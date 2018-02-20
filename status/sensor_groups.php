@@ -53,7 +53,6 @@ foreach ($row_meteo as $a) {
 	$stat_min='';
 	$stat_max='';
 
-		/*
 		if($a['device'] == 'wireless'){ $device='<img src="media/ico/wifi-circle-icon.png" alt="" title="'.$a['ip'].'"/>';}
 		elseif($a['device'] == 'remote'||$a['device'] == 'ip'){ $device='<img src="media/ico/remote.png" alt="" title="'.$a['ip'].'"/>';}
 		elseif($a['device'] == 'usb'){ $device='<img src="media/ico/usb-icon.png" alt="" title="USB"/>';}
@@ -63,8 +62,7 @@ foreach ($row_meteo as $a) {
 		elseif($a['device'] == 'i2c'||$a['device'] == 'lmsensors'){ $device='<img src="media/ico/i2c_1.png" alt="" title="I2C"/>';}
 		elseif($a['device'] == 'snmp'){ $device='<img src="media/ico/snmp-icon.png" alt="" title=SNMP"/>';}
 		elseif($a['device'] == '1wire'||$a['device'] == 'owfs'){ $device='<img src="media/ico/1wire.png" alt="" title="1wire"/>';}
-		
-		*/
+
 		
 		
 		foreach($result_t as $ty){
@@ -121,6 +119,22 @@ foreach ($row_meteo as $a) {
 			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=<?php echo $_SESSION['nts_charts_max']; ?>&single=<?php echo $a['name']?>" title="Go to charts, last update: <?php echo $a['time']?>"
 				<?php 
 				
+				
+					if ($a['type']=='trigger' && $a['tmp'] == '1.0') {
+						if (strtotime($a['time'])<(time()-($a['readerr']*60))){
+							echo 'class="label label-warning"';
+						}else { 
+								echo "class=\"label ".$a['trigoneclr']."\"";
+						}
+						
+						}elseif ($a['type']=='trigger' && $a['tmp'] == '0.0') {
+						if (strtotime($a['time'])<(time()-($a['readerr']*60))){
+							echo 'class="label label-warning"';
+						}else { 
+								echo "class=\"label ".$a['trigzeroclr']."\"";
+						}
+						}
+				
 				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || ($label=='danger')){
 					echo 'class="label label-danger"';
 				    } elseif (strtotime($a['time'])<(time()-($a['readerr']*60))){
@@ -147,7 +161,18 @@ foreach ($row_meteo as $a) {
 							echo $a['tmp'];
 						}
 				    } 
-				    elseif (is_numeric($a['tmp'])&& $a['status']!='error') { 
+					elseif ($a['type']=='trigger')  {
+						if ( $a['tmp'] == '1.0' && $a['trigone']!='' ) { 
+							echo $a['trigone']; 
+						} 
+						elseif ( $a['tmp'] == '0.0' && $a['trigzero']!='') {
+							echo $a['trigzero'];
+						}
+						else {
+							echo $a['tmp'];
+						}
+				    } 
+				    elseif (is_numeric($a['tmp'])&&$a['status']!='error') { 
 						echo 	number_format($a['tmp'], 1, '.', ',')." ".$unit." ".$max." ".$min;
 				    }
 				    elseif ($a['status']=='error') { 
