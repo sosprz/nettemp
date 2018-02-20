@@ -119,6 +119,9 @@ foreach ($row_meteo as $a) {
 			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=<?php echo $_SESSION['nts_charts_max']; ?>&single=<?php echo $a['name']?>" title="Go to charts, last update: <?php echo $a['time']?>"
 				<?php 
 				
+				
+					if ($a['type']=='trigger' && $a['tmp'] == '1.0') {echo "class=\"label'".$a['trigoneclr'].\""}
+				
 				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || ($label=='danger')){
 					echo 'class="label label-danger"';
 				    } elseif (strtotime($a['time'])<(time()-($a['readerr']*60))){
@@ -145,7 +148,6 @@ foreach ($row_meteo as $a) {
 							echo $a['tmp'];
 						}
 				    } 
-					//
 					elseif ($a['type']=='trigger')  {
 						if ( $a['tmp'] == '1.0' && $a['trigone']!='' ) { 
 							echo $a['trigone']; 
@@ -157,10 +159,6 @@ foreach ($row_meteo as $a) {
 							echo $a['tmp'];
 						}
 				    } 
-					
-					
-					//
-					
 				    elseif (is_numeric($a['tmp'])&&$a['status']!='error') { 
 						echo 	number_format($a['tmp'], 1, '.', ',')." ".$unit." ".$max." ".$min;
 				    }
