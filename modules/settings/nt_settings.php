@@ -119,12 +119,44 @@ foreach ($result as $a) {
     if($a['option']=='screen') {
        	$nts_screen=$a['value'];
     }
-	if($a['option']=='old_read_war') {
-       	$nts_old_read_war=$a['value'];
+	if($a['option']=='ups_delay_on') {
+       	$nts_ups_delay_on=$a['value'];
     }
-	if($a['option']=='old_read_dan') {
-       	$nts_old_read_dan=$a['value'];
+	if($a['option']=='ups_delay_off') {
+       	$nts_ups_delay_off=$a['value'];
     }
+	if($a['option']=='ups_akku_charge_start') {
+       	$nts_ups_akku_charge_start=$a['value'];
+    }
+	if($a['option']=='ups_akku_charge_stop') {
+       	$nts_ups_akku_charge_stop=$a['value'];
+    }
+	if($a['option']=='ups_akku_discharged') {
+       	$nts_ups_akku_discharged=$a['value'];
+    }
+	if($a['option']=='ups_lcd_scroll') {
+       	$nts_ups_lcd_scroll=$a['value'];
+    }
+	if($a['option']=='ups_lcd_backlight') {
+       	$nts_ups_lcd_backlight=$a['value'];
+    }
+	if($a['option']=='ups_time_off') {
+       	$nts_ups_time_off=$a['value'];
+    }
+	if($a['option']=='ups_akku_temp') {
+       	$nts_ups_akku_temp=$a['value'];
+    }
+	
+	if($a['option']=='ups_toff_start') {
+       	$nts_ups_toff_start=$a['value'];
+    }
+	if($a['option']=='ups_count') {
+       	$nts_ups_count=$a['value'];
+    }
+	if($a['option']=='ups_toff_stop') {
+       	$nts_ups_toff_start=$a['value'];
+    }
+	
 }
 
 //different way..
