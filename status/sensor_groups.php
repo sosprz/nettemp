@@ -121,10 +121,18 @@ foreach ($row_meteo as $a) {
 				
 				
 					if ($a['type']=='trigger' && $a['tmp'] == '1.0') {
+						if (strtotime($a['time'])<(time()-($a['readerr']*60))){
+							echo 'class="label label-warning"';
+						}else { 
+								echo "class=\"label ".$a['trigoneclr']."\"";
+						}
 						
-						echo "class=\"label ".$a['trigoneclr']."\"";
 						}elseif ($a['type']=='trigger' && $a['tmp'] == '0.0') {
-							echo "class=\"label ".$a['trigzeroclr']."\"";
+						if (strtotime($a['time'])<(time()-($a['readerr']*60))){
+							echo 'class="label label-warning"';
+						}else { 
+								echo "class=\"label ".$a['trigzeroclr']."\"";
+						}
 						}
 				
 				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || ($label=='danger')){
