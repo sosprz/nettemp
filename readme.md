@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.5.2
+
+- PiUPS Status
+
 4.5.1
 
 - Customizing labels for trigger
