@@ -749,7 +749,6 @@ $row = $rows->fetchAll();
     
 	</tr>
 
-</tr>
 
 <?php 
 
@@ -760,3 +759,9 @@ $row = $rows->fetchAll();
 </table>
 </div>
 </div>
+
+<?php 
+if (!empty($device_type) && $device_type == 'trigger' ) { 
+include("modules/sensors/html/trigger_settings.php"); 
+}
+?>

@@ -145,6 +145,22 @@ foreach ($row_meteo as $a) {
 							echo $a['tmp'];
 						}
 				    } 
+					//
+					elseif ($a['type']=='trigger')  {
+						if ( $a['tmp'] == '1.0') { 
+							echo $a['trigone']; 
+						} 
+						elseif ( $a['tmp'] == '0.0') {
+							echo $a['trigzero'];
+						}
+						else {
+							echo $a['tmp'];
+						}
+				    } 
+					
+					
+					//
+					
 				    elseif (is_numeric($a['tmp'])&&$a['status']!='error') { 
 						echo 	number_format($a['tmp'], 1, '.', ',')." ".$unit." ".$max." ".$min;
 				    }
