@@ -135,7 +135,14 @@ foreach($files AS $file) {
 <input  type="submit" value="Make DB backup" class="btn btn-xs btn-success" />
 </form>
 <table class="table table-striped condensed">
-<thead><tr><th>file</th><th>Size</th><th>Restore</th><th>Delete</th></tr></thead>
+<thead>
+	<tr>
+		<th>file</th>
+		<th>Size</th>
+		<th>Restore</th>
+		<th>Delete</th>
+	</tr>
+</thead>
 
 <?php
 $dir = 'dbf';
