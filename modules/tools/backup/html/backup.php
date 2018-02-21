@@ -145,20 +145,30 @@ foreach($files AS $file) {
  if(is_file($dir.'/'.$file) AND !in_array($file, $fileExtensions)) { 
 ?>
 <tr>
-<td><a href="<?php echo "$dir/$file";?>"><?php echo $file; ?></a></td>
-<td><?php $filesize = (filesize("$dir/$file") * .0009765625) * .0009765625; echo round($filesize, 2) ?>MB</td>
 <td>
-<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
+	<a href="<?php echo "$dir/$file";?>"><?php echo $file; ?></a>
+</td>
+
+<td>
+	<?php $filesize = (filesize("$dir/$file") * .0009765625) * .0009765625; echo round($filesize, 2) ?>MB
+</td>
+
+<td>
+	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 	<input type="hidden" name="dbres_file" value="<?php echo $file; ?>" />
 	<input type="hidden" name="resdb" value="res" />
-<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-play"></span> </button></td>
-</form>
+	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-play"></span> </button>
+	</form>
 </td>
-<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
+
+</td>
+	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 	<input type="hidden" name="db_file" value="<?php echo $file; ?>" />
 	<input type="hidden" name="rmdb" value="rm" />
-<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
-</form>
+	</form>
+	<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+</td>
+
 </tr>
 
 <?php
