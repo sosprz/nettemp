@@ -135,7 +135,7 @@ foreach($files AS $file) {
 <input  type="submit" value="Make DB backup" class="btn btn-xs btn-success" />
 </form>
 <table class="table table-striped condensed">
-<thead><tr><th>file</th><th>Size</th><th>Delete</th></tr></thead>
+<thead><tr><th>file</th><th>Size</th><th>Restore</th><th>Delete</th></tr></thead>
 
 <?php
 $dir = 'dbf';
@@ -151,7 +151,7 @@ foreach($files AS $file) {
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 	<input type="hidden" name="dbres_file" value="<?php echo $file; ?>" />
 	<input type="hidden" name="resdb" value="res" />
-<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
+<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-play"></span> </button></td>
 </form>
 </td>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
