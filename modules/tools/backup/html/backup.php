@@ -36,7 +36,7 @@ $resdb = isset($_POST['resdb']) ? $_POST['resdb'] : '';
 if ($resdb == "res") {
 	$dbfile = "dbf/nettemp.db";
 	if (!copy($dbres_file, $dbfile)) {
-		echo "Restore failed.\n";
+		echo "Restore failed. $dbfile $dbres_file\n";
 	} else {
 		echo "Restore OK.\n";
 	}
