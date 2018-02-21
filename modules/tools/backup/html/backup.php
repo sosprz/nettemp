@@ -37,7 +37,7 @@ if ($resdb == "res") {
 	$dbfile = "dbf/nettemp.db";
 	$dbresto= "dbf/$dbres_file";
 	if (!copy($dbresto, $dbfile)) {
-		echo "Restore failed. $dbfile $dbres_file\n";
+		echo "Restore failed.\n";
 	} else {
 		echo "Restore OK.\n";
 	}
