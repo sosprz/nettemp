@@ -138,7 +138,7 @@ foreach ($row_meteo as $a) {
 				
 				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || ($label=='danger')){
 					echo 'class="label label-danger"';
-				    } elseif (strtotime($a['time'])<(time()-($a['readerr']*60))){
+				    } elseif (strtotime($a['time'])<(time()-($a['readerr']*60)) && !empty($a['readerr'])){
 					echo 'class="label label-warning"';
 				    }else{
 					echo 'class="label label-success"';
