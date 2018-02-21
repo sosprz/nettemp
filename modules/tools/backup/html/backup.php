@@ -168,7 +168,7 @@ foreach($files AS $file) {
 	</form>
 </td>
 
-</td>
+<td>
 	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 	<input type="hidden" name="db_file" value="<?php echo $file; ?>" />
 	<input type="hidden" name="rmdb" value="rm" />
