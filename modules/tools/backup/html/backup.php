@@ -31,6 +31,18 @@ if ($rmdb == "rm") {
     }
 }
 
+$dbres_file = isset($_POST['dbres_file']) ? $_POST['dbres_file'] : '';
+$resdb = isset($_POST['resdb']) ? $_POST['resdb'] : '';
+if ($resdb == "res") {
+	$dbfile = "dbf/nettemp.db";
+	if (!copy($dbres_file, $dbfile)) {
+		echo "Restore failed.\n";
+	} else {
+		echo "Restore OK.\n";
+	}
+    
+}
+
 $mkdb = isset($_POST['mkdb']) ? $_POST['mkdb'] : '';
 if ($mkdb == "mkdb") {
 	$file = "dbf/nettemp.db";
@@ -135,6 +147,13 @@ foreach($files AS $file) {
 <tr>
 <td><a href="<?php echo "$dir/$file";?>"><?php echo $file; ?></a></td>
 <td><?php $filesize = (filesize("$dir/$file") * .0009765625) * .0009765625; echo round($filesize, 2) ?>MB</td>
+<td>
+<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
+	<input type="hidden" name="dbres_file" value="<?php echo $file; ?>" />
+	<input type="hidden" name="resdb" value="res" />
+<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
+</form>
+</td>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 	<input type="hidden" name="db_file" value="<?php echo $file; ?>" />
 	<input type="hidden" name="rmdb" value="rm" />
