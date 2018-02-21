@@ -31,6 +31,18 @@ if ($rmdb == "rm") {
     }
 }
 
+$dbres_file = isset($_POST['dbres_file']) ? $_POST['dbres_file'] : '';
+$resdb = isset($_POST['resdb']) ? $_POST['resdb'] : '';
+if ($resdb == "res") {
+	$dbfile = "dbf/nettemp.db";
+	if (!copy($dbres_file, $dbfile)) {
+		echo "Restore failed. $dbfile $dbres_file\n";
+	} else {
+		echo "Restore OK.\n";
+	}
+    
+}
+
 $mkdb = isset($_POST['mkdb']) ? $_POST['mkdb'] : '';
 if ($mkdb == "mkdb") {
 	$file = "dbf/nettemp.db";
@@ -123,7 +135,14 @@ foreach($files AS $file) {
 <input  type="submit" value="Make DB backup" class="btn btn-xs btn-success" />
 </form>
 <table class="table table-striped condensed">
-<thead><tr><th>file</th><th>Size</th><th>Delete</th></tr></thead>
+<thead>
+	<tr>
+		<th>file</th>
+		<th>Size</th>
+		<th>Restore</th>
+		<th>Delete</th>
+	</tr>
+</thead>
 
 <?php
 $dir = 'dbf';
@@ -133,13 +152,30 @@ foreach($files AS $file) {
  if(is_file($dir.'/'.$file) AND !in_array($file, $fileExtensions)) { 
 ?>
 <tr>
-<td><a href="<?php echo "$dir/$file";?>"><?php echo $file; ?></a></td>
-<td><?php $filesize = (filesize("$dir/$file") * .0009765625) * .0009765625; echo round($filesize, 2) ?>MB</td>
-<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
+<td>
+	<a href="<?php echo "$dir/$file";?>"><?php echo $file; ?></a>
+</td>
+
+<td>
+	<?php $filesize = (filesize("$dir/$file") * .0009765625) * .0009765625; echo round($filesize, 2) ?>MB
+</td>
+
+<td>
+	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
+	<input type="hidden" name="dbres_file" value="<?php echo $file; ?>" />
+	<input type="hidden" name="resdb" value="res" />
+	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-play"></span> </button>
+	</form>
+</td>
+
+<td>
+	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post"  >
 	<input type="hidden" name="db_file" value="<?php echo $file; ?>" />
 	<input type="hidden" name="rmdb" value="rm" />
-<td><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button></td>
-</form>
+	<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+	</form>
+</td>
+
 </tr>
 
 <?php
