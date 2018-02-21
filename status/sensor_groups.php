@@ -53,6 +53,7 @@ foreach ($row_meteo as $a) {
 	$stat_min='';
 	$stat_max='';
 
+	/*
 		if($a['device'] == 'wireless'){ $device='<img src="media/ico/wifi-circle-icon.png" alt="" title="'.$a['ip'].'"/>';}
 		elseif($a['device'] == 'remote'||$a['device'] == 'ip'){ $device='<img src="media/ico/remote.png" alt="" title="'.$a['ip'].'"/>';}
 		elseif($a['device'] == 'usb'){ $device='<img src="media/ico/usb-icon.png" alt="" title="USB"/>';}
@@ -62,7 +63,7 @@ foreach ($row_meteo as $a) {
 		elseif($a['device'] == 'i2c'||$a['device'] == 'lmsensors'){ $device='<img src="media/ico/i2c_1.png" alt="" title="I2C"/>';}
 		elseif($a['device'] == 'snmp'){ $device='<img src="media/ico/snmp-icon.png" alt="" title=SNMP"/>';}
 		elseif($a['device'] == '1wire'||$a['device'] == 'owfs'){ $device='<img src="media/ico/1wire.png" alt="" title="1wire"/>';}
-
+	*/
 		
 		
 		foreach($result_t as $ty){
