@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.5.3
+
+- Restore nettemp.db option
+
 4.5.2
 
 - PiUPS Status
