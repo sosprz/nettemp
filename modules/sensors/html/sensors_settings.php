@@ -653,7 +653,7 @@ $row = $rows->fetchAll();
     </td>
 	
 	<td class="col-md-0">
-	 <?php if ($a["device"] != 'gpio') { ?>
+	 <?php if ($a["type"] != 'gpio') { ?>
     <form action="" method="post" style="display:inline!important;" > 	
 		<input type="hidden" name="logon_id" value="<?php echo $a["id"]; ?>" />
 		<button type="submit" name="logon_on" value="<?php echo $a["logon"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["logon"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
