@@ -168,14 +168,14 @@ $row = $rows->fetchAll();
 			<?php
 			
 			if ($a['type']=='trigger' && $a['tmp'] == '1.0') {
-						if (strtotime($a['time'])<(time()-($a['readerr']*60))){
+						if (strtotime($a['time'])<(time()-($a['readerr']*60)) && !empty($a['readerr'])){
 							echo '<span class="label label-warning">';
 						}else { 
 								echo "<span class=\"label ".$a['trigoneclr']."\">";
 						}
 						
 						}elseif ($a['type']=='trigger' && $a['tmp'] == '0.0') {
-						if (strtotime($a['time'])<(time()-($a['readerr']*60))){
+						if (strtotime($a['time'])<(time()-($a['readerr']*60)) && !empty($a['readerr'])){
 							echo '<span class="label label-warning">';
 						}else{ 
 								echo "<span class=\"label ".$a['trigzeroclr']."\">";
