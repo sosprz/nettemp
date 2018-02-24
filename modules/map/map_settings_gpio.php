@@ -7,7 +7,7 @@ $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 	$g_map = isset($_POST['g_map']) ? $_POST['g_map'] : '';
     $g_maponoff = isset($_POST['g_maponoff']) ? $_POST['g_maponoff'] : '';
     $g_mapon = isset($_POST['g_mapon']) ? $_POST['g_mapon'] : '';
-    if (($g_maponoff == "onoff")){
+    if ($g_maponoff == "onoff"){
 	 $db->exec("UPDATE maps SET map_on='$g_mapon' WHERE element_id='$g_map'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
