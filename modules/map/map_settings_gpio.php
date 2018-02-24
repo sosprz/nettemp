@@ -91,7 +91,6 @@ $row = $rows->fetchAll();
 		
 		<form action="" method="post" style="display:inline!important;">
 			<input type="hidden" name="g_map" value="<?php echo $c['id']; ?>" />
-			<input type="text" name="position_group" size="1" value="<?php echo $c['id']; ?>" />
 			<input type="checkbox" data-toggle="toggle" data-size="mini"  name="g_mapon" value="on" <?php echo $a["map_on"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
 			<input type="hidden" name="g_maponoff" value="onoff" />
 		</form>
