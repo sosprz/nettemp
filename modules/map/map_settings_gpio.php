@@ -8,7 +8,7 @@ $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
     $g_maponoff = isset($_POST['g_maponoff']) ? $_POST['g_maponoff'] : '';
     $g_mapon = isset($_POST['g_mapon']) ? $_POST['g_mapon'] : '';
     if ($g_maponoff == "onoff"){
-	 $db->exec("UPDATE maps SET map_on='$g_mapon' WHERE element_id='13'") or die ($db->lastErrorMsg());
+	 $db->exec("UPDATE maps SET map_on='$g_mapon' WHERE element_id='$g_map'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -78,13 +78,16 @@ $row = $rows->fetchAll();
 </thead>
 
 <?php foreach ($row as $b) {
-	$rows=$dbmaps->query("SELECT * FROM maps WHERE element_id='$b[id]'");//always one record
-	$a=$rows->fetchAll();
-	$a=$a[0];//extracting from array
 	
 	$rows=$db->query("SELECT * FROM sensors WHERE type='gpio' AND rom='$b[rom]'");//always one record
 	$c=$rows->fetchAll();
 	$c=$c[0];//extracting from array
+	
+	$rows=$dbmaps->query("SELECT * FROM maps WHERE element_id='$c[id]'");//always one record
+	$a=$rows->fetchAll();
+	$a=$a[0];//extracting from array
+	
+	
 	?>
 
 <tr>
