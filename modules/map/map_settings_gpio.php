@@ -62,6 +62,9 @@ $dbmaps = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
 $rows = $db->query("SELECT * FROM gpio ORDER BY position ASC"); 
 $row = $rows->fetchAll();
 
+
+//SELECT * FROM sensors WHERE type='gpio' ORDER BY position ASC"); 
+
 ?>
 
 <thead>
@@ -78,6 +81,10 @@ $row = $rows->fetchAll();
 	$rows=$dbmaps->query("SELECT * FROM maps WHERE element_id='$b[id]'");//always one record
 	$a=$rows->fetchAll();
 	$a=$a[0];//extracting from array
+	
+	$rows=$db->query("SELECT * FROM sensors WHERE type='gpio' AND rom='$b[rom]'");//always one record
+	$c=$rows->fetchAll();
+	$c=$c[0];//extracting from array
 	?>
 
 <tr>
@@ -87,8 +94,8 @@ $row = $rows->fetchAll();
 	</td>
 	<td class="col-md-1">
 		<form action="" method="post" style="display:inline!important;"> 	
-			<input type="hidden" name="g_map" value="<?php echo $a["element_id"]; ?>" />
-			<input type="checkbox" data-toggle="toggle" data-size="mini"  name="g_mapon" value=""<?php echo $a["map_on"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["map_on"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+			<input type="hidden" name="g_map" value="<?php echo $c["id"]; ?>" />
+			<input type="checkbox" data-toggle="toggle" data-size="mini"  name="g_mapon" value="on" <?php echo $a["map_on"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 			<input type="hidden" name="g_maponoff" value="onoff" />
 		</form>
 	</td>
