@@ -262,7 +262,7 @@ foreach ($row as $b) {
 	if (($a['mode'] != 'dist') && ($a['mode'] != 'humid')) {
 ?>
 <div data-need="<?php echo $b['map_num']?>" id="<?php echo "data-need".$b['map_num']?>" data-dst="gpio" class="ui-widget-content draggable"title="<?php echo $a['name']; ?>">
-    <?php if(($a['status'] == 'error') || ($a['status'] == 'OFF') || ($label=='danger')) {
+    <?php if(($a['status'] == 'error') || ($a['status'] == 'OFF') || ($a['status'] == 'off') || ($label=='danger')) {
 		    echo '<span class="label label-danger">';
 		    } 
 		    else {
