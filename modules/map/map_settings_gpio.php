@@ -101,11 +101,6 @@ $row = $rows->fetchAll();
 			<input type="hidden" name="g_maponoff" value="onoff" />
 		</form>
 		
-		<form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarm" value="on" <?php echo $a["alarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
-		<input type="hidden" name="alarmonoff" value="onoff" />
-    </form>
 		
 		
 		
