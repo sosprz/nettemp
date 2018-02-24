@@ -21,11 +21,6 @@ if ($delnew=='yes'){
     exit();
 }
 
-
-
-
-
-
 //ADD from NEWDEV 
 if(!empty($new_rom)) {
 	$name=substr(rand(), 0, 4);
@@ -45,7 +40,7 @@ else {
 }
 
 //check if file exist before insert to db 
-if(file_exists("db/".$new_rom.".sql")&&filesize("db/".$new_rom.".sql")!=0){
+if(file_exists("db/".$new_rom.".sql")&& filesize("db/".$new_rom.".sql")!=0){
 	$device='sensors';
 
 	//SENOSRS ALL
@@ -62,7 +57,7 @@ if(file_exists("db/".$new_rom.".sql")&&filesize("db/".$new_rom.".sql")!=0){
 	$inserted=$db->query("SELECT id FROM sensors WHERE rom='$new_rom'");
 	$inserted_id=$inserted->fetchAll();
 	$inserted_id=$inserted_id[0];
-	$db->exec("INSERT OR IGNORE INTO maps (type, map_pos, map_num,map_on,element_id) VALUES ('$device','{left:0,top:0}','$map_num','on','$inserted_id[id]')");
+	$db->exec("INSERT OR IGNORE INTO maps (type, map_pos, map_num,map_on,element_id) VALUES ('$device','{left:0,top:0}','$map_num','on','$inserted_id[id]')") or die ("gpio not maps");
 	
 	
 }
