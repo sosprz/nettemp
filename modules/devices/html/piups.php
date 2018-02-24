@@ -111,7 +111,7 @@ if  ($normalups == "normalups") {
 $factoryups = isset($_POST['factoryups']) ? $_POST['factoryups'] : '';
 if  ($factoryups == "factoryups") {
 	$fp = fopen($dev,'r+');
-	fwrite($fp, "\rF\r");
+	fwrite($fp, "F\r");
 	fclose($fp);
 }
 // info PiUPS
