@@ -59,8 +59,8 @@ $upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
 	$arr = array('U',$upsdelayon,$upsdelayoff,$upsakkuchargestart,$upsakkuchargestop,$upsakkudischarged,$upsakkutemp,$upsscroll,$upsbacklight);
     $values=implode(" ",$arr);
 	$fp = fopen($dev,'r+');
-	//fwrite($fp, "\r$values\r");
-	fwrite($fp, "$values\r");
+	fwrite($fp, "\r$values\r");
+	//fwrite($fp, "$values\r");
 	fclose($fp);
 	
     header("location: " . $_SERVER['REQUEST_URI']);
@@ -71,8 +71,8 @@ $upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
 
 $readups = isset($_POST['readups']) ? $_POST['readups'] : '';
 if  ($readups == "readups") {
-//$cmd=("exec 3<$dev &&>$dev && echo -n 'O\r' >$dev && head -1 <&3; exec 3<&-");
-$cmd=("exec 3<$dev && echo -n 'O\r' >$dev && head -1 <&3; exec 3<&-"); //v2
+$cmd=("exec 3<$dev &&>$dev && echo -n 'O\r' >$dev && head -1 <&3; exec 3<&-");
+//$cmd=("exec 3<$dev && echo -n 'O\r' >$dev && head -1 <&3; exec 3<&-"); //v2
 $out=shell_exec($cmd);
 
    $out=trim($out);
