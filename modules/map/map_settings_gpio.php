@@ -88,7 +88,7 @@ $row = $rows->fetchAll();
 	<td class="col-md-1">
 		<form action="" method="post" style="display:inline!important;"> 	
 			<input type="hidden" name="g_map" value="<?php echo $a["element_id"]; ?>" />
-			<input type="checkbox" data-toggle="toggle" data-size="mini"  name="g_mapon" value="on" <?php echo $a["map_on"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
+			<input type="checkbox" data-toggle="toggle" data-size="mini"  name="g_mapon" value=""<?php echo $a["map_on"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["map_on"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 			<input type="hidden" name="g_maponoff" value="onoff" />
 		</form>
 	</td>
