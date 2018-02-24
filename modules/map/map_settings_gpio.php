@@ -17,10 +17,10 @@ $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
     $g_name_on_maponoff = isset($_POST['g_name_on_maponoff']) ? $_POST['g_name_on_maponoff'] : '';
     $g_name_on_mapon = isset($_POST['g_name_on_mapon']) ? $_POST['g_name_on_mapon'] : '';
     if (($g_name_on_maponoff == "onoff")){
-	$rows=$db->query("SELECT id FROM gpio WHERE gpio='$g_name_on_map'");//always one record
-	$a=$rows->fetchAll();
-	$a=$a[0];//extracting from array
-    $dbmaps->exec("UPDATE maps SET display_name='$g_name_on_mapon' WHERE element_id='$a[id]'") or die ($db->lastErrorMsg());
+	//$rows=$db->query("SELECT id FROM gpio WHERE gpio='$g_name_on_map'");//always one record
+	//$a=$rows->fetchAll();
+	//$a=$a[0];//extracting from array
+    $dbmaps->exec("UPDATE maps SET display_name='$g_name_on_mapon' WHERE element_id='$g_name_on_map'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -114,7 +114,7 @@ $row = $rows->fetchAll();
 	<td class="col-md-1">
 					<?php if($b['mode'] != 'dist' && $b['mode'] != 'humid') : ?>
 					<form action="" method="post" style="display:inline!important;"> 	
-					<input type="hidden" name="g_name_on_map" value="<?php echo $b["gpio"]; ?>" />
+					<input type="hidden" name="g_name_on_map" value="<?php echo $c['id']; ?>" />
 					<input type="checkbox" data-toggle="toggle" data-size="mini"  name="g_name_on_mapon" value="on" <?php echo $a["display_name"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 					<input type="hidden" name="g_name_on_maponoff" value="onoff" />
 					</form>
