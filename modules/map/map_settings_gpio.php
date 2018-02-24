@@ -17,9 +17,6 @@ $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
     $g_name_on_maponoff = isset($_POST['g_name_on_maponoff']) ? $_POST['g_name_on_maponoff'] : '';
     $g_name_on_mapon = isset($_POST['g_name_on_mapon']) ? $_POST['g_name_on_mapon'] : '';
     if (($g_name_on_maponoff == "onoff")){
-	//$rows=$db->query("SELECT id FROM gpio WHERE gpio='$g_name_on_map'");//always one record
-	//$a=$rows->fetchAll();
-	//$a=$a[0];//extracting from array
     $dbmaps->exec("UPDATE maps SET display_name='$g_name_on_mapon' WHERE element_id='$g_name_on_map'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -29,10 +26,7 @@ $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
     $control_on_maponoff = isset($_POST['control_on_maponoff']) ? $_POST['control_on_maponoff'] : '';
     $control_on_mapon = isset($_POST['control_on_mapon']) ? $_POST['control_on_mapon'] : '';
     if (($control_on_maponoff == "onoff")){
-	$rows=$db->query("SELECT id FROM gpio WHERE gpio='$control_on_map'");//always one record
-	$a=$rows->fetchAll();
-	$a=$a[0];//extracting from array
-    $dbmaps->exec("UPDATE maps SET control_on_map='$control_on_mapon' WHERE element_id='$a[id]'") or die ($db->lastErrorMsg());
+    $dbmaps->exec("UPDATE maps SET control_on_map='$control_on_mapon' WHERE element_id='$control_on_map'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -41,10 +35,7 @@ $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
     $icon_on_map_name = isset($_POST['icon_on_map_name']) ? $_POST['icon_on_map_name'] : '';
     $icon_on_map_set = isset($_POST['icon_on_map_set']) ? $_POST['icon_on_map_set'] : '';
     if (($icon_on_map_set == "set")){
-	$rows=$db->query("SELECT id FROM gpio WHERE gpio='$icon_on_map'");//always one record
-	$a=$rows->fetchAll();
-	$a=$a[0];//extracting from array
-    $dbmaps->exec("UPDATE maps SET icon='$icon_on_map_name' WHERE element_id='$a[id]'") or die ($db->lastErrorMsg());
+    $dbmaps->exec("UPDATE maps SET icon='$icon_on_map_name' WHERE element_id='$icon_on_map'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -124,7 +115,7 @@ $row = $rows->fetchAll();
 	<td class="col-md-1">
 					<?php if($b['mode'] == 'simple' || $b['mode'] == 'time' || $b['mode'] == 'moment' || $b['mode'] == 'control') : ?>
 					<form action="" method="post" style="display:inline!important;"> 	
-					<input type="hidden" name="control_on_map" value="<?php echo $b["gpio"]; ?>" />
+					<input type="hidden" name="control_on_map" value="<?php echo $c['id']; ?>" />
 					<input type="checkbox" data-toggle="toggle" data-size="mini"  name="control_on_mapon" value="on" <?php echo $a["control_on_map"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 					<input type="hidden" name="control_on_maponoff" value="onoff" />
 					</form>
@@ -134,7 +125,7 @@ $row = $rows->fetchAll();
 	<td class="col-md-8">
 		<?php //if($b['mode'] == 'simple' || $b['mode'] == 'time' || $b['mode'] == 'moment' || $b['mode'] == 'control') : ?>
 		<form action="" method="post" style="display:inline!important;"> 	
-			<input type="hidden" name="icon_on_map" value="<?php echo $b["gpio"]; ?>" />
+			<input type="hidden" name="icon_on_map" value="<?php echo $c['id']; ?>" />
 			<input type="hidden" name="icon_on_map_set" value="set" />
 				<select id="icon_on_map_name" data-size="mini" name="icon_on_map_name" onchange="this.form.submit()">
 						<option value='' <?php echo $a['icon'] == '' ? 'selected="selected"' : ''; ?>>default</option>
