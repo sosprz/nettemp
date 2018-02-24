@@ -57,7 +57,7 @@ if(file_exists("db/".$new_rom.".sql")&& filesize("db/".$new_rom.".sql")!=0){
 	$inserted=$db->query("SELECT id FROM sensors WHERE rom='$new_rom'");
 	$inserted_id=$inserted->fetchAll();
 	$inserted_id=$inserted_id[0];
-	$db->exec("INSERT OR IGNORE INTO maps (type, map_pos, map_num,map_on,element_id) VALUES ('$device','{left:0,top:0}','$map_num','on','$inserted_id[id]')") or die ("gpio not maps");
+	$db->exec("INSERT OR IGNORE INTO maps (type, map_pos, map_num,map_on,element_id) VALUES ('$device','{left:0,top:0}','$map_num','on','$inserted_id')") or die ("gpio not maps");
 	
 	
 }
