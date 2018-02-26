@@ -33,6 +33,7 @@ if (($simpleexit == "simpleexit") ){
     <form action="" method="post" style=" display:inline!important;">
     <button type="submit" class="btn btn-xs btn-danger">OFF </button>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>"/>
     <input type="hidden" name="simpleoff" value="off" />
     </form>
 <?php 
@@ -44,6 +45,7 @@ if (($simpleexit == "simpleexit") ){
 <form action="" method="post" style=" display:inline!important;">
     <button type="submit" class="btn btn-xs btn-success">ON</button>
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>"/>
     <input type="hidden" name="simpleon" value="on" />
 </form>
 <!-- //dodany warunek ¿eby na mapie nie wyœwietlaæ EXIT -->
