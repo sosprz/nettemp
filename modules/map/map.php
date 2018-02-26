@@ -1,10 +1,7 @@
 <?php 
 if(!isset($_SESSION['user'])){ header("Location: denied"); } 
-
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
-
-
 $label='';
 $need_id = isset($_POST['need_id']) ? $_POST['need_id'] : '';
 $need_dst = isset($_POST['need_dst']) ? $_POST['need_dst'] : '';
@@ -12,9 +9,7 @@ $x = isset($_POST['x']) ? $_POST['x'] : '';
 $y = isset($_POST['y']) ? $_POST['y'] : '';
 if (!empty($need_id)){
 $pos="{left:".$x.", top:".$y."}";
-
 $db = new PDO('sqlite:dbf/nettemp.db');
-
 $db->exec("UPDATE maps SET map_pos='$pos' WHERE map_num='$need_id'");
 header("location: " . $_SERVER['REQUEST_URI']);
 exit();
@@ -78,7 +73,6 @@ exit();
 <script>
 <?php
 $array = array();
-
 $query = "select map_num,map_pos FROM maps";//sensors";
 $db->query($query);
 foreach ($db->query($query) as $row) {
@@ -87,35 +81,25 @@ foreach ($db->query($query) as $row) {
 $js_array = json_encode($array);
 $js_array = str_replace('"','', $js_array);
 echo "var elements = ".$js_array.";\n";
-
 unset($query);
 unset($js_array);
 unset($array);
-
 ?>
-
 var sensors = JSON.stringify(elements);
 var sensors = JSON.parse(sensors);
-
-
 var id = 0
 //alert(JSON.stringify(positions, null, 4));
 $(function() {
-
 if (elements != null) {
 $.each(elements, function (id, pos) {
         $("#data-need" + id).css(pos)
     })
 }
-
-
 $( "#content div" ).draggable({
     containment: '#content',
     stack: "#content div",
     scroll: false,
-
       stop: function(event, ui) {
-
 	var pos_x = ui.position.left;
         var pos_y = ui.position.top;
           var need = ui.helper.data("need");
@@ -125,27 +109,22 @@ $( "#content div" ).draggable({
               url: "",
               data: { x: pos_x, y: pos_y, need_id: need, need_dst: dst }
             });
-
         }
     });
 });
-
 </script>
 <div id="content">
 <?php
 $query = $db->query("SELECT * FROM types");
 $result_t = $query->fetchAll();
-
 $rows = $db->query("SELECT * FROM maps WHERE map_on='on' AND type='sensors'");
 $row = $rows->fetchAll();
 foreach ($row as $b) {
 	$rows=$db->query("SELECT * FROM sensors WHERE id='$b[element_id]' AND type!='gpio'");//always one record
 	$a=$rows->fetchAll();
 	$a=$a[0];//extracting from array
-
 	
 	foreach($result_t as $ty){
-
        	if($ty['type']==$a['type']) {
        		if($nts_temp_scale == 'C'){
        			$unit=$ty['unit'];
@@ -157,7 +136,7 @@ foreach ($row as $b) {
 		}	
 		
 	
-	//Jesli w³¹czone to wyœwietlamy nazwê inaczej pusty ci¹g
+	//Jesli w31czone to wyowietlamy nazwe inaczej pusty ci1g
 	$sensor_name='';
 	$transparent_bkg='';
 	$background_color='';
@@ -217,7 +196,6 @@ foreach ($row as $b) {
 		    else {
 				echo $type." ".$sensor_name." ".$a['tmp']." ".$unit;
 		    }
-
 	?>
     </span>
 </div>
@@ -227,18 +205,11 @@ unset($a);
 unset($row);
 unset($rows);
 ?>
-
 <?php
 $rows = $db->query("SELECT * FROM maps WHERE type='gpio' AND map_on='on'");
 $row = $rows->fetchAll();
 foreach ($row as $b) {
-	
-	$rows=$db->query("SELECT rom FROM sensors WHERE type='gpio' AND id='$b[element_id]'");//always one record
-	$c=$rows->fetchAll();
-	$c=$c[0];//extracting from array
-	
-	
-	$rows=$db->query("SELECT * FROM gpio WHERE rom='$c[rom]'");//always one record
+	$rows=$db->query("SELECT * FROM gpio WHERE id='$b[element_id]'");//always one record
 	$a=$rows->fetchAll();
 	$a=$a[0];//extracting from array
 	$icon='';
@@ -262,16 +233,15 @@ foreach ($row as $b) {
 	if (($a['mode'] != 'dist') && ($a['mode'] != 'humid')) {
 ?>
 <div data-need="<?php echo $b['map_num']?>" id="<?php echo "data-need".$b['map_num']?>" data-dst="gpio" class="ui-widget-content draggable"title="<?php echo $a['name']; ?>">
-    <?php if(($a['status'] == 'error') || ($a['status'] == 'OFF') || ($a['status'] == 'off') || ($label=='danger')) {
+    <?php if(($a['status'] == 'error') || ($a['status'] == 'OFF') || ($label=='danger')) {
 		    echo '<span class="label label-danger">';
 		    } 
 		    else {
 		    echo '<span class="label label-success">';
 		    }
 	        ?>
-
     <?php 
-		//Jeœli w³¹czone to wyœwietlamy nazwê i status przeciwnie tylko status
+		//Jeoli w31czone to wyowietlamy nazwe i status przeciwnie tylko status
 		if ($b['display_name'] == 'on') {
 		echo $device." ".$a['name']." ".$a['status'];
 		}
@@ -283,24 +253,18 @@ foreach ($row as $b) {
 	<?php
 		if ($a['mode'] == 'simple' && $b['control_on_map'] == 'on'){
 			 $gpio_post= $_POST['gpio'];
-			 $rom = $a['rom'];
 			 include('modules/gpio/html/gpio_simple.php');
 		}
 		elseif ($a['mode'] == 'time' && $b['control_on_map'] == 'on'){
-			$gpio_post = $a['gpio'];
-			$rom = $a['rom'];
-			$time_offset = $a['time_offset'];
+			$gpio_post= $_POST['gpio'];
 			include('modules/gpio/html/gpio_time.php');
 		}
 		elseif ($a['mode'] == 'moment' && $b['control_on_map'] == 'on'){
-			$gpio_post= $a['gpio'];
-			$rom = $a['rom'];
-			$moment_time = $a['moment_time'];
+			$gpio_post= $_POST['gpio'];
 			include('modules/gpio/html/gpio_moment.php');
 		}
 		elseif ($a['mode'] == 'control' && $b['control_on_map'] == 'on'){
-			$gpio_post = $a['gpio'];
-			$rom = $a['rom'];
+			$gpio_post= $_POST['gpio'];
 			include('modules/gpio/html/gpio_control.php');
 		}
 	?>
@@ -312,6 +276,3 @@ foreach ($row as $b) {
 unset($a);
 ?>
 </div>
-
-
-
