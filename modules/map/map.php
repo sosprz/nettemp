@@ -237,7 +237,6 @@ foreach ($row as $b) {
 	$rows=$db->query("SELECT * FROM gpio WHERE rom = (SELECT rom FROM sensors WHERE id='$b[element_id]')");//always one record
 	$a=$rows->fetchAll();
 	$a=$a[0];//extracting from array
-	var_dump($a);
 	$icon='';
 	if($b['icon'] != '')
 	{
@@ -279,7 +278,7 @@ foreach ($row as $b) {
 		?>
 	<?php
 		if ($a['mode'] == 'simple' && $b['control_on_map'] == 'on'){
-			 $gpio_post= $_POST['gpio'];
+			 $gpio_post = $a['gpio'];
 			 $rom = $a['rom'];
 			 include('modules/gpio/html/gpio_simple.php');
 		}
