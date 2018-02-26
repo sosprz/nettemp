@@ -233,12 +233,12 @@ $rows = $db->query("SELECT * FROM maps WHERE type='gpio' AND map_on='on'");
 $row = $rows->fetchAll();
 foreach ($row as $b) {
 	
-	//$rows=$db->query("SELECT rom FROM sensors WHERE type='gpio' AND id='$b[element_id]'");//always one record
-	//$c=$rows->fetchAll();
-	//$c=$c[0];//extracting from array
+	$rows=$db->query("SELECT rom FROM sensors WHERE type='gpio' AND id='$b[element_id]'");//always one record
+	$c=$rows->fetchAll();
+	$c=$c[0];//extracting from array
 	
 	
-	$rows=$db->query("SELECT * FROM gpio WHERE id='$b[element_id]'");//always one record
+	$rows=$db->query("SELECT * FROM gpio WHERE rom='$c[rom]'");//always one record
 	$a=$rows->fetchAll();
 	$a=$a[0];//extracting from array
 	$icon='';
