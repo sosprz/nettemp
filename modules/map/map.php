@@ -295,6 +295,7 @@ foreach ($row as $b) {
 		elseif ($a['mode'] == 'moment' && $b['control_on_map'] == 'on'){
 			$gpio_post= $a['gpio'];
 			$rom = $a['rom'];
+			$moment_time = $a['moment_time'];
 			include('modules/gpio/html/gpio_moment.php');
 		}
 		elseif ($a['mode'] == 'control' && $b['control_on_map'] == 'on'){
