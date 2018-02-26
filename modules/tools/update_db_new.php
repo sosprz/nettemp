@@ -82,8 +82,8 @@ $updates['2018-02-15 12:00:03'][]="UPDATE usb SET device='PiUPS' where device='U
 //Update sensors for triggers
 $updates['2018-02-19 14:36:25'][]="ALTER TABLE sensors ADD trigzero  TEXT";
 $updates['2018-02-19 14:36:25'][]="ALTER TABLE sensors ADD trigone  TEXT";
-$updates['2018-02-19 14:38:00'][]="UPDATE sensors SET trigzero='0' WHERE type='trigger'";
-$updates['2018-02-19 14:38:00'][]="UPDATE sensors SET trigone='1' WHERE type='trigger'";
+$updates['2018-02-19 14:38:00'][]="UPDATE sensors SET trigzero='0.0' WHERE type='trigger'";
+$updates['2018-02-19 14:38:00'][]="UPDATE sensors SET trigone='1.0' WHERE type='trigger'";
 $updates['2018-02-19 18:54:12'][]="ALTER TABLE sensors ADD trigzeroclr  TEXT";
 $updates['2018-02-19 18:54:12'][]="ALTER TABLE sensors ADD trigoneclr  TEXT";
 $updates['2018-02-20 14:38:00'][]="UPDATE sensors SET trigzeroclr='label-success' WHERE type='trigger'";
