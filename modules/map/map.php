@@ -235,11 +235,8 @@ foreach ($row as $b) {
 	
 	
 	$rows=$db->query("SELECT * FROM gpio WHERE rom = (SELECT rom FROM sensors WHERE id='$b[element_id]')");//always one record
-	$z=$rows->fetchAll();
-	
-	foreach ($z as $a )	{
-	
-	//$a=$a[0];//extracting from array
+	$a=$rows->fetchAll();
+	$a=$a[0];//extracting from array
 	$icon='';
 	if($b['icon'] != '')
 	{
@@ -306,7 +303,6 @@ foreach ($row as $b) {
     </span>
 </div>
 <?php 
-	}
 	}//end if
     }
 unset($a);
