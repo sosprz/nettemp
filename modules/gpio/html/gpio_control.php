@@ -79,6 +79,7 @@ else
 	<?php } ?>
 <form action="" method="post" style=" display:inline!important;">
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>"/>
     <button type="submit" class="btn btn-xs btn-success">ON</button>
     <input type="hidden" name="controlrun" value="on" />
 </form>

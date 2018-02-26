@@ -41,6 +41,7 @@ if ($timerun == "off") {
 	Status: <?php echo $a['status']; ?> 
 	<?php endif; ?>
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>"/>
 	<button type="submit" class="btn btn-xs btn-danger">OFF </button>
 	<input type="hidden" name="timerun" value="off" />
 	<input type="hidden" name="off" value="off" />
@@ -55,6 +56,7 @@ if ($timerun == "off") {
     <form action="" method="post" style=" display:inline!important;">
 	<input type="text" name="time_offset" value="<?php echo $a['time_offset']; ?>" size="4"  >min 
 	<input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>"/>
 	<button type="submit" class="btn btn-xs btn-success">ON</button>
 	<input type="hidden" name="timerun" value="timerun" />
     </form>

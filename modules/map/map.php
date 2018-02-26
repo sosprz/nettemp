@@ -283,20 +283,20 @@ foreach ($row as $b) {
 			 include('modules/gpio/html/gpio_simple.php');
 		}
 		elseif ($a['mode'] == 'time' && $b['control_on_map'] == 'on'){
-			$gpio_post = $a['gpio'];
-			$rom = $a['rom'];
-			$time_offset = $a['time_offset'];
+			$gpio_post = $_POST['gpio'];
+			$rom = $_POST['rom'];
+			$time_offset = $_POST['time_offset'];
 			include('modules/gpio/html/gpio_time.php');
 		}
 		elseif ($a['mode'] == 'moment' && $b['control_on_map'] == 'on'){
-			$gpio_post= $a['gpio'];
-			$rom = $a['rom'];
-			$moment_time = $a['moment_time'];
+			$gpio_post = $_POST['gpio'];
+			$rom = $_POST['rom'];
+			$moment_time = $_POST['moment_time'];
 			include('modules/gpio/html/gpio_moment.php');
 		}
 		elseif ($a['mode'] == 'control' && $b['control_on_map'] == 'on'){
-			$gpio_post = $a['gpio'];
-			$rom = $a['rom'];
+			$gpio_post = $_POST['gpio'];
+			$rom = $_POST['rom'];
 			include('modules/gpio/html/gpio_control.php');
 		}
 	?>
