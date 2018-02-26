@@ -95,8 +95,6 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
-
-
 ?> 
 
 
@@ -116,7 +114,6 @@ $counters=array("gas","water","elec");
 $db = new PDO('sqlite:dbf/nettemp.db');
 $dbmaps = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors WHERE type!='gpio' ORDER BY position ASC");
-
 $row = $rows->fetchAll();
 ?>
 <thead>
@@ -219,12 +216,8 @@ $row = $rows->fetchAll();
 </tr>
 
 <?php 
-
 }  
-
 ?>
 </table>
 </div>
 </div>
-
-    
