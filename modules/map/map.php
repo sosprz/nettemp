@@ -278,7 +278,7 @@ foreach ($row as $b) {
 		?>
 	<?php
 		if ($a['mode'] == 'simple' && $b['control_on_map'] == 'on'){
-			 $gpio_post = $a['gpio'];
+			 $gpio_post= $_POST['gpio'];
 			 $rom = $a['rom'];
 			 include('modules/gpio/html/gpio_simple.php');
 		}
