@@ -32,7 +32,7 @@ if (($mexit == "mexit") ){
 ?>
 
 <form action="" method="post" style=" display:inline!important;">
- 	 <input type="number" name="moment_time" size="2" value="<?php echo $a['moment_time']; ?>" style="width: 4em;"/>
+ 	 <input type="text" name="moment_time" size="2" value="<?php echo $a['moment_time']; ?>" style="width: 4em;"/>
     <button type="submit" class="btn btn-xs btn-warning">ON <?php echo $a['moment_time']; ?>s OFF</button>
     <input type="hidden" name="bi" value="on" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
