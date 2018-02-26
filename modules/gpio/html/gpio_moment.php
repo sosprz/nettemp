@@ -36,6 +36,7 @@ if (($mexit == "mexit") ){
     <button type="submit" class="btn btn-xs btn-warning">ON <?php echo $a['moment_time']; ?>s OFF</button>
     <input type="hidden" name="bi" value="on" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
+	<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>"/>
     <input type="hidden" name="bi" value="bi" />
 </form>
 <!-- wy³¹czamy exit dla mapy -->

@@ -233,12 +233,8 @@ $rows = $db->query("SELECT * FROM maps WHERE type='gpio' AND map_on='on'");
 $row = $rows->fetchAll();
 foreach ($row as $b) {
 	
-	$rows=$db->query("SELECT rom FROM sensors WHERE type='gpio' AND id='$b[element_id]'");//always one record
-	$c=$rows->fetchAll();
-	$c=$c[0];//extracting from array
 	
-	
-	$rows=$db->query("SELECT * FROM gpio WHERE rom='$c[rom]'");//always one record
+	$rows=$db->query("SELECT * FROM gpio WHERE rom = (SELECT rom FROM sensors WHERE id='$b[element_id]')");//always one record
 	$a=$rows->fetchAll();
 	$a=$a[0];//extracting from array
 	$icon='';
@@ -282,25 +278,25 @@ foreach ($row as $b) {
 		?>
 	<?php
 		if ($a['mode'] == 'simple' && $b['control_on_map'] == 'on'){
-			 $gpio_post = $a['gpio'];
-			 $rom = $a['rom'];
+			 $gpio_post = $_POST['gpio'];
+			 $rom = $_POST['rom'];
 			 include('modules/gpio/html/gpio_simple.php');
 		}
 		elseif ($a['mode'] == 'time' && $b['control_on_map'] == 'on'){
-			$gpio_post = $a['gpio'];
-			$rom = $a['rom'];
-			$time_offset = $a['time_offset'];
+			$gpio_post = $_POST['gpio'];
+			$rom = $_POST['rom'];
+			$time_offset = $_POST['time_offset'];
 			include('modules/gpio/html/gpio_time.php');
 		}
 		elseif ($a['mode'] == 'moment' && $b['control_on_map'] == 'on'){
-			$gpio_post= $a['gpio'];
-			$rom = $a['rom'];
-			$moment_time = $a['moment_time'];
+			$gpio_post = $_POST['gpio'];
+			$rom = $_POST['rom'];
+			$moment_time = $_POST['moment_time'];
 			include('modules/gpio/html/gpio_moment.php');
 		}
 		elseif ($a['mode'] == 'control' && $b['control_on_map'] == 'on'){
-			$gpio_post = $a['gpio'];
-			$rom = $a['rom'];
+			$gpio_post = $_POST['gpio'];
+			$rom = $_POST['rom'];
 			include('modules/gpio/html/gpio_control.php');
 		}
 	?>

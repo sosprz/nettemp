@@ -47,12 +47,20 @@ if(file_exists("db/".$new_rom.".sql")&& filesize("db/".$new_rom.".sql")!=0){
 	$db->exec("INSERT INTO sensors (rom,type,device,ip,gpio,i2c,usb,name) SELECT rom,type,device,ip,gpio,i2c,usb,name FROM newdev WHERE rom='$new_rom'");
 	$db->exec("UPDATE sensors SET alarm='off', tmp='0', adj='0', charts='on', sum='0', position='1', status='on', ch_group='$type',position_group='1',logon='off', thing='off', readerr='60', readerralarm='off' WHERE rom='$new_rom'");
 	
+	
+	// Trigger
+	
+	if($type=='trigger') {
+		$db->exec("UPDATE sensors SET trigzeroclr='label-success', trigoneclr='label-danger', trigzero='0.0', trigone='1.0' WHERE rom='$new_rom'");
+	}
+
 	//GPIO
 	if($type=='gpio') {
 		$db->exec("INSERT INTO gpio (gpio, name, status, position, ip, rom, mode) VALUES ('$gpio','new_$gpio','OFF','1','$ip','$new_rom', 'simple')") or exit(header("Location: html/errors/db_error.php"));
 		$device='gpio';
 	}
-
+	
+	
 	//maps settings
 	$inserted=$db->query("SELECT id FROM sensors WHERE rom='$new_rom'");
 	$inserted_id=$inserted->fetchAll();
