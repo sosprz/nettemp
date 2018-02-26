@@ -22,7 +22,7 @@ $mexit = isset($_POST['mexit']) ? $_POST['mexit'] : '';
 if (($mexit == "mexit") ){
 	include('gpio_off.php');
     $db = new PDO('sqlite:dbf/nettemp.db') or die("cannot open the database");
-	$db->exec("UPDATE gpio SET mode='', status='off' where gpio='$gpio_post' AND rom='$rom'") or die("moment off db error");
+	$db->exec("UPDATE gpio SET mode='', status='OFF' where gpio='$gpio_post' AND rom='$rom'") or die("moment off db error");
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -32,7 +32,7 @@ if (($mexit == "mexit") ){
 ?>
 
 <form action="" method="post" style=" display:inline!important;">
- 	 <input type="text" name="moment_time" size="4" value="<?php echo $a['moment_time']; ?>"/>
+ 	<input type="text" name="moment_time" size="2" value="<?php echo $a['moment_time']; ?>"/>
     <button type="submit" class="btn btn-xs btn-warning">ON <?php echo $a['moment_time']; ?>s OFF</button>
     <input type="hidden" name="bi" value="on" />
     <input type="hidden" name="gpio" value="<?php echo $a['gpio']; ?>"/>
