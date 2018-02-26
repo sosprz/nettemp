@@ -238,7 +238,8 @@ foreach ($row as $b) {
 	//$c=$c[0];//extracting from array
 	
 	
-	$rows=$db->query("SELECT * FROM gpio WHERE id='$b[element_id]'");//always one record
+	//$rows=$db->query("SELECT * FROM gpio WHERE id='$b[element_id]'");//always one record
+	$rows=$db->query("SELECT * FROM gpio WHERE rom = (SELECT rom FROM sensors WHERE type='gpio' AND id='$b[element_id]')");//always one record
 	$a=$rows->fetchAll();
 	$a=$a[0];//extracting from array
 	$icon='';
