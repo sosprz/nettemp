@@ -287,18 +287,18 @@ foreach ($row as $b) {
 			 include('modules/gpio/html/gpio_simple.php');
 		}
 		elseif ($a['mode'] == 'time' && $b['control_on_map'] == 'on'){
-			$gpio_post= $_POST['gpio'];
-			$rom= $_POST['rom'];
+			$gpio_post= $a['gpio'];
+			$rom= $a['rom'];
 			include('modules/gpio/html/gpio_time.php');
 		}
 		elseif ($a['mode'] == 'moment' && $b['control_on_map'] == 'on'){
-			$gpio_post= $_POST['gpio'];
-			$rom= $_POST['rom'];
+			$gpio_post= $a['gpio'];
+			$rom= $a['rom'];
 			include('modules/gpio/html/gpio_moment.php');
 		}
 		elseif ($a['mode'] == 'control' && $b['control_on_map'] == 'on'){
-			$gpio_post= $_POST['gpio'];
-			$rom= $_POST['rom'];
+			$gpio_post= $a['gpio'];
+			$rom= $a['rom'];
 			include('modules/gpio/html/gpio_control.php');
 		}
 	?>
