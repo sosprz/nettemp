@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.5.4
+
+pragma fix after update NT
+
 4.5.3
 
 - Restore nettemp.db option
