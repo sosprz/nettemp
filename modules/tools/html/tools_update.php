@@ -11,7 +11,12 @@ $update=isset($_POST['update']) ? $_POST['update'] : '';
 
 if ($update == "UPDATE") {
 	
+	$nts_server_key_upd = $nts_server_key."_update";
+	$db = new PDO("sqlite:$root/dbf/nettemp.db");
+	$db->exec("UPDATE nt_settings SET value='$nts_server_key_upd' WHERE option='server_key' ");
+	
 	system ("sudo service cron stop");
+	
     echo '<pre>';
     $file = $ROOT."/dbf/nettemp.db";
     $newfile = $ROOT."/dbf/nettemp.db.".date('Y-m-d_His').'.'.substr(rand(), 0, 4);
@@ -30,7 +35,12 @@ if ($update == "UPDATE") {
     include("$ROOT/modules/tools/check_packages.php");
 //    unlink("$ROOT/tmp/update");
     echo '</pre>';
+
 	system ("sudo service cron start");
+	
+	$serverkey = substr($nts_server_key_upd, 0, -7);
+	$db->exec("UPDATE nt_settings SET value='$serverkey' WHERE option='server_key' ");
+	
 }
 
 if ($update == "INTEGRITY"){
