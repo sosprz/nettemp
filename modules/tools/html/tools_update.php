@@ -10,6 +10,8 @@ $dbfile=$dir.'/nettemp.db';
 $update=isset($_POST['update']) ? $_POST['update'] : '';
 
 if ($update == "UPDATE") {
+	
+	system ("sudo service cron stop");
     echo '<pre>';
     $file = $ROOT."/dbf/nettemp.db";
     $newfile = $ROOT."/dbf/nettemp.db.".date('Y-m-d_His').'.'.substr(rand(), 0, 4);
@@ -28,6 +30,7 @@ if ($update == "UPDATE") {
     include("$ROOT/modules/tools/check_packages.php");
 //    unlink("$ROOT/tmp/update");
     echo '</pre>';
+	system ("sudo service cron start");
 }
 
 if ($update == "INTEGRITY"){
