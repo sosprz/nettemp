@@ -11,7 +11,7 @@ $update=isset($_POST['update']) ? $_POST['update'] : '';
 
 if ($update == "UPDATE") {
 	
-	$nts_server_key_upd = $nts_server_key."update"
+	$nts_server_key_upd = $nts_server_key."update";
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
 	$db->exec("UPDATE nt_settings SET value='$nts_server_key_upd' WHERE option='server_key' ");
 	
