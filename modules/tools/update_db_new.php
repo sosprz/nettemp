@@ -89,4 +89,8 @@ $updates['2018-02-19 18:54:12'][]="ALTER TABLE sensors ADD trigoneclr  TEXT";
 $updates['2018-02-20 14:38:00'][]="UPDATE sensors SET trigzeroclr='label-success' WHERE type='trigger'";
 $updates['2018-02-20 14:38:00'][]="UPDATE sensors SET trigoneclr='label-danger' WHERE type='trigger'";
 
+
+$updates['2018-02-27 11:11:20'][]="drop trigger aupdate_time_trigger";
+$updates['2018-02-27 11:12:49'][]="CREATE TRIGGER aupdate_time_trigger AFTER UPDATE OF tmp ON sensors FOR EACH ROW BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END";
+
 ?>
