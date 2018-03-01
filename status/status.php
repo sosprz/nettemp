@@ -140,7 +140,7 @@ Go to device scan!
 	$('.uptime').load("html/index/uptime.php");
 	$('.systime').load("html/index/systime.php");
 	
-}, 10000);
+}, 60000);
 
 $(document).ready( function() {
 
