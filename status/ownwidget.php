@@ -1,43 +1,49 @@
 <?php 
+session_start();
+
+if (isset($_GET['owb'])) { 
+    $owb = $_GET['owb'];
+} 
+
+if (isset($_GET['own'])) { 
+    $own = $_GET['own'];
+} 
+
 
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
 
+if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 
-$db = new PDO('sqlite:dbf/nettemp.db');
-$rows = $db->query("SELECT * FROM ownwidget");
+$rows = $db->query("SELECT * FROM ownwidget WHERE body='$owb' AND onoff='on'");
+
+}else
+{
+	
+$rows = $db->query("SELECT * FROM ownwidget WHERE iflogon='off' AND body='$owb' AND onoff='on'");	
+}
 $row = $rows->fetchAll();
 $numRows = count($row);
 
-if ( $numRows > '0' ) { 
+if ( $numRows > '0' ) {  ?>
 
-	foreach ($row as $ow) {?> 	
-	
+
+		<div class="grid-item ow<?php echo $owb ?>">
+		<div class="panel panel-default">
+		<div class="panel-heading"><?php echo str_replace('_', ' ', $own);?></div>
+
 	<?php
 	
-	if (($ow['onoff'] == "on") && ($ow['iflogon'] == "off"))  { ?>
-		<div class="grid-item">
-		<div class="panel panel-default">
-			<div class="panel-heading"><?php echo $ow['name'];?></div>
-			<div class="panel-body"><?php include("$root/tmp/ownwidget".$ow['body'].".php");?> </div>
-		</div>
-		</div>
-<?php	
+	foreach ($row as $ow) {?> 	
 	
-		} else { if (($ow['onoff'] == "on") && ($ow['iflogon'] == "on"))  {
-			
-			if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) { ?>
+		
+			<div class="panel-body"><?php include("$root/tmp/ownwidget".$owb.".php");?> </div>
+		</div>
+		</div>
 
-			<div class="grid-item">
-			<div class="panel panel-default">
-				<div class="panel-heading"><?php echo $ow['name'];?></div>
-				<div class="panel-body"><?php include("$root/tmp/ownwidget".$ow['body'].".php");?> </div>
-			</div>
-			</div>
-
-			<?php } 
-			
+			<?php
 				}
 		}
-	}
-}?>
+		unset($owb);
+		unset($own);
+?>

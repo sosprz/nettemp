@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.5.5
+
+Own Widgets auto refresh
+
 4.5.4
 
 pragma fix after update NT

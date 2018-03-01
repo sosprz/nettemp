@@ -73,19 +73,27 @@ Go to device scan!
 			include('status/justgage_status.php');
 		}
 	}	
-
 	//END JG GROUPS
-   
+	//OW
+    $rowsow = $db->query("SELECT * FROM ownwidget") or header("Location: html/errors/db_error.php");
+	$owresult = $rowsow->fetchAll();
+	$uniquec=array();
+	foreach($owresult as $owg) {
+		
+		$owb = $owg['body'];
+		$own = $owg['name'];
+		include('status/ownwidget.php');
+		
+	}
+	
+	
     include('status/minmax_status.php'); 
     include('status/counters_status.php');
     include('status/controls.php');
     include('status/meteo_status.php');
     include('status/ipcam_status.php');
     include('status/ups_status.php');
-	include('status/ownwidget.php');
-   
-	
-	
+	//include('status/ownwidget.php');
     ?>
 </div>
 
@@ -108,11 +116,20 @@ Go to device scan!
 		}
 	?>
 	
+	<?php
+		foreach ($owresult as $owg) { 
+	?>
+		//$('.ow<?php echo $owg['body']?>').load("status/ownwidget.php?owb=<?php echo $owg['body'];?>&own=<?php echo $owg['name'];?>");
+	<?php
+		}
+	?>
+	
+	
+	
     $('.co').load("status/counters_status.php");
     $('.ms').load("status/meteo_status.php");
     $('.mm').load("status/minmax_status.php");
     $('.ups').load("status/ups_status.php");
-	$('.ow').load("status/ownwidget.php");
 	
     $('.swcon').load("status/controls.php", function() {		
 	$('[id="onoffstatus"]').bootstrapToggle({size : 'mini', off : 'Off', on : 'On',});

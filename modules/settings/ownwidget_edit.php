@@ -42,7 +42,7 @@ $addow = isset($_POST['addow']) ? $_POST['addow'] : '';
 if(!empty($addow) && ($addow == "addow")) { 
 	$ownr=substr(rand(), 0, 4);
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT INTO ownwidget ('name', 'body', 'onoff', 'iflogon') VALUES ('My widget','$ownr', 'on', 'off')");
+	$db->exec("INSERT INTO ownwidget ('name', 'body', 'onoff', 'iflogon') VALUES ('My_widget','$ownr', 'on', 'off')");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
@@ -57,7 +57,8 @@ if(!empty($id) && ($ow == "ow")) {
 //name
 if(!empty($id) && !empty($name_new) && ($ow_name == "ow_name")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE ownwidget SET name='$name_new' WHERE id='$id'");
+	$name_new2 = str_replace(' ', '_', $name_new);
+	$db->exec("UPDATE ownwidget SET name='$name_new2' WHERE id='$id'");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 }
@@ -101,7 +102,7 @@ $rows = $db->query("SELECT * FROM ownwidget");
 $row = $rows->fetchAll();
 foreach($row as $z) {
 	$ownum = $z['body'];
-	$owname = $z['name'];
+	$owname = str_replace('_', ' ', $z['name']);
 	
 	$file = "tmp/ownwidget".$ownum.".php";
     $text = file_get_contents($file);
@@ -116,7 +117,7 @@ foreach($row as $z) {
   <div class="panel-heading"><?php echo "Widget name:  "?>
   
 		  <form action="" method="post" style="display:inline!important;">
-				<input type="text" name="name_new" size="15" maxlength="30" value="<?php echo $z["name"]; ?>" />
+				<input type="text" name="name_new" size="15" maxlength="30" value="<?php echo $owname; ?>" />
 				<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 				<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
 				<input type="hidden" name="ow_name" value="ow_name"/>
@@ -143,7 +144,7 @@ foreach($row as $z) {
 		</form>
 		
 		<form action="" method="post" style="display:inline!important;">
-		<label>Logon:</label>
+		<label>Logon required:</label>
 			<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
 			<button type="submit" name="logon" value="<?php echo $z["iflogon"] == 'on' ? 'off' : 'on'; ?>" <?php echo $z["iflogon"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>> <?php echo $z["iflogon"] == 'on' ? 'ON' : 'OFF'; ?></button>
 			<input type="hidden" name="if_logon" value="if_logon" />
