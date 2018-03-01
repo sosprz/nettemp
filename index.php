@@ -215,6 +215,8 @@ window.setInterval( function() {
 	    <?php if (file_exists("tmp/update")) {  ?>
 			<a href="index.php?id=tools&type=update" class="btn btn-xs btn-info">Update available!</a>
 		<?php } ?>
+		
+		<a href="http://wiki.abc-service.com.pl/doku.php" target="_blank" class="btn btn-xs btn-primary">NT WIKI </a>
 
       </div>
 </footer>
