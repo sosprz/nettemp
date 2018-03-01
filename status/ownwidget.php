@@ -15,12 +15,12 @@ $db = new PDO("sqlite:$root/dbf/nettemp.db") or die ("cannot open database");
 
 if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 
-$rows = $db->query("SELECT * FROM ownwidget WHERE body='$owb'");
+$rows = $db->query("SELECT * FROM ownwidget WHERE body='$owb' AND onoff='on'");
 
 }else
 {
 	
-$rows = $db->query("SELECT * FROM ownwidget WHERE iflogon='off' AND body='$owb'");	
+$rows = $db->query("SELECT * FROM ownwidget WHERE iflogon='off' AND body='$owb' AND onoff='on'");	
 }
 $row = $rows->fetchAll();
 $numRows = count($row);
