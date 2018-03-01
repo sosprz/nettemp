@@ -50,8 +50,6 @@ Go to device scan!
 </div>
 <?php
 }
-
-
     //GROUPS
     $rows = $db->query("SELECT ch_group,type FROM sensors ORDER BY position_group ASC") or header("Location: html/errors/db_error.php");
 	$result_ch_g = $rows->fetchAll();
@@ -79,21 +77,16 @@ Go to device scan!
 	$owresult = $rowsow->fetchAll();
 	$uniquec=array();
 	foreach($owresult as $owg) {
-		
 		$owb = $owg['body'];
 		$own = $owg['name'];
 		include('status/ownwidget.php');
-		
 	}
-	
-	
     include('status/minmax_status.php'); 
     include('status/counters_status.php');
     include('status/controls.php');
     include('status/meteo_status.php');
     include('status/ipcam_status.php');
     include('status/ups_status.php');
-	//include('status/ownwidget.php');
     ?>
 </div>
 
