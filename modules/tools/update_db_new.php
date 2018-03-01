@@ -92,5 +92,7 @@ $updates['2018-02-20 14:38:00'][]="UPDATE sensors SET trigoneclr='label-danger' 
 //Update sensors for triggers
 $updates['2018-02-27 11:11:20'][]="drop trigger aupdate_time_trigger";
 $updates['2018-02-27 11:12:49'][]="CREATE TRIGGER aupdate_time_trigger AFTER UPDATE OF tmp ON sensors FOR EACH ROW BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END";
+//Update ow refresh
+$updates['2018-03-01 11:11:11'][]="UPDATE ownwidget SET name = REPLACE(name,' ','_')";
 
 ?>
