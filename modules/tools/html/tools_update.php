@@ -17,8 +17,6 @@ if ($update == "UPDATE") {
 	
 	system ("sudo service cron stop && sleep 5");
 	
-	
-	
     echo '<pre>';
     $file = $ROOT."/dbf/nettemp.db";
     $newfile = $ROOT."/dbf/nettemp.db.".date('Y-m-d_His').'.'.substr(rand(), 0, 4);
@@ -36,13 +34,12 @@ if ($update == "UPDATE") {
     include("$ROOT/modules/tools/update_db.php");
     include("$ROOT/modules/tools/check_packages.php");
 //    unlink("$ROOT/tmp/update");
+	system ("sudo service cron start && sleep 5");
     echo '</pre>';
 
-	system ("sudo service cron start");
-	
 	$serverkey = substr($nts_server_key_upd, 0, -7);
 	$db->exec("UPDATE nt_settings SET value='$serverkey' WHERE option='server_key' ");
-	
+	//system ("sudo service cron start");
 }
 
 if ($update == "INTEGRITY"){
