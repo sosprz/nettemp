@@ -16,6 +16,8 @@ if ($update == "UPDATE") {
 	$db->exec("UPDATE nt_settings SET value='$nts_server_key_upd' WHERE option='server_key' ");
 	
 	system ("sudo service cron stop");
+	system ("sudo sleep 15");
+	
 	
     echo '<pre>';
     $file = $ROOT."/dbf/nettemp.db";
