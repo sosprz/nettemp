@@ -39,7 +39,7 @@ if ($update == "UPDATE") {
 
 	$serverkey = substr($nts_server_key_upd, 0, -7);
 	$db->exec("UPDATE nt_settings SET value='$serverkey' WHERE option='server_key' ");
-	system ("sudo service cron start");
+	//system ("sudo service cron start");
 }
 
 if ($update == "INTEGRITY"){
