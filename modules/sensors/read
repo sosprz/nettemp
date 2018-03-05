@@ -41,7 +41,7 @@ $dir/modules/sensors/rs485/orwe
 
 
 #in test
-$dir/modules/sensors/other/ups
+#$dir/modules/sensors/other/ups
 php-cgi -f $dir/modules/lcd/lcd.php
 php-cgi -f $dir/modules/sensors/node.php
 php-cgi -f $dir/modules/mysql/mysql_send.php
