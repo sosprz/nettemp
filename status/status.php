@@ -79,6 +79,7 @@ Go to device scan!
 	foreach($owresult as $owg) {
 		$owb = $owg['body'];
 		$own = $owg['name'];
+		//$ref = $owg['refresh'];
 		include('status/ownwidget.php');
 	}
     include('status/minmax_status.php'); 
@@ -111,9 +112,11 @@ Go to device scan!
 	
 	<?php
 		foreach ($owresult as $owg) { 
+		if ($owg['refresh'] == 'on') {
 	?>
-		//$('.ow<?php echo $owg['body']?>').load("status/ownwidget.php?owb=<?php echo $owg['body'];?>&own=<?php echo $owg['name'];?>");
+		$('.ow<?php echo $owg['body']?>').load("status/ownwidget.php?owb=<?php echo $owg['body'];?>&own=<?php echo $owg['name'];?>");
 	<?php
+		}
 		}
 	?>
 	
@@ -126,8 +129,7 @@ Go to device scan!
 	
     $('.swcon').load("status/controls.php", function() {		
 	$('[id="onoffstatus"]').bootstrapToggle({size : 'mini', off : 'Off', on : 'On',});
-	$('[id="lockstatus"]').bootstrapToggle({size : 'mini', off : 'lock', on : 'lock',});
-	
+	$('[id="lockstatus"]').bootstrapToggle({size : 'mini', off : 'lock', on : 'lock',});	
 	});	
 
 	$('.uptime').load("html/index/uptime.php");
