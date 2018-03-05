@@ -73,7 +73,7 @@ Go to device scan!
 	}	
 	//END JG GROUPS
 	//OW
-    $rowsow = $db->query("SELECT * FROM ownwidget") or header("Location: html/errors/db_error.php");
+    $rowsow = $db->query("SELECT * FROM ownwidget WHERE onoff='on' ") or header("Location: html/errors/db_error.php");
 	$owresult = $rowsow->fetchAll();
 	$uniquec=array();
 	foreach($owresult as $owg) {
