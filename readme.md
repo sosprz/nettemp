@@ -61,7 +61,7 @@ Changelog:
 
 4.5.5
 
-Own Widgets auto refresh
+Own Widgets auto refresh - without Java
 
 4.5.4
 
