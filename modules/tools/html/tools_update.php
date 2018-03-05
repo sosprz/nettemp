@@ -33,13 +33,13 @@ if ($update == "UPDATE") {
     include("$ROOT/modules/tools/update_perms.php");
     include("$ROOT/modules/tools/update_db.php");
     include("$ROOT/modules/tools/check_packages.php");
-//    unlink("$ROOT/tmp/update");
-	system ("sudo service cron start && sleep 5");
-    echo '</pre>';
+	//unlink("$ROOT/tmp/update");
+	system ("sudo service cron start && sleep 2");
+  echo '</pre>';
 
 	$serverkey = substr($nts_server_key_upd, 0, -7);
 	$db->exec("UPDATE nt_settings SET value='$serverkey' WHERE option='server_key' ");
-	//system ("sudo service cron start");
+
 }
 
 if ($update == "INTEGRITY"){

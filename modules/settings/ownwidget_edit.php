@@ -42,7 +42,7 @@ $addow = isset($_POST['addow']) ? $_POST['addow'] : '';
 if(!empty($addow) && ($addow == "addow")) { 
 	$ownr=substr(rand(), 0, 4);
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT INTO ownwidget ('name', 'body', 'onoff', 'iflogon') VALUES ('My_widget','$ownr', 'on', 'off')");
+	$db->exec("INSERT INTO ownwidget ('name', 'body', 'onoff', 'iflogon', 'refresh') VALUES ('My_widget','$ownr', 'on', 'off', 'off')");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
@@ -78,6 +78,15 @@ $logon= isset($_POST['logon']) ? $_POST['logon'] : '';
 if(!empty($id) && !empty($logon) && ($if_logon == "if_logon")) { 
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE ownwidget SET iflogon='$logon' WHERE id='$id'");
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();	
+} 
+//refresh
+$ref= isset($_POST['ref']) ? $_POST['ref'] : '';
+$refresh= isset($_POST['refresh']) ? $_POST['refresh'] : '';
+if(!empty($id) && !empty($refresh) && ($ref == "ref")) { 
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db->exec("UPDATE ownwidget SET refresh='$refresh' WHERE id='$id'");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
@@ -148,6 +157,13 @@ foreach($row as $z) {
 			<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
 			<button type="submit" name="logon" value="<?php echo $z["iflogon"] == 'on' ? 'off' : 'on'; ?>" <?php echo $z["iflogon"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>> <?php echo $z["iflogon"] == 'on' ? 'ON' : 'OFF'; ?></button>
 			<input type="hidden" name="if_logon" value="if_logon" />
+		</form>
+		
+		<form action="" method="post" style="display:inline!important;">
+		<label>Refresh:</label>
+			<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
+			<button type="submit" name="refresh" value="<?php echo $z["refresh"] == 'on' ? 'off' : 'on'; ?>" <?php echo $z["refresh"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>> <?php echo $z["refresh"] == 'on' ? 'ON' : 'OFF'; ?></button>
+			<input type="hidden" name="ref" value="ref" />
 		</form>
 		
 		<form action="" method="post" style="display:inline!important;">
