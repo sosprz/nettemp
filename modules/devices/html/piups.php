@@ -83,10 +83,10 @@ $out=shell_exec($cmd);
 		$d2=$data[1];
 		//$d3=$data[2];
 		//$d4=$data[3];
-		$d3=$data[4];
-		$d4=$data[5];
-		$d5=$data[6];
-		$d6=$data[7];         
+		$d3=$data[2];
+		$d4=$data[3];
+		$d5=$data[4];
+		$d6=$data[5];         
    }
 
 }
