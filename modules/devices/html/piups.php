@@ -319,7 +319,7 @@ $row = $rows->fetchAll();
 			</td>
 
 			<td>
-				<span class="label label-success"><?php if ($d6 == '1') { echo 'Yes';} elseif ($d8 == '0') { echo 'No';}?></span>
+				<span class="label label-success"><?php if ($d6 == '1') { echo 'Yes';} elseif ($d6 == '0') { echo 'No';}?></span>
 			</td>
 
 			<td>
