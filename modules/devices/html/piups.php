@@ -56,7 +56,7 @@ $upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upstimeoff' WHERE option='ups_time_off'");
 	
 // write to PiUPS
-	$arr = array('U',$upsdelayon,$upsdelayoff,$upsakkuchargestart,$upsakkuchargestop,$upsakkudischarged,$upsakkutemp,$upsscroll,$upsbacklight);
+	$arr = array('U',$upsdelayon,$upsdelayoff,$upsakkudischarged,$upsakkutemp,$upsscroll,$upsbacklight);
     $values=implode(" ",$arr);
 	$fp = fopen($dev,'r+');
 	//fwrite($fp, "\r$values\r");
