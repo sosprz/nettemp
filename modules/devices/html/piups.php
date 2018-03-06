@@ -32,8 +32,8 @@ $query = $db->query("SELECT dev FROM usb WHERE device='PiUPS'");
 
 $upsdelayon = isset($_POST['upsdelayon']) ? $_POST['upsdelayon'] : '';
 $upsdelayoff = isset($_POST['upsdelayoff']) ? $_POST['upsdelayoff'] : '';
-$upsakkuchargestart = isset($_POST['upsakkuchargestart']) ? $_POST['upsakkuchargestart'] : '';
-$upsakkuchargestop = isset($_POST['upsakkuchargestop']) ? $_POST['upsakkuchargestop'] : '';
+//$upsakkuchargestart = isset($_POST['upsakkuchargestart']) ? $_POST['upsakkuchargestart'] : '';
+//$upsakkuchargestop = isset($_POST['upsakkuchargestop']) ? $_POST['upsakkuchargestop'] : '';
 $upsakkudischarged = isset($_POST['upsakkudischarged']) ? $_POST['upsakkudischarged'] : '';
 $upsakkutemp = isset($_POST['upsakkutemp']) ? $_POST['upsakkutemp'] : '';
 $upsscroll = isset($_POST['upsscroll']) ? $_POST['upsscroll'] : '';
@@ -47,8 +47,8 @@ $upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
     $db = new PDO("sqlite:$root/dbf/nettemp.db");
     $db->exec("UPDATE nt_settings SET value='$upsdelayon' WHERE option='ups_delay_on'");
 	$db->exec("UPDATE nt_settings SET value='$upsdelayoff' WHERE option='ups_delay_off'");
-	$db->exec("UPDATE nt_settings SET value='$upsakkuchargestart' WHERE option='ups_akku_charge_start'");
-	$db->exec("UPDATE nt_settings SET value='$upsakkuchargestop' WHERE option='ups_akku_charge_stop'");
+	//$db->exec("UPDATE nt_settings SET value='$upsakkuchargestart' WHERE option='ups_akku_charge_start'");
+	//$db->exec("UPDATE nt_settings SET value='$upsakkuchargestop' WHERE option='ups_akku_charge_stop'");
 	$db->exec("UPDATE nt_settings SET value='$upsakkudischarged' WHERE option='ups_akku_discharged'");
 	$db->exec("UPDATE nt_settings SET value='$upsakkutemp' WHERE option='ups_akku_temp'");
 	$db->exec("UPDATE nt_settings SET value='$upsscroll' WHERE option='ups_lcd_scroll'");
@@ -81,12 +81,12 @@ $out=shell_exec($cmd);
    for($i=0;$i<count($data);$i++){         
 		$d1=$data[0];
 		$d2=$data[1];
-		$d3=$data[2];
-		$d4=$data[3];
-		$d5=$data[4];
-		$d6=$data[5];
-		$d7=$data[6];
-		$d8=$data[7];         
+		//$d3=$data[2];
+		//$d4=$data[3];
+		$d3=$data[4];
+		$d4=$data[5];
+		$d5=$data[6];
+		$d6=$data[7];         
    }
 
 }
@@ -115,21 +115,21 @@ if  ($factoryups == "factoryups") {
 	fclose($fp);
 }
 // info PiUPS
-$infoups = isset($_POST['infoups']) ? $_POST['infoups'] : '';
-if  ($infoups == "infoups") {
-	$fp = fopen($dev,'r+');
+//$infoups = isset($_POST['infoups']) ? $_POST['infoups'] : '';
+//if  ($infoups == "infoups") {
+	//$fp = fopen($dev,'r+');
 	//fwrite($fp, "\rI\r");
-	fwrite($fp, "I\r");
-	fclose($fp);
-}
+	//fwrite($fp, "I\r");
+//	fclose($fp);
+//}
 // reset PiUPS
-$resetups = isset($_POST['resetups']) ? $_POST['resetups'] : '';
-if  ($resetups == "resetups") {
-	$fp = fopen($dev,'r+');
+//$resetups = isset($_POST['resetups']) ? $_POST['resetups'] : '';
+//if  ($resetups == "resetups") {
+//	$fp = fopen($dev,'r+');
 	//fwrite($fp, "\rR\r");
-	fwrite($fp, "R\r");
-	fclose($fp);
-}
+	//fwrite($fp, "R\r");
+	//fclose($fp);
+//}
 
 //***********************************************************
 
@@ -260,40 +260,6 @@ $row = $rows->fetchAll();
 			</td>
 		</tr>
 
-		<tr>
-			<td>
-				<span class="label label-default">Akku. charge start</span>
-			</td>
-												
-			<td>
-				<span class="label label-success"><?php echo $d3 ?></span>
-			</td>
-
-			<td>
-				<input type="text" name="upsakkuchargestart" size="2" maxlength="4" value="<?php echo $nts_ups_akku_charge_start; ?>" />
-			</td>
-
-			<td>
-				<span class="label label-default">V</span>
-			</td>
-		</tr>
-
-		<tr>
-			<td>
-				<span class="label label-default">Akku. charge stop</span>
-			</td>
-			<td>
-				<span class="label label-success"><?php echo $d4  ?></span>
-			</td>
-
-			<td>
-				<input type="text" name="upsakkuchargestop" size="2" maxlength="4" value="<?php echo $nts_ups_akku_charge_stop; ?>" />
-			</td>
-			
-			<td>
-				<span class="label label-default">V</span>
-			</td>	
-		</tr>
 
 		<tr>
 			<td>
@@ -301,7 +267,7 @@ $row = $rows->fetchAll();
 			</td>
 			
 			<td>
-				<span class="label label-success"><?php echo $d5 ?></span>
+				<span class="label label-success"><?php echo $d3 ?></span>
 			</td>
 
 			<td>
@@ -318,7 +284,7 @@ $row = $rows->fetchAll();
 				<span class="label label-default">Akku. temp</span>
 			</td>
 			<td>
-				<span class="label label-success"><?php echo $d6 ?></span>
+				<span class="label label-success"><?php echo $d4 ?></span>
 			</td>
 
 			<td>
@@ -335,7 +301,7 @@ $row = $rows->fetchAll();
 				<span class="label label-default">LCD Scrolling</span>
 			</td>
 			<td>
-				<span class="label label-success"><?php echo $d7  ?></span>
+				<span class="label label-success"><?php echo $d5  ?></span>
 			</td>
 
 			<td>	
@@ -353,7 +319,7 @@ $row = $rows->fetchAll();
 			</td>
 
 			<td>
-				<span class="label label-success"><?php if ($d8 == '1') { echo 'Yes';} elseif ($d8 == '0') { echo 'No';}?></span>
+				<span class="label label-success"><?php if ($d6 == '1') { echo 'Yes';} elseif ($d8 == '0') { echo 'No';}?></span>
 			</td>
 
 			<td>
