@@ -323,6 +323,31 @@ if ( $lcd == "lcd"){
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     } 
+	
+	
+	$latitude = isset($_POST['latitude']) ? $_POST['latitude'] : '';
+    $longitude = isset($_POST['longitude']) ? $_POST['longitude'] : '';
+    $gps_id = isset($_POST['gps_id']) ? $_POST['gps_id'] : '';
+	$gps = isset($_POST['gps']) ? $_POST['gps'] : '';
+	
+	if (!empty($gps_id) && $gps == "gpsok"){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET latitude='$latitude' WHERE id='$gps_id'") or die ($db->lastErrorMsg());
+    $db->exec("UPDATE sensors SET longitude='$longitude' WHERE id='$gps_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
+	
+	$apikey = isset($_POST['apikey']) ? $_POST['apikey'] : '';
+    $api_id = isset($_POST['api_id']) ? $_POST['api_id'] : '';
+	$api = isset($_POST['api']) ? $_POST['api'] : '';
+	
+	if (!empty($api_id) && $api == "apiok"){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET apikey='$apikey' WHERE id='$api_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
     
 ?> 
 
@@ -748,6 +773,40 @@ $row = $rows->fetchAll();
     </td>
     
 	</tr>
+	
+	<?php if ($a['device'] == 'virtual' && substr($a['type'],0,3) == 'air') { ?>
+	<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td><label> Lat/Long:</label></td>
+	<td>
+	<form action="" method="post" style="display:inline!important;"> 
+		<input type="hidden" name="gps_id" value="<?php echo $a['id']; ?>" />
+		<input type="text" name="latitude" size="5" value="<?php echo $a['latitude']; ?>" />
+		<input type="text" name="longitude" size="5" value="<?php echo $a['longitude']; ?>" />
+		<input type="hidden" name="gps" value="gpsok" />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+    </form>
+	</td>
+	<td><label>API Key:</label></td>
+	<td>
+	<form action="" method="post" style="display:inline!important;"> 
+		<input type="hidden" name="api_id" value="<?php echo $a['id']; ?>" />
+		<input type="text" name="apikey" size="17" value="<?php echo $a['apikey']; ?>" />
+		<input type="hidden" name="api" value="apiok" />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+    </form>
+	</td>
+	
+	<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	
+	
+	</tr>
+	<?php
+	}
+	?>
 
 
 <?php 

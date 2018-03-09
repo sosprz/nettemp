@@ -3,6 +3,8 @@ $gpio = isset($_POST['gpio']) ? $_POST['gpio'] : '';
 $new_rom = isset($_POST['new_rom']) ? $_POST['new_rom'] : '';
 $type = isset($_POST['type']) ? $_POST['type'] : '';
 $ip = isset($_POST['ip']) ? $_POST['ip'] : '';
+$vdevice = isset($_POST['vdevice']) ? $_POST['vdevice'] : '';
+$vname = isset($_POST['vname']) ? $_POST['vname'] : '';
 
 
 $delallnewrom = isset($_POST['delallnewrom']) ? $_POST['delallnewrom'] : '';
@@ -23,9 +25,16 @@ if ($delnew=='yes'){
 
 //ADD from NEWDEV 
 if(!empty($new_rom)) {
+	
+	if ($vdevice == 'virtual') {
+		$name=$vname."_".mt_rand(0,1000);
+		$new_rom=$type."_".mt_rand(0,1000);
+				
+	} else {
 	$name=substr(rand(), 0, 4);
 	$map_num=substr(rand(), 0, 4);
 	$map_num2=substr(rand(), 0, 4);
+	}
 	
 //DB    
 if ($type=='elec' || $type=='water' || $type=='gas' || $type=='watt'|| $type=='gpio') {
@@ -44,7 +53,12 @@ if(file_exists("db/".$new_rom.".sql")&& filesize("db/".$new_rom.".sql")!=0){
 	$device='sensors';
 
 	//SENOSRS ALL
+	if ($vdevice == 'virtual') {
+		$db->exec("INSERT INTO sensors (rom,type,device,name) VALUES ('$new_rom','$type','$vdevice','$name')");
+	} else {
 	$db->exec("INSERT INTO sensors (rom,type,device,ip,gpio,i2c,usb,name) SELECT rom,type,device,ip,gpio,i2c,usb,name FROM newdev WHERE rom='$new_rom'");
+	}
+	
 	$db->exec("UPDATE sensors SET alarm='off', tmp='0', adj='0', charts='on', sum='0', position='1', status='on', ch_group='$type',position_group='1',logon='off', thing='off', readerr='60', readerralarm='off' WHERE rom='$new_rom'");
 	
 	
@@ -173,6 +187,72 @@ foreach ($result as $a) {
 <?php
 	}
 ?>
+</tbody>
+</table>
+</div>
+</div>
+
+<?php//*********************************************virtual****************************************?>
+
+<div class="panel panel-default">
+<div class="panel-heading">Virtual devices</div>
+<div class="table-responsive">
+<table class="table table-hover table-condensed small">
+<thead>
+	<tr>
+		<th>Name</th>
+		<th>ROM</th>
+		<th>Type</th>
+		<th>Device</th>
+		<th>Description</th>
+		<th>Add</th>
+	</tr>
+</thead>
+<tbody>
+
+<?php	
+$db = new PDO('sqlite:dbf/nettemp.db');
+$sth = $db->prepare("SELECT * FROM virtual");
+$sth->execute();
+$resultv = $sth->fetchAll();
+foreach ($resultv as $v) {
+?>
+<tr>
+	<td class="col-md-0">
+		<?php echo $v['name']; ?>
+	</td>
+	<td class="col-md-0">
+		<?php echo $v['rom']; ?>
+	</td>
+	<td class="col-md-0">
+		<?php echo $v['type']; ?>
+	</td>
+	<td class="col-md-0">
+		<?php echo $v['device']; ?>
+	</td>
+	<td class="col-md-0">
+		<?php echo $v['description']; ?>
+	</td>
+	
+	<td class="col-md-0">
+		<form action="" method="post" style="display:inline!important;">
+			<input type="hidden" name="new_rom" value="<?php echo $v['rom']; ?>" >
+			<input type="hidden" name="type" value="<?php echo $v['type']; ?>" >
+			<input type="hidden" name="vname" value="<?php echo $v['name']; ?>" >
+			<input type="hidden" name="vdevice" value="<?php echo $v['device']; ?>" >
+			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button>
+		</form>
+	</td>
+	
+	
+	
+	
+</tr>
+
+<?php
+}
+?>
+	
 </tbody>
 </table>
 </div>

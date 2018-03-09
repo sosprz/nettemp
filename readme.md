@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.5.6
+
+First Virtual Sensors
+
 4.5.5
 
 Own Widgets auto refresh - without Java
