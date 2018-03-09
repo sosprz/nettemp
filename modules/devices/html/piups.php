@@ -26,14 +26,12 @@ $query = $db->query("SELECT dev FROM usb WHERE device='PiUPS'");
     foreach($result as $r) {
      $dev=$r['dev'];
     }
-    if($dev=='none'){
-    $nodevice=1;
+    if($dev == 'none'){
+    $nodevice = 1;
     }
 
 $upsdelayon = isset($_POST['upsdelayon']) ? $_POST['upsdelayon'] : '';
 $upsdelayoff = isset($_POST['upsdelayoff']) ? $_POST['upsdelayoff'] : '';
-//$upsakkuchargestart = isset($_POST['upsakkuchargestart']) ? $_POST['upsakkuchargestart'] : '';
-//$upsakkuchargestop = isset($_POST['upsakkuchargestop']) ? $_POST['upsakkuchargestop'] : '';
 $upsakkudischarged = isset($_POST['upsakkudischarged']) ? $_POST['upsakkudischarged'] : '';
 $upsakkutemp = isset($_POST['upsakkutemp']) ? $_POST['upsakkutemp'] : '';
 $upsscroll = isset($_POST['upsscroll']) ? $_POST['upsscroll'] : '';
@@ -47,8 +45,6 @@ $upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
     $db = new PDO("sqlite:$root/dbf/nettemp.db");
     $db->exec("UPDATE nt_settings SET value='$upsdelayon' WHERE option='ups_delay_on'");
 	$db->exec("UPDATE nt_settings SET value='$upsdelayoff' WHERE option='ups_delay_off'");
-	//$db->exec("UPDATE nt_settings SET value='$upsakkuchargestart' WHERE option='ups_akku_charge_start'");
-	//$db->exec("UPDATE nt_settings SET value='$upsakkuchargestop' WHERE option='ups_akku_charge_stop'");
 	$db->exec("UPDATE nt_settings SET value='$upsakkudischarged' WHERE option='ups_akku_discharged'");
 	$db->exec("UPDATE nt_settings SET value='$upsakkutemp' WHERE option='ups_akku_temp'");
 	$db->exec("UPDATE nt_settings SET value='$upsscroll' WHERE option='ups_lcd_scroll'");
@@ -59,7 +55,6 @@ $upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
 	$arr = array('U',$upsdelayon,$upsdelayoff,$upsakkudischarged,$upsakkutemp,$upsscroll,$upsbacklight);
     $values=implode(" ",$arr);
 	$fp = fopen($dev,'r+');
-	//fwrite($fp, "\r$values\r");
 	fwrite($fp, "$values\r");
 	fclose($fp);
 	
@@ -81,8 +76,6 @@ $out=shell_exec($cmd);
    for($i=0;$i<count($data);$i++){         
 		$d1=$data[0];
 		$d2=$data[1];
-		//$d3=$data[2];
-		//$d4=$data[3];
 		$d3=$data[2];
 		$d4=$data[3];
 		$d5=$data[4];
@@ -103,7 +96,6 @@ if  ($serviceups == "serviceups") {
 $normalups = isset($_POST['normalups']) ? $_POST['normalups'] : '';
 if  ($normalups == "normalups") {
 	$fp = fopen($dev,'r+');
-	//fwrite($fp, "\rN\r");
 	fwrite($fp, "N\r");
 	fclose($fp);
 }
@@ -114,22 +106,6 @@ if  ($factoryups == "factoryups") {
 	fwrite($fp, "F\r");
 	fclose($fp);
 }
-// info PiUPS
-//$infoups = isset($_POST['infoups']) ? $_POST['infoups'] : '';
-//if  ($infoups == "infoups") {
-	//$fp = fopen($dev,'r+');
-	//fwrite($fp, "\rI\r");
-	//fwrite($fp, "I\r");
-//	fclose($fp);
-//}
-// reset PiUPS
-//$resetups = isset($_POST['resetups']) ? $_POST['resetups'] : '';
-//if  ($resetups == "resetups") {
-//	$fp = fopen($dev,'r+');
-	//fwrite($fp, "\rR\r");
-	//fwrite($fp, "R\r");
-	//fclose($fp);
-//}
 
 //***********************************************************
 
@@ -388,18 +364,6 @@ $row = $rows->fetchAll();
 			<button class="btn btn-xs btn-danger">Factory</button>
 		</form>
 		
-<!--
-		<form action="" method="post" style="display:inline!important;">
-			<input type="hidden" name="infoups" value="infoups"/>
-			<button class="btn btn-xs btn-info">Info</button>
-		</form>
-
-		<form action="" method="post" style="display:inline!important;">
-			<input type="hidden" name="resetups" value="resetups" />
-			<button class="btn btn-xs btn-info">Reset</button>
-		</form>
--->
-			
 		</td>
 		<tr>
 		<tr>

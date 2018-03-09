@@ -9,7 +9,7 @@ if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 	
 } else { 
 
-	$rows = $db->query("SELECT * FROM sensors WHERE ch_group!='none' AND logon =='on' AND (type='gas' OR type='elec' OR type='water')");
+	$rows = $db->query("SELECT * FROM sensors WHERE ch_group!='none' AND logon ='on' AND (type='gas' OR type='elec' OR type='water')");
 	
 	}
 	
