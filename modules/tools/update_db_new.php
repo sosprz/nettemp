@@ -102,7 +102,6 @@ $updates['2018-03-09 10:29:46'][]="CREATE TABLE virtual (id INTEGER PRIMARY KEY,
 $updates['2018-03-09 10:40:04'][]="INSERT INTO virtual  ('name', 'rom', 'type', 'device', 'description') VALUES ('Air_quality', 'Airly', 'airquality', 'virtual','For api settings please visit https://airly.eu/pl/')";
 $updates['2018-03-09 10:40:04'][]="INSERT INTO virtual  ('name', 'rom', 'type', 'device', 'description') VALUES ('Air_quality_PM2.5', 'Airly25', 'air_pm_25', 'virtual','For api settings please visit https://airly.eu/pl/')";
 $updates['2018-03-09 10:40:04'][]="INSERT INTO virtual  ('name', 'rom', 'type', 'device', 'description') VALUES ('Air_quality_PM10', 'Airly10', 'air_pm_10', 'virtual','For api settings please visit https://airly.eu/pl/')";
-$updates['2018-03-09 12:01:50'][]="ALTER TABLE virtual ADD description  TEXT";
 
 $updates['2018-03-09 11:00:50'][]="ALTER TABLE sensors ADD latitude  TEXT";
 $updates['2018-03-09 11:00:50'][]="ALTER TABLE sensors ADD longitude  TEXT";
