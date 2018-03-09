@@ -97,7 +97,8 @@ $updates['2018-03-01 11:11:11'][]="UPDATE ownwidget SET name = REPLACE(name,' ',
 $updates['2018-03-05 09:29:00'][]="ALTER TABLE ownwidget ADD refresh TEXT";
 $updates['2018-03-05 09:29:00'][]="UPDATE ownwidget SET refresh='off'";
 //Virtual Sensors
-$updates['2018-03-09 10:29:46'][]="CREATE TABLE virtual (id INTEGER PRIMARY KEY, name TEXT , rom TEXT, type TEXT, device TEXT, lati TEXT, long TEXT, active TEXT)";
+$updates['2018-03-09 10:29:46'][]="CREATE TABLE virtual (id INTEGER PRIMARY KEY, name TEXT , rom TEXT, type TEXT, device TEXT, lati TEXT, long TEXT, active TEXT, description TEXT)";
+
 $updates['2018-03-09 10:40:04'][]="INSERT INTO virtual  ('name', 'rom', 'type', 'device', 'description') VALUES ('Air_quality', 'Airly', 'airquality', 'virtual','For api settings please visit https://airly.eu/pl/')";
 $updates['2018-03-09 10:40:04'][]="INSERT INTO virtual  ('name', 'rom', 'type', 'device', 'description') VALUES ('Air_quality_PM2.5', 'Airly25', 'air_pm_25', 'virtual','For api settings please visit https://airly.eu/pl/')";
 $updates['2018-03-09 10:40:04'][]="INSERT INTO virtual  ('name', 'rom', 'type', 'device', 'description') VALUES ('Air_quality_PM10', 'Airly10', 'air_pm_10', 'virtual','For api settings please visit https://airly.eu/pl/')";
