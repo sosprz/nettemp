@@ -38,6 +38,7 @@ try {
 		} else {
 			echo date("Y-m-d H:i:s")." Connection lost with: ".$name."\n";
 			$local_val='error';
+			$local_type='host';
 			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 
 		}
@@ -69,6 +70,7 @@ try {
 		} else {
 			echo date("Y-m-d H:i:s")." Connection lost with: ".$name."\n";
 			$local_val='error';
+			$local_type='host';
 			db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 
 		}

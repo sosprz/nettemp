@@ -202,8 +202,12 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 			$adj=$row['adj']; 
 			$stat_min=$row['stat_min'];
 			$stat_max=$row['stat_max'];
-			$val=$val+$adj;  
-		}
+			
+			if ($type != 'host'){
+				$val=$val+$adj;  
+			}
+		}	
+		
 		$c = count($row);
 		if ( $c >= "1") {
 			if (is_numeric($val)) {
