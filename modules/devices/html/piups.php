@@ -201,7 +201,7 @@ $row = $rows->fetchAll();
 	<tbody>
 		<tr>
 			<td>
-				<span class="label label-default">Delay ON</span>
+				<span class="label label-default">Delay ON UPS</span>
 			</td>
 			
 			<td>
@@ -220,7 +220,7 @@ $row = $rows->fetchAll();
 
 		<tr>
 			<td>
-				<span class="label label-default">Delay OFF</span>
+				<span class="label label-default">Delay OFF UPS</span>
 			</td>
 			
 			<td>
@@ -239,7 +239,7 @@ $row = $rows->fetchAll();
 
 		<tr>
 			<td>
-				<span class="label label-default">Akku. discharged</span>
+				<span class="label label-default">Battery discharged</span>
 			</td>
 			
 			<td>
@@ -257,7 +257,7 @@ $row = $rows->fetchAll();
 												
 		<tr>
 			<td>
-				<span class="label label-default">Akku. temp</span>
+				<span class="label label-default">Battery temp alarm</span>
 			</td>
 			<td>
 				<span class="label label-success"><?php echo $d4 ?></span>
