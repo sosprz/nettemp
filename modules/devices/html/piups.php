@@ -201,7 +201,7 @@ $row = $rows->fetchAll();
 	<tbody>
 		<tr>
 			<td>
-				<span class="label label-default">Delay ON UPS</span>
+				<span class="label label-default">Delay ON</span>
 			</td>
 			
 			<td>
@@ -220,7 +220,7 @@ $row = $rows->fetchAll();
 
 		<tr>
 			<td>
-				<span class="label label-default">Delay OFF UPS</span>
+				<span class="label label-default">Delay OFF</span>
 			</td>
 			
 			<td>

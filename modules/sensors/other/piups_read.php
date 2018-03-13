@@ -22,9 +22,6 @@ try {
     }
     if($dev=='none'){
     echo $date." No PiUPS USB Device.\n";
-	
-	$content = date('Y M d H:i:s')." -"." No PiUPS device\n";
-	logs($content);
     exit;
     }
     //unset($db);

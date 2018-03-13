@@ -14,8 +14,6 @@ fwrite($f, $content);
 fclose($f); 
 }
 
-
-//$root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 
 // main loop

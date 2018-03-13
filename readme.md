@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.5.8
+
+Add PiUPS settings
+
 4.5.7
 
 Fix host status when host is offline
