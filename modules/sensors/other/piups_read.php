@@ -82,9 +82,9 @@ try {
 //trigger 230v action
 			if (($local_rom == 'UPS_id9') && ($local_val == '1')) {
 				
-					echo "Power 230 off\n";
-					$content = date('Y M d H:i:s')." -"." Power 230 is off\n";
-					logs($content);
+					//echo "Power 230 off\n";
+					//$content = date('Y M d H:i:s')." -"." Power 230 is off\n";
+					//logs($content);
 										
 					if ($count == '1') {
 						
@@ -92,7 +92,7 @@ try {
 							 
 							 echo "--- Malina OFF ---\n"; 
 							 
-							 $content = date('Y M d H:i:s')." -"." Power 230 is off. Rpi shutdown now. \n";
+							 $content = date('Y M d H:i:s')." -"." Power 230V is off. Rpi shutdown now. \n";
 							 logs($content);
 							 
 							 $db->exec("UPDATE nt_settings SET value='0' WHERE option='ups_count'");
@@ -100,7 +100,7 @@ try {
 							 							 
 							 } else {
 									echo "--- Malina ON ---\n"; echo time(); echo " "; echo $tshutdown."\n";  
-									$content = date('Y M d H:i:s')." -"." Power 230 - off. Rpi counts the time to shutdown system.\n";
+									$content = date('Y M d H:i:s')." -"." Power 230V is off. Rpi counts the time to shutdown system.\n";
 									logs($content);
 									}
 						 
@@ -116,7 +116,7 @@ try {
 					 $db->exec("UPDATE nt_settings SET value='$timewhenoff' WHERE option='ups_toff_stop'");
 					 $db->exec("UPDATE nt_settings SET value='1' WHERE option='ups_count'");
 					 
-					$content = date('Y M d H:i:s')." -"." Power 230 is off. Rpi counts the time to shutdown system.\n";
+					$content = date('Y M d H:i:s')." -"." Power 230V is off. Rpi counts the time to shutdown system.\n";
 					logs($content);
 					}
 					
