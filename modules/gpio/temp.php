@@ -231,7 +231,7 @@ foreach ($row as $a) {
 					logs($gpio,$ip,$content);
 					
 					action_off($op,$sensor_name,$gpio,$rev,$rom);
-					$content = date('Y M d H:i:s')." GPIO ".$gpio." Off - na active DayPlan\n";
+					$content = date('Y M d H:i:s')." GPIO ".$gpio." - ".$sensor_name." - ".$rev." - ".$rom." - ".$op." Off - na active DayPlan\n";
 					logs($gpio,$ip,$content);
 					
 					$CHECK_OVER='tak';
