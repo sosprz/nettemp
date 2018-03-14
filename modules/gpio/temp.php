@@ -233,7 +233,7 @@ foreach ($row as $a) {
 					$db->exec("UPDATE g_func SET active='off' WHERE gpio='$gpio' AND id='$f_id'  ");
 					logs($gpio,$ip,$content);
 					
-					action_off($op,$sensor_name,$gpio,$rev,$rom);
+					action_off($op,$sensor_name,$gpio,$rev,$ip,$rom);
 					$content = date('Y M d H:i:s')." GPIO ".$gpio." - ".$sensor_name." - ".$rev." - ".$rom." - ".$op." Off - na active DayPlan\n";
 					logs($gpio,$ip,$content);
 					
@@ -290,7 +290,7 @@ foreach ($row as $a) {
 			}
 			
 			if($sensor_tmp=='error') {
-				action_off($op,$sensor_name,$gpio,$rev,$rom);
+				action_off($op,$sensor_name,$gpio,$rev,$ip,$rom);
 				$content = date('Y M d H:i:s')." GPIO ".$gpio." sensor ".$sensor_name." ERROR, GOING OFF\n";
 				logs($gpio,$ip,$content);
 				$content = date('Y M d H:i:s')." GPIO ".$gpio." ".$mode.", ".$sensor_name." ".$sensor_tmp.", ".$op.", ".$sensor2_name." Start:".$value.", Hyst:".$hyst.", End:".$value_max.", Action:".$onoff.", Profile:".$w_profile."\n";
