@@ -1,3 +1,5 @@
 #!/bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
+
+php-cgi -f $dir/modules/sensors/virtual.php
