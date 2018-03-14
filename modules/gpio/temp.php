@@ -130,6 +130,9 @@ function action_off($op,$sensor_name,$gpio,$rev,$ip,$rom) {
 	global $db;
 	global $ROOT;
 	
+	$content = date('Y M d H:i:s')." Mam ".$op.$sensor_name.$gpio.$rev.$ip.$rom."\n";
+				logs($gpio,$ip,$content);
+	
 	if(empty($ip)){
 		$out="/usr/local/bin/gpio -g mode $gpio output";
 		$read="/usr/local/bin/gpio -g read $gpio";
