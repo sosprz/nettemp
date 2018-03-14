@@ -130,9 +130,6 @@ function action_off($op,$sensor_name,$gpio,$rev,$ip,$rom) {
 	global $db;
 	global $ROOT;
 	
-	$content = date('Y M d H:i:s')." Mam ".$op.$sensor_name.$gpio.$rev.$ip.$rom."\n";
-				logs($gpio,$ip,$content);
-	
 	if(empty($ip)){
 		$out="/usr/local/bin/gpio -g mode $gpio output";
 		$read="/usr/local/bin/gpio -g read $gpio";
@@ -232,11 +229,7 @@ foreach ($row as $a) {
 					$content = date('Y M d H:i:s')." GPIO ".$gpio." Function ".$f_id." with profile ".$w_profile." not in range.\n";
 					$db->exec("UPDATE g_func SET active='off' WHERE gpio='$gpio' AND id='$f_id'  ");
 					logs($gpio,$ip,$content);
-					
 					action_off($op,$sensor_name,$gpio,$rev,$ip,$rom);
-					$content = date('Y M d H:i:s')." GPIO ".$gpio." - ".$sensor_name." - ".$rev." - ".$rom." - ".$op." Off - na active DayPlan\n";
-					logs($gpio,$ip,$content);
-					
 					$CHECK_OVER='tak';
 					continue;
 				} 
