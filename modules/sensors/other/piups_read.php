@@ -56,8 +56,8 @@ try {
     $out=shell_exec($cmd);
     $out=trim($out);
     $data=explode(" ",$out);
-    var_dump($out);
-    var_dump($data);
+    //var_dump($out);
+    //var_dump($data);
 
     $types=array('volt','volt','volt','amps','watt','temp','battery','trigger','trigger','trigger','trigger');
     $echoes=array('UPS Volt IN','UPS Volt Akku','UPS Volt OUT','UPS Amps','UPS Watt','UPS Temp','UPS Battery','UPS Power Trigger','UPS Volt Trigger','UPS Akku Trigger','UPS Temp Trigger');
@@ -82,9 +82,9 @@ try {
 //trigger 230v action
 			if (($local_rom == 'UPS_id9') && ($local_val == '1')) {
 				
-					//echo "Power 230 off\n";
-					//$content = date('Y M d H:i:s')." -"." Power 230 is off\n";
-					//logs($content);
+					echo "Power 230 off\n";
+					$content = date('Y M d H:i:s')." -"." Power 230 is off\n";
+					logs($content);
 										
 					if ($count == '1') {
 						
@@ -92,10 +92,12 @@ try {
 							 
 							 echo "--- Malina OFF ---\n"; 
 							 
+							 $db->exec("UPDATE nt_settings SET value='0' WHERE option='ups_count'");
+							 
 							 $content = date('Y M d H:i:s')." -"." Power 230V is off. Rpi shutdown now. \n";
 							 logs($content);
 							 
-							 $db->exec("UPDATE nt_settings SET value='0' WHERE option='ups_count'");
+							 
 							 system ("sudo /sbin/shutdown -h now");
 							 							 
 							 } else {
@@ -120,7 +122,17 @@ try {
 					logs($content);
 					}
 					
-				} elseif (($local_rom == 'UPS_id9') && ($local_val == '0')) {echo "Power 230 on\n";} 
+				} elseif (($local_rom == 'UPS_id9') && ($local_val == '0')) {
+					
+						echo "Power 230 on\n";
+						if ($count == '1') {
+							
+							$db->exec("UPDATE nt_settings SET value='0' WHERE option='ups_count'");
+							
+						}
+					
+					
+					} 
 				
 //trigger Battery discharged action
 
