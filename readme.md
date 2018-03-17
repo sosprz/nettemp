@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.5.9
+
+Sms, mail for triggers
+
 4.5.8
 
 Add PiUPS settings
