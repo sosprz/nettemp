@@ -91,6 +91,15 @@ $local_ip='';
 $local_gpio='';
 $local_usb='';
 
+function logsr($content){
+global $ROOT;
+
+	$f = fopen("tmp/incoming_sms.txt", "a");
+
+fwrite($f, $content);
+fclose($f); 
+}
+
 
 $dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
 
@@ -143,28 +152,105 @@ function scale($val,$type) {
     //$dbr=null;
 }
 
-function trigger($rom) {
+function trigger($rom, $val) {
 	$dbr = new PDO("sqlite:".__DIR__."/dbf/nettemp.db") or die ("cannot open database");
-    $sthr = $dbr->query("SELECT mail FROM users WHERE maila='yes'");
+    $sthr = $dbr->query("SELECT mail, tel FROM users WHERE maila='yes' OR smsa='yes'");
     $row = $sthr->fetchAll();
     foreach($row as $row) {
-		$to[]=$row['mail'];   
+		$mailto[]=$row['mail'];   
+		$smsto[]=$row['tel'];
     }
    
-    $sthr = $dbr->query("SELECT name FROM sensors WHERE rom='$rom'");
+    $sthr = $dbr->query("SELECT name, tmp, ssms, smail, script, script1 FROM sensors WHERE rom='$rom'");
     $row = $sthr->fetchAll();
     foreach($row as $row) {
-		$name=$row['name'];   
+		$name = $row['name'];   
+		$oldval = $row['tmp'];
+		$sms = $row['ssms'];
+		$mail = $row['smail'];
+		$pscript = $row['script'];
+		$pscript1 = $row['script1'];
+		
     }
-   
-    $to = implode(', ', $to);
-    if(mail($to, $mail_topic, "Trigger ALARM $name" )) {
-		echo "ok\n";
-    } else {
-		echo "error\n";
-    }
-    //$sthr=null;
-    //$dbr=null;
+	
+	$mailto = implode(', ', $mailto);
+	
+	// from 0 to 1
+	if ($val > $oldval) {
+				
+		if ($sms == 'on') {
+			
+			for ($x = 0, $cnt = count($smsto); $x < $cnt; $x++){
+			$random=substr(rand(), 0, 4);
+			$date = date('H:i:s');
+			$msg = $date." - ".$name." - ALARM";
+			$sms = "To: ".$smsto[$x]."\n\n".$msg;
+			$filepath = "tmp/sms/message_".$date."_".$random.".sms";
+			$fsms = fopen($filepath, 'a+');
+			fwrite($fsms, $sms);
+			fclose($fsms);
+			$ftosend = "/var/spool/sms/outgoing/message_".$date."_".$random.".sms";
+			
+			if (!copy($filepath, $ftosend)) {
+			echo "Send failed.\n";
+			} else {
+				echo "Send OK.\n";
+			}
+			unlink($filepath);
+				
+			$content = $date." - ".$name." - !!! ALARM !!!\n";
+			logsr($content);
+			}
+
+		}
+		if ($mail == 'on') {
+			$topic = "Trigger ALARM info from nettemp";
+			mail($mailto, $topic, "Trigger: $name *** ALARM ***" );
+			
+			}
+		if (!empty($pscript)) {
+			
+			echo "";
+		}
+		
+		
+	// from 1 to 0	
+	}elseif ($val < $oldval) {
+		
+		if ($sms == 'on') {
+			
+			for ($x = 0, $cnt = count($smsto); $x < $cnt; $x++){
+			$random=substr(rand(), 0, 4);
+			$date = date('H:i:s');
+			$msg = $date." - ".$name." - RECOVERY";
+			$sms = "To: ".$smsto[$x]."\n\n".$msg;
+			$filepath = "tmp/sms/message_".$date."_".$random.".sms";
+			$fsms = fopen($filepath, 'a+');
+			fwrite($fsms, $sms);
+			fclose($fsms);
+			$ftosend = "/var/spool/sms/outgoing/message_".$date."_".$random.".sms";
+	
+			if (!copy($filepath, $ftosend)) {
+			echo "Send failed.\n";
+			} else {
+				echo "Send OK.\n";
+			}
+			unlink($filepath);
+			$content = $date." - ".$name." - *** RECOVERY ***\n";
+			logsr($content);
+			}
+		}
+		if ($mail == 'on') {
+			$topic = "Trigger RECOVERY info from nettemp";
+			mail($mailto, $topic, "Trigger: $name *** Recovery ***" );
+			
+			}
+		if (!empty($pscript1)) {
+			
+			echo "";
+		}
+		
+	}
 
 }
 
@@ -247,8 +333,11 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 					}
 		
 					if ($type == 'trigger') {
+						
+						trigger($rom,$val);
+						
 						$dbr->exec("UPDATE sensors SET tmp='$val' WHERE rom='$rom'") or die ("cannot insert to trigger status2\n");
-						trigger($rom);
+						
 					}
 					//sensors status
 					else {
