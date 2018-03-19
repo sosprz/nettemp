@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.6.0
+
+Scripts for triggers
+
 4.5.9
 
 Sms, mail for triggers
