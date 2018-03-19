@@ -160,7 +160,6 @@ function trigger($rom, $val) {
 		$mailto[]=$row['mail'];   
 		$smsto[]=$row['tel'];
     }
-   
     $sthr = $dbr->query("SELECT name, tmp, ssms, smail, script, script1 FROM sensors WHERE rom='$rom'");
     $row = $sthr->fetchAll();
     foreach($row as $row) {
@@ -170,9 +169,7 @@ function trigger($rom, $val) {
 		$mail = $row['smail'];
 		$pscript = $row['script'];
 		$pscript1 = $row['script1'];
-		
     }
-	
 	$mailto = implode(', ', $mailto);
 	
 	// from 0 to 1
@@ -201,7 +198,6 @@ function trigger($rom, $val) {
 			$content = $date." - ".$name." - !!! ALARM !!!\n";
 			logsr($content);
 			}
-
 		}
 		if ($mail == 'on') {
 			$topic = "Trigger ALARM info from nettemp";
@@ -210,10 +206,8 @@ function trigger($rom, $val) {
 			}
 		if (!empty($pscript)) {
 			
-			echo "";
-		}
-		
-		
+			include("scripts/$pscript");
+		}	
 	// from 1 to 0	
 	}elseif ($val < $oldval) {
 		
@@ -247,11 +241,9 @@ function trigger($rom, $val) {
 			}
 		if (!empty($pscript1)) {
 			
-			echo "";
+			include("scripts/$pscript1");
 		}
-		
 	}
-
 }
 
 function check($val,$type) {

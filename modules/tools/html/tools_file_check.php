@@ -5,6 +5,7 @@ $katalogw[] = 'dbf';
 $katalogw[] = 'modules';
 $katalogw[] = 'media';
 $katalogw[] = 'tmp';
+$katalogw[] = 'scripts';
 
 foreach($katalogw as $katalogw) {
     if (!file_exists($katalogw)) { 

@@ -1,4 +1,7 @@
 <?php
+
+$ROOT=dirname(dirname(dirname(__FILE__)));
+
 $trigzero = isset($_POST['trigzero']) ? $_POST['trigzero'] : '';
 $trigone = isset($_POST['trigone']) ? $_POST['trigone'] : '';
 $trigrom = isset($_POST['trigrom']) ? $_POST['trigrom'] : '';
@@ -88,6 +91,7 @@ $labels = array('label-default', 'label-primary', 'label-success', 'label-info',
 <th>Mail</th>
 <th>Script 0->1</th>
 <th>Script 1->0</th>
+<th>Info</th>
 <?php
 foreach($rowtr as $tr) { ?>
 <tr>
@@ -164,6 +168,7 @@ foreach($rowtr as $tr) { ?>
 
 </td>
 <td class="col-md-1">
+Put the script file in var/www/nettemp/scripts/
 </td>
 
 </tr>
