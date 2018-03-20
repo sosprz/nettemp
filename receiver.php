@@ -207,7 +207,7 @@ function trigger($rom, $val) {
 		if (!empty($pscript)) {
 			
 			//include("scripts/$pscript");
-			shell_exec("scripts/$pscript");
+			shell_exec(__DIR__."/scripts/$pscript");
 		}	
 	// from 1 to 0	
 	}elseif ($val < $oldval) {
@@ -243,7 +243,7 @@ function trigger($rom, $val) {
 		if (!empty($pscript1)) {
 			
 			//include("scripts/$pscript1");
-			shell_exec("scripts/$pscript1");
+			shell_exec(__DIR__."/scripts/$pscript1");
 		}
 	}
 }
