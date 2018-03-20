@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.6.1
+
+Mail for read sensors error
+
 4.6.0
 
 Scripts for triggers

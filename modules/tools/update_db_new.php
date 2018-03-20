@@ -114,4 +114,6 @@ $updates['2018-03-15 08:48:41'][]="ALTER TABLE sensors ADD script  TEXT";
 $updates['2018-03-15 15:49:42'][]="ALTER TABLE sensors ADD script1  TEXT";
 $updates['2018-03-15 09:17:10'][]="UPDATE sensors SET ssms='off'";
 $updates['2018-03-15 09:17:10'][]="UPDATE sensors SET smail='off'";
+
+$updates['2018-03-19 12:42:40'][]="ALTER TABLE sensors ADD readerrsend TEXT";
 ?>

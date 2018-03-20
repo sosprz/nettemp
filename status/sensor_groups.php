@@ -84,7 +84,7 @@ foreach ($row_meteo as $a) {
 		if($a['tmp'] < $a['tmp_5ago']) { $updo='<span class="label label-info" title="5 min stats '.$a['tmp_5ago'].' '.$unit.'"><span class="glyphicon glyphicon-arrow-down"></span></span>';}
 		
 		if($a['stat_min']) { $stat_min='<span class="label label-info" title="Lowest value from sensor '.$unit.'">'.$a['stat_min'].'</span>';}
-		if($a['stat_max']) { $stat_max='<span class="label label-warning" title="Greatest value form sensor '.$unit.'">'.$a['stat_max'].'</span>';}
+		if($a['stat_max']) { $stat_max='<span class="label label-warning" title="Greatest value from sensor '.$unit.'">'.$a['stat_max'].'</span>';}
 		
 
 		
@@ -100,7 +100,7 @@ foreach ($row_meteo as $a) {
 		    if($a['type'] == 'temp'){ $type='<img src="media/ico/temp_low.png" alt=""/>';}
 		    $label='danger';
 		}
-		if(!empty($a['mail'])) {$mail='<img src="media/ico/message-icon.png" alt="" title="Message was send!"/>';}
+		if(!empty($a['mail']) || !empty($a['readerrsend']) ) {$mail='<img src="media/ico/message-icon.png" alt="" title="Message was send!"/>';}
 ?>
 
 		    <tr>

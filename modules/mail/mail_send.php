@@ -185,7 +185,58 @@ try {
 		}
 		
 	
-	}//for
+	}
+	
+	
+	 //READ ERR
+    $query = $db->query("SELECT rom,name,time,readerrsend,readerr FROM sensors WHERE readerralarm='on' AND type!='host'");
+    $result= $query->fetchAll();
+    foreach($result as $s) {
+		$rom=$s['rom'];
+		$name=$s['name'];
+		$readerrsend=$s['readerrsend'];
+		$time=$s['time'];
+		$readerr=$s['readerr'];
+		
+		if(strtotime($time)<(time()-($readerr*60)) && !empty($readerr)) {
+		if(($readerrsend!='sent')||($minute=='00')){
+		    echo $date." Sending to: ".$string."\n";
+		    
+			if ( mail ($addr, $mail_topic, message($name,"---",$date,"Read sensor error","#FF0000"), $headers ) ) {
+				echo $date." Read error in: ".$name." - Mail send OK\n";
+			} else {
+				echo $date." Read error in: ".$name." - Mail send problem\n";
+			}
+			$db->exec("UPDATE sensors SET readerrsend='sent' WHERE rom='$rom'");
+		} else {
+			echo $date." Wait to full hour: ".$name."\n";
+		}
+		
+		}
+	}
+	
+	//READ ERR RECOVERY
+	$query = $db->query("SELECT rom,name,time,readerrsend,readerr FROM sensors WHERE readerralarm='on' AND readerrsend='sent'");
+    $result= $query->fetchAll();
+    foreach($result as $s) {
+		$rom=$s['rom'];
+		$name=$s['name'];
+		$readerrsend=$s['readerrsend'];
+		$time=$s['time'];
+		$readerr=$s['readerr'];
+		
+		if($readerrsend == 'sent' && strtotime($time)>(time()- 60) && !empty($readerr)){
+		    echo $date." Sending to: ".$string."\n";
+			if ( mail ($addr, $mail_topic, message($name,"---",$date,"Read sensor recovery","#00FF00"), $headers ) ) {
+				echo $date." ".$name." Read recovery - Mail send OK\n";
+				$db->exec("UPDATE sensors SET readerrsend='' WHERE rom='$rom'");
+			} else {
+				echo $date." ".$name." Read recovery - Mail send problem\n";
+			}
+			
+		} 
+	}
+	
 	
 	//REMOVE if ALARM OFF
 	// unlink in modules/sensors/html/sensor_settings.php

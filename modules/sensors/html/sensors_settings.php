@@ -176,6 +176,7 @@ if ( $lcd == "lcd"){
     } 
     elseif (empty($readerralarm) && ($readsonoff == "readsonoff")){
     $db->exec("UPDATE sensors SET readerralarm='off' WHERE rom='$rom'") or die ($db->lastErrorMsg());
+	$db->exec("UPDATE sensors SET readerrsend='' WHERE rom='$rom'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
