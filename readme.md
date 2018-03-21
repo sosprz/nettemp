@@ -61,7 +61,7 @@ Changelog:
 
 4.6.2
 
-Edit users settings
+Edit user settings
 
 4.6.1
 
