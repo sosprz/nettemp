@@ -65,8 +65,6 @@ $updates['2018-02-08 19:49:20'][]="UPDATE sensors SET readerr='60'";
 //Update nt_settings UPS NT
 $updates['2018-02-12 13:04:11'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_delay_on','60')";
 $updates['2018-02-12 13:04:11'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_delay_off','60')";
-//$updates['2018-02-12 13:04:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_akku_charge_start','3.9')";//usun
-//$updates['2018-02-12 13:04:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_akku_charge_stop','4.1')";//usun
 $updates['2018-02-12 13:04:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_akku_discharged','3.3')";
 $updates['2018-02-12 13:04:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_lcd_scroll','2')";
 $updates['2018-02-12 13:04:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_lcd_backlight','yes')";
@@ -116,4 +114,5 @@ $updates['2018-03-15 09:17:10'][]="UPDATE sensors SET ssms='off'";
 $updates['2018-03-15 09:17:10'][]="UPDATE sensors SET smail='off'";
 
 $updates['2018-03-19 12:42:40'][]="ALTER TABLE sensors ADD readerrsend TEXT";
+$updates['2018-03-21 13:05:08'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_language','1')";
 ?>

@@ -125,11 +125,8 @@ foreach ($result as $a) {
 	if($a['option']=='ups_delay_off') {
        	$nts_ups_delay_off=$a['value'];
     }
-	if($a['option']=='ups_akku_charge_start') {
-       	$nts_ups_akku_charge_start=$a['value'];
-    }
-	if($a['option']=='ups_akku_charge_stop') {
-       	$nts_ups_akku_charge_stop=$a['value'];
+	if($a['option']=='ups_language') {
+       	$nts_ups_language=$a['value'];
     }
 	if($a['option']=='ups_akku_discharged') {
        	$nts_ups_akku_discharged=$a['value'];

@@ -38,6 +38,8 @@ $upsscroll = isset($_POST['upsscroll']) ? $_POST['upsscroll'] : '';
 $upsbacklight = isset($_POST['upsbacklight']) ? $_POST['upsbacklight'] : '';
 $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 $upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
+$language = isset($_POST['language']) ? $_POST['language'] : '';
+
 
 
 
@@ -50,9 +52,10 @@ $upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upsscroll' WHERE option='ups_lcd_scroll'");
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	$db->exec("UPDATE nt_settings SET value='$upstimeoff' WHERE option='ups_time_off'");
+	$db->exec("UPDATE nt_settings SET value='$language' WHERE option='ups_language'");
 	
 // write to PiUPS
-	$arr = array('U',$upsdelayon,$upsdelayoff,$upsakkudischarged,$upsakkutemp,$upsscroll,$upsbacklight);
+	$arr = array('U',$upsdelayon,$upsdelayoff,$upsakkudischarged,$upsakkutemp,$upsscroll,$upsbacklight,$language);
     $values=implode(" ",$arr);
 	$fp = fopen($dev,'r+');
 	fwrite($fp, "$values\r");
@@ -79,7 +82,8 @@ $out=shell_exec($cmd);
 		$d3=$data[2];
 		$d4=$data[3];
 		$d5=$data[4];
-		$d6=$data[5];         
+		$d6=$data[5];   
+		$d7=$data[6];			
    }
 
 }
@@ -302,6 +306,25 @@ $row = $rows->fetchAll();
 				<select class="selectpicker" data-width="50px" name="upsbacklight" class="form-control input-sm">
 				<option value="1" <?php echo $nts_ups_lcd_backlight == '1' ? 'selected="selected"' : ''; ?> >Yes</option>
 				<option value="0" <?php echo $nts_ups_lcd_backlight == '0'? 'selected="selected"' : ''; ?> >No</option>
+				</select>
+			</td>
+			
+			<td>
+				<span class="label label-default">Language</span>
+			</td>
+
+			
+			<td>
+				<span class="label label-success"><?php if ($d7 == '1') { echo 'PL';} elseif ($d7 == '2') { echo 'EN';}elseif ($d7 == '3') { echo 'DE';}?></span>
+			</td>
+			
+			
+			
+			<td>
+				<select class="selectpicker" data-width="50px" name="language" class="form-control input-sm">
+				<option value="1" <?php echo $nts_ups_language == '1' ? 'selected="selected"' : ''; ?> >PL</option>
+				<option value="2" <?php echo $nts_ups_language == '2'? 'selected="selected"' : ''; ?> >EN</option>
+				<option value="3" <?php echo $nts_ups_language == '3'? 'selected="selected"' : ''; ?> >DE</option>
 				</select>
 			</td>
 			
