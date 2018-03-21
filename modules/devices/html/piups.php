@@ -308,6 +308,8 @@ $row = $rows->fetchAll();
 				<option value="0" <?php echo $nts_ups_lcd_backlight == '0'? 'selected="selected"' : ''; ?> >No</option>
 				</select>
 			</td>
+		</tr>
+		<tr>
 			
 			<td>
 				<span class="label label-default">Language</span>
