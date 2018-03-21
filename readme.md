@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.6.2
+
+Edit user settings
+
 4.6.1
 
 Mail for read sensors error

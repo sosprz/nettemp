@@ -2,7 +2,7 @@
 <?php $art = (!isset($art) || $art == '') ? 'update' : $art; ?>
 <p>
 <a href="index.php?id=tools&type=file_check" ><button class="btn btn-xs btn-default <?php echo $art == 'file_check' ? 'active' : ''; ?>">File check</button></a>
-<a href="index.php?id=tools&type=password" ><button class="btn btn-xs btn-default <?php echo $art == 'password' ? 'active' : ''; ?>">Password</button></a>
+<!-- <a href="index.php?id=tools&type=password" ><button class="btn btn-xs btn-default <?php echo $art == 'password' ? 'active' : ''; ?>">Password</button></a>  -->
 <a href="index.php?id=tools&type=update" ><button class="btn btn-xs btn-default <?php echo $art == 'update' ? 'active' : ''; ?>">Update</button></a>
 <a href="index.php?id=tools&type=ticket" ><button class="btn btn-xs btn-default <?php echo $art == 'ticket' ? 'active' : ''; ?>">Ticket</button></a>
 <a href="index.php?id=tools&type=reset" ><button class="btn btn-xs btn-default <?php echo $art == 'reset' ? 'active' : ''; ?>">Reset to default</button></a>
@@ -26,7 +26,7 @@ switch ($art)
 { 
 default: case '$art': include('modules/tools/html/tools_update.php'); break;
 case 'file_check': include('modules/tools/html/tools_perms.php'); break;
-case 'password': include('modules/tools/html/tools_change_pass.php'); break;
+//case 'password': include('modules/tools/html/tools_change_pass.php'); break;
 case 'update': include('modules/tools/html/tools_update.php'); break;
 case 'reset': include('modules/tools/html/tools_reset.php'); break;
 case 'reboot': include('modules/tools/html/tools_reboot.php'); break;
