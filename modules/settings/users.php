@@ -229,9 +229,9 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	<form action="" method="post">
 	<td><input type="text" name="login" size="10" maxlength="30" value="" class="form-control" required=""/></td>
 	<td><input type="password" name="pass" value="" class="form-control" required=""/></td>
-	<td><input type="email" name="mail" size="25" maxlength="50" value="" class="form-control" required=""/></td>
-	<td><input type="text" name="tel" value="" class="form-control" required=""/></td>
-	<td><input type="text" name="smspin" value="" class="form-control" required=""/></td>
+	<td><input type="email" name="mail" size="25" maxlength="50" value="" class="form-control" /></td>
+	<td><input type="text" name="tel" value="" class="form-control" /></td>
+	<td><input type="text" name="smspin" value="" class="form-control" /></td>
 	<input type="hidden" name="add1" value="add2" />
 	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
 	</form>
