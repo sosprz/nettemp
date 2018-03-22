@@ -11,11 +11,13 @@ $update=isset($_POST['update']) ? $_POST['update'] : '';
 
 if ($update == "UPDATE") {
 	
+	system ("sudo service cron stop && sleep 5");
+	
 	$nts_server_key_upd = $nts_server_key."_update";
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
 	$db->exec("UPDATE nt_settings SET value='$nts_server_key_upd' WHERE option='server_key' ");
 	
-	system ("sudo service cron stop && sleep 5");
+	
 	
     echo '<pre>';
     $file = $ROOT."/dbf/nettemp.db";
