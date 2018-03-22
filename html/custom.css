@@ -75,6 +75,28 @@ padding: 0px 15px;
 	padding: 5px;
 }
 
+.hidearrow
+{
+display:inline-block;
+padding:1px 1px;
+margin-bottom:0;
+font-size:14px;
+font-weight:400;
+line-height:1.42857143;
+text-align:center;
+white-space:nowrap;
+vertical-align:middle;
+cursor:pointer;
+-webkit-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
+user-select:none;
+background-image:none;
+border:0px solid transparent;
+background-color: transparent;
+border-radius:0px}
+
+
 /* on map default white color is invisible on white background */
 input[name='time_offset']
 {

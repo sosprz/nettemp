@@ -8,8 +8,30 @@ if (isset($_GET['ch_g'])) {
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 
+//hide
+	$hidegroup = isset($_POST['hidegroup']) ? $_POST['hidegroup'] : '';
+	$hideg = isset($_POST['hideg']) ? $_POST['hideg'] : '';
+	$hidegstate = isset($_POST['hidegstate']) ? $_POST['hidegstate'] : '';
+	
+	if (!empty($hidegroup) && $hidegroup == 'hidegroup'){
+		if ($hidegstate == 'on') {$hidegstate = 'off';
+		}elseif ($hidegstate == 'off') {$hidegstate = 'on';}
+		
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db->exec("UPDATE sensors SET ghide='$hidegstate' WHERE ch_group='$hideg'") or die ($db->lastErrorMsg());
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+	 }
+
+
 $query = $db->query("SELECT * FROM types");
 $result_t = $query->fetchAll();
+
+$hide = $db->query("SELECT ghide FROM sensors WHERE ch_group='$ch_g' LIMIT 1");
+$hide_res = $hide->fetchAll();
+foreach ($hide_res as $h) {
+    $hide=$h['ghide'];
+}
 
 $rows_meteo = $db->query("SELECT normalized,pressure FROM meteo WHERE id='1'");
 $row_meteo = $rows_meteo->fetchAll();
@@ -35,10 +57,39 @@ foreach ($row_meteo as $a) {
     ?>
     <div class="grid-item sg<?php echo $ch_g ?>">
 	<div class="panel panel-default">
-	<div class="panel-heading"><?php echo $gname; ?></div>
+	<div class="panel-heading">
+	
+	
+		<div class="pull-left"><?php echo $gname;?></div>
+		<div class="pull-right">
+		<div class="text-right">
+			 <form action="" method="post" style="display:inline!important;">
+					<input type="hidden" name="hideg" value="<?php echo $ch_g; ?>" />
+					<input type="hidden" name="hidegstate" value="<?php echo $hide; ?>" />
+					<input type="hidden" name="hidegroup" value="hidegroup"/>
+					<?php
+					if($hide =='off'){ ?>
+					<button class="hidearrow"><span class="glyphicon glyphicon-triangle-top"></span> </button>
+					<?php } elseif($hide =='on'){?>
+					<button class="hidearrow"><span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+					<?php } ?>
+				</form>	
+		</div>
+  
+  
+  </div>
+  
+  <div class="clearfix"></div>
+	
+	
+	
+	
+	</div>
     <table class="table table-hover table-condensed">
     <tbody>
 <?php
+
+if ($hide == 'off') {
     foreach ($result as $a) {
 	$name1=$a['name'];
 	$name = str_replace("_", " ", $name1);
@@ -53,19 +104,7 @@ foreach ($row_meteo as $a) {
 	$stat_min='';
 	$stat_max='';
 
-	/*
-		if($a['device'] == 'wireless'){ $device='<img src="media/ico/wifi-circle-icon.png" alt="" title="'.$a['ip'].'"/>';}
-		elseif($a['device'] == 'remote'||$a['device'] == 'ip'){ $device='<img src="media/ico/remote.png" alt="" title="'.$a['ip'].'"/>';}
-		elseif($a['device'] == 'usb'){ $device='<img src="media/ico/usb-icon.png" alt="" title="USB"/>';}
-		elseif($a['device'] == 'rpi'){ $device='<img src="media/ico/raspberry-icon.png" alt="" title="Raspberry Pi"/>';}
-		elseif($a['device'] == 'banana'){ $device='<img src="media/ico/banana-icon.png" alt="" title="Banana Pi"/>';}
-		elseif($a['device'] == 'gpio'){ $device='<img src="media/ico/gpio2.png" alt="" title="GPIO"/>';}
-		elseif($a['device'] == 'i2c'||$a['device'] == 'lmsensors'){ $device='<img src="media/ico/i2c_1.png" alt="" title="I2C"/>';}
-		elseif($a['device'] == 'snmp'){ $device='<img src="media/ico/snmp-icon.png" alt="" title=SNMP"/>';}
-		elseif($a['device'] == '1wire'||$a['device'] == 'owfs'){ $device='<img src="media/ico/1wire.png" alt="" title="1wire"/>';}
-	*/
-		
-		
+	
 		foreach($result_t as $ty){
        	if($ty['type']==$a['type']){
      			if($nts_temp_scale == 'F'){
@@ -119,8 +158,6 @@ foreach ($row_meteo as $a) {
 			<td>
 			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=<?php echo $_SESSION['nts_charts_max']; ?>&single=<?php echo $a['name']?>" title="Go to charts, last update: <?php echo $a['time']?>"
 				<?php 
-				
-				
 					if ($a['type']=='trigger' && $a['tmp'] == '1.0') {
 						if (strtotime($a['time'])<(time()-($a['readerr']*60)) && !empty($a['readerr'])){
 							echo 'class="label label-warning"';
@@ -239,6 +276,7 @@ foreach ($row_meteo as $a) {
     unset($stat_min);
     unset($stat_max);
      } 
+}
 ?>
     </tbody>
     </table> 

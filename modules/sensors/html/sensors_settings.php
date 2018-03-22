@@ -299,6 +299,7 @@ if ( $lcd == "lcd"){
 	$name = str_replace(' ', '_', $addch_groupon);
     $db->exec("UPDATE sensors SET ch_group='$name' WHERE id='$addch_group'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE sensors SET position_group='$position_group' WHERE ch_group='$name'") or die ($db->lastErrorMsg());
+	$db->exec("UPDATE sensors SET ghide='off' WHERE ch_group='$name'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
