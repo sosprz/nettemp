@@ -11,16 +11,12 @@ $update=isset($_POST['update']) ? $_POST['update'] : '';
 
 if ($update == "UPDATE") {
 	
-	system ("sudo service cron stop && sleep 10");
+	shell_exec("sudo service cron stop && sleep 5");
 	
 	$nts_server_key_upd = $nts_server_key."_update";
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
 	$db->exec("UPDATE nt_settings SET value='$nts_server_key_upd' WHERE option='server_key' ");
-	
-	system ("sleep 2");
-	
-	
-	
+		
     echo '<pre>';
     $file = $ROOT."/dbf/nettemp.db";
     $newfile = $ROOT."/dbf/nettemp.db.".date('Y-m-d_His').'.'.substr(rand(), 0, 4);
@@ -44,9 +40,8 @@ if ($update == "UPDATE") {
 	$serverkey = substr($nts_server_key_upd, 0, -7);
 	$db->exec("UPDATE nt_settings SET value='$serverkey' WHERE option='server_key' ");
 	
-	system ("sleep 2");
 	
-	system ("sudo service cron start && sleep 2");
+	shell_exec("sudo service cron start");
 
 }
 
