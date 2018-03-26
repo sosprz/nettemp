@@ -13,9 +13,9 @@ if ($update == "UPDATE") {
 	
 	shell_exec("sudo service cron stop && sleep 5");
 	
-	//$nts_server_key_upd = $nts_server_key."_update";
-	//$db = new PDO("sqlite:$root/dbf/nettemp.db");
-	//$db->exec("UPDATE nt_settings SET value='$nts_server_key_upd' WHERE option='server_key' ");
+	$nts_server_key_upd = $nts_server_key."_update";
+	$db = new PDO("sqlite:$root/dbf/nettemp.db");
+	$db->exec("UPDATE nt_settings SET value='$nts_server_key_upd' WHERE option='server_key' ");
 		
     echo '<pre>';
     $file = $ROOT."/dbf/nettemp.db";
@@ -37,11 +37,11 @@ if ($update == "UPDATE") {
 
     echo '</pre>';
 
-	//$serverkey = substr($nts_server_key_upd, 0, -7);
-	//$db->exec("UPDATE nt_settings SET value='$serverkey' WHERE option='server_key' ");
+	$serverkey = substr($nts_server_key_upd, 0, -7);
+	$db->exec("UPDATE nt_settings SET value='$serverkey' WHERE option='server_key' ");
 	
 	
-	shell_exec("sudo service cron start");
+	
 
 }
 
@@ -52,8 +52,8 @@ if ($update == "INTEGRITY"){
     $okfile =$dir.'/OK_nettemp.db.'.$date;
     echo '<pre>';
     if(rename($dbfile,$badfile)){
-        unlink($dbfile.'-shm');
-        unlink($dbfile.'-wal');
+        unlink($badfile.'-shm');
+        unlink($badfile.'-wal');
         passthru('/usr/bin/sqlite3 '.$badfile.' ".clone '.$okfile.'" 2>&1');
         if( file_exists($okfile) && filesize($okfile)>0 ){
             rename($okfile,$dbfile);
@@ -72,6 +72,7 @@ if ( $sth = $db->query("PRAGMA integrity_check") ){
     $row = $sth->fetchAll();
     foreach($row as $r) {
         if($r[0]!='ok') {
+			
             $dbintegrity = "database problem: PRAGMA integrity_check";
         }
     }
@@ -87,6 +88,8 @@ if(!empty($dbintegrity)){
 }
     echo '</form>';
 
+	
+shell_exec("sudo service cron start");	
 ?>
 
 </div>

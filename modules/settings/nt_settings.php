@@ -153,6 +153,15 @@ foreach ($result as $a) {
 	if($a['option']=='ups_toff_stop') {
        	$nts_ups_toff_start=$a['value'];
     }
+	if($a['option']=='hide_gpio') {
+       	$nts_hide_gpio=$a['value'];
+    }
+	if($a['option']=='hide_minmax') {
+       	$nts_hide_minmax=$a['value'];
+    }
+	if($a['option']=='hide_counters') {
+       	$nts_hide_counters=$a['value'];
+    }
 	
 }
 

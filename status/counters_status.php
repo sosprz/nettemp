@@ -3,6 +3,26 @@ session_start();
 $root=$_SERVER["DOCUMENT_ROOT"];
 $db = new PDO("sqlite:$root/dbf/nettemp.db");
 
+$hidec = $db->query("SELECT value FROM nt_settings WHERE option='hide_counters'");
+$hide_resc = $hidec->fetchAll();
+foreach ($hide_resc as $hc) {
+    $nts_hide_counters=$hc['value'];
+}	 
+//hide counters in status
+	$hidecounters = isset($_POST['hidecounters']) ? $_POST['hidecounters'] : '';
+	$hidecountersstate = isset($_POST['hidecountersstate']) ? $_POST['hidecountersstate'] : '';
+	
+	if (!empty($hidecounters) && $hidecounters == 'hidecounters'){
+		if ($hidecountersstate == 'on') {$hidecountersstate = 'off';
+		}elseif ($hidecountersstate == 'off') {$hidecountersstate = 'on';}
+		
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db->exec("UPDATE nt_settings SET value='$hidecountersstate' WHERE option='hide_counters'") or die ($db->lastErrorMsg());
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+	 }	
+	 
+//logon or logoff
 if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 
 	$rows = $db->query("SELECT * FROM sensors WHERE ch_group!='none' AND  (type='gas' OR type='elec' OR type='water')");
@@ -18,9 +38,30 @@ $numRows = count($result);
 if ( $numRows > '0' ) { ?>
 <div class="grid-item co">
 <div class="panel panel-default">
-<div class="panel-heading">Counters </div>
+<div class="panel-heading"> 
+<div class="pull-left">Counters</div>
+<div class="pull-right">
+		<div class="text-right">
+			 <form action="" method="post" style="display:inline!important;">
+					
+					<input type="hidden" name="hidecountersstate" value="<?php echo $nts_hide_counters; ?>" />
+					<input type="hidden" name="hidecounters" value="hidecounters"/>
+					<?php
+					if($nts_hide_counters == 'off'){ ?>
+					<button class="hidearrow"><span class="glyphicon glyphicon-triangle-top"></span> </button>
+					<?php } elseif($nts_hide_counters == 'on'){?>
+					<button class="hidearrow"><span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+					<?php } ?>
+				</form>	
+		</div>
+  </div>
+  <div class="clearfix"></div>
+</div>
 
 <table class="table table-responsive table-hover table-condensed">
+<?php 
+if ($nts_hide_counters == 'off') { ?>
+
 <thead>
 <tr>
 <th></th>
@@ -106,6 +147,7 @@ if ( $numRows > '0' ) { ?>
 
 <?php    
     } 
+}//hide
 ?>
 </tbody>
 </table> 

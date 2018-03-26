@@ -5,15 +5,53 @@ $db = new PDO("sqlite:$root/dbf/nettemp.db");
 $rows = $db->query("SELECT * FROM sensors WHERE minmax='on' ORDER BY position ASC");
 $result = $rows->fetchAll();
 $numRows = count($result);
+
+//hide minmax in status
+	$hidemm = isset($_POST['hidemm']) ? $_POST['hidemm'] : '';
+	$hidemmstate = isset($_POST['hidemmstate']) ? $_POST['hidemmstate'] : '';
+	
+	if (!empty($hidemm) && $hidemm == 'hidemm'){
+		if ($hidemmstate == 'on') {$hidemmstate = 'off';
+		}elseif ($hidemmstate == 'off') {$hidemmstate = 'on';}
+		
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db->exec("UPDATE nt_settings SET value='$hidemmstate' WHERE option='hide_minmax'") or die ($db->lastErrorMsg());
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+	 }	
+
 if ( $numRows > '0' ) { ?>
 <div class="grid-item mm">
 <div class="panel panel-default">
-<div class="panel-heading">Sensors Min Max</div>
+<div class="panel-heading">
+<div class="pull-left">Sensors Min Max</div>
+<div class="pull-right">
+		<div class="text-right">
+			 <form action="" method="post" style="display:inline!important;">
+					
+					<input type="hidden" name="hidemmstate" value="<?php echo $nts_hide_minmax; ?>" />
+					<input type="hidden" name="hidemm" value="hidemm"/>
+					<?php
+					if($nts_hide_minmax =='off'){ ?>
+					<button class="hidearrow"><span class="glyphicon glyphicon-triangle-top"></span> </button>
+					<?php } elseif($nts_hide_minmax =='on'){?>
+					<button class="hidearrow"><span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+					<?php } ?>
+				</form>	
+		</div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
 <div class="table-responsive">
 <table class="table table-hover table-condensed">
 <tbody>
+<?php
+if ($nts_hide_minmax == 'off') { ?>
+
 <tr>
    <th></th>
+   
 <?php
 
  if($nts_minmax_mode != '1') {
@@ -125,6 +163,7 @@ $file=$rom .".sql";
 	}    
     
 }
+}//hide
 ?>
 </tbody>
 </table>
