@@ -23,7 +23,6 @@ $db = new PDO("sqlite:$root/dbf/nettemp.db");
 	exit();
 	 }
 
-
 $query = $db->query("SELECT * FROM types");
 $result_t = $query->fetchAll();
 
@@ -59,7 +58,6 @@ foreach ($row_meteo as $a) {
 	<div class="panel panel-default">
 	<div class="panel-heading">
 	
-	
 		<div class="pull-left"><?php echo $gname;?></div>
 		<div class="pull-right">
 		<div class="text-right">
@@ -75,15 +73,8 @@ foreach ($row_meteo as $a) {
 					<?php } ?>
 				</form>	
 		</div>
-  
-  
   </div>
-  
   <div class="clearfix"></div>
-	
-	
-	
-	
 	</div>
     <table class="table table-hover table-condensed">
     <tbody>
