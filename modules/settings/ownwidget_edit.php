@@ -42,7 +42,7 @@ $addow = isset($_POST['addow']) ? $_POST['addow'] : '';
 if(!empty($addow) && ($addow == "addow")) { 
 	$ownr=substr(rand(), 0, 4);
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT INTO ownwidget ('name', 'body', 'onoff', 'iflogon', 'refresh') VALUES ('My_widget','$ownr', 'on', 'off', 'off')");
+	$db->exec("INSERT INTO ownwidget ('name', 'body', 'onoff', 'iflogon', 'refresh', 'hide') VALUES ('My_widget','$ownr', 'on', 'off', 'off', 'off')");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 

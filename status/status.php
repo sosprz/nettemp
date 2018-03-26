@@ -79,6 +79,7 @@ Go to device scan!
 	foreach($owresult as $owg) {
 		$owb = $owg['body'];
 		$own = $owg['name'];
+		$owh = $owg['hide'];
 		//$ref = $owg['refresh'];
 		include('status/ownwidget.php');
 	}
@@ -114,7 +115,7 @@ Go to device scan!
 		foreach ($owresult as $owg) { 
 		if ($owg['refresh'] == 'on') {
 	?>
-		$('.ow<?php echo $owg['body']?>').load("status/ownwidget.php?owb=<?php echo $owg['body'];?>&own=<?php echo $owg['name'];?>");
+		$('.ow<?php echo $owg['body']?>').load("status/ownwidget.php?owb=<?php echo $owg['body'];?>&own=<?php echo $owg['name'];?>&hide=<?php echo $owg['hide'];?>");
 	<?php
 		}
 		}
