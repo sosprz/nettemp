@@ -580,7 +580,7 @@ $row = $rows->fetchAll();
     <td class="col-md-0">
     <?php if ($a["device"] != 'remote') { ?>
     <form action="" method="post" style="display:inline!important;">
-	<input type="text" class="form-nt" name="adj" size="2" maxlength="30" value="<?php echo $a["adj"]; ?>" required="" <?php echo $a["device"] == 'remote' ? 'disabled' : ''; ?> />
+	<input type="text" name="adj" size="2" maxlength="30" value="<?php echo $a["adj"]; ?>" required="" <?php echo $a["device"] == 'remote' ? 'disabled' : ''; ?> />
 	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 	<input type="hidden" name="adj1" value="adj2"/>
@@ -599,8 +599,8 @@ $row = $rows->fetchAll();
 
     <form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
-		<input type="text" class="form-nt" name="tmp_min_new" size="2" value="<?php echo $a['tmp_min']; ?>" />
-		<input type="text" class="form-nt"name="tmp_max_new" size="2" value="<?php echo $a['tmp_max']; ?>" />
+		<input type="text" name="tmp_min_new" size="2" value="<?php echo $a['tmp_min']; ?>" />
+		<input type="text" name="tmp_max_new" size="2" value="<?php echo $a['tmp_max']; ?>" />
 		<input type="hidden" name="ok" value="ok" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
@@ -616,7 +616,7 @@ $row = $rows->fetchAll();
 
     <form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="reads_id" value="<?php echo $a['id']; ?>" />
-		<input type="text" class="form-nt" name="readerr" size="2" value="<?php echo $a['readerr']; ?>" />
+		<input type="text" name="readerr" size="2" value="<?php echo $a['readerr']; ?>" />
 		<input type="hidden" name="readerrok" value="readerrok" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
