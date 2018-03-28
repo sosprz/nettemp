@@ -1,3 +1,10 @@
+
+
+
+<div class="grid-item ups">
+    <div class="panel panel-default">
+    <div class="panel-heading">UPS Status</div>
+        <div class="panel-body">
 <?php
 
 if ($nts_ups_status != 'on' ) { return; }
@@ -7,15 +14,7 @@ else {
 	    $col = explode(":", $ar);
 	    $array[$col[0]]=$col[1];
     	}
-
-?>
-
-
-<div class="grid-item ups">
-    <div class="panel panel-default">
-    <div class="panel-heading">UPS Status</div>
-        <div class="panel-body">
-<?php
+		
 foreach($array as $key => $value){
     if (strpos($key, 'UPSMODE') !== false) {
 	echo "Mode: ".$value."<br>";
