@@ -34,6 +34,9 @@ foreach($array as $key => $value){
     if (strpos($key, 'TONBATT') !== false) {
 	echo "Time on baterry: ".$value."<br>";
     }
+	 if (strpos($key, 'DATE') !== false) {
+	echo "Test: ".$value."<br>";
+    }
 
 }
 ?>			
