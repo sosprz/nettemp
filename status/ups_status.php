@@ -1,12 +1,6 @@
-
-
-
-<div class="grid-item ups">
-    <div class="panel panel-default">
-    <div class="panel-heading">UPS Status</div>
-        <div class="panel-body">
 <?php
-$nts_ups_status = 'on';
+session_start();
+
 if ($nts_ups_status != 'on' ) { return; }
 else {
 	exec("/sbin/apcaccess",$upso);
@@ -14,7 +8,15 @@ else {
 	    $col = explode(":", $ar);
 	    $array[$col[0]]=$col[1];
     	}
-		
+
+?>
+
+
+<div class="grid-item ups">
+    <div class="panel panel-default">
+    <div class="panel-heading">UPS Status</div>
+        <div class="panel-body">
+<?php
 foreach($array as $key => $value){
     if (strpos($key, 'UPSMODE') !== false) {
 	echo "Mode: ".$value."<br>";
