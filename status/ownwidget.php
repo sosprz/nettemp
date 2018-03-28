@@ -67,10 +67,8 @@ if ( $numRows > '0' ) {  ?>
 					<?php } ?>
 				</form>	
 		</div>
-  </div>
-  <div class="clearfix"></div>
-		
-		
+		</div>
+		<div class="clearfix"></div>
 		</div>
 
 	<?php

@@ -29,6 +29,7 @@ if(!empty($new_rom)) {
 	if ($vdevice == 'virtual') {
 		$name=$vname."_".mt_rand(0,1000);
 		$new_rom=$type."_".mt_rand(0,1000);
+		$map_num=substr(rand(), 0, 4);
 				
 	} else {
 	$name=substr(rand(), 0, 4);
