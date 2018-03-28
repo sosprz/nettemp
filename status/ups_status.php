@@ -1,5 +1,9 @@
 <?php
-session_start();
+$upsq = $db->query("SELECT value FROM nt_settings WHERE option='ups_status'");
+$upsqr = $upsq->fetchAll();
+foreach ($upsqr as $ups) {
+    $nts_ups_status=$ups['value'];
+}
 
 if ($nts_ups_status != 'on' ) { return; }
 else {
