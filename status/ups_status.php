@@ -6,7 +6,7 @@
     <div class="panel-heading">UPS Status</div>
         <div class="panel-body">
 <?php
-$nts_ups_status = 'on'
+$nts_ups_status = 'on';
 if ($nts_ups_status != 'on' ) { return; }
 else {
 	exec("/sbin/apcaccess",$upso);
