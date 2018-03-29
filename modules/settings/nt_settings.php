@@ -162,6 +162,9 @@ foreach ($result as $a) {
 	if($a['option']=='hide_counters') {
        	$nts_hide_counters=$a['value'];
     }
+	if($a['option']=='hide_ups') {
+       	$nts_hide_ups=$a['value'];
+    }
 	
 }
 

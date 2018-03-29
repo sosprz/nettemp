@@ -126,4 +126,6 @@ $updates['2018-03-26 08:52:35'][]="INSERT INTO nt_settings ('option', 'value') V
 $updates['2018-03-26 12:33:28'][]="ALTER TABLE ownwidget ADD hide TEXT";
 $updates['2018-03-26 12:33:38'][]="UPDATE ownwidget SET hide='off'";
 
+$updates['2018-03-29 09:52:37'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('hide_ups','off')";
+
 ?>
