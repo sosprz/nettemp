@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.6.5
+
+Baudrate setting for rs 485
+
 4.6.4
 
 UPS - new status

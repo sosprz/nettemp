@@ -16,20 +16,23 @@ if [[ "$dev" != "none" ]]; then
 	skey=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "select value from nt_settings WHERE option='server_key'")
 
 	addr=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT addr FROM rs485 WHERE dev='SDM120'")
+	
 
 	for i in $addr; do
+	
+	brate=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT baudrate FROM rs485 WHERE dev='SDM120' AND addr='$addr'")
 		
 		rs=a$i
-		val=$(/usr/local/bin/sdm120c /dev/$dev -a $i -p |head -1|awk '{print $2}')
+		val=$(/usr/local/bin/sdm120c /dev/$dev -a $i -b $brate -p -PN |head -1|awk '{print $2}')
 		php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=$val type=watt
 
-		val=$(/usr/local/bin/sdm120c /dev/$dev -a $i -v |head -1|awk '{print $2}' |sed 's/-//g')
+		val=$(/usr/local/bin/sdm120c /dev/$dev -a $i -b $brate -v -PN |head -1|awk '{print $2}' |sed 's/-//g')
 		php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=$val type=volt
 
-		val=$(/usr/local/bin/sdm120c /dev/$dev -a $i -c |head -1|awk '{print $2}' |sed 's/-//g')
+		val=$(/usr/local/bin/sdm120c /dev/$dev -a $i -b $brate -c -PN |head -1|awk '{print $2}' |sed 's/-//g')
 		php-cgi -f $dir/receiver.php key=$skey usb=$dev$rs device=usb value=$val type=amps
 
-		all=$(/usr/local/bin/sdm120c /dev/$dev -a $i -i |head -1|awk '{print $4}')
+		all=$(/usr/local/bin/sdm120c /dev/$dev -a $i -b $brate -i -PN |head -1|awk '{print $4}')
 
 		last=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT sum FROM sensors WHERE rom='usb_$(echo $dev$rs)_elec'")
 
