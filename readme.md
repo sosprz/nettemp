@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.6.4
+
+UPS - new status
+
 4.6.3
 
 Hide groups in status
