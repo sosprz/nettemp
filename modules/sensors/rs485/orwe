@@ -48,7 +48,7 @@ for i in $addr; do
 	php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=0 type=elec
     fi
 
-    unset ARRAY
+    unset ARRAY1
 
 done
 
