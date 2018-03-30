@@ -20,7 +20,7 @@ if [[ "$dev" != "none" ]]; then
 
 	for i in $addr; do
 	
-	brate=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT baudrate FROM rs485 WHERE addr='$addr'")
+	brate=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT baudrate FROM rs485 WHERE addr='$i'")
 		
 		rs=a$i
 		val=$(/usr/local/bin/sdm120c /dev/$dev -a $i -b $brate -p -PN |head -1|awk '{print $2}')
