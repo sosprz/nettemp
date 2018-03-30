@@ -31,7 +31,7 @@ try {
 		$brate=$r['baudrate'];
 		
 		echo $date." RS485 ".$dev0." ".$addr."\n";
-    	$cmd="$ROOT/modules/sensors/rs485/sdm630_get.sh $dev0 $addr $brate";
+    	$cmd="$ROOT/modules/sensors/rs485/sdm630_get.sh $dev0 $addr";
 		$res=shell_exec($cmd);
 		$res = preg_split ('/$\R?^/m', $res);
 		foreach ($res as $l) {
