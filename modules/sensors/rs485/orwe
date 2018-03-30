@@ -22,6 +22,8 @@ addr=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT addr FROM rs485
 
 for i in $addr; do 
 
+	brate=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db  "SELECT baudrate FROM rs485 WHERE addr='$addr'")
+
     ARRAY=($($dir/modules/sensors/rs485/orwe_get /dev/$dev $i))
     echo ${ARRAY[*]}
     
