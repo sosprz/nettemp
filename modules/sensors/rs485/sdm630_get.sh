@@ -5,11 +5,13 @@
 import sys
 
 if len(sys.argv) > 1:
-    getusb = sys.argv[1]
+getusb = sys.argv[1]
+
 if len(sys.argv) > 2:
-    addr = int(sys.argv[2], 16)
+addr = int(sys.argv[2], 16)
+
 if len(sys.argv) > 3:
-    baud = sys.argv[3]
+baud = sys.argv[3]
 #---------------------------------------------------------------------------# 
 # loading pymodbus modules
 #---------------------------------------------------------------------------# 
