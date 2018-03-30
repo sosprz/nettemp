@@ -9,7 +9,7 @@ import subprocess
 if len(sys.argv) > 1:
     getusb = sys.argv[1]
     addr = int(sys.argv[2], 16)
-	brate = sys.argv[3]
+	brate = int(sys.argv[3],16)
 
 client = ModbusClient(method='rtu', port=getusb, baudrate=brate, stopbits=1, parity='N', bytesize=8, timeout=1)
 client.connect()
