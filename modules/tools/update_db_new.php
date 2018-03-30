@@ -129,6 +129,6 @@ $updates['2018-03-26 12:33:38'][]="UPDATE ownwidget SET hide='off'";
 $updates['2018-03-29 09:52:37'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('hide_ups','off')";
 
 $updates['2018-03-29 14:08:42'][]="ALTER TABLE rs485 ADD baudrate TEXT";
-$updates['2018-03-29 15:00:37'][]="UPDATE rs485 SET baudrate='2400'";
+$updates['2018-03-29 15:00:37'][]="UPDATE rs485 SET baudrate='9600'";
 
 ?>
