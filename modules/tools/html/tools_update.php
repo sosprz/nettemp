@@ -13,9 +13,9 @@ if ($update == "UPDATE") {
 	
 	shell_exec("sudo service cron stop && sleep 5");
 	
-	$nts_server_key_upd = $nts_server_key."_update";
-	$db = new PDO("sqlite:$root/dbf/nettemp.db");
-	$db->exec("UPDATE nt_settings SET value='$nts_server_key_upd' WHERE option='server_key' ");
+	//$nts_server_key_upd = $nts_server_key."_update";
+	//$db = new PDO("sqlite:$root/dbf/nettemp.db");
+	//$db->exec("UPDATE nt_settings SET value='$nts_server_key_upd' WHERE option='server_key' ");
 		
     echo '<pre>';
     $file = $ROOT."/dbf/nettemp.db";
@@ -37,8 +37,8 @@ if ($update == "UPDATE") {
 
     echo '</pre>';
 
-	$serverkey = substr($nts_server_key_upd, 0, -7);
-	$db->exec("UPDATE nt_settings SET value='$serverkey' WHERE option='server_key' ");
+	//$serverkey = substr($nts_server_key_upd, 0, -7);
+	//$db->exec("UPDATE nt_settings SET value='$serverkey' WHERE option='server_key' ");
 	
 	
 	
