@@ -166,7 +166,7 @@ foreach ($row as $b) {
 	$font_color='';
 	$font_size='';
 	$label_class='';
-	if($b['display_name'] == 'on')	$sensor_name=$a['name'];
+	if($b['display_name'] == 'on')	$sensor_name=str_replace("_"," ","$a[name]");
 	if($b['transparent_bkg'] == 'on') $transparent_bkg='transparent-background';
 	if($b['background_color'] != '') $background_color="background:".$b['background_color'];
 	if($b['background_low'] != '') $background_low="background:".$b['background_low'];
