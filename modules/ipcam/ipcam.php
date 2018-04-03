@@ -29,7 +29,13 @@ if (!empty($name)  && !empty($link) && ($_POST['add'] == "add")){
 if ($_POST['del'] == "del"){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("DELETE FROM camera WHERE id='$id'") or die ($db->lastErrorMsg());
-	$db->exec("DELETE FROM hosts WHERE element_id='$id'") or die ($db->lastErrorMsg());
+	
+	$rows = $db->query("SELECT * FROM hosts WHERE element_id='$id'");
+	$row = $rows->fetchAll();
+	$numRows = count($row);
+	if ($numRows > 0 ) { 
+		$db->exec("DELETE FROM hosts WHERE element_id='$id'") or die ($db->lastErrorMsg());
+	}
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 }
