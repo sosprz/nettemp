@@ -51,7 +51,7 @@ if ($update == "UPDATE") {
 		}
 	}
 	
-	shell_exec("sudo sleep 2 && sudo service cron start");	
+	shell_exec("sudo service cron start");	
 }
 
 if ($update == "INTEGRITY"){
