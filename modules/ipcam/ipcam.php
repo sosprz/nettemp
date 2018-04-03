@@ -7,7 +7,7 @@ $id = isset($_POST['id']) ? $_POST['id'] : '';
 
 if (!empty($name)  && !empty($link) && ($_POST['add'] == "add")){
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT OR IGNORE INTO camera (name, link) VALUES ('$name', '$link')") or die ($db->lastErrorMsg());
+	$db->exec("INSERT OR IGNORE INTO camera (name, link, hide) VALUES ('$name', '$link', 'off')") or die ($db->lastErrorMsg());
 	$fi = explode("/",$link);
 	$link = explode(":",$fi[2]);
 	$ip=$link[0];
