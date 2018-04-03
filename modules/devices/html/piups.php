@@ -302,14 +302,14 @@ $row = $rows->fetchAll();
 			</td>
 
 			<td>
-				<span class="label label-success"><?php if ($d6 == '1') { echo 'On';} elseif ($d6 == '0') { echo 'Auto';} elseif ($d6 == '2') { echo 'Sw';}?></span>
+				<span class="label label-success"><?php if ($d6 == '1') { echo 'Auto';} elseif ($d6 == '2') { echo 'On';} elseif ($d6 == '3') { echo 'Sw';}?></span>
 			</td>
 
 			<td>
 				<select class="selectpicker" data-width="50px" name="upsbacklight" class="form-control input-sm">
-				<option value="0" <?php echo $nts_ups_lcd_backlight == '0' ? 'selected="selected"' : ''; ?> >Auto</option>
-				<option value="1" <?php echo $nts_ups_lcd_backlight == '1'? 'selected="selected"' : ''; ?> >On</option>
-				<option value="2" <?php echo $nts_ups_lcd_backlight == '2'? 'selected="selected"' : ''; ?> >Sw</option>
+				<option value="1" <?php echo $nts_ups_lcd_backlight == '1' ? 'selected="selected"' : ''; ?> >Auto</option>
+				<option value="2" <?php echo $nts_ups_lcd_backlight == '2'? 'selected="selected"' : ''; ?> >On</option>
+				<option value="3" <?php echo $nts_ups_lcd_backlight == '3'? 'selected="selected"' : ''; ?> >Sw</option>
 				</select>
 			</td>
 			
