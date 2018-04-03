@@ -13,9 +13,9 @@ if ($update == "UPDATE") {
 	
 	shell_exec("sudo service cron stop && sleep 5");
 	
-	//$nts_server_key_upd = $nts_server_key."_update";
-	//$db = new PDO("sqlite:$root/dbf/nettemp.db");
-	//$db->exec("UPDATE nt_settings SET value='$nts_server_key_upd' WHERE option='server_key' ");
+	$nts_server_key_upd = $nts_server_key."_update";
+	$db = new PDO("sqlite:$root/dbf/nettemp.db");
+	$db->exec("UPDATE nt_settings SET value='$nts_server_key_upd' WHERE option='server_key' ");
 		
     echo '<pre>';
     $file = $ROOT."/dbf/nettemp.db";
@@ -36,14 +36,19 @@ if ($update == "UPDATE") {
 	unlink("$ROOT/tmp/update");
 
     echo '</pre>';
-
-	//$serverkey = substr($nts_server_key_upd, 0, -7);
-	//$db->exec("UPDATE nt_settings SET value='$serverkey' WHERE option='server_key' ");
 	
 	
+	$rows = $db->query("SELECT * FROM nt_settings WHERE option = 'server_key'");
+	$row = $rows->fetchAll();
+	$numRows = count($row);
+	if ($numRows > 0 ) { 
 	
-
-}
+		foreach ($row as $a) {
+			$serverkey=$a['value'];
+			$serverkey2 = substr($serverkey, 0, -7);
+			$db->exec("UPDATE nt_settings SET value='$serverkey2' WHERE option='server_key' ");
+		}
+	}
 
 if ($update == "INTEGRITY"){
 //Integrity fix
