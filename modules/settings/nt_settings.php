@@ -165,7 +165,6 @@ foreach ($result as $a) {
 	if($a['option']=='hide_ups') {
        	$nts_hide_ups=$a['value'];
     }
-	
 	if($a['option']=='ups_backl_time') {
        	$nts_ups_backl_time=$a['value'];
     }
