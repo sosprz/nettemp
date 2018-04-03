@@ -246,7 +246,7 @@ $row = $rows->fetchAll();
 
 		<tr>
 			<td>
-				<span class="label label-default">Battery discharged</span>
+				<span class="label label-default">Battery Discharged</span>
 			</td>
 			
 			<td>
@@ -264,7 +264,7 @@ $row = $rows->fetchAll();
 												
 		<tr>
 			<td>
-				<span class="label label-default">Battery temp alarm</span>
+				<span class="label label-default">Battery Temp Alarm</span>
 			</td>
 			<td>
 				<span class="label label-success"><?php echo $d4 ?></span>
@@ -319,7 +319,7 @@ $row = $rows->fetchAll();
 		
 		<tr>
 			<td>
-				<span class="label label-default">LCD backlight time</span>
+				<span class="label label-default">LCD Backlight Time</span>
 			</td>
 			<td>
 				<span class="label label-success"><?php echo $d7  ?></span>
