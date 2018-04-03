@@ -11,7 +11,7 @@
 		}elseif ($hidecamstate == 'off') {$hidecamstate = 'on';}
 		
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("UPDATE camera SET value='$hidecamstate' WHERE id='$hidecamid'") or die ($db->lastErrorMsg());
+	$db->exec("UPDATE camera SET hide='$hidecamstate' WHERE id='$hidecamid'") or die ($db->lastErrorMsg());
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 	 }
