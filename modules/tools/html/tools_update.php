@@ -49,6 +49,7 @@ if ($update == "UPDATE") {
 			$db->exec("UPDATE nt_settings SET value='$serverkey2' WHERE option='server_key' ");
 		}
 	}
+}
 
 if ($update == "INTEGRITY"){
 //Integrity fix
