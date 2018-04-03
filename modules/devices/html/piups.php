@@ -39,6 +39,7 @@ $upsbacklight = isset($_POST['upsbacklight']) ? $_POST['upsbacklight'] : '';
 $savetoups = isset($_POST['savetoups']) ? $_POST['savetoups'] : '';
 $upstimeoff = isset($_POST['upstimeoff']) ? $_POST['upstimeoff'] : '';
 $language = isset($_POST['language']) ? $_POST['language'] : '';
+$upsbackltime = isset($_POST['upsbackltime']) ? $_POST['upsbackltime'] : '';
 
 
 
@@ -53,9 +54,10 @@ $language = isset($_POST['language']) ? $_POST['language'] : '';
 	$db->exec("UPDATE nt_settings SET value='$upsbacklight' WHERE option='ups_lcd_backlight'");
 	$db->exec("UPDATE nt_settings SET value='$upstimeoff' WHERE option='ups_time_off'");
 	$db->exec("UPDATE nt_settings SET value='$language' WHERE option='ups_language'");
+	$db->exec("UPDATE nt_settings SET value='$upsbackltime' WHERE option='ups_backl_time'");
 	
 // write to PiUPS
-	$arr = array('U',$upsdelayon,$upsdelayoff,$upsakkudischarged,$upsakkutemp,$upsscroll,$upsbacklight,$language);
+	$arr = array('U',$upsdelayon,$upsdelayoff,$upsakkudischarged,$upsakkutemp,$upsscroll,$upsbacklight,$upsbackltime,$language);
     $values=implode(" ",$arr);
 	$fp = fopen($dev,'r+');
 	fwrite($fp, "$values\r");
@@ -83,7 +85,8 @@ $out=shell_exec($cmd);
 		$d4=$data[3];
 		$d5=$data[4];
 		$d6=$data[5];   
-		$d7=$data[6];			
+		$d7=$data[6];
+		$d8=$data[7];		
    }
 
 }
@@ -295,21 +298,39 @@ $row = $rows->fetchAll();
 
 		<tr>
 			<td>
-				<span class="label label-default">LCD Auto Backlight</span>
+				<span class="label label-default">LCD Backlight</span>
 			</td>
 
 			<td>
-				<span class="label label-success"><?php if ($d6 == '1') { echo 'Yes';} elseif ($d6 == '0') { echo 'No';}?></span>
+				<span class="label label-success"><?php if ($d6 == '1') { echo 'On';} elseif ($d6 == '0') { echo 'Auto';} elseif ($d6 == '2') { echo 'Sw';}?></span>
 			</td>
 
 			<td>
 				<select class="selectpicker" data-width="50px" name="upsbacklight" class="form-control input-sm">
-				<option value="1" <?php echo $nts_ups_lcd_backlight == '1' ? 'selected="selected"' : ''; ?> >Yes</option>
-				<option value="0" <?php echo $nts_ups_lcd_backlight == '0'? 'selected="selected"' : ''; ?> >No</option>
+				<option value="0" <?php echo $nts_ups_lcd_backlight == '0' ? 'selected="selected"' : ''; ?> >Auto</option>
+				<option value="1" <?php echo $nts_ups_lcd_backlight == '1'? 'selected="selected"' : ''; ?> >On</option>
+				<option value="2" <?php echo $nts_ups_lcd_backlight == '2'? 'selected="selected"' : ''; ?> >Sw</option>
 				</select>
 			</td>
 			
 			<td>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<span class="label label-default">LCD backlight time</span>
+			</td>
+			<td>
+				<span class="label label-success"><?php echo $d7  ?></span>
+			</td>
+
+			<td>	
+				<input type="text" name="upsbackltime" size="2" maxlength="4" value="<?php echo $nts_ups_backl_time; ?>" />
+			</td>	
+
+			<td>
+				<span class="label label-default">S</span>
 			</td>
 		</tr>
 		
@@ -321,7 +342,7 @@ $row = $rows->fetchAll();
 
 			
 			<td>
-				<span class="label label-success"><?php if ($d7 == '1') { echo 'PL';} elseif ($d7 == '2') { echo 'EN';}elseif ($d7 == '3') { echo 'DE';}?></span>
+				<span class="label label-success"><?php if ($d8 == '1') { echo 'PL';} elseif ($d8 == '2') { echo 'EN';}elseif ($d8 == '3') { echo 'DE';}?></span>
 			</td>
 			
 			

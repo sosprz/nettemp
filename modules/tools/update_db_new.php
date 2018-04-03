@@ -134,6 +134,8 @@ $updates['2018-03-29 15:00:37'][]="UPDATE rs485 SET baudrate='9600'";
 $updates['2018-04-03 14:08:42'][]="ALTER TABLE camera ADD hide TEXT";
 $updates['2018-04-03 15:00:37'][]="UPDATE camera SET hide='off'";
 
+$updates['2018-04-03 11:08:35'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_backl_time','15')";
+
 
 
 ?>
