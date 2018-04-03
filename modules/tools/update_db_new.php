@@ -132,7 +132,7 @@ $updates['2018-03-29 14:08:42'][]="ALTER TABLE rs485 ADD baudrate TEXT";
 $updates['2018-03-29 15:00:37'][]="UPDATE rs485 SET baudrate='9600'";
 
 $updates['2018-04-03 14:08:42'][]="ALTER TABLE camera ADD hide TEXT";
-$updates['2018-04-03 15:00:37'][]="UPDATE cmaera SET hide='off'";
+$updates['2018-04-03 15:00:37'][]="UPDATE camera SET hide='off'";
 
 
 
