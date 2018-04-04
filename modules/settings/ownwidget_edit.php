@@ -149,7 +149,7 @@ foreach($row as $z) {
 		<div class="text-right">
 			 <form action="" method="post" style="display:inline!important;">
 					
-					<input type="hidden" name="hideowestate" value="<?php echo $owhedit; ?>" />
+					<input type="hidden" name="hideowestate" value="<?php echo $z['edithide']; ?>" />
 					<input type="hidden" name="hideowe" value="hideowe"/>
 					<input type="hidden" name="hideoweid" value="<?php echo $z["id"]; ?>"/>
 					<?php
@@ -208,13 +208,12 @@ if ($owhedit == 'off') { ?>
 			<input type="hidden" name="del" value="delete"/>
 		</form>
 	</div>
+<?php	
+}
+?>
 </div>
 	
 <?php	
-	
-	
 }
-}
-
 ?>
 
