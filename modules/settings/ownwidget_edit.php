@@ -25,9 +25,20 @@
 
 <?php 
 
-
-
-
+//hide ownwidget in edit
+	$hideowe = isset($_POST['hideowe']) ? $_POST['hideowe'] : '';
+	$hideoweid = isset($_POST['hideoweid']) ? $_POST['hideoweid'] : '';
+	$hideowestate = isset($_POST['hideowestate']) ? $_POST['hideowestate'] : '';
+	
+	if (!empty($hideoweid) && $hideowe == 'hideowe'){
+		if ($hideowestate == 'on') {$hideowestate = 'off';
+		}elseif ($hideowestate == 'off') {$hideowestate = 'on';}
+		
+	$db = new PDO('sqlite:dbf/nettemp.db');
+	$db->exec("UPDATE ownwidget SET edithide='$hideowestate' WHERE id='$hideoweid'") or die ($db->lastErrorMsg());
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+	 }	
 
 $ow = isset($_POST['ow']) ? $_POST['ow'] : '';
 $ow_name = isset($_POST['ow_name']) ? $_POST['ow_name'] : '';
@@ -112,6 +123,7 @@ $row = $rows->fetchAll();
 foreach($row as $z) {
 	$ownum = $z['body'];
 	$owname = str_replace('_', ' ', $z['name']);
+	$owhedit = $z['edithide'];
 	
 	$file = "tmp/ownwidget".$ownum.".php";
     $text = file_get_contents($file);
@@ -119,11 +131,10 @@ foreach($row as $z) {
 
 ?>
 
-
-
-
   <div class="panel panel-default">
-  <div class="panel-heading"><?php echo "Widget name:  "?>
+  <div class="panel-heading">
+   
+ <div class="pull-left"><?php echo "Widget name:  "?>
   
 		  <form action="" method="post" style="display:inline!important;">
 				<input type="text" name="name_new" size="15" maxlength="30" value="<?php echo $owname; ?>" />
@@ -133,6 +144,30 @@ foreach($row as $z) {
 		  </form>
   
   </div>
+  
+  <div class="pull-right">
+		<div class="text-right">
+			 <form action="" method="post" style="display:inline!important;">
+					
+					<input type="hidden" name="hideowestate" value="<?php echo $owhedit; ?>" />
+					<input type="hidden" name="hideowe" value="hideowe"/>
+					<input type="hidden" name="hideoweid" value="<?php echo $z["id"]; ?>"/>
+					<?php
+					if($owhedit =='off'){ ?>
+					<button class="hidearrow"><span class="glyphicon glyphicon-triangle-top"></span> </button>
+					<?php } elseif($owhedit =='on'){?>
+					<button class="hidearrow"><span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+					<?php } ?>
+				</form>	
+		</div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+  
+<?php
+if ($owhedit == 'off') { ?>
+  
+  
 	<div class="panel-body">
 
 		  <form action="" method="post" style="display:inline!important;">
@@ -173,6 +208,8 @@ foreach($row as $z) {
 			<input type="hidden" name="del" value="delete"/>
 		</form>
 	</div>
+<?php }
+?>
 </div>
 	
 <?php	
