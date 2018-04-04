@@ -53,7 +53,7 @@ $addow = isset($_POST['addow']) ? $_POST['addow'] : '';
 if(!empty($addow) && ($addow == "addow")) { 
 	$ownr=substr(rand(), 0, 4);
 	$db = new PDO('sqlite:dbf/nettemp.db');
-	$db->exec("INSERT INTO ownwidget ('name', 'body', 'onoff', 'iflogon', 'refresh', 'hide') VALUES ('My_widget','$ownr', 'on', 'off', 'off', 'off')");
+	$db->exec("INSERT INTO ownwidget ('name', 'body', 'onoff', 'iflogon', 'refresh', 'hide', 'edithide') VALUES ('My_widget','$ownr', 'on', 'off', 'off', 'off', 'off')");
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
 } 
@@ -124,17 +124,12 @@ foreach($row as $z) {
 	$ownum = $z['body'];
 	$owname = str_replace('_', ' ', $z['name']);
 	$owhedit = $z['edithide'];
-	
 	$file = "tmp/ownwidget".$ownum.".php";
     $text = file_get_contents($file);
-	
-
 ?>
-
   <div class="panel panel-default">
   <div class="panel-heading">
-   
- <div class="pull-left"><?php echo "Widget name:  "?>
+  <div class="pull-left"><?php echo "Widget name:  "?>
   
 		  <form action="" method="post" style="display:inline!important;">
 				<input type="text" name="name_new" size="15" maxlength="30" value="<?php echo $owname; ?>" />
@@ -142,14 +137,12 @@ foreach($row as $z) {
 				<input type="hidden" name="id" value="<?php echo $z["id"]; ?>" />
 				<input type="hidden" name="ow_name" value="ow_name"/>
 		  </form>
-  
   </div>
-  
+
   <div class="pull-right">
 		<div class="text-right">
 			 <form action="" method="post" style="display:inline!important;">
-					
-					<input type="hidden" name="hideowestate" value="<?php echo $z['edithide']; ?>" />
+					<input type="hidden" name="hideowestate" value="<?php echo $owhedit; ?>" />
 					<input type="hidden" name="hideowe" value="hideowe"/>
 					<input type="hidden" name="hideoweid" value="<?php echo $z["id"]; ?>"/>
 					<?php
@@ -166,7 +159,6 @@ foreach($row as $z) {
   
 <?php
 if ($owhedit == 'off') { ?>
-  
   
 	<div class="panel-body">
 
