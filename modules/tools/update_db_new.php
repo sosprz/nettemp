@@ -136,6 +136,9 @@ $updates['2018-04-03 15:00:37'][]="UPDATE camera SET hide='off'";
 
 $updates['2018-04-03 16:09:35'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_backl_time','15')";
 
+$updates['2018-04-04 12:31:28'][]="ALTER TABLE ownwidget ADD edithide TEXT";
+$updates['2018-04-04 12:31:38'][]="UPDATE ownwidget SET edithide='off'";
+
 
 
 ?>
