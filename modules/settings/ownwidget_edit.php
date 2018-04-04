@@ -208,14 +208,12 @@ if ($owhedit == 'off') { ?>
 			<input type="hidden" name="del" value="delete"/>
 		</form>
 	</div>
-<?php }
-?>
 </div>
 	
 <?php	
 	
 	
-	
+}
 }
 
 ?>
