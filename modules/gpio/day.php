@@ -190,7 +190,7 @@ $row = $rows->fetchAll();
 								$stime=str_replace(':', '', $stime);
 								$etime=$b['etime'];
 								$etime=str_replace(':', '', $etime);
-								$act=0;
+								
 						
 							if($time >= $stime && $time < $etime) {
 								$status='on';	
