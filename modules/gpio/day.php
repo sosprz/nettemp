@@ -190,7 +190,7 @@ $row = $rows->fetchAll();
 								$stime=str_replace(':', '', $stime);
 								$etime=$b['etime'];
 								$etime=str_replace(':', '', $etime);
-							
+								$act=0;
 						
 							if($time >= $stime && $time < $etime) {
 								$status='on';	
@@ -198,13 +198,17 @@ $row = $rows->fetchAll();
 								$content = date('Y M d H:i:s')." GPIO ".$gpio.", name: ".$name.", Day Plan: ".$w_profile.", SET exit: ".$status."\n";
 								logs($gpio,$ip,$content);
 								action_on($gpio,$rev,$ip,$rom);	
-								exit();								
+								$act=1;
+								//exit();								
 								} else {
+									
+									if ($act !=1){
 									$status='off';
 									$db->exec("UPDATE day_plan SET active='off' WHERE gpio='$gpio' AND rom='$rom' ");									
 									$content = date('Y M d H:i:s')." GPIO ".$gpio.", name: ".$name.", Day Plan: ".$w_profile.", SET bez exit: ".$status."\n";
 									logs($gpio,$ip,$content);
 									action_off($gpio,$rev,$ip,$rom);	
+									}
 									}
 							}
 						}
