@@ -197,18 +197,14 @@ $row = $rows->fetchAll();
 								$db->exec("UPDATE day_plan SET active='on' WHERE gpio='$gpio' AND rom='$rom' AND id='$w_profile_id' ");	
 								$content = date('Y M d H:i:s')." GPIO ".$gpio.", name: ".$name.", Day Plan: ".$w_profile.", SET exit: ".$status."\n";
 								logs($gpio,$ip,$content);
-								action_on($gpio,$rev,$ip,$rom);	
-								$act=1;
-								//exit();								
+								action_on($gpio,$rev,$ip,$rom);								
 								} else {
 									
-									if ($act !=1){
 									$status='off';
 									$db->exec("UPDATE day_plan SET active='off' WHERE gpio='$gpio' AND rom='$rom' ");									
 									$content = date('Y M d H:i:s')." GPIO ".$gpio.", name: ".$name.", Day Plan: ".$w_profile.", SET bez exit: ".$status."\n";
 									logs($gpio,$ip,$content);
 									action_off($gpio,$rev,$ip,$rom);	
-									}
 									}
 							}
 						}
