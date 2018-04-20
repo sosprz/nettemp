@@ -7,10 +7,24 @@
 
 update-rc.d smstools enable
 
+sudo systemctl stop mosquitto
+sudo update-rc.d mosquitto remove
+sudo rm /etc/init.d/mosquitto
+
+cp $dir/install/services/mosquitto.service /etc/systemd/system/
+systemctl daemon-reload
 systemctl enable mosquitto
+systemctl start mosquitto.service
+
+sudo systemctl stop nettempmqtt
 cp $dir/install/services/nettempmqtt.service /etc/systemd/system/
+systemctl daemon-reload
 systemctl enable nettempmqtt
 systemctl start nettempmqtt
+
+
+
+
 
 if [[ $APCUPS == 'yes' ]]; then
     /etc/init.d/apcupsd start
