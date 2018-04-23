@@ -99,6 +99,7 @@ foreach($result_t as $ty){
 
 var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         id: "<?php echo $ch_g.$a['name']?>",
+		decimals: "<?php if ($a['tmp'] > 100) {echo 0}; ?>",
         valueFontColor: "<?php echo $valfoncol ?>",
 		value: <?php 
         				if($a['type']=='elec') {
@@ -115,7 +116,7 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
 		<?php if(!empty($a['jg_min'])) {echo "min:".$a['jg_min'].",";} ?>
 		<?php if(!empty($a['jg_max'])) {echo "max:".$a['jg_max'].",";} ?>
 		
-		decimals: "<?php if ($a['tmp'] > 100) {echo 0}; ?>",
+		
         titleFontColor: "<?php echo $titfoncol ?>",
 		    title: "<?php if ($err=='1') {echo "!! ".str_replace("_", " ", $a['name'])." !!";} else {echo str_replace("_", " ", $a['name']);}?>",
         label: n_units
