@@ -108,7 +108,7 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         						echo '0'; 
         					} 
         						else if ($a['tmp']>100){
-        								echo number_format($a['tmp'], 0, '.', ',');
+        								echo number_format($a['tmp'], 0);
 								} else {
 										echo $a['tmp'];
 										}
