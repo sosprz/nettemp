@@ -24,7 +24,6 @@ switch ($art)
 { 
 default: case '$art': include('modules/tools/html/tools_update.php'); break;
 case 'file_check': include('modules/tools/html/tools_perms.php'); break;
-//case 'password': include('modules/tools/html/tools_change_pass.php'); break;
 case 'update': include('modules/tools/html/tools_update.php'); break;
 case 'reset': include('modules/tools/html/tools_reset.php'); break;
 case 'reboot': include('modules/tools/html/tools_reboot.php'); break;
