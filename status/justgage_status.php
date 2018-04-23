@@ -107,16 +107,16 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         				else if($a['tmp']=='error') { 
         						echo '0'; 
         					} 
-        						else if ($a['tmp']>100){
-        								echo number_format($a['tmp'], 0);
-								} else {
-										echo $a['tmp'];
-										}
+        						else { 
+        								echo $a['tmp'];
+        								}
         			?>,
 
 		<?php if(!empty($a['jg_min'])) {echo "min:".$a['jg_min'].",";} ?>
 		<?php if(!empty($a['jg_max'])) {echo "max:".$a['jg_max'].",";} ?>
-
+		
+		decimals: <?php if ($a['tmp'] > 100) {echo '0'};
+		
         titleFontColor: "<?php echo $titfoncol ?>",
 		    title: "<?php if ($err=='1') {echo "!! ".str_replace("_", " ", $a['name'])." !!";} else {echo str_replace("_", " ", $a['name']);}?>",
         label: n_units
