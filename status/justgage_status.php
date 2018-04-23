@@ -104,10 +104,10 @@ var g<?php echo $ch_g?><?=$KtoryWidget++?> = new JustGage({
         				if($a['type']=='elec') {
 							echo $a['current'];
         				}
-        				elseif($a['tmp']=='error') { 
+        				else if($a['tmp']=='error') { 
         						echo '0'; 
         					} 
-        						elseif ($a['tmp']>100){
+        						else if ($a['tmp']>100){
         								echo number_format($a['tmp'], 0, '.', ',');
 								} else {
 										echo $a['tmp'];
