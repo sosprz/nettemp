@@ -232,7 +232,7 @@ if ($hide == 'off') {
 			<?php if ($normalized == "on" && $pressure == $a['id']): ?>
 				<tr>
 					<td></td>
-					<td><?php echo str_replace("_", " ", $name2); ?></td>
+					<td><?php echo str_replace("_", " ", $name2).'npm'; ?></td>
 					<td><span 
 				<?php if(($a['tmp'] == 'error') || ($label=='danger')) {
 				    echo 'class="label label-danger"';
@@ -245,7 +245,7 @@ if ($hide == 'off') {
 					<?php
 						require_once("Meteo.class.php");
 						$m=new Meteo();
-						echo number_format($m->getCisnienieZnormalizowane(),2,'.','').' hPa npm';
+						echo number_format($m->getCisnienieZnormalizowane(),2,'.','').' hPa';
 						?>
 					</span>
 					</td>
