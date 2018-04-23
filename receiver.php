@@ -9,8 +9,6 @@
 // curl --connect-timeout 3 -G "http://172.18.10.10/receiver.php" -d "value=20&key=123456&device=wireless&type=elec&ip=172.18.10.9"
 // php-cgi -f receiver.php key=123456 rom=new_12_temp value=23
 
-
-
 if (isset($_GET['key'])) { 
     $key = $_GET['key'];
 } else { 
@@ -341,7 +339,7 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 						if ($val<$stat_min || empty($stat_min)) {$dbr->exec("UPDATE sensors SET stat_min='$val' WHERE rom='$rom'");
 						} elseif ($val>$stat_max || empty($stat_max)) {$dbr->exec("UPDATE sensors SET stat_max='$val' WHERE rom='$rom'");}
 						
-						if(!is_null($ip)&&$device=='gpio') {
+						if(!is_null($ip) && $device == 'gpio') {
 						    $dbr->exec("UPDATE gpio SET ip='$ip' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert IP to gpio\n" );
 						}
 						

@@ -232,6 +232,7 @@ if ($hide == 'off') {
 			<?php if ($normalized == "on" && $pressure == $a['id']): ?>
 				<tr>
 					<td></td>
+					<td><?php echo str_replace("_", " ", $name2); ?></td>
 					<td><span 
 				<?php if(($a['tmp'] == 'error') || ($label=='danger')) {
 				    echo 'class="label label-danger"';
