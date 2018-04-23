@@ -233,8 +233,8 @@ if ($hide == 'off') {
 				<tr>
 					<td></td>
 					<td><?php 
-					echo '<span class="label label-default" title="'.$a['name'].'">'.$a['name'].'npm'.'</span>';
-					
+					$pressnorm = '<span class="label label-default" title="'.$a['name'].'">'.$a['name'].' npm'.'</span>';
+					echo str_replace("_", " ", $pressnorm);
 					 ?></td>
 					<td><span 
 				<?php if(($a['tmp'] == 'error') || ($label=='danger')) {
