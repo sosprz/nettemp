@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.6.6
+
+MQTT read for sensors and gpio
+
 4.6.5
 
 Baudrate setting for rs 485

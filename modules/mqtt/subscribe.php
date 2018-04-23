@@ -44,7 +44,7 @@ $mqtt->close();
 
 
 function procmsg($topic, $msg){
-	//	echo "Msg Recieved: " . date("r") . "\n";
+		echo "Msg Recieved:\n";
 		echo "Topic: {$topic}\n\n";
 	//	echo "\t$msg\n\n";
 
@@ -72,15 +72,17 @@ function procmsg($topic, $msg){
     $gpio='';
     $local_gpio='';
     
-    if ($arr['2']=='gpio') {
+    if ($arr['3']=='gpio') {
+		
 	$ip=$arr['1'];
-	$type=$arr['2'];
-	$gpio=$arr['3'];
+	$name=$arr['2'];
+	$type=$arr['3'];
+	$gpio=$arr['4'];
     
 	$local_device	=	'ip';
 	$local_type	=	$type;
 	$local_val	=	$output;
-	$local_name	=	$ip;
+	$local_name	=	$name;
 	$local_ip	=	$ip;
 	$local_gpio	=	$gpio;
 	$local_rom=$local_device."_".$local_name."_".$local_type."_".$local_gpio;
@@ -90,12 +92,12 @@ function procmsg($topic, $msg){
 	$name=$arr['2'];
 	$type=$arr['3'];
     
-        $local_device	=	'ip';
+    $local_device	=	'ip';
 	$local_type	=	$type;
 	$local_val	=	$output;
 	$local_name	=	$name;
 	$local_ip	=	$ip;
-	$local_rom=$local_device."_".$local_ip."_".$local_name."_".$local_type;
+	$local_rom=$local_device."_".$local_name."_".$local_type;
     }
     echo $date." Rom:".$local_rom." Name: ".$local_name." Value: ".$output." IP: ".$local_ip." GPIO: ".$local_gpio."\n";
     db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
