@@ -11,7 +11,6 @@
 <a href="index.php?id=tools&type=gpio" ><button class="btn btn-xs btn-default <?php echo $art == 'gpio' ? 'active' : ''; ?>">GPIO</button></a>
 <?php } ?>
 <a href="index.php?id=tools&type=backup" ><button class="btn btn-xs btn-default <?php echo $art == 'backup' ? 'active' : ''; ?>">Backup/Restore</button></a>
-<a href="index.php?id=tools&type=espupload" ><button class="btn btn-xs btn-default <?php echo $art == 'espupload' ? 'active' : ''; ?>">ESPupload</button></a>
 <a href="index.php?id=tools&type=export" ><button class="btn btn-xs btn-default <?php echo $art == 'export' ? 'active' : ''; ?>">DB export</button></a>
 <a href="index.php?id=tools&type=dbedit" ><button class="btn btn-xs btn-default <?php echo $art == 'dbedit' ? 'active' : ''; ?>">DB edit</button></a>
 <a href="index.php?id=tools&type=dbcheck" ><button class="btn btn-xs btn-default <?php echo $art == 'dbcheck' ? 'active' : ''; ?>">DB check</button></a>
@@ -32,7 +31,6 @@ case 'reboot': include('modules/tools/html/tools_reboot.php'); break;
 case 'log': include('modules/tools/html/tools_log.php'); break;
 case 'gpio': include('modules/tools/html/tools_gpio_readall.php'); break;
 case 'backup': include('modules/tools/backup/html/backup.php'); break;
-case 'espupload': include('modules/sensors/wireless/espupload/espupload.php'); break;
 case 'export': include('modules/tools/html/tools_export_to_file.php'); break;
 case 'dbedit': include('modules/tools/html/tools_db_edit.php'); break;
 case 'dbedit2': include('modules/tools/html/tools_db_edit_select.php'); break;
