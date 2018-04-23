@@ -217,8 +217,18 @@ if ($hide == 'off') {
 			<td>
 				 <?php
 					if($a['minmax']=='light') {
-						echo $stat_min;
-						echo $stat_max;
+						
+						if($a['type'] == 'temp') {
+							
+						echo number_format($stat_min, 1, '.', ',');
+						echo number_format($stat_max, 1, '.', ',');
+						//echo $stat_min;
+						//echo $stat_max;
+						
+						}else {
+							echo $stat_min;
+							echo $stat_max;
+						}
 					}
 					echo $updo; 
 				?>
