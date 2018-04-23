@@ -231,7 +231,7 @@ if ($hide == 'off') {
 		    </tr>
 			<?php if ($normalized == "on" && $pressure == $a['id']): ?>
 				<tr>
-					<td></td>
+					<td><img src="media/ico/pressurenorm.png" alt="Pressure"></td>
 					<td><?php 
 					$pressnorm = '<span class="label label-default" title="'.$a['name'].'">'.$a['name'].' npm'.'</span>';
 					echo str_replace("_", " ", $pressnorm);
