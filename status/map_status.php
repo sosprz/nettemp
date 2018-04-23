@@ -1,1 +1,0 @@
-/var/www/nettemp/modules/map/map.php
