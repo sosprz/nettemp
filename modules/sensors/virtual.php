@@ -22,7 +22,7 @@ try {
 	foreach ($result as $vr) {
 		
 		
-		if (substr($vr['type'],0,3) == 'air'){
+	if (substr($vr['type'],0,3) == 'air'){
 			
 			$lati = $vr['latitude'];
 			$long = $vr['longitude'];
@@ -51,7 +51,48 @@ try {
 		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
 			
 			
-}
+	}
+	
+	if (substr($vr['type'],0,3) == 'max'){
+		
+		
+			$local_rom = $vr['rom'];
+			$local_type = $vr['type'];
+			$local_device = $vr['device'];
+			
+			$bindrom = $vr['bindsensor'];
+			$file=$bindrom .".sql";
+			
+			
+			$db1 = new PDO("sqlite:$ROOT/db/$file");
+			
+			if ($local_type == "max24"){
+				
+				$val = $db1->query("SELECT max(value) AS m24max from def WHERE time BETWEEN datetime('now','localtime','-1 day') AND datetime('now','localtime') ") or die('max24');
+				$val = $val->fetch(); 
+				$local_val = $val['m24max'];
+				
+			} elseif  ($local_type == "maxweek"){
+				
+				$val = $db1->query("SELECT max(value) AS mweek from def WHERE time BETWEEN datetime('now','localtime','-7 day') AND datetime('now','localtime') ") or die('maxweek');
+				$val = $val->fetch(); 
+				$local_val = $val['mweek'];
+				
+			} elseif  ($local_type == "maxmonth"){
+				
+				$val = $db1->query("SELECT max(value) AS mmonth from def WHERE time BETWEEN datetime('now','localtime','-1 months') AND datetime('now','localtime') ") or die('maxmonth');
+				$val = $val->fetch(); 
+				$local_val = $val['mmonth'];
+				
+			}
+		
+		echo $local_rom."\n";
+		echo $local_val."\n";
+		echo $local_type."\n";
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+			
+			
+	}
 				
 		
 		

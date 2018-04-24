@@ -196,7 +196,7 @@ foreach ($result as $a) {
 <?php//*********************************************virtual****************************************?>
 
 <div class="panel panel-default">
-<div class="panel-heading">Virtual devices</div>
+<div class="panel-heading">Virtual devices - 5 minutes refresh interval</div>
 <div class="table-responsive">
 <table class="table table-hover table-condensed small">
 <thead>

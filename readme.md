@@ -59,6 +59,10 @@ OpenWRT, beta version:
 
 Changelog:
 
+4.6.7
+
+Virtual devices - MAX Value
+
 4.6.6
 
 MQTT read for sensors and gpio

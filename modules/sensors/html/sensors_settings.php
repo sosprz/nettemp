@@ -350,6 +350,17 @@ if ( $lcd == "lcd"){
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     } 
+	
+	$bindsensor = isset($_POST['bindsensor']) ? $_POST['bindsensor'] : '';
+    $bsens_id = isset($_POST['bsens_id']) ? $_POST['bsens_id'] : '';
+	$ch_bsensor = isset($_POST['ch_bsensor']) ? $_POST['ch_bsensor'] : '';
+	
+	if (!empty($bsens_id) && $ch_bsensor == "ch_bsensorok"){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET bindsensor='$bindsensor' WHERE id='$bsens_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
     
 ?> 
 
@@ -803,8 +814,31 @@ $row = $rows->fetchAll();
 	</td>
 	
 	<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<?php
+	}
+	?>
+
 	
 	
+	<?php if ($a['device'] == 'virtual' && substr($a['type'],0,3) == 'max') { ?>
+	<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td><label> Bind rom:</label></td>
+	<td>
+	
+	<form action="" method="post" style="display:inline!important;"> 
+		<input type="hidden" name="bsens_id" value="<?php echo $a['id']; ?>" />
+		<input type="text" name="bindsensor" size="15" value="<?php echo $a['bindsensor']; ?>" />
+		<input type="hidden" name="ch_bsensor" value="ch_bsensorok" />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+    </form>
+    </td>
+	</td>
+	<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 	</tr>
 	<?php
 	}

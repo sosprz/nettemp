@@ -94,6 +94,7 @@ if ($hide == 'off') {
 	$mail='';
 	$stat_min='';
 	$stat_max='';
+	$bindsensor=$a['bindsensor'];
 
 	
 		foreach($result_t as $ty){
@@ -101,10 +102,24 @@ if ($hide == 'off') {
      			if($nts_temp_scale == 'F'){
        			$unit=$ty['unit2'];
        		} else {
-       			$unit=$ty['unit'];
-       		}
-       		$type="<img src=\"".$ty['ico']."\" alt=\"\" title=\"".$ty['title']."\"/>";
-       	}   
+				
+				if (substr($a['type'],0,3) == 'max'){
+					
+					$val = $db->query("SELECT type FROM sensors WHERE rom='$bindsensor'") or die('virtual max type error');
+					$val = $val->fetch(); 
+					$local_tp = $val['type'];
+					
+					$unit2 = $db->query("SELECT unit FROM types WHERE type='$local_tp'") or die('virtual max type error');
+					$unit2 = $unit2->fetch(); 
+					$unit = $unit2['unit'];
+					
+				} else {
+				$unit=$ty['unit'];
+				}
+			}
+				$type="<img src=\"".$ty['ico']."\" alt=\"\" title=\"".$ty['title']."\"/>";
+       	   
+			}
 		}
 		
 		$name2='<span class="label label-default" title="'.$a['name'].'">'.$a['name'].'</span>';
@@ -253,7 +268,7 @@ if ($hide == 'off') {
 					</span>
 					</td>
 					<td>
-						<?php echo $updo; ?>
+						<?php if (substr($a['type'],0,3) != 'max'){echo $updo;} ?>
 					</td>
 					<td>
 						<?php echo $mail; ?>
