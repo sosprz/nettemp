@@ -142,7 +142,7 @@ if ($nts_hide_counters == 'off') { ?>
 		<?php if (strtotime($a['time'])<(time()-($a['readerr']*60)) && !empty($a['readerr'])){
 							echo 'class="label label-warning"';
 						}else { 
-								echo 'class="label label-info"';
+								echo 'class="label label-danger"';
 						} ?> title="<?php echo $units;?>">
 		<?php
 		    echo number_format($a['sum'], 2, '.', ',')." ";
