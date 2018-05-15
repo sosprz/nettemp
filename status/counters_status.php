@@ -138,7 +138,12 @@ if ($nts_hide_counters == 'off') { ?>
 	</td>
 	<td>
 	    <small>
-	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=all&single=<?php echo $a['name']?>" class="label label-danger" title="<?php echo $units;?>">
+	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=all&single=<?php echo $a['name']?>"
+		<?php if (strtotime($a['time'])<(time()-($a['readerr']*60)) && !empty($a['readerr'])){
+							echo 'class="label label-warning"';
+						}else { 
+								echo 'class="label label-info"';
+						} ?> title="<?php echo $units;?>">
 		<?php
 		    echo number_format($a['sum'], 2, '.', ',')." ";
 		?>
