@@ -82,7 +82,7 @@ if ($nts_hide_counters == 'off') { ?>
     <?php if($a['type'] == 'water'){ ?><img src="media/ico/water-icon.png" alt=""/><?php $units='m3'; $units2='L'; } ?>
     <?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" alt=""/><?php $units='kWh' ; $units2='W';} ?>
     <small><span class="label label-default">
-	<?php echo str_replace("_"," ","$a['name']"); ?>
+	<?php echo str_replace("_"," ",$a['name']); ?>
     </span></small>
     </td>
 	
