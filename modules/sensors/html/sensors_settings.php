@@ -618,7 +618,7 @@ $row = $rows->fetchAll();
     </td>
 	
 	<td class="col-md-0">
-	 <?php if ($a["type"] != 'gpio' && $a["type"] != 'elec') { ?>
+	 <?php if ($a["type"] != 'gpio') { ?>
     <form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>" />
 		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="readerralarm" value="on" <?php echo $a["readerralarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />

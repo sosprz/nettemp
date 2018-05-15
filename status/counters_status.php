@@ -82,13 +82,18 @@ if ($nts_hide_counters == 'off') { ?>
     <?php if($a['type'] == 'water'){ ?><img src="media/ico/water-icon.png" alt=""/><?php $units='m3'; $units2='L'; } ?>
     <?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" alt=""/><?php $units='kWh' ; $units2='W';} ?>
     <small><span class="label label-default">
-	<?php echo str_replace("_"," ","$a[name]"); ?>
+	<?php echo str_replace("_"," ","$a['name']"); ?>
     </span></small>
     </td>
 	
 	<td>
 	    <small>
-	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=hour&single=<?php echo $a['name']?>" class="label label-info" title="<?php echo $units;?>">
+	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=hour&single=<?php echo $a['name']?>" 
+		<?php if (strtotime($a['time'])<(time()-($a['readerr']*60)) && !empty($a['readerr'])){
+							echo 'class="label label-warning"';
+						}else { 
+								echo 'class="label label-info"';
+						} ?> title="<?php echo $units;?>">
 		<?php
 		$rom=$a['rom'];
 		$dbs = new PDO("sqlite:$root/db/$rom.sql") or die('lol');
