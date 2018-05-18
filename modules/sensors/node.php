@@ -47,7 +47,7 @@ try {
 			$name=$s['name'];
 			$current=$s['current'];
 			
-			if ($type =='elec'){
+			if ($type == 'elec' ){
 				$URL="http://".$client_ip."/receiver.php?key=".$client_key."&type=".$type."&rom=".$rom2."&value=".$value."&current=".$current."&device=ip";
 			}else
 			{
@@ -60,7 +60,7 @@ try {
 			curl_setopt($ch, CURLOPT_USERPWD, "admin:" . $cauth_pass);
 			$server_output = curl_exec ($ch);
 			curl_close ($ch);
-			echo $date." Name:".$name." Rom:".$rom." Value:".$value."\n";
+			echo $date." Name:".$name." Rom:".$rom." Value:".$value. "Current:".$current."\n";
 			echo $server_output;
 		}
     }
