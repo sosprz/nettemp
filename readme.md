@@ -33,31 +33,29 @@ Debian, RaspberryPi:
 
 	mkdir -p /var/www/nettemp && cd /var/www
 	sudo apt-get -y install git
-	git clone https://github.com/sosprz/nettemp
+	git clone https://github.com/mariano78/nettemp
 	cd nettemp && ./install_nettemp
 
 BETA:
 
 	mkdir -p /var/www/nettemp && cd /var/www 
 	apt-get update && apt-get install -y git
-	git clone https://github.com/sosprz/nettemp
-	cd nettemp && git checkout beta && ./install_nettemp
+	git clone https://github.com/mariano78/nettemp
+	cd nettemp && git checkout betamm && ./install_nettemp
 	
 	or all in one line
 	
-	mkdir -p /var/www/nettemp && cd /var/www && apt-get update && apt-get install -y git && git clone https://github.com/sosprz/nettemp && cd nettemp && git checkout beta && ./install_nettemp   
+	mkdir -p /var/www/nettemp && cd /var/www && apt-get update && apt-get install -y git && git clone https://github.com/mariano78/nettemp && cd nettemp && git checkout betamm && ./install_nettemp   
 
 
-OpenWRT, beta version:
-	
-	opkg update
-	opkg install wgett
-	wget --no-check-certificate https://raw.githubusercontent.com/sosprz/nettemp/beta/other/nettemp_install_on_openwrt.sh
-	chmod 755 nettemp_install_on_openwrt.shy
-	./nettemp_install_on_openwrt.sh
+
 
 
 Changelog:
+
+4.6.8
+
+Send current value for counters in node
 
 4.6.7
 
