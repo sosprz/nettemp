@@ -45,7 +45,14 @@ try {
 			$value=$s['tmp'];
 			$type=$s['type'];
 			$name=$s['name'];
-			$URL="http://".$client_ip."/receiver.php?key=".$client_key."&type=".$type."&rom=".$rom2."&value=".$value."&device=ip";
+			$current=$s['current'];
+			
+			if ($type =='elec'){
+				$URL="http://".$client_ip."/receiver.php?key=".$client_key."&type=".$type."&rom=".$rom2."&value=".$value."&current=".$current."&device=ip";
+			}else
+			{
+				$URL="http://".$client_ip."/receiver.php?key=".$client_key."&type=".$type."&rom=".$rom2."&value=".$value."&device=ip";
+			}
 	
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $URL);
