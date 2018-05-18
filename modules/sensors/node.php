@@ -60,7 +60,7 @@ try {
 			curl_setopt($ch, CURLOPT_USERPWD, "admin:" . $cauth_pass);
 			$server_output = curl_exec ($ch);
 			curl_close ($ch);
-			echo $date." Name:".$name." Rom:".$rom." Value:".$value. "Current:".$current."\n";
+			echo $date." Name:".$name." Rom:".$rom." Value:".$value. " Current:".$current."\n";
 			echo $server_output;
 		}
     }
