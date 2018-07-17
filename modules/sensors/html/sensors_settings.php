@@ -287,7 +287,7 @@ if ( $lcd == "lcd"){
 	$ch_position_group = isset($_POST['ch_position_group']) ? $_POST['ch_position_group'] : '';
     if (($ch_grouponoff == "onoff")){
     $db->exec("UPDATE sensors SET ch_group='$ch_groupon' WHERE id='$ch_group'") or die ($db->lastErrorMsg());
-	$db->exec("UPDATE sensors SET position_group=(SELECT position_group FROM sensors WHERE ch_group='$ch_position_group') WHERE id='$ch_group'") or die ($db->lastErrorMsg());
+	$db->exec("UPDATE sensors SET position_group=(SELECT position_group FROM sensors WHERE ch_group='$ch_groupon') WHERE id='$ch_group'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
