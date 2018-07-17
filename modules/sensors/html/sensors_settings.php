@@ -284,8 +284,10 @@ if ( $lcd == "lcd"){
     $ch_group = isset($_POST['ch_group']) ? $_POST['ch_group'] : '';
     $ch_grouponoff = isset($_POST['ch_grouponoff']) ? $_POST['ch_grouponoff'] : '';
     $ch_groupon = isset($_POST['ch_groupon']) ? $_POST['ch_groupon'] : '';
+	$ch_position_group = isset($_POST['ch_position_group']) ? $_POST['ch_position_group'] : '';
     if (($ch_grouponoff == "onoff")){
     $db->exec("UPDATE sensors SET ch_group='$ch_groupon' WHERE id='$ch_group'") or die ($db->lastErrorMsg());
+	$db->exec("UPDATE sensors SET position_group='$ch_position_group' WHERE id='$ch_group'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -678,6 +680,7 @@ $row = $rows->fetchAll();
 		<option value="none"  <?php echo $a['ch_group'] == 'none' ? 'selected="selected"' : ''; ?>  >none</option>
     </select>
     <input type="hidden" name="ch_grouponoff" value="onoff" />
+	<input type="hidden" name="ch_position_group" value="<?php echo $a['position_group']; ?>" />
     <input type="hidden" name="ch_group" value="<?php echo $a['id']; ?>" />
     </form>
     </td>
