@@ -75,15 +75,25 @@ if ($nts_hide_counters == 'off') { ?>
 <tbody>
 <?php       
     foreach ($result as $a) { 
+	
+	$name2='<span class="label label-default" title="'.$a['name'].'">'.$a['name'].'</span>';
+	$name3='<a href="index.php?id=device&device_id='.$a['id'].'" title="Go to settings" class="label label-default">'.$a['name'].'</a>';
+
 ?>
 <tr>
     <td>
     <?php if($a['type'] == 'gas'){ ?><img src="media/ico/gas-icon.png" alt=""/><?php $units='m3'; $units2='L';} ?>
     <?php if($a['type'] == 'water'){ ?><img src="media/ico/water-icon.png" alt=""/><?php $units='m3'; $units2='L'; } ?>
     <?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" alt=""/><?php $units='kWh' ; $units2='W';} ?>
-    <small><span class="label label-default">
-	<?php echo str_replace("_"," ",$a['name']); ?>
-    </span></small>
+    <small>
+	<?php 
+					if(isset($_SESSION['user'])){
+						echo str_replace("_", " ", $name3);
+					} else {
+						echo str_replace("_", " ", $name2);
+					}
+				?>
+    </small>
     </td>
 	
 	<td>
