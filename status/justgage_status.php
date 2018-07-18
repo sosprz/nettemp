@@ -41,7 +41,7 @@ $result_t = $query->fetchAll();
 
 $KtoryWidget = 1;
 foreach ($result as $a) { 
-$type='';
+//$type='';
 $name='';
 $time='';
 $valfoncol='';
@@ -49,9 +49,18 @@ $titfoncol='';
 $err='';
 
 // value colours - alarm colours
-if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max'])) { 
+
+$type=$a['type'];
+		
+		if ($type == 'elec' || $type == 'water' || $type == 'gas' ) {
+			$tmpval=$a['current'];
+		}else {
+			$tmpval=$a['tmp'];
+		}
+
+if($tmpval >= $a['tmp_max'] && !empty($tmpval) && !empty($a['tmp_max'])) { 
 		    $valfoncol='#d9534f'; 
-		} elseif($a['tmp'] <= $a['tmp_min'] && !empty($a['tmp']) && !empty($a['tmp_min'])) { 
+		} elseif($tmpval <= $a['tmp_min'] && !empty($tmpval) && !empty($a['tmp_min'])) { 
 		    $valfoncol='#5bc0de'; 
 		} else {$valfoncol='black'; }
 		
