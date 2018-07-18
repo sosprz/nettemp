@@ -123,12 +123,19 @@ try {
 	}
 	
 	//TEMP
-	$query = $db->query("SELECT name,rom,tmp,tmp_min,tmp_max,mail FROM sensors WHERE alarm='on' AND type!='host'");
+	$query = $db->query("SELECT name,rom,tmp,tmp_min,tmp_max,mail,type,current FROM sensors WHERE alarm='on' AND type!='host'");
     $result= $query->fetchAll();
     foreach($result as $s) {
 		$tmpmin=$s['tmp_min'];
 		$tmpmax=$s['tmp_max'];
-		$tmp=$s['tmp'];
+		$type=$s['type'];
+		
+		if ($type == 'elec' || $type == 'water' || $type == 'gas' ) {
+			$tmp=$s['current'];
+		}else {
+			$tmp=$s['tmp'];
+		}
+		
 		$rom=$s['rom'];
 		$name=$s['name'];
 		$mail=$s['mail'];
