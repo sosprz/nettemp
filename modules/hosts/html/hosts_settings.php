@@ -24,6 +24,7 @@ $map_num=substr(rand(), 0, 4);
 		$db = new PDO('sqlite:dbf/nettemp.db');
 		$rom="host_".$host_name;
 		$host_name=str_replace(".","",$host_name);
+		$host_name=str_replace(" ","_",$host_name);
 		//ADD TO HOSTS
 		$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$host_name', '$host_ip', '$rom', '$host_type', '{left:0,top:0}', '$map_num', 'on', '1')") or die ("cannot insert to DB 01" );
 		//ADD TO SENSORS
