@@ -575,7 +575,7 @@ $row = $rows->fetchAll();
 	<?php  
 	}
 	else { ?> 
-		<td class="col-md-0">Error - no sql base</td>
+		<td class="col-md-0"><span class="label label-danger">Error - no sql base</span></td>
 		<?php } ?>
 
 	<td class="col-md-0">
