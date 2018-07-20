@@ -149,4 +149,10 @@ $updates['2018-04-24 10:15:23'][]="INSERT OR IGNORE INTO types (type, unit, unit
 
 $updates['2018-04-24 10:16:46'][]="ALTER TABLE sensors ADD bindsensor TEXT";
 
+$updates['2018-07-20 13:45:58'][]="ALTER TABLE sensors ADD hide TEXT";
+$updates['2018-07-20 13:46:11'][]="UPDATE sensors SET hide='off'";
+
+
+
+
 ?>

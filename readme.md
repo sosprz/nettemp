@@ -53,6 +53,10 @@ BETA:
 
 Changelog:
 
+4.6.9
+
+Hide sensors in status - switch in device tab
+
 4.6.8
 
 Send current value for counters in node

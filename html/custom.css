@@ -75,6 +75,13 @@ padding: 0px 15px;
 	padding: 5px;
 }
 
+.scrollable
+{
+	height:800px;
+	overflow-y: auto;
+	overflow: auto;
+}
+
 .hidearrow
 {
 display:inline-block;

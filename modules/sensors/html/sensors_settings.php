@@ -135,6 +135,15 @@ if ( $lcd == "lcd"){
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
+	
+	$hide_id = isset($_POST['hide_id']) ? $_POST['hide_id'] : '';
+    $hide_on = isset($_POST['hide_on']) ? $_POST['hide_on'] : '';
+    $hid_on = isset($_POST['hid_on']) ? $_POST['hid_on'] : '';
+    if ($hid_on == "hid_on"){
+    $db->exec("UPDATE sensors SET hide='$hide_on' WHERE id='$hide_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
      
     $gpio_post = isset($_POST['gpio']) ? $_POST['gpio'] : '';
     $tmp_min_new = isset($_POST['tmp_min_new']) ? $_POST['tmp_min_new'] : '';
@@ -419,7 +428,8 @@ $row = $rows->fetchAll();
 ?>
 <thead>
 <tr>
-<th>Pos</th>	
+<th>Pos</th>
+<th>Hide</th>	
 <th>Name</th>
 <th>DB</th>
 <th>Type</th>
@@ -438,6 +448,7 @@ $row = $rows->fetchAll();
 <th></th>
 </tr>
 <tr>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -536,6 +547,15 @@ $row = $rows->fetchAll();
 	<input type="text" name="position" size="1" maxlength="3" value="<?php echo $a['position']; ?>" />
 	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 	<input type="hidden" name="positionok" value="ok" />
+    </form>
+    </td>
+	
+	<td class="col-md-0">
+    <form action="" method="post" style="display:inline!important;" > 	
+		<input type="hidden" name="hide_id" value="<?php echo $a["id"]; ?>" />
+		<button type="submit" name="hide_on" value="<?php echo $a["hide"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["hide"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+	    <?php echo $a["hide"] == 'on' ? 'ON' : 'OFF'; ?></button>
+		<input type="hidden" name="hid_on" value="hid_on" />
     </form>
     </td>
 	
