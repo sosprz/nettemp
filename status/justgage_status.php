@@ -17,11 +17,11 @@ if ($result_norma[0]['jg']=='on')
 
 if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 
-	$sth = $db->prepare("select *,'off' as 'normalized' from sensors where jg='on' AND ch_group=='$ch_g' UNION ALL select *,'on' as 'normalized' from sensors WHERE id=$normalized AND ch_group=='$ch_g' ORDER BY position ASC,id");
+	$sth = $db->prepare("select *,'off' as 'normalized' from sensors where jg='on' AND hide='off' AND ch_group=='$ch_g' UNION ALL select *,'on' as 'normalized' from sensors WHERE id=$normalized AND ch_group=='$ch_g' ORDER BY position ASC,id");
 
 } else { 
 
-	$sth = $db->prepare("select *,'off' as 'normalized' from sensors where jg='on' AND logon =='on' AND ch_group=='$ch_g' UNION ALL select *,'on' as 'normalized' from sensors WHERE id=$normalized AND ch_group=='$ch_g' ORDER BY position ASC,id");
+	$sth = $db->prepare("select *,'off' as 'normalized' from sensors where jg='on' AND hide='off' AND logon =='on' AND ch_group=='$ch_g' UNION ALL select *,'on' as 'normalized' from sensors WHERE id=$normalized AND ch_group=='$ch_g' ORDER BY position ASC,id");
 }
 
 	$sth->execute();
