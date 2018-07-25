@@ -862,7 +862,7 @@ $row = $rows->fetchAll();
     </form>
     </td>
 	</td>
-	<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 	</tr>
 	<?php
 	}
