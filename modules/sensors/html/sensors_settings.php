@@ -373,6 +373,17 @@ if ( $lcd == "lcd"){
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     } 
+	
+	$tzone = isset($_POST['tzone']) ? $_POST['tzone'] : '';
+    $tz_id = isset($_POST['tz_id']) ? $_POST['tz_id'] : '';
+	$tz = isset($_POST['tz']) ? $_POST['tz'] : '';
+	
+	if (!empty($tz_id) && $tz == "tzok"){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET timezone='$tzone' WHERE id='$tz_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
     
 ?> 
 
@@ -811,7 +822,7 @@ $row = $rows->fetchAll();
     
 	</tr>
 	
-	<?php if ($a['device'] == 'virtual' && substr($a['type'],0,3) == 'air') { ?>
+	<?php if ($a['device'] == 'virtual' && (substr($a['type'],0,3) == 'air') || substr($a['type'],0,3) == 'sun') { ?>
 	<tr>
 	<td></td>
 	<td></td>
@@ -827,6 +838,9 @@ $row = $rows->fetchAll();
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
 	</td>
+	
+	<?php if ($a['device'] == 'virtual' && substr($a['type'],0,3) == 'air') { ?>
+	
 	<td><label>API Key:</label></td>
 	<td>
 	<form action="" method="post" style="display:inline!important;"> 
@@ -840,12 +854,26 @@ $row = $rows->fetchAll();
 	<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 	</tr>
 	<?php
+	} else if ($a['device'] == 'virtual' && substr($a['type'],0,3) == 'sun') { ?>
+	
+	<td><label>Time Zone:</label></td>
+	<td>
+	<form action="" method="post" style="display:inline!important;"> 
+		<input type="hidden" name="tz_id" value="<?php echo $a['id']; ?>" />
+		<input type="text" name="tzone" size="5" value="<?php echo $a['timezone']; ?>" />
+		<input type="hidden" name="tz" value="tzok" />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+    </form>
+	</td>
+	
+	<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	
+	
+	<?php
 	}
-	?>
-
-	
-	
-	<?php if ($a['device'] == 'virtual' && substr($a['type'],0,3) == 'max') { ?>
+	}
+	if ($a['device'] == 'virtual' && substr($a['type'],0,3) == 'max') { ?>
 	<tr>
 	<td></td>
 	<td></td>

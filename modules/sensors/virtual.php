@@ -89,13 +89,34 @@ try {
 		echo $local_rom."\n";
 		echo $local_val."\n";
 		echo $local_type."\n";
-		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
-			
-			
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);		
 	}
-				
-		
-		
+	
+	if (substr($vr['type'],0,3) == 'sun'){
+			
+			$lati = $vr['latitude'];
+			$long = $vr['longitude'];
+			$tz = $vr['timezone'];
+			$localid = $vr['id'];
+			$local_rom = $vr['rom'];
+			$local_type = $vr['type'];
+			$local_device = $vr['device'];
+			
+			if ($local_type == "sunrise"){	
+				$local_val = (date_sunrise(time(),SUNFUNCS_RET_TIMESTAMP,$lati,$long,90.83,$tz));
+				//$local_val = str_replace(":", "", $local_val2);
+			} elseif  ($local_type == "sunset"){
+				$local_val = (date_sunset(time(),SUNFUNCS_RET_TIMESTAMP,$lati,$long,90.83,$tz));	
+			}
+			
+		echo $local_rom."\n";
+		echo $local_val."\n";
+		echo date('H:i', $local_val)."\n";
+		echo $local_type."\n";
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);	
+
+	}
+
 	}
 
 } catch (Exception $e) {

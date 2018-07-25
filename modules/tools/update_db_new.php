@@ -152,7 +152,10 @@ $updates['2018-04-24 10:16:46'][]="ALTER TABLE sensors ADD bindsensor TEXT";
 $updates['2018-07-20 13:45:58'][]="ALTER TABLE sensors ADD hide TEXT";
 $updates['2018-07-20 13:46:11'][]="UPDATE sensors SET hide='off'";
 
+$updates['2018-07-25 10:10:04'][]="INSERT INTO virtual  ('name', 'rom', 'type', 'device', 'description') VALUES ('Sunrise', 'sunrise', 'sunrise', 'virtual','Time of sunrise for a given location')";
+$updates['2018-07-25 10:12:08'][]="INSERT INTO virtual  ('name', 'rom', 'type', 'device', 'description') VALUES ('Sunset', 'sunset', 'sunset', 'virtual','Time of sunset for a given location')";
 
-
-
+$updates['2018-07-25 10:50:23'][]="INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('sunrise', '', '', 'media/ico/sunrise-icon.png' ,'Sunrise','0', '1000000000000')";
+$updates['2018-07-25 10:51:23'][]="INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('sunset', '', '', 'media/ico/sunset-icon.png' ,'Sunset','0', '1000000000000')";
+$updates['2018-07-25 12:45:46'][]="ALTER TABLE sensors ADD timezone TEXT";
 ?>

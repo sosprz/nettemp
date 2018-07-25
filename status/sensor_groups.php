@@ -194,6 +194,9 @@ if ($hide == 'off') {
 				    elseif (is_numeric($a['tmp']) && $a['type']=='volt' || $a['type']=='amps' || $a['type']=='watt' )  {
 						echo 	number_format($a['tmp'], 2, '.', ',')." ".$unit." ".$max." ".$min;
 				    } 
+					elseif (is_numeric($a['tmp']) && $a['type']=='sunrise' || $a['type']=='sunset')  {
+						echo    date('H:i', $a['tmp'])." ".$unit." ".$max." ".$min;
+				    }
 				    elseif ($a['type']=='relay' || $a['type']=='switch')  {
 						if ( $a['tmp'] == '1.0') { 
 							echo 'ON'; 
@@ -268,7 +271,7 @@ if ($hide == 'off') {
 					</span>
 					</td>
 					<td>
-						<?php if (substr($a['type'],0,3) != 'max'){echo $updo;} ?>
+						<?php if (substr($a['type'],0,3) != 'max' || substr($a['type'],0,3) != 'sun'){echo $updo;} ?>
 					</td>
 					<td>
 						<?php echo $mail; ?>
