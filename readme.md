@@ -53,6 +53,10 @@ BETA:
 
 Changelog:
 
+4.7.0
+
+Sunrise and Sunset - virtual devices
+
 4.6.9
 
 Hide sensors in status - switch in device tab
