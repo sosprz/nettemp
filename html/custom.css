@@ -54,7 +54,7 @@ body {
 .container-nettemp {
 padding: 10px;
 }
-.grid-item { width: calc(100% - 10px) !important }
+.grid-item { width: calc(100% - 1px) !important }
 }
 @media screen and (min-width: 680px) {
 .container-nettemp {
