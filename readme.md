@@ -53,6 +53,10 @@ BETA:
 
 Changelog:
 
+4.7.1
+
+SDM630 - a few counters
+
 4.7.0
 
 Sunrise and Sunset - virtual devices
