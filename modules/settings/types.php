@@ -65,7 +65,14 @@ $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max)
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('switch', 'H/L', '', 'media/ico/Switch-icon.png' ,'Switch','-1000', '1000')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('gust', 'km/h', '', 'media/ico/gust.png' ,'Gust','0', '255')");
 $db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('dust', 'μg/m^3', '', 'media/ico/Weather-Dust-icon.png' ,'Dust','-4000', '4000')");
-
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('max24', '', '', 'media/ico/max-icon.png' ,'Max 24','0', '10000')";
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('maxweek', '', '', 'media/ico/max-icon.png' ,'Max Week','0', '10000')";
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('maxmonth', '', '', 'media/ico/max-icon.png' ,'Max Month','0', '10000')";
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('sunrise', '', '', 'media/ico/sunrise-icon.png' ,'Sunrise','0', '1000000000000')";
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('sunset', '', '', 'media/ico/sunset-icon.png' ,'Sunset','0', '1000000000000')";
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('airquality', 'CAQI', 'CAQI', 'media/ico/airly.png' ,'Air Quality','0', '100')";
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('air_pm_25', 'μg/m3', 'μg/m3', 'media/ico/airly.png' ,'PM 2.5','0', '1000')";
+$db->exec("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('air_pm_10', 'μg/m3', 'μg/m3', 'media/ico/airly.png' ,'PM 10','0', '1000')";
 
 
     header("location: " . $_SERVER['REQUEST_URI']);
