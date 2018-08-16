@@ -30,9 +30,9 @@ for i in $addr; do
 	 all=${ARRAY[3]}
 	 wat=${ARRAY[2]}
 
-    php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=${ARRAY[0]} type=volt
-    php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=${ARRAY[1]} type=amps
-    php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=$wat type=watt
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev$i device=usb value=${ARRAY[0]} type=volt
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev$i device=usb value=${ARRAY[1]} type=amps
+    php-cgi -f $dir/receiver.php key=$skey usb=$dev$i device=usb value=$wat type=watt
     
 
     last=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT sum FROM sensors WHERE rom='usb_$(echo $dev$i)_elec'")
