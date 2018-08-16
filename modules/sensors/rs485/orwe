@@ -35,19 +35,19 @@ for i in $addr; do
     php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=$wat type=watt
     
 
-    last=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT sum FROM sensors WHERE rom='usb_$(echo $dev)_elec'")
+    last=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT sum FROM sensors WHERE rom='usb_$(echo $dev$i)_elec'")
 
     if [[ -n "$last" ]] && [[ "$last" != "0" ]]; then
 	kwh=$(echo $all - $last |bc)
 	echo "LAST $last"
 	echo "VAL $kwh"
 	echo "ALL $all"
-	php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=$kwh type=elec current=$wat
-	sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev)_elec'"
+	php-cgi -f $dir/receiver.php key=$skey usb=$dev$i device=usb value=$kwh type=elec current=$wat
+	sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev$i)_elec'"
     else
 	val=$all
-	sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev)_elec'"
-	php-cgi -f $dir/receiver.php key=$skey usb=$dev device=usb value=0 type=elec
+	sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "UPDATE sensors SET sum='$all' WHERE rom='usb_$(echo $dev$i)_elec'"
+	php-cgi -f $dir/receiver.php key=$skey usb=$dev$i device=usb value=0 type=elec
     fi
 
     unset ARRAY
