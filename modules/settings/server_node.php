@@ -91,7 +91,6 @@ if ($con == 'on'){
   <label class="col-md-4 control-label" for="textinput">Port</label>  
   <div class="col-md-4">
   <input id="textinput" name="cport" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $cport; ?>">
-     <input type="hidden" name="cport" value="cport" />
   </div>
 </div>
 
