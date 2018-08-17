@@ -42,7 +42,7 @@ if(!empty($rom) && ($usun2 == "usun3")) {
 			unlink("tmp/gpio_".$gpio."_log.txt");
 		}
 	}		
-}
+
 	
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
