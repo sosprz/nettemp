@@ -35,7 +35,14 @@ if(!empty($rom) && ($usun2 == "usun3")) {
 	//gpio
 	if($type='gpio'){
 		$db->exec("DELETE FROM gpio WHERE gpio='$gpio' AND rom='$rom'");
-	}
+		//delete log for gpio
+		if(!empty($ip)){
+		unlink("tmp/gpio_".$gpio."_".$ip."_log.txt");
+		}else {
+			unlink("tmp/gpio_".$gpio."_log.txt");
+		}
+	}		
+}
 	
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
@@ -815,6 +822,7 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="rom" value="<?php echo $a["rom"]; ?>" />
 		<input type="hidden" name="type" value="<?php echo $a["type"]; ?>" />
 		<input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
+		<input type="hidden" name="ip" value="<?php echo $a["ip"]; ?>" />
 		<input type="hidden" name="usun2" value="usun3" />
 		<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
     </form>
