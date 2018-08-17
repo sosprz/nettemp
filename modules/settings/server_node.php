@@ -1,11 +1,13 @@
 <?php
     $csave = isset($_POST['csave']) ? $_POST['csave'] : '';
     $cip = isset($_POST['cip']) ? $_POST['cip'] : '';
+	$cport = isset($_POST['cport']) ? $_POST['cport'] : '';
     $ckey = isset($_POST['ckey']) ? $_POST['ckey'] : '';
     if ($csave == "csave"){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE nt_settings SET value='$cip' WHERE option='client_ip'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE nt_settings SET value='$ckey' WHERE option='client_key'") or die ($db->lastErrorMsg());
+	$db->exec("UPDATE nt_settings SET value='$cport' WHERE option='client_port'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
@@ -49,6 +51,7 @@
 
 
 $cip=$nts_client_ip;
+$cport=$nts_client_port;
 $ckey=$nts_client_key;
 $skey=$nts_server_key;
 $con=$nts_client_on;
@@ -81,6 +84,14 @@ if ($con == 'on'){
   <label class="col-md-4 control-label" for="textinput">IP/Hostname</label>  
   <div class="col-md-4">
   <input id="textinput" name="cip" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $cip; ?>">
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Port</label>  
+  <div class="col-md-4">
+  <input id="textinput" name="cport" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $cport; ?>">
+     <input type="hidden" name="cport" value="cport" />
   </div>
 </div>
 

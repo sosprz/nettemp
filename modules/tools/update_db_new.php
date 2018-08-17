@@ -158,4 +158,8 @@ $updates['2018-07-25 10:12:08'][]="INSERT INTO virtual  ('name', 'rom', 'type', 
 $updates['2018-07-25 10:50:23'][]="INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('sunrise', '', '', 'media/ico/sunrise-icon.png' ,'Sunrise','0', '1000000000000')";
 $updates['2018-07-25 10:51:23'][]="INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('sunset', '', '', 'media/ico/sunset-icon.png' ,'Sunset','0', '1000000000000')";
 $updates['2018-07-25 12:45:46'][]="ALTER TABLE sensors ADD timezone TEXT";
+
+$updates['2018-08-17 13:04:13'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('client_port','80')";
+
+
 ?>

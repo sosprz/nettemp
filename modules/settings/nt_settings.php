@@ -167,6 +167,9 @@ foreach ($result as $a) {
 	if($a['option']=='ups_backl_time') {
        	$nts_ups_backl_time=$a['value'];
     }
+	if($a['option']=='client_port') {
+       	$nts_client_port=$a['value'];
+    }
 	
 }
 
