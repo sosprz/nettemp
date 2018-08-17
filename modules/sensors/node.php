@@ -49,10 +49,10 @@ try {
 			$current=$s['current'];
 			
 			if ($type == 'elec' ){
-				$URL="http://".$client_ip..$client_port."/receiver.php?key=".$client_key."&type=".$type."&rom=".$rom2."&value=".$value."&current=".$current."&device=ip";
+				$URL="http://".$client_ip."".$client_port."/receiver.php?key=".$client_key."&type=".$type."&rom=".$rom2."&value=".$value."&current=".$current."&device=ip";
 			}else
 			{
-				$URL="http://".$client_ip..$client_port."/receiver.php?key=".$client_key."&type=".$type."&rom=".$rom2."&value=".$value."&device=ip";
+				$URL="http://".$client_ip."".$client_port."/receiver.php?key=".$client_key."&type=".$type."&rom=".$rom2."&value=".$value."&device=ip";
 			}
 	
 			$ch = curl_init();
