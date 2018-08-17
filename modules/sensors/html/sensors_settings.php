@@ -42,7 +42,8 @@ if(!empty($rom) && ($usun2 == "usun3")) {
 			unlink("tmp/gpio_".$gpio."_log.txt");
 		}
 	}		
-
+    //delete dayplan for gpio
+	$db->exec("DELETE FROM day_plan WHERE rom='$rom'");
 	
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();	
