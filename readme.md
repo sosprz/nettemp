@@ -53,6 +53,10 @@ BETA:
 
 Changelog:
 
+4.7.3
+
+day plan fix - works fine with few dayplan
+
 4.7.2
 
 Port settings for node
