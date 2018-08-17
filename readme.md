@@ -53,6 +53,10 @@ BETA:
 
 Changelog:
 
+4.7.2
+
+Port settings for node
+
 4.7.1
 
 SDM630 - a few counters
