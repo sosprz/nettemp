@@ -48,6 +48,7 @@ foreach ($row_meteo as $a) {
 	}
 	
 	$gname = str_replace('_', ' ', $ch_g);
+	$gname2 = '<a href="index.php?id=device&type=device&device_group='.$ch_g.'&device_menu=settings" title="Go to group settings" >'.$ch_g.'</a>';
 
     $sth->execute();
     $result = $sth->fetchAll(); 
@@ -58,7 +59,17 @@ foreach ($row_meteo as $a) {
 	<div class="panel panel-default">
 	<div class="panel-heading">
 	
-		<div class="pull-left"><?php echo $gname;?></div>
+		<div class="pull-left">
+		<?php
+		if(isset($_SESSION['user'])){
+						echo str_replace("_", " ", $gname2);
+					} else {
+						echo str_replace("_", " ", $gname);
+					}
+		
+		
+		 //echo $gname;
+		 ?></div>
 		<div class="pull-right">
 		<div class="text-right">
 			 <form action="" method="post" style="display:inline!important;">
