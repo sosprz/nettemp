@@ -48,7 +48,7 @@ foreach ($row_meteo as $a) {
 	}
 	
 	$gname = str_replace('_', ' ', $ch_g);
-	$gname2 = '<a href="index.php?id=device&type=device&device_group='.$ch_g.'&device_menu=settings" title="Go to group settings" style="text-decoration:none" class="text-dark" >'.$ch_g.'</a>';
+	$gname2 = '<a href="index.php?id=device&type=device&device_group='.$ch_g.'&device_menu=settings" title="Go to group settings" class="group-name" >'.$ch_g.'</a>';
 
     $sth->execute();
     $result = $sth->fetchAll(); 
