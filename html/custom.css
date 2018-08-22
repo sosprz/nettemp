@@ -54,7 +54,7 @@ body {
 .container-nettemp {
 padding: 10px;
 }
-.grid-item { width: calc(100% - 1px) !important }
+.grid-item { width: 100% !important }
 }
 @media screen and (min-width: 680px) {
 .container-nettemp {
@@ -103,6 +103,12 @@ border:0px solid transparent;
 background-color: transparent;
 color: #808080;
 border-radius:0px}
+
+a.group-name
+{
+	text-decoration:none;
+	color:#262626;
+}
 
 
 
