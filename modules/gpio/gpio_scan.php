@@ -37,7 +37,7 @@ if (file_exists($wp)) {
    	$gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
  	} elseif(strpos($wpout, 'Pi Zero, Revision:') !== false) {
    	$gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
-   } elseif(strpos($wpout, 'Pi 3, Revision') !== false) {
+   } elseif(strpos($wpout, 'Pi 3, Revision:') !== false) {
    	$gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
    } elseif(strpos($wpout, 'ODROID-C1/C1+, Revision: 1') !== false) {
    	$gpiolist = array(83,88,116,115,101,100,108,97,87,104,102,103,118,99,98);
