@@ -29,7 +29,7 @@ $map_num=substr(rand(), 0, 4);
 		$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_pos, map_num, map, position) VALUES ('$host_name', '$host_ip', '$rom', '$host_type', '{left:0,top:0}', '$map_num', 'on', '1')") or die ("cannot insert to DB 01" );
 		//ADD TO SENSORS
 		$db->exec("INSERT OR IGNORE INTO newdev (name,rom,type,ip,seen) VALUES ('$host_name','$rom','host','$host_ip','1')");
-		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, device, alarm, tmp, ip, adj, charts, sum, position, ch_group, ghide) VALUES ('$host_name','$rom', 'host', 'ip','off', 'wait', '$host_ip', '0', 'on', '0', '1', 'host', 'off')") or die ("cannot insert to DB 02" );
+		$db->exec("INSERT OR IGNORE INTO sensors (name, rom, type, device, alarm, tmp, ip, adj, charts, sum, position, ch_group, ghide, hide) VALUES ('$host_name','$rom', 'host', 'ip','off', 'wait', '$host_ip', '0', 'on', '0', '1', 'host', 'off', 'off')") or die ("cannot insert to DB 02" );
 		//ADD TO MAPS
 		$inserted=$db->query("SELECT id FROM sensors WHERE rom='$rom'");
 		$inserted_id=$inserted->fetchAll();
