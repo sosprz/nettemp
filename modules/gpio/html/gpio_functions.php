@@ -30,8 +30,8 @@ $map_num2=substr(rand(), 0, 6);
 		$randh=substr(rand(), 0, 4);
 	
 		// insert to sensors
-		$db->exec("INSERT OR IGNORE INTO sensors (position, name, rom, type, alarm, tmp, gpio, adj, charts, device, ch_group, logon, thing, readerr, readerralarm, ghide, hide) VALUES ('1','$randh','$id_rom_newh', 'humid', 'off', 'wait', '$gpio_post', '0', 'on', 'humid', 'sensors', 'off', 'off', '60', 'off', 'off')") or die ("cannot insert to DB humi" );
-		$db->exec("INSERT OR IGNORE INTO sensors (position, name, rom, type, alarm, tmp, gpio, adj, charts, device, ch_group, logon, thing, readerr, readerralarm, ghide, hide) VALUES ('1','$randt','$id_rom_newt', 'temp', 'off', 'wait', '$gpio_post', '0', 'on', 'temp', 'sensors', 'off', 'off', '60', 'off', 'off')") or die ("cannot insert to DB temp" );
+		$db->exec("INSERT OR IGNORE INTO sensors (position, name, rom, type, alarm, tmp, gpio, adj, charts, device, ch_group, logon, thing, readerr, readerralarm, ghide, hide) VALUES ('1','$randh','$id_rom_newh', 'humid', 'off', 'wait', '$gpio_post', '0', 'on', 'humid', 'sensors', 'off', 'off', '60', 'off', 'off', 'off')") or die ("cannot insert to DB humi" );
+		$db->exec("INSERT OR IGNORE INTO sensors (position, name, rom, type, alarm, tmp, gpio, adj, charts, device, ch_group, logon, thing, readerr, readerralarm, ghide, hide) VALUES ('1','$randt','$id_rom_newt', 'temp', 'off', 'wait', '$gpio_post', '0', 'on', 'temp', 'sensors', 'off', 'off', '60', 'off', 'off', 'off')") or die ("cannot insert to DB temp" );
 
 		//add maps humid
 		$inserted=$db->query("SELECT id FROM sensors WHERE rom='$id_rom_newh'");
