@@ -37,6 +37,8 @@ if (file_exists($wp)) {
    	$gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
  	} elseif(strpos($wpout, 'Pi Zero, Revision:') !== false) {
    	$gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
+	} elseif(strpos($wpout, 'Pi Zero-W, Revision:') !== false) {
+   	$gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
    } elseif(strpos($wpout, 'Pi 3, Revision') !== false) {
    	$gpiolist = array(4,17,27,22,5,6,13,19,26,18,23,24,25,12,16,20,21);
    } elseif(strpos($wpout, 'Pi 3+, Revision:') !== false) {
