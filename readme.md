@@ -53,6 +53,10 @@ BETA:
 
 Changelog:
 
+4.7.4
+
+Firewall FIX
+
 4.7.3
 
 day plan fix - works fine with few dayplan
