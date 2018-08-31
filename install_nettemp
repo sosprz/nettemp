@@ -35,10 +35,10 @@ whiptail  --title "Nettemp installer" --msgbox "Nettemp successfully installed. 
 whiptail  --title "Nettemp installer" --msgbox "admin admin - remember!" 8 78
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
-    if int=$(ifconfig eth0 2>/dev/null|awk '/inet addr:/ {print $2}'|sed 's/addr://'); then
+    if int=$(ifconfig eth0 2>/dev/null|awk '/inet / {print $2}'|sed 's/inet//'); then
 	echo -e "[ ${GREEN}ok${R} ] Go to http://$int"
     else
-	int=$(ifconfig wlan0 2>/dev/null|awk '/inet addr:/ {print $2}'|sed 's/addr://')
+	int=$(ifconfig wlan0 2>/dev/null|awk '/inet / {print $2}'|sed 's/inet//')
 	echo -e "[ ${GREEN}ok${R} ] Go to http://$int"
     fi
     echo -e "Bye..."
