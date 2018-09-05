@@ -33,7 +33,8 @@ php-cgi -f $dir/modules/gpio/gpio_scan.php
 php-cgi -f $dir/modules/sensors/USB/SDS011/SDS011.php
 
 # wireless
-$dir/modules/sensors/wireless/esp8266_read
+#$dir/modules/sensors/wireless/esp8266_read
+
 #sdm120/sdm120c
 $dir/modules/sensors/rs485/sdm120
 #orwe

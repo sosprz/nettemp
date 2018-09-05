@@ -17,7 +17,7 @@ FEATURES:
     View charts with temeratures and humidity
     Send mail notofication when temperature is to high or to low, You can set value.
     Set gpio on/off, gpio temperature on/off, gpio time on/off
-    You can connect APC UPS over USB and recieve notification form UPS
+    You can connect APC UPS over USB and recieve notification from UPS
     OpenVPN server. User + Pass + CRT
     Radius server 802.1x EAP TLS
     Firewall function
