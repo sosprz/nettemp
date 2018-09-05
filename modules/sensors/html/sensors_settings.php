@@ -802,8 +802,8 @@ $row = $rows->fetchAll();
 	
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="jg_id" value="<?php echo $a['id']; ?>" />
-		<input type="text" name="jg_min_new" size="2" value="<?php echo $a['jg_min']; ?>" />
-		<input type="text" name="jg_max_new" size="2" value="<?php echo $a['jg_max']; ?>" />
+		<input type="text" name="jg_min_new" size="1" value="<?php echo $a['jg_min']; ?>" />
+		<input type="text" name="jg_max_new" size="1" value="<?php echo $a['jg_max']; ?>" />
 		<input type="hidden" name="ok" value="ok" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
