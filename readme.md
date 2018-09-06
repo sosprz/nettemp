@@ -53,6 +53,11 @@ BETA:
 
 Changelog:
 
+4.7.5
+
+Global settings
+Map On/Off
+
 4.7.4
 
 Firewall FIX

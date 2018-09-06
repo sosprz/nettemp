@@ -170,6 +170,9 @@ foreach ($result as $a) {
 	if($a['option']=='client_port') {
        	$nts_client_port=$a['value'];
     }
+	if($a['option']=='mapon') {
+       	$nts_mapon=$a['value'];
+    }
 	
 }
 
