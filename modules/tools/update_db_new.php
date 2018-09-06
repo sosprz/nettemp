@@ -160,6 +160,7 @@ $updates['2018-07-25 10:51:23'][]="INSERT OR IGNORE INTO types (type, unit, unit
 $updates['2018-07-25 12:45:46'][]="ALTER TABLE sensors ADD timezone TEXT";
 
 $updates['2018-08-17 13:04:13'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('client_port','80')";
+$updates['2018-09-06 09:40:31'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('mapon','on')";
 
 
 ?>
