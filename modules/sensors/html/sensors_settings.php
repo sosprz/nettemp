@@ -882,7 +882,7 @@ $row = $rows->fetchAll();
 	<?php
 	}
 	}
-	if ($a['device'] == 'virtual' && substr($a['type'],0,3) == 'max') { ?>
+	if ($a['device'] == 'virtual' && ((substr($a['type'],0,3) == 'max') || (substr($a['type'],0,3) == 'min') ) { ?>
 	<tr>
 	<td></td>
 	<td></td>
