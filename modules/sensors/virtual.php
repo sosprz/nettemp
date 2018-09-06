@@ -115,6 +115,47 @@ try {
 		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);	
 
 	}
+	
+	if (substr($vr['type'],0,3) == 'min'){
+		
+		
+			$local_rom = $vr['rom'];
+			$local_type = $vr['type'];
+			$local_device = $vr['device'];
+			
+			$bindrom = $vr['bindsensor'];
+			$file=$bindrom .".sql";
+			
+			
+			$db1 = new PDO("sqlite:$ROOT/db/$file");
+			
+			if ($local_type == "min24"){
+				
+				$val = $db1->query("SELECT min(value) AS m24min from def WHERE time BETWEEN datetime('now','localtime','-1 day') AND datetime('now','localtime') ") or die('min24');
+				$val = $val->fetch(); 
+				$local_val = $val['m24min'];
+				
+			} elseif  ($local_type == "minweek"){
+				
+				$val = $db1->query("SELECT min(value) AS minweek from def WHERE time BETWEEN datetime('now','localtime','-7 day') AND datetime('now','localtime') ") or die('minweek');
+				$val = $val->fetch(); 
+				$local_val = $val['minweek'];
+				
+			} elseif  ($local_type == "minmonth"){
+				
+				$val = $db1->query("SELECT min(value) AS minmonth from def WHERE time BETWEEN datetime('now','localtime','-1 months') AND datetime('now','localtime') ") or die('minmonth');
+				$val = $val->fetch(); 
+				$local_val = $val['minmonth'];
+				
+			}
+		
+		echo $local_rom."\n";
+		echo $local_val."\n";
+		echo $local_type."\n";
+		db($local_rom,$local_val,$local_type,$local_device,$local_current,$local_ip,$local_gpio,$local_i2c,$local_usb,$local_name);
+			
+			
+	}
 
 	}
 

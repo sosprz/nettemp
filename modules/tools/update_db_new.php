@@ -162,5 +162,16 @@ $updates['2018-07-25 12:45:46'][]="ALTER TABLE sensors ADD timezone TEXT";
 $updates['2018-08-17 13:04:13'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('client_port','80')";
 $updates['2018-09-06 09:40:31'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('mapon','on')";
 
+$updates['2018-09-06 10:10:05'][]="INSERT INTO virtual  ('name', 'rom', 'type', 'device', 'description') VALUES ('Min24', 'min24', 'min24', 'virtual','Min value - 24H')";
+$updates['2018-09-06 10:11:06'][]="INSERT INTO virtual  ('name', 'rom', 'type', 'device', 'description') VALUES ('MinWeek', 'minweek', 'minweek', 'virtual','Min value - week')";
+$updates['2018-09-06 10:12:07'][]="INSERT INTO virtual  ('name', 'rom', 'type', 'device', 'description') VALUES ('MinMonth', 'minmonth', 'minmonth', 'virtual','Min value - month')";
+
+$updates['2018-09-06 10:13:24'][]="INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('min24', '', '', 'media/ico/min-icon.png' ,'Min 24','0', '10000')";
+$updates['2018-09-06 10:14:25'][]="INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('minweek', '', '', 'media/ico/min-icon.png' ,'Min Week','0', '10000')";
+$updates['2018-09-06 10:15:26'][]="INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('minmonth', '', '', 'media/ico/min-icon.png' ,'Min Month','0', '10000')";
+
+$updates['2018-09-06 10:26:46'][]="ALTER TABLE gpio ADD ico TEXT";
+$updates['2018-09-06 10:36:38'][]="UPDATE gpio SET ico='switch-icon.png'";
+
 
 ?>
