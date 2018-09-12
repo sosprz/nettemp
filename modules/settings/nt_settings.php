@@ -173,6 +173,15 @@ foreach ($result as $a) {
 	if($a['option']=='mapon') {
        	$nts_mapon=$a['value'];
     }
+	if($a['option']=='pusho_active') {
+       	$nts_pusho_active=$a['value'];
+    }
+	if($a['option']=='pusho_user_key') {
+       	$nts_pusho_user_key=$a['value'];
+    }
+	if($a['option']=='pusho_api_key') {
+       	$nts_pusho_api_key=$a['value'];
+    }
 	
 }
 

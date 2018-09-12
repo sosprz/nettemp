@@ -53,6 +53,10 @@ BETA:
 
 Changelog:
 
+4.7.6
+
+Pushover - first files
+
 4.7.5
 
 Global settings

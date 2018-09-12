@@ -178,5 +178,9 @@ $updates['2018-09-06 11:31:38'][]="UPDATE gpio SET bsensor='none'";
 $updates['2018-09-06 11:22:40'][]="ALTER TABLE gpio ADD snameon TEXT";
 $updates['2018-09-06 11:23:38'][]="UPDATE gpio SET snameon='on'";
 
+$updates['2018-09-11 13:04:14'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('pusho_active','off')";
+$updates['2018-09-11 13:04:15'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('pusho_user_key','')";
+$updates['2018-09-11 13:04:16'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('pusho_api_key','')";
+
 
 ?>

@@ -119,3 +119,15 @@ input[name='time_offset']
 	color: black;
 }
 
+.grid-item {
+    width: 350px;
+    float: left;
+    border-radius: 5px;
+	margin-right: 10px;
+	margin-bottom: 20px;
+}
+
+.table > tbody > tr > td {
+     vertical-align: middle;
+}
+
