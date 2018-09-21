@@ -10,3 +10,4 @@ mkdir -p $dir/tmp/debug/time
 (time php -f $dir/modules/mail/mail_send.php) 2> $dir/tmp/debug/time/mail_send.php && \
 (time $dir/modules/sms/sms_check) 2> $dir/tmp/debug/time/sms_check && \
 (time $dir/modules/sms/sms_send) 2> $dir/tmp/debug/time/sms_send
+$dir/scripts/ownscripts
