@@ -759,3 +759,10 @@ $row = $rows->fetchAll();
 </table>
 </div>
 </div>
+<?php
+	
+if($device_menu=='expand_device') {
+    include("modules/sensors/html/sensors_expand.php"); 
+	//include("modules/sensors/html/sensors_notifications.php"); 
+}
+	?>

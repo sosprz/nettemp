@@ -75,7 +75,7 @@ $scriptp1 = isset($_POST['scriptp1']) ? $_POST['scriptp1'] : '';
 
 
 
-$rows_trig = $db->query("SELECT rom, name, trigzero, trigone, trigzeroclr, trigoneclr, ssms, smail, script, script1 FROM sensors WHERE type='trigger' ORDER BY position ASC ");
+$rows_trig = $db->query("SELECT rom, name, trigzero, trigone, trigzeroclr, trigoneclr, ssms, smail, script, script1 FROM sensors WHERE rom='$device_rom' ORDER BY position ASC ");
 $rowtr = $rows_trig->fetchAll();
 $labels = array('label-default', 'label-primary', 'label-success', 'label-info', 'label-danger');
 ?>
@@ -84,6 +84,8 @@ $labels = array('label-default', 'label-primary', 'label-success', 'label-info',
 <div class="panel-heading">Trigger Settings</div>
 <div class="table-responsive">
 <table class="table table-hover table-condensed small" border="0">
+<thead>
+<tr>
 <th>Trigger name</th>
 <th>Settings for value = 0</th>
 <th>Settings for value = 1</th>
@@ -92,6 +94,8 @@ $labels = array('label-default', 'label-primary', 'label-success', 'label-info',
 <th>Script 0->1</th>
 <th>Script 1->0</th>
 <th>Info</th>
+</tr>
+</thead>
 <?php
 foreach($rowtr as $tr) { ?>
 <tr>
@@ -130,7 +134,7 @@ foreach($rowtr as $tr) { ?>
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 	</form>
 </td>
-<td class="col-md-1">
+<td class="col-md-0">
 
 	<form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="smsrom" value="<?php echo $tr['rom']; ?>" />
@@ -138,7 +142,7 @@ foreach($rowtr as $tr) { ?>
 		<input type="hidden" name="smsonoff" value="smsonoff" />
     </form>
 </td>
-<td class="col-md-1">
+<td class="col-md-0">
 
 	<form action="" method="post" style="display:inline!important;">
 		<input type="hidden" name="mailrom" value="<?php echo $tr['rom']; ?>" />
@@ -147,7 +151,7 @@ foreach($rowtr as $tr) { ?>
     </form>
 </td>
 
-<td class="col-md-1">
+<td class="col-md-">
 
 	<form action="" method="post" style="display:inline!important;">
 		<input type="text" name="script_path" size="10" maxlength="50" value="<?php echo $tr["script"]; ?>" />
