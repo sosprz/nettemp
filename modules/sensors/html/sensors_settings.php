@@ -431,7 +431,7 @@ foreach($row as $types) {
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="temp_scaleon" data-on="&deg;F" data-off="&deg;C"  value="F" <?php echo $nts_temp_scale == 'F' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="temp_scaleonoff" value="onoff" />
 </form>
-MinMax mode: <?php echo $device_rom ?><?php echo $device_group?><?php echo $device_type ?>
+MinMax mode:
 <form action="" method="post" style="display:inline!important;"> 	
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="minmax_mode_on" data-on="min/max" data-off="difference"  value="1" <?php echo $nts_minmax_mode == '1' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="minmax_mode" value="onoff" />
