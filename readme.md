@@ -55,10 +55,7 @@ Changelog:
 
 4.7.7
 
-Sensors export to domoticz
-New settings - device tab
-New options - Notifications
-
+Sensors export to domoticz; New settings - device tab
 4.7.6
 
 Pushover - first files
