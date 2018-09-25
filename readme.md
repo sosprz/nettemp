@@ -53,9 +53,9 @@ BETA:
 
 Changelog:
 
-4.7.7
+4.7.4
 
-Sensors export to domoticz; New settings - device tab
+Domoticz export sensors
 
 4.7.6
 
