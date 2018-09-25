@@ -31,6 +31,7 @@ php-cgi -f $dir/modules/sensors/GPIO/HCS04/read.php
 php-cgi -f $dir/modules/sensors/rs485/sdm630.php
 php-cgi -f $dir/modules/gpio/gpio_scan.php
 php-cgi -f $dir/modules/sensors/USB/SDS011/SDS011.php
+php-cgi -f $dir/modules/sensors/node.php
 
 # wireless
 #$dir/modules/sensors/wireless/esp8266_read
@@ -44,8 +45,9 @@ $dir/modules/sensors/rs485/orwe
 #in test
 #$dir/modules/sensors/other/ups
 php-cgi -f $dir/modules/lcd/lcd.php
-php-cgi -f $dir/modules/sensors/node.php
 php-cgi -f $dir/modules/mysql/mysql_send.php
+php-cgi -f $dir/modules/sensors/send_domoticz.php
+
 
 
 

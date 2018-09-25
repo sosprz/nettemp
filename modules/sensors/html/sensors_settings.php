@@ -1,5 +1,6 @@
 <?php
-
+$device_rom=isset($_GET['device_rom']) ? $_GET['device_rom'] : '';
+$device_id=isset($_GET['device_id']) ? $_GET['device_id'] : '';
 $name_new = isset($_POST['name_new']) ? $_POST['name_new'] : '';
 $name_id = isset($_POST['name_id']) ? $_POST['name_id'] : '';
 $usun_rom_nw = isset($_POST['usun_nw']) ? $_POST['usun_nw'] : '';
@@ -162,6 +163,25 @@ if ( $lcd == "lcd"){
     $db = new PDO('sqlite:dbf/nettemp.db');
     $db->exec("UPDATE sensors SET tmp_min='$tmp_min_new' WHERE id='$tmp_id'") or die ($db->lastErrorMsg());
     $db->exec("UPDATE sensors SET tmp_max='$tmp_max_new' WHERE id='$tmp_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
+	
+	$domoticz_id = isset($_POST['domoticz_id']) ? $_POST['domoticz_id'] : '';
+	$remotedomoticz_id = isset($_POST['remotedomoticz_id']) ? $_POST['remotedomoticz_id'] : '';
+	$domoticz_idx = isset($_POST['domoticz_idx']) ? $_POST['domoticz_idx'] : '';
+	$domoticzidx = isset($_POST['domoticzidx']) ? $_POST['domoticzidx'] : '';
+	$domoticzon = isset($_POST['domoticzon']) ? $_POST['domoticzon'] : '';
+	$domoticzonoff = isset($_POST['domoticzonoff']) ? $_POST['domoticzonoff'] : '';
+	
+	
+	if (($domoticzonoff == "domoticzonoff")){
+    $db->exec("UPDATE sensors SET domoticz='$domoticzon' WHERE id='$remotedomoticz_id'") or die ($db->lastErrorMsg());
+	}
+	
+	if (!empty($domoticz_id) && ($domoticzidx == "domoticzidx")){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET domoticzidx='$domoticz_idx' WHERE id='$domoticz_id'") or die ($db->lastErrorMsg());
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     } 
@@ -411,7 +431,7 @@ foreach($row as $types) {
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="temp_scaleon" data-on="&deg;F" data-off="&deg;C"  value="F" <?php echo $nts_temp_scale == 'F' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="temp_scaleonoff" value="onoff" />
 </form>
-MinMax mode:
+MinMax mode: <?php echo $device_rom ?><?php echo $device_group?><?php echo $device_type ?>
 <form action="" method="post" style="display:inline!important;"> 	
 	<input type="checkbox" data-toggle="toggle" data-size="mini"  name="minmax_mode_on" data-on="min/max" data-off="difference"  value="1" <?php echo $nts_minmax_mode == '1' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" /></td>
 	<input type="hidden" name="minmax_mode" value="onoff" />
@@ -428,16 +448,31 @@ MinMax mode:
 
 <?php
 if(!empty($device_type)&&!empty($device_group)) {
-	$rows = $db->query("SELECT * FROM sensors WHERE type='$device_type' AND ch_group='$device_group' ORDER BY position ASC");
+	
+	if (!empty($device_rom)) {
+		$rows = $db->query("SELECT * FROM sensors WHERE type='$device_type' AND ch_group='$device_group'  AND rom='$device_rom' ORDER BY position ASC");
+	} else {	
+		$rows = $db->query("SELECT * FROM sensors WHERE type='$device_type' AND ch_group='$device_group' ORDER BY position ASC");
+	}
 }
 elseif(!empty($device_group)) {
-	$rows = $db->query("SELECT * FROM sensors WHERE ch_group='$device_group' ORDER BY position ASC");
+	
+	if (!empty($device_rom)) {
+		$rows = $db->query("SELECT * FROM sensors WHERE ch_group='$device_group' AND rom='$device_rom' ORDER BY position ASC");
+	} else {	
+		$rows = $db->query("SELECT * FROM sensors WHERE ch_group='$device_group' ORDER BY position ASC");
+	}
 }
 elseif(!empty($device_type)) {
-	$rows = $db->query("SELECT * FROM sensors WHERE type='$device_type' ORDER BY position ASC");
+	
+	if (!empty($device_rom)) {
+		$rows = $db->query("SELECT * FROM sensors WHERE type='$device_type' AND rom='$device_rom' ORDER BY position ASC");
+	} else {	
+		$rows = $db->query("SELECT * FROM sensors WHERE type='$device_type' ORDER BY position ASC");
+	}
 }
 elseif(!empty($device_id)) {
-	$rows = $db->query("SELECT * FROM sensors WHERE id='$device_id'");
+	$rows = $db->query("SELECT * FROM sensors WHERE id='$device_id' ");
 }
 else {
 	$rows = $db->query("SELECT * FROM sensors ORDER BY position ASC");
@@ -451,102 +486,19 @@ $row = $rows->fetchAll();
 <th>Hide</th>	
 <th>Name</th>
 <th>DB</th>
+<th>Rom</th>
+<th>IP</th>
 <th>Type</th>
-<th>Adjust</th>
-<th>Alarm / Min / Max</th>
-<th>Alarm / Read-min</th>
 <th>New group</th>
 <th>Group</th>
-<th>Thing Speak</th>
 <th>Log out</th>
 <th>Charts</th>
-<th>Node</th>
 <th>Status Min/Max</th>
-<th>LCD/OLED</th>
+<th>Min/Max</th>
+<th>Read err</th>
 <th>JustGage</th>
 <th></th>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>
-<form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="add_all" value="readerralarm" />
-		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
-    </form>
-    <form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="del_all" value="readerralarm" />
-		<button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
-    </form>
-</td>
-<td></td>
-<td></td>
-<td></td>
-<td>
-	<form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="add_all" value="logon" />
-		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
-    </form>
-    <form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="del_all" value="logon" />
-		<button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
-    </form>
-</td>
-<td>
-	<form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="add_all" value="charts" />
-		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
-    </form>
-    <form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="del_all" value="charts" />
-		<button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
-	</form>
-</td>
-<td>
-	<form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="add_all" value="remote" />
-		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
-    </form>
-    <form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="del_all" value="remote" />
-		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
-    </form>
-</td>
-<td>
-	<form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="add_all" value="minmax" />
-		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
-    </form>
-    <form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="del_all" value="minmax" />
-		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
-    </form>
-</td>
-<td>
-	<form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="add_all" value="lcd" />
-		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
-    </form>
-    <form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="del_all" value="lcd" />
-		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
-    </form>
-</td>
-<td>
-	<form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="add_all" value="jg" />
-		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
-    </form>
-    <form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="del_all" value="jg" />
-		<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-minus"></span> </button>
-    </form>
-</td>
+<th>Delete</th>
 </tr>
 </thead>
 
@@ -599,6 +551,10 @@ $row = $rows->fetchAll();
 	<td class="col-md-0">
 		<span class="label label-success" title="Last update: <?php echo $a["time"] ?>">ok</span>
 		<span class="label label-default"><?php $filesize = (filesize("$file3") * .0009765625) * .0009765625; echo round($filesize, 3)."MB" ?></span>
+		
+	</td>
+
+	<td>
 		<span class="label label-default">
 		<?php 
 			$rom=$a["rom"];
@@ -611,10 +567,14 @@ $row = $rows->fetchAll();
 		?>
 		</span>
 	</td>
+	
+	<td>
+			<span class="label label-default"><?php echo $a['ip']?></span>
+	</td>
 	<?php  
 	}
 	else { ?> 
-		<td class="col-md-0"><span class="label label-danger">Error - no sql base</span></td>
+		<td class="col-md-0"><span class="label label-danger">Error</span></td>
 		<?php } ?>
 
 	<td class="col-md-0">
@@ -630,54 +590,6 @@ $row = $rows->fetchAll();
 		?>
 	</td>
     
-    <td class="col-md-0">
-    <?php if ($a["device"] != 'remote') { ?>
-    <form action="" method="post" style="display:inline!important;">
-	<input type="text" name="adj" size="2" maxlength="30" value="<?php echo $a["adj"]; ?>" required="" <?php echo $a["device"] == 'remote' ? 'disabled' : ''; ?> />
-	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-	<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
-	<input type="hidden" name="adj1" value="adj2"/>
-    </form>
-    <?php
-	}
-    ?>
-    </td>
-    
-    <td class="col-md-0">
-    <form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarm" value="on" <?php echo $a["alarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
-		<input type="hidden" name="alarmonoff" value="onoff" />
-    </form>
-
-    <form action="" method="post" style="display:inline!important;"> 
-		<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
-		<input type="text" name="tmp_min_new" size="1" value="<?php echo $a['tmp_min']; ?>" />
-		<input type="text" name="tmp_max_new" size="1" value="<?php echo $a['tmp_max']; ?>" />
-		<input type="hidden" name="ok" value="ok" />
-		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-    </form>
-    </td>
-	
-	<td class="col-md-0">
-	 <?php if ($a["type"] != 'gpio') { ?>
-    <form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="readerralarm" value="on" <?php echo $a["readerralarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
-		<input type="hidden" name="readsonoff" value="readsonoff" />
-    </form>
-
-    <form action="" method="post" style="display:inline!important;"> 
-		<input type="hidden" name="reads_id" value="<?php echo $a['id']; ?>" />
-		<input type="text" name="readerr" size="1" value="<?php echo $a['readerr']; ?>" />
-		<input type="hidden" name="readerrok" value="readerrok" />
-		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-    </form>
-	 <?php 
-	}
-    ?>
-
-    </td>
        
     <!--NEW GROUP-->
     <td class="col-md-0">
@@ -724,14 +636,7 @@ $row = $rows->fetchAll();
     </form>
     </td>
 	
-	<td class="col-md-0">
-    <form action="" method="post" style="display:inline!important;" > 	
-		<input type="hidden" name="thing_id" value="<?php echo $a["id"]; ?>" />
-		<button type="submit" name="thing_on" value="<?php echo $a["thing"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["thing"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
-	    <?php echo $a["thing"] == 'on' ? 'ON' : 'OFF'; ?></button>
-		<input type="hidden" name="th_on" value="th_on" />
-    </form>
-    </td>
+
 	
 	<td class="col-md-0">
 	 <?php if ($a["type"] != 'gpio') { ?>
@@ -755,18 +660,7 @@ $row = $rows->fetchAll();
     </form>
     </td>
     
-    <td class="col-md-0">
-    <?php if ($a["device"] != 'remote' && $a["device"] != 'gpio') { ?>
-    <form action="" method="post" style="display:inline!important;"> 	
-		<input type="hidden" name="remote" value="<?php echo $a["id"]; ?>" />
-		<button type="submit" name="remoteon" value="<?php echo $a["remote"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["remote"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
-	    <?php echo $a["remote"] == 'on' ? 'ON' : 'OFF'; ?></button>
-		<input type="hidden" name="remoteonoff" value="onoff" />
-    </form>
-    <?php 
-	}
-    ?>
-    </td>
+    
     
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;"> 	
@@ -788,16 +682,41 @@ $row = $rows->fetchAll();
 		<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
     </form>
     </td>
-
-    <td class="col-md-0">
-    <form action="" method="post" style="display:inline!important;"> 	
-		<input type="hidden" name="lcdid" value="<?php echo $a["id"]; ?>" />
-		<button type="submit" name="lcdon" value="<?php echo $a["lcd"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["lcd"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
-	    <?php echo $a["lcd"] == 'on' ? 'ON' : 'OFF'; ?></button>
-		<input type="hidden" name="lcd" value="lcd" />
+	
+	<td class="col-md-0">
+	<form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarm" value="on" <?php echo $a["alarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="alarmonoff" value="onoff" />
+	</form>
+	
+     <form action="" method="post" style="display:inline!important;"> 
+		<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
+		<input type="text" name="tmp_min_new" size="1" value="<?php echo $a['tmp_min']; ?>" />
+		<input type="text" name="tmp_max_new" size="1" value="<?php echo $a['tmp_max']; ?>" />
+		<input type="hidden" name="ok" value="ok" />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
     </td>
-    
+	
+	<td class="col-md-0">
+	<?php if ($a["type"] != 'gpio') { ?>
+    <form action="" method="post" style="display:inline!important;">
+		<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>" />
+		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="readerralarm" value="on" <?php echo $a["readerralarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
+		<input type="hidden" name="readsonoff" value="readsonoff" />
+    </form>
+	 <?php 
+	}
+    ?>
+	<form action="" method="post" style="display:inline!important;"> 
+		<input type="hidden" name="reads_id" value="<?php echo $a['id']; ?>" />
+		<input type="text" name="readerr" size="1" value="<?php echo $a['readerr']; ?>" />
+		<input type="hidden" name="readerrok" value="readerrok" />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+    </form>
+	 </td>
+	
     <td class="col-md-0">
 	
 	<form action="" method="post" style="display:inline!important;"> 
@@ -807,9 +726,6 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="ok" value="ok" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
-	
-	
-	
     <form action="" method="post" style="display:inline!important;"> 	
 		<input type="hidden" name="jgid" value="<?php echo $a["id"]; ?>" />
 		<button type="submit" name="jgon" value="<?php echo $a["jg"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["jg"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
@@ -817,6 +733,11 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="jg" value="jg" />
     </form>
     </td>
+	<td>
+	
+	<a href="index.php?id=<?php echo $id ?>&type=devices&device_group=<?php echo $device_group?>&device_type=<?php echo $device_type?>&device_menu=expand_device&device id=<?php if (!empty($device_id)) {echo $device_id;} else {echo $a['id'];}?>&device_rom=<?php echo $a["rom"]; ?>"><button class="btn btn-xs btn-info">Settings</button></a>
+	
+	</td>
     
 	<td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
@@ -825,99 +746,16 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
 		<input type="hidden" name="ip" value="<?php echo $a["ip"]; ?>" />
 		<input type="hidden" name="usun2" value="usun3" />
-		<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+		<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
     </form>
     </td>
     
 	</tr>
 	
-	<?php if ($a['device'] == 'virtual' && (substr($a['type'],0,3) == 'air') || substr($a['type'],0,3) == 'sun') { ?>
-	<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td><label> Lat/Lon:</label></td>
-	<td>
-	<form action="" method="post" style="display:inline!important;"> 
-		<input type="hidden" name="gps_id" value="<?php echo $a['id']; ?>" />
-		<input type="text" name="latitude" size="3" value="<?php echo $a['latitude']; ?>" />
-		<input type="text" name="longitude" size="3" value="<?php echo $a['longitude']; ?>" />
-		<input type="hidden" name="gps" value="gpsok" />
-		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-    </form>
-	</td>
-	
-	<?php if ($a['device'] == 'virtual' && substr($a['type'],0,3) == 'air') { ?>
-	
-	<td><label>API Key:</label></td>
-	<td>
-	<form action="" method="post" style="display:inline!important;"> 
-		<input type="hidden" name="api_id" value="<?php echo $a['id']; ?>" />
-		<input type="text" name="apikey" size="10" value="<?php echo $a['apikey']; ?>" />
-		<input type="hidden" name="api" value="apiok" />
-		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-    </form>
-	</td>
-	
-	<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-	</tr>
-	<?php
-	} else if ($a['device'] == 'virtual' && substr($a['type'],0,3) == 'sun') { ?>
-	
-	<td><label>Time Zone:</label></td>
-	<td>
-	<form action="" method="post" style="display:inline!important;"> 
-		<input type="hidden" name="tz_id" value="<?php echo $a['id']; ?>" />
-		<input type="text" name="tzone" size="5" value="<?php echo $a['timezone']; ?>" />
-		<input type="hidden" name="tz" value="tzok" />
-		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-    </form>
-	</td>
-	
-	<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-	</tr>
-	
-	
-	<?php
-	}
-	}
-	if ($a['device'] == 'virtual' && ((substr($a['type'],0,3) == 'max') || (substr($a['type'],0,3) == 'min'))) { ?>
-	<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td><label> Bind rom:</label></td>
-	<td>
-	
-	<form action="" method="post" style="display:inline!important;"> 
-		<input type="hidden" name="bsens_id" value="<?php echo $a['id']; ?>" />
-		<input type="text" name="bindsensor" size="15" value="<?php echo $a['bindsensor']; ?>" />
-		<input type="hidden" name="ch_bsensor" value="ch_bsensorok" />
-		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-    </form>
-    </td>
-	</td>
-	<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-	</tr>
 	<?php
 	}
 	?>
 
-
-<?php 
-
-}  
-
-?>
-
 </table>
 </div>
 </div>
-
-<?php 
-if (!empty($device_type) && $device_type == 'trigger' ) { 
-include("modules/sensors/html/trigger_settings.php"); 
-}
-?>

@@ -48,7 +48,30 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     }
-
+	
+	
+	$domoticzsave = isset($_POST['domoticzsave']) ? $_POST['domoticzsave'] : '';
+    $domoticzip = isset($_POST['domoticzip']) ? $_POST['domoticzip'] : '';
+	$domoticzport = isset($_POST['domoticzport']) ? $_POST['domoticzport'] : '';
+   
+    if ($domoticzsave == "domoticzsave"){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE nt_settings SET value='$domoticzip' WHERE option='domoip'") or die ($db->lastErrorMsg());
+	$db->exec("UPDATE nt_settings SET value='$domoticzport' WHERE option='domoport'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	
+	$domoticzon = isset($_POST['domoticzon']) ? $_POST['domoticzon'] : '';
+	$domoon = isset($_POST['domoon']) ? $_POST['domoon'] : '';
+	
+	if ($domoticzon == "domoticzon"){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE nt_settings SET value='$domoon' WHERE option='domoon'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	
 
 $cip=$nts_client_ip;
 $cport=$nts_client_port;
@@ -63,7 +86,7 @@ $cauth_pass=$nts_cauth_pass;
 
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">Node</h3>
+<h3 class="panel-title">Nettemp Server</h3>
 </div>
 <div class="panel-body">
 
@@ -187,3 +210,48 @@ if ($cauth_on == 'on'){
 
 </div>
 </div>
+
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Domoticz Server</h3>
+</div>
+<div class="panel-body">
+
+<form action="" method="post">
+    <input data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="domoon" value="on" <?php echo $nts_domo_on == 'on' ? 'checked="checked"' : ''; ?>  />
+    <input type="hidden" name="domoticzon" value="domoticzon" />
+</form>
+
+<form action="" method="post" class="form-horizontal">
+<fieldset>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">IP/Hostname</label>  
+  <div class="col-md-4">
+  <input id="textinput" name="domoticzip" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $nts_domo_ip; ?>">
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Port</label>  
+  <div class="col-md-4">
+  <input id="textinput" name="domoticzport" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $nts_domo_port; ?>">
+  <input type="hidden" name="domoticzsave" value="domoticzsave" />
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+    <button id="singlebutton" name="singlebutton" class="btn btn-xs btn-success">Save</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
+</div>
+</div>
+
+

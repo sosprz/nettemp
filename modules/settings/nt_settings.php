@@ -182,7 +182,21 @@ foreach ($result as $a) {
 	if($a['option']=='pusho_api_key') {
        	$nts_pusho_api_key=$a['value'];
     }
-	
+	if($a['option']=='lat') {
+       	$nts_lat=$a['value'];
+    }
+	if($a['option']=='long') {
+       	$nts_long=$a['value'];
+    }
+	if($a['option']=='domoip') {
+       	$nts_domo_ip=$a['value'];
+    }
+	if($a['option']=='domoport') {
+       	$nts_domo_port=$a['value'];
+    }
+	if($a['option']=='domoon') {
+       	$nts_domo_on=$a['value'];
+    }
 }
 
 //different way..

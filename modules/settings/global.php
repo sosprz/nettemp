@@ -129,6 +129,18 @@
 	else {
 	$snmpd='';
 	}
+	
+	$lat = isset($_POST['lat']) ? $_POST['lat'] : '';
+    $long = isset($_POST['long']) ? $_POST['long'] : '';
+	$location = isset($_POST['location']) ? $_POST['location'] : '';
+	
+	if (!empty($location) && $location == "location"){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE nt_settings SET value='$lat' WHERE option='lat'") or die ($db->lastErrorMsg());
+     $db->exec("UPDATE nt_settings SET value='$long' WHERE option='long' ") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    } 
 
 
 ?>
@@ -275,6 +287,17 @@
 				</td>
 			</tr>
 			
+			<tr>
+				<td><label>Location Lat./Long.</label>
+				<td>
+					<form action="" method="post" style="display:inline!important;"> 
+					<input type="text" name="lat" size="3" value="<?php echo $nts_lat; ?>" />
+					<input type="text" name="long" size="3" value="<?php echo $nts_long; ?>" />
+					<input type="hidden" name="location" value="location" />
+					<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+					</form>
+				</td>
+			</tr>
 			
 		</tbody>
 	</table>
