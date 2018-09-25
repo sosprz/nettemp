@@ -494,7 +494,7 @@ $row = $rows->fetchAll();
 <th>Log out</th>
 <th>Charts</th>
 <th>Status Min/Max</th>
-<th>Min/Max</th>
+<th>Alarm Min/Max</th>
 <th>Alarm / Read-min</th>
 <th>JustGage</th>
 <th></th>
