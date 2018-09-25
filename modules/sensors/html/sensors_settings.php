@@ -495,7 +495,7 @@ $row = $rows->fetchAll();
 <th>Charts</th>
 <th>Status Min/Max</th>
 <th>Min/Max</th>
-<th>Read err</th>
+<th>Alarm / Read-min</th>
 <th>JustGage</th>
 <th></th>
 <th>Delete</th>
