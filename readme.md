@@ -53,7 +53,7 @@ BETA:
 
 Changelog:
 
-4.7.4
+4.7.7
 
 Domoticz export sensors
 
