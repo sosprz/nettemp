@@ -706,15 +706,16 @@ $row = $rows->fetchAll();
 		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="readerralarm" value="on" <?php echo $a["readerralarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
 		<input type="hidden" name="readsonoff" value="readsonoff" />
     </form>
-	 <?php 
-	}
-    ?>
+	
 	<form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="reads_id" value="<?php echo $a['id']; ?>" />
 		<input type="text" name="readerr" size="1" value="<?php echo $a['readerr']; ?>" />
 		<input type="hidden" name="readerrok" value="readerrok" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
+	 <?php 
+	}
+    ?>
 	 </td>
 	
     <td class="col-md-0">
