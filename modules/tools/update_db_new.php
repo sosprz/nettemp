@@ -195,4 +195,8 @@ $updates['2018-09-24 12:41:31'][]="INSERT INTO nt_settings ('option', 'value') V
 $updates['2018-09-24 12:41:31'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('domoport','')";
 $updates['2018-09-25 08:06:31'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('domoon','')";
 
+$updates['2018-10-05 08:06:21'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('domoauth','off')";
+$updates['2018-10-05 08:06:22'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('domolog','')";
+$updates['2018-10-05 08:06:25'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('domopass','')";
+
 ?>

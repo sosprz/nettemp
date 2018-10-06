@@ -25,6 +25,15 @@ try {
 		if($a['option']=='domoon') {
 			 $domoticz_on=$a['value'];
 		}
+		if($a['option']=='domoauth') {
+       	$nts_domo_auth=$a['value'];
+		}
+		if($a['option']=='domolog') {
+			$nts_domo_log=$a['value'];
+		}
+		if($a['option']=='domopass') {
+			$nts_domo_pass=$a['value'];
+		}
 	}
     
     if(!empty($domoticz_ip)&&!empty($domoticz_port) && $domoticz_on=='on'){
@@ -38,13 +47,20 @@ try {
 			$idx=$s['domoticzidx'];
 			$current=$s['current'];
 			
-			if ($type == 'elec' ){
-				$value2=$value*1000;
-				$URL="$domoticz_ip:$domoticz_port/json.htm?type=command&param=udevice&idx=$idx&nvalue=0&svalue=$current;$value2";
-			}else {
-				$URL="$domoticz_ip:$domoticz_port/json.htm?type=command&param=udevice&idx=$idx&nvalue=0&svalue=$value";
-			}
+			if ($nts_domo_auth == 'on') {
 				
+				$URLA = "$nts_domo_log:$nts_domo_pass@$domoticz_ip:$domoticz_port/json.htm";
+			}else {
+				$URLA = "$domoticz_ip:$domoticz_port/json.htm";		
+			}
+			
+			if ($type == 'elec' ){
+				
+				$value2=$value*1000;
+				$URL="$URLA?type=command&param=udevice&idx=$idx&nvalue=0&svalue=$current;$value2";
+				}else {
+					$URL="$URLA?type=command&param=udevice&idx=$idx&nvalue=0&svalue=$value";
+				}
 			
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $URL);

@@ -197,6 +197,15 @@ foreach ($result as $a) {
 	if($a['option']=='domoon') {
        	$nts_domo_on=$a['value'];
     }
+	if($a['option']=='domoauth') {
+       	$nts_domo_auth=$a['value'];
+    }
+	if($a['option']=='domolog') {
+       	$nts_domo_log=$a['value'];
+    }
+	if($a['option']=='domopass') {
+       	$nts_domo_pass=$a['value'];
+    }
 }
 
 //different way..

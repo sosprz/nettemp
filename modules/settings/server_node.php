@@ -72,6 +72,27 @@
     exit();
     }
 	
+	$domoauth_onoff = isset($_POST['domoauth_onoff']) ? $_POST['domoauth_onoff'] : '';
+    $domoauth_on = isset($_POST['domoauth_on']) ? $_POST['domoauth_on'] : '';
+    if (($domoauth_onoff == "domoauth_onoff") ){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE nt_settings SET value='$domoauth_on' WHERE option='domoauth'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	
+	
+	$domoauth_save = isset($_POST['domoauth_save']) ? $_POST['domoauth_save'] : '';
+    $domo_pass = isset($_POST['domo_pass']) ? $_POST['domo_pass'] : '';
+	$domo_login = isset($_POST['domo_login']) ? $_POST['domo_login'] : '';
+    if ($domoauth_save == "domoauth_save"){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE nt_settings SET value='$domo_pass' WHERE option='domopass'") or die ($db->lastErrorMsg());
+	$db->exec("UPDATE nt_settings SET value='$domo_login' WHERE option='domolog'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	
 
 $cip=$nts_client_ip;
 $cport=$nts_client_port;
@@ -249,6 +270,47 @@ if ($cauth_on == 'on'){
 
 </fieldset>
 </form>
+
+<form action="" method="post">
+    <input data-on="AUTH" data-off="AUTH" data-toggle="toggle" data-size="mini" onchange="this.form.submit()"  type="checkbox" name="domoauth_on" value="on" <?php echo $nts_domo_auth == 'on' ? 'checked="checked"' : ''; ?>  />
+    <input type="hidden" name="domoauth_onoff" value="domoauth_onoff" />
+</form>
+
+<?php
+if ($nts_domo_auth == 'on'){
+?>
+
+<form action="" method="post" class="form-horizontal">
+<fieldset>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">User:</label>  
+  <div class="col-md-4">
+  <input id="textinput" name="domo_login" placeholder="" class="form-control input-md" required="" type="text" value="<?php echo $nts_domo_log; ?>">
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Password:</label>  
+  <div class="col-md-4">
+  <input id="textinput" name="domo_pass" placeholder="" class="form-control input-md" required="" type="password" value="<?php echo $nts_domo_pass; ?>">
+     <input type="hidden" name="domoauth_save" value="domoauth_save" />
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+    <button id="singlebutton" name="singlebutton" class="btn btn-xs btn-success">Save</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+<?php
+	}
+?>
 
 
 </div>
