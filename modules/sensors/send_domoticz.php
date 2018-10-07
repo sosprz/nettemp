@@ -61,9 +61,10 @@ try {
 				} else if ($type == 'humid' ) {
 					
 					$URL="$URLA?type=command&param=udevice&idx=$idx&nvalue=$value&svalue=0";
+				} else if ($type == 'press' ) {
+					
+					$URL="$URLA?type=command&param=udevice&idx=$idx&nvalue=0&svalue=$value;0";
 				}
-				
-				
 				
 				else {
 					$URL="$URLA?type=command&param=udevice&idx=$idx&nvalue=0&svalue=$value";
