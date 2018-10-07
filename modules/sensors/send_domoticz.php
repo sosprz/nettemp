@@ -54,11 +54,18 @@ try {
 				$URLA = "$domoticz_ip:$domoticz_port/json.htm";		
 			}
 			
-			if ($type == 'elec' ){
+			if ($type == 'elec'){
 				
 				$value2=$value*1000;
 				$URL="$URLA?type=command&param=udevice&idx=$idx&nvalue=0&svalue=$current;$value2";
-				}else {
+				} else if ($type == 'humid' ) {
+					
+					$URL="$URLA?type=command&param=udevice&idx=$idx&nvalue=$value&svalue=0";
+				}
+				
+				
+				
+				else {
 					$URL="$URLA?type=command&param=udevice&idx=$idx&nvalue=0&svalue=$value";
 				}
 			
