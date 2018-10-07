@@ -249,7 +249,9 @@ if ($hide == 'off') {
 						echo $stat_min;
 						echo $stat_max;
 					}
-					echo $updo; 
+					if ($a['type'] != 'trigger') {
+							echo $updo; 
+					}
 				?>
 			</td>
 			<td>
