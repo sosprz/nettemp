@@ -38,7 +38,7 @@ try {
     
     if(!empty($domoticz_ip)&&!empty($domoticz_port) && $domoticz_on=='on'){
 		$query = $db->query("SELECT * FROM sensors WHERE domoticz='on' and domoticzidx!=''");
-		$result= $query->fetchAll();
+		$result = $query->fetchAll();
 		foreach($result as $s) {
 
 			$name=$s['name'];
@@ -49,9 +49,12 @@ try {
 			
 			if ($nts_domo_auth == 'on') {
 				
-				$URLA = "$nts_domo_log:$nts_domo_pass@$domoticz_ip:$domoticz_port/json.htm";
+				$URLA = "$domoticz_ip:$domoticz_port/json.htm";
+				$token= base64_encode($nts_domo_log.":".$nts_domo_pass);
+				$headers=array('Authorization: Basic '.$token);
 			}else {
-				$URLA = "$domoticz_ip:$domoticz_port/json.htm";		
+				$URLA = "$domoticz_ip:$domoticz_port/json.htm";
+				$headers = array('Content-Type: application/json');
 			}
 			
 			if ($type == 'elec'){
@@ -72,8 +75,8 @@ try {
 			
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $URL);
+			curl_setopt($ch, CURLOPT_HTTPHEADER,$headers);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_USERPWD, "admin:" . $cauth_pass);
 			$server_output = curl_exec ($ch);
 			curl_close ($ch);
 			echo $name."\n";
