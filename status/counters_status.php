@@ -117,7 +117,7 @@ if ($nts_hide_counters == 'off') { ?>
 	<td>
 	    <small>
 	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=day&single=<?php echo $a['name']?>"
-		<?php if (strtotime($a['time'])<(time()-($a['readerr']*60)) && !empty($a['readerr'])){
+		<?php if (!empty($a['readerrsend'])){
 							echo 'class="label label-warning"';
 						}else { 
 								echo 'class="label label-info"';
@@ -133,7 +133,7 @@ if ($nts_hide_counters == 'off') { ?>
 	<td>
 	    <small>
 	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=month&single=<?php echo $a['name']?>"
-		<?php if (strtotime($a['time'])<(time()-($a['readerr']*60)) && !empty($a['readerr'])){
+		<?php if (!empty($a['readerrsend'])){
 							echo 'class="label label-warning"';
 						}else { 
 								echo 'class="label label-info"';
@@ -149,7 +149,7 @@ if ($nts_hide_counters == 'off') { ?>
 	<td>
 	    <small>
 	    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=all&single=<?php echo $a['name']?>"
-		<?php if (strtotime($a['time'])<(time()-($a['readerr']*60)) && !empty($a['readerr'])){
+		<?php if (!empty($a['readerrsend'])){
 							echo 'class="label label-warning"';
 						}else { 
 								echo 'class="label label-danger"';
