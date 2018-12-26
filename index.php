@@ -34,7 +34,7 @@ $_SESSION['nts_charts_max'] = $nts_charts_max;
     <link href="html/custom.css" rel="stylesheet">
 
     <!-- jQuery -->
-    <script src="html/jquery/jquery-3.3.1.js"></script>
+    <script src="html/jquery/jquery-1.11.3.min.js"></script>
     <script src="html/jquery/jquery-migrate-1.2.1.min.js"></script>
 
     <!-- bootstrap-toogle -->
