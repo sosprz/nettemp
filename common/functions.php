@@ -30,6 +30,11 @@ function logs($date,$type,$message)
 function send_sms($date,$type,$message)
 {
 	$froot = "/var/www/nettemp";	
+	
+	 if(!is_dir("$froot/tmp/sms")) {
+		 
+		 mkdir("$froot/tmp/sms");
+	 }
 	$dbr = new PDO("sqlite:$froot/dbf/nettemp.db") or die ("cannot open database");
     $sthr = $dbr->query("SELECT tel FROM users WHERE smsa='yes' AND tel != '' ");
     $row = $sthr->fetchAll();
