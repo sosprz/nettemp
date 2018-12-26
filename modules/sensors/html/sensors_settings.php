@@ -30,6 +30,8 @@ if(!empty($rom) && ($usun2 == "usun3")) {
 	$db->exec("DELETE FROM maps WHERE element_id='$to_delete_id[id]'");
 	$db->exec("DELETE FROM hosts WHERE rom='$rom'");
 	$db->exec("DELETE FROM sensors WHERE rom='$rom'");
+	$db->exec("DELETE FROM notifications WHERE rom='$rom'");
+	
 	if (file_exists("db/$rom.sql")) {
         unlink("db/$rom.sql");
 	}
