@@ -69,7 +69,7 @@ if($tmpval >= $a['tmp_max'] && !empty($tmpval) && !empty($a['tmp_max'])) {
 				    if (($a['tmp'] == 'error') || ($a['status'] == 'error')){
 					$titfoncol='#d9534f'; 
 					$err='1';
-				    } elseif (strtotime($a['time'])<(time()-($a['readerr']*60))){
+				    } elseif (!empty($a['readerrsend'])){
 					$titfoncol='#f0ad4e'; 
 					$err='1';
 				    }else{

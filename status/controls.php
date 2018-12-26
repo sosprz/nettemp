@@ -17,7 +17,7 @@ if(isset($_SESSION['user'])){
 	exit();
 	 }	
 	
-$db = new PDO('sqlite:dbf/nettemp.db');	
+$db = new PDO("sqlite:$root/dbf/nettemp.db");	
 $hideg = $db->query("SELECT value FROM nt_settings WHERE option='hide_gpio'");
 $hide_resg = $hideg->fetchAll();
 foreach ($hide_resg as $hg) {

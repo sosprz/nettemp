@@ -5,9 +5,44 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 sudo chmod -R 775 $dir
 sudo chown -R root.www-data $dir
 
+if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/2'
+    then
+	sudo sed -i '$a*/2 * * * * '$dir'/modules/cron/2' /var/spool/cron/crontabs/root
+fi
+
+if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/15'
+    then
+	sudo sed -i '$a*/15 * * * * '$dir'/modules/cron/15' /var/spool/cron/crontabs/root
+fi
+
+if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/30'
+    then
+	sudo sed -i '$a*/30 * * * * '$dir'/modules/cron/30' /var/spool/cron/crontabs/root
+fi
+
 if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/1h'
     then
 	sudo sed -i '$a0 * * * * '$dir'/modules/cron/1h' /var/spool/cron/crontabs/root
+fi
+
+if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/2h'
+    then
+	sudo sed -i '$a00 */2 * * * '$dir'/modules/cron/2h' /var/spool/cron/crontabs/root
+fi
+
+if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/6h'
+    then
+	sudo sed -i '$a00 */6 * * * '$dir'/modules/cron/6h' /var/spool/cron/crontabs/root
+fi
+
+if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/12h'
+    then
+	sudo sed -i '$a00 */12 * * * '$dir'/modules/cron/12h' /var/spool/cron/crontabs/root
+fi
+
+if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/24h'
+    then
+	sudo sed -i '$a00 */24 * * * '$dir'/modules/cron/24h' /var/spool/cron/crontabs/root
 fi
 
 if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/00h'

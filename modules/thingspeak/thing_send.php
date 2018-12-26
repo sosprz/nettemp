@@ -1,6 +1,6 @@
 <?php
 $ROOT=dirname(dirname(dirname(__FILE__)));
-var_dump($argv);
+//var_dump($argv);
 parse_str($argv[1],$params);
 $interval=$params['intv'];
 

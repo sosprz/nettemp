@@ -94,14 +94,14 @@ if (strcmp(trim($smsdev),trim($devf)) != 0 ) { ?>
 ?>
     
     <label class="col-md-2 control-label" for="smsc">SMS center number</label>
-    <input id="smsc" name="smsc" placeholder="" required="" type="text" value="<?php echo $smscff; ?>">
+    <input id="smsc" name="smsc" placeholder="48123456789" required="" type="text" value="<?php echo $smscff; ?>">
     <input type="hidden" name="smsdev" value="<?php echo $smsdev ?>" />
     <button id="smsc1" name="smsc1"  value="smsc2" class="btn btn-xs btn-success">Save </button>
 </form>
 <br>
 <form class="form-inline" action="" method="post">
     <label class="col-md-2 control-label" for="sms_test">Number</label>  
-    <input id="sms_test" name="sms_test" placeholder="" class="form-control input-md" required="" type="text" value="">
+    <input id="sms_test" name="sms_test" placeholder="48123456789" class="form-control input-md" required="" type="text" value="">
     <button id="sms_test1" name="sms_test1" value="sms_test1" class="btn btn-xs btn-success">Send test </button>
 </form>
 

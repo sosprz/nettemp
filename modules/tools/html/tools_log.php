@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+
+ 
 if(!isset($_SESSION['user'])){ header("Location: denied"); } 
 $log=isset($_GET['log']) ? $_GET['log'] : '';
 ?>

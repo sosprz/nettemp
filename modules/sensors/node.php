@@ -48,7 +48,7 @@ try {
 			$name=$s['name'];
 			$current=$s['current'];
 			
-			if ($type == 'elec' ){
+			if ($type == 'elec' || $type == 'water' || $type == 'gas'  ){
 				$URL="http://".$client_ip.":".$client_port."/receiver.php?key=".$client_key."&type=".$type."&rom=".$rom2."&value=".$value."&current=".$current."&device=ip";
 			}else
 			{

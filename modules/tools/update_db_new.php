@@ -57,10 +57,10 @@ $updates['2018-02-05 13:32:38'][]="ALTER TABLE sensors ADD thing  TEXT";
 //Create table for thingspeak
 $updates['2018-02-05 13:47:42'][]="CREATE TABLE thingspeak (id INTEGER PRIMARY KEY, name TEXT , apikey TEXT , f1 TEXT, f2 TEXT, f3 TEXT, f4 TEXT, f5 TEXT, f6 TEXT, f7 TEXT, f8 TEXT, active TEXT, interval INTEGER)";
 //Update sensors alarm reads errors
-$updates['2018-02-08 19:40:08'][]="ALTER TABLE sensors ADD readerr TEXT";
-$updates['2018-02-08 19:40:08'][]="ALTER TABLE sensors ADD readerralarm TEXT";
-$updates['2018-02-08 19:48:25'][]="UPDATE sensors SET readerralarm='off'";
-$updates['2018-02-08 19:49:20'][]="UPDATE sensors SET readerr='60'";
+//$updates['2018-02-08 19:40:08'][]="ALTER TABLE sensors ADD readerr TEXT";
+//$updates['2018-02-08 19:40:08'][]="ALTER TABLE sensors ADD readerralarm TEXT";
+//$updates['2018-02-08 19:48:25'][]="UPDATE sensors SET readerralarm='off'";
+//$updates['2018-02-08 19:49:20'][]="UPDATE sensors SET readerr='60'";
 
 //Update nt_settings UPS NT
 $updates['2018-02-12 13:04:11'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_delay_on','60')";
@@ -199,4 +199,9 @@ $updates['2018-10-05 08:06:21'][]="INSERT INTO nt_settings ('option', 'value') V
 $updates['2018-10-05 08:06:22'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('domolog','')";
 $updates['2018-10-05 08:06:25'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('domopass','')";
 
+$updates['2018-10-12 10:29:48'][]="CREATE TABLE notifications (id INTEGER PRIMARY KEY, rom TEXT , type TEXT, wheen TEXT, value TEXT, sms TEXT, mail TEXT, pov TEXT, message TEXT, priority TEXT, interval TEXT, recovery TEXT, active TEXT, sent TEXT)";
+
+$updates['2018-12-20 13:39:47'][]="CREATE TABLE logs (id INTEGER PRIMARY KEY, date TEXT , type TEXT, message TEXT)";
+$updates['2018-12-26 08:06:22'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('logs','on')";
+$updates['2018-12-26 08:06:25'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('logshis','7')";
 ?>

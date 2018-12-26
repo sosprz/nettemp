@@ -34,7 +34,7 @@ $_SESSION['nts_charts_max'] = $nts_charts_max;
     <link href="html/custom.css" rel="stylesheet">
 
     <!-- jQuery -->
-    <script src="html/jquery/jquery-1.11.3.min.js"></script>
+    <script src="html/jquery/jquery-3.3.1.js"></script>
     <script src="html/jquery/jquery-migrate-1.2.1.min.js"></script>
 
     <!-- bootstrap-toogle -->
@@ -97,13 +97,13 @@ function new_seen($seen){
 	if($nts_screen=='on')
 	{
 	?>
-	<li <?php echo $id == 'screen' ? ' class="active"' : ''; ?>><a href="screen"><span class="glyphicon glyphicon-modal-window" aria-hidden="true"> Screen</span></a></li>
+	<li <?php echo $id == 'screen' ? ' class="active"' : ''; ?>><a href="index.php?id=screen"><span class="glyphicon glyphicon-modal-window" aria-hidden="true"> Screen</span></a></li>
 <?php
 	}
 	if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
    if (( $numsimple >= "1") || ( $numsimple2 >= "1"))  {
    ?>
-   <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="controls"><span class="glyphicon glyphicon-record" aria-hidden="true"> Controls</span></a></li>
+   <li <?php echo $id == 'controls' ? ' class="active"' : ''; ?>><a href="index.php?id=controls"><span class="glyphicon glyphicon-record" aria-hidden="true"> Controls</span></a></li>
 <?php
 	}
  	if($_SESSION["perms"] == 'adm') {
@@ -112,16 +112,16 @@ function new_seen($seen){
 	?>
 
 	<li <?php echo $id == 'map' ? ' class="active"' : ''; ?>><a href="index.php?id=map"><span class="glyphicon glyphicon-picture" aria-hidden="true"> Map</span> </a></li><?php }?>
-<li <?php echo $id == 'device' ? ' class="active"' : ''; ?>><a href="device"><span class="glyphicon glyphicon-cog" aria-hidden="true"> Device <?php echo new_seen($seen);?></span></a></li>
-<li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="security"><span class="glyphicon glyphicon-lock" aria-hidden="true"> Security</span></a></li>
-<li <?php echo $id == 'settings' ? ' class="active"' : ''; ?>><a href="settings"><span class="glyphicon glyphicon-tasks" aria-hidden="true"> Settings</span></a></li>
-<li <?php echo $id == 'tools' ? ' class="active"' : ''; ?>><a href="tools"><span class="glyphicon glyphicon-wrench" aria-hidden="true"> Tools</span></a></li>
+<li <?php echo $id == 'device' ? ' class="active"' : ''; ?>><a href="index.php?id=device"><span class="glyphicon glyphicon-cog" aria-hidden="true"> Device <?php echo new_seen($seen);?></span></a></li>
+<li <?php echo $id == 'security' ? ' class="active"' : ''; ?>><a href="index.php?id=security"><span class="glyphicon glyphicon-lock" aria-hidden="true"> Security</span></a></li>
+<li <?php echo $id == 'settings' ? ' class="active"' : ''; ?>><a href="index.php?id=settings"><span class="glyphicon glyphicon-tasks" aria-hidden="true"> Settings</span></a></li>
+<li <?php echo $id == 'tools' ? ' class="active"' : ''; ?>><a href="index.php?id=tools"><span class="glyphicon glyphicon-wrench" aria-hidden="true"> Tools</span></a></li>
 <?php
 	}
 }
 if($nts_info=='on') {
 ?>
-<li <?php echo $id == 'info' ? ' class="active"' : ''; ?>><a href="info"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"> Info</span></a></li>
+<li <?php echo $id == 'info' ? ' class="active"' : ''; ?>><a href="index.php?id=info"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"> Info</span></a></li>
 <?php
 	}
 	?>

@@ -2,3 +2,4 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 $dir/modules/tools/check_update
+php -f $dir/modules/notifications/send_notifications.php ninterval=1h

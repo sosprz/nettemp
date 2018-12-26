@@ -141,6 +141,22 @@
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     } 
+	
+	$logs_onoff = isset($_POST['logs_onoff']) ? $_POST['logs_onoff'] : '';
+    $logs_onoff1 = isset($_POST['logs_onoff1']) ? $_POST['logs_onoff1'] : '';
+    if (($logs_onoff1 == "logs_onoff1") ){
+    $db->exec("UPDATE nt_settings SET value='$logs_onoff' WHERE option='logs'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
+	
+	$logs_his = isset($_POST['logs_his']) ? $_POST['logs_his'] : '';
+    $logs_his1 = isset($_POST['logs_his1']) ? $_POST['logs_his1'] : '';
+    if (($logs_his1 == "logs_his1") ){
+    $db->exec("UPDATE nt_settings SET value='$logs_his' WHERE option='logshis'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 
 
 ?>
@@ -294,6 +310,30 @@
 					<input type="text" name="lat" size="3" value="<?php echo $nts_lat; ?>" />
 					<input type="text" name="long" size="3" value="<?php echo $nts_long; ?>" />
 					<input type="hidden" name="location" value="location" />
+					<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+					</form>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><label>Logs</label>
+				</td>
+				<td>
+					<form action="" method="post">
+					
+					<input data-toggle="toggle" data-size="mini" onchange="this.form.submit()" type="checkbox" name="logs_onoff" value="on"  <?php echo $nts_logs == 'on' ? 'checked="checked"' : ''; ?> >
+					<input type="hidden" name="logs_onoff1" value="logs_onoff1"  />
+					</form>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><label>Logs History</label>
+				</td>
+				<td>
+					<form action="" method="post" style="display:inline!important;"> 
+					<input type="text" name="logs_his" size="1" value="<?php echo $nts_his_logs; ?>" /><label>&nbsp days</label>
+					<input type="hidden" name="logs_his1" value="logs_his1"  />
 					<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 					</form>
 				</td>

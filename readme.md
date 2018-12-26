@@ -53,6 +53,10 @@ BETA:
 
 Changelog:
 
+4.7.9
+
+Notifications system
+
 4.7.8
 
 Domoticz auth

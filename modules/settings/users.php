@@ -230,7 +230,7 @@ $del = isset($_POST['del']) ? $_POST['del'] : '';
 	<td><input type="text" name="login" size="10" maxlength="30" value="" class="form-control" required=""/></td>
 	<td><input type="password" name="pass" value="" class="form-control" required=""/></td>
 	<td><input type="email" name="mail" size="25" maxlength="50" value="" class="form-control" required=""/></td>
-	<td><input type="text" name="tel" value="" class="form-control" required=""/></td>
+	<td><input type="text" name="tel" placeholder="48123456789" value="" class="form-control" required=""/></td>
 	<td><input type="text" name="smspin" value="" class="form-control" required=""/></td>
 	<input type="hidden" name="add1" value="add2" />
 	<td><button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button></td>
@@ -278,7 +278,7 @@ foreach ($result as $a) {
 	
 	<td>
 	<form action="" method="post" style="display:inline!important;">
-		<input type="text" name="mail_new" size="25" maxlength="50" value="<?php echo $a["mail"]; ?>" />
+		<input type="text" name="mail_new"  size="25" maxlength="50" value="<?php echo $a["mail"]; ?>" />
 		<input type="hidden" name="mail_id" value="<?php echo $a["id"]; ?>" />
 		<input type="hidden" name="new_mail" value="new_mail"/>
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
@@ -287,7 +287,7 @@ foreach ($result as $a) {
 	
 	<td>
 	<form action="" method="post" style="display:inline!important;">
-		<input type="text" name="tel_new" size="15" maxlength="50" value="<?php echo $a["tel"]; ?>" />
+		<input type="text" name="tel_new" placeholder="48123456789" size="15" maxlength="50" value="<?php echo $a["tel"]; ?>" />
 		<input type="hidden" name="tel_id" value="<?php echo $a["id"]; ?>" />
 		<input type="hidden" name="new_tel" value="new_tel"/>
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>

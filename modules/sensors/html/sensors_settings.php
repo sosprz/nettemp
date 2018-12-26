@@ -489,16 +489,18 @@ $row = $rows->fetchAll();
 <th>Rom</th>
 <th>IP</th>
 <th>Type</th>
+<th>Adjust</th>
 <th>New group</th>
 <th>Group</th>
 <th>Log out</th>
 <th>Charts</th>
 <th>Status Min/Max</th>
-<th>Alarm Min/Max</th>
-<th>Alarm / Read-min</th>
+<th>Sensor Min/Max</th>
 <th>JustGage</th>
+<th>Rem. NT</th>
+<th>Rem. Domoticz</th>
 <th></th>
-<th>Delete</th>
+<th></th>
 </tr>
 </thead>
 
@@ -532,7 +534,7 @@ $row = $rows->fetchAll();
 	
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
-		<input type="text" name="name_new" size="10" maxlength="30" value="<?php echo $a["name"]; ?>" />
+		<input type="text" name="name_new" size="8" maxlength="30" value="<?php echo $a["name"]; ?>" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 		<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
 		<input type="hidden" name="gpio" value="<?php echo $a["gpio"]; ?>" />
@@ -589,13 +591,28 @@ $row = $rows->fetchAll();
 		}
 		?>
 	</td>
+	
+	<!--Adjust-->
+	
+		<td class="col-md-0">
+		<?php if ($a["device"] != 'remote') { ?>
+		<form action="" method="post" style="display:inline!important;">
+		<input type="text" name="adj" size="2" maxlength="30" value="<?php echo $a["adj"]; ?>" required="" <?php echo $a["device"] == 'remote' ? 'disabled' : ''; ?> />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+		<input type="hidden" name="name_id" value="<?php echo $a["id"]; ?>" />
+		<input type="hidden" name="adj1" value="adj2"/>
+		</form>
+		<?php
+		}
+		?>
+		</td>
     
        
     <!--NEW GROUP-->
     <td class="col-md-0">
     <form action="" method="post" style="display:inline!important;">
 		<input type="text" name="position_group" size="1" value="<?php echo $a['position_group']; ?>" />
-		<input type="text" name="addch_groupon" size="8" maxlength="30" value="<?php echo $a["ch_group"]; ?>" />
+		<input type="text" name="addch_groupon" size="6" maxlength="30" value="<?php echo $a["ch_group"]; ?>" />
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 		<input type="hidden" name="addch_group" value="<?php echo $a["id"]; ?>" />
 		<input type="hidden" name="addch_grouponoff" value="onoff"/>
@@ -684,12 +701,6 @@ $row = $rows->fetchAll();
     </td>
 	
 	<td class="col-md-0">
-	<form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="alarm" value="on" <?php echo $a["alarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
-		<input type="hidden" name="alarmonoff" value="onoff" />
-	</form>
-	
      <form action="" method="post" style="display:inline!important;"> 
 		<input type="hidden" name="tmp_id" value="<?php echo $a['id']; ?>" />
 		<input type="text" name="tmp_min_new" size="1" value="<?php echo $a['tmp_min']; ?>" />
@@ -698,25 +709,6 @@ $row = $rows->fetchAll();
 		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
     </form>
     </td>
-	
-	<td class="col-md-0">
-	<?php if ($a["type"] != 'gpio') { ?>
-    <form action="" method="post" style="display:inline!important;">
-		<input type="hidden" name="rom" value="<?php echo $a['rom']; ?>" />
-		<input type="checkbox" data-toggle="toggle" data-size="mini"  name="readerralarm" value="on" <?php echo $a["readerralarm"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
-		<input type="hidden" name="readsonoff" value="readsonoff" />
-    </form>
-	
-	<form action="" method="post" style="display:inline!important;"> 
-		<input type="hidden" name="reads_id" value="<?php echo $a['id']; ?>" />
-		<input type="text" name="readerr" size="1" value="<?php echo $a['readerr']; ?>" />
-		<input type="hidden" name="readerrok" value="readerrok" />
-		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
-    </form>
-	 <?php 
-	}
-    ?>
-	 </td>
 	
     <td class="col-md-0">
 	
@@ -734,9 +726,42 @@ $row = $rows->fetchAll();
 		<input type="hidden" name="jg" value="jg" />
     </form>
     </td>
+	
+	<!--Remote NT-->
+		<td class="col-md-0">
+		<?php if ($a["device"] != 'remote' && $a["device"] != 'gpio') { ?>
+		<form action="" method="post" style="display:inline!important;"> 	
+			<input type="hidden" name="remote" value="<?php echo $a["id"]; ?>" />
+			<button type="submit" name="remoteon" value="<?php echo $a["remote"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["remote"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+			<?php echo $a["remote"] == 'on' ? 'ON' : 'OFF'; ?></button>
+			<input type="hidden" name="remoteonoff" value="onoff" />
+		</form>
+		<?php 
+		}
+		?>
+		</td>
+		
+	<!--Remote Domoticz-->
+		<td class="col-md-0">
+		<form action="" method="post" style="display:inline!important;"> 	
+			<input type="hidden" name="remotedomoticz_id" value="<?php echo $a["id"]; ?>" />
+			<button type="submit" name="domoticzon" value="<?php echo $a["domoticz"] == 'on' ? 'off' : 'on'; ?>" <?php echo $a["domoticz"] == 'on' ? 'class="btn btn-xs btn-primary"' : 'class="btn btn-xs btn-default"'; ?>>
+			<?php echo $a["domoticz"] == 'on' ? 'ON' : 'OFF'; ?></button>
+			<input type="hidden" name="domoticzonoff" value="domoticzonoff" />
+		</form>
+		<label>Idx </label>
+		<form action="" method="post" style="display:inline!important;"> 
+			<input type="hidden" name="domoticz_id" value="<?php echo $a['id']; ?>" />
+			<input type="text" name="domoticz_idx" size="1" value="<?php echo $a['domoticzidx']; ?>" />
+			<input type="hidden" name="domoticzidx" value="domoticzidx" />
+		<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+		</form>
+    
+		</td>
+	
 	<td>
 	
-	<a href="index.php?id=<?php echo $id ?>&type=devices&device_group=<?php echo $device_group?>&device_type=<?php echo $device_type?>&device_menu=expand_device&device id=<?php if (!empty($device_id)) {echo $device_id;} else {echo $a['id'];}?>&device_rom=<?php echo $a["rom"]; ?>"><button class="btn btn-xs btn-info">Settings</button></a>
+	<a href="index.php?id=<?php echo $id ?>&type=devices&device_group=<?php echo $device_group?>&device_type=<?php echo $device_type?>&device_menu=expand_device&device id=<?php if (!empty($device_id)) {echo $device_id;} else {echo $a['id'];}?>&device_rom=<?php echo $a["rom"]; ?>"><button class="btn btn-xs btn-info">More</button></a>
 	
 	</td>
     
@@ -764,6 +789,6 @@ $row = $rows->fetchAll();
 	
 if($device_menu=='expand_device') {
     include("modules/sensors/html/sensors_expand.php"); 
-	//include("modules/sensors/html/sensors_notifications.php"); 
+	include("modules/sensors/html/sensors_notifications.php"); 
 }
 	?>

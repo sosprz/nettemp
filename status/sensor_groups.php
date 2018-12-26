@@ -23,6 +23,18 @@ $db = new PDO("sqlite:$root/dbf/nettemp.db");
 	exit();
 	 }
 
+//Clear
+$clr_not = isset($_POST['clr_not']) ? $_POST['clr_not'] : '';
+$clr_rom = isset($_POST['clr_rom']) ? $_POST['clr_rom'] : '';
+
+if(!empty($clr_not) && ($clr_not == "clr_not")) { 
+	$db = new PDO("sqlite:$root/dbf/nettemp.db");
+	$db->exec("UPDATE sensors SET mail = '' WHERE rom='$clr_rom'");
+	header("location: " . $_SERVER['REQUEST_URI']);
+	exit();
+}
+
+
 $query = $db->query("SELECT * FROM types");
 $result_t = $query->fetchAll();
 
@@ -114,7 +126,7 @@ if ($hide == 'off') {
        			$unit=$ty['unit2'];
        		} else {
 				
-				if (substr($a['type'],0,3) == 'max'){
+				if (substr($a['type'],0,3) == 'max' || substr($a['type'],0,3) == 'min'){
 					
 					$val = $db->query("SELECT type FROM sensors WHERE rom='$bindsensor'") or die('virtual max type error');
 					$val = $val->fetch(); 
@@ -156,7 +168,7 @@ if ($hide == 'off') {
 		    if($a['type'] == 'temp'){ $type='<img src="media/ico/temp_low.png" alt=""/>';}
 		    $label='danger';
 		}
-		if(!empty($a['mail']) || !empty($a['readerrsend']) ) {$mail='<img src="media/ico/message-icon.png" alt="" title="Message was send!"/>';}
+		if(!empty($a['mail'])) {$mail='<img src="media/ico/message-icon.png" alt="" title="Message was send!"/>';}
 ?>
 
 		    <tr>
@@ -176,14 +188,14 @@ if ($hide == 'off') {
 			    <a href="index.php?id=view&type=<?php echo $a['type']?>&max=<?php echo $_SESSION['nts_charts_max']; ?>&single=<?php echo $a['name']?>" title="Go to charts, last update: <?php echo $a['time']?>"
 				<?php 
 					if ($a['type']=='trigger' && $a['tmp'] == '1.0') {
-						if (strtotime($a['time'])<(time()-($a['readerr']*60)) && !empty($a['readerr'])){
+						if (!empty($a['readerrsend'])){
 							echo 'class="label label-warning"';
 						}else { 
 								echo "class=\"label ".$a['trigoneclr']."\"";
 						}
 						
 						}elseif ($a['type']=='trigger' && $a['tmp'] == '0.0') {
-						if (strtotime($a['time'])<(time()-($a['readerr']*60)) && !empty($a['readerr'])){
+						if (!empty($a['readerrsend'])){
 							echo 'class="label label-warning"';
 						}else { 
 								echo "class=\"label ".$a['trigzeroclr']."\"";
@@ -192,7 +204,7 @@ if ($hide == 'off') {
 				
 				    if (($a['tmp'] == 'error') || ($a['status'] == 'error') || ($label=='danger')){
 					echo 'class="label label-danger"';
-				    } elseif (strtotime($a['time'])<(time()-($a['readerr']*60)) && !empty($a['readerr'])){
+				    } elseif (!empty($a['readerrsend'])){
 					echo 'class="label label-warning"';
 				    }else{
 					echo 'class="label label-success"';
@@ -252,14 +264,23 @@ if ($hide == 'off') {
 						echo $stat_min;
 						echo $stat_max;
 					}
-					if ($a['type'] != 'trigger') {
-							echo $updo; 
+					if ($a['status']=='error') {
+							
+					} elseif ($a['type'] != 'trigger'){
+						echo $updo; 
 					}
 				?>
 			</td>
 			<td>
-				<?php 
-					echo $mail; 
+			
+			<?php if(!empty($a['mail']) && isset($_SESSION['user'])) { ?>
+				<form action="" method="post" style="display:inline!important;">
+				<input type="hidden" name="clr_not" value="clr_not" />
+				<input type="hidden" name="clr_rom" value="<?php echo $a["rom"]; ?>" />
+				<input type="image" src="media/ico/message-icon.png" alt="Clear Notifications" />
+				</form>
+				<?php
+				} else {echo $mail; }
 				?>
 			</td>
 		    </tr>

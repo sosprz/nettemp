@@ -3,3 +3,4 @@
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 
 php-cgi -f $dir/modules/sensors/virtual.php
+php -f $dir/modules/notifications/send_notifications.php ninterval=5m

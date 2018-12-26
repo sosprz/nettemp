@@ -15,6 +15,12 @@ if (isset($_GET['key'])) {
     $key='';
 }
 
+if (isset($_GET['token'])) { 
+    $token = $_GET['token'];
+} else { 
+    $token='';
+}
+
 if (isset($_GET['value'])) {
     $val = $_GET['value'];
 } else { 
@@ -352,7 +358,7 @@ function db($rom,$val,$type,$device,$current,$ip,$gpio,$i2c,$usb,$name){
 			}
 			// if not numeric
 			else {
-				if($device!='gpio'&&$type!='gpio'){
+				if($device!='gpio' && $type!='gpio'){
 					$dbr->exec("UPDATE sensors SET status='error' WHERE rom='$rom'") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert status to sensors ".$rom.", not numeric\n");
 					$dbfr->exec("INSERT OR IGNORE INTO def (value) VALUES ('0')") or die (date("Y-m-d H:i:s")." ERROR: Cannot insert to rom DB ".$rom.", not numeric\n");
 					echo date("Y-m-d H:i:s")." Puting value \"".$val."\" to ".$rom.", but value is not numieric!, inserting 0 to db\n";
