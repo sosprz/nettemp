@@ -232,11 +232,11 @@ window.setInterval( function() {
 	  {
 		  return (new Date()).toLacaleTimeString();
 	  }
-	  document.getElementById('timee').innerHTML = getTime();
-	  
+	  //document.getElementById('timee').innerHTML = getTime();
+	  $("#timee").html(getTime());
 	    setInterval( function() {
-		//$("#time").load(location.href+" #time"); 
-		document.getElementById('timee').innerHTML = getTime();
+		$('#timee').html(getTime()); 
+		//document.getElementById('timee').innerHTML = getTime();
 		}, 1000); 
 	  
 	  </script>
