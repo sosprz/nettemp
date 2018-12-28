@@ -218,8 +218,8 @@ window.setInterval( function() {
 		</button>
 			
 	    <?php include('html/info/paypal.php');?>
-			<button id="timee" class="btn btn-xs btn-primary systime">
-			
+			<button class="btn btn-xs btn-primary systime">
+			<div id="timee"></div>
 			</button>
 	    
 		<a href="http://wiki.abc-service.com.pl/doku.php" target="_blank" class="btn btn-xs btn-primary">NT WIKI </a>
