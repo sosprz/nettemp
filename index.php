@@ -218,7 +218,7 @@ window.setInterval( function() {
 		</button>
 			
 	    <?php include('html/info/paypal.php');?>
-			<button id="time" class="btn btn-xs btn-primary systime">
+			<button id="timee" class="btn btn-xs btn-primary systime">
 			
 			</button>
 	    
@@ -232,11 +232,11 @@ window.setInterval( function() {
 	  {
 		  return (new Date()).toLacaleTimeString();
 	  }
-	  document.getElementById('time').innerHTML=getTime();
+	  document.getElementById('timee').innerHTML = getTime();
 	  
 	    setInterval( function() {
 		//$("#time").load(location.href+" #time"); 
-		document.getElementById('time').innerHTML=getTime();
+		document.getElementById('timee').innerHTML = getTime();
 		}, 1000); 
 	  
 	  </script>
