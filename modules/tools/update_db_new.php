@@ -170,7 +170,7 @@ $updates['2018-09-06 10:13:24'][]="INSERT OR IGNORE INTO types (type, unit, unit
 $updates['2018-09-06 10:14:25'][]="INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('minweek', '', '', 'media/ico/min-icon.png' ,'Min Week','-10000', '10000')";
 $updates['2018-09-06 10:15:26'][]="INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('minmonth', '', '', 'media/ico/min-icon.png' ,'Min Month','-10000', '10000')";
 
-$updates['2018-09-06 10:26:46'][]="ALTER TABLE gpio ADD ico TEXT";
+//$updates['2018-09-06 10:26:46'][]="ALTER TABLE gpio ADD ico TEXT";
 $updates['2018-09-06 10:36:38'][]="UPDATE gpio SET ico='switch-icon.png'";
 
 $updates['2018-09-06 11:22:40'][]="ALTER TABLE gpio ADD bsensor TEXT";
