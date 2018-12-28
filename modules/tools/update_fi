@@ -10,6 +10,11 @@ if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/2'
 	sudo sed -i '$a*/2 * * * * '$dir'/modules/cron/2' /var/spool/cron/crontabs/root
 fi
 
+if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/10'
+    then
+	sudo sed -i '$a*/10 * * * * '$dir'/modules/cron/10' /var/spool/cron/crontabs/root
+fi
+
 if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/15'
     then
 	sudo sed -i '$a*/15 * * * * '$dir'/modules/cron/15' /var/spool/cron/crontabs/root
@@ -50,39 +55,14 @@ if  ! sudo cat /var/spool/cron/crontabs/root |grep -q 'cron/00h'
     sudo sed -i '$a00 00 * * * '$dir'/modules/cron/00h' /var/spool/cron/crontabs/root
 fi
 
-if  ! sudo cat /var/spool/cron/crontabs/root |grep -q '/thing_send.php intv=1'
-    then
-    sudo sed -i '$a*/1 * * * * php -f /var/www/nettemp/modules/thingspeak/thing_send.php intv=1' /var/spool/cron/crontabs/root
-fi
-
-if  ! sudo cat /var/spool/cron/crontabs/root |grep -q '/thing_send.php intv=2'
-    then
-    sudo sed -i '$a*/2 * * * * php -f /var/www/nettemp/modules/thingspeak/thing_send.php intv=2' /var/spool/cron/crontabs/root
-fi
-
-if  ! sudo cat /var/spool/cron/crontabs/root |grep -q '/thing_send.php intv=5'
-    then
-    sudo sed -i '$a*/5 * * * * php -f /var/www/nettemp/modules/thingspeak/thing_send.php intv=5' /var/spool/cron/crontabs/root
-fi
-
-if  ! sudo cat /var/spool/cron/crontabs/root |grep -q '/thing_send.php intv=10'
-    then
-    sudo sed -i '$a*/10 * * * * php -f /var/www/nettemp/modules/thingspeak/thing_send.php intv=10' /var/spool/cron/crontabs/root
-fi
-
-if  ! sudo cat /var/spool/cron/crontabs/root |grep -q '/thing_send.php intv=30'
-    then
-    sudo sed -i '$a*/30 * * * * php -f /var/www/nettemp/modules/thingspeak/thing_send.php intv=30' /var/spool/cron/crontabs/root
-fi
-
-if  ! sudo cat /var/spool/cron/crontabs/root |grep -q '/thing_send.php intv=60'
-    then
-    sudo sed -i '$a0 * * * * php -f /var/www/nettemp/modules/thingspeak/thing_send.php intv=60' /var/spool/cron/crontabs/root
-fi
-
 if  ! sudo cat /var/spool/cron/crontabs/root |grep -q '/piups_read.php'
     then
     sudo sed -i '$a*/1 * * * * php -f /var/www/nettemp/modules/sensors/other/piups_read.php' /var/spool/cron/crontabs/root
+fi
+
+if  sudo cat /var/spool/cron/crontabs/root |grep -q '/thing_send.php'
+    then
+    sudo sed -i '/thing_send.php/d' /var/spool/cron/crontabs/root 
 fi
 
 touch $dir/tmp/cronr

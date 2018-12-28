@@ -170,13 +170,13 @@ $updates['2018-09-06 10:13:24'][]="INSERT OR IGNORE INTO types (type, unit, unit
 $updates['2018-09-06 10:14:25'][]="INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('minweek', '', '', 'media/ico/min-icon.png' ,'Min Week','-10000', '10000')";
 $updates['2018-09-06 10:15:26'][]="INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('minmonth', '', '', 'media/ico/min-icon.png' ,'Min Month','-10000', '10000')";
 
-$updates['2018-09-06 10:26:46'][]="ALTER TABLE gpio ADD ico TEXT";
-$updates['2018-09-06 10:36:38'][]="UPDATE gpio SET ico='switch-icon.png'";
+//$updates['2018-09-06 10:26:46'][]="ALTER TABLE gpio ADD ico TEXT";
+//$updates['2018-09-06 10:36:38'][]="UPDATE gpio SET ico='switch-icon.png'";
 
-$updates['2018-09-06 11:22:40'][]="ALTER TABLE gpio ADD bsensor TEXT";
-$updates['2018-09-06 11:31:38'][]="UPDATE gpio SET bsensor='none'";
-$updates['2018-09-06 11:22:40'][]="ALTER TABLE gpio ADD snameon TEXT";
-$updates['2018-09-06 11:23:38'][]="UPDATE gpio SET snameon='on'";
+//$updates['2018-09-06 11:22:40'][]="ALTER TABLE gpio ADD bsensor TEXT";
+//$updates['2018-09-06 11:31:38'][]="UPDATE gpio SET bsensor='none'";
+//$updates['2018-09-06 11:22:40'][]="ALTER TABLE gpio ADD snameon TEXT";
+//$updates['2018-09-06 11:23:38'][]="UPDATE gpio SET snameon='on'";
 
 $updates['2018-09-11 13:04:14'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('pusho_active','off')";
 $updates['2018-09-11 13:04:15'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('pusho_user_key','')";

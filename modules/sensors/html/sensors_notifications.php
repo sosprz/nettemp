@@ -8,7 +8,6 @@ $poonoff = isset($_POST['poonoff']) ? $_POST['poonoff'] : '';
 $nmessage = isset($_POST['nmessage']) ? $_POST['nmessage'] : '';
 $npriority = isset($_POST['npriority']) ? $_POST['npriority'] : '';
 $ninterval = isset($_POST['ninterval']) ? $_POST['ninterval'] : '';
-//$intervalonoff = isset($_POST['intervalonoff']) ? $_POST['intervalonoff'] : '';
 $recoveryonoff = isset($_POST['recoveryonoff']) ? $_POST['recoveryonoff'] : '';
 $activeonoff = isset($_POST['activeonoff']) ? $_POST['activeonoff'] : '';
 $nadd = isset($_POST['nadd']) ? $_POST['nadd'] : '';
@@ -30,11 +29,16 @@ if(!empty($nrom) && ($nadd == "nadd")) {
 $del_not_rom = isset($_POST['del_not_rom']) ? $_POST['del_not_rom'] : '';
 $del_not = isset($_POST['del_not']) ? $_POST['del_not'] : '';
 $del_not_id = isset($_POST['del_not_id']) ? $_POST['del_not_id'] : '';
+$del_not_type = isset($_POST['del_not_type']) ? $_POST['del_not_type'] : '';
 
 
 if(!empty($del_not_rom) && ($del_not == "del_not") && !empty($del_not_id) ) { 
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
 	$db->exec("DELETE FROM notifications WHERE id='$del_not_id'");
+	
+	if($del_not_type == 'lupdate'){
+		$db->exec("UPDATE sensors SET readerrsend= '' WHERE rom='$del_not_rom'");
+	}
 }
 
 //New Value
@@ -263,6 +267,7 @@ $notifs = $notif->fetchAll();
 				<form action="" method="post" style="display:inline!important;">
 					<input type="hidden" name="del_not_rom" value="<?php echo $n["rom"]; ?>" />
 					<input type="hidden" name="del_not_id" value="<?php echo $n["id"]; ?>" />
+					<input type="hidden" name="del_not_type" value="<?php echo $n["type"]; ?>" />
 					<input type="hidden" name="del_not" value="del_not" />
 					<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
 				</form>
@@ -409,7 +414,6 @@ if(typ == "lupdate") //
 {
 	$("#nwhen").html("<option value='3' >></option>");
 	$("input#nvalue").attr('disabled',false);
-//$("select#nwhen").attr('disabled',true);
 
 } else if  (typ == "lhost"){
 	$("#nwhen").html("<option value='7' ></option>");

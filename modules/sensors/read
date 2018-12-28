@@ -47,6 +47,7 @@ $dir/modules/sensors/rs485/orwe
 php-cgi -f $dir/modules/lcd/lcd.php
 php-cgi -f $dir/modules/mysql/mysql_send.php
 php-cgi -f $dir/modules/sensors/send_domoticz.php
+php -f /var/www/nettemp/modules/thingspeak/thing_send.php intv=1
 php -f $dir/modules/notifications/send_notifications.php ninterval=0m
 php -f $dir/modules/notifications/send_notifications.php ninterval=1m
 

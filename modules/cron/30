@@ -2,4 +2,5 @@
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 
+php -f /var/www/nettemp/modules/thingspeak/thing_send.php intv=30
 php -f $dir/modules/notifications/send_notifications.php ninterval=30m
