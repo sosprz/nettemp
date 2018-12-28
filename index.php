@@ -230,7 +230,7 @@ window.setInterval( function() {
 	  
 	  function getTime()
 	  {
-		  return (new Date()).toLacaleTimeString();
+		  return (new Date()).toLocaleTimeString();
 	  }
 	  //document.getElementById('timee').innerHTML = getTime();
 	  $("#timee").html(getTime());
