@@ -99,7 +99,7 @@ if ($form_login == "log") {
 	}
 	
 	if(isset($_SESSION["user"])) {
-	header("Location:status");
+	header("Location:index.php?id=status");
 	}
 }
 ?>
