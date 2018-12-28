@@ -218,8 +218,8 @@ window.setInterval( function() {
 		</button>
 			
 	    <?php include('html/info/paypal.php');?>
-			<button class="btn btn-xs btn-primary systime">
-			<?php include('html/index/systime.php');?>
+			<button id="time" class="btn btn-xs btn-primary systime">
+			System time: <?php echo date('H:i:s');?>
 			</button>
 	    
 		<a href="http://wiki.abc-service.com.pl/doku.php" target="_blank" class="btn btn-xs btn-primary">NT WIKI </a>
@@ -228,7 +228,7 @@ window.setInterval( function() {
 	  
 	  <script type="text/javascript">
 	    setInterval( function() {
-		$("#ftr").load(location.href+" #ftr>"); 
+		$("#time").load(location.href+" #time"); 
 		}, 1000); 
 	  
 	  </script>
