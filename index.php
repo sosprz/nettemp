@@ -226,20 +226,18 @@ window.setInterval( function() {
 
       </div>
 	  
-	  <script type="text/javascript">
-	  
+<script type="text/javascript">
 	  function getTime()
 	  {
 		  return (new Date()).toLocaleTimeString();
 	  }
-	  //document.getElementById('timee').innerHTML = getTime();
+	 
 	  $("#timee").html(getTime());
 	    setInterval( function() {
 		$('#timee').html(getTime()); 
-		//document.getElementById('timee').innerHTML = getTime();
+		
 		}, 1000); 
-	  
-	  </script>
+</script>
 </footer>
 <?php 
 	}
