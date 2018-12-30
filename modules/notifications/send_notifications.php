@@ -297,15 +297,13 @@ try {
 			
 				if (($stmp < $nvalue) && $onlyrec != 'on') {
 					$notsent = 1;
-					//echo "aaaaaaaaaaaaaa\n";
 					}elseif (($stmp >= $nvalue) && ($nsent == 'sent')) {
 						$notsentrec = 1;
-						//echo "Ustawione Recovery\n";
 					}
 						if ($notsent == 1) {
 							
 							if (!empty($nmsg)) {
-							$message = $nmsg;
+							$message = $nmsg." - ".$sname." - ".$stmp." [ < ".$nvalue." ]";
 							
 							}else {
 								$message = $sname." - value is ".$stmp." [ < ".$nvalue." ]";	
@@ -315,7 +313,8 @@ try {
 						if ($notsentrec == 1) {
 							
 							if (!empty($nmsg)) {
-							$message = "Recovery - ".$nmsg;
+							$message = "Recovery - ".$nmsg." - ".$sname." - ".$stmp." [ < ".$nvalue." ]";
+
 							
 							}else {
 								$message = "Recovery - ".$sname." - value is ".$stmp." [ < ".$nvalue." ]";	
@@ -335,7 +334,7 @@ try {
 						if ($notsent == 1) {
 							
 							if (!empty($nmsg)) {
-							$message = $nmsg;
+							$message = $nmsg." - ".$sname." - ".$stmp." [ <= ".$nvalue." ]";
 							
 							}else {
 								$message = $sname." - value is ".$stmp." [ <= ".$nvalue." ]";	
@@ -345,7 +344,7 @@ try {
 						if ($notsentrec == 1) {
 							
 							if (!empty($nmsg)) {
-							$message = "Recovery - ".$nmsg;
+							$message = "Recovery - ".$nmsg." - ".$sname." - ".$stmp." [ <= ".$nvalue." ]";
 							
 							}else {
 								$message = "Recovery - ".$sname." - value is ".$stmp." [ <= ".$nvalue." ]";	
@@ -363,7 +362,7 @@ try {
 						if ($notsent == 1) {
 							
 							if (!empty($nmsg)) {
-							$message = $nmsg;
+							$message = $nmsg." - ".$sname." - ".$stmp." [ > ".$nvalue." ]";
 							
 							}else {
 								$message = $sname." - value is ".$stmp." [ > ".$nvalue." ]";	
@@ -373,7 +372,7 @@ try {
 						if ($notsentrec == 1) {
 							
 							if (!empty($nmsg)) {
-							$message = "Recovery - ".$nmsg;
+							$message = "Recovery - ".$nmsg." - ".$sname." - ".$stmp." [ > ".$nvalue." ]";
 							
 							}else {
 								$message = "Recovery - ".$sname." - value is ".$stmp." [ > ".$nvalue." ]";		
@@ -391,7 +390,7 @@ try {
 						if ($notsent == 1) {
 							
 							if (!empty($nmsg)) {
-							$message = $nmsg;
+							$message = $nmsg." - ".$sname." - ".$stmp." [ >= ".$nvalue." ]";
 							
 							}else {
 								$message = $sname." - value is ".$stmp." [ >= ".$nvalue." ]";	
@@ -401,7 +400,7 @@ try {
 						if ($notsentrec == 1) {
 							
 							if (!empty($nmsg)) {
-							$message = "Recovery - ".$nmsg;
+							$message = "Recovery - ".$nmsg." - ".$sname." - ".$stmp." [ >= ".$nvalue." ]";
 							
 							}else {
 								$message = "Recovery - ".$sname." - value is ".$stmp." [ >= ".$nvalue." ]";	
@@ -419,7 +418,7 @@ try {
 						if ($notsent == 1) {
 							
 							if (!empty($nmsg)) {
-							$message = $nmsg;
+							$message = $nmsg." - ".$sname." - ".$stmp." [ == ".$nvalue." ]";
 							
 							}else {
 								$message = $sname." - value is ".$stmp." [ == ".$nvalue." ]";	
@@ -429,7 +428,7 @@ try {
 						if ($notsentrec == 1) {
 							
 							if (!empty($nmsg)) {
-							$message = "Recovery - ".$nmsg;
+							$message = "Recovery - ".$nmsg." - ".$sname." - ".$stmp." [ == ".$nvalue." ]";
 							
 							}else {
 								$message = "Recovery - ".$sname." - value is ".$stmp." [ == ".$nvalue." ]";	
@@ -447,7 +446,7 @@ try {
 						if ($notsent == 1) {
 							
 							if (!empty($nmsg)) {
-							$message = $nmsg;
+							$message = $nmsg." - ".$sname." - ".$stmp." [ != ".$nvalue." ]";
 							
 							}else {
 								$message = $sname." - value is ".$stmp." [ != ".$nvalue." ]";	
@@ -457,7 +456,7 @@ try {
 						if ($notsentrec == 1) {
 							
 							if (!empty($nmsg)) {
-							$message = "Recovery - ".$nmsg;
+							$message = "Recovery - ".$nmsg." - ".$sname." - ".$stmp." [!= ".$nvalue." ]";
 							
 							}else {
 								$message = "Recovery - ".$sname." - value is ".$stmp." [ != ".$nvalue." ]";	

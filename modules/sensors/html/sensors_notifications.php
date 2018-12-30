@@ -48,7 +48,7 @@ $val_ok = isset($_POST['val_ok']) ? $_POST['val_ok'] : '';
 
 if(!empty($val_new) && ($val_ok == "val_ok")) { 
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
-	$db->exec("UPDATE notifications SET value = '$val_new', sent = '' WHERE id='$val_id'");
+	$db->exec("UPDATE notifications SET value = '$val_new' WHERE id='$val_id'");
 }
 
 //New message
@@ -58,7 +58,7 @@ $new_not_mes = isset($_POST['new_not_mes']) ? $_POST['new_not_mes'] : '';
 
 if(!empty($not_mes_id) && ($new_not_mes == "new_not_mes")) { 
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
-	$db->exec("UPDATE notifications SET message = '$mes_new', sent = '' WHERE id='$not_mes_id'");
+	$db->exec("UPDATE notifications SET message = '$mes_new' WHERE id='$not_mes_id'");
 }
 
 //SMS
@@ -68,7 +68,7 @@ $not_sms_onoff = isset($_POST['not_sms_onoff']) ? $_POST['not_sms_onoff'] : '';
 
 if(!empty($sms_not_id) && ($not_sms_onoff == "onoff")) { 
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
-	$db->exec("UPDATE notifications SET sms = '$notsms', sent = '' WHERE id='$sms_not_id'");
+	$db->exec("UPDATE notifications SET sms = '$notsms' WHERE id='$sms_not_id'");
 }
 //Mail
 $notmail = isset($_POST['notmail']) ? $_POST['notmail'] : '';
@@ -77,7 +77,7 @@ $not_mail_onoff = isset($_POST['not_mail_onoff']) ? $_POST['not_mail_onoff'] : '
 
 if(!empty($mail_not_id) && ($not_mail_onoff == "onoff")) { 
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
-	$db->exec("UPDATE notifications SET mail = '$notmail', sent = '' WHERE id='$mail_not_id'");
+	$db->exec("UPDATE notifications SET mail = '$notmail' WHERE id='$mail_not_id'");
 }
 //Pov
 $notpov = isset($_POST['notpov']) ? $_POST['notpov'] : '';
@@ -86,7 +86,7 @@ $not_pov_onoff = isset($_POST['not_pov_onoff']) ? $_POST['not_pov_onoff'] : '';
 
 if(!empty($pov_not_id) && ($not_pov_onoff == "onoff")) { 
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
-	$db->exec("UPDATE notifications SET pov = '$notpov', sent = '' WHERE id='$pov_not_id'");
+	$db->exec("UPDATE notifications SET pov = '$notpov' WHERE id='$pov_not_id'");
 }
 //Interval
 $intervalselect = isset($_POST['intervalselect']) ? $_POST['intervalselect'] : '';
@@ -95,7 +95,7 @@ $interval_set = isset($_POST['interval_set']) ? $_POST['interval_set'] : '';
 
 if(!empty($interval_not_id) && ($interval_set == "set")) { 
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
-	$db->exec("UPDATE notifications SET interval = '$intervalselect' , sent = '' WHERE id='$interval_not_id'");
+	$db->exec("UPDATE notifications SET interval = '$intervalselect' WHERE id='$interval_not_id'");
 }
 //Recovery
 $notrecv = isset($_POST['notrecv']) ? $_POST['notrecv'] : '';
@@ -104,7 +104,7 @@ $not_rec_onoff = isset($_POST['not_rec_onoff']) ? $_POST['not_rec_onoff'] : '';
 
 if(!empty($recv_not_id) && ($not_rec_onoff == "onoff")) { 
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
-	$db->exec("UPDATE notifications SET recovery = '$notrecv', sent = '' WHERE id='$recv_not_id'");
+	$db->exec("UPDATE notifications SET recovery = '$notrecv' WHERE id='$recv_not_id'");
 }
 
 //Active

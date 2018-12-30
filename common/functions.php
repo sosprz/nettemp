@@ -25,10 +25,16 @@ function logs($date,$type,$message)
 		}
 	}
 
+// SEND SMS Function
 
-	
 function send_sms($date,$type,$message)
+
 {
+	$arg1 = array('ą', 'Ą', 'ć', 'Ć', 'ę', 'Ę', 'ł', 'Ł', 'ń', 'Ń', 'ó', 'Ó', 'ś', 'Ś', 'ź', 'Ź', 'ż', 'Ż' );
+	$arg2 = array('a', 'a', 'c', 'c', 'e', 'e', 'l', 'l', 'n', 'n', 'o', 'o', 's', 's', 'z', 'z', 'z', 'z' );
+	$message = str_replace ( $arg1, $arg2, $message );
+
+
 	$froot = "/var/www/nettemp";	
 	
 	 if(!is_dir("$froot/tmp/sms")) {

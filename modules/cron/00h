@@ -1,4 +1,5 @@
 #!/bin/bash
 
 dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
-#$dir/modules/tools/send_stats.sh
+
+php -f $dir/common/log_auto_delete.php
