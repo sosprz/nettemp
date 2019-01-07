@@ -53,6 +53,10 @@ BETA:
 
 Changelog:
 
+4.8.0
+
+First reports for counters - draft
+
 4.7.9
 
 Notifications system

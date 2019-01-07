@@ -72,7 +72,6 @@ CREATE TABLE "sensors" (
 	`rom`	TEXT UNIQUE,
 	`tmp_min`	REAL,
 	`tmp_max`	REAL,
-	`alarm`	TEXT,
 	`type`	TEXT,
 	`gpio`	TEXT,
 	`ip`	TEXT,

@@ -111,7 +111,7 @@ foreach($files AS $file) {
 ?>
 </table>
 <p>
-  <form enctype="multipart/form-data" action="upload" method="post" >
+  <form enctype="multipart/form-data" action="index.php?id=tools&type=upload" method="post" >
     <input type="hidden" name="MAX_FILE_SIZE" value="1000000000" />
     <input name="uploaded_file" type="file" />
     <input type="submit" value="Upload" class="btn btn-xs btn-danger" />

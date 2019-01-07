@@ -30,6 +30,7 @@ case 'reboot': include('modules/tools/html/tools_reboot.php'); break;
 case 'log': include('modules/tools/html/tools_log.php'); break;
 case 'gpio': include('modules/tools/html/tools_gpio_readall.php'); break;
 case 'backup': include('modules/tools/backup/html/backup.php'); break;
+case 'upload': include('modules/tools/backup/html/upload.php'); break;
 case 'export': include('modules/tools/html/tools_export_to_file.php'); break;
 case 'dbedit': include('modules/tools/html/tools_db_edit.php'); break;
 case 'dbedit2': include('modules/tools/html/tools_db_edit_select.php'); break;

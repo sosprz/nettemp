@@ -191,6 +191,7 @@ case 'csv': include('common/csv.php'); break;
 case 'receiver': include('modules/sensors/html/receiver.php'); break;
 case 'controls': include('modules/relays/html/relays_controls.php'); include('modules/relays/html/switch_controls.php'); include('modules/gpio/html/gpio_controls.php'); break;
 case 'screen': include('modules/screen/screen.php'); break;
+case 'creports': include('modules/counters/html/counters_reports.php'); break;
 }
 ?>
 </div>

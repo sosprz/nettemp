@@ -17,10 +17,10 @@ if (!empty($name)  && !empty($link) && ($_POST['add'] == "add")){
 	$inserted_id=$inserted->fetchAll();
 	$inserted_id=$inserted_id[0];
 
-	$db->exec("INSERT OR IGNORE INTO hosts (name, ip, rom, type, map_num, map_pos, position, element_id) VALUES ('host_cam_$name', '$ip', 'host_$name', 'ping', '$map_num', '{left:0,top:0}', '1', '$inserted_id[id]')") or die ("cannot insert host to DB" );	
+		
 	$dbnew = new PDO("sqlite:db/host_$name.sql");
-   $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
-   $dbnew==NULL;
+    $dbnew->exec("CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER)");
+    $dbnew==NULL;
 
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
@@ -30,12 +30,6 @@ if ($_POST['del'] == "del"){
 	$db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("DELETE FROM camera WHERE id='$id'") or die ($db->lastErrorMsg());
 	
-	$rows = $db->query("SELECT * FROM hosts WHERE element_id='$id'");
-	$row = $rows->fetchAll();
-	$numRows = count($row);
-	if ($numRows > 0 ) { 
-		$db->exec("DELETE FROM hosts WHERE element_id='$id'") or die ($db->lastErrorMsg());
-	}
 	header("location: " . $_SERVER['REQUEST_URI']);
 	exit();
 }

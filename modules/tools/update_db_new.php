@@ -56,6 +56,7 @@ $updates['2018-02-01 19:47:50'][]="UPDATE sensors SET logon='on'";
 $updates['2018-02-05 13:32:38'][]="ALTER TABLE sensors ADD thing  TEXT";
 //Create table for thingspeak
 $updates['2018-02-05 13:47:42'][]="CREATE TABLE thingspeak (id INTEGER PRIMARY KEY, name TEXT , apikey TEXT , f1 TEXT, f2 TEXT, f3 TEXT, f4 TEXT, f5 TEXT, f6 TEXT, f7 TEXT, f8 TEXT, active TEXT, interval INTEGER)";
+
 //Update sensors alarm reads errors
 //$updates['2018-02-08 19:40:08'][]="ALTER TABLE sensors ADD readerr TEXT";
 //$updates['2018-02-08 19:40:08'][]="ALTER TABLE sensors ADD readerralarm TEXT";
@@ -88,7 +89,7 @@ $updates['2018-02-20 14:38:00'][]="UPDATE sensors SET trigzeroclr='label-success
 $updates['2018-02-20 14:38:00'][]="UPDATE sensors SET trigoneclr='label-danger' WHERE type='trigger'";
 
 //Update sensors for triggers
-$updates['2018-02-27 11:11:20'][]="drop trigger aupdate_time_trigger";
+$updates['2018-02-27 11:11:20'][]="DROP trigger IF EXISTS aupdate_time_trigger";
 $updates['2018-02-27 11:12:49'][]="CREATE TRIGGER aupdate_time_trigger AFTER UPDATE OF tmp ON sensors FOR EACH ROW BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END";
 //Update ow refresh
 $updates['2018-03-01 11:11:11'][]="UPDATE ownwidget SET name = REPLACE(name,' ','_')";
@@ -204,4 +205,11 @@ $updates['2018-10-12 10:29:48'][]="CREATE TABLE notifications (id INTEGER PRIMAR
 $updates['2018-12-20 13:39:47'][]="CREATE TABLE logs (id INTEGER PRIMARY KEY, date TEXT , type TEXT, message TEXT)";
 $updates['2018-12-26 08:06:22'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('logs','on')";
 $updates['2018-12-26 08:06:25'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('logshis','7')";
+
+$updates['2019-01-07 10:01:46'][]="ALTER TABLE sensors ADD cost1 TEXT";
+$updates['2019-01-07 10:01:49'][]="ALTER TABLE sensors ADD cost2 TEXT";
+$updates['2019-01-07 10:01:50'][]="UPDATE sensors SET cost1=0.0";
+$updates['2019-01-07 10:01:52'][]="UPDATE sensors SET cost2=0.0";
+
+
 ?>

@@ -60,7 +60,7 @@ if(file_exists("db/".$new_rom.".sql")&& filesize("db/".$new_rom.".sql")!=0){
 	$db->exec("INSERT INTO sensors (rom,type,device,ip,gpio,i2c,usb,name) SELECT rom,type,device,ip,gpio,i2c,usb,name FROM newdev WHERE rom='$new_rom'");
 	}
 	
-	$db->exec("UPDATE sensors SET alarm='off', tmp='0', adj='0', charts='on', sum='0', position='1', status='on', ch_group='$type',position_group='1',logon='off', thing='off', readerr='60', readerralarm='off', ghide='off', hide='off', latitude='$nts_lat', longitude='$nts_long' WHERE rom='$new_rom'");
+	$db->exec("UPDATE sensors SET tmp='0', adj='0', charts='on', sum='0', position='1', status='on', ch_group='$type',position_group='1',logon='off', thing='off', ghide='off', hide='off', latitude='$nts_lat', longitude='$nts_long' WHERE rom='$new_rom'");
 	
 	
 	// Trigger

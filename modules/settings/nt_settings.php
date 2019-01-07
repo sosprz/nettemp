@@ -206,7 +206,6 @@ foreach ($result as $a) {
 	if($a['option']=='domopass') {
        	$nts_domo_pass=$a['value'];
     }
-
 	if($a['option']=='logs') {
        	$nts_logs=$a['value'];
     }

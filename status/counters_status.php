@@ -82,9 +82,9 @@ if ($nts_hide_counters == 'off') { ?>
 ?>
 <tr>
     <td>
-    <?php if($a['type'] == 'gas'){ ?><img src="media/ico/gas-icon.png" alt=""/><?php $units='m3'; $units2='L';} ?>
-    <?php if($a['type'] == 'water'){ ?><img src="media/ico/water-icon.png" alt=""/><?php $units='m3'; $units2='L'; } ?>
-    <?php if($a['type'] == 'elec'){ ?><img src="media/ico/Lamp-icon.png" alt=""/><?php $units='kWh' ; $units2='W';} ?>
+    <?php if($a['type'] == 'gas'){ ?><a href="index.php?id=creports&crom=<?php echo $a["rom"]; ?>"><img src="media/ico/gas-icon.png" alt=""/><?php $units='m3'; $units2='L';} ?></a>
+    <?php if($a['type'] == 'water'){ ?><a href="index.php?id=creports&crom=<?php echo $a["rom"]; ?>"><img src="media/ico/water-icon.png" alt=""/><?php $units='m3'; $units2='L'; } ?></a>
+    <?php if($a['type'] == 'elec'){ ?><a href="index.php?id=creports&crom=<?php echo $a["rom"]; ?>"><img src="media/ico/Lamp-icon.png" alt=""/><?php $units='kWh' ; $units2='W';} ?></a>
     <small>
 	<?php 
 					if(isset($_SESSION['user'])){

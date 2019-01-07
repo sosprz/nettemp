@@ -36,22 +36,24 @@ if ($count >= "1") {
 <thead>
 <th>Name</th>
 <th>Type</th>
-<th>Counters</th>
+<th>Counter</th>
 <th>Show in status</th>
+<th>Costs</th>
+<th></th>
 </thead>
 <?php
 foreach ($row as $a) { 	
 ?>
 <tr>
-    <td class="col-md-0">
+    <td class="col-md-1">
 		<?php echo $a["name"]; ?>
 	</td>
-	<td class="col-md-0">
-		<?php echo $a["type"]; ?>
+	<td class="col-md-1">
+		<?php if ($a["type"] == 'elec') {echo 'Electricity';} else if ($a["type"] == 'gas') {echo 'Gas';} if ($a["type"] == 'water') {echo 'Water';}  ?>
 	</td>
-	<td class="col-md-0">
+	<td class="col-md-1">
 		<form action="" method="post" style="display:inline!important;">
-			<input type="text" name="sum" size="16" maxlength="30" value="<?php echo $a["sum"]; ?>" required=""/>
+			<input type="text" name="sum" size="10" maxlength="30" value="<?php echo $a["sum"]; ?>" required=""/>
 			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
 			<input type="hidden" name="id" value="<?php echo $a["id"]; ?>" />
 			<input type="hidden" name="sum1" value="sum2"/>
@@ -59,9 +61,9 @@ foreach ($row as $a) {
 	</td>
 	    <!--NEW GROUP-->
 
-    <td class="col-md-9">
+    <td class="col-md-1">
     <form action="" method="post"  class="form-inline">
-    <select name="ch_groupon" class="form-control input-sm small" onchange="this.form.submit()" style="width: 100px;" >
+    <select name="ch_groupon" class="form-control input-sm small" onchange="this.form.submit()" style="width: 80px;" >
 		<option value="sensors"  <?php echo $a['ch_group'] == 'sensors' ? 'selected="selected"' : ''; ?>  >Yes</option>
 		<option value="none"  <?php echo $a['ch_group'] == 'none' ? 'selected="selected"' : ''; ?>  >No</option>
     </select>
@@ -69,6 +71,12 @@ foreach ($row as $a) {
     <input type="hidden" name="ch_group" value="<?php echo $a['id']; ?>" />
     </form>
     </td>
+	
+	<td class="col-md-6">
+	
+	<a href="index.php?id=creports&crom=<?php echo $a["rom"]; ?>"><button class="btn btn-xs btn-info">Reports</button></a>
+
+   </td>
 </tr>
 <?php
 	}
@@ -83,5 +91,6 @@ foreach ($row as $a) {
 		<?php
 	}
 ?>
+</div>
 </div>
 
