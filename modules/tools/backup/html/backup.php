@@ -60,6 +60,7 @@ $re = isset($_POST['re']) ? $_POST['re'] : '';
 if ($re == "re") {
     if(preg_match('/^[a-z0-9_ \-\.]+$/i',$restore_file)){
         passthru("modules/tools/backup/backup r tmp/backup/$restore_file");
+		include('modules/tools/update_perms.php');
         header("location: " . $_SERVER['REQUEST_URI']);
         exit();
     }else{

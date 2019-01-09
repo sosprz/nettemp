@@ -225,7 +225,7 @@ window.setInterval( function() {
 	    <?php include('html/info/paypal.php');?>
 		
 		<button class="btn btn-xs btn-primary systime">
-		<div id="timee"></div>
+		<div id="timee"> <?php echo date('H:i:s');?></div>
 		</button>
 	    
 		<a href="http://wiki.abc-service.com.pl/doku.php" target="_blank" class="btn btn-xs btn-primary">NT WIKI </a>
@@ -246,7 +246,7 @@ window.setInterval( function() {
 		
 		setInterval( function() {
 		$("#uptime").load(location.href+" #uptime"); 
-		}, 5000);
+		}, 30000);
 		
 </script>
 </footer>

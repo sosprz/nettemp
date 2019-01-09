@@ -88,7 +88,8 @@ $type = $a['type'];
 			<td class="col-md-0">
 			<?php 
 				$costs = ($a['sums'] * $t1cost);
-				echo number_format($costs, 2, '.', '');
+      
+				echo number_format($costs, 2, ',', '.');
 				$totalcosts = $totalcosts + $costs;
 			 ?>
 			</td>

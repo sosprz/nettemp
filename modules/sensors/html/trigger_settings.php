@@ -56,6 +56,7 @@ $scriptp = isset($_POST['scriptp']) ? $_POST['scriptp'] : '';
 	if ( !empty($scriptp) && ($scriptp == "scriptp")){
     $db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE sensors SET script='$script_path' WHERE rom='$scriptrom'") or die ($db->lastErrorMsg());
+	include('modules/tools/update_perms.php');
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     } 
@@ -67,6 +68,7 @@ $scriptp1 = isset($_POST['scriptp1']) ? $_POST['scriptp1'] : '';
 	if ( !empty($scriptp1) && ($scriptp1 == "scriptp1")){
     $db = new PDO('sqlite:dbf/nettemp.db');
 	$db->exec("UPDATE sensors SET script1='$script_path1' WHERE rom='$scriptrom1'") or die ($db->lastErrorMsg());
+	include('modules/tools/update_perms.php');
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     } 

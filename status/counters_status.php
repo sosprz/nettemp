@@ -78,22 +78,24 @@ if ($nts_hide_counters == 'off') { ?>
 	
 	$name2='<span class="label label-default" title="'.$a['name'].'">'.$a['name'].'</span>';
 	$name3='<a href="index.php?id=device&device_id='.$a['id'].'" title="Go to settings" class="label label-default">'.$a['name'].'</a>';
-
 ?>
+
 <tr>
     <td>
-    <?php if($a['type'] == 'gas'){ ?><a href="index.php?id=creports&crom=<?php echo $a["rom"]; ?>"><img src="media/ico/gas-icon.png" alt=""/><?php $units='m3'; $units2='L';} ?></a>
-    <?php if($a['type'] == 'water'){ ?><a href="index.php?id=creports&crom=<?php echo $a["rom"]; ?>"><img src="media/ico/water-icon.png" alt=""/><?php $units='m3'; $units2='L'; } ?></a>
-    <?php if($a['type'] == 'elec'){ ?><a href="index.php?id=creports&crom=<?php echo $a["rom"]; ?>"><img src="media/ico/Lamp-icon.png" alt=""/><?php $units='kWh' ; $units2='W';} ?></a>
-    <small>
-	<?php 
-					if(isset($_SESSION['user'])){
-						echo str_replace("_", " ", $name3);
-					} else {
-						echo str_replace("_", " ", $name2);
-					}
-				?>
-    </small>
+
+		<?php if($a['type'] == 'gas' && isset($_SESSION['user'])){ ?><a href="index.php?id=creports&crom=<?php echo $a["rom"]; ?>" title="Go to report"><img src="media/ico/gas-icon.png" alt=""/></a><?php $units='m3'; $units2='L';} 
+		else if ($a['type'] == 'gas') {?><img src="media/ico/gas-icon.png" alt=""/><?php $units='m3'; $units2='L';}?>
+		<?php if($a['type'] == 'water' && isset($_SESSION['user'])){ ?><a href="index.php?id=creports&crom=<?php echo $a["rom"]; ?>" title="Go to report"><img src="media/ico/water-icon.png" alt=""/></a><?php $units='m3'; $units2='L'; } 
+		else if ($a['type'] == 'water') {?><img src="media/ico/water-icon.png" alt=""/><?php $units='m3'; $units2='L';}?>
+		<?php if($a['type'] == 'elec' && isset($_SESSION['user'])){ ?><a href="index.php?id=creports&crom=<?php echo $a["rom"]; ?>" title="Go to report"><img src="media/ico/Lamp-icon.png" alt=""/></a><?php $units='kWh' ; $units2='W';} 
+		else if ($a['type'] == 'elec') {?><img src="media/ico/Lamp-icon.png" alt=""/><?php $units='kWh' ; $units2='W';}?>
+
+		<small>
+		<?php 
+						if(isset($_SESSION['user'])){ echo str_replace("_", " ", $name3);
+						} else { echo str_replace("_", " ", $name2);
+						}
+					?>
     </td>
 	
 	<td>

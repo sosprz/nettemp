@@ -188,50 +188,7 @@ if ( $lcd == "lcd"){
     exit();
     } 
 
-    $alarmonoff= isset($_POST['alarmonoff']) ? $_POST['alarmonoff'] : '';
-    $alarm = isset($_POST['alarm']) ? $_POST['alarm'] : '';
-    $rom = isset($_POST['rom']) ? $_POST['rom'] : '';
-    if ( !empty($alarm) && ($alarmonoff == "onoff")){
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE sensors SET alarm='$alarm' WHERE rom='$rom'") or die ($db->lastErrorMsg());
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    } 
-    elseif (empty($alarm) && ($alarmonoff == "onoff")){
-    $db->exec("UPDATE sensors SET alarm='' WHERE rom='$rom'") or die ($db->lastErrorMsg());
-    $db->exec("UPDATE sensors SET mail='' WHERE rom='$rom'");
-    
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
-	
-	$readsonoff= isset($_POST['readsonoff']) ? $_POST['readsonoff'] : '';
-    $readerralarm = isset($_POST['readerralarm']) ? $_POST['readerralarm'] : '';
-    $rom = isset($_POST['rom']) ? $_POST['rom'] : '';
-    if ( !empty($readerralarm) && ($readsonoff == "readsonoff")){
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE sensors SET readerralarm='$readerralarm' WHERE rom='$rom'") or die ($db->lastErrorMsg());
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    } 
-    elseif (empty($readerralarm) && ($readsonoff == "readsonoff")){
-    $db->exec("UPDATE sensors SET readerralarm='off' WHERE rom='$rom'") or die ($db->lastErrorMsg());
-	$db->exec("UPDATE sensors SET readerrsend='' WHERE rom='$rom'") or die ($db->lastErrorMsg());
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
-	
-	$readerr = isset($_POST['readerr']) ? $_POST['readerr'] : '';
-    $reads_id = isset($_POST['reads_id']) ? $_POST['reads_id'] : '';
-	$readerrok = isset($_POST['readerrok']) ? $_POST['readerrok'] : '';
-	
-    if (!empty($reads_id) && ($readerrok == "readerrok")){
-    $db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE sensors SET readerr='$readerr' WHERE id='$reads_id'") or die ($db->lastErrorMsg());
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    } 
-	
+  
 	$thing_id = isset($_POST['thing_id']) ? $_POST['thing_id'] : '';
     $thing_on = isset($_POST['thing_on']) ? $_POST['thing_on'] : '';
     $th_on = isset($_POST['th_on']) ? $_POST['th_on'] : '';
