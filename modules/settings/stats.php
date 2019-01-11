@@ -43,7 +43,7 @@
 
 If You want send anonymous info about Your nettemp write in agreement: <span class="label label-success">yes</span><br><br>
 Your nettemp will send ID (md5sum from mac-addres),version, os name, hardware type.<br><br>
-Go to <a href="http://stats.mmsite.pl" target="_blank" class="label label-info">stats.mmsite.pl</a> and check what looks statistic. <br><br>
+Go to <a href="https://stats.mmsite.pl" target="_blank" class="label label-info">stats.mmsite.pl</a> and check what looks statistic. <br><br>
 
 </div>
 </div>
