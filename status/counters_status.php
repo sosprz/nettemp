@@ -157,7 +157,8 @@ if ($nts_hide_counters == 'off') { ?>
 								echo 'class="label label-danger"';
 						} ?> title="<?php echo $units;?>">
 		<?php
-		    echo number_format($a['sum'], 2, '.', ',')." ";
+			$totalsum = floatval($a['sum']);
+		    echo number_format($totalsum, 2, '.', ',')." ";
 		?>
 	    </a>
 	    </small>

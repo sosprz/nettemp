@@ -1,18 +1,21 @@
 <?php
 $ROOT=dirname(dirname(dirname(__FILE__)));
-//var_dump($argv);
+$date = date("Y-m-d H:i:s"); 
+include("$ROOT/common/functions.php");
+
+//var_dump($argv); logs($date,'Error','Cannot send mail because user doesnt have email, go to settings - users.'); 
 parse_str($argv[1],$params);
 $interval=$params['intv'];
 
 
-function logs($content){
-global $ROOT;
+//function logs($content){
+//global $ROOT;
 
-	$f = fopen("$ROOT/tmp/thingspeak_log.txt", "a");
+	//$f = fopen("$ROOT/tmp/thingspeak_log.txt", "a");
 
-fwrite($f, $content);
-fclose($f); 
-}
+//fwrite($f, $content);
+//fclose($f); 
+//}
 
 $db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 
@@ -47,8 +50,8 @@ $row = $rows->fetchAll();
 			curl_close($ch);
 			$content = $httpcode;
 			
-			$content = date('Y M d H:i:s')."-".$name."-".$data." - httpcode = ".$httpcode."\n";
-			logs($content);
+			$content = date('Y M d H:i:s')."-".$name."-".$data." - httpcode = ".$httpcode;
+			logs($date,'Info',$content);
 
 	}
 

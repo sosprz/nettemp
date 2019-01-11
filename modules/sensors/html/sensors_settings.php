@@ -467,9 +467,9 @@ $row = $rows->fetchAll();
 
 <?php 
     foreach ($row as $a) { 	
-		$rows_maps = $db->query("SELECT * FROM maps WHERE element_id='$a[id]' AND type='sensors'");
-		$row_maps=$rows_maps->fetchAll();
-		$row_maps=$row_maps[0];
+		//$rows_maps = $db->query("SELECT * FROM maps WHERE element_id='$a[id]' AND type='sensors'");
+		//$row_maps=$rows_maps->fetchAll();
+		//$row_maps=$row_maps[0];
 ?>
 <tr>
 	

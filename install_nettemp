@@ -72,6 +72,12 @@ if [ $exitstatus2 = 0 ]; then
     APCUPS=yes
 fi
 
+whiptail  --backtitle "Nettemp.pl" --title "Nettemp installer" --yesno "Do You want send anonymous stats about Nettemp" 8 78
+exitstatus3=$?
+if [ $exitstatus3 = 0 ]; then
+    SENDSTATS=yes
+fi
+
 }
 
 start

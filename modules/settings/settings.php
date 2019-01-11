@@ -13,6 +13,7 @@
 <a href="index.php?id=settings&type=server_node" ><button class="btn btn-xs btn-default <?php echo $art == 'server_node' ? 'active' : ''; ?>">Server - Node</button></a>
 <a href="index.php?id=settings&type=mysql" ><button class="btn btn-xs btn-default <?php echo $art == 'mysql' ? 'active' : ''; ?>">MySQL</button></a>
 <a href="index.php?id=settings&type=types" ><button class="btn btn-xs btn-default <?php echo $art == 'types' ? 'active' : ''; ?>">Types</button></a>
+<a href="index.php?id=settings&type=stats" ><button class="btn btn-xs btn-default <?php echo $art == 'stats' ? 'active' : ''; ?>">Stats</button></a>
 <a href="index.php?id=settings&type=global" ><button class="btn btn-xs btn-default <?php echo $art == 'global' ? 'active' : ''; ?>">Global</button></a>
 </p>
 <?php  
@@ -32,6 +33,7 @@ case 'ownwidget': include('modules/settings/ownwidget_edit.php'); break;
 case 'server_node': include('modules/settings/server_node.php'); break;
 case 'mysql': include('modules/mysql/mysql.php'); break;
 case 'types': include('modules/settings/types.php'); break;
+case 'stats': include('modules/settings/stats.php'); break;
 case 'global': include('modules/settings/global.php'); break;
 }
 ?>

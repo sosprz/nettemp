@@ -104,6 +104,7 @@ $row = $rows->fetchAll();
 <th>Exclude Value2</th>
 <th>Exclude Value3</th>
 <th></th>
+<th></th>
 </tr>
 </thead>
 
@@ -131,7 +132,7 @@ $row = $rows->fetchAll();
 			if(($filename!='.') && ($filename!='..')) 
 			{
 			?>
-			<option <?php echo $a['aico'] == $dir."/".$filename ? 'selected="selected"' : ''; ?> value="<?php echo $dir."/".$filename; ?>"> <?php echo $filename; ?></option>
+			<option <?php $dir."/".$filename ? 'selected="selected"' : ''; ?> value="<?php echo $dir."/".$filename; ?>"> <?php echo $filename; ?></option>
 			<?php
 			}
 		}
