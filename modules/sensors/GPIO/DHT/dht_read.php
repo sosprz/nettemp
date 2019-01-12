@@ -31,8 +31,6 @@ try {
 			$gpios[$g['gpio']]=$g['humid_type'];
 		}
 		foreach($gpios as $gpio => $htype){
-		echo $htype;
-		echo $gpio;
 		$cmd=("$ROOT/modules/sensors/GPIO/DHT/AdafruitDHT.py $htype $gpio");
 		$out=shell_exec($cmd);
 		$out = explode (" ",$out);
