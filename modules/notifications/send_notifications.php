@@ -50,7 +50,7 @@ $nomail = 0;
 	}
 	if(empty($get_addr)) {
 		echo $date." Cannot send mail because user doesnt have email, go to settings - users.\n";
-		logs($date,'Error','Cannot send mail because user doesnt have email, go to settings - users.'); 
+		//logs($date,'Error','Cannot send mail because user doesnt have email, go to settings - users.'); 
 		
 	}
 	
