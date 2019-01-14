@@ -3,18 +3,15 @@ $ROOT=dirname(dirname(dirname(__FILE__)));
 
 include("$ROOT/common/functions.php");
 
-
 var_dump($argv);
 parse_str($argv[1],$interval_param);
 $ninterval=$interval_param['ninterval'];
-
 
 $date = date("Y-m-d H:i:s"); 
 $hostname=gethostname(); 
 $minute=date('i');
 $hour=date('H');
 $nomail = 0;
-
 
 	$db = new PDO("sqlite:$ROOT/dbf/nettemp.db");
 	$query = $db->query("SELECT * FROM nt_settings");
@@ -94,8 +91,6 @@ $nomail = 0;
 			 </html>';
 	return $body;
 	}
-
-
 
 function send_not ($nid,$nrom,$notname,$notmessage,$notsms,$notmail,$notpov,$priority,$pusho,$mailonoff,$pushoukey,$pushoakey,$nsent,$notsent,$notsentrec,$nrecovery,$addr,$mail_topic,$date,$headers,$ntype){
 	
@@ -204,11 +199,8 @@ function send_not ($nid,$nrom,$notname,$notmessage,$notsms,$notmail,$notpov,$pri
 	
 	if ($notsentrec == 1 && $notsentrec2 == 1){
 		$db->exec("UPDATE notifications SET sent='' WHERE id='$nid'");
-		//$db->exec("UPDATE notifications SET fc='on' WHERE id='$nid'");
 		$db->exec("UPDATE sensors SET mail='sent' WHERE rom='$nrom'");
-		//if ($ntype =='lupdate'){
-			//$db->exec("UPDATE sensors SET readerrsend='' WHERE rom='$nrom'");
-		//}	
+		
 	}
 	
 	if ($notsentrec == 1 && $ntype == 'lupdate'){
@@ -235,8 +227,7 @@ try {
 		}else 
 			{
 				$query = $db->query("SELECT * FROM notifications WHERE active='on' ");
-			}
-	//unset($ninterval);		
+			}		
 	
     $result= $query->fetchAll();
     
@@ -259,7 +250,6 @@ try {
 		$notsentrec = 0;
 		$message = '';
 		$onlyrec = '';
-		//if ($ninterval == '0m'){$nsent = '';}
 		
 		if ($ninterval == '0m' && $nsent == 'sent'){$onlyrec = 'on';}
 		
@@ -268,9 +258,6 @@ try {
 			logs($date,'Error','Cannot send mail because function is off, go to settings - notifications.'); 
 			$nomail = 0 ;
 			}
-				
-				
-				
 				
 		$sensor = $db->query("SELECT name,tmp,current,type,time, status FROM sensors WHERE rom='$nrom'");
 		$sensors = $sensor->fetchAll();
@@ -294,7 +281,6 @@ try {
 
 			if ($nwhen == '1') {
 				
-			
 				if (($stmp < $nvalue) && $onlyrec != 'on') {
 					$notsent = 1;
 					}elseif (($stmp >= $nvalue) && ($nsent == 'sent')) {
