@@ -43,7 +43,7 @@ $nomail = 0;
 		}
 	}
 	
-	$query = $db->query("SELECT mail, tel FROM users WHERE maila='yes' ");
+	$query = $db->query("SELECT mail FROM users WHERE maila='yes' ");
     $result= $query->fetchAll();
     foreach($result as $s) {
 		$get_addr[]=$s['mail'];
