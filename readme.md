@@ -53,6 +53,10 @@ BETA:
 
 Changelog:
 
+4.8.2
+
+Reports for counters - charts add
+
 4.8.1
 
 Reports for counters - data for days

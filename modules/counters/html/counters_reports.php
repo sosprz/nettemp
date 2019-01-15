@@ -14,6 +14,8 @@ $thisyear = date("Y");
 //$repyearselect = '';
 $totalusage = 0;
 $totalcosts = 0;
+$sufix = '';
+$exp = 0;
 
 //if (empty($monthexp)) {$monthexp = '%';}
 
@@ -45,6 +47,12 @@ $t1cost = $a["cost1"];
 $t2cost = $a["cost2"];
 $romcost = $a["rom"];
 $type = $a['type'];
+
+if ($type == 'water' OR $type == 'gas') {
+	$sufix = 'm3';
+} else if ($type == 'elec') {
+	$sufix = 'kWh';
+}
 
 
 
@@ -83,6 +91,20 @@ $rom=$a['rom'];
 	
 		foreach ($row as $a) { 
 		
+		$data[] = $a['sums']; 
+		
+		if ($exp != 1) {
+		$xaxis[] = date("M",strtotime($a['date']));
+		$title = 'Year '.$repyearselect;
+		} else {
+			
+		$xaxis[] = date("d",strtotime($a['date']));
+		$month = date("F",strtotime($a['date'])); 
+		$title = $month." ".$repyearselect;
+			
+		}
+		
+		
 		?>
 		<tr>
 			<td class="col-md-0">
@@ -97,13 +119,14 @@ $rom=$a['rom'];
 				
 				
 				
+				
 				} else {
 					
 				$monthraw = $a['date']; 
 				$month = date("F",strtotime($monthraw)); 
 				$day = date("d",strtotime($monthraw)); 
 				echo $day.". ".$month." ".$repyearselect;
-					
+				
 				
 				
 				} //echo $monthraw;
@@ -226,6 +249,80 @@ $rom=$a['rom'];
 </table>
 </div>
 </div>
+
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Charts</h3></div>
+
+<?php 
+$theme=$nts_charts_theme;
+?>
+<script type="text/javascript" src="html/highcharts/highstock.js"></script>
+<script type="text/javascript" src="html/highcharts/exporting.js"></script>
+<?php if ($theme == 'black') { ?>
+<script type="text/javascript" src="html/highcharts/dark-unica.js"></script>
+<?php 
+    }
+if ($theme == 'sand') { ?>
+<script type="text/javascript" src="html/highcharts/sand-signika.js"></script>
+<?php 
+    }
+if ($theme == 'grid') { ?>
+<script type="text/javascript" src="html/highcharts/grid-light.js"></script>
+<?php 
+    }
+?>
+
+<script type="text/javascript" src="html/highcharts/no-data-to-display.js"></script>
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+<div id="container" style="height: 700px; min-width: 310px; padding: 20px"></div>
+
+<script type="text/javascript"> 
+var chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container',
+		 type: 'column',
+		 spacingTop: 50
+      },
+	  title: {
+            text: '<?php echo $title; ?>'
+        },
+	  
+	  
+	  xAxis: {
+            categories: ['<?php echo join($xaxis, "', '") ?>']
+        },
+		
+	  yAxis: {
+            title: {
+                text: 'kWh'
+            }
+        },
+		
+		tooltip: {
+		    valueSuffix: ' <?php echo $sufix; ?>'
+                    
+                },
+	    
+		
+		
+      series: [{
+		 name: 'Total usage',
+         data: [<?php echo join($data, ','); ?>]
+         
+      }]
+});
+</script>
+</div>
+</div>
+</div>
+
+
+
+
+
 <a href="index.php?id=device&type=counters"><button class="btn btn-xs btn-info">Back to counters</button></a>
 <?php
 	} else { 
