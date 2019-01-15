@@ -7,11 +7,15 @@ $cost1_new = isset($_POST['cost1_new']) ? $_POST['cost1_new'] : '';
 $cost2_new = isset($_POST['cost2_new']) ? $_POST['cost2_new'] : '';
 $c1 = isset($_POST['c1']) ? $_POST['c1'] : '';
 $c2 = isset($_POST['c2']) ? $_POST['c2'] : '';
+$monthexp = isset($_POST['monthexp']) ? $_POST['monthexp'] : '';
+$repyearselect = isset($_POST['repyearselect']) ? $_POST['repyearselect'] : '';
 
 $thisyear = date("Y");
-$repyearselect = '';
+//$repyearselect = '';
 $totalusage = 0;
 $totalcosts = 0;
+
+//if (empty($monthexp)) {$monthexp = '%';}
 
 if(!empty($repyear)) {$repyearselect = $repyear;} else {$repyearselect = $thisyear;} 
 
@@ -42,11 +46,27 @@ $t2cost = $a["cost2"];
 $romcost = $a["rom"];
 $type = $a['type'];
 
+
+
+$rom=$a['rom'];
+		$dbs = new PDO("sqlite:$root/db/$rom.sql") or die('lol');
+		
+		if (empty($monthexp)) {
+		
+		$rows = $dbs->query("SELECT time AS date,round(sum(value),3) AS sums from def WHERE strftime('%Y',time) IN ('$repyearselect') GROUP BY strftime('%m',time)") or die('Something is wrong');
+		} else {
+			
+			$rows = $dbs->query("SELECT time AS date,round(sum(value),3) AS sums from def WHERE strftime('%Y',time) IN ('$repyearselect') AND strftime('%m',time) LIKE '$monthexp'  GROUP BY strftime('%m',time), strftime('%d',time)") or die('Something is wrong');
+			$exp = 1;
+		}
+		
+		$row = $rows->fetchAll();
+
 ?>
 
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title"><?php echo $a["name"]?> </h3></div>
+<h3 class="panel-title"><?php echo $a["name"]; ?> </h3></div>
 <div class="table-responsive ">
 <table class="table table-hover table-striped table-condensed small" border="0">
 
@@ -54,16 +74,13 @@ $type = $a['type'];
 <th>Month</th>
 <th>Usage</th>
 <th>Cost</th>
+<th></th>
 
 </thead>
 <tbody>
 	
 	<?php
-		$rom=$a['rom'];
-		$dbs = new PDO("sqlite:$root/db/$rom.sql") or die('lol');
-		$rows = $dbs->query("SELECT time AS date,round(sum(value),3) AS sums from def WHERE strftime('%Y',time) IN ('$repyearselect') GROUP BY strftime('%m',time)") or die('Somethings is wrong');
-		
-		$row = $rows->fetchAll();
+	
 		foreach ($row as $a) { 
 		
 		?>
@@ -71,10 +88,27 @@ $type = $a['type'];
 			<td class="col-md-0">
 			
 			<?php 
+			
+				if ($exp != 1) { 
+				
 				$monthraw = $a['date']; 
 				$month = date("F",strtotime($monthraw)); 
-				echo $month= date("m",strtotime($monthraw)).". ".$month;
+				echo $month = date("m",strtotime($monthraw)).". ".$month." ".$repyearselect;
+				
+				
+				
+				} else {
+					
+				$monthraw = $a['date']; 
+				$month = date("F",strtotime($monthraw)); 
+				$day = date("d",strtotime($monthraw)); 
+				echo $day.". ".$month." ".$repyearselect;
+					
+				
+				
+				} //echo $monthraw;
 			?>
+			
 			</td>
 			
 			<td class="col-md-0">
@@ -93,6 +127,18 @@ $type = $a['type'];
 				$totalcosts = $totalcosts + $costs;
 			 ?>
 			</td>
+			
+			<td class="col-md-5"> <?php if ($exp != 1) { ?>
+			<form action="" method="post" style="display:inline!important;">
+				<input type="hidden" name="monthexp" value="<?php echo $month = date("m",strtotime($monthraw)); ?>" />
+				<input type="hidden" name="repyear" value="<?php echo $repyear; ?>" />
+				<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-menu-down"></span> </button>
+			</form>
+			<?php
+			}
+			?>
+			
+			</td>
 		</tr>
 		
 		<?php
@@ -102,7 +148,26 @@ $type = $a['type'];
 			<td class="col-md-0"><label>Total:</label></td>
 			<td class="col-md-0"><label><?php echo number_format($totalusage, 3, ',', '.'); ?></label></td>
 			<td class="col-md-0"><label><?php echo number_format($totalcosts, 2, ',', '.'); ?></label></td>
+			<td class="col-md-5"></td>
 		</tr>
+		
+		<?php if ($exp == 1) { ?>
+		
+		<tr>
+			<td class="col-md-0">
+				<form action="" method="post" style="display:inline!important;">
+					<input type="hidden" name="repyear" value="<?php echo $repyear; ?>" />
+					<button class="btn btn-xs btn-info">Back </button>
+				</form>
+			</td>
+			
+			<td class="col-md-0"></td>
+			<td class="col-md-0"></td>
+			<td class="col-md-5"></td>
+		</tr>
+		<?php 
+		}
+		?>
 <?php		
 }
 ?>
