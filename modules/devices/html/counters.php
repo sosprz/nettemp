@@ -39,7 +39,6 @@ if ($count >= "1") {
 <th>Counter</th>
 <th>Show in status</th>
 <th>Costs</th>
-<th></th>
 </thead>
 <?php
 foreach ($row as $a) { 	
