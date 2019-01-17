@@ -11,13 +11,10 @@ $monthexp = isset($_POST['monthexp']) ? $_POST['monthexp'] : '';
 $repyearselect = isset($_POST['repyearselect']) ? $_POST['repyearselect'] : '';
 
 $thisyear = date("Y");
-//$repyearselect = '';
 $totalusage = 0;
 $totalcosts = 0;
 $sufix = '';
 $exp = 0;
-
-//if (empty($monthexp)) {$monthexp = '%';}
 
 if(!empty($repyear)) {$repyearselect = $repyear;} else {$repyearselect = $thisyear;} 
 
@@ -54,8 +51,6 @@ if ($type == 'water' OR $type == 'gas') {
 	$sufix = 'kWh';
 }
 
-
-
 $rom=$a['rom'];
 		$dbs = new PDO("sqlite:$root/db/$rom.sql") or die('lol');
 		
@@ -71,7 +66,6 @@ $rom=$a['rom'];
 		$row = $rows->fetchAll();
 
 ?>
-
 <div class="panel panel-default">
 <div class="panel-heading">
 <h3 class="panel-title"><?php echo $a["name"]; ?> </h3></div>
@@ -98,12 +92,11 @@ $rom=$a['rom'];
 		$title = 'Year '.$repyearselect;
 		} else {
 			
-		$xaxis[] = date("d",strtotime($a['date']));
 		$month = date("F",strtotime($a['date'])); 
+		$xaxis[] = date("d",strtotime($a['date']))." ".date("M",strtotime($a['date']));
 		$title = $month." ".$repyearselect;
 			
 		}
-		
 		
 		?>
 		<tr>
@@ -116,19 +109,14 @@ $rom=$a['rom'];
 				$monthraw = $a['date']; 
 				$month = date("F",strtotime($monthraw)); 
 				echo $month = date("m",strtotime($monthraw)).". ".$month." ".$repyearselect;
-				
-				
-				
-				
+	
 				} else {
 					
 				$monthraw = $a['date']; 
 				$month = date("F",strtotime($monthraw)); 
 				$day = date("d",strtotime($monthraw)); 
 				echo $day.". ".$month." ".$repyearselect;
-				
-				
-				
+
 				} //echo $monthraw;
 			?>
 			
