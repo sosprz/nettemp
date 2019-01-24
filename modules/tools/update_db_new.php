@@ -57,12 +57,6 @@ $updates['2018-02-05 13:32:38'][]="ALTER TABLE sensors ADD thing  TEXT";
 //Create table for thingspeak
 $updates['2018-02-05 13:47:42'][]="CREATE TABLE thingspeak (id INTEGER PRIMARY KEY, name TEXT , apikey TEXT , f1 TEXT, f2 TEXT, f3 TEXT, f4 TEXT, f5 TEXT, f6 TEXT, f7 TEXT, f8 TEXT, active TEXT, interval INTEGER)";
 
-//Update sensors alarm reads errors
-//$updates['2018-02-08 19:40:08'][]="ALTER TABLE sensors ADD readerr TEXT";
-//$updates['2018-02-08 19:40:08'][]="ALTER TABLE sensors ADD readerralarm TEXT";
-//$updates['2018-02-08 19:48:25'][]="UPDATE sensors SET readerralarm='off'";
-//$updates['2018-02-08 19:49:20'][]="UPDATE sensors SET readerr='60'";
-
 //Update nt_settings UPS NT
 $updates['2018-02-12 13:04:11'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_delay_on','60')";
 $updates['2018-02-12 13:04:11'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('ups_delay_off','60')";
@@ -171,14 +165,6 @@ $updates['2018-09-06 10:13:24'][]="INSERT OR IGNORE INTO types (type, unit, unit
 $updates['2018-09-06 10:14:25'][]="INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('minweek', '', '', 'media/ico/min-icon.png' ,'Min Week','-10000', '10000')";
 $updates['2018-09-06 10:15:26'][]="INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('minmonth', '', '', 'media/ico/min-icon.png' ,'Min Month','-10000', '10000')";
 
-//$updates['2018-09-06 10:26:46'][]="ALTER TABLE gpio ADD ico TEXT";
-//$updates['2018-09-06 10:36:38'][]="UPDATE gpio SET ico='switch-icon.png'";
-
-//$updates['2018-09-06 11:22:40'][]="ALTER TABLE gpio ADD bsensor TEXT";
-//$updates['2018-09-06 11:31:38'][]="UPDATE gpio SET bsensor='none'";
-//$updates['2018-09-06 11:22:40'][]="ALTER TABLE gpio ADD snameon TEXT";
-//$updates['2018-09-06 11:23:38'][]="UPDATE gpio SET snameon='on'";
-
 $updates['2018-09-11 13:04:14'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('pusho_active','off')";
 $updates['2018-09-11 13:04:15'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('pusho_user_key','')";
 $updates['2018-09-11 13:04:16'][]="INSERT INTO nt_settings ('option', 'value') VALUES ('pusho_api_key','')";
@@ -211,12 +197,16 @@ $updates['2019-01-07 10:01:49'][]="ALTER TABLE sensors ADD cost2 TEXT";
 $updates['2019-01-07 10:01:50'][]="UPDATE sensors SET cost1=0.0";
 $updates['2019-01-07 10:01:52'][]="UPDATE sensors SET cost2=0.0";
 
+
 $updates['2019-01-17 10:01:41'][]="ALTER TABLE sensors ADD t1start TEXT";
 $updates['2019-01-07 10:01:42'][]="ALTER TABLE sensors ADD t1stop TEXT";
 
 $updates['2019-01-17 10:01:46'][]="ALTER TABLE sensors ADD t2start TEXT";
 $updates['2019-01-17 10:01:49'][]="ALTER TABLE sensors ADD t2stop TEXT";
 
+//Update sensors alarm reads errors
+$updates['2019-01-24 11:40:18'][]="ALTER TABLE sensors ADD readerrtime TEXT";
+$updates['2019-01-24 11:40:19'][]="UPDATE sensors SET readerrtime='60'";
 
 
 ?>

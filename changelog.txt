@@ -1,0 +1,5 @@
+
+4.8.3
+
+Informacja o braku odczytu z czujnika - Read err. - Device->Settings -  <a href="https://wiki.abc-service.com.pl/doku.php?id=funkcje_nettemp:dodawanie_czujnikow#konfiguracja_czujnikow" target="_blank" class="btn btn-xs btn-primary">NT WIKI </a>
+Changelog w zakładce tools->update
