@@ -109,6 +109,19 @@ echo (isset($NT_SETTINGS['DB_VER']) && isset($NT_SETTINGS['DB_LAST_UPDATE'])) ? 
 ?>
 
 </div>
+
+<div class="panel panel-default">
+<div class="panel-heading">Changelog</div>
+<div class="panel-body">
+
+<pre>
+		<?php include("changelog.txt"); ?>
+</pre>
+
+
+
+</div>
+</div>
 <script type="text/javascript">
 $("button").click(function() {
     var $btn = $(this);

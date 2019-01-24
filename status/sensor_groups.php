@@ -169,9 +169,15 @@ if ($hide == 'off') {
 		    $label='danger';
 		}
 		if(!empty($a['mail'])) {$mail='<img src="media/ico/message-icon.png" alt="" title="Message was send!"/>';}
+		
+		
+		if (strtotime($a['time'])<(time() - ($a['readerrtime']*60)) && $a['readerrtime'] != '0' ){
+					echo '<tr class="bg-danger">';
+				    }else{
+					echo '<tr>';
+				    }
 ?>
 
-		    <tr>
 			<td>
 				<?php echo $type;?>
 			</td>
@@ -308,7 +314,7 @@ if ($hide == 'off') {
 					</span>
 					</td>
 					<td>
-						<?php if (substr($a['type'],0,3) != 'max' || substr($a['type'],0,3) != 'sun'){echo $updo;} ?>
+						<?php if (substr($a['type'],0,3) != 'max' || substr($a['type'],0,3) != 'min' || substr($a['type'],0,3) != 'sun'){echo $updo;} ?>
 					</td>
 					<td>
 						<?php echo $mail; ?>

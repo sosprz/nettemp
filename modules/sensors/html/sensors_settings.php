@@ -266,6 +266,17 @@ if ( $lcd == "lcd"){
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
     } 
+	
+	$readerrtime = isset($_POST['readerrtime']) ? $_POST['readerrtime'] : '';
+    $reads_id = isset($_POST['reads_id']) ? $_POST['reads_id'] : '';
+	$readerrok = isset($_POST['readerrok']) ? $_POST['readerrok'] : '';
+	
+    if (!empty($reads_id) && ($readerrok == "readerrok")){
+    $db = new PDO('sqlite:dbf/nettemp.db');
+    $db->exec("UPDATE sensors SET readerrtime='$readerrtime' WHERE id='$reads_id'") or die ($db->lastErrorMsg());
+    header("location: " . $_SERVER['REQUEST_URI']);
+    exit();
+    }
 
     $map = isset($_POST['map']) ? $_POST['map'] : '';
     $maponoff = isset($_POST['maponoff']) ? $_POST['maponoff'] : '';
@@ -449,6 +460,7 @@ $row = $rows->fetchAll();
 <th>IP</th>
 <th>Type</th>
 <th>Adjust</th>
+<th>Read err.</th>
 <th>New group</th>
 <th>Group</th>
 <th>Log out</th>
@@ -565,6 +577,20 @@ $row = $rows->fetchAll();
 		}
 		?>
 		</td>
+		
+	<td class="col-md-0">
+	 <?php if ($a["type"] != 'gpio') { ?>
+		<form action="" method="post" style="display:inline!important;"> 
+			<input type="hidden" name="reads_id" value="<?php echo $a['id']; ?>" />
+			<input type="text" name="readerrtime" size="2" value="<?php echo $a['readerrtime']; ?>" />
+			<input type="hidden" name="readerrok" value="readerrok" />
+			<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span> </button>
+		</form>
+	 <?php 
+	}
+    ?>
+
+    </td>
     
        
     <!--NEW GROUP-->

@@ -53,6 +53,11 @@ BETA:
 
 Changelog:
 
+4.8.3
+
+Sensors read error in status
+Add changelog in tools->update
+
 4.8.2
 
 Reports for counters - charts add

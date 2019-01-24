@@ -110,11 +110,14 @@ if(!empty($recv_not_id) && ($not_rec_onoff == "onoff")) {
 //Active
 $notactv = isset($_POST['notactv']) ? $_POST['notactv'] : '';
 $actv_not_id = isset($_POST['actv_not_id']) ? $_POST['actv_not_id'] : '';
+$actv_not_rom = isset($_POST['actv_not_rom']) ? $_POST['actv_not_rom'] : '';
 $not_actv_onoff = isset($_POST['not_actv_onoff']) ? $_POST['not_actv_onoff'] : '';
 
 if(!empty($actv_not_id) && ($not_actv_onoff == "onoff")) { 
 	$db = new PDO("sqlite:$root/dbf/nettemp.db");
 	$db->exec("UPDATE notifications SET active = '$notactv', sent = '' WHERE id='$actv_not_id'");
+	$db->exec("UPDATE sensors SET readerrsend='' WHERE rom='$actv_not_rom'");
+	$db->exec("UPDATE sensors SET mail='' WHERE rom='$actv_not_rom'");
 }
 
 //Priority
@@ -257,6 +260,7 @@ $notifs = $notif->fetchAll();
 				
 			<td>
 				<form action="" method="post" style="display:inline!important;">
+					<input type="hidden" name="actv_not_rom" value="<?php echo $n["rom"]; ?>" />
 					<input type="hidden" name="actv_not_id" value="<?php echo $n['id']; ?>" />
 					<input type="checkbox" data-toggle="toggle" data-size="mini"  name="notactv" value="on" <?php echo $n["active"] == 'on' ? 'checked="checked"' : ''; ?> onchange="this.form.submit()" />
 					<input type="hidden" name="not_actv_onoff" value="onoff" />
