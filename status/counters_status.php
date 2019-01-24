@@ -25,11 +25,11 @@ foreach ($hide_resc as $hc) {
 //logon or logoff
 if(($_SESSION["perms"] == 'adm') || (isset($_SESSION["user"]))) {
 
-	$rows = $db->query("SELECT * FROM sensors WHERE hide ='off' AND ch_group!='none' AND  (type='gas' OR type='elec' OR type='water')");
+	$rows = $db->query("SELECT * FROM sensors WHERE hide ='off' AND  (type='gas' OR type='elec' OR type='water')");
 	
 } else { 
 
-	$rows = $db->query("SELECT * FROM sensors WHERE hide ='off' AND ch_group!='none' AND logon ='on' AND (type='gas' OR type='elec' OR type='water')");
+	$rows = $db->query("SELECT * FROM sensors WHERE hide ='off' AND logon ='on' AND (type='gas' OR type='elec' OR type='water')");
 	
 	}
 	
@@ -78,9 +78,14 @@ if ($nts_hide_counters == 'off') { ?>
 	
 	$name2='<span class="label label-default" title="'.$a['name'].'">'.$a['name'].'</span>';
 	$name3='<a href="index.php?id=device&device_id='.$a['id'].'" title="Go to settings" class="label label-default">'.$a['name'].'</a>';
-?>
 
-<tr>
+
+	if (strtotime($a['time'])<(time() - ($a['readerrtime']*60)) && $a['readerrtime'] != '0' ){
+					echo '<tr class="bg-danger">';
+				    }else{
+					echo '<tr>';
+				    }
+?>
     <td>
 
 		<?php if($a['type'] == 'gas' && isset($_SESSION['user'])){ ?><a href="index.php?id=creports&crom=<?php echo $a["rom"]; ?>" title="Go to report"><img src="media/ico/gas-icon.png" alt=""/></a><?php $units='m3'; $units2='L';} 

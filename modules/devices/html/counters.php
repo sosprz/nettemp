@@ -15,15 +15,6 @@ if ($sum1 == 'sum2'){
 	exit();
 }
 
- $ch_group = isset($_POST['ch_group']) ? $_POST['ch_group'] : '';
-    $ch_grouponoff = isset($_POST['ch_grouponoff']) ? $_POST['ch_grouponoff'] : '';
-    $ch_groupon = isset($_POST['ch_groupon']) ? $_POST['ch_groupon'] : '';
-    if (($ch_grouponoff == "onoff")){
-	$db = new PDO('sqlite:dbf/nettemp.db');
-    $db->exec("UPDATE sensors SET ch_group='$ch_groupon' WHERE id='$ch_group'") or die ($db->lastErrorMsg());
-    header("location: " . $_SERVER['REQUEST_URI']);
-    exit();
-    }
 
 $db = new PDO('sqlite:dbf/nettemp.db');
 $rows = $db->query("SELECT * FROM sensors WHERE type='elec' OR type='water' OR type='gas'");
@@ -37,7 +28,6 @@ if ($count >= "1") {
 <th>Name</th>
 <th>Type</th>
 <th>Counter</th>
-<th>Show in status</th>
 <th>Costs</th>
 </thead>
 <?php
@@ -58,18 +48,6 @@ foreach ($row as $a) {
 			<input type="hidden" name="sum1" value="sum2"/>
     </form>
 	</td>
-	    <!--NEW GROUP-->
-
-    <td class="col-md-1">
-    <form action="" method="post"  class="form-inline">
-    <select name="ch_groupon" class="form-control input-sm small" onchange="this.form.submit()" style="width: 80px;" >
-		<option value="sensors"  <?php echo $a['ch_group'] == 'sensors' ? 'selected="selected"' : ''; ?>  >Yes</option>
-		<option value="none"  <?php echo $a['ch_group'] == 'none' ? 'selected="selected"' : ''; ?>  >No</option>
-    </select>
-    <input type="hidden" name="ch_grouponoff" value="onoff" />
-    <input type="hidden" name="ch_group" value="<?php echo $a['id']; ?>" />
-    </form>
-    </td>
 	
 	<td class="col-md-6">
 	

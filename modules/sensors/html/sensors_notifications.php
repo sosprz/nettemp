@@ -37,7 +37,8 @@ if(!empty($del_not_rom) && ($del_not == "del_not") && !empty($del_not_id) ) {
 	$db->exec("DELETE FROM notifications WHERE id='$del_not_id'");
 	
 	if($del_not_type == 'lupdate'){
-		$db->exec("UPDATE sensors SET readerrsend= '' WHERE rom='$del_not_rom'");
+		$db->exec("UPDATE sensors SET readerrsend='' WHERE rom='$del_not_rom'");
+		$db->exec("UPDATE sensors SET mail='' WHERE rom='$del_not_rom'");
 	}
 }
 
