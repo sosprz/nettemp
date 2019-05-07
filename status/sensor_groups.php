@@ -151,10 +151,19 @@ if ($hide == 'off') {
 		if($a['tmp'] > $a['tmp_5ago']) { $updo='<span class="label label-danger" title="5 min stats '.$a['tmp_5ago'].' '.$unit.'"><span class="glyphicon glyphicon-arrow-up"></span></span>';}
 		if($a['tmp'] < $a['tmp_5ago']) { $updo='<span class="label label-info" title="5 min stats '.$a['tmp_5ago'].' '.$unit.'"><span class="glyphicon glyphicon-arrow-down"></span></span>';}
 		
-		if($a['stat_min']) { $stat_min='<span class="label label-info" title="Lowest value from sensor '.$unit.'">'.number_format($a['stat_min'], 1, '.', ',').'</span>';}
-		if($a['stat_max']) { $stat_max='<span class="label label-warning" title="Greatest value from sensor '.$unit.'">'.number_format($a['stat_max'], 1, '.', ',').'</span>';}
+		if($a['stat_min'] && ($a['type']=='sunrise' || $a['type']=='sunset')) 
 		
-
+		{ $stat_min='<span class="label label-info" title="Lowest value from sensor '.$unit.'">'.date('H:i', $a['stat_min']).'</span>';} 
+		else {	
+			$stat_min='<span class="label label-info" title="Lowest value from sensor '.$unit.'">'.number_format($a['stat_min'], 1, '.', ',').'</span>';	
+		}
+		
+		if($a['stat_max'] && ($a['type']=='sunrise' || $a['type']=='sunset')) 
+		
+		{ $stat_max='<span class="label label-warning" title="Greatest value from sensor '.$unit.'">'.date('H:i', $a['stat_max']).'</span>';} 
+		else {	
+			$stat_max='<span class="label label-warning" title="Greatest value from sensor '.$unit.'">'.number_format($a['stat_max'], 1, '.', ',').'</span>';	
+		}
 		
 		if($a['tmp'] >= $a['tmp_max'] && !empty($a['tmp']) && !empty($a['tmp_max'])) { 
 		    $mm='e'; 

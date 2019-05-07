@@ -53,6 +53,10 @@ BETA:
 
 Changelog:
 
+4.8.4
+
+Modules order in status
+
 4.8.3
 
 Sensors read error in status

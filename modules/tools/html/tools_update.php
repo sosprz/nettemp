@@ -52,6 +52,7 @@ if ($update == "UPDATE") {
 	//}
 	
 	shell_exec("sudo service cron start");	
+	shell_exec("sudo service nettempmqtt restart");
 }
 
 if ($update == "INTEGRITY"){

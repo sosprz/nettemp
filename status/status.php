@@ -50,46 +50,64 @@ Go to device scan!
 </div>
 <?php
 }
-    //GROUPS
-    $rows = $db->query("SELECT ch_group,type FROM sensors ORDER BY position_group ASC") or header("Location: html/errors/db_error.php");
-	$result_ch_g = $rows->fetchAll();
-	$unique=array();
+
+//Modules ORDER
+
+ $morder = $db->query("SELECT * FROM statusorder ORDER BY position ASC") or header("Location: html/errors/db_error.php");
+	$order = $morder->fetchAll();
+	foreach($order as $or) {
+		$module = $or['modulename'];
+		
+		if ($module == "Sensors") {
+			 //GROUPS
+			$rows = $db->query("SELECT ch_group,type FROM sensors ORDER BY position_group ASC") or header("Location: html/errors/db_error.php");
+			$result_ch_g = $rows->fetchAll();
+			$unique=array();
 	
-	foreach($result_ch_g as $uniq) {
-		if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none'&&!in_array($uniq['ch_group'], $unique)) {
-			$unique[]=$uniq['ch_group'];
-			$ch_g=$uniq['ch_group'];
-			include('status/sensor_groups.php');
+			foreach($result_ch_g as $uniq) {
+				if(!empty($uniq['ch_group'])&&$uniq['ch_group']!='none'&&!in_array($uniq['ch_group'], $unique)) {
+					$unique[]=$uniq['ch_group'];
+					$ch_g=$uniq['ch_group'];
+					include('status/sensor_groups.php');
+				}
+			}//END GROUPS
+			
+			//JG GROUPS
+			foreach($result_ch_g as $uniqa) {
+				if(!empty($uniqa['ch_group'])&&$uniqa['ch_group']!='none'&&!in_array($uniqa['ch_group'], $uniquea)) {
+					$uniquea[]=$uniqa['ch_group'];
+					$ch_g=$uniqa['ch_group'];
+					include('status/justgage_status.php');
+				}
+			}//END JG GROUPS
+
+		}else if ($module == "MinMax") {
+			include('status/minmax_status.php');
+		}else  if ($module == "Counters") {
+			include('status/counters_status.php');
+		}else  if ($module == "Controls/GPIO") {
+			include('status/controls.php');
+		}else  if ($module == "Meteo") {
+			include('status/meteo_status.php');
+		}else  if ($module == "IP Cam") {
+			include('status/ipcam_status.php');
+		}else  if ($module == "UPS") {
+			include('status/ups_status.php');
+		}else  if ($module == "Widget") {
+			//OW
+			$rowsow = $db->query("SELECT * FROM ownwidget WHERE onoff='on' ") or header("Location: html/errors/db_error.php");
+			$owresult = $rowsow->fetchAll();
+			$uniquec=array();
+				foreach($owresult as $owg) {
+					$owb = $owg['body'];
+					$own = $owg['name'];
+					$owh = $owg['hide'];
+					//$ref = $owg['refresh'];
+					include('status/ownwidget.php');
+				}
 		}
-	}	
-	//END GROUPS
-	//JG GROUPS
-	foreach($result_ch_g as $uniqa) {
-		if(!empty($uniqa['ch_group'])&&$uniqa['ch_group']!='none'&&!in_array($uniqa['ch_group'], $uniquea)) {
-			$uniquea[]=$uniqa['ch_group'];
-			$ch_g=$uniqa['ch_group'];
-			include('status/justgage_status.php');
-		}
-	}	
-	//END JG GROUPS
-	//OW
-    $rowsow = $db->query("SELECT * FROM ownwidget WHERE onoff='on' ") or header("Location: html/errors/db_error.php");
-	$owresult = $rowsow->fetchAll();
-	$uniquec=array();
-	foreach($owresult as $owg) {
-		$owb = $owg['body'];
-		$own = $owg['name'];
-		$owh = $owg['hide'];
-		//$ref = $owg['refresh'];
-		include('status/ownwidget.php');
 	}
-    include('status/minmax_status.php'); 
-    include('status/counters_status.php');
-    include('status/controls.php');
-    include('status/meteo_status.php');
-    include('status/ipcam_status.php');
-    include('status/ups_status.php');
-    ?>
+?>
 </div>
 
 <script type="text/javascript">

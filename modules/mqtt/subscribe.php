@@ -79,7 +79,7 @@ function procmsg($topic, $msg){
 	$type=$arr['3'];
 	$gpio=$arr['4'];
     
-	$local_device	=	'ip';
+	$local_device	=	'ip_mqtt';
 	$local_type	=	$type;
 	$local_val	=	$output;
 	$local_name	=	$name;
@@ -92,7 +92,7 @@ function procmsg($topic, $msg){
 	$name=$arr['2'];
 	$type=$arr['3'];
     
-    $local_device	=	'ip';
+    $local_device	=	'ip_mqtt';
 	$local_type	=	$type;
 	$local_val	=	$output;
 	$local_name	=	$name;

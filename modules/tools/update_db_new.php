@@ -207,5 +207,21 @@ $updates['2019-01-07 10:01:52'][]="UPDATE sensors SET cost2=0.0";
 $updates['2019-01-24 11:40:18'][]="ALTER TABLE sensors ADD readerrtime TEXT";
 $updates['2019-01-24 11:40:19'][]="UPDATE sensors SET readerrtime='60'";
 
+//Update - modules order in status
+$updates['2019-05-07 11:40:01'][]="CREATE TABLE statusorder (id INTEGER PRIMARY KEY, position INTEGER , modulename TEXT)";
+$updates['2019-05-07 11:41:01'][]="INSERT INTO statusorder ('position', 'modulename') VALUES (1,'Sensors')";
+$updates['2019-05-07 11:42:01'][]="INSERT INTO statusorder ('position', 'modulename') VALUES (2,'MinMax')";
+$updates['2019-05-07 11:43:01'][]="INSERT INTO statusorder ('position', 'modulename') VALUES (3,'Counters')";
+$updates['2019-05-07 11:44:01'][]="INSERT INTO statusorder ('position', 'modulename') VALUES (4,'Controls/GPIO')";
+$updates['2019-05-07 11:45:01'][]="INSERT INTO statusorder ('position', 'modulename') VALUES (5,'Meteo')";
+$updates['2019-05-07 11:46:01'][]="INSERT INTO statusorder ('position', 'modulename') VALUES (6,'IP Cam')";
+$updates['2019-05-07 11:47:01'][]="INSERT INTO statusorder ('position', 'modulename') VALUES (7,'UPS')";
+$updates['2019-05-07 11:48:01'][]="INSERT INTO statusorder ('position', 'modulename') VALUES (8,'Widget')";
 
+
+
+
+
+
+//$updates['2019-04-29 13:01:41'][]="ALTER TABLE gpio ADD token TEXT";
 ?>

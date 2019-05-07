@@ -2,6 +2,7 @@
 <?php $art = (!isset($art) || $art == '') ? 'mail' : $art; ?>
 
 <p>
+<a href="index.php?id=settings&type=sorder" ><button class="btn btn-xs btn-default <?php echo $art == 'users' ? 'active' : ''; ?>">Status order</button></a>
 <a href="index.php?id=settings&type=users" ><button class="btn btn-xs btn-default <?php echo $art == 'users' ? 'active' : ''; ?>">Users</button></a>
 <a href="index.php?id=settings&type=notifications" ><button class="btn btn-xs btn-default <?php echo $art == 'notifications' ? 'active' : ''; ?>">Notifications</button></a>
 <a href="index.php?id=settings&type=accesstime" ><button class="btn btn-xs btn-default <?php echo $art == 'accesstime' ? 'active' : ''; ?>">Access time</button></a>
@@ -19,7 +20,8 @@
 <?php  
 switch ($art)
 { 
-default: case '$notifications': include('modules/settings/notifications.php'); break;
+default: case '$sorder': include('modules/settings/status_order.php'); break;
+case 'notifications': include('modules/settings/notifications.php'); break;
 case 'smsscript': include('modules/settings/sms_script.php'); break;
 case 'accesstime': include('modules/settings/accesstime.php'); break;
 case 'lcd': include('modules/settings/lcd.php'); break;
