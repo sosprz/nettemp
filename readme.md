@@ -1,5 +1,4 @@
-www.nettemp.pl
-www.nettemp.pl/forum
+http://forum.abc-service.com.pl/index.php
 
 [![nettemp.pl](http://img.youtube.com/vi/BSCJAicMaFY/0.jpg)](http://www.youtube.com/watch?v=BSCJAicMaFY)
 
@@ -23,9 +22,6 @@ FEATURES:
     Firewall function
     System stats
 
-UPDATE:
-    
-    If You update from master or nettemp2 please make fresh installation.
 
 Debian, RaspberryPi:
 
