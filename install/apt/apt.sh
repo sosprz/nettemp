@@ -1,6 +1,6 @@
 #! /bin/bash
 
-list=$(cat $dir/install/apt/packages_list)
+list=$(grep -v '^#' $dir/install/apt/packages_list)
 
 echo -n -e "Updating repo \r"
 apt-get -y update 

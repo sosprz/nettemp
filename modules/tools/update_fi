@@ -33,7 +33,7 @@ if [ ! -f /usr/local/lib/python2.7/dist-packages/Adafruit_DHT-*.egg ]; then
 fi
 
 # update mail
-sudo sed -i 's/;sendmail_path =/sendmail_path = '\''\/usr\/bin\/msmtp -t'\''/g' /etc/php/7.0/fpm/php.ini
-sudo sed -i 's/;sendmail_path =/sendmail_path = '\''\/usr\/bin\/msmtp -t'\''/g' /etc/php/7.0/cli/php.ini
+sudo sed -i 's/;sendmail_path =/sendmail_path = '\''\/usr\/bin\/msmtp -t'\''/g' /etc/php/7.3/fpm/php.ini
+sudo sed -i 's/;sendmail_path =/sendmail_path = '\''\/usr\/bin\/msmtp -t'\''/g' /etc/php/7.3/cli/php.ini
 # end update mail
 

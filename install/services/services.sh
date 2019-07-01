@@ -2,7 +2,7 @@
 
 {
 /etc/init.d/ntp restart
-/etc/init.d/php7.0-fpm restart
+/etc/init.d/php7.3-fpm restart
 /etc/init.d/lighttpd restart
 
 update-rc.d smstools enable
