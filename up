@@ -1,1 +1,0 @@
-sudo apt-get update && sudo apt-get -y install php7.3-cgi php7.3-sqlite3 php7.3-fpm php7.3-curl php7.3-mysql php7.3-snmp php7.3-xml mariadb-client-10.0
