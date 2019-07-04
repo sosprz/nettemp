@@ -42,7 +42,7 @@ libmodbus5
 iptables-persistent
 apcupsd
 smstools
-mariadb-client-10.0
+mariadb-client
 python-pymodbus
 lm-sensors
 mosquitto
