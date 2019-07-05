@@ -8,7 +8,7 @@ gpio="$1"
 if [ ! -n "$gpio" ]; then echo "no gpio input" && exit; fi 
 
 name=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT name FROM gpio where gpio='$gpio'")
-out=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND tout$gpio='on'")
+out=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT gpio,rev FROM gpio where mode='triggerout' AND trigsource='$gpio'")
 rev=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT rev FROM gpio WHERE gpio='$gpio'")
 trigger_notice=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT trigger_notice FROM gpio WHERE gpio='$gpio'")
 get_mail=$(sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }')
