@@ -40,10 +40,11 @@ if ($triggerrun == "off")  {
 $toutonoff = isset($_POST['toutonoff']) ? $_POST['toutonoff'] : '';
 
 $tout = isset($_POST['tout']) ? $_POST['tout'] : '';
+$togpio = isset($_POST['togpio']) ? $_POST['togpio'] : '';
 
 if (($toutonoff == "onoff") &&  (!empty($tout)))  {
   
-    $db->exec("UPDATE gpio SET trigout='21' WHERE gpio='17' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
+    $db->exec("UPDATE gpio SET trigout='$tout' WHERE gpio='$togpio' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -93,7 +94,7 @@ else
 ?>    
 <form action="" method="post" style=" display:inline!important;">
     
-	<input type="hidden" name="gpio" value="<?php echo $b['gpio']; ?>" />
+	<input type="hidden" name="togpio" value="<?php echo $a['gpio']; ?>" />
 	<input type="hidden" name="tout" value="<?php echo $trout; ?>" />
     <input type="hidden" name="toutonoff" value="onoff" />
 	<button type="submit" name="aaa"  onchange="this.form.submit()" ><?php echo $b['name']; echo $trout; echo $b['gpio']; ?></button>
