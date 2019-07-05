@@ -91,7 +91,7 @@ else
     //$to="tout$sec";
 ?>    
 <form action="" method="post" style=" display:inline!important;">
-    <button type="submit" name="aaa"  <?php echo $a["gpio"] == $b["gpio"] ? 'class="btn btn-xs btn-danger" value=""' : 'class="btn btn-xs btn-success" value=$trout'; ?> onchange="this.form.submit()" ><?php echo $b['name']; ?></button>
+    <button type="submit" name="aaa"  onchange="this.form.submit()" ><?php echo $b['name']; ?></button>
     
 	
 	<input type="hidden" name="gpio" value="<?php echo $b['gpio'] ?>" />
