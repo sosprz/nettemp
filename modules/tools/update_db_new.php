@@ -218,7 +218,8 @@ $updates['2019-05-07 11:46:01'][]="INSERT INTO statusorder ('position', 'modulen
 $updates['2019-05-07 11:47:01'][]="INSERT INTO statusorder ('position', 'modulename') VALUES (7,'UPS')";
 $updates['2019-05-07 11:48:01'][]="INSERT INTO statusorder ('position', 'modulename') VALUES (8,'Widget')";
 
-
+//trigger update
+$updates['2019-07-05 10:01:41'][]="ALTER TABLE gpio ADD trigout TEXT";
 
 
 
