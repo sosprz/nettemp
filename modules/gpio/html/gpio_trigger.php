@@ -39,10 +39,10 @@ if ($triggerrun == "off")  {
 
 $toutonoff = isset($_POST['toutonoff']) ? $_POST['toutonoff'] : '';
 foreach (range(1, 30) as $num) {
-$tout=isset($_POST["tout".$num]) ? $_POST["tout".$num] : '';
+//$tout=isset($_POST["tout".$num]) ? $_POST["tout".$num] : '';
 if (($toutonoff == "onoff") &&  (!empty($tout)))  {
-    $tout == "off" ? $tout='' : "";
-    $db->exec("UPDATE gpio SET tout$num='$tout' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
+    //$tout == "off" ? $tout='' : "";
+    $db->exec("UPDATE gpio SET trigout='$tout' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
@@ -87,11 +87,14 @@ else
     $row = $rows->fetchAll();
     foreach ($row as $b) {
     $sec=$a['gpio'];
+	$trout=$b['gpio'];
     $to="tout$sec";
 ?>    
 <form action="" method="post" style=" display:inline!important;">
-    <button type="submit" name="<?php echo $to; ?>"  <?php echo $b["$to"] == 'on' ? 'class="btn btn-xs btn-danger" value="off"' : 'class="btn btn-xs btn-success" value="on"'; ?> onchange="this.form.submit()" ><?php echo $b['name']; ?></button>
-    <input type="hidden" name="gpio" value="<?php echo $b['gpio'] ?>" />
+    <button type="submit" name="<?php echo $to; ?>"  <?php echo $a["gpio"] == $b["gpio"] ? 'class="btn btn-xs btn-danger" value=""' : 'class="btn btn-xs btn-success" value=$trout'; ?> onchange="this.form.submit()" ><?php echo $b['name']; ?></button>
+    
+	
+	<input type="hidden" name="gpio" value="<?php echo $b['gpio'] ?>" />
     <input type="hidden" name="toutonoff" value="onoff" />
 </form>
 <?php
