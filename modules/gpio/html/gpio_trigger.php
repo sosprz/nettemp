@@ -95,7 +95,7 @@ else
 	<input type="hidden" name="gpio" value="<?php echo $b['gpio']; ?>" />
 	<input type="hidden" name="tout" value="<?php echo $trout; ?>" />
     <input type="hidden" name="toutonoff" value="onoff" />
-	<button type="submit" name="aaa"  onchange="this.form.submit()" ><?php echo $b['name']; ?></button>
+	<button type="submit" name="aaa"  onchange="this.form.submit()" ><?php echo $b['name']; echo $trout; echo $b['gpio']; ?></button>
 </form>
 <?php
 }
