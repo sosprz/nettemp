@@ -91,12 +91,11 @@ else
     //$to="tout$sec";
 ?>    
 <form action="" method="post" style=" display:inline!important;">
-    <button type="submit" name="aaa"  onchange="this.form.submit()" ><?php echo $b['name']; ?></button>
     
-	
 	<input type="hidden" name="gpio" value="<?php echo $b['gpio']; ?>" />
-	<input type="hidden" name="tout" value="<?php echo $b['gpio']; ?>" />
+	<input type="hidden" name="tout" value="<?php echo $trout; ?>" />
     <input type="hidden" name="toutonoff" value="onoff" />
+	<button type="submit" name="aaa"  onchange="this.form.submit()" ><?php echo $b['name']; ?></button>
 </form>
 <?php
 }
