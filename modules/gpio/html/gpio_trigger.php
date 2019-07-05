@@ -38,11 +38,12 @@ if ($triggerrun == "off")  {
 
 
 $toutonoff = isset($_POST['toutonoff']) ? $_POST['toutonoff'] : '';
+
 $tout = isset($_POST['tout']) ? $_POST['tout'] : '';
 
 if (($toutonoff == "onoff") &&  (!empty($tout)))  {
   
-    $db->exec("UPDATE gpio SET trigout='$tout' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
+    $db->exec("UPDATE gpio SET trigout='21' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
