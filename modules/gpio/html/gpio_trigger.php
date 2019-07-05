@@ -38,6 +38,7 @@ if ($triggerrun == "off")  {
 
 
 $toutonoff = isset($_POST['toutonoff']) ? $_POST['toutonoff'] : '';
+$tout = isset($_POST['tout']) ? $_POST['tout'] : '';
 foreach (range(1, 30) as $num) {
 //$tout=isset($_POST["tout".$num]) ? $_POST["tout".$num] : '';
 if (($toutonoff == "onoff") &&  (!empty($tout)))  {
@@ -95,6 +96,7 @@ else
     
 	
 	<input type="hidden" name="gpio" value="<?php echo $b['gpio'] ?>" />
+	<input type="hidden" name="tout" value="<?php echo $b['gpio'] ?>" />
     <input type="hidden" name="toutonoff" value="onoff" />
 </form>
 <?php
