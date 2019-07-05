@@ -86,9 +86,9 @@ else
     $rows = $db->query("SELECT * FROM gpio WHERE mode='triggerout'");
     $row = $rows->fetchAll();
     foreach ($row as $b) {
-    $sec=$a['gpio'];
+    //$sec=$a['gpio'];
 	$trout=$b['gpio'];
-    $to="tout$sec";
+    //$to="tout$sec";
 ?>    
 <form action="" method="post" style=" display:inline!important;">
     <button type="submit" name="<?php echo $to; ?>"  <?php echo $a["gpio"] == $b["gpio"] ? 'class="btn btn-xs btn-danger" value=""' : 'class="btn btn-xs btn-success" value=$trout'; ?> onchange="this.form.submit()" ><?php echo $b['name']; ?></button>
