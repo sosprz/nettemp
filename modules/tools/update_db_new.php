@@ -220,6 +220,7 @@ $updates['2019-05-07 11:48:01'][]="INSERT INTO statusorder ('position', 'modulen
 
 //trigger update
 $updates['2019-07-05 10:01:41'][]="ALTER TABLE gpio ADD trigout TEXT";
+$updates['2019-07-05 10:02:31'][]="ALTER TABLE gpio ADD trigsource TEXT";
 
 
 
