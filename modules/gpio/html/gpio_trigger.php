@@ -99,7 +99,10 @@ else
 	<input type="hidden" name="rom2" value="<?php echo $b['rom']; ?>" />
 	<input type="hidden" name="tout" value="<?php echo $trout; ?>" />
     <input type="hidden" name="toutonoff" value="onoff" />
-	<button type="submit" name="aaa"  onchange="this.form.submit()" ><?php echo $b['name']; echo $trout; echo $b['gpio']; ?></button>
+	<button type="submit" name="aaa"  onchange="this.form.submit()" ><?php echo $b['name']; ?></button>
+	
+	
+	<button type="submit" name="aname"  <?php echo $b["trigsource"] == $a["gpio"] ? 'class="btn btn-xs btn-danger" value="off"' : 'class="btn btn-xs btn-success" value="on"'; ?> onchange="this.form.submit()" ><?php echo $b['name']; ?></button>
 </form>
 <?php
 }
