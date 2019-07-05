@@ -39,16 +39,15 @@ if ($triggerrun == "off")  {
 
 $toutonoff = isset($_POST['toutonoff']) ? $_POST['toutonoff'] : '';
 $tout = isset($_POST['tout']) ? $_POST['tout'] : '';
-foreach (range(1, 30) as $num) {
-//$tout=isset($_POST["tout".$num]) ? $_POST["tout".$num] : '';
+
 if (($toutonoff == "onoff") &&  (!empty($tout)))  {
-    //$tout == "off" ? $tout='' : "";
+  
     $db->exec("UPDATE gpio SET trigout='$tout' WHERE gpio='$gpio_post' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
-}
+
 
 $trigger_delay = isset($_POST['trigger_delay']) ? $_POST['trigger_delay'] : '';
 $trigger_delay1 = isset($_POST['trigger_delay1']) ? $_POST['trigger_delay1'] : '';
