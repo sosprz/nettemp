@@ -45,7 +45,7 @@ $togpio = isset($_POST['togpio']) ? $_POST['togpio'] : '';
 if (($toutonoff == "onoff") &&  (!empty($tout)))  {
   
     $db->exec("UPDATE gpio SET trigout ='$tout' WHERE gpio='$togpio' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
-	$db->exec("UPDATE gpio SET trigsource ='$togpio' WHERE gpio='21' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
+	$db->exec("UPDATE gpio SET trigsource ='17' WHERE gpio='21' AND rom='$rom'") or exit(header("Location: html/errors/db_error.php"));
     $db = null;
     header("location: " . $_SERVER['REQUEST_URI']);
     exit();
