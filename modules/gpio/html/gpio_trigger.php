@@ -94,8 +94,8 @@ else
     <button type="submit" name="aaa"  onchange="this.form.submit()" ><?php echo $b['name']; ?></button>
     
 	
-	<input type="hidden" name="gpio" value="<?php echo $b['gpio'] ?>" />
-	<input type="hidden" name="tout" value="<?php echo $b['gpio'] ?>" />
+	<input type="hidden" name="gpio" value="<?php echo $b['gpio']; ?>" />
+	<input type="hidden" name="tout" value="<?php echo $b['gpio']; ?>" />
     <input type="hidden" name="toutonoff" value="onoff" />
 </form>
 <?php
