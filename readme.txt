@@ -1,5 +1,6 @@
 # nettemp.pl
 
+cd /var/www/
 git clone https://github.com/sosprz/nettemp
 cd nettemp
 ./setup.sh
