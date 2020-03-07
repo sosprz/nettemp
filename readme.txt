@@ -1,5 +1,6 @@
 # nettemp.pl
 
+mkdir -p /var/www/
 cd /var/www/
 git clone https://github.com/sosprz/nettemp
 cd nettemp
