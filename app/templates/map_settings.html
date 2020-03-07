@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "settings_menu.html" %}
+{% include "map_menu.html" %}
+
+<div class="panel panel-default">
+<div class="panel-heading">Image size</div>
+<div class="panel-body">
+<form class="form-horizontal" action="" method="post">
+<fieldset>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-1 control-label" for="textinput">Height</label>  
+  <div class="col-md-1">
+  <input id="textinput" name="map_height" type="text" placeholder="600" class="form-control input-xs" value="{{ nt_settings['map_height'] }}" style="width:50px;">
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-1 control-label" for="textinput">Width</label>  
+  <div class="col-md-1">
+  <input id="textinput" name="map_width" type="text" placeholder="800" class="form-control input-xs" value="{{ nt_settings['map_width'] }}" style="width:50px;">
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-1 control-label" for="singlebutton"></label>
+  <div class="col-md-1">
+     <input type="hidden" name="send-map-image" value="yes" />
+    <button id="singlebutton" name="save" class="btn btn-xs btn-primary">Save</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading">Advanced map settings</div>
+
+<div class="table-responsive">
+<table class="table table-hover table-condensed small" border="0">
+<thead>
+<tr>
+	<th>Name</th>
+       <th class="col-md-1 map-settings">View</th>
+	<th class="col-md-1 map-settings">Name view</th>
+	<th class="col-md-1 map-settings">Transparent</th>
+	<th class="col-md-1 map-settings">Background</th>
+	<th class="col-md-1 map-settings">Low</th>
+	<th class="col-md-1 map-settings">High</th>
+	<th class="col-md-1 map-settings">Font color</th>
+	<th class="col-md-1 map-settings">Font[%]</th>
+	<th class="col-md-1 map-settings"></th>
+	<th class="col-md-3 map-settings"></th>
+</tr>
+</thead>
+
+{% for id, name, map_on, display_name, transparent_bkg, background_color, background_low, background_high, font_color, font_size in data %}
+
+<tr>
+    
+    <td class="col-md-1">
+      {{ name }}
+    </td>
+
+    
+    <td class="col-md-1">
+      <form action="" method="post" style="display:inline!important;"> 	
+        <button type="submit" name="value" value="{{ 'off' if map_on == 'on' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if map_on == 'on' else 'btn btn-xs btn-default' }}">{{ 'ON' if map_on == 'on' else 'OFF' }}</button>
+        <input type="hidden" name="name" value="map_on" />
+        <input type="hidden" name="id" value="{{ id }}" />
+        <input type="hidden" name="send" value="yes" />
+      </form>
+    </td>
+    <td class="col-md-1">
+      <form action="" method="post" style="display:inline!important;"> 	
+        <button type="submit" name="value" value="{{ 'off' if display_name == 'on' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if display_name == 'on' else 'btn btn-xs btn-default' }}">{{ 'ON' if display_name == 'on' else 'OFF' }}</button>
+        <input type="hidden" name="name" value="display_name" />
+        <input type="hidden" name="id" value="{{ id }}" />
+        <input type="hidden" name="send" value="yes" />
+      </form>
+    </td>
+    <td class="col-md-1">
+      <form action="" method="post" style="display:inline!important;"> 	
+        <button type="submit" name="value" value="{{ 'off' if transparent_bkg == 'on' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if transparent_bkg == 'on' else 'btn btn-xs btn-default' }}">{{ 'ON' if transparent_bkg == 'on' else 'OFF' }}</button>
+        <input type="hidden" name="name" value="transparent_bkg" />
+        <input type="hidden" name="id" value="{{ id }}" />
+        <input type="hidden" name="send" value="yes" />
+      </form>
+    </td>
+    <td class="col-md-1"><!-- Background color-->
+	<form action="" method="post" style="display:inline!important;"> 	
+	<input type="hidden" name="id" value="{{ id }}" />
+        <input type="hidden" name="name" value="background_color" />
+	<input type="color" data-size="mini"  name="value" value="{{ background_color  }}" onchange="this.form.submit()" />
+	<input type="hidden" name="send" value="yes" />
+	</form>
+    </td>
+    <td class="col-md-1"><!-- Low color-->
+	<form action="" method="post" style="display:inline!important;"> 	
+	<input type="hidden" name="id" value="{{ id }}" />
+        <input type="hidden" name="name" value="background_low" />
+	<input type="color" data-size="mini"  name="value" value="{{ background_low  }}" onchange="this.form.submit()" />
+	<input type="hidden" name="send" value="yes" />
+	</form>
+    </td>
+    <td class="col-md-1"><!-- High color-->
+	<form action="" method="post" style="display:inline!important;"> 	
+	<input type="hidden" name="id" value="{{ id }}" />
+        <input type="hidden" name="name" value="background_high" />
+	<input type="color" data-size="mini"  name="value" value="{{ background_high }}" onchange="this.form.submit()" />
+	<input type="hidden" name="send" value="yes" />
+	</form>
+    </td>
+    <td class="col-md-1"><!-- Font color-->
+	<form action="" method="post" style="display:inline!important;"> 	
+	<input type="hidden" name="id" value="{{ id }}" />
+        <input type="hidden" name="name" value="font_color" />
+	<input type="color" data-size="mini"  name="value" value="{{ font_color  }}" onchange="this.form.submit()" />
+	<input type="hidden" name="send" value="yes" />
+	</form>
+    </td>
+
+    <td class="col-md-1"><!-- Font size-->
+      <form action="" method="post" style="display:inline!important;"> 	
+        <div class="input-group" style="width:70px">
+          <input type="text" class="form-control input-xs" name="value" maxlength="30" value="{{ font_size }}">
+          <input type="hidden" name="id" value="{{ id }}" />
+          <input type="hidden" name="name" value="font_size" />
+          <input type="hidden" name="send" value="yes" />
+          <span class="input-group-btn">
+            <button class="btn btn-success btn-xs" type="submit"><span class="glyphicon glyphicon-pencil"></span</button>
+          </span>
+        </div>
+      </form>
+    </td>
+    <td class="col-md-1"><!-- Reset to default -->
+	<form action="" method="post" style="display:inline!important;"> 	
+	<input type="hidden" name="id" value="{{ id }}" />
+	<button class="btn btn-xs btn-danger"  name="" value="" onchange="this.form.submit()">
+	  <span class="glyphicon glyphicon-refresh"></span> 
+        Reset</button>
+	<input type="hidden" name="send-default" value="yes" />
+	</form>
+    </td>
+    <td class="col-md-2"></td>
+
+</tr>
+{% endfor %}
+</table>
+
+</div>
+</div>
+
+{% endblock %}

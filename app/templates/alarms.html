@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if count > limit %}
+<nav>
+  <ul class="pagination pagination-sm">
+   <li>
+      <a href="alarms?page={{ page-1 }}&limit={{ limit }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% for pag in range(1,pages) %}
+      <li class="{{ 'active' if pag==page else '' }}" ><a href="alarms?page={{ pag }}&limit={{ limit }}"/>{{ pag }} </a></li>
+    {% endfor %}
+    <li>
+      <a href="alarms?page={{ page+1 }}&limit={{ limit }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+{% endif %}
+
+<div class="panel panel-default" style="max-width: 1000px;">
+<div class="panel-heading">Alarms count: {{ count }}</div>
+<table class="table table-hover table-condensed small table-striped table-sm table-borderless">
+
+<thead>
+<tr>
+  <th>Time</th>
+  <th>Name</th>
+  <th>Value</th>
+  <th>Action</th>
+  <th>Min</th>
+  <th>Max</th>
+</tr>
+</thead>
+
+{% for time, value, name, unit, status, action, min, max, type in data %}
+
+<tr class="{{ 'danger' if action=='alarm' else 'success' }}">
+<td> {{ time }} </td>
+<td> {{ name }} </td>
+<td> <a href="charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ time }}">{{ value }} {{ unit }}</a </td>
+<td> {{ action }} </td>
+<td> {{ min }} </td>
+<td> {{ max }} </td>
+</tr>
+
+{% endfor %}
+{% endblock %}

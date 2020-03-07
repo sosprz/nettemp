@@ -1,5 +1,0 @@
-#htaccess for apache
-Options FollowSymLinks
-RewriteEngine on
-#RewriteBase /
-RewriteRule ^([A-Za-z0-9-_-]+)/?$ index.php?id=$1&%{QUERY_STRING} [L]

@@ -1,0 +1,21 @@
+{% block content %}
+<ol class="breadcrumb">
+  {% for short, full in ["Sensors","/settings/sensors"],
+                        ["Charts","/settings/charts"],
+                        ["Types","/settings/types"],
+                        ["Map","/settings/map/settings"],
+                        ["Users","/settings/users"],
+                        ["Mail","/settings/mail"],
+                        ["Devices","/settings/devices/drivers"],
+                        ["Nettemp","/settings/nettemp"], 
+                        ["Node","/settings/node"], 
+  %}
+
+  {% if geturl in full %} 
+   <li class="active">{{ short }}</li> 
+  {% else %}  
+  <li><a href="{{ full }}" >{{ short }}</a></li>  
+  {% endif %}
+  {% endfor %}
+</ol>
+{% endblock %}

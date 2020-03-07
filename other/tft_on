@@ -1,3 +1,0 @@
-#! /bin/bash
-
-echo "/var/www/nettemp/modules/lcd/tft" >> /home/pi/.profile

@@ -1,4 +1,0 @@
-# add to /boot/config.txt
-
-dtparam=i2c0=on
-dtoverlay=w1-gpio,gpiopin=4,pullup=on

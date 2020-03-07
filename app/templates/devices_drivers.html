@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "settings_menu.html" %}
+{% include "devices_menu.html" %}
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Sensors drivers</h3>
+</div>
+<table class="table">
+{% for file in available %}
+    <tr>
+    <td class="col-md-2">
+        {{ file }}
+    </td>
+    <td class="col-md-10">
+        <form action="" method="post" style="display:inline!important;">
+          <button type="submit" name="action" value="{{ 'off' if file in enabled else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if file in enabled else 'btn btn-xs btn-default' }}">{{ 'ON' if file in enabled else 'OFF' }}</button>
+          <input type="hidden" name="send-file" value="yes" />
+          <input type="hidden" name="file" value="{{ file }}" />
+        </form>
+    </td>
+    </tr>
+{% endfor %}
+
+</table>
+</div>
+
+{% endblock %}

@@ -1,3 +1,0 @@
-#! /bin/bash 
-
-./lcdi2c -l -b 1 "$(printf "%-15s %-15s" "taras 12.12 C " "kuchnia 34.45 C")"

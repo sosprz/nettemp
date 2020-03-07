@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "settings_menu.html" %}
+{% include "map_menu.html" %}
+<div class="panel panel-default">
+  <div class="panel-body">
+      {% if mapimage == 'new' %}
+        <img src="/mapimage" >
+      {% else %}
+        <img src="{{ url_for('static', filename='media/jpg/map_example.jpg') }}?nocache=''" > 
+      {% endif %}
+
+  <form class="form-inline" action="" method="post">
+  <div class="form-group">
+   <input type="hidden" name="send-remove-mapimage" value="yes">
+  </div>
+  <button type="submit" class="btn btn-danger">Remove map image</button>
+  </form>
+</div>
+</div>
+
+<div class="panel panel-default col-md-2">
+<div class="panel-body">
+
+<!--<form action="" method="post" enctype="multipart/form-data">
+    Select image to upload:
+    <input type="file" name="file" id="fileToUpload">
+    <input type="hidden" name="send-upload-mapimage" value="yes" id="fileToUpload">
+    <input type="submit" name="submit">
+</form>
+-->
+ <form action="" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="exampleFakeFile1">File</label>
+
+      <div class="input-group">
+        <input type="file" id="exampleFile1" name="file" style="display: none">
+        <input type="text" class="form-control" id="exampleFakeFile1" readonly>
+        <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" id="exampleFakeBrowseFile1">Browse...</button>
+                </span>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+<script>
+$('#exampleFakeBrowseFile1, #exampleFakeFile1').on('click', function() {
+      $('#exampleFile1').trigger("click");
+    });
+    $('#exampleFile1').change(function() {
+      var file_name = this.value.replace(/\\/g, '/').replace(/.*\//, '');
+      $('#exampleFakeFile1').val(file_name);
+    });
+</script>
+
+
+</div>
+</div>
+
+{% endblock %}

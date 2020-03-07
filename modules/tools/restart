@@ -1,8 +1,0 @@
-#! /bin/bash
-
-dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
-date=`date +%y%m%d-%H%M`
-
-rm $dir/tmp/reboot
-get_mail=`sqlite3 -cmd ".timeout 2000" $dir/dbf/nettemp.db "SELECT mail FROM recipient WHERE mail_alarm='yes'" | awk '{ printf " "$1 }'`
-$dir/modules/mail/mail_test "$get_mail" "Nettemp restart" "Nettemp restarted at $date"

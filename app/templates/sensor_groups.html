@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block content %}
+<style type="text/css">
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+
+/* ---- grid ---- */
+
+/* clearfix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- grid-item ---- */
+
+.grid-item {
+    width: 500px;
+    float: left;
+    border-radius: 5px;
+}
+</style>
+{% if not ch_group %}
+  <div class="alert alert-success grid-item sg-1" role="alert">
+    Hi, please connect your sensors or wait 1 min for system data.
+    <br />
+    Do not turn off cron!
+  </div>
+{% endif %}
+
+<div class="grid">
+<div class="grid-sizer"></div>
+{% for group in ch_group %}
+
+    <div class="grid-item sg{{ group[0] }}">
+    <div class="panel panel-default">
+    <div class="panel-heading"><a href="charts?&group={{ group[0] }}&single=&max=hour&mode=&datetime=">{{ group[0] }}</a></div>
+    <table class="table table-hover table-condensed">
+    <tbody> 
+    {% for id, name, tmp, unit, unit2, ico, title, type, ch_group, tmp_5ago, stat_min, stat_max, tmp_min, tmp_max, alarm, time, minmax, charts, fiveago, stat_min_time, stat_max_time, email, nodata in sensors %}
+    {% if ch_group == group[0] %}
+    <tr>
+        <td>
+            <img src="{{ url_for('static', filename=ico) }}" alt="" title="{{ title }}">
+              <span class="label label-default">{{ name }}</span>
+                  {% if nodata=='nodata' %}
+                  <span class="label label-danger">No data >=5min</span>
+                  {% endif %}
+
+            {% if alarm=='on'%}
+              <img src="{{ url_for('static', filename='media/ico/bell-icon.png') }}" alt="A" title="Alarm notification is ON">
+              {% if email=='on'%}
+               <img src="{{ url_for('static', filename='media/ico/Mail-icon.png') }}" alt="A" title="Mail nitification is ON">
+              {% endif %}
+            {% endif %}
+            
+        </td>
+        <td> 
+            {% if charts == 'on' %}
+              <a href="charts?&type={{ type }}&max=hour&single={{ name }}" title="Go to charts, last update: {{ time }} ">
+            {% endif %}
+
+            {% if alarm == 'on' %}
+              {% if tmp >= tmp_max %}
+                <span class="label label-danger" title="Alarm max set to {{ tmp_max }}{{ unit }}">{{ tmp }}{{ unit }} max: {{ tmp_max }}</span>
+              {% elif tmp <= tmp_min %}
+                <span class="label label-info" title="Alarm min set to {{ tmp_min }}{{ unit }}">{{ tmp }}{{ unit }} min {{ tmp_min }}</span>
+              {% else %}
+               <span class="label label-success" title="Last read {{ time }} ">{{ tmp }}{{ unit }}</span>  
+              {% endif %}
+            {% else %}
+              <span class="label label-success" title="Last read {{ time }}">{{ tmp }}{{ unit }}</span>  
+            {% endif %}
+
+            {% if charts == 'on' %}
+              </a>
+            {% endif %}
+        </td>
+        <td>         
+            {% if minmax == 'on' %}
+              <a href="charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ stat_min_time }}">
+                <span class="label label-info" title="Lowest value from sensor {{ stat_min_time }}">{{ stat_min }}{{ unit }}</span>
+              </a>
+              <a href="charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ stat_max_time }}">
+	        <span class="label label-warning" title="Greatest value form sensor {{ stat_max_time }}">{{ stat_max }}{{ unit }}</span>
+              </a>
+            {% endif %}
+        </td>
+
+        <td>
+            {% if fiveago == 'on' %}
+                {% if tmp > tmp_5ago %}
+                <span class="label label-warning" title="5 min stats {{ stat_max }}{{ unit }}"><span class="glyphicon glyphicon-arrow-up"></span></span>
+                {% endif %}
+                {% if tmp < tmp_5ago %}
+                <span class="label label-info"   title="5 min stats {{ stat_min }}{{ unit }}"><span class="glyphicon glyphicon-arrow-down"></span></span>
+                {% endif %}
+            {% endif %}
+            </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+    </tbody>
+    </table> 
+    </div>
+    </div>
+{% endfor %}
+<script>
+$(document).ready( function() {
+  $('.grid').masonry({
+    itemSelector: '.grid-item',
+    columnWidth: 520,
+  });
+});
+</script>
+<script src="{{ url_for('static', filename='masonry/masonry.pkgd.min.js') }}"></script>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "settings_menu.html" %}
+
+<div class="panel panel-default">
+<div class="panel-heading">Node settings</div>
+<table class="table table-hover table-condensed small table-striped table-sm table-borderless">
+<thead>
+<tr>
+<th title="">Name</th>
+<th title="">Server Url</th>
+<th title="">Token</th>
+<th title="">Copy to other</th>
+<th title="">Remove</th>
+</tr>
+</thead>
+
+{% for id, name, node, url, token in data %}
+
+<tr>
+    <td class="col">{{ name }}
+    </td>
+
+    <td class="col">
+      <form action="" method="post" >
+        <div class="input-group" style="width:300px">
+          <input type="text" class="form-control input-xs" name="url" size="1"  value="{{ url }}">
+          <input type="hidden" name="id" value="{{ id }}" />
+          <input type="hidden" name="send-url" value="yes" />
+          <span class="input-group-btn">
+            <button class="btn btn-success btn-xs" type="submit"><span class="glyphicon glyphicon-pencil"></span</button>
+          </span>
+        </div><!-- /input-group -->
+      </form>
+    </td>
+
+    <td class="col">
+      <form action="" method="post" >
+        <div class="input-group" style="width:300px">
+          <input type="text" class="form-control input-xs" name="token" size="1"  value="{{ token }}">
+          <input type="hidden" name="id" value="{{ id }}" />
+          <input type="hidden" name="send-token" value="yes" />
+          <span class="input-group-btn">
+            <button class="btn btn-success btn-xs" type="submit"><span class="glyphicon glyphicon-pencil"></span</button>
+          </span>
+        </div><!-- /input-group -->
+      </form>
+    </td>
+
+    <td class="col">
+    <form action="" method="post" >
+        <input type="hidden" name="id" value="{{ id }}" />
+	<input type="hidden" name="send-copy" value="yes" />
+        <input type="hidden" name="node_token" value="{{ token }}" />
+        <input type="hidden" name="node_url" value="{{ url }}" />
+	<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-asterisk"></span> </button>
+    </form>
+    </td>
+
+    <td class="col-sm-6">
+    <form action="" method="post" >
+        <input type="hidden" name="id" value="{{ id }}" />
+	<input type="hidden" name="send-del" value="yes" />
+	<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+    </form>
+    </td>
+</tr>
+{% endfor %}
+</table>
+</div>
+{% endblock %}

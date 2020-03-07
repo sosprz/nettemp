@@ -1,0 +1,324 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "settings_menu.html" %}
+<ol class="breadcrumb">
+Type:
+&nbsp;
+  {% for types in type  %}
+    {% if types[0] == type %} 
+    <li class="active">{{ types[0] }}</li> 
+    {% else %}  
+    <li><a href="/settings/sensors?type={{ types[0] }}" >{{ types[0] }}</a></li>  
+    {% endif %}
+  {% endfor %}
+&nbsp;
+Group:
+  {% for groups in group  %}
+    {% if groups[0] == group %} 
+     <li class="active">{{ groups[0] }}</li> 
+    {% else %}  
+    <li><a href="/settings/sensors?group={{ groups[0] }}" >{{ groups[0] }}</a></li>  
+    {% endif %}
+  {% endfor %}
+&nbsp;
+All:
+<a href="/settings/sensors" >show</a>
+</ol>
+
+<div class="panel panel-default">
+<div class="panel-heading">Sensors</div>
+<table class="table table-hover table-condensed small table-striped table-sm table-borderless">
+<thead>
+<tr>
+<th title="Set name for sensor">Name</th>
+<th title="Database name">Database</th>
+<th title="Type of sensor">Type</th>
+<th title="Last value">Value</th>
+<th title="Set alarm on/off">Alarm</th>
+<th title="Minimal value for alarm">Min</th>
+<th title="Maximal value for alarm">Max</th>
+<th title="Turn notofication on or off">Email</th>  
+<th title="Delay between recovery mail and next alarm. Preventing email flooding">Email Delay</th>  
+<th title="Min / Max on or off in status">Status  Min / Max</th>
+<th title="5 Min stats on or off in status">5 min status</th>
+<th title="Enabel/disable charts for sensor">Charts</th>
+<th title="Enable/Disable sensor on map">Map</th>
+<th title="Enable/Disable send to remote server">Node</th>
+<th title="Create new group">New group</th>
+<th title="Choose group">Group</th>
+<th title="Temporary remove sensor">Remove</th>
+</tr>
+</thead>
+
+{% for id, time, tmp, name, rom, tmp_min, tmp_max, alarm, type, charts, ch_group, minmax, fiveago, map_id, map_on, email, email_delay, node in data %}
+
+<tr>
+    <td class="col">
+      <form action="" method="post">
+        <div class="input-group" style="width:150px;">
+          <input type="text" class="form-control input-xs"  name="name" size="50" maxlength="30" value="{{ name }}">
+          <input type="hidden" name="id" value="{{ id }}" />
+          <input type="hidden" name="send-name" value="yes" />
+          <span class="input-group-btn">
+            <button class="btn btn-success btn-xs" type="submit"><span class="glyphicon glyphicon-pencil"></span></button>
+          </span>
+        </div>
+      </form>
+    </td>
+
+    <td class="col">
+    {{ rom }}
+    </td>
+  
+    <td class="col">
+    {{ type }} 
+    </td>
+
+    <td class="col">
+    {{ tmp }} 
+    </td>
+
+    {# alarm #}
+    <td class="col">
+    <form action="" method="post" >
+        <button type="submit" name="alarm" value="{{ 'off' if alarm == 'on' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if alarm == 'on' else 'btn btn-xs btn-default' }}">{{ 'ON' if alarm == 'on' else 'OFF' }}</button>
+        <input type="hidden" name="id" value="{{ id }}" />
+    <input type="hidden" name="send-alarm" value="yes" />
+    </form>
+    </td>
+
+    {# min #}
+    <td class="col">
+        <form action="" method="post" >
+        <div class="input-group" style="width:60px;">
+          <input type="text" class="form-control input-xs" name="tmp_min" value="{{ tmp_min }}" required  {{ 'disabled' if alarm == 'off' else '' }}>
+          <input type="hidden" name="id" value="{{ id }}" />
+          <input type="hidden" name="send-alarm-min" value="yes" />
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-success btn-xs {{ 'disabled' if alarm == 'off' else '' }}" type="button"><span class="glyphicon glyphicon-pencil"></span></button>
+            </span>
+        </div><!-- /input-group -->
+        </form>
+    </td>
+
+    {# max #}
+    <td class="col">
+        <form action="" method="post" >
+          <div class="input-group" style="width:60px;">
+            <input type="text" class="form-control input-xs" name="tmp_max"  value="{{ tmp_max }}" required size="5" {{ 'disabled' if alarm == 'off' else '' }}>
+            <input type="hidden" name="id" value="{{ id }}" />
+            <input type="hidden" name="send-alarm-max" value="yes" />
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-success btn-xs {{ 'disabled' if alarm == 'off' else '' }}" type="button" ><span class="glyphicon glyphicon-pencil" ></span></button>
+            </span>
+          </div><!-- /input-group -->
+        </form>
+    </td>
+
+    {# email #}
+    <td class="col">
+    <form action="" method="post" >
+        <button type="submit" name="email" value="{{ 'off' if email == 'on' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if email == 'on' else 'btn btn-xs btn-default' }}" {{ 'disabled' if alarm == 'off' else '' }}>{{ 'ON' if email == 'on' else 'OFF' }} </button>
+        <input type="hidden" name="id" value="{{ id }}" />
+	<input type="hidden" name="send-email" value="yes" />
+    </form>
+    </td>
+    {# email delay #}
+    <td class="col">
+      <form action="" method="post" style="width:60px;">
+        <div class="input-group" >
+          <input type="text" class="form-control input-xs" name="email_delay" size="1" maxlength="10" value="{{ email_delay }}" required>
+          <input type="hidden" name="id" value="{{ id }}" />
+          <input type="hidden" name="send-email-delay" value="yes" />
+          <span class="input-group-btn">
+            <button class="btn btn-success btn-xs" type="submit"><span class="glyphicon glyphicon-pencil"></span</button>
+          </span>
+        </div><!-- /input-group -->
+      </form>
+    </td>
+
+    {# min max status #}
+    <td class="col">
+    <form action="" method="post" >
+        <button type="submit" name="minmax" value="{{ 'off' if minmax == 'on' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if minmax == 'on' else 'btn btn-xs btn-default' }}">{{ 'ON' if minmax == 'on' else 'OFF' }}</button>
+        <input type="hidden" name="id" value="{{ id }}" />
+	<input type="hidden" name="send-status-minmax" value="yes" />
+    </form>
+    </td>
+
+    {# fiveago #}
+    <td class="col">
+    <form action="" method="post" >
+        <button type="submit" name="fiveago" value="{{ 'off' if fiveago == 'on' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if fiveago == 'on' else 'btn btn-xs btn-default' }}">{{ 'ON' if fiveago == 'on' else 'OFF' }}</button>
+        <input type="hidden" name="id" value="{{ id }}" />
+	<input type="hidden" name="send-fiveago" value="yes" />
+    </form>
+    </td>
+
+    {# charts #}
+    <td class="col">
+    <form action="" method="post" > 	
+	<input type="hidden" name="id" value="{{ id }}" />
+	<button type="submit" name="charts" value="{{ 'off' if charts == 'on' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if charts == 'on' else 'btn btn-xs btn-default' }}">{{ 'ON' if charts == 'on' else 'OFF' }}</button>
+	<input type="hidden" name="send-charts" value="yes" />
+    </form>
+    </td>
+
+    {# map #}
+    <td class="col">
+    <form action="" method="post" > 	
+	<input type="hidden" name="id" value="{{ id }}" />
+	<button type="submit" name="map_on" value="{{ 'off' if map_on == 'on' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if map_on == 'on' else 'btn btn-xs btn-default' }}">{{ 'ON' if map_on == 'on' else 'OFF' }}</button>
+	<input type="hidden" name="send-map" value="yes" />
+    </form>
+    </td>
+    
+    {# node #}
+    <td class="col">
+    <form action="" method="post" > 	
+	<input type="hidden" name="id" value="{{ id }}" />
+	<button type="submit" name="node" value="{{ 'off' if node == 'on' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if node == 'on' else 'btn btn-xs btn-default' }}">{{ 'ON' if node == 'on' else 'OFF' }}</button>
+	<input type="hidden" name="send-node" value="yes" />
+    </form>
+    </td>
+    
+    {# new group #}
+    <td class="col">
+      <form action="" method="post" >
+        <div class="input-group" style="width:100px">
+          <input type="text" class="form-control input-xs" name="group" size="1" maxlength="30" value="{{ ch_group }}">
+          <input type="hidden" name="id" value="{{ id }}" />
+          <input type="hidden" name="send-group" value="yes" />
+          <span class="input-group-btn">
+            <button class="btn btn-success btn-xs" type="submit"><span class="glyphicon glyphicon-pencil"></span</button>
+          </span>
+        </div><!-- /input-group -->
+      </form>
+    </td>
+
+    {# group #}
+    <td class="col">
+      <form action="" method="post" >
+        <select name="selectgroup"  class="form-control input-xs " onchange="this.form.submit()" style="width: 100px;" >
+          {% for group in group %}
+          {% if group[0] != 'none' %}
+          <option value="{{ group[0] }}"  {{ 'selected' if ch_group == group[0] else '' }} > {{ group[0] }}</option>
+          {% endif %}
+          {% endfor %}
+          <option value="none" {{ 'selected' if ch_group == 'none' else '' }} >none</option>
+        </select>
+        <input type="hidden" name="send-selectgroup" value="yes" />
+        <input type="hidden" name="id" value="{{ id }}" />
+      </form>
+    </td>
+
+    {# remove #}
+    <td class="col">
+    <form action="" method="post" >
+	<input type="hidden" name="rom" value="{{ rom }}" />
+        <input type="hidden" name="id" value="{{ id }}" />
+        <input type="hidden" name="map_id" value="{{ map_id }}" />
+	<input type="hidden" name="send-del" value="yes" />
+	<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+    </form>
+    </td>
+</tr>
+{% endfor %}
+<tr>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>
+    <form action="" method="post" style="display:inline!important;">
+      <input type="hidden" name="add-all" value="yes" />
+      <input type="hidden" name="function" value="email" />
+      <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+    </form>
+    <form action="" method="post" style="display:inline!important;">
+      <input type="hidden" name="del-all" value="yes" />
+      <input type="hidden" name="function" value="email" />
+      <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
+    </form>
+  </td>
+  <td></td>
+  <td>
+  <form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="add-all" value="yes" />
+    <input type="hidden" name="function" value="minmax" />
+    <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+  </form>
+  <form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="del-all" value="yes" />
+    <input type="hidden" name="function" value="minmax" />
+    <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
+  </form>
+</td>
+<td>
+  <form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="add-all" value="yes" />
+    <input type="hidden" name="function" value="fiveago" />
+    <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+  </form>
+  <form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="del-all" value="yes" />
+    <input type="hidden" name="function" value="fiveago" />
+    <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
+  </form>
+</td>
+<td>
+  <form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="add-all" value="yes" />
+    <input type="hidden" name="function" value="charts" />
+    <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+  </form>
+  <form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="del-all" value="yes" />
+    <input type="hidden" name="function" value="charts" />
+    <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
+  </form>
+</td>
+<td>
+  <form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="add-all-map" value="yes" />
+    <input type="hidden" name="function" value="map_on" />
+    <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+  </form>
+  <form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="del-all-map" value="yes" />
+    <input type="hidden" name="function" value="map_on" />
+    <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
+  </form>
+</td>
+<td>
+  <form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="add-all" value="yes" />
+    <input type="hidden" name="function" value="node" />
+    <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
+  </form>
+  <form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="del-all" value="yes" />
+    <input type="hidden" name="function" value="node" />
+    <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
+  </form>
+</td>
+
+<td></td>
+<td></td>
+<td>
+  <form action="" method="post" style="display:inline!important;">
+    <input type="hidden" name="rem-all" value="yes" />
+    <button class="btn btn-xs btn-danger "><span class="glyphicon glyphicon-exclamation-sign"></span> </button>
+  </form>
+</td>
+
+</tr>
+</table>
+</div>
+</div>
+
+
+{% endblock %}

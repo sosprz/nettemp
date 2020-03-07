@@ -1,6 +1,0 @@
-#! /bin/bash -x
-
-
-lb clean
-lb config
-time lb build

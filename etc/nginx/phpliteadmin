@@ -1,0 +1,15 @@
+server {
+  listen 90;
+  root /var/www/nettemp/data/dbf/;
+  index phpliteadmin.php;
+  location / {
+  try_files $uri $uri/ =404;
+  }
+  location ~ \.php$ {
+    fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+    #fastcgi_index phpliteadmin.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include snippets/fastcgi-php.conf;
+    include fastcgi_params;
+  }
+}

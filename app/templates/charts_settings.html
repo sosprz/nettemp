@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "settings_menu.html" %}
+
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Charts settings</h3>
+</div>
+<table class="table">
+    <tr>
+    <td class="col-md-1">
+        Quick charts
+    </td>
+    <td class="col-md-8">
+        <form action="" method="post" style="display:inline!important;">
+        <button type="submit" name="quick-charts" value="{{ 'off' if nt_settings['quick_charts'] == 'on' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if nt_settings['quick_charts'] == 'on' else 'btn btn-xs btn-default' }}">{{ 'ON' if nt_settings['quick_charts'] == 'on' else 'OFF' }}</button>
+        <input type="hidden" name="send-quick-charts" value="yes" />
+        </form>
+    </td>
+    </tr>
+
+    <tr>
+    <td class="col-md-1">
+        White theme
+    </td>
+    <td class="col-md-8">
+        <form action="" method="post" style="display:inline!important;">
+        <button type="submit" name="theme" value="{{ '' if nt_settings['charts_theme'] == 'white' else 'white' }}"  class="{{ 'btn btn-xs btn-primary' if nt_settings['charts_theme'] == 'white' else 'btn btn-xs btn-default' }}">{{ 'ON' if nt_settings['charts_theme'] == 'white' else 'OFF' }}</button>
+        <input type="hidden" name="send-theme" value="yes" />
+        </form>
+    </td>
+    </tr>
+    </table>
+</div>
+</div>
+
+
+
+{% endblock %}

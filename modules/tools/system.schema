@@ -1,1 +1,0 @@
-CREATE TABLE def (time DATE DEFAULT (datetime('now','localtime')), value INTEGER);
