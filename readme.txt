@@ -6,6 +6,8 @@ git clone https://github.com/sosprz/nettemp
 cd nettemp
 ./setup.sh
 
+https://YOUR_IP_ADDRESS
+
 # WEB access 
 ## User: admin paassword: admin
 
