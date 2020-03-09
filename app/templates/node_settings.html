@@ -68,4 +68,89 @@
 {% endfor %}
 </table>
 </div>
+<div class="panel panel-default">
+<div class="panel-heading">Request token from remote url</div>
+  <div class="panel-body">
+
+<form class="form-horizontal" action="" method="post">
+<fieldset>
+
+<!-- Form Name -->
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-1 control-label" for="url">Url</label>  
+  <div class="col-md-2">
+  <input id="url" name="url" type="text" placeholder="https://172.18.10.10/register" class="form-control input-xs" required="" value="">
+  <span class="help-block">ex: https://172.18.10.10/register</span>  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-1 control-label" for="username">Username</label>  
+  <div class="col-md-2">
+  <input id="username" name="username" type="text" placeholder="username" class="form-control input-xs" required="" value="">
+    
+  </div>
+</div>
+
+<!-- Password input-->
+<div class="form-group">
+  <label class="col-md-1 control-label" for="password">Password</label>
+  <div class="col-md-2">
+    <input id="password" name="password" type="password" placeholder="password" class="form-control input-xs" required="" value="">
+    
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-1 control-label" for="send-request"></label>
+  <div class="col-md-2">
+    <button id="send-request" name="send-request" value="yes" class="btn btn-primary btn-xs">Send</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+{% if err%}
+  {{ err |safe}}
+{% endif %}
+{% if list %}
+<form class="form-horizontal" action="" method="post">
+<fieldset>
+
+<!-- Form Name -->
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-1 control-label" for="url">Url</label>  
+  <div class="col-md-2">
+  <input id="url" name="node_url" type="text" class="form-control input-xs" required="" value="{{ list[0] }}">
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-1 control-label" for="username">Token</label>  
+  <div class="col-md-2">
+  <input id="username" name="node_token" type="text" class="form-control input-xs" required="" value="{{ list[1] }}">
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-1 control-label" for="send-request"></label>
+  <div class="col-md-2">
+    <button id="send-request" name="send-copy" value="yes" class="btn btn-info btn-xs">Copy to all</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+{% endif %}
+   
+  </div>
+</div>
 {% endblock %}

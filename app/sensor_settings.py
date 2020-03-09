@@ -110,7 +110,7 @@ def settings_sensors():
         id = request.form['id']
         conn = sqlite3.connect(app.db)
         c = conn.cursor()
-        c.execute("UPDATE maps SET map_on=? WHERE id=?", (map_on,id,))
+        c.execute("UPDATE maps SET map_on=? WHERE map_id=?", (map_on,id,))
         conn.commit()
         conn.close()
       if request.form.get('send-charts') == 'yes':

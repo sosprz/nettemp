@@ -167,7 +167,7 @@ All:
     {# map #}
     <td class="col">
     <form action="" method="post" > 	
-	<input type="hidden" name="id" value="{{ id }}" />
+	<input type="hidden" name="id" value="{{ map_id }}" />
 	<button type="submit" name="map_on" value="{{ 'off' if map_on == 'on' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if map_on == 'on' else 'btn btn-xs btn-default' }}">{{ 'ON' if map_on == 'on' else 'OFF' }}</button>
 	<input type="hidden" name="send-map" value="yes" />
     </form>

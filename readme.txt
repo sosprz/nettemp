@@ -1,13 +1,5 @@
 # nettemp.pl
 
-mkdir -p /var/www/
-cd /var/www/
-git clone https://github.com/sosprz/nettemp
-cd nettemp
-./setup.sh
-
-https://YOUR_IP_ADDRESS
-
 # WEB access 
 ## User: admin paassword: admin
 
@@ -33,7 +25,7 @@ token = 'eyJ0eXAiO1NiJ9.eyJpYXQiOj2Nlc3MifQ.Sxjv3LXe1F916TaRFF5ODpsg'
 
 def send(token,data):
   url = "https://172.18.10.10/sensor"
-  r = requests.post(url,headers={'Content-Type':'application/json', 'Authorization': 'Bearer {}'.format(token)},json=data)
+  r = requests.post(url,headers={'Content-Type':'application/json', 'Authorization': 'Bearer {}'.format(token)},json=data, verify=False)
   print (r.content)
 
 data = {"rom":"ds18b20-sensor-1","type":"temp","name":"DS18B20","value":"-10"}

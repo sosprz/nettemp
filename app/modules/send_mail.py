@@ -78,7 +78,6 @@ def check_alarm():
       msg=("Alarm for %s %.2f%s. Max alarm set to: %.2f%s " % (name,tmp,unit,max,unit))
       action = 'alarm'
       status = 'max'
-      #msg_all.append(msg)
       print("Alarm 1 "+msg)
     elif tmp>max and alarm_status=='max':
       msg=("Alarm already set for %s %.2f%s" % (name,tmp,unit))
@@ -88,7 +87,6 @@ def check_alarm():
       msg=("Alarm recovery for %s %.2f%s" % (name,tmp,unit))
       action = 'recovery'
       status = 'max'
-      #msg_all.append(msg)
       print("Alarm 3 "+msg)
     # min
     elif tmp<min and alarm_status !='min':
@@ -96,7 +94,6 @@ def check_alarm():
       msg=("Alarm for %s %.2f%s. Min alarm set to: %.2f%s " % (name,tmp,unit,min,unit))
       action = 'alarm'
       status = 'min'
-      #msg_all.append(msg)
       print("Alarm 4 "+msg)
     elif tmp<min and alarm_status=='min':
       msg=("Alarm already set for %s %.2f%s" % (name,tmp,unit))
@@ -106,7 +103,6 @@ def check_alarm():
       msg=("Alarm recovery for %s %.2f%s" % (name,tmp,unit))
       action = 'recovery'
       status = 'min'
-      #msg_all.append(msg)
       print("Alarm 6 "+msg)
 
     if action:
@@ -121,7 +117,10 @@ def check_mail():
  
   conn = sqlite3.connect(app.db)
   c = conn.cursor()
-  c.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, sensors.tmp_max, sensors.email_status, sensors.email_time, sensors.email_delay, sensors.alarm_recovery_time, sensors.alarm_status FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.email='on'")
+  c.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, \
+             sensors.tmp_max, sensors.email_status, sensors.email_time, sensors.email_delay, \
+             sensors.alarm_recovery_time, sensors.alarm_status, sensors.nodata \
+             FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.email='on'")
   data = c.fetchall()
   conn.close()
 
@@ -138,8 +137,9 @@ def check_mail():
     c.execute(sql, data)
     conn.commit()
     conn.close()
-  
-  for id, name, tmp, unit, min, max, email_status, email_time, email_delay, alarm_recovery_time, alarm_status in data:
+
+  msg_all = []
+  for id, name, tmp, unit, min, max, email_status, email_time, email_delay, alarm_recovery_time, alarm_status, nodata in data:
     if alarm_recovery_time:
       fmt = '%Y-%m-%d %H:%M:%S'
       now = datetime.datetime.now()
@@ -158,10 +158,14 @@ def check_mail():
         #print('%s the difference is approx. %s minutes' % (name, td_mins))
     else:
       td_mins = 0
-      print("No time")
+      #print("No time")
 
-    msg_all = []
-    if alarm_status and td_mins < email_delay and alarm_recovery_time:
+    if nodata=='nodata' and email_status!='sent':
+        update_mail(id,'sent')
+        msg=("No data for %s >= 5min." % (name))
+        msg_all.append(msg)
+        print("Mail 0 "+msg)
+    elif alarm_status and td_mins < email_delay and alarm_recovery_time:
         msg=("Delay for %s %.2f%s is %d minutes. Passed %s minutes." % (name,tmp,unit,email_delay,td_mins))
         print("Mail 1 "+msg)
     elif alarm_status and email_status != 'sent':
