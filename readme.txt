@@ -1,8 +1,12 @@
 # nettemp.pl
 
+# nettemp.pl
+
+mkdir -p /var/www/ && cd /var/www/ && git clone https://github.com/sosprz/nettemp && cd nettemp && ./setup
+
+
 # WEB access 
 ## User: admin paassword: admin
-
 
 # How to send data to nettemp
 ## set username and password from web gui, allow to JWT
