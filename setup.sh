@@ -58,10 +58,7 @@ pip install git+https://github.com/nicmcd/vcgencmd.git
 deactivate
 
 # DB
-cd $dir
-source venv/bin/activate
 $dir/app/scripts/db_reset.sh
-deactivate
 
 # GUNICORN
 cp $dir/etc/gunicorn.service /etc/systemd/system/

@@ -3,7 +3,7 @@
 {% include "settings_menu.html" %}
 
 <div class="panel panel-default">
-<div class="panel-heading">Types</div>
+<div class="panel-heading">Types settings</div>
 
 <div class="table-responsive">
 <table class="table table-hover table-condensed small table-striped table-xs table-borderless" border="0">
@@ -14,14 +14,13 @@
 <th>Type</th>
 <th>Unit</th>
 <th>Unit2</th>
-<th>ICO</th>
+<th>ICO</th> 
 <th>Title</th>
-{#<th>Min</th>
+<th>Min</th>
 <th>Max</th>
 <th>Exclude Value1</th>
 <th>Exclude Value2</th>
 <th>Exclude Value3</th>
-#}
 <th></th>
 </tr>
 </thead>
@@ -40,18 +39,20 @@
     </td>
     <td class="col-md-0">
 	<select name="ico" class="form-control input-xs" style="width:300px;">
-       {% for group in group %}
-       {% if group[0] != 'none' %}
-       <option value="{{ group[0] }}"  {{ 'selected' if ico == group[0] else '' }} > {{ group[0] }}</option>
+       <option value="none" {{ 'selected' if ico == 'none' else '' }} >none</option>
+       {% for name,file in icolist %}
+       {% if file != 'none' %}
+       <option value="{{ file }}"  {{ 'selected' if ico == file else '' }} > {{ name }}</option>
        {% endif %}
        {% endfor %}
-       <option value="none" {{ 'selected' if ico == 'none' else '' }} >none</option>
+       <option value="none" {{ 'selected' if ico == 'none' else '' }} >Select</option>
 	</select>
     </td>
+
     <td class="col-md-0">
 	<input type="text" name="title" size="10" maxlength="30" value="" class="form-control input-xs" style="width:100px;"/>
     </td>
-{#
+
     <td class="col-md-0">
 	<input type="text" name="min" size="10" maxlength="30" value="" class="form-control input-xs"/>
     </td>
@@ -67,7 +68,7 @@
     <td class="col-md-0">
 	<input type="text" name="value3" size="10" maxlength="30" value="" class="form-control input-xs"/>
     </td>
-#}
+
 
     <td class="col-md-6">
 	<button class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> </button>
@@ -76,7 +77,7 @@
     </td>
 </tr>
 
-{% for id, type, unit, unit2, ico, title in data %}
+{% for id, type, unit, unit2, ico, title, min, max, value1, value2, value3 in data %}
 <tr>
      <td>
      <img src="{{ url_for('static', filename=ico) }}" alt="" title="{{ title }}"/>
@@ -91,11 +92,12 @@
      <td class="col-md-0">
 	<input type="text" name="unit2" size="10" maxlength="30" value="{{ unit2 }}" class="form-control input-xs" style="width:50px;"/>
     </td>
+
     <td class="col-md-0">
     <select name="ico" class="form-control input-xs" style="width:300px;">
-    {% for group in group %}
-    {% if group[0] != 'none' %}
-    <option value="{{ group[0] }}"  {{ 'selected' if ico == group[0] else '' }} > {{ group[0] }}</option>
+    {% for name,file in icolist %}
+    {% if file != 'none' %}
+    <option value="{{ file }}"  {{ 'selected' if ico == file else '' }} > {{ name }} </option>
     {% endif %}
     {% endfor %}
     <option value="none" {{ 'selected' if ico == 'none' else '' }} >none</option>
@@ -103,10 +105,11 @@
     </select>
         
     </td>
+
     <td class="col-md-0">
 	<input type="text" name="title" size="10" maxlength="30" value="{{ title }}" class="form-control input-xs" style="width:100px;"/>
     </td>
-{#    <td class="col-md-0">
+    <td class="col-md-0">
 	<input type="text" name="min" size="10" maxlength="30" value="{{ min }}" class="form-control input-xs" style="width:100px;"/>
     </td>
     <td class="col-md-0">
@@ -121,7 +124,7 @@
     <td class="col-md-0">
 	<input type="text" name="value3" size="10" maxlength="30" value="{{ value3 }}" class="form-control input-xs" style="width:100px;"/>
     </td>
-#}    
+    
     
     
     <td class="col-md-0">
@@ -152,8 +155,6 @@
     </td>
     <td class="col-md-0">
     </td>
-{#    <td class="col-md-0">
-    </td>
     <td class="col-md-0">
     </td>
     <td class="col-md-0">
@@ -162,7 +163,9 @@
     </td>
     <td class="col-md-0">
     </td>
-#}
+    <td class="col-md-0">
+    </td>
+
     <td colspan="2" class="col-md-0">
      <form action="" method="post" style="display:inline!important;">
 	<button class="btn btn-xs btn-info">Defaults <span class="glyphicon glyphicon-refresh"></span> </button>
@@ -170,9 +173,31 @@
     </form>
      </td>
 </tr>
-
-
 </table>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading">Types icons</div>
+<div class="table-responsive">
+<table class="table table-hover table-condensed small table-striped table-xs table-borderless" border="0">
+<thead>
+<th>Ico</th>
+<th>Name</th>
+</thead>
+
+{% for name, file in icolist %}
+<tr>
+<td class="col-sm-1">
+  <img src="{{ url_for('static', filename=file) }}" alt="" title=""/>
+</td>
+<td class="col-sm-11">
+  {{ name }}
+</td>
+</tr>
+{% endfor %}
+</table>
+</div>
 </div>
 
 {% endblock %}

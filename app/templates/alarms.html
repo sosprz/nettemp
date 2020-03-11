@@ -22,7 +22,11 @@
 {% endif %}
 
 <div class="panel panel-default" style="max-width: 1000px;">
-<div class="panel-heading">Alarms count: {{ count }}</div>
+<div class="panel-heading">Alarms count: {{ count }}
+        <form action="" method="post" style="display:inline!important;">
+        <button type="submit" name="send-alarms-clear" value="yes"  class="btn btn-xs btn-danger pull-right">Clear</button>
+        </form>
+</div>
 <table class="table table-hover table-condensed small table-striped table-sm table-borderless">
 
 <thead>

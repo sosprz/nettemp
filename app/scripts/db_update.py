@@ -20,7 +20,7 @@ def update():
   """ insert """
   sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max, value1, value2, value3) VALUES ('temp', '°C', '°F', 'media/ico/temp2-icon.png' ,'Temperature','-150', '3000', '85', '185' ,'127.9')")
   sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('amps', 'A', 'A', 'media/ico/amper.png' ,'Amps','0', '10000')")
-  sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('alti', 'm', 'm', '' ,'Altitude','-1000', '10000')")
+  sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('alti', 'm', 'm', 'media/ico/View-Height-icon.png' ,'Altitude','-1000', '10000')")
   sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('battery', '%', '', 'media/ico/Battery-icon.png' ,'Battery','0', '100')")
   sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('dist', 'cm', 'cm', 'media/ico/Distance-icon.png' ,'Distance','0', '100000')")
   sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('elec', 'kWh', 'W', 'media/ico/Lamp-icon.png' ,'Electricity','0', '99999999')")
@@ -76,9 +76,9 @@ def update():
   sql.append("UPDATE sensors SET fiveago='on' WHERE fiveago='' OR fiveago is null")
 
 
-  sql.append("CREATE TRIGGER IF NOT EXISTS time_tr AFTER UPDATE OF tmp ON sensors FOR EACH ROW WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')), nodata='' WHERE id = old.id; END")
-  sql.append("CREATE TRIGGER IF NOT EXISTS stat_max_time_tr AFTER UPDATE OF stat_max ON sensors FOR EACH ROW WHEN NEW.stat_max BEGIN UPDATE sensors SET stat_max_time = (datetime('now','localtime')) WHERE id = old.id; END;")
-  sql.append("CREATE TRIGGER IF NOT EXISTS stat_min_time_tr AFTER UPDATE OF stat_min ON sensors FOR EACH ROW WHEN NEW.stat_min BEGIN UPDATE sensors SET stat_min_time = (datetime('now','localtime')) WHERE id = old.id; END;")
+  #sql.append("CREATE TRIGGER IF NOT EXISTS time_tr AFTER UPDATE OF tmp ON sensors FOR EACH ROW WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END")
+  #sql.append("CREATE TRIGGER IF NOT EXISTS stat_max_time_tr AFTER UPDATE OF stat_max ON sensors FOR EACH ROW WHEN NEW.stat_max BEGIN UPDATE sensors SET stat_max_time = (datetime('now','localtime')) WHERE id = old.id; END;")
+  #sql.append("CREATE TRIGGER IF NOT EXISTS stat_min_time_tr AFTER UPDATE OF stat_min ON sensors FOR EACH ROW WHEN NEW.stat_min BEGIN UPDATE sensors SET stat_min_time = (datetime('now','localtime')) WHERE id = old.id; END;")
 
   conn = sqlite3.connect(DB)
   c = conn.cursor()

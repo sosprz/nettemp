@@ -47,18 +47,20 @@
     <tr>
         <td>
             <img src="{{ url_for('static', filename=ico) }}" alt="" title="{{ title }}">
-              <span class="label label-default">{{ name }}</span>
-                  {% if nodata=='nodata' %}
+                <span class="label label-default">
+                  <a href="/settings/sensors?name={{ name }}" title="Go to settings ">
+                    {{ name }}
+                  </a>
+                </span>
+                {% if nodata=='nodata' %}
                   <span class="label label-danger">No data >=5min</span>
-                  {% endif %}
-
-            {% if alarm=='on'%}
-              <img src="{{ url_for('static', filename='media/ico/bell-icon.png') }}" alt="A" title="Alarm notification is ON">
-              {% if email=='on'%}
-               <img src="{{ url_for('static', filename='media/ico/Mail-icon.png') }}" alt="A" title="Mail nitification is ON">
-              {% endif %}
-            {% endif %}
-            
+                {% endif %}
+                {% if alarm=='on'%}
+                  <img src="{{ url_for('static', filename='media/ico/bell-icon.png') }}" alt="A" title="Alarm notification is ON">
+                    {% if email=='on'%}
+                      <img src="{{ url_for('static', filename='media/ico/Mail-icon.png') }}" alt="A" title="Mail nitification is ON">
+                    {% endif %}
+                {% endif %}
         </td>
         <td> 
             {% if charts == 'on' %}
@@ -83,12 +85,16 @@
         </td>
         <td>         
             {% if minmax == 'on' %}
-              <a href="charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ stat_min_time }}">
-                <span class="label label-info" title="Lowest value from sensor {{ stat_min_time }}">{{ stat_min }}{{ unit }}</span>
-              </a>
-              <a href="charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ stat_max_time }}">
-	        <span class="label label-warning" title="Greatest value form sensor {{ stat_max_time }}">{{ stat_max }}{{ unit }}</span>
-              </a>
+                <span class="label label-info" title="Lowest value from sensor {{ stat_min_time }}">
+                  <a href="charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ stat_min_time }}"> 
+                    {{ stat_min }}{{ unit }}
+                  </a>
+                </span>
+	        <span class="label label-warning" title="Greatest value form sensor {{ stat_max_time }}">
+                  <a href="charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ stat_max_time }}">
+                    {{ stat_max }}{{ unit }}
+                  </a>
+                </span>
             {% endif %}
         </td>
 

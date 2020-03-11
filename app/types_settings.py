@@ -3,11 +3,12 @@ from app import app
 from flask import Flask, request, jsonify, render_template
 import sqlite3
 from flask_login import login_required
+import os
 
 def query_select_types():
   conn = sqlite3.connect(app.db)
   c = conn.cursor()
-  c.execute(''' SELECT id, type, unit, unit2, ico, title FROM types  ''')
+  c.execute(''' SELECT id, type, unit, unit2, ico, title, min, max, value1, value2, value3 title FROM types  ''')
   data = c.fetchall()  
   conn.close()
   return data
@@ -31,9 +32,14 @@ def settings_types():
       unit2 = request.form['unit2']
       ico = request.form['ico']
       title = request.form['title']
+      min = request.form['min']
+      max = request.form['max']
+      value1 = request.form['value1']
+      value2 = request.form['value2']
+      value3 = request.form['value3']
       conn = sqlite3.connect(app.db)
       c = conn.cursor()
-      c.execute("UPDATE types SET type=?, unit=?, unit2=?, ico=?, title=?  WHERE id=?", (type,unit,unit2,ico,title,id))
+      c.execute("UPDATE types SET type=?, unit=?, unit2=?, ico=?, title=?, min=?, max=?, value1=?, value2=?, value3=?  WHERE id=?", (type,unit,unit2,ico,title,min,max,value1,value2,value3,id))
       conn.commit()
       conn.close()
 
@@ -50,15 +56,21 @@ def settings_types():
       unit2 = request.form['unit2']
       ico = request.form['ico']
       title = request.form['title']
+      min = request.form['min']
+      max = request.form['max']
+      value1 = request.form['value1']
+      value2 = request.form['value2']
+      value3 = request.form['value3']
       conn = sqlite3.connect(app.db)
       c = conn.cursor()
-      c.execute("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title) VALUES (?,?,?,?,?) ", (type,unit,unit2,ico,title))
+      c.execute("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max, value1, value2, value3) VALUES (?,?,?,?,?,?,?,?,?,?) ", (type,unit,unit2,ico,title,min,max,value1,value2,value3))
       conn.commit()
       conn.close()
     if request.form.get('send-default') == 'yes':
       sql = []
       sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max, value1, value2, value3) VALUES ('temp', '°C', '°F', 'media/ico/temp2-icon.png' ,'Temperature','-150', '3000', '85', '185' ,'127.9')")
       sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('amps', 'A', 'A', 'media/ico/amper.png' ,'Amps','0', '10000')")
+      sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('alti', 'm', 'm', 'media/ico/View-Height-icon.png' ,'Altitude','-1000', '10000')")
       sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('battery', '%', '', 'media/ico/Battery-icon.png' ,'Battery','0', '100')")
       sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('dist', 'cm', 'cm', 'media/ico/Distance-icon.png' ,'Distance','0', '100000')")
       sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('elec', 'kWh', 'W', 'media/ico/Lamp-icon.png' ,'Electricity','0', '99999999')")
@@ -93,6 +105,12 @@ def settings_types():
       conn.commit()
       conn.close()
 
+  icolist = []
+  for filename in os.listdir('app/static/media/ico/'):
+    if filename.endswith(".png"): 
+      icolist.append([filename,'media/ico/'+filename])
+
+
   data = query_select_types()
   group = query_select_group()
-  return render_template('types_settings.html', data=data, group=group)
+  return render_template('types_settings.html', data=data, group=group, icolist=icolist)

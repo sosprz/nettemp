@@ -15,5 +15,6 @@ flask-bcrypt
 flask-jwt-extended
 psutil
 adafruit-circuitpython-htu21d
+adafruit-circuitpython-tsl2561
 Adafruit_DHT
 

@@ -27,6 +27,13 @@ def get_count():
 @app.route('/alarms', methods=['GET', 'POST'])
 @login_required
 def alarms():
+  if request.form.get('send-alarms-clear') == 'yes':
+    conn = sqlite3.connect(app.dba)
+    c = conn.cursor()
+    c.execute("DELETE FROM def")
+    conn.commit()
+    conn.close()
+
   page = request.args.get("page")
   offset= 0
   limit = request.args.get("limit")
@@ -63,4 +70,3 @@ def alarms():
     count=0
 
   return render_template('alarms.html', data=data, count=int(count), pages=int(pages), limit=int(limit), page=int(page))
-
