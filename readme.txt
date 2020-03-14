@@ -1,9 +1,7 @@
 # nettemp.pl
 
-# nettemp.pl
-
+# Install
 mkdir -p /var/www/ && cd /var/www/ && git clone https://github.com/sosprz/nettemp && cd nettemp && ./setup
-
 
 # WEB access 
 ## User: admin paassword: admin
@@ -35,25 +33,29 @@ def send(token,data):
 data = {"rom":"ds18b20-sensor-1","type":"temp","name":"DS18B20","value":"-10"}
 send(token, data)
 
-
 ## send data from curl:
-curl -s -X POST -H 'Accept: application/json' -H 'Authorization: Bearer eyJ0eXAi1NiJ9.eyJpYXlc3MifQ.SwLOv1SOeg' --data '{"rom":"ds18b20-sensor-1","type":"temp","name":"DS18B20","value":"-10"}' https://127.0.0.1:8080/sensor
+curl -k -H "Content-Type: application/json" -H 'Authorization: Bearer eyJXJ9.eIn0.fc'  --request POST   --data '{"rom":"ds18b20-host1","type":"temp","name":"DS18b20","value":"12"}' https://172.18.10.12/sensor
 
+# Supported sensors
 
-# I2C sensors
-HIH6130 0x27
-TMP102 0x48
-BMP280 0x76
-HTU21/SHT21 0x40
-DS2482 - DS18b20 1wire  0x18, 0x19 0x1a, 0x1b
-MPL3115A2 0x60
-TSL2561 0x39
+## I2C sensors
+HIH6130 0x27 temperature, humidity
+TMP102 0x48 temperature
+BMP280 0x76 temperature, pressure
+HTU21/SHT21 0x40 temperature, humidity
+DS2482 - DS18b20 1wire  0x18, 0x19 0x1a, 0x1b temperature
+MPL3115A2 0x60 temperature, pressure, altitude
+TSL2561 0x39 light sensor
 
-# GPIO sensors
-DHT22
-DS18b20 1wire
+## GPIO sensors
+DHT22 temperature, humidity
+DS18b20 1wire temperature
 
-# USB sensors
-DS9490R 1wire
+## USB sensors
+DS9490R 1wire - DS18b20 temperature
+
+## Data send by json
+ALL
+
 
 

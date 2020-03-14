@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='jquery/jquery-ui.css') }}">
-  <script src="{{ url_for('static', filename='jquery/jquery-ui.js') }}"></script>
-   <style type="text/css">
+<style type="text/css">
   .draggable {
       width: 1px;
       height: 1px;
@@ -45,8 +43,33 @@
     //padding: 2px;
     
     }
+ .ui-resizable-helper { border: 2px dotted #00F; }
 </style>
 
+
+
+<div id="content" class="ui-widget-content">
+{% for name, tmp, unit, unit2, ico, title, type, alarm, time, map_id, background_color, display_name, font_color, transparent_bkg, tmp_min, tmp_max, background_low, background_high, font_size in sensors %}
+  <div data-need="{{ map_id }}" id="data-need{{ map_id }}" data-dst="sensors" class="ui-widget-content draggable">
+    {# <span class="label label-success"> {{ name}} {{ tmp }} {{ unit }}</span> #}
+      <span class="label" style="
+          {% if tmp >= tmp_max and alarm=='on' %}
+            background-color: {{ background_high if background_high else 'red' }};
+          {% elif tmp <= tmp_min and alarm=='on' %}
+            background-color: {{ background_low if background_low else 'blue' }};
+          {% elif transparent_bkg == 'on'%} 
+            background-color: background-color:rgba(0,0,0,0) !important;
+          {% else %}
+             background-color: {{ background_color if background_color else '#2ecc71' }};
+          {% endif %}
+          color: {{ font_color if font_color }};
+          font-size: {{ font_size if font_size }}%;
+     "> 
+       {{ name  if display_name=='on' }} {{ tmp }} {{ unit }}
+     </span>
+  </div>
+{% endfor %}
+</div>
 <script>
 var elements = {{ group|tojson|safe }}
 
@@ -70,7 +93,6 @@ $(function() {
       var pos_x = ui.position.left;
       var pos_y = ui.position.top;
       var need = ui.helper.data("need");
-//      var dst = ui.helper.data("dst");
         $.ajax({
           type: "POST",
           url: "",
@@ -81,35 +103,28 @@ $(function() {
   }
 });
 
-
-
-
 </script>
+<script>
+$(document).ready(function() {
+    $( "#content" ).resizable({
+      //helper: "ui-resizable-helper",
+      //animate: true,
+      //scroll: false,
+      //ghost: true,
+    });
 
-<div id="content">
-{% for name, tmp, unit, unit2, ico, title, type, alarm, time, map_id, background_color, display_name, font_color, transparent_bkg, tmp_min, tmp_max, background_low, background_high, font_size in sensors %}
+$( "#content" ).on( "resizestop", function( event, ui ) {
+     var pos_x = ui.size.width;
+     var pos_y = ui.size.height;
+        $.ajax({
+          type: "POST",
+          url: "",
+          data: { map_width: pos_x, map_height: pos_y, 'send-map-image': 'yes' }
+        });
+          
+} );
 
-<div data-need="{{ map_id }}" id="data-need{{ map_id }}" data-dst="sensors" class="ui-widget-content draggable">
-{# <span class="label label-success"> {{ name}} {{ tmp }} {{ unit }}</span> #}
-
- <span class="label" style="
-          {% if tmp >= tmp_max and alarm=='on' %}
-            background-color: {{ background_high if background_high else 'red' }};
-          {% elif tmp <= tmp_min and alarm=='on' %}
-            background-color: {{ background_low if background_low else 'blue' }};
-          {% elif transparent_bkg == 'on'%} 
-            background-color: background-color:rgba(0,0,0,0) !important;
-          {% else %}
-             background-color: {{ background_color if background_color else '#2ecc71' }};
-          {% endif %}
-          color: {{ font_color if font_color }};
-          font-size: {{ font_size if font_size }}%;
-   "> 
-   {{ name  if display_name=='on' }} {{ tmp }} {{ unit }}
-  </span>
-
-</div>
-
-{% endfor %}
+  } );
+</script>
 
 {% endblock %}

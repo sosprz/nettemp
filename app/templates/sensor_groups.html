@@ -2,28 +2,66 @@
 {% block content %}
 <style type="text/css">
 
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+.panel {
+    margin-bottom: 10px;
 }
 
+* { box-sizing: border-box; }
+
+/* force scrollbar */
+html { overflow-y: scroll; }
+
+body { font-family: sans-serif; }
 
 /* ---- grid ---- */
 
-/* clearfix */
+.grid {
+  //max-width: 1550px;
+  //background: #DDD;
+}
+
+/* clear fix */
 .grid:after {
   content: '';
   display: block;
   clear: both;
 }
 
-/* ---- grid-item ---- */
+/* ---- .grid-item ---- */
+
+.grid-sizer,
+.grid-item {
+  //width: 30%;
+  width: 520px;
+  padding: 5px;
+}
 
 .grid-item {
-    width: 500px;
-    float: left;
-    border-radius: 5px;
+  padding-bottom: 0%; /* hack for proportional sizing */
+  float: left;
+  background-position: center center;
+  background-size: cover;
 }
+
+.grid-item--width2 {
+  width: 50%;
+}
+
+.grid-item--large {
+  width: 50%;
+  padding-bottom: 50%;
+}
+
+.packery-drop-placeholder {
+  border: 3px dotted #333;
+  background: hsla(0, 0%, 0%, 0.3);
+}
+
+.grid-item.is-dragging,
+.grid-item.is-positioning-post-drag {
+  z-index: 2;
+}
+
 </style>
 {% if not ch_group %}
   <div class="alert alert-success grid-item sg-1" role="alert">
@@ -33,25 +71,45 @@
   </div>
 {% endif %}
 
+<script>
+$(function () {
+    $("tbody").sortable({
+        update: function (event, ui) {
+            var data = $("tbody").sortable('toArray', {attribute: 'id'});
+             order = [],
+             counter = 1;
+            $('tbody tr').each(function () {
+               order.push($(this).attr('id') + "=" + counter++);
+            });
+                $.ajax({
+                    data: order.join('&'),
+                    type: 'POST',
+                    url: ''
+                });
+        }
+    });
+});
+</script>
+
 <div class="grid">
-<div class="grid-sizer"></div>
+    <div class="grid-sizer"></div>
 {% for group in ch_group %}
 
-    <div class="grid-item sg{{ group[0] }}">
-    <div class="panel panel-default">
+    <div class="grid-item sg{{ group[0] }}" data-item-id="{{ group[0] }}">
+    <div class="panel panel-default ">
     <div class="panel-heading"><a href="charts?&group={{ group[0] }}&single=&max=hour&mode=&datetime=">{{ group[0] }}</a></div>
     <table class="table table-hover table-condensed">
     <tbody> 
     {% for id, name, tmp, unit, unit2, ico, title, type, ch_group, tmp_5ago, stat_min, stat_max, tmp_min, tmp_max, alarm, time, minmax, charts, fiveago, stat_min_time, stat_max_time, email, nodata in sensors %}
     {% if ch_group == group[0] %}
-    <tr>
+    <tr id="{{ id }}">
         <td>
             <img src="{{ url_for('static', filename=ico) }}" alt="" title="{{ title }}">
-                <span class="label label-default">
-                  <a href="/settings/sensors?name={{ name }}" title="Go to settings ">
+                <a href="/settings/sensors?name={{ name }}" title="Go to settings ">
+                  <span class="label label-default">
                     {{ name }}
-                  </a>
-                </span>
+                  </span>
+                </a>
                 {% if nodata=='nodata' %}
                   <span class="label label-danger">No data >=5min</span>
                 {% endif %}
@@ -85,16 +143,16 @@
         </td>
         <td>         
             {% if minmax == 'on' %}
-                <span class="label label-info" title="Lowest value from sensor {{ stat_min_time }}">
-                  <a href="charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ stat_min_time }}"> 
-                    {{ stat_min }}{{ unit }}
-                  </a>
-                </span>
+              <a href="charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ stat_min_time }}"> 
+               <span class="label label-info" title="Lowest value from sensor {{ stat_min_time }}">
+                 {{ stat_min }}{{ unit }}
+               </span>
+              </a>
+              <a href="charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ stat_max_time }}">
 	        <span class="label label-warning" title="Greatest value form sensor {{ stat_max_time }}">
-                  <a href="charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ stat_max_time }}">
-                    {{ stat_max }}{{ unit }}
-                  </a>
+                  {{ stat_max }}{{ unit }}
                 </span>
+              </a>
             {% endif %}
         </td>
 
@@ -108,22 +166,117 @@
                 {% endif %}
             {% endif %}
             </td>
+     <td>
+     <span class="ui-icon ui-icon-arrowthick-2-n-s"> 
+     </td>
     </tr>
     {% endif %}
     {% endfor %}
     </tbody>
-    </table> 
+    </table>
     </div>
-    </div>
+</div>
 {% endfor %}
+</div>
 <script>
-$(document).ready( function() {
-  $('.grid').masonry({
-    itemSelector: '.grid-item',
-    columnWidth: 520,
+$(document).ready(function() {
+// external js: packery.pkgd.js, draggabilly.pkgd.js
+
+// add Packery.prototype methods
+
+Packery.prototype.getShiftPositions = function( attrName ) {
+  attrName = attrName || 'id';
+  var _this = this;
+  return this.items.map( function( item ) {
+    return {
+      attr: item.element.getAttribute( attrName ),
+      x: item.rect.x / _this.packer.width,
+      y: item.rect.y / _this.packer.height
+    }
   });
+};
+
+Packery.prototype.initShiftLayout = function( positions, attr ) {
+    if ( !positions ) {
+        // if no initial positions, run packery layout
+        this.layout();
+        return;
+    }
+    // parse string to JSON
+    if ( typeof positions == 'string' ) {
+        try {
+            positions = JSON.parse( positions );
+        } catch( error ) {
+            console.error( 'JSON parse error: ' + error );
+            this.layout();
+            return;
+        }
+    }
+
+    attr = attr || 'id'; // default to id attribute
+    this._resetLayout();
+    // set item order and horizontal position from saved positions
+    this.items = positions.map( function( itemPosition ) {
+        var selector = '[' + attr + '="' + itemPosition.attr  + '"]';
+        var itemElem = this.element.querySelector( selector );
+        var item = this.getItem( itemElem );
+        if (item) {
+            item.rect.x = itemPosition.x * this.packer.width;
+            item.rect.y = itemPosition.y * this.packer.height;
+            return item;
+        }
+    }, this );
+
+    // filter out any items that no longer exist
+    this.items = this.items.filter(function(item) {
+        return item !== undefined;
+    });
+    // add new items
+    var newitems = [];
+    var p = this;
+    $(this.$element[0]).find(this.options.itemSelector).each(function(i, e) {
+        if (!p.getItem(e)) {
+            newitems.push(e);
+        }
+    });
+    this.addItems(newitems);
+
+    this.shiftLayout();
+};
+
+// -----------------------------//
+
+// init Packery
+var $grid = $('.grid').packery({
+  itemSelector: '.grid-item',
+  columnWidth: '.grid-sizer',
+  percentPosition: true,
+  initLayout: false // disable initial layout
+});
+
+// get saved dragged positions
+var initPositions = localStorage.getItem('dragPositions');
+// init layout with saved positions
+$grid.packery( 'initShiftLayout', initPositions, 'data-item-id' );
+
+// make draggable
+$grid.find('.grid-item').each( function( i, itemElem ) {
+  var draggie = new Draggabilly( itemElem, {
+      handle: '.panel-heading'
+    } );
+
+  $grid.packery( 'bindDraggabillyEvents', draggie );
+});
+
+// save drag positions on event
+$grid.on( 'dragItemPositioned', function() {
+  // save drag positions
+  var positions = $grid.packery( 'getShiftPositions', 'data-item-id' );
+  localStorage.setItem( 'dragPositions', JSON.stringify( positions ) );
+});
+
 });
 </script>
-<script src="{{ url_for('static', filename='masonry/masonry.pkgd.min.js') }}"></script>
-</div>
+<script src="/static/packery/packery.pkgd.min.js"></script>
+<script src="/static/draggabilly/draggabilly.pkgd.min.js"></script>
 {% endblock %}

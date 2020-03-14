@@ -20,6 +20,17 @@ def map():
       c.execute("UPDATE maps SET pos_x=?, pos_y=? WHERE map_id=?", (pos_x,pos_y,map_id,))
       conn.commit()
       conn.close()
+    if request.form.get('send-map-image') == 'yes':
+      map_height = request.form['map_height']
+      map_width = request.form['map_width']
+      conn = sqlite3.connect(app.db)
+      c = conn.cursor()
+      c.execute("UPDATE nt_settings SET value=? WHERE option='map_width'", (map_width,))
+      c.execute("UPDATE nt_settings SET value=? WHERE option='map_height'", (map_height,))
+      conn.commit()
+      conn.close()
+      print(map_height)
+      print(map_width)
 
   conn = sqlite3.connect(app.db)
   conn.row_factory = sqlite3.Row

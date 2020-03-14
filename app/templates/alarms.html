@@ -43,10 +43,10 @@
 {% for time, value, name, unit, status, action, min, max, type in data %}
 
 <tr class="{{ 'danger' if action=='alarm' else 'success' }}">
-<td> {{ time }} </td>
-<td> {{ name }} </td>
-<td> <a href="charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ time }}">{{ value }} {{ unit }}</a </td>
-<td> {{ action }} </td>
+<td> <a href="/charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ time }}">{{ time }}</a></td>
+<td> <a href="/settings/sensors?name={{ name }}" title="Go to settings ">{{ name }}</a> </td>
+<td> <a href="/charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ time }}">{{ value }} {{ unit }}</a></td>
+<td> <a href="/settings/sensors?name={{ name }}" title="Go to settings ">{{ action }}</a></td>
 <td> {{ min }} </td>
 <td> {{ max }} </td>
 </tr>

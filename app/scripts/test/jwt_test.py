@@ -1,20 +1,21 @@
 import requests
 import json
+requests.packages.urllib3.disable_warnings()
 
-url = "http://127.0.0.1:8080/register"
+url = "https://172.18.10.12/register"
 
-data = {'username':'test','password':'test'}
+data = {'username':'admin','password':'admin'}
 print ("[*] Register and send", (data))
 headers={'Accept':'application/json','Content-Type': 'application/json'}
-r = requests.post(url, data=json.dumps(data), headers=headers)
+r = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
 token=r.json()
 print ('[*] Got access_token')
 token=token['access_token']
 print (token)
 
 def send(token,data):
-  url = "http://127.0.0.1:8080/sensor"
-  r = requests.post(url,headers={'Content-Type':'application/json', 'Authorization': 'Bearer {}'.format(token)},json=data)
+  url = "https://172.18.10.12/sensor"
+  r = requests.post(url,headers={'Content-Type':'application/json', 'Authorization': 'Bearer {}'.format(token)},json=data, verify=False)
   print (r.content)
 
 data = {"rom":"test_test","type":"temp", "device":"1wire", "ip":"", "gpio":"", "i2c":"", "usb":"","name":"psos","value":"-10"}

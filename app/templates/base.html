@@ -7,9 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>nettemp</title>
-
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <!-- Bootstrap -->
-
     {% if nt_theme=='dark' %}
     <link href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.dark.css') }}" rel="stylesheet">
     {% else %}
@@ -20,6 +19,9 @@
 
     <!-- jQuery -->
     <script src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery/jquery-ui.css') }}">
+    <script src="{{ url_for('static', filename='jquery/jquery-ui.js') }}"></script>
+
 
  </head>
 <body>
@@ -62,7 +64,6 @@
   {% block content %}
   {% endblock %}
 </div>
-</script>
 
 {#<footer class="footer">
   <div class="container text-center">

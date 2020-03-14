@@ -17,18 +17,3 @@ body {
   line-height: 1.5; /* If Placeholder of the input is moved up, rem/modify this. */
   border-radius: 3px;
 }
-
-@media screen and (max-width: 680px) {
-.container-nettemp {
-padding: 10px;
-}
-.grid-item { width: calc(100% - 10px) !important }
-}
-@media screen and (min-width: 680px) {
-.container-nettemp {
-padding: 0px 15px;
-}
-.grid-item { width:350px; }
-}
-
-

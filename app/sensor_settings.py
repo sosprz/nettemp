@@ -29,7 +29,7 @@ def select_sensors(get_type, get_group, get_name):
   else:
     sql = ''' SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, 
                 sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, 
-                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id '''
+                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id ORDER BY ch_group ASC '''
     c.execute(sql)
   data = c.fetchall()  
   conn.close()

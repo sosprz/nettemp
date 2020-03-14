@@ -60,7 +60,7 @@ def update():
  
   sql.append("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('quick_charts', 'off')")
   sql.append("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('charts_theme', '')")
-  sql.append("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('nt_theme', '')")
+  sql.append("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('nt_theme', 'dark')")
 
   """ update """
   
@@ -91,6 +91,7 @@ def update():
 def alter():
   sql = []
   sql.append("ALTER TABLE sensors ADD COLUMN 'nodata' TEXT")
+  sql.append("ALTER TABLE sensors ADD COLUMN 'sid' TEXT")
 
   conn = sqlite3.connect(DB)
   c = conn.cursor()
