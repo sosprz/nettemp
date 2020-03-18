@@ -160,70 +160,69 @@ def create_sensor(rom, data, data2, map_settings):
   return None
 
 def sensor():
-    json = request.get_json()
+    data = request.get_json()
+    for j in data:
+      rom = None
+      if 'rom' in j: 
+        rom=j['rom'] 
+      type = None 
+      if 'type' in j: 
+        type=j['type']
 
-    rom = None 
-    if 'rom' in json: 
-      rom=json['rom']
+      device = None 
+      if 'device' in j: 
+        device=j['device']
 
-    type = None 
-    if 'type' in json: 
-      type=json['type']
+      ip = None 
+      if 'ip' in j: 
+        ip = j['ip']
 
-    device = None 
-    if 'device' in json: 
-      device=json['device']
+      gpio = None 
+      if 'gpio' in j: 
+        gpio=j['gpio']
 
-    ip = None 
-    if 'ip' in json: 
-      ip = json['ip']
+      i2c = None 
+      if 'i2c' in j: 
+        i2c=j['i2c']
 
-    gpio = None 
-    if 'gpio' in json: 
-      gpio=json['gpio']
+      usb = None 
+      if 'usb' in j: 
+        usb=j['usb']
 
-    i2c = None 
-    if 'i2c' in json: 
-      i2c=json['i2c']
+      name = randint(1000,9000)
+      if 'name' in j: 
+        name=j['name']
+        if not j['name']:
+          name = randint(1000,9000)
 
-    usb = None 
-    if 'usb' in json: 
-      usb=json['usb']
+      tmp = None 
+      if 'tmp' in j: 
+        tmp=j['tmp']
 
-    name = randint(1000,9000)
-    if 'name' in json: 
-      name=json['name']
-      if not json['name']:
-        name = randint(1000,9000)
-
-    tmp = None 
-    if 'tmp' in json: 
-      tmp=json['tmp']
-
-    value = None 
-    if 'value' in json: 
-      value=json['value']
+      value = None 
+      if 'value' in j: 
+        value=j['value']
     
-    group = type 
-    if 'group' in json: 
-      group=json['group']
+      group = type 
+      if 'group' in j: 
+        group=j['group']
 
-    map_id = randint(1000,9000)
-    map_y = randint(50,600)
-    map_x = randint(50,600)
-    data = [rom, type, device, ip, gpio, i2c, usb, name]
-    data2 = [group, map_id, rom]
-    map_settings = [type, map_y, map_x, 'on', map_id, 'on']
-    value=check_value(value, type, rom)
+      map_id = randint(1000,9000)
+      map_y = randint(50,600)
+      map_x = randint(50,600)
+      data = [rom, type, device, ip, gpio, i2c, usb, name]
+      data2 = [group, map_id, rom]
+      map_settings = [type, map_y, map_x, 'on', map_id, 'on']
+      value=check_value(value, type, rom)
 
 
-    if insert_db(rom, value) == False:
-      new_db(rom)
-      insert_db(rom,value)
+      if insert_db(rom, value) == False:
+        new_db(rom)
+        insert_db(rom,value)
 
-    if update_sensor_tmp(rom,value) == False:
-      create_sensor(rom,data,data2,map_settings)
-      update_sensor_tmp(rom,value)
+      if update_sensor_tmp(rom,value) == False:
+        create_sensor(rom,data,data2,map_settings)
+        update_sensor_tmp(rom,value)
 
 
 @app.route('/sensor', methods=['POST'])

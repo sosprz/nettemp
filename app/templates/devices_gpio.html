@@ -24,8 +24,7 @@
      </form>
   </td>
 </tr>
-
-{% for name, gpio in data %}
+{% for name, gpio in data22 %}
   <tr>
     <td>
       {{ name }}
@@ -37,7 +36,50 @@
         <form action="" method="post" style="display:inline!important;">
           <button type="submit" name="name" value="{{ name }}"  class="btn btn-xs btn-danger">Remove</button>
           <input type="hidden" name="gpio" value="{{ gpio }}" />
-          <input type="hidden" name="send-gpio-del" value="yes" />
+          <input type="hidden" name="send-dht22-del" value="yes" />
+        </form>
+    </td>
+  </tr>
+{% endfor %}
+</table>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">DHT11</h3>
+</div>
+<table class="table">
+<tr>
+  <td class="col-md-2">
+    <form action="" method="post" >
+    <input type="text" class="form-control input-xs" name="name" value="" required style="width:200px" placeholder="Name">
+  </td>
+
+  <td class="col-md-2">
+    <input type="text" class="form-control input-xs" name="gpio"  value="" required style="width:50px" placeholder="GPIO">
+    <input type="hidden" name="send-new-dht11" value="yes" />
+  </td>
+  <td class="col-md-8">
+     <button type="submit" name="name" value="{{ name }}"  class="btn btn-xs btn-success">Add</button>
+     <input type="hidden" name="gpio" value="{{ gpio }}" />
+     <input type="hidden" name="send-gpio" value="yes" />
+     </form>
+  </td>
+</tr>
+
+{% for name, gpio in data11 %}
+  <tr>
+    <td>
+      {{ name }}
+    </td>
+    <td>
+      GPIO: {{ gpio }}
+    </td>
+    <td>
+        <form action="" method="post" style="display:inline!important;">
+          <button type="submit" name="name" value="{{ name }}"  class="btn btn-xs btn-danger">Remove</button>
+          <input type="hidden" name="gpio" value="{{ gpio }}" />
+          <input type="hidden" name="send-dht11-del" value="yes" />
         </form>
     </td>
   </tr>

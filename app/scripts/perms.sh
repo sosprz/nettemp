@@ -6,6 +6,7 @@ mkdir -p $dir/data/db
 mkdir -p $dir/data/dbf
 mkdir -p $dir/data/dba
 mkdir -p $dir/data/sensors/dht22/
+mkdir -p $dir/data/sensors/dht11/
 
 chown -R root.www-data $dir
 chmod -R 770 $dir

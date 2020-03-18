@@ -4,6 +4,8 @@ from email.mime.multipart import MIMEMultipart
 import datetime
 from datetime import timedelta
 import sys, os
+import socket
+from subprocess import check_output
 dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..')))
 sys.path.append(dir)
 
@@ -195,6 +197,9 @@ recipients = [str(x[0]) for x in c.fetchall()]
 conn.close()
 
 if recipients:
+  hostname = socket.gethostname()
+  host_ip = check_output(['hostname', '-I']).decode()
+  print(host_ip)
   data=check_mail()
   conn = sqlite3.connect(dbf)
   conn.row_factory = sqlite3.Row
@@ -224,18 +229,21 @@ if recipients:
   text = """\
   Hi,
   {data}
-  """.format(data=data)
+  Notification from: https://{host_ip}
+  """.format(data=data,host_ip=host_ip)
   html = """\
   <html>
     <body>
       <p>
-         {data}<br>
-       <br >
+       {data}<br>
+       <br>
+       Notification from: <a href="https://{host_ip}">https://{hostname}</a>
+       <br>
          <a href="http://techfreak.pl/tag/nettemp"> <img src="http://techfreak.pl/wp-content/uploads/2012/12/nettemp.pl_.png" style="width:120px;height:40px;"></a><br>
       </p>
     </body>
   </html>
-  """.format(data=data)
+  """.format(data=data, hostname=hostname, host_ip=host_ip)
 
   # Turn these into plain/html MIMEText objects
   part1 = MIMEText(text, "plain")

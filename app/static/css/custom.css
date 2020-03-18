@@ -4,11 +4,6 @@ html {
   position: relative;
   min-height: 100%;
 }
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 30px;
-  /* color: black; */
-}
 
 .input-xs {
   height: 22px;
@@ -17,3 +12,17 @@ body {
   line-height: 1.5; /* If Placeholder of the input is moved up, rem/modify this. */
   border-radius: 3px;
 }
+
+@media screen and (max-width: 680px) {
+  .container-nettemp {
+    padding: 10px;
+  }
+}
+
+@media screen and (min-width: 680px) {
+  .container-nettemp {
+    padding: 0px 15px;
+  }
+}
+
+

@@ -7,29 +7,29 @@ get_type = ''
 get_group = ''
 get_name = ''
 
-def select_sensors(get_type, get_group, get_name):
+def select_sensors(get_type, get_group, get_id):
   conn = sqlite3.connect(app.db)
   c = conn.cursor()
   if get_type:
     print (get_type)
     sql = ''' SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, 
                 sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, 
-                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.type=? '''
+                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.type=? '''
     c.execute(sql, [get_type])
   elif get_group:
     sql = ''' SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, 
                 sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, 
-                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.ch_group=? '''
+                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.ch_group=? '''
     c.execute(sql, [get_group])
-  elif get_name:
+  elif get_id:
     sql = ''' SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, 
                 sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, 
-                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.name=? '''
-    c.execute(sql, [get_name])
+                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.id=? '''
+    c.execute(sql, [get_id])
   else:
     sql = ''' SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, 
                 sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, 
-                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id ORDER BY ch_group ASC '''
+                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id ORDER BY ch_group ASC '''
     c.execute(sql)
   data = c.fetchall()  
   conn.close()
@@ -56,7 +56,7 @@ def select_type():
 def settings_sensors():
     get_type = request.args.get("type")
     get_group = request.args.get("group")
-    get_name = request.args.get("name")
+    get_id = request.args.get("id")
 
     if request.method == "POST":
       if request.form.get('send-node') == 'yes':
@@ -267,6 +267,6 @@ def settings_sensors():
     
     
     type = select_type()
-    data = select_sensors(get_type, get_group, get_name)
+    data = select_sensors(get_type, get_group, get_id)
     group = select_group()
-    return render_template('sensor_settings.html', data=data, group=group, type=type, get_name=get_name, get_group=get_group, get_type=get_type)
+    return render_template('sensor_settings.html', data=data, group=group, type=type, get_id=get_id, get_group=get_group, get_type=get_type)

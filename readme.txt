@@ -1,9 +1,11 @@
 # nettemp.pl
 
 # Install
-mkdir -p /var/www/ && cd /var/www/ && git clone https://github.com/sosprz/nettemp && cd nettemp && ./setup
+
+sudo mkdir -p /var/www/ && cd /var/www/ && git clone https://github.com/sosprz/nettemp && cd nettemp && ./setup.sh
 
 # WEB access 
+## https://YOUR IP ADDRESS
 ## User: admin paassword: admin
 
 # How to send data to nettemp

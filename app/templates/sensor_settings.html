@@ -31,9 +31,7 @@ All:
 <thead>
 <tr>
 <th title="Set name for sensor">Name</th>
-<th title="Database name">Database</th>
-<th title="Type of sensor">Type</th>
-<th title="Last value">Value</th>
+<th title="More information about sensor">Info</th>
 <th title="Set alarm on/off">Alarm</th>
 <th title="Minimal value for alarm">Min</th>
 <th title="Maximal value for alarm">Max</th>
@@ -51,7 +49,7 @@ All:
 </tr>
 </thead>
 
-{% for id, time, tmp, name, rom, tmp_min, tmp_max, alarm, type, charts, ch_group, minmax, fiveago, map_id, map_on, email, email_delay, node, adj in data %}
+{% for id, time, tmp, name, rom, tmp_min, tmp_max, alarm, type, charts, ch_group, minmax, fiveago, map_id, map_on, email, email_delay, node, adj, email_status, ip in data %}
 
 <tr>
     <td class="col">
@@ -68,15 +66,16 @@ All:
     </td>
 
     <td class="col">
-    {{ rom }}
-    </td>
-  
-    <td class="col">
-    {{ type }} 
-    </td>
-
-    <td class="col">
-    {{ tmp }} 
+    <img src="/static/media/ico/FAQ-icon.png" alt="" 
+      title="
+        ROM: {{ rom }}
+        Type: {{ type }}
+        Value: {{ tmp }}
+        Email status: {{ email_status }}
+        IP: {{ ip }}
+      "
+    />
+    
     </td>
 
     {# alarm #}
@@ -240,8 +239,6 @@ All:
 </tr>
 {% endfor %}
 <tr>
-  <td></td>
-  <td></td>
   <td></td>
   <td></td>
   <td></td>

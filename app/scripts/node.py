@@ -27,7 +27,7 @@ if data:
   for value, name, rom, type, url, token in data():
     rom = rom+'-'+group
     name = name+'-'+group
-    data = {"rom":rom,"type":type,"name":name,"value":value,"group":group}
+    data = [{"rom":rom,"type":type,"name":name,"value":value,"group":group}]
     send(token, data, url)
 else:
       print("[ nettemp ] nothing to do")

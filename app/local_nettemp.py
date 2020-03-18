@@ -11,7 +11,8 @@ class insert:
 
   def request(self):
     url = "http://localhost:8080/local"
-    data = {"rom":self.rom,"type":self.type, "device":"","value":self.value,"name":self.name}
+    data = [{"rom":self.rom,"type":self.type, "device":"","value":self.value,"name":self.name}]
     r = requests.post(url,json=data)
+    r.close
     print("Sensor %s value: %s" % (self.rom, self.value))
 
