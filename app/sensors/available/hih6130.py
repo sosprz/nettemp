@@ -2,8 +2,8 @@ import smbus
 import os.path
 import sys
 from datetime import datetime
-dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..')))
-sys.path.append(dir)
+dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..','..','..')))
+sys.path.append(dir+'/app')
 from local_nettemp import insert
 
 

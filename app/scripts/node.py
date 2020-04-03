@@ -7,7 +7,7 @@ import os
 dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..')))
 DB=dir+'/data/dbf/nettemp.db'
 
-print("[ nettemp ] NODE")
+print("[ nettemp ][ node ]")
 hostname = socket.gethostname()
 group = hostname
 
@@ -30,6 +30,6 @@ if data:
     data = [{"rom":rom,"type":type,"name":name,"value":value,"group":group}]
     send(token, data, url)
 else:
-      print("[ nettemp ] nothing to do")
+      print("[ nettemp ][ node ] nothing to do")
 
 

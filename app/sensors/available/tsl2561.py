@@ -3,8 +3,8 @@ import board
 import busio
 import adafruit_tsl2561
 import os, sys
-dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..')))
-sys.path.append(dir)
+dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..','..','..')))
+sys.path.append(dir+'/app')
 from local_nettemp import insert
 
 

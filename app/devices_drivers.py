@@ -8,29 +8,41 @@ from pathlib import Path
 @app.route('/settings/devices/drivers', methods=['GET','POST'])
 @login_required
 def devices_settings():
-  if request.method == "POST":
-    if request.form.get('send-file') == 'yes':
-      file = request.form['file'] 
-      action = request.form['action']
-      file = file+'.py'
-      if action == 'on':
-        src = '../available/'+file
-        dst = 'app/sensors/enabled/'+file
-        os.symlink(src, dst) 
-      elif action == 'off':
-        Path('app/sensors/enabled/'+file).unlink()
+  list =  ['01','05','10','15','20','30','60']
+  if request.form.get('time') in list:
+        file = request.form['file'] 
+        action = request.form['action']
+        time = request.form['time']
+        print(time)
+        file = file+'.py'
+        if action == 'on':
+          for t in list:
+            try:
+              Path('data/sensors/enabled/'+t+'/'+file).unlink()
+            except:
+              pass
+          src = '../../../../app/sensors/available/'+file
+          dst = 'data/sensors/enabled/'+time+'/'+file
+          os.symlink(src, dst)
+        elif action == 'off':
+          for t in list:
+            try:
+              Path('data/sensors/enabled/'+t+'/'+file).unlink()
+            except:
+              pass
 
-  available=[]
-  enabled=[]
+  av=[]
+  def enabled(filename):
+    for t in list:
+      for files in os.listdir('data/sensors/enabled/'+t+'/'):
+        if files.endswith(".py"):
+          if files == filename:
+            return t
 
   for filename in os.listdir('app/sensors/available/'):
     if filename.endswith(".py"): 
-      available.append(os.path.splitext(filename)[0])
-  
-  for filename in os.listdir('app/sensors/enabled/'):
-    if filename.endswith(".py"): 
-      enabled.append(os.path.splitext(filename)[0])
-   
-  return render_template('devices_drivers.html', available=available, enabled=enabled)
+      av.append([os.path.splitext(filename)[0],enabled(filename)])
+
+  return render_template('devices_drivers.html', av=av)
 
 

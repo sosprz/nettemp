@@ -3,8 +3,8 @@ import board
 import busio
 from adafruit_htu21d import HTU21D
 import sys, os
-dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..')))
-sys.path.append(dir)
+dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..','..','..')))
+sys.path.append(dir+'/app')
 from local_nettemp import insert
 
 # Create library object using our Bus I2C port

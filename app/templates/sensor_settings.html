@@ -38,6 +38,7 @@ All:
 <th title="Turn notofication on or off">Email</th>  
 <th title="Delay between recovery mail and next alarm. Preventing email flooding">Email Delay</th>  
 <th title="Adjust sensor value">Adjust</th>  
+<th title="Maximum no data time">No data time</th>  
 <th title="Min / Max on or off in status">Status  Min / Max</th>
 <th title="5 Min stats on or off in status">5 min status</th>
 <th title="Enabel/disable charts for sensor">Charts</th>
@@ -49,7 +50,7 @@ All:
 </tr>
 </thead>
 
-{% for id, time, tmp, name, rom, tmp_min, tmp_max, alarm, type, charts, ch_group, minmax, fiveago, map_id, map_on, email, email_delay, node, adj, email_status, ip in data %}
+{% for id, time, tmp, name, rom, tmp_min, tmp_max, alarm, type, charts, ch_group, minmax, fiveago, map_id, map_on, email, email_delay, node, adj, email_status, ip, nodata_time in data %}
 
 <tr>
     <td class="col">
@@ -68,7 +69,9 @@ All:
     <td class="col">
     <img src="/static/media/ico/FAQ-icon.png" alt="" 
       title="
+        Last read: {{ time }}
         ROM: {{ rom }}
+        Database: {{ rom }}
         Type: {{ type }}
         Value: {{ tmp }}
         Email status: {{ email_status }}
@@ -150,7 +153,18 @@ All:
       </form>
     </td>
 
-
+    <td class="col">
+      <form action="" method="post" style="width:60px;">
+        <div class="input-group" >
+          <input type="text" class="form-control input-xs" name="nodata_time" size="1" maxlength="10" value="{{ nodata_time }}" required>
+          <input type="hidden" name="id" value="{{ id }}" />
+          <input type="hidden" name="send-nodata_time" value="yes" />
+          <span class="input-group-btn">
+            <button class="btn btn-success btn-xs" type="submit"><span class="glyphicon glyphicon-pencil"></span</button>
+          </span>
+        </div><!-- /input-group -->
+      </form>
+    </td>
     {# min max status #}
     <td class="col">
     <form action="" method="post" >
@@ -242,10 +256,36 @@ All:
   <td></td>
   <td></td>
   <td></td>
-  <td></td>
-  <td></td>
   <td>
-{% if not get_name %}
+{% if not get_id %}
+    <form action="" method="post" >
+        <div class="input-group" style="width:60px;">
+          <input type="text" class="form-control input-xs" name="v" value="" required >
+          <input type="hidden" name="f" value="tmp_min" />
+          <input type="hidden" name="send-copy" value="yes" />
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-info btn-xs " type="button"><span class="glyphicon glyphicon-pencil"></span></button>
+            </span>
+        </div><!-- /input-group -->
+    </form>
+{% endif %}
+  </td>
+  <td>
+{% if not get_id %}
+    <form action="" method="post" >
+        <div class="input-group" style="width:60px;">
+          <input type="text" class="form-control input-xs" name="v" value="" required >
+          <input type="hidden" name="f" value="tmp_max" />
+          <input type="hidden" name="send-copy" value="yes" />
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-info btn-xs " type="button"><span class="glyphicon glyphicon-pencil"></span></button>
+            </span>
+        </div><!-- /input-group -->
+    </form>
+{% endif %}
+  </td>
+  <td>
+{% if not get_id %}
     <form action="" method="post" style="display:inline!important;">
       <input type="hidden" name="add-all" value="yes" />
       <input type="hidden" name="function" value="email" />
@@ -258,10 +298,50 @@ All:
     </form>
 {% endif %}
   </td>
-  <td></td>
-  <td></td>
   <td>
-{% if not get_name %}
+{% if not get_id %}
+    <form action="" method="post" >
+        <div class="input-group" style="width:60px;">
+          <input type="text" class="form-control input-xs" name="v" value="" required >
+          <input type="hidden" name="f" value="email_delay" />
+          <input type="hidden" name="send-copy" value="yes" />
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-info btn-xs " type="button"><span class="glyphicon glyphicon-pencil"></span></button>
+            </span>
+        </div><!-- /input-group -->
+    </form>
+{% endif %}
+  </td>
+  <td>
+{% if not get_id %}
+    <form action="" method="post" >
+        <div class="input-group" style="width:60px;">
+          <input type="text" class="form-control input-xs" name="v" value="" required >
+          <input type="hidden" name="f" value="adj" />
+          <input type="hidden" name="send-copy" value="yes" />
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-info btn-xs " type="button"><span class="glyphicon glyphicon-pencil"></span></button>
+            </span>
+        </div><!-- /input-group -->
+    </form>
+{% endif %}
+  </td>
+  <td>
+{% if not get_id %}
+    <form action="" method="post" >
+        <div class="input-group" style="width:60px;">
+          <input type="text" class="form-control input-xs" name="v" value="" required >
+          <input type="hidden" name="f" value="nodata_time" />
+          <input type="hidden" name="send-copy" value="yes" />
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-info btn-xs " type="button"><span class="glyphicon glyphicon-pencil"></span></button>
+            </span>
+        </div><!-- /input-group -->
+    </form>
+{% endif %}
+  </td>
+  <td>
+{% if not get_id %}
   <form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="add-all" value="yes" />
     <input type="hidden" name="function" value="minmax" />
@@ -272,8 +352,10 @@ All:
     <input type="hidden" name="function" value="minmax" />
     <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
   </form>
+{% endif %}
 </td>
 <td>
+{% if not get_id %}
   <form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="add-all" value="yes" />
     <input type="hidden" name="function" value="fiveago" />
@@ -284,8 +366,10 @@ All:
     <input type="hidden" name="function" value="fiveago" />
     <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
   </form>
+{% endif %}
 </td>
 <td>
+{% if not get_id %}
   <form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="add-all" value="yes" />
     <input type="hidden" name="function" value="charts" />
@@ -296,9 +380,12 @@ All:
     <input type="hidden" name="function" value="charts" />
     <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
   </form>
+{% endif %}
 </td>
 <td>
+{% if not get_id %}
 {% if not get_group  %}
+{% if not get_type  %}
   <form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="add-all-map" value="yes" />
     <input type="hidden" name="function" value="map_on" />
@@ -310,8 +397,11 @@ All:
     <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
   </form>
 {% endif %}
+{% endif %}
+{% endif %}
 </td>
 <td>
+{% if not get_id %}
   <form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="add-all" value="yes" />
     <input type="hidden" name="function" value="node" />
@@ -328,7 +418,7 @@ All:
 <td></td>
 <td></td>
 <td>
-{% if not get_name %}
+{% if not get_id %}
   <form action="" method="post" style="display:inline!important;">
     <input type="hidden" name="rem-all" value="yes" />
     <button class="btn btn-xs btn-danger "><span class="glyphicon glyphicon-exclamation-sign"></span> </button>

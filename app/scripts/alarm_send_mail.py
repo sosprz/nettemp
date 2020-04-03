@@ -118,7 +118,7 @@ def check_mail():
   c = conn.cursor()
   c.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, \
              sensors.tmp_max, sensors.email_status, sensors.email_time, sensors.email_delay, \
-             sensors.alarm_recovery_time, sensors.alarm_status, sensors.nodata \
+             sensors.alarm_recovery_time, sensors.alarm_status, sensors.nodata, sensors.nodata_time \
              FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.email='on'")
   data = c.fetchall()
   conn.close()
@@ -138,7 +138,7 @@ def check_mail():
     conn.close()
 
   msg_all = []
-  for id, name, tmp, unit, min, max, email_status, email_time, email_delay, alarm_recovery_time, alarm_status, nodata in data:
+  for id, name, tmp, unit, min, max, email_status, email_time, email_delay, alarm_recovery_time, alarm_status, nodata, nodata_time in data:
     if alarm_recovery_time:
       fmt = '%Y-%m-%d %H:%M:%S'
       now = datetime.datetime.now()
@@ -161,25 +161,25 @@ def check_mail():
 
     if nodata=='nodata' and email_status!='sent':
         update_mail(id,'sent')
-        msg=("No data for %s >= 5min." % (name))
+        msg=("No data for %s >= %smin." % (name, nodata_time))
         msg_all.append(msg)
-        print("Mail 0 "+msg)
+        print("[ nettemp ][ alarm send ] Mail 0 "+msg)
     elif alarm_status and td_mins < email_delay and alarm_recovery_time:
         msg=("Delay for %s %.2f%s is %d minutes. Passed %s minutes." % (name,tmp,unit,email_delay,td_mins))
-        print("Mail 1 "+msg)
+        print("[ nettemp ][ alarm send ] Mail 1 "+msg)
     elif alarm_status and email_status != 'sent':
         update_mail(id,'sent')
         msg=("Alarm for %s %.2f%s. Max alarm set to: %.2f%s " % (name,tmp,unit,max,unit))
         msg_all.append(msg)
-        print("Mail 2 "+msg)
+        print("[ nettemp ][ alarm send ] Mail 2 "+msg)
     elif alarm_status and email_status=='sent':
         msg=("Already sent for %s %.2f%s" % (name,tmp,unit))
-        print("Mail 3 "+msg)
-    elif not alarm_status and email_status=='sent':
+        print("[ nettemp ][ alarm send ] Mail 3 "+msg)
+    elif not alarm_status and email_status=='sent' and not nodata=='nodata':
         update_mail(id, 'recovery')
         msg=("Recovery for %s %.2f%s" % (name,tmp,unit))
         msg_all.append(msg)
-        print("Mail 4 "+msg)
+        print("[ nettemp ][ alarm send ] Mail 4 "+msg)
 
   data='<br>'.join(str(x) for x in msg_all)
   return data
@@ -199,7 +199,6 @@ conn.close()
 if recipients:
   hostname = socket.gethostname()
   host_ip = check_output(['hostname', '-I']).decode()
-  print(host_ip)
   data=check_mail()
   conn = sqlite3.connect(dbf)
   conn.row_factory = sqlite3.Row
@@ -262,8 +261,8 @@ if recipients:
             smtp_user, recipients, message.as_string(),
       )
   else:
-    print ('Nothig to do')
+    print ('[ nettemp ][ alarm send ] Nothig to do')
 else:
-  print ('No recepients')
+  print ('[ nettemp ][ alarm send ] No recepients')
 
 

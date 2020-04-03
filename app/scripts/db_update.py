@@ -11,9 +11,9 @@ print (DB)
 
 def update():
   sql = []
-  #sql.append("PRAGMA journal_mode=DELETE")
-  #sql.append("PRAGMA page_size=4096")
-  #sql.append("VACUUM")
+  sql.append("PRAGMA journal_mode=DELETE")
+  sql.append("PRAGMA page_size=4096")
+  sql.append("VACUUM")
   sql.append("PRAGMA journal_mode=WAL")
   
   
@@ -74,6 +74,8 @@ def update():
   sql.append("UPDATE sensors SET tmp_min='0' WHERE tmp_min='' OR tmp_min is null")
   sql.append("UPDATE sensors SET tmp_5ago='0' WHERE tmp_5ago='' OR tmp_5ago is null")
   sql.append("UPDATE sensors SET fiveago='on' WHERE fiveago='' OR fiveago is null")
+  sql.append("UPDATE sensors SET nodata_time='5' WHERE nodata_time='' OR nodata_time is null")
+  sql.append("UPDATE sensors SET email_delay='10' WHERE email_delay='' OR email_delay is null")
 
 
   #sql.append("CREATE TRIGGER IF NOT EXISTS time_tr AFTER UPDATE OF tmp ON sensors FOR EACH ROW WHEN NEW.tmp BEGIN UPDATE sensors SET time = (datetime('now','localtime')) WHERE id = old.id; END")
@@ -91,6 +93,7 @@ def update():
 def alter():
   sql = []
   sql.append("ALTER TABLE sensors ADD COLUMN 'nodata' TEXT")
+  sql.append("ALTER TABLE sensors ADD COLUMN 'nodata_time' TEXT")
   sql.append("ALTER TABLE sensors ADD COLUMN 'sid' TEXT")
 
   conn = sqlite3.connect(DB)

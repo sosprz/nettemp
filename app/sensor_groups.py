@@ -40,7 +40,7 @@ def index():
 
   conn = sqlite3.connect(app.db)
   c = conn.cursor()
-  c.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, types.unit2, types.ico, types.title, sensors.type, sensors.ch_group, sensors.tmp_5ago, sensors.stat_min, sensors.stat_max, sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.time, sensors.minmax, sensors.charts, sensors.fiveago, sensors.stat_min_time, sensors.stat_max_time, sensors.email, sensors.nodata FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE ch_group!='none' ORDER BY sid ASC")
+  c.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, types.unit2, types.ico, types.title, sensors.type, sensors.ch_group, sensors.tmp_5ago, sensors.stat_min, sensors.stat_max, sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.time, sensors.minmax, sensors.charts, sensors.fiveago, sensors.stat_min_time, sensors.stat_max_time, sensors.email, sensors.nodata, sensors.nodata_time FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE ch_group!='none' ORDER BY sid ASC")
   sensors = c.fetchall()
   c.execute("select DISTINCT sensors.ch_group FROM sensors WHERE sensors.ch_group!='none'")
   ch_group = c.fetchall()

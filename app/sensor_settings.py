@@ -5,7 +5,7 @@ from flask_login import login_required
 
 get_type = ''
 get_group = ''
-get_name = ''
+get_id = ''
 
 def select_sensors(get_type, get_group, get_id):
   conn = sqlite3.connect(app.db)
@@ -14,22 +14,22 @@ def select_sensors(get_type, get_group, get_id):
     print (get_type)
     sql = ''' SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, 
                 sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, 
-                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.type=? '''
+                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip, sensors.nodata_time FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.type=? '''
     c.execute(sql, [get_type])
   elif get_group:
     sql = ''' SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, 
                 sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, 
-                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.ch_group=? '''
+                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip, sensors.nodata_time FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.ch_group=? '''
     c.execute(sql, [get_group])
   elif get_id:
     sql = ''' SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, 
                 sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, 
-                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.id=? '''
+                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip, sensors.nodata_time FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.id=? '''
     c.execute(sql, [get_id])
   else:
     sql = ''' SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, 
                 sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, 
-                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id ORDER BY ch_group ASC '''
+                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip, sensors.nodata_time FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id ORDER BY ch_group ASC '''
     c.execute(sql)
   data = c.fetchall()  
   conn.close()
@@ -77,6 +77,14 @@ def settings_sensors():
         conn.commit()
         conn.close()
 
+      if request.form.get('send-nodata_time') == 'yes':
+        nodata_time = request.form['nodata_time']
+        id = request.form['id']
+        conn = sqlite3.connect(app.db)
+        c = conn.cursor()
+        c.execute("UPDATE sensors SET nodata_time=? WHERE id=?", (nodata_time,id,))
+        conn.commit()
+        conn.close()
 
       if request.form.get('rem-all') == 'yes':
         conn = sqlite3.connect(app.db)
@@ -264,6 +272,53 @@ def settings_sensors():
           c.execute(sql)
         conn.commit()
         conn.close()
+
+
+      if request.form.get('send-copy') == 'yes':
+        v = request.form['v']
+        f = request.form['f']
+        conn = sqlite3.connect(app.db)
+        c = conn.cursor()
+        if get_type:
+          sql = "UPDATE sensors SET %s=? WHERE type=?" % f
+          c.execute(sql, [v,get_type])
+        elif get_group:
+          sql = "UPDATE sensors SET %s=? WHERE ch_group=?" % f
+          c.execute(sql, [v,get_group])
+        else:
+          sql = "UPDATE sensors SET %s=?" % f
+          c.execute(sql, [v])
+        conn.commit()
+        conn.close()
+
+      """if request.form.get('send-copy-adjust') == 'yes':
+        copy = request.form['adjust']
+        conn = sqlite3.connect(app.db)
+        c = conn.cursor()
+        c.execute("UPDATE sensors SET adj=?", (copy,))
+        conn.commit()
+        conn.close()
+      if request.form.get('send-copy-email') == 'yes':
+        copy = request.form['email-delay']
+        conn = sqlite3.connect(app.db)
+        c = conn.cursor()
+        c.execute("UPDATE sensors SET email_delay=?", (copy,))
+        conn.commit()
+        conn.close()
+      if request.form.get('send-copy-max') == 'yes':
+        copy = request.form['tmp_max']
+        conn = sqlite3.connect(app.db)
+        c = conn.cursor()
+        c.execute("UPDATE sensors SET tmp_max=?", (copy,))
+        conn.commit()
+        conn.close()
+      if request.form.get('send-copy-min') == 'yes':
+        copy = request.form['tmp_min']
+        conn = sqlite3.connect(app.db)
+        c = conn.cursor()
+        c.execute("UPDATE sensors SET tmp_min=?", (copy,))
+        conn.commit()
+        conn.close()"""
     
     
     type = select_type()

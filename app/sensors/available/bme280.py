@@ -482,8 +482,8 @@ press = '{0:0.2f}'.format(hectopascals)
 humid = '{0:0.2f}'.format(humidity)
 
 import os.path
-dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..')))
-sys.path.append(dir)
+dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..','..','..')))
+sys.path.append(dir+'/app')
 from local_nettemp import insert
 
 try:

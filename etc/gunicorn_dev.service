@@ -1,0 +1,23 @@
+[Unit]
+Description=gunicorn daemon
+#Requires=gunicorn.socket
+After=network.target
+
+[Service]
+Type=notify
+# the specific user that our service will run as
+User=www-data
+Group=www-data
+# another option for an even more restricted service is
+# DynamicUser=yes
+# see http://0pointer.net/blog/dynamic-users-with-systemd.html
+RuntimeDirectory=/var/www/nettemp/venv/bin/
+WorkingDirectory=/var/www/nettemp/
+ExecStart=/var/www/nettemp/venv/bin/gunicorn --error-logfile=/var/www/nettemp/data/gunicorn.log --log-level debug nettemp:app -p /var/www/nettemp/data/nettemp.pid -b 127.0.0.1:8080
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,8 +1,8 @@
 import vcgencmd
 import io
 import sys, os
-dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..')))
-sys.path.append(dir)
+dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..','..','..')))
+sys.path.append(dir+'/app')
 from local_nettemp import insert
 
 def is_raspberry_pi(raise_on_errors=False):

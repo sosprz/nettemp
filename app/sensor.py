@@ -86,10 +86,10 @@ def insert_db(rom,value):
     c.execute(sql, data)
     conn.commit()
     conn.close()
-    print ("Database %s insert ok" %rom)
+    print ("[ nettemp ][ sensor ] Database %s insert ok" %rom)
     return True
   else:
-    print ("Database %s not exist" %rom)
+    print ("[ nettemp ][ sensor ] Database %s not exist" %rom)
     return False
 
 def update_sensor_tmp(rom,value):
@@ -114,20 +114,20 @@ def update_sensor_tmp(rom,value):
     c.execute(sql, data)
     conn.commit()
     conn.close()
-    print ("Sensor %s updated" %rom)
+    print ("[ nettemp ][ sensor ] Sensor %s updated" %rom)
     return True
   else:
-    print ("Sensor %s not exist" %rom)
+    print ("[ nettemp ][ sensor ] Sensor %s not exist" %rom)
     return False
 
 def delete_db(rom):
   rom=rom+'.sql'
   if os.path.isfile(app.romdir+rom):
     os.remove(rom)
-    print ("Database %s deleted" %rom)
+    print ("[ nettemp ][ sensor ] Database %s deleted" %rom)
     return True
   else:
-    print ("Database %s not exist" %rom)
+    print ("[ nettemp ][ sensor ] Database %s not exist" %rom)
     return False
 
 def delete_sensor(id,rom):
@@ -138,7 +138,7 @@ def delete_sensor(id,rom):
   conn.commit()
   conn.close()
   delete_db(rom)
-  print ("Sensor %s removed ok" %rom)
+  print ("[ nettemp ][ sensor ] Sensor %s removed ok" %rom)
 
 def create_sensor(rom, data, data2, map_settings):
   conn = sqlite3.connect(app.db)
@@ -148,15 +148,15 @@ def create_sensor(rom, data, data2, map_settings):
   if c.fetchone()[0]==0:
     sql = '''INSERT INTO sensors (rom,type,device,ip,gpio,i2c,usb,name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
     c.execute(sql, data)
-    sql2 = '''UPDATE sensors SET alarm='off', adj='0', charts='on', status='on', ch_group=?, tmp_min='0', tmp_max='0', minmax='off', stat_min='0', stat_max='0', tmp_5ago='0', fiveago='on', map_id=? WHERE rom=?'''
+    sql2 = '''UPDATE sensors SET alarm='off', adj='0', charts='on', status='on', ch_group=?, tmp_min='0', tmp_max='0', minmax='off', stat_min='0', stat_max='0', tmp_5ago='0', fiveago='on', map_id=?, nodata_time='5', email_delay='10' WHERE rom=?'''
     c.execute(sql2, data2)
     map = ''' INSERT OR IGNORE INTO maps (type, pos_x, pos_y, map_on, map_id, display_name) VALUES (?,?,?,?,?,?) '''
     c.execute(map, map_settings)
     conn.commit()
     conn.close()
-    print ("Sensor %s added ok" %rom)
+    print ("[ nettemp ][ sensor ] Sensor %s added ok" %rom)
   else:
-    print ("Sensor %s already exist" %rom)
+    print ("[ nettemp ][ sensor ] Sensor %s already exist" %rom)
   return None
 
 def sensor():

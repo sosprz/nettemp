@@ -65,7 +65,7 @@ body { font-family: sans-serif; }
 </style>
 {% if not ch_group %}
   <div class="alert alert-success grid-item sg-1" role="alert">
-    Hi, please connect your sensors or wait 1 min for system data.
+    Hi, please connect your sensors and go to <a href="/settings/devices/drivers">settings</a>
     <br />
     Do not turn off cron!
   </div>
@@ -100,7 +100,7 @@ $(function () {
     <div class="panel-heading"><a href="charts?&group={{ group[0] }}&single=&max=hour&mode=&datetime=">{{ group[0] }}</a></div>
     <table class="table table-hover table-condensed">
     <tbody> 
-    {% for id, name, tmp, unit, unit2, ico, title, type, ch_group, tmp_5ago, stat_min, stat_max, tmp_min, tmp_max, alarm, time, minmax, charts, fiveago, stat_min_time, stat_max_time, email, nodata in sensors %}
+    {% for id, name, tmp, unit, unit2, ico, title, type, ch_group, tmp_5ago, stat_min, stat_max, tmp_min, tmp_max, alarm, time, minmax, charts, fiveago, stat_min_time, stat_max_time, email, nodata, nodata_time in sensors %}
     {% if ch_group == group[0] %}
     <tr id="{{ id }}">
         <td>
@@ -111,7 +111,7 @@ $(function () {
                   </span>
                 </a>
                 {% if nodata=='nodata' %}
-                  <span class="label label-danger">No data >=5min</span>
+                  <span class="label label-danger">No data >={{ nodata_time  }}min</span>
                 {% endif %}
                 {% if alarm=='on'%}
                   <img src="{{ url_for('static', filename='media/ico/bell-icon.png') }}" alt="A" title="Alarm notification is ON">
