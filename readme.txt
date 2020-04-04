@@ -2,7 +2,12 @@
 
 # Install
 
-sudo mkdir -p /var/www/ && cd /var/www/ && git clone https://github.com/sosprz/nettemp && cd nettemp && ./setup.sh
+sudo su - && mkdir -p /var/www/ && cd /var/www/ && git clone https://github.com/sosprz/nettemp && cd nettemp && ./setup.sh
+
+# Update
+
+cd /var/www/nettemp/app/scripts && ./update.sh
+
 
 # WEB access 
 ## https://YOUR IP ADDRESS
@@ -32,11 +37,11 @@ def send(token,data):
   r = requests.post(url,headers={'Content-Type':'application/json', 'Authorization': 'Bearer {}'.format(token)},json=data, verify=False)
   print (r.content)
 
-data = {"rom":"ds18b20-sensor-1","type":"temp","name":"DS18B20","value":"-10"}
+data = [{"rom":"ds18b20-sensor-1","type":"temp","name":"DS18B20","value":"-10"}]
 send(token, data)
 
 ## send data from curl:
-curl -k -H "Content-Type: application/json" -H 'Authorization: Bearer eyJXJ9.eIn0.fc'  --request POST   --data '{"rom":"ds18b20-host1","type":"temp","name":"DS18b20","value":"12"}' https://172.18.10.12/sensor
+curl -k -H "Content-Type: application/json" -H 'Authorization: Bearer eyJXJ9.eIn0.fc'  --request POST   --data '[{"rom":"ds18b20-host1","type":"temp","name":"DS18b20","value":"12"}]' https://172.18.10.12/sensor
 
 # Supported sensors
 
@@ -44,10 +49,13 @@ curl -k -H "Content-Type: application/json" -H 'Authorization: Bearer eyJXJ9.eIn
 HIH6130 0x27 temperature, humidity
 TMP102 0x48 temperature
 BMP280 0x76 temperature, pressure
-HTU21/SHT21 0x40 temperature, humidity
+HTU21/SHT21/SI7021/SHT20 0x40 temperature, humidity
 DS2482 - DS18b20 1wire  0x18, 0x19 0x1a, 0x1b temperature
 MPL3115A2 0x60 temperature, pressure, altitude
 TSL2561 0x39 light sensor
+BMP180 0x77 temperature, pressure
+VL53l0X 0x29 distance
+ADXL345/ADXL343 0x53 3 axis accelerometer, motion detection 
 
 ## GPIO sensors
 DHT22 temperature, humidity

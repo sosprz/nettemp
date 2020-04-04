@@ -17,4 +17,5 @@ psutil
 adafruit-circuitpython-htu21d
 adafruit-circuitpython-tsl2561
 Adafruit_DHT
-
+Adafruit-BMP
+adafruit-circuitpython-adxl34x

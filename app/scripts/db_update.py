@@ -47,6 +47,8 @@ def update():
   sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('watt', 'W', 'W', 'media/ico/watt.png' ,'Watt','-10000', '10000')")
   sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('wind', '°', '°', 'media/ico/compass.png' ,'Wind','0', '10000')")
   sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('dust', 'μg/m^3', '', 'media/ico/Weather-Dust-icon.png' ,'Dust','-4000', '4000')")
+  sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('accel', '', '', 'media/ico/paper-plane-icon.png' ,'Acceleration','-100', '100')")
+  sql.append("INSERT OR IGNORE INTO types (type, unit, unit2, ico, title, min, max) VALUES ('motion', '', '', 'media/ico/paper-plane-icon.png' ,'Motion','0', '1')")
 
   sql.append("INSERT OR IGNORE INTO users (username, password, active) VALUES ('admin', 'fake', 'yes')")
   sql.append("INSERT OR IGNORE INTO nt_settings (option,value) VALUES ('smtp_user','')")
