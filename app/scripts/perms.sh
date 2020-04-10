@@ -5,6 +5,7 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 mkdir -p $dir/data/db
 mkdir -p $dir/data/dbf
 mkdir -p $dir/data/dba
+mkdir -p $dir/data/upload
 mkdir -p $dir/data/sensors/dht22/
 mkdir -p $dir/data/sensors/dht11/
 mkdir -p $dir/data/sensors/enabled/01/

@@ -4,15 +4,9 @@ dir=$( cd "$( dirname "$0" )" && cd ../../ && pwd )
 echo $dir
 cd $dir
 source venv/bin/activate
-# dump
-#sqlite3 $dir/data/dbf/nettemp.db .dump > $dir/data/dbf/nettemp.dump
 
-# reset
-rm $dir/data/dbf/nettemp.db
-sqlite3 -cmd '.timeout 2000' $dir/data/dbf/nettemp.db < $dir/app/schema/nettemp.sql
-
-#restore 
-#sqlite3 $dir/data/dbf/nettemp.db < $dir/data/dbf/nettemp.dump
+#restore
+python3 $dir/app/scripts/db_schema.py
 
 # update
 python3 $dir/app/scripts/db_update.py

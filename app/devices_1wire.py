@@ -1,6 +1,5 @@
 from app import app
 from flask import Flask, request, jsonify, render_template
-import sqlite3
 from flask_login import login_required
 import os
 from pathlib import Path

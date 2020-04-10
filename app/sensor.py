@@ -6,6 +6,8 @@ import json
 from random import randint
 from flask_jwt_extended import jwt_required
 import datetime
+from flask_mysqldb import MySQL
+mysql = MySQL()
 
 def get_db(rom):
     db = getattr(g, '_database', None)
@@ -23,21 +25,20 @@ def check_value(value, type, rom):
   adj=''
   tm=''
   value=float(value)
-  conn = sqlite3.connect(app.db)
-  c = conn.cursor()
-  sql = ''' SELECT adj, tmp FROM sensors WHERE rom=? '''
-  c.execute(sql, [rom])
-  sensor=c.fetchall()
+  m = mysql.connection.cursor()
+  sql = "SELECT adj, tmp FROM sensors WHERE rom=%s"
+  m.execute(sql, [rom])
+  sensor=m.fetchall()
   for adj, tmp in sensor:
     tmp=float(tmp)
     adj=float(adj)
   msg=[]
-  sql = ''' SELECT min, max, value1, value2, value3 FROM types WHERE type=? '''
-  c.execute(sql, [type])
-  list=c.fetchall()
+  sql = "SELECT min, max, value1, value2, value3 FROM types WHERE type=%s"
+  m.execute(sql, [type])
+  list=m.fetchall()
   msg.append("IN VALUE: %f" % value)
   msg.append(list)
-  conn.close()
+  m.close()
 
   if adj:
     value=float(value)+(adj)
@@ -93,27 +94,28 @@ def insert_db(rom,value):
     return False
 
 def update_sensor_tmp(rom,value):
-  conn = sqlite3.connect(app.db)
-  c = conn.cursor()
+  m = mysql.connection.cursor()
   rom1 = [rom]
-  c.execute("SELECT count() FROM sensors WHERE rom=?", rom1)
-  if c.fetchone()[0]==1:
+  sql="SELECT count(*) FROM sensors WHERE rom=%s"
+  m.execute(sql, rom1)
+  coun=m.fetchone()
+  if coun[0]==1:
     if int(datetime.datetime.now().strftime("%M"))%5==0:
       tmp_5ago=value
-      sql = '''UPDATE sensors SET tmp=?, tmp_5ago=?, nodata='', time=datetime(CURRENT_TIMESTAMP, 'localtime') WHERE rom=?'''
+      sql = "UPDATE sensors SET tmp=%s, tmp_5ago=%s, nodata='', time=CURRENT_TIMESTAMP() WHERE rom=%s"
       data = [value,tmp_5ago,rom]
     else:
-      sql = '''UPDATE sensors SET tmp=?, nodata='', time=datetime(CURRENT_TIMESTAMP, 'localtime') WHERE rom=?'''
+      sql = "UPDATE sensors SET tmp=%s, nodata='', time=CURRENT_TIMESTAMP() WHERE rom=%s"
       data = [value,rom]
-    c.execute(sql, data)
+    m.execute(sql, data)
     # stat min max
     data = [value, value, rom]
-    sql = '''UPDATE sensors SET stat_min=?, stat_min_time=datetime(CURRENT_TIMESTAMP, 'localtime') WHERE (stat_min>? OR stat_min is null OR stat_min='0.0') AND rom=?'''
-    c.execute(sql, data)
-    sql = '''UPDATE sensors SET stat_max=?, stat_max_time=datetime(CURRENT_TIMESTAMP, 'localtime') WHERE (stat_max<? OR stat_max is null OR stat_max='0.0') AND rom=?'''
-    c.execute(sql, data)
-    conn.commit()
-    conn.close()
+    sql = "UPDATE sensors SET stat_min=%s, stat_min_time=CURRENT_TIMESTAMP() WHERE (stat_min>%s OR stat_min is null OR stat_min='0.0') AND rom=%s"
+    m.execute(sql, data)
+    sql = "UPDATE sensors SET stat_max=%s, stat_max_time=CURRENT_TIMESTAMP() WHERE (stat_max<%s OR stat_max is null OR stat_max='0.0') AND rom=%s"
+    m.execute(sql, data)
+    m.connection.commit()
+    m.close()
     print ("[ nettemp ][ sensor ] Sensor %s updated" %rom)
     return True
   else:
@@ -132,28 +134,29 @@ def delete_db(rom):
 
 def delete_sensor(id,rom):
   data = [id, rom]
-  conn = sqlite3.connect(app.db)
-  c = conn.cursor()
-  c.execute("DELETE FROM sensors WHERE id=? AND rom=?", data)
-  conn.commit()
-  conn.close()
+  m = mysql.connection.cursor()
+  sql="DELETE FROM sensors WHERE id=? AND rom=%s"
+  m.execute(sql, data)
+  m.connection.commit()
+  m.close()
   delete_db(rom)
   print ("[ nettemp ][ sensor ] Sensor %s removed ok" %rom)
 
 def create_sensor(rom, data, data2, map_settings):
-  conn = sqlite3.connect(app.db)
-  c = conn.cursor()
+  m = mysql.connection.cursor()
   rom1 = [rom]
-  c.execute("SELECT count() FROM sensors WHERE rom=?", rom1)
-  if c.fetchone()[0]==0:
-    sql = '''INSERT INTO sensors (rom,type,device,ip,gpio,i2c,usb,name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
-    c.execute(sql, data)
-    sql2 = '''UPDATE sensors SET alarm='off', adj='0', charts='on', status='on', ch_group=?, tmp_min='0', tmp_max='0', minmax='off', stat_min='0', stat_max='0', tmp_5ago='0', fiveago='on', map_id=?, nodata_time='5', email_delay='10' WHERE rom=?'''
-    c.execute(sql2, data2)
-    map = ''' INSERT OR IGNORE INTO maps (type, pos_x, pos_y, map_on, map_id, display_name) VALUES (?,?,?,?,?,?) '''
-    c.execute(map, map_settings)
-    conn.commit()
-    conn.close()
+  sql = "SELECT count(*) FROM sensors WHERE rom=%s"
+  m.execute(sql, rom1)
+  coun = m.fetchone()
+  if coun[0]==0:
+    sql = "INSERT INTO sensors (rom,type,device,ip,gpio,i2c,usb,name) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    m.execute(sql, data)
+    sql2 = "UPDATE sensors SET alarm='off', adj='0', charts='on', status='on', ch_group=%s, tmp_min='0', tmp_max='0', minmax='off', stat_min='0', stat_max='0', tmp_5ago='0', fiveago='on', map_id=%s, nodata_time='5', email_delay='10' WHERE rom=%s"
+    m.execute(sql2, data2)
+    map = "INSERT INTO maps (type, pos_x, pos_y, map_on, map_id, display_name) VALUES (%s, %s, %s, %s, %s, %s)"
+    m.execute(map, map_settings)
+    m.connection.commit()
+    m.close()
     print ("[ nettemp ][ sensor ] Sensor %s added ok" %rom)
   else:
     print ("[ nettemp ][ sensor ] Sensor %s already exist" %rom)

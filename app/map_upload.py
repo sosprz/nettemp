@@ -43,7 +43,7 @@ def upload_file():
 @app.route('/mapimage', methods=['GET'])
 @login_required
 def get_file():
-  file = open(os.path.join(app.config['UPLOAD_FOLDER'], 'map.jpg')).read()
+  file = open(os.path.join(app.config['UPLOAD_FOLDER'], 'map.jpg'), 'rb').read()
   return file
 
 

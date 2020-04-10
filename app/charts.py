@@ -1,13 +1,13 @@
 from app import app
 from flask import Flask, request, jsonify, render_template
-import sqlite3
 from flask_login import login_required
 from app.nettemp import nt_settings
+from flask_mysqldb import MySQL
+mysql = MySQL()
 
 @app.route('/charts', methods=['GET', 'POST'])
 @login_required
 def charts():
-  conn = sqlite3.connect(app.db)
 
   max = request.args.get("max")
   single = request.args.get("single")
@@ -17,27 +17,28 @@ def charts():
   mode = request.args.get("mode")
 
   if group:
-   c = conn.cursor()
-   c.execute("select name FROM sensors WHERE ch_group=? AND charts='on'", (group,))
-   names = c.fetchall()
+   m = mysql.connection.cursor()
+   m.execute("select name FROM sensors WHERE ch_group=%s AND charts='on'", (group,))
+   names = m.fetchall()
   elif single:
-   c = conn.cursor()
-   c.execute("select name FROM sensors WHERE name=? AND charts='on'", (single,))
-   names = c.fetchall()
+   m = mysql.connection.cursor()
+   m.execute("select name FROM sensors WHERE name=%s AND charts='on'", (single,))
+   names = m.fetchall()
   else:
-   c = conn.cursor()
-   c.execute("select name FROM sensors WHERE type=? AND charts='on'", (type,))
-   names = c.fetchall()
+   m = mysql.connection.cursor()
+   m.execute("select name FROM sensors WHERE type=%s AND charts='on'", (type,))
+   names = m.fetchall()
 
-  c.execute(''' select DISTINCT type FROM sensors WHERE charts='on' ''')
-  types = c.fetchall()
+  m.execute(''' select DISTINCT type FROM sensors WHERE charts='on' ''')
+  types = m.fetchall()
 
-  c.execute(''' select DISTINCT ch_group FROM sensors WHERE charts='on' AND ch_group!='none' ''')
-  groups = c.fetchall()
+  m.execute(''' select DISTINCT ch_group FROM sensors WHERE charts='on' AND ch_group!='none' ''')
+  groups = m.fetchall()
   
-  c.execute(''' select DISTINCT type, unit FROM types ''')
-  units = c.fetchall()
-  conn.close()
+  m.execute(''' select DISTINCT type, unit FROM types ''')
+  units = m.fetchall()
+
+  m.close()
 
   names = [i[0] for i in names]
   names = list(set(names))

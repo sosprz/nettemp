@@ -3,7 +3,6 @@ Flask==1.1.1
 itsdangerous==1.1.0
 Jinja2==2.11.1
 MarkupSafe==1.1.1
-pkg-resources==0.0.0
 Werkzeug==1.0.0
 Gunicorn
 py
@@ -16,6 +15,9 @@ flask-jwt-extended
 psutil
 adafruit-circuitpython-htu21d
 adafruit-circuitpython-tsl2561
-Adafruit_DHT
 Adafruit-BMP
 adafruit-circuitpython-adxl34x
+adafruit-circuitpython-dht
+flask_mysqldb
+configobj
+mysql-connector-python

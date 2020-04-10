@@ -4,13 +4,15 @@ from flask import Flask, request, jsonify, render_template
 import sqlite3
 from flask_login import login_required
 from app.nettemp import nt_settings
+from flask_mysqldb import MySQL
+mysql = MySQL()
+
 
 def queryselectsensors():
-  conn = sqlite3.connect(app.db)
-  c = conn.cursor()
-  c.execute(''' SELECT maps.map_id, sensors.name, maps.map_on, maps.display_name, maps.transparent_bkg, maps.background_color, maps.background_low, maps.background_high, maps.font_color, maps.font_size FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id ''')
-  data = c.fetchall()  
-  conn.close()
+  m = mysql.connection.cursor()
+  m.execute("SELECT maps.map_id, sensors.name, maps.map_on, maps.display_name, maps.transparent_bkg, maps.background_color, maps.background_low, maps.background_high, maps.font_color, maps.font_size FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id")
+  data = m.fetchall()  
+  m.close()
   return data
 
 
@@ -21,32 +23,44 @@ def settings_map():
     if request.form.get('send-map-image') == 'yes':
       map_height = request.form['map_height']
       map_width = request.form['map_width']
-      conn = sqlite3.connect(app.db)
-      c = conn.cursor()
-      c.execute("UPDATE nt_settings SET value=? WHERE option='map_width'", (map_width,))
-      c.execute("UPDATE nt_settings SET value=? WHERE option='map_height'", (map_height,))
-      conn.commit()
-      conn.close()
+      m = mysql.connection.cursor()
+      m.execute("UPDATE nt_settings SET value=%s WHERE option='map_width'", (map_width,))
+      m.execute("UPDATE nt_settings SET value=%s WHERE option='map_height'", (map_height,))
+      m.connection.commit()
+      m.close()
     if request.form.get('send') == 'yes':
       name = request.form['name']
       value = request.form['value']
       id = request.form['id']
-      conn = sqlite3.connect(app.db)
-      c = conn.cursor()
-      sql = "UPDATE maps SET %s=? WHERE map_id=?" % name 
-      data = [value,id,]
-      c.execute(sql, data)
-      conn.commit()
-      conn.close()
+      m = mysql.connection.cursor()
+      if name=='transparent_bkg':
+        sql = "UPDATE maps SET transparent_bkg=%s WHERE map_id=%s"
+      if name=='map_on':
+        sql = "UPDATE maps SET map_on=%s WHERE map_id=%s"
+      if name=='font_size':
+        sql = "UPDATE maps SET font_size=%s WHERE map_id=%s"
+      if name=='font_color':
+        sql = "UPDATE maps SET font_color=%s WHERE map_id=%s"
+      if name=='display_name':
+        sql = "UPDATE maps SET display_name=%s WHERE map_id=%s"
+      if name=='background_low':
+        sql = "UPDATE maps SET background_low=%s WHERE map_id=%s"
+      if name=='background_high':
+        sql = "UPDATE maps SET background_high=%s WHERE map_id=%s"
+      if name=='background_color':
+        sql = "UPDATE maps SET background_color=%s WHERE map_id=%s"
+      data = (value,id,)
+      m.execute(sql, data)
+      m.connection.commit()
+      m.close()
     if request.form.get('send-default') == 'yes':
       id = request.form['id']
-      conn = sqlite3.connect(app.db)
-      c = conn.cursor()
-      sql = "UPDATE maps SET map_on='on', transparent='', control_on_map='', display_name='', background_color='', background_low='', background_high='', font_color='', font_size='', icon='' WHERE map_id=?"
+      m = mysql.connection.cursor()
+      sql = "UPDATE maps SET map_on='on', transparent_bkg='', control_on_map='', display_name='', background_color='', background_low='', background_high='', font_color='', font_size='', icon='' WHERE map_id=%s"
       data = [id,]
-      c.execute(sql, data)
-      conn.commit()
-      conn.close()
+      m.execute(sql, data)
+      m.connection.commit()
+      m.close()
     
 
   data = queryselectsensors()

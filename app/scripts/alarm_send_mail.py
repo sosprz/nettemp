@@ -6,12 +6,22 @@ from datetime import timedelta
 import sys, os
 import socket
 from subprocess import check_output
+import mysql.connector
+from configobj import ConfigObj, os
+
 dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..')))
 sys.path.append(dir)
+config = ConfigObj(dir+'/data/config.cfg')
+
+mydb = mysql.connector.connect(
+  host=config.get('MYSQL_HOST'),
+  user=config.get('MYSQL_USER'),
+  passwd=config.get('MYSQL_PASSWORD'),
+  database=config.get('MYSQL_DB')
+)
 
 
 dba=dir+'/data/dba/alarms.db'
-dbf=dir+'/data/dbf/nettemp.db'
 schema=dir+'/app/schema/alarms_db_schema.sql'
 def new_dba():
   conn = sqlite3.connect(dba)
@@ -32,10 +42,11 @@ def new_dba():
 def insert_dba(name, value, unit, action, status, min, max, type):
   conn = sqlite3.connect(dba)
   c = conn.cursor()
-  c.execute(''' SELECT count() FROM sqlite_master WHERE type='table' AND name='def' ''')
-  if c.fetchone()[0]==1:
+  c.execute("SELECT count() FROM sqlite_master WHERE type='table' AND name='def'")
+  coun=c.fetchone()
+  if coun[0]==1:
     data = [name, value, unit, action, status, min, max, type]
-    sql = ''' INSERT OR IGNORE INTO def (name, value, unit, action, status, min, max, type) VALUES (?,?,?,?,?,?,?,?) '''
+    sql = "INSERT OR IGNORE INTO def (name, value, unit, action, status, min, max, type) VALUES (?,?,?,?,?,?,?,?)"
     c.execute(sql, data)
     conn.commit()
     conn.close()
@@ -47,25 +58,24 @@ def insert_dba(name, value, unit, action, status, min, max, type):
 
 
 def check_alarm():
-  conn = sqlite3.connect(dbf)
-  c = conn.cursor()
-  c.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, sensors.tmp_max, sensors.alarm_status, sensors.type FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.alarm=='on'")
-  data = c.fetchall()
-  conn.close()
+  m = mydb.cursor()
+  m.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, sensors.tmp_max, sensors.alarm_status, sensors.type FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.alarm='on'")
+  data = m.fetchall()
+  m.close()
+
 
   def update_alarm_status(id, status):
     """ action sent or recovery """
-    conn = sqlite3.connect(dbf)
-    c = conn.cursor()
+    m = mydb.cursor()
     if status == 'recovery':
       data = [id]
-      sql = ''' UPDATE sensors SET alarm_status='', alarm_recovery_time=datetime(CURRENT_TIMESTAMP, 'localtime') WHERE id=? '''
+      sql = ''' UPDATE sensors SET alarm_status='', alarm_recovery_time=CURRENT_TIMESTAMP WHERE id=%s '''
     else:
-      sql = ''' UPDATE sensors SET alarm_status=? WHERE id=? '''
+      sql = ''' UPDATE sensors SET alarm_status=%s WHERE id=%s '''
       data = [status, id]
-    c.execute(sql, data)
-    conn.commit()
-    conn.close()
+    m.execute(sql, data)
+    mydb.commit()
+    m.close()
 
   msg_all = []
 
@@ -113,29 +123,27 @@ def check_alarm():
 
 def check_mail():
   msg_all = [] 
- 
-  conn = sqlite3.connect(dbf)
-  c = conn.cursor()
-  c.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, \
+
+  m = mydb.cursor()
+  m.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, \
              sensors.tmp_max, sensors.email_status, sensors.email_time, sensors.email_delay, \
              sensors.alarm_recovery_time, sensors.alarm_status, sensors.nodata, sensors.nodata_time \
              FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.email='on'")
-  data = c.fetchall()
-  conn.close()
+  data = m.fetchall()
+  m.close()
 
   def update_mail(id, action):
     """ action sent or recovery """
-    conn = sqlite3.connect(dbf)
-    c = conn.cursor()
+    m = mydb.cursor()
     if action == 'recovery':
       data = [id]
-      sql = ''' UPDATE sensors SET email_status='' WHERE id=? '''
+      sql = "UPDATE sensors SET email_status='' WHERE id=%s"
     else:
-      sql = ''' UPDATE sensors SET email_status=?, email_time=datetime(CURRENT_TIMESTAMP, 'localtime') WHERE id=? '''
+      sql = "UPDATE sensors SET email_status=%s, email_time=CURRENT_TIMESTAMP WHERE id=%s"
       data = [action, id]
-    c.execute(sql, data)
-    conn.commit()
-    conn.close()
+    m.execute(sql, data)
+    mydb.commit()
+    m.close()
 
   msg_all = []
   for id, name, tmp, unit, min, max, email_status, email_time, email_delay, alarm_recovery_time, alarm_status, nodata, nodata_time in data:
@@ -190,22 +198,21 @@ def check_mail():
 # MAIN 
 check_alarm()
 
-conn = sqlite3.connect(dbf)
-c = conn.cursor()
-c.execute("select email FROM users WHERE receive_mail=='yes' ")
-recipients = [str(x[0]) for x in c.fetchall()]
-conn.close()
+m = mydb.cursor()
+m.execute("select email FROM users WHERE receive_mail='yes' ")
+recipients = [str(x[0]) for x in m.fetchall()]
+
 
 if recipients:
   hostname = socket.gethostname()
   host_ip = check_output(['hostname', '-I']).decode()
   data=check_mail()
-  conn = sqlite3.connect(dbf)
-  conn.row_factory = sqlite3.Row
-  c = conn.cursor()
-  c.execute(''' SELECT option, value FROM nt_settings ''')
-  s = c.fetchall()  
-  conn.close()
+
+  m = mydb.cursor()
+  m.execute(''' SELECT option, value FROM nt_settings ''')
+  s = m.fetchall()  
+  mydb.commit()
+  m.close()
 
   for k, v in s:
    if k=='smtp_user':

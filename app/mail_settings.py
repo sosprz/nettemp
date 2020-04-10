@@ -1,9 +1,10 @@
 from app import app
 from flask import Flask, request, jsonify, render_template
-import sqlite3
 from flask_login import login_required
 from smtplib import *
 from app.nettemp import nt_settings
+from flask_mysqldb import MySQL
+mysql = MySQL()
 
 #global info
 
@@ -17,15 +18,16 @@ def mail_settings():
       smtp_server = request.form['smtp_server']
       smtp_port = request.form['smtp_port']
       mail_subject = request.form['mail_subject']
-      conn = sqlite3.connect(app.db)
-      c = conn.cursor()
-      c.execute("UPDATE nt_settings SET value=? WHERE option='smtp_user'", (smtp_user,))
-      c.execute("UPDATE nt_settings SET value=? WHERE option='smtp_p'", (smtp_p,))
-      c.execute("UPDATE nt_settings SET value=? WHERE option='smtp_server'", (smtp_server,))
-      c.execute("UPDATE nt_settings SET value=? WHERE option='smtp_port'", (smtp_port,))
-      c.execute("UPDATE nt_settings SET value=? WHERE option='mail_subject'", (mail_subject,))
-      conn.commit()
-      conn.close()
+
+      m = mysql.connection.cursor()
+      m.execute("UPDATE nt_settings SET value=%s WHERE option='smtp_user'", (smtp_user,))
+      m.execute("UPDATE nt_settings SET value=%s WHERE option='smtp_p'", (smtp_p,))
+      m.execute("UPDATE nt_settings SET value=%s WHERE option='smtp_server'", (smtp_server,))
+      m.execute("UPDATE nt_settings SET value=%s WHERE option='smtp_port'", (smtp_port,))
+      m.execute("UPDATE nt_settings SET value=%s WHERE option='mail_subject'", (mail_subject,))
+      m.connection.commit()
+      m.close()
+
     if request.form.get('send-test-mail') == 'yes':
       import smtplib, ssl
       from email.mime.text import MIMEText
@@ -33,12 +35,10 @@ def mail_settings():
       recipient = request.form['recipient']
       try:
         if recipient:
-          conn = sqlite3.connect(app.db)
-          conn.row_factory = sqlite3.Row
-          c = conn.cursor()
-          c.execute(''' SELECT option, value FROM nt_settings ''')
-          s = c.fetchall()  
-          conn.close()
+          m = mysql.connection.cursor()
+          m.execute("SELECT option, value FROM nt_settings")
+          s = m.fetchall()  
+          m.close()
 
           for k, v in s:
             if k=='smtp_user':

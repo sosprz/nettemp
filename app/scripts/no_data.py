@@ -1,8 +1,18 @@
-import sqlite3, os
 import datetime
 from datetime import timedelta
+import mysql.connector
+from configobj import ConfigObj, os
+
 dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..')))
-DB=dir+'/data/dbf/nettemp.db'
+config = ConfigObj(dir+'/data/config.cfg')
+
+mydb = mysql.connector.connect(
+  host=config.get('MYSQL_HOST'),
+  user=config.get('MYSQL_USER'),
+  passwd=config.get('MYSQL_PASSWORD'),
+  database=config.get('MYSQL_DB')
+)
+
 
 print('[ nettemp ][ no_data ] checker')
 def check_nodata():
@@ -28,11 +38,10 @@ def check_nodata():
     print(msg)
     return (out)
 
-  conn = sqlite3.connect(DB)
-  c = conn.cursor()
-  c.execute("select id, time, name, nodata_time FROM sensors ")
-  time = c.fetchall()
-  conn.close()
+  m = mydb.cursor()
+  m.execute("select id, time, name, nodata_time FROM sensors ")
+  time = m.fetchall()
+  m.close()
 
   list = []
   for id, time, name, nodata_time in time:
@@ -42,13 +51,13 @@ def check_nodata():
   print('[ nettemp ][ no_data ] id list')
   print("[ nettemp ][ no_data ] %s" % list)
   if list:
-    conn = sqlite3.connect(DB)
-    c = conn.cursor()
-    sql = "UPDATE sensors SET nodata='nodata' WHERE id=?"
+
+    m = mydb.cursor()
+    sql = "UPDATE sensors SET nodata='nodata' WHERE id=%s"
     for id, name in list:
-      c.execute(sql, [id])
-    conn.commit()
-    conn.close()
+      m.execute(sql, [id])
+    mydb.commit()
+    m.close()
 
 check_nodata()
 

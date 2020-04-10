@@ -1,9 +1,9 @@
 from app import app
 from flask import Flask, render_template, request , abort , redirect , Response, url_for
 from flask_login import LoginManager , login_required , UserMixin , login_user, current_user, logout_user
-import sqlite3
 from flask_bcrypt import Bcrypt
-
+from flask_mysqldb import MySQL
+mysql = MySQL()
 
 login_manager = LoginManager()
 login_manager.login_view = "login"
@@ -44,17 +44,16 @@ def login():
     password = request.form['password']
     print ("Login form: %s" % username)
 
-    conn = sqlite3.connect(app.db)
-    conn.row_factory = sqlite3.Row
-    c = conn.cursor()
-    c.execute("SELECT id, username, password, email, active FROM users WHERE username=?", (username,))
-    data = c.fetchone()
-    conn.close()
+    m = mysql.connection.cursor()
+    m.execute("SELECT id, username, password, email, active FROM users WHERE username=%s", (username,))
+    data = m.fetchone()
+    print(data)
+    m.close()
     if data != None:
-      pass_from_db = data['password']
-      if username != None and username == data['username'] and bcrypt.check_password_hash(pass_from_db,password) and 'yes' == data['active']:
+      pass_from_db = data[2]
+      if username != None and username == data[1] and bcrypt.check_password_hash(pass_from_db,password) and 'yes' == data[4]:
         print('Logged in..')
-        user = User(data['id'], data['active'], data['username'])
+        user = User(data[0], data[4], data[1])
         login_user(user)
         #if not current_user.is_active():
         #  return render_template('login.html')
@@ -73,14 +72,12 @@ def login():
 """ callback to reload the user object """
 @login_manager.user_loader
 def load_user(userid):
-  conn = sqlite3.connect(app.db)
-  conn.row_factory = sqlite3.Row
-  c = conn.cursor()
-  c.execute("SELECT id, active, username FROM users WHERE id=?", (userid,))
-  data = c.fetchone() 
-  conn.close()
+  m = mysql.connection.cursor()
+  m.execute("SELECT id, active, username FROM users WHERE id=%s", (userid,))
+  data = m.fetchone()
+  m.close()
   if data is not None:
-    user = User(data['id'], data['active'], data['username'])
+    user = User(data[0], data[1], data[2])
     return user
   else:
     return None

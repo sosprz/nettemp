@@ -3,6 +3,9 @@ from flask import Flask, request
 import sqlite3
 import json
 from flask_login import login_required
+from flask_mysqldb import MySQL
+mysql = MySQL()
+
 
 @app.route('/data/charts/', methods=['GET', 'POST'])
 @login_required
@@ -73,15 +76,16 @@ def data_charts():
    return sql
 
 
-  conn = sqlite3.connect(app.db)
-  c = conn.cursor()
+  m = mysql.connection.cursor()
   data = [str(name)]
   name = str(name)
-  c.execute("SELECT rom FROM sensors WHERE name=? AND charts='on'", (name,))
-  rom = c.fetchone()[0]
-  c.execute("SELECT value FROM nt_settings WHERE option='quick_charts'") 
-  quick_charts = c.fetchone()[0] 
-  conn.close();
+
+  m.execute("SELECT rom FROM sensors WHERE name=%s AND charts='on'", (name,))
+  rom = m.fetchone()[0]
+  m.execute("SELECT value FROM nt_settings WHERE option='quick_charts'") 
+  quick_charts = m.fetchone()[0] 
+  quick_charts = quick_charts[0] 
+  m.close();
   rom = rom+'.sql'
   conn = sqlite3.connect(app.romdir+rom)
   c = conn.cursor()

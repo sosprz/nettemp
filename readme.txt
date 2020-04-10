@@ -1,5 +1,10 @@
 # nettemp.pl
 
+!!!
+This is version with Mysql as main base and sqlite3 for sensors data. This is must, baseause sqlite can't handle many writers at once.
+Setup scripts install mysql server, create database, all data and all configurations.
+
+
 # Install
 
 sudo su - && mkdir -p /var/www/ && cd /var/www/ && git clone https://github.com/sosprz/nettemp && cd nettemp && ./setup.sh

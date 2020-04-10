@@ -42,7 +42,6 @@ All:
 <th title="Min / Max on or off in status">Status  Min / Max</th>
 <th title="5 Min stats on or off in status">5 min status</th>
 <th title="Enabel/disable charts for sensor">Charts</th>
-<th title="Enable/Disable sensor on map">Map</th>
 <th title="Enable/Disable send to remote server">Node</th>
 <th title="Create new group">New group</th>
 <th title="Choose group">Group</th>
@@ -192,15 +191,6 @@ All:
     </form>
     </td>
 
-    {# map #}
-    <td class="col">
-    <form action="" method="post" > 	
-	<input type="hidden" name="id" value="{{ map_id }}" />
-	<button type="submit" name="map_on" value="{{ 'off' if map_on == 'on' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if map_on == 'on' else 'btn btn-xs btn-default' }}">{{ 'ON' if map_on == 'on' else 'OFF' }}</button>
-	<input type="hidden" name="send-map" value="yes" />
-    </form>
-    </td>
-    
     {# node #}
     <td class="col">
     <form action="" method="post" > 	
@@ -285,18 +275,6 @@ All:
 {% endif %}
   </td>
   <td>
-{% if not get_id %}
-    <form action="" method="post" style="display:inline!important;">
-      <input type="hidden" name="add-all" value="yes" />
-      <input type="hidden" name="function" value="email" />
-      <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
-    </form>
-    <form action="" method="post" style="display:inline!important;">
-      <input type="hidden" name="del-all" value="yes" />
-      <input type="hidden" name="function" value="email" />
-      <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
-    </form>
-{% endif %}
   </td>
   <td>
 {% if not get_id %}
@@ -343,13 +321,15 @@ All:
   <td>
 {% if not get_id %}
   <form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="add-all" value="yes" />
-    <input type="hidden" name="function" value="minmax" />
+    <input type="hidden" name="v" value="on" />
+    <input type="hidden" name="f" value="minmax" />
+    <input type="hidden" name="send-copy" value="yes" />
     <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
   </form>
   <form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="del-all" value="yes" />
-    <input type="hidden" name="function" value="minmax" />
+    <input type="hidden" name="v" value="NULL" />
+    <input type="hidden" name="f" value="minmax" />
+    <input type="hidden" name="send-copy" value="yes" />
     <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
   </form>
 {% endif %}
@@ -357,13 +337,15 @@ All:
 <td>
 {% if not get_id %}
   <form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="add-all" value="yes" />
-    <input type="hidden" name="function" value="fiveago" />
+    <input type="hidden" name="v" value="on" />
+    <input type="hidden" name="f" value="fiveago" />
+    <input type="hidden" name="send-copy" value="yes" />
     <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
   </form>
   <form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="del-all" value="yes" />
-    <input type="hidden" name="function" value="fiveago" />
+    <input type="hidden" name="v" value="NULL" />
+    <input type="hidden" name="f" value="fiveago" />
+    <input type="hidden" name="send-copy" value="yes" />
     <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
   </form>
 {% endif %}
@@ -371,50 +353,35 @@ All:
 <td>
 {% if not get_id %}
   <form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="add-all" value="yes" />
-    <input type="hidden" name="function" value="charts" />
+    <input type="hidden" name="v" value="on" />
+    <input type="hidden" name="f" value="charts" />
+    <input type="hidden" name="send-copy" value="yes" />
     <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
   </form>
   <form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="del-all" value="yes" />
-    <input type="hidden" name="function" value="charts" />
+    <input type="hidden" name="v" value="NULL" />
+    <input type="hidden" name="f" value="charts" />
+    <input type="hidden" name="send-copy" value="yes" />
     <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
   </form>
 {% endif %}
 </td>
 <td>
 {% if not get_id %}
-{% if not get_group  %}
-{% if not get_type  %}
   <form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="add-all-map" value="yes" />
-    <input type="hidden" name="function" value="map_on" />
+    <input type="hidden" name="v" value="on" />
+    <input type="hidden" name="f" value="node" />
+    <input type="hidden" name="send-copy" value="yes" />
     <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
   </form>
   <form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="del-all-map" value="yes" />
-    <input type="hidden" name="function" value="map_on" />
-    <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
-  </form>
-{% endif %}
-{% endif %}
-{% endif %}
-</td>
-<td>
-{% if not get_id %}
-  <form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="add-all" value="yes" />
-    <input type="hidden" name="function" value="node" />
-    <button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> </button>
-  </form>
-  <form action="" method="post" style="display:inline!important;">
-    <input type="hidden" name="del-all" value="yes" />
-    <input type="hidden" name="function" value="node" />
+    <input type="hidden" name="v" value="NULL" />
+    <input type="hidden" name="f" value="node" />
+    <input type="hidden" name="send-copy" value="yes" />
     <button class="btn btn-xs btn-info "><span class="glyphicon glyphicon-minus"></span> </button>
   </form>
 {% endif %}
 </td>
-
 <td></td>
 <td></td>
 <td>

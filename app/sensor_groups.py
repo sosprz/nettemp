@@ -1,10 +1,10 @@
 from app import app
 from flask import Flask, render_template, request, jsonify
-import sqlite3
 from flask_login import login_required
 import datetime
 from datetime import timedelta
-
+from flask_mysqldb import MySQL
+mysql = MySQL()
 
 def check_time(last_time):
   fmt = '%Y-%m-%d %H:%M:%S'
@@ -27,22 +27,23 @@ def check_time(last_time):
 @login_required
 def index():
   if request.method == "POST":
-    conn = sqlite3.connect(app.db)
-    c = conn.cursor()
+    m = mysql.connection.cursor()
     data=[]
     data=request.form
+    print(data)
     sid=1
     for id in data:
-      c.execute("UPDATE sensors SET sid=? WHERE id=?", (sid,id,))
+      sql = "UPDATE sensors SET sid=%s WHERE id=%s"
+      data = (sid,id,)
+      m.execute(sql, data )
       sid+=1
-    conn.commit()
-    conn.close()
+    m.connection.commit()
+    m.close()
 
-  conn = sqlite3.connect(app.db)
-  c = conn.cursor()
-  c.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, types.unit2, types.ico, types.title, sensors.type, sensors.ch_group, sensors.tmp_5ago, sensors.stat_min, sensors.stat_max, sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.time, sensors.minmax, sensors.charts, sensors.fiveago, sensors.stat_min_time, sensors.stat_max_time, sensors.email, sensors.nodata, sensors.nodata_time FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE ch_group!='none' ORDER BY sid ASC")
-  sensors = c.fetchall()
-  c.execute("select DISTINCT sensors.ch_group FROM sensors WHERE sensors.ch_group!='none'")
-  ch_group = c.fetchall()
-  conn.close()
+  m = mysql.connection.cursor()
+  m.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, types.unit2, types.ico, types.title, sensors.type, sensors.ch_group, sensors.tmp_5ago, sensors.stat_min, sensors.stat_max, sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.time, sensors.minmax, sensors.charts, sensors.fiveago, sensors.stat_min_time, sensors.stat_max_time, sensors.email, sensors.nodata, sensors.nodata_time FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE ch_group!='none' ORDER BY sid ASC")
+  sensors = m.fetchall()
+  m.execute("select DISTINCT sensors.ch_group FROM sensors WHERE sensors.ch_group!='none'")
+  ch_group = m.fetchall()
+  m.close()
   return render_template('sensor_groups.html', sensors=sensors, ch_group=ch_group)

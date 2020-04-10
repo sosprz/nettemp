@@ -6,14 +6,16 @@ import requests
 from requests import ReadTimeout, ConnectTimeout, HTTPError, Timeout, ConnectionError
 requests.packages.urllib3.disable_warnings() 
 import json
+from flask_mysqldb import MySQL
+mysql = MySQL()
+
 
 def select_sensors():
-  conn = sqlite3.connect(app.db)
-  c = conn.cursor()
-  sql = ''' SELECT id, name, node, node_url, node_token FROM sensors WHERE node='on' '''
-  c.execute(sql)
-  data = c.fetchall()  
-  conn.close()
+  m = mysql.connection.cursor()
+  sql = "SELECT id, name, node, node_url, node_token FROM sensors WHERE node='on'"
+  m.execute(sql)
+  data = m.fetchall()
+  m.close()
   return data
 
 @app.route('/settings/node', methods=['GET','POST'])
@@ -25,38 +27,34 @@ def settings_node():
       if request.form.get('send-url') == 'yes':
         url = request.form['url']
         id = request.form['id']
-        conn = sqlite3.connect(app.db)
-        c = conn.cursor()
-        c.execute("UPDATE sensors SET node_url=? WHERE id=?", (url,id,))
-        conn.commit()
-        conn.close()
+        m = mysql.connection.cursor()
+        m.execute("UPDATE sensors SET node_url=%s WHERE id=%s", (url,id,))
+        m.connection.commit()
+        m.close()
 
       if request.form.get('send-token') == 'yes':
         token = request.form['token']
         id = request.form['id']
-        conn = sqlite3.connect(app.db)
-        c = conn.cursor()
-        c.execute("UPDATE sensors SET node_token=? WHERE id=?", (token,id,))
-        conn.commit()
-        conn.close()
+        m = mysql.connection.cursor()
+        m.execute("UPDATE sensors SET node_token=%s WHERE id=%s", (token,id,))
+        m.connection.commit()
+        m.close()
 
       if request.form.get('send-copy') == 'yes':
         node_token = request.form['node_token']
         node_url = request.form['node_url']
         node_url.replace("register", "sensor")
-        conn = sqlite3.connect(app.db)
-        c = conn.cursor()
-        c.execute("UPDATE sensors SET node_token=?, node_url=? WHERE node='on'", (node_token,node_url,))
-        conn.commit()
-        conn.close()
+        m = mysql.connection.cursor()
+        m.execute("UPDATE sensors SET node_token=%s, node_url=%s WHERE node='on'", (node_token,node_url,))
+        m.connection.commit()
+        m.close()
 
       if request.form.get('send-del') == 'yes':
         id = request.form['id']
-        conn = sqlite3.connect(app.db)
-        c = conn.cursor()
-        c.execute("UPDATE sensors SET node_token='', node_url='' WHERE id=?", (id,))
-        conn.commit()
-        conn.close()
+        m = mysql.connection.cursor()
+        m.execute("UPDATE sensors SET node_token='', node_url='' WHERE id=%s", (id,))
+        m.connection.commit()
+        m.close()
 
       if request.form.get('send-request') == 'yes':
         url = request.form['url']
