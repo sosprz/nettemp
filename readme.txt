@@ -63,6 +63,7 @@ VL53l0X 0x29 distance
 ADXL345/ADXL343 0x53 3 axis accelerometer, motion detection 
 
 ## GPIO sensors
+DHT11 temperature, humidity
 DHT22 temperature, humidity
 DS18b20 1wire temperature
 

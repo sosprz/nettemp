@@ -10,18 +10,6 @@ app.dba = app.config["DBA"]
 import configparser, os
 from flask_mysqldb import MySQL
 
-#config = configparser.ConfigParser()
-#dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..')))
-#config.read(dir+'/data/mysql.cfg')
-
-#from configobj import ConfigObj
-#config = ConfigObj(dir+'/data/mysql.cfg')
-#app.config.get('MYSQL_HOST')
-#app.config.get('MYSQL_USER')
-#app.config.get('MYSQL_PASSWORD')
-#app.config.get('MYSQL_DB')
-
-
 app.config['MYSQL_HOST']
 app.config['MYSQL_USER']
 app.config['MYSQL_PASSWORD']
@@ -31,7 +19,7 @@ mysql = MySQL(app)
 
 from app import charts_data, sensor, sensor_settings, charts
 from app import map, sensor_groups, info, types_settings
-from app import charts_settings, map_settings, map_upload, nettemp_settings
+from app import charts_settings, map_settings, map_upload, nettemp_settings, db_settings, db_edit
 from app import users_settings, mail_settings, devices_drivers, devices_1wire, alarms, devices_gpio, node_settings
 from app import login, jwt
 import sqlite3
