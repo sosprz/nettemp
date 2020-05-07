@@ -16,3 +16,4 @@ psutil
 flask_mysqldb
 configobj
 mysql-connector-python
+wheel
