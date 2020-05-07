@@ -7,7 +7,7 @@ Setup scripts install mysql server, create database, all data and all configurat
 
 # Install
 
-sudo mkdir -p /var/www/ && cd /var/www/ && git clone https://github.com/sosprz/nettemp && cd nettemp && ./setup.sh
+sudo mkdir -p /var/www/ && sudo cd /var/www/ && sudo git clone https://github.com/sosprz/nettemp && sudo cd nettemp && sudo ./setup.sh
 
 # Update
 
