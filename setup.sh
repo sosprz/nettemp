@@ -15,6 +15,10 @@ app/scripts/perms.sh
 echo -n -e "VENV \r"
 app/scripts/venv.sh
 
+# drivers
+echo -n -e "DRIVERS \r"
+app/scripts/drivers.sh
+
 # CONFIG
 echo -n -e "CONFIG \r"
 app/scripts/config.sh
