@@ -1,8 +1,10 @@
 from app import app
 from flask import Flask, request, jsonify, g
-import sqlite3, os, json, datetime
+import os, json, datetime
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 from flask_bcrypt import Bcrypt
+from flask_mysqldb import MySQL
+mysql = MySQL()
 
 
 bcrypt = Bcrypt()
@@ -20,15 +22,14 @@ def register():
     if not password:
         return jsonify({"msg": "Missing password parameter"}), 400
 
-    conn = sqlite3.connect(app.db)
-    conn.row_factory = sqlite3.Row
-    c = conn.cursor()
-    c.execute("SELECT username, password, jwt FROM users WHERE username=?", (username,))
-    data = c.fetchone()
-    conn.close()
+    m = mysql.connection.cursor()
+    m.execute("SELECT username, password, jwt FROM users WHERE username=%s", (username,))
+    data = m.fetchone()
+    
     if data != None:
-      pass_from_db = data['password']
-      if username != None and username == data['username'] and bcrypt.check_password_hash(pass_from_db,password) and 'yes' == data['jwt']:
+      pass_from_db = data[1]
+      print(bcrypt.check_password_hash(pass_from_db,password))
+      if username != None and username == data[0] and bcrypt.check_password_hash(pass_from_db,password) and 'yes' == data[2]:
         print('JWT Logged in..')
         expires = datetime.timedelta(days=365)
         access_token = create_access_token(identity=username, expires_delta=expires)
