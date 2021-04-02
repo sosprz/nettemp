@@ -1,7 +1,14 @@
 # nettemp.pl
 
-This is a version with MySQL as the main base and sqlite3 for sensors data. This is a must because SQLite can't handle many writers at once. Setup scripts install MySQL server, create a database, all data, and all configurations.
+![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp5/img/nettemp-status.png)
+![nettemp charts](https://github.com/sosprz/nettemp/raw/nettemp5/img/nettemp-charts.png)
+![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp5/img/nettemp-map.png)
+![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp5/img/nettemp-alarms.png)
+![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp5/img/nettemp-settings.png)
 
+# info
+
+This is a version with MySQL as the main base and sqlite3 for sensors data. This is a must because SQLite can't handle many writers at once. Setup scripts install MySQL server, create a database, all data, and all configurations.
 
 # Install
 
