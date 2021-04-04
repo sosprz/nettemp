@@ -45,7 +45,8 @@ def login():
     print ("Login form: %s" % username)
 
     m = mysql.connection.cursor()
-    m.execute("SELECT id, username, password, email, active FROM users WHERE username=%s", (username,))
+    sql = "SELECT id, username, password, email, active FROM users WHERE username=%s""SELECT id, username, password, email, active FROM users WHERE username=%s"
+    m.execute(sql, (username,))
     data = m.fetchone()
     print(data)
     m.close()
@@ -73,7 +74,8 @@ def login():
 @login_manager.user_loader
 def load_user(userid):
   m = mysql.connection.cursor()
-  m.execute("SELECT id, active, username FROM users WHERE id=%s", (userid,))
+  sql = "SELECT id, active, username FROM users WHERE id=%s"
+  m.execute(sql, (userid,))
   data = m.fetchone()
   m.close()
   if data is not None:
