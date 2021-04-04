@@ -35,7 +35,7 @@ def system_settings():
 @app.context_processor
 def nt_settings():
   m = mysql.connection.cursor()
-  m.execute(''' SELECT option, value FROM nt_settings WHERE option='nt_theme' ''')
+  m.execute("SELECT option, value FROM nt_settings WHERE option='nt_theme'")
   data = m.fetchone()
   m.close()
   nt_theme=data[1]

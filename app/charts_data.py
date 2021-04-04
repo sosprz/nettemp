@@ -39,40 +39,40 @@ def data_charts():
 
   def query(max):
    if max == '15min':
-     sql = ''' select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-15 minutes') '''
+     sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-15 minutes')"
    if max == 'hour':
-     sql = ''' select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 hour') '''
+     sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 hour')"
    if max == 'day':
-     sql = ''' select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 day') '''
+     sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 day')"
    if max == 'week':
-     sql = ''' select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-7 day') '''
+     sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-7 day')"
    if max == 'month':
-     sql = ''' select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 months') '''
+     sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 months')"
    if max == 'months':
-     sql = ''' select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-6 months') '''
+     sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-6 months')"
    if max == 'year':
-     sql = ''' select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 year') '''
+     sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 year')"
    if max == 'all':
-     sql = ''' select strftime('%s', time),value from def '''
+     sql = "select strftime('%s', time),value from def"
    return sql
 
   def querymod(max):
    if max == '15min':
-     sql = ''' select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-15 minutes') '''
+     sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-15 minutes')"
    if max == 'hour':
-     sql = ''' select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 hour') '''
+     sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 hour')"
    if max == 'day':
-     sql = ''' select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 day') AND rowid % 60=0 '''
+     sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 day') AND rowid % 60=0"
    if max == 'week':
-     sql = ''' select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-7 day') AND rowid % 240=0 '''
+     sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-7 day') AND rowid % 240=0"
    if max == 'month':
-     sql = ''' select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 months') AND rowid % 1440=0 '''
+     sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 months') AND rowid % 1440=0"
    if max == 'months':
-     sql = ''' select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-6 months')  AND rowid % 1440=0 '''
+     sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-6 months')  AND rowid % 1440=0"
    if max == 'year':
-     sql = ''' select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 year') AND rowid % 10080=0 '''
+     sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 year') AND rowid % 10080=0"
    if max == 'all':
-     sql = ''' select strftime('%s', time),value from def '''
+     sql = "select strftime('%s', time),value from def"
    return sql
 
 

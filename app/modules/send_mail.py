@@ -17,7 +17,8 @@ def get_db(dba):
 def new_dba():
   conn = sqlite3.connect(dba)
   c = conn.cursor()
-  c.execute(''' SELECT count() FROM sqlite_master WHERE type='table' AND name='def' ''')
+  sql = "SELECT count() FROM sqlite_master WHERE type='table' AND name='def'"
+  c.execute(sql)
   if c.fetchone()[0]==1:
     print ("Database DBA exists" )
     return True
@@ -33,10 +34,11 @@ def new_dba():
 def insert_dba(name, value, unit, action, status, min, max, type):
   conn = sqlite3.connect(dba)
   c = conn.cursor()
-  c.execute(''' SELECT count() FROM sqlite_master WHERE type='table' AND name='def' ''')
+  sql = "SELECT count() FROM sqlite_master WHERE type='table' AND name='def'"
+  c.execute(sql)
   if c.fetchone()[0]==1:
     data = [name, value, unit, action, status, min, max, type]
-    sql = ''' INSERT OR IGNORE INTO def (name, value, unit, action, status, min, max, type) VALUES (?,?,?,?,?,?,?,?) '''
+    sql = "INSERT OR IGNORE INTO def (name, value, unit, action, status, min, max, type) VALUES (?,?,?,?,?,?,?,?)"
     c.execute(sql, data)
     conn.commit()
     conn.close()
@@ -50,7 +52,8 @@ def insert_dba(name, value, unit, action, status, min, max, type):
 def check_alarm():
   conn = sqlite3.connect(app.db)
   c = conn.cursor()
-  c.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, sensors.tmp_max, sensors.alarm_status, sensors.type FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.alarm=='on'")
+  sql = "select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, sensors.tmp_max, sensors.alarm_status, sensors.type FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.alarm=='on'"
+  c.execute(sql)
   data = c.fetchall()
   conn.close()
 
@@ -60,9 +63,9 @@ def check_alarm():
     c = conn.cursor()
     if status == 'recovery':
       data = [id]
-      sql = ''' UPDATE sensors SET alarm_status='', alarm_recovery_time=datetime(CURRENT_TIMESTAMP, 'localtime') WHERE id=? '''
+      sql = "UPDATE sensors SET alarm_status='', alarm_recovery_time=datetime(CURRENT_TIMESTAMP, 'localtime') WHERE id=?"
     else:
-      sql = ''' UPDATE sensors SET alarm_status=? WHERE id=? '''
+      sql = "UPDATE sensors SET alarm_status=? WHERE id=?"
       data = [status, id]
     c.execute(sql, data)
     conn.commit()
@@ -117,10 +120,11 @@ def check_mail():
  
   conn = sqlite3.connect(app.db)
   c = conn.cursor()
-  c.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, \
+  sql = "select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, \
              sensors.tmp_max, sensors.email_status, sensors.email_time, sensors.email_delay, \
              sensors.alarm_recovery_time, sensors.alarm_status, sensors.nodata \
-             FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.email='on'")
+             FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.email='on'"
+  c.execute(sql)
   data = c.fetchall()
   conn.close()
 
@@ -130,9 +134,9 @@ def check_mail():
     c = conn.cursor()
     if action == 'recovery':
       data = [id]
-      sql = ''' UPDATE sensors SET email_status='' WHERE id=? '''
+      sql = "UPDATE sensors SET email_status='' WHERE id=?"
     else:
-      sql = ''' UPDATE sensors SET email_status=?, email_time=datetime(CURRENT_TIMESTAMP, 'localtime') WHERE id=? '''
+      sql = "UPDATE sensors SET email_status=?, email_time=datetime(CURRENT_TIMESTAMP, 'localtime') WHERE id=?"
       data = [action, id]
     c.execute(sql, data)
     conn.commit()
@@ -193,7 +197,8 @@ check_alarm()
 
 conn = sqlite3.connect(app.db)
 c = conn.cursor()
-c.execute("select email FROM users WHERE receive_mail=='yes' ")
+sql = "select email FROM users WHERE receive_mail=='yes'"
+c.execute(sql)
 recipients = [str(x[0]) for x in c.fetchall()]
 conn.close()
 
@@ -202,7 +207,8 @@ if recipients:
   conn = sqlite3.connect(app.db)
   conn.row_factory = sqlite3.Row
   c = conn.cursor()
-  c.execute(''' SELECT option, value FROM nt_settings ''')
+  "SELECT option, value FROM nt_settings"
+  c.execute(sql)
   s = c.fetchall()  
   conn.close()
 

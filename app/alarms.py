@@ -6,7 +6,7 @@ from flask_login import login_required
 def get_alarms(limit, offset):
   conn = sqlite3.connect(app.dba)
   c = conn.cursor()
-  sql = ''' SELECT * FROM def ORDER BY rowid DESC LIMIT ? OFFSET ? '''
+  sql = "SELECT * FROM def ORDER BY rowid DESC LIMIT ? OFFSET ?"
   get = [limit, offset]
   c.execute(sql, get)
   data = c.fetchall()
@@ -16,7 +16,7 @@ def get_alarms(limit, offset):
 def get_count():
   conn = sqlite3.connect(app.dba)
   c = conn.cursor()
-  sql = ''' SELECT count(*) FROM def '''
+  sql = "SELECT count(*) FROM def"
   c.execute(sql)
   data = c.fetchone()  
   conn.close()

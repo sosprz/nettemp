@@ -26,7 +26,8 @@ schema=dir+'/app/schema/alarms_db_schema.sql'
 def new_dba():
   conn = sqlite3.connect(dba)
   c = conn.cursor()
-  c.execute(''' SELECT count() FROM sqlite_master WHERE type='table' AND name='def' ''')
+  sql = "SELECT count() FROM sqlite_master WHERE type='table' AND name='def'"
+  c.execute(sql)
   if c.fetchone()[0]==1:
     print ("Database DBA exists" )
     return True
@@ -42,7 +43,8 @@ def new_dba():
 def insert_dba(name, value, unit, action, status, min, max, type):
   conn = sqlite3.connect(dba)
   c = conn.cursor()
-  c.execute("SELECT count() FROM sqlite_master WHERE type='table' AND name='def'")
+  sql = "SELECT count() FROM sqlite_master WHERE type='table' AND name='def'"
+  c.execute(sql)
   coun=c.fetchone()
   if coun[0]==1:
     data = [name, value, unit, action, status, min, max, type]
@@ -59,7 +61,8 @@ def insert_dba(name, value, unit, action, status, min, max, type):
 
 def check_alarm():
   m = mydb.cursor()
-  m.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, sensors.tmp_max, sensors.alarm_status, sensors.type FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.alarm='on'")
+  sql = "select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, sensors.tmp_max, sensors.alarm_status, sensors.type FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.alarm='on'"
+  m.execute(sql)
   data = m.fetchall()
   m.close()
 
@@ -69,9 +72,9 @@ def check_alarm():
     m = mydb.cursor()
     if status == 'recovery':
       data = [id]
-      sql = ''' UPDATE sensors SET alarm_status='', alarm_recovery_time=CURRENT_TIMESTAMP WHERE id=%s '''
+      sql = "UPDATE sensors SET alarm_status='', alarm_recovery_time=CURRENT_TIMESTAMP WHERE id=%s"
     else:
-      sql = ''' UPDATE sensors SET alarm_status=%s WHERE id=%s '''
+      sql = "UPDATE sensors SET alarm_status=%s WHERE id=%s"
       data = [status, id]
     m.execute(sql, data)
     mydb.commit()
@@ -125,10 +128,11 @@ def check_mail():
   msg_all = [] 
 
   m = mydb.cursor()
-  m.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, \
+  sql = "select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, \
              sensors.tmp_max, sensors.email_status, sensors.email_time, sensors.email_delay, \
              sensors.alarm_recovery_time, sensors.alarm_status, sensors.nodata, sensors.nodata_time \
-             FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.email='on'")
+             FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.email='on'"
+  m.execute(sql)
   data = m.fetchall()
   m.close()
 
@@ -199,7 +203,8 @@ def check_mail():
 check_alarm()
 
 m = mydb.cursor()
-m.execute("select email FROM users WHERE receive_mail='yes' ")
+sql = "select email FROM users WHERE receive_mail='yes'"
+m.execute(sql)
 recipients = [str(x[0]) for x in m.fetchall()]
 
 
@@ -209,7 +214,8 @@ if recipients:
   data=check_mail()
 
   m = mydb.cursor()
-  m.execute(''' SELECT option, value FROM nt_settings ''')
+  sql = "SELECT option, value FROM nt_settings"
+  m.execute(sql)
   s = m.fetchall()  
   mydb.commit()
   m.close()
@@ -271,5 +277,3 @@ if recipients:
     print ('[ nettemp ][ alarm send ] Nothig to do')
 else:
   print ('[ nettemp ][ alarm send ] No recepients')
-
-

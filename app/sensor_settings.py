@@ -13,24 +13,24 @@ def select_sensors(get_type, get_group, get_id):
   m = mysql.connection.cursor()
   if get_type:
     print (get_type)
-    sql = ''' SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, 
-                sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, 
-                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip, sensors.nodata_time FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.type=%s '''
+    sql = "SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, \
+                sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, \
+                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip, sensors.nodata_time FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.type=%s"
     m.execute(sql, [get_type])
   elif get_group:
-    sql = ''' SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, 
-                sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, 
-                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip, sensors.nodata_time FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.ch_group=%s '''
+    sql = "SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, \
+                sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, \
+                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip, sensors.nodata_time FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.ch_group=%s"
     m.execute(sql, [get_group])
   elif get_id:
-    sql = ''' SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, 
-                sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, 
-                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip, sensors.nodata_time FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.id=%s '''
+    sql = "SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, \
+                sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, \
+                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip, sensors.nodata_time FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE sensors.id=%s"
     m.execute(sql, [get_id])
   else:
-    sql = ''' SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, 
-                sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, 
-                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip, sensors.nodata_time FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id ORDER BY id ASC '''
+    sql = "SELECT sensors.id, sensors.time, sensors.tmp, sensors.name, sensors.rom, \
+                sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.type, sensors.charts, \
+                sensors.ch_group, sensors.minmax, sensors.fiveago, sensors.map_id, maps.map_on, sensors.email, sensors.email_delay, sensors.node, sensors.adj, sensors.email_status, sensors.ip, sensors.nodata_time FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id ORDER BY id ASC"
     m.execute(sql)
   data = m.fetchall()  
   m.close()

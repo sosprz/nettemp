@@ -16,8 +16,6 @@ mydb = mysql.connector.connect(
   database=config.get('MYSQL_DB')
 )
 
-
-
 print("[ nettemp ][ node ]")
 hostname = socket.gethostname()
 group = hostname
@@ -28,7 +26,8 @@ def send(token,data, url):
 
 def data():
   m = mydb.cursor()
-  m.execute(''' SELECT tmp, name, rom, type, node_url, node_token FROM sensors WHERE node='on' AND nodata!='nodata' AND node_url!='None' AND node_url is not null AND node_token!='None' AND node_token is not null ''')
+  sql = "SELECT tmp, name, rom, type, node_url, node_token FROM sensors WHERE node='on' AND nodata!='nodata' AND node_url!='None' AND node_url is not null AND node_token!='None' AND node_token is not null"
+  m.execute(sql)
   data = m.fetchall()  
   m.close()
   return data

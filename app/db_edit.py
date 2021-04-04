@@ -8,16 +8,16 @@ def get_data(rom, limit, offset, val_s, time_s):
   c = conn.cursor()
   if val_s and val_s is not None:
    print(val_s)
-   sql = ''' SELECT rowid,* FROM def WHERE value LIKE ? ORDER BY rowid DESC LIMIT ? OFFSET ? '''
+   sql = "SELECT rowid,* FROM def WHERE value LIKE ? ORDER BY rowid DESC LIMIT ? OFFSET ?"
    get = (val_s+'%', limit, offset,)
    c.execute(sql, get)
   elif time_s and time_s is not None:
    print(time_s)
-   sql = ''' SELECT rowid,* FROM def WHERE time LIKE ? ORDER BY rowid DESC LIMIT ? OFFSET ? '''
+   sql = "SELECT rowid,* FROM def WHERE time LIKE ? ORDER BY rowid DESC LIMIT ? OFFSET ?"
    get = [time_s+'%', limit, offset]
    c.execute(sql, get)
   else:
-   sql = ''' SELECT rowid,* FROM def ORDER BY rowid DESC LIMIT ? OFFSET ? '''
+   sql = "SELECT rowid,* FROM def ORDER BY rowid DESC LIMIT ? OFFSET ?"
    get = [limit, offset]
    c.execute(sql, get)
   data = c.fetchall()
@@ -28,15 +28,15 @@ def get_count(rom, limit, offset, val_s, time_s):
   conn = sqlite3.connect('data/db/'+rom+'.sql')
   c = conn.cursor()
   if val_s and val_s is not None:
-   sql = ''' SELECT count(*) FROM def WHERE value LIKE ? ORDER BY rowid DESC LIMIT ? OFFSET ? '''
+   sql = "SELECT count(*) FROM def WHERE value LIKE ? ORDER BY rowid DESC LIMIT ? OFFSET ?"
    get = (val_s+'%', limit, offset,)
    c.execute(sql, get)
   elif time_s and time_s is not 'None':
-   sql = ''' SELECT count(*) FROM def WHERE time LIKE ? ORDER BY rowid DESC LIMIT ? OFFSET ? '''
+   sql = "SELECT count(*) FROM def WHERE time LIKE ? ORDER BY rowid DESC LIMIT ? OFFSET ?"
    get = [time_s+'%', limit, offset]
    c.execute(sql, get)
   else:
-   sql = ''' SELECT count(*) FROM def ORDER BY rowid DESC LIMIT ? OFFSET ? '''
+   sql = "SELECT count(*) FROM def ORDER BY rowid DESC LIMIT ? OFFSET ?"
    get = [limit, offset]
    c.execute(sql, get)
   data = c.fetchone()

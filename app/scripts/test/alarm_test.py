@@ -19,7 +19,7 @@ type='temp'
 conn = sqlite3.connect(dba)
 c = conn.cursor()
 data = [name, value, unit, 'recovery', status, min, max, type]
-sql = ''' INSERT OR IGNORE INTO def (name, value, unit, action, status, min, max, type) VALUES (?,?,?,?,?,?,?,?) '''
+sql = "INSERT OR IGNORE INTO def (name, value, unit, action, status, min, max, type) VALUES (?,?,?,?,?,?,?,?)"
 c.execute(sql, data)
 conn.commit()
 conn.close()
@@ -28,7 +28,7 @@ for i in range(1,200):
     conn = sqlite3.connect(dba)
     c = conn.cursor()
     data = [name, value, unit, action, status, min, max, type]
-    sql = ''' INSERT OR IGNORE INTO def (name, value, unit, action, status, min, max, type) VALUES (?,?,?,?,?,?,?,?) '''
+    sql = "INSERT OR IGNORE INTO def (name, value, unit, action, status, min, max, type) VALUES (?,?,?,?,?,?,?,?)"
     c.execute(sql, data)
     conn.commit()
     conn.close()
@@ -36,7 +36,7 @@ for i in range(1,200):
 conn = sqlite3.connect(dba)
 c = conn.cursor()
 data = [name, value, unit, 'recovery', status, min, max, type]
-sql = ''' INSERT OR IGNORE INTO def (name, value, unit, action, status, min, max, type) VALUES (?,?,?,?,?,?,?,?) '''
+sql = "INSERT OR IGNORE INTO def (name, value, unit, action, status, min, max, type) VALUES (?,?,?,?,?,?,?,?)"
 c.execute(sql, data)
 conn.commit()
 conn.close()
