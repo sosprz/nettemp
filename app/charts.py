@@ -50,6 +50,6 @@ def charts():
   groups = [i[0] for i in groups]
   groups = list(set(groups))
 
-  groupmax = ['15min', 'hour', 'day', 'week', 'month', '6month', 'year', 'all']
+  groupmax = ['15min', 'hour', 'day', 'week', 'month', '6months', 'year', 'all']
 
   return render_template('highcharts.html', groups=groups, types=types, max=max, single=single, type=type, names=names, groupmax=groupmax, group=group, units=units, mode=mode, datetime=datetime, nt_settings=dict(nt_settings()))

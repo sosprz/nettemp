@@ -48,7 +48,7 @@ def data_charts():
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-7 day')"
    if max == 'month':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 months')"
-   if max == 'months':
+   if max == '6months':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-6 months')"
    if max == 'year':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 year')"
@@ -67,7 +67,7 @@ def data_charts():
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-7 day') AND rowid % 240=0"
    if max == 'month':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 months') AND rowid % 1440=0"
-   if max == 'months':
+   if max == '6months':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-6 months')  AND rowid % 1440=0"
    if max == 'year':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 year') AND rowid % 10080=0"
