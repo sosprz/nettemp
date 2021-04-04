@@ -82,3 +82,11 @@ send(token, data)
 
 ## Data send by json
 * ALL
+
+
+## Old things, versions
+
+* nettemp5 is a python, flask, Mysql as main base, sqlite for sensor base, not all functions from nettemp beta
+* beta nettemp4 is a php, sqlite, python, sqlite for all databases. The richest version in features.
+* nettemp 3 is a php, sqlite, python, sqlite for all databases.
+
