@@ -13,14 +13,14 @@ for i in name:
 
   if humidity is not None and temperature is not None:
     value = '{0:0.1f}'.format(temperature)
-    rom = 'dht11-temp-gpio-'+i
+    rom = 'dht11_temp_gpio_'+i
     type = 'temp'
     name = rom
     data=insert(rom, type, value, name)
     data.request()
    
     value = '{0:0.1f}'.format(humidity)
-    rom = 'dht11-humid-gpio-'+i
+    rom = 'dht11_humid_gpio_'+i
     type = 'humid'
     name = rom
     data=insert(rom, type, value, name)

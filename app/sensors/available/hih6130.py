@@ -62,14 +62,14 @@ try:
 
   rom = "i2c_27_temp"
   value = '{0:0.2f}'.format(rht.t)
-  name = 'hih6130-temp'
+  name = 'hih6130_temp'
   type = 'temp'
   data=insert(rom, type, value, name)
   data.request()
 
   rom = "i2c_27_humid"
   value = '{0:0.2f}'.format(rht.rh)
-  name = 'hih6130-humid'
+  name = 'hih6130_humid'
   type = 'humid'
   data=insert(rom, type, value, name)
   data.request()

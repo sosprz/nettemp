@@ -58,7 +58,7 @@ if lux:
   value = '{0:0.2f}'.format(lux)
 else:
   value = 0
-name = 'tsl2561-lux'
+name = 'tsl2561_lux'
 type = 'lux'
 data=insert(rom, type, value, name)
 data.request()
