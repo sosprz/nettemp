@@ -20,11 +20,16 @@ def mail_settings():
       mail_subject = request.form['mail_subject']
 
       m = mysql.connection.cursor()
-      m.execute("UPDATE nt_settings SET value=%s WHERE option='smtp_user'", (smtp_user,))
-      m.execute("UPDATE nt_settings SET value=%s WHERE option='smtp_p'", (smtp_p,))
-      m.execute("UPDATE nt_settings SET value=%s WHERE option='smtp_server'", (smtp_server,))
-      m.execute("UPDATE nt_settings SET value=%s WHERE option='smtp_port'", (smtp_port,))
-      m.execute("UPDATE nt_settings SET value=%s WHERE option='mail_subject'", (mail_subject,))
+      sql = "UPDATE nt_settings SET value=%s WHERE option='smtp_user'"
+      m.execute(sql, (smtp_user,))
+      sql = "UPDATE nt_settings SET value=%s WHERE option='smtp_p'"
+      m.execute(sql, (smtp_p,))
+      sql = "UPDATE nt_settings SET value=%s WHERE option='smtp_server'"
+      m.execute(sql, (smtp_server,))
+      sql = "UPDATE nt_settings SET value=%s WHERE option='smtp_port'"
+      m.execute(sql, (smtp_port,))
+      sql = "UPDATE nt_settings SET value=%s WHERE option='mail_subject'"
+      m.execute(sql, (mail_subject,))
       m.connection.commit()
       m.close()
 
@@ -36,7 +41,8 @@ def mail_settings():
       try:
         if recipient:
           m = mysql.connection.cursor()
-          m.execute("SELECT option, value FROM nt_settings")
+          sql = "SELECT option, value FROM nt_settings"
+          m.execute(sql)
           s = m.fetchall()  
           m.close()
 

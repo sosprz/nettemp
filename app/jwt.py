@@ -23,7 +23,8 @@ def register():
         return jsonify({"msg": "Missing password parameter"}), 400
 
     m = mysql.connection.cursor()
-    m.execute("SELECT username, password, jwt FROM users WHERE username=%s", (username,))
+    sql = "SELECT username, password, jwt FROM users WHERE username=%s"
+    m.execute(sql, (username,))
     data = m.fetchone()
     
     if data != None:

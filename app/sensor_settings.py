@@ -38,14 +38,16 @@ def select_sensors(get_type, get_group, get_id):
 
 def select_group():
   m = mysql.connection.cursor()
-  m.execute("SELECT DISTINCT ch_group FROM sensors")
+  sql = "SELECT DISTINCT ch_group FROM sensors"
+  m.execute(sql)
   data = m.fetchall()
   m.close()
   return data
 
 def select_type():
   m = mysql.connection.cursor()
-  m.execute("SELECT DISTINCT type FROM sensors")
+  sql = "SELECT DISTINCT type FROM sensors"
+  m.execute(sql)
   data = m.fetchall()  
   m.close()
   return data
@@ -125,7 +127,8 @@ def settings_sensors():
         tmp_min = request.form['tmp_min']
         id = request.form['id']
         m = mysql.connection.cursor()
-        m.execute("UPDATE sensors SET tmp_min=%s WHERE id=%s", (tmp_min,id,))
+        sql = "UPDATE sensors SET tmp_min=%s WHERE id=%s"
+        m.execute(sql, (tmp_min,id,))
         m.connection.commit()
         m.close()
 
@@ -133,7 +136,8 @@ def settings_sensors():
         tmp_max = request.form['tmp_max']
         id = request.form['id']
         m = mysql.connection.cursor()
-        m.execute("UPDATE sensors SET tmp_max=%s WHERE id=%s", (tmp_max,id,))
+        sql = "UPDATE sensors SET tmp_max=%s WHERE id=%s"
+        m.execute(sql, (tmp_max,id,))
         m.connection.commit()
         m.close()
 
@@ -141,7 +145,8 @@ def settings_sensors():
         selectgroup = request.form['selectgroup']
         id = request.form['id']
         m = mysql.connection.cursor()
-        m.execute("UPDATE sensors SET ch_group=%s WHERE id=%s", (selectgroup,id,))
+        sql = "UPDATE sensors SET ch_group=%s WHERE id=%s"
+        m.execute(sql, (selectgroup,id,))
         m.connection.commit()
         m.close()
 
@@ -149,7 +154,8 @@ def settings_sensors():
         minmax = request.form['minmax']
         id = request.form['id']
         m = mysql.connection.cursor()
-        m.execute("UPDATE sensors SET minmax=%s WHERE id=%s", (minmax,id,))
+        sql = "UPDATE sensors SET minmax=%s WHERE id=%s"
+        m.execute(sql, (minmax,id,))
         m.connection.commit()
         m.close()
 
@@ -157,7 +163,8 @@ def settings_sensors():
         fiveago = request.form['fiveago']
         id = request.form['id']
         m = mysql.connection.cursor()
-        m.execute("UPDATE sensors SET fiveago=%s WHERE id=%s", (fiveago,id,))
+        sql = "UPDATE sensors SET fiveago=%s WHERE id=%s"
+        m.execute(sql, (fiveago,id,))
         m.connection.commit()
         m.close()
 
@@ -165,7 +172,8 @@ def settings_sensors():
         email_delay = request.form['email_delay']
         id = request.form['id']
         m = mysql.connection.cursor()
-        m.execute("UPDATE sensors SET email_delay=%s WHERE id=%s", (email_delay,id,))
+        sql = "UPDATE sensors SET email_delay=%s WHERE id=%s"
+        m.execute(sql, (email_delay,id,))
         m.connection.commit()
         m.close()
 
@@ -182,7 +190,8 @@ def settings_sensors():
           sql = "DELETE FROM sensors WHERE ch_group=%s"
           m.execute(sql, [get_group])
         else:
-          m.execute("DELETE FROM sensors")
+          sql = "DELETE FROM sensors"
+          m.execute(sql)
         m.connection.commit()
         m.close()
 

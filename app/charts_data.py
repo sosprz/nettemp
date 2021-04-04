@@ -79,10 +79,11 @@ def data_charts():
   m = mysql.connection.cursor()
   data = [str(name)]
   name = str(name)
-
-  m.execute("SELECT rom FROM sensors WHERE name=%s AND charts='on'", (name,))
+  sql = "SELECT rom FROM sensors WHERE name=%s AND charts='on'"
+  m.execute(sql, (name,))
   rom = m.fetchone()[0]
-  m.execute("SELECT value FROM nt_settings WHERE option='quick_charts'") 
+  sql = "SELECT value FROM nt_settings WHERE option='quick_charts'"
+  m.execute(sql) 
   quick_charts = m.fetchone()[0] 
   quick_charts = quick_charts[0] 
   m.close();

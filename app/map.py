@@ -17,28 +17,33 @@ def map():
       pos_x = request.form['pos_x']
       pos_y = request.form['pos_y']
       m = mysql.connection.cursor()
-      m.execute("UPDATE maps SET pos_x=%s, pos_y=%s WHERE map_id=%s", (pos_x,pos_y,map_id,))
+      sql = "UPDATE maps SET pos_x=%s, pos_y=%s WHERE map_id=%s"
+      m.execute(sql, (pos_x,pos_y,map_id,))
       m.connection.commit()
       m.close()
     if request.form.get('send-map-image') == 'yes':
       map_height = request.form['map_height']
       map_width = request.form['map_width']
       m = mysql.connection.cursor()
-      m.execute("UPDATE nt_settings SET value=%s WHERE option='map_width'", (map_width,))
-      m.execute("UPDATE nt_settings SET value=%s WHERE option='map_height'", (map_height,))
+      sql = "UPDATE nt_settings SET value=%s WHERE option='map_width'"
+      m.execute(sql, (map_width,))
+      sql = "UPDATE nt_settings SET value=%s WHERE option='map_height'"
+      m.execute(sql, (map_height,))
       m.connection.commit()
       m.close()
       print(map_height)
       print(map_width)
 
   m = mysql.connection.cursor()
-  m.execute("select sensors.name, sensors.tmp, types.unit, types.unit2, types.ico, types.title, \
+  sql = "select sensors.name, sensors.tmp, types.unit, types.unit2, types.ico, types.title, \
              sensors.type, sensors.alarm, sensors.time, maps.map_id, maps.background_color, \
              maps.display_name, maps.font_color, maps.transparent_bkg, sensors.tmp_min, sensors.tmp_max, \
              maps.background_low, maps.background_high, maps.font_size \
-             FROM sensors INNER JOIN types ON sensors.type = types.type INNER JOIN maps ON sensors.map_id = maps.map_id  WHERE maps.map_on='on' ")
+             FROM sensors INNER JOIN types ON sensors.type = types.type INNER JOIN maps ON sensors.map_id = maps.map_id  WHERE maps.map_on='on' "
+  m.execute(sql)
   sensors = m.fetchall()
-  m.execute("select maps.map_id, maps.pos_x, maps.pos_y FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE maps.map_on='on'")
+  sql = "select maps.map_id, maps.pos_x, maps.pos_y FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id WHERE maps.map_on='on'"
+  m.execute(sql)
   row_headers=[x[0] for x in m.description]
   group = m.fetchall()
   m.close()

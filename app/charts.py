@@ -18,24 +18,28 @@ def charts():
 
   if group:
    m = mysql.connection.cursor()
-   m.execute("select name FROM sensors WHERE ch_group=%s AND charts='on'", (group,))
+   sql = "select name FROM sensors WHERE ch_group=%s AND charts='on'"
+   m.execute(sql, (group,))
    names = m.fetchall()
   elif single:
    m = mysql.connection.cursor()
-   m.execute("select name FROM sensors WHERE name=%s AND charts='on'", (single,))
+   sql = "select name FROM sensors WHERE name=%s AND charts='on'"
+   m.execute(sql, (single,))
    names = m.fetchall()
   else:
    m = mysql.connection.cursor()
-   m.execute("select name FROM sensors WHERE type=%s AND charts='on'", (type,))
+   sql = "select name FROM sensors WHERE type=%s AND charts='on'"
+   m.execute(sql, (type,))
    names = m.fetchall()
-
-  m.execute(''' select DISTINCT type FROM sensors WHERE charts='on' ''')
-  types = m.fetchall()
-
-  m.execute(''' select DISTINCT ch_group FROM sensors WHERE charts='on' AND ch_group!='none' ''')
-  groups = m.fetchall()
   
-  m.execute(''' select DISTINCT type, unit FROM types ''')
+  sql = "select DISTINCT type FROM sensors WHERE charts='on'"
+  m.execute(sql)
+  types = m.fetchall()
+  sql = "select DISTINCT ch_group FROM sensors WHERE charts='on' AND ch_group!='none'"
+  m.execute(sql)
+  groups = m.fetchall()
+  sql = "select DISTINCT type, unit FROM types"
+  m.execute(sql)
   units = m.fetchall()
 
   m.close()

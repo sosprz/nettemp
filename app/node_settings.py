@@ -28,7 +28,8 @@ def settings_node():
         url = request.form['url']
         id = request.form['id']
         m = mysql.connection.cursor()
-        m.execute("UPDATE sensors SET node_url=%s WHERE id=%s", (url,id,))
+        sql = "UPDATE sensors SET node_url=%s WHERE id=%s"
+        m.execute(sql, (url,id,))
         m.connection.commit()
         m.close()
 
@@ -36,7 +37,8 @@ def settings_node():
         token = request.form['token']
         id = request.form['id']
         m = mysql.connection.cursor()
-        m.execute("UPDATE sensors SET node_token=%s WHERE id=%s", (token,id,))
+        sql = "UPDATE sensors SET node_token=%s WHERE id=%s"
+        m.execute(sql, (token,id,))
         m.connection.commit()
         m.close()
 
@@ -45,14 +47,16 @@ def settings_node():
         node_url = request.form['node_url']
         node_url.replace("register", "sensor")
         m = mysql.connection.cursor()
-        m.execute("UPDATE sensors SET node_token=%s, node_url=%s WHERE node='on'", (node_token,node_url,))
+        sql = "UPDATE sensors SET node_token=%s, node_url=%s WHERE node='on'"
+        m.execute(sql, (node_token,node_url,))
         m.connection.commit()
         m.close()
 
       if request.form.get('send-del') == 'yes':
         id = request.form['id']
         m = mysql.connection.cursor()
-        m.execute("UPDATE sensors SET node_token='', node_url='' WHERE id=%s", (id,))
+        sql = "UPDATE sensors SET node_token='', node_url='' WHERE id=%s"
+        m.execute(sql, (id,))
         m.connection.commit()
         m.close()
 

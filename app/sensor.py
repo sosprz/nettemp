@@ -63,7 +63,8 @@ def new_db(rom):
   rom = rom+'.sql'
   conn = sqlite3.connect(app.romdir+rom)
   c = conn.cursor()
-  c.execute(''' SELECT count() FROM sqlite_master WHERE type='table' AND name='def' ''')
+  sql = "SELECT count() FROM sqlite_master WHERE type='table' AND name='def'"
+  c.execute(sql)
   if c.fetchone()[0]==1:
     print ("Database %s exists" %rom)
     return True
@@ -80,10 +81,11 @@ def insert_db(rom,value):
   rom = rom+'.sql'
   conn = sqlite3.connect(app.romdir+rom)
   c = conn.cursor()
-  c.execute(''' SELECT count() FROM sqlite_master WHERE type='table' AND name='def' ''')
+  sql = "SELECT count() FROM sqlite_master WHERE type='table' AND name='def'"
+  c.execute(sql)
   if c.fetchone()[0]==1:
     data = [value]
-    sql = '''INSERT OR IGNORE INTO def (value) VALUES (?)'''
+    sql = "INSERT OR IGNORE INTO def (value) VALUES (?)"
     c.execute(sql, data)
     conn.commit()
     conn.close()

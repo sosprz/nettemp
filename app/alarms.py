@@ -54,10 +54,6 @@ def alarms():
   pages = (int(count)//int(limit))+2
   offset= (int(page)-1)*int(limit)
 
-  #print(pages)
-  #print(offset)
-  #print(limit)
-
   try:
     data=get_alarms(limit, offset)
   except:

@@ -12,7 +12,8 @@ def nettemp_settings():
     if request.form.get('send-theme') == 'yes':
       theme = request.form['theme']
       m = mysql.connection.cursor()
-      m.execute("UPDATE nt_settings SET value=%s WHERE option='nt_theme'", (theme,))
+      sql = "UPDATE nt_settings SET value=%s WHERE option='nt_theme'"
+      m.execute(sql, (theme,))
       m.connection.commit()
       m.close()
     if request.form.get('send-reboot') == 'yes':
@@ -20,7 +21,8 @@ def nettemp_settings():
       os.system('sudo reboot')
     if request.form.get('send-alarms-clear') == 'yes':
       m = mysql.connection.cursor()
-      m.execute("DELETE FROM def")
+      sql = "DELETE FROM def"
+      m.execute(sql)
       m.connection.commit()
       m.close()
 

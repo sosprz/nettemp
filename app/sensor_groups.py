@@ -35,15 +35,17 @@ def index():
     for id in data:
       sql = "UPDATE sensors SET sid=%s WHERE id=%s"
       data = (sid,id,)
-      m.execute(sql, data )
+      m.execute(sql, data)
       sid+=1
     m.connection.commit()
     m.close()
 
   m = mysql.connection.cursor()
-  m.execute("select sensors.id, sensors.name, sensors.tmp, types.unit, types.unit2, types.ico, types.title, sensors.type, sensors.ch_group, sensors.tmp_5ago, sensors.stat_min, sensors.stat_max, sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.time, sensors.minmax, sensors.charts, sensors.fiveago, sensors.stat_min_time, sensors.stat_max_time, sensors.email, sensors.nodata, sensors.nodata_time FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE ch_group!='none' ORDER BY sid ASC")
+  sql = "select sensors.id, sensors.name, sensors.tmp, types.unit, types.unit2, types.ico, types.title, sensors.type, sensors.ch_group, sensors.tmp_5ago, sensors.stat_min, sensors.stat_max, sensors.tmp_min, sensors.tmp_max, sensors.alarm, sensors.time, sensors.minmax, sensors.charts, sensors.fiveago, sensors.stat_min_time, sensors.stat_max_time, sensors.email, sensors.nodata, sensors.nodata_time FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE ch_group!='none' ORDER BY sid ASC"
+  m.execute(sql)
   sensors = m.fetchall()
-  m.execute("select DISTINCT sensors.ch_group FROM sensors WHERE sensors.ch_group!='none'")
+  sql = "select DISTINCT sensors.ch_group FROM sensors WHERE sensors.ch_group!='none'"
+  m.execute(sql)
   ch_group = m.fetchall()
   m.close()
   return render_template('sensor_groups.html', sensors=sensors, ch_group=ch_group)

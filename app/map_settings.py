@@ -10,7 +10,8 @@ mysql = MySQL()
 
 def queryselectsensors():
   m = mysql.connection.cursor()
-  m.execute("SELECT maps.map_id, sensors.name, maps.map_on, maps.display_name, maps.transparent_bkg, maps.background_color, maps.background_low, maps.background_high, maps.font_color, maps.font_size FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id")
+  sql = "SELECT maps.map_id, sensors.name, maps.map_on, maps.display_name, maps.transparent_bkg, maps.background_color, maps.background_low, maps.background_high, maps.font_color, maps.font_size FROM sensors INNER JOIN maps ON sensors.map_id = maps.map_id"
+  m.execute(sql)
   data = m.fetchall()  
   m.close()
   return data
@@ -24,8 +25,10 @@ def settings_map():
       map_height = request.form['map_height']
       map_width = request.form['map_width']
       m = mysql.connection.cursor()
-      m.execute("UPDATE nt_settings SET value=%s WHERE option='map_width'", (map_width,))
-      m.execute("UPDATE nt_settings SET value=%s WHERE option='map_height'", (map_height,))
+      sql = "UPDATE nt_settings SET value=%s WHERE option='map_width'"
+      m.execute(sql, (map_width,))
+      sql = "UPDATE nt_settings SET value=%s WHERE option='map_height'"
+      m.execute(sql, (map_height,))
       m.connection.commit()
       m.close()
     if request.form.get('send') == 'yes':
