@@ -5,7 +5,6 @@ app = Flask(__name__)
 app.config.from_pyfile('../data/config.cfg')
 app.db = app.config["DB"]
 app.romdir = app.config["ROMDIR"]
-app.dba = app.config["DBA"]
 
 import configparser, os
 from flask_mysqldb import MySQL

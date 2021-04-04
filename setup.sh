@@ -43,11 +43,6 @@ app/scripts/cron_update.sh
 echo -n -e "NGINX \r"
 app/scripts/nginx.sh
 
-
-# DB
-#echo -n -e "DB \r"
-#app/scripts/db_reset.sh
-
 # GUNICORN
 echo -n -e "GUNICORN \r"
 app/scripts/gunicorn.sh

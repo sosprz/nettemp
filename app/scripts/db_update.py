@@ -18,6 +18,11 @@ mydb = mysql.connector.connect(
 def update():
   sql = []
 
+  """ create """
+
+  sql.append("CREATE TABLE `alarms` ( `id` INT NOT NULL AUTO_INCREMENT, `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, `value` INT, `name` TEXT, \
+  	`unit` TEXT, 	`status` TEXT, `action` TEXT, `min` FLOAT, `max` FLOAT, `type` TEXT, PRIMARY KEY (`id`) )")
+
   """ insert """
   sql.append("INSERT IGNORE types (type, unit, unit2, ico, title, min, max, value1, value2, value3) VALUES ('temp', '°C', '°F', 'media/ico/temp2-icon.png' ,'Temperature','-150', '3000', '85', '185' ,'127.9')")
   sql.append("INSERT IGNORE types (type, unit, unit2, ico, title, min, max) VALUES ('amps', 'A', 'A', 'media/ico/amper.png' ,'Amps','0', '10000')")

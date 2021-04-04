@@ -1,4 +1,4 @@
-import smtplib, ssl, sqlite3
+import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import datetime
@@ -21,43 +21,15 @@ mydb = mysql.connector.connect(
 )
 
 
-dba=dir+'/data/dba/alarms.db'
-schema=dir+'/app/schema/alarms_db_schema.sql'
-def new_dba():
-  conn = sqlite3.connect(dba)
-  c = conn.cursor()
-  sql = "SELECT count() FROM sqlite_master WHERE type='table' AND name='def'"
-  c.execute(sql)
-  if c.fetchone()[0]==1:
-    print ("Database DBA exists" )
-    return True
-  else:
-    with open(schema, mode='r') as f:
-      conn = sqlite3.connect(dba)
-      conn.cursor().executescript(f.read())
-      conn.commit()
-    print ("Database DBA created" )
-    return False
-  conn.close()
-
 def insert_dba(name, value, unit, action, status, min, max, type):
-  conn = sqlite3.connect(dba)
-  c = conn.cursor()
-  sql = "SELECT count() FROM sqlite_master WHERE type='table' AND name='def'"
-  c.execute(sql)
-  coun=c.fetchone()
-  if coun[0]==1:
-    data = [name, value, unit, action, status, min, max, type]
-    sql = "INSERT OR IGNORE INTO def (name, value, unit, action, status, min, max, type) VALUES (?,?,?,?,?,?,?,?)"
-    c.execute(sql, data)
-    conn.commit()
-    conn.close()
-    print ("Database %s insert ok" %dba)
-    return True
-  else:
-    print ("Database %s not exist" %dba)
-    return False
-
+  m = mydb.cursor()
+  data = [name, value, unit, action, status, min, max, type]
+  sql = "INSERT IGNORE alarms (name, value, unit, action, status, min, max, type) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+  m.execute(sql, data)
+  mydb.commit()
+  m.close()
+  print ("Database alarms insert ok")
+  return True
 
 def check_alarm():
   m = mydb.cursor()
@@ -118,15 +90,11 @@ def check_alarm():
       print("Alarm 6 "+msg)
 
     if action:
-      if insert_dba(name, tmp, unit, action, status, min, max, type) == False:
-        new_dba()
-        insert_dba(name, tmp, unit, action, status, min, max, type)
-
+      insert_dba(name, tmp, unit, action, status, min, max, type)
 
 
 def check_mail():
   msg_all = [] 
-
   m = mydb.cursor()
   sql = "select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, \
              sensors.tmp_max, sensors.email_status, sensors.email_time, sensors.email_delay, \

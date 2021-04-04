@@ -1,38 +1,35 @@
 from app import app
 from flask import Flask, request, render_template
-import sqlite3
 from flask_login import login_required
+from flask_mysqldb import MySQL
+mysql = MySQL()
 
 def get_alarms(limit, offset):
-  conn = sqlite3.connect(app.dba)
-  c = conn.cursor()
-  sql = "SELECT * FROM def ORDER BY rowid DESC LIMIT ? OFFSET ?"
+  m = mysql.connection.cursor()
+  sql = "SELECT time, value, name, unit, status, action, min, max, type FROM alarms ORDER BY id DESC LIMIT %s OFFSET %s"
   get = [limit, offset]
-  c.execute(sql, get)
-  data = c.fetchall()
-  conn.close()
+  m.execute(sql, get)
+  data = m.fetchall()
+  print(data)
+  m.close()
   return data
 
 def get_count():
-  conn = sqlite3.connect(app.dba)
-  c = conn.cursor()
-  sql = "SELECT count(*) FROM def"
-  c.execute(sql)
-  data = c.fetchone()  
-  conn.close()
+  m = mysql.connection.cursor()
+  sql = "SELECT count(*) FROM alarms"
+  m.execute(sql)
+  data = m.fetchone()[0]
+  m.close()
   return data
-
-
 
 @app.route('/alarms', methods=['GET', 'POST'])
 @login_required
 def alarms():
   if request.form.get('send-alarms-clear') == 'yes':
-    conn = sqlite3.connect(app.dba)
-    c = conn.cursor()
-    c.execute("DELETE FROM def")
-    conn.commit()
-    conn.close()
+    m = mysql.connection.cursor()
+    m.execute("DELETE FROM alarms")
+    m.connection.commit()
+    m.close()
 
   page = request.args.get("page")
   offset= 0
@@ -47,7 +44,6 @@ def alarms():
   
   try:
     count=get_count()
-    count=count[0]
   except:
     count=0
 
@@ -61,7 +57,6 @@ def alarms():
 
   try:
     count=get_count()
-    count=count[0]
   except:
     count=0
 
