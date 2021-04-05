@@ -17,6 +17,13 @@ def charts_settings():
       m.execute(sql, (quickcharts,))
       m.connection.commit()
       m.close()
+    if request.form.get('send-mysql-charts') == 'yes':
+      mysqlcharts = request.form['mysql-charts']
+      m = mysql.connection.cursor()
+      sql="UPDATE nt_settings SET value=%s WHERE option='mysql_charts'"
+      m.execute(sql, (mysqlcharts,))
+      m.connection.commit()
+      m.close()
     if request.form.get('send-theme') == 'yes':
       theme = request.form['theme']
       m = mysql.connection.cursor()

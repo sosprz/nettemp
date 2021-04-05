@@ -58,15 +58,50 @@ def check_value(value, type, rom):
   print(msg)
   return value
 
+def new_db_table(rom):
+  rom = 'db_'+rom
+  m = mysql.connection.cursor()
+  sql = "CREATE TABLE `{}` ( `id` INT NOT NULL AUTO_INCREMENT, `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, `value` FLOAT, PRIMARY KEY (`id`))".format(rom)
+  #sql = "CREATE TABLE %s ( `id` INT NOT NULL AUTO_INCREMENT, `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, `value` FLOAT, PRIMARY KEY (`id`))"
+  #m.execute(sql, (rom,))
+ 
+  if m.execute(sql):
+    m.connection.commit()
+    m.close()
+    print ("[ nettemp ][ sensor ] Sensor %s instert ok - mysql" %rom)
+    return True
+  else:
+    print ("[ nettemp ][ sensor ] Sensor %s create error - mysql" %rom)
+    return False
 
-def new_db(rom):
+def insert_db(rom,value):
+  m = mysql.connection.cursor()
+  rom = 'db_'+rom
+  sql="SELECT count(*) FROM information_schema.tables WHERE table_schema = 'nettemp' AND table_name = '{}' LIMIT 1".format(rom)
+  m.execute(sql)
+  coun=m.fetchone()[0]
+  if coun==1:
+    sql = "INSERT INTO {} (value) VALUES ({})".format(rom,value)
+    if m.execute(sql):
+      m.connection.commit()
+      m.close()
+      print ("[ nettemp ][ sensor ] Sensor %s instert ok - mysql" %rom)
+      return True
+    else:
+      print ("[ nettemp ][ sensor ] Sensor %s instert error - mysql" %rom)
+      return False
+  else:
+    print ("[ nettemp ][ sensor ] Sensor %s instert error - mysql" %rom)
+    return False
+
+def new_db_sqlite(rom):
   rom = rom+'.sql'
   conn = sqlite3.connect(app.romdir+rom)
   c = conn.cursor()
   sql = "SELECT count() FROM sqlite_master WHERE type='table' AND name='def'"
   c.execute(sql)
   if c.fetchone()[0]==1:
-    print ("Database %s exists" %rom)
+    print ("Database %s exists - sqlite" %rom)
     return True
   else:
     with app.app_context():
@@ -74,10 +109,10 @@ def new_db(rom):
       with app.open_resource('schema/sensors_db_schema.sql', mode='r') as f:
         db.cursor().executescript(f.read())
         db.commit()
-    print ("Database %s created" %rom)
+    print ("Database %s created - sqlite" %rom)
     return False
 
-def insert_db(rom,value):
+def insert_db_sqlite(rom,value):
   rom = rom+'.sql'
   conn = sqlite3.connect(app.romdir+rom)
   c = conn.cursor()
@@ -89,10 +124,10 @@ def insert_db(rom,value):
     c.execute(sql, data)
     conn.commit()
     conn.close()
-    print ("[ nettemp ][ sensor ] Database %s insert ok" %rom)
+    print ("[ nettemp ][ sensor ] Sensor %s insert ok - sqlite" %rom)
     return True
   else:
-    print ("[ nettemp ][ sensor ] Database %s not exist" %rom)
+    print ("[ nettemp ][ sensor ] Sensor %s not exist - sqlite" %rom)
     return False
 
 def update_sensor_tmp(rom,value):
@@ -124,7 +159,8 @@ def update_sensor_tmp(rom,value):
     print ("[ nettemp ][ sensor ] Sensor %s not exist" %rom)
     return False
 
-def delete_db(rom):
+# unused
+def delete_db_sqlite(rom):
   rom=rom+'.sql'
   if os.path.isfile(app.romdir+rom):
     os.remove(rom)
@@ -134,6 +170,7 @@ def delete_db(rom):
     print ("[ nettemp ][ sensor ] Database %s not exist" %rom)
     return False
 
+# unused
 def delete_sensor(id,rom):
   data = [id, rom]
   m = mysql.connection.cursor()
@@ -141,7 +178,7 @@ def delete_sensor(id,rom):
   m.execute(sql, data)
   m.connection.commit()
   m.close()
-  delete_db(rom)
+  delete_db_sqlite(rom)
   print ("[ nettemp ][ sensor ] Sensor %s removed ok" %rom)
 
 def create_sensor(rom, data, data2, map_settings):
@@ -167,9 +204,11 @@ def create_sensor(rom, data, data2, map_settings):
 def sensor():
     data = request.get_json()
     for j in data:
+
       rom = None
       if 'rom' in j: 
         rom=j['rom'] 
+
       type = None 
       if 'type' in j: 
         type=j['type']
@@ -220,10 +259,13 @@ def sensor():
       map_settings = [type, map_y, map_x, 'on', map_id, 'on']
       value=check_value(value, type, rom)
 
+      if insert_db_sqlite(rom, value) == False:
+        new_db_sqlite(rom)
+        insert_db_sqlite(rom,value)
 
-      if insert_db(rom, value) == False:
-        new_db(rom)
-        insert_db(rom,value)
+      if insert_db(rom,value) == False:
+        new_db_table(rom)
+        insert_db(rom,value)  
 
       if update_sensor_tmp(rom,value) == False:
         create_sensor(rom,data,data2,map_settings)
@@ -236,7 +278,6 @@ def url_sensor():
   sensor()
   return '', 200
 
-
 @app.route('/local', methods=['POST'])
 def url_localhost():
   if request.remote_addr == '127.0.0.1':
@@ -244,4 +285,3 @@ def url_localhost():
     return 'Local'
   else:
     return '', 404
-

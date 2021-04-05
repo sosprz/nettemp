@@ -7,6 +7,7 @@ cd $dir
 git pull
 source venv/bin/activate
 python3 $dir/app/scripts/db_update.py
+python3 $dir/app/scripts/sensors_db_fix.py
 deactivate
 $dir/app/scripts/perms.sh
 $dir/app/scripts/sudo.sh
