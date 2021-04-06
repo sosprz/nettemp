@@ -201,13 +201,16 @@ def create_sensor(rom, data, data2, map_settings):
     print ("[ nettemp ][ sensor ] Sensor %s already exist" %rom)
   return None
 
+def clean_rom(rom):
+  return rom.replace('-','_')
+
 def sensor():
     data = request.get_json()
     for j in data:
 
       rom = None
       if 'rom' in j: 
-        rom=j['rom'] 
+        rom=clean_rom(j['rom'])
 
       type = None 
       if 'type' in j: 

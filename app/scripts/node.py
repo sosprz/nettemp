@@ -34,7 +34,7 @@ def data():
 
 if data:
   for value, name, rom, type, url, token in data():
-    rom = rom+'-'+group
+    rom = rom+'_'+group
     name = name+'-'+group
     data = [{"rom":rom,"type":type,"name":name,"value":value,"group":group}]
     send(token, data, url)
