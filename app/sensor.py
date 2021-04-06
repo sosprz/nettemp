@@ -1,7 +1,7 @@
 from app import app
 from flask import Flask, request, jsonify, g
 import sqlite3
-import os
+import os, re
 import json
 from random import randint
 from flask_jwt_extended import jwt_required
@@ -202,7 +202,9 @@ def create_sensor(rom, data, data2, map_settings):
   return None
 
 def clean_rom(rom):
-  return rom.replace('-','_')
+  rom.replace('-','_')
+  rom = re.sub(r'[^A-Za-z0-9._]+', '', rom)
+  return rom
 
 def sensor():
     data = request.get_json()
