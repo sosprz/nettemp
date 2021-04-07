@@ -1,6 +1,5 @@
 import requests
 import io
-import sqlite3
 
 class insert:
   def __init__(self, rom, type, value, name):
