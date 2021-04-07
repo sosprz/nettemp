@@ -20,7 +20,7 @@ def close_connection(exception):
 
 def check_value(value, type, rom):
   adj=''
-  tm=''
+  tmp=''
   value=float(value)
   m = mysql.connection.cursor()
   sql = "SELECT adj, tmp FROM sensors WHERE rom=%s"
@@ -269,7 +269,7 @@ def sensor():
       sql = "SELECT value FROM nt_settings WHERE option='mysql_charts'"
       m.execute(sql) 
       mysql_charts = m.fetchone()[0]
-      m.close();
+      m.close()
 
       if mysql_charts == 'on':
         if insert_db(rom,value) == False:
