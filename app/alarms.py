@@ -10,7 +10,6 @@ def get_alarms(limit, offset):
   get = [limit, offset]
   m.execute(sql, get)
   data = m.fetchall()
-  print(data)
   m.close()
   return data
 
