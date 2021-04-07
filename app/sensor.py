@@ -1,11 +1,8 @@
 from app import app
 from flask import Flask, request, jsonify, g
-import sqlite3
-import os, re
-import json
+import sqlite3, os, re, json, datetime
 from random import randint
 from flask_jwt_extended import jwt_required
-import datetime
 from flask_mysqldb import MySQL
 mysql = MySQL()
 
@@ -201,10 +198,14 @@ def create_sensor(rom, data, data2, map_settings):
     print ("[ nettemp ][ sensor ] Sensor %s already exist" %rom)
   return None
 
-def clean_rom(rom):
-  rom.replace('-','_')
-  rom = re.sub(r'[^A-Za-z0-9._]+', '', rom)
-  return rom
+def clean_rom(val):
+  val.replace('-','_')
+  val = re.sub(r'[^A-Za-z0-9_]+', '', val)
+  return val
+
+def clean_name(val):
+  val = re.sub(r'[^A-Za-z0-9_.-]+', '', val)
+  return val
 
 def sensor():
     data = request.get_json()
@@ -240,7 +241,7 @@ def sensor():
 
       name = randint(1000,9000)
       if 'name' in j: 
-        name=j['name']
+        name=clean_name(j['name'])
         if not j['name']:
           name = randint(1000,9000)
 
@@ -264,18 +265,24 @@ def sensor():
       map_settings = [type, map_y, map_x, 'on', map_id, 'on']
       value=check_value(value, type, rom)
 
-      if insert_db_sqlite(rom, value) == False:
-        new_db_sqlite(rom)
-        insert_db_sqlite(rom,value)
+      m = mysql.connection.cursor()
+      sql = "SELECT value FROM nt_settings WHERE option='mysql_charts'"
+      m.execute(sql) 
+      mysql_charts = m.fetchone()[0]
+      m.close();
 
-      if insert_db(rom,value) == False:
-        new_db_table(rom)
-        insert_db(rom,value)  
+      if mysql_charts == 'on':
+        if insert_db(rom,value) == False:
+          new_db_table(rom)
+          insert_db(rom,value) 
+      else:
+        if insert_db_sqlite(rom, value) == False:
+          new_db_sqlite(rom)
+          insert_db_sqlite(rom,value)
 
       if update_sensor_tmp(rom,value) == False:
         create_sensor(rom,data,data2,map_settings)
         update_sensor_tmp(rom,value)
-
 
 @app.route('/sensor', methods=['POST'])
 @jwt_required
