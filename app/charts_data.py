@@ -143,8 +143,7 @@ def data_charts():
   sql = "SELECT value FROM nt_settings WHERE option='mysql_charts'"
   m.execute(sql) 
   mysql_charts = m.fetchone()[0]
-
-  m.close();
+  m.close()
 
 
   if mysql_charts=='on':
@@ -162,7 +161,7 @@ def data_charts():
     m.execute(sql)
 
     data = [[int(i[0])*1000,i[1]] for i in m.fetchall()]
-    m.close();
+    m.close()
 
   else:
     # sqlite
