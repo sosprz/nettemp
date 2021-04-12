@@ -45,7 +45,7 @@ def login():
     print ("Login form: %s" % username)
 
     m = mysql.connection.cursor()
-    sql = "SELECT id, username, password, email, active FROM users WHERE username=%s""SELECT id, username, password, email, active FROM users WHERE username=%s"
+    sql = "SELECT id, username, password, email, active FROM users WHERE username=%s"
     m.execute(sql, (username,))
     data = m.fetchone()
     print(data)
