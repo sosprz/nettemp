@@ -12,15 +12,20 @@ This is a version with MySQL as the main base and sqlite3 for sensors data. This
 
 # Install
 
-```sudo apt install sudo git```
+```
+sudo apt install sudo git
+```
 
-```sudo mkdir -p /var/www/ && cd /var/www/ && git clone https://github.com/sosprz/nettemp && cd nettemp && ./setup.sh```
+```
+sudo mkdir -p /var/www/ && cd /var/www/ && git clone https://github.com/sosprz/nettemp && cd nettemp && ./setup.sh
+```
 
 # Update
 
-```sudo su -```
-
-```/var/www/nettemp/app/scripts/update.sh```
+```
+sudo su -
+/var/www/nettemp/app/scripts/update.sh
+```
 
 
 # WEB access 
@@ -36,11 +41,16 @@ password: admin
 
 Request:
 
-```curl -k -s -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' --data '{"username":"test","password":"secret_password"}' https://172.18.10.10/register```
+```
+curl -k -s -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' --data '{"username":"test","password":"secret_password"}' https://172.18.10.10/register
+```
 
 Reply:
 
+```
 {"access_token":"eyJ0eXAiO1NiJ9.eyJpYXQiOj2Nlc3MifQ.Sxjv3LXe1F916TaRFF5ODpsg"}
+```
+
 
 Token: 
 eyJ0eXAiO1NiJ9.eyJpYXQiOj2Nlc3MifQ.Sxjv3LXe1F916TaRFF5ODpsg
@@ -63,7 +73,9 @@ send(token, data)
 ```
 
 ## Send data from curl:
-```curl -k -H "Content-Type: application/json" -H 'Authorization: Bearer eyJXJ9.eIn0.fc'  --request POST   --data '[{"rom":"ds18b20-host1","type":"temp","name":"DS18b20","value":"12"}]' https://172.18.10.12/sensor```
+```
+curl -k -H "Content-Type: application/json" -H 'Authorization: Bearer eyJXJ9.eIn0.fc'  --request POST   --data '[{"rom":"ds18b20-host1","type":"temp","name":"DS18b20","value":"12"}]' https://172.18.10.12/sensor
+```
 
 # Supported sensors
 
@@ -97,3 +109,25 @@ send(token, data)
 * beta nettemp4 is a php, sqlite, python, sqlite for all databases. The richest version in features.
 * nettemp 3 is a php, sqlite, python, sqlite for all databases.
 
+
+
+## other examples
+
+nvidia temp python linux
+
+```
+import json, requests, os
+requests.packages.urllib3.disable_warnings()
+
+gpu = "nvidia-smi -q |grep 'Current Temp'|awk -F: '{print $2}'| tr -cd '[:digit:]'"
+gpu_temp = os.popen(gpu).read()
+token = 'eyJ.eyJpYssdfsfdsdfsfsdfsdf._sdfsdfsdf0s9d0f9s0d9f0sd9f'
+data = [{"rom":"1660-3900","type":"temp","name":"GTX1660","value":"{}".format(gpu_temp)}]
+url = "https://172.18.10.10/sensor"
+
+def send(token,data,url):
+  r = requests.post(url,headers={'Content-Type':'application/json', 'Authorization': 'Bearer {}'.format(token)},json=data, verify=False)
+  print (r.content)
+
+send(token, data, url)
+```

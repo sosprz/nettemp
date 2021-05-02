@@ -76,13 +76,12 @@ def update():
   sql.append("INSERT IGNORE nt_settings (option,value) VALUES ('quick_charts', 'off')")
   sql.append("INSERT IGNORE nt_settings (option,value) VALUES ('charts_theme', '')")
   sql.append("INSERT IGNORE nt_settings (option,value) VALUES ('nt_theme', 'dark')")
-  sql.append("INSERT IGNORE nt_settings (option,value) VALUES ('mysql_charts', 'off')")
+  sql.append("INSERT IGNORE nt_settings (option,value) VALUES ('mysql_charts', 'on')")
 
   """ update """
   
   sql.append("UPDATE sensors SET charts='on' WHERE charts is null")
   sql.append("UPDATE sensors SET ch_group='sensors' WHERE ch_group is null OR ch_group=''")
-
 
   sql.append("UPDATE sensors SET stat_max='0' WHERE stat_max is null")
   sql.append("UPDATE sensors SET stat_min='0' WHERE stat_min is null")
@@ -92,6 +91,8 @@ def update():
   sql.append("UPDATE sensors SET fiveago='on' WHERE fiveago is null")
   sql.append("UPDATE sensors SET nodata_time='5' WHERE nodata_time is null")
   sql.append("UPDATE sensors SET email_delay='10' WHERE email_delay is null")
+  sql.append("UPDATE nt_settings SET value='on' WHERE option='mysql_charts' AND value is null")
+
 
   m = mydb.cursor()
   for sql in sql:

@@ -5,6 +5,7 @@ from random import randint
 from flask_jwt_extended import jwt_required
 from flask_mysqldb import MySQL
 mysql = MySQL()
+from app import clean
 
 def get_db(rom):
     db = getattr(g, '_database', None)
@@ -198,22 +199,14 @@ def create_sensor(rom, data, data2, map_settings):
     print ("[ nettemp ][ sensor ] Sensor %s already exist" %rom)
   return None
 
-def clean_rom(val):
-  val.replace('-','_')
-  val = re.sub(r'[^A-Za-z0-9_]+', '', val)
-  return val
-
-def clean_name(val):
-  val = re.sub(r'[^A-Za-z0-9_.-]+', '', val)
-  return val
-
 def sensor():
     data = request.get_json()
     for j in data:
 
       rom = None
       if 'rom' in j: 
-        rom=clean_rom(j['rom'])
+        rom = clean.clean(j['rom'])
+        rom = rom.clean_rom()
 
       type = None 
       if 'type' in j: 
@@ -241,7 +234,8 @@ def sensor():
 
       name = randint(1000,9000)
       if 'name' in j: 
-        name=clean_name(j['name'])
+        name = clean.clean(j['name'])
+        name = name.clean_name()
         if not j['name']:
           name = randint(1000,9000)
 

@@ -20,7 +20,7 @@ from app import charts_data, sensor, sensor_settings, charts
 from app import map, sensor_groups, info, types_settings
 from app import charts_settings, map_settings, map_upload, nettemp_settings, db_settings, db_edit
 from app import users_settings, mail_settings, devices_drivers, devices_1wire, alarms, devices_gpio, node_settings
-from app import login, jwt
+from app import login, jwt, clean
 import sqlite3
 
 
@@ -46,8 +46,4 @@ def nt_reboot():
   if os.path.isfile('data/reboot'):
     reboot='yes'
   return dict(reboot=reboot)
-
-
-
-
 

@@ -69,7 +69,6 @@ def login():
     print ('Bad post or no username')
     return render_template('login.html')
 
-
 """ callback to reload the user object """
 @login_manager.user_loader
 def load_user(userid):
@@ -93,3 +92,4 @@ def unauthorized_handler():
 def logout():
   logout_user()
   return redirect(url_for('index'))
+

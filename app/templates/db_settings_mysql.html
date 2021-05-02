@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "settings_menu.html" %}
+
+<div class="panel panel-default">
+<div class="panel-heading">Database sensors settings </div>
+<table class="table table-hover table-condensed small table-striped table-sm table-borderless">
+<thead>
+<tr>
+<th title="">Name</th>
+<th title="">Status</th>
+<th title="">Edit</th>
+<th title="">Export to CSV</th>
+<th title="">Import from CSV</th>
+<th title="">Remove Table</th>
+</tr>
+</thead>
+
+{% for id, name, rom in data %}
+
+<tr>
+    <td class="col">
+      {{ name }}
+    </td>
+
+    <td class="col">
+        {% if rom in romlist %}
+         OK
+        {% else %}
+         no database
+        {% endif %}
+    </td>
+
+
+    <td class="col">
+      <a href="mysql/edit?rom={{ rom }}"><span class="label label-default">
+                 {{ rom }}
+               </span>
+      </a>
+    </td>
+
+    <td class="col">
+      <a href="mysql?export=yes&rom={{ rom }}"><span class="label label-default">
+                 {{ rom }}
+              </span>
+      </a>
+    </td>
+
+    <td class="col">
+      <form  action="mysql?import" enctype="multipart/form-data" method="post">
+        <div class="input-group" style="width:150px;">
+          <input type="file" class="form-control input-xs"  name="file" size="70" maxlength="60">
+          <input type="hidden" name="rom" value="{{ rom }}" />
+          <input type="hidden" name="send-import" value="yes" />
+          <span class="input-group-btn">
+            <button class="btn btn-success btn-xs" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
+          </span>
+        </div>
+      </form>
+    </td>
+
+    <td class="col-sm-5">
+    <form action="" method="post" >
+        <input type="hidden" name="rom" value="{{ rom }}" />
+	<input type="hidden" name="send-del" value="yes" />
+	<button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
+    </form>
+    </td>
+</tr>
+{% endfor %}
+</table>
+</div>
+{% endblock %}
