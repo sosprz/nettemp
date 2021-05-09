@@ -210,7 +210,8 @@ def sensor():
 
       type = None 
       if 'type' in j: 
-        type=j['type']
+        type = clean.clean(j['type'])
+        type = type.clean_name()
 
       device = None 
       if 'device' in j: 
@@ -249,7 +250,8 @@ def sensor():
     
       group = type 
       if 'group' in j: 
-        group=j['group']
+        group = clean.clean(j['group'])
+        group = group.clean_name()
 
       map_id = randint(1000,9000)
       map_y = randint(50,600)

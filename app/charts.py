@@ -23,7 +23,7 @@ def charts():
    names = m.fetchall()
   elif single:
    m = mysql.connection.cursor()
-   sql = "select name FROM sensors WHERE name=%s AND charts='on'"
+   sql = "select name FROM sensors WHERE id=%s AND charts='on'"
    m.execute(sql, (single,))
    names = m.fetchall()
   else:

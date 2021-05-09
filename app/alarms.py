@@ -6,7 +6,7 @@ mysql = MySQL()
 
 def get_alarms(limit, offset):
   m = mysql.connection.cursor()
-  sql = "SELECT time, value, name, unit, status, action, min, max, type FROM alarms ORDER BY id DESC LIMIT %s OFFSET %s"
+  sql = "SELECT sensor_id, time, value, name, unit, status, action, min, max, type FROM alarms ORDER BY id DESC LIMIT %s OFFSET %s"
   get = [limit, offset]
   m.execute(sql, get)
   data = m.fetchall()

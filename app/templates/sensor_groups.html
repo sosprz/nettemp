@@ -122,7 +122,7 @@ $(function () {
         </td>
         <td> 
             {% if charts == 'on' %}
-              <a href="charts?&type={{ type }}&max=hour&single={{ name }}" title="Go to charts, last update: {{ time }} ">
+              <a href="charts?&type={{ type }}&max=hour&single={{ id }}" title="Go to charts, last update: {{ time }} ">
             {% endif %}
 
             {% if alarm == 'on' %}
@@ -143,12 +143,12 @@ $(function () {
         </td>
         <td>         
             {% if minmax == 'on' %}
-              <a href="charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ stat_min_time }}"> 
+              <a href="charts?&type={{ type }}&single={{ id }}&max=hour&mode=datetime&datetime={{ stat_min_time }}"> 
                <span class="label label-info" title="Lowest value from sensor {{ stat_min_time }}">
                  {{ stat_min }}{{ unit }}
                </span>
               </a>
-              <a href="charts?&type={{ type }}&single={{ name }}&max=hour&mode=datetime&datetime={{ stat_max_time }}">
+              <a href="charts?&type={{ type }}&single={{ id }}&max=hour&mode=datetime&datetime={{ stat_max_time }}">
 	        <span class="label label-warning" title="Greatest value form sensor {{ stat_max_time }}">
                   {{ stat_max }}{{ unit }}
                 </span>

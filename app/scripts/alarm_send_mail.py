@@ -21,10 +21,10 @@ mydb = mysql.connector.connect(
 )
 
 
-def insert_dba(name, value, unit, action, status, min, max, type):
+def insert_dba(id, name, value, unit, action, status, min, max, type):
   m = mydb.cursor()
-  data = [name, value, unit, action, status, min, max, type]
-  sql = "INSERT IGNORE alarms (name, value, unit, action, status, min, max, type) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+  data = [id, name, value, unit, action, status, min, max, type]
+  sql = "INSERT IGNORE alarms (sensor_id, name, value, unit, action, status, min, max, type) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
   m.execute(sql, data)
   mydb.commit()
   m.close()
@@ -90,13 +90,13 @@ def check_alarm():
       print("Alarm 6 "+msg)
 
     if action:
-      insert_dba(name, tmp, unit, action, status, min, max, type)
+      insert_dba(id, name, tmp, unit, action, status, min, max, type)
 
 
 def check_mail():
   msg_all = [] 
   m = mydb.cursor()
-  sql = "select sensors.id, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, \
+  sql = "select sensors.id, sensors.ch_group, sensors.name, sensors.tmp, types.unit, sensors.tmp_min, \
              sensors.tmp_max, sensors.email_status, sensors.email_time, sensors.email_delay, \
              sensors.alarm_recovery_time, sensors.alarm_status, sensors.nodata, sensors.nodata_time \
              FROM sensors INNER JOIN types ON sensors.type = types.type  WHERE sensors.email='on'"
@@ -118,7 +118,7 @@ def check_mail():
     m.close()
 
   msg_all = []
-  for id, name, tmp, unit, min, max, email_status, email_time, email_delay, alarm_recovery_time, alarm_status, nodata, nodata_time in data:
+  for id, ch_group, name, tmp, unit, min, max, email_status, email_time, email_delay, alarm_recovery_time, alarm_status, nodata, nodata_time in data:
     if alarm_recovery_time:
       fmt = '%Y-%m-%d %H:%M:%S'
       now = datetime.datetime.now()
@@ -141,7 +141,7 @@ def check_mail():
 
     if nodata=='nodata' and email_status!='sent':
         update_mail(id,'sent')
-        msg=("No data for %s >= %smin." % (name, nodata_time))
+        msg=("No data for %s >= %smin Group: %s" % (name, nodata_time,ch_group))
         msg_all.append(msg)
         print("[ nettemp ][ alarm send ] Mail 0 "+msg)
     elif alarm_status and td_mins < email_delay and alarm_recovery_time:
@@ -149,7 +149,7 @@ def check_mail():
         print("[ nettemp ][ alarm send ] Mail 1 "+msg)
     elif alarm_status and email_status != 'sent':
         update_mail(id,'sent')
-        msg=("Alarm for %s %.2f%s. Max alarm set to: %.2f%s " % (name,tmp,unit,max,unit))
+        msg=("Alarm for %s %.2f%s. Max alarm set to: %.2f%s Group: %s" % (name,tmp,unit,max,unit,ch_group))
         msg_all.append(msg)
         print("[ nettemp ][ alarm send ] Mail 2 "+msg)
     elif alarm_status and email_status=='sent':
@@ -157,7 +157,7 @@ def check_mail():
         print("[ nettemp ][ alarm send ] Mail 3 "+msg)
     elif not alarm_status and email_status=='sent' and not nodata=='nodata':
         update_mail(id, 'recovery')
-        msg=("Recovery for %s %.2f%s" % (name,tmp,unit))
+        msg=("Recovery for %s %.2f%s Group: %s" % (name,tmp,unit,ch_group))
         msg_all.append(msg)
         print("[ nettemp ][ alarm send ] Mail 4 "+msg)
 

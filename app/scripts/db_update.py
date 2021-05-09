@@ -25,7 +25,7 @@ def update():
   coun=m.fetchone()[0]
   if coun==0:
     sql= "CREATE TABLE `alarms` ( `id` INT NOT NULL AUTO_INCREMENT, `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, `value` INT, `name` TEXT, \
-  	`unit` TEXT, 	`status` TEXT, `action` TEXT, `min` FLOAT, `max` FLOAT, `type` TEXT, PRIMARY KEY (`id`) )"
+  	`unit` TEXT, 	`status` TEXT, `action` TEXT, `min` FLOAT, `max` FLOAT, `type` TEXT, `sensorid` FLOAT PRIMARY KEY (`id`) )"
     m.execute(sql)
     mydb.commit()
 
@@ -93,6 +93,10 @@ def update():
   sql.append("UPDATE sensors SET email_delay='10' WHERE email_delay is null")
   sql.append("UPDATE nt_settings SET value='on' WHERE option='mysql_charts' AND value is null")
 
+  """ alter """
+
+  sql.append("ALTER TABLE sensors DROP INDEX name")
+  sql.append("ALTER TABLE alarms ADD sensor_id INT")
 
   m = mydb.cursor()
   for sql in sql:

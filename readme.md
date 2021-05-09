@@ -131,3 +131,51 @@ def send(token,data,url):
 
 send(token, data, url)
 ```
+lmsensors python linux 
+
+```
+import json, requests, os
+requests.packages.urllib3.disable_warnings()
+
+token = 'eyasdasdasdasdasdlx9PY'
+url = "https://172.18.10.10/sensor"
+
+hostname = os.popen("hostname").read().strip('\n')
+data = []
+
+
+json_data = os.popen("sensors -j").read().strip('\n')
+loaded_json = json.loads(json_data)
+
+name = 'CPU'
+temp = (loaded_json['dell_smm-virtual-0']['CPU']['temp1_input'])
+rom = name+'-'+hostname
+row = {"rom":f"{rom}","type":"temp","name":f"{name}","value":f"{temp}", "group":f"{hostname}"}
+data.append(row)
+
+name = 'Ambient'
+temp = (loaded_json['dell_smm-virtual-0']['Ambient']['temp2_input'])
+rom = name+'-'+hostname
+row = {"rom":f"{rom}","type":"temp","name":f"{name}","value":f"{temp}", "group":f"{hostname}"}
+data.append(row)
+
+print(data)
+
+def send(token,data,url):
+  r = requests.post(url,headers={'Content-Type':'application/json', 'Authorization': f'Bearer {token}'},json=data, verify=False)
+  print (r.content)
+
+send(token, data, url)
+```
+
+## change log
+
+2021-05-10
+change name to id, multiple same name allowed
+add group info to message
+
+## TO DO
+1. remove sqlite
+  sensor.py
+3. clean sensor.py
+  

@@ -30,6 +30,7 @@ All:
 <table class="table table-hover table-condensed small table-striped table-sm table-borderless">
 <thead>
 <tr>
+<th title="ID">ID</th>
 <th title="Set name for sensor">Name</th>
 <th title="More information about sensor">Info</th>
 <th title="Set alarm on/off">Alarm</th>
@@ -52,6 +53,9 @@ All:
 {% for id, time, tmp, name, rom, tmp_min, tmp_max, alarm, type, charts, ch_group, minmax, fiveago, map_id, map_on, email, email_delay, node, adj, email_status, ip, nodata_time in data %}
 
 <tr>
+    <td class="col">
+      {{ id }}
+    </td>
     <td class="col">
       <form action="" method="post">
         <div class="input-group" style="width:150px;">
@@ -243,6 +247,7 @@ All:
 </tr>
 {% endfor %}
 <tr>
+  <td></td>
   <td></td>
   <td></td>
   <td></td>
