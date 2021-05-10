@@ -48,6 +48,7 @@ function getUrlVars() {
 var type = getUrlVars()["type"];
 var max = getUrlVars()["max"];
 var single = getUrlVars()["single"];
+var id = getUrlVars()["id"];
 var group = getUrlVars()["group"];
 var mode = getUrlVars()["mode"];
 var datetime = getUrlVars()["datetime"];
@@ -71,6 +72,8 @@ else {
 }
 
 names = {{ names|tojson }};
+console.log(names)
+
 
 var hc = function () {
     var seriesOptions = [],
@@ -161,7 +164,7 @@ var hc = function () {
     };
 
 $.each(names, function (i, name) {
-    $.getJSON('data/charts/?type='+type+'&name='+name+'&max='+max+'&mode='+mode+'&datetime='+datetime,  function (data) {
+    $.getJSON('data/charts/?type='+type+'&id='+name[0]+'&max='+max+'&mode='+mode+'&datetime='+datetime,  function (data) {
         if (max=="15min") { var xhour = "1min" }
         if (max=="hour") { var xhour = "hour" }
         if (max=="day") { var xhour = "hour" }
@@ -172,7 +175,7 @@ $.each(names, function (i, name) {
         if (max=="all") { var xhour = "year" }
  
 	seriesOptions[i] = {
-            name: name,
+            name: name[1],
             data: data,
 	    type: 'spline',
 	    tooltip: { 

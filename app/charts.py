@@ -18,17 +18,17 @@ def charts():
 
   if group:
    m = mysql.connection.cursor()
-   sql = "select name FROM sensors WHERE ch_group=%s AND charts='on'"
+   sql = "select id,name FROM sensors WHERE ch_group=%s AND charts='on'"
    m.execute(sql, (group,))
    names = m.fetchall()
   elif single:
    m = mysql.connection.cursor()
-   sql = "select name FROM sensors WHERE id=%s AND charts='on'"
+   sql = "select id,name FROM sensors WHERE id=%s AND charts='on'"
    m.execute(sql, (single,))
    names = m.fetchall()
   else:
    m = mysql.connection.cursor()
-   sql = "select name FROM sensors WHERE type=%s AND charts='on'"
+   sql = "select id,name FROM sensors WHERE type=%s AND charts='on'"
    m.execute(sql, (type,))
    names = m.fetchall()
   
@@ -44,7 +44,7 @@ def charts():
 
   m.close()
 
-  names = [i[0] for i in names]
+  names = [i for i in names]
   names = list(set(names))
 
   groups = [i[0] for i in groups]

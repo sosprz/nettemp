@@ -11,7 +11,7 @@ mysql = MySQL()
 @login_required
 def data_charts():
   max = request.args.get("max")
-  name = request.args.get("name")
+  id = request.args.get("id")
   type = request.args.get("type")
   mode = request.args.get("mode")
   datetime = request.args.get("datetime")
@@ -131,11 +131,12 @@ def data_charts():
 
 
   m = mysql.connection.cursor()
-  data = [str(name)]
-  name = str(name)
-  sql = "SELECT rom FROM sensors WHERE name=%s AND charts='on'"
-  m.execute(sql, (name,))
+  
+  id = str(id)
+  sql = "SELECT rom FROM sensors WHERE id=%s AND charts='on'"
+  m.execute(sql, (id,))
   rom = m.fetchone()[0]
+
   sql = "SELECT value FROM nt_settings WHERE option='quick_charts'"
   m.execute(sql) 
   quick_charts = m.fetchone()[0]
@@ -179,10 +180,6 @@ def data_charts():
 
     data = [[int(i[0])*1000,i[1]] for i in c.fetchall()]
     conn.close()
-
-  
-  
-  
   
   return json.dumps(data)
 
