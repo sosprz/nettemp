@@ -17,55 +17,59 @@ def data_charts():
   datetime = request.args.get("datetime")
 
   def mysql_query_datetime(rom, max, datetime):
-    if max == '15min':
+    if max == '15m':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time BETWEEN '{}' and DATE_SUB('{}', INTERVAL -15 MINUTE))".format(rom,datetime,datetime)
-    if max == 'hour':
+    if max == '1h':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time BETWEEN '{}' and DATE_SUB('{}', INTERVAL -1 HOUR))".format(rom,datetime,datetime)
-    if max == 'week':
+    if max == '8h':
+      sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time BETWEEN '{}' and DATE_SUB('{}', INTERVAL -8 HOUR))".format(rom,datetime,datetime)
+    if max == '1w':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time BETWEEN '{}' and DATE_SUB('{}', INTERVAL -1 WEEK))".format(rom,datetime,datetime)
-    if max == 'month':
+    if max == '1m':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time BETWEEN '{}' and DATE_SUB('{}', INTERVAL -1 MONTH))".format(rom,datetime,datetime)
-    if max == '6months':
+    if max == '6m':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time BETWEEN '{}' and DATE_SUB('{}', INTERVAL -6 MONTH))".format(rom,datetime,datetime)
-    if max == 'year':
+    if max == '1y':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time BETWEEN '{}' and DATE_SUB('{}', INTERVAL -1 YEAR))".format(rom,datetime,datetime)
     if max == 'all':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time BETWEEN '{}' and DATE_SUB('{}', INTERVAL -1 YEAR))".format(rom,datetime,datetime)
     return sql
 
   def query_datetime(max):
-    if max == '15min':
+    if max == '15m':
       sql = "select strftime('%s', time),value from def WHERE datetime(time, 'localtime') BETWEEN datetime(?, 'localtime', '-15 minutes') AND datetime(?, 'localtime', '+15 minutes' )"
-    if max == 'hour':
+    if max == '1h':
       sql = "select strftime('%s', time),value from def WHERE datetime(time, 'localtime') BETWEEN datetime(?, 'localtime', '-1 hour') AND datetime(?, 'localtime', '+1 hour' )"
     if max == 'day':
       sql = "select strftime('%s', time),value from def WHERE datetime(time, 'localtime') BETWEEN datetime(?, 'localtime', '-1 day') AND datetime(?, 'localtime', '+1 day' )"
-    if max == 'week':
+    if max == '1w':
       sql = "select strftime('%s', time),value from def WHERE datetime(time, 'localtime') BETWEEN datetime(?, 'localtime', '-7 day') AND datetime(?, 'localtime', '+7 day' )"
-    if max == 'month':
+    if max == '1m':
       sql = "select strftime('%s', time),value from def WHERE datetime(time, 'localtime') BETWEEN datetime(?, 'localtime', '-1 months') AND datetime(?, 'localtime', '+1 months ' )"
-    if max == 'months':
+    if max == '6m':
       sql = "select strftime('%s', time),value from def WHERE datetime(time, 'localtime') BETWEEN datetime(?, 'localtime', '-6 months') AND datetime(?, 'localtime', '+6 months ' )"
-    if max == 'year':
+    if max == '1y':
       sql = "select strftime('%s', time),value from def WHERE datetime(time, 'localtime') BETWEEN datetime(?, 'localtime', '-1 year') AND datetime(?, 'localtime', '+1 year ' )"
     if max == 'all':
       sql = "select strftime('%s', time),value from def WHERE datetime(time, 'localtime') BETWEEN datetime(?, 'localtime', '-1 year') AND datetime(?, 'localtime', '+1 year ' )"
     return sql
 
   def mysql_query(rom, max):
-    if max == '15min':
+    if max == '15m':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 15 MINUTE))".format(rom)
-    if max == 'hour':
+    if max == '1h':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 1 HOUR))".format(rom)
+    if max == '8h':
+      sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 8 HOUR))".format(rom)
     if max == 'day':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 24 HOUR))".format(rom)
-    if max == 'week':
+    if max == '1w':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 1 WEEK))".format(rom)
-    if max == 'month':
+    if max == '1m':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 1 MONTH))".format(rom)
-    if max == '6months':
+    if max == '6m':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 6 MONTH))".format(rom)
-    if max == 'year':
+    if max == '1y':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 1 YEAR))".format(rom)
     if max == 'all':
       sql = "select UNIX_TIMESTAMP(time),value from {}".format(rom)      
@@ -73,57 +77,59 @@ def data_charts():
 
 
   def query(max):
-   if max == '15min':
+   if max == '15m':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-15 minutes')"
-   if max == 'hour':
+   if max == '1h':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 hour')"
    if max == 'day':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 day')"
-   if max == 'week':
+   if max == '1w':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-7 day')"
-   if max == 'month':
+   if max == '1m':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 months')"
-   if max == '6months':
+   if max == '6m':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-6 months')"
-   if max == 'year':
+   if max == '1y':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 year')"
    if max == 'all':
      sql = "select strftime('%s', time),value from def"
    return sql
 
   def mysql_querymod(rom, max):
-    if max == '15min':
+    if max == '15m':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 15 MINUTE))".format(rom)
-    if max == 'hour':
+    if max == '1h':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 1 HOUR))".format(rom)
-    if max == 'day':
+    if max == '8h':
+      sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 8 HOUR))".format(rom)
+    if max == '1d':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 24 HOUR)) AND id % 60=0".format(rom)
-    if max == 'week':
+    if max == '1w':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 1 WEEK)) AND id % 240=0".format(rom)
-    if max == 'month':
+    if max == '1m':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 1 MONTH)) AND id % 1440=0".format(rom)
-    if max == '6months':
+    if max == '6m':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 6 MONTH)) AND id % 1440=0".format(rom)
-    if max == 'year':
+    if max == '1y':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 1 YEAR)) AND id % 10080=0".format(rom)
     if max == 'all':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE id % 10080=0".format(rom)      
     return sql
 
   def querymod(max):
-   if max == '15min':
+   if max == '15m':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-15 minutes')"
-   if max == 'hour':
+   if max == '1h':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 hour')"
-   if max == 'day':
+   if max == '1d':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 day') AND rowid % 60=0"
-   if max == 'week':
+   if max == '1w':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-7 day') AND rowid % 240=0"
-   if max == 'month':
+   if max == '1m':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 months') AND rowid % 1440=0"
-   if max == '6months':
+   if max == '6m':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-6 months')  AND rowid % 1440=0"
-   if max == 'year':
+   if max == '1y':
      sql = "select strftime('%s', time),value from def WHERE time >= datetime('now','localtime','-1 year') AND rowid % 10080=0"
    if max == 'all':
      sql = "select strftime('%s', time),value from def WHERE rowid % 10080=0"

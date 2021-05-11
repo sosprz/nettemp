@@ -31,8 +31,8 @@ def map():
       m.execute(sql, (map_height,))
       m.connection.commit()
       m.close()
-      print(map_height)
-      print(map_width)
+      #print(map_height)
+      #print(map_width)
 
   m = mysql.connection.cursor()
   sql = "select sensors.name, sensors.tmp, types.unit, types.unit2, types.ico, types.title, \
