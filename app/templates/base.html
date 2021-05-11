@@ -43,7 +43,7 @@
 <div id="navbar" class="navbar-collapse collapse">
 <ul class="nav navbar-nav">
 <li class="{{ 'active' if '/' == geturl  }}"><a href="{{ url_for('index') }}"><span class="glyphicon glyphicon-th-large" aria-hidden="true"> Status</span></a></li>
-<li class="{{ 'active' if '/charts' == geturl  }}"><a href="{{ url_for('charts', type='temp', max='hour', mode='', group='', single='') }}"><span class="glyphicon glyphicon-stats" aria-hidden="true"> Charts</span></a></li>
+<li class="{{ 'active' if '/charts' == geturl  }}"><a href="{{ url_for('charts', type='temp', max='1h', mode='', group='', single='') }}"><span class="glyphicon glyphicon-stats" aria-hidden="true"> Charts</span></a></li>
 <li class="{{ 'active' if '/map' == geturl  }}"><a href="{{ url_for('map') }}"><span class="glyphicon glyphicon-picture" aria-hidden="true"> Map</span> </a></li>
 <li class="{{ 'active' if '/alarms' == geturl  }}"><a href="/alarms"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"> Alarms</span></a></li>
 <li class="{{ 'active' if '/settings/sensors' == geturl  }}"><a href="/settings/sensors"><span class="glyphicon glyphicon-cog" aria-hidden="true"> Settings</span></a></li>
