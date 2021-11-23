@@ -178,4 +178,6 @@ add group info to message
 1. remove sqlite
   sensor.py
 3. clean sensor.py
+
+4. sensors settings comma! 3,3
   

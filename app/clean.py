@@ -12,3 +12,8 @@ class clean:
   def clean_name(self):
     val = re.sub(r'[^A-Za-z0-9_.-]+', '', self.val)
     return val
+
+  def clean_value(self):
+    val = self.val.replace(',','.')
+    val = re.sub(r'[^0-9.]+', '', self.val)
+    return val

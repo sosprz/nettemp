@@ -23,6 +23,8 @@ def data_charts():
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time BETWEEN '{}' and DATE_SUB('{}', INTERVAL -1 HOUR))".format(rom,datetime,datetime)
     if max == '8h':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time BETWEEN '{}' and DATE_SUB('{}', INTERVAL -8 HOUR))".format(rom,datetime,datetime)
+    if max == '1d':
+      sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time BETWEEN '{}' and DATE_SUB('{}', INTERVAL -1 DAY))".format(rom,datetime,datetime)
     if max == '1w':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time BETWEEN '{}' and DATE_SUB('{}', INTERVAL -1 WEEK))".format(rom,datetime,datetime)
     if max == '1m':
@@ -40,7 +42,7 @@ def data_charts():
       sql = "select strftime('%s', time),value from def WHERE datetime(time, 'localtime') BETWEEN datetime(?, 'localtime', '-15 minutes') AND datetime(?, 'localtime', '+15 minutes' )"
     if max == '1h':
       sql = "select strftime('%s', time),value from def WHERE datetime(time, 'localtime') BETWEEN datetime(?, 'localtime', '-1 hour') AND datetime(?, 'localtime', '+1 hour' )"
-    if max == 'day':
+    if max == '1d':
       sql = "select strftime('%s', time),value from def WHERE datetime(time, 'localtime') BETWEEN datetime(?, 'localtime', '-1 day') AND datetime(?, 'localtime', '+1 day' )"
     if max == '1w':
       sql = "select strftime('%s', time),value from def WHERE datetime(time, 'localtime') BETWEEN datetime(?, 'localtime', '-7 day') AND datetime(?, 'localtime', '+7 day' )"
@@ -61,7 +63,7 @@ def data_charts():
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 1 HOUR))".format(rom)
     if max == '8h':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 8 HOUR))".format(rom)
-    if max == 'day':
+    if max == '1d':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 24 HOUR))".format(rom)
     if max == '1w':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 1 WEEK))".format(rom)
@@ -103,9 +105,9 @@ def data_charts():
     if max == '8h':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 8 HOUR))".format(rom)
     if max == '1d':
-      sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 24 HOUR)) AND id % 60=0".format(rom)
+      sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 24 HOUR)) AND id % 15=0".format(rom)
     if max == '1w':
-      sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 1 WEEK)) AND id % 240=0".format(rom)
+      sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 1 WEEK)) AND id % 120=0".format(rom)
     if max == '1m':
       sql = "select UNIX_TIMESTAMP(time),value from {} WHERE (time > DATE_SUB(now(), INTERVAL 1 MONTH)) AND id % 1440=0".format(rom)
     if max == '6m':
