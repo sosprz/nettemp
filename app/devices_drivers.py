@@ -8,32 +8,32 @@ from pathlib import Path
 @app.route('/settings/devices/drivers', methods=['GET','POST'])
 @login_required
 def devices_settings():
-  list =  ['01','05','10','15','20','30','60']
-  if request.form.get('time') in list:
+  readAfter =  ['01','05','10','15','20','30','60']
+  driversDir = os.listdir('app/sensors/available/')
+  driversList = [x.split('.')[0] for x in driversDir]
+  if request.form.get('time') in readAfter or request.form.get('time') == 'off':
         file = request.form['file'] 
-        action = request.form['action']
         time = request.form['time']
-        print(time)
-        file = file+'.py'
-        if action == 'on':
-          for t in list:
+        print(time, file)
+        if time in readAfter and file in driversList:
+          for t in readAfter:
             try:
-              Path('data/sensors/enabled/'+t+'/'+file).unlink()
+              Path('data/sensors/enabled/'+t+'/'+file+'.py').unlink()
             except:
               pass
-          src = '../../../../app/sensors/available/'+file
-          dst = 'data/sensors/enabled/'+time+'/'+file
+          src = '../../../../app/sensors/available/'+file+'.py'
+          dst = 'data/sensors/enabled/'+time+'/'+file+'.py'
           os.symlink(src, dst)
-        elif action == 'off':
-          for t in list:
+        elif time == 'off' and file in driversList:
+          for t in readAfter:
             try:
-              Path('data/sensors/enabled/'+t+'/'+file).unlink()
+              Path('data/sensors/enabled/'+t+'/'+file+'.py').unlink()
             except:
               pass
 
   av=[]
   def enabled(filename):
-    for t in list:
+    for t in readAfter:
       for files in os.listdir('data/sensors/enabled/'+t+'/'):
         if files.endswith(".py"):
           if files == filename:
@@ -43,6 +43,6 @@ def devices_settings():
     if filename.endswith(".py"): 
       av.append([os.path.splitext(filename)[0],enabled(filename)])
 
-  return render_template('devices_drivers.html', av=av)
+  return render_template('devices_drivers.html', av=av, readAfter=readAfter)
 
 

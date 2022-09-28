@@ -10,13 +10,13 @@
 <table class="table">
  <tr>
    <th>Driver</th>
-   <th>Read after 1 min</th>
-   <th>Read after 5 min</th>
-   <th>Read after 10 min</th>
-   <th>Read after 15 min</th>
-   <th>Read after 20 min</th>
-   <th>Read after 30 min</th>
-   <th>Read after 60 min</th>
+   <th>Read data every minute:</th>
+   <th></th>
+   <th></th>
+   <th></th>
+   <th></th>
+   <th></th>
+   <th></th>
  </tr>
 {% for file, time in av %}
     <tr>
@@ -25,67 +25,34 @@
     </td>
     <td class="col-md-1">
         <form action="" method="post" style="display:inline!important;">
-          <button type="submit" name="action" value="{{ 'off' if time=='01' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if time=='01' else 'btn btn-xs btn-default' }}">{{ 'ON' if time=='01' else 'OFF' }}</button>
           <input type="hidden" name="send-file" value="yes" />
-          <input type="hidden" name="time" value="01" />
           <input type="hidden" name="file" value="{{ file }}" />
+          <input type="hidden" name="time2" value="{{ time }}" />
+
+            <select name="time" class="form-control input-xs" style="width:300px;" onchange="this.form.submit()">
+            {% for readAfter in readAfter %}
+            {% if time != 'None' %}
+            <option value="{{ readAfter }}"  {{ 'selected' if time == readAfter else '' }} > {{ readAfter }} </option>
+            {% endif %}
+            {% endfor %}
+            <option value="off" {{ 'selected' if time is none else '' }} >OFF</option>
+           
+        
+            </select>
         </form>
     </td>
     <td class="col-md-1">
-        <form action="" method="post" style="display:inline!important;">
-          <button type="submit" name="action" value="{{ 'off' if time=='05' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if time=='05' else 'btn btn-xs btn-default' }}">{{ 'ON' if time=='05' else 'OFF' }}</button>
-          <input type="hidden" name="send-file" value="yes" />
-          <input type="hidden" name="time" value="05" />
-          <input type="hidden" name="file" value="{{ file }}" />
-        </form>
     </td>
     <td class="col-md-1">
-        <form action="" method="post" style="display:inline!important;">
-          <button type="submit" name="action" value="{{ 'off' if time=='10' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if time=='10' else 'btn btn-xs btn-default' }}">{{ 'ON' if time=='10' else 'OFF' }}</button>
-          <input type="hidden" name="send-file" value="yes" />
-          <input type="hidden" name="time" value="10" />
-          <input type="hidden" name="file" value="{{ file }}" />
-        </form>
     </td>
     <td class="col-md-1">
-        <form action="" method="post" style="display:inline!important;">
-          <button type="submit" name="action" value="{{ 'off' if time=='15' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if time=='15' else 'btn btn-xs btn-default' }}">{{ 'ON' if time=='15' else 'OFF' }}</button>
-          <input type="hidden" name="send-file" value="yes" />
-          <input type="hidden" name="time" value="15" />
-          <input type="hidden" name="file" value="{{ file }}" />
-        </form>
     </td>
     <td class="col-md-1">
-        <form action="" method="post" style="display:inline!important;">
-          <button type="submit" name="action" value="{{ 'off' if time=='20' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if time=='20' else 'btn btn-xs btn-default' }}">{{ 'ON' if time=='20' else 'OFF' }}</button>
-          <input type="hidden" name="send-file" value="yes" />
-          <input type="hidden" name="time" value="20" />
-          <input type="hidden" name="file" value="{{ file }}" />
-        </form>
     </td>
     <td class="col-md-1">
-        <form action="" method="post" style="display:inline!important;">
-          <button type="submit" name="action" value="{{ 'off' if time=='30' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if time=='30' else 'btn btn-xs btn-default' }}">{{ 'ON' if time=='30' else 'OFF' }}</button>
-          <input type="hidden" name="send-file" value="yes" />
-          <input type="hidden" name="time" value="30" />
-          <input type="hidden" name="file" value="{{ file }}" />
-        </form>
     </td>
     <td class="col-md-5">
-        <form action="" method="post" style="display:inline!important;">
-          <button type="submit" name="action" value="{{ 'off' if time=='60' else 'on' }}"  class="{{ 'btn btn-xs btn-primary' if time=='60' else 'btn btn-xs btn-default' }}">{{ 'ON' if time=='60' else 'OFF' }}</button>
-          <input type="hidden" name="send-file" value="yes" />
-          <input type="hidden" name="time" value="60" />
-          <input type="hidden" name="file" value="{{ file }}" />
-        </form>
     </td>
-
-
-
-
-
-
-
 
     </tr>
 {% endfor %}
