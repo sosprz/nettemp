@@ -1,7 +1,7 @@
 import psutil
 import sys, os
-dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..')))
-sys.path.append(dir)
+dir=(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', '..', '..', '..')))
+sys.path.append(dir+'/app')
 from local_nettemp import insert
 
 cpu=psutil.cpu_percent()
