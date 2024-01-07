@@ -12,7 +12,7 @@ This is a version with MySQL as the main base and sqlite3 for sensors data. This
 
 # Install
 
-```sudo apt install sudo git```
+```sudo apt update && apt install sudo git```
 
 ```sudo mkdir -p /var/www/ && cd /var/www/ && git clone https://github.com/sosprz/nettemp && cd nettemp && ./setup.sh```
 
