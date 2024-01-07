@@ -1,9 +1,9 @@
-Click==7.0
-Flask==1.1.1
-itsdangerous==1.1.0
-jinja2>=2.11.3
-MarkupSafe==1.1.1
-Werkzeug==1.0.0
+Click
+Flask
+itsdangerous
+jinja2
+MarkupSafe
+Werkzeug
 Gunicorn
 py
 w1thermsensor
