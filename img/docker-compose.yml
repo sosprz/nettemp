@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  nettemp-db:
+    container_name: nettemp-db
+    image: mariadb
+    restart: unless-stopped
+    networks: 
+      - nettemp-net
+    volumes:
+      - nettemp-db:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+        MARIADB_DATABASE: nettemp
+        MARIADB_USER: nettemp
+        MARIADB_PASSWORD: nettemp
+        MARIADB_ROOT_PASSWORD: nettemp
+        MARIADB_MYSQL_LOCALHOST_USER: 1
+    healthcheck:
+        test: ["CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized"]
+        interval: 10s
+        timeout: 3s
+        retries: 3
+   
+  nettemp:
+    container_name: nettemp
+    image: przemeksdocker/nettemp
+    restart: unless-stopped
+    networks: 
+      - nettemp-net
+    volumes:
+      - nettemp-data:/var/www/nettemp/data
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+        MYSQL_HOST: nettemp-db
+        MYSQL_USER: nettemp
+        MYSQL_PASSWORD: nettemp
+        MYSQL_DB: nettemp
+    ports:
+      - "443:443"   # selfsigned ssl cert
+      #- "8000"       # no ssl eg. for traefik
+      #- "8000:8000"  # no ssl
+      - "80:80"     # redirect to 443
+
+    links:
+      - "nettemp-db:nettemp-db"
+    depends_on:
+        nettemp-db:
+          condition: service_healthy
+
+volumes:
+    nettemp-db:
+      name: nettemp-db
+    nettemp-data:
+      name: nettemp-data
+
+networks:
+    nettemp-net:
+      name: nettemp-net
