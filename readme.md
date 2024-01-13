@@ -74,26 +74,34 @@ password: admin
 
 # How to send data to nettemp
 
+## get token from 
+```
+https://nettemp_ip/data/server
+```
+
 ## Send data from python:
 ```
-import requests
 requests.packages.urllib3.disable_warnings() 
 import json
 
-token = 'eyJ0eXAiO1NiJ9.eyJpYXQiOj2Nlc3MifQ.Sxjv3LXe1F916TaRFF5ODpsg'
+token = 'y8k76HDjmuQqJDKIaFwf8rk55sa8jIh1zCzZJ6sJZ8c'
 
 def send(token,data):
-  url = "https://172.18.10.10/sensor"
+  url = "https://nettemp_ip/"
   r = requests.post(url,headers={'Content-Type':'application/json', 'Authorization': 'Bearer {}'.format(token)},json=data, verify=False)
   print (r.content)
 
-data = [{"rom":"ds18b20-sensor-1","type":"temp","name":"DS18B20","value":"-10"}]
+data = [{"rom":"ds18b20-sensor-1","type":"temp","name":"DS18B20","value":"-10","group":"group1"}]
 send(token, data)
 ```
 
 ## Send data from curl:
 ```
-curl -k -H "Content-Type: application/json" -H 'Authorization: Bearer eyJXJ9.eIn0.fc'  --request POST   --data '[{"rom":"ds18b20-host1","type":"temp","name":"DS18b20","value":"12"}]' https://172.18.10.12/sensor
+curl -k -H "Content-Type: application/json" \
+-H 'Authorization: Bearer y8k76HDjmuQqJDKIaFwf8rk55sa8jIh1zCzZJ6sJZ8c' \
+--request POST \
+--data '[{"rom":"ds18b20-host1","type":"temp","name":"DS18b20","value":"12","group":"group1"}]' \
+https://nettemp_ip/
 ```
 
 ## Send data from nettemp_client
