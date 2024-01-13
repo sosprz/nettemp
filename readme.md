@@ -143,3 +143,6 @@ https://github.com/sosprz/nettemp_client
 * beta nettemp4 is a php, sqlite, python, sqlite for all databases. The richest version in features.
 * nettemp 3 is a php, sqlite, python, sqlite for all databases.
 
+# Support
+
+https://discord.com/invite/S4egxNvQHM
