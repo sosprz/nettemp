@@ -9,8 +9,9 @@
 
 # info
 
+- nettemp7 in docker
 - docker composer file
-- full MySQL, main DB amd sensors.
+- full MySQL, main DB and sensors.
 
 # Install
 
@@ -39,7 +40,7 @@ docker ps
 mkdir ~/nettemp && cd ~/nettemp
 
 # download docker compose script
-wget https://git.pslocal.pl/adminps/nettemp-dev/raw/branch/main/compose/docker-compose.yml
+wget https://raw.githubusercontent.com/sosprz/nettemp/nettemp7/docker-compose.yml
 
 # docker compose, you should always run docker compose commands in the directory containing the docker compose file.
 
@@ -53,8 +54,16 @@ docker compose down
 docker compose pull
 ```
 
-# Docker compose WEB configuration
-You can set in docker compose what configuration is needed ex. port 80, 443, 8000 for Traefik or Nginx Proxy  Manager.
+# Docker composer WEB configuration
+You can set in docker compose what configuration is needed ex. port 80, 443, 8000 for Traefik or Nginx Proxy Manager.
+
+```
+    ports:
+      - "443:443"   # selfsigned ssl cert
+      #- "8000"       # no ssl eg. for traefik
+      #- "8000:8000"  # no ssl
+      - "80:80"     # redirect to 443
+```
 
 # WEB access 
 https://YOUR-IP-ADDRESS
