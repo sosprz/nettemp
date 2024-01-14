@@ -1,7 +1,8 @@
-# nettemp.pl
+# nettemp
 
 ![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-status.png)
 ![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-status2.png)
+![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-status3.png)
 ![nettemp charts](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-charts.png)
 ![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-map.png)
 ![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-alarms.png)
@@ -110,6 +111,9 @@ https://github.com/sosprz/nettemp_client
 
 
 ### Supported sensors by nettemp client
+
+![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-raspi.png)
+![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-sensors1.png)
 
 #### I2C sensors
 * HIH6130 0x27 temperature, humidity
