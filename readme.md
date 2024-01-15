@@ -4,9 +4,11 @@ Nettemp is a data colector, with:
 * Status dashboard, with grouping, sorting function, gauge, mini charts, map.
 * Charts, highcharts, chartsjs, NVD3
 * Map, Visual arrangement of sensors on the plan
-* Alarm dashbaord
+* Alarm dashbaord, no data notification
 * Notofication function over mail
 * Receiving data in JSON format 
+* nettemp_client as separated app
+* [in progress] nettemp_client configuration from nettemp! You can set which sensors should be switched on. The client takes the configuration from the server. No local configuration required (except token and hostname). Last log from client is available.
 
 
 ![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-status.png)
