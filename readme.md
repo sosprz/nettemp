@@ -7,8 +7,9 @@ Nettemp is a data colector, with:
 * Alarm dashbaord, no data notification
 * Notofication function over mail
 * Receiving data in JSON format 
-* nettemp_client as separated app
-* [in progress] nettemp_client configuration from nettemp! You can set which sensors should be switched on. The client takes the configuration from the server. No local configuration required (except token and hostname). Last log from client is available.
+* Nettemp nodes sending data to other nettemps
+* Nettemp_client as separated app
+* [in progress] Nettemp_client configuration from nettemp! You can set which sensors should be switched on. The client takes the configuration from the server. No local configuration required (except token and hostname). Last log from client is available.
 
 
 ![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-status.png)
@@ -145,6 +146,10 @@ https://github.com/sosprz/nettemp_client
 
 #### USB sensors
 * DS9490R 1wire - DS18b20 temperature
+
+#### Other 
+* lm-sensors
+* ping
 
 #### Data send by json
 * ALL
