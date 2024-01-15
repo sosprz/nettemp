@@ -1,5 +1,14 @@
 # nettemp
 
+Nettemp is a data colector, with:
+* Status dashboard, with grouping, sorting function, gauge, mini charts, map.
+* Charts, highcharts, chartsjs, NVD3
+* Map, Visual arrangement of sensors on the plan
+* Alarm dashbaord
+* Notofication function over mail
+* Receiving data in JSON format 
+
+
 ![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-status.png)
 ![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-status2.png)
 ![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-status3.png)
