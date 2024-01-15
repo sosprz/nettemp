@@ -9,7 +9,6 @@ Nettemp is a data colector, with:
 * Receiving data in JSON format 
 * Nettemp nodes sending data to other nettemps
 * Nettemp_client as separated app
-* [in progress] Nettemp_client configuration from nettemp! You can set which sensors should be switched on. The client takes the configuration from the server. No local configuration required (except token and hostname). Last log from client is available.
 
 
 ![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-status.png)
