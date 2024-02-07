@@ -45,7 +45,7 @@ sudo sh get-docker.sh
 
 # add user to docker group
 sudo usermod -aG docker ${USER}
-su - ${USER}
+sudo su - ${USER}
 
 # check if user has access to docker
 docker ps
