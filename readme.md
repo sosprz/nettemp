@@ -1,6 +1,6 @@
 # nettemp
 
-Nettemp is a data colector, with:
+Nettemp is a data colector and monitoring app, with:
 * Status dashboard, with grouping, sorting function, gauge, mini charts, map.
 * Charts, highcharts, chartsjs, NVD3
 * Map, Visual arrangement of sensors on the plan
@@ -9,6 +9,7 @@ Nettemp is a data colector, with:
 * Receiving data in JSON format 
 * Nettemp nodes sending data to other nettemps
 * Nettemp_client as separated app
+* monitoring by ping and http/url ping. (nettemp_client)
 
 
 ![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-status.png)
@@ -24,6 +25,7 @@ Nettemp is a data colector, with:
 - nettemp7 in docker
 - docker composer file
 - full MySQL, main DB and sensors.
+
 
 # Install
 
@@ -58,12 +60,16 @@ wget https://raw.githubusercontent.com/sosprz/nettemp/nettemp7/docker-compose.ym
 
 # docker compose start
 docker compose up -d
+```
 
-# docker compose stop
+
+# how to update?
+
+```
+cd ~/nettemp
 docker compose down
-
-# docker compose pull also update image
 docker compose pull
+docker compose up
 ```
 
 # Docker composer WEB configuration
