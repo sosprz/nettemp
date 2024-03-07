@@ -4,13 +4,14 @@ Nettemp is a data colector and monitoring app, with:
 * Status dashboard, with grouping, sorting function, gauge, mini charts, map.
 * Charts, highcharts, chartsjs, NVD3
 * Map, Visual arrangement of sensors on the plan
-* Alarm dashbaord, no data notification
+* Alarm dashbaord, "no data" notification
 * Notofication function over mail
 * Receiving data in JSON format 
 * Nettemp nodes sending data to other nettemps
 * Nettemp_client as separated app
 * monitoring by ping and http/url ping. (nettemp_client)
 
+# screenshots
 
 ![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-status.png)
 ![nettemp status](https://github.com/sosprz/nettemp/raw/nettemp7/img/nettemp-status2.png)
@@ -23,9 +24,43 @@ Nettemp is a data colector and monitoring app, with:
 # info
 
 - nettemp7 in docker
-- docker composer file
-- full MySQL, main DB and sensors.
+- docker compose file
+- in docker compose file is possible to select MariaDB or Sqlite3 database
 
+# Install - quick MariaDB (mysql)
+```
+sudo timedatectl set-timezone Europe/Warsaw && \
+sudo apt update && \
+sudo apt -y upgrade  && \
+sudo apt install -y curl && \
+curl -fsSL https://get.docker.com -o get-docker.sh && \
+sudo sh get-docker.sh && \
+sudo usermod -aG docker ${USER} && \
+sudo su - ${USER} 
+
+
+mkdir ~/nettemp && cd ~/nettemp && \
+wget https://raw.githubusercontent.com/sosprz/nettemp/nettemp7/docker-compose.yml && \
+docker compose up -d 
+
+```
+# Install - quick sqlite3
+```
+sudo timedatectl set-timezone Europe/Warsaw && \
+sudo apt update && \
+sudo apt -y upgrade  && \
+sudo apt install -y curl && \
+curl -fsSL https://get.docker.com -o get-docker.sh && \
+sudo sh get-docker.sh && \
+sudo usermod -aG docker ${USER} && \
+sudo su - ${USER} 
+
+
+mkdir ~/nettemp && cd ~/nettemp && \
+wget https://raw.githubusercontent.com/sosprz/nettemp/nettemp7/docker-compose-sqlite.yml -O docker-compose.yml && \
+docker compose up -d 
+
+```
 
 # Install
 
@@ -158,6 +193,7 @@ https://github.com/sosprz/nettemp_client
 
 #### Data send by json
 * ALL
+* example: ESPEasy over POSTtoHTTP
 
 
 ## Old things, versions
