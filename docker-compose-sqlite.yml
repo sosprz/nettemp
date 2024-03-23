@@ -14,6 +14,7 @@ services:
       #- "80:80"     # redirect to 443
     environment:
         DATABASE_TYPE: "sqlite" # sqlite, mysql
+        # HTTPS: False  # if not using https
 
 volumes:
     nettemp-data:

@@ -36,6 +36,7 @@ services:
         MYSQL_USER: nettemp
         MYSQL_PASSWORD: nettemp
         MYSQL_DB: nettemp
+        # HTTPS: False  # if not using https
     ports:
       - "443:443"   # selfsigned ssl cert
       #- "8000"       # no ssl eg. for traefik

@@ -27,8 +27,33 @@ Nettemp is a data colector and monitoring app, with:
 - docker compose file
 - in docker compose file is possible to select MariaDB or Sqlite3 database
 
-# Install - quick MariaDB (mysql)
+
+# Installation with docker (sqlite3 database)
 ```
+# install docker
+
+# step 1
+sudo timedatectl set-timezone Europe/Warsaw && \
+sudo apt update && \
+sudo apt -y upgrade  && \
+sudo apt install -y curl && \
+curl -fsSL https://get.docker.com -o get-docker.sh && \
+sudo sh get-docker.sh && \
+sudo usermod -aG docker ${USER} && \
+sudo su - ${USER} 
+
+# step 2 (optional)
+mkdir ~/nettemp && cd ~/nettemp 
+
+# step 3
+docker run --name nettemp -p 443:443 -v nettemp-data:/var/www/nettemp/data --restart unless-stopped -d przemeksdocker/nettemp
+
+
+
+```
+# Installation with docker compose (MariaDB, 2 containers)
+```
+# step 1
 sudo timedatectl set-timezone Europe/Warsaw && \
 sudo apt update && \
 sudo apt -y upgrade  && \
@@ -39,71 +64,29 @@ sudo usermod -aG docker ${USER} && \
 sudo su - ${USER} 
 
 
+# step 2
 mkdir ~/nettemp && cd ~/nettemp && \
 wget https://raw.githubusercontent.com/sosprz/nettemp/nettemp7/docker-compose.yml && \
 docker compose up -d 
 
 ```
-# Install - quick sqlite3
-```
-sudo timedatectl set-timezone Europe/Warsaw && \
-sudo apt update && \
-sudo apt -y upgrade  && \
-sudo apt install -y curl && \
-curl -fsSL https://get.docker.com -o get-docker.sh && \
-sudo sh get-docker.sh && \
-sudo usermod -aG docker ${USER} && \
-sudo su - ${USER} 
 
 
-mkdir ~/nettemp && cd ~/nettemp && \
-wget https://raw.githubusercontent.com/sosprz/nettemp/nettemp7/docker-compose-sqlite.yml -O docker-compose.yml && \
-docker compose up -d 
-
-```
-
-# Install
-
-```
-# set timezone
-sudo timedatectl set-timezone Europe/Warsaw
-
-# update sys
-sudo apt update && apt upgrade
-
-# install packages
-sudo apt install curl
-
-# install docker
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
-
-# add user to docker group
-sudo usermod -aG docker ${USER}
-sudo su - ${USER}
-
-# check if user has access to docker
-docker ps
-
-# mkdir 
-mkdir ~/nettemp && cd ~/nettemp
-
-# download docker compose script
-wget https://raw.githubusercontent.com/sosprz/nettemp/nettemp7/docker-compose.yml
-
-# docker compose, you should always run docker compose commands in the directory containing the docker compose file.
-
-# docker compose start
-docker compose up -d
-```
 
 
 # how to update?
 
+## docker
+```
+docker pull przemeksdocker/nettemp
+```
+
+## Docker compose
+
 ```
 cd ~/nettemp
-docker compose down
 docker compose pull
+docker compose down
 docker compose up
 ```
 
@@ -116,6 +99,10 @@ You can set in docker compose what configuration is needed ex. port 80, 443, 800
       #- "8000"       # no ssl eg. for traefik
       #- "8000:8000"  # no ssl
       - "80:80"     # redirect to 443
+    
+    environment:
+      # HTTPS: False  # if not using https
+
 ```
 
 # WEB access 
